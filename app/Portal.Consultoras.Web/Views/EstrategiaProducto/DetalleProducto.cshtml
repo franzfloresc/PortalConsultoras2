@@ -1,0 +1,443 @@
+﻿@{
+    ViewBag.Title = "Detalle Oferta";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
+    <style>
+        .SubHeader{
+            display:none;
+        }
+    </style>
+}
+<!--DETALLE FICHA PRODUCTO-->
+<div>
+    <div class="fondo_set_best_seller">
+        <div class="content_belcorp">
+            <div class="content_solo_ficha_set">
+                <div class="content_producto_set_best_seller">
+                    <div>
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_producto_best_seller">
+                    </div>
+
+                    <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
+                        <div class="texto_compartelo">Compártelo con tus clientes</div>
+                        <a class="btn_compartir_facebook_ficha" style="float: left;">
+                            <img src="/Content/Images/Mobile/Esika/facebook2.png">
+                        </a>
+                        <hr class="clear">
+                    </div>
+                    <hr class="clear">
+                </div>
+                <div class="content_detalle_set">
+                    <div class="content_left_ficha">
+                        <div class="producto_best_detalle">ESIKA</div>
+                        <div class="titulo_set">LABIAL HIDRACOLOR</div>
+                        <div class="producto_best_detalle">4g/. 14oz.</div>
+                    </div>
+                    <div class="content_right_ficha" style="text-align: right">
+                        <div class="precio_valorizado_showroom">S/. 144.00</div>
+                        <div class="precio_oferta_venta">
+                            Precio para ti <b>S/. 54.00</b>
+                        </div>
+
+                        <div class="ganancia_showroom">Gana S/. 90.00</div>
+                    </div>
+                    <hr class="clear">
+                    <div class="content_puntuacion_detalle">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="texto_puntuacion_detalle">(346 recomendaciones)</div>
+                    </div>
+
+                    <div class="comentarios_best_seller_ficha">
+                        “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.                        Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />                         - Sandra A.
+                    </div>
+                    <div class="liquidacion_rango_home">
+                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                        <div class="liquidacion_rango_right_pedido">
+                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
+                </div>
+
+            </div>
+            <hr class="clear">
+        </div>
+    </div>
+</div>
+<!--FIN-->
+<hr class="clear" />
+<!--CARRUSEL-->
+<div class="content_carrusel_bestSeller">
+    <div class="content_belcorp">
+        <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+        <div class="content_carrusel_best">
+            <div class="content_item_carrusel" style="cursor:pointer;">
+                <div>
+                    <div class="producto_img_home">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000298982017637826_jspctvdjnz.png" class="imagen_producto">
+                        <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>Ésika</h6>
+                        <p class="nombre_producto">
+                            <b>ES YOU FRAGANCIA UNISEX 100 ML</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_normal">S/ 50</span>
+                            <span class="producto_precio_oferta"><b>S/ 39.90</b></span>
+                        </div>
+                    </div>
+                    <div class="content_puntuacion">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="cantidad_puntuacion">(326)</div>
+                    </div>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
+
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '7598' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 24px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_item_carrusel" style="cursor:pointer;">
+                <div>
+                    <div class="producto_img_home">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000298982017637826_jspctvdjnz.png" class="imagen_producto">
+                        <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>Ésika</h6>
+                        <p class="nombre_producto">
+                            <b>ES YOU FRAGANCIA UNISEX 100 ML</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_normal">S/ 50</span>
+                            <span class="producto_precio_oferta"><b>S/ 39.90</b></span>
+                        </div>
+                    </div>
+                    <div class="content_puntuacion">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="cantidad_puntuacion">(326)</div>
+                    </div>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
+
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '7598' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 24px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_item_carrusel" style="cursor:pointer;">
+                <div>
+                    <div class="producto_img_home">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000298982017637826_jspctvdjnz.png" class="imagen_producto">
+                        <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>Ésika</h6>
+                        <p class="nombre_producto">
+                            <b>ES YOU FRAGANCIA UNISEX 100 ML</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_normal">S/ 50</span>
+                            <span class="producto_precio_oferta"><b>S/ 39.90</b></span>
+                        </div>
+                    </div>
+                    <div class="content_puntuacion">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="cantidad_puntuacion">(326)</div>
+                    </div>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
+
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '7598' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 24px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_item_carrusel" style="cursor:pointer;">
+                <div>
+                    <div class="producto_img_home">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000298982017637826_jspctvdjnz.png" class="imagen_producto">
+                        <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>Ésika</h6>
+                        <p class="nombre_producto">
+                            <b>ES YOU FRAGANCIA UNISEX 100 ML</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_normal">S/ 50</span>
+                            <span class="producto_precio_oferta"><b>S/ 39.90</b></span>
+                        </div>
+                    </div>
+                    <div class="content_puntuacion">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="cantidad_puntuacion">(326)</div>
+                    </div>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
+
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '7598' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 24px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content_item_carrusel" style="cursor:pointer;">
+                <div>
+                    <div class="producto_img_home">
+                        <img src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000298982017637826_jspctvdjnz.png" class="imagen_producto">
+                        <a href="javascript:;" class="ver_detalle_carrusel" tabindex="0">VER DETALLE</a>
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>Ésika</h6>
+                        <p class="nombre_producto">
+                            <b>ES YOU FRAGANCIA UNISEX 100 ML</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_normal">S/ 50</span>
+                            <span class="producto_precio_oferta"><b>S/ 39.90</b></span>
+                        </div>
+                    </div>
+                    <div class="content_puntuacion">
+                        <div class="rateyo-readonly-widg"></div>
+                        <div class="cantidad_puntuacion">(326)</div>
+                    </div>
+                </div>
+                <div class="producto_nombre_descripcion">
+                    <div class="liquidacion_rango_home js-no-popup">
+                        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input="cantidad" tabindex="0">
+
+                        <div class="liquidacion_rango_right_pedido js-no-popup">
+                            <a href="javascript:;" class="mas js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                            <a href="javascript:;" class="menos js-no-popup" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                        </div>
+                    </div>
+                    <a href="javascript:;" class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '7598' , TipoEstrategiaID: '3009' , Posicion: 1 , FlagNueva: '0' }, this); " tabindex="0">
+                        AGRÉGALO
+                    </a>
+                    <div class="clear"></div>
+                    <div style="padding-top:9px; height: 24px;">
+                        <div class="agregado product-add" style="text-align:right;display:none;">
+                            AGREGADO
+                            <div class="icono"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>    
+</div>
+<!--FIN-->
+<!--COMENTATIOS-->
+<div class="section_comentarios">
+    <div class="content_belcorp">
+        <div class="titulo_principal_comentarios">COMENTARIOS</div>
+        <div style="text-align:center;"><div class="rateyo-readonly-comentarios"></div></div>
+        <div class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
+        <div class="content_filtros_bestSeller">
+            <select class="select_bestSeller">
+                <option>NUEVOS</option>
+                <option>NUEVOS</option>
+                <option>NUEVOS</option>
+            </select>
+            <div class="texto_filtros_bestSeller">ORDENAR POR</div>
+        </div>          
+        <div class="contentAgregarComentarios">
+            <!--AGREGA COMENTARIOS-->  
+            <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
+            <!--AÑADIENDO COMENTARIOS-->
+            <div class="contentValoracion">
+                <div class="titulo_principal_comentarios">¡VALORAMOS TU OPINIÓN!</div>
+                <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
+                <div class="content_detalle_puntuación">
+                    Evalúa el Producto
+                    <div class="rateyo-readonly-puntuacion"></div>
+                    ¿Lo recomiendas?
+                    <div>
+                        <a href="#" class="respuesta_pregunta">SI</a>
+                        <a href="#" class="respuesta_pregunta">NO</a>
+                    </div>
+                    
+                </div>
+                <div class="content_detalle_comentarios">
+                    <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto"> </textarea>
+                    <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
+                    <a class="cancelar_comentario">CANCELAR</a>
+                </div>
+                <hr class="clear" />
+            </div>
+            <!--FIN-->
+            <!--CONFIRMACIÓN DE COMENTARIO ENVIADO-->
+            <div class="content_confirmacion_comentario">
+                <div class="icono_check_comentario"></div>
+                <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
+                <div class="subtexto_comentario" style="font-size:14px;">Válidaremos el contenido y en menos de 48 horas se publicará.</div>
+                <a class="btn_cerrar_comentario">CERRAR</a>
+            </div>
+            <!--FIN-->
+        </div>
+        <!--FIN-->  
+        <!--COMENTARIOS DE USUARIO--> 
+        <div class="content_comentario_usuario">
+            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")"/></div>
+            <div class="datos_usuario_comentario">
+                <div class="puntuacion_usuario_visible"></div>
+                <div class="nombre_usuario_comentario">Sandra Arce</div>
+                <div class="fecha_comentario">03 Junio 2017</div>
+            </div>
+            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
+        </div>
+        <div class="content_comentario_usuario">
+            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+            <div class="datos_usuario_comentario">
+                <div class="puntuacion_usuario_visible"></div>
+                <div class="nombre_usuario_comentario">Sandra Arce</div>
+                <div class="fecha_comentario">03 Junio 2017</div>
+            </div>
+            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
+        </div>
+    </div>
+</div>
+<!--FIN-->
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".texto_agregarComentarios").on("click", function () {
+                $('.texto_agregarComentarios').hide();
+                $('.contentValoracion').show();
+                //$('.promocion_especial_header').css("background", "#fff6f4");               
+            });
+            $(".cancelar_comentario").on("click", function () {
+                $('.texto_agregarComentarios').show();
+                $('.contentValoracion').hide();                       
+            });
+            $(".enviar_comentario_Seller").on("click", function () {
+                $('.contentValoracion').hide();
+                $('.content_confirmacion_comentario').show();                         
+            });
+            $(".btn_cerrar_comentario").on("click", function () {
+                $('.content_confirmacion_comentario').hide();
+                $('.texto_agregarComentarios').show();
+            });
+            $('.content_carrusel_best.slick-initialized').slick('unslick');
+            $('.content_carrusel_best').not('.slick-initialized').slick({
+                slidesToShow: 4,
+                dots: false,
+                vertical: false,
+                infinite: true,
+                speed: 300,
+                centerPadding: '0px',
+                centerMode: true,
+                slidesToScroll: 1,
+                variableWidth: false,
+                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            });
+        });
+        $(function () { 
+            var rating = 1.6;
+            $(".rateyo-readonly-widg").rateYo({
+                rating: rating,               
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,                
+                starWidth: "17px",
+                readOnly: true
+            })
+            $(".rateyo-readonly-comentarios").rateYo({
+                rating: 4.5,               
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,                
+                starWidth: "33px",
+                readOnly: true
+            })
+            $(".rateyo-readonly-puntuacion").rateYo({
+                rating: 0,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "25px",
+                spacing: "7px",
+            })
+            $(".puntuacion_usuario_visible").rateYo({
+                rating: 4,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "19px",
+                spacing: "5px",
+                readOnly: true
+            })
+        });
+
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script> 
+    
+}
