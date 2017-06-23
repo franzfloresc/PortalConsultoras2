@@ -873,9 +873,9 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         var index = 0;
         var impresions = [];
 
-        if (nextSlide == 0 && currentSlide + 1 == lista.letgh) {
+        if (nextSlide == 0 && currentSlide + 1 == lista.length) {
             accion = 'next';
-        } else if (currentSlide == 0 && nextSlide + 1 == lista.letgh) {
+        } else if (currentSlide == 0 && nextSlide + 1 == lista.length) {
             accion = 'prev';
         } else if (nextSlide > currentSlide) {
             accion = 'next';
@@ -890,8 +890,8 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
             if (origen == 1) { index = nextSlide + 2; }
             if (origen == 2) { index = nextSlide + 0; }
         }
-        if (index >= lista.letgh) {
-            index = index - lista.letgh;
+        if (index >= lista.length) {
+            index = index - lista.length;
         }
 
         var list = "Oferta Final - ";
@@ -899,6 +899,7 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         if (meta == "GM") { list = list + "Gana más"; }
         if (meta == "") { list = list + "Descuento Adicional"; }
 
+        debugger;
         var impresion;
         var item;
         item = lista[index];
