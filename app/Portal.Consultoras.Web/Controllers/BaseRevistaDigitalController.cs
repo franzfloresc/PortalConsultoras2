@@ -37,7 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
             model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
-
+            
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
             model.CantidadFilas = 10;
 
@@ -129,7 +129,7 @@ namespace Portal.Consultoras.Web.Controllers
             return (campaniaId < userData.CampaniaID || campaniaId > AddCampaniaAndNumero(userData.CampaniaID, 1));
         }
 
-        public RevistaDigitalModel ListarTabs(RevistaDigitalModel model = null)
+        private RevistaDigitalModel ListarTabs(RevistaDigitalModel model = null)
         {
             model = model ?? new RevistaDigitalModel();
             model.EstadoAccion = -1;
@@ -137,8 +137,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.Titulo = userData.UsuarioNombre.ToUpper();
             model.TituloDescripcion = "";
-            string cadenaActiva = "COMPRAR CAMPAÑA ";
-
+            string cadenaActiva = model.IsMobile ? "COMPRAR</br>C " : "COMPRAR CAMPAÑA ";
+            model.NombreRevista = string.Format(model.NombreRevista, model.IsMobile ? "</br>" : "");
             if (userData.RevistaDigital.TieneRDC)
             {
                 model = ListarTabsRD(model);
@@ -184,7 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
             return model;
         }
 
-        public RevistaDigitalModel ListarTabsRD(RevistaDigitalModel model = null)
+        private RevistaDigitalModel ListarTabsRD(RevistaDigitalModel model = null)
         {
             model = model ?? new RevistaDigitalModel();
             model.EstadoAccion = -1;
@@ -197,7 +197,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.Titulo = userData.UsuarioNombre.ToUpper();
 
-            string cadenaActiva = model.IsMobile ? "COMPRAR C " : "COMPRAR CAMPAÑA ", cadenaBloqueado = model.IsMobile ? "VER C " : "VER CAMPAÑA ";
+            string cadenaActiva = model.IsMobile ? "COMPRAR</br>C " : "COMPRAR CAMPAÑA ", cadenaBloqueado = model.IsMobile ? "VER</br>C " : "VER CAMPAÑA ";
+            model.NombreRevista = string.Format(model.NombreRevista, model.IsMobile ? "</br>" : ""); ;
 
             if (userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
@@ -232,10 +233,9 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                 model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
             }
-
-            string cadenaOpt = model.IsMobile ? "COMPRAR C " : "COMPRAR CAMPAÑA ";
+            
             model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
-            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaOpt + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
+            model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
             model.ListaTabs.Add(new ComunModel { Id = model.EstadoAccion, Descripcion = cadenaBloqueado + model.EstadoAccion.Substring(4, 2) });
             model.ListaTabs.Add(new ComunModel { Id = 0, Descripcion = model.NombreRevista });
 

@@ -938,10 +938,9 @@ div#tab_revistasdigital_mobile {
 .texto_usuario_ept:before {
     content: '';
     position: absolute;
-    left: -20px;
+    left: -19px;
     top: 0;
     z-index: 102;
-   
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
@@ -1874,7 +1873,7 @@ height: 100%;
 .btn_negro a {
         color: black;
         text-decoration: none;
-        padding: 15px 3%;
+        padding: 15px 6%;
         border: 1px solid black;
         font-size: 12px;
         font-weight: 700;

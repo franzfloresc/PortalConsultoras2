@@ -235,20 +235,20 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($(this).data("bloqueda") !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $(this).parent().prev().val(cantidad);
     });
 
     $("body").on("click", ".mas", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($(this).data("bloqueda") !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $(this).parent().prev().val(cantidad);
     });
 

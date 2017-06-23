@@ -11,6 +11,11 @@ function RDPopupCerrar(tipo) {
         location.href = location.href;
         return false;
     }
+    if (tipo == 2) {
+        CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
+        CerrarPopup("#PopRDSuscripcion");
+        return true;
+    }
 
     CerrarPopUpRDAnalytics('Banner Inscribirme a Ésika para mí');
     
@@ -45,11 +50,6 @@ function RDSuscripcion(accion) {
 
             if (data.success == true) {
 
-                if (isMobile()) {
-                    RDPageInformativa();
-                    return;
-                }
-
                 accion = accion || 0;
                 if (accion == 2) {
                     $("[data-estadoregistro]").attr("data-estadoregistro", "1");
@@ -60,7 +60,7 @@ function RDSuscripcion(accion) {
                 }
 
                 $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                $("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
+                //$("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
 
                 if (accion == 0) {
                     CerrarPopup("#PopRDSuscripcion");
@@ -75,6 +75,8 @@ function RDSuscripcion(accion) {
                 AbrirPopupFade("#PopRDInscrita");
                 SuscripcionExistosaRDAnalytics();
             }
+            else
+                AbrirMensaje(data.message);
         },
         error: function (data, error) {
             CerrarLoad();
@@ -113,6 +115,8 @@ function RDDesuscripcion(accion) {
                     scrollTop: $(window).scrollTop() - 200
                 }, 1000, 'swing');
             }
+            else
+                AbrirMensaje(data.message);
         },
         error: function (data, error) {
             CerrarLoad();
@@ -145,13 +149,13 @@ function RDInformacion() {
 
 function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
-    var url = urlRevistaDigital;
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
     window.location = url;
 }
 
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
-    var url = urlRevistaDigital;
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital"); //urlRevistaDigital;
     var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
     window.location.reload();

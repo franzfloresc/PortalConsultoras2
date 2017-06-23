@@ -30,6 +30,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 ViewBag.EsMobile = 2;
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(modelo);
             }
             catch (Exception ex)

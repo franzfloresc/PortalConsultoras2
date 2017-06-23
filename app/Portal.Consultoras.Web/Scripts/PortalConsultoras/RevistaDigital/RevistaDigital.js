@@ -6,7 +6,8 @@ var indCampania = indCampania || 0;
 var isDetalle = false;
 
 $(document).ready(function () {
-    
+    "use strict";
+
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
@@ -46,18 +47,30 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    if ($('[data-tag-html]').length == 1) {
-        $('[data-tag-html]').show(); 
-        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0
-        campaniaId = parseInt(campaniaId);
-        $(window).scroll();
-    }
-    else {
-        $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+    RDMostrarPosicion();
+
+    if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
+        $("footer").hide();
     }
 
     if (isDetalle) {
         RDDetalleObtener();
+        $("footer").hide();
+        var h = $("#idMensajeBloqueado").innerHeight();
+        if (h != undefined) {
+            h = h > 0 ? h : $("#idMensajeBloqueado > div").innerHeight();
+            $("#divDetalleContenido").css("padding-bottom", h + "px");
+        }
+    }
+    else {
+        if ((window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0) {
+            $("footer").hide();
+            var h = $("#idMensajeBloqueado").innerHeight();
+            if (h != undefined) {
+                h = h > 0 ? h: $("#idMensajeBloqueado > div").innerHeight();
+                $("#divDetalleContenido").css("padding-bottom", h + "px");
+            }
+        }
     }
 
     $(".flecha_scroll").on('click', function (e) {
@@ -137,6 +150,34 @@ $(document).ready(function () {
    
 });
 
+function RDMostrarPosicion() {
+    if ($('[data-tag-html]').length == 1) {
+        $('[data-tag-html]').show();
+        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0
+        campaniaId = parseInt(campaniaId);
+    }
+    else {
+        $('ul[data-tab="tab"] li a[data-tag="' + campaniaCodigo + '"]').click();
+
+        var varPosicion = window.location.hash.split("#");
+        if (varPosicion.length > 1) {
+            varPosicion = varPosicion[1];
+    
+            if (isInt(varPosicion)) {
+                $('ul[data-tab="tab"] li a[data-tag="' + varPosicion + '"]').click();
+            }
+            else {
+                $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+                // poner el scroll en el div
+            }
+
+        }
+    }
+
+    $(window).scroll();
+
+}
+
 function GetArrowNamePrev() {
     if (window.location.href.indexOf("Mobile") > -1) return "previous_mob.png";
     else return "previous.png";
@@ -179,11 +220,11 @@ function OfertaArmarEstrategias(response) {
             response.listaLan = response.listaLan || new Array();
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
-                    tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
-                    tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
-                    tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
-                    tem.EstrategiaDetalle.ImgPrevDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
+                    tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
+                    tem.EstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
+                    tem.EstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.EstrategiaDetalle.ImgFichaMobile : tem.EstrategiaDetalle.ImgFichaDesktop;
+                    tem.EstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
                 });
                 
                 var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);

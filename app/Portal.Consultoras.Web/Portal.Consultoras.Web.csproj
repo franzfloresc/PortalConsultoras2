@@ -3325,6 +3325,7 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-carrusel-mobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
+    <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <None Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
