@@ -23,6 +23,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Importante { get; set; }
 
+        public BEPremio()
+        { }
 
         public BEPremio(IDataRecord row)
         {

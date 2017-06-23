@@ -43,6 +43,14 @@ namespace Portal.Consultoras.Entities
         public List<BEPremio> Premios { get; set; }
         [DataMember]
         public int Importante { get; set; }
+        [DataMember]
+        public bool EsCampaniaAnterior { get; set; }
+        [DataMember]
+        public bool IndicadorPremiacionPedido { get; set; }
+        [DataMember]
+        public decimal MontoPremiacionPedido { get; set; }
+        [DataMember]
+        public bool IndicadorPremioAcumulativo { get; set; }
 
 
         public BEConsultoraConcurso(IDataRecord row)
@@ -85,8 +93,21 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TIP_CONC"))
                 TipoConcurso = Convert.ToString(row["TIP_CONC"]);
+
             if (DataRecord.HasColumn(row, "FEC_VIGE_RETA"))
                 FechaVentaRetail = Convert.ToDateTime(row["FEC_VIGE_RETA"]);
+
+            if (DataRecord.HasColumn(row, "EsCampaniaAnterior"))
+                EsCampaniaAnterior = Convert.ToBoolean(row["EsCampaniaAnterior"]);
+
+            if (DataRecord.HasColumn(row, "IND_PREM_PEDI"))
+                IndicadorPremiacionPedido = Convert.ToBoolean(row["IND_PREM_PEDI"]);
+
+            if (DataRecord.HasColumn(row, "MON_PREM_PEDI"))
+                MontoPremiacionPedido = Convert.ToDecimal(row["MON_PREM_PEDI"]);
+
+            if (DataRecord.HasColumn(row, "IND_PREM_ACUM"))
+                IndicadorPremioAcumulativo = Convert.ToBoolean(row["IND_PREM_ACUM"]);
         }
 
         public BEConsultoraConcurso()

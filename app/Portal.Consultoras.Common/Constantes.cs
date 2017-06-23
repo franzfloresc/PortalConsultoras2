@@ -802,7 +802,7 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        public class Inventivo
+        public class Incentivo
         {
             public const string TextoTeFaltan = "Te faltan {0} puntos";
             public const string TextoNoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
@@ -812,6 +812,9 @@ namespace Portal.Consultoras.Common
             public const string TextoLlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
             public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} y llévate el premio.";
             public const string TextoDescripcion = "{0} POR {1} PUNTOS";
+            public const string TextoIndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
+            public const string TextoMontoPremiacion = "Pasa pedido de {0} esta campaña para entregarte tu premio.";
+
         }
     }
 }
