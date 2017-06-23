@@ -49,8 +49,11 @@ $(document).ready(function () {
 
     RDMostrarPosicion();
 
-    if (isDetalle) {
+    if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
         $("footer").hide();
+    }
+
+    if (isDetalle) {
         RDDetalleObtener();
         $("footer").hide();
         var h = $("#idMensajeBloqueado").innerHeight();

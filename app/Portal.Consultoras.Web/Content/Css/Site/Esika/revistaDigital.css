@@ -2420,7 +2420,7 @@
 }
 .popup_rd_bloqueado .rd_ver_mas:after {
     content: "";
-    background-image: url(../images/rd_arrowright.png);
+    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
     background-size: 10px 14px;
     display: inline-block;
