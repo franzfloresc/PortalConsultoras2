@@ -47,7 +47,7 @@
             <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
         </div>
         <div class="marca_oferta048">@Model.DescripcionMarca</div>
-    <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+        <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
         
         @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
         {
@@ -198,41 +198,42 @@
             <div class="alerta_notificacion">@Model.TextoLibre</div>
         }
     </div>
-    @if (Model.ClaseBloqueada == "")
-    {
-        <div class="row">
-            <div class="content_btn_agregar">
-                <div class="content_320">
-                    <div class="content_cantidad_ficha_producto">
-                        <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                        <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                    </div>
-                    @if (btnDesabled == 1)
-                    {
-                        btnDesabledClass = "btn_desactivado_general";
-                    }
-                    <a class="btn_agregar_ficha_producto @btnDesabledClass @Model.ClaseBloqueada" data-bloqueada="@Model.ClaseBloqueada" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID' , TipoEstrategiaID: '@Model.TipoEstrategiaID' , Posicion: '@Model.Orden' , FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
-                    <hr class="clear">
-                </div>
-            </div>
-        </div>
-    }
-    @if (Model.ClaseBloqueada != "")
-    {
-        <div class="row">
-            <div class="content_inscribirte">
-                INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-@ViewBag.CampaniaMasDos<br />
-                PODRÁS ACCEDER A OFERTAS COMO ESTA
-                <div style="display:none;" data-estadoregistro0="">
-                    <a href="javascript: RDSuscripcion();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-                </div>
-                <a href="javascript: RDPageInformativa();" class="enterate_aqui" style="text-decoration:underline;">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
-                </div>
-        </div>
-    }
    
 </div>
+
+@if (Model.ClaseBloqueada == "")
+{
+    <div class="row">
+        <div class="content_btn_agregar">
+            <div class="content_320">
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+                </div>
+                @if (btnDesabled == 1)
+                {
+                    btnDesabledClass = "btn_desactivado_general";
+                }
+                <a class="btn_agregar_ficha_producto @btnDesabledClass @Model.ClaseBloqueada" data-bloqueada="@Model.ClaseBloqueada" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID' , TipoEstrategiaID: '@Model.TipoEstrategiaID' , Posicion: '@Model.Orden' , FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
+                <hr class="clear">
+            </div>
+        </div>
+    </div>
+}
+@if (Model.ClaseBloqueada != "")
+{
+    <div class="row">
+        <div class="content_inscribirte">
+            INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-@ViewBag.CampaniaMasDos<br />
+            PODRÁS ACCEDER A OFERTAS COMO ESTA
+            <div style="display:none;" data-estadoregistro0="">
+                <a href="javascript: RDSuscripcion();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+            </div>
+            <a href="javascript: RDPageInformativa();" class="enterate_aqui" style="text-decoration:underline;">ENTÉRATE MÁS DE ÉSIKA PARA MÍ AQUÍ</a>
+        </div>
+    </div>
+}
 
 @section scripts{
     <script type="text/javascript">

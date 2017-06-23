@@ -182,6 +182,7 @@ function OfertaArmarEstrategias(response) {
                     tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
                     tem.EstrategiaDetalle.ImgFichaDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFichaDesktop;
                     tem.EstrategiaDetalle.ImgFondoDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.EstrategiaDetalle.ImgPrevDesktop = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
                 });
                 

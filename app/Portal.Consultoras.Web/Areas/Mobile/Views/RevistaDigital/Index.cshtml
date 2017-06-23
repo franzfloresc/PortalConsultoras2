@@ -31,7 +31,7 @@
             @foreach (var tabs in Model.ListaTabs)
             {
                 <li>
-                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id">
+                    <a href="javascript:;" id="@tabs.Id" data-tag="@tabs.Id" style="width:@(100/Model.ListaTabs.Count())%">
                         <div class="texto_tab_pagos">@tabs.Descripcion</div>
                         <div class="marcador_tab oculto"></div>
                     </a>
