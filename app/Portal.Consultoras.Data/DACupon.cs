@@ -7,6 +7,9 @@ namespace Portal.Consultoras.Data
 {
     public class DACupon : DataAccess
     {
+        public DACupon(int paisID) : base(paisID, EDbSource.Portal)
+        { }
+
         public void CrearCupon(BECupon cupon)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.CrearCupon");

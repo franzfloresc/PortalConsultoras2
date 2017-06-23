@@ -2020,14 +2020,14 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
         }
 
-        public void CrearCupon(BECupon cupon)
+        public void CrearCupon(int paisId, BECupon cupon)
         {
-            BLCupon.CrearCupon(cupon);
+            BLCupon.CrearCupon(paisId, cupon);
         }
 
-        public void ActualizarCupon(BECupon cupon)
+        public void ActualizarCupon(int paisId, BECupon cupon)
         {
-            BLCupon.ActualizarCupon(cupon);
+            BLCupon.ActualizarCupon(paisId, cupon);
         }
 
         public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
