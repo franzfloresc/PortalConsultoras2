@@ -496,6 +496,11 @@ function CerrarLoad(opcion) {
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;

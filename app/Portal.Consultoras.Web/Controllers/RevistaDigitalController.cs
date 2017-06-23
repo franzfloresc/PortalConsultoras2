@@ -259,13 +259,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.TieneRDC)
                 {
-                    return Json(new
+                    if (!userData.RevistaDigital.TieneRDS)
                     {
-                        success = false,
-                        message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
-                    }, JsonRequestBehavior.AllowGet);
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
+                        }, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
 
                 if (userData.RevistaDigital.EstadoSuscripcion == 1)
@@ -306,7 +310,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo.",
+                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
                     CodigoMenu = Constantes.MenuCodigo.RevistaDigital
                 }, JsonRequestBehavior.AllowGet);
 
@@ -366,7 +370,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Que pena, usted se desuscribio a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo."
+                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
                 }, JsonRequestBehavior.AllowGet);
 
             }

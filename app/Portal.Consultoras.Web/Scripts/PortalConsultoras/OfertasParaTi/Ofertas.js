@@ -110,6 +110,10 @@ function OfertaObtenerFiltro(filtro, clear) {
 
         $(filtro).parent().hide();
 
+        if (listadoFiltros.length == 0) {
+            listadoFiltros = $(filtro).parents("#orderby-filter").find("#divFiltros").find("[data-filtro-campo]");
+        }
+
         $.each(listadoFiltros, function (indSel, select) {
             $(select).val($($(select).find("option").get(0)).val());
         });

@@ -561,6 +561,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 divMensaje.find('[data-item-tag="agregar"]').remove();
                 divMensaje.find('[data-item-tag="fotofondo"]').remove();
                 divMensaje.find('[data-item-tag="verdetalle"]').remove();
+                divMensaje.find('[data-item-accion="verdetalle"]').remove();
                 divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
                 divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
                 divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
@@ -581,13 +582,11 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         return false;
     }
 
-
     if (ReservadoOEnHorarioRestringido())
         return false;
 
     if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) 
     {
-
         agregarProductoAlCarrito(objInput);
 
         if (objParameter.FlagNueva == "1")
