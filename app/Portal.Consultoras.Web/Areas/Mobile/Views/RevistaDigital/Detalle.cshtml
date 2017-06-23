@@ -14,7 +14,7 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
+<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -75,18 +75,18 @@
     {
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
-   
-</div>
-<div style="background:#F6F6F6; padding:30px;">
-    <div id="divOfertaProductos"></div>
-    @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
-    {
-        <div class="" style="padding-top:30px;" id="divDiveo">
-            <div class="video-responsive-bpt">
-                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
+
+    <div style="background:#F6F6F6; padding:30px;">
+        <div id="divOfertaProductos"></div>
+        @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
+        {
+            <div class="" style="padding-top:30px;" id="divDiveo">
+                <div class="video-responsive-bpt">
+                    <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
 @if (Model.ClaseBloqueada != "")

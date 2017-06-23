@@ -58,7 +58,24 @@ $(document).ready(function () {
     }
 
     if (isDetalle) {
+        $("footer").hide();
         RDDetalleObtener();
+        $("footer").hide();
+        var h = $("#idMensajeBloqueado").innerHeight();
+        if (h != undefined) {
+            h = h > 0 ? h : $("#idMensajeBloqueado > div").innerHeight();
+            $("#divDetalleContenido").css("padding-bottom", h + "px");
+        }
+    }
+    else {
+        if ((window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0) {
+            $("footer").hide();
+            var h = $("#idMensajeBloqueado").innerHeight();
+            if (h != undefined) {
+                h = h > 0 ? h: $("#idMensajeBloqueado > div").innerHeight();
+                $("#divDetalleContenido").css("padding-bottom", h + "px");
+            }
+        }
     }
 
     $(".flecha_scroll").on('click', function (e) {
