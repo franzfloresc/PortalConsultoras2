@@ -2073,6 +2073,7 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .content_item_home_bpt {
@@ -2133,6 +2134,7 @@
     font-size: 16px;
     line-height: 20px;
     margin-bottom: 70px;
+    text-transform: uppercase;
 }
 
 .banner_pedido_masofertas .btn_diagonal {
@@ -2179,11 +2181,11 @@
 }
 
 
-@media screen and (max-width: 1092px) {
+/*@media screen and (max-width: 1092px) {
     .banner_pedido_rd {
         width: 30.9% !important;
     }
-}
+}*/
 
 .home_rd1 {
     background-color: #FFF;

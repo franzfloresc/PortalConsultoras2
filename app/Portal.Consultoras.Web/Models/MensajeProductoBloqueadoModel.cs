@@ -1,5 +1,8 @@
-﻿namespace Portal.Consultoras.Web.Models
+﻿using System;
+
+namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class MensajeProductoBloqueadoModel
     {
         public bool MensajeIconoSuperior { get; set; }
