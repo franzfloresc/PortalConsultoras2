@@ -3659,6 +3659,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     pedidoReservado = result.MotivoPedidoLock == ServicePedido.EnumeradoresMotivoPedidoLock.Reservado;
                     estado = result.MotivoPedidoLock != ServicePedido.EnumeradoresMotivoPedidoLock.Ninguno;
+                    mensaje = result.Mensaje;
                 }
 
                 return Json(new
