@@ -25,11 +25,10 @@
         <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel3)</span>
     </div>
 </div>
-<div class="contenedor_camposUbigeo" id="centroPoblado">
-    @*<label>@Dictionaries.LabelLugar4[Model.CodigoPais]:</label>*@
+<div class="contenedor_camposUbigeo"  >
+    <label>Codigo Postal</label>
     <div class="contenedor_campoFormulario">
-        @*@Html.DropDownListFor(m => Model.LugarNivel4, Model.LugaresNivel4)
-        <span class="mensaje_validacion_error">@Html.ValidationMessageFor(m => Model.LugarNivel4)</span>*@
+        @Html.TextBoxFor(m => Model.Numero, new { @readonly = "readonly" })
     </div>
 </div>
 <div class="contenedor_camposUbigeo campoDireccionUbigeo">

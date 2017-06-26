@@ -1678,7 +1678,7 @@
     }
     function buildDocsPE(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DNI RUC'));
-        $('#list02').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DNI Aval'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DNI Aval'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
