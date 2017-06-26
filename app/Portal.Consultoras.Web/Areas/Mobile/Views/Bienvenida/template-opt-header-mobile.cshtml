@@ -17,7 +17,7 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, YA PUEDES VER TODAS TUS <b>OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampaniaMasUno</b></div>
                 <div class="btn_red">
-                    <a href="@Url.Action("Index", "RevistaDigital")@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
 
         <div class="rd_verofertas">
             <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
-            <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"/></a></div>
+            <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"/></a></div>
         </div>
         </div>
         <!-- FIN INSCRITAS C-12 -->
@@ -82,7 +82,7 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
                 <div class="btn_red">
-                    <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                 </div>
             </div>
         </div>

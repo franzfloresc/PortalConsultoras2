@@ -95,7 +95,7 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ?</b>
                             </div>
                             <div class="btn_red">
-                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                             </div>
                         </div>
                     </div>
@@ -140,7 +140,7 @@
                             <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b>
                             </div>
                             <div class="btn_red">
-                                <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                             </div>
                         </div>
                     </div>
@@ -182,11 +182,6 @@
         </div>
     </div>
     <!--FIN TAB REVISTA-->
-    <!--TAB REVISTA DIGITAL-->
-  
-        
-
-    <!--FIN TAB REVISTA DIGITAL-->
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->
