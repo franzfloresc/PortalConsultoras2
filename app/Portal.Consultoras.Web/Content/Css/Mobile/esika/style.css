@@ -12163,17 +12163,18 @@ a{
 }
 .titulo_gana {
     font-size: 10px;
-    color: white;
+    color: #fff;
     height: 46px;
-    letter-spacing: 0.5px;
+    letter-spacing: .5px;
     -moz-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
     margin: 0 auto;
-    margin-top: 30px;
-    margin-bottom: 5px;
+    margin-top: 27px;
+    margin-bottom: 8px;
     width: 200px;
-    line-height: 15px;
+    line-height: 18px;
+    font-weight: 700;
 }
 .titulo_gana span {
     font-size: 19px;
@@ -12182,15 +12183,15 @@ a{
 }
 .subtitulo_gana {
     font-family: 'Lato';
-    color: white;
+    color: #fff;
     font-size: 14px;
     letter-spacing: 1.2px;
     width: 196px;
     margin: 0 auto;
     margin-bottom: -5px;
     -moz-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
 }
 .monto_gana {
     font-family: 'Lato';
@@ -12214,7 +12215,7 @@ a{
     line-height: 19px;
     color: black;
     /* font-weight: 400; */
-    margin-top: 27px;
+    margin-top: 44px;
 }
 .texto_cupon_datos b{
     font-size:16px;
