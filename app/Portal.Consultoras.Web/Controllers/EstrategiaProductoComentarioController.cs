@@ -12,6 +12,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View();
         }
 
+        [HttpPost]
         public JsonResult RegistrarComentario(EstrategiaProductoComentarioModel model)
         {
             try
@@ -26,7 +27,17 @@ namespace Portal.Consultoras.Web.Controllers
                 var BEProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
                 RegistrarComentarioServicio(BEProdComentario);
 
-                return Json(new { success = true, data = "" });
+                return Json(new { success = true });
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+        }
+
+        [HttpGet]
+        public JsonResult ListarComentarios()
+        {
+            try
+            {
+                return Json(new { success = true });
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }

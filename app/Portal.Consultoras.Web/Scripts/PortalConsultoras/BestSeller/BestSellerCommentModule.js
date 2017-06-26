@@ -15,6 +15,7 @@
         contenedorValoracion: 'div.contentValoracion',
         contenedorConfirmacionComentario: 'div.content_confirmacion_comentario',
         contenedorPuntuacion: '.rateyo-puntuacion-seccion-comentario',
+        contenedorComentarios: '#contenedorComentarios',
         hdRecomendado: '#hdRecomendado',
         txtComentario: '#txtComentario'
     };
@@ -64,6 +65,28 @@
         })
     };
 
+    var _registrarComentario = function () {
+        var model = _obtenerRegistrarComentarioModel();
+        var registrarComentarioPromise = _registrarComentarioPromise(model);
+
+        $.when(registrarComentarioPromise).then(function (registrarComentarioResponse) {
+            if (checkTimeout(registrarComentarioResponse)) {
+                if (registrarComentarioResponse.success) {
+                    _mostrarContenedorConfirmacionComentario();
+                } else {
+                    alert(registrarComentarioResponse.message);
+                }
+
+                closeWaitingDialog();
+            }
+        });
+
+    };
+
+    var _listarComentarios = function () {
+
+    };
+
     var _mostrarContenedorValoracion = function () {
         $(elements.btnAgregarComentario).hide();
         $(elements.contenedorValoracion).show();
@@ -82,24 +105,6 @@
     var _ocultarContenedorConfirmacionComentario = function () {
         $(elements.contenedorConfirmacionComentario).hide();
         $(elements.btnAgregarComentario).show();
-    };
-
-    var _registrarComentario = function () {
-        var model = _obtenerRegistrarComentarioModel();
-        var registrarComentarioPromise = _registrarComentarioPromise(model);
-        
-        $.when(registrarComentarioPromise).then(function (registrarComentarioResponse) {
-            if (checkTimeout(registrarComentarioResponse)) {
-                if (registrarComentarioResponse.success) {
-                    _mostrarContenedorConfirmacionComentario();
-                } else {
-                    alert(registrarComentarioResponse.message);
-                }
-
-                closeWaitingDialog();
-            }
-        });
-        
     };
 
     var _obtenerRegistrarComentarioModel = function () {
@@ -140,10 +145,32 @@
         return d.promise();
     };
 
+    var _listarComentariosPromise = function () {
+        var d = $.Deferred();
+
+        var promise = $.ajax({
+            type: 'GET',
+            url: (setting.urlListarComentarios),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(model),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    };
+
     var _initializer = function (parameters) {
+        setting.urlListarComentarios = parameters.urlListarComentarios;
         setting.urlRegistrarComentario = parameters.urlRegistrarComentario;
         _bindEvents();
         _bindRate();
+        _listarComentarios();
     };
 
     return {

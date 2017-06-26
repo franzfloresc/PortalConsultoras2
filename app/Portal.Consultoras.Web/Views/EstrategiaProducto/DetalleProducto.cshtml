@@ -344,23 +344,25 @@
         </div>
         <!--FIN-->
         <!--COMENTARIOS DE USUARIO-->
-        <div class="content_comentario_usuario">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="puntuacion_usuario_visible"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
+        <div id="contenedorComentarios">
+            <div class="content_comentario_usuario">
+                <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+                <div class="datos_usuario_comentario">
+                    <div class="puntuacion_usuario_visible"></div>
+                    <div class="nombre_usuario_comentario">Sandra Arce</div>
+                    <div class="fecha_comentario">03 Junio 2017</div>
+                </div>
+                <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
             </div>
-            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
-        </div>
-        <div class="content_comentario_usuario">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="puntuacion_usuario_visible"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
+            <div class="content_comentario_usuario">
+                <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+                <div class="datos_usuario_comentario">
+                    <div class="puntuacion_usuario_visible"></div>
+                    <div class="nombre_usuario_comentario">Sandra Arce</div>
+                    <div class="fecha_comentario">03 Junio 2017</div>
+                </div>
+                <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
             </div>
-            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
         </div>
     </div>
 </div>
@@ -414,6 +416,7 @@
         });
         $(document).ready(function () {
             bestSellerCommentModule.ini({
+                urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario")',
                 urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")'
             });
         });
