@@ -36286,7 +36286,7 @@ h1#penmostreo .campana {
     margin-top:12px;
     font-family:'Lato';
     font-size:12px;
-    border-right: 1px solid rgba(149, 145, 146, 0.2);
+    /*border-right: 1px solid rgba(149, 145, 146, 0.2);*/
     height: 72px;
 }
 .info_recuerda_cupon span{

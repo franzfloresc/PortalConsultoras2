@@ -12102,6 +12102,7 @@ a{
     font-size:12.5px;
     float:left;
     width: calc(100% - 120px);
+    text-align:left;
 }
 .link_cupon_home{
     display:block;
@@ -12215,7 +12216,7 @@ a{
     line-height: 19px;
     color: black;
     /* font-weight: 400; */
-    margin-top: 44px;
+    margin-top: 35px;
 }
 .texto_cupon_datos b{
     font-size:16px;
