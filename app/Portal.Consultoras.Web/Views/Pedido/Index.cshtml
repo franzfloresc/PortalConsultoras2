@@ -2360,6 +2360,7 @@
                         RESERVA TU PEDIDO
                     </button>
                 </div>
+                
                 <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
 
                 <hr class="clear" />
@@ -2493,6 +2494,7 @@
                 var viewBagCampaniaActual = '@Model.CampaniaActual';
                 var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
                 var tieneCupon = '@Model.TieneCupon';
+                var tieneOfertaLog = '@Model.TieneOfertaLog';
                 var paginaOrigenCupon = 11;
                 var esEmailActivo = '@Model.EmailActivo';
                 var baseUrl = "@Url.Content("~")";

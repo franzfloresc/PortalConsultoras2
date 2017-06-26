@@ -722,6 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneCDR = oBEUsuario.TieneCDR;
                     model.TieneCupon = oBEUsuario.TieneCupon;
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
+                    model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
                     #endregion
 
@@ -792,7 +793,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         #region RegaloPN
                         var regaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
-                        if (regaloProgramaNuevasFlag == "1") 
+                        if (regaloProgramaNuevasFlag == "1")
                         {
                             DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
                             var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
@@ -1796,7 +1797,7 @@ namespace Portal.Consultoras.Web.Controllers
                             listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                         }
                     }
-
+                    
                     if (listaProductoCatalogo.Any())
                     {
                         var productoCatalogo = listaProductoCatalogo.First();

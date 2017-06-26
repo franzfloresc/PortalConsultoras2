@@ -1328,7 +1328,6 @@ function IfNull(input, replaceNull) {
 }
 
 function odd_desktop_google_analytics_promotion_click() {
-    //debugger;
     if ($('#divOddCarruselDetalle').length > 0) {
 
         var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
@@ -1355,7 +1354,6 @@ function odd_desktop_google_analytics_promotion_click() {
 }
 
 function odd_desktop_google_analytics_product_impresion() {
-    //debugger;
     var carrusel = $("[data-odd-tipoventana='carrusel']");
     var detalle = $("[data-odd-tipoventana='detalle']");
     var impresions = new Array();

@@ -422,7 +422,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
-                //model.TieneMasVendidos = userData.TieneMasVendidos;
+                model.TieneMasVendidos = userData.TieneMasVendidos;
+                model.TieneOfertaLog = userData.TieneOfertaLog;
             }
             catch (FaultException ex)
             {

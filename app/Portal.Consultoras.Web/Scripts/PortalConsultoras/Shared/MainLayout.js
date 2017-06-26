@@ -1144,7 +1144,6 @@ function closeOfertaDelDia() {
 }
 
 function odd_desktop_google_analytics_cerrar_banner() {
-    //debugger;
     dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Oferta del día',

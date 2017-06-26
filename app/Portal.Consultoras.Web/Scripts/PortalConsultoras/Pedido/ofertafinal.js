@@ -93,7 +93,7 @@ $(document).ready(function () {
             return false;
         }
 
-        //if (tieneMasVendidos == 1)
+        if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -198,7 +198,7 @@ $(document).ready(function () {
             return false;
         }
 
-        //if (tieneMasVendidos == 1)
+        if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
 
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -261,7 +261,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
 
-    //debugger;
     if (consultoraRegaloPN == 'True') {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
         mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
@@ -308,12 +307,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta,objOf.Detalle);
     agregoOfertaFinal = tipoPopupMostrar == 1 ? 1 : agregoOfertaFinal;
     
-    //if (tieneMasVendidos == 1) {
-        //debugger;
+    if (tieneOfertaLog == 1) {       
         AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
-
         AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
-    //}
+    }
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -359,8 +356,8 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
 
-    //debugger;
     if (consultoraRegaloPN == 'True') {
+
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
@@ -499,7 +496,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
         }
-
+            
         $('#msg-regalo-pn').html(msgRegalo);
         $('#msg-regalo-pn2').html(msgRegalo);   // mobile
         if (disclaimer != "") {
@@ -667,8 +664,6 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         desTipoRegistro: desTipoRegistro
     };
 
-    //debugger;
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
@@ -708,8 +703,6 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
         producto['DesTipoRegistro'] = 'Producto Expuesto';
         params.push(producto);
     });
-
-    //debugger;
 
     jQuery.ajax({
         type: 'POST',
@@ -881,9 +874,9 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         var index = 0;
         var impresions = [];
 
-        if (nextSlide == 0 && currentSlide + 1 == lista.letgh) {
+        if (nextSlide == 0 && currentSlide + 1 == lista.length) {
             accion = 'next';
-        } else if (currentSlide == 0 && nextSlide + 1 == lista.letgh) {
+        } else if (currentSlide == 0 && nextSlide + 1 == lista.length) {
             accion = 'prev';
         } else if (nextSlide > currentSlide) {
             accion = 'next';
@@ -898,8 +891,8 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
             if (origen == 1) { index = nextSlide + 2; }
             if (origen == 2) { index = nextSlide + 0; }
         }
-        if (index >= lista.letgh) {
-            index = index - lista.letgh;
+        if (index >= lista.length) {
+            index = index - lista.length;
         }
 
         var list = "Oferta Final - ";
@@ -907,6 +900,7 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         if (meta == "GM") { list = list + "Gana más"; }
         if (meta == "") { list = list + "Descuento Adicional"; }
 
+        debugger;
         var impresion;
         var item;
         item = lista[index];

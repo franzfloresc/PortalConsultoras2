@@ -267,7 +267,6 @@
 });
 
 function odd_mobile_google_analytics_promotion_impresion() {
-    //debugger;
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
