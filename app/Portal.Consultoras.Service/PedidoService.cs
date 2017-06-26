@@ -2012,6 +2012,10 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-        
+        public List<BEReporteValidacion> GetReporteValidacion(int paisID, string paisISO, int campaniaID, int tipoEstrategia)
+        {
+            return new BLReporteValidacion().GetReporteValidacion(paisID, paisISO, campaniaID, tipoEstrategia).ToList();
+        }
+
     }
 }

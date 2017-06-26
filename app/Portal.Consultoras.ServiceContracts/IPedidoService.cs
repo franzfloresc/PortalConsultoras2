@@ -1103,5 +1103,8 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
         #endregion
+
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, string paisISO, int campaniaID, int tipoEstrategia);
     }
 }
