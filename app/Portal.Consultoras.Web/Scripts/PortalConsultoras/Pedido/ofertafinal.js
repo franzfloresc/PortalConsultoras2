@@ -357,10 +357,10 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var simbolo = $("#hdSimbolo").val();
 
     if (consultoraRegaloPN == 'True') {
-
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
+
         mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
