@@ -145,7 +145,6 @@ namespace Portal.Consultoras.BizLogic
                                 Premio.Importante = 0;
                                 if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
                                 {
-                                   
                                     Premio.Mensaje = Concurso.IndicadorPremiacionPedido ? Incentivos.TextoIndicadorPremiacion
                                         : string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
                                 }
@@ -157,7 +156,7 @@ namespace Portal.Consultoras.BizLogic
                                     }
                                     Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
                                     Premio.Importante = 2;
-                                }                                
+                                }
                             }
                         }
                     }

@@ -399,7 +399,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     mensaje = result.Mensaje;
-                    return result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    return result.MotivoPedidoLock != ServicePedido.EnumeradoresMotivoPedidoLock.Ninguno;
                 }
             }
             catch (Exception ex)
