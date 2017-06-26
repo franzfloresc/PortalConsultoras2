@@ -270,6 +270,7 @@
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
+    <Compile Include="Controllers\ProductoComentarioController.cs" />
     <Compile Include="Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
@@ -399,6 +400,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
@@ -408,6 +410,7 @@
     <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
     <Compile Include="Models\CuponUsuarioModel.cs" />
+    <Compile Include="Models\EstadoProductoComentarioModel.cs" />
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\EstrategiaOutModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
@@ -3053,6 +3056,8 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentario.js" />
+    <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -3348,6 +3353,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4100,6 +4106,7 @@
     <Content Include="Views\Bienvenida\template-mas-vendidos-mobile.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCargaCuponConsultora.cshtml" />
     <Content Include="Views\EstrategiaProducto\DetalleProducto.cshtml" />
+    <Content Include="Views\ProductoComentario\Index.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />
     <Content Include="Web References\ServiceActualizarDatosPrueba\Reference.map" />
     <Content Include="Views\ShowRoom\Intriga.cshtml" />
