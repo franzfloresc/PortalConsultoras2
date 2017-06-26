@@ -644,6 +644,8 @@
 </div>
 <!-- FIN POPUP VIDEO INTRODUCTORIO -->
 <!--POP UP REVISTA DIGITAL-->
+@if (@ViewBag.TieneRDS == true)
+{
 <div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" data-popup-function-hide="RDPopupCerrar(0)">
     <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" data-popup-close="" href="javascript:;">
@@ -675,6 +677,7 @@
 </div>
 <!-- FIN POPUP REVISTA DIGITAL -->
 <!-- POPUP INSCRITA A REVISTA DIGITAL -->
+
 <div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;font-family: 'Lato' !important" data-popup-main="" data-popup-function-hide="RDPopupCerrar(1)">
     <div class="mpopup_rd mob_rd_confirmacion" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript:;" data-popup-close="">
@@ -695,6 +698,8 @@
         <img class="rd_consultora" src="/Content/Images/RevistaDigital/mob_rd_consultora.png" />
     </div>
 </div>
+
+}
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")

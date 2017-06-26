@@ -201,7 +201,7 @@
    
 </div>
 
-@if (Model.ClaseBloqueada == "")
+@if ((Model.ClaseBloqueada ?? "") == "")
 {
     <div class="row">
         <div class="content_btn_agregar">
@@ -222,7 +222,7 @@
         </div>
     </div>
 }
-@if (Model.ClaseBloqueada != "")
+@if ((Model.ClaseBloqueada ?? "") != "")
 {
     @Html.Action("MensajeBloqueado", "RevistaDigital")
 }
@@ -238,6 +238,7 @@
         var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }
