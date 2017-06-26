@@ -15,9 +15,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public bool MostrarBotonAtras { get; set; }
         public int ClienteID { get; set; }
 
+        /// <summary>
+        /// Determina si se muestra o no un hipervinculo
+        /// </summary>
+        public bool MostrarHipervinculo { get; set; }
+
         public MobileAppConfiguracionModel()
         {
             MostrarBotonAtras = true;
+            MostrarHipervinculo = true;
         }
     }
 }

@@ -820,15 +820,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var config = new BEConfiguracionPais
                             {
-                                Detalle = new BEConfiguracionPaisDetalle {
+                                Detalle = new BEConfiguracionPaisDetalle
+                                {
                                     PaisID = model.PaisID,
                                     CodigoConsultora = model.CodigoConsultora,
                                     CodigoRegion = model.CodigorRegion,
                                     CodigoZona = model.CodigoZona,
                                     CodigoSeccion = model.SeccionAnalytics
-                                }                               
+                                }
                             };
-                            
+
                             using (UsuarioServiceClient sv = new UsuarioServiceClient())
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
@@ -1732,11 +1733,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null) return RedirectToAction("UserUnknown");
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
-                                
+
                 Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
-                    ClienteID = model.ClienteID
+                    ClienteID = model.ClienteID,
+                    MostrarHipervinculo = !model.EsAppMobile
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
