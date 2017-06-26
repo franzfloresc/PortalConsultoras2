@@ -15,37 +15,34 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var modelo = EstrategiaGetDetalle(id);
             var origenPantalla = Util.Trim(origen.ToString()).Substring(1, 1);
+           
             if (modelo.EstrategiaID <= 0)
             {
-                if (origenPantalla == "1") // Home
+                switch (origenPantalla)
                 {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
-                if (origenPantalla == "2") // pedido
-                {
-                    return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
-                }
-                if (origenPantalla == "7") // RevistaDigital
-                {
-                    return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+                    case "1": return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+                    case "2": return RedirectToAction("Index", "Pedido", new { area = "Mobile" });
+                    case "7": return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
                 }
             }
 
             modelo.Origen = origen;
             modelo.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
-            if (origenPantalla == "1") // Home
+
+            switch (origenPantalla)
             {
-                modelo.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                case "1":
+                    modelo.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    break;
+                case "2":
+                    modelo.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
+                    break;
+                case "7":
+                    modelo.Codigo = Constantes.MenuCodigo.RevistaDigital;
+                    modelo.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" }); 
+                    break;
             }
-            else if (origenPantalla == "2") // pedido
-            {
-                modelo.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
-            }
-            else if (origenPantalla == "7") // RevistaDigital
-            {
-                modelo.Codigo = Constantes.MenuCodigo.RevistaDigital;
-                modelo.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
-            }
+
             ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
             return View(modelo);
