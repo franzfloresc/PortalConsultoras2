@@ -104,7 +104,7 @@ function CargarCarouselEstrategias(cuv) {
 
 function CargarCarouselMasVendidos(origen) {
     var dataMasVendidos = get_local_storage("data_mas_vendidos");
-    if (dataMasVendidos != null) {
+    if (typeof dataMasVendidos !== 'undefined' && dataMasVendidos != null) {
         $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
         ArmarCarouselMasVendidos(dataMasVendidos);
         inicializarDivMasVendidos(origen);

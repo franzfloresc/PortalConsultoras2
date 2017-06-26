@@ -1141,5 +1141,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
         #endregion
+
+        #region Producto Comentario
+        [OperationContract]
+        int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+
+        [OperationContract]
+        int AprobarProductoComentario(int paisID, BEProductoComentarioDetalle entidad);
+        #endregion
     }
 }

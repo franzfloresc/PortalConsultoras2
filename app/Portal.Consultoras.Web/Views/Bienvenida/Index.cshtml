@@ -2494,6 +2494,10 @@
                 $(this).toggleClass('check_intriga');
                 
             });
+
+            masVendidosModule.ini({
+                baseUrl: baseUrl
+            });
         });
         
     </script>
@@ -2502,7 +2506,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
-
+    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
