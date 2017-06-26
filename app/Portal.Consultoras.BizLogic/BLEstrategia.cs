@@ -521,7 +521,7 @@ namespace Portal.Consultoras.BizLogic
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             int result;
-            var DAEstrategia = new DAEstrategia(paisID);
+            var daEstrategia = new DAEstrategia(paisID);
             var oTransactionOptions = new TransactionOptions();
             oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
 
@@ -534,12 +534,12 @@ namespace Portal.Consultoras.BizLogic
                         BEProductoComentario oProdComentario = new BEProductoComentario();
                         oProdComentario.CodigoSAP = entidad.CodigoSAP;
                         oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
-                        entidad.ProdComentarioId = DAEstrategia.InsertarProductoComentario(oProdComentario);
+                        entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
                     }
 
-                    result = DAEstrategia.InsertarProductoComentarioDetalle(entidad);
-
-                    DAEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
+                    result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
+                    entidad.ProdComentarioDetalleId = result;
+                    daEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
 
                     oTransactionScope.Complete();
                 }
@@ -553,16 +553,64 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
+        {
+            BEProductoComentario entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSAP))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentario(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(codigoSAP))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(codigoSAP))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
         public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
-            var DAEstrategia = new DAEstrategia(paisID);
             int result;
+            var daEstrategia = new DAEstrategia(paisID);
 
             try
             {
-                result = DAEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
-
-                DAEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
+                daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
+                daEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
+                result = 1;
             }
 
             catch (Exception)

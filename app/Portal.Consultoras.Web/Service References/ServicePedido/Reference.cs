@@ -4477,6 +4477,147 @@ namespace Portal.Consultoras.Web.ServicePedido {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEProductoComentario", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEProductoComentario : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantAprobadosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantComentariosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int CantRecomendadosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoGenericoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoSAPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaRegistroField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProdComentarioIdField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantAprobados {
+            get {
+                return this.CantAprobadosField;
+            }
+            set {
+                if ((this.CantAprobadosField.Equals(value) != true)) {
+                    this.CantAprobadosField = value;
+                    this.RaisePropertyChanged("CantAprobados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantComentarios {
+            get {
+                return this.CantComentariosField;
+            }
+            set {
+                if ((this.CantComentariosField.Equals(value) != true)) {
+                    this.CantComentariosField = value;
+                    this.RaisePropertyChanged("CantComentarios");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int CantRecomendados {
+            get {
+                return this.CantRecomendadosField;
+            }
+            set {
+                if ((this.CantRecomendadosField.Equals(value) != true)) {
+                    this.CantRecomendadosField = value;
+                    this.RaisePropertyChanged("CantRecomendados");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoGenerico {
+            get {
+                return this.CodigoGenericoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoGenericoField, value) != true)) {
+                    this.CodigoGenericoField = value;
+                    this.RaisePropertyChanged("CodigoGenerico");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoSAP {
+            get {
+                return this.CodigoSAPField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
+                    this.CodigoSAPField = value;
+                    this.RaisePropertyChanged("CodigoSAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaRegistro {
+            get {
+                return this.FechaRegistroField;
+            }
+            set {
+                if ((this.FechaRegistroField.Equals(value) != true)) {
+                    this.FechaRegistroField = value;
+                    this.RaisePropertyChanged("FechaRegistro");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProdComentarioId {
+            get {
+                return this.ProdComentarioIdField;
+            }
+            set {
+                if ((this.ProdComentarioIdField.Equals(value) != true)) {
+                    this.ProdComentarioIdField = value;
+                    this.RaisePropertyChanged("ProdComentarioId");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEShowRoomOfertaDetalle", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom")]
     [System.SerializableAttribute()]
     public partial class BEShowRoomOfertaDetalle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -24735,11 +24876,33 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse")]
         System.Threading.Tasks.Task<int> InsertarProductoComentarioDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/AprobarProductoComentario", ReplyAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioResponse")]
-        int AprobarProductoComentario(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/AprobarProductoComentario", ReplyAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioResponse")]
-        System.Threading.Tasks.Task<int> AprobarProductoComentarioAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
+            "e")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
+            "e")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobar", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobarRespons" +
+            "e")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobar", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobarRespons" +
+            "e")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalleResponse")]
+        int AprobarProductoComentarioDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalleResponse")]
+        System.Threading.Tasks.Task<int> AprobarProductoComentarioDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/GetProductosShowRoomDetalleResponse")]
         Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv);
@@ -26885,12 +27048,36 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertarProductoComentarioDetalleAsync(paisID, entidad);
         }
         
-        public int AprobarProductoComentario(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad) {
-            return base.Channel.AprobarProductoComentario(paisID, entidad);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP) {
+            return base.Channel.GetProductoComentarioByCodSap(paisID, codigoSAP);
         }
         
-        public System.Threading.Tasks.Task<int> AprobarProductoComentarioAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad) {
-            return base.Channel.AprobarProductoComentarioAsync(paisID, entidad);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP) {
+            return base.Channel.GetProductoComentarioByCodSapAsync(paisID, codigoSAP);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP) {
+            return base.Channel.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP) {
+            return base.Channel.GetListaProductoComentarioDetalleResumenAsync(paisID, codigoSAP);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP) {
+            return base.Channel.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP) {
+            return base.Channel.GetListaProductoComentarioDetalleAprobarAsync(paisID, codigoSAP);
+        }
+        
+        public int AprobarProductoComentarioDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad) {
+            return base.Channel.AprobarProductoComentarioDetalle(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> AprobarProductoComentarioDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad) {
+            return base.Channel.AprobarProductoComentarioDetalleAsync(paisID, entidad);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle[] GetProductosShowRoomDetalle(int paisID, int campaniaId, string cuv) {

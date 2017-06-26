@@ -46,7 +46,7 @@ BEGIN
 		GETDATE(),
 		1
 	)
-
-	SELECT @@IDENTITY AS Id
+	
+	SELECT @@Identity AS ProdComentarioDetalleId
 END
 GO
