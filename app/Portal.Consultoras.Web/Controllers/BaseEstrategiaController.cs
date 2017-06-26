@@ -72,7 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia = ConsultarEstrategiasModelFormato(lista)[0];
                 }
                 
-                if (estrategia == null || estrategia == default(EstrategiaPedidoModel))
+                if (estrategia.EstrategiaID <= 0)
                 {
                     var lista = ConsultarEstrategias();
                     cuv = Util.Trim(cuv);
