@@ -244,7 +244,13 @@ $(document).ready(function () {
     }
     else if (ver_compraxcompra == true) {
         $('.banner_especial_showroom').hide();
-        $("#divBannerCompraPorCompra").show();                
+        $("#divBannerCompraPorCompra").show();
+        if ($("#divBannerCompraPorCompra").length > 0) {
+            $(".footer_e").css("margin-bottom", "73px");
+        }
+        else {
+            $(".footer_e").css("margin-bottom", "0px");
+        }
     }
 
     $(".swproddetcompra").on("click", function () {
