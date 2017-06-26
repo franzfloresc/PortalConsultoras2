@@ -87,16 +87,6 @@
 
     };
 
-    var _mostrarContenedorValoracion = function () {
-        $(elements.btnAgregarComentario).hide();
-        $(elements.contenedorValoracion).show();
-    };
-
-    var _ocultarContenedorValoracion = function () {
-        $(elements.btnAgregarComentario).show();
-        $(elements.contenedorValoracion).hide();
-    };
-
     var _mostrarContenedorConfirmacionComentario = function () {
         $(elements.contenedorValoracion).hide();
         $(elements.contenedorConfirmacionComentario).show();
