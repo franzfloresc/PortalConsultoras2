@@ -2078,14 +2078,29 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-
         #region Producto Comentario
+
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
 
-        public int AprobarProductoComentario(int paisID, BEProductoComentarioDetalle entidad)
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
+        {
+            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSAP);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP);
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
