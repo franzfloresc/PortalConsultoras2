@@ -10,9 +10,18 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return View();
         }
+        
+        public ActionResult DetalleProducto(EstrategiaPedidoModel item)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+        }
 
         [HttpPost]
-        public JsonResult DetalleProducto(EstrategiaPedidoModel item)
+        public JsonResult ObtenerDetalleProducto(EstrategiaPedidoModel item)
         {
             try
             {

@@ -545,7 +545,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }

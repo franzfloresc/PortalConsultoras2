@@ -316,16 +316,17 @@
                 <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
                 <div class="content_detalle_puntuación">
                     Evalúa el Producto
-                    <div class="rateyo-readonly-puntuacion"></div>
+                    <div class="rateyo-puntuacion-seccion-comentario"></div><br />
                     ¿Lo recomiendas?
                     <div>
-                        <a href="#" class="respuesta_pregunta">SI</a>
-                        <a href="#" class="respuesta_pregunta">NO</a>
+                        <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
+                        <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
+                        <input type="hidden" id="hdRecomendado" value="" />
                     </div>
 
                 </div>
                 <div class="content_detalle_comentarios">
-                    <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto"> </textarea>
+                    <textarea type="text" class="texto_comentario_usuario" id="txtComentario" placeholder="Escribe un comentario sobre el producto"> </textarea>
                     <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
                     <a class="cancelar_comentario">CANCELAR</a>
                 </div>
@@ -401,14 +402,6 @@
                 starWidth: "33px",
                 readOnly: true
             })
-            $(".rateyo-readonly-puntuacion").rateYo({
-                rating: 0,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "25px",
-                spacing: "7px",
-            })
             $(".puntuacion_usuario_visible").rateYo({
                 rating: 4,
                 precision: 2,
@@ -421,7 +414,7 @@
         });
         $(document).ready(function () {
             bestSellerCommentModule.ini({
-
+                urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")'
             });
         });
     </script>
