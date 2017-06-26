@@ -55,29 +55,9 @@
         
         @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
         {
-<<<<<<< HEAD
             <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
         }
         <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
-=======
-               
-            <div class="precio_bpt">
-                @if (Model.Precio > 0)
-                {
-                <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
-                }     
-                <b>@Model.Simbolo @Model.PrecioString</b>
-            </div>
-        }
-        else
-        {
-            if (Model.Precio > 0)
-             {
-                 <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
-             }        
-            <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
-        }
->>>>>>> APPCONS126
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="@Model.CUV2" />
             <input type="hidden" class="rsFBMensaje" value="" />
@@ -137,7 +117,6 @@
                         </div>
                     }
                 }
-<<<<<<< HEAD
                 else if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {
                     var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
@@ -186,61 +165,6 @@
                         }
                     </div>
                 }
-=======
-            }
-            else if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
-            {
-                var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
-                var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
-                if (Model.Hermanos != null && Model.Hermanos.Any())
-                 {
-                     <div class="titulo_contenido">CONTENIDO</div>
-                     <div class="@claseItem">
-                         @foreach (var Hermano in Model.Hermanos)
-                         {
-                             <div>
-                                 <div class="@claseItem3" data-tono=""  data-tono-select="" data-tono-digitable="@Hermano.Digitable">
-                                     <div style="display: none;">
-                                         <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="@Hermano.MarcaID" />
-                                         <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
-                                     </div>
-                                     <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                         <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
-                                         <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
-                                     </div>
-                                     @if (Hermano.Digitable == 1)
-                                     {
-                                         <div class="content_tonos_producto">
-                                             <div class="tono_select_opt">
-                                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                                     <div class="tono_seleccionado" style="display: none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                                     <div class="texto_tono_seleccionado">ELIGE  TU TONO</div>
-                                                     <hr class="clear" />
-                                                 </div>
-                                                 <div class="content_tonos_select" style="display:none;">
-                                                     @foreach (var Tono in Hermano.Hermanos)
-                                                     {
-                                                         btnDesabled = 1;
-                                                         <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="@Tono.CUV" data-tono-nombre="@Tono.NombreBulk" data-tono-descripcion="@Tono.NombreComercial">
-                                                             <div class="tono_seleccionado"><img src="@Tono.ImagenBulk" alt=""></div>
-                                                             <div class="texto_tono_seleccionado">@Tono.NombreBulk</div>
-                                                             <hr class="clear" />
-                                                         </div>
-                                                     }
-                                                 </div>
-                                             </div>
-                                             <hr class="clear">
-                                         </div>
-                                     }
-                                     <hr class="clear" />
-                                 </div>
-                             </div>
-                         }
-                     </div>
-                 }
-                
-            }
->>>>>>> APPCONS126
             </div>
         }
         <!--OFERTAS PARA TI CASO 1-->
@@ -460,14 +384,10 @@
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
         var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
-<<<<<<< HEAD
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/General.js")"></script>
     @*ALAN LA CLASES PARA AÑADIR SON A LA MISMA ALTURA QUE EL DIV "tono_select_opt"
         ".tono_escogido"-> añadir cuando ya se escogio el tono
         "tono_no_seleccionado" -> CUANDO SE DA AGREGAR Y NO SE HA SELECCIONADO TONO A TODOS LOS COMBOS Q FALTAN
     *@
-
-=======
->>>>>>> APPCONS126
 }

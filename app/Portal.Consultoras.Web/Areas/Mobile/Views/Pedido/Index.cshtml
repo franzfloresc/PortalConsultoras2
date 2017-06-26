@@ -31,7 +31,7 @@
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
                 @Html.Hidden("txtClienteId", Model.ClienteId)
-                @if (ViewBag.MobileApp)
+                @if (ViewBag.MobileApp && Model.ClienteId > 0)
                 { 
                     <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
                 }

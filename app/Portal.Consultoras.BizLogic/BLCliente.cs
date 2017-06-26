@@ -371,18 +371,20 @@ namespace Portal.Consultoras.BizLogic
                     if (clienteDB.ClienteIDSB == 0)
                     {
                         clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
-
-                        foreach (var nota in clienteDB.Notas)
+                        if (clienteDB.Notas != null)
                         {
-                            var notaId = NotaInsertar(paisID, new BENota
+                            foreach (var nota in clienteDB.Notas)
                             {
-                                ClienteId = (short)clienteDB.ClienteIDSB,
-                                ConsultoraId = clienteDB.ConsultoraID,
-                                Descripcion = nota.Descripcion,
-                                Fecha = nota.Fecha
-                            });
+                                var notaId = NotaInsertar(paisID, new BENota
+                                {
+                                    ClienteId = (short)clienteDB.ClienteIDSB,
+                                    ConsultoraId = clienteDB.ConsultoraID,
+                                    Descripcion = nota.Descripcion,
+                                    Fecha = nota.Fecha
+                                });
 
-                            clienteDB.Notas.Concat(new[] { new BENota { ClienteNotaId = notaId } });
+                                clienteDB.Notas.Concat(new[] { new BENota { ClienteNotaId = notaId } });
+                            }
                         }
                     }
                     else daCliente.UpdCliente(clienteSB);
