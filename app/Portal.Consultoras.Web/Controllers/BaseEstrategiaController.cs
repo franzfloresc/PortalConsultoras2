@@ -457,9 +457,9 @@ namespace Portal.Consultoras.Web.Controllers
                                               !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
 
-            if (IsMobile())
+            if (IsMobile() && listaProductoModel.Any())
             {
-                listaProductoModel.Take(1);
+                listaProductoModel = listaProductoModel.Take(1).ToList();
             }
 
             return listaProductoModel;
