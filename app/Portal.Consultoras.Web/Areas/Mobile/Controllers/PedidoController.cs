@@ -121,8 +121,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-            //model.TieneMasVendidos = userData.TieneMasVendidos;
-
+            model.TieneMasVendidos = userData.TieneMasVendidos;
+            model.TieneOfertaLog = userData.TieneOfertaLog;
             return View(model);
         }
         

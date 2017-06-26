@@ -437,6 +437,7 @@ namespace Portal.Consultoras.Data
             {
                 Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int64, entidad.ProdComentarioId);
                 Context.Database.AddInParameter(command, "@Valorizado", DbType.Int16, entidad.Valorizado);
+                Context.Database.AddInParameter(command, "@Recomendado", DbType.Boolean, entidad.Recomendado);
                 Context.Database.AddInParameter(command, "@Comentario", DbType.String, entidad.Comentario);
                 Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);

@@ -93,7 +93,7 @@ $(document).ready(function () {
             return false;
         }
 
-        //if (tieneMasVendidos == 1)
+        if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -198,7 +198,7 @@ $(document).ready(function () {
             return false;
         }
 
-        //if (tieneMasVendidos == 1)
+        if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
 
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -261,7 +261,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
 
-    //debugger;
     if (consultoraRegaloPN == 'True') {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
         mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
@@ -308,12 +307,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta,objOf.Detalle);
     agregoOfertaFinal = tipoPopupMostrar == 1 ? 1 : agregoOfertaFinal;
     
-    //if (tieneMasVendidos == 1) {
-        //debugger;
+    if (tieneOfertaLog == 1) {       
         AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
-
         AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
-    //}
+    }
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -360,7 +357,6 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var simbolo = $("#hdSimbolo").val();
 
     if (consultoraRegaloPN == 'True') {
-        //debugger;
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
@@ -438,7 +434,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
 
     if (oRegaloPN != null) {
         var msgRegalo = "";
-        var txtAyuda1 = "";
+        var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
 
         //debugger;
@@ -447,10 +443,10 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         else montoMeta = montoSaldo;
 
         if (nivel == '01' || nivel == '02' || nivel == '03') {
-            txtAyuda1 = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
                 }
                 else {
                     msgRegalo = 'LLEGA AL MONTO MINIMO Y <b>GANA UN ' + oRegaloPN.DescripcionPremio + '.'
@@ -460,13 +456,14 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
             else {
                 msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en el monto mínimo';
             }
         }
         else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            txtAyuda1 = '*En caso tu pedido no tenga observaciones y mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
             if (tipoMeta == 'MM') {
                 if (montoTotal >= montoMeta) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
                 else {
                     msgRegalo = 'AGREGA ' + simbolo + ' ' + montoSaldo.toString() + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
@@ -476,6 +473,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                 if (oRegaloPN.TippingPoint > 0) {
                     if (montoTotal >= oRegaloPN.TippingPoint) {
                         msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                        disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                     }
                     else {
                         var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
@@ -484,16 +482,27 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
                 }
                 else {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
+                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
             }
         }
 
-        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "")
+        $('#img-regalo-pn').hide();
+        if (oRegaloPN.UrlImagenRegalo != null && oRegaloPN.UrlImagenRegalo != "") {
             $('#img-regalo-pn').attr('src', oRegaloPN.UrlImagenRegalo);
+            $('#img-regalo-pn').show();
+        }
+        else {
+            $('#msg-regalo-pn').css('padding-top', '15px');
+        }
+            
         $('#msg-regalo-pn').html(msgRegalo);
-        $('#txt-ayuda1-pn').html(txtAyuda1);
+        $('#msg-regalo-pn2').html(msgRegalo);   // mobile
+        if (disclaimer != "") {
+            $('#txt-disclaimer-pn').html(disclaimer);
+        }
         $('#div-regalo-pn').show();
-        $('#txt-ayuda1-pn').show();
+        $('#txt-disclaimer-pn').show();
         $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
     }
 }
@@ -654,8 +663,6 @@ function AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_log, gap_Log, tipo
         desTipoRegistro: desTipoRegistro
     };
 
-    //debugger;
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/InsertarOfertaFinalLog',
@@ -695,8 +702,6 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
         producto['DesTipoRegistro'] = 'Producto Expuesto';
         params.push(producto);
     });
-
-    //debugger;
 
     jQuery.ajax({
         type: 'POST',
@@ -868,9 +873,9 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         var index = 0;
         var impresions = [];
 
-        if (nextSlide == 0 && currentSlide + 1 == lista.letgh) {
+        if (nextSlide == 0 && currentSlide + 1 == lista.length) {
             accion = 'next';
-        } else if (currentSlide == 0 && nextSlide + 1 == lista.letgh) {
+        } else if (currentSlide == 0 && nextSlide + 1 == lista.length) {
             accion = 'prev';
         } else if (nextSlide > currentSlide) {
             accion = 'next';
@@ -885,8 +890,8 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
             if (origen == 1) { index = nextSlide + 2; }
             if (origen == 2) { index = nextSlide + 0; }
         }
-        if (index >= lista.letgh) {
-            index = index - lista.letgh;
+        if (index >= lista.length) {
+            index = index - lista.length;
         }
 
         var list = "Oferta Final - ";
@@ -894,6 +899,7 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         if (meta == "GM") { list = list + "Gana más"; }
         if (meta == "") { list = list + "Descuento Adicional"; }
 
+        debugger;
         var impresion;
         var item;
         item = lista[index];

@@ -1117,10 +1117,10 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
-        void CrearCupon(BECupon cupon);
+        void CrearCupon(int paisId, BECupon cupon);
 
         [OperationContract]
-        void ActualizarCupon(BECupon cupon);
+        void ActualizarCupon(int paisId, BECupon cupon);
 
         [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);

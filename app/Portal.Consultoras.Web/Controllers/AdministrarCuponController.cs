@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
                         var cuponBE = MapearCuponModelABECupon(model);
-                        svClient.CrearCupon(cuponBE);
+                        svClient.CrearCupon(userData.PaisID, cuponBE);
                     }
                 }
                 else
@@ -74,7 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient svClient = new PedidoServiceClient())
                     {
                         var cuponBE = MapearCuponModelABECupon(model);
-                        svClient.ActualizarCupon(cuponBE);
+                        svClient.ActualizarCupon(userData.PaisID, cuponBE);
                     }
                 }
                 else
