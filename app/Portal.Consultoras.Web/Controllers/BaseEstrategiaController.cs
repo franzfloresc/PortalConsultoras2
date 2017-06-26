@@ -344,6 +344,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
+            if (userData.RevistaDigital.TieneRDR ||(userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+            {
+                if (IsMobile() && listaProductoModel.Any())
+                {
+                    listaProductoModel = listaProductoModel.Take(1).ToList();
+                }
+            }
             return listaProductoModel;
         }
 
@@ -456,12 +463,7 @@ namespace Portal.Consultoras.Web.Controllers
                                              ((estrategia.ListaDescripcionDetalle != null && estrategia.ListaDescripcionDetalle.Any()) ||
                                               !estrategia.EstrategiaDetalle.UrlVideoMobile.IsNullOrEmptyTrim());
             });
-
-            if (IsMobile() && listaProductoModel.Any())
-            {
-                listaProductoModel = listaProductoModel.Take(1).ToList();
-            }
-
+            
             return listaProductoModel;
         }
     }
