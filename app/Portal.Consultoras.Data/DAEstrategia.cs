@@ -416,6 +416,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        #region Producto Comentario
 
         public int InsertarProductoComentario(BEProductoComentario entidad)
         {
@@ -457,20 +458,36 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetListaProductoComentarioDetalleaResumen(string codigoSAP)
+        public IDataReader GetProductoComentarioResumenByListaCodSap(string listaCod, string separador)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalleResumen"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
             {
-                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
+                Context.Database.AddInParameter(command, "@ListaCod", DbType.String, listaCod);
+                Context.Database.AddInParameter(command, "@Separador", DbType.String, separador);
                 return Context.ExecuteReader(command);
             }
         }
 
-        public IDataReader GetListaProductoComentarioDetalleAprobar(string codigoSAP)
+        public IDataReader GetListaProductoComentarioDetalleaResumen(string codigoSAP, int offset, int take, Int16 sort)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalleResumen"))
+            {
+                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
+                Context.Database.AddInParameter(command, "@SkipRows", DbType.Int32, offset);
+                Context.Database.AddInParameter(command, "@TakeRows", DbType.Int32, take);
+                Context.Database.AddInParameter(command, "@SortRows", DbType.Int16, sort);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetListaProductoComentarioDetalleAprobar(string codigoSAP, int offset, int take, Int16 sort)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalleAprobar"))
             {
                 Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
+                Context.Database.AddInParameter(command, "@SkipRows", DbType.Int32, offset);
+                Context.Database.AddInParameter(command, "@TakeRows", DbType.Int32, take);
+                Context.Database.AddInParameter(command, "@SortRows", DbType.Int16, sort);
                 return Context.ExecuteReader(command);
             }
         }
@@ -480,6 +497,16 @@ namespace Portal.Consultoras.Data
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadProductoComentario"))
             {
                 Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
+                return true;
+            }
+        }
+
+        public bool UpdAprobadosProductoComentario(int prodComentarioId, bool esRecomendado)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAprobadosProductoComentario"))
+            {
+                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
+                Context.Database.AddInParameter(command, "@EsRecomendado", DbType.Boolean, esRecomendado);
                 return true;
             }
         }
@@ -495,15 +522,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public bool UpdAprobadosProductoComentario(int prodComentarioId, bool esRecomendado)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAprobadosProductoComentario"))
-            {
-                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
-                Context.Database.AddInParameter(command, "@EsRecomendado", DbType.Boolean, esRecomendado);
-                return true;
-            }
-        }
+        #endregion
 
     }
 }

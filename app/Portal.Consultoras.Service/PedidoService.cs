@@ -2090,20 +2090,26 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSAP);
         }
 
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP)
+        public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
         {
-            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP);
+            return blEstrategia.GetProductoComentarioResumenByListaCodSap(paisID, listaCod, separador);
         }
 
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP)
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, Int16 sort)
         {
-            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP);
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP, offset, take, sort);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, Int16 sort)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP, offset, take, sort);
         }
 
         public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
+
         #endregion
     }
 }

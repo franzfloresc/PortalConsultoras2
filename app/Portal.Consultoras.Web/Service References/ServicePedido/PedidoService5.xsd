@@ -335,6 +335,9 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoSAP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="offset" type="xs:int" />
+        <xs:element minOccurs="0" name="take" type="xs:int" />
+        <xs:element minOccurs="0" name="sort" type="xs:short" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -350,6 +353,9 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="codigoSAP" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="offset" type="xs:int" />
+        <xs:element minOccurs="0" name="take" type="xs:int" />
+        <xs:element minOccurs="0" name="sort" type="xs:short" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
