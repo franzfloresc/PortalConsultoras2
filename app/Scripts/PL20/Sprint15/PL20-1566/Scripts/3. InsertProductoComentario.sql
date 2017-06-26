@@ -46,7 +46,7 @@ BEGIN
 			1
 		)
 
-		SELECT @ProdComentarioId = SCOPE_IDENTITY()
+		SELECT @ProdComentarioId = @@Identity
 	END
 
 	SELECT @ProdComentarioId
