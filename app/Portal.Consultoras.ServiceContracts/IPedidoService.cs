@@ -1147,7 +1147,16 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
 
         [OperationContract]
-        int AprobarProductoComentario(int paisID, BEProductoComentarioDetalle entidad);
+        BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP);
+
+        [OperationContract]
+        int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
     }
 }
