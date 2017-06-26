@@ -92,7 +92,8 @@
         $.when(listarComentariosPromise).then(function (listarComentariosResponse) {
             if (checkTimeout(listarComentariosResponse)) {
                 if (listarComentariosResponse.success) {
-                    
+                    var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
+                    _buildHtmlSeccionComentarios(array);
                 } else {
                     alert(listarComentariosResponse.message);
                 }
@@ -100,6 +101,24 @@
                 closeWaitingDialog();
             }
         });
+    };
+
+    var _buildHtmlSeccionComentarios = function (listaComentarios) {
+        var htmlSeccionComentarios = '';
+        $.each(listaComentarios, function (index, item) {
+            htmlSeccionComentarios += '';
+            htmlSeccionComentarios += '<div class="content_comentario_usuario">';
+            htmlSeccionComentarios += '<div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>';
+            htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
+            htmlSeccionComentarios += '<div class="puntuacion_usuario_visible"></div>';
+            htmlSeccionComentarios += '<div class="nombre_usuario_comentario">Sandra Arce</div>';
+            htmlSeccionComentarios += '<div class="fecha_comentario">03 Junio 2017</div>';
+            htmlSeccionComentarios += '</div>';
+            htmlSeccionComentarios += '<div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>';
+            htmlSeccionComentarios += '</div>';
+        });
+
+        $(elements.contenedorComentarios).append(htmlSeccionComentarios);
     };
 
     var _mostrarContenedorValoracion = function () {
