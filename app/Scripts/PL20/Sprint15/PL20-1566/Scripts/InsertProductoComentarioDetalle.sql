@@ -46,5 +46,7 @@ BEGIN
 		GETDATE(),
 		1
 	)
+
+	SELECT @@IDENTITY AS Id
 END
 GO

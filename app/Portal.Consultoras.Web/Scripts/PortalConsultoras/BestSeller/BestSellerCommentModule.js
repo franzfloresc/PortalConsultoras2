@@ -93,7 +93,7 @@
                 if (registrarComentarioResponse.success) {
                     _mostrarContenedorConfirmacionComentario();
                 } else {
-
+                    alert(registrarComentarioResponse.message);
                 }
 
                 closeWaitingDialog();
