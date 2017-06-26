@@ -24884,19 +24884,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
             "e")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP);
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, short sort);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
             "e")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP, int offset, int take, short sort);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobar", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobarRespons" +
             "e")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP);
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, short sort);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobar", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleAprobarRespons" +
             "e")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP, int offset, int take, short sort);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalleResponse")]
         int AprobarProductoComentarioDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
@@ -27056,20 +27056,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetProductoComentarioByCodSapAsync(paisID, codigoSAP);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP) {
-            return base.Channel.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, short sort) {
+            return base.Channel.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP, offset, take, sort);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP) {
-            return base.Channel.GetListaProductoComentarioDetalleResumenAsync(paisID, codigoSAP);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleResumenAsync(int paisID, string codigoSAP, int offset, int take, short sort) {
+            return base.Channel.GetListaProductoComentarioDetalleResumenAsync(paisID, codigoSAP, offset, take, sort);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP) {
-            return base.Channel.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, short sort) {
+            return base.Channel.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP, offset, take, sort);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP) {
-            return base.Channel.GetListaProductoComentarioDetalleAprobarAsync(paisID, codigoSAP);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[]> GetListaProductoComentarioDetalleAprobarAsync(int paisID, string codigoSAP, int offset, int take, short sort) {
+            return base.Channel.GetListaProductoComentarioDetalleAprobarAsync(paisID, codigoSAP, offset, take, sort);
         }
         
         public int AprobarProductoComentarioDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad) {

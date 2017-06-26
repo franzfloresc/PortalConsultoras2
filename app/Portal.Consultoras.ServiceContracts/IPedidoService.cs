@@ -1150,10 +1150,13 @@ namespace Portal.Consultoras.ServiceContracts
         BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
 
         [OperationContract]
-        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP);
+        List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador);
 
         [OperationContract]
-        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP);
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, Int16 sort);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, Int16 sort);
 
         [OperationContract]
         int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);

@@ -47,6 +47,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoGenerico { get; set; }
 
+        [DataMember]
+        public string URLFotoConsultora { get; set; }
+
+        [DataMember]
+        public string NombreConsultora { get; set; }
+
         public BEProductoComentarioDetalle()
         { }
 
@@ -84,6 +90,12 @@ namespace Portal.Consultoras.Entities
 
             if (row.HasColumn("Estado"))
                 Estado = Convert.ToInt16(row["Estado"]);
+
+            if (row.HasColumn("URLFotoConsultora"))
+                URLFotoConsultora = Convert.ToString(row["URLFotoConsultora"]);
+
+            if (row.HasColumn("NombreConsultora"))
+                NombreConsultora = Convert.ToString(row["NombreConsultora"]);
         }
     }
 }

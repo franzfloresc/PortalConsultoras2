@@ -8,3 +8,4 @@ BEGIN
   DROP TABLE dbo.ProductoComentarioDetalle
 END
 GO
+
