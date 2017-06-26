@@ -227,38 +227,6 @@ BEGIN
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
 	ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	declare @TEMP table (
-		EstrategiaID int
-		, ImgFondoDesktop varchar(1000)
-		, ImgPrevDesktop varchar(1000)
-		, ImgSelloProductoDesktop varchar(1000)
-		, UrlVideoDesktop varchar(1000)
-		, ImgFichaFondoDesktop varchar(1000)
-		, ImgFondoMobile varchar(1000)
-		, ImgSelloProductoMobile varchar(1000)
-		, UrlVideoMobile varchar(1000)
-		, ImgFichaFondoMobile varchar(1000)
-	)
-
-	IF @CodigoAgrupacion = '101'
-	BEGIN
-
-		insert into @temp 
-		SELECT EstrategiaID
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10201) as ImgFondoDesktop
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10202) as ImgPrevDesktop
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10203) as ImgSelloProductoDesktop
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10204) as UrlVideoDesktop
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10208) as ImgFichaFondoDesktop
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10205) as ImgFondoMobile
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10206) as ImgSelloProductoMobile
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10207) as UrlVideoMobile
-			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10209) as ImgFichaFondoMobile			
-		FROM #TEMPORAL as T
-		GROUP BY EstrategiaID
-
-	END -- @CodigoAgrupacion = '101'
-
 	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 	
@@ -400,6 +368,39 @@ BEGIN
 		ON B.CUV2 = A.CUV AND B.ColId = A.Id
 	 WHERE A.CUV IS NULL	 
 
+	 
+	declare @TEMP table (
+		EstrategiaID int
+		, ImgFondoDesktop varchar(1000)
+		, ImgPrevDesktop varchar(1000)
+		, ImgSelloProductoDesktop varchar(1000)
+		, UrlVideoDesktop varchar(1000)
+		, ImgFichaFondoDesktop varchar(1000)
+		, ImgFondoMobile varchar(1000)
+		, ImgSelloProductoMobile varchar(1000)
+		, UrlVideoMobile varchar(1000)
+		, ImgFichaFondoMobile varchar(1000)
+	)
+
+	IF @CodigoAgrupacion = '101'
+	BEGIN
+
+		insert into @temp 
+		SELECT EstrategiaID
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10201) as ImgFondoDesktop
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10202) as ImgPrevDesktop
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10203) as ImgSelloProductoDesktop
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10204) as UrlVideoDesktop
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10208) as ImgFichaFondoDesktop
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10205) as ImgFondoMobile
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10206) as ImgSelloProductoMobile
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10207) as UrlVideoMobile
+			,(select top 1 valor from EstrategiaDetalle where EstrategiaID = T.EstrategiaID and TablaLogicaDatosId = 10209) as ImgFichaFondoMobile			
+		FROM #TEMPORAL as T
+		GROUP BY EstrategiaID
+
+	END -- @CodigoAgrupacion = '101'
+
 	SELECT
 		T.EstrategiaID,
 		T.CUV2,
@@ -450,5 +451,4 @@ BEGIN
 	DROP TABLE #TEMPORAL
 	SET NOCOUNT OFF
 END
-
 
