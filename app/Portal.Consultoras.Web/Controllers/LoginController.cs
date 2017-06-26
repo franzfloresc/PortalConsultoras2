@@ -1068,34 +1068,15 @@ namespace Portal.Consultoras.Web.Controllers
             string IP = string.Empty;
             try
             {
-                string ipAddress = string.Empty;
-
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
-                }
-
-                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-                }
-
-                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
-                }
-
-                if (ipAddress.IndexOf(":") > 0)
-                {
-                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
-                }
-
-                return ipAddress;
+                // EPD-2929 Clase para Obtener la IP del cliente
+                var HttpRequestBase = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+                IP = ClientIP.ClientIPFromRequest(HttpRequestBase, true);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
             }
+
             return IP;
         }
 
