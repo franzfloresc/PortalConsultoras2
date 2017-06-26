@@ -448,11 +448,13 @@ function RDDetalleObtener() {
     if (mobile) {
         $.each(obj.Lista, function (ind, tem) {
             tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
+            tem.PuedeAgregar = 1;
             if (tem.ClaseBloqueada != "") {
                 tem.PuedeAgregar = 0;
             }
         });
     }
+
     SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
