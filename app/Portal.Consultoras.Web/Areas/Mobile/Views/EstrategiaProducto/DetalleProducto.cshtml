@@ -2,18 +2,77 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";    
 }
+
+@section styles{
+    
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
+   
+}
 <div class="content_room_product_sheet">
     <div class="content_imagen_best">
         <div class="content_fondo_bestSeller"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" /></div>
     </div>
         <hr class="clear" />
     <div class="wrapper_resumen_mobile" style="margin-top:10px;">
+        <div class="marca_best">ESIKA</div>
         <h1>Pack x2 Nitro Xtreme</h1>
+        <div class="marca_best">4g/. 14oz.</div>
+        <div class="content_puntuacion_detalle">
+            <div class="rateyo-readonly-widg"></div>
+            <div class="comentarios_detalle_best">(346 recomendaciones)</div>
+        </div>
         <div class="price_product">
             <s class="price_offer">S/. 144.00</s>
             <span class="price">Precio para ti <b>S/. 54.00</b></span>
             <span class="comment">Gana S/. 90.00</span>
         </div>
-        
+        <div class="comentarios_best_seller_ficha">
+            “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.               Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br>              - Sandra A.
+        </div>        
     </div>
 </div>
+<div class="content_carrusel_bestSeller">
+    <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+    <div class="slider_item">       
+        <a href="#" class="slider_item_content">
+            <div data-img="">
+                <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
+            </div>
+            <span class="title">2 Cardigan + Prints</span>
+            <span class="precio_tachado_carrusel_set">S/. 228.00</span>
+            <span class="price"><b>S/. 69.90 </b></span>
+        </a>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $(".termino_condiciones_intriga").click(function () {
+            $(this).toggleClass('check_intriga');
+            if (typeof intrigaAceptoTerminos !== 'undefined') {
+                intrigaAceptoTerminos = !intrigaAceptoTerminos;
+            }
+        });
+    });
+            $(function () {
+                var rating = 1.6;
+                $(".rateyo-readonly-widg").rateYo({
+                    rating: 2,
+                    numStars: 5,
+                    precision: 2,
+                    minValue: 1,
+                    maxValue: 5,
+                    fullStar: true,
+                    readOnly: true,
+                    starWidth: "17px"
+                }).on("rateyo.change", function (e, data) {
+
+                    //console.log(data.rating);
+                });
+            });
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
+    
+}
