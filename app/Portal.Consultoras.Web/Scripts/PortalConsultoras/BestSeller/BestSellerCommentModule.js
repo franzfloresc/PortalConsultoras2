@@ -84,7 +84,32 @@
     };
 
     var _listarComentarios = function () {
+        var model = {
+            codigoSAP: '0123456789'
+        };
+        var listarComentariosPromise = _listarComentariosPromise(model);
 
+        $.when(listarComentariosPromise).then(function (listarComentariosResponse) {
+            if (checkTimeout(listarComentariosResponse)) {
+                if (listarComentariosResponse.success) {
+                    
+                } else {
+                    alert(listarComentariosResponse.message);
+                }
+
+                closeWaitingDialog();
+            }
+        });
+    };
+
+    var _mostrarContenedorValoracion = function () {
+        $(elements.btnAgregarComentario).hide();
+        $(elements.contenedorValoracion).show();
+    };
+
+    var _ocultarContenedorValoracion = function () {
+        $(elements.btnAgregarComentario).show();
+        $(elements.contenedorValoracion).hide();
     };
 
     var _mostrarContenedorConfirmacionComentario = function () {
@@ -135,7 +160,7 @@
         return d.promise();
     };
 
-    var _listarComentariosPromise = function () {
+    var _listarComentariosPromise = function (model) {
         var d = $.Deferred();
 
         var promise = $.ajax({
@@ -143,7 +168,7 @@
             url: (setting.urlListarComentarios),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(model),
+            data: model,
             async: true
         });
 

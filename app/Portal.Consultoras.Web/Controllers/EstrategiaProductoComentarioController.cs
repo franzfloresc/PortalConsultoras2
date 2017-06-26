@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -33,13 +35,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult ListarComentarios()
+        public JsonResult ListarComentarios(string codigoSAP)
         {
             try
             {
-                return Json(new { success = true });
+                var listaComentarios = ListarComentariosServicio(codigoSAP);
+                return Json(new { success = true, data = listaComentarios }, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
+            catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
 
         private void RegistrarComentarioServicio(BEProductoComentarioDetalle model)
@@ -48,6 +51,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 sv.InsertarProductoComentarioDetalle(userData.PaisID, model);
             }
+        }
+
+        private List<EstrategiaProductoComentarioModel> ListarComentariosServicio(string codigoSAP)
+        {
+            var listaComentarios = new List<EstrategiaProductoComentarioModel>();
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                var listarComentariosBE = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, codigoSAP).ToList();
+                listaComentarios = listarComentariosBE.Select(x => MapearProductoComentarioBEAProductoComentarioModel(x)).ToList();
+            }
+
+            return listaComentarios;
         }
 
         #region Mapero
@@ -72,6 +88,26 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
+        private EstrategiaProductoComentarioModel MapearProductoComentarioBEAProductoComentarioModel(BEProductoComentarioDetalle modelBE)
+        {
+            return new EstrategiaProductoComentarioModel()
+            {
+                ProdComentarioDetalleId = modelBE.ProdComentarioDetalleId,
+                ProdComentarioId = modelBE.ProdComentarioId,
+                Valorizado = modelBE.Valorizado,
+                Recomendado = modelBE.Recomendado,
+                Comentario = modelBE.Comentario,
+                CodigoConsultora = modelBE.CodigoConsultora,
+                CampaniaID = modelBE.CampaniaID,
+                FechaRegistro = modelBE.FechaRegistro,
+                FechaAprobacion = modelBE.FechaAprobacion,
+                CodTipoOrigen = modelBE.CodTipoOrigen,
+                Estado = modelBE.Estado,
+                CodigoSAP = modelBE.CodigoSAP,
+                CodigoGenerico = modelBE.CodigoGenerico
+            };
+        }
+        
         #endregion
     }
 }
