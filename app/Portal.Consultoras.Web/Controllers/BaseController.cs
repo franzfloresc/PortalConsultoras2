@@ -2422,8 +2422,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            string url = Request.Url.AbsolutePath.ToString();
-            if (url.Contains("mobile")) return true;
+            string url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            if (url.Contains("/mobile/")) return true;
             else return false;
         }
     }
