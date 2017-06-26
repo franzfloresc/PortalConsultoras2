@@ -2480,6 +2480,8 @@
 <!--FIN-->
 <!--REVISTA DIGITAL -->
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
+@if (@ViewBag.TieneRDS == true)
+{
 <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
     <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
         <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="" >
@@ -2549,7 +2551,7 @@
         </div>
     </div>
 </div>
-
+}
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
 
