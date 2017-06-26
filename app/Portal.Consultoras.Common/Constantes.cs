@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Amazon.SQS.Model;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -124,22 +117,22 @@ namespace Portal.Consultoras.Common
             // PackNuevas-PedidoAsociado.
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
+            public const int PersonalizacionShowroom = 9850;
         }
-
-
+        
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
             public const string TelefonoRequerido = "TelefonoRequerido";
         }
+
         public class TipoNivelesRiesgo
         {
             public const string Bajo = "BAJO";
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-
-
+        
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -403,6 +396,7 @@ namespace Portal.Consultoras.Common
             public const string Trueque = "T";
             public const string Canje = "C";
         }
+
         public class TipoPopUp
         {
             public const int VideoIntroductorio = 1;
@@ -414,6 +408,8 @@ namespace Portal.Consultoras.Common
             public const int Flexipago = 7;
             public const int Comunicado = 8;
             public const int RevistaDigitalSuscripcion = 9;
+            public const int Cupon = 10;
+            public const int CuponForzado = 11;
         }
 
         // Constantes de los motivos de GPR.
@@ -536,7 +532,6 @@ namespace Portal.Consultoras.Common
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
-
         public class MenuCodigo
         {
             public const string RevistaShowRoom = "ShowRoom";
@@ -546,20 +541,9 @@ namespace Portal.Consultoras.Common
             public const string CatalogoPersonalizado = "FDTC";
         }
 
-        public class ConfiguracionPais
-        {
-            public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
-            public const string RevistaDigitalSuscripcion = "RDS";
-        }
 
-        public class EstadoRDSuscripcion
-        {
             public const int SinRegistroDB = 0;
-            public const int Activo = 1;
-            public const int Desactivo = 2;
-            public const int NoPopUp = 3;
-        }
 
         public class IngresoExternoPagina
         {
@@ -605,6 +589,14 @@ namespace Portal.Consultoras.Common
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
+            public const string CargarProductosShowRoom = "Error al cargar los productos.";
+        }
+        
+        public class ConfiguracionPais
+        {
+            public const string RevistaDigital = "RD";
+            public const string RevistaDigitalReducida = "RDR";
+            public const string RevistaDigitalSuscripcion = "RDS";
         }
 
         public class TooltipLoginUsuario
@@ -621,7 +613,7 @@ namespace Portal.Consultoras.Common
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-
+        
         public class TooltipLoginPassword
         {
             public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
@@ -634,6 +626,33 @@ namespace Portal.Consultoras.Common
             public const string PR = "Los 4 últimos dígitos de<br/>tu Seguro Social(sin guiones).";
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
+        }
+
+        public class EstadoRDSuscripcion
+        {
+            public const int SinRegistroDB = 0;
+            public const int Activo = 1;
+            public const int Desactivo = 2;
+            public const int NoPopUp = 3;
+        }
+
+        public struct TablaLogica
+        {
+            public const int Plan20 = 98;
+        }
+
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
         }
     }
 }

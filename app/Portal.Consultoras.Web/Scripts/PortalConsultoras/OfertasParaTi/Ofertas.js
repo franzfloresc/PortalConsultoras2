@@ -18,10 +18,14 @@ var listaFiltros = {
 $(document).ready(function () {
 
     $("select[data-filtro-tipo]").change(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
 
     $("a[data-filtro-tipo]").click(function (event) {
+        cantMostrados = 0;
+        cantTotal = 0;
         OfertaObtenerProductos(this, true);
     });
     
@@ -163,6 +167,7 @@ function CargarFiltroRangoPrecio() {
 }
 
 function OfertaObtenerProductos(filtro, clear) {
+
     var busquedaModel = OfertaFilter(filtro);
     OfertaCargarProductos(busquedaModel, clear);
 }
@@ -389,7 +394,7 @@ function AgregarProductoAlCarrito(padre) {
     if ($.trim(tipoOrigenPantalla)[0] != '1')
         return false;
 
-    var carrito = $('.campana');
+    var carrito = $('.campana.cart_compras');
     if (carrito.length <= 0)
         return false;
 
@@ -407,8 +412,8 @@ function AgregarProductoAlCarrito(padre) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
+        'top': carrito.offset().top,
+        'left': carrito.offset().left,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
         'opacity': 0.5
