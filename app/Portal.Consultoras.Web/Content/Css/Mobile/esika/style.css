@@ -12454,3 +12454,19 @@ a{
 .content_carrusel_mas_vendidos .producto_precio{
     margin-bottom:5px;
 }
+/*SPRINT 15*/
+.content_fondo_bestSeller{
+    height:192px;
+    width:100%;
+    background:#eeeeee;
+    text-align:center;
+    padding-top:30px;
+}
+.content_fondo_bestSeller img{
+    width:auto;
+    height:248px;
+}
+.content_imagen_best{
+    overflow:hidden;
+    height: 286px;
+}
