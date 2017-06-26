@@ -9863,12 +9863,11 @@ a{
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-   
+    width: 49%;
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
-     width: 38%;
 }
 
 .select-ffc {
@@ -9878,7 +9877,7 @@ a{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 15px 6px 14px;
+    padding: 6px 30px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -10466,7 +10465,7 @@ a{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:20px;
+    line-height:17px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -11946,7 +11945,7 @@ a{
 }
 
 .saludo_paginacion{
-   
+   margin-top: 10px;
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -12050,9 +12049,8 @@ a{
 }
 
 .content_cronometro{
-     margin-top: 26px;
-    height: 25px;
-    /* margin-bottom: -28px; */;
+    margin-top: 26px;
+    margin-bottom: -28px;
 }
 .saludo_paginacion p {
 	margin:0;
@@ -12090,6 +12088,13 @@ a{
     font-size:12.5px;
     text-align:left;
 }
+
+@media (min-width: 440px) {
+    .contenedor-texto-agregar{
+       display: block;
+    }
+}
+
 .texto_cupon_black{
     color:black;
     font-family:'Lato';
@@ -12097,6 +12102,8 @@ a{
     padding-left:30px;
     font-size:12.5px;
     float:left;
+    width: calc(100% - 120px);
+    text-align:left;
 }
 .link_cupon_home{
     display:block;
@@ -12210,7 +12217,7 @@ a{
     line-height: 19px;
     color: black;
     /* font-weight: 400; */
-    margin-top: 44px;
+    margin-top: 35px;
 }
 .texto_cupon_datos b{
     font-size:16px;
@@ -12219,7 +12226,7 @@ a{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:16px;
+    margin-top:8px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12291,7 +12298,7 @@ a{
 .info_recuerda_cupon{
     float: left;
     width: 100%;
-    margin-top: 17px;
+    margin-top: 15px;
     font-family: 'Lato';
     font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */

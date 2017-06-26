@@ -281,7 +281,7 @@ namespace Portal.Consultoras.Common
             sBuilder.Append("<td><img src=\"https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/4APfP0beByYE5yN/group-6.png\"></td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("<tr>");
-            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Debes agregar alguna oferta exclusiva web (no incluye ofertas de liquidación web)</td>");
+            sBuilder.Append("<td style=\"color:#fff; font-size: 12px; font-family: 'Arial'; padding-top: 10px;\">Agrega alguna oferta exclusiva web (no incluye ofertas de liquidación web)</td>");
             sBuilder.Append("</tr>");
             sBuilder.Append("</table>");
             sBuilder.Append("</div>");

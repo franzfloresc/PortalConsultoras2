@@ -6,8 +6,11 @@
         <div class="content_monto_cupon">
             <div class="titulo_gana"><span>COMPRA</span> ALGUNA OFERTA EXCLUSIVA DE LA WEB Y <span>GANA</span></div>
             @*<div class="subtitulo_gana">UN CUPÓN DE DSCTO DE </div>*@
-            <div class="monto_gana">0</div>
-            <div class="tipo_porcentaje">%<span style="font-size:14px; display:block; margin-top:-22px;">DSCTO</span></div>
+            <div style="text-align:center;">
+                <div class="monto_gana">0</div>
+                <div class="tipo_porcentaje">%<span style="font-size:14px; display:block; margin-top:-22px;">DSCTO</span></div>
+            </div>
+            
             <hr class="clear" />
             <div class="subtitulo_gana" style="font-size:16px;">EN TODO TU PEDIDO</div>
             <div class="legal_cupon cupon-monto-limite" style="margin-left:-16px">
@@ -18,12 +21,12 @@
             <div class="texto_cupon_datos">SÓLO ACTUALIZA TUS DATOS <br /><b> ¡Y ACTIVA EL CUPÓN!</b></div>
             <div class="correo_showroon seccion-correo">
                 <input type="hidden" id="hdEmailOriginal" value="@Model.EMail">
-                <input type="text" id="txtEmailIngresado" placeholder="Ingresa tu correo " value="@Model.EMail">
+                <input type="text" id="txtEmailIngresado" placeholder="Ingresa tu correo " value="@Model.EMail" maxlength="50" onpaste="return false;" ondrop="return false;">
                 <div class="mensaje_alerta_cupon1">Tu correo no es válido</div>
                 <div class="icono_alerta_cupon"></div>
             </div>
             <div class="correo_showroon icono_celular seccion-celular">
-                <input type="text" id="txtCelular" placeholder="Ingresa tu celular " value="@Model.Celular">
+                <input type="text" id="txtCelular" placeholder="Ingresa tu celular " value="@Model.Celular" maxlength="20" onpaste="return false;" ondrop="return false;" min="0">
                 <div class="mensaje_alerta_cupon1">Tu celular no es válido</div>
                 <div class="icono_alerta_cupon"></div>
             </div>

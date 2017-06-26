@@ -1104,13 +1104,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = false;
                 if (!ViewBag.MostrarODD)
                 {
-                    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia;
-                    if (model.TieneOfertaDelDia)
+                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
+                    if (userData.TieneOfertaDelDia)
                     {
                         if (!(
-                                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
-                                || model.IndicadorGPRSB == 0)
-                            || model.CloseOfertaDelDia
+                                (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
+                                || userData.IndicadorGPRSB == 0)
+                            || userData.CloseOfertaDelDia
                         )
                         {
                             ViewBag.TieneOfertaDelDia = false;
@@ -1125,8 +1125,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
-                ViewBag.MensajePedidoDesktop = model.MensajePedidoDesktop;
-                ViewBag.MensajePedidoMobile = model.MensajePedidoMobile;
+                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
+                ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
                 #region RegaloPN
                 ViewBag.ConsultoraTieneRegaloPN = false;

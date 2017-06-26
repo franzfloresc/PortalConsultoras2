@@ -518,6 +518,8 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
         }
 
+        #region Producto Comentario
+
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             int result;
@@ -538,9 +540,11 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
-                    entidad.ProdComentarioDetalleId = result;
-                    daEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
-
+                    if (result > 0)
+                    {
+                        daEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
+                    }
+                    
                     oTransactionScope.Complete();
                 }
             }
@@ -569,12 +573,28 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP)
+        public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
+        {
+            List<BEProductoComentario> listaResumen = new List<BEProductoComentario>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetProductoComentarioResumenByListaCodSap(listaCod, separador))
+            {
+                if (reader.Read())
+                {
+                    listaResumen.Add(new BEProductoComentario(reader));
+                }
+            }
+
+            return listaResumen;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, Int16 sort)
         {
             var listaDetalle = new List<BEProductoComentarioDetalle>();
             var daEstrategia = new DAEstrategia(paisID);
 
-            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(codigoSAP))
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(codigoSAP, offset, take, sort))
             {
                 while (reader.Read())
                 {
@@ -585,12 +605,12 @@ namespace Portal.Consultoras.BizLogic
             return listaDetalle;
         }
 
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP)
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, Int16 sort)
         {
             var listaDetalle = new List<BEProductoComentarioDetalle>();
             var daEstrategia = new DAEstrategia(paisID);
 
-            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(codigoSAP))
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(codigoSAP, offset, take, sort))
             {
                 while (reader.Read())
                 {
@@ -608,9 +628,11 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
-                daEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
-                result = 1;
+                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
+                if (result > 0)
+                {
+                    daEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
+                }
             }
 
             catch (Exception)
@@ -621,5 +643,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
+        #endregion
     }
 }

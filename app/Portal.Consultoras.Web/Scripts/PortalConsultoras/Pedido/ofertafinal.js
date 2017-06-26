@@ -495,7 +495,7 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
         }
-            
+
         $('#msg-regalo-pn').html(msgRegalo);
         $('#msg-regalo-pn2').html(msgRegalo);   // mobile
         if (disclaimer != "") {
