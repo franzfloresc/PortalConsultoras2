@@ -264,6 +264,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
+            $("#divOfertaProductosLoad").hide();
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);

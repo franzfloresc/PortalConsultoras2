@@ -855,7 +855,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         Descripcion: descripcion,
         Cantidad: cantidad,
         IndicadorMontoMinimo: indicadorMontoMinimo,
-        TipoOferta: $("#hdTipoEstrategiaID").val(),
+        TipoOferta: datosEst.TipoEstrategiaID || $("#hdTipoEstrategiaID").val(),
         ClienteID_: '-1',
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0,
         OrigenPedidoWeb: OrigenPedidoWeb
@@ -998,7 +998,7 @@ function AbrirMensajeEstrategia(txt) {
     if (tipoOrigenEstrategia == 1) {
         alert_msg_pedido(txt)
     }
-    else if (tipoOrigenEstrategia == 11) {
+    else if (tipoOrigenEstrategia == 11 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
         alert_msg(txt);
     }
     else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
