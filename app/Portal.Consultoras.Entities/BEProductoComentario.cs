@@ -32,12 +32,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public Int16 Estado { get; set; }
 
-        [DataMember]
-        public Int16 PorcAprobados { get; set; }
-
-        [DataMember]
-        public Int16 PorcRecomendados { get; set; }
-
         public BEProductoComentario()
         { }
 
@@ -66,12 +60,6 @@ namespace Portal.Consultoras.Entities
 
             if (row.HasColumn("Estado"))
                 Estado = Convert.ToInt16(row["Estado"]);
-
-            if (row.HasColumn("PorcAprob"))
-                PorcAprobados = Convert.ToInt16(row["PorcAprob"]);
-
-            if (row.HasColumn("PorcReco"))
-                PorcRecomendados = Convert.ToInt16(row["PorcReco"]);
         }
     }
 }

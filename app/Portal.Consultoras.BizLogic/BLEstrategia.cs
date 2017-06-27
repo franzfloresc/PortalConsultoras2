@@ -557,12 +557,12 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSap)
         {
             BEProductoComentario entidad = null;
             var daEstrategia = new DAEstrategia(paisID);
 
-            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSAP))
+            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSap))
             {
                 if (reader.Read())
                 {
@@ -573,21 +573,21 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        //public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
-        //{
-        //    List<BEProductoComentario> listaResumen = new List<BEProductoComentario>();
-        //    var daEstrategia = new DAEstrategia(paisID);
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            BEProductoComentarioDetalle entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
 
-        //    using (var reader = daEstrategia.GetProductoComentarioResumenByListaCodSap(listaCod, separador))
-        //    {
-        //        if (reader.Read())
-        //        {
-        //            listaResumen.Add(new BEProductoComentario(reader));
-        //        }
-        //    }
+            using (var reader = daEstrategia.GetUltimoProductoComentarioByCodigoSap(codigoSap))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentarioDetalle(reader);
+                }
+            }
 
-        //    return listaResumen;
-        //}
+            return entidad;
+        }
 
         public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
         {

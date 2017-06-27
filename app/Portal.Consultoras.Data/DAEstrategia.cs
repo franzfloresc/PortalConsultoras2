@@ -458,12 +458,11 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetProductoComentarioResumenByListaCodSap(string listaCod, string separador)
+        public IDataReader GetUltimoProductoComentarioByCodigoSap(string codigoSap)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUltimoProductoComentarioByCodSap"))
             {
-                Context.Database.AddInParameter(command, "@ListaCod", DbType.String, listaCod);
-                Context.Database.AddInParameter(command, "@Separador", DbType.String, separador);
+                Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, codigoSap);
                 return Context.ExecuteReader(command);
             }
         }

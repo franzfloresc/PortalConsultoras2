@@ -2085,15 +2085,15 @@ namespace Portal.Consultoras.Service
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
 
-        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
+        public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
-            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSAP);
+            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);
         }
 
-        //public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
-        //{
-        //    return blEstrategia.GetProductoComentarioResumenByListaCodSap(paisID, listaCod, separador);
-        //}
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            return blEstrategia.GetUltimoProductoComentarioByCodigoSap(paisID, codigoSap);
+        }
 
         public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
         {
