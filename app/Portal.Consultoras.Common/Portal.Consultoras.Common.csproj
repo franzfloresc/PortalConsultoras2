@@ -122,6 +122,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseUtilities.cs" />
+    <Compile Include="ClientIP.cs" />
     <Compile Include="CollectionExtension.cs" />
     <Compile Include="BETuplaEditable.cs" />
     <Compile Include="BEGrid.cs" />
