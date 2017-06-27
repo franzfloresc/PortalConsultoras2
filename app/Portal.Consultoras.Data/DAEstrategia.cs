@@ -487,6 +487,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Estado", DbType.Int16, filter.Estado);
                 Context.Database.AddInParameter(command, "@Tipo", DbType.Int16, filter.Tipo);
                 Context.Database.AddInParameter(command, "@Codigo", DbType.String, filter.Valor);
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, filter.CampaniaID);
                 Context.Database.AddInParameter(command, "@Limite", DbType.Int32, filter.Limite);
                 Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, filter.Cantidad);
                 Context.Database.AddInParameter(command, "@Ordenar", DbType.Int16, filter.Ordenar);
