@@ -494,15 +494,6 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public bool UpdCantidadProductoComentario(int prodComentarioId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadProductoComentario"))
-            {
-                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
-                return true;
-            }
-        }
-
         public bool UpdAprobadosProductoComentario(int prodComentarioId, bool esRecomendado)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAprobadosProductoComentario"))

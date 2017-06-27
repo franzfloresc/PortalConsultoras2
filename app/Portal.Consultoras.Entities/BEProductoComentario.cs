@@ -18,13 +18,13 @@ namespace Portal.Consultoras.Entities
         public string CodigoGenerico { get; set; }
 
         [DataMember]
-        public int CantComentarios { get; set; }
-
-        [DataMember]
         public int CantAprobados { get; set; }
 
         [DataMember]
         public int CantRecomendados { get; set; }
+
+        [DataMember]
+        public int PromValorizado { get; set; }
 
         [DataMember]
         public DateTime FechaRegistro { get; set; }
@@ -46,14 +46,14 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("CodigoGenerico"))
                 CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);
 
-            if (row.HasColumn("CantComentarios"))
-                CantComentarios = Convert.ToInt32(row["CantComentarios"]);
-
             if (row.HasColumn("CantAprobados"))
                 CantAprobados = Convert.ToInt32(row["CantAprobados"]);
 
             if (row.HasColumn("CantRecomendados"))
                 CantRecomendados = Convert.ToInt32(row["CantRecomendados"]);
+
+            if (row.HasColumn("PromValorizado"))
+                PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
             if (row.HasColumn("FechaRegistro"))
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);

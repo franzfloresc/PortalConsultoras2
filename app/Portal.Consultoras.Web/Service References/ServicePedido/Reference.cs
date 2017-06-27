@@ -4520,9 +4520,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantAprobadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantComentariosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantRecomendadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4539,6 +4536,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProdComentarioIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PromValorizadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -4559,19 +4559,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantAprobadosField.Equals(value) != true)) {
                     this.CantAprobadosField = value;
                     this.RaisePropertyChanged("CantAprobados");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CantComentarios {
-            get {
-                return this.CantComentariosField;
-            }
-            set {
-                if ((this.CantComentariosField.Equals(value) != true)) {
-                    this.CantComentariosField = value;
-                    this.RaisePropertyChanged("CantComentarios");
                 }
             }
         }
@@ -4650,6 +4637,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProdComentarioIdField.Equals(value) != true)) {
                     this.ProdComentarioIdField = value;
                     this.RaisePropertyChanged("ProdComentarioId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PromValorizado {
+            get {
+                return this.PromValorizadoField;
+            }
+            set {
+                if ((this.PromValorizadoField.Equals(value) != true)) {
+                    this.PromValorizadoField = value;
+                    this.RaisePropertyChanged("PromValorizado");
                 }
             }
         }
@@ -9720,9 +9720,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantComenRecomField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantComentariosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9885,6 +9882,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal PrecioUnitarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PromValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10035,19 +10035,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantComenRecomField.Equals(value) != true)) {
                     this.CantComenRecomField = value;
                     this.RaisePropertyChanged("CantComenRecom");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CantComentarios {
-            get {
-                return this.CantComentariosField;
-            }
-            set {
-                if ((this.CantComentariosField.Equals(value) != true)) {
-                    this.CantComentariosField = value;
-                    this.RaisePropertyChanged("CantComentarios");
                 }
             }
         }
@@ -10750,6 +10737,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioUnitarioField.Equals(value) != true)) {
                     this.PrecioUnitarioField = value;
                     this.RaisePropertyChanged("PrecioUnitario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PromValorizado {
+            get {
+                return this.PromValorizadoField;
+            }
+            set {
+                if ((this.PromValorizadoField.Equals(value) != true)) {
+                    this.PromValorizadoField = value;
+                    this.RaisePropertyChanged("PromValorizado");
                 }
             }
         }

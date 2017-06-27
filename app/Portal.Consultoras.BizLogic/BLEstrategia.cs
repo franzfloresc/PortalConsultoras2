@@ -540,11 +540,7 @@ namespace Portal.Consultoras.BizLogic
                     }
 
                     result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
-                    if (result > 0)
-                    {
-                        daEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
-                    }
-                    
+
                     oTransactionScope.Complete();
                 }
             }

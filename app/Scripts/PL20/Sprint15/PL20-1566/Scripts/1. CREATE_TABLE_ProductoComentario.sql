@@ -13,10 +13,9 @@ CREATE TABLE dbo.ProductoComentario
 (
 	ProdComentarioId INT PRIMARY KEY IDENTITY(1,1) NOT NULL, 	
 	CodigoSap VARCHAR(20) NOT NULL,
-	CodigoGenerico VARCHAR(20) NOT NULL,
-	CantComentarios INT NOT NULL,
-	CantAprobados INT NOT NULL,
-	CantRecomendados INT NOT NULL,
+	CantAprobados INT NULL,
+	CantRecomendados INT NULL,
+	PromValorizado INT NULL,
 	FechaRegistro DATETIME NOT NULL,
 	Estado TINYINT NOT NULL
 )
