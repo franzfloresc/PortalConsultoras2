@@ -22,7 +22,10 @@
 
     var setting = {
         urlListarComentarios: '',
-        urlRegistrarComentario: ''
+        urlRegistrarComentario: '',
+        urlImagenUsuarioDefault: '',
+        cantidadCrecienteMostrarInicial: 0,
+        cantidadCrecienteMostrar: 10
     };
 
     var _bindEvents = function () {
@@ -85,15 +88,16 @@
 
     var _listarComentarios = function () {
         var model = {
-            codigoSAP: '0123456789'
+            codigoSAP: '0123456789',
+            cantidadMostrar: setting.cantidadCrecienteMostrarInicial,
+
         };
         var listarComentariosPromise = _listarComentariosPromise(model);
 
         $.when(listarComentariosPromise).then(function (listarComentariosResponse) {
             if (checkTimeout(listarComentariosResponse)) {
                 if (listarComentariosResponse.success) {
-                    var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
-                    _buildHtmlSeccionComentarios(array);
+                    _buildHtmlSeccionComentarios(listarComentariosResponse.data);
                 } else {
                     alert(listarComentariosResponse.message);
                 }
@@ -105,20 +109,29 @@
 
     var _buildHtmlSeccionComentarios = function (listaComentarios) {
         var htmlSeccionComentarios = '';
+        var listaContenedoresEstrellasId = [];
+
         $.each(listaComentarios, function (index, item) {
+            var contenedorStarsId = 'puntuacion_usuario_visible-' + (index++);
+            listaContenedoresEstrellasId.push({ contenedorStarsId: contenedorStarsId, cantidadEstellas: item.Valorizado });
+
             htmlSeccionComentarios += '';
             htmlSeccionComentarios += '<div class="content_comentario_usuario">';
-            htmlSeccionComentarios += '<div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>';
-            htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
-            htmlSeccionComentarios += '<div class="puntuacion_usuario_visible"></div>';
-            htmlSeccionComentarios += '<div class="nombre_usuario_comentario">Sandra Arce</div>';
-            htmlSeccionComentarios += '<div class="fecha_comentario">03 Junio 2017</div>';
+            htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
+            htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
             htmlSeccionComentarios += '</div>';
-            htmlSeccionComentarios += '<div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>';
+            htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
+            htmlSeccionComentarios += '<div class="' + contenedorStarsId + '"></div>';
+            htmlSeccionComentarios += '<div class="nombre_usuario_comentario">' + item.NombreConsultora + '</div>';
+            htmlSeccionComentarios += '<div class="fecha_comentario">' + item.FechaRegistroFormateada + '</div>';
+            htmlSeccionComentarios += '</div>';
+            htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + (item.Comentario ? item.Comentario : '') + '</div>';
             htmlSeccionComentarios += '</div>';
         });
 
         $(elements.contenedorComentarios).append(htmlSeccionComentarios);
+
+        _renderizarEstrellasPorContenedor(listaContenedoresEstrellasId);
     };
 
     var _mostrarContenedorValoracion = function () {
@@ -157,6 +170,24 @@
         _bindRate();
         $(elements.hdRecomendado).val('');
         $(elements.txtComentario).val('');
+    };
+
+    var _renderizarEstrellasPorContenedor = function (listaContenedoresEstrellasId) {
+        
+        $.each(listaContenedoresEstrellasId, function (index, item) {
+            
+            $('.' + item.contenedorStarsId).rateYo({
+                rating: item.cantidadEstellas,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "19px",
+                spacing: "5px",
+                fullStar: true,
+                readOnly: true
+            })
+        });
+
     };
 
     var _registrarComentarioPromise = function (model) {
@@ -202,6 +233,7 @@
     var _initializer = function (parameters) {
         setting.urlListarComentarios = parameters.urlListarComentarios;
         setting.urlRegistrarComentario = parameters.urlRegistrarComentario;
+        setting.urlImagenUsuarioDefault = parameters.urlImagenUsuarioDefault;
         _bindEvents();
         _bindRate();
         _listarComentarios();
