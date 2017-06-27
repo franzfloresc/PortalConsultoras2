@@ -12096,14 +12096,16 @@ a{
 }
 
 .texto_cupon_black{
-    color:black;
-    font-family:'Lato';
+    color: #000;
+    font-family: 'Lato';
     line-height: 16px;
-    padding-left:30px;
-    font-size:12.5px;
-    float:left;
-    width: calc(100% - 120px);
-    text-align:left;
+    padding-left: 20px;
+    font-size: 12.5px;
+    float: right;
+    width: calc(100% - 110px);
+    width:-moz-calc(100% -110px);
+    width:-webkit-calc(100% - 110px);
+    text-align: left;
 }
 .link_cupon_home{
     display:block;
@@ -12596,6 +12598,7 @@ a{
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 0.4px;
+    padding-top: 1px;
     padding-left: 25px;
     cursor: pointer;
     background: url(../../../Images/PL20/icono_agregar.png) no-repeat;
