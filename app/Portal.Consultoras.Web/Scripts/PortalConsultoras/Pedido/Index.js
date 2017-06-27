@@ -3477,7 +3477,7 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
         return true;
     }
-    alert("ok")
+    
     Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV);
 }
 function InfoCommerceGoogleProductoRecomendados() {
