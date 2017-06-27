@@ -36,12 +36,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpGet]
-        public JsonResult ListarComentarios(string codigoSAP, int cantidadMostrar)
+        public JsonResult ListarComentarios(string codigoSAP, int cantidadMostrar, int orden)
         {
             try
             {
                 var cantidadConstante = 10;
-                var listaComentarios = ListarComentariosServicio(codigoSAP, cantidadMostrar, cantidadConstante);
+                var listaComentarios = ListarComentariosServicio(codigoSAP, cantidadMostrar, cantidadConstante, orden);
                 return Json(new { success = true, data = listaComentarios }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<EstrategiaProductoComentarioModel> ListarComentariosServicio(string codigoSAP, int cantidadMostrar, int cantidadConstante)
+        private List<EstrategiaProductoComentarioModel> ListarComentariosServicio(string codigoSAP, int cantidadMostrar, int cantidadConstante, int orden)
         {
             var listaComentarios = new List<EstrategiaProductoComentarioModel>();
 
@@ -65,7 +65,7 @@ namespace Portal.Consultoras.Web.Controllers
                 filter.Valor = codigoSAP;
                 filter.Limite = cantidadMostrar;
                 filter.Cantidad = cantidadConstante;
-                filter.Ordenar = 0;
+                filter.Ordenar = Convert.ToInt16(orden);
 
                 var listarComentariosBE = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, filter).ToList();
                 listaComentarios = listarComentariosBE.Select(x => MapearProductoComentarioBEAProductoComentarioModel(x)).ToList();
