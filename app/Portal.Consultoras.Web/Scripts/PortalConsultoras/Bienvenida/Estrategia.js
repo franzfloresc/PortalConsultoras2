@@ -605,7 +605,9 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
 
-    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+    var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
+                                                  || $(objInput).parents(".content_btn_agregar_detalle").find("input.rango_cantidad_pedido").val()
+                                                  || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     origenPedidoWebEstrategia =
         $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
