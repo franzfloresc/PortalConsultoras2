@@ -194,13 +194,13 @@ namespace Portal.Consultoras.Entities
         public string CodigoGenerico { get; set; }
 
         [DataMember]
-        public int CantComentarios { get; set; }
-
-        [DataMember]
         public int CantComenAprob { get; set; }
 
         [DataMember]
         public int CantComenRecom { get; set; }
+
+        [DataMember]
+        public int PromValorizado { get; set; }
 
         [DataMember]
         public BETipoEstrategia TipoEstrategia { get; set; } 
@@ -395,14 +395,14 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoGenerico"))
                 CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);
 
-            if (DataRecord.HasColumn(row, "CantComentarios"))
-                CantComentarios = Convert.ToInt32(row["CantComentarios"]);
-
             if (DataRecord.HasColumn(row, "CantComenAprob"))
                 CantComenAprob = Convert.ToInt32(row["CantComenAprob"]);
 
             if (DataRecord.HasColumn(row, "CantComenRecom"))
                 CantComenRecom = Convert.ToInt32(row["CantComenRecom"]);
+
+            if (DataRecord.HasColumn(row, "PromValorizado"))
+                PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

@@ -165,11 +165,17 @@
   <wsdl:message name="IPedidoService_InsertarProductoComentarioDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarProductoComentarioDetalleResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductoComentarioByCodSap_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoComentarioByCodSap" />
+  <wsdl:message name="IPedidoService_GetProductoComentarioByCodigoSap_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComentarioByCodigoSap" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_GetProductoComentarioByCodSap_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetProductoComentarioByCodSapResponse" />
+  <wsdl:message name="IPedidoService_GetProductoComentarioByCodigoSap_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductoComentarioByCodigoSapResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetUltimoProductoComentarioByCodigoSap_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUltimoProductoComentarioByCodigoSap" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetUltimoProductoComentarioByCodigoSap_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUltimoProductoComentarioByCodigoSapResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetListaProductoComentarioDetalleResumen_InputMessage">
     <wsdl:part name="parameters" element="tns:GetListaProductoComentarioDetalleResumen" />
@@ -2194,9 +2200,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" message="tns:IPedidoService_InsertarProductoComentarioDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse" message="tns:IPedidoService_InsertarProductoComentarioDetalle_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetProductoComentarioByCodSap">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap" message="tns:IPedidoService_GetProductoComentarioByCodSap_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse" message="tns:IPedidoService_GetProductoComentarioByCodSap_OutputMessage" />
+    <wsdl:operation name="GetProductoComentarioByCodigoSap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap" message="tns:IPedidoService_GetProductoComentarioByCodigoSap_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSapResponse" message="tns:IPedidoService_GetProductoComentarioByCodigoSap_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimoProductoComentarioByCodigoSap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap" message="tns:IPedidoService_GetUltimoProductoComentarioByCodigoSap_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSapResponse" message="tns:IPedidoService_GetUltimoProductoComentarioByCodigoSap_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetListaProductoComentarioDetalleResumen">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen" message="tns:IPedidoService_GetListaProductoComentarioDetalleResumen_InputMessage" />
@@ -3682,8 +3692,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProductoComentarioByCodSap">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap" style="document" />
+    <wsdl:operation name="GetProductoComentarioByCodigoSap">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimoProductoComentarioByCodigoSap">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6791,8 +6810,17 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetProductoComentarioByCodSap">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap" style="document" />
+    <wsdl:operation name="GetProductoComentarioByCodigoSap">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUltimoProductoComentarioByCodigoSap">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
