@@ -16,64 +16,7 @@
     </style>
 }
 <!--DETALLE FICHA PRODUCTO-->
-<div>
-    <div class="fondo_set_best_seller">
-        <div class="content_belcorp">
-            <div class="content_solo_ficha_set">
-                <div class="content_producto_set_best_seller">
-                    <div>
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_producto_best_seller">
-                    </div>
-
-                    <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
-                        <div class="texto_compartelo">Compártelo con tus clientes</div>
-                        <a class="btn_compartir_facebook_ficha" style="float: left;">
-                            <img src="/Content/Images/Mobile/Esika/facebook2.png">
-                        </a>
-                        <hr class="clear">
-                    </div>
-                    <hr class="clear">
-                </div>
-                <div class="content_detalle_set">
-                    <div class="content_left_ficha">
-                        <div class="producto_best_detalle">ESIKA</div>
-                        <div class="titulo_set">LABIAL HIDRACOLOR</div>
-                        <div class="producto_best_detalle">4g/. 14oz.</div>
-                    </div>
-                    <div class="content_right_ficha" style="text-align: right">
-                        <div class="precio_valorizado_showroom">S/. 144.00</div>
-                        <div class="precio_oferta_venta">
-                            Precio para ti <b>S/. 54.00</b>
-                        </div>
-
-                        <div class="ganancia_showroom">Gana S/. 90.00</div>
-                    </div>
-                    <hr class="clear">
-                    <div class="content_puntuacion_detalle">
-                        <div class="rateyo-readonly-widg"></div>
-                        <div class="texto_puntuacion_detalle">(346 recomendaciones)</div>
-                    </div>
-
-                    <div class="comentarios_best_seller_ficha">
-                        “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche. 
-                      Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
-                        - Sandra A.
-                    </div>
-                    <div class="liquidacion_rango_home">
-                        <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                        <div class="liquidacion_rango_right_pedido">
-                            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
-                        </div>
-                    </div>
-                    <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
-                </div>
-
-            </div>
-            <hr class="clear">
-        </div>
-    </div>
-</div>
+<div id="contenedor-detalle-producto"></div>
 <!--FIN-->
 <hr class="clear" />
 <!--CARRUSEL-->
@@ -350,6 +293,66 @@
     </div>
 </div>
 <!--FIN-->
+<script id="template-detalle-producto" type="text/x-handlebars-template">
+    <div>
+        <div class="fondo_set_best_seller">
+            <div class="content_belcorp">
+                <div class="content_solo_ficha_set">
+                    <div class="content_producto_set_best_seller">
+                        <div>
+                            <img src={{FotoProducto01}} class="imagen_producto_best_seller">
+                        </div>
+
+                        <div class="compartir_redes_ficha" style="padding-left: 0px; margin-top: 20px;">
+                            <div class="texto_compartelo">Compártelo con tus clientes</div>
+                            <a class="btn_compartir_facebook_ficha" style="float: left;">
+                                <img src="/Content/Images/Mobile/Esika/facebook2.png">
+                            </a>
+                            <hr class="clear">
+                        </div>
+                        <hr class="clear">
+                    </div>
+                    <div class="content_detalle_set">
+                        <div class="content_left_ficha">
+                            <div class="producto_best_detalle">{{DescripcionMarca}}</div>
+                            <div class="titulo_set">LABIAL HIDRACOLOR</div>
+                            <div class="producto_best_detalle">4g/. 14oz.</div>
+                        </div>
+                        <div class="content_right_ficha" style="text-align: right">
+                            <div class="precio_valorizado_showroom">{{Simbolo}} {{PrecioTachado}}</div>
+                            <div class="precio_oferta_venta">
+                                Precio para ti <b>">{{Simbolo}} 54.00</b>
+                            </div>
+
+                            <div class="ganancia_showroom">Gana ">{{Simbolo}} 90.00</div>
+                        </div>
+                        <hr class="clear">
+                        <div class="content_puntuacion_detalle">
+                            <div class="rateyo-readonly-widg"></div>
+                            <div class="texto_puntuacion_detalle">(346 recomendaciones)</div>
+                        </div>
+
+                        <div class="comentarios_best_seller_ficha">
+                            “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.
+                            Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
+                            - Sandra A.
+                        </div>
+                        <div class="liquidacion_rango_home">
+                            <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+                            <div class="liquidacion_rango_right_pedido">
+                                <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                                <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                            </div>
+                        </div>
+                        <a class="boton_Agregalo_home btn_aregar_set" data-btn-agregar-sr="">AGRÉGALO</a>
+                    </div>
+
+                </div>
+                <hr class="clear">
+            </div>
+        </div>
+    </div>
+</script>
 <!--JAIME - LA CLASE QUE SE DEBE AÑADIR ES "respuesta_valida" PARA AMBOS CASOS-->
 @section scripts{
     <script type="text/javascript">
@@ -403,10 +406,14 @@
                 urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")',
                 urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
             });
+            masVendidosModule.ini({
+                baseUrl: baseUrl
+            });
         });
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
 }
