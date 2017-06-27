@@ -175,11 +175,13 @@ BEGIN
 	FROM Pais P (nolock)
 	inner join ConfiguracionValidacion CV (nolock) on CV.PaisID = P.PaisID
 	inner join Usuario U (nolock) on U.CodigoUsuario = @CodigoUsuario
+	inner join UsuarioRol UR (nolock) ON U.CodigoUsuario = UR.CodigoUsuario
+	inner join Rol Ro with(nolock) ON UR.RolID = Ro.RolID
 	inner join ods.Region R (nolock) on R.RegionID = @RegionID
 	inner join ods.Zona Z (nolock) on Z.ZonaID = @ZonaID
 	inner join ods.Cronograma oCr (nolock) on oCr.ZonaID = @ZonaID AND oCr.RegionID = @RegionID
 	inner join ods.Campania Ca (nolock) on oCr.CampaniaID = Ca.CampaniaID
 	left join Cronograma Cr (nolock) on oCr.RegionID = Cr.RegionID and oCr.ZonaID = Cr.ZonaID and oCr.CampaniaID = Cr.CampaniaID
-	WHERE P.PaisID = @PaisID and Ca.Codigo = @Campania;
+	WHERE P.PaisID = @PaisID and Ro.Sistema = 1 and Ca.Codigo = @Campania;
 END
 GO
