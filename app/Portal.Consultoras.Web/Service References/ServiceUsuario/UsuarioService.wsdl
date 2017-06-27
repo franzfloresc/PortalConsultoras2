@@ -1951,51 +1951,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-    <wsdl:operation name="GetConfiguracionPais">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidarConfiguracionPaisDetalle">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="RecuperarContrasenia">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ActualizarMisDatos">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarMisDatos" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerUsuarioConfiguracion">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" style="document" />
   <wsdl:service name="UsuarioService">
     <wsdl:port name="BasicHttpBinding_IUsuarioService" binding="tns:BasicHttpBinding_IUsuarioService">
       <soap:address location="http://localhost:41615/UsuarioService.svc" />
