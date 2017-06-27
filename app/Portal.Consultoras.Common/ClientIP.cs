@@ -29,13 +29,10 @@ namespace Portal.Consultoras.Common
                         }
                 }
                 else
-                {
                     if (ValidIP(ipString, skipPrivate))
-                    {
                         IP = ipString;
-                        break;
-                    }
-                }
+
+                if (IP != null) break;
             }
 
             if (IP == null) IP = request.UserHostAddress;
@@ -55,7 +52,7 @@ namespace Portal.Consultoras.Common
         {
             IPAddress ipAddr;
 
-            ip = ip == null ? String.Empty : ip.Trim();
+            ip = ip == null ? String.Empty : ip.Replace(Convert.ToChar(9), ' ').Trim();
 
             if (0 == ip.Length
                 || false == IPAddress.TryParse(ip, out ipAddr)
