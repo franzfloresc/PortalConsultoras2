@@ -135,7 +135,8 @@ namespace Portal.Consultoras.BizLogic
                             {
                                 Importante = 1,
                                 Descripcion = string.Join(", ", Concurso.Premios.Select(p => p.Descripcion).ToArray()),
-                                Mensaje = Concurso.IndicadorPremiacionPedido ? Incentivos.TextoIndicadorPremiacion : string.Format(Incentivos.TextoMontoPremiacion, Concurso.MontoPremiacionPedido)
+                                Mensaje = Concurso.IndicadorPremiacionPedido ? (Concurso.MontoPremiacionPedido > 1 ? Incentivos.TextoMontoPremiacion : Incentivos.TextoIndicadorPremiacion)
+                                                                         : string.Format(Incentivos.TextoMontoPremiacion, Concurso.MontoPremiacionPedido)
                             } };
                         }
                         else
@@ -145,7 +146,7 @@ namespace Portal.Consultoras.BizLogic
                                 Premio.Importante = 0;
                                 if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
                                 {
-                                    Premio.Mensaje = Concurso.IndicadorPremiacionPedido ? Incentivos.TextoIndicadorPremiacion
+                                    Premio.Mensaje = Concurso.IndicadorPremiacionPedido ? (Concurso.MontoPremiacionPedido > 1 ? Incentivos.TextoMontoPremiacion : Incentivos.TextoIndicadorPremiacion)
                                         : string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
                                 }
                                 else if (Concurso.PuntajeTotal < Premio.PuntajeMinimo)
@@ -153,9 +154,9 @@ namespace Portal.Consultoras.BizLogic
                                     if (Concurso.FechaVentaRetail <= DateTime.Today)
                                     {
                                         Premio.Mensaje = string.Format(Incentivos.TextoCompraENBelcenter, Concurso.FechaVentaRetail.ToString("dd MMMM"));
+                                        Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
+                                        Premio.Importante = 2;
                                     }
-                                    Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
-                                    Premio.Importante = 2;
                                 }
                             }
                         }
