@@ -417,12 +417,13 @@ function ArmarCarouselLiquidaciones(data) {
         arrayOfertas.push(itemOferta);
     });
 
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayOfertas
-        }
-    })
+    //EPD-2828
+    //dataLayer.push({
+    //    'event': 'productImpression',
+    //    'ecommerce': {
+    //        'impressions': arrayOfertas
+    //    }
+    //})
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;

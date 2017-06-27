@@ -504,7 +504,6 @@ function TagManagerCarruselPrevia() {
     };
 
     arrayEstrategia.push(impresionRecomendado);
-
     dataLayer.push({
         'event': 'productImpression',
         'ecommerce': {
@@ -537,7 +536,6 @@ function TagManagerCarruselSiguiente() {
     };
 
     arrayEstrategia.push(impresionRecomendado);
-
     dataLayer.push({
         'event': 'productImpression',
         'ecommerce': {

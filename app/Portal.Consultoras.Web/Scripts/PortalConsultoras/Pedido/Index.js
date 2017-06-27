@@ -55,12 +55,13 @@ $(document).ready(function () {
    
 
     $(document).on('change', '.seleccion_pagina select', function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ver lista de productos',
-            'label': $(this).find('option:selected').text()
-        });
+        //EPD-2828
+        //dataLayer.push({
+        //    'event': 'virtualEvent',
+        //    'category': 'Ingresa tu pedido',
+        //    'action': 'Ver lista de productos',
+        //    'label': $(this).find('option:selected').text()
+        //});
     });
     $('#txtClienteDescripcion').autocomplete({
         source: baseUrl + "Pedido/AutocompleteByCliente",
@@ -3387,15 +3388,16 @@ function CambioPagina(obj) {
     if (rpt.page == undefined) {
         return false;
     }
-
+        
     var accion = obj.attr("data-paginacion");
     if (accion === "back" || accion === "next") {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ir a página',
-            'label': 'Pág. ' + rpt.page
-        });
+        //EPD-2828
+        //dataLayer.push({
+        //    'event': 'virtualEvent',
+        //    'category': 'Ingresa tu pedido',
+        //    'action': 'Ir a página',
+        //    'label': 'Pág. ' + rpt.page
+        //});
     }
     CargarDetallePedido(rpt.page, rpt.rows);
     return true;

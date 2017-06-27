@@ -376,12 +376,14 @@ function TagManagerOfertaLiquidacion() {
         arrayEstrategia.push(impresionofertaLiquidada);
     }
 
-    if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-    }
+    //EPD-2828
+    //if (arrayEstrategia.length > 0) {
+    //    dataLayer.push({
+    //        'event': 'productImpression',
+    //        'ecommerce': {
+    //            'impressions': arrayEstrategia
+    //        }
+    //    });
+    //}
+    //Fin EPD-2828
 }
