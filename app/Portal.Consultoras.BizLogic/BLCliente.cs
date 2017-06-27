@@ -402,6 +402,19 @@ namespace Portal.Consultoras.BizLogic
                         }
 
                         if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);
+
+                        if(!deleted)
+                        {
+                            lstResponse.Add(new BEClienteResponse()
+                            {
+                                ClienteID = clienteDB.ClienteID,
+                                ConsultoraID = clienteDB.ConsultoraID,
+                                ClienteIDSB = clienteDB.ClienteIDSB,
+                                CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO,
+                                MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO]
+                            });
+                            continue;
+                        }
                     }
                 }
 

@@ -748,6 +748,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NUMEROTELEFONOEXISTE = "10";
                 public const string ERROR_CLIENTENOREGISTRADO = "11";
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
+                public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
             }
 
             public static Dictionary<string, string> Message
@@ -769,6 +770,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
+                        {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                     });
                 }
             }
