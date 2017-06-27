@@ -20,14 +20,22 @@ CREATE PROCEDURE GetListaProductoComentarioDetalleAprobar
 )
 AS
 BEGIN
-	SELECT c.ProdComentarioId, d.ProdComentarioDetalleId, d.Valorizado, 
-	d.Recomendado, d.Comentario, CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
-	d.CodigoConsultora
+	SELECT 
+	c.ProdComentarioId, 
+	d.ProdComentarioDetalleId, 
+	d.CodigoConsultora,
+	CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
+	d.Valorizado, 
+	d.Comentario, 
+	d.Estado
 	FROM ProductoComentario c 
 	INNER JOIN ProductoComentarioDetalle d ON c.ProdComentarioId = d.ProdComentarioId
 		AND d.Estado = @Estado
 	WHERE 
-		c.CodigoSap = CASE WHEN @Tipo = 1 THEN @Codigo ELSE '' END
+		c.CodigoSap =	CASE 
+						WHEN @Tipo = 1 THEN @Codigo 
+						ELSE '' 
+						END
 		AND c.Estado = 1
 	ORDER BY c.FechaRegistro
 	OFFSET @Limite ROWS
