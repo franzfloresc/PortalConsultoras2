@@ -8,4 +8,3 @@ BEGIN
     DROP PROCEDURE dbo.AprobarProductoComentarioDetalle
 END
 GO
-

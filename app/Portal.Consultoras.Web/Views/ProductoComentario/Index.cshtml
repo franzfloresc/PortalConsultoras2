@@ -70,9 +70,14 @@
 <div id="loadingScreen"></div>
 
 @section scripts{
+    <script src="~/Scripts/PortalConsultoras/ProductoComentario/ProductoComentarioAdmModule.js"></script>
     <script type="text/javascript">
         var listarCampaniasUrl = '@Url.Action("ListarCampanias", "Campania")';
+        jQuery(document).ready(function () {
+            settings = {
+                listarCampaniasUrl: listarCampaniasUrl
+            };
+            productoComentarioAdmModule.ini(settings);
+        });
     </script>
-    <script src="~/Scripts/PortalConsultoras/ProductoComentario/ProductoComentarioModule.js"></script>
-    <script src="~/Scripts/PortalConsultoras/ProductoComentario/ProductoComentario.js"></script>
 }

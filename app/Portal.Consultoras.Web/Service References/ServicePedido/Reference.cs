@@ -4520,9 +4520,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantAprobadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantComentariosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantRecomendadosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -4538,13 +4535,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short PorcAprobadosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short PorcRecomendadosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProdComentarioIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PromValorizadoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -4565,19 +4559,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantAprobadosField.Equals(value) != true)) {
                     this.CantAprobadosField = value;
                     this.RaisePropertyChanged("CantAprobados");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CantComentarios {
-            get {
-                return this.CantComentariosField;
-            }
-            set {
-                if ((this.CantComentariosField.Equals(value) != true)) {
-                    this.CantComentariosField = value;
-                    this.RaisePropertyChanged("CantComentarios");
                 }
             }
         }
@@ -4648,32 +4629,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public short PorcAprobados {
-            get {
-                return this.PorcAprobadosField;
-            }
-            set {
-                if ((this.PorcAprobadosField.Equals(value) != true)) {
-                    this.PorcAprobadosField = value;
-                    this.RaisePropertyChanged("PorcAprobados");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short PorcRecomendados {
-            get {
-                return this.PorcRecomendadosField;
-            }
-            set {
-                if ((this.PorcRecomendadosField.Equals(value) != true)) {
-                    this.PorcRecomendadosField = value;
-                    this.RaisePropertyChanged("PorcRecomendados");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int ProdComentarioId {
             get {
                 return this.ProdComentarioIdField;
@@ -4682,6 +4637,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProdComentarioIdField.Equals(value) != true)) {
                     this.ProdComentarioIdField = value;
                     this.RaisePropertyChanged("ProdComentarioId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PromValorizado {
+            get {
+                return this.PromValorizadoField;
+            }
+            set {
+                if ((this.PromValorizadoField.Equals(value) != true)) {
+                    this.PromValorizadoField = value;
+                    this.RaisePropertyChanged("PromValorizado");
                 }
             }
         }
@@ -9752,9 +9720,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantComenRecomField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CantComentariosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9917,6 +9882,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal PrecioUnitarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PromValorizadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10067,19 +10035,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantComenRecomField.Equals(value) != true)) {
                     this.CantComenRecomField = value;
                     this.RaisePropertyChanged("CantComenRecom");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CantComentarios {
-            get {
-                return this.CantComentariosField;
-            }
-            set {
-                if ((this.CantComentariosField.Equals(value) != true)) {
-                    this.CantComentariosField = value;
-                    this.RaisePropertyChanged("CantComentarios");
                 }
             }
         }
@@ -10782,6 +10737,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioUnitarioField.Equals(value) != true)) {
                     this.PrecioUnitarioField = value;
                     this.RaisePropertyChanged("PrecioUnitario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PromValorizado {
+            get {
+                return this.PromValorizadoField;
+            }
+            set {
+                if ((this.PromValorizadoField.Equals(value) != true)) {
+                    this.PromValorizadoField = value;
+                    this.RaisePropertyChanged("PromValorizado");
                 }
             }
         }
@@ -25145,11 +25113,17 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse")]
         System.Threading.Tasks.Task<int> InsertarProductoComentarioDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSapResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSapResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodigoSapAsync(int paisID, string codigoSap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSapResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSapResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle> GetUltimoProductoComentarioByCodigoSapAsync(int paisID, string codigoSap);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
             "e")]
@@ -27317,12 +27291,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertarProductoComentarioDetalleAsync(paisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP) {
-            return base.Channel.GetProductoComentarioByCodSap(paisID, codigoSAP);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap) {
+            return base.Channel.GetProductoComentarioByCodigoSap(paisID, codigoSap);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP) {
-            return base.Channel.GetProductoComentarioByCodSapAsync(paisID, codigoSAP);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodigoSapAsync(int paisID, string codigoSap) {
+            return base.Channel.GetProductoComentarioByCodigoSapAsync(paisID, codigoSap);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap) {
+            return base.Channel.GetUltimoProductoComentarioByCodigoSap(paisID, codigoSap);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle> GetUltimoProductoComentarioByCodigoSapAsync(int paisID, string codigoSap) {
+            return base.Channel.GetUltimoProductoComentarioByCodigoSapAsync(paisID, codigoSap);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioFilter filter) {
