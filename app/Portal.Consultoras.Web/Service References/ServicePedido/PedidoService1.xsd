@@ -211,8 +211,6 @@
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:short" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="PorcAprobados" type="xs:short" />
-      <xs:element minOccurs="0" name="PorcRecomendados" type="xs:short" />
       <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
     </xs:sequence>
   </xs:complexType>

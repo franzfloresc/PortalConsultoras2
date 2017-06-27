@@ -4538,12 +4538,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short PorcAprobadosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short PorcRecomendadosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ProdComentarioIdField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -4643,32 +4637,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.FechaRegistroField.Equals(value) != true)) {
                     this.FechaRegistroField = value;
                     this.RaisePropertyChanged("FechaRegistro");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short PorcAprobados {
-            get {
-                return this.PorcAprobadosField;
-            }
-            set {
-                if ((this.PorcAprobadosField.Equals(value) != true)) {
-                    this.PorcAprobadosField = value;
-                    this.RaisePropertyChanged("PorcAprobados");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short PorcRecomendados {
-            get {
-                return this.PorcRecomendadosField;
-            }
-            set {
-                if ((this.PorcRecomendadosField.Equals(value) != true)) {
-                    this.PorcRecomendadosField = value;
-                    this.RaisePropertyChanged("PorcRecomendados");
                 }
             }
         }
@@ -25145,11 +25113,17 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse")]
         System.Threading.Tasks.Task<int> InsertarProductoComentarioDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle entidad);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSapResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodSapResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetProductoComentarioByCodigoSapResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodigoSapAsync(int paisID, string codigoSap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSapResponse")]
+        Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSap", ReplyAction="http://tempuri.org/IPedidoService/GetUltimoProductoComentarioByCodigoSapResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle> GetUltimoProductoComentarioByCodigoSapAsync(int paisID, string codigoSap);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumen", ReplyAction="http://tempuri.org/IPedidoService/GetListaProductoComentarioDetalleResumenRespons" +
             "e")]
@@ -27317,12 +27291,20 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.InsertarProductoComentarioDetalleAsync(paisID, entidad);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP) {
-            return base.Channel.GetProductoComentarioByCodSap(paisID, codigoSAP);
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap) {
+            return base.Channel.GetProductoComentarioByCodigoSap(paisID, codigoSap);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodSapAsync(int paisID, string codigoSAP) {
-            return base.Channel.GetProductoComentarioByCodSapAsync(paisID, codigoSAP);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentario> GetProductoComentarioByCodigoSapAsync(int paisID, string codigoSap) {
+            return base.Channel.GetProductoComentarioByCodigoSapAsync(paisID, codigoSap);
+        }
+        
+        public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap) {
+            return base.Channel.GetUltimoProductoComentarioByCodigoSap(paisID, codigoSap);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle> GetUltimoProductoComentarioByCodigoSapAsync(int paisID, string codigoSap) {
+            return base.Channel.GetUltimoProductoComentarioByCodigoSapAsync(paisID, codigoSap);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEProductoComentarioDetalle[] GetListaProductoComentarioDetalleResumen(int paisID, Portal.Consultoras.Web.ServicePedido.BEProductoComentarioFilter filter) {
