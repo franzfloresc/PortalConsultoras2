@@ -10876,14 +10876,15 @@ span.icon-advertencia{
 	font-size: 13px;
 }
 
-.content_room_product_sheet .share_social_nertwoks{
+.share_social_nertwoks{
 	padding: 30px 0 76px 0;
 }
 
-.content_room_product_sheet .share_social_nertwoks .title{
+.share_social_nertwoks .title{
 	font-size: 13px;
 	text-align: center;
 	padding-bottom: 5px;
+    font-family: 'LAto';
 }
 
 .content_room_product_sheet .share_social_nertwoks .links{

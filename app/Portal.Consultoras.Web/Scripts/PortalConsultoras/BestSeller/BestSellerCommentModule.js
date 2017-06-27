@@ -22,7 +22,10 @@
 
     var setting = {
         urlListarComentarios: '',
-        urlRegistrarComentario: ''
+        urlRegistrarComentario: '',
+        urlImagenUsuarioDefault: '',
+        cantidadCrecienteMostrarInicial: 0,
+        cantidadCrecienteMostrar: 10
     };
 
     var _bindEvents = function () {
@@ -84,7 +87,61 @@
     };
 
     var _listarComentarios = function () {
+        var model = {
+            codigoSAP: '0123456789',
+            cantidadMostrar: setting.cantidadCrecienteMostrarInicial,
 
+        };
+        var listarComentariosPromise = _listarComentariosPromise(model);
+
+        $.when(listarComentariosPromise).then(function (listarComentariosResponse) {
+            if (checkTimeout(listarComentariosResponse)) {
+                if (listarComentariosResponse.success) {
+                    _buildHtmlSeccionComentarios(listarComentariosResponse.data);
+                } else {
+                    alert(listarComentariosResponse.message);
+                }
+
+                closeWaitingDialog();
+            }
+        });
+    };
+
+    var _buildHtmlSeccionComentarios = function (listaComentarios) {
+        var htmlSeccionComentarios = '';
+        var listaContenedoresEstrellasId = [];
+
+        $.each(listaComentarios, function (index, item) {
+            var contenedorStarsId = 'puntuacion_usuario_visible-' + (index++);
+            listaContenedoresEstrellasId.push({ contenedorStarsId: contenedorStarsId, cantidadEstellas: item.Valorizado });
+
+            htmlSeccionComentarios += '';
+            htmlSeccionComentarios += '<div class="content_comentario_usuario">';
+            htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
+            htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
+            htmlSeccionComentarios += '</div>';
+            htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
+            htmlSeccionComentarios += '<div class="' + contenedorStarsId + '"></div>';
+            htmlSeccionComentarios += '<div class="nombre_usuario_comentario">' + item.NombreConsultora + '</div>';
+            htmlSeccionComentarios += '<div class="fecha_comentario">' + item.FechaRegistroFormateada + '</div>';
+            htmlSeccionComentarios += '</div>';
+            htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + (item.Comentario ? item.Comentario : '') + '</div>';
+            htmlSeccionComentarios += '</div>';
+        });
+
+        $(elements.contenedorComentarios).append(htmlSeccionComentarios);
+
+        _renderizarEstrellasPorContenedor(listaContenedoresEstrellasId);
+    };
+
+    var _mostrarContenedorValoracion = function () {
+        $(elements.btnAgregarComentario).hide();
+        $(elements.contenedorValoracion).show();
+    };
+
+    var _ocultarContenedorValoracion = function () {
+        $(elements.btnAgregarComentario).show();
+        $(elements.contenedorValoracion).hide();
     };
 
     var _mostrarContenedorConfirmacionComentario = function () {
@@ -115,6 +172,24 @@
         $(elements.txtComentario).val('');
     };
 
+    var _renderizarEstrellasPorContenedor = function (listaContenedoresEstrellasId) {
+        
+        $.each(listaContenedoresEstrellasId, function (index, item) {
+            
+            $('.' + item.contenedorStarsId).rateYo({
+                rating: item.cantidadEstellas,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "19px",
+                spacing: "5px",
+                fullStar: true,
+                readOnly: true
+            })
+        });
+
+    };
+
     var _registrarComentarioPromise = function (model) {
         var d = $.Deferred();
 
@@ -135,7 +210,7 @@
         return d.promise();
     };
 
-    var _listarComentariosPromise = function () {
+    var _listarComentariosPromise = function (model) {
         var d = $.Deferred();
 
         var promise = $.ajax({
@@ -143,7 +218,7 @@
             url: (setting.urlListarComentarios),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(model),
+            data: model,
             async: true
         });
 
@@ -158,6 +233,7 @@
     var _initializer = function (parameters) {
         setting.urlListarComentarios = parameters.urlListarComentarios;
         setting.urlRegistrarComentario = parameters.urlRegistrarComentario;
+        setting.urlImagenUsuarioDefault = parameters.urlImagenUsuarioDefault;
         _bindEvents();
         _bindRate();
         _listarComentarios();
