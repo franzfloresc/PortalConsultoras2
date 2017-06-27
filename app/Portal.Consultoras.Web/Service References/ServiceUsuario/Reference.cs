@@ -1102,6 +1102,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TieneMasVendidosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneOfertaLogField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOferta2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2892,6 +2895,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TieneMasVendidosField.Equals(value) != true)) {
                     this.TieneMasVendidosField = value;
                     this.RaisePropertyChanged("TieneMasVendidos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneOfertaLog {
+            get {
+                return this.TieneOfertaLogField;
+            }
+            set {
+                if ((this.TieneOfertaLogField.Equals(value) != true)) {
+                    this.TieneOfertaLogField = value;
+                    this.RaisePropertyChanged("TieneOfertaLog");
                 }
             }
         }

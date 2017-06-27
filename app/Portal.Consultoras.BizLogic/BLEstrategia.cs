@@ -518,10 +518,12 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
         }
 
+        #region Producto Comentario
+
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             int result;
-            var DAEstrategia = new DAEstrategia(paisID);
+            var daEstrategia = new DAEstrategia(paisID);
             var oTransactionOptions = new TransactionOptions();
             oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
 
@@ -529,19 +531,107 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    if (entidad.ProdComentarioResumenId == 0)
+                    if (entidad.ProdComentarioId == 0)
                     {
-                        BEProductoComentarioResumen oProdComentario = new BEProductoComentarioResumen();
-                        oProdComentario.CodigoSAP = entidad.CodigoSAP;
+                        BEProductoComentario oProdComentario = new BEProductoComentario();
+                        oProdComentario.CodigoSap = entidad.CodigoSAP;
                         oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
-                        entidad.ProdComentarioResumenId = DAEstrategia.InsertarProductoComentario(oProdComentario);
+                        entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
                     }
 
-                    result = DAEstrategia.InsertarProductoComentarioDetalle(entidad);
-
-                    DAEstrategia.UpdTotalProductoComentario(entidad.ProdComentarioResumenId);
-
+                    result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
+                    if (result > 0)
+                    {
+                        daEstrategia.UpdCantidadProductoComentario(entidad.ProdComentarioId);
+                    }
+                    
                     oTransactionScope.Complete();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
+        {
+            BEProductoComentario entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSAP))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentario(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        //public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
+        //{
+        //    List<BEProductoComentario> listaResumen = new List<BEProductoComentario>();
+        //    var daEstrategia = new DAEstrategia(paisID);
+
+        //    using (var reader = daEstrategia.GetProductoComentarioResumenByListaCodSap(listaCod, separador))
+        //    {
+        //        if (reader.Read())
+        //        {
+        //            listaResumen.Add(new BEProductoComentario(reader));
+        //        }
+        //    }
+
+        //    return listaResumen;
+        //}
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            try
+            {
+                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
+                if (result > 0)
+                {
+                    daEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
                 }
             }
 
@@ -553,25 +643,6 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public int AprobarProductoComentarioDetalle(int paisID, int prodComentarioId, long prodComentarioDetalleId)
-        {
-            var DAEstrategia = new DAEstrategia(paisID);
-            int result;
-
-            try
-            {
-                result = DAEstrategia.AprobarProductoComentarioDetalle(prodComentarioDetalleId);
-
-                DAEstrategia.UpdAprobadosProductoComentario(prodComentarioId);
-            }
-
-            catch (Exception)
-            {
-                throw;
-            }
-
-            return result;
-        }
-
+        #endregion
     }
 }

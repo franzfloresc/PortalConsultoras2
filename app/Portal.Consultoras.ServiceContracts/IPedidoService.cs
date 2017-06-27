@@ -1117,10 +1117,10 @@ namespace Portal.Consultoras.ServiceContracts
         void UpdateCuponConsultoraEnvioCorreo(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
-        void CrearCupon(BECupon cupon);
+        void CrearCupon(int paisId, BECupon cupon);
 
         [OperationContract]
-        void ActualizarCupon(BECupon cupon);
+        void ActualizarCupon(int paisId, BECupon cupon);
 
         [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
@@ -1147,7 +1147,19 @@ namespace Portal.Consultoras.ServiceContracts
         int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
 
         [OperationContract]
-        int AprobarProductoComentario(int paisID, int prodComentarioId, long prodComentarioResumenId);
+        BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP);
+
+        //[OperationContract]
+        //List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
     }
 }

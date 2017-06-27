@@ -64,5 +64,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Celular { get; set; }
 
         public int TieneMasVendidos { get; set; }
+        public int TieneOfertaLog { get; set; }
     }
 }

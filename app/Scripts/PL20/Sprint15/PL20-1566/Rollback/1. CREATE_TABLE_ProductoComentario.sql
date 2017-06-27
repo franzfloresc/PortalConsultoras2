@@ -1,0 +1,12 @@
+
+USE BelcorpPeru
+GO
+
+IF EXISTS (SELECT 1 FROM INFORMATION_SCHEMA.TABLES 
+		WHERE TABLE_NAME = N'ProductoComentario')
+BEGIN
+  DROP TABLE dbo.ProductoComentario
+END
+GO
+
+

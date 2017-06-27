@@ -2020,14 +2020,14 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.UpdateCuponConsultoraEnvioCorreo(paisId, cuponConsultora);
         }
 
-        public void CrearCupon(BECupon cupon)
+        public void CrearCupon(int paisId, BECupon cupon)
         {
-            BLCupon.CrearCupon(cupon);
+            BLCupon.CrearCupon(paisId, cupon);
         }
 
-        public void ActualizarCupon(BECupon cupon)
+        public void ActualizarCupon(int paisId, BECupon cupon)
         {
-            BLCupon.ActualizarCupon(cupon);
+            BLCupon.ActualizarCupon(paisId, cupon);
         }
 
         public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
@@ -2078,17 +2078,38 @@ namespace Portal.Consultoras.Service
             return BLRevistaDigitalSuscripcion.Single(entidad);
         }
 
-
         #region Producto Comentario
+
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
 
-        public int AprobarProductoComentario(int paisID, int prodComentarioId, long prodComentarioDetalleId)
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSAP)
         {
-            return blEstrategia.AprobarProductoComentarioDetalle(paisID, prodComentarioId, prodComentarioDetalleId);
+            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSAP);
         }
+
+        //public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
+        //{
+        //    return blEstrategia.GetProductoComentarioResumenByListaCodSap(paisID, listaCod, separador);
+        //}
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, filter);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, filter);
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
+        }
+
         #endregion
     }
 }

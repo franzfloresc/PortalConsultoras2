@@ -55,7 +55,9 @@
                     </div>
 
                     <div class="comentarios_best_seller_ficha">
-                        “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.                        Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />                         - Sandra A.
+                        “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche. 
+                      Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
+                        - Sandra A.
                     </div>
                     <div class="liquidacion_rango_home">
                         <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -300,10 +302,9 @@
         <div style="text-align:center;"><div class="rateyo-readonly-comentarios"></div></div>
         <div class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
         <div class="content_filtros_bestSeller">
-            <select class="select_bestSeller">
-                <option>NUEVOS</option>
-                <option>NUEVOS</option>
-                <option>NUEVOS</option>
+            <select id="ddlFiltro" class="select_bestSeller">
+                <option value="1">NUEVOS</option>
+                <option value="2">ANTIGUOS</option>
             </select>
             <div class="texto_filtros_bestSeller">ORDENAR POR</div>
         </div>
@@ -316,16 +317,17 @@
                 <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
                 <div class="content_detalle_puntuación">
                     Evalúa el Producto
-                    <div class="rateyo-readonly-puntuacion"></div>
+                    <div class="rateyo-puntuacion-seccion-comentario"></div><br />
                     ¿Lo recomiendas?
                     <div>
-                        <a href="#" class="respuesta_pregunta">SI</a>
-                        <a href="#" class="respuesta_pregunta">NO</a>
+                        <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
+                        <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
+                        <input type="hidden" id="hdRecomendado" value="" />
                     </div>
 
                 </div>
                 <div class="content_detalle_comentarios">
-                    <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto"> </textarea>
+                    <textarea type="text" class="texto_comentario_usuario" id="txtComentario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
                     <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
                     <a class="cancelar_comentario">CANCELAR</a>
                 </div>
@@ -343,28 +345,12 @@
         </div>
         <!--FIN-->
         <!--COMENTARIOS DE USUARIO-->
-        <div class="content_comentario_usuario">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="puntuacion_usuario_visible"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
-            </div>
-            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
-        </div>
-        <div class="content_comentario_usuario">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="puntuacion_usuario_visible"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
-            </div>
-            <div class="comentario_realizado_usuario">Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, sonet splendide consectetuer in sed. Ad aeterno labores scriptorem has, ad iuvaret interesset sadipscing usu.</div>
+        <div id="contenedorComentarios">
         </div>
     </div>
 </div>
 <!--FIN-->
-
+<!--JAIME - LA CLASE QUE SE DEBE AÑADIR ES "respuesta_valida" PARA AMBOS CASOS-->
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
@@ -401,14 +387,6 @@
                 starWidth: "33px",
                 readOnly: true
             })
-            $(".rateyo-readonly-puntuacion").rateYo({
-                rating: 0,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "25px",
-                spacing: "7px",
-            })
             $(".puntuacion_usuario_visible").rateYo({
                 rating: 4,
                 precision: 2,
@@ -421,7 +399,9 @@
         });
         $(document).ready(function () {
             bestSellerCommentModule.ini({
-
+                urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario")',
+                urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")',
+                urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
             });
         });
     </script>

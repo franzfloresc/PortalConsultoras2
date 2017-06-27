@@ -9863,12 +9863,11 @@ a{
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-   
+    width: 49%;
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
-     width: 38%;
 }
 
 .select-ffc {
@@ -9878,7 +9877,7 @@ a{
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 15px 6px 14px;
+    padding: 6px 30px 6px 14px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -10466,7 +10465,7 @@ a{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:20px;
+    line-height:17px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -11383,7 +11382,7 @@ a{
 	text-align: center;
 }
 
-.content_room_product_sheet .other_consultants  .slider_item{
+.slider_item{
 	width: 155px;
     margin-left:15px;
     margin-right:15px;
@@ -11433,14 +11432,15 @@ a{
 	font-size: 13px;
 }
 
-.content_room_product_sheet .share_social_nertwoks{
+ .share_social_nertwoks{
 	padding: 30px 0 76px 0;
 }
 
-.content_room_product_sheet .share_social_nertwoks .title{
+.share_social_nertwoks .title{
 	font-size: 13px;
 	text-align: center;
 	padding-bottom: 5px;
+    font-family: 'LAto';
 }
 
 .content_room_product_sheet .share_social_nertwoks .links{
@@ -11945,7 +11945,7 @@ a{
 }
 
 .saludo_paginacion{
-   
+   margin-top: 10px;
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -12049,9 +12049,8 @@ a{
 }
 
 .content_cronometro{
-     margin-top: 26px;
-    height: 25px;
-    /* margin-bottom: -28px; */;
+    margin-top: 26px;
+    margin-bottom: -28px;
 }
 .saludo_paginacion p {
 	margin:0;
@@ -12089,13 +12088,24 @@ a{
     font-size:12.5px;
     text-align:left;
 }
+
+@media (min-width: 440px) {
+    .contenedor-texto-agregar{
+       display: block;
+    }
+}
+
 .texto_cupon_black{
-    color:black;
-    font-family:'Lato';
+    color: #000;
+    font-family: 'Lato';
     line-height: 16px;
-    padding-left:30px;
-    font-size:12.5px;
-    float:left;
+    padding-left: 20px;
+    font-size: 12.5px;
+    float: right;
+    width: calc(100% - 110px);
+    width:-moz-calc(100% -110px);
+    width:-webkit-calc(100% - 110px);
+    text-align: left;
 }
 .link_cupon_home{
     display:block;
@@ -12209,7 +12219,7 @@ a{
     line-height: 19px;
     color: black;
     /* font-weight: 400; */
-    margin-top: 44px;
+    margin-top: 35px;
 }
 .texto_cupon_datos b{
     font-size:16px;
@@ -12218,7 +12228,7 @@ a{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:16px;
+    margin-top:8px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12290,7 +12300,7 @@ a{
 .info_recuerda_cupon{
     float: left;
     width: 100%;
-    margin-top: 17px;
+    margin-top: 15px;
     font-family: 'Lato';
     font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */
@@ -12453,4 +12463,143 @@ a{
 }
 .content_carrusel_mas_vendidos .producto_precio{
     margin-bottom:5px;
+}
+/*SPRINT 15*/
+.content_fondo_bestSeller{
+    height:192px;
+    width:100%;
+    background:#eeeeee;
+    text-align:center;
+    padding-top:30px;
+}
+.content_fondo_bestSeller img{
+    width:auto;
+    height:248px;
+}
+.content_imagen_best{
+    overflow:hidden;
+    height: 286px;
+}
+.marca_best{
+    font-family:'Lato';
+    font-size:12px;
+    letter-spacing:0.8px;
+    line-height:20px;
+}
+.content_puntuacion_detalle{
+    margin-bottom:14px;
+    margin-top:5px;
+}
+.rateyo-readonly-widg{
+    padding:0 !important;
+}
+.comentarios_detalle_best{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    display:inline-block;
+    vertical-align:top;
+    padding-left:10px;
+}
+.comentarios_best_seller_ficha {
+    height: auto;
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    line-height:20px;    
+}
+.content_carrusel_bestSeller{
+    background:#eeeeee;
+    padding-top:30px;
+    padding-bottom:40px;
+}
+.titulo_carrusel_best {
+    letter-spacing: 0.2px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: black;   
+    text-align: center;
+    margin-bottom: 30px;
+}
+.imagen_carrusel_best{
+    width:auto;
+    height:160px;
+    margin-bottom:7px;
+}
+.marca_carrusel_best{
+     font-family: 'Lato';
+    font-size: 11px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    line-height:16px;
+}
+.content_carrusel_bestSeller .orden_listado_numero{
+    background:#eeeeee;
+}
+.section_comentarios{
+    padding-top:30px;
+}
+.titulo_principal_comentarios {
+    font-family: 'Lato';
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+.subtexto_comentario {
+    font-family: 'Lato';
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+.content_filtros_bestSeller {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.texto_filtros_bestSeller {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    float: left;    
+    margin-top: 12px;
+    width:118px;
+}
+.select_bestSeller {
+    display: block;
+    float: right;
+    width: 60%;
+    border: 1px solid #979797;
+    height: 44px;
+    line-height: 44px;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-left: 9px;
+    color: black;
+}
+.contentAgregarComentarios {
+    padding: 20px 0 20px 0;
+    width: 100%;
+    background: #f6f6f6;
+    border: 1px dashed #979797;
+    margin-bottom: 45px;
+}
+.texto_agregarComentarios {
+    width: 220px;
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding-top: 1px;
+    padding-left: 25px;
+    cursor: pointer;
+    background: url(../../../Images/PL20/icono_agregar.png) no-repeat;
 }

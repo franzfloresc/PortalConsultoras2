@@ -74,7 +74,7 @@
         objInput.val(actual);
     });
 
-    $("body").on("click", ".cantidad_menos_home", function () {
+    $(document).on("click", ".cantidad_menos_home", function () {
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -84,7 +84,7 @@
         $txtcantidad.val(cantidad);
     });
 
-    $("body").on("click", ".cantidad_mas_home", function () { 
+    $(document).on("click", ".cantidad_mas_home", function () {
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -267,7 +267,6 @@
 });
 
 function odd_mobile_google_analytics_promotion_impresion() {
-    //debugger;
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();

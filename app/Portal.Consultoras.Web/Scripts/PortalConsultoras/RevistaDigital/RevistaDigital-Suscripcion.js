@@ -159,7 +159,7 @@ function InscripcionRDAnalytics() {
     dataLayer.push({
         'event': 'promotionClick',
         'ecommerce': {
-            'promoClick': {
+            'promoView': {
                 'promotions': [
                     {
                         'id': '1',

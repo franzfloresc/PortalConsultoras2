@@ -187,7 +187,6 @@
     }
 
     function odd_desktop_google_analytics_promotion_impresion() {
-        ////debugger;
         if ($('#banner-odd').length > 0) {
             var id = $('#banner-odd').find(".estrategia-id-odd").val();
             var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
@@ -732,10 +731,10 @@
 
     $("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
         var accion = $(this).attr("data-odd-accion").toUpperCase();
-        var cantidad = parseInt($(this).attr("data-odd-cantidad"));
         if (accion == CONS_TIPO_ACCION.VEROFERTA) {
             ResetearCantidadesDelPopup();
             if (showDisplayODD == 0) {
+                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
                 if (cantidad > 3) {
                     var posicion = "0";
                     $('#divOddCarrusel').slick('slickGoTo', posicion);
@@ -772,9 +771,8 @@
             // asignar valores del ver detalle
         }
         else if (accion == CONS_TIPO_ACCION.REGRESAR) {
-            if (cantidad > 3) {
-                $('#divOddCarrusel').slick('refresh', false);
-            }
+
+            $('#divOddCarrusel').slick('refresh', false);
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
         }

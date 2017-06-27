@@ -7,22 +7,22 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLCupon
     {
-        public void CrearCupon(BECupon cupon)
+        public void CrearCupon(int paisId, BECupon cupon)
         {
-            var DACupon = new DACupon();
+            var DACupon = new DACupon(paisId);
             DACupon.CrearCupon(cupon);
         }
 
-        public void ActualizarCupon(BECupon cupon)
+        public void ActualizarCupon(int paisId, BECupon cupon)
         {
-            var DACupon = new DACupon();
+            var DACupon = new DACupon(paisId);
             DACupon.ActualizarCupon(cupon);
         }
 
         public List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId)
         {
             List<BECupon> listaCupones = new List<BECupon>();
-            var DACupon = new DACupon();
+            var DACupon = new DACupon(paisId);
 
             using (IDataReader reader = DACupon.ListarCuponesPorCampania(paisId, campaniaId))
             {

@@ -539,6 +539,9 @@
     </div>
     <!--14092016 - FIN -->
 
+
+
+
     <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
         <div id="" class="contenedorCupon">
             <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
@@ -555,8 +558,20 @@
         {
             <div class="truco_bloqueo sim2"></div>
         }
-        <div class="contenedor_carousel" id="contenedor_template_estrategia_cabecera">
-            
+        <div class="contenedor_carousel">
+            <h1>
+                OFERTAS
+                <b>PARA TI</b>
+                <b class="">@Model.SobreNombre</b>
+            </h1>
+            <div class="texto_exclusivo_web">
+                EXCLUSIVAS SÓLO POR WEB
+            </div>
+            <div class="contenedor_productos">
+                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
+                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1565,7 +1580,7 @@
             <div class="clear"></div>
         </script>
 
-<script id="producto-template" type="text/x-handlebars-template">
+        <script id="producto-template" type="text/x-handlebars-template">
             {{#each this}}
             {{#if EliminadoTemporal}}
             {{else}}
@@ -1610,10 +1625,6 @@
                         </p>
                         <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
                     </span>
-                    {{else if_eq TipoEstrategiaCodigo '@Constantes.TipoEstrategiaCodigo.Lanzamiento'}}
-                        <span style="position:relative">
-                            <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 1}}</label>
-                        </span>
                     {{else}}
                     <span style="position:relative">
                         <label for="{{DescripcionProd}}" id="lblLPDesProd{{PedidoDetalleID}}">{{Split DescripcionProd '|' 0}}</label>
@@ -2349,8 +2360,8 @@
                         RESERVA TU PEDIDO
                     </button>
                 </div>
-                
-                <div style="display: none;" id="txt-ayuda1-pn" class="txt-ayuda1-pn"></div>
+                <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
+
 
                 <hr class="clear" />
             </div>       
@@ -2484,6 +2495,7 @@
                 var viewBagCampaniaActual = '@Model.CampaniaActual';
                 var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
                 var tieneCupon = '@Model.TieneCupon';
+                var tieneOfertaLog = '@Model.TieneOfertaLog';
                 var paginaOrigenCupon = 11;
                 var esEmailActivo = '@Model.EmailActivo';
                 var baseUrl = "@Url.Content("~")";
