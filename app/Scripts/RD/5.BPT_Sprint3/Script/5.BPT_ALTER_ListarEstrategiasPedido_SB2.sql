@@ -14,72 +14,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -105,7 +42,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -136,11 +72,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -160,10 +95,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -191,10 +125,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -215,7 +147,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -236,9 +167,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -255,20 +185,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -278,7 +203,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -299,9 +223,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -318,88 +241,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -432,7 +332,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -504,72 +404,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -595,7 +432,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -626,11 +462,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -650,10 +485,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -681,10 +515,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -705,7 +537,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -726,9 +557,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -745,20 +575,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -768,7 +593,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -789,9 +613,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -808,88 +631,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -922,7 +722,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -994,72 +794,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -1085,7 +822,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -1116,11 +852,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1140,10 +875,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -1171,10 +905,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -1195,7 +927,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1216,9 +947,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -1235,20 +965,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -1258,7 +983,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -1279,9 +1003,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -1298,88 +1021,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -1412,7 +1112,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -1484,72 +1184,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -1575,7 +1212,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -1606,11 +1242,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1630,10 +1265,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -1661,10 +1295,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -1685,7 +1317,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -1706,9 +1337,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -1725,20 +1355,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -1748,7 +1373,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -1769,9 +1393,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -1788,88 +1411,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -1902,7 +1502,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -1974,72 +1574,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -2065,7 +1602,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -2096,11 +1632,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -2120,10 +1655,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -2151,10 +1685,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -2175,7 +1707,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -2196,9 +1727,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -2215,20 +1745,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -2238,7 +1763,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -2259,9 +1783,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -2278,88 +1801,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -2392,7 +1892,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -2464,72 +1964,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -2555,7 +1992,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -2586,11 +2022,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -2610,10 +2045,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -2641,10 +2075,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -2665,7 +2097,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -2686,9 +2117,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -2705,20 +2135,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -2728,7 +2153,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -2749,9 +2173,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -2768,88 +2191,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -2882,7 +2282,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -2954,72 +2354,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -3045,7 +2382,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -3076,11 +2412,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -3100,10 +2435,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -3131,10 +2465,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -3155,7 +2487,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -3176,9 +2507,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -3195,20 +2525,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -3218,7 +2543,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -3239,9 +2563,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -3258,88 +2581,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -3372,7 +2672,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -3444,72 +2744,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -3535,7 +2772,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -3566,11 +2802,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -3590,10 +2825,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -3621,10 +2855,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -3645,7 +2877,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -3666,9 +2897,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -3685,20 +2915,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -3708,7 +2933,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -3729,9 +2953,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -3748,88 +2971,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -3862,7 +3062,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -3934,72 +3134,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -4025,7 +3162,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -4056,11 +3192,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -4080,10 +3215,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -4111,10 +3245,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -4135,7 +3267,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -4156,9 +3287,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -4175,20 +3305,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -4198,7 +3323,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -4219,9 +3343,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -4238,88 +3361,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -4352,7 +3452,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -4424,72 +3524,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -4515,7 +3552,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -4546,11 +3582,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -4570,10 +3605,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -4601,10 +3635,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -4625,7 +3657,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -4646,9 +3677,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -4665,20 +3695,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -4688,7 +3713,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -4709,9 +3733,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -4728,88 +3751,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -4842,7 +3842,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -4914,72 +3914,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -5005,7 +3942,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -5036,11 +3972,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -5060,10 +3995,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -5091,10 +4025,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -5115,7 +4047,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -5136,9 +4067,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -5155,20 +4085,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -5178,7 +4103,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -5199,9 +4123,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -5218,88 +4141,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -5332,7 +4232,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -5404,72 +4304,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -5495,7 +4332,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -5526,11 +4362,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -5550,10 +4385,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -5581,10 +4415,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -5605,7 +4437,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -5626,9 +4457,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -5645,20 +4475,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -5668,7 +4493,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -5689,9 +4513,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -5708,88 +4531,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -5822,7 +4622,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
@@ -5894,72 +4694,9 @@ dbo.ListarEstrategiasPedido_SB2 201710,'1107','','2329', '101'
 */
 BEGIN
 	SET NOCOUNT ON;
-	
-	--declare @CampaniaID INT = 201710,
-	--@ConsultoraID VARCHAR(30) = '1107',
-	--@CUV VARCHAR(20) = '',
-	--@ZonaID VARCHAR(20) = '2329',
-	--@CodigoAgrupacion VARCHAR(10) = '101'
-		
 
 	set @CodigoAgrupacion = ISNULL(@CodigoAgrupacion, '')
-
-	-- CrossSelling se implemento a un servicio
-	--DECLARE @CuvReco VARCHAR(20)
-	--SELECT @CuvReco = CSA.CUV
-	--FROM CrossSellingAsociacion CSA
-	--INNER JOIN ods.Campania CA ON CSA.CampaniaID = CA.CampaniaID
-	--WHERE
-	--	CA.Codigo = @CampaniaID
-	--	AND (CUVAsociado = @CUV OR CUVAsociado2 = @CUV OR CUV = @CUV)
-
-	--/* RECOMENDACION POR CUV - INICIO */
-	--SELECT
-	--	EstrategiaID,
-	--	CUV2,
-	--	DescripcionCUV2,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-	--	E.Precio,
-	--	dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-	--	Precio2,
-	--	TextoLibre,
-	--	FlagEstrella,
-	--	ColorFondo,
-	--	e.TipoEstrategiaID,
-	--	e.ImagenURL FotoProducto01,
-	--	te.ImagenEstrategia ImagenURL,
-	--	e.LimiteVenta,
-	--	pc.MarcaID,
-	--	te.Orden Orden1,
-	--	e.Orden Orden2,
-	--	pc.IndicadorMontoMinimo,
-	--	pc.CodigoProducto,
-	--	TE.FlagNueva,
-	--	dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-	--	1 as TipoEstrategiaImagenMostrar	--CrossSelling
-	--	, E.EtiquetaID		-- SB20-351
-	--	, E.EtiquetaID2		-- SB20-351
-	--	, E.CodigoEstrategia
-	--	, E.TieneVariedad
-	--INTO #TEMPORAL
-	--FROM Estrategia E
-	--INNER JOIN TipoEstrategia TE ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	--INNER JOIN ods.Campania CA ON E.CampaniaID = CA.Codigo
-	--INNER JOIN CrossSellingAsociacion CSA ON CSA.CampaniaID = CA.CampaniaID AND (E.CUV2 = CSA.CUVAsociado OR E.CUV2 = CSA.CUVAsociado2 )
-	--INNER JOIN ods.ProductoComercial PC ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	--WHERE
-	--	E.Activo = 1
-	--	AND TE.flagRecoProduc = 1
-	--	AND TE.FlagActivo = 1
-	--	AND CSA.CUV IS NOT NULL
-	--	AND CA.Codigo = @CampaniaID
-	--	AND CSA.CUV = @CuvReco
-	--	AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY
-	--	te.Orden ASC,
-	--	e.Orden ASC
-	--/* RECOMENDACION POR CUV - FIN */
-
+	
 	declare @ConsultoraID2 bigint = CAST(@ConsultoraID as bigint)
 
 	DECLARE @tablaCuvPedido table (CUV varchar(6))
@@ -5985,7 +4722,6 @@ BEGIN
 		c.ConsultoraID = @ConsultoraID2
 
 	CREATE TABLE #TEMPORAL (
-		ColId uniqueIdentifier,
 		EstrategiaID int,
 		CUV2 varchar(5),
 		DescripcionCUV2 varchar(800),
@@ -6016,11 +4752,10 @@ BEGIN
 		DescripcionEstrategia varchar(200),
 		FlagMostrarImg int
 	)
-
+	
 	-- Obtener estrategias de Pack Nuevas.
 	INSERT INTO #TEMPORAL
 	SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -6040,10 +4775,9 @@ BEGIN
 		e.Orden Orden2,
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
-		1 AS FlagNueva, -- R2621
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
+		1 AS FlagNueva,
 		'' as TipoTallaColor,
-		2 as TipoEstrategiaImagenMostrar	-- Pack Nuevas
+		2 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -6071,10 +4805,8 @@ BEGIN
 		AND E.NumeroPedido = @NumeroPedido
 		AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND E.CUV2 not in(SELECT CUV FROM @tablaCuvPedido)
-	--ORDER BY te.Orden ASC, e.Orden ASC
 
 	-- Obtener estrategias de recomendadas para ti.
-
 	declare @tablaCuvFaltante table (CUV varchar(6))
 	insert into @tablaCuvFaltante
 	select distinct ltrim(rtrim(CUV))
@@ -6095,7 +4827,6 @@ BEGIN
 	
 	INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 		EstrategiaID,
 		CUV2,
 		DescripcionCUV2,
@@ -6116,9 +4847,8 @@ BEGIN
 		pc.IndicadorMontoMinimo,
 		pc.CodigoProducto,
 		0 AS FlagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 		'' as TipoTallaColor,
-		3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+		3 as TipoEstrategiaImagenMostrar
 		, E.EtiquetaID
 		, E.EtiquetaID2
 		, E.CodigoEstrategia
@@ -6135,20 +4865,15 @@ BEGIN
 			OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 		)
 	INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-	--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 	WHERE
 		E.Activo = 1
 		AND ca.Codigo = @CampaniaID
-		--AND c.ConsultoraID = @ConsultoraID2
-		--AND E.Zona LIKE '%' + @ZonaID + '%'
 		AND TE.FlagActivo = 1
 		AND TE.flagRecoPerfil = 1
 		AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-	--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
 
-	/*SB20-1080 - INICIO */
 	SET @cont2 = (SELECT COUNT(EstrategiaID) FROM #TEMPORAL)
 
 	IF (@cont1 = @cont2)
@@ -6158,7 +4883,6 @@ BEGIN
 
 		INSERT INTO #TEMPORAL
 		SELECT
-		newId() AS ColId,
 			EstrategiaID,
 			CUV2,
 			DescripcionCUV2,
@@ -6179,9 +4903,8 @@ BEGIN
 			pc.IndicadorMontoMinimo,
 			pc.CodigoProducto,
 			0 AS FlagNueva,
-			--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
 			'' as TipoTallaColor,
-			3 as TipoEstrategiaImagenMostrar	--Oferta para Ti
+			3 as TipoEstrategiaImagenMostrar
 			, E.EtiquetaID
 			, E.EtiquetaID2
 			, E.CodigoEstrategia
@@ -6198,88 +4921,65 @@ BEGIN
 				OR (@CodigoAgrupacion = '' and op.TipoPersonalizacion = 'OPT')
 			)
 		INNER JOIN ods.Campania ca with(nolock) ON CA.Codigo = E.CampaniaID
-		--INNER JOIN ods.Consultora c with(nolock) ON op.CodConsultora = c.Codigo
 		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
 		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
 		WHERE
 			E.Activo = 1
 			AND ca.Codigo = @CampaniaID
-			--AND c.ConsultoraID = @ConsultoraID2
-			--AND E.Zona LIKE '%' + @ZonaID + '%'
 			AND TE.FlagActivo = 1
 			AND TE.flagRecoPerfil = 1
 			AND E.CUV2 not in ( SELECT CUV FROM @tablaCuvFaltante )
-		--ORDER BY CASE WHEN ISNULL(op.Orden,0) = 0 THEN te.Orden ELSE op.Orden END ASC
+
 	END
 
 	IF @CodigoAgrupacion = ''
 	BEGIN
-	--  Oferta Web y Lanzamiento
-	INSERT INTO #TEMPORAL
-	SELECT
-		newId() AS ColId,
-		EstrategiaID,
-		CUV2,
-		DescripcionCUV2,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
-		Precio,
-		dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
-		Precio2,
-		TextoLibre,
-		FlagEstrella,
-		ColorFondo,
-		e.TipoEstrategiaID,
-		e.ImagenURL FotoProducto01,
-		te.ImagenEstrategia ImagenURL,
-		e.LimiteVenta,
-		pc.MarcaID,
-		te.Orden Orden1,
-		e.Orden Orden2,
-		pc.IndicadorMontoMinimo,
-		pc.CodigoProducto,
-		te.flagNueva,
-		--dbo.fn_ObtenerTallaColorCuv_SB2(E.CUV2,@CampaniaID) as TipoTallaColor,
-		'' as TipoTallaColor,
-		4 as TipoEstrategiaImagenMostrar	--Oferta Web
-		, E.EtiquetaID
-		, E.EtiquetaID2
-		, E.CodigoEstrategia
-		, E.TieneVariedad
-		, TE.CODIGO
-		, TE.DescripcionEstrategia
-		, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
-	FROM Estrategia E with(nolock)
-	INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
-	INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
-	INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
-	WHERE
-		E.Activo = 1
-		AND TE.FlagActivo = 1
-		AND E.CampaniaID = @CampaniaID
-		AND TE.flagRecoProduc = 0
-		AND TE.flagNueva = 0
-		AND TE.flagRecoPerfil = 0
-		AND E.Zona LIKE '%' + @ZonaID + '%'
-	--ORDER BY te.Orden ASC, e.Orden ASC
+		--  Oferta Web
+		INSERT INTO #TEMPORAL
+		SELECT
+			EstrategiaID,
+			CUV2,
+			DescripcionCUV2,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID) EtiquetaDescripcion,
+			Precio,
+			dbo.ObtenerDescripcionEtiqueta(EtiquetaID2) EtiquetaDescripcion2,
+			Precio2,
+			TextoLibre,
+			FlagEstrella,
+			ColorFondo,
+			e.TipoEstrategiaID,
+			e.ImagenURL FotoProducto01,
+			te.ImagenEstrategia ImagenURL,
+			e.LimiteVenta,
+			pc.MarcaID,
+			te.Orden Orden1,
+			e.Orden Orden2,
+			pc.IndicadorMontoMinimo,
+			pc.CodigoProducto,
+			te.flagNueva,
+			'' as TipoTallaColor,
+			4 as TipoEstrategiaImagenMostrar
+			, E.EtiquetaID
+			, E.EtiquetaID2
+			, E.CodigoEstrategia
+			, E.TieneVariedad
+			, TE.CODIGO
+			, TE.DescripcionEstrategia
+			, ISNULL(TE.FlagMostrarImg,0) AS FlagMostrarImg	
+		FROM Estrategia E with(nolock)
+		INNER JOIN TipoEstrategia TE with(nolock) ON E.TipoEstrategiaID = TE.TipoEstrategiaID
+		INNER JOIN ods.Campania CA with(nolock) ON E.CampaniaID = CA.Codigo
+		INNER JOIN ods.ProductoComercial PC with(nolock) ON PC.CampaniaID = CA.CampaniaID AND PC.CUV = E.CUV2
+		WHERE
+			E.Activo = 1
+			AND TE.FlagActivo = 1
+			AND E.CampaniaID = @CampaniaID
+			AND TE.flagRecoProduc = 0
+			AND TE.flagNueva = 0
+			AND TE.flagRecoPerfil = 0
+			AND E.Zona LIKE '%' + @ZonaID + '%'
 
-	END -- @CodigoAgrupacion = ''
-
-	DECLARE @tablaCuvUnicos table (CUV varchar(6), Id uniqueIdentifier)
-	
-	insert into @tablaCuvUnicos
-	select CUV2, NULL from #TEMPORAL
-	group by CUV2 -- having count(CUV2) > 1
-
-	update @tablaCuvUnicos
-	set Id = (SELECT TOP 1 B.ColId FROM #TEMPORAL B WHERE  B.CUV2 = CUV)
-	FROM @tablaCuvUnicos A
-
-	DELETE B 
-	--SELECT *
-	FROM #TEMPORAL B
-	LEFT JOIN @tablaCuvUnicos A
-		ON B.CUV2 = A.CUV AND B.ColId = A.Id
-	 WHERE A.CUV IS NULL	
+	END
 
 	declare @TEMP table (
 		EstrategiaID int
@@ -6312,7 +5012,7 @@ BEGIN
 			where T.CODIGO = '005'
 		GROUP BY EstrategiaID
 
-	END -- @CodigoAgrupacion = '101'
+	END
 	
 	SELECT
 		T.EstrategiaID,
