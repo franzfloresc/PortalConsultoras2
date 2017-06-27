@@ -15,7 +15,7 @@ CREATE TABLE dbo.ProductoComentarioDetalle
 	ProdComentarioId INT NOT NULL,
 	Valorizado TINYINT NOT NULL,
 	Recomendado BIT NOT NULL,
-	Comentario VARCHAR(400) NOT NULL,
+	Comentario VARCHAR(400) NULL,
 	CodigoConsultora VARCHAR(20) NOT NULL,
 	CampaniaID INT NOT NULL,
 	FechaRegistro DATETIME NOT NULL,
@@ -26,3 +26,6 @@ CREATE TABLE dbo.ProductoComentarioDetalle
     REFERENCES ProductoComentario(ProdComentarioId)
 )
 GO
+
+CREATE NONCLUSTERED INDEX IX_ProdComentarioDetalle_Estado
+ON ProductoComentarioDetalle (Estado); 

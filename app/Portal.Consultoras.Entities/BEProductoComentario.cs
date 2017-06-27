@@ -12,7 +12,7 @@ namespace Portal.Consultoras.Entities
         public int ProdComentarioId { get; set; }
 
         [DataMember]
-        public string CodigoSAP { get; set; }
+        public string CodigoSap { get; set; }
 
         [DataMember]
         public string CodigoGenerico { get; set; }
@@ -46,8 +46,8 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("ProdComentarioId"))
                 ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
 
-            if (row.HasColumn("CodigoSAP"))
-                CodigoSAP = Convert.ToString(row["CodigoSAP"]);
+            if (row.HasColumn("CodigoSap"))
+                CodigoSap = Convert.ToString(row["CodigoSap"]);
 
             if (row.HasColumn("CodigoGenerico"))
                 CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);

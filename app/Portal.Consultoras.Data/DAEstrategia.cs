@@ -423,7 +423,7 @@ namespace Portal.Consultoras.Data
             int result;
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertProductoComentario"))
             {
-                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, entidad.CodigoSAP);
+                Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, entidad.CodigoSap);
                 Context.Database.AddInParameter(command, "@CodigoGenerico", DbType.String, entidad.CodigoGenerico);
 
                 result = int.Parse(Context.ExecuteScalar(command).ToString());
@@ -449,11 +449,11 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public IDataReader GetProductoComentarioByCodSap(string codigoSAP)
+        public IDataReader GetProductoComentarioByCodSap(string codigoSap)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
             {
-                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
+                Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, codigoSap);
                 return Context.ExecuteReader(command);
             }
         }
@@ -468,26 +468,28 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetListaProductoComentarioDetalleaResumen(string codigoSAP, int offset, int take, Int16 sort)
+        public IDataReader GetListaProductoComentarioDetalleaResumen(BEProductoComentarioFilter filter)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalleResumen"))
             {
-                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
-                Context.Database.AddInParameter(command, "@SkipRows", DbType.Int32, offset);
-                Context.Database.AddInParameter(command, "@TakeRows", DbType.Int32, take);
-                Context.Database.AddInParameter(command, "@SortRows", DbType.Int16, sort);
+                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, filter.Valor);
+                Context.Database.AddInParameter(command, "@Limite", DbType.Int32, filter.Limite);
+                Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, filter.Cantidad);
+                Context.Database.AddInParameter(command, "@Ordenar", DbType.Int16, filter.Ordenar);
                 return Context.ExecuteReader(command);
             }
         }
 
-        public IDataReader GetListaProductoComentarioDetalleAprobar(string codigoSAP, int offset, int take, Int16 sort)
+        public IDataReader GetListaProductoComentarioDetalleAprobar(BEProductoComentarioFilter filter)
         {
             using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaProductoComentarioDetalleAprobar"))
             {
-                Context.Database.AddInParameter(command, "@CodigoSAP", DbType.String, codigoSAP);
-                Context.Database.AddInParameter(command, "@SkipRows", DbType.Int32, offset);
-                Context.Database.AddInParameter(command, "@TakeRows", DbType.Int32, take);
-                Context.Database.AddInParameter(command, "@SortRows", DbType.Int16, sort);
+                Context.Database.AddInParameter(command, "@Estado", DbType.Int16, filter.Estado);
+                Context.Database.AddInParameter(command, "@Tipo", DbType.Int16, filter.Tipo);
+                Context.Database.AddInParameter(command, "@Codigo", DbType.String, filter.Valor);
+                Context.Database.AddInParameter(command, "@Limite", DbType.Int32, filter.Limite);
+                Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, filter.Cantidad);
+                Context.Database.AddInParameter(command, "@Ordenar", DbType.Int16, filter.Ordenar);
                 return Context.ExecuteReader(command);
             }
         }

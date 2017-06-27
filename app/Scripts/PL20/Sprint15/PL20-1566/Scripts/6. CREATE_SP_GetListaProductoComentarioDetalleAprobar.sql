@@ -11,22 +11,34 @@ GO
 
 CREATE PROCEDURE GetListaProductoComentarioDetalleAprobar
 (
-	@CodigoSAP VARCHAR(20),
-	@SkipRows INT = 0,
-	@TakeRows INT = 30,
-	@SortRows TINYINT = 1
+	@Estado TINYINT,
+	@Tipo TINYINT,
+	@Codigo VARCHAR(20),
+	@Limite INT = 0,
+	@Cantidad INT = 10,
+	@Ordenar TINYINT = 1
 )
 AS
 BEGIN
-	SELECT c.ProdComentarioId, d.ProdComentarioDetalleId, d.Valorizado, 
-	d.Recomendado, d.Comentario, CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
-	d.CodigoConsultora
+	SELECT 
+	c.ProdComentarioId, 
+	d.ProdComentarioDetalleId, 
+	d.CodigoConsultora,
+	CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
+	d.Valorizado, 
+	d.Comentario, 
+	d.Estado
 	FROM ProductoComentario c 
 	INNER JOIN ProductoComentarioDetalle d ON c.ProdComentarioId = d.ProdComentarioId
-		AND d.Estado = 1
-	WHERE c.CodigoSAP = @CodigoSAP AND c.Estado = 1
+		AND d.Estado = @Estado
+	WHERE 
+		c.CodigoSap =	CASE 
+						WHEN @Tipo = 1 THEN @Codigo 
+						ELSE '' 
+						END
+		AND c.Estado = 1
 	ORDER BY c.FechaRegistro
-	OFFSET @SkipRows ROWS
-	FETCH NEXT @TakeRows ROWS ONLY;
+	OFFSET @Limite ROWS
+	FETCH NEXT @Cantidad ROWS ONLY;
 END
 GO

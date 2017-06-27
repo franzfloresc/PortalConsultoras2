@@ -63,6 +63,7 @@
     <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
     <Compile Include="BEOfertaFinalConsultoraLog.cs" />
     <Compile Include="BEProductoComentario.cs" />
+    <Compile Include="BEProductoComentarioDetalleFilter.cs" />
     <Compile Include="BEProductoComentarioDetalle.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
