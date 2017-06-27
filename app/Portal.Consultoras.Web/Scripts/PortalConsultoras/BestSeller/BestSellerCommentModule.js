@@ -17,7 +17,8 @@
         contenedorPuntuacion: '.rateyo-puntuacion-seccion-comentario',
         contenedorComentarios: '#contenedorComentarios',
         hdRecomendado: '#hdRecomendado',
-        txtComentario: '#txtComentario'
+        txtComentario: '#txtComentario',
+        ddlFiltro: '#ddlFiltro'
     };
 
     var setting = {
@@ -25,7 +26,8 @@
         urlRegistrarComentario: '',
         urlImagenUsuarioDefault: '',
         cantidadCrecienteMostrarInicial: 0,
-        cantidadCrecienteMostrar: 10
+        cantidadCrecienteMostrar: 10,
+        esperarScroll: false
     };
 
     var _bindEvents = function () {
@@ -54,6 +56,13 @@
         $(document).on("click", elements.btnNoRecomendar, function () {
             $(elements.hdRecomendado).val(false);
         });
+
+        $(document).on("change", elements.ddlFiltro, function () {
+            setting.cantidadCrecienteMostrarInicial = 0;
+            $(elements.contenedorComentarios).empty();
+            _bindScroll();
+            _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+        });
     }
 
     var _bindRate = function () {
@@ -78,8 +87,10 @@
     
     var _listarComentariosScroll = function () {
         if ($(window).scrollTop() + $(window).height() > ($(document).height() - $('footer').outerHeight())) {
-            setting.cantidadCrecienteMostrarInicial += setting.cantidadCrecienteMostrar;
-            _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+            if (!setting.esperarScroll) {
+                setting.cantidadCrecienteMostrarInicial += setting.cantidadCrecienteMostrar;
+                _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+            }
         }
     };
 
@@ -103,10 +114,12 @@
 
     var _listarComentarios = function (cantidadCrecienteMostrarInicial) {
         waitingDialog();
+        setting.esperarScroll = true;
+
         var model = {
             codigoSAP: '0123456789',
             cantidadMostrar: cantidadCrecienteMostrarInicial,
-
+            orden: $(elements.ddlFiltro + ' option:selected').val()
         };
         var listarComentariosPromise = _listarComentariosPromise(model);
 
@@ -120,6 +133,7 @@
                     alert(listarComentariosResponse.message);
                 }
 
+                setting.esperarScroll = false;
                 closeWaitingDialog();
             }
         });
@@ -130,10 +144,11 @@
         var listaContenedoresEstrellasId = [];
 
         $.each(listaComentarios, function (index, item) {
-            var contenedorStarsId = 'puntuacion_usuario_visible-' + (index++);
+            index++;
+            var contenedorStarsId = 'puntuacion_usuario_visible-' + (index);
             listaContenedoresEstrellasId.push({ contenedorStarsId: contenedorStarsId, cantidadEstellas: item.Valorizado });
 
-            htmlSeccionComentarios += '';
+            htmlSeccionComentarios += '' + index;
             htmlSeccionComentarios += '<div class="content_comentario_usuario">';
             htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
             htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';

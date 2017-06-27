@@ -30,5 +30,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
         }
+
+        public ActionResult DetalleProducto()
+        {
+            return View();
+        }
     }
 }
