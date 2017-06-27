@@ -36245,3 +36245,6 @@ h1#penmostreo .campana {
 .contenedor-texto-agregar{
     display:block;
 }
+.contenedorCuponInfo.content_cupon_pedido .contenedor-texto-agregar{
+    display:inline-block;
+}
