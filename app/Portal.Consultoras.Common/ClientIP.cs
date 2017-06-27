@@ -39,12 +39,8 @@ namespace Portal.Consultoras.Common
             if (IP == null) IP = request.UserHostAddress;
 
             if (IP != null)
-            {
                 if (IP.IndexOf(":") > 0)
                     IP = IP.Substring(0, IP.IndexOf(":") - 1);
-                else
-                    IP = "127.0.0.1";
-            }
 
             return IP;
         }
