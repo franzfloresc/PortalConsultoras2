@@ -23,12 +23,10 @@
         });
 
         $(document).ready(function () {
+            debugger;
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
-            debugger;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
-            if(item.pre)
-            $("#contenedor-detalle-producto").show();
         });
     }
 
@@ -65,12 +63,6 @@
         var lista = model.Lista;
         var item = null;
 
-        //$.each(lista, function (index, value) {
-        //    if (value.EstrategiaID == estrategiaId) {
-        //        item = value;
-        //    }
-        //});
-
         lista.forEach(elem => {if (elem.EstrategiaID == estrategiaId) {item = elem;}});
 
         return item;
@@ -93,7 +85,7 @@
 
         var promise = $.ajax({
             type: 'POST',
-            url: (setting.baseUrl + setting.urlVerDetalleProducto),
+            url: "EstrategiaProducto/ObtenerDetalleProducto",
             data: JSON.stringify(data),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
@@ -113,6 +105,7 @@
             _initializer(parameters);
         },
         estrategiaVerDetalle: function (estrategiaId) {
+            debugger;
             _verDetalleProductoMasVendidos(estrategiaId);
         }
     };

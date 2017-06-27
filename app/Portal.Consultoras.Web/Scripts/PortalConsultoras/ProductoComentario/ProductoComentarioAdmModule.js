@@ -1,6 +1,6 @@
 ﻿/// <reference path="../../jquery-1.11.2.js" />
 
-var productoComentarioModule = (function () {
+var productoComentarioAdmModule = (function () {
     "use strict"
 
     var TIPO_PRODUCTO_COMENTARIO =  {

@@ -51,10 +51,16 @@
 
         $(document).on("click", elements.btnRecomendar, function () {
             $(elements.hdRecomendado).val(true);
+            $(this).addClass('respuesta_valida');
+            $(elements.btnNoRecomendar).removeClass('respuesta_valida');
+            _habilitarBotonEnviarComentario();
         });
 
         $(document).on("click", elements.btnNoRecomendar, function () {
             $(elements.hdRecomendado).val(false);
+            $(this).addClass('respuesta_valida');
+            $(elements.btnRecomendar).removeClass('respuesta_valida');
+            _habilitarBotonEnviarComentario();
         });
 
         $(document).on("change", elements.ddlFiltro, function () {
@@ -62,6 +68,14 @@
             $(elements.contenedorComentarios).empty();
             _bindScroll();
             _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+        });
+
+        $(document).on("keyup", elements.txtComentario, function () {
+            _habilitarBotonEnviarComentario();
+        });
+
+        $(document).on("click", elements.contenedorPuntuacion, function () {
+            _habilitarBotonEnviarComentario();
         });
     }
 
@@ -148,7 +162,7 @@
             var contenedorStarsId = 'puntuacion_usuario_visible-' + (index);
             listaContenedoresEstrellasId.push({ contenedorStarsId: contenedorStarsId, cantidadEstellas: item.Valorizado });
 
-            htmlSeccionComentarios += '' + index;
+            htmlSeccionComentarios += '';
             htmlSeccionComentarios += '<div class="content_comentario_usuario">';
             htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
             htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
@@ -199,10 +213,14 @@
     };
 
     var _limpiarElementosContenedorValoracion = function () {
+        $(elements.btnRecomendar).removeClass('respuesta_valida');
+        $(elements.btnNoRecomendar).removeClass('respuesta_valida');
         $(elements.contenedorPuntuacion).rateYo("destroy");
-        _bindRate();
         $(elements.hdRecomendado).val('');
         $(elements.txtComentario).val('');
+        $(elements.btnEnviarComentario).removeClass('respuesta_valida');
+        $(elements.btnEnviarComentario).prop('disabled', true);
+        _bindRate();
     };
 
     var _renderizarEstrellasPorContenedor = function (listaContenedoresEstrellasId) {
@@ -221,6 +239,30 @@
             })
         });
 
+    };
+
+    var _habilitarBotonEnviarComentario = function () {
+        var pendiente = 0;
+
+        if ($(elements.txtComentario).val() == '') {
+            pendiente++;
+        }
+
+        if ($(elements.hdRecomendado).val() == '') {
+            pendiente++;
+        }
+
+        if ($(elements.contenedorPuntuacion).rateYo('rating') == '' || $(elements.contenedorPuntuacion).rateYo('rating') == 0) {
+            pendiente++;
+        }
+
+        if (pendiente <= 0) {
+            $(elements.btnEnviarComentario).addClass('respuesta_valida');
+            $(elements.btnEnviarComentario).prop('disabled', false);
+        } else {
+            $(elements.btnEnviarComentario).removeClass('respuesta_valida');
+            $(elements.btnEnviarComentario).prop('disabled', true);
+        }
     };
 
     var _registrarComentarioPromise = function (model) {

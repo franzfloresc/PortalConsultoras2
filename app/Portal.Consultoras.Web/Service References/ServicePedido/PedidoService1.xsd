@@ -205,15 +205,13 @@
   <xs:complexType name="BEProductoComentario">
     <xs:sequence>
       <xs:element minOccurs="0" name="CantAprobados" type="xs:int" />
-      <xs:element minOccurs="0" name="CantComentarios" type="xs:int" />
       <xs:element minOccurs="0" name="CantRecomendados" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:short" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="PorcAprobados" type="xs:short" />
-      <xs:element minOccurs="0" name="PorcRecomendados" type="xs:short" />
       <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
+      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoComentario" nillable="true" type="tns:BEProductoComentario" />
@@ -514,7 +512,6 @@
       <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
       <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
       <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
-      <xs:element minOccurs="0" name="CantComentarios" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoAgrupacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoEstrategia" nillable="true" type="xs:string" />
@@ -569,6 +566,7 @@
       <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />

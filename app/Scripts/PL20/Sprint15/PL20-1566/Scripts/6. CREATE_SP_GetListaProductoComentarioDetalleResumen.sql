@@ -18,11 +18,16 @@ CREATE PROCEDURE GetListaProductoComentarioDetalleResumen
 )
 AS
 BEGIN
-	SELECT c.ProdComentarioId, d.ProdComentarioDetalleId, d.Valorizado, 
-	d.Recomendado, d.Comentario, CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
-	ex.FotoPerfil AS URLFotoConsultora, 
-	d.CodigoConsultora, 
-	RTRIM(co.PrimerNombre) + ' ' + RTRIM(co.PrimerApellido) AS NombreConsultora
+	SELECT 
+		c.ProdComentarioId, 
+		d.ProdComentarioDetalleId, 
+		d.Valorizado, 
+		d.Recomendado, 
+		d.Comentario, 
+		CAST(d.FechaRegistro AS DATE) AS FechaRegistro, 
+		ex.FotoPerfil AS URLFotoConsultora, 
+		d.CodigoConsultora,
+		RTRIM(co.PrimerNombre) + ' ' + RTRIM(co.PrimerApellido) AS NombreConsultora
 	FROM ProductoComentario c 
 	INNER JOIN ProductoComentarioDetalle d ON c.ProdComentarioId = d.ProdComentarioId
 		AND d.Estado = 2
@@ -32,7 +37,9 @@ BEGIN
 		AND ex.Proveedor = 'Facebook' 
 		AND ex.Estado = 2
 	WHERE c.CodigoSap = @CodigoSap AND c.Estado = 1
-	ORDER BY FechaRegistro
+	ORDER BY 
+		CASE WHEN @Ordenar = 1 THEN d.FechaRegistro END ASC,
+		CASE WHEN @Ordenar = 2 THEN d.FechaRegistro END DESC
 	OFFSET @Limite ROWS
 	FETCH NEXT @Cantidad ROWS ONLY;
 END

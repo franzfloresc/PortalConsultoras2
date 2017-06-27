@@ -458,12 +458,11 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetProductoComentarioResumenByListaCodSap(string listaCod, string separador)
+        public IDataReader GetUltimoProductoComentarioByCodigoSap(string codigoSap)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUltimoProductoComentarioByCodSap"))
             {
-                Context.Database.AddInParameter(command, "@ListaCod", DbType.String, listaCod);
-                Context.Database.AddInParameter(command, "@Separador", DbType.String, separador);
+                Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, codigoSap);
                 return Context.ExecuteReader(command);
             }
         }
@@ -492,15 +491,6 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, filter.Cantidad);
                 Context.Database.AddInParameter(command, "@Ordenar", DbType.Int16, filter.Ordenar);
                 return Context.ExecuteReader(command);
-            }
-        }
-
-        public bool UpdCantidadProductoComentario(int prodComentarioId)
-        {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdCantidadProductoComentario"))
-            {
-                Context.Database.AddInParameter(command, "@ProdComentarioId", DbType.Int32, prodComentarioId);
-                return true;
             }
         }
 
