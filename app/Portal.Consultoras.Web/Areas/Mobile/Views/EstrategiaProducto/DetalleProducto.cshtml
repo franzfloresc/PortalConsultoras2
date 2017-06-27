@@ -38,7 +38,25 @@
         </div>
         <div class="comentarios_best_seller_ficha">
             “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.               Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br>              - Sandra A.
-        </div>        
+        </div> 
+        <!--COLOR TONO-->
+            <div class="content_tono_bestSeller">
+                <div class="item_tono_best">
+                    <div class="cantidad_item_tono">x1</div>
+                    <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                    <hr class="clear" />
+                    <div class="color_tono_item"></div>
+                    <div class="color_texto_item">Rojo Pimienta</div>
+                </div>
+                <div class="item_tono_best">
+                    <div class="cantidad_item_tono">x1</div>
+                    <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                    <hr class="clear" />
+                    <div class="color_tono_item"></div>
+                    <div class="color_texto_item">Rojo Pimienta</div>
+                </div>
+            </div>
+        <!--FIN-->       
     </div>
 </div>
 <!--CARROUSEL-->
@@ -110,8 +128,64 @@
         <hr class="clear" />
         <div class="contentAgregarComentarios">
             <!--AGREGA COMENTARIOS-->
-            <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
+            <div class="texto_agregarComentarios" style="display:none">AGREGA TU COMENTARIO</div>
+            <!--AÑADIENDO COMENTARIOS-->
+            <div class="contentValoracion" style="display:none">
+                <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
+                <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
+                <div class="content_detalle_puntuación">
+                    Evalúa el Producto
+                    <div class="rateyo-puntuacion-seccion-comentario"></div>
+                    ¿Lo recomiendas?
+                    <div>
+                        <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
+                        <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
+                        <input type="hidden" id="hdRecomendado" value="" />
+                    </div>
+                </div>
+                <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
+                <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
+                <a class="cancelar_comentario">CANCELAR</a>
+            </div>
+            <!--CONFIRMACIÓN COMENTARIOS-->
+            <div class="content_confirmacion_comentario">
+                <div class="icono_check_comentario"></div>
+                <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
+                <div class="subtexto_comentario" style="font-size:14px;">Válidaremos el contenido y en menos de 48 horas se publicará.</div>
+                <a class="btn_cerrar_comentario">CERRAR</a>
+            </div>
             <!--FIN-->
+        </div>
+        <!--COMENTARIO VISIBLES USUARIO-->
+        <div class="ContentcomentariosVisibles">
+            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+            <div class="datos_usuario_comentario">
+                <div class="rateyo-readonly-widg"></div>
+                <div class="nombre_usuario_comentario">Sandra Arce</div>
+                <div class="fecha_comentario">03 Junio 2017</div>
+            </div>
+            <hr class="clear" />
+            <div class="comentario_realizado_usuario">
+                Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. 
+                Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, 
+                sonet splendide consectetuer in sed. 
+                <a class="mostrar_total_comentario">Leer más</a>
+            </div>
+        </div>
+        <div class="ContentcomentariosVisibles">
+            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+            <div class="datos_usuario_comentario">
+                <div class="rateyo-readonly-widg"></div>
+                <div class="nombre_usuario_comentario">Sandra Arce</div>
+                <div class="fecha_comentario">03 Junio 2017</div>
+            </div>
+            <hr class="clear" />
+            <div class="comentario_realizado_usuario">
+                Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui.
+                Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei,
+                sonet splendide consectetuer in sed.
+                <a class="mostrar_total_comentario">Leer más</a>
+            </div>
         </div>
        
     </div>
@@ -203,6 +277,16 @@
                     starWidth: "33px",
                     readOnly: true
                 });
+                $(".rateyo-puntuacion-seccion-comentario").rateYo({
+                    rating: 0,
+                    precision: 2,
+                    minValue: 1,
+                    maxValue: 5,
+                    starWidth: "25px",
+                    spacing: "7px",
+                    fullStar: true
+                })
+                
             });
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
