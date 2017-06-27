@@ -68,6 +68,21 @@
         })
     };
 
+    var _bindScroll = function () {
+        $(window).scroll(_listarComentariosScroll);
+    };
+
+    var _unbindScroll = function(){
+        $(window).off("scroll", _listarComentariosScroll);
+    };
+    
+    var _listarComentariosScroll = function () {
+        if ($(window).scrollTop() + $(window).height() > ($(document).height() - $('footer').outerHeight())) {
+            setting.cantidadCrecienteMostrarInicial += setting.cantidadCrecienteMostrar;
+            _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+        }
+    };
+
     var _registrarComentario = function () {
         var model = _obtenerRegistrarComentarioModel();
         var registrarComentarioPromise = _registrarComentarioPromise(model);
@@ -86,10 +101,11 @@
 
     };
 
-    var _listarComentarios = function () {
+    var _listarComentarios = function (cantidadCrecienteMostrarInicial) {
+        waitingDialog();
         var model = {
             codigoSAP: '0123456789',
-            cantidadMostrar: setting.cantidadCrecienteMostrarInicial,
+            cantidadMostrar: cantidadCrecienteMostrarInicial,
 
         };
         var listarComentariosPromise = _listarComentariosPromise(model);
@@ -98,6 +114,8 @@
             if (checkTimeout(listarComentariosResponse)) {
                 if (listarComentariosResponse.success) {
                     _buildHtmlSeccionComentarios(listarComentariosResponse.data);
+                    if (listarComentariosResponse.data.length < setting.cantidadCrecienteMostrar)
+                        _unbindScroll();
                 } else {
                     alert(listarComentariosResponse.message);
                 }
@@ -236,7 +254,8 @@
         setting.urlImagenUsuarioDefault = parameters.urlImagenUsuarioDefault;
         _bindEvents();
         _bindRate();
-        _listarComentarios();
+        _bindScroll();
+        _listarComentarios(setting.cantidadCrecienteMostrarInicial);
     };
 
     return {
