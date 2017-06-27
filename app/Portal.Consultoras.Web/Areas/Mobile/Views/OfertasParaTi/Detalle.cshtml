@@ -137,6 +137,10 @@
                      <div class="@claseItem">
                          @foreach (var Hermano in Model.Hermanos)
                          {
+                             if ((Hermano.NombreComercial ?? "" ) == "")
+                             {
+                                 continue;
+                             }
                              <div>
                                  <div class="@claseItem3" data-tono=""  data-tono-select="" data-tono-digitable="@Hermano.Digitable">
                                      <div style="display: none;">
@@ -144,7 +148,10 @@
                                          <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="@Hermano.PrecioCatalogo" />
                                      </div>
                                      <div class="nombre_producto_opt" data-tono-select-nombrecomercial="">
-                                         <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                         @if (@Hermano.Cantidad > 0)
+                                         {
+                                            <span class="cantidad_producto_opt">x @Hermano.Cantidad </span>
+                                         }
                                          <span data-tono-select-nombrecomercial="">@Hermano.NombreComercial</span>
                                      </div>
                                      @if (Hermano.Digitable == 1)
