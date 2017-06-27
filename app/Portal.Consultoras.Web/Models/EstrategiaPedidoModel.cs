@@ -86,5 +86,6 @@ namespace Portal.Consultoras.Web.Models
 
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
+        public decimal PrecioGana { get; }
     }
 }

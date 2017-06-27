@@ -11,7 +11,8 @@
 
     var setting = {
         baseUrl: '',
-        urlVerDetalleProducto: 'EstrategiaProducto/DetalleProducto'
+        urlVerDetalleProducto: 'EstrategiaProducto/DetalleProducto',
+
     };
 
     var lista = [];
@@ -19,6 +20,15 @@
     var _bindEvents = function () {
         $(document).on("click", elements.btnAgregarComentario, function () {
             
+        });
+
+        $(document).ready(function () {
+            var model = get_local_storage("data_mas_vendidos");
+            var item = model.Item;
+            debugger;
+            SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
+            if(item.pre)
+            $("#contenedor-detalle-producto").show();
         });
     }
 
@@ -30,17 +40,19 @@
     };
 
     var _verDetalleProductoMasVendidos = function (estrategiaId) {
-        debugger;
         var objProducto = _obtenerProductoDesdeStorage(estrategiaId);
         var verDetallePromise = _verDetallePromise(objProducto);
 
-        $.when(verDetallePromise).then(function (verDetalleResponse) {
-            if (checkTimeout(campaniasResponse)) {
-                if (verDetalleResponse.success) {
-                    model.Lista = _actualizarListaStorate(lista, data);
-                    set_local_storage(model, "data_mas_vendidos");
-
-                    location.href = baseUrl + 'EstrategiaProducto/DetalleProducto';
+        $.when(verDetallePromise)
+            .then(function (verDetalleResponse) {
+                if (checkTimeout(verDetalleResponse)) {
+                    if (verDetalleResponse.success) {
+                        var item = verDetalleResponse.data.Item;
+                        var model = get_local_storage("data_mas_vendidos");
+                        model.Item = item;
+                        model.Lista = _actualizarListaStorate(model.Lista, item);
+                        set_local_storage(model, "data_mas_vendidos");
+                        location.href = baseUrl + 'EstrategiaProducto/DetalleProducto';
                 } else {
                     console.log(verDetalleResponse.menssage);
                 }
@@ -53,24 +65,26 @@
         var lista = model.Lista;
         var item = null;
 
-        $.each(lista, function (index, value) {
-            if (value.EstrategiaID == estrategiaId) {
-                item = value;
-            }
-        });
+        //$.each(lista, function (index, value) {
+        //    if (value.EstrategiaID == estrategiaId) {
+        //        item = value;
+        //    }
+        //});
+
+        lista.forEach(elem => {if (elem.EstrategiaID == estrategiaId) {item = elem;}});
 
         return item;
     };
     
-    var _actualizarListaStorate = function (lista, data) {
+    var _actualizarListaStorate = function (lista, item) {
         var temp = [];
-        $.each(lista, function (index, value) {
-            if (value.EstrategiaID == item.EstrategiaID) {
+        lista.forEach(elem => {
+            if (elem.EstrategiaID == item.EstrategiaID) {
                 temp.push(item);
             } else {
-                temp.push(value);
+                temp.push(elem);
             }
-        });
+        })
         return temp;
     };
 
