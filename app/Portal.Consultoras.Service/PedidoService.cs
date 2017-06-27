@@ -2090,19 +2090,19 @@ namespace Portal.Consultoras.Service
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSAP);
         }
 
-        public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
+        //public List<BEProductoComentario> GetProductoComentarioResumenByListaCodSap(int paisID, string listaCod, string separador)
+        //{
+        //    return blEstrategia.GetProductoComentarioResumenByListaCodSap(paisID, listaCod, separador);
+        //}
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
         {
-            return blEstrategia.GetProductoComentarioResumenByListaCodSap(paisID, listaCod, separador);
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, filter);
         }
 
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, string codigoSAP, int offset, int take, Int16 sort)
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
         {
-            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, codigoSAP, offset, take, sort);
-        }
-
-        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, string codigoSAP, int offset, int take, Int16 sort)
-        {
-            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, codigoSAP, offset, take, sort);
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, filter);
         }
 
         public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
