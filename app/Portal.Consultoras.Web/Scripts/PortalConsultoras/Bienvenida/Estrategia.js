@@ -102,7 +102,7 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
-function CargarCarouselMasVendidos(origen) {
+function CargarCarouselMasVendidos(origen) {    
     var dataMasVendidos = get_local_storage("data_mas_vendidos");
     if (typeof dataMasVendidos !== 'undefined' && dataMasVendidos != null) {
         $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
@@ -191,7 +191,7 @@ function ArmarCarouselMasVendidos(data) {
 }
 
 function ArmarCarouselEstrategias(data) {
-
+    
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();

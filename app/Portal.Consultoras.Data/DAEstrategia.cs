@@ -458,12 +458,11 @@ namespace Portal.Consultoras.Data
             }
         }
 
-        public IDataReader GetProductoComentarioResumenByListaCodSap(string listaCod, string separador)
+        public IDataReader GetUltimoProductoComentarioByCodigoSap(string codigoSap)
         {
-            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComentarioByCodSap"))
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUltimoProductoComentarioByCodSap"))
             {
-                Context.Database.AddInParameter(command, "@ListaCod", DbType.String, listaCod);
-                Context.Database.AddInParameter(command, "@Separador", DbType.String, separador);
+                Context.Database.AddInParameter(command, "@CodigoSap", DbType.String, codigoSap);
                 return Context.ExecuteReader(command);
             }
         }
@@ -487,6 +486,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@Estado", DbType.Int16, filter.Estado);
                 Context.Database.AddInParameter(command, "@Tipo", DbType.Int16, filter.Tipo);
                 Context.Database.AddInParameter(command, "@Codigo", DbType.String, filter.Valor);
+                Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, filter.CampaniaID);
                 Context.Database.AddInParameter(command, "@Limite", DbType.Int32, filter.Limite);
                 Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, filter.Cantidad);
                 Context.Database.AddInParameter(command, "@Ordenar", DbType.Int16, filter.Ordenar);
