@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Portal.Consultoras.Common;
-using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -11,7 +10,7 @@ namespace Portal.Consultoras.Web.Models
     {
         private Enumeradores.EstadoProductoComentario _estado;
 
-        public EstadoProductoComentarioModel(EstadoProductoComentario estado)
+        public EstadoProductoComentarioModel(Enumeradores.EstadoProductoComentario estado)
         {
             this._estado = estado;
             EstadoComentarioProductoId = (int)this._estado;

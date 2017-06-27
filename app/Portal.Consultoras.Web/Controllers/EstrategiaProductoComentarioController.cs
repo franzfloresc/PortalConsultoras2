@@ -61,7 +61,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                var listarComentariosBE = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, codigoSAP, cantidadMostrar, cantidadConstante, 0).ToList();
+                BEProductoComentarioFilter filter = new BEProductoComentarioFilter();
+                filter.Valor = codigoSAP;
+                filter.Limite = cantidadMostrar;
+                filter.Cantidad = cantidadConstante;
+                filter.Ordenar = 0;
+
+                var listarComentariosBE = sv.GetListaProductoComentarioDetalleResumen(userData.PaisID, filter).ToList();
                 listaComentarios = listarComentariosBE.Select(x => MapearProductoComentarioBEAProductoComentarioModel(x)).ToList();
             }
 

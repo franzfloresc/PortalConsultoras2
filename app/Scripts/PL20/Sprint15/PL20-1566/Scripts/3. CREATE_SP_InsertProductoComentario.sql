@@ -11,7 +11,7 @@ GO
 
 CREATE PROCEDURE dbo.InsertProductoComentario
 (
-	@CodigoSAP VARCHAR(20),
+	@CodigoSap VARCHAR(20),
 	@CodigoGenerico VARCHAR(20)
 )
 AS
@@ -21,13 +21,13 @@ BEGIN
 	DECLARE @ProdComentarioId INT 
 
 	SELECT TOP 1 @ProdComentarioId = ProdComentarioId 
-	FROM ProductoComentario WHERE CodigoSAP = @CodigoSAP AND Estado = 1
+	FROM ProductoComentario WHERE CodigoSap = @CodigoSap AND Estado = 1
 
 	IF (ISNULL(@ProdComentarioId,0) = 0)
 	BEGIN
 		INSERT INTO ProductoComentario
 		(
-			CodigoSAP,
+			CodigoSap,
 			CodigoGenerico,
 			CantComentarios,
 			CantAprobados,
@@ -37,7 +37,7 @@ BEGIN
 		)
 		VALUES 
 		(
-			@CodigoSAP,
+			@CodigoSap,
 			@CodigoGenerico,
 			0,
 			0,
@@ -46,11 +46,10 @@ BEGIN
 			1
 		)
 
-		SELECT @ProdComentarioId = @@Identity
+		SET @ProdComentarioId = @@Identity
 	END
 
 	SELECT @ProdComentarioId
 	
 END
 GO
-
