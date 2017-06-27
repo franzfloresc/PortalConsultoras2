@@ -3,10 +3,7 @@
 
 @{
     var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
-
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
-    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-
 }
 
 @section styles
