@@ -125,7 +125,10 @@ function ArmarCarouselEstrategias(data) {
     //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
-    //ResizeBoxContnet();
+    //try {
+    //    ResizeBoxContnet();
+    //}catch(e){ console.log(e)}
+    
 
     if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
@@ -605,7 +608,9 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     var posicionItem = objParameter.Posicion;
     var flagNueva = objParameter.FlagNueva;
 
-    var cantidadIngresada = (limite > 0) ? limite : $(objInput).parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val() || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
+    var cantidadIngresada = (limite > 0) ? limite : $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val()
+                                                  || $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val()
+                                                  || $(objInput).parents("[data-item]").find("[data-input='cantidad']").val();
     origenPedidoWebEstrategia =
         $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
@@ -1008,3 +1013,4 @@ function ProcesarActualizacionMostrarContenedorCupon() {
         }
     }
 }
+
