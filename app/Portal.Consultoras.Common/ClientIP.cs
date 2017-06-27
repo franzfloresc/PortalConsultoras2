@@ -15,9 +15,10 @@ namespace Portal.Consultoras.Common
 
             foreach (var item in s_HeaderItems)
             {
-                var ipString = request.Headers[item.Key];
+                var ipString = request.ServerVariables[item.Key];
 
                 if (string.IsNullOrEmpty(ipString)) continue;
+                if (ipString.Trim() == "::1") continue;
 
                 if (item.Split)
                 {
