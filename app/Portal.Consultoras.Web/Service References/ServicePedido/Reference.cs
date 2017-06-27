@@ -23819,6 +23819,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicePedido.IPedidoService")]
     public interface IPedidoService {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse")]
+        int UpdOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse")]
+        System.Threading.Tasks.Task<int> UpdOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleResponse")]
         int EliminarOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle beShowRoomOfertaDetalle);
         
@@ -24315,6 +24321,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetTipoEstrategias", ReplyAction="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BETipoEstrategia[]> GetTipoEstrategiasAsync(Portal.Consultoras.Web.ServicePedido.BETipoEstrategia entidad);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV", ReplyAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUVResponse")]
+        string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV", ReplyAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUVResponse")]
+        System.Threading.Tasks.Task<string> GetCodeEstrategiaByCUVAsync(int paisID, string cuv, int campaniaID);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetEstrategias", ReplyAction="http://tempuri.org/IPedidoService/GetEstrategiasResponse")]
         Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategias(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad);
         
@@ -24774,12 +24786,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalleResponse")]
         System.Threading.Tasks.Task<int> InsOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse")]
-        int UpdOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle", ReplyAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse")]
-        System.Threading.Tasks.Task<int> UpdOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsCrossSellingAsociacion", ReplyAction="http://tempuri.org/IPedidoService/InsCrossSellingAsociacionResponse")]
         int InsCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad);
@@ -25845,6 +25851,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 base(binding, remoteAddress) {
         }
         
+        public int UpdOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity) {
+            return base.Channel.UpdOfertaShowRoomDetalle(paisID, entity);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity) {
+            return base.Channel.UpdOfertaShowRoomDetalleAsync(paisID, entity);
+        }
+        
         public int EliminarOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle beShowRoomOfertaDetalle) {
             return base.Channel.EliminarOfertaShowRoomDetalle(paisID, beShowRoomOfertaDetalle);
         }
@@ -26493,6 +26507,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.GetTipoEstrategiasAsync(entidad);
         }
         
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID) {
+            return base.Channel.GetCodeEstrategiaByCUV(paisID, cuv, campaniaID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetCodeEstrategiaByCUVAsync(int paisID, string cuv, int campaniaID) {
+            return base.Channel.GetCodeEstrategiaByCUVAsync(paisID, cuv, campaniaID);
+        }
+        
         public Portal.Consultoras.Web.ServicePedido.BEEstrategia[] GetEstrategias(Portal.Consultoras.Web.ServicePedido.BEEstrategia entidad) {
             return base.Channel.GetEstrategias(entidad);
         }
@@ -27099,14 +27121,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         public System.Threading.Tasks.Task<int> InsOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity) {
             return base.Channel.InsOfertaShowRoomDetalleAsync(paisID, entity);
-        }
-        
-        public int UpdOfertaShowRoomDetalle(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity) {
-            return base.Channel.UpdOfertaShowRoomDetalle(paisID, entity);
-        }
-        
-        public System.Threading.Tasks.Task<int> UpdOfertaShowRoomDetalleAsync(int paisID, Portal.Consultoras.Web.ServicePedido.BEShowRoomOfertaDetalle entity) {
-            return base.Channel.UpdOfertaShowRoomDetalleAsync(paisID, entity);
         }
         
         public int InsCrossSellingAsociacion(Portal.Consultoras.Web.ServicePedido.BECrossSellingAsociacion entidad) {

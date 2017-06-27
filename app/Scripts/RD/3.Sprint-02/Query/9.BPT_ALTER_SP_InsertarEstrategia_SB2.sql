@@ -1,7 +1,7 @@
 --------------------------------------------------------
--- MODIFICADO SOLO EN PERU (QUITO VALIDACION PARA ORDEN)
+-- MODIFICADO SOLO EN PERU Y CHILE (QUITO VALIDACION PARA ORDEN)
 --------------------------------------------------------
-USE BelcorpPeru
+USE BelcorpChile
 GO
 
 ALTER PROCEDURE [dbo].[InsertarEstrategia_SB2]

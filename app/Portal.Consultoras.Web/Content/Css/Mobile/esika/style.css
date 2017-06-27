@@ -4940,6 +4940,14 @@ table > thead > tr > th {
     font-weight: 400;
 }
 
+.texto_exclusivo_bpt {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #000;
+    margin-top: 5px;
+    font-weight: 800;
+}
+
 .banner_inferior_mobile {
     max-width: 390px;
     margin: 0 auto;
@@ -11816,7 +11824,7 @@ a{
     margin-top: 17px;
     text-align: center;
     margin-bottom: 4px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .alerta_notificacion{
      font-family: 'Lato';
