@@ -36771,3 +36771,11 @@ h1#penmostreo .campana {
 .content_comentario_usuario:last-child{
     border-bottom:0;
 }
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_valida{
+    background:black;
+    color:white;
+}
