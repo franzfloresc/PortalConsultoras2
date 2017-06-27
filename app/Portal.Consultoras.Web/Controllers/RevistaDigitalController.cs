@@ -189,7 +189,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
-                    p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
                 });
 
                 return Json(new

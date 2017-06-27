@@ -245,11 +245,7 @@
     </div>
     <div class="linea_separadora_mobile" style="margin-top:16px"></div>
 </div>
-<!--INICIO CARRUSEL-->
-<div id="divListaEstrategias" style="display: none;">
-    <div id="contenedor_template_estrategia_cabecera"></div>
-</div>
-<!--FIN CARRUSEL-->
+
 <div class="wrapper_resumen_mobile">
     <!--COMPARTIR CATÁLOGOS-->
     <div class="comartir_home_mobile">
@@ -264,14 +260,22 @@
     <hr class="clear" />
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
-    @if (Model.ActivacionAppCatalogoWhastUp == 1)
-    {
+</div>
+<!--INICIO CARRUSEL-->
+<div id="divListaEstrategias" style="display: none;">
+    <div id="contenedor_template_estrategia_cabecera"></div>
+</div>
+<!--FIN CARRUSEL-->
+
+@if (Model.ActivacionAppCatalogoWhastUp == 1)
+{
+    <div class="wrapper_resumen_mobile">
         <!--APP CATÁLOGOS-->
         <div class="comartir_home_mobile">
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
+                class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -312,19 +316,19 @@
                     //urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
-                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
+                                                                        id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-           class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
+            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
             <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
         </a>
         <hr class="clear" />
         <div class="linea_separadora_mobile"></div>
         <!--FIN APP CATÁLOGOS-->
-    }
+    </div>
+}
 
-</div>
 <div class="wrapper_resumen_mobile">
     <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
     @if (Model.ShowRoomMostrarLista == 0)
