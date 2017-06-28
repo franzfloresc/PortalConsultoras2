@@ -9,7 +9,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
-using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -103,7 +102,7 @@ namespace Portal.Consultoras.Web.Controllers
                                Fecha = row.FechaRegistro.ToShortDateString(),
                                Valorizacion = row.Valorizado,
                                Texto = row.Comentario,
-                               Estado = ((EstadoProductoComentario)row.Estado).ToString(),
+                               Estado = ((Enumeradores.EstadoProductoComentario)row.Estado).ToString(),
                                IdEstado = row.Estado,
                                Acciones = ""
                            }
@@ -134,7 +133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             productoComentarioFilter.Estado = (short)estadoComentarioID;
             productoComentarioFilter.Tipo = (short)tipoComentarioID;
-            productoComentarioFilter.Valor = (TipoProductoComentario)tipoComentarioID == TipoProductoComentario.SAP ? SAP : CUV;
+            productoComentarioFilter.Valor = (Enumeradores.TipoProductoComentario)tipoComentarioID == Enumeradores.TipoProductoComentario.SAP ? SAP : CUV;
 
             return productoComentarioFilter;
         }

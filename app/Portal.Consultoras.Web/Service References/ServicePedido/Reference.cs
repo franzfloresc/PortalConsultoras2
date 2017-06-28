@@ -9882,6 +9882,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private decimal PrecioUnitarioField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ProdComentarioIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PromValorizadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10737,6 +10740,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PrecioUnitarioField.Equals(value) != true)) {
                     this.PrecioUnitarioField = value;
                     this.RaisePropertyChanged("PrecioUnitario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ProdComentarioId {
+            get {
+                return this.ProdComentarioIdField;
+            }
+            set {
+                if ((this.ProdComentarioIdField.Equals(value) != true)) {
+                    this.ProdComentarioIdField = value;
+                    this.RaisePropertyChanged("ProdComentarioId");
                 }
             }
         }

@@ -201,6 +201,7 @@
         var objRate = $(elements.contenedorPuntuacion).rateYo();
         var dato = get_local_storage("data_mas_vendidos");
         var model = {
+            prodComentarioId: dato.Item.ProdComentarioId,
             codigoSAP: dato.Item.CodigoProducto,
             codigoGenerico: dato.Item.CodigoGenerico,
             codTipoOrigen: dato.Item.EstrategiaID,

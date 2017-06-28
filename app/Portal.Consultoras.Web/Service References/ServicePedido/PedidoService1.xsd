@@ -566,6 +566,7 @@
       <xs:element minOccurs="0" name="PrecioString" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioTachado" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ProdComentarioId" type="xs:int" />
       <xs:element minOccurs="0" name="PromValorizado" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TallaColor" nillable="true" type="xs:string" />
