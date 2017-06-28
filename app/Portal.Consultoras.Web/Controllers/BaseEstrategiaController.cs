@@ -205,7 +205,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
                     {
-                        listaHermanos.ForEach(h => h.Digitable = 0);
+                        listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
+                        listaHermanos = listaHermanos.Where(h => h.NombreComercial != "").ToList();
                     }
                     else if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
