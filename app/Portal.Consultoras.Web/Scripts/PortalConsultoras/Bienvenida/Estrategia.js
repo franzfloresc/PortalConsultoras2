@@ -171,23 +171,70 @@ function inicializarDivMasVendidos(origen) {
         ]
     });
 
-    var rating = 1.6;
-    $(".rateyo-readonly-widg").rateYo({
-        rating: rating,
-        numStars: 5,
-        precision: 2,
-        minValue: 1,
-        maxValue: 5,
-        starWidth: "17px"
-    }).on("rateyo.change", function (e, data) {
-        //console.log(data.rating);
-    });
+    //var rating = 1.6;
+    //$(".rateyo-readonly-widg").rateYo({
+    //    rating: rating,
+    //    numStars: 5,
+    //    precision: 2,
+    //    minValue: 1,
+    //    maxValue: 5,
+    //    starWidth: "17px"
+    //}).on("rateyo.change", function (e, data) {
+    //    //console.log(data.rating);
+    //});
 }
 
 function ArmarCarouselMasVendidos(data) {
     data.Lista = EstructurarDataCarousel(data.Lista);
     $("#divCarrouselMasVendidos").empty();
     SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+    PintarEstrellas(data.Lista);
+    PintarRecomendaciones(data.Lista);
+}
+
+function PintarRecomendaciones(listaMasVendidos) {
+    listaMasVendidos.forEach(item => {
+        _pintarRecomendaciones(item);
+    });    
+}
+
+function _pintarRecomendaciones(item) {
+    let div = "#recommedation-" + item.EstrategiaID.toString();
+    if (item.CantComenRecom > 0) {
+        let recommendation = '(' + item.CantComenRecom.toString() + ' )';
+        $(div).html(recommendation);
+        $(div).show();
+    }
+    else {
+        $(div).hide();
+    }
+}
+
+function PintarEstrellas(listaMasVendidos) {
+    listaMasVendidos.forEach(item => {
+        _pintarEstrellas(item);
+    }); 
+}
+
+function _pintarEstrellas(item) {
+    let div = "#star-" + item.EstrategiaID.toString();
+    if (item.PromValorizado > 0) {
+        let rating = '';
+        rating = item.PromValorizado.toString() + '%';
+        $(div).rateYo({
+            rating: rating,            
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "17px",
+            readOnly: true
+        });
+        $(div).show();
+    }
+    else {
+        $(div).hide();
+    }
 }
 
 function ArmarCarouselEstrategias(data) {

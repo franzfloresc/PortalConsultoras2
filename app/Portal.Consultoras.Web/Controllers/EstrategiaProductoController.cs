@@ -11,16 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             return View();
-        }
-        
-        //public ActionResult DetalleProducto(EstrategiaPedidoModel item)
-        //{
-        //    try
-        //    {
-        //        return View();
-        //    }
-        //    catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
-        //}
+        }       
 
         [HttpPost]
         public JsonResult ObtenerDetalleProducto(EstrategiaPedidoModel item)
@@ -33,6 +24,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var comentario = svc.GetUltimoProductoComentarioByCodigoSap(userData.PaisID, item.CodigoProducto);
                         item.UltimoComentario = Mapper.Map<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>(comentario);
+                        if (item.UltimoComentario == null)
+                        {
+                            item.UltimoComentario = new EstrategiaProductoComentarioModel();
+                            item.UltimoComentario.Comentario = string.Empty;
+                            item.UltimoComentario.NombreConsultora = string.Empty;
+                        }
                     }
                 }
                 EstrategiaOutModel model = new EstrategiaOutModel { Item = item };
