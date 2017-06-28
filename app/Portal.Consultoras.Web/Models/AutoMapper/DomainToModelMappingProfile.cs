@@ -207,6 +207,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
 
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
+
+            Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
         }
     }
 }
