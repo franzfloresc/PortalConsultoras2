@@ -122,7 +122,7 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Movimiento
-        public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
             var daCliente = new DACliente(paisId);
             return daCliente.MovimientoInsertar(movimiento);

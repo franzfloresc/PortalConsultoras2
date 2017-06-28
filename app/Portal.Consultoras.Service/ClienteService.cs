@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Service
             return BLCliente.ValidateTelefonoByConsultoraDB(paisID, consultoraID, contactoCliente);
         }
 
-        public bool MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
             return BLCliente.MovimientoInsertar(paisId, movimiento);
         }

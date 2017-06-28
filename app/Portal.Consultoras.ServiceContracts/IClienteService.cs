@@ -85,7 +85,7 @@ namespace Portal.Consultoras.ServiceContracts
         BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
 
         [OperationContract]
-        bool MovimientoInsertar(int paisId, BEMovimiento movimiento);
+        int MovimientoInsertar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
         IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId);
