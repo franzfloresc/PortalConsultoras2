@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="wrap" id="contenedor-grilla-producto-comentario" style="display: block;">
+    <div class="wrap" id="contenedor-grilla-producto-comentario" style="display: none;">
         <div class="container clearfix">
             <div class="border-wrapper">
                 <table id="tabla-producto-comentario"></table>
@@ -72,10 +72,12 @@
 @section scripts{
     <script src="~/Scripts/PortalConsultoras/ProductoComentario/ProductoComentarioAdmModule.js"></script>
     <script type="text/javascript">
-        var listarCampaniasUrl = '@Url.Action("ListarCampanias", "Campania")';
         jQuery(document).ready(function () {
             settings = {
-                listarCampaniasUrl: listarCampaniasUrl
+                listarCampaniasUrl: '@Url.Action("ListarCampanias", "Campania")',
+                listarProductoComentarioUrl: '@Url.Action("ListarProductoComentario", "ProductoComentario")',
+                imagenEnableUrl : '@Url.Content("~/Content/Images/enable.png")',
+                imagenDisableUrl : '@Url.Content("~/Content/Images/disable.png")'
             };
             productoComentarioAdmModule.ini(settings);
         });
