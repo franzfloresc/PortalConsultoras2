@@ -414,6 +414,9 @@ function CargarEstrategiasEspeciales(objInput, e) {
         estrategia.Detalle = new Array();
         var btnDesabled = 0;
         if (estrategia.CodigoEstrategia != "") {
+
+            GuardarProductoTemporal(estrategia);
+
             estrategia.Detalle = CargarEstrategiaSet(estrategia.CUV2);
             AbrirLoad();
             estrategia.Linea = "0px";
@@ -1012,6 +1015,38 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
+}
+
+function GuardarProductoTemporal(obj) {
+
+    $.ajaxSetup({
+        cache: false
+    });
+
+    AbrirLoad();
+
+    var varReturn = false;
+
+    jQuery.ajax({
+        type: 'POST',
+        url: urlOfertaDetalleProductoTem,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: false,
+        success: function (response) {
+            varReturn = response.success;
+        },
+        error: function (response, error) {
+            CerrarLoad();
+            localStorage.setItem(lsListaRD, '');
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+
+    return varReturn;
 }
 
 function ActualizarLocalStorageAgregado(tipo, cuv, valor) {

@@ -379,38 +379,6 @@ function ResizeBoxContnet() {
     }
 }
 
-function GuardarProductoTemporal(obj) {
-
-    $.ajaxSetup({
-        cache: false
-    });
-
-    AbrirLoad();
-
-    var varReturn = false;
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlOfertaDetalleProductoTem,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        async: false,
-        success: function (response) {
-            varReturn = response.success;
-        },
-        error: function (response, error) {
-            CerrarLoad();
-            localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
-    });
-
-    return varReturn;
-}
-
 function RDDetalleObtener() {
 
     var param = location.href.toLowerCase().split('?');

@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategia.CodigoEstrategia == "")
                     return estrategia;
 
-                string joinCuv = "";
+                string joinCuv = "|", separador = "|";
 
                 estrategia.CampaniaID = estrategia.CampaniaID > 0 ? estrategia.CampaniaID : userData.CampaniaID;
 
@@ -107,7 +107,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in listaHermanosE)
                     {
-                        joinCuv += item.CodigoSAP + "|";
+                        item.CodigoSAP = Util.Trim(item.CodigoSAP);
+                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
+                            joinCuv += item.CodigoSAP + separador;
                     }
                 }
 
@@ -122,13 +124,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in listaProducto)
                     {
-                        joinCuv += item.SAP + "|";
+                        item.SAP = Util.Trim(item.SAP);
+                        if (item.SAP != "" && !joinCuv.Contains(separador + item.SAP + separador))
+                            joinCuv += item.SAP + separador;
                     }
                 }
 
-                if (joinCuv == "") return estrategia;
+                if (joinCuv == separador) return estrategia;
 
-                joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+                joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
                 var listaAppCatalogo = new List<Producto>();
                 using (ProductoServiceClient svc = new ProductoServiceClient())
