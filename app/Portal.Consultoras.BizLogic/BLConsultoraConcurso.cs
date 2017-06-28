@@ -161,6 +161,8 @@ namespace Portal.Consultoras.BizLogic
                                     : string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
                             }
                         }
+                        if (Concurso.NivelAlcanzado == 0) Concurso.NivelSiguiente = 1;  
+                        Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente);
 
                         if (Concurso.FechaVentaRetail <= DateTime.Today)
                             Concurso.Premios.RemoveAll(p => p.PuntajeMinimo > Concurso.PuntajeTotal);
