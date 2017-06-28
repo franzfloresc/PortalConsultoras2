@@ -395,7 +395,7 @@ function BuscarCUV(CUV) {
 
             if (data.detalle.length <= 0) {
                 $("#divMotivo").html("");
-                alert_msg("El Producto Ingresado no existe");
+                alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
             } else {
                 if (data.detalle.length > 1) PopupPedido(data.detalle);
                 else AsignarCUV(data.detalle[0]);
