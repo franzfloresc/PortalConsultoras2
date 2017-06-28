@@ -12086,23 +12086,28 @@ a{
     /*padding-left:12px;*/
     font-size:12.5px;
     text-align:left;
+    width: 232px;
 }
 
 @media (min-width: 440px) {
     .contenedor-texto-agregar{
        display: block;
     }
+    .texto_cupon{
+        width:260px;
+    }
 }
-
 .texto_cupon_black{
-    color:black;
-    font-family:'Lato';
+    color: #000;
+    font-family: 'Lato';
     line-height: 16px;
-    padding-left:30px;
-    font-size:12.5px;
-    float:left;
-    width: calc(100% - 120px);
-    text-align:left;
+    padding-left: 10px;
+    font-size: 12.5px;
+    float: right;
+    width: calc(100% - 110px);
+    width:-moz-calc(100% -110px);
+    width:-webkit-calc(100% - 110px);
+    text-align: left;
 }
 .link_cupon_home{
     display:block;
