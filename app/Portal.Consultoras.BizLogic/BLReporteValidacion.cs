@@ -11,19 +11,34 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLReporteValidacion
     {
-        public IList<BEReporteValidacion> GetReporteValidacion(int paisID, string paisISO, int campaniaID, int tipoEstrategia)
+        public IList<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             var reporteValidaciones = new List<BEReporteValidacion>();
             var DAReporteValidacion = new DAReporteValidacion(paisID);
-
-            using (IDataReader reader = DAReporteValidacion.GetReporteValidacion(paisISO, campaniaID, tipoEstrategia))
-                while (reader.Read())
-                {
-                    var reporteValidacion = new BEReporteValidacion(reader);
-                    reporteValidaciones.Add(reporteValidacion);
+            if (tipoEstrategia == 4)
+            {
+                using (IDataReader reader = DAReporteValidacion.GetReporteValidacion(campaniaID))
+                { 
+                    while (reader.Read())
+                    {
+                        var reporteValidacion = new BEReporteValidacion(reader);
+                        reporteValidaciones.Add(reporteValidacion);
+                    }
                 }
+            }
+            if (tipoEstrategia == 7)
+            {
+                using (IDataReader reader = DAReporteValidacion.GetReporteValidacionODD(campaniaID))
+                {
+                    while (reader.Read())
+                    {
+                        var reporteValidacion = new BEReporteValidacion(reader);
+                        reporteValidaciones.Add(reporteValidacion);
+                    }
+                }
+            }
 
             return reporteValidaciones;
-        }
+          }
     }
 }

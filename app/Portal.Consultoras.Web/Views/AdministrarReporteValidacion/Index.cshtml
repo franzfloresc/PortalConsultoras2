@@ -19,16 +19,6 @@
                 <h1><span>Reporte Validación Palancas</span></h1>
             </div>
             <div class="div-3">
-                <div class="titG">País:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
-                </div>
-                <div class="titG">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
-                </div>
-            </div>
-            <div class="div-3">
                 <div class="titG">Tipo de Estrategia:</div>
                 <div class="selectA borde_redondeado">
                     <select id="ddlTipoEstrategia" name="ddlTipoEstrategia">
@@ -50,7 +40,17 @@
                             }
                         }
                     </select>
-                </div>           
+                </div>   
+                <div class="titG">Campaña:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">País:</div>
+                <div class="selectA borde_redondeado">
+                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
+                </div>                      
             </div>
 
             <div class="div-3">

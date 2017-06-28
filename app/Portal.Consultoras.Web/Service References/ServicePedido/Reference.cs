@@ -11126,6 +11126,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string AnioCampanaVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CUV2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CUVPrecioTachadoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11141,7 +11144,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ImagenUrlField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int LimUnidadesField;
+        private int LimiteVentaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal PrecioNormalField;
@@ -11187,6 +11190,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.AnioCampanaVentaField, value) != true)) {
                     this.AnioCampanaVentaField = value;
                     this.RaisePropertyChanged("AnioCampanaVenta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CUV2 {
+            get {
+                return this.CUV2Field;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CUV2Field, value) != true)) {
+                    this.CUV2Field = value;
+                    this.RaisePropertyChanged("CUV2");
                 }
             }
         }
@@ -11257,14 +11273,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int LimUnidades {
+        public int LimiteVenta {
             get {
-                return this.LimUnidadesField;
+                return this.LimiteVentaField;
             }
             set {
-                if ((this.LimUnidadesField.Equals(value) != true)) {
-                    this.LimUnidadesField = value;
-                    this.RaisePropertyChanged("LimUnidades");
+                if ((this.LimiteVentaField.Equals(value) != true)) {
+                    this.LimiteVentaField = value;
+                    this.RaisePropertyChanged("LimiteVenta");
                 }
             }
         }
@@ -24473,10 +24489,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task UpdateCuponConsultoraEnvioCorreoAsync(int paisId, Portal.Consultoras.Web.ServicePedido.BECuponConsultora cuponConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetReporteValidacion", ReplyAction="http://tempuri.org/IPedidoService/GetReporteValidacionResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[] GetReporteValidacion(int paisID, string paisISO, int campaniaID, int tipoEstrategia);
+        Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[] GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/GetReporteValidacion", ReplyAction="http://tempuri.org/IPedidoService/GetReporteValidacionResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, string paisISO, int campaniaID, int tipoEstrategia);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, int campaniaID, int tipoEstrategia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/InsertarEtiqueta", ReplyAction="http://tempuri.org/IPedidoService/InsertarEtiquetaResponse")]
         int InsertarEtiqueta(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad);
@@ -26640,12 +26656,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.UpdateCuponConsultoraEnvioCorreoAsync(paisId, cuponConsultora);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[] GetReporteValidacion(int paisID, string paisISO, int campaniaID, int tipoEstrategia) {
-            return base.Channel.GetReporteValidacion(paisID, paisISO, campaniaID, tipoEstrategia);
+        public Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[] GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia) {
+            return base.Channel.GetReporteValidacion(paisID, campaniaID, tipoEstrategia);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, string paisISO, int campaniaID, int tipoEstrategia) {
-            return base.Channel.GetReporteValidacionAsync(paisID, paisISO, campaniaID, tipoEstrategia);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEReporteValidacion[]> GetReporteValidacionAsync(int paisID, int campaniaID, int tipoEstrategia) {
+            return base.Channel.GetReporteValidacionAsync(paisID, campaniaID, tipoEstrategia);
         }
         
         public int InsertarEtiqueta(Portal.Consultoras.Web.ServicePedido.BEEtiqueta entidad) {

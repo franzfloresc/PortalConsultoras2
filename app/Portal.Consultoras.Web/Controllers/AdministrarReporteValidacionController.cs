@@ -27,7 +27,6 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCampania = new List<CampaniaModel>(),
                 listaPaises = DropDowListPaises(),
                 ListaTipoEstrategia = DropDowListTipoEstrategia(),
-                ListaEtiquetas = DropDowListEtiqueta(),
                 UrlS3 = urlS3
             };
             return View(ReporteValidacionModel);
@@ -35,33 +34,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<PaisModel> DropDowListPaises()
         {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
+            List<BEPais> lst = new List<BEPais>();
+            lst.Add(new BEPais { PaisID = 0, Nombre = "Todos", NombreCorto = "Todos"});
 
-            }
             Mapper.CreateMap<BEPais, PaisModel>()
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
                     .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
                     .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        public JsonResult ObtenerPedidoAsociado(string CodigoPrograma)
-        {
-            IList<BEConfiguracionPackNuevas> lst;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetConfiguracionPackNuevas(UserData().PaisID, CodigoPrograma);
-            }
-            return Json(new { pedidoAsociado = lst }, JsonRequestBehavior.AllowGet);
         }
 
         private IEnumerable<EtiquetaModel> DropDowListEtiqueta()
@@ -82,9 +63,9 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEEtiqueta>, IEnumerable<EtiquetaModel>>(lst);
         }
 
-        public JsonResult ObtenerCampanias(int PaisID)
+        public JsonResult ObtenerCampanias()
         {
-            PaisID = UserData().PaisID;
+            int PaisID = UserData().PaisID;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
 
             return Json(new
@@ -128,7 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var lista = from a in lst
-                        where a.FlagActivo == 1
+                        where a.FlagActivo == 1 && (a.CodigoGeneral == 4 || a.CodigoGeneral == 7)
                         select a;
 
             Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
@@ -147,29 +128,59 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ExportarExcel(string CampaniaID, string TipoEstrategiaID)
         {
             List<BEReporteValidacion> lst;
+            string nombreReporte = String.Empty;
+
+            if (int.Parse(TipoEstrategiaID) == 4)
+                nombreReporte = "ReporteValidacionOPT";
+            if (int.Parse(TipoEstrategiaID)==7)
+                nombreReporte = "ReporteValidacionODD";
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                lst = sv.GetReporteValidacion(UserData().PaisID, UserData().CodigoISO, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
+                lst = sv.GetReporteValidacion(UserData().PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
             }
 
+            
+            foreach (var item in lst)
+            {
+                var carpetaPais = Globals.UrlMatriz + "/" + item.CodPais;
+                var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+                item.ImagenUrl = urlS3 + item.ImagenUrl;
+            }
+
+            Util.ExportToExcel<BEReporteValidacion>(nombreReporte, lst, GetConfiguracionExcel(int.Parse(TipoEstrategiaID)));
+
+            return null;
+        }
+
+        private Dictionary<string, string> GetConfiguracionExcel(int tipoEstrategiaID)
+        {
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic.Add("PALANCA", "TipoPersonalizacion");
             dic.Add("CAMPAÑA", "AnioCampanaVenta");
             dic.Add("CÓDIGO PAÍS", "CodPais");
             dic.Add("CUV PADRE", "CUV2");
-            dic.Add("DESCRIPCIÓN DE LA OFERTA (ODD: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
-            dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULORA (CORTA)", "DescripcionCorta");
-            dic.Add("IMAGEN", "_ImagenUrl");
+            if (tipoEstrategiaID == 4)
+            {
+                dic.Add("DESCRIPCIÓN DE LA OFERTA (ODD: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
+                dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULORA (CORTA)", "DescripcionCorta");
+            }
+            if (tipoEstrategiaID == 7)
+            {
+                dic.Add("DESCRIPCIÓN DE LA OFERTA", "DescripcionCUV2");
+                dic.Add("DESCRIPCIÓN DE LOS COMPONENTES DEL SET", "DescripcionCorta");
+            }
+            dic.Add("IMAGEN", "ImagenUrl");
             dic.Add("PRECIO NORMAL", "PrecioNormal");
             dic.Add("PRECIO OFERTA DIGITAL", "PrecioOfertaDigital");
-            dic.Add("LÍMITE DE VENTA", "LimUnidades");
+            dic.Add("LÍMITE DE VENTA", "LimiteVenta");
             dic.Add("INDICADOR DE ACTIVA/INACTIVA", "Activo");
             dic.Add("CUV PRECIO TACHADO", "CUVPrecioTachado");
             dic.Add("PRECIO TACHADO", "PrecioTachado");
+            return dic;
 
-            Util.ExportToExcel<BEReporteValidacion>("ReporteValidacionOPT", lst, dic);
-            return View();
         }
 
     }
+    
 }

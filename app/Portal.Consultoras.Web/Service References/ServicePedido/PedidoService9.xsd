@@ -1127,7 +1127,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element minOccurs="0" name="paisISO" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="tipoEstrategia" type="xs:int" />
       </xs:sequence>

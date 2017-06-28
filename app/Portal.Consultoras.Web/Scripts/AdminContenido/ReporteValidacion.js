@@ -8,13 +8,11 @@
     var _obtenerCampanias = function () {
         $("#hdTipoConsulta").attr("value", "0");
         $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
-        var Id = $(this).val();
         waitingDialog({});
         $.ajaxSetup({ cache: false });
         $.ajax({
             type: 'GET',
             url: _config.urlObtenterCampanias,
-            data: "PaisID=" + (Id == "" ? 0 : Id),
             cache: false,
             dataType: 'Json',
             success: function (data) {
@@ -27,14 +25,12 @@
                             text: "-- Seleccionar --"
                         }));
 
-                        if (Id != "") {
                             for (var item in data.lista) {
                                 ddlCampania.append($('<option/>', {
                                     value: data.lista[item].CampaniaID,
                                     text: data.lista[item].Codigo
                                 }));
                             }
-                        }
                     }
                     closeWaitingDialog();
                 }
@@ -62,38 +58,57 @@
         }
 
         waitingDialog({});
-        $.ajaxSetup({ cache: false });
-        $.ajax({
-            type: 'GET',
-            url: _config.urlExportarExcel,
-            data: ({
-                CampaniaID: $("#ddlCampania").val(),
-                TipoEstrategiaID: $('#ddlTipoEstrategia').find(':selected').data('id')
-            }),
-            cache: false,
-            dataType: 'Json',
-            success: function (data) {
-                if (checkTimeout(data)) {
-                  
-                    closeWaitingDialog();
+
+        setTimeout(function () {
+            _downloadAttachExcel();
+        }, 0);
+    }
+
+    var _downloadAttachExcel = function () {
+        var content = _config.urlExportarExcel + 
+            "?CampaniaID=" +
+            $("#ddlCampania").val() +
+            "&TipoEstrategiaID=" +
+            $('#ddlTipoEstrategia').find(':selected').data('id');
+
+        var iframe_ = document.createElement("iframe");
+        iframe_.style.display = "none";
+        iframe_.setAttribute("src", content);
+
+        if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+            iframe_.onreadystatechange = function () {
+                switch (this.readyState) {
+                    case "loading":
+                        waitingDialog({});
+                        break;
+                    case "complete":
+                    case "interactive":
+                    case "uninitialized":
+                        closeWaitingDialog();
+                        break;
+                    default:
+                        closeWaitingDialog();
+                        break;
                 }
-            },
-            error: function (x, xh, xhr) {
-                if (checkTimeout(x)) {
-                    closeWaitingDialog();
-                }
-            }
-        });
+            };
+        }
+        else {
+            // Si es Firefox o Chrome
+            $(iframe_).ready(function () {
+                closeWaitingDialog();
+            });
+        }
+        document.body.appendChild(iframe_);
     }
 
     var _initialize = function () {
         jQuery(document).ready(function () {
-            $('#ddlPais').change(_obtenerCampanias);
+            _obtenerCampanias();
             $("#btnExportarExcel").click(_exportarExcel);
         });
     }
 
     return {
-        init : _initialize
+        init: _initialize
     }
 };
