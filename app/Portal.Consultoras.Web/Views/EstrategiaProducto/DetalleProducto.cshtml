@@ -328,14 +328,16 @@
                         </div>
                         <hr class="clear">
                         <div class="content_puntuacion_detalle">
-                            <div class="rateyo-readonly-widg"></div>
-                            <div class="texto_puntuacion_detalle">(346 recomendaciones)</div>
+                            <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                            <div class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}" >(346 recomendaciones)</div>
                         </div>
 
                         <div class="comentarios_best_seller_ficha">
-                            “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.
-                            Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
-                            - Sandra A.
+                            <div id="last-commentary-{{EstrategiaID}}">
+                                “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.
+                                Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
+                            </div>
+                            <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
                         </div>
                         <div class="liquidacion_rango_home">
                             <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">

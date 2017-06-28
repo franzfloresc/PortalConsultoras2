@@ -23,31 +23,67 @@
         });
 
         $(document).ready(function () {
-            debugger;
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
             _validarGanancia(item);
             _validarPrecioTachado(item);
             _pintarEstrellas(item);
+            _pintarRecomendaciones(item);
+            _pintarUltimoComentario(item);
+            _pintarUltimoComentarioConsultora(item);            
         });
     }
 
-    var _pintarEstrellas = function (item) {
-        debugger;
-        if (item.PromValorizado === 0) {
-            $(".rateyo-readonly-widg").hide();
+    var _pintarUltimoComentarioConsultora = function (item) {
+        let div = "#consultant-commentary-" + item.EstrategiaID.toString();
+        if (item.UltimoComentario.NombreConsultora !== '') {
+            let consultant_commentary = item.UltimoComentario.NombreConsultora;
+            $(div).html(consultant_commentary);
+            $(div).show();
         }
-        else if (item.PromValorizado > 0) {
-            $(".rateyo-readonly-widg").show();
-            $(".rateyo-readonly-widg").rateYo({
-                rating: item.PromValorizado,
-                spacing: "5px",
-                multiColor: {
-                    "startColor": "#FF0000", //RED
-                    "endColor": "#00FF00"  //GREEN
-                }
+        else {
+            $(div).hide();
+        }
+    }
+
+    var _pintarUltimoComentario = function (item) {
+        let div = "#last-commentary-" + item.EstrategiaID.toString();
+        if (item.UltimoComentario.Comentario !== '') {
+            let last_commentary = item.UltimoComentario.Comentario;
+            $(div).html(last_commentary);
+            $(div).show();
+        }
+        else {
+            $(div).hide();
+        }
+    }
+
+    var _pintarRecomendaciones = function (item) {
+        let div = "#recommendation-" + item.EstrategiaID.toString();
+        if (item.CantComenRecom > 0) {
+            let recommendation = '(' + item.CantComenRecom.toString() + ' Recomendaciones)'
+            $(div).html(recommendation);
+            $(div).show();
+        }
+        else {
+            $(div).hide();
+        }
+    }
+
+    var _pintarEstrellas = function (item) {
+        let div = "#star-" + item.EstrategiaID.toString();
+        if (item.PromValorizado > 0) {
+            let rating = '';            
+            rating = item.PromValorizado.toString() + '%';
+            $(div).rateYo({
+                rating: rating,
+                readOnly: true
             });
+            $(div).show();
+        }
+        else {
+            $(div).hide();
         }
     }
 
@@ -102,7 +138,7 @@
         var lista = model.Lista;
         var item = null;
 
-        lista.forEach(elem => {if (elem.EstrategiaID == estrategiaId) {item = elem;}});
+        lista.forEach(elem => {if (elem.EstrategiaID === estrategiaId) {item = elem;}});
 
         return item;
     };
@@ -110,7 +146,7 @@
     var _actualizarListaStorate = function (lista, item) {
         var temp = [];
         lista.forEach(elem => {
-            if (elem.EstrategiaID == item.EstrategiaID) {
+            if (elem.EstrategiaID === item.EstrategiaID) {
                 temp.push(item);
             } else {
                 temp.push(elem);
@@ -144,7 +180,6 @@
             _initializer(parameters);
         },
         estrategiaVerDetalle: function (estrategiaId) {
-            debugger;
             _verDetalleProductoMasVendidos(estrategiaId);
         }
     };
