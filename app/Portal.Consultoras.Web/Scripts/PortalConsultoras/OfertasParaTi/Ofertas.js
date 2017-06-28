@@ -277,7 +277,13 @@ function OfertaCargarProductoRespuesta(response, clear) {
     CerrarLoad();
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
-    divProd.find("#divOfertaProductosLoad").hide();
+    if (divProd.length > 0) {
+        divProd.find("#divOfertaProductosLoad").hide();
+    }
+    else {
+        $("#divOfertaProductosLoad").hide();
+    }
+    
     if (response.success == true) {
         OfertaObtenerDataLocal(response.campaniaId);
         if (clear || false) {

@@ -3273,8 +3273,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             return resultado;
         }
-
-
         
         #endregion
 
