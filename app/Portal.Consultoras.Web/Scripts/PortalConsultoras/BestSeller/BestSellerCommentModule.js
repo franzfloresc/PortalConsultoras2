@@ -16,6 +16,8 @@
         contenedorConfirmacionComentario: 'div.content_confirmacion_comentario',
         contenedorPuntuacion: '.rateyo-puntuacion-seccion-comentario',
         contenedorComentarios: '#contenedorComentarios',
+        contenedorComentariosEstrellasPromedio: '.rateyo-comentarios-resumen',
+        contenedorComentariosResumen: '.subtexto_comentario',
         hdRecomendado: '#hdRecomendado',
         txtComentario: '#txtComentario',
         ddlFiltro: '#ddlFiltro'
@@ -147,6 +149,27 @@
                 closeWaitingDialog();
             }
         });
+    };
+
+    var _setearComentarioResumen = function () {
+        var datos = get_local_storage("data_mas_vendidos");
+        $(elements.contenedorComentariosEstrellasPromedio).rateYo({
+            rating: (datos.Item.PromValorizado + "%"),
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "19px",
+            spacing: "5px",
+            fullStar: true,
+            readOnly: true
+        })
+        $(elements.contenedorComentariosResumen).empty();
+
+        var promedio = (datos.Item.CantComenRecom * 100) / datos.Item.CantComenAprob;
+
+        if (datos.Item.CantComenAprob != 0) {
+            $(elements.contenedorComentariosResumen).html(promedio + "% de personas lo recomiendan (" + datos.Item.CantComenRecom + " de " + datos.Item.CantComenAprob + ")");
+        }
     };
 
     var _buildHtmlSeccionComentarios = function (listaComentarios) {
@@ -324,6 +347,7 @@
         _bindEvents();
         _bindRate();
         _bindScroll();
+        _setearComentarioResumen();
         _listarComentarios(setting.cantidadCrecienteMostrarInicial);
     };
 

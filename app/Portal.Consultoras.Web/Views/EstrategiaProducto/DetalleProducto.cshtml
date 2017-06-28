@@ -242,7 +242,7 @@
 <div class="section_comentarios">
     <div class="content_belcorp">
         <div class="titulo_principal_comentarios">COMENTARIOS</div>
-        <div style="text-align:center;"><div class="rateyo-readonly-comentarios"></div></div>
+        <div style="text-align:center;"><div class="rateyo-comentarios-resumen"></div></div>
         <div class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
         <div class="content_filtros_bestSeller">
             <select id="ddlFiltro" class="select_bestSeller">
@@ -328,14 +328,16 @@
                         </div>
                         <hr class="clear">
                         <div class="content_puntuacion_detalle">
-                            <div class="rateyo-readonly-widg"></div>
-                            <div class="texto_puntuacion_detalle">(346 recomendaciones)</div>
+                            <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                            <div class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}" >(346 recomendaciones)</div>
                         </div>
 
                         <div class="comentarios_best_seller_ficha">
-                            “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.
-                            Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
-                            - Sandra A.
+                            <div id="last-commentary-{{EstrategiaID}}">
+                                “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.
+                                Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br />
+                            </div>
+                            <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
                         </div>
                         <div class="liquidacion_rango_home">
                             <input type="text" value="1" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
@@ -380,14 +382,6 @@
                 minValue: 1,
                 maxValue: 5,
                 starWidth: "17px",
-                readOnly: true
-            })
-            $(".rateyo-readonly-comentarios").rateYo({
-                rating: 4.5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "33px",
                 readOnly: true
             })
             $(".puntuacion_usuario_visible").rateYo({
