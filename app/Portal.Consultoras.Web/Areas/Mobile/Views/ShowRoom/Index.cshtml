@@ -469,5 +469,8 @@ else
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
+        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
+        var tieneSubCampania = '@Model.TieneSubCampania';
+        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count;
     </script>
 }
