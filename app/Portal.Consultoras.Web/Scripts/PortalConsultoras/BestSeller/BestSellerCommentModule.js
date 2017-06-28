@@ -130,11 +130,7 @@
         waitingDialog();
         setting.esperarScroll = true;
 
-        var model = {
-            codigoSAP: '0123456789',
-            cantidadMostrar: cantidadCrecienteMostrarInicial,
-            orden: $(elements.ddlFiltro + ' option:selected').val()
-        };
+        var model = _obtenerFiltrosListarComentarios(cantidadCrecienteMostrarInicial);
         var listarComentariosPromise = _listarComentariosPromise(model);
 
         $.when(listarComentariosPromise).then(function (listarComentariosResponse) {
@@ -203,10 +199,25 @@
 
     var _obtenerRegistrarComentarioModel = function () {
         var objRate = $(elements.contenedorPuntuacion).rateYo();
+        var dato = get_local_storage("data_mas_vendidos");
         var model = {
+            codigoSAP: dato.Item.CodigoProducto,
+            codigoGenerico: dato.Item.CodigoGenerico,
+            codTipoOrigen: dato.Item.EstrategiaID,
             recomendado: ($(elements.hdRecomendado).val().toLowerCase() == 'true'),
             comentario: $(elements.txtComentario).val().trim(),
             valorizado: objRate.rateYo("rating")
+        };
+
+        return model;
+    };
+
+    var _obtenerFiltrosListarComentarios = function (cantidadCrecienteMostrarInicial) {
+        var dato = get_local_storage("data_mas_vendidos");
+        var model = {
+            codigoSAP: dato.Item.CodigoProducto,
+            cantidadMostrar: cantidadCrecienteMostrarInicial,
+            orden: $(elements.ddlFiltro + ' option:selected').val()
         };
 
         return model;

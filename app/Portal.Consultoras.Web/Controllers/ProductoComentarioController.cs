@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
+using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -77,5 +79,74 @@ namespace Portal.Consultoras.Web.Controllers
             return tiposComentario;
         }
 
+        [HttpGet]
+        public JsonResult ListarProductoComentario(string sidx, string sord, int page, int rows,
+            int paisID, int estadoComentarioID, int tipoComentarioID, string SAP, int campaniaID, string CUV)
+        {
+            try
+            {
+                var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV);
+                var listaProductoComentario =  ListarProductoComentario(paisID, productoComentarioFilter);
+
+                var nro = (page -1)* rows +1;
+                var data = new
+                {
+                    total = 0,
+                    page = page,
+                    records = listaProductoComentario.Count(),
+                    rows = from row in listaProductoComentario
+                           select new
+                           {
+                               id = row.ProdComentarioDetalleId,
+                               Nro = nro++,
+                               Consultora = row.CodigoConsultora,
+                               Fecha = row.FechaRegistro.ToShortDateString(),
+                               Valorizacion = row.Valorizado,
+                               Texto = row.Comentario,
+                               Estado = ((EstadoProductoComentario)row.Estado).ToString(),
+                               IdEstado = row.Estado,
+                               Acciones = ""
+                           }
+                };
+
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(
+                    new
+                    {
+                        success = false,
+                        message = "Ocurrió un error al ejecutar la operación. " + ex.Message
+                    },
+                    JsonRequestBehavior.AllowGet
+                    );
+            }
+        }
+
+        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV)
+        {
+            var productoComentarioFilter = new BEProductoComentarioFilter();
+
+            productoComentarioFilter.Cantidad = rows;
+            productoComentarioFilter.Limite = (page-1) * rows;
+            productoComentarioFilter.Ordenar = 0;
+
+            productoComentarioFilter.Estado = (short)estadoComentarioID;
+            productoComentarioFilter.Tipo = (short)tipoComentarioID;
+            productoComentarioFilter.Valor = (TipoProductoComentario)tipoComentarioID == TipoProductoComentario.SAP ? SAP : CUV;
+
+            return productoComentarioFilter;
+        }
+
+        private IEnumerable<BEProductoComentarioDetalle> ListarProductoComentario(int paisID, BEProductoComentarioFilter productoComentarioFilter)
+        {
+            IEnumerable<BEProductoComentarioDetalle> ListaProductoComentario;
+            using (PedidoServiceClient client = new PedidoServiceClient())
+            {
+                ListaProductoComentario = client.GetListaProductoComentarioDetalleAprobar(paisID, productoComentarioFilter);
+            }
+            return ListaProductoComentario;
+        }
     }
 }

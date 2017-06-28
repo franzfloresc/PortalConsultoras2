@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Entities
         public Int16 Estado { get; set; }
 
         [DataMember]
-        public string CodigoSAP { get; set; }
+        public string CodigoSap { get; set; }
 
         [DataMember]
         public string CodigoGenerico { get; set; }

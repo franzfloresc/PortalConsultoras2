@@ -3,15 +3,15 @@
 var productoComentarioAdmModule = (function () {
     "use strict"
 
-    var TIPO_PRODUCTO_COMENTARIO =  {
+    var TIPO_PRODUCTO_COMENTARIO = {
         SAP: 1,
         CUV: 2
     };
 
     var ESTADO_PRODUCTO_COMENTARIO = {
-        INGRESADO : 1,
-        APROBADO : 2,
-        RECHAZADO : 3
+        INGRESADO: 1,
+        APROBADO: 2,
+        RECHAZADO: 3
     };
 
     var elements = {
@@ -25,13 +25,18 @@ var productoComentarioAdmModule = (function () {
         txtCUV: '#txtCUV',
         divBuscarComentarios: '#divBuscarComentarios',
         btnBuscarComentarios: '#BuscarComentarios',
+        divContenedorProductoComentario: '#contenedor-grilla-producto-comentario',
         tablaProductoComentario: '#tabla-producto-comentario',
+        pagerProductoComentario: '#pager-producto-comentario'
     }
 
     var listaCampanias = [];
 
     var setting = {
         listarCampaniasUrl: '',
+        listarProductoComentarioUrl: '',
+        imagenEnableUrl: '',
+        imagenDisableUrl: ''
     };
 
     var _bindEvents = function () {
@@ -88,7 +93,9 @@ var productoComentarioAdmModule = (function () {
         });
 
         $(document).on('click', elements.btnBuscarComentarios, function () {
-            alert(elements.btnBuscarComentarios);
+            waitingDialog({});
+            
+            _listarProductoComentarios();
         });
     }
 
@@ -138,7 +145,7 @@ var productoComentarioAdmModule = (function () {
     var _validarMostrarContenedorBotonBuscarComentarios = function () {
         var paisId = $(elements.ddlPais).val();
         var tipoComentarioId = $(elements.ddlTipoComentario).val();
-        var codigoSAP= $.trim($(elements.txtSAP).val());
+        var codigoSAP = $.trim($(elements.txtSAP).val());
         var codigoCUV = $.trim($(elements.txtCUV).val());
 
         if (paisId != '' &&
@@ -151,23 +158,30 @@ var productoComentarioAdmModule = (function () {
         }
     };
 
-    var _listarComentarios = function () {
-        jQuery(elements.tablaProductoComentario).jqGrid({
-            url: setting.UrlListarCuponesPorCampania,
+    var _listarProductoComentarios = function () {
+        $(elements.tablaProductoComentario).jqGrid({
+            url: setting.listarProductoComentarioUrl,
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                PaisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
-                CampaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val()); }
+                paisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
+                estadoComentarioID: function () { return ($(elements.ddlEstadoComentario).val() == '' ? '0' : $(elements.ddlEstadoComentario).val()); },
+                tipoComentarioID: function () { return ($(elements.ddlTipoComentario).val() == '' ? "0" : $(elements.ddlTipoComentario).val()); },
+                SAP: function () { return ($(elements.txtSAP).val() == '' ? '' : $(elements.txtSAP).val()); },
+                campaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val()); },
+                CUV: function () { return ($(elements.txtCUV).val() == '' ? '' : $(elements.txtCUV).val()); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['Tipo', 'Descripción', 'Creación', 'Acción'],
+            colNames: ['Nro', 'Consultora', 'Fecha', 'Valorización', 'Texto', 'Estado', 'Acciones'],
             colModel: [
-                { name: 'Tipo', width: 50, editable: true, resizable: false },
-                { name: 'Descripcion', width: 80, editable: true, resizable: false },
-                { name: 'FechaCreacion', width: 80, editable: true, resizable: false },
-                { name: 'Options', width: 60, editable: true, sortable: false, align: 'center', resizable: false, formatter: _showActionsEventoCupon }
+                { name: 'Nro', width: 15, editable: false, resizable: false, align: 'center', sortable: false, label:"N°" },
+                { name: 'Consultora', width: 35, editable: true, resizable: false, align: 'center', sortable: false },
+                { name: 'Fecha', width: 35, editable: true, resizable: false, align: 'center', sortable: false },
+                { name: 'Valorizacion', width: 35, editable: true, resizable: false, align: 'center', sortable: false, label: "Valorización" },
+                { name: 'Texto',  editable: true, resizable: false, sortable: false },
+                { name: 'Estado', width: 35, editable: true, resizable: false, sortable: false },
+                { name: 'Acciones', width: 35, editable: true, resizable: false, sortable: false, align: 'center', formatter: _showActionsProductoComentario }
             ],
             jsonReader:
             {
@@ -179,7 +193,7 @@ var productoComentarioAdmModule = (function () {
                 cell: "",
                 id: "id"
             },
-            pager: jQuery('#pagerEvento'),
+            pager: $(elements.pagerProductoComentario),
             loadtext: 'Cargando datos...',
             recordtext: "{0} - {1} de {2} Registros",
             emptyrecords: 'No hay resultados',
@@ -197,22 +211,58 @@ var productoComentarioAdmModule = (function () {
             altclass: 'jQGridAltRowClass',
             loadComplete: function () { },
             gridComplete: function () {
-                var cantidadRegistros = jQuery(elements.tablaCupones).jqGrid('getGridParam', 'reccount');
+                var cantidadRegistros = $(elements.tablaProductoComentario).jqGrid('getGridParam', 'reccount');
+                $(elements.divContenedorProductoComentario).show();
                 closeWaitingDialog();
             }
         });
-        jQuery(elements.tablaCupones).jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery(elements.tablaCupones).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-        _atacharEventosDeExtensionCupon();
+        $(elements.tablaProductoComentario).jqGrid('navGrid', elements.pagerProductoComentario, { edit: false, add: false, refresh: false, del: false, search: false });
+        $(elements.tablaProductoComentario).setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
+        _atacharEventosDeProductoComentario();
     };
+
+    var _showActionsProductoComentario = function (cellvalue, options, rowObject) {
+
+        var aprobarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').AprobarComentario(" + options.rowId + ");\" >" + "<img src='" + setting.imagenEnableUrl + "' alt='Aprobar Comentario' title='Aprobar Comentario' border='0' /></a>";
+        var rechazarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').RechazarComentario(" + options.rowId + ");\" >" + "<img src='" + setting.imagenDisableUrl + "' alt='Rechazar Comentario' title='Rechazar Comentario' border='0' /></a>";
+        var resultado = "";
+
+        if (rowObject.IdEstado == ESTADO_PRODUCTO_COMENTARIO.INGRESADO) {
+            resultado += aprobarComentario + ' ';
+            resultado += rechazarComentario + ' ';
+        }
+
+        if (rowObject.IdEstado == ESTADO_PRODUCTO_COMENTARIO.APROBADO) {
+            resultado += rechazarComentario + ' ';
+        }
+
+        if (rowObject.IdEstado == ESTADO_PRODUCTO_COMENTARIO.RECHAZADO) {
+            resultado += aprobarComentario + ' ';
+        }
+
+        return resultado;
+    }
+
+    var _atacharEventosDeProductoComentario = function () {
+        $.jgrid.extend({
+            AprobarComentario: function ( comentarioId) {
+                alert('AprobarComentario');
+                return false;
+            },
+            RechazarComentario: function (comentarioId) {
+                alert('RechazarComentario');
+                return false;
+            }
+        });
+    }
 
     var initializer = function (parameters) {
         setting.listarCampaniasUrl = parameters.listarCampaniasUrl;
+        setting.listarProductoComentarioUrl = parameters.listarProductoComentarioUrl;
+        setting.imagenEnableUrl = parameters.imagenEnableUrl;
+        setting.imagenDisableUrl = parameters.imagenDisableUrl;
+        //
         _bindEvents();
-        //_inicializarDialogs();
-        //_loadAjaxForms();
-        //_iniDialogMantenimientoCupon();
-        //_listarCuponesPorCampania();
     };
 
     return {

@@ -21,11 +21,11 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.ProdComentarioId = 0;
-                model.CodigoSAP = "0123456789";
-                model.CodigoGenerico = "9876543210";
-                model.CampaniaID = 201710;
+                //model.CodigoSAP = "0123456789";
+                //model.CodigoGenerico = "9876543210";
+                model.CampaniaID =userData.CampaniaID;
                 model.CodigoConsultora = userData.CodigoConsultora;
-                model.CodTipoOrigen = 666;
+                //model.CodTipoOrigen = 666;
 
                 var BEProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
                 RegistrarComentarioServicio(BEProdComentario);
@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaAprobacion = model.FechaAprobacion,
                 CodTipoOrigen = model.CodTipoOrigen,
                 Estado = model.Estado,
-                CodigoSAP = model.CodigoSAP,
+                CodigoSap = model.CodigoSAP,
                 CodigoGenerico = model.CodigoGenerico,
                 URLFotoConsultora = model.URLFotoConsultora,
                 NombreConsultora = model.NombreConsultora
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaAprobacion = modelBE.FechaAprobacion,
                 CodTipoOrigen = modelBE.CodTipoOrigen,
                 Estado = modelBE.Estado,
-                CodigoSAP = modelBE.CodigoSAP,
+                CodigoSAP = modelBE.CodigoSap,
                 CodigoGenerico = modelBE.CodigoGenerico,
                 URLFotoConsultora = modelBE.URLFotoConsultora,
                 NombreConsultora = modelBE.NombreConsultora
