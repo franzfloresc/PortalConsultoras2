@@ -194,6 +194,9 @@ namespace Portal.Consultoras.Entities
         public string CodigoGenerico { get; set; }
 
         [DataMember]
+        public int ProdComentarioId { get; set; }
+
+        [DataMember]
         public int CantComenAprob { get; set; }
 
         [DataMember]
@@ -394,6 +397,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CodigoGenerico"))
                 CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);
+
+            if (DataRecord.HasColumn(row, "ProdComentarioId"))
+                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
 
             if (DataRecord.HasColumn(row, "CantComenAprob"))
                 CantComenAprob = Convert.ToInt32(row["CantComenAprob"]);

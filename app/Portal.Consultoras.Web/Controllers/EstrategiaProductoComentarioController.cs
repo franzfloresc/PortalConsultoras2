@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaComentarios;
         }
 
-        #region Mapero
+        #region Mapear
 
         private BEProductoComentarioDetalle MapearProductoComentarioModelAProductoComentarioBE(EstrategiaProductoComentarioModel model)
         {

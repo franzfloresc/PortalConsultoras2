@@ -242,7 +242,7 @@
 <div class="section_comentarios">
     <div class="content_belcorp">
         <div class="titulo_principal_comentarios">COMENTARIOS</div>
-        <div style="text-align:center;"><div class="rateyo-readonly-comentarios"></div></div>
+        <div style="text-align:center;"><div class="rateyo-comentarios-resumen"></div></div>
         <div class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
         <div class="content_filtros_bestSeller">
             <select id="ddlFiltro" class="select_bestSeller">
@@ -381,14 +381,6 @@
                 minValue: 1,
                 maxValue: 5,
                 starWidth: "17px",
-                readOnly: true
-            })
-            $(".rateyo-readonly-comentarios").rateYo({
-                rating: 4.5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "33px",
                 readOnly: true
             })
             $(".puntuacion_usuario_visible").rateYo({

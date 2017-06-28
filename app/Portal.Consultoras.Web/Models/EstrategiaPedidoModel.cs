@@ -86,6 +86,7 @@ namespace Portal.Consultoras.Web.Models
 
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }
+
         public decimal Ganancia
         {
             get
@@ -96,7 +97,9 @@ namespace Portal.Consultoras.Web.Models
                 return (precioValorizado - Precio2);
             }
         }
+
         public string CodigoGenerico { get; set; }
+        public int ProdComentarioId { get; set; }
         public int CantComenAprob { get; set; }
         public int CantComenRecom { get; set; }
         public int PromValorizado { get; set; }
