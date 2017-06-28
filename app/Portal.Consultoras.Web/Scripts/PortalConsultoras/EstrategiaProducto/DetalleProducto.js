@@ -27,7 +27,46 @@
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
+            _validarGanancia(item);
+            _validarPrecioTachado(item);
+            _pintarEstrellas(item);
         });
+    }
+
+    var _pintarEstrellas = function (item) {
+        debugger;
+        if (item.PromValorizado === 0) {
+            $(".rateyo-readonly-widg").hide();
+        }
+        else if (item.PromValorizado > 0) {
+            $(".rateyo-readonly-widg").show();
+            $(".rateyo-readonly-widg").rateYo({
+                rating: item.PromValorizado,
+                spacing: "5px",
+                multiColor: {
+                    "startColor": "#FF0000", //RED
+                    "endColor": "#00FF00"  //GREEN
+                }
+            });
+        }
+    }
+
+    var _validarGanancia = function(item){
+        if (item.Ganancia > 0) {
+            $(".ganancia_showroom").show();
+        }
+        else {
+            $(".ganancia_showroom").hide();
+        }
+    }
+
+    var _validarPrecioTachado = function (item) {
+        if (item.Ganancia > 0) {
+            $(".precio_valorizado_showroom").show();
+        }
+        else {
+            $(".precio_valorizado_showroom").hide();
+        }
     }
 
     var _setDefaultValues = function () { };
