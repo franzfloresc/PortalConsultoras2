@@ -1,6 +1,8 @@
 ﻿using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServicePedido;
+using AutoMapper;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,6 +27,14 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if (item.UltimoComentario == null)
+                {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        var comentario = svc.GetUltimoProductoComentarioByCodigoSap(userData.PaisID, item.CodigoProducto);
+                        item.UltimoComentario = Mapper.Map<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>(comentario);
+                    }
+                }
                 EstrategiaOutModel model = new EstrategiaOutModel { Item = item };
                 return Json(new { success = true, data = model });
             }

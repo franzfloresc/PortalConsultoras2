@@ -188,7 +188,7 @@
       <xs:element minOccurs="0" name="CodTipoOrigen" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoGenerico" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSap" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Comentario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:short" />
       <xs:element minOccurs="0" name="FechaAprobacion" type="xs:dateTime" />

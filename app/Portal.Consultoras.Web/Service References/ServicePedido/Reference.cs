@@ -4260,7 +4260,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string CodigoGenericoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoSAPField;
+        private string CodigoSapField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ComentarioField;
@@ -4355,14 +4355,14 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoSAP {
+        public string CodigoSap {
             get {
-                return this.CodigoSAPField;
+                return this.CodigoSapField;
             }
             set {
-                if ((object.ReferenceEquals(this.CodigoSAPField, value) != true)) {
-                    this.CodigoSAPField = value;
-                    this.RaisePropertyChanged("CodigoSAP");
+                if ((object.ReferenceEquals(this.CodigoSapField, value) != true)) {
+                    this.CodigoSapField = value;
+                    this.RaisePropertyChanged("CodigoSap");
                 }
             }
         }
