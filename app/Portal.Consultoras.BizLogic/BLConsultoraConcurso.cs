@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Linq;
+using Portal.Consultoras.Common;
 using Incentivos = Portal.Consultoras.Common.Constantes.Incentivo;
 
 namespace Portal.Consultoras.BizLogic
@@ -149,7 +150,7 @@ namespace Portal.Consultoras.BizLogic
                             Premio.Importante = 0;
                             if (Concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= Concurso.FechaVentaRetail)
                             {
-                                Premio.Mensaje = string.Format(Incentivos.TextoCompraENBelcenter, Concurso.FechaVentaRetail.ToString("dd MMMM"));
+                                Premio.Mensaje = string.Format(Incentivos.TextoCompraENBelcenter, Concurso.FechaVentaRetail.Day, Util.NombreMes(Concurso.FechaVentaRetail.Month));
                                 Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
                                 Premio.Importante = 2;
                             }
@@ -161,7 +162,7 @@ namespace Portal.Consultoras.BizLogic
                                     : string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
                             }
                         }
-                        if (Concurso.NivelAlcanzado == 0) Concurso.NivelSiguiente = 1;  
+                        if (Concurso.NivelAlcanzado == 0) Concurso.NivelSiguiente = 1;
                         Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente);
 
                         if (Concurso.FechaVentaRetail <= DateTime.Today)

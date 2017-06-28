@@ -833,7 +833,7 @@ namespace Portal.Consultoras.Common
             public const string TextoGANASTE = "¡GANASTE!";
             public const string TextoTEFALTA = "¡TE FALTA!";
             public const string TextoLlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
-            public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} y llévate el premio.";
+            public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string TextoDescripcion = "{0} POR {1} PUNTOS";
             public const string TextoIndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string TextoMontoPremiacion = "Pasa pedido de {0} esta campaña para entregarte tu premio.";

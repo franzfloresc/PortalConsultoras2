@@ -3036,6 +3036,51 @@ namespace Portal.Consultoras.Common
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
+
+        public static string NombreMes(int Mes)
+        {
+            string Result = string.Empty;
+            switch (Mes)
+            {
+                case 1:
+                    Result = "Ene";
+                    break;
+                case 2:
+                    Result = "Feb";
+                    break;
+                case 3:
+                    Result = "Mar";
+                    break;
+                case 4:
+                    Result = "Abr";
+                    break;
+                case 5:
+                    Result = "May";
+                    break;
+                case 6:
+                    Result = "Jun";
+                    break;
+                case 7:
+                    Result = "Jul";
+                    break;
+                case 8:
+                    Result = "Ago";
+                    break;
+                case 9:
+                    Result = "Sep";
+                    break;
+                case 10:
+                    Result = "Oct";
+                    break;
+                case 11:
+                    Result = "Nov";
+                    break;
+                case 12:
+                    Result = "Dic";
+                    break;
+            }
+            return Result;
+        }
     }
 
 
