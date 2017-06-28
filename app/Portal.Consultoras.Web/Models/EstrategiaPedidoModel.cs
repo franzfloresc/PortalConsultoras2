@@ -101,6 +101,6 @@ namespace Portal.Consultoras.Web.Models
         public int CantComenRecom { get; set; }
         public int PromValorizado { get; set; }
         public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
-        
-        }
+
+    }
 }
