@@ -91,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaAprobacion = model.FechaAprobacion,
                 CodTipoOrigen = model.CodTipoOrigen,
                 Estado = model.Estado,
-                CodigoSAP = model.CodigoSAP,
+                CodigoSap = model.CodigoSAP,
                 CodigoGenerico = model.CodigoGenerico,
                 URLFotoConsultora = model.URLFotoConsultora,
                 NombreConsultora = model.NombreConsultora
@@ -118,7 +118,7 @@ namespace Portal.Consultoras.Web.Controllers
                 FechaAprobacion = modelBE.FechaAprobacion,
                 CodTipoOrigen = modelBE.CodTipoOrigen,
                 Estado = modelBE.Estado,
-                CodigoSAP = modelBE.CodigoSAP,
+                CodigoSAP = modelBE.CodigoSap,
                 CodigoGenerico = modelBE.CodigoGenerico,
                 URLFotoConsultora = modelBE.URLFotoConsultora,
                 NombreConsultora = modelBE.NombreConsultora

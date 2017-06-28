@@ -534,7 +534,7 @@ namespace Portal.Consultoras.BizLogic
                     if (entidad.ProdComentarioId == 0)
                     {
                         BEProductoComentario oProdComentario = new BEProductoComentario();
-                        oProdComentario.CodigoSap = entidad.CodigoSAP;
+                        oProdComentario.CodigoSap = entidad.CodigoSap;
                         oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
                         entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
                     }
@@ -624,11 +624,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioDetalleId);
-                if (result > 0)
-                {
-                    daEstrategia.UpdAprobadosProductoComentario(entidad.ProdComentarioId, entidad.Recomendado);
-                }
+                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioId, entidad.ProdComentarioDetalleId, entidad.Estado);
             }
 
             catch (Exception)
