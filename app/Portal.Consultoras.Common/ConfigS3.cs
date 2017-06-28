@@ -20,10 +20,13 @@ namespace Portal.Consultoras.Common
 
         public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
-            carpetaPais = carpetaPais ?? "";
             fileName = fileName ?? "";
+            if (fileName.StartsWith(URL_S3))
+                return fileName;
+
+            carpetaPais = carpetaPais ?? "";
             if (fileName.Trim() == "") return fileName;
-            return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
+            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
         }
 
         public static string GetUrlS3(string carpetaPais)
