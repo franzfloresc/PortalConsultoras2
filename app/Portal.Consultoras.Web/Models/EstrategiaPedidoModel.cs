@@ -96,7 +96,6 @@ namespace Portal.Consultoras.Web.Models
                 return (precioValorizado - Precio2);
             }
         }
-
         public string CodigoGenerico { get; set; }
         public int CantComenAprob { get; set; }
         public int CantComenRecom { get; set; }

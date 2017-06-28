@@ -20,12 +20,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                model.ProdComentarioId = 0;
-                //model.CodigoSAP = "0123456789";
-                //model.CodigoGenerico = "9876543210";
                 model.CampaniaID =userData.CampaniaID;
                 model.CodigoConsultora = userData.CodigoConsultora;
-                //model.CodTipoOrigen = 666;
 
                 var BEProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
                 RegistrarComentarioServicio(BEProdComentario);

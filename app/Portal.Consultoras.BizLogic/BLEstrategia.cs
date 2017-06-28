@@ -531,13 +531,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
-                    if (entidad.ProdComentarioId == 0)
-                    {
-                        BEProductoComentario oProdComentario = new BEProductoComentario();
-                        oProdComentario.CodigoSap = entidad.CodigoSap;
-                        oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
-                        entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
-                    }
+                    BEProductoComentario oProdComentario = new BEProductoComentario();
+                    oProdComentario.CodigoSap = entidad.CodigoSap;
+                    oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
+                    entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
 
                     result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
 
