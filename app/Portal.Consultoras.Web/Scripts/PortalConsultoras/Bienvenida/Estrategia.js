@@ -414,6 +414,9 @@ function CargarEstrategiasEspeciales(objInput, e) {
         estrategia.Detalle = new Array();
         var btnDesabled = 0;
         if (estrategia.CodigoEstrategia != "") {
+
+            GuardarProductoTemporal(estrategia);
+
             estrategia.Detalle = CargarEstrategiaSet(estrategia.CUV2);
             AbrirLoad();
             estrategia.Linea = "0px";
@@ -938,15 +941,15 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         try {
                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
                             TagManagerClickAgregarProductoOfertaParaTI(datosEst);
-                        } catch (e) {
-
-                        }
+                        } catch (e) { }
 
                         CerrarLoad();
                         if (popup) {
                             CerrarPopup('#popupDetalleCarousel_lanzamiento');
                             HidePopupEstrategiasEspeciales();
                         }
+
+                        ActualizarLocalStorageAgregado("rd", param.CUV, true);
 
                         ProcesarActualizacionMostrarContenedorCupon();
                     },
@@ -1014,3 +1017,92 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     }
 }
 
+function GuardarProductoTemporal(obj) {
+
+    $.ajaxSetup({
+        cache: false
+    });
+
+    AbrirLoad();
+
+    var varReturn = false;
+
+    jQuery.ajax({
+        type: 'POST',
+        url: urlOfertaDetalleProductoTem,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: false,
+        success: function (response) {
+            varReturn = response.success;
+        },
+        error: function (response, error) {
+            CerrarLoad();
+            localStorage.setItem(lsListaRD, '');
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+
+    return varReturn;
+}
+
+function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
+    var ok = false;
+    try {
+        cuv = $.trim(cuv);
+        if (tipo == "rd") {
+            if (cuv == "" || valor == undefined) {
+                return false;
+            }
+            ok = RDActualizarLocalStorageAgragado(cuv, valor);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+    return ok;
+}
+
+function RDActualizarLocalStorageAgragado(cuv, valor) {
+    var ok = false;
+    cuv = $.trim(cuv);
+    var lsListaRD = lsListaRD || "ListaRD";
+    var indCampania = indCampania || 0;
+    var valLocalStorage = localStorage.getItem(lsListaRD + campaniaCodigo);
+    if (valLocalStorage != null) {
+        var data = JSON.parse(valLocalStorage);
+
+        $.each(data.response.listaLan, function (ind, item) {
+            if (item.CUV2 == cuv || cuv == "todo") {
+                item.IsAgregado = valor;
+                if (cuv != "todo") {
+                    ok = true;
+                    return false;
+                }
+            }
+        });
+
+        if (!ok) {
+            $.each(data.response.lista, function (ind, item) {
+                if (item.CUV2 == cuv || cuv == "todo") {
+                    item.IsAgregado = valor;
+                    if (cuv != "todo") {
+                        ok = true;
+                        return false;
+                    }
+                }
+            });
+        }
+
+        if (cuv == "todo") {
+            ok = true;
+        }
+
+        if (ok) {
+            localStorage.setItem(lsListaRD + campaniaCodigo, JSON.stringify(data));
+        }
+    }
+    return ok;
+}
