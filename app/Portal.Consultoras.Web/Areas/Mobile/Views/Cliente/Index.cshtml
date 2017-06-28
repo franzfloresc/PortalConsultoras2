@@ -347,6 +347,8 @@
                     clienteCelularActualizar.html(data.Celular);
                     clienteCodigoActualizar.html(data.CodigoCliente);
 
+                    inputClienteId.parent().parent().parent().find(".divIcono").html("");
+
                     dataLayer.push({
                         'event': 'virtualEvent',
                         'category': 'Clientes',
