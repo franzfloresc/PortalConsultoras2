@@ -12087,19 +12087,22 @@ a{
     /*padding-left:12px;*/
     font-size:12.5px;
     text-align:left;
+    width: 232px;
 }
 
 @media (min-width: 440px) {
     .contenedor-texto-agregar{
        display: block;
     }
+    .texto_cupon{
+        width:260px;
+    }
 }
-
 .texto_cupon_black{
     color: #000;
     font-family: 'Lato';
     line-height: 16px;
-    padding-left: 20px;
+    padding-left: 10px;
     font-size: 12.5px;
     float: right;
     width: calc(100% - 110px);
