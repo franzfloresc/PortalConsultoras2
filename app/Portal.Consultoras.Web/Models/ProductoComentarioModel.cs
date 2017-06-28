@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,6 +8,7 @@ namespace Portal.Consultoras.Web.Models
 {
     public class ProductoComentarioModel
     {
+        [Required]
         public int PaisID { get; set; }
 
         public IEnumerable<PaisModel> Paises { set; get; }
