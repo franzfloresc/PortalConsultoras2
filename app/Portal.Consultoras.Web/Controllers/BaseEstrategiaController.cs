@@ -422,9 +422,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
-                    estrategia.DescripcionResumen = estrategia.DescripcionCUV2.Split('|')[0];
+                    estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
-                    estrategia.DescripcionCortada = estrategia.DescripcionResumen;
+                    estrategia.DescripcionResumen = "";
                 }
                 else
                 {
