@@ -127,8 +127,9 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
-        public bool MovimientoInsertar(BEMovimiento movimiento)
+        public int MovimientoInsertar(BEMovimiento movimiento)
         {
+            int identity = 0;
             using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Insertar"))
             {
                 command.CommandType = CommandType.StoredProcedure;
@@ -145,9 +146,19 @@ namespace Portal.Consultoras.Data
 
                 using (var reader = Context.ExecuteReader(command))
                 {
-                    return reader.RecordsAffected == 1;
+                    while (reader.Read())
+                    {
+                        var value = reader[0].ToString();
+
+                        if (!int.TryParse(value, out identity))
+                        {
+                            throw new ArgumentException("No se pudo convertir el valor a int" + reader);
+                        };
+                    }
                 }
             }
+
+            return identity;
         }
 
         public bool MovimientoActualizar(BEMovimiento movimiento)
@@ -207,7 +218,7 @@ namespace Portal.Consultoras.Data
 
                         if (!int.TryParse(value, out identity))
                         {
-                            throw new ArgumentException("No se pudo convertir el valor a short" + reader);
+                            throw new ArgumentException("No se pudo convertir el valor a int" + reader);
                         };
                     }
                 }
