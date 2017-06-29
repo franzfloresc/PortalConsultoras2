@@ -51,7 +51,8 @@ namespace Portal.Consultoras.Entities
         public decimal MontoPremiacionPedido { get; set; }
         [DataMember]
         public bool IndicadorPremioAcumulativo { get; set; }
-
+        [DataMember]
+        public int NumeroNiveles { get; set; }
 
         public BEConsultoraConcurso(IDataRecord row)
         {
@@ -108,6 +109,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IND_PREM_ACUM"))
                 IndicadorPremioAcumulativo = Convert.ToBoolean(row["IND_PREM_ACUM"]);
+
+            if (DataRecord.HasColumn(row, "NUMERO_NIVELES"))
+                NumeroNiveles = Convert.ToInt32(row["NUMERO_NIVELES"]);
         }
 
         public BEConsultoraConcurso()

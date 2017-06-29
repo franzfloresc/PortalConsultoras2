@@ -163,7 +163,7 @@ namespace Portal.Consultoras.BizLogic
                             }
                         }
                         if (Concurso.NivelAlcanzado == 0) Concurso.NivelSiguiente = 1;
-                        Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente);
+                        Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente && Concurso.NivelSiguiente!= 0);
 
                         if (Concurso.FechaVentaRetail <= DateTime.Today)
                             Concurso.Premios.RemoveAll(p => p.PuntajeMinimo > Concurso.PuntajeTotal);
