@@ -89,7 +89,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     CodigoCampania = CodigoCampania,
                     CodigoConcurso = "-1",
-                    Mensaje = Incentivos.TextoNoTenemosConcurso
+                    Mensaje = Incentivos.NoTenemosConcurso
                 });
             }
 
@@ -99,7 +99,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     CodigoCampania = CodigoCampania,
                     CodigoConcurso = "-1",
-                    Mensaje = Incentivos.TextoNoTenemosConcurso
+                    Mensaje = Incentivos.NoTenemosConcurso
                 });
             }
             else
@@ -114,18 +114,23 @@ namespace Portal.Consultoras.BizLogic
                             Premio.Importante = 0;
                             if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
                             {
-                                Premio.Mensaje = string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
-                                Premio.Importante = 1;
+                                Premio.Mensaje = (Concurso.NumeroNiveles > 1) ?
+                                  string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Concurso.NivelAlcanzado) :
+                                    string.Format(Incentivos.LlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
+                                Premio.Importante = 1;                               
                             }
                             else if (Concurso.PuntajeTotal < Premio.PuntajeMinimo)
                             {
-                                //Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
-                                Premio.Mensaje = string.Format(Incentivos.TextoTeFaltan, (Premio.PuntajeMinimo - Concurso.PuntajeTotal));
+                                Premio.Mensaje = string.Format(Incentivos.TeFaltan, (Premio.PuntajeMinimo - Concurso.PuntajeTotal));
                                 Premio.Importante = 2;
+                                Concurso.Mensaje = Concurso.NivelSiguiente > 1
+                                   ? (Concurso.IndicadorPremioAcumulativo ? string.Format(Incentivos.PuedesLlevarAdicionalmentePremio, Concurso.NivelSiguiente)
+                                            : string.Format(Incentivos.PuedesLlevarPremio, Concurso.NivelSiguiente))
+                                    : string.Empty;
                             }
                         }
                     }
-                    else // Logica de la campania anterior.
+                    else // campania anterior.
                     {
                         if (!Concurso.Premios.Any(p => p.PuntajeMinimo > Concurso.PuntajeTotal)) // Alcanzo todos los niveles.
                         {
@@ -137,8 +142,8 @@ namespace Portal.Consultoras.BizLogic
                                     {
                                         Importante = 1,
                                         Descripcion = string.Join(", ", Concurso.Premios.Select(p => p.Descripcion).ToArray()),
-                                        Mensaje = Concurso.IndicadorPremiacionPedido ? (Concurso.MontoPremiacionPedido > 1 ? Incentivos.TextoMontoPremiacion : Incentivos.TextoIndicadorPremiacion)
-                                                                                 : string.Format(Incentivos.TextoMontoPremiacion, Concurso.MontoPremiacionPedido),
+                                        Mensaje = Concurso.IndicadorPremiacionPedido ? (Concurso.MontoPremiacionPedido > 1 ? Incentivos.MontoPremiacion : Incentivos.IndicadorPremiacion)
+                                                                                 : string.Format(Incentivos.MontoPremiacion, Concurso.MontoPremiacionPedido),
                                         PuntajeMinimo = Concurso.Premios.FirstOrDefault().PuntajeMinimo
                                     }
                                 };
@@ -150,20 +155,21 @@ namespace Portal.Consultoras.BizLogic
                             Premio.Importante = 0;
                             if (Concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= Concurso.FechaVentaRetail)
                             {
-                                Premio.Mensaje = string.Format(Incentivos.TextoCompraENBelcenter, Concurso.FechaVentaRetail.Day, Util.NombreMes(Concurso.FechaVentaRetail.Month));
-                                //Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
+                                Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, Concurso.FechaVentaRetail.Day, Util.NombreMes(Concurso.FechaVentaRetail.Month));
                                 Premio.Importante = 2;
                             }
                             else if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
                             {
                                 Premio.Importante = 1;
                                 Premio.Mensaje = Concurso.IndicadorPremiacionPedido ?
-                                    (Concurso.MontoPremiacionPedido > 1 ? string.Format(Incentivos.TextoMontoPremiacion, Concurso.MontoPremiacionPedido) : Incentivos.TextoIndicadorPremiacion)
-                                    : string.Format(Incentivos.TextoLlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
+                                    (Concurso.MontoPremiacionPedido > 1 ? string.Format(Incentivos.MontoPremiacion, Concurso.MontoPremiacionPedido) : Incentivos.IndicadorPremiacion)
+                                    : (Concurso.NumeroNiveles > 1 ?
+                                        string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Concurso.NivelAlcanzado)
+                                        : string.Format(Incentivos.LlegasteAPuntosRequeridos, Premio.PuntajeMinimo));
                             }
                         }
                         if (Concurso.NivelAlcanzado == 0) Concurso.NivelSiguiente = 1;
-                        Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente && Concurso.NivelSiguiente!= 0);
+                        Concurso.Premios.RemoveAll(p => p.NumeroNivel > Concurso.NivelSiguiente && Concurso.NivelSiguiente != 0);
 
                         if (Concurso.FechaVentaRetail <= DateTime.Today)
                             Concurso.Premios.RemoveAll(p => p.PuntajeMinimo > Concurso.PuntajeTotal);

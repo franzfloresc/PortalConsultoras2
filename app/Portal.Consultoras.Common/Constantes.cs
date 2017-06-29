@@ -827,16 +827,18 @@ namespace Portal.Consultoras.Common
 
         public class Incentivo
         {
-            public const string TextoTeFaltan = "Te faltan {0} puntos";
-            public const string TextoNoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
-            public const string TextoVasXPuntos = "VAS {0} PUNTOS.";
-            public const string TextoGANASTE = "¡GANASTE!";
-            public const string TextoTEFALTA = "¡TE FALTA!";
-            public const string TextoLlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
-            public const string TextoCompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
-            public const string TextoDescripcion = "{0} POR {1} PUNTOS";
-            public const string TextoIndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
-            public const string TextoMontoPremiacion = "Pasa pedido de {0} esta campaña para entregarte tu premio.";
+            public const string TeFaltan = "Te faltan {0} puntos";
+            public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
+            public const string VasXPuntos = "VAS {0} PUNTOS.";
+            public const string GANASTE = "¡GANASTE!";
+            public const string TEFALTA = "¡TE FALTA!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
+            public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";            
+            public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
+            public const string MontoPremiacion = "Pasa pedido de {0} esta campaña para entregarte tu premio.";
 
         }
     }
