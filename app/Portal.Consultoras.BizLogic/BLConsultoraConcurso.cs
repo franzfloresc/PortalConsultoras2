@@ -119,7 +119,7 @@ namespace Portal.Consultoras.BizLogic
                             }
                             else if (Concurso.PuntajeTotal < Premio.PuntajeMinimo)
                             {
-                                Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
+                                //Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
                                 Premio.Mensaje = string.Format(Incentivos.TextoTeFaltan, (Premio.PuntajeMinimo - Concurso.PuntajeTotal));
                                 Premio.Importante = 2;
                             }
@@ -151,7 +151,7 @@ namespace Portal.Consultoras.BizLogic
                             if (Concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= Concurso.FechaVentaRetail)
                             {
                                 Premio.Mensaje = string.Format(Incentivos.TextoCompraENBelcenter, Concurso.FechaVentaRetail.Day, Util.NombreMes(Concurso.FechaVentaRetail.Month));
-                                Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
+                                //Premio.Descripcion = string.Format(Incentivos.TextoDescripcion, Premio.Descripcion, Premio.PuntajeMinimo).ToUpper();
                                 Premio.Importante = 2;
                             }
                             else if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
