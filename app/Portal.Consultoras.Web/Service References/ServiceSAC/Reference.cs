@@ -10119,10 +10119,10 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<bool> EnviarProactivaChatbotAsync(string paisISO, string urlRelativa, Portal.Consultoras.Web.ServiceSAC.BEChatbotProactivaMensaje[] listMensajeProactiva);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobileResponse")]
-        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId);
+        Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile", ReplyAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobileResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturado", ReplyAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturadoResponse")]
         int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
@@ -11250,12 +11250,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.EnviarProactivaChatbotAsync(paisISO, urlRelativa, listMensajeProactiva);
         }
         
-        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId) {
-            return base.Channel.GetPedidosFacturadosDetalleMobile(PaisId, Campania, CodigoConsultora, ClienteID, pedidoId);
+        public Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[] GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
+            return base.Channel.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId) {
-            return base.Channel.GetPedidosFacturadosDetalleMobileAsync(PaisId, Campania, CodigoConsultora, ClienteID, pedidoId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEPedidoFacturado[]> GetPedidosFacturadosDetalleMobileAsync(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora) {
+            return base.Channel.GetPedidosFacturadosDetalleMobileAsync(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
         
         public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID) {
