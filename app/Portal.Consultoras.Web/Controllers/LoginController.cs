@@ -722,7 +722,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneCDR = oBEUsuario.TieneCDR;
                     model.TieneCupon = oBEUsuario.TieneCupon;
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
-                    model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
+                    //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
                     #endregion
 

@@ -4395,7 +4395,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
-    <Folder Include="Content\FileCargaCuponConsultora\" />
+    <Folder Include="Content\FileCargaCuponConsultora\"  />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
