@@ -1172,6 +1172,7 @@
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
+    <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\disable.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
@@ -4395,7 +4396,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
     <Folder Include="Content\Css\Site\Login\" />
-    <Folder Include="Content\FileCargaCuponConsultora\"  />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
