@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
+using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Controllers
 {
