@@ -650,7 +650,6 @@ function CargarEstrategiaSet(cuv) {
 }
 
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
-
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");

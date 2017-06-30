@@ -22,7 +22,21 @@ namespace Portal.Consultoras.Web.Controllers
            
             model.Lista = listModel;
 
+            model = ActualizarPosicion(model);
+
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        private EstrategiaOutModel ActualizarPosicion(EstrategiaOutModel model)
+        {
+            if (model != null)
+            {
+                for (int i =0;i <= model.Lista.Count - 1; i++)
+                {
+                    model.Lista[i].Posicion = i + 1;
+                }
+            }
+            return model;
         }
     }
 }
