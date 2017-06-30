@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
                     count++;
                     if (count >= 2)
                     {
-                        var values = inputLine.Split('|');
+                        var values = inputLine.Split(',');
                         if (values.Length > 0)
                         {
                             BECuponConsultora cuponConsultora = new BECuponConsultora();
