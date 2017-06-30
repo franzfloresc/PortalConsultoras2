@@ -119,6 +119,12 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                                 items = listaCupones.OrderByDescending(c => c.Descripcion);
                             break;
+                        case "FechaCreacion":
+                            if (grid.SortOrder == "asc")
+                                items = listaCupones.OrderBy(c => c.FechaCreacion);
+                            else
+                                items = listaCupones.OrderByDescending(c => c.FechaCreacion);
+                            break;
                     }
                 }
 
