@@ -2132,7 +2132,7 @@ namespace Portal.Consultoras.BizLogic
 
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
-            BEConsultoraRegaloProgramaNuevas entidad = new BEConsultoraRegaloProgramaNuevas();
+            BEConsultoraRegaloProgramaNuevas entidad = null;
             DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisID);
 
             using (IDataReader reader = DAPedidoWeb.GetConsultoraRegaloProgramaNuevas(campaniaId, codigoConsultora, codigoRegion, codigoZona))
