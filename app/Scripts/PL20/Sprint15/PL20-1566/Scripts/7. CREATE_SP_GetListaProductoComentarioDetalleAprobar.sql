@@ -40,6 +40,7 @@ BEGIN
 		WHERE pc.CUV = @Codigo
 	END
 
+	INSERT INTO @ProductoComentarioDetalle
 	SELECT c.ProdComentarioId, 
 		d.ProdComentarioDetalleId, 
 		d.Valorizado, 
@@ -54,6 +55,21 @@ BEGIN
 		AND c.CodigoGenerico = CASE WHEN @Tipo = 1 THEN c.CodigoGenerico ELSE @CodigoGenerico END
 		AND c.Estado = 1
 	ORDER BY c.FechaRegistro
+
+	SELECT @TotalFilas = COUNT(0)
+	FROM @ProductoComentarioDetalle 
+	
+	SELECT 
+	ProdComentarioId ,
+	ProdComentarioDetalleId ,
+	Valorizado ,
+	Comentario ,
+	FechaRegistro ,
+	CodigoConsultora ,
+	Estado ,
+	TotalFilas = @TotalFilas
+	FROM @ProductoComentarioDetalle
+	ORDER BY FechaRegistro
 	OFFSET @Limite ROWS
 	FETCH NEXT @Cantidad ROWS ONLY;
 END

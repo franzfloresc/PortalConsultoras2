@@ -6,7 +6,7 @@ using Portal.Consultoras.Common;
 namespace Portal.Consultoras.Entities
 {
     [DataContract]
-    public class BEProductoComentarioDetalle
+    public class BEProductoComentarioDetalle : BEPaging
     {
         [DataMember]
         public long ProdComentarioDetalleId { get; set; }
@@ -96,6 +96,9 @@ namespace Portal.Consultoras.Entities
 
             if (row.HasColumn("NombreConsultora"))
                 NombreConsultora = Convert.ToString(row["NombreConsultora"]);
+
+            if (row.HasColumn("TotalFilas"))
+                RowsCount = Convert.ToInt32(row["TotalFilas"]);
         }
     }
 }

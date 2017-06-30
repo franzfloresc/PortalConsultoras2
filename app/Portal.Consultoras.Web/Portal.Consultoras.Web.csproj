@@ -1181,6 +1181,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Images\disable.png" />
+    <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
@@ -2266,6 +2267,7 @@
     <Content Include="Content\Images\Lbel\ver-mas-liquidaciones-2.jpg" />
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
+    <Content Include="Content\Images\like.png" />
     <Content Include="Content\Images\list_add_font.png" />
     <Content Include="Content\Images\Loading.gif" />
     <Content Include="Content\Images\loadingCatalogo.gif" />

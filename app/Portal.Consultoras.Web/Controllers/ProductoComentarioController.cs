@@ -7,8 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
+using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -85,19 +85,21 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV);
-                var listaProductoComentario =  ListarProductoComentario(paisID, productoComentarioFilter);
+                var listaProductoComentario = ListarProductoComentario(paisID, productoComentarioFilter);
 
-                var nro = (page -1)* rows +1;
+                var totalRows = listaProductoComentario.Count() == 0 ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
+                var nro = (page - 1) * rows + 1;
                 var data = new
                 {
-                    total = 0,
+                    total = Math.Ceiling((decimal)totalRows / rows),
                     page = page,
-                    records = listaProductoComentario.Count(),
+                    records = totalRows,
                     rows = from row in listaProductoComentario
                            select new
                            {
-                               id = row.ProdComentarioDetalleId,
                                Nro = nro++,
+                               ProductoComentarioId = row.ProdComentarioId,
+                               ProductoComentarioDetalleId = row.ProdComentarioDetalleId,
                                Consultora = row.CodigoConsultora,
                                Fecha = row.FechaRegistro.ToShortDateString(),
                                Valorizacion = row.Valorizado,
@@ -128,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
             var productoComentarioFilter = new BEProductoComentarioFilter();
 
             productoComentarioFilter.Cantidad = rows;
-            productoComentarioFilter.Limite = (page-1) * rows;
+            productoComentarioFilter.Limite = (page - 1) * rows;
             productoComentarioFilter.Ordenar = 0;
 
             productoComentarioFilter.Estado = (short)estadoComentarioID;
@@ -146,6 +148,54 @@ namespace Portal.Consultoras.Web.Controllers
                 ListaProductoComentario = client.GetListaProductoComentarioDetalleAprobar(paisID, productoComentarioFilter);
             }
             return ListaProductoComentario;
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoProductoComentario(short paisId, int productoComentarioId, long productoComentarioDetalleId, short estadoProductoComentarioId)
+        {
+            try
+            {
+                var productoComentarioDetalle = new BEProductoComentarioDetalle();
+                productoComentarioDetalle.ProdComentarioId = productoComentarioId;
+                productoComentarioDetalle.ProdComentarioDetalleId = productoComentarioDetalleId;
+                productoComentarioDetalle.Estado = estadoProductoComentarioId;
+
+                int result = 0;
+                using (PedidoServiceClient client = new PedidoServiceClient())
+                {
+                    result = client.AprobarProductoComentarioDetalle(paisId, productoComentarioDetalle);
+                }
+
+                if (result>0)
+                {
+                    var message = "Se {0} el comentario con éxito.";
+                    message = (EstadoProductoComentario)estadoProductoComentarioId == EstadoProductoComentario.Aprobado ?
+                        string.Format(message, "APROBÓ") : 
+                        string.Format(message, "RECHAZÓ");
+
+                    return Json(new { success = true, message = message }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    var message = "NO se pudo {0} el comentario.";
+                    message = (EstadoProductoComentario)estadoProductoComentarioId == EstadoProductoComentario.Aprobado ?
+                        string.Format(message, "APROBAR") :
+                        string.Format(message, "RECHAZAR");
+
+                    return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (FaultException fe)
+            {
+                return Json(
+                    new
+                    {
+                        success = false,
+                        message = "Ocurrió un error al ejecutar la operación. " + fe.Message
+                    },
+                    JsonRequestBehavior.AllowGet
+                    );
+            }
         }
     }
 }
