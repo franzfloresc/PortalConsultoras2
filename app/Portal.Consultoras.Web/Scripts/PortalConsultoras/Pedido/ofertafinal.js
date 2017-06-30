@@ -251,7 +251,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     var objOf = cumpleOferta.productosMostrar[0];
     objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
-    objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
+    //objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
     objOf.Detalle = cumpleOferta.productosMostrar;
     objOf.TotalPedido = $("#hdfTotal").val();
     objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();;
@@ -405,7 +405,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         $("#msjOfertaFinal span").html("Monto total: " + simbolo + " " + data.formatoTotal);
         agregoOfertaFinal = 1;
     }
-    else if (tipoMeta == "ME") {
+    else {//if (tipoMeta == "ME") {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
         var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
@@ -703,6 +703,9 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
         producto['DesTipoRegistro'] = 'Producto Expuesto';
         params.push(producto);
     });
+
+    //debugger;
+    console.log(params);
 
     jQuery.ajax({
         type: 'POST',
