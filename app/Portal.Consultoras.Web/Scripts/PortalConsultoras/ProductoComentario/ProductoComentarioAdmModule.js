@@ -32,11 +32,28 @@ var productoComentarioAdmModule = (function () {
 
     var listaCampanias = [];
 
+    var productoComentarioFilterModel = {
+        paisID: 0,
+        estadoComentarioID: 0,
+        tipoComentarioID : 0,
+        SAP: '',
+        campaniaID: 0,
+        CUV : ''
+    };
+
+    var actualizarEstadoProductoComentarioModel = {
+        paisId: 0,
+        productoComentarioId: 0,
+        productoComentarioDetalleId: 0,
+        estadoProductoComentarioId: 0
+    };
+
     var setting = {
         listarCampaniasUrl: '',
         listarProductoComentarioUrl: '',
         imagenEnableUrl: '',
-        imagenDisableUrl: ''
+        imagenDisableUrl: '',
+        actualizarEstadoProductoComentarioUrl: ''
     };
 
     var _bindEvents = function () {
@@ -94,7 +111,16 @@ var productoComentarioAdmModule = (function () {
 
         $(document).on('click', elements.btnBuscarComentarios, function () {
             waitingDialog({});
-            
+
+            productoComentarioFilterModel = {
+                paisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
+                estadoComentarioID: function () { return ($(elements.ddlEstadoComentario).val() == '' ? '0' : $(elements.ddlEstadoComentario).val());},
+                tipoComentarioID: function () { return ($(elements.ddlTipoComentario).val() == '' ? "0" : $(elements.ddlTipoComentario).val());},
+                SAP: function () { return ($(elements.txtSAP).val() == '' ? '' : $(elements.txtSAP).val());},
+                campaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val());},
+                CUV: function () { return ($(elements.txtCUV).val() == '' ? '' : $(elements.txtCUV).val()); }
+            };
+
             _listarProductoComentarios();
         });
     }
@@ -163,23 +189,16 @@ var productoComentarioAdmModule = (function () {
             url: setting.listarProductoComentarioUrl,
             hidegrid: false,
             datatype: 'json',
-            postData: ({
-                paisID: function () { return ($(elements.ddlPais).val() == '' ? '0' : $(elements.ddlPais).val()); },
-                estadoComentarioID: function () { return ($(elements.ddlEstadoComentario).val() == '' ? '0' : $(elements.ddlEstadoComentario).val()); },
-                tipoComentarioID: function () { return ($(elements.ddlTipoComentario).val() == '' ? "0" : $(elements.ddlTipoComentario).val()); },
-                SAP: function () { return ($(elements.txtSAP).val() == '' ? '' : $(elements.txtSAP).val()); },
-                campaniaID: function () { return ($(elements.ddlCampania).val() == '' ? "0" : $(elements.ddlCampania).val()); },
-                CUV: function () { return ($(elements.txtCUV).val() == '' ? '' : $(elements.txtCUV).val()); }
-            }),
+            postData: productoComentarioFilterModel,
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
             colNames: ['Nro', 'Consultora', 'Fecha', 'Valorización', 'Texto', 'Estado', 'Acciones'],
             colModel: [
-                { name: 'Nro', width: 15, editable: false, resizable: false, align: 'center', sortable: false, label:"N°" },
+                { name: 'Nro', width: 15, editable: false, resizable: false, align: 'center', sortable: false, label: "N°" },
                 { name: 'Consultora', width: 35, editable: true, resizable: false, align: 'center', sortable: false },
                 { name: 'Fecha', width: 35, editable: true, resizable: false, align: 'center', sortable: false },
                 { name: 'Valorizacion', width: 35, editable: true, resizable: false, align: 'center', sortable: false, label: "Valorización" },
-                { name: 'Texto',  editable: true, resizable: false, sortable: false },
+                { name: 'Texto', editable: true, resizable: false, sortable: false },
                 { name: 'Estado', width: 35, editable: true, resizable: false, sortable: false },
                 { name: 'Acciones', width: 35, editable: true, resizable: false, sortable: false, align: 'center', formatter: _showActionsProductoComentario }
             ],
@@ -223,8 +242,10 @@ var productoComentarioAdmModule = (function () {
 
     var _showActionsProductoComentario = function (cellvalue, options, rowObject) {
 
-        var aprobarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').AprobarComentario(" + options.rowId + ");\" >" + "<img src='" + setting.imagenEnableUrl + "' alt='Aprobar Comentario' title='Aprobar Comentario' border='0' /></a>";
-        var rechazarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').RechazarComentario(" + options.rowId + ");\" >" + "<img src='" + setting.imagenDisableUrl + "' alt='Rechazar Comentario' title='Rechazar Comentario' border='0' /></a>";
+        var aprobarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').AprobarComentario(" + rowObject.ProductoComentarioId + "," + rowObject.ProductoComentarioDetalleId + ");\" >" +
+            "<img src='" + setting.imagenEnableUrl + "' alt='Aprobar Comentario' title='Aprobar Comentario' border='0' /></a>";
+        var rechazarComentario = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('" + elements.tablaProductoComentario + "').RechazarComentario(" + rowObject.ProductoComentarioId + "," + rowObject.ProductoComentarioDetalleId +  ");\" >" +
+            "<img src='" + setting.imagenDisableUrl + "' alt='Rechazar Comentario' title='Rechazar Comentario' border='0' /></a>";
         var resultado = "";
 
         if (rowObject.IdEstado == ESTADO_PRODUCTO_COMENTARIO.INGRESADO) {
@@ -245,22 +266,76 @@ var productoComentarioAdmModule = (function () {
 
     var _atacharEventosDeProductoComentario = function () {
         $.jgrid.extend({
-            AprobarComentario: function ( comentarioId) {
-                alert('AprobarComentario');
+            AprobarComentario: function (productoComentarioId, productoComentarioDetalleId) {
+                var confirmAprobarComentario = '¿Esta realmente seguro que desea APROBAR el comentario?';
+
+                actualizarEstadoProductoComentarioModel.paisId = productoComentarioFilterModel.paisID();
+                actualizarEstadoProductoComentarioModel.productoComentarioId = productoComentarioId;
+                actualizarEstadoProductoComentarioModel.productoComentarioDetalleId = productoComentarioDetalleId;
+                actualizarEstadoProductoComentarioModel.estadoProductoComentarioId = ESTADO_PRODUCTO_COMENTARIO.APROBADO;
+
+                _actualizarEstadoProductoComentario(confirmAprobarComentario, actualizarEstadoProductoComentarioModel);
+
                 return false;
             },
-            RechazarComentario: function (comentarioId) {
-                alert('RechazarComentario');
+            RechazarComentario: function (productoComentarioId, productoComentarioDetalleId) {
+                var confirmAprobarComentario = '¿Esta realmente seguro que desea RECHAZAR el comentario?';
+
+                actualizarEstadoProductoComentarioModel.paisId = productoComentarioFilterModel.paisID();
+                actualizarEstadoProductoComentarioModel.productoComentarioId = productoComentarioId;
+                actualizarEstadoProductoComentarioModel.productoComentarioDetalleId = productoComentarioDetalleId;
+                actualizarEstadoProductoComentarioModel.estadoProductoComentarioId = ESTADO_PRODUCTO_COMENTARIO.RECHAZADO;
+
+                _actualizarEstadoProductoComentario(confirmAprobarComentario, actualizarEstadoProductoComentarioModel);
                 return false;
             }
         });
     }
+
+    var _actualizarEstadoProductoComentario = function (confirmMessage, actualizarEstadoProductoComentarioModel) {
+        if (confirm(confirmMessage)) {
+
+            waitingDialog({});
+
+            var actualizarEstadoProductoComentarioPromise = _actualizarEstadoProductoComentarioPromise(actualizarEstadoProductoComentarioModel);
+
+            $.when(actualizarEstadoProductoComentarioPromise).then(function (actualizarEstadoResponse) {
+                if (checkTimeout(actualizarEstadoResponse)) {
+                    alert(actualizarEstadoResponse.message);
+                    if (actualizarEstadoResponse.success) {
+                        _listarProductoComentarios();
+                    }
+                }
+            });
+        }
+    }
+
+    var _actualizarEstadoProductoComentarioPromise = function (actualizarEstadoProductoComentarioModel) {
+        var d = $.Deferred();
+
+        var promise = $.ajax({
+            type: 'POST',
+            url: (setting.actualizarEstadoProductoComentarioUrl),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(actualizarEstadoProductoComentarioModel),
+            async: true
+        });
+
+        promise.done(function (response) {
+            d.resolve(response);
+        })
+        promise.fail(d.reject);
+
+        return d.promise();
+    };
 
     var initializer = function (parameters) {
         setting.listarCampaniasUrl = parameters.listarCampaniasUrl;
         setting.listarProductoComentarioUrl = parameters.listarProductoComentarioUrl;
         setting.imagenEnableUrl = parameters.imagenEnableUrl;
         setting.imagenDisableUrl = parameters.imagenDisableUrl;
+        setting.actualizarEstadoProductoComentarioUrl = parameters.actualizarEstadoProductoComentarioUrl;
         //
         _bindEvents();
     };

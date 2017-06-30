@@ -50,7 +50,7 @@
 
                 <div id="divBuscarComentarios" class="div-3" style="display: none;">
                     <div class="input_search">
-                        <input type="button" value="Crear" id="BuscarComentarios" name="" style="float: right; margin-right: 110px;">
+                        <input type="button" value="Buscar" id="BuscarComentarios" name="" style="float: right; margin-right: 110px;">
                     </div>
                 </div>
             </div>
@@ -76,8 +76,9 @@
             settings = {
                 listarCampaniasUrl: '@Url.Action("ListarCampanias", "Campania")',
                 listarProductoComentarioUrl: '@Url.Action("ListarProductoComentario", "ProductoComentario")',
-                imagenEnableUrl : '@Url.Content("~/Content/Images/enable.png")',
-                imagenDisableUrl : '@Url.Content("~/Content/Images/disable.png")'
+                imagenEnableUrl : '@Url.Content("~/Content/Images/like.png")',
+                imagenDisableUrl: '@Url.Content("~/Content/Images/dislike.png")',
+                actualizarEstadoProductoComentarioUrl: '@Url.Action("ActualizarEstadoProductoComentario", "ProductoComentario")',
             };
             productoComentarioAdmModule.ini(settings);
         });
