@@ -1,4 +1,4 @@
-﻿@using Portal.Consultoras.Common
+﻿'@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.PedidoSb2Model
 
 @{
@@ -2249,21 +2249,19 @@
 
                 <div>
                     <h1 class="titulo_ofertaFinal"  id="spnTituloOfertaFinal">
-                        {{#iff TipoMeta '==' 'MM'}}
+                        {{#if_eq TipoMeta 'MM'}}
                             <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
-                        {{/iff}}
-                        {{#iff TipoMeta '==' 'GM'}}
+                        {{else if_eq TipoMeta 'GM'}}
                             <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
                         {{else}}    <!--se espera escala de dscto-->
                             <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                        {{/iff}}
+                        {{/if_eq}}
                     </h1>
                     <hr class="clear" />
                     <div class="descripcion_ofertaFinal" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
-                        {{#iff TipoMeta '==' 'MM'}}
+                        {{#if_eq TipoMeta 'MM'}}
                             <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
-                        {{/iff}}
-                        {{#iff TipoMeta '==' 'GM'}}
+                        {{else if_eq TipoMeta 'GM'}}
                             {{#iff Cross '==' '1'}}
                             <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
                             {{else}}
@@ -2271,7 +2269,7 @@
                             {{/iff}}
                         {{else}}    <!--se espera escala de dscto-->
                             <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
-                        {{/iff}}
+                        {{/if_eq}}
                     </div>
                 </div>
 
