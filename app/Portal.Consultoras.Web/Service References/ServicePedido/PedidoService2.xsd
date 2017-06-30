@@ -612,12 +612,14 @@
       <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
       <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
       <xs:element minOccurs="0" name="NivelSiguiente" type="xs:int" />
+      <xs:element minOccurs="0" name="NumeroNiveles" type="xs:int" />
       <xs:element minOccurs="0" name="Participa" type="xs:boolean" />
       <xs:element minOccurs="0" name="Premios" nillable="true" type="tns:ArrayOfBEPremio" />
       <xs:element minOccurs="0" name="PuntajeTotal" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosFaltantesSiguienteNivel" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosRetail" type="xs:int" />
       <xs:element minOccurs="0" name="PuntosXVentas" type="xs:int" />
+      <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

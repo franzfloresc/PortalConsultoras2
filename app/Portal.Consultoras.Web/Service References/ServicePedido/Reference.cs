@@ -10981,6 +10981,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int NivelSiguienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int NumeroNivelesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ParticipaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10997,6 +11000,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PuntosXVentasField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoConcursoField;
@@ -11194,6 +11200,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int NumeroNiveles {
+            get {
+                return this.NumeroNivelesField;
+            }
+            set {
+                if ((this.NumeroNivelesField.Equals(value) != true)) {
+                    this.NumeroNivelesField = value;
+                    this.RaisePropertyChanged("NumeroNiveles");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool Participa {
             get {
                 return this.ParticipaField;
@@ -11267,6 +11286,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.PuntosXVentasField.Equals(value) != true)) {
                     this.PuntosXVentasField = value;
                     this.RaisePropertyChanged("PuntosXVentas");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Simbolo {
+            get {
+                return this.SimboloField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SimboloField, value) != true)) {
+                    this.SimboloField = value;
+                    this.RaisePropertyChanged("Simbolo");
                 }
             }
         }
