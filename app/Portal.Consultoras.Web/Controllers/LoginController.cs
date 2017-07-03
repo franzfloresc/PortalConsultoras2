@@ -869,7 +869,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date)
+                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date.AddDays(-1))
                                         {
                                             model.RevistaDigital.TieneRDS = true;
                                             //obtiene datos de Revista digital suscripcion.
