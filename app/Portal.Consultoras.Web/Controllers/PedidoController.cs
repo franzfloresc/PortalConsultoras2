@@ -520,6 +520,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if(!string.IsNullOrEmpty(model.ClienteID))
+                {
+                    int ClienteID = Convert.ToInt32(model.ClienteID);
+
+                    if (ClienteID > 0)
+                    {
+                        using (ClienteServiceClient service = new ClienteServiceClient())
+                        {
+                            var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, ClienteID, 0);
+                            if (cliente.TieneTelefono == 0)
+                            {
+                                return Json(new
+                                {
+                                    success = false,
+                                    message = "Debe actualizar los datos del cliente.",
+                                    errorCliente = true
+                                });
+                            }
+                        }
+                    }
+                }
+
                 #region validar cuv de inicio obligatorio
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
@@ -756,6 +778,23 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoWebDetalleModel model)
         {
+            if (model.ClienteID > 0)
+            {
+                using (ClienteServiceClient service = new ClienteServiceClient())
+                {
+                    var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, model.ClienteID, 0);
+                    if (cliente.TieneTelefono == 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Debe actualizar los datos del cliente.",
+                            errorCliente = true
+                        });
+                    }
+                }
+            }
+
             string message = string.Empty;
             BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle();
             oBEPedidoWebDetalle.PaisID = userData.PaisID;
@@ -1848,7 +1887,12 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 
@@ -1882,7 +1926,12 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 
@@ -3427,7 +3476,7 @@ namespace Portal.Consultoras.Web.Controllers
                 /*EPD-1252*/
 
                 //EPD-2248
-                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico indPedidoAutentico = new Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico();
                 indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
