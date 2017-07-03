@@ -448,6 +448,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var permiso in lista1)
             {
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
+                permiso.Descripcion = Util.Trim(permiso.Descripcion);
                 permiso.UrlItem = Util.Trim(permiso.UrlItem);
                 permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
                 permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
@@ -555,7 +556,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
                     }
-
 
                     lstModel.Add(permiso);
 
@@ -816,7 +816,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
         {
             // Asignar los hijos
-            menu = menuOriginal.Where(x => x.IdPadre == idPadre)
+            menu = menuOriginal.Where(x => x.IdPadre == idPadre && ( x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
                 .OrderBy(x => x.Posicion)
                 .ToList();
 
