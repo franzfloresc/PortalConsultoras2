@@ -25,6 +25,7 @@
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
+            //item.UrlCompartir = item.UrlCompartir.replace('localhost:35848','sbpl20qa.somosbelcorp.com');//http://localhost:35848//Pdto.aspx?id=PE_[valor]
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
             _validarGanancia(item);
             _validarPrecioTachado(item);
