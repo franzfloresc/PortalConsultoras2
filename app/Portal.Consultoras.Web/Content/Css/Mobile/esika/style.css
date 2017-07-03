@@ -11886,19 +11886,19 @@ a{
     border-bottom:1px solid black;
     margin-top: 15px;
 }
-.nombre_producto_opt{
-    font-size:13px;
-    font-weight:700;
-    margin-top: 12px;
-    margin-bottom:15px;
-    height: 15px;
+.nombre_producto_opt {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+    /*margin-bottom: 15px;*/
+    height: auto !important;
 }
 .cantidad_producto_opt{
     margin-right:10px;
 }
 .content_producto_individual{
     border-bottom:1px solid #d7d7d7;
-    padding-bottom: 18px;
+    /*padding-bottom: 18px;*/
 }
 .content_producto_individual:last-child{
     border-bottom:0;
