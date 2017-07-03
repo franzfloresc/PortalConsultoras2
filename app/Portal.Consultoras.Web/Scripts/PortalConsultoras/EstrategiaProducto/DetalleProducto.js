@@ -8,7 +8,7 @@
     var elements = {
         
     };
-
+    
     var setting = {
         baseUrl: '',
         urlVerDetalleProducto: 'EstrategiaProducto/DetalleProducto',
@@ -35,6 +35,7 @@
             let data = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(data);
             inicializarDivMasVendidos('desktop');
+            _validarDivTituloMasVendidos();
         });
     }
 
@@ -324,3 +325,27 @@
         }
     };
 })();
+
+function _validarDivTituloMasVendidos() {
+    let tieneMasVendidosFlag = _validartieneMasVendidos();
+    let model = get_local_storage("data_mas_vendidos");
+    let lista = [];
+
+    if (model !== 'undefined' && model !== null) {
+        lista = model.Lista;
+    }
+
+    if (tieneMasVendidosFlag === 0) {
+        $(".content_mas_vendidos").hide();
+        return;
+    }
+
+    if (tieneMasVendidosFlag === 1) {
+        if (lista.length === 0) {
+            $(".content_mas_vendidos").hide();
+        }
+        else {
+            $(".content_mas_vendidos").show();
+        }
+    }
+}
