@@ -173,7 +173,7 @@ $(document).ready(function () {
 
     CrearDialogs();
     CargarCarouselEstrategias("");
-    if (tieneMasVendidos===1) {
+    if (_validartieneMasVendidos()=== 1) {
         CargarCarouselMasVendidos('desktop');
     }
     
@@ -3419,6 +3419,16 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
     });
 }
 
+function _validartieneMasVendidos() {
+    if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
+        set_local_storage(tieneMasVendidos, "tieneMasVendidos");
+        return tieneMasVendidos;
+    }
+    else {
+        let valor = get_local_storage("tieneMasVendidos");
+        return valor;
+    }
+}
 /*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
 function click_zona_oscura_PopShowroomVenta() {
     var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
