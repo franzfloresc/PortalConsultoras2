@@ -176,15 +176,13 @@ function inicializarDivMasVendidos(origen) {
 }
 
 function ArmarCarouselMasVendidos(data) {
-    if (typeof data.List !== 'undefined' && data.Lista.length > 0) {
+    //debugger;
+    if (typeof data.Lista !== 'undefined' && data.Lista.length > 0) {
         data.Lista = EstructurarDataCarousel(data.Lista);
         $("#divCarrouselMasVendidos").empty();
         SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+        $('div.content_mas_vendidos').show();
     }
-    else {
-        $('div.content_mas_vendidos').hide();
-    }
-    
 }
 
 function ArmarCarouselEstrategias(data) {

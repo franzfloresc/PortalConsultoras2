@@ -1789,25 +1789,27 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (entidad != null)
                 {
-                    var listaProductoCatalogo = new List<Producto>();
+                    var listaProdCatalogo = new List<Producto>();
                     if (!string.IsNullOrEmpty(entidad.CodigoSap))
                     {
                         using (ProductoServiceClient svc = new ProductoServiceClient())
                         {
-                            listaProductoCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
+                            listaProdCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                         }
                     }
                     
-                    if (listaProductoCatalogo.Any())
+                    if (listaProdCatalogo.Any())
                     {
-                        var productoCatalogo = listaProductoCatalogo.First();
-                        entidad.DescripcionPremio = productoCatalogo.NombreComercial;
-                        entidad.PrecioCatalogo = productoCatalogo.PrecioCatalogo;
-                        entidad.PrecioValorizado = productoCatalogo.PrecioValorizado;
-                        entidad.UrlImagenRegalo = productoCatalogo.Imagen;
-                        result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
-                        result.CodigoIso = model.CodigoISO;
-                        result.DescripcionPremio = result.DescripcionPremio.ToUpper();
+                        var prodCatalogo = listaProdCatalogo.FirstOrDefault();
+                        if (prodCatalogo != null)
+                        {
+                            var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial) ? prodCatalogo.NombreComercial : prodCatalogo.DescripcionComercial);
+                            if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
+
+                            if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
+                            if (prodCatalogo.PrecioValorizado > 0) entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                            entidad.UrlImagenRegalo = prodCatalogo.Imagen;
+                        }
                     }
 
                     result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
