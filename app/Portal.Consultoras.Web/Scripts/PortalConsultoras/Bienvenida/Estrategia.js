@@ -660,7 +660,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                                     datos.data.MarcaID = $(item).find("#Estrategia_hd_MarcaID").val();
                                     datos.data.Precio2 = $(item).find("#Estrategia_hd_PrecioCatalogo").val();
                                 }
-
                                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
                             }
                         });
@@ -671,7 +670,8 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             else {
                 EstrategiaAgregarProducto(datos.data, popup, tipoEstrategiaImagen);
             }
-
+            $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val(1);
+            $(objInput).parents("[data-item]").find("[data-input='cantidad']").val(1);
         },
         error: function (data, error) {
             alert(datos.data.message);
