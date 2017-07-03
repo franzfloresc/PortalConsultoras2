@@ -49,8 +49,9 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\Binaries\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\Binaries\AutoMapper.dll</HintPath>
@@ -180,8 +181,9 @@
     <Reference Include="Trancenter.IFacturaEcuador.EncriptTool">
       <HintPath>..\Binaries\Trancenter.IFacturaEcuador.EncriptTool.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <HintPath>..\Binaries\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -370,9 +372,11 @@
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaDominicana.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaEcuador.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaMexico.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPeru.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaPuertoRico.cs" />
     <Compile Include="GestionPasos\GestionPais.cs" />
     <Compile Include="GestionPasos\HtmlHelpers.cs" />
     <Compile Include="GestionPasos\IEvaluacionCrediticia.cs" />
@@ -4062,6 +4066,7 @@
     <Content Include="Views\Unete\_ConsultarUbicacionCL.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo6.cshtml" />
     <Content Include="Views\Pedido\template-seccion-opt.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo7.cshtml" />
     <Content Include="Views\MisCatalogosRevistas\template-revista-slide.cshtml" />
     <Content Include="Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <None Include="Web References\ServiceActualizarDatosPrueba\ProcesoMAEPortalConsultoraWebService.wsdl" />

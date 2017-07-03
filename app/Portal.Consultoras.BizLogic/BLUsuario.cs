@@ -299,6 +299,7 @@ namespace Portal.Consultoras.BizLogic
                             usuario.FechaActualPais = configuracion.FechaActualPais;
                             usuario.EstadoPedido = configuracion.EstadoPedido;
                             usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
                         }
                     }
                 }
