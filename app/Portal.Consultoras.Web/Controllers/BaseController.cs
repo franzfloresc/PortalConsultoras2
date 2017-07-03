@@ -64,9 +64,35 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.MenuMobile = BuildMenuMobile(userData);
-                    ViewBag.Permiso = BuildMenu();
-                    ViewBag.ProgramasBelcorpMenu = BuildMenuService();
+                    // FREEZE 03/07/2017
+                    if (Session["OP_BuildMenuMobile"] == null)
+                    {
+                        List<MenuMobileModel> oL = BuildMenuMobile(userData);
+                        Session["OP_BuildMenuMobile"] = oL;
+                        ViewBag.MenuMobile = oL;
+                    }
+                    else
+                        ViewBag.MenuMobile = (List<MenuMobileModel>)Session["OP_BuildMenuMobile"];
+
+                    if (Session["OP_BuildMenu"] == null)
+                    {
+                        List<PermisoModel> oL = BuildMenu();
+                        Session["OP_BuildMenu"] = oL;
+                        ViewBag.Permiso = oL;
+                    }
+                    else
+                        ViewBag.Permiso = (List<PermisoModel>)Session["OP_BuildMenu"];
+
+                    if (Session["OP_BuildMenuService"] == null)
+                    {
+                        List<ServicioCampaniaModel> oL = BuildMenuService();
+                        Session["OP_BuildMenuService"] = oL;
+                        ViewBag.ProgramaBelcorpMenu = oL;
+                    }
+                    else
+                        ViewBag.ProgramaBelcorpMenu = (List<ServicioCampaniaModel>)Session["OP_BuildMenuService"];
+                    // END FREEZE
+
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
                     /*** EPD 2170 ***/

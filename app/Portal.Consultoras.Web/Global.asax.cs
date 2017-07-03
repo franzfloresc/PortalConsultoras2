@@ -358,9 +358,18 @@ namespace Portal.Consultoras.Web
             //}
         }
 
+        protected void Session_End( object sender, EventArgs e )
+        {
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
+        }
+
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
@@ -369,6 +378,8 @@ namespace Portal.Consultoras.Web
                 && !(Request.Path.EndsWith("/")))
                 Response.Redirect(Request.Path + "/");
         }
+
+       
 
         //void OnServiceConfigurationCreated(object sender, FederationConfigurationCreatedEventArgs e) 
         //{ 
