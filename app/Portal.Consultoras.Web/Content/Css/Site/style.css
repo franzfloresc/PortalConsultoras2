@@ -13335,6 +13335,10 @@ label.checkpop {
     font-size: 14px;
 }
 
+.inforRdText {
+   position: relative; margin-top: -16px; font-size: 11px; 
+}
+
 /*EPD2031*/
 .contentCatalogo {
     display: table;
@@ -13406,7 +13410,3 @@ label.checkpop {
             opacity: 0.7;
         }
 /*EPD2031 -->*/
-
-.inforRdText {
-   position: relative; margin-top: -16px; font-size: 11px; 
-}
