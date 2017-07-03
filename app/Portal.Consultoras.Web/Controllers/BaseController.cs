@@ -530,6 +530,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                         {
+                            ViewBag.ClaseLogoSB = "negro";
                             if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                                 if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
                                     if (userData.RevistaDigital.NoVolverMostrar)
@@ -542,11 +543,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                         {
                                             permiso.ClaseMenuItem = "oculto";
+                                            ViewBag.ClaseLogoSB = "";
                                         }
                                     }
                                     else
                                     {
                                         permiso.ClaseMenuItem = "oculto";
+                                        ViewBag.ClaseLogoSB = "";
                                     }
                         }
 

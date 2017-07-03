@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{F8B9B37B-8270-4602-B70C-4EDB2986A28B}</ProjectGuid>
-    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Portal.Consultoras.Web</RootNamespace>
@@ -1164,6 +1164,7 @@
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\Css\Site\calc.css" />
+    <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />

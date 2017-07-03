@@ -6602,6 +6602,11 @@ a.subir_carousel, a.bajar_carousel {
     background-size: cover;
 }
 
+.logo_esika a.negro {
+    background: url(../../../Images/Esika/logo_esika_negro.png) no-repeat;
+    background-size: cover;
+}
+
 .cliente_detalle {
     display: block;
     color: black;
