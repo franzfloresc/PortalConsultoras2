@@ -143,16 +143,15 @@ function inicializarDivMasVendidos(origen) {
    
     $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
         infinite: true,
-        dots: false,
+
         vertical: false,
+        centerMode: false,
+        centerPadding: '0px',
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
-        arrows: true,
-        centerMode: true,
-        variableWidth: false,
-        centerPadding: '0px',
-        speed: 300,
+        speed: 270,
+        pantallaPedido: false,
         prevArrow: slickArrows[origen].prev,
         nextArrow: slickArrows[origen].next,
         responsive: [
@@ -170,18 +169,6 @@ function inicializarDivMasVendidos(origen) {
                 }
         ]
     });
-
-    //var rating = 1.6;
-    //$(".rateyo-readonly-widg").rateYo({
-    //    rating: rating,
-    //    numStars: 5,
-    //    precision: 2,
-    //    minValue: 1,
-    //    maxValue: 5,
-    //    starWidth: "17px"
-    //}).on("rateyo.change", function (e, data) {
-    //    //console.log(data.rating);
-    //});
 }
 
 function ArmarCarouselMasVendidos(data) {

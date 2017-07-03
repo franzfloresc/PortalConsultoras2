@@ -31,9 +31,144 @@
             _pintarEstrellas(item);
             _pintarRecomendaciones(item);
             _pintarUltimoComentario(item);
-            _pintarUltimoComentarioConsultora(item);            
+            _pintarUltimoComentarioConsultora(item);
+            let data = _armarListaCarruselDetalleProducto();
+            _armarCarouselMasVendidos(data);
+            inicializarDivMasVendidos('desktop');
         });
     }
+
+    function inicializarDivMasVendidos(origen) {
+        $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+        var slickArrows = {
+            'mobile': {
+                prev: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-left:-12%; text-align:left;"><img src="' + baseUrl + 'Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="" /></a>'
+              , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
+            },
+            'desktop': {
+                prev: '<a class="previous_ofertas"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
+              , next: '<a class="previous_ofertas" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            }
+        };
+
+        $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
+            infinite: true,
+            vertical: false,
+            centerMode: false,
+            centerPadding: '0px',
+            slidesToShow: 4,
+            slidesToScroll: 1,
+            autoplay: false,
+            speed: 270,
+            pantallaPedido: false,
+            prevArrow: slickArrows[origen].prev,
+            nextArrow: slickArrows[origen].next,
+            responsive: [
+                    {
+                        breakpoint: 1200,
+                        settings: { slidesToShow: 3, slidesToScroll: 1 }
+                    },
+                    {
+                        breakpoint: 900,
+                        settings: { slidesToShow: 2, slidesToScroll: 1 }
+                    },
+                    {
+                        breakpoint: 600,
+                        settings: { slidesToShow: 1, slidesToScroll: 1 }
+                    }
+            ]
+        });
+    }
+
+    var _armarListaCarruselDetalleProducto = function() {
+        var model = get_local_storage("data_mas_vendidos");
+        var item = model.Item;
+        var lista = [];
+        model.Lista.forEach(elem => {
+            if (elem.EstrategiaID !== item.EstrategiaID) {
+                lista.push(elem);
+            }
+        });
+        model.Lista = lista;
+        return model;
+    }
+
+    var _armarCarouselMasVendidos = function (data) {
+        data.Lista = EstructurarDataCarousel(data.Lista);
+        $("#divCarrouselMasVendidos").empty();
+        SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos');
+        PintarEstrellasCarrusel(data.Lista);
+        PintarRecomendacionesCarrusel(data.Lista);
+    }
+
+    function PintarRecomendacionesCarrusel(listaMasVendidos) {
+        listaMasVendidos.forEach(item => {
+            _pintarRecomendacionesCarrusel(item);
+        });
+    }
+
+    function _pintarRecomendacionesCarrusel(item) {
+        let div = "#recommedation-" + item.EstrategiaID.toString();
+        if (item.CantComenRecom > 0) {
+            let recommendation = '(' + item.CantComenRecom.toString() + ' )';
+            $(div).html(recommendation);
+            $(div).show();
+        }
+        else {
+            $(div).hide();
+        }
+    }
+
+    function PintarEstrellasCarrusel(listaMasVendidos) {
+        listaMasVendidos.forEach(item => {
+            _pintarEstrellasCarrusel(item);
+        });
+    }
+
+    function _pintarEstrellasCarrusel(item) {
+        let div = "#star-" + item.EstrategiaID.toString();
+        if (item.PromValorizado > 0) {
+            let rating = '';
+            rating = item.PromValorizado.toString() + '%';
+            $(div).rateYo({
+                rating: rating,
+                numStars: 5,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "17px",
+                readOnly: true
+            });
+            $(div).show();
+        }
+        else {
+            $(div).hide();
+        }
+    }
+
+    function EstructurarDataCarousel(array) {
+        var isList = array.DescripcionCUV2 == undefined;
+        var lista = isList ? array : new Array();
+        if (!isList)
+            lista.push(array);
+
+        var urlOfertaDetalle = $.trim(urlOfertaDetalle);
+        $.each(lista, function (i, item) {
+            item.DescripcionCUV2 = $.trim(item.DescripcionCUV2);
+            item.DescripcionCompleta = item.DescripcionCUV2.split('|')[0];
+            if (item.FlagNueva == 1) {
+                item.DescripcionCUVSplit = item.DescripcionCUV2.split('|')[0];
+                item.ArrayContenidoSet = item.DescripcionCUV2.split('|').slice(1);
+            } else {
+                item.DescripcionCUV2 = (item.DescripcionCUV2.length > 40 ? item.DescripcionCUV2.substring(0, 40) + "..." : item.DescripcionCUV2);
+            };
+
+            item.Posicion = i + 1;
+            item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
+            item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
+        });
+        return isList ? lista : lista[0];
+    };
 
     var _pintarUltimoComentarioConsultora = function (item) {
         let div = "#consultant-commentary-" + item.EstrategiaID.toString();

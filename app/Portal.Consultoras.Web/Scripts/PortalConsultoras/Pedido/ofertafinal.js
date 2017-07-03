@@ -899,7 +899,6 @@ function of_google_analytics_producto_impresion_arrows(event, slick, currentSlid
         if (meta == "GM") { list = list + "Gana más"; }
         if (meta == "") { list = list + "Descuento Adicional"; }
 
-        debugger;
         var impresion;
         var item;
         item = lista[index];
