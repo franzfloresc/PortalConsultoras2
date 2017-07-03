@@ -924,7 +924,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         else if ($.trim(tipoOrigenEstrategia)[0] == "1") {
                             CargarResumenCampaniaHeader(true);
                         }
-                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262) {
+                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
                                 origenRetorno = $.trim(origenRetorno);
@@ -932,7 +932,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                     window.location = origenRetorno;
                                 }
                             }
-                            else {
+                            else if (tipoOrigenEstrategia != 272) {
                                 CargarCarouselEstrategias(cuv);
                             }
                         }
@@ -1010,6 +1010,10 @@ function AbrirMensajeEstrategia(txt) {
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
+    if (typeof paginaOrigenCupon == "undefined") {
+        return false;
+    }
+
     if (paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
