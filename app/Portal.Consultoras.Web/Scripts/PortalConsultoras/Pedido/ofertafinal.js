@@ -704,9 +704,6 @@ function AgregarOfertaFinalLogBulk(tipoOfertaFinal_log, gap_Log, listaProductos)
         params.push(producto);
     });
 
-    //debugger;
-    console.log(params);
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'Pedido/InsertarOfertaFinalLogBulk',

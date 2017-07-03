@@ -176,9 +176,15 @@ function inicializarDivMasVendidos(origen) {
 }
 
 function ArmarCarouselMasVendidos(data) {
-    data.Lista = EstructurarDataCarousel(data.Lista);
-    $("#divCarrouselMasVendidos").empty();
-    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+    if (typeof data.List !== 'undefined' && data.Lista.length > 0) {
+        data.Lista = EstructurarDataCarousel(data.Lista);
+        $("#divCarrouselMasVendidos").empty();
+        SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+    }
+    else {
+        $('div.content_mas_vendidos').hide();
+    }
+    
 }
 
 function ArmarCarouselEstrategias(data) {
