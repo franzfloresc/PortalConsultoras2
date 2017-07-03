@@ -190,7 +190,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var ClienteId = pedidosFacturados.ClienteID;
                 using (var service = new SACServiceClient())
                 {
-                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID.ToString(), userData.CodigoConsultora, ClienteId, pedidoId);
+                    listaPedidosFacturadosDetalle = service.GetPedidosFacturadosDetalleMobile(userData.PaisID, campaniaID, userData.ConsultoraID, (short)ClienteId, userData.CodigoConsultora);
                 }
 
                 foreach (var pedidoDetalle in listaPedidosFacturadosDetalle)

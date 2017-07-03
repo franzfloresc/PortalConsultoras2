@@ -63,7 +63,7 @@
                             <br />
                             <div class="caja" style="padding-top: 15px;">
                                 <span> Cliente: </span>
-                                @Html.DropDownListFor(x => item.ClienteID, new SelectList(Model.ListaClientes, "ClienteID", "Nombre", item.ClienteID), new { @class = "cbolstClientes", @PedidoId = item.PedidoID })
+                                @Html.DropDownListFor(x => item.ClienteID, new SelectList(Model.ListaClientes, "ClienteID", "Nombre", item.ClienteID), new { @class = "cbolstClientes", @PedidoId = item.PedidoID, @disabled = "disabled" })
                             </div>
 
                             @*Descuento @Model.Simbolo
@@ -96,36 +96,43 @@
             }
         </ul>
     </div>
-    <table class="table pcolor">
-        <tbody>
-            <tr>
-                <td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>
-                <td class="text-right" style="padding-top:25px;">
-                    @Model.Simbolo
-                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                    {
-                        @(string.Format("{0:#,##0}", Model.Subtotal).Replace(',', '.'))
-                    }
-                    else
-                    {
-                        @(string.Format("{0:#,##0.00}", Model.Subtotal).Replace(',', '.'))
-                    }
-                    <br />
-                    <span class="color_facturado">
-                        @Model.Simbolo
-                    </span>
-                    @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                    {
-                        <span class="color_facturado">@(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))</span>
-                    }
-                    else
-                    {
-                        <span class="color_facturado">@(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))</span>
-                    }
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    @{
+        var sessionMobile = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+
+        if (sessionMobile.ClienteID == 0)
+        { 
+            <table class="table pcolor">
+                <tbody>
+                    <tr>
+                        <td class="upper" style="padding-top:25px;">Importe Total<br><span class="color_facturado">Flete</span></td>
+                        <td class="text-right" style="padding-top:25px;">
+                            @Model.Simbolo
+                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                            {
+                                @(string.Format("{0:#,##0}", Model.Subtotal).Replace(',', '.'))
+                            }
+                            else
+                            {
+                                @(string.Format("{0:#,##0.00}", Model.Subtotal).Replace(',', '.'))
+                            }
+                            <br />
+                            <span class="color_facturado">
+                                @Model.Simbolo
+                            </span>
+                            @if (Model.CodigoISO == Constantes.CodigosISOPais.Colombia)
+                            {
+                                <span class="color_facturado">@(string.Format("{0:#,##0}", Model.Flete).Replace(',', '.'))</span>
+                            }
+                            else
+                            {
+                                <span class="color_facturado">@(string.Format("{0:#,##0.00}", Model.Flete).Replace(',', '.'))</span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        }
+    }
 </div>
 <div class="btn_facturado text-center" style="margin-top: -10px;">
     Total Facturado <br />

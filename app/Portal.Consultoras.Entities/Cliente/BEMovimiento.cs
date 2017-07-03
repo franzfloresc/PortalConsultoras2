@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -41,6 +42,9 @@ namespace Portal.Consultoras.Entities.Cliente
         [DataMember]
         public string CodigoCampania { get; set; }
 
+        [DataMember]
+        public IEnumerable<BEPedidoFacturado> Pedidos { get; set; }
+
         public BEMovimiento(IDataReader row)
         {
             if (row.HasColumn("ClienteMovimientoId"))
@@ -69,7 +73,7 @@ namespace Portal.Consultoras.Entities.Cliente
 
             if (row.HasColumn("Nota"))
                 Nota = row.GetValue<string>("Nota");
-            
+
             if (row.HasColumn("CampaniaCodigo"))
                 CodigoCampania = row.GetValue<string>("CampaniaCodigo");
         }

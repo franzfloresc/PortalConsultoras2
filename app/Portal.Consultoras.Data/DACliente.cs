@@ -302,6 +302,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, nota.ConsultoraId);
                 Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, nota.ClienteId);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, nota.Fecha);
+                Context.Database.AddInParameter(command, "@FechaRecordatorio", DbType.DateTime, nota.FechaRecordatorio);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, nota.Descripcion);
 
                 using (var reader = Context.ExecuteReader(command))
@@ -332,6 +333,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, nota.ConsultoraId);
                 Context.Database.AddInParameter(command, "@ClienteId", DbType.Int16, nota.ClienteId);
                 Context.Database.AddInParameter(command, "@Fecha", DbType.DateTime, nota.Fecha);
+                Context.Database.AddInParameter(command, "@FechaRecordatorio", DbType.DateTime, nota.FechaRecordatorio);
                 Context.Database.AddInParameter(command, "@Descripcion", DbType.String, nota.Descripcion);
 
                 using (var reader = Context.ExecuteReader(command))

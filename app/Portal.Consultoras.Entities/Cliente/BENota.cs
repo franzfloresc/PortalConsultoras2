@@ -24,6 +24,12 @@ namespace Portal.Consultoras.Entities.Cliente
         public string Descripcion { get; set; }
 
         [DataMember]
+        public DateTime? FechaRecordatorio { get; set; }
+
+        /// <summary>
+        /// Campo auditoria
+        /// </summary>
+        [DataMember]
         public DateTime? Fecha { get; set; }
 
         public BENota()
@@ -45,6 +51,9 @@ namespace Portal.Consultoras.Entities.Cliente
 
             if (row.HasColumn("Fecha"))
                 Fecha = row.GetValue<DateTime>("Fecha");
+            
+            if (row.HasColumn("FechaRecordatorio"))
+                FechaRecordatorio = row.GetValue<DateTime>("FechaRecordatorio");
         }
     }
 }

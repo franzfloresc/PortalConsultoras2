@@ -1382,9 +1382,9 @@ namespace Portal.Consultoras.Service
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
 
-        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, string Campania, string CodigoConsultora, int ClienteID, int pedidoId)
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
         {
-            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, Campania, CodigoConsultora, ClienteID, pedidoId);
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
         }
 
         public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
