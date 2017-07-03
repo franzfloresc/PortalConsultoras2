@@ -12,15 +12,20 @@
                         </div>
                     </div>
                     {{/iff}}
+                    
+                    {{#if ../Mobile}} 
+                    <div class="content_set_imagen_banner" data-item-tag="foto"
+                        onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}});">
+                        <img src="{{lan.FotoProducto01}}" alt="" />
+                    </div>
+                    {{else}}
                     <div class="content_set_imagen_banner producto_img_home" data-item-tag="foto" style="cursor:pointer"
-                         {{#if ../Mobile}} 
-                            onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}});"
-                         {{else}}
-                            onclick="javascript:CargarEstrategiasEspeciales('', event);"
-                         {{/if}}>
+                        onclick="javascript:CargarEstrategiasEspeciales('', event);">
                         <img src="{{lan.FotoProducto01}}" alt="" />
                         <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     </div>
+                    {{/if}}
+                    
                     <div data-item-tag="descripcion">
                         {{#iff lan.DescripcionResumen '!=' ''}}
                             <div class="titulo_set_banner_ept">{{lan.DescripcionResumen}}</div>
