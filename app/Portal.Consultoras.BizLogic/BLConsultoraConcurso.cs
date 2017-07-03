@@ -115,7 +115,7 @@ namespace Portal.Consultoras.BizLogic
                             if (Concurso.PuntajeTotal >= Premio.PuntajeMinimo)
                             {
                                 Premio.Mensaje = (Concurso.NumeroNiveles > 1) ?
-                                  string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Concurso.NivelAlcanzado) :
+                                  string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Premio.NumeroNivel) :
                                     string.Format(Incentivos.LlegasteAPuntosRequeridos, Premio.PuntajeMinimo);
                                 Premio.Importante = 1;
                             }
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.BizLogic
                                 Premio.Mensaje = Concurso.IndicadorPremiacionPedido ?
                                     (Concurso.MontoPremiacionPedido > 1 ? string.Format(Incentivos.MontoPremiacion, Concurso.Simbolo, Concurso.MontoPremiacionPedido) : Incentivos.IndicadorPremiacion)
                                     : (Concurso.NumeroNiveles > 1 ?
-                                        string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Concurso.NivelAlcanzado)
+                                        string.Format(Incentivos.LlegasteAPuntosRequeridosNivel, Premio.PuntajeMinimo, Premio.NumeroNivel)
                                         : string.Format(Incentivos.LlegasteAPuntosRequeridos, Premio.PuntajeMinimo));
                             }
                         }
