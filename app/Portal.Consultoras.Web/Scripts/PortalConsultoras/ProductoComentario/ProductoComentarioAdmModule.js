@@ -65,6 +65,7 @@ var productoComentarioAdmModule = (function () {
             if (paisId == '') {
                 $(elements.ddlCampania).empty();
                 $(elements.ddlCampania).append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+                _validarMostrarContenedorBotonBuscarComentarios();
                 closeWaitingDialog();
                 return;
             }
@@ -77,6 +78,10 @@ var productoComentarioAdmModule = (function () {
             _validarMostrarContenedorBotonBuscarComentarios();
 
             closeWaitingDialog();
+        });
+
+        $(document).on('change', elements.ddlEstadoComentario, function () {
+            _validarMostrarContenedorBotonBuscarComentarios();
         });
 
         $(document).on('change', elements.ddlTipoComentario, function () {
@@ -170,11 +175,13 @@ var productoComentarioAdmModule = (function () {
 
     var _validarMostrarContenedorBotonBuscarComentarios = function () {
         var paisId = $(elements.ddlPais).val();
+        var estadoComentarioId = $(elements.ddlEstadoComentario).val(); 
         var tipoComentarioId = $(elements.ddlTipoComentario).val();
         var codigoSAP = $.trim($(elements.txtSAP).val());
         var codigoCUV = $.trim($(elements.txtCUV).val());
 
         if (paisId != '' &&
+            estadoComentarioId != '' &&
             ((tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.SAP && codigoSAP != '') ||
             (tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.CUV && codigoCUV != ''))
             ) {
