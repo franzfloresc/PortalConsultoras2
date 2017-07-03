@@ -3533,8 +3533,13 @@ namespace Portal.Consultoras.Web.Controllers
                                          String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
                         //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
                     }
-                    //solicitudPostulante.NumeroDocumento =
-                    //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
+ 
+
+                    if (CodigoISO == Pais.Mexico)
+                    {
+                        solicitudPostulante.NumeroDocumento = model.NumeroDocumento;
+
+                    }
 
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
