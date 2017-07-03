@@ -1240,7 +1240,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Zona de Estretegias
         [HttpPost]
-        public JsonResult ValidarStockEstrategia(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
+        public JsonResult ValidarStockEstrategia(
+            string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo, string TipoOferta)
         {
             string mensaje = "";
             try
@@ -1248,11 +1249,24 @@ namespace Portal.Consultoras.Web.Controllers
                 // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
                 var entidad = new BEEstrategia();
                 entidad.PaisID = userData.PaisID;
-                entidad.Cantidad = Convert.ToInt32(Cantidad);
+
+                // inicio FREZZER 03/07/2017 Ach
+                int iCantidad = 0;
+                if (int.TryParse(Cantidad, out iCantidad))
+                    entidad.Cantidad = iCantidad;
+                else 
+                    entidad.Cantidad = 0;
+
+                int iTipoOferta = 0;
+                if (int.TryParse(TipoOferta, out iTipoOferta))
+                    entidad.TipoOferta = iTipoOferta;
+                else
+                    entidad.TipoOferta = 0;
+                // FIN FREZZER
+
                 entidad.CUV2 = CUV;
                 entidad.CampaniaID = userData.CampaniaID;
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
-                entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
 
                 using (PedidoServiceClient svc = new PedidoServiceClient())
                 {
