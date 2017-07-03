@@ -190,6 +190,7 @@
 
         </div>
     </div>
+
     <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
@@ -209,17 +210,8 @@
 
 
     <!--INICIO CARRUSEL-->
-    <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-        <div class="titulo_ofertas_home">
-            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-            <div class="texto_exclusivo">
-                EXCLUSIVO SÓLO POR WEB
-            </div>
-        </div>
-        <!--CONTENEDOR ITEM CARRUSEL-->
-        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-            <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-        </div>
+    <div id="divListaEstrategias" style="display: none;">
+        <div id="contenedor_template_estrategia_cabecera"></div> 
     </div>
     <!--FIN CARRUSEL-->
 
@@ -384,8 +376,8 @@
 </div>
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
-@Html.Partial("~/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -546,9 +538,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -666,6 +658,10 @@
     </div>
 </script>
 
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
+
 @section scripts
 {
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
@@ -710,10 +706,20 @@
     var vbSimbolo = simbolo;
     var productoSugerido = false
     var productoAgotado = false;
-        
+    var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon  = 21;
+        var esEmailActivo = '@Model.EmailActivo';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
     var tipoOrigenEstrategia = 21;
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
     </script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

@@ -938,10 +938,9 @@ div#tab_revistasdigital_mobile {
 .texto_usuario_ept:before {
     content: '';
     position: absolute;
-    left: -20px;
+    left: -19px;
     top: 0;
     z-index: 102;
-    width: 25px;
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
@@ -1020,7 +1019,7 @@ div#tab_revistasdigital_mobile {
     font-weight:700;
     letter-spacing:2px;
     position:relative;
-    margin-top:30px;
+    /*margin-top:30px;*/
 }
 .subtitulo_landing:after{
     content:'';
@@ -1363,6 +1362,8 @@ height: 100%;
     max-width: 320px;
     margin: 4% 0;
 }
+
+
 .btn_bpt {
     margin: 15px 0 5px;
     font-size: 14px;
@@ -1379,6 +1380,7 @@ height: 100%;
     width: 100%;
     position: absolute;
     line-height: 53px;
+    padding: 0;
 }
 .mpopup_textleg {
     text-align: center;
@@ -1391,7 +1393,7 @@ height: 100%;
 }
 .mpopup_rd .mpopup_nomostrar {
     position: absolute;
-    bottom: 10px;
+    bottom: -20px;
     text-align: center;
     left: 50%;
     margin-left: -75px;
@@ -1455,7 +1457,7 @@ height: 100%;
 .tit_preguntas {
     font-weight: 900;
     line-height: 17px;
-    margin: 20px 0;
+    margin: 20px 0 30px 0;
     letter-spacing: 1px;
 }
 .tit_beneficios_ept {
@@ -1471,7 +1473,7 @@ height: 100%;
 }
 .beneficios_ept_img {
     position: relative;
-    bottom: -22px;
+    /*bottom: -22px;*/
     z-index: -1;
     text-align: center;
 }
@@ -1487,6 +1489,7 @@ height: 100%;
 .box_comofunciona_ept {
     background-color: #EEEEEE;
     padding: 40px 20px;
+    margin-top:-22px;
 }
 .box_comofunciona_ept img {
     margin: 20px 0;
@@ -1581,6 +1584,9 @@ height: 100%;
     }
 }
 @media (min-width: 700px) {
+    .content_inscribirse{
+        margin-top:40px !important;
+    }
     .beneficios_ept_img {
         position: absolute;
         bottom: -15px;
@@ -1620,12 +1626,12 @@ height: 100%;
 
 
 .revistadigital-detalle-titulo {
-    height: 50px;
+    height: 48px;
 }
 
 .revistadigital-detalle-titulo .logo_EPT_content{
         background:black;
-        height: 50px;
+        height: 48px;
         padding-top:0;
 }
 .revistadigital-detalle-titulo .logo_EPT_content span{
@@ -1634,7 +1640,7 @@ height: 100%;
         padding-left: 15%;
 }
 .revistadigital-detalle-titulo .texto_usuario_ept {
-    height: 50px;
+    height: 48px;
     padding-top: 0;
     background: rgba(177,19,20,1);
     background: -moz-linear-gradient(top, rgba(177,19,20,1) 0%, rgba(197,31,28,1) 18%, rgba(223,41,34,1) 100%);
@@ -1684,3 +1690,322 @@ height: 100%;
             text-align: right;
             content: counter(item) ".";
         }
+
+.precio_tachado_bpt {
+    margin-right: 10px;
+    text-decoration: line-through;
+}
+
+
+.arrow_misofertas {
+    width: 72px;
+    margin: auto;
+    height: 72px;
+    background-color: white;
+    border-radius: 45px;
+    position: relative;
+    top: -36px;
+    text-align: center;
+    font-size: 11px;
+    line-height: 13px;
+    padding-top: 16px;
+    font-family: 'Lato';
+    margin-top: 10px;
+}
+
+.content_item_home_bpt {
+    background: white;
+    /*border: 1px solid #e7e1e1k;*/
+    /*border: 1px #000000 solid;*/
+    /*-webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);*/
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.producto_img_mobile_bpt {
+    height: 125px;
+    overflow: hidden;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.producto_img_mobile_bpt img {
+    width: auto;
+    height: 100%;
+}
+
+.producto_nombre_descripcion_bpt {
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-bottom: 16px;
+    height: auto;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    text-align: center;
+    color: black;
+}
+
+.producto_nombre_descripcion_bpt h6 {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    font-weight: 300;
+    color: #000;
+    margin-top: 8px;
+    margin-bottom: 2px;
+    text-transform:uppercase;
+}
+
+.producto_nombre_descripcion_bpt .nombre_producto_bpt {
+    padding: 0;
+    font-size: 13px;
+    font-family: 'Lato';
+    color: black;
+    margin: 0 auto;
+    width: 100%;
+    overflow: hidden;
+    height: 35px;
+    margin-top: 6px;
+    font-weight: 900;
+}
+
+.producto_precio_bpt {
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Lato';
+    letter-spacing: .2px;
+    color: #000;
+    margin-bottom: 12px;
+}
+
+.rd_logo {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
+    text-align: center;
+    position: relative;
+}
+
+.rd_logo:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        clear: both;
+}
+
+/* BANNER VER MÁS OFERTAS */
+.banner_pedido_rd {
+    height: auto;
+    width: 100%;
+    position: relative;
+    background-color: #F6F6F6;
+    height: auto;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    font-family: 'Lato';
+}
+
+.cabecera_pedido_rd {
+    background-color: black;
+}
+
+.cabecera_pedido_rd .rd_logo {
+        width: 120px;
+        height: 85px;
+        padding-top: 20px;
+}
+
+.cabecera_pedido_rd .rd_logo:after {
+            border-left: 20px solid transparent;
+            border-right: 0px solid transparent;
+            border-bottom: 85px solid #000;
+}
+
+.cabecera_pedido_text {
+    color: white;
+    position: absolute;
+    top: 18px;
+    left: 130px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 18px;
+    font-size: 13px;
+    text-align: left;
+}
+
+.banner_pedido_masofertas {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.banner_pedido_text {
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+}
+
+.btn_red, .btn_black_solid, .btn_white_stroke, .btn_negro {
+    margin: 30px 0;
+}
+
+.btn_red a {
+        color: #e81c36;
+        text-decoration: none;
+        padding: 15px 25px;
+        border: 1px solid #e81c36;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        font-family: 'Lato';
+}
+.btn_negro a {
+        color: black;
+        text-decoration: none;
+        padding: 15px 6%;
+        border: 1px solid black;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+}
+
+.rd_arrowright {
+        position: relative;
+        width: 8px;
+        top: -2px;
+        left: 5px;
+}
+.btn_black_solid a,  .btn_white_stroke a {
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    padding: 15px 25px;
+    border: 1px solid black;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+.btn_white_stroke a {
+    border-color: white;
+}
+.rd_producto_bloqueado {
+    min-height: 75px;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    padding: 10px 0 ;
+    box-shadow: 0px -4px 6px rgba(0, 0, 0, 0.25);
+}
+.rd_producto_bloqueado a {
+    color: white;
+    padding: 10px 0;
+    font-size: 12px;
+}
+.rd_producto_bloqueado_tit {
+    margin-bottom: 4px;
+}
+.texto_tab_pagos{
+    font-family:'Lato';
+}
+.content_inscribirse{
+    
+    margin-bottom: 50px;
+}
+.btn_inscribirse{
+    background:#e81c36;
+    font-family:Lato;
+    font-size:13px;
+    color:white;
+    width:100%;
+    max-width:320px;
+    height:45px;
+    margin:0 auto;
+    text-align:center;
+    line-height:44px;
+    display:block;
+    margin-top:20px;
+}
+.terminos_inscribirse{
+    display:inline-block;
+    text-decoration:underline;
+}
+
+
+/*BLOQUE HOME INSCRITAS C-12*/
+.mob_home_bpt {
+    font-family: 'Lato';
+    text-align: center;
+}
+.rd_lanzamiento {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0 50px;
+}
+.rd_lanzamiento_producto {
+    width: 100%;
+	max-width: 320px;
+    margin: 20px 0;
+}
+.rd_verofertas {
+    background-color: black;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+.mob_carrusel_bpt {
+    background-color: #F2EEF0;
+    padding-bottom: 30px;
+    font-weight: 600;
+    }
+.texto_inscribirse{
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    margin-top:15px;
+}
+.subtexto_inscribirse{
+    font-family:'Lato';
+    font-size:11px;    
+    margin-top:27px;
+    color:gray;
+}
+.content_inscribirte{
+    margin-top:10px;
+    background:#ececec;
+    padding-top:30px;
+    padding-bottom:10px;
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    padding-left:14px;
+    padding-right:14px;
+}
+.enterate_aqui{
+    display:block;
+    font-family:'Lato';
+    font-size:13px;
+    margin:0 auto;
+    margin-top:15px;
+    margin-bottom:20px;
+    text-align:center;
+    width:270px;
+    
+    
+}

@@ -30,16 +30,16 @@ $(document).ready(function () {
             }
 
             if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+                CerrarPopup('#PopFichaProductoNueva');
             }
 
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+                CerrarPopup('#popupDetalleCarousel_lanzamiento');
             }
 
             if ($('[data-popup-main]').is(':visible')) {
                 var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
                 CerrarPopup('[data-popup-main]');
             }
 
@@ -73,10 +73,12 @@ $(document).ready(function () {
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-            if ($(e.target).is(':visible')) {
-                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
-                CerrarPopup(e.target);
+            if ($(e.target).parent().attr("id") == "contentmain") {
+                if ($(e.target).is(':visible')) {
+                    var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                    FuncionEjecutar(functionHide);
+                    CerrarPopup(e.target);
+                }
             }
         }
     });
@@ -87,7 +89,7 @@ $(document).ready(function () {
             if ($(e.target).is(':visible')) {
 
                 var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
 
                 CerrarPopup(e.target);
             }
@@ -99,7 +101,7 @@ $(document).ready(function () {
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        FunccionEjecutar(functionHide);
+        FuncionEjecutar(functionHide);
 
         CerrarPopup(popupClose);
     });
@@ -229,20 +231,20 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueda")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $(this).parent().prev().val(cantidad);
     });
 
     $("body").on("click", ".mas", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueda")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $(this).parent().prev().val(cantidad);
     });
 
@@ -1013,7 +1015,7 @@ function agregarProductoAlCarrito(o) {
         imagenProducto = $('.imagen_producto', $(o).parents("[data-item]"));
     }
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
 
         $.each(carrito, function (indC, car) {
             if ($(car).offset().left > 0) {
@@ -1029,8 +1031,8 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
@@ -1112,3 +1114,24 @@ function messageConfirmacion(title, message, fnAceptar) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
     }
 }
+         
+function closeOfertaDelDia() {    
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success)
+            {
+                $('#OfertaDelDia').hide();
+                LayoutHeader();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+

@@ -120,6 +120,7 @@
       <xs:element minOccurs="0" name="ClaseFila" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
       <xs:element minOccurs="0" name="Clientes" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCatalago" type="xs:int" />
       <xs:element minOccurs="0" name="CodigoUsuarioCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoUsuarioModificacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConfiguracionOfertaID" type="xs:int" />
@@ -166,6 +167,7 @@
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Stock" type="xs:int" />
       <xs:element minOccurs="0" name="SubTipoOfertaSisID" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoEstrategiaCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TipoEstrategiaID" type="xs:int" />
       <xs:element minOccurs="0" name="TipoObservacion" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOfertaSisID" type="xs:int" />
@@ -559,6 +561,7 @@
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />
       <xs:element minOccurs="0" name="TieneHana" type="xs:int" />
       <xs:element minOccurs="0" name="TieneLoginExterno" type="xs:boolean" />
       <xs:element minOccurs="0" name="TipoOferta2" type="xs:int" />
@@ -1555,6 +1558,7 @@
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsRechazado" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacion" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacionNombre" nillable="true" type="xs:string" />

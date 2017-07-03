@@ -26,6 +26,7 @@
         <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
     }
+    <link href="@Url.Content("~/Content/Css/Site/calc.css")" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
@@ -211,13 +212,13 @@
                 </div>
             </div>
         }
-        else if (ViewBag.MostrarODD == false)
+        else if (ViewBag.tieneOfertaDelDia == true)
         {
             <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
         }
         
         <!--END BANNER -->
-
+        <div class="clear"></div>
         <div class="wrapper_header">
             <div class="logo_esika">
                 <a href="@Url.Action("Index", "Bienvenida")"></a>
@@ -757,11 +758,13 @@
                                     </div>
                                 </div>
                                 <div class="right_set_hoy">
-                                    <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
-                                    <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
-                                    <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
-                                    <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
-                                    <div style="text-align: center">
+                                    <div class="height_min">
+                                        <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
+                                        <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
+                                        <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
+                                        <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
+                                    </div>                                   
+                                    <div @*style="text-align: center"*@>
                                         <div class="liquidacion_rango_home js-no-popup">
                                             <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
                                             <div class="liquidacion_rango_right_pedido js-no-popup">
@@ -881,9 +884,6 @@
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-
-        var tieneOfertaDelDia = '@ViewBag.TieneOfertaDelDia';
-        var MostrarODD = '@ViewBag.MostrarODD';
         
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
          //EPD-2058
@@ -898,6 +898,7 @@
         var TipoOrigenPantallaODD = 1;
         
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+
      </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>

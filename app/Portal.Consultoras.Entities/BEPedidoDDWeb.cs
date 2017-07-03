@@ -85,6 +85,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int EsRechazado { get; set; }
         //F- SB20-871
+        [DataMember]
+        public string DocumentoIdentidad { get; set; }
 
         public BEPedidoDDWeb()
         { }
@@ -121,6 +123,8 @@ namespace Portal.Consultoras.Entities
                 IndicadorEnviado = Convert.ToBoolean(row["IndicadorEnviado"]) ? "B" : "NB";
             if (DataRecord.HasColumn(row, "RegionCodigo"))
                 RegionCodigo = Convert.ToString(row["RegionCodigo"]);
+            if (DataRecord.HasColumn(row, "DocumentoIDentidad"))
+                DocumentoIdentidad = Convert.ToString(row["DocumentoIDentidad"]);
             if (DataRecord.HasColumn(row, "Cantidad"))
                 Cantidad = Convert.ToInt32(row["Cantidad"]);
             if (DataRecord.HasColumn(row, "CUV"))

@@ -84,6 +84,14 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    String.prototype.SubStrToMax = function (max, removeStrFinLength, strFin) {
+        if (this.length <= max) return this;
+
+        strFin = IfNull(strFin, '') == '' ? '...' : strFin;
+        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        return this.substr(0, max - removeLength) + strFin;
+    };
+
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
         var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
@@ -488,6 +496,11 @@ function CerrarLoad(opcion) {
 
 function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
     try {
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
         titulo = titulo || "MENSAJE";
         var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
         var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
@@ -872,12 +885,12 @@ function LayoutMenuFin() {
     // validar si sale en dos lineas
     var hok = true;
     var idMenus = "#ulNavPrincipal > li";
-    do {
         $(".wrapper_header").css("max-width", "");
         $(".wrapper_header").css("width", "");
+
         $(".logo_esika").css("width", "");
         $(".menu_esika_b").css("width", "");
-        $(idMenus).css("margin-left", "5px");
+        $(idMenus).css("margin-left", "0px");
         $(".menu_new_esika").css("width", "");
 
         var wt = $(".wrapper_header").width();
@@ -885,6 +898,7 @@ function LayoutMenuFin() {
         var wr = $(".menu_esika_b").innerWidth();
         $(".wrapper_header").css("max-width", wt + "px");
         $(".wrapper_header").css("width", wt + "px");
+
         $(".logo_esika").css("width", wl + "px");
         $(".menu_esika_b").css("width", wr + "px");
 
@@ -901,10 +915,7 @@ function LayoutMenuFin() {
                 wr += $(menupadre).innerWidth();
             });
 
-            if (wt <= wr) {
-                break;
-            }
-
+            if (wt > wr) {
             wr = (wt - wr) / $(idMenus).length;
             wr = Math.min(wr, 20);
 
@@ -913,34 +924,9 @@ function LayoutMenuFin() {
                     $(menupadre).css("margin-left", wr + "px");
                 }
             });
+            }
+        }
 
-            break;
-        }
-
-        if (h > 61) {
-            $(idMenus).css("margin-left", "15px");
-            h = $(".wrapper_header").height();
-            if (h > 61) {
-                $($(idMenus).get(0)).css("margin-left", "10px");
-                h = $(".wrapper_header").height();
-            }
-            h = $(".wrapper_header").height();
-            if (h > 61) {
-                $($(idMenus).get(0)).css("margin-left", "5px");
-                h = $(".wrapper_header").height();
-            }
-        }
-        if (h > 61) {
-            wt = $(".wrapper_header").width();
-            var wh = $("header").width();
-            if (wh > wt) {
-                wt = parseInt((wh - wt) / 2);
-                $(".wrapper_header").css("max-width", (wh - wt) + "px");
-                h = $(".wrapper_header").height();
-                hok = h > 61;
-            }
-        }
-    } while (hok);
     // caso no entre en el menu
     // poner en dos renglones
 
@@ -1092,6 +1078,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        //google marca analytics        
+
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Facebook',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
     } else if (tipoRedes == "WA") {
 
@@ -1100,7 +1096,16 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
+        //google marca analytics        
 
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Whatsapp',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
         $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
         $("#HiddenRedesSocialesWA")[0].click();
         //document.getElementById('HiddenRedesSocialesWA').click();
@@ -1404,7 +1409,7 @@ function MostrarMenu(codigo, accion) {
     
 }
 
-function FunccionEjecutar(functionHide) {
+function FuncionEjecutar(functionHide) {
     functionHide = $.trim(functionHide);
     if (functionHide != "") {
         if (functionHide[functionHide.length - 1] != ")") {
@@ -1412,4 +1417,8 @@ function FunccionEjecutar(functionHide) {
         }
         setTimeout(functionHide, 100);
     }
+}
+
+function IfNull(input, replaceNull) {
+    return input == null ? replaceNull : input;
 }

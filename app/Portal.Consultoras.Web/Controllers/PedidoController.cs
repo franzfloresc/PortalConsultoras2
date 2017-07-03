@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.PublicService.Cryptography;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -24,8 +25,6 @@ using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-using Portal.Consultoras.PublicService.Cryptography;
-
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
@@ -407,10 +406,30 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
 
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+                ViewBag.NombreConsultora = userData.Sobrenombre;
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
                 /*** FIN 2170 ***/
+
+                model.CampaniaActual = userData.CampaniaID;
+                model.Simbolo = userData.Simbolo;
+                #region Cupon
+                model.TieneCupon = userData.TieneCupon;
+                model.EMail = userData.EMail;
+                model.Celular = userData.Celular;
+                model.EmailActivo = userData.EMailActivo;
+                #endregion
+                ViewBag.paisISO = userData.CodigoISO;
+                ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             }
             catch (FaultException ex)
@@ -1403,6 +1422,40 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
+                try
+                {
+                    var codigoEstrategia = "";
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        codigoEstrategia =
+                            sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                    }
+                    if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi ==
+                                                     codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ==
+                                                     codigoEstrategia))
+                    {
+                        if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                              || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                        {
+                            olstProductoModel.Add(new ProductoModel()
+                            {
+                                MarcaID = 0,
+                                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                                TieneSugerido = 0
+                            });
+                            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
+                }
+                
+
+
                 var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
                 if (estrategia.TipoEstrategiaImagenMostrar == @Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi)
@@ -2337,7 +2390,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aquí para modificar tu pedido";
+                    ViewBag.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste."; //EPD-2561
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -2345,14 +2398,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
-                        {
-                            ViewBag.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                        }
-                        else
-                        {
-                            ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                        }
+                        ViewBag.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt")); //EPD-2561
                     }
                 }
                 else // PROL 1
@@ -3979,9 +4025,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
+                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
@@ -4020,7 +4066,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.Simbolo = userData.Simbolo;
+                model.Simbolo = userData.Simbolo;                
 
                 return Json(new
                 {

@@ -303,19 +303,19 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
+            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Región', 'Zona', 'Sección', 'Cod. Consultora', 'Nombre Consultora', 'Documento Identidad', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
             colModel: [
                 { name: 'paisISO', index: 'paisISO', width: 0, editable: false, align: 'center', hidden: true },
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
                 { name: 'FechaRegistro', index: 'FechaRegistro', width: 10, editable: true, resizable: false },
                 { name: 'FechaReserva', index: 'FechaReserva', width: 10, editable: true, resizable: false },
-                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },
-                { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
+                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },                
                 { name: 'Region', index: 'Region', width: 6, editable: true, resizable: false },
                 { name: 'Zona', index: 'Zona', width: 6, editable: true, resizable: false },
+                { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
                 { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 10, editable: true, resizable: false },
                 { name: 'ConsultoraNombre', index: 'ConsultoraNombre', width: 15, editable: true, resizable: false },
-                { name: 'PrimeraCampaniaCodigo', index: 'PrimeraCampaniaCodigo', width: 8, editable: true, resizable: false },
+                { name: 'DocumentoIdentidad', index: 'DocumentoIdentidad', width: 15, editable: true, resizable: false },
                 { name: 'ImporteTotal', index: 'ImporteTotal', width: 8, editable: true, resizable: false },
                 { name: 'ImporteTotalConDescuento', index: 'ImporteTotalConDescuento', width: 8, editable: true, resizable: false },
                 { name: 'ConsultoraSaldo', index: 'ConsultoraSaldo', width: 8, editable: true, resizable: false },
@@ -329,7 +329,6 @@
                         return 'style="white-space:normal !important;word-break: break-all;"'
                     },
                     formatter: function (cellValue, options, rowObject) {
-                        console.log(cellValue);
                         return cellValue.replace(',', '<br/>');
                     }
                 },

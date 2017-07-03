@@ -75,7 +75,7 @@ $(function () {
         objInput.val(actual);
     });
 
-    $(document).on("click", ".cantidad_menos_home", function () {
+    $("body").on("click", ".cantidad_menos_home", function () {
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -85,7 +85,7 @@ $(function () {
         $txtcantidad.val(cantidad);
     });
 
-    $(document).on("click", ".cantidad_mas_home", function () {
+    $("body").on("click", ".cantidad_mas_home", function () { 
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -99,7 +99,7 @@ $(function () {
         if (!$(e.target).closest('[data-popup-body]').length) {
             if ($(e.target).is(':visible')) {
                 var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FunccionEjecutar(functionHide);
+                FuncionEjecutar(functionHide);
                 $(e.target).hide();
                 $('body').css({ 'overflow-y': 'scroll' });
             }
@@ -111,7 +111,7 @@ $(function () {
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
-        FunccionEjecutar(functionHide);
+        FuncionEjecutar(functionHide);
         $(popupClose).hide();
         $('body').css({ 'overflow-y': 'scroll' });
     });

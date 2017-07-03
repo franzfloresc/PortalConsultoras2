@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using Portal.Consultoras.Common;
 using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
@@ -243,14 +242,21 @@ namespace Portal.Consultoras.BizLogic
 
                 estrategias.ForEach(estrategia =>
                 {
-                    var add = true;
-                    if (estrategia.TipoEstrategiaImagenMostrar == Constantes.TipoEstrategia.OfertaParaTi)
+                    if (estrategia.Precio2 > 0)
                     {
+                        var add = true;
+                        if (estrategia.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
                         add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
-                    }
-                    if (!add) return;
+                        }
+                        if (!add) return;
 
-                    estrategiasResult.Add(estrategia);
+                        if (estrategia.Precio >= estrategia.Precio2)
+                            estrategia.Precio = Convert.ToDecimal(0.0);
+
+                        estrategiasResult.Add(estrategia);
+                    }
                 });
             }
             else estrategiasResult.AddRange(estrategias);
@@ -258,6 +264,7 @@ namespace Portal.Consultoras.BizLogic
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
             estrategiasResult.ForEach(estrategia =>
             {
+                estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
@@ -309,7 +316,11 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        // 1747 - Fin
+
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
+        {
+            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
+        }
 
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {

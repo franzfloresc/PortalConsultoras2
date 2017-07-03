@@ -15,6 +15,7 @@ using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.CustomHelpers;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -696,15 +697,19 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.NumeroPedido = item;
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                        if (entidad.CodigoTipoEstrategia != null)
                         {
-                            estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
-                        }
-                        if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
-                        {
-                            entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            if (entidad.EstrategiaID != 0 && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                estrategiaDetalle = sv.GetEstrategiaDetalle(entidad.PaisID, entidad.EstrategiaID);
+                            }
+                            if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                            {
+                                entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            }
                         }
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
+                        
                     }
                 }
 
@@ -730,6 +735,17 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entidadPro.EstrategiaProductoID = sv.InsertarEstrategiaProducto(entidadPro);
+                    }
+                }
+
+                if (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(model.PrecioAnt))
+                    {
+                        if (model.Precio2 != model.PrecioAnt)
+                        {
+                            UpdateCacheListaOfertaFinal(model.CampaniaID);
+                        }
                     }
                 }
 
@@ -759,6 +775,43 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     extra = ""
                 });
+            }
+        }
+
+        private void UpdateCacheListaOfertaFinal(string campania)
+        {
+            try
+            {
+                string campNowNext = string.Empty;
+                using (SACServiceClient svc = new SACServiceClient())
+                {
+                    campNowNext = svc.GetCampaniaActualAndSiguientePais(UserData().PaisID, UserData().CodigoISO);
+                }
+
+                if (!string.IsNullOrEmpty(campNowNext))
+                {
+                    string campNow = campNowNext;
+                    string campNext = "";
+
+                    if (campNowNext.IndexOf('|') >= 0)
+                    {
+                        var arr = campNowNext.Split('|');
+                        campNow = arr[0];
+                        campNext = arr[1];
+                    }
+
+                    if (campania == campNow || campania == campNext)
+                    {
+                        using (ProductoServiceClient svc = new ProductoServiceClient())
+                        {
+                            svc.UpdateCacheListaOfertaFinal(UserData().CodigoISO, int.Parse(campania));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
         }
 
@@ -926,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas)
+        public JsonResult ActivarDesactivarEstrategias(string EstrategiasActivas, string EstrategiasDesactivas, string campaniaID, string tipoEstrategiaCod)
         {
             try
             {
@@ -935,6 +988,14 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     resultado = sv.ActivarDesactivarEstrategias(UserData().PaisID, UserData().CodigoUsuario, EstrategiasActivas, EstrategiasDesactivas);
+                }
+
+                if (tipoEstrategiaCod == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
+                {
+                    if (!string.IsNullOrEmpty(EstrategiasDesactivas))
+                    {
+                        UpdateCacheListaOfertaFinal(campaniaID);
+                    }
                 }
 
                 return Json(new
@@ -1038,14 +1099,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
-
-            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-            }
-
+            
             return lst;
         }
 
@@ -1209,6 +1263,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<ComunModel> lst = new List<ComunModel>();
                 int cantidadEstrategiasConfiguradas = 0;
                 int cantidadEstrategiasSinConfigurar = 0;
+                int tipoEstrategia = Convert.ToInt32(EstrategiaID);
 
                 try
                 {
@@ -1351,33 +1406,6 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
                     }
 
-                    //string listaCuv = "";
-                    //int contador = 0;
-                    //foreach (var opt in lst)
-                    //{
-                    //    if (!string.IsNullOrEmpty(opt.CUV2))
-                    //    {
-                    //        listaCuv += opt.CUV2 + "|";
-                    //        contador++;
-                    //    }
-                    //}
-                    //listaCuv = listaCuv == "" ? "" : listaCuv.Substring(0, listaCuv.Length - 1);
-
-                    //var listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    //try
-                    //{
-
-                    //    using (WsGestionWeb sv = new WsGestionWeb())
-                    //    {
-                    //        listaRespuestaCuv = sv.GetConsultaPrecioValorizado(campaniaId.ToString(), listaCuv,
-                    //            userData.CodigoISO).ToList();
-                    //    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    listaRespuestaCuv = new List<RptPrecioValorizado>();
-                    //}
-
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
@@ -1396,8 +1424,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (precioOferta > 0)
                             opt.Precio2 = precioOferta;
-
-                        //var cuvServiceProl = listaRespuestaCuv.FirstOrDefault(p => p.cuv == opt.CUV2) ?? new RptPrecioValorizado();
 
                         //sera el precio tachado ya que la propiedad PrecioTachado es de tipo String
                         opt.Precio = 0; //cuvServiceProl.importevalorizado;
