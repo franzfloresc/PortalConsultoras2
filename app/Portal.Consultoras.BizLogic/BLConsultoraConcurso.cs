@@ -107,6 +107,9 @@ namespace Portal.Consultoras.BizLogic
                 // Cargar información de incentivos.
                 foreach (BEConsultoraConcurso Concurso in PuntosXConcurso)
                 {
+                    if (Concurso.Premios == null)
+                        Concurso.Premios = new List<BEPremio>();
+
                     if (!Concurso.EsCampaniaAnterior) // Logica de la campania actual.
                     {
                         foreach (BEPremio Premio in Concurso.Premios)
