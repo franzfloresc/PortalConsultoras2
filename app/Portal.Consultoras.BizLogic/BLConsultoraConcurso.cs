@@ -129,8 +129,8 @@ namespace Portal.Consultoras.BizLogic
                                     : string.Empty;
                             }
                         }
-                        // Quitar los premios de nivel inferior cuando no es acumulativo.
-                        if (!Concurso.IndicadorPremioAcumulativo)
+                        // Quitar los premios de nivel inferior cuando no es acumulativo y alcanzo todos los niveles.
+                        if (!Concurso.IndicadorPremioAcumulativo && !Concurso.Premios.Any(p => p.PuntajeMinimo > Concurso.PuntajeTotal))
                         {
                             Concurso.Premios.RemoveAll(p => p.NumeroNivel < Concurso.NivelAlcanzado);
                             Concurso.Premios = new List<BEPremio>{
