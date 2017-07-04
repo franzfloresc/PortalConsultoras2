@@ -186,7 +186,7 @@
 
     var _pintarRecomendaciones = function (item) {
         let div = "#recommendation-" + item.EstrategiaID.toString();
-        let recommendation = '(' + item.CantComenAprob.toString() + ' Aprobados)'
+        let recommendation = '(' + item.CantComenAprob.toString() + ' Comentarios)'
         $(div).html(recommendation);
         $(div).show();
     }
