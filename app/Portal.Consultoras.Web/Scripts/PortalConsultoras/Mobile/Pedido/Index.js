@@ -169,11 +169,11 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
-        var cliente = $.trim($("#txtClienteNombre").val());
-        if (cliente == "") {
-            AbrirMensaje("Seleccione un cliente.");
-            return false;
-        }
+        //var cliente = $.trim($("#txtClienteNombre").val());
+        //if (cliente == "") {
+        //    AbrirMensaje("Seleccione un cliente.");
+        //    return false;
+        //}
 
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
@@ -741,6 +741,9 @@ function InsertarProducto() {
     var model;
        
     if (!esOfertaNueva) {
+
+        if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
+
         model = {
             Tipo: 1,
             CUVComplemento: "",
