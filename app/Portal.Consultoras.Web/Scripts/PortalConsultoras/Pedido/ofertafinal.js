@@ -437,7 +437,6 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
 
-        //debugger;
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
