@@ -458,6 +458,30 @@
   <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomPersonalizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomPersonalizacion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomPersonalizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomPersonalizacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomOferta_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomOferta" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomOferta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomOfertaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomComponentes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomComponentes" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomComponentes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomComponentesResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarEtiqueta_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarEtiqueta" />
   </wsdl:message>
@@ -2285,6 +2309,22 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomCampania" message="tns:IPedidoService_GetReporteShowRoomCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomCampaniaResponse" message="tns:IPedidoService_GetReporteShowRoomCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomPersonalizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacion" message="tns:IPedidoService_GetReporteShowRoomPersonalizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacionResponse" message="tns:IPedidoService_GetReporteShowRoomPersonalizacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomOferta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomOferta" message="tns:IPedidoService_GetReporteShowRoomOferta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomOfertaResponse" message="tns:IPedidoService_GetReporteShowRoomOferta_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomComponentes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentes" message="tns:IPedidoService_GetReporteShowRoomComponentes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentesResponse" message="tns:IPedidoService_GetReporteShowRoomComponentes_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarEtiqueta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarEtiqueta" message="tns:IPedidoService_InsertarEtiqueta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarEtiquetaResponse" message="tns:IPedidoService_InsertarEtiqueta_OutputMessage" />
@@ -3967,6 +4007,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetReporteValidacion">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomPersonalizacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomOferta">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomOferta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomComponentes">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
