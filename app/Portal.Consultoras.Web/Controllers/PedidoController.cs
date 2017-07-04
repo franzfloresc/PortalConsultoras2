@@ -866,9 +866,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
                 List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-                BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.First(x => x.CUV == CUV);
+                BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
+                if (pedidoEliminado == null) return ErrorJson("El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).");
+
                 pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                     ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
 
@@ -893,7 +894,7 @@ namespace Portal.Consultoras.Web.Controllers
                 bool ErrorServer;
                 string tipo;
                 bool modificoBackOrder;
-                olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo, out modificoBackOrder);
+                var olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo, out modificoBackOrder);
 
                 decimal total = 0;
                 string formatoTotal = "";
@@ -925,10 +926,7 @@ namespace Portal.Consultoras.Web.Controllers
                         totalCliente = lstTemp.Sum(p => p.ImporteTotal);
                         formatoTotalCliente = Util.DecimalToStringFormat(totalCliente, userData.CodigoISO);
                     }
-                    else
-                    {
-                        formatoTotalCliente = "";
-                    }
+                    else formatoTotalCliente = "";
                 }
 
                 List<BECliente> listaCliente;
