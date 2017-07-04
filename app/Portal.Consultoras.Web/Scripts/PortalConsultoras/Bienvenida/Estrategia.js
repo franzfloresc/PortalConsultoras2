@@ -189,14 +189,9 @@ function PintarRecomendaciones(listaMasVendidos) {
 
 function _pintarRecomendaciones(item) {
     let div = "#recommedation-" + item.EstrategiaID.toString();
-    if (item.CantComenRecom > 0) {
-        let recommendation = '(' + item.CantComenRecom.toString() + ' )';
-        $(div).html(recommendation);
-        $(div).show();
-    }
-    else {
-        $(div).hide();
-    }
+    let recommendation = '(' + item.CantComenAprob.toString() + ' )';
+    $(div).html(recommendation);
+    $(div).show();
 }
 
 function PintarEstrellas(listaMasVendidos) {
@@ -207,23 +202,18 @@ function PintarEstrellas(listaMasVendidos) {
 
 function _pintarEstrellas(item) {
     let div = "#star-" + item.EstrategiaID.toString();
-    if (item.PromValorizado > 0) {
-        let rating = '';
-        rating = item.PromValorizado.toString() + '%';
-        $(div).rateYo({
-            rating: rating,            
-            numStars: 5,
-            precision: 2,
-            minValue: 1,
-            maxValue: 5,
-            starWidth: "17px",
-            readOnly: true
-        });
-        $(div).show();
-    }
-    else {
-        $(div).hide();
-    }
+    let rating = '';
+    rating = item.PromValorizado.toString() + '%';
+    $(div).rateYo({
+        rating: rating,
+        numStars: 5,
+        precision: 2,
+        minValue: 1,
+        maxValue: 5,
+        starWidth: "17px",
+        readOnly: true
+    });
+    $(div).show();
 }
 
 function ArmarCarouselEstrategias(data) {

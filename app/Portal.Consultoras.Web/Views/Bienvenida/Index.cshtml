@@ -227,7 +227,10 @@
 </div>
 
 
-
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div id="" class="contenedorCupon">
@@ -241,10 +244,7 @@
     </div>
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
-@if (Model.TieneMasVendidos == 1)
-{
-    Html.RenderPartial("MasVendidos");
-}
+
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 <!--REVISTA DIGITAL -->
 <div class="fondo_gris" id="divRevistaDigital"></div>

@@ -25,7 +25,6 @@
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
-            //item.UrlCompartir = item.UrlCompartir.replace('localhost:35848','sbpl20qa.somosbelcorp.com');//http://localhost:35848//Pdto.aspx?id=PE_[valor]
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
             _validarGanancia(item);
             _validarPrecioTachado(item);
@@ -111,14 +110,9 @@
 
     function _pintarRecomendacionesCarrusel(item) {
         let div = "#recommedation-" + item.EstrategiaID.toString();
-        if (item.CantComenRecom > 0) {
-            let recommendation = '(' + item.CantComenRecom.toString() + ' )';
-            $(div).html(recommendation);
-            $(div).show();
-        }
-        else {
-            $(div).hide();
-        }
+        let recommendation = '(' + item.CantComenAprob.toString() + ')'
+        $(div).html(recommendation);
+        $(div).show();
     }
 
     function PintarEstrellasCarrusel(listaMasVendidos) {
@@ -129,23 +123,17 @@
 
     function _pintarEstrellasCarrusel(item) {
         let div = "#star-" + item.EstrategiaID.toString();
-        if (item.PromValorizado > 0) {
-            let rating = '';
-            rating = item.PromValorizado.toString() + '%';
-            $(div).rateYo({
-                rating: rating,
-                numStars: 5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "17px",
-                readOnly: true
-            });
-            $(div).show();
-        }
-        else {
-            $(div).hide();
-        }
+        let rating = '';
+        rating = item.PromValorizado.toString() + '%';
+        $(div).rateYo({
+            rating: rating,
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "17px",
+            readOnly: true
+        });
     }
 
     function EstructurarDataCarousel(array) {
@@ -175,7 +163,7 @@
     var _pintarUltimoComentarioConsultora = function (item) {
         let div = "#consultant-commentary-" + item.EstrategiaID.toString();
         if (item.UltimoComentario.NombreConsultora !== '') {
-            let consultant_commentary = item.UltimoComentario.NombreConsultora;
+            let consultant_commentary = "- " + item.UltimoComentario.NombreConsultora;
             $(div).html(consultant_commentary);
             $(div).show();
         }
@@ -187,7 +175,7 @@
     var _pintarUltimoComentario = function (item) {
         let div = "#last-commentary-" + item.EstrategiaID.toString();
         if (item.UltimoComentario.Comentario !== '') {
-            let last_commentary = item.UltimoComentario.Comentario;
+            let last_commentary = '"' + item.UltimoComentario.Comentario + '"';
             $(div).html(last_commentary);
             $(div).show();
         }
@@ -198,35 +186,24 @@
 
     var _pintarRecomendaciones = function (item) {
         let div = "#recommendation-" + item.EstrategiaID.toString();
-        if (item.CantComenRecom > 0) {
-            let recommendation = '(' + item.CantComenRecom.toString() + ' Recomendaciones)'
-            $(div).html(recommendation);
-            $(div).show();
-        }
-        else {
-            $(div).hide();
-        }
+        let recommendation = '(' + item.CantComenAprob.toString() + ' Aprobados)'
+        $(div).html(recommendation);
+        $(div).show();
     }
 
     var _pintarEstrellas = function (item) {
         let div = "#star-" + item.EstrategiaID.toString();
-        if (item.PromValorizado > 0) {
-            let rating = '';            
-            rating = item.PromValorizado.toString() + '%';
-            $(div).rateYo({
-                rating: rating,
-                numStars: 5,
-                precision: 2,
-                minValue: 1,
-                maxValue: 5,
-                starWidth: "17px",
-                readOnly: true
-            });
-            $(div).show();
-        }
-        else {
-            $(div).hide();
-        }
+        let rating = '';
+        rating = item.PromValorizado.toString() + '%';
+        $(div).rateYo({
+            rating: rating,
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "17px",
+            readOnly: true
+        });
     }
 
     var _validarGanancia = function(item){
@@ -267,7 +244,7 @@
                         model.Item = item;
                         model.Lista = _actualizarListaStorate(model.Lista, item);
                         set_local_storage(model, "data_mas_vendidos");
-                        location.href = "/" + 'EstrategiaProducto/DetalleProducto';
+                        location.href = setting.baseUrl + 'EstrategiaProducto/DetalleProducto';
                     } else {
                         console.log(verDetalleResponse.menssage);
                     }
@@ -301,7 +278,7 @@
         var d = $.Deferred();
         var promise = $.ajax({
             type: 'POST',
-            url: "/" + "EstrategiaProducto/ObtenerDetalleProducto",
+            url: setting.baseUrl + "EstrategiaProducto/ObtenerDetalleProducto",
             data: JSON.stringify(data),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
