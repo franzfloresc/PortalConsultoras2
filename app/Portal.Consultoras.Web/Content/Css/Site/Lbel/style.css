@@ -36319,8 +36319,8 @@ h1#penmostreo .campana {
 }
 .content_producto_set_best_seller{
     float: left;
-    width: 25%;
-    height: 373px;
+    width: 35%;
+    height: auto;
     /* margin-top: 60px; */
     text-align: center;
 }
@@ -36365,6 +36365,7 @@ h1#penmostreo .campana {
     font-size:13px;
     font-weight:700;
     vertical-align:top;
+    text-decoration:underline;
 }
 .fondo_set_best_seller .ganancia_showroom{
     margin-top:3px;
