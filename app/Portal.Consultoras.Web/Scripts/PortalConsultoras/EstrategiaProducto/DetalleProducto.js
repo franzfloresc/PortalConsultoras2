@@ -300,7 +300,7 @@
         var d = $.Deferred();
         var promise = $.ajax({
             type: 'POST',
-            url: "EstrategiaProducto/ObtenerDetalleProducto",
+            url: "/" + "EstrategiaProducto/ObtenerDetalleProducto",
             data: JSON.stringify(data),
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
