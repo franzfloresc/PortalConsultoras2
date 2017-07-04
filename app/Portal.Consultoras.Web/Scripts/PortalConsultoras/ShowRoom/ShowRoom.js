@@ -267,6 +267,8 @@ function CargarProductosShowRoom(busquedaModel) {
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
+                if (value != undefined) {
+
                     var impression = {
                         name: value.Descripcion,
                         id: value.CUV,
@@ -278,6 +280,7 @@ function CargarProductosShowRoom(busquedaModel) {
                     };
 
                     impressions.push(impression);
+                }
 
                 if (impressions.length > 0)
                 {

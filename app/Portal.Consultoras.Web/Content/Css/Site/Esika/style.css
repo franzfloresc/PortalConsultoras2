@@ -6406,6 +6406,11 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     background-size:cover;
 }
 
+.logo_esika a.negro {
+    background: url(../../../Images/Esika/logo_esika_negro.png) no-repeat;
+    background-size: cover;
+}
+
 .cliente_detalle {
     display: block;
     color: black;
@@ -33545,8 +33550,8 @@ h1#penmostreo .campana {
 .content_producto_tono{
     border-bottom:1px solid #ccc;
     width:100%;  
-    padding-top:15px;
-    padding-bottom:10px;
+    padding-top:10px;
+    /*padding-bottom:10px;*/
     position:relative;
 }
 .sub_nombre_producto{
