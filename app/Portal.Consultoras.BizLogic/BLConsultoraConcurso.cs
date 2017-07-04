@@ -139,9 +139,9 @@ namespace Portal.Consultoras.BizLogic
                                         CodigoConcurso = Concurso.CodigoConcurso,
                                         Importante = 1,
                                         Descripcion = string.Join(", ", Concurso.Premios.Select(p => p.Descripcion).ToArray()),
-                                        PuntajeMinimo = Concurso.Premios.FirstOrDefault().PuntajeMinimo,
+                                        PuntajeMinimo = Concurso.Premios.FirstOrDefault()!=null?Concurso.Premios.FirstOrDefault().PuntajeMinimo:default(int),
                                         NumeroNivel = Concurso.NivelAlcanzado,
-                                        Mensaje = Concurso.Premios.FirstOrDefault().Mensaje
+                                        Mensaje = Concurso.Premios.FirstOrDefault()!=null? Concurso.Premios.FirstOrDefault().Mensaje: string.Empty
                                     }
                                 };
                         }
