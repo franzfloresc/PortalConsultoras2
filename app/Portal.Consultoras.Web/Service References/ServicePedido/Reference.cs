@@ -7199,7 +7199,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServicePedido.EnumeradoresMotivoPedidoLock MotivoPedidoLockField;
+        private Portal.Consultoras.Common.Enumeradores.MotivoPedidoLock MotivoPedidoLockField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -7225,7 +7225,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServicePedido.EnumeradoresMotivoPedidoLock MotivoPedidoLock {
+        public Portal.Consultoras.Common.Enumeradores.MotivoPedidoLock MotivoPedidoLock {
             get {
                 return this.MotivoPedidoLockField;
             }
@@ -7245,23 +7245,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.MotivoPedidoLock", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
-    public enum EnumeradoresMotivoPedidoLock : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Ninguno = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        GPR = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Reservado = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        HorarioRestringido = 4,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -7293,6 +7276,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServicePedido.BEPedidoObservacion[] ListPedidoObservacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ListaConcursosCodigosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ListaConcursosPuntajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoAhorroCatalogoField;
@@ -7334,7 +7323,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool RestrictivasField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Portal.Consultoras.Web.ServicePedido.EnumeradoresResultadoReserva ResultadoReservaEnumField;
+        private Portal.Consultoras.Common.Enumeradores.ResultadoReserva ResultadoReservaEnumField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
@@ -7439,6 +7428,32 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ListPedidoObservacionField, value) != true)) {
                     this.ListPedidoObservacionField = value;
                     this.RaisePropertyChanged("ListPedidoObservacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ListaConcursosCodigos {
+            get {
+                return this.ListaConcursosCodigosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListaConcursosCodigosField, value) != true)) {
+                    this.ListaConcursosCodigosField = value;
+                    this.RaisePropertyChanged("ListaConcursosCodigos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ListaConcursosPuntaje {
+            get {
+                return this.ListaConcursosPuntajeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListaConcursosPuntajeField, value) != true)) {
+                    this.ListaConcursosPuntajeField = value;
+                    this.RaisePropertyChanged("ListaConcursosPuntaje");
                 }
             }
         }
@@ -7613,7 +7628,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Portal.Consultoras.Web.ServicePedido.EnumeradoresResultadoReserva ResultadoReservaEnum {
+        public Portal.Consultoras.Common.Enumeradores.ResultadoReserva ResultadoReservaEnum {
             get {
                 return this.ResultadoReservaEnumField;
             }
@@ -7754,29 +7769,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Enumeradores.ResultadoReserva", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Common")]
-    public enum EnumeradoresResultadoReserva : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Reservado = 1,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ReservadoObservaciones = 2,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        NoReservadoObservaciones = 3,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        NoReservadoMontoMinimo = 4,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        NoReservadoMontoMaximo = 5,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        ReservaNoDisponible = 6,
-    }
-    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEInputReservaProl", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ReservaProl")]
@@ -7797,6 +7789,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoZonaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigosConcursosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIDField;
@@ -7922,6 +7917,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.CodigoZonaField, value) != true)) {
                     this.CodigoZonaField = value;
                     this.RaisePropertyChanged("CodigoZona");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigosConcursos {
+            get {
+                return this.CodigosConcursosField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigosConcursosField, value) != true)) {
+                    this.CodigosConcursosField = value;
+                    this.RaisePropertyChanged("CodigosConcursos");
                 }
             }
         }

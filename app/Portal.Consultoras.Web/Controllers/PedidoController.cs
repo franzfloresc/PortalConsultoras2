@@ -20,13 +20,12 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
-using Portal.Consultoras.PublicService.Cryptography;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -514,7 +513,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if(!string.IsNullOrEmpty(model.ClienteID))
+                if (!string.IsNullOrEmpty(model.ClienteID))
                 {
                     int ClienteID = Convert.ToInt32(model.ClienteID);
 
@@ -2002,14 +2001,35 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EjecutarServicioPROL()
         {
             UpdateDiaPROLAndMostrarBotonValidar(userData);
-            //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
-
+          
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EnviarCorreo = false;
-            BEResultadoReservaProl resultado = null;
-            using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
-            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
+            List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+            try
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                Concursos = new List<BEConsultoraConcurso>();
+            }
+            if (Concursos.Any())
+                input.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
+
+            BEResultadoReservaProl resultado = null;
+            using (var sv = new PedidoServiceClient())
+            {
+                resultado = sv.EjecutarReservaProl(input);
+                // Insertar/Actualizar los puntos de la consultora.
+                if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
+            }
+            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
+                        
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
             if (resultado.RefreshMontosProl)
@@ -2021,7 +2041,7 @@ namespace Portal.Consultoras.Web.Controllers
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
             }
-            if (resultado.ResultadoReservaEnum != ServicePedido.EnumeradoresResultadoReserva.ReservaNoDisponible)
+            if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
             {
                 if (resultado.Reserva) CambioBannerGPR(true);
                 Session["ObservacionesPROL"] = listObservacionModel;
@@ -2722,91 +2742,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = respuesta == "",
                     message = respuesta == "" ? "OK" : respuesta,
                     extra = ""
-                }, JsonRequestBehavior.AllowGet);
-
-                // esta parte quitar si paso todas las pruebas
-                //var mensaje = "";
-                //if (EstaProcesoFacturacion(out mensaje))
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = mensaje,
-                //        extra = ""
-                //    }, JsonRequestBehavior.AllowGet);
-                //}
-
-                //bool valida = false;
-
-                //if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")
-                //{
-                //    using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
-                //    {
-                //        sv.Url = ConfigurarUrlServiceProl();
-                //        valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                //    }
-                //}
-                //else valida = true;
-
-                //if (valida)
-                //{
-                //    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-                //    using (PedidoServiceClient sv = new PedidoServiceClient())
-                //    {
-                //        bool ValidacionAbierta = false;
-                //        short Estado = Constantes.EstadoPedido.Pendiente;
-
-                //        if (userData.NuevoPROL && userData.ZonaNuevoPROL && Tipo == "PV")
-                //        {
-                //            ValidacionAbierta = true;
-                //            Estado = Constantes.EstadoPedido.Procesado;
-                //        }
-                //        olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-                //        if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any()) // Si el userData no tiene información del PedidoID y no tiene pedidos.
-                //        {
-                //            userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                //            Estado = Constantes.EstadoPedido.Pendiente;
-                //        }
-                //        //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
-
-
-                //        var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
-
-                //        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
-                //        if (Tipo == "PI")
-                //        {
-                //            //Inserta Aceptacion Reemplazos
-                //            List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
-                //            if (Reemplazos.Count != 0)
-                //            {
-                //                //Tipo 100: Manual
-                //                //Tipo 103: Rechazar Reemplazos
-                //                sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
-                //            }
-                //        }
-
-                //        BEConfiguracionCampania oBEConfiguracionCampania = null;
-                //        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-
-                //        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
-                //        {
-                //            userData.MostrarBannerRechazo = true;
-                //            userData.CerrarRechazado = 0;
-                //            SetUserData(userData);
-                //            //ObtenerMotivoRechazo(userData);
-                //        }
-                //    }
-                //}
-
-                ////Session["ProductosOfertaFinal"] = null;
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    extra = ""
-                //}, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);              
             }
             catch (FaultException ex)
             {
@@ -2937,121 +2873,7 @@ namespace Portal.Consultoras.Web.Controllers
             decimal estimadoGanancia = ProductosIndicadorDscto.Sum(p => p.MontoDscto);
             return estimadoGanancia;
         }
-
-        /*private bool EnviarPorCorreoPedidoValidado(List<BEPedidoWebDetalle> olstPedidoWebDetalle)
-        {
-            DateTime fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-            bool IndicadorOfertaCUV = false;
-
-            StringBuilder mailBody = new StringBuilder();
-            mailBody.Append("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">");
-            mailBody.Append("<meta http-equiv='Content-Type' content='Type=text/html; charset=utf-8'>");
-            mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-            mailBody.AppendFormat("<tr><td><div style='font-size:12px;font-family: calibri;'>Hola {0},</div></td></tr>", userData.NombreConsultora);
-            mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-            mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>¡Lo lograste!</div ></td></tr>");
-            mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>Tu pedido ha sido reservado con éxito.</div></td></tr>");
-
-            if (fechaHoy < userData.FechaInicioCampania.Date)
-            {
-                mailBody.AppendFormat("<tr><td><div style='font-size:12px;font-family: calibri;'>Será enviado a Belcorp el día {0}, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.</div></div></td></tr>", userData.FechaInicioCampania.Day + " de " + NombreMes(userData.FechaInicioCampania.Month));
-            }
-            else
-            {
-                mailBody.AppendFormat("<tr><td><div style='font-size:12px;font-family: calibri;'>Será enviado a Belcorp el día de {0}, siempre y cuando cumplas con el monto mínimo y no tengas deuda pendiente.</div></div></td></tr>", "hoy");
-            }
-            mailBody.Append("<tr style='height:12px;'><td></td></tr><tr><td><div style='font-size:12px;font-family: calibri;margin-left: 10px;'>Detalle de pedido:</div ></td></tr>");
-            mailBody.Append("<tr style='height:12px;'><td><div style='font-size:12px;'></div></td></tr>");
-            mailBody.Append("</table>");
-            mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 90%; margin-left: 10px;'>");
-            mailBody.Append("<tr style='color: #FFFFFF'>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 70px; background-color: #6c217f;'>");
-            mailBody.Append("Cód.<br />Venta</td>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 347px; background-color: #6c217f; padding-left:5px; padding-right:5px;'>");
-            mailBody.Append("Descripción</td>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 124px; background-color: #6c217f;'>");
-            mailBody.Append("Cantidad</td>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 182px; background-color: #6c217f;'>");
-            mailBody.Append("Precio Unit.</td>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-            mailBody.Append("Precio Total</td>");
-            mailBody.Append("<td style='font-size:11px; font-weight: bold; text-align: center; width: 165px; background-color: #6c217f;'>");
-            mailBody.Append("Cliente</td></tr>");
-
-            foreach (BEPedidoWebDetalle pedidoDetalle in olstPedidoWebDetalle)
-            {
-                mailBody.Append("<tr>");
-                mailBody.Append("<td style='font-size:11px; width: 56px; text-align: center; border-bottom: 1px solid #6c217f;  border-left: 1px solid #6c217f;'>");
-                mailBody.AppendFormat("{0}</td>", pedidoDetalle.CUV);
-                mailBody.Append("<td style='font-size:11px; width: 347px; text-align: left; border-bottom: 1px solid #6c217f;'>");
-                mailBody.AppendFormat("{0}</td>", pedidoDetalle.DescripcionProd);
-                mailBody.Append("<td style='font-size:11px; width: 124px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-                mailBody.AppendFormat("{0}</td>", pedidoDetalle.Cantidad);
-                if (userData.PaisID == 4)
-                {
-                    mailBody.Append("<td style='font-size:11px; width: 182px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-                    mailBody.Append(userData.Simbolo);
-                    mailBody.Append(String.Format("{0:#,##0}", pedidoDetalle.PrecioUnidad).Replace(',', '.'));
-                    mailBody.Append("</td>");
-                    mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-                    mailBody.Append(userData.Simbolo);
-                    mailBody.Append(String.Format("{0:#,##0}", pedidoDetalle.ImporteTotal).Replace(',', '.'));
-                }
-                else
-                {
-                    mailBody.Append("<td style='font-size:11px; width: 182px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-                    mailBody.Append(userData.Simbolo);
-                    mailBody.AppendFormat("{0:#0.00}", pedidoDetalle.PrecioUnidad);
-                    mailBody.Append("</td>");
-                    mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;'>");
-                    mailBody.Append(userData.Simbolo);
-                    mailBody.AppendFormat("{0:#0.00}", pedidoDetalle.ImporteTotal);
-                }
-                if (ViewBag.EstadoSimplificacionCUV != null && ViewBag.EstadoSimplificacionCUV == true)
-                {
-                    if (pedidoDetalle.IndicadorOfertaCUV)
-                    {
-                        IndicadorOfertaCUV = true;
-                        mailBody.Append("<img id='IndicadorOfercarCUVImage' height='13' width='13' src=\"cid:IconoIndicador\" />");
-                    }
-                }
-                mailBody.Append("</td>");
-                mailBody.Append("<td style='font-size:11px; width: 165px; text-align: center; border-bottom: 1px solid #6c217f;border-right: 1px solid #6c217f;'>");
-                mailBody.AppendFormat("{0}</td>", pedidoDetalle.Nombre);
-            }
-            mailBody.Append("</tr></table>");
-
-            if (IndicadorOfertaCUV)
-            {
-                mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 90%; margin-left: 15px; margin-top:3px;'>");
-                mailBody.Append("<tr><td>");
-                mailBody.Append("<div id='LeyendaIndicadorCUV' style='font-family: arial; font-size: 11px; color: #722789; padding-right:10px; '>");
-                mailBody.Append("<div><img src=\"cid:IconoIndicador\" height='13' width='13'/>El precio total no incluye el descuento para ofertas con más de un precio (1x, 2x). Al validar tu pedido, el sistema elegirá la mejor combinación de precios posibles para ti.</div>");
-                mailBody.Append("</div>");
-                mailBody.Append("</td></tr>");
-                mailBody.Append("</table>");
-            }
-            mailBody.Append("<br />");
-            mailBody.Append("<table border='0' cellspacing='0' cellpadding='0' style='width: 100%;'>");
-            mailBody.Append("<tr><td><div style='font-size:12px;'></div></td></tr>");
-            mailBody.Append("<tr><td><div style='font-size:12px;font-family: calibri;'>Gracias,</div></td></tr><tr><td>&nbsp;</td></tr>");
-            mailBody.Append("<tr><td><img src='cid:Logo' border='0' /></td></tr>");
-            mailBody.Append("</table>");
-            bool resultado = false;
-            try
-            {
-                resultado = Util.EnviarMail("no-responder@somosbelcorp.com", userData.EMail, string.Empty, string.Format("({0}) Confirmación pedido Belcorp", userData.CodigoISO), mailBody.ToString(), true, null, IndicadorOfertaCUV);
-            }
-            catch (Exception ex)
-            {
-                resultado = false;
-            }
-
-            return resultado;
-        }
-        */
-
+               
         private bool EnviarPorCorreoPedidoValidado(List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             List<String> paisesEsika = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Split(';').ToList<String>();
@@ -3294,53 +3116,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        public ServicePROL.TransferirDatos Devolver()
-        {
-            ServicePROL.TransferirDatos datos = new ServicePROL.TransferirDatos();
-            datos.codigoMensaje = "00";
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("0");
-            dt.Columns.Add("1");
-            dt.Columns.Add("2");
-            dt.Columns.Add("3");
-
-            dt.Rows.Add("1", "05400", "Test", "Test");
-
-            ds.Tables.Add(dt);
-
-
-            datos.data = ds;
-
-
-            return datos;
-        }
-
-        public ServicePROL.TransferirDatos Devolver2()
-        {
-            ServicePROL.TransferirDatos datos = new ServicePROL.TransferirDatos();
-            datos.codigoMensaje = "00";
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("0");
-            dt.Columns.Add("1");
-            dt.Columns.Add("2");
-            dt.Columns.Add("3");
-            dt.Columns.Add("4");
-            dt.Columns.Add("5");
-
-            dt.Rows.Add("05400", "ES AVENTOUR EDT 100 ML", "17.90", "12", "214.80", "1");
-
-            ds.Tables.Add(dt);
-
-
-            datos.data = ds;
-
-
-            return datos;
-        }
 
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> ListadoPedidos)
         {
@@ -3614,7 +3389,7 @@ namespace Portal.Consultoras.Web.Controllers
                     using (var sv = new PedidoServiceClient())
                     {
                         var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, false, true);
-                        if (result.MotivoPedidoLock == ServicePedido.EnumeradoresMotivoPedidoLock.HorarioRestringido)
+                        if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.HorarioRestringido)
                         {
                             mensaje = result.Mensaje;
                             estado = true;
@@ -3657,8 +3432,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
                     }
-                    pedidoReservado = result.MotivoPedidoLock == ServicePedido.EnumeradoresMotivoPedidoLock.Reservado;
-                    estado = result.MotivoPedidoLock != ServicePedido.EnumeradoresMotivoPedidoLock.Ninguno;
+                    pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+                    estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
                     mensaje = result.Mensaje;
                 }
 
@@ -4083,7 +3858,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.Simbolo = userData.Simbolo;                
+                model.Simbolo = userData.Simbolo;
 
                 return Json(new
                 {
