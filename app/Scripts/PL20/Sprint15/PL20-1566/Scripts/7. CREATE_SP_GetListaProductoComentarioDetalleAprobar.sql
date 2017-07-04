@@ -23,6 +23,17 @@ AS
 BEGIN
 
 	DECLARE @CodigoSap VARCHAR(20), @CodigoGenerico VARCHAR(20)
+	DECLARE @ProductoComentarioDetalle TABLE(
+		ProdComentarioId int
+		,ProdComentarioDetalleId bigint
+		,Valorizado tinyint
+		,Comentario varchar(400)
+		,FechaRegistro DATE
+		,CodigoConsultora varchar(20)
+		,Estado tinyint
+	)
+	DECLARE @TotalFilas INT
+
 	IF (@Tipo = 1)
 	BEGIN
 		SELECT TOP 1 @CodigoGenerico = RTRIM(CodigoGenerico) FROM ods.SAP_PRODUCTO WHERE CodigoSap = @Codigo
@@ -30,14 +41,15 @@ BEGIN
 	END
 	ELSE
 	BEGIN
-		SELECT TOP 1 
-			@CodigoSap = CodigoSap, 
-			@CodigoGenerico = RTRIM(CodigoGenerico) 
-		FROM ods.ProductoComercial pc 
-		INNER JOIN ods.SAP_PRODUCTO sp ON pc.AnoCampania = @CampaniaId 
-			AND pc.CodigoProducto = sp.CodigoSap
-			AND pc.EstadoActivo = 1
-		WHERE pc.CUV = @Codigo
+
+		SELECT 
+		@CodigoSap = SP.CodigoSap, 
+		@CodigoGenerico = RTRIM(SP.CodigoGenerico) 
+		FROM ods.ProductoComercial PC
+			JOIN ods.SAP_PRODUCTO SP ON PC.CodigoProducto = SP.CodigoSap
+			AND PC.AnoCampania = CampaniaId
+			AND PC.CUV = @Codigo
+			AND PC.EstadoActivo = 1
 	END
 
 	INSERT INTO @ProductoComentarioDetalle

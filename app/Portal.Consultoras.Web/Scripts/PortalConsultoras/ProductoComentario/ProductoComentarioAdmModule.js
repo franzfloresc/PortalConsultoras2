@@ -65,6 +65,7 @@ var productoComentarioAdmModule = (function () {
             if (paisId == '') {
                 $(elements.ddlCampania).empty();
                 $(elements.ddlCampania).append($('<option/>', { value: "", text: "-- Seleccionar --" }));
+                _validarMostrarContenedorBotonBuscarComentarios();
                 closeWaitingDialog();
                 return;
             }
@@ -79,22 +80,28 @@ var productoComentarioAdmModule = (function () {
             closeWaitingDialog();
         });
 
+        $(document).on('change', elements.ddlEstadoComentario, function () {
+            _validarMostrarContenedorBotonBuscarComentarios();
+        });
+
         $(document).on('change', elements.ddlTipoComentario, function () {
             waitingDialog({});
 
             var tipoComentarioId = $(elements.ddlTipoComentario).val();
 
-            if (TIPO_PRODUCTO_COMENTARIO.SAP == tipoComentarioId) {
+            if (tipoComentarioId == '' || TIPO_PRODUCTO_COMENTARIO.SAP == tipoComentarioId) {
                 $(elements.divSAP).show();
                 $(elements.divCUV).hide();
-                $(elements.txtSAP).val('');
             }
 
             if (TIPO_PRODUCTO_COMENTARIO.CUV == tipoComentarioId) {
                 $(elements.divSAP).hide();
                 $(elements.divCUV).show();
-                $(elements.txtCUV).val('');
             }
+
+            $(elements.txtSAP).val('');
+            $(elements.ddlCampania).val('');
+            $(elements.txtCUV).val('');
 
             _validarMostrarContenedorBotonBuscarComentarios();
 
@@ -166,15 +173,19 @@ var productoComentarioAdmModule = (function () {
                 }));
             });
         }
+
+        $(elements.ddlCampania).val('0');
     };
 
     var _validarMostrarContenedorBotonBuscarComentarios = function () {
         var paisId = $(elements.ddlPais).val();
+        var estadoComentarioId = $(elements.ddlEstadoComentario).val(); 
         var tipoComentarioId = $(elements.ddlTipoComentario).val();
         var codigoSAP = $.trim($(elements.txtSAP).val());
         var codigoCUV = $.trim($(elements.txtCUV).val());
 
         if (paisId != '' &&
+            estadoComentarioId != '' &&
             ((tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.SAP && codigoSAP != '') ||
             (tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.CUV && codigoCUV != ''))
             ) {
