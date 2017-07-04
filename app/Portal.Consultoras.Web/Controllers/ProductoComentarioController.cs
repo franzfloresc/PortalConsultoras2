@@ -83,7 +83,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV);
+                var productoComentarioFilter = ObtenerProductoComentarioFilter(page, rows, estadoComentarioID, tipoComentarioID, SAP, CUV, campaniaID);
                 var listaProductoComentario = ListarProductoComentario(paisID, productoComentarioFilter);
 
                 var totalRows = listaProductoComentario.Count() == 0 ? 0 : listaProductoComentario.FirstOrDefault().RowsCount;
@@ -124,7 +124,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV)
+        private BEProductoComentarioFilter ObtenerProductoComentarioFilter(int page, int rows, int estadoComentarioID, int tipoComentarioID, string SAP, string CUV,int campaniaID)
         {
             var productoComentarioFilter = new BEProductoComentarioFilter();
 
@@ -135,6 +135,7 @@ namespace Portal.Consultoras.Web.Controllers
             productoComentarioFilter.Estado = (short)estadoComentarioID;
             productoComentarioFilter.Tipo = (short)tipoComentarioID;
             productoComentarioFilter.Valor = (Enumeradores.TipoProductoComentario)tipoComentarioID == Enumeradores.TipoProductoComentario.SAP ? SAP : CUV;
+            productoComentarioFilter.CampaniaID = campaniaID;
 
             return productoComentarioFilter;
         }

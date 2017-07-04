@@ -89,17 +89,19 @@ var productoComentarioAdmModule = (function () {
 
             var tipoComentarioId = $(elements.ddlTipoComentario).val();
 
-            if (TIPO_PRODUCTO_COMENTARIO.SAP == tipoComentarioId) {
+            if (tipoComentarioId == '' || TIPO_PRODUCTO_COMENTARIO.SAP == tipoComentarioId) {
                 $(elements.divSAP).show();
                 $(elements.divCUV).hide();
-                $(elements.txtSAP).val('');
             }
 
             if (TIPO_PRODUCTO_COMENTARIO.CUV == tipoComentarioId) {
                 $(elements.divSAP).hide();
                 $(elements.divCUV).show();
-                $(elements.txtCUV).val('');
             }
+
+            $(elements.txtSAP).val('');
+            $(elements.ddlCampania).val('');
+            $(elements.txtCUV).val('');
 
             _validarMostrarContenedorBotonBuscarComentarios();
 
@@ -171,6 +173,8 @@ var productoComentarioAdmModule = (function () {
                 }));
             });
         }
+
+        $(elements.ddlCampania).val('0');
     };
 
     var _validarMostrarContenedorBotonBuscarComentarios = function () {
