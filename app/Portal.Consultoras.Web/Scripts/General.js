@@ -1597,3 +1597,14 @@ function limpiar_local_storage() {
         }
     }
 };
+
+function _validartieneMasVendidos() {
+    if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
+        set_local_storage(tieneMasVendidos, "tieneMasVendidos");
+        return tieneMasVendidos;
+    }
+    else {
+        let valor = get_local_storage("tieneMasVendidos");
+        return valor;
+    }
+}

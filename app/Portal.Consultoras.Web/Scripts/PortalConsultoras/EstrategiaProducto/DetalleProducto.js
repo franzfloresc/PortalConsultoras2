@@ -266,12 +266,12 @@
                         model.Item = item;
                         model.Lista = _actualizarListaStorate(model.Lista, item);
                         set_local_storage(model, "data_mas_vendidos");
-                        location.href = baseUrl + 'EstrategiaProducto/DetalleProducto';
-                } else {
-                    console.log(verDetalleResponse.menssage);
+                        location.href = "/" + 'EstrategiaProducto/DetalleProducto';
+                    } else {
+                        console.log(verDetalleResponse.menssage);
+                    }
                 }
-            }
-        });
+            });
     };
 
     var _obtenerProductoDesdeStorage = function (estrategiaId) {
@@ -298,7 +298,6 @@
 
     var _verDetallePromise = function (data) {
         var d = $.Deferred();
-
         var promise = $.ajax({
             type: 'POST',
             url: "EstrategiaProducto/ObtenerDetalleProducto",
