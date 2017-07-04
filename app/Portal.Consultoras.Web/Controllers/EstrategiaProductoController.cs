@@ -29,13 +29,13 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             item.UltimoComentario = Mapper.Map<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>(comentario);
                             item.UltimoComentario.NombreConsultora = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.UltimoComentario.NombreConsultora.ToLower());
+                        }
 
-                            if (item.UltimoComentario == null)
-                            {
-                                item.UltimoComentario = new EstrategiaProductoComentarioModel();
-                                item.UltimoComentario.Comentario = string.Empty;
-                                item.UltimoComentario.NombreConsultora = string.Empty;
-                            }
+                        if (item.UltimoComentario == null)
+                        {
+                            item.UltimoComentario = new EstrategiaProductoComentarioModel();
+                            item.UltimoComentario.Comentario = string.Empty;
+                            item.UltimoComentario.NombreConsultora = string.Empty;
                         }
                     }
                 }
