@@ -189,7 +189,7 @@ function PintarRecomendaciones(listaMasVendidos) {
 
 function _pintarRecomendaciones(item) {
     let div = "#recommedation-" + item.EstrategiaID.toString();
-    let recommendation = '(' + item.CantComenAprob.toString() + ' )';
+    let recommendation = '(' + item.CantComenAprob.toString() + ')';
     $(div).html(recommendation);
     $(div).show();
 }
