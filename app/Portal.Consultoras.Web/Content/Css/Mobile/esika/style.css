@@ -4940,6 +4940,14 @@ table > thead > tr > th {
     font-weight: 400;
 }
 
+.texto_exclusivo_bpt {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #000;
+    margin-top: 5px;
+    font-weight: 800;
+}
+
 .banner_inferior_mobile {
     max-width: 390px;
     margin: 0 auto;
@@ -7640,6 +7648,7 @@ input[type="checkbox"]:checked + span:after {
     background: #FFF;
     width: 90%;
     max-width: 400px;
+    /*width:520px;*/
     height: auto;
     padding: 30px 20px 30px 20px;
     box-sizing: border-box;
@@ -9868,7 +9877,7 @@ a{
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
-     width: 38%;
+     width: 48%;
 }
 
 .select-ffc {
@@ -11816,7 +11825,7 @@ a{
     margin-top: 17px;
     text-align: center;
     margin-bottom: 4px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .alerta_notificacion{
      font-family: 'Lato';

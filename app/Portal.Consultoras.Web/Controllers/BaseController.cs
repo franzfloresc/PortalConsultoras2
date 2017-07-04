@@ -1512,8 +1512,13 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
+            if(campania<=0 )return 0;
+
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
+
+            if (nroCampania <= 0) return 0;
+
             int sumNroCampania = (nroCampania + numero) - 1;
             int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
             int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
@@ -2378,7 +2383,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            return Request.Browser.IsMobileDevice;
+            string url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            if (url.Contains("/mobile/")) return true;
+            else return false;
         }
     }
 }
