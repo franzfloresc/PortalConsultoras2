@@ -1,4 +1,5 @@
-﻿<script id="mas-vendidos-template" type="text/x-handlebars-template">
+﻿
+<script id="mas-vendidos-template" type="text/x-handlebars-template">
 {{#each this.Lista as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
          class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">

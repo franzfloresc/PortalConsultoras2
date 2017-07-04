@@ -321,6 +321,12 @@
     }
 
 </div>
+
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
+
 <!--INICIO CARRUSEL-->
 <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
     <div class="row contenedorCupon" id="">
@@ -347,10 +353,6 @@
     </div>
 </div>
 <!--LOS MAS VENDIDOS-->
-@if (Model.TieneMasVendidos == 1)
-{
-    Html.RenderPartial("MasVendidos");
-}
 
 <!--FIN CARRUSEL-->
 <div class="wrapper_resumen_mobile">
