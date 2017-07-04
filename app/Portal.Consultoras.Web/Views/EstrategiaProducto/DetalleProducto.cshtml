@@ -37,6 +37,7 @@
             </select>
             <div class="texto_filtros_bestSeller">ORDENAR POR</div>
         </div>
+        <a name="ComentariosUsuarios"></a>
         <div class="contentAgregarComentarios">
             <!--AGREGA COMENTARIOS-->
             <div class="texto_agregarComentarios">AGREGA TU COMENTARIO</div>
@@ -74,6 +75,7 @@
         </div>
         <!--FIN-->
         <!--COMENTARIOS DE USUARIO-->
+        
         <div id="contenedorComentarios">
         </div>
     </div>
@@ -117,12 +119,12 @@
                             <hr class="clear">
                         </div>
                         <div class="content_detalle_set">
-                            <div class="content_left_ficha">
+                            <div class="content_left_ficha" style="width: 63%;">
                                 <div class="producto_best_detalle">{{DescripcionMarca}}</div>
                                 <div class="titulo_set">{{DescripcionCUV2}}</div>
                                 @*<div class="producto_best_detalle">4g/. 14oz.</div>*@
                             </div>
-                            <div class="content_right_ficha" style="text-align: right">
+                            <div class="content_right_ficha" style="text-align: right; width: 35%;">
                                 <div class="precio_valorizado_showroom">{{Simbolo}} {{PrecioTachado}}</div>
                                 <div class="precio_oferta_venta">
                                     Precio para ti <b>{{Simbolo}} {{PrecioString}}</b>
@@ -133,7 +135,7 @@
                             <hr class="clear">
                             <div class="content_puntuacion_detalle">
                                 <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
-                                <div class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}"></div>
+                                <a href="#ComentariosUsuarios" class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}"></a>
                             </div>
 
                             <div class="comentarios_best_seller_ficha">
