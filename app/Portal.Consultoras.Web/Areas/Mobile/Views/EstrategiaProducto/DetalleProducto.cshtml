@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.EstrategiaOutModel
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";    
 }
@@ -10,7 +12,7 @@
             width:calc(100% - 118px);
             width:-webkit-calc(100% - 118px);            
         }
-        footer{
+        footer{ 
             display:none;
         }
     </style>
@@ -18,234 +20,263 @@
     <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
    
 }
-<div class="content_room_product_sheet">
-    <div class="content_imagen_best">
-        <div class="content_fondo_bestSeller"><img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" /></div>
+<!--DETALLE FICHA PRODUCTO-->
+<div id="contenedor-detalle-producto-mobile"></div>    
+    <!--FIN-->
+    <hr class="clear" />
+    <!--CARROUSEL-->
+    <div class="content_carrusel_bestSeller">
+        <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+        <div class="variable-width">
+            <div class="slider_item">
+                <a href="#" class="slider_item_content">
+                    <div data-img="">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
+                    </div>
+                    <div class="marca_carrusel_best">ESIKA</div>
+                    <span class="title">2 Cardigan + Prints</span>
+                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
+                    <span class="price"><b>S/. 69.90 </b></span>
+                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
+                    <div><div class="comentarios_detalle_best">(346)</div></div>
+                </a>
+            </div>
+            <div class="slider_item">
+                <a href="#" class="slider_item_content">
+                    <div data-img="">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
+                    </div>
+                    <div class="marca_carrusel_best">ESIKA</div>
+                    <span class="title">2 Cardigan + Prints</span>
+                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
+                    <span class="price"><b>S/. 69.90 </b></span>
+                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
+                    <div><div class="comentarios_detalle_best">(346)</div></div>
+                </a>
+            </div>
+            <div class="slider_item">
+                <a href="#" class="slider_item_content">
+                    <div data-img="">
+                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
+                    </div>
+                    <div class="marca_carrusel_best">ESIKA</div>
+                    <span class="title">2 Cardigan + Prints</span>
+                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
+                    <span class="price"><b>S/. 69.90 </b></span>
+                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
+                    <div><div class="comentarios_detalle_best">(346)</div></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="content_orden_carrusel" data-posicion-set="">
+            <div class="orden_listado_numero"><span data-posicion-current="">2</span> / 15</div>
+            <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
+            <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
+            <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
+        </div>
     </div>
-        <hr class="clear" />
-    <div class="wrapper_resumen_mobile" style="margin-top:10px;">
-        <div class="marca_best">ESIKA</div>
-        <h1>Pack x2 Nitro Xtreme</h1>
-        <div class="marca_best">4g/. 14oz.</div>
-        <div class="content_puntuacion_detalle">
-            <div class="rateyo-readonly-widg"></div>
-            <div class="comentarios_detalle_best">(346 recomendaciones)</div>
-        </div>
-        <div class="price_product">
-            <s class="price_offer">S/. 144.00</s>
-            <span class="price">Precio para ti <b>S/. 54.00</b></span>
-            <span class="comment">Gana S/. 90.00</span>
-        </div>
-        <div class="comentarios_best_seller_ficha">
-            “¡ME ENCANTA! Este labial me dura todo el día, lo puedo usar en el día como en la noche.               Me gustó mucho la textura liviana y efecto hidratante sobre los labios” <br>              - Sandra A.
-        </div> 
-        <!--COLOR TONO-->
-            <div class="content_tono_bestSeller">
-                <div class="item_tono_best">
-                    <div class="cantidad_item_tono">x1</div>
-                    <div class="nombre_producto_item_best">Labial Hidracolor</div>
-                    <hr class="clear" />
-                    <div class="color_tono_item"></div>
-                    <div class="color_texto_item">Rojo Pimienta</div>
+    <!--COMENTARIOS-->
+    <div class="section_comentarios">
+        <div class="wrapper_resumen_mobile">
+            <div class="titulo_principal_comentarios">COMENTARIOS</div>
+            <div style="text-align:center"><div class="rateyo-readonly-comentarios"></div></div>
+            <div class="subtexto_comentario">95% de personas lo recomiendan <br />(295 de 364)</div>
+            <div class="content_filtros_bestSeller">
+                <div class="texto_filtros_bestSeller">ORDENAR POR</div>
+                <select class="select_bestSeller">
+                    <option>NUEVOS</option>
+                    <option>NUEVOS</option>
+                    <option>NUEVOS</option>
+                </select>
+            </div>
+            <hr class="clear" />
+            <div class="contentAgregarComentarios">
+                <!--AGREGA COMENTARIOS-->
+                <div class="texto_agregarComentarios" style="display:none">AGREGA TU COMENTARIO</div>
+                <!--AÑADIENDO COMENTARIOS-->
+                <div class="contentValoracion" style="display:none">
+                    <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
+                    <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
+                    <div class="content_detalle_puntuación">
+                        Evalúa el Producto
+                        <div class="rateyo-puntuacion-seccion-comentario"></div>
+                        ¿Lo recomiendas?
+                        <div>
+                            <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
+                            <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
+                            <input type="hidden" id="hdRecomendado" value="" />
+                        </div>
+                    </div>
+                    <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
+                    <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
+                    <a class="cancelar_comentario">CANCELAR</a>
                 </div>
-                <div class="item_tono_best">
-                    <div class="cantidad_item_tono">x1</div>
-                    <div class="nombre_producto_item_best">Labial Hidracolor</div>
-                    <hr class="clear" />
-                    <div class="color_tono_item"></div>
-                    <div class="color_texto_item">Rojo Pimienta</div>
+                <!--CONFIRMACIÓN COMENTARIOS-->
+                <div class="content_confirmacion_comentario">
+                    <div class="icono_check_comentario"></div>
+                    <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
+                    <div class="subtexto_comentario" style="font-size:14px;">Válidaremos el contenido y en menos de 48 horas se publicará.</div>
+                    <a class="btn_cerrar_comentario">CERRAR</a>
+                </div>
+                <!--FIN-->
+            </div>
+            <!--COMENTARIO VISIBLES USUARIO-->
+            <div class="ContentcomentariosVisibles">
+                <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+                <div class="datos_usuario_comentario">
+                    <div class="rateyo-readonly-widg"></div>
+                    <div class="nombre_usuario_comentario">Sandra Arce</div>
+                    <div class="fecha_comentario">03 Junio 2017</div>
+                </div>
+                <hr class="clear" />
+                <div class="comentario_realizado_usuario">
+                    Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui.
+                    Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei,
+                    sonet splendide consectetuer in sed.
+                    <a class="mostrar_total_comentario">Leer más</a>
                 </div>
             </div>
-        <!--FIN-->       
+            <div class="ContentcomentariosVisibles">
+                <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
+                <div class="datos_usuario_comentario">
+                    <div class="rateyo-readonly-widg"></div>
+                    <div class="nombre_usuario_comentario">Sandra Arce</div>
+                    <div class="fecha_comentario">03 Junio 2017</div>
+                </div>
+                <hr class="clear" />
+                <div class="comentario_realizado_usuario">
+                    Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui.
+                    Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei,
+                    sonet splendide consectetuer in sed.
+                    <a class="mostrar_total_comentario">Leer más</a>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-<!--CARROUSEL-->
-<div class="content_carrusel_bestSeller">
-    <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
-    <div class="variable-width">
-        <div class="slider_item">
-            <a href="#" class="slider_item_content">
-                <div data-img="">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                </div>
-                <div class="marca_carrusel_best">ESIKA</div>
-                <span class="title">2 Cardigan + Prints</span>
-                <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                <span class="price"><b>S/. 69.90 </b></span>
-                <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                <div><div class="comentarios_detalle_best">(346)</div></div>
+    <!--REDES SOCIALES-->
+    <div class="share_social_nertwoks">
+        <div class="title">Comparte este set con tus clientes</div>
+        <div class="content_redes_ficha">
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
             </a>
-        </div>
-        <div class="slider_item">
-            <a href="#" class="slider_item_content">
-                <div data-img="">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                </div>
-                <div class="marca_carrusel_best">ESIKA</div>
-                <span class="title">2 Cardigan + Prints</span>
-                <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                <span class="price"><b>S/. 69.90 </b></span>
-                <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                <div><div class="comentarios_detalle_best">(346)</div></div>
-            </a>
-        </div>
-        <div class="slider_item">
-            <a href="#" class="slider_item_content">
-                <div data-img="">
-                    <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                </div>
-                <div class="marca_carrusel_best">ESIKA</div>
-                <span class="title">2 Cardigan + Prints</span>
-                <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                <span class="price"><b>S/. 69.90 </b></span>
-                <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                <div><div class="comentarios_detalle_best">(346)</div></div>
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                <img src="/Content/Images/Mobile/Esika/facebook.png">
             </a>
         </div>
     </div>
-    
-    <div class="content_orden_carrusel" data-posicion-set="">
-        <div class="orden_listado_numero"><span data-posicion-current="">2</span> / 15</div>
-        <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
-        <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
-        <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
+    <!--AGREGAR-->
+    <div class="content_btn_agregar">
+        <div class="content_320">
+            <div class="content_cantidad_ficha_producto">
+                <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
+            </div>
+            <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
+            <hr class="clear">
+        </div>
     </div>
-</div>
-<!--COMENTARIOS-->
-<div class="section_comentarios">
-    <div class="wrapper_resumen_mobile">
-        <div class="titulo_principal_comentarios">COMENTARIOS</div>
-        <div style="text-align:center"><div class="rateyo-readonly-comentarios"></div></div>  
-        <div class="subtexto_comentario">95% de personas lo recomiendan <br/>(295 de 364)</div> 
-        <div class="content_filtros_bestSeller">
-            <div class="texto_filtros_bestSeller">ORDENAR POR</div>
-            <select class="select_bestSeller">
-                <option>NUEVOS</option>
-                <option>NUEVOS</option>
-                <option>NUEVOS</option>
-            </select>            
-        </div>    
-        <hr class="clear" />
-        <div class="contentAgregarComentarios">
-            <!--AGREGA COMENTARIOS-->
-            <div class="texto_agregarComentarios" style="display:none">AGREGA TU COMENTARIO</div>
-            <!--AÑADIENDO COMENTARIOS-->
-            <div class="contentValoracion" style="display:none">
-                <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
-                <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
-                <div class="content_detalle_puntuación">
-                    Evalúa el Producto
-                    <div class="rateyo-puntuacion-seccion-comentario"></div>
-                    ¿Lo recomiendas?
-                    <div>
-                        <a class="respuesta_pregunta" id="btnRecomendar">SI</a>
-                        <a class="respuesta_pregunta" id="btnNoRecomendar">NO</a>
-                        <input type="hidden" id="hdRecomendado" value="" />
+
+<script id="template-detalle-producto" type="text/x-handlebars-template">
+    <div>
+        <div class="content_room_product_sheet" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                <input type="hidden" class="Palanca" value="BS" />
+                <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+            </div>
+            <div data-estrategia="{{CodigoEstrategia}}"></div>
+            <div class="content_imagen_best">
+                <div class="content_fondo_bestSeller"><img src="{{FotoProducto01}}" /></div>
+            </div>
+            <hr class="clear" />
+            <div class="wrapper_resumen_mobile" style="margin-top:10px;">
+                <div class="marca_best">{{DescripcionMarca}}</div>
+                <h1>{{DescripcionCUV2}}</h1>
+                <div class="content_puntuacion_detalle">
+                    <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                    <a href="#ComentariosUsuarios" class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}"></a>
+                </div>
+                <div class="price_product">
+                    <s class="price_offer">{{Simbolo}} {{PrecioTachado}}</s>
+                    <span class="price">Precio para ti <b>{{Simbolo}} {{PrecioString}}</b></span>
+                    <span class="comment">Gana {{Simbolo}} {{Ganancia}}</span>
+                </div>
+                <div class="comentarios_best_seller_ficha">
+                    <div id="last-commentary-{{EstrategiaID}}">
+                        <br />
+                    </div>
+                    <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
+                </div>
+                <!--COLOR TONO-->
+                <div class="content_tono_bestSeller">
+                    <div class="item_tono_best">
+                        <div class="cantidad_item_tono">x1</div>
+                        <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                        <hr class="clear" />
+                        <div class="color_tono_item"></div>
+                        <div class="color_texto_item">Rojo Pimienta</div>
+                    </div>
+                    <div class="item_tono_best">
+                        <div class="cantidad_item_tono">x1</div>
+                        <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                        <hr class="clear" />
+                        <div class="color_tono_item"></div>
+                        <div class="color_texto_item">Rojo Pimienta</div>
                     </div>
                 </div>
-                <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
-                <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
-                <a class="cancelar_comentario">CANCELAR</a>
-            </div>
-            <!--CONFIRMACIÓN COMENTARIOS-->
-            <div class="content_confirmacion_comentario">
-                <div class="icono_check_comentario"></div>
-                <div class="titulo_principal_comentarios extra_titulo">¡TU COMENTARIO SE ENVIÓ CON ÉXITO!</div>
-                <div class="subtexto_comentario" style="font-size:14px;">Válidaremos el contenido y en menos de 48 horas se publicará.</div>
-                <a class="btn_cerrar_comentario">CERRAR</a>
-            </div>
-            <!--FIN-->
-        </div>
-        <!--COMENTARIO VISIBLES USUARIO-->
-        <div class="ContentcomentariosVisibles">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="rateyo-readonly-widg"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
-            </div>
-            <hr class="clear" />
-            <div class="comentario_realizado_usuario">
-                Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui. 
-                Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei, 
-                sonet splendide consectetuer in sed. 
-                <a class="mostrar_total_comentario">Leer más</a>
+                <!--FIN-->
             </div>
         </div>
-        <div class="ContentcomentariosVisibles">
-            <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
-            <div class="datos_usuario_comentario">
-                <div class="rateyo-readonly-widg"></div>
-                <div class="nombre_usuario_comentario">Sandra Arce</div>
-                <div class="fecha_comentario">03 Junio 2017</div>
-            </div>
-            <hr class="clear" />
-            <div class="comentario_realizado_usuario">
-                Lorem ipsum dolor sit amet, te solet quidam ancillae qui, persius efficiendi ea qui.
-                Sonet tamquam intellegat in eum, facer nulla id pro. Eam inani utinam soluta ei,
-                sonet splendide consectetuer in sed.
-                <a class="mostrar_total_comentario">Leer más</a>
-            </div>
-        </div>
-       
     </div>
-</div>
-<!--REDES SOCIALES-->
-<div class="share_social_nertwoks">    
-    <div class="title">Comparte este set con tus clientes</div>
-    <div class="content_redes_ficha">
-        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-            <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-        </a>
-        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-            <img src="/Content/Images/Mobile/Esika/facebook.png">
-        </a>
-    </div>
-</div>
-<!--AGREGAR-->
-<div class="content_btn_agregar">    
-    <div class="content_320">
-        <div class="content_cantidad_ficha_producto">
-            <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-            <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-            <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-        </div>
-        <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
-        <hr class="clear">
-    </div>
-</div>
+</script>
 
-@section scripts{
-    <script type="text/javascript">
-        $(document).ready(function () {
+    @section scripts{
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-            $('.variable-width').on('init', function (event, slick) {
-                setTimeout(function () {
-                    slick.setPosition();
-                    slick.slickGoTo(1);
-                }, 500);
+                $('.variable-width').on('init', function (event, slick) {
+                    setTimeout(function () {
+                        slick.setPosition();
+                        slick.slickGoTo(1);
+                    }, 500);
+                });
+
+                $('.variable-width').slick({
+                    dots: true,
+                    infinite: false,
+                    speed: 300,
+                    slidesToShow: 2,
+                    centerPadding: '0px',
+                    centerMode: true,
+                    variableWidth: true,
+                    slidesToScroll: 1,
+                    centerMode: true,
+                    arrows: false,
+                    dots: false,
+                });
+                $(".termino_condiciones_intriga").click(function () {
+                    $(this).toggleClass('check_intriga');
+                    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                    }
+                });
             });
-
-            $('.variable-width').slick({
-                dots: true,
-                infinite: false,
-                speed: 300,
-                slidesToShow: 2,
-                centerPadding: '0px',
-                centerMode: true,
-                variableWidth: true,
-                slidesToScroll: 1,
-                centerMode: true,
-                arrows: false,
-                dots: false,
-            });
-        $(".termino_condiciones_intriga").click(function () {
-            $(this).toggleClass('check_intriga');
-            if (typeof intrigaAceptoTerminos !== 'undefined') {
-                intrigaAceptoTerminos = !intrigaAceptoTerminos;
-            }
-        });
-    });
             $(function () {
                 var rating = 1.6;
                 $(".rateyo-readonly-widg").rateYo({
@@ -286,10 +317,15 @@
                     spacing: "7px",
                     fullStar: true
                 })
-                
+
             });
-    </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-    
-}
+        </script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
+        <script type="text/javascript">
+            var tipoOrigenEstrategia = 1;
+            var tieneMasVendidos = 1;
+            var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
+        </script>
+
+    }
