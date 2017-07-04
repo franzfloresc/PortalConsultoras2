@@ -102,13 +102,13 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
-function CargarCarouselMasVendidos(origen) {
+function CargarCarouselMasVendidos(origen) {    
     var dataMasVendidos = get_local_storage("data_mas_vendidos");
     if (typeof dataMasVendidos !== 'undefined' && dataMasVendidos != null) {
         $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
         ArmarCarouselMasVendidos(dataMasVendidos);
         inicializarDivMasVendidos(origen);
-        $('div.content_mas_vendidos').show();
+        _validarDivTituloMasVendidos();
         return;
     }
     $.ajax({
@@ -121,7 +121,7 @@ function CargarCarouselMasVendidos(origen) {
             $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');            
             ArmarCarouselMasVendidos(data);
             inicializarDivMasVendidos(origen);
-            $('div.content_mas_vendidos').show();
+            _validarDivTituloMasVendidos();
         },
         error: function (error) {
             $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
@@ -964,7 +964,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
-                            if (tieneMasVendidos === 1) {
+                            if (_validartieneMasVendidos() === 1) {
                                 //CargarCarouselMasVendidos('desktop');
                             }
                             
@@ -998,7 +998,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             else {
                                 CargarCarouselEstrategias(cuv);
 
-                                if (tieneMasVendidos === 1) {
+                                if (_validartieneMasVendidos() === 1) {
                                     //CargarCarouselMasVendidos('mobile');
                                 }
                             }
@@ -1080,6 +1080,30 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
+function _validarDivTituloMasVendidos() {
+    let tieneMasVendidosFlag = _validartieneMasVendidos();
+    let model = get_local_storage("data_mas_vendidos");
+    let lista = [];
+
+    if (model !== 'undefined' && model !== null) {
+        lista = model.Lista;
+    }
+
+    if (tieneMasVendidosFlag === 0) {
+        $(".content_mas_vendidos").hide();
+        return;
+    }    
+
+    if (tieneMasVendidosFlag === 1) {
+        if (lista.length === 0) {
+            $(".content_mas_vendidos").hide();
+        }
+        else {
+            $(".content_mas_vendidos").show();
         }
     }
 }
