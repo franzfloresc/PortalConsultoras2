@@ -284,7 +284,7 @@
     /*width: 415px;*/
     width: 100%;
     height: 100vh;
-    top: 0px;
+    bottom: 0px;
     position: absolute;
     background: url(../../../Images/mujer-seccion-revista-bienvenida.png) no-repeat -153px 8px;
     background-size: contain;
@@ -564,7 +564,7 @@
     left:30px;
     background:white;
     z-index: 20;
-    padding:60px 20px 10px 20px;
+    /*padding:0px 20px 10px 20px;*/
 
 }
 .content_set_imagen_banner{
@@ -600,9 +600,10 @@
     margin-bottom: 11px;
 }
 .etiqueta_nuevo_ept{
-    position: absolute;
+    /*position: absolute;
     left: 30px;
-    top: 29px;
+    top: 29px;*/
+    text-align: left;
     z-index: 30;
 }
 .fondo_imagen_set{
@@ -1334,7 +1335,7 @@
 }
 
 .lanzamiento-view-detalle{
-    width: 35%;
+    width: 38%;
     display: inline-block;
     text-align: center;
 }
@@ -1342,8 +1343,9 @@
 .lanzamiento-view-detalle .revistadigital-landing {
     width: 100%;
 }
-.lanzamiento-view-detalle .content_item_carrusel{
+.lanzamiento-view-detalle .content_item_carrusel {
     height: auto;
+    width: 100%;
 }
 .lanzamiento-view-detalle .nombre_producto{
     max-width: 100%;
@@ -1365,7 +1367,9 @@
 }
 
 
-
+.rd_btn{
+    height:45px;
+}
 .rd_logo {
 	background: rgba(233,27,55,1);
 	background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
@@ -1377,6 +1381,7 @@
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e91b37', endColorstr='#9d071d', GradientType=1 );
 	text-align: center;
 	position: relative;
+    z-index:1;
 }
 .rd_logo:after {
 	content: '';
@@ -1406,6 +1411,7 @@
 	letter-spacing: 0.5px;
 	line-height: 15px;
 }
+
 /* BTN DIAGONAL*/
 .btn_diagonal{
 	overflow: hidden;
@@ -1429,13 +1435,43 @@
 .btn_diagonal:hover::after {
   transform: translateY(40%) translateX(-38px) rotate(-75deg);
 }
+/* boton rojo */
+.rd_btn_rojo {
+    background: #e81c36;
+    width: 260px;
+    left: 50%;
+    margin-left: -130px;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+}
+.rd_btn_rojo:after {
+    background: rgba(233,27,55,1);
+    background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(233,27,55,1)), color-stop(31%, rgba(233,27,55,1)), color-stop(100%, rgba(157,7,29,1)));
+    background: -webkit-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -o-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: -ms-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+    background: linear-gradient(135deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
+}
+/* fin boton rojo*/
+
+.rd_arrowright_blanco {
+    display: none
+}
+.btn_diagonal:hover .rd_arrowright {
+    display: none;
+}
+.btn_diagonal:hover .rd_arrowright_blanco {
+    display: block;
+}
 .btn_diagonal a {
-	height: 45px;
-	display: block;
-	text-align: center;
-	text-decoration: none;
-	line-height: 45px;
-	transition: all 0.6s ease-in-out;
+    height: 45px;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    line-height: 45px;
+    transition: all 0.6s ease-in-out;
 }
 /*BTN STROKE BLACK*/
 .btn_stroke {
@@ -1454,6 +1490,25 @@
 .btn_stroke:after {
     background: black;
 }
+
+/*BTN STROKE WHITE*/
+
+.btn_stroke_white {
+    background: transparent;
+    width: 260px;
+    border: 1px solid white;
+    color: white;
+    font-size: 13px;
+}
+.btn_stroke_white:hover a {
+    color: black;
+}
+.btn_stroke_white:after {
+    background: white;
+}
+
+
+        
 /* POPUP REVISTA DIGITAL */
 .popup_rd {
     height: 440px;
@@ -2042,6 +2097,7 @@
     font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .content_item_home_bpt {
@@ -2052,4 +2108,326 @@
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     position: relative;
+}
+
+/* PASE PEDIDO INSCRITAS C-11 */
+.banner_pedido_rd {
+    font-family: 'Lato';
+    float: right;
+    /*width: 28.1%;*/
+    position: relative;
+    background-color: #F6F6F6;
+    height: auto;
+    box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.cabecera_pedido_rd {
+    background-color: black;
+}
+
+.cabecera_pedido_rd .rd_logo {
+    width: 120px;
+    height: 85px;
+    padding-top: 20px;
+}
+
+.cabecera_pedido_rd .rd_logo:after {
+    border-left: 20px solid transparent;
+    border-right: 0px solid transparent;
+    border-bottom: 85px solid #000;
+}
+
+.cabecera_pedido_text {
+    color: white;
+    position: absolute;
+    top: 25px;
+    left: 40%;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.banner_pedido_masofertas {
+    padding: 25px 20px;
+    text-align: center;
+}
+
+.banner_pedido_text {
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 70px;
+    text-transform: uppercase;
+}
+
+.banner_pedido_masofertas .btn_diagonal {
+    background: white;
+    width: 70%;
+    position: absolute;
+    left: 50%;
+    bottom: 25px;
+    margin-left: -35%;
+}
+
+.banner_pedido_masofertas .btn_diagonal:after {
+    background: black;
+    color: white;
+}
+
+.banner_pedido_masofertas .btn_diagonal a {
+    color: black;
+    transition: all 0.2s ease-in-out;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    position: relative;
+    text-align: center;
+}
+
+.banner_pedido_masofertas .btn_diagonal:hover a {
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.banner_pedido_masofertas .btn_diagonal:hover a .rd_arrowright {
+    animation: bounceRight 1.2s infinite;
+}
+
+.banner_pedido_masofertas .btn_diagonal:hover::after {
+    transform: translateY(40%) translateX(-100%) rotate(-75deg);
+}
+
+.banner_pedido_masofertas .btn_diagonal img {
+    position: relative;
+    top: 2px;
+    margin-left: 5px;
+    height: 15px;
+}
+
+
+/*@media screen and (max-width: 1092px) {
+    .banner_pedido_rd {
+        width: 30.9% !important;
+    }
+}*/
+
+.home_rd1 {
+    background-color: #FFF;
+}
+
+    .home_rd1 .content_belcorp {
+        box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .home_rd1 .btn_diagonal {
+        background: white;
+        width: 240px;
+        position: absolute;
+        top: 43px;
+        right: 30px;
+    }
+
+        .home_rd1 .btn_diagonal:after {
+            background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+            background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+        }
+
+        .home_rd1 .btn_diagonal a {
+            color: black;
+            transition: all 0.2s ease-in-out;
+            font-size: 13px;
+            letter-spacing: 1.2px;
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        .home_rd1 .btn_diagonal:hover a {
+            color: white;
+            transition: all 0.2s ease-in-out;
+        }
+
+            .home_rd1 .btn_diagonal:hover a .rd_arrowright, .home_rd1 .btn_diagonal:hover a .rd_arrowright_blanco {
+                animation: bounceRight 1.2s infinite;
+            }
+
+    .home_rd1 .rd_arrowright, .home_rd1 .rd_arrowright_blanco {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        height: 12px;
+        width: 8px;
+    }
+
+@media screen and (max-width: 1220px) {
+    .home_rd1 .content_belcorp {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 2.4%;
+        margin-right: 2.4%;
+    }
+}
+
+.home_rd {
+    background-color: rgba(233,27,55,1);
+}
+
+.home_rd .content_belcorp {
+    /*box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.2);*/
+}
+
+.home_rd .btn_diagonal {
+    background: white;
+    width: 240px;
+    position: absolute;
+    top: 43px;
+    right: 30px;
+}
+
+.home_rd .btn_diagonal:after {
+    background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);rgba(233,27,55,1)
+    background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
+}
+
+.home_rd .btn_diagonal a {
+    color: black;
+    transition: all 0.2s ease-in-out;
+    font-size: 13px;
+    letter-spacing: 1.2px;
+    position: relative;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.home_rd .btn_diagonal:hover a {
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.home_rd .btn_diagonal:hover a .rd_arrowright, .home_rd .btn_diagonal:hover a .rd_arrowright_blanco {
+    animation: bounceRight 1.2s infinite;
+}
+
+.home_rd .rd_arrowright, .home_rd .rd_arrowright_blanco {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    height: 12px;
+    width: 8px;
+}
+
+@media screen and (max-width: 1220px) {
+    .home_rd .content_belcorp {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 2.4%;
+        margin-right: 2.4%;
+    }
+}
+
+
+/* CATÁLOGOS */
+.rd_catalogos {
+    background-color: black;
+    width: 530px;
+    height: 180px;
+    font-family: 'Lato';
+    font-size: 18px;
+    position: relative;
+}
+
+    .rd_catalogos .rd_logo {
+        height: 180px;
+        width: 122px;
+    }
+
+        .rd_catalogos .rd_logo:after {
+            border-bottom: 180px solid #000;
+        }
+
+    .rd_catalogos .hblock_text {
+        left: 130px;
+        text-align: left;
+    }
+
+    .rd_catalogos .btn_diagonal {
+        top: 28px;
+        left: 0;
+        position: relative;
+    }
+
+    .rd_catalogos b {
+        font-size: 18px;
+    }
+    /* FIN CATÁLOGOS */
+
+
+    .rd_catalogos .btn_stroke_white {
+        background: transparent;
+        width: 240px;
+        border: 1px solid white;
+        color: white;
+        font-size: 13px;
+    }
+
+        .rd_catalogos .btn_stroke_white:hover a {
+            color: black;
+        }
+
+        .rd_catalogos .btn_stroke_white a {
+            color: white;
+        }
+
+        .rd_catalogos .btn_stroke_white:after {
+            background: white;
+        }
+
+
+ /* POP UP RD BLOQUEADO */
+ .popup_rd_bloqueado {
+ 	font-family: 'Lato';
+    background-color: #F6F6F6;
+    width: 100%;
+    max-width: 500px;
+    max-height: 610px;
+    position: relative;
+    top: 50%;
+    margin: auto;
+    margin-top: -295px;
+    padding: 40px;
+    text-align: center;
+ }
+ .popup_rd_bloqueado .box_producto {
+ 	max-height: 305px;
+ 	margin: 15px 0;
+ 	background-color: #fff;
+ }
+ .popup_rd_bloqueado .popup_text {
+ 	margin: 10px 48px;
+    font-size: 16px;
+    line-height: 20px;
+    color: black;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+ }
+ .popup_rd_bloqueado a {
+ 	transition: all 0.2s ease-in-out;
+ }
+.popup_rd_bloqueado a:hover {
+	font-weight: 700;
+	transition: all 0.2s ease-in-out;
+}
+.popup_rd_bloqueado .rd_ver_mas:after {
+    content: "";
+    background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
+    background-repeat: no-repeat;
+    background-size: 10px 14px;
+    display: inline-block;
+    width: 10px;
+    position: absolute;
+    height: 14px;
+    margin-left: 8px;
+    margin-top: 4px;
 }

@@ -1605,6 +1605,7 @@
       <xs:element minOccurs="0" name="ConsultoraCodigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraSaldo" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DocumentoIdentidad" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsRechazado" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacion" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoValidacionNombre" nillable="true" type="xs:string" />

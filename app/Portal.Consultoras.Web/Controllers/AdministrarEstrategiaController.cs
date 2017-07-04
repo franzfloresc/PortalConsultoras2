@@ -1099,14 +1099,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
-
-            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-            }
-
+            
             return lst;
         }
 
