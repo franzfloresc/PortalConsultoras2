@@ -28,12 +28,12 @@
 <div class="section_comentarios">
     <div class="content_belcorp">
         <div class="titulo_principal_comentarios">COMENTARIOS</div>
-        <div style="text-align:center;"><div class="rateyo-comentarios-resumen"></div></div>
-        <div class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
+        <div style="text-align:center;"><div id="star_promedio_valorizado" class="rateyo-readonly-comentarios"></div></div>
+        <div id="texto1_recomiendan" class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
         <div class="content_filtros_bestSeller">
             <select id="ddlFiltro" class="select_bestSeller">
-                <option value="1">NUEVOS</option>
-                <option value="2">ANTIGUOS</option>
+                <option value="2">NUEVOS</option>
+                <option value="1">ANTIGUOS</option>
             </select>
             <div class="texto_filtros_bestSeller">ORDENAR POR</div>
         </div>
@@ -195,6 +195,15 @@
                 spacing: "5px",
                 readOnly: true
             })
+
+            //$(".rateyo-readonly-comentarios").rateYo({
+            //    //rating: 4.5,               
+            //    precision: 2,
+            //    minValue: 1,
+            //    maxValue: 5,                
+            //    starWidth: "33px",
+            //    readOnly: true
+            //})
         });
         $(document).ready(function () {
             bestSellerCommentModule.ini({

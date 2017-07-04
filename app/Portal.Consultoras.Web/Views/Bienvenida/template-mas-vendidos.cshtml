@@ -12,16 +12,16 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    {{#iff DescripcionResumen '!=' ''}}
+                    {{#IsNullOrEmpty DescripcionResumen '!='}}
                     <p class="nombre_producto">
                         <b>{{DescripcionResumen}}</b>
                     </p>
-                    {{/iff}}
-                    {{#iff DescripcionCortada '!=' ''}}
+                    {{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty DescripcionCortada '!='}}
                     <p class="nombre_producto">
                         <b>{{DescripcionCortada}}</b>
                     </p>
-                    {{/iff}}
+                    {{/IsNullOrEmpty}}
 
                     <div class="producto_precio">
                         {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}

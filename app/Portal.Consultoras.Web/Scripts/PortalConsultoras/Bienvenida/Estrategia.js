@@ -108,6 +108,7 @@ function CargarCarouselMasVendidos(origen) {
         $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
         ArmarCarouselMasVendidos(dataMasVendidos);
         inicializarDivMasVendidos(origen);
+        $('div.content_mas_vendidos').show();
         return;
     }
     $.ajax({
@@ -120,6 +121,7 @@ function CargarCarouselMasVendidos(origen) {
             $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');            
             ArmarCarouselMasVendidos(data);
             inicializarDivMasVendidos(origen);
+            $('div.content_mas_vendidos').show();
         },
         error: function (error) {
             $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
@@ -963,7 +965,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
                             if (tieneMasVendidos === 1) {
-                                CargarCarouselMasVendidos('desktop');
+                                //CargarCarouselMasVendidos('desktop');
                             }
                             
                             CargarResumenCampaniaHeader(true);
@@ -997,7 +999,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 CargarCarouselEstrategias(cuv);
 
                                 if (tieneMasVendidos === 1) {
-                                    CargarCarouselMasVendidos('mobile');
+                                    //CargarCarouselMasVendidos('mobile');
                                 }
                             }
                         }
@@ -1075,7 +1077,7 @@ function AbrirMensajeEstrategia(txt) {
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
-    if (paginaOrigenCupon) {
+    if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
         }

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using System.Web.Mvc;
-using static Portal.Consultoras.Common.Enumeradores;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -169,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (result>0)
                 {
                     var message = "Se {0} el comentario con éxito.";
-                    message = (EstadoProductoComentario)estadoProductoComentarioId == EstadoProductoComentario.Aprobado ?
+                    message = (Enumeradores.EstadoProductoComentario)estadoProductoComentarioId == Enumeradores.EstadoProductoComentario.Aprobado ?
                         string.Format(message, "APROBÓ") : 
                         string.Format(message, "RECHAZÓ");
 
@@ -178,7 +177,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     var message = "NO se pudo {0} el comentario.";
-                    message = (EstadoProductoComentario)estadoProductoComentarioId == EstadoProductoComentario.Aprobado ?
+                    message = (Enumeradores.EstadoProductoComentario)estadoProductoComentarioId == Enumeradores.EstadoProductoComentario.Aprobado ?
                         string.Format(message, "APROBAR") :
                         string.Format(message, "RECHAZAR");
 
