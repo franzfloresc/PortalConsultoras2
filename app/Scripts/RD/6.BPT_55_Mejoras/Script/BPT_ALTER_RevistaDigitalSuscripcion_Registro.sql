@@ -19,8 +19,6 @@ BEGIN
 	set @RetornoID = 0
 	set @EstadoRegistro = case when @EstadoRegistro <= 0 then 1 else @EstadoRegistro end
 
-	-- este store se considera para Suscripcion y Desuscripcion, cambiar para considerar ambos estados
-
 	IF NOT EXISTS(SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID)
 	BEGIN
   		INSERT INTO RevistaDigitalSuscripcion(	
@@ -52,13 +50,13 @@ BEGIN
 		UPDATE RevistaDigitalSuscripcion 
 		SET  FechaSuscripcion =  case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else FechaSuscripcion end
 			,FechaDesuscripcion = case when @EstadoRegistro = 2  then dbo.fnObtenerFechaHoraPais() else FechaDesuscripcion end
+			,EstadoEnvio = case when @EstadoRegistro = EstadoRegistro then EstadoEnvio else 0 end
 			,EstadoRegistro = @EstadoRegistro
 			,IsoPais = @IsoPais
 			,CodigoZona = @CodigoZona
 			,EMail = @EMail
 			,@RetornoID = RevistaDigitalSuscripcionID
 		WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID
-		--SET @RetornoID = (SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora);
 	END 
 
 	INSERT INTO SuscripcionHistorial (Codigo, CodigoConsultora, Accion, Fecha)
