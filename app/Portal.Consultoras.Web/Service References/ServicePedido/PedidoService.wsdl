@@ -470,6 +470,12 @@
   <wsdl:message name="IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateCuponConsultoraEnvioCorreoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarEtiqueta_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarEtiqueta" />
   </wsdl:message>
@@ -2305,6 +2311,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreoResponse" message="tns:IPedidoService_UpdateCuponConsultoraEnvioCorreo_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarEtiqueta">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarEtiqueta" message="tns:IPedidoService_InsertarEtiqueta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarEtiquetaResponse" message="tns:IPedidoService_InsertarEtiqueta_OutputMessage" />
@@ -4005,6 +4015,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateCuponConsultoraEnvioCorreo">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdateCuponConsultoraEnvioCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

@@ -93,6 +93,7 @@
     <Compile Include="BLCuponConsultora.cs" />
     <Compile Include="BLProactivaChatbot.cs" />
     <Compile Include="BLConfiguracionPais.cs" />
+    <Compile Include="BLReporteValidacion.cs" />
     <Compile Include="BLConfiguracionPaisDetalle.cs" />
     <Compile Include="BLReservaProl.cs" />
     <Compile Include="BLEstrategiaProducto.cs" />

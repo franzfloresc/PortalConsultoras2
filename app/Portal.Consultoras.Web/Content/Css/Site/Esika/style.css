@@ -21324,9 +21324,9 @@ label.checkpop.c_on {
     text-align: center;
     border: 2px solid #000;
     font-size: 13px; 
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 } 
 
 .liquidacion_rango_home{
@@ -34145,9 +34145,9 @@ h1#penmostreo .campana {
     font-weight:300;
 }
 .btn_aregar_set {
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
     /*width: 82%;*/
     float: right;
     /* text-align: right; */
@@ -34797,9 +34797,9 @@ h1#penmostreo .campana {
     margin-bottom:14px;
 }
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta{
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 }
 /*.content_780_ODD .content_item_carrusel_ODD:last-child{
     float:right;

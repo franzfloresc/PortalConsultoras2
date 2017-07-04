@@ -1031,7 +1031,6 @@ namespace Portal.Consultoras.Web.Controllers
                         model.EditarDireccionModel.LugaresNivel2 = new SelectList(lugaresNivel2, "IdParametroUnete", "Nombre", "");
                     }
 
-
                 if ((!solicitudPostulante.Direccion.Contains('|') && solicitudPostulante.Direccion.Contains(',')) || (solicitudPostulante.Direccion == string.Empty))
                 {
                         DirCalleOAvenida = solicitudPostulante.Direccion;
@@ -1089,7 +1088,6 @@ namespace Portal.Consultoras.Web.Controllers
                     DireccionConcatenada = solicitudPostulante.Direccion.Contains('|') ? solicitudPostulante.Direccion.Split('|') :
                                             solicitudPostulante.Direccion.Contains(',') ? solicitudPostulante.Direccion.Split(',') : new string[1] { solicitudPostulante.Direccion };
                 }
-
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.LugarPadre) || !string.IsNullOrEmpty(solicitudPostulante.LugarHijo))
                     {

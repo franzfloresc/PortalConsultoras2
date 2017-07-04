@@ -1115,7 +1115,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #endregion
 
-
-
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
     }
 }
