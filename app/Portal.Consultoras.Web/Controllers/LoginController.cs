@@ -852,6 +852,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                                     {
+                                        model.RevistaDigital.TieneRDC = true;
+
                                         var rds = new BERevistaDigitalSuscripcion
                                         {
                                             PaisID = model.PaisID,
@@ -860,7 +862,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         using (PedidoServiceClient sv1 = new PedidoServiceClient())
                                         {
                                             model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            rds.CampaniaID = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), -1, model.NroCampanias);
+                                            model.RevistaDigital.SuscripcionAnterior1Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            rds.CampaniaID = AddCampaniaAndNumero(Convert.ToInt32(model.CampaniaID), -2, model.NroCampanias);
+                                            model.RevistaDigital.SuscripcionAnterior2Model = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
                                         }
+
+                                        continue;
                                     }
 
                                     // model.FechaFinCampania; fecha de fin de  la campaña
@@ -868,41 +876,52 @@ namespace Portal.Consultoras.Web.Controllers
                                     // Validacion de la fecha de cierre de campaña y  del idestadoactividad
                                     // metodo GetDiasFaltantesFacturacion => model.FechaActualPais.Date >= model.FechaInicioCampania.Date
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
-                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
-                                        && model.FechaActualPais.Date < model.FechaInicioCampania.Date
-                                        )
+                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        //obtiene datos de Revista digital suscripcion.
-                                        var rds = new BERevistaDigitalSuscripcion
+                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date)
                                         {
-                                            PaisID = model.PaisID,
-                                            CodigoConsultora = model.CodigoConsultora
-                                        };
-                                        using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                        {
-                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            model.RevistaDigital.TieneRDS = true;
+                                            //obtiene datos de Revista digital suscripcion.
+                                            var rds = new BERevistaDigitalSuscripcion
+                                            {
+                                                PaisID = model.PaisID,
+                                                CodigoConsultora = model.CodigoConsultora
+                                            };
+                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                            {
+                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                            }
+
+                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+
+                                            //se verifica que el usuario tiene una suscripcion activa
+                                            if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = true;
+                                            }
+                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = false;
+                                            }
+                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                                            {
+                                                model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
+                                            }
                                         }
 
-                                        model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                                        continue;
+                                    }
 
-                                        //se verifica que el usuario tiene una suscripcion activa
-                                        if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = true;
-                                        }
-                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = false;
-                                        }
-                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
-                                        {
-                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
-                                        }
+                                    if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                                    {
+                                        model.RevistaDigital.TieneRDR = true;
+                                        continue;
                                     }
                                 }
 
                             }
                         }
+                        
                         catch (Exception)
                         {
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
@@ -1077,34 +1096,15 @@ namespace Portal.Consultoras.Web.Controllers
             string IP = string.Empty;
             try
             {
-                string ipAddress = string.Empty;
-
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
-                }
-
-                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-                }
-
-                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
-                }
-
-                if (ipAddress.IndexOf(":") > 0)
-                {
-                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
-                }
-
-                return ipAddress;
+                // EPD-2929 Clase para Obtener la IP del cliente
+                var HttpRequestBase = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+                IP = ClientIP.ClientIPFromRequest(HttpRequestBase, true);
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
             }
+
             return IP;
         }
 
@@ -1832,6 +1832,22 @@ namespace Portal.Consultoras.Web.Controllers
         private JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+
+        protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
+        {
+            int anioCampania = campania / 100;
+            int nroCampania = campania % 100;
+            int sumNroCampania = (nroCampania + numero) - 1;
+            int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
+            int nroCampaniaResult = (sumNroCampania % nroCampanias) + 1;
+
+            if (nroCampaniaResult < 1)
+            {
+                anioCampaniaResult = anioCampaniaResult - 1;
+                nroCampaniaResult = nroCampaniaResult + nroCampanias;
+            }
+            return (anioCampaniaResult * 100) + nroCampaniaResult;
         }
     }
 }

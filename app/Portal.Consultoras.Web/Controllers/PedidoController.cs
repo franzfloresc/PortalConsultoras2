@@ -406,6 +406,15 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
 
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+                ViewBag.NombreConsultora = userData.Sobrenombre;
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
@@ -513,6 +522,28 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                if(!string.IsNullOrEmpty(model.ClienteID))
+                {
+                    int ClienteID = Convert.ToInt32(model.ClienteID);
+
+                    if (ClienteID > 0)
+                    {
+                        using (ClienteServiceClient service = new ClienteServiceClient())
+                        {
+                            var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, ClienteID, 0);
+                            if (cliente.TieneTelefono == 0)
+                            {
+                                return Json(new
+                                {
+                                    success = false,
+                                    message = "Debe actualizar los datos del cliente.",
+                                    errorCliente = true
+                                });
+                            }
+                        }
+                    }
+                }
+
                 #region validar cuv de inicio obligatorio
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
                 if ((userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada
@@ -749,6 +780,23 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Update(PedidoWebDetalleModel model)
         {
+            if (model.ClienteID > 0)
+            {
+                using (ClienteServiceClient service = new ClienteServiceClient())
+                {
+                    var cliente = service.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, model.ClienteID, 0);
+                    if (cliente.TieneTelefono == 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Debe actualizar los datos del cliente.",
+                            errorCliente = true
+                        });
+                    }
+                }
+            }
+
             string message = string.Empty;
             BEPedidoWebDetalle oBEPedidoWebDetalle = new BEPedidoWebDetalle();
             oBEPedidoWebDetalle.PaisID = userData.PaisID;
@@ -1415,6 +1463,40 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
+                try
+                {
+                    var codigoEstrategia = "";
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        codigoEstrategia =
+                            sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                    }
+                    if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi ==
+                                                     codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ==
+                                                     codigoEstrategia))
+                    {
+                        if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                              || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                        {
+                            olstProductoModel.Add(new ProductoModel()
+                            {
+                                MarcaID = 0,
+                                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                                TieneSugerido = 0
+                            });
+                            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
+                }
+                
+
+
                 var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
                 if (estrategia.TipoEstrategiaImagenMostrar == @Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi)
@@ -1807,7 +1889,12 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 
@@ -1841,7 +1928,12 @@ namespace Portal.Consultoras.Web.Controllers
                     olstClienteModel.Add(new ClienteModel()
                     {
                         ClienteID = item.ClienteID,
-                        Nombre = item.Nombre
+                        Nombre = item.Nombre,
+                        TieneTelefono = item.TieneTelefono,
+                        CodigoCliente = item.CodigoCliente,
+                        eMail = item.eMail,
+                        Telefono = item.Telefono,
+                        Celular = item.Celular
                     });
                 }
 
@@ -2984,7 +3076,7 @@ namespace Portal.Consultoras.Web.Controllers
                 /*EPD-1252*/
 
                 //EPD-2248
-                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico indPedidoAutentico = new Portal.Consultoras.Web.ServicePedido.BEIndicadorPedidoAutentico();
                 indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
                 indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
                 indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;

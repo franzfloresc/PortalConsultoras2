@@ -9,6 +9,11 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <style>
+        #divAgregarCliente {
+            display:none
+        }
+    </style>
 <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
@@ -190,6 +195,7 @@
 
         </div>
     </div>
+
     <!--CONSULTORA ONLINE-->
     @if (ViewBag.CantPedidosPendientes > 0)
     {
@@ -209,7 +215,8 @@
 
 
     <!--INICIO CARRUSEL-->
-    <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
+    <div id="divListaEstrategias" style="display: none;">
+        <div id="contenedor_template_estrategia_cabecera"></div> 
         <div class="row contenedorCupon" id="">
             <div class="label_cupon contenedorCuponConocelo">
                 <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
@@ -232,6 +239,7 @@
         <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
             <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
         </div>
+        
     </div>
     <!--FIN CARRUSEL-->
 
@@ -348,7 +356,12 @@
 <!--SB20-483 - FIN -->
 
 <!-- POPUP AGREGAR CLIENTE -->
-<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+<div class="contenedor_popup_clientes modal" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
+</div>
+@*<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarMantenerCliente();">
@@ -378,7 +391,7 @@
         </div>
         <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
     </div>
-</div>
+</div>*@
 <!-- FIN POPUP AGREGAR CLIENTE -->
 
 <!-- POPUP CLIENTE AGREGADO -->
@@ -397,7 +410,7 @@
 <!-- FIN POPUP CLIENTE AGREGADO -->
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -726,6 +739,12 @@
         var vbSimbolo = simbolo;
         var productoSugerido = false
         var productoAgotado = false;
+
+    var tipoOrigenEstrategia = 21;
+    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+
+    var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;
@@ -739,8 +758,8 @@
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
     </script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+    <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

@@ -1917,7 +1917,16 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 }
 
 #divNotiNombre, #divNotiNombre2 {
-    top: 25.1%;
+    /*top: 25.1%;*/
+    top: 15.1%;
+}
+
+#divNotiCorreo, #divNotiCorreo2 {
+    top: 50.1%
+}
+
+#divValidationSummary, #divValidationSummary2{
+    color:red
 }
 
 .noti.mensaje_producto_noExiste:after, .noti.mensaje_producto_noExiste:before {
@@ -3768,12 +3777,14 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     left:50%;
     right:0%;
     bottom:0%;
-    margin-top:-173px;
+    /*margin-top: -173px;*/
+    margin-top: -273px;
     margin-left:-223px;
     background:#FFF;
     width:100%;
     max-width:446px;
-    height:346px;
+    /*height: 346px;*/
+    height:520px;
     padding-top:60px;
     box-sizing:border-box;
 }
@@ -26154,8 +26165,17 @@ div.subir_archivo input {
     color:#333333;
     letter-spacing:0.25px;
 }
+.icono_cliente_sb{
+    width: 3%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
 .nombre_cliente_sb{
-    width:37%;
+    width: 20%;
     display:inline-block;
     vertical-align:middle;
     padding-left:15px;
@@ -26163,8 +26183,24 @@ div.subir_archivo input {
     padding-bottom:23px;
 }
 
+.telefonofijo_cliente_sb {
+    width: 19%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+.celular_cliente_sb {
+    width: 19%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
 .correo_clientes{
-    width: 46%;
+    width: 20%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
@@ -26203,7 +26239,7 @@ div.subir_archivo input {
     padding-bottom:23px;
 }
 .eliminar_cliente{
-    width:7.9%;
+    width: 8%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -33135,6 +33171,7 @@ h1#penmostreo .campana {
 }
 .btn_desactivado_general{
     background:#d6d6d6 !important;
+    border: none;
 }
 .ficha_btn_agregar{
     width: 358px;

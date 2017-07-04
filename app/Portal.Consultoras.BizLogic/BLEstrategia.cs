@@ -264,6 +264,7 @@ namespace Portal.Consultoras.BizLogic
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
             estrategiasResult.ForEach(estrategia =>
             {
+                estrategia.CampaniaID = entidad.CampaniaID;
                 estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
                 estrategia.Simbolo = entidad.Simbolo;
                 estrategia.TieneStockProl = true;
@@ -392,7 +393,11 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        // 1747 - Fin
+
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
+        {
+            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
+        }
 
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {

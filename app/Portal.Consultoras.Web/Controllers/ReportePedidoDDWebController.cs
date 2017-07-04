@@ -159,6 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
+                            ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                             lst = sv.GetPedidosWebDDNoFacturados(
                                 new BEPedidoDDWeb
                                 {
@@ -214,6 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
                             IndicadorEnviado = item.IndicadorEnviado,
                             PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
                             Region = item.Region,
+                            DocumentoIdentidad = item.DocumentoIdentidad,
                             MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
                         });
                         fila = fila + 1;
@@ -341,13 +343,13 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NroRegistro.ToString(),
                                    a.FechaRegistro.ToString(),
                                    a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
-                                   a.CampaniaCodigo.ToString(),
-                                   a.Seccion.ToString(),
+                                   a.CampaniaCodigo.ToString(),                                   
                                    a.Region,
                                    a.Zona,
+                                   a.Seccion.ToString(),
                                    a.ConsultoraCodigo.ToString(),
                                    a.ConsultoraNombre.ToString(),
-                                   a.PrimeraCampaniaCodigo,
+                                   a.DocumentoIdentidad.ToString(),
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")), // Validación país colombia req. 1478
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")), // GR-846
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")), // Validación país colombia req. 1478
@@ -693,6 +695,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
+                    ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                     lst = sv.GetPedidosWebDDNoFacturados(
                         new BEPedidoDDWeb
                         {
@@ -741,7 +744,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Zona = item.Zona,
                         IndicadorEnviado = item.IndicadorEnviado,
                         Region = item.Region, // 2446
-                        MotivoRechazo = item.MotivoRechazo
+                        MotivoRechazo = item.MotivoRechazo,
+                        DocumentoIdentidad = item.DocumentoIdentidad,
                     });
                     fila = fila + 1;
                 }
@@ -755,15 +759,16 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("FechaRegistro", "Fecha/Hora Ingreso,");
             dic.Add("FechaReserva", "Fecha Reserva,");
             dic.Add("CampaniaCodigo", "Año/Campaña,");
-            dic.Add("Seccion", "Sección,");
             dic.Add("Region", "Región,");
             dic.Add("Zona", "Zona,");
+            dic.Add("Seccion", "Sección,");
             dic.Add("ConsultoraCodigo", "Cod. Consultora,");
             dic.Add("ConsultoraNombre", "Nombre Consultora,");
-            if (UserData().PaisID == 9)
-            {
-                dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
-            }
+            //if (UserData().PaisID == 9)
+            //{
+            //    dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
+            //}
+            dic.Add("DocumentoIdentidad", "Documento Identidad,");
             dic.Add("ImporteTotal", "Monto Total Pedido,");
             dic.Add("ImporteTotalConDescuento", "Monto Total Pedido con Descuento,");
             dic.Add("ConsultoraSaldo", "Saldo,");
@@ -779,12 +784,13 @@ namespace Portal.Consultoras.Web.Controllers
                             a.FechaRegistro,
                             a.FechaReserva,
                             a.CampaniaCodigo,
-                            a.Seccion,
                             a.Region,
                             a.Zona,
+                            a.Seccion,
                             a.ConsultoraCodigo,
                             a.ConsultoraNombre,
-                            a.PrimeraCampaniaCodigo,
+                            //a.PrimeraCampaniaCodigo,
+                            a.DocumentoIdentidad,
                             ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotal.ToString("#,##0").Replace(',', '.') : a.ImporteTotal.ToString("0.00")),
                             ImporteTotalConDescuento = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',', '.') : a.ImporteTotalConDescuento.ToString("0.00")),
                             ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ConsultoraSaldo.ToString("#,##0").Replace(',', '.') : a.ConsultoraSaldo.ToString("0.00")),
