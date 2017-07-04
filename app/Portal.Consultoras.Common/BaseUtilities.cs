@@ -54,17 +54,22 @@ namespace Portal.Consultoras.Common
                 request.Timeout = 5 * 60 * 1000;
                 request.ContentType = contentType;
                 request.ContentLength = data.Length;
+                request.Proxy = null;
 
-                using (var stream = request.GetRequestStream())
+
+
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    stream.Write(data, 0, data.Length);
+                    var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+                    var resultado = (JsonConvert.DeserializeObject<TResult>(result));
+                    return resultado;
                 }
+                // var response = (request.GetResponse()) as HttpWebResponse;
+                //var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-                var response = (request.GetResponse()) as HttpWebResponse;
-                var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
-
-                var resultado = (JsonConvert.DeserializeObject<TResult>(result));
-                return resultado;
+                //var resultado = (JsonConvert.DeserializeObject<TResult>(result));
+                //return resultado;
             }
             catch (Exception ex)
             {

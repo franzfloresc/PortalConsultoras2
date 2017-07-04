@@ -1598,24 +1598,7 @@
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
         var cISO = "@Model.CodigoIso";
         $('#divConsultarUbicacion').empty();
-        if (cISO == 'CL' || cISO == 'MX')
-        {
-            LoadSpinner('divConsultarUbicacion');
-            $('#divConsultarUbicacion').show();
-
-            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID}, function (html) {
-
-                $('#divConsultarUbicacion').html(html);
-                loadExtraData(solicitudPostulanteID);
-
-            }).always(function () {
-
-
-            }).done(function () {
-
-            });
-        }
-        else {
+       
             LoadSpinner('divConsultarUbicacion');
             $('#divConsultarUbicacion').show();
 
@@ -1632,14 +1615,7 @@
 
             }).done(function () {
 
-            });
-        }
-
-        //limpiarPopUps();
-
-        //$('#divConsultarUbicacion').empty();
-        //$('#divConsultarUbicacion').show();
-
+            }); 
         
     }
 
@@ -1694,9 +1670,11 @@
 
     function buildDocsMX(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'IFE'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'IFE Reverso'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
 
+        
     }
 
     function buildDocsCL(solicitudPostulanteID) {

@@ -383,6 +383,49 @@
             $('#divEditarSolicitud').hide();
         });
 
+
+        $("#FechaNacimiento").blur(function () {
+      
+            val = $(this).val();
+
+            var parts = val.split("/");
+            if ($(parts).length == 3) {
+                val1 = Date.parse(parts[1] + "/" + parts[0] + "/" + parts[2] );
+            }
+            else
+            {
+                val1 = Date.parse(val);
+            }
+
+        
+            if (isNaN(val1) == true && val !== '') {
+
+                $("#FechaNacimiento").val('');
+            }
+            else {
+               
+                Utils.Ajax({
+                    url: "@Url.Action("ValidarEdad", "Unete", new {area = ""})",
+                    parametros: {
+                    fechaNacimiento: val,
+                    codigoISO: $("#CodigoPais").val()
+                    }
+            }, function (response) {
+                 
+                if (response)
+                {
+                    if (!response.Success)
+                    {
+                                
+                        if (!($("#FechaNacimiento").val() == "" || $("#FechaNacimiento").val() =="__/__/____")) {
+                            alert('La edad del postulante no esta en el rango correcto.');
+                            $("#FechaNacimiento").val('');
+                        }
+                    }
+                }
+            });               
+        }
+        });
     
         
         $('.numero').keydown(IntegerNumber);
@@ -442,6 +485,49 @@
             fnGrilla();
         }
     }
+
+       $("#FechaNacimiento").blur(function () {
+      
+            val = $(this).val();
+
+            var parts = val.split("/");
+            if ($(parts).length == 3) {
+                val1 = Date.parse(parts[1] + "/" + parts[0] + "/" + parts[2] );
+            }
+            else
+            {
+                val1 = Date.parse(val);
+            }
+
+        
+            if (isNaN(val1) == true && val !== '') {
+
+                $("#FechaNacimiento").val('');
+            }
+            else {
+               
+                 Utils.Ajax({
+                        url: "@Url.Action("ValidarEdad", "Unete", new {area = ""})",
+                        parametros: {
+                            fechaNacimiento: val,
+                            codigoISO: $("#CodigoPais").val()
+                        }
+                    }, function (response) {
+                 
+                        if (response)
+                        {
+                            if (!response.Success)
+                            {
+                                
+                                if (!($("#FechaNacimiento").val() == "" || $("#FechaNacimiento").val() =="__/__/____")) {
+                                    alert('La edad del postulante no esta en el rango correcto.');
+                                    $("#FechaNacimiento").val('');
+                                }
+                            }
+                        }
+                    });               
+            }
+        });
 
 </script>
 <style>
