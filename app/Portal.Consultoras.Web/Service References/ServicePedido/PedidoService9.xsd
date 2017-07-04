@@ -1150,14 +1150,14 @@
   <xs:element name="GetReporteValidacionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q69="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteValidacionResult" nillable="true" type="q69:ArrayOfBEReporteValidacion" />
+        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteValidacionResult" nillable="true" type="q70:ArrayOfBEReporteValidacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarEtiqueta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q70="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q70:BEEtiqueta" />
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q71:BEEtiqueta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1171,14 +1171,14 @@
   <xs:element name="GetEtiquetas">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q71:BEEtiqueta" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q72:BEEtiqueta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetEtiquetasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEtiquetasResult" nillable="true" type="q72:ArrayOfBEEtiqueta" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEtiquetasResult" nillable="true" type="q73:ArrayOfBEEtiqueta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1193,14 +1193,14 @@
   <xs:element name="GetConfiguracionPackNuevasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionPackNuevasResult" nillable="true" type="q73:ArrayOfBEConfiguracionPackNuevas" />
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetConfiguracionPackNuevasResult" nillable="true" type="q74:ArrayOfBEConfiguracionPackNuevas" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarOferta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q74:BEOferta" />
+        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q75:BEOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1214,21 +1214,21 @@
   <xs:element name="GetOfertas">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q75="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q75:BEOferta" />
+        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q76:BEOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetOfertasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q76="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasResult" nillable="true" type="q76:ArrayOfBEOferta" />
+        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertasResult" nillable="true" type="q77:ArrayOfBEOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarTipoEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q77="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q77:BETipoEstrategia" />
+        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q78:BETipoEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1242,7 +1242,7 @@
   <xs:element name="EliminarTipoEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q78="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q78:BETipoEstrategia" />
+        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q79:BETipoEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1256,14 +1256,14 @@
   <xs:element name="GetTipoEstrategias">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q79="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q79:BETipoEstrategia" />
+        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q80:BETipoEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTipoEstrategiasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q80="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTipoEstrategiasResult" nillable="true" type="q80:ArrayOfBETipoEstrategia" />
+        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTipoEstrategiasResult" nillable="true" type="q81:ArrayOfBETipoEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1286,14 +1286,14 @@
   <xs:element name="GetEstrategias">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q81="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q81:BEEstrategia" />
+        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q82:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetEstrategiasResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q82="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasResult" nillable="true" type="q82:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasResult" nillable="true" type="q83:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1308,28 +1308,28 @@
   <xs:element name="GetEstrategiaDetalleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q83="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiaDetalleResult" nillable="true" type="q83:BEEstrategiaDetalle" />
+        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiaDetalleResult" nillable="true" type="q84:BEEstrategiaDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTallaColor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q84="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q84:BETallaColor" />
+        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q85:BETallaColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTallaColorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q85="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorResult" nillable="true" type="q85:ArrayOfBETallaColor" />
+        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorResult" nillable="true" type="q86:ArrayOfBETallaColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarTallaColorCUV">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q86="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q86:BETallaColor" />
+        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q87:BETallaColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1343,21 +1343,21 @@
   <xs:element name="GetOfertaByCUV">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q87="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q87:BEEstrategia" />
+        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q88:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetOfertaByCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q88="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaByCUVResult" nillable="true" type="q88:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetOfertaByCUVResult" nillable="true" type="q89:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q89="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q89:BEEstrategia" />
+        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q90:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1371,21 +1371,21 @@
   <xs:element name="FiltrarEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q90="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q90:BEEstrategia" />
+        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q91:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FiltrarEstrategiaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q91="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaResult" nillable="true" type="q91:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaResult" nillable="true" type="q92:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetImagenesByEstrategiaMatrizComercialImagen">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q92="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q92:BEEstrategia" />
+        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q93:BEEstrategia" />
         <xs:element minOccurs="0" name="pagina" type="xs:int" />
         <xs:element minOccurs="0" name="registros" type="xs:int" />
       </xs:sequence>
@@ -1394,14 +1394,14 @@
   <xs:element name="GetImagenesByEstrategiaMatrizComercialImagenResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q93="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetImagenesByEstrategiaMatrizComercialImagenResult" nillable="true" type="q93:ArrayOfBEMatrizComercialImagen" />
+        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetImagenesByEstrategiaMatrizComercialImagenResult" nillable="true" type="q94:ArrayOfBEMatrizComercialImagen" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeshabilitarEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q94="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q94:BEEstrategia" />
+        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q95:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1415,7 +1415,7 @@
   <xs:element name="EliminarTallaColor">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q95="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q95:BETallaColor" />
+        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q96:BETallaColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1429,7 +1429,7 @@
   <xs:element name="ValidarCUVsRecomendados">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q96="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q96:BEEstrategia" />
+        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q97:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1443,35 +1443,35 @@
   <xs:element name="GetEstrategiasPedido">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q97="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q97:BEEstrategia" />
+        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q98:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetEstrategiasPedidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q98="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasPedidoResult" nillable="true" type="q98:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstrategiasPedidoResult" nillable="true" type="q99:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FiltrarEstrategiaPedido">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q99="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q99:BEEstrategia" />
+        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q100:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="FiltrarEstrategiaPedidoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q100="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaPedidoResult" nillable="true" type="q100:ArrayOfBEEstrategia" />
+        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="FiltrarEstrategiaPedidoResult" nillable="true" type="q101:ArrayOfBEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ValidarStockEstrategia">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q101="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q101:BEEstrategia" />
+        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q102:BEEstrategia" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1485,7 +1485,7 @@
   <xs:element name="DeleteOferta">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q102="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q102:BEOferta" />
+        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q103:BEOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1508,7 +1508,7 @@
   <xs:element name="GetRegionZonaZEResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q103="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRegionZonaZEResult" nillable="true" type="q103:ArrayOfBEConfiguracionValidacionZE" />
+        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetRegionZonaZEResult" nillable="true" type="q104:ArrayOfBEConfiguracionValidacionZE" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1525,7 +1525,7 @@
   <xs:element name="GetPedidoRechazadoByConsultoraResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q104="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoRechazadoByConsultoraResult" nillable="true" type="q104:BENovedadFacturacion" />
+        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoRechazadoByConsultoraResult" nillable="true" type="q105:BENovedadFacturacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1543,7 +1543,7 @@
   <xs:element name="GetPedidoAnuladoByConsultoraResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q105="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoAnuladoByConsultoraResult" nillable="true" type="q105:BENovedadFacturacion" />
+        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoAnuladoByConsultoraResult" nillable="true" type="q106:BENovedadFacturacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1572,28 +1572,28 @@
   <xs:element name="GetEstadoProcesoPROLAutoDetalleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q106="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstadoProcesoPROLAutoDetalleResult" nillable="true" type="q106:ArrayOfBEValidacionAutomatica" />
+        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetEstadoProcesoPROLAutoDetalleResult" nillable="true" type="q107:ArrayOfBEValidacionAutomatica" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsValidacionMovilPROLLog">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q107="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q107:BEValidacionMovil" />
+        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q108:BEValidacionMovil" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsValidacionMovilPROLLogResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q108="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsValidacionMovilPROLLogResult" nillable="true" type="q108:BEValidacionMovil" />
+        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsValidacionMovilPROLLogResult" nillable="true" type="q109:BEValidacionMovil" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdValidacionMovilPROLLog">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q109="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q109:BEValidacionMovil" />
+        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q110:BEValidacionMovil" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1624,7 +1624,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisId" type="xs:int" />
-        <xs:element xmlns:q110="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEAccionesPROL" nillable="true" type="q110:BEAccionesPROL" />
+        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEAccionesPROL" nillable="true" type="q111:BEAccionesPROL" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1657,7 +1657,7 @@
   <xs:element name="GetValidacionMovilPROLLog">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q111="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q111:BEValidacionMovil" />
+        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="oBEValidacionMovil" nillable="true" type="q112:BEValidacionMovil" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1697,7 +1697,7 @@
   <xs:element name="GetPedidoWebDetalleValidacionPROLResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q112="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoWebDetalleValidacionPROLResult" nillable="true" type="q112:ArrayOfBEPedidoWebDetalle" />
+        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetPedidoWebDetalleValidacionPROLResult" nillable="true" type="q113:ArrayOfBEPedidoWebDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1719,21 +1719,21 @@
   <xs:element name="ListarSuenioNavidad">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q113="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q113:BESuenioNavidad" />
+        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q114:BESuenioNavidad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ListarSuenioNavidadResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q114="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListarSuenioNavidadResult" nillable="true" type="q114:ArrayOfBESuenioNavidad" />
+        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ListarSuenioNavidadResult" nillable="true" type="q115:ArrayOfBESuenioNavidad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="RegistrarSuenioNavidad">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q115="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q115:BESuenioNavidad" />
+        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q116:BESuenioNavidad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1745,7 +1745,7 @@
   <xs:element name="ValidarSuenioNavidad">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q116="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q116:BESuenioNavidad" />
+        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q117:BESuenioNavidad" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1831,14 +1831,14 @@
   <xs:element name="GetDatosAdmStockMinimoCorreosZAResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q117="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDatosAdmStockMinimoCorreosZAResult" nillable="true" type="q117:ArrayOfBEAdministracionOfertaProducto" />
+        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetDatosAdmStockMinimoCorreosZAResult" nillable="true" type="q118:ArrayOfBEAdministracionOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsAdministracionStockMinimoZA">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q118="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q118:BEAdministracionOfertaProducto" />
+        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q119:BEAdministracionOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1852,7 +1852,7 @@
   <xs:element name="UpdAdministracionStockMinimoZA">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q119="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q119:BEAdministracionOfertaProducto" />
+        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q120:BEAdministracionOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1866,21 +1866,21 @@
   <xs:element name="GetTallaColorLiquidacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q120="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q120:BEOfertaProducto" />
+        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q121:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetTallaColorLiquidacionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q121="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorLiquidacionResult" nillable="true" type="q121:ArrayOfBEOfertaProducto" />
+        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetTallaColorLiquidacionResult" nillable="true" type="q122:ArrayOfBEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarTallaColorLiquidacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q122="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q122:BEOfertaProducto" />
+        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q123:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1894,7 +1894,7 @@
   <xs:element name="EliminarTallaColorLiquidacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q123="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q123:BEOfertaProducto" />
+        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q124:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1908,21 +1908,21 @@
   <xs:element name="ConsultarLiquidacionByCUV">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q124="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q124:BEOfertaProducto" />
+        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q125:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ConsultarLiquidacionByCUVResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q125="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ConsultarLiquidacionByCUVResult" nillable="true" type="q125:ArrayOfBEOfertaProducto" />
+        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ConsultarLiquidacionByCUVResult" nillable="true" type="q126:ArrayOfBEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CantidadPedidoByConsultora">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q126="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q126:BEOfertaProducto" />
+        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q127:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1962,7 +1962,7 @@
   <xs:element name="ValidarCUVCreditoPorCUVRegularResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q127="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ValidarCUVCreditoPorCUVRegularResult" nillable="true" type="q127:BECUVCredito" />
+        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="ValidarCUVCreditoPorCUVRegularResult" nillable="true" type="q128:BECUVCredito" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1970,8 +1970,8 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q128="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beLogCabeceraEnvioCorreo" nillable="true" type="q128:BELogCabeceraEnvioCorreo" />
-        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listLogDetalleEnvioCorreo" nillable="true" type="q129:ArrayOfBELogDetalleEnvioCorreo" />
+        <xs:element xmlns:q129="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="beLogCabeceraEnvioCorreo" nillable="true" type="q129:BELogCabeceraEnvioCorreo" />
+        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="listLogDetalleEnvioCorreo" nillable="true" type="q130:ArrayOfBELogDetalleEnvioCorreo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1985,7 +1985,7 @@
   <xs:element name="RemoverOfertaLiquidacion">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q130="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q130:BEOfertaProducto" />
+        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entity" nillable="true" type="q131:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2000,14 +2000,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="prefijoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q131="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q131:BEEntradaSolicitudCliente" />
+        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q132:BEEntradaSolicitudCliente" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarSolicitudClienteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q132="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteResult" nillable="true" type="q132:BEResultadoSolicitud" />
+        <xs:element xmlns:q133="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteResult" nillable="true" type="q133:BEResultadoSolicitud" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2015,14 +2015,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="prefijoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q133="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q133:BESolicitudClienteAppCatalogo" />
+        <xs:element xmlns:q134="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidadSolicitud" nillable="true" type="q134:BESolicitudClienteAppCatalogo" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="InsertarSolicitudClienteAppCatalogoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q134="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteAppCatalogoResult" nillable="true" type="q134:BEResultadoSolicitud" />
+        <xs:element xmlns:q135="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="InsertarSolicitudClienteAppCatalogoResult" nillable="true" type="q135:BEResultadoSolicitud" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2037,7 +2037,7 @@
   <xs:element name="GetShowRoomEventoByCampaniaIDResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q135="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomEventoByCampaniaIDResult" nillable="true" type="q135:BEShowRoomEvento" />
+        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomEventoByCampaniaIDResult" nillable="true" type="q136:BEShowRoomEvento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2045,7 +2045,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q136="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q136:BEShowRoomEvento" />
+        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q137:BEShowRoomEvento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2060,7 +2060,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q137="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q137:BEShowRoomEvento" />
+        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q138:BEShowRoomEvento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2073,7 +2073,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q138="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaConsultora" nillable="true" type="q138:ArrayOfBEShowRoomEventoConsultora" />
+        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaConsultora" nillable="true" type="q139:ArrayOfBEShowRoomEventoConsultora" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2088,7 +2088,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q139="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q139:BEShowRoomOferta" />
+        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q140:BEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2103,7 +2103,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q140="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="stockProductos" nillable="true" type="q140:ArrayOfBEShowRoomOferta" />
+        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="stockProductos" nillable="true" type="q141:ArrayOfBEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2120,7 +2120,7 @@
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="campaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="usuarioCreacion" nillable="true" type="xs:string" />
-        <xs:element xmlns:q141="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaShowRoomOfertaDetalle" nillable="true" type="q141:ArrayOfBEShowRoomOfertaDetalle" />
+        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaShowRoomOfertaDetalle" nillable="true" type="q142:ArrayOfBEShowRoomOfertaDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2137,7 +2137,7 @@
         <xs:element minOccurs="0" name="paisId" type="xs:int" />
         <xs:element minOccurs="0" name="eventoId" type="xs:int" />
         <xs:element minOccurs="0" name="usuarioCreacion" nillable="true" type="xs:string" />
-        <xs:element xmlns:q142="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaShowRoomCompraPorCompra" nillable="true" type="q142:ArrayOfBEShowRoomCompraPorCompra" />
+        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="listaShowRoomCompraPorCompra" nillable="true" type="q143:ArrayOfBEShowRoomCompraPorCompra" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2161,7 +2161,7 @@
   <xs:element name="GetShowRoomConsultoraResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q143="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomConsultoraResult" nillable="true" type="q143:BEShowRoomEventoConsultora" />
+        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetShowRoomConsultoraResult" nillable="true" type="q144:BEShowRoomEventoConsultora" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2191,7 +2191,7 @@
   <xs:element name="GetProductosShowRoomResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q144="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetProductosShowRoomResult" nillable="true" type="q144:ArrayOfBEShowRoomOferta" />
+        <xs:element xmlns:q145="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetProductosShowRoomResult" nillable="true" type="q145:ArrayOfBEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2232,7 +2232,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q145="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q145:BEShowRoomOferta" />
+        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q146:BEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2247,7 +2247,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q146="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q146:BEShowRoomOferta" />
+        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q147:BEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2262,7 +2262,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q147="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q147:BEShowRoomOferta" />
+        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q148:BEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2277,7 +2277,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q148="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q148:BEShowRoomOferta" />
+        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q149:BEShowRoomOferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2324,7 +2324,7 @@
   <xs:element name="CantidadPedidoByConsultoraShowRoom">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q149="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q149:BEOfertaProducto" />
+        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="entidad" nillable="true" type="q150:BEOfertaProducto" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2355,7 +2355,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q150="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q150:BEShowRoomEvento" />
+        <xs:element xmlns:q151="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q151:BEShowRoomEvento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2370,7 +2370,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q151="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q151:BEShowRoomEvento" />
+        <xs:element xmlns:q152="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="beShowRoomEvento" nillable="true" type="q152:BEShowRoomEvento" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2411,7 +2411,7 @@
   <xs:element name="GetProductosShowRoomDetalleResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q152="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetProductosShowRoomDetalleResult" nillable="true" type="q152:ArrayOfBEShowRoomOfertaDetalle" />
+        <xs:element xmlns:q153="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="GetProductosShowRoomDetalleResult" nillable="true" type="q153:ArrayOfBEShowRoomOfertaDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -2419,7 +2419,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
-        <xs:element xmlns:q153="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q153:BEShowRoomOfertaDetalle" />
+        <xs:element xmlns:q154="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.ShowRoom" minOccurs="0" name="entity" nillable="true" type="q154:BEShowRoomOfertaDetalle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
