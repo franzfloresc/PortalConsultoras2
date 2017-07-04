@@ -550,30 +550,26 @@
             <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
 
             <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
-                {{#iff TipoMeta '==' 'MM'}}
+                {{#if_eq TipoMeta 'MM'}}
                 <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'GM'}}
+                {{else if_eq TipoMeta 'GM'}}
                 <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'ME'}}
+                {{else}} <!--se espera escala de dscto-->
                 <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                {{/iff}}
+                {{/if_eq}}
             </h1>
             <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
-                {{#iff TipoMeta '==' 'MM'}}
+                {{#if_eq TipoMeta 'MM'}}
                 <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'GM'}}
-                {{#iff Cross '==' '1'}}
-                <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
-                {{else}}
-                <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
-                {{/iff}}
-                {{/iff}}
-                {{#iff TipoMeta '==' 'ME'}}
+                {{else if_eq TipoMeta 'GM'}}
+                    {{#iff Cross '==' '1'}}
+                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                    {{else}}
+                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                    {{/iff}}
+                {{else}}    <!--se espera escala de dscto-->
                 <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
-                {{/iff}}
+                {{/if_eq}}
             </div>
         </div>
 
