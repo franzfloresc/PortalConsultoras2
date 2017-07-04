@@ -21,7 +21,7 @@ BEGIN
 
 	IF NOT EXISTS(SELECT RevistaDigitalSuscripcionID FROM RevistaDigitalSuscripcion WHERE CodigoConsultora = @CodigoConsultora and CampaniaID = @CampaniaID)
 	BEGIN
-  		INSERT INTO RevistaDigitalSuscripcion(	
+		INSERT INTO RevistaDigitalSuscripcion(	
 			CodigoConsultora
 			,CampaniaID
 			,FechaSuscripcion
@@ -32,7 +32,7 @@ BEGIN
 			,CodigoZona
 			,EMail
 		)
-  		VALUES(
+		VALUES(
 			 @CodigoConsultora
 			,@CampaniaID
 			,case when @EstadoRegistro = 1 then dbo.fnObtenerFechaHoraPais() else null end
