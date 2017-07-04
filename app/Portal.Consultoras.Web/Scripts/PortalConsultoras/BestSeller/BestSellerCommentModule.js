@@ -170,7 +170,7 @@
         var promedio = (datos.Item.CantComenRecom * 100) / datos.Item.CantComenAprob;
 
         if (datos.Item.CantComenAprob != 0) {
-            $(elements.contenedorComentariosResumen).html(promedio + "% de personas lo recomiendan (" + datos.Item.CantComenRecom + " de " + datos.Item.CantComenAprob + ")");
+            $(elements.contenedorComentariosResumen).html(promedio.toFixed(0) + "% de personas lo recomiendan (" + datos.Item.CantComenRecom + " de " + datos.Item.CantComenAprob + ")");
         }
     };
 

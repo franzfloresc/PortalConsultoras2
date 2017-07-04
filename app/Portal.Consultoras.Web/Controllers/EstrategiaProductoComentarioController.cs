@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
+using System.Globalization;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EstrategiaProductoComentarioController : BaseController
@@ -38,6 +40,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var cantidadConstante = 10;
                 var listaComentarios = ListarComentariosServicio(codigoSAP, cantidadMostrar, cantidadConstante, orden);
+                foreach (var item in listaComentarios)
+                {
+                    item.NombreConsultora = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.NombreConsultora.ToLower());
+                }
+
                 return Json(new { success = true, data = listaComentarios }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }

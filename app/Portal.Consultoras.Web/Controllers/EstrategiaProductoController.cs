@@ -4,6 +4,8 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.ServicePedido;
 using AutoMapper;
 
+using System.Globalization;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class EstrategiaProductoController : BaseController
@@ -23,12 +25,17 @@ namespace Portal.Consultoras.Web.Controllers
                     using (PedidoServiceClient svc = new PedidoServiceClient())
                     {
                         var comentario = svc.GetUltimoProductoComentarioByCodigoSap(userData.PaisID, item.CodigoProducto);
-                        item.UltimoComentario = Mapper.Map<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>(comentario);
-                        if (item.UltimoComentario == null)
+                        if (comentario != null)
                         {
-                            item.UltimoComentario = new EstrategiaProductoComentarioModel();
-                            item.UltimoComentario.Comentario = string.Empty;
-                            item.UltimoComentario.NombreConsultora = string.Empty;
+                            item.UltimoComentario = Mapper.Map<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>(comentario);
+                            item.UltimoComentario.NombreConsultora = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(item.UltimoComentario.NombreConsultora.ToLower());
+
+                            if (item.UltimoComentario == null)
+                            {
+                                item.UltimoComentario = new EstrategiaProductoComentarioModel();
+                                item.UltimoComentario.Comentario = string.Empty;
+                                item.UltimoComentario.NombreConsultora = string.Empty;
+                            }
                         }
                     }
                 }
