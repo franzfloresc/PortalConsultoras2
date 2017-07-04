@@ -36329,7 +36329,7 @@ h1#penmostreo .campana {
     width:auto;
 }
 .fondo_set_best_seller .content_detalle_set{
-    width:56%;
+    width:53%;
     min-height:500px;
 }
 .producto_best_detalle{
@@ -36503,7 +36503,7 @@ h1#penmostreo .campana {
     background:white;
     border:1px solid #979797;
     padding:10px;
-    color:#858585;
+    color:black;
     font-family:'Lato';
     font-size:13px;
     line-height:22px;
