@@ -129,6 +129,22 @@ namespace Portal.Consultoras.BizLogic
                                     : string.Empty;
                             }
                         }
+                        // Quitar los premios de nivel inferior cuando no es acumulativo.
+                        if (!Concurso.IndicadorPremioAcumulativo)
+                        {
+                            Concurso.Premios.RemoveAll(p => p.NumeroNivel < Concurso.NivelAlcanzado);
+                            Concurso.Premios = new List<BEPremio>{
+                                new BEPremio
+                                    {
+                                        CodigoConcurso = Concurso.CodigoConcurso,
+                                        Importante = 1,
+                                        Descripcion = string.Join(", ", Concurso.Premios.Select(p => p.Descripcion).ToArray()),
+                                        PuntajeMinimo = Concurso.Premios.FirstOrDefault().PuntajeMinimo,
+                                        NumeroNivel = Concurso.NivelAlcanzado,
+                                        Mensaje = Concurso.Premios.FirstOrDefault().Mensaje
+                                    }
+                                };
+                        }
                     }
                     else // campania anterior.
                     {
