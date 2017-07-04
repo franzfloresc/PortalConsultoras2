@@ -24,6 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECliente> SelectByConsultora(int paisID, long consultoraID);
 
         [OperationContract]
+        BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente);
+
+        [OperationContract]
         BECliente SelectById(int paisID, long consultoraID, int clienteID);
 
         [OperationContract]
@@ -70,5 +73,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+        [OperationContract]
+        List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
+
+        [OperationContract]
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID);
     }
 }

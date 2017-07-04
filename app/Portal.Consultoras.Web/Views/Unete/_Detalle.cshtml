@@ -10,7 +10,8 @@
     var tiposContacto = ViewBag.TiposContacto as SelectList;
     var tiposDocumentos = ViewBag.TiposDocumentos as SelectList;
     var validacionTipoRucEmpresa = false;
-  
+
+    var HideCaribe = Model.CodigoPais == "DO" || Model.CodigoPais == "PR" ? "HideCaribe" : "";
 }
 
 <style>
@@ -115,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="div-3 estilo2">
+            <div class="div-3 estilo2 @HideCaribe">
                 <div class="filterEdit">
                     <div class="selectP2 seleccion_pagina textboxSBEdit2">
                         @Html.DropDownListFor(m => m.EstadoCivil, estadosCiviles, "Estado civil", new { @class = "field_85 textboxSBEdit" })
@@ -145,7 +146,7 @@
                 }
 
             </div>
-            <div class="div-3 div_3_fix estilo2">
+            <div class="div-3 div_3_fix estilo2 @HideCaribe">
                 <div class="validation_clear"></div>
                 <div class="validation">
                     @Html.ValidationMessageFor(m => m.EstadoCivil)
@@ -167,7 +168,7 @@
                  
 
 
-                        <div class="filterEdit">
+                        <div class="filterEdit  @HideCaribe">
                             <div class="selectP2 seleccion_pagina textboxSBEdit2">
                                 @Html.DropDownListFor(m => m.TipoContacto, tiposContacto, "Como llego a nosotros", new { @class = "field_85 textboxSBEdit" })
                             </div>
@@ -506,5 +507,8 @@
     padding-left: 15px;
     border: 1px solid #979797;
     color: black !important;
+    }
+    .HideCaribe {
+    display:none;
     }
 </style>
