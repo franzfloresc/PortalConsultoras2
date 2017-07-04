@@ -16,8 +16,10 @@
         contenedorConfirmacionComentario: 'div.content_confirmacion_comentario',
         contenedorPuntuacion: '.rateyo-puntuacion-seccion-comentario',
         contenedorComentarios: '#contenedorComentarios',
-        contenedorComentariosEstrellasPromedio: '.rateyo-comentarios-resumen',
-        contenedorComentariosResumen: '.subtexto_comentario',
+        //contenedorComentariosEstrellasPromedio: '.rateyo-comentarios-resumen',
+        contenedorComentariosEstrellasPromedio: '#star_promedio_valorizado',
+        //contenedorComentariosResumen: '.subtexto_comentario',
+        contenedorComentariosResumen: '#texto1_recomiendan',
         hdRecomendado: '#hdRecomendado',
         txtComentario: '#txtComentario',
         ddlFiltro: '#ddlFiltro'
@@ -158,7 +160,7 @@
             precision: 2,
             minValue: 1,
             maxValue: 5,
-            starWidth: "19px",
+            starWidth: "33px",
             spacing: "5px",
             fullStar: true,
             readOnly: true

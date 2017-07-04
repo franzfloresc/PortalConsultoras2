@@ -965,7 +965,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
                             if (_validartieneMasVendidos() === 1) {
-                                CargarCarouselMasVendidos('desktop');
+                                //CargarCarouselMasVendidos('desktop');
                             }
                             
                             CargarResumenCampaniaHeader(true);
@@ -999,7 +999,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                                 CargarCarouselEstrategias(cuv);
 
                                 if (_validartieneMasVendidos() === 1) {
-                                    CargarCarouselMasVendidos('mobile');
+                                    //CargarCarouselMasVendidos('mobile');
                                 }
                             }
                         }
@@ -1077,7 +1077,7 @@ function AbrirMensajeEstrategia(txt) {
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
-    if (paginaOrigenCupon) {
+    if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
         }
