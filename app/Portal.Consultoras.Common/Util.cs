@@ -3104,4 +3104,47 @@ namespace Portal.Consultoras.Common
             }
         }
     }
+
+
+
+    public class JsonResponse
+    {
+        public string Message { get; set; }
+
+        public bool Success { get; set; }
+
+        public object Data { get; set; }
+    }
+
+    public class RangoEdad
+    {
+        public int EdadMinima { get; set; }
+        public int EdadMinimaLimite { get; set; }
+        public int EdadMaxima { get; set; }
+
+        public int EdadMinimaRiesgo { get; set; }
+
+        public RangoEdad(int edadMinima, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = int.MaxValue;
+        }
+
+        public RangoEdad(int edadMinima, int edadMinimaRiesgo, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = edadMinimaRiesgo;
+        }
+
+        public RangoEdad(int edadMinima, int edadMinimaLimite, int edadMinimaRiesgo, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMinimaLimite = edadMinimaLimite;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = edadMinimaRiesgo;
+        }
+
+    }
 }

@@ -4846,6 +4846,7 @@ namespace Portal.Consultoras.Web.Controllers
                     RechazadoPor = (c.SubEstadoPostulante != null && c.EstadoPostulanteID == EnumsEstadoPostulante.Rechazada.ToInt()) ?
                                         lstSubEstadosPostulante.FirstOrDefault(x => x.Valor == c.SubEstadoPostulante).Nombre
                                         : "",
+                    CampaniaDeIngreso = c.CampaniaDeIngreso,
                 };
                 
             });
@@ -4872,7 +4873,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
                    {"Correo", "CorreoElectronico"},
-
+                          {"Campaña De Ingreso", "CampaniaDeIngreso"},
 
 
             };
@@ -5160,16 +5161,23 @@ namespace Portal.Consultoras.Web.Controllers
             request.Method = "POST";
             request.ContentType = "application/json";
             request.ContentLength = bytes.Length;
+            request.Proxy = null;
 
             using (var stream = request.GetRequestStream())
             {
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            var response = request.GetResponse() as HttpWebResponse;
-            var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            //var response = request.GetResponse() as HttpWebResponse;
+            //var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            return JsonConvert.DeserializeObject(result) as JObject;
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                return JsonConvert.DeserializeObject(result) as JObject;
+            }
+
+          //  return JsonConvert.DeserializeObject(result) as JObject;
         }
 
         #endregion
@@ -5490,6 +5498,71 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteConsolidado", resultado, dic);
             return null;
         }
+
+
+
+
+
+        [HttpPost]
+        public JsonResult ValidarEdad(string fechaNacimiento, string codigoISO)
+        {
+            var jsonResponse = new JsonResponse();
+            try
+            {
+                var arr = fechaNacimiento.Split('/');
+                if (arr.Length == 3)
+                {
+                    var fecha = new DateTime(int.Parse(arr[2].ToString()), int.Parse(arr[1].ToString()), int.Parse(arr[0].ToString()));
+                    var fechaActual = DateTime.Now;
+                    int anios = fechaActual.Year - fecha.Year;
+
+                    if (fechaActual.Month < fecha.Month || (fechaActual.Month == fecha.Month && fechaActual.Day < fecha.Day))
+                        anios--;
+
+                    if (anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinima)
+                    {
+                        jsonResponse.Success = false;
+                        //jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdad;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinima &&
+                            anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaLimite)
+                    {
+                        jsonResponse.Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdadLimite;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaRiesgo &&
+                        anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
+                    {
+                        jsonResponse.Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorEdadRiesgo;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
+                    {
+                        jsonResponse.Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorDeEdad;
+                    }
+                    else
+                    {
+                        jsonResponse.Success = true;
+                        jsonResponse.Data = 0;
+                    }
+                }
+                else
+                {
+                    jsonResponse.Success = false;
+                    jsonResponse.Data = 5;
+                }
+            }
+            catch (Exception ex)
+            {
+                jsonResponse.Success = false;
+                jsonResponse.Data = 5;
+            }
+
+            return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+        }
+
+
 
 
     }
