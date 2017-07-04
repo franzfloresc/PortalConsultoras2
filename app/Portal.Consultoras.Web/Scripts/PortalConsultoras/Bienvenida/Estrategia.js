@@ -689,8 +689,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         data: JSON.stringify(params),
         async: true,
         success: function (datos) {
-            //EstrategiaTallaColor(datos);
-            //CerrarLoad();
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 

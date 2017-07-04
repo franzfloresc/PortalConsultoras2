@@ -101,6 +101,7 @@
                         <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                         <input type="hidden" class="Volumen" value="{{Volumen}}" />
                         <input type="hidden" class="Palanca" value="BS" />
+                        <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}"/>
                     </div>
                     <div data-estrategia="{{CodigoEstrategia}}"></div>
                         <div class="content_producto_set_best_seller">
@@ -197,15 +198,6 @@
                 spacing: "5px",
                 readOnly: true
             })
-
-            //$(".rateyo-readonly-comentarios").rateYo({
-            //    //rating: 4.5,               
-            //    precision: 2,
-            //    minValue: 1,
-            //    maxValue: 5,                
-            //    starWidth: "33px",
-            //    readOnly: true
-            //})
         });
         $(document).ready(function () {
             bestSellerCommentModule.ini({
@@ -228,5 +220,6 @@
     <script type="text/javascript">
         var tipoOrigenEstrategia = 1;
         var tieneMasVendidos = 1;
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
     </script>
 }
