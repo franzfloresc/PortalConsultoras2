@@ -1230,6 +1230,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ApellidoPaternoAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CampaniaDeIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CampaniaDeRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1485,6 +1488,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string ReferenciaEntregaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool RequiereAprobacionSACField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<bool> RequiereAvalField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1686,6 +1692,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.ApellidoPaternoAvalField, value) != true)) {
                     this.ApellidoPaternoAvalField = value;
                     this.RaisePropertyChanged("ApellidoPaternoAval");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CampaniaDeIngreso {
+            get {
+                return this.CampaniaDeIngresoField;
+            }
+            set {
+                if ((this.CampaniaDeIngresoField.Equals(value) != true)) {
+                    this.CampaniaDeIngresoField = value;
+                    this.RaisePropertyChanged("CampaniaDeIngreso");
                 }
             }
         }
@@ -2796,6 +2815,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool RequiereAprobacionSAC {
+            get {
+                return this.RequiereAprobacionSACField;
+            }
+            set {
+                if ((this.RequiereAprobacionSACField.Equals(value) != true)) {
+                    this.RequiereAprobacionSACField = value;
+                    this.RaisePropertyChanged("RequiereAprobacionSAC");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Nullable<bool> RequiereAval {
             get {
                 return this.RequiereAvalField;
@@ -3305,6 +3337,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string Campania1PedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CampaniaDeIngresoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<int> CampaniaDeRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3790,6 +3825,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((object.ReferenceEquals(this.Campania1PedidoField, value) != true)) {
                     this.Campania1PedidoField = value;
                     this.RaisePropertyChanged("Campania1Pedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CampaniaDeIngreso {
+            get {
+                return this.CampaniaDeIngresoField;
+            }
+            set {
+                if ((this.CampaniaDeIngresoField.Equals(value) != true)) {
+                    this.CampaniaDeIngresoField = value;
+                    this.RaisePropertyChanged("CampaniaDeIngreso");
                 }
             }
         }
@@ -6748,6 +6796,9 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         private string FechaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime FechaDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ObservacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -6793,6 +6844,19 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime FechaData {
+            get {
+                return this.FechaDataField;
+            }
+            set {
+                if ((this.FechaDataField.Equals(value) != true)) {
+                    this.FechaDataField = value;
+                    this.RaisePropertyChanged("FechaData");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Observacion {
             get {
                 return this.ObservacionField;
@@ -6827,6 +6891,51 @@ namespace Portal.Consultoras.Web.ServiceUnete {
                 if ((this.TipoEventoField.Equals(value) != true)) {
                     this.TipoEventoField = value;
                     this.RaisePropertyChanged("TipoEvento");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ExisteCelularBE", Namespace="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE")]
+    [System.SerializableAttribute()]
+    public partial class ExisteCelularBE : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ExisteField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Existe {
+            get {
+                return this.ExisteField;
+            }
+            set {
+                if ((this.ExisteField.Equals(value) != true)) {
+                    this.ExisteField = value;
+                    this.RaisePropertyChanged("Existe");
                 }
             }
         }
@@ -7304,6 +7413,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorCorreo", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorCorreoResponse")]
         System.Threading.Tasks.Task<bool> ObtenerSolicitudPostulantePorCorreoAsync(string codigoISO, string correoElectronico);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/VerificarExisteCelular", ReplyAction="http://tempuri.org/IPortalService/VerificarExisteCelularResponse")]
+        Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/VerificarExisteCelular", ReplyAction="http://tempuri.org/IPortalService/VerificarExisteCelularResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse")]
         Portal.Consultoras.Web.ServiceUnete.SolicitudPrePostulante ObtenerSolicitudPrePostulante(string codigoISO, string correoElectronico);
         
@@ -7654,6 +7769,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<bool> ObtenerSolicitudPostulantePorCorreoAsync(string codigoISO, string correoElectronico) {
             return base.Channel.ObtenerSolicitudPostulantePorCorreoAsync(codigoISO, correoElectronico);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE VerificarExisteCelular(string codigoISO, string numeroCelular) {
+            return base.Channel.VerificarExisteCelular(codigoISO, numeroCelular);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular) {
+            return base.Channel.VerificarExisteCelularAsync(codigoISO, numeroCelular);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.SolicitudPrePostulante ObtenerSolicitudPrePostulante(string codigoISO, string correoElectronico) {
