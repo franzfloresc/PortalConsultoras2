@@ -4047,7 +4047,6 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
-    <Content Include="Views\Cliente\Detalle.cshtml" />
     <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGana.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmar.cshtml" />
