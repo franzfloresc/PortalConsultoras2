@@ -172,6 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             List<List<BEReporteValidacion>> lst = new List<List<BEReporteValidacion>>();
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
+            List<string> nombresHojas = new List<string>();
 
             List<BEReporteValidacion> lstSRCampania;
             List<BEReporteValidacion> lstSRPersonalizacion;
@@ -182,21 +183,26 @@ namespace Portal.Consultoras.Web.Controllers
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lstSRCampania = sv.GetReporteShowRoomCampania(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
-                //lstSRPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
+                lstSRPersonalizacion = sv.GetReporteShowRoomPersonalizacion(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSROferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSRComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
             lst.Add(lstSRCampania);
-            //lst.Add(lstSRPersonalizacion);
+            lst.Add(lstSRPersonalizacion);
             lst.Add(lstSROferta);
             lst.Add(lstSRComponente);
 
             lstConfiguration.Add(GetConfiguracionExcelSRCampania());
-            //lstConfiguration.Add(GetConfiguracionExcelSRPersonalizacion());
+            lstConfiguration.Add(GetConfiguracionExcelSRPersonalizacion());
             lstConfiguration.Add(GetConfiguracionExcelSROferta());
             lstConfiguration.Add(GetConfiguracionExcelSRComponentes());
 
-            Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration);
+            nombresHojas.Add("Campaña");
+            nombresHojas.Add("Personalización de Visuales");
+            nombresHojas.Add("Ofertas (Set)");
+            nombresHojas.Add("Ofertas (Componentes del Set)");
+
+            Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration, nombresHojas);
 
             return null;
         }
@@ -211,7 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (tipoEstrategiaID == 4)
             {
                 dic.Add("DESCRIPCIÓN DE LA OFERTA (ODD: NOMBRE OFERTA / OPT: P1 + P2 + P3)", "DescripcionCUV2");
-                dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULORA (CORTA)", "DescripcionCorta");
+                dic.Add("DESCRIPCIÓN VISUALIZACIÓN DE LA CONSULTORA (CORTA)", "DescripcionCorta");
             }
             if (tipoEstrategiaID == 7)
             {
@@ -246,8 +252,21 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> GetConfiguracionExcelSRPersonalizacion()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            /*dic.Add("PALANCA", "TipoPersonalizacion");
-            dic.Add("CAMPAÑA", "AnioCampanaVenta");*/
+            dic.Add("Detalle Personalizción", "Personalizacion");
+            dic.Add("Medio", "Medio");
+            dic.Add("BO", "BO");
+            dic.Add("CL", "CL");
+            dic.Add("CO", "CO");
+            dic.Add("CR", "CR");
+            dic.Add("DO", "DO");
+            dic.Add("EC", "EC");
+            dic.Add("GT", "GT");
+            dic.Add("MX", "MX");
+            dic.Add("PA", "PA");
+            dic.Add("PE", "PE");
+            dic.Add("PR", "PR");
+            dic.Add("SV", "SV");
+            dic.Add("VE", "VE");
             return dic;
         }
 

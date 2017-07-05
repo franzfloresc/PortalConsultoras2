@@ -44,6 +44,21 @@ namespace Portal.Consultoras.Entities
         #endregion
 
         #region Reporte Validacion para ShowRoom Hoja 2
+        private string _Personalizacion;
+        private string _Medio;
+        private string _BO;
+        private string _CL;
+        private string _CO;
+        private string _CR;
+        private string _DO;
+        private string _EC;
+        private string _GT;
+        private string _MX;
+        private string _PA;
+        private string _PE;
+        private string _PR;
+        private string _SV;
+        private string _VE;
         #endregion
 
         #region Reporte Validacion para ShowRoom Hoja 3
@@ -133,53 +148,86 @@ namespace Portal.Consultoras.Entities
                 if (DataRecord.HasColumn(row, "FlagHabilitarSubCampania") && row["FlagHabilitarSubCampania"] != DBNull.Value)
                    _FlagHabilitarSubCampania = Convert.ToInt32(row["FlagHabilitarSubCampania"]);
             #endregion
-            //*************************SHOW ROOM *****************************   <<< 3 >>>
-            #region Reporte Validacion para ShowRoom Hoja 3
-
-            if (DataRecord.HasColumn(row, "CodigoTO") && row["CodigoTO"] != DBNull.Value)
-                    _CodigoTO = Convert.ToString(row["CodigoTO"]);
-
-                if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
-                    _Descripcion = Convert.ToString(row["Descripcion"]);
-
-                if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
-                    _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
-
-                if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
-                    _PrecioOferta = Convert.ToInt32(row["PrecioOferta"]);
-
-                if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
-                    _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
-
-                if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
-                    _UnidadesPermitidas = Convert.ToInt32(row["EsSubCampania"]);
-
-                if (DataRecord.HasColumn(row, "HabilitarOferta") && row["HabilitarOferta"] != DBNull.Value)
-                    _HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
-
-                if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
-                    _HabilitarOferta = Convert.ToInt32(row["FlagImagenCargada"]);
-
-                if (DataRecord.HasColumn(row, "FlagImagenMINI") && row["FlagImagenMINI"] != DBNull.Value)
-                    _FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
-
-            #endregion
-            //*************************SHOW ROOM *****************************   <<< 4 >>>
-            #region Reporte Validacion para ShowRoom Hoja 4
-
-            if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
-                    _Nombre = Convert.ToString(row["Nombre"]);
-
-                if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
-                    _Descripcion1 = Convert.ToString(row["Descripcion1"]);
-
-                if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
-                    _Descripcion2 = Convert.ToString(row["Descripcion2"]);
-
-                if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
-                    _Descripcion3 = Convert.ToString(row["Descripcion3"]);
-
+                //*************************SHOW ROOM *****************************   <<< 2 >>>
+                #region Reporte Validacion para ShowRoom Hoja 2
+                if (DataRecord.HasColumn(row, "Personalizacion") && row["Personalizacion"] != DBNull.Value)
+                    _Personalizacion = Convert.ToString(row["Personalizacion"]);
+                if (DataRecord.HasColumn(row, "Medio") && row["Medio"] != DBNull.Value)
+                    _Medio = Convert.ToString(row["Medio"]);
+                if (DataRecord.HasColumn(row, "BO") && row["BO"] != DBNull.Value)
+                    _BO = Convert.ToString(row["BO"]);
+                if (DataRecord.HasColumn(row, "CL") && row["CL"] != DBNull.Value)
+                    _CL = Convert.ToString(row["CL"]);
+                if (DataRecord.HasColumn(row, "CO") && row["CO"] != DBNull.Value)
+                    _CO = Convert.ToString(row["CO"]);
+                if (DataRecord.HasColumn(row, "CR") && row["CR"] != DBNull.Value)
+                    _CR = Convert.ToString(row["CR"]);
+                if (DataRecord.HasColumn(row, "DO") && row["DO"] != DBNull.Value)
+                    _DO = Convert.ToString(row["DO"]);
+                if (DataRecord.HasColumn(row, "EC") && row["EC"] != DBNull.Value)
+                    _EC = Convert.ToString(row["EC"]);
+                if (DataRecord.HasColumn(row, "GT") && row["GT"] != DBNull.Value)
+                    _GT = Convert.ToString(row["GT"]);
+                if (DataRecord.HasColumn(row, "MX") && row["MX"] != DBNull.Value)
+                    _MX = Convert.ToString(row["MX"]);
+                if (DataRecord.HasColumn(row, "PA") && row["PA"] != DBNull.Value)
+                    _PA = Convert.ToString(row["PA"]);
+                if (DataRecord.HasColumn(row, "PE") && row["PE"] != DBNull.Value)
+                    _PE = Convert.ToString(row["PE"]);
+                if (DataRecord.HasColumn(row, "PR") && row["PR"] != DBNull.Value)
+                    _PR = Convert.ToString(row["PR"]);
+                if (DataRecord.HasColumn(row, "SV") && row["SV"] != DBNull.Value)
+                    _SV = Convert.ToString(row["SV"]);
+                if (DataRecord.HasColumn(row, "VE") && row["VE"] != DBNull.Value)
+                    _VE = Convert.ToString(row["VE"]);
                 #endregion
+                //*************************SHOW ROOM *****************************   <<< 3 >>>
+                #region Reporte Validacion para ShowRoom Hoja 3
+
+                if (DataRecord.HasColumn(row, "CodigoTO") && row["CodigoTO"] != DBNull.Value)
+                            _CodigoTO = Convert.ToString(row["CodigoTO"]);
+
+                        if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+                            _Descripcion = Convert.ToString(row["Descripcion"]);
+
+                        if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
+                            _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
+
+                        if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+                            _PrecioOferta = Convert.ToInt32(row["PrecioOferta"]);
+
+                        if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
+                            _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
+
+                        if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
+                            _UnidadesPermitidas = Convert.ToInt32(row["EsSubCampania"]);
+
+                        if (DataRecord.HasColumn(row, "HabilitarOferta") && row["HabilitarOferta"] != DBNull.Value)
+                            _HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
+
+                        if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
+                            _HabilitarOferta = Convert.ToInt32(row["FlagImagenCargada"]);
+
+                        if (DataRecord.HasColumn(row, "FlagImagenMINI") && row["FlagImagenMINI"] != DBNull.Value)
+                            _FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
+
+                    #endregion
+                //*************************SHOW ROOM *****************************   <<< 4 >>>
+                #region Reporte Validacion para ShowRoom Hoja 4
+
+                if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
+                        _Nombre = Convert.ToString(row["Nombre"]);
+
+                    if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
+                        _Descripcion1 = Convert.ToString(row["Descripcion1"]);
+
+                    if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
+                        _Descripcion2 = Convert.ToString(row["Descripcion2"]);
+
+                    if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
+                        _Descripcion3 = Convert.ToString(row["Descripcion3"]);
+
+                    #endregion
         }
 
         [DataMember]
@@ -342,7 +390,112 @@ namespace Portal.Consultoras.Entities
         }
         #endregion
 
-        #region Reporte Validacion para ShowRoom Hoja 2
+        #region Reporte Validacion para ShowRoom Hoja 2 
+
+        [DataMember]
+        public string Personalizacion
+        {
+            get { return _Personalizacion; }
+            set { _Personalizacion = value; }
+        }
+
+        [DataMember]
+        public string Medio
+        {
+            get { return _Medio; }
+            set { _Medio = value; }
+        }
+
+        [DataMember]
+        public string BO
+        {
+            get { return _BO; }
+            set { _BO = value; }
+        }
+
+        [DataMember]
+        public string CL
+        {
+            get { return _CL; }
+            set { _CL = value; }
+        }
+
+        [DataMember]
+        public string CO
+        {
+            get { return _CO; }
+            set { _CO = value; }
+        }
+
+        [DataMember]
+        public string CR
+        {
+            get { return _CR; }
+            set { _CR = value; }
+        }
+
+        [DataMember]
+        public string DO
+        {
+            get { return _DO; }
+            set { _DO = value; }
+        }
+
+        [DataMember]
+        public string EC
+        {
+            get { return _EC; }
+            set { _EC = value; }
+        }
+
+        [DataMember]
+        public string GT
+        {
+            get { return _GT; }
+            set { _GT = value; }
+        }
+
+        [DataMember]
+        public string MX
+        {
+            get { return _MX; }
+            set { _MX = value; }
+        }
+
+        [DataMember]
+        public string PA
+        {
+            get { return _PA; }
+            set { _PA = value; }
+        }
+
+        [DataMember]
+        public string PE
+        {
+            get { return _PE; }
+            set { _PE = value; }
+        }
+
+        [DataMember]
+        public string PR
+        {
+            get { return _PR; }
+            set { _PR = value; }
+        }
+
+        [DataMember]
+        public string SV
+        {
+            get { return _SV; }
+            set { _SV = value; }
+        }
+
+        [DataMember]
+        public string VE
+        {
+            get { return _VE; }
+            set { _VE = value; }
+        }
         #endregion
 
         #region Reporte Validacion para ShowRoom Hoja 3

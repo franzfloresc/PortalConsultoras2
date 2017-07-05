@@ -1471,7 +1471,7 @@ namespace Portal.Consultoras.Common
         /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
         /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
         /// <returns></returns>
-        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions)
+        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions, List<string> nombresHojas)
         {
             try
             {
@@ -1481,7 +1481,7 @@ namespace Portal.Consultoras.Common
                 var wb = new XLWorkbook();
                 for (int i = 0; i < Sources.Count; i++)
                 {
-                    var ws = wb.Worksheets.Add("Hoja" + (i + 1).ToString());
+                    var ws = wb.Worksheets.Add(nombresHojas[i]);
                     List<string> Columns = new List<string>();
                     int index = 1;
 
