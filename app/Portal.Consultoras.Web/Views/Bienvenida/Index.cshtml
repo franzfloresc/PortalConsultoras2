@@ -2675,7 +2675,7 @@
 
             $('div.contenedor_img_perfil').show();
         }
-               
+
 
         var tieneCupon = '@Model.TieneCupon';
         var paginaOrigenCupon = 1;
@@ -2685,6 +2685,7 @@
         var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
