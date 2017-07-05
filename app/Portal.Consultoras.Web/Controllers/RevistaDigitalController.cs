@@ -225,6 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
@@ -285,6 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
