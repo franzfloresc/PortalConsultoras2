@@ -1730,7 +1730,7 @@
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
             });
-
+            debugger;
             //infowindows
             var infowindow = new google.maps.InfoWindow();
             //searchBox
@@ -1776,7 +1776,7 @@
             {
                 <text>
                 marker.addListener('mouseover', function () {
-
+          
                     infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
                     infowindow.open(map, this);
                 });

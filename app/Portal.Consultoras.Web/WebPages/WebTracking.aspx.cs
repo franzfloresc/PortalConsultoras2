@@ -117,7 +117,7 @@ namespace Portal.Consultoras.Web.WebPages
 
             LinkButton botonSegPed = new LinkButton();
             botonSegPed = (LinkButton)e.Row.FindControl("imgSegPed");
-
+          
             Label lblTextoValorTurno = new Label();
             lblTextoValorTurno = (Label)e.Row.FindControl("lblTextoValorTurno");
             if (lblTextoValorTurno != null)
@@ -130,9 +130,9 @@ namespace Portal.Consultoras.Web.WebPages
                 if (tracking == null) return;
 
                 string strSituacion = tracking.Situacion;
+
                 /*SB20-964 - INICIO */
-                if (strSituacion.Contains("<br/>"))
-                {
+                if (strSituacion.Contains("<br/>")) {
                     strSituacion = strSituacion.Substring(0, strSituacion.IndexOf("<br/>"));
                 }
                 /*SB20-964 - FIN */
@@ -451,7 +451,8 @@ namespace Portal.Consultoras.Web.WebPages
 
                         item.CodigoConsultora = strFecha;
                         item.NumeroPedido = strTexto;
-                         /*SB20-964 - INICIO */
+
+                        /*SB20-964 - INICIO */
                         if (item.Etapa == 6 && !string.IsNullOrEmpty(item.ValorTurno))
                         {                          
                             if (item.ValorTurno.ToUpper() == "AM")

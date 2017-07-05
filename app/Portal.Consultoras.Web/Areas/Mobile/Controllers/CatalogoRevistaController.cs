@@ -83,6 +83,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("EnterateMas");
         }
 
+        public ActionResult MiRevista2()
+        {
+            return View();
+        }
+
         private string CalcularCampaniaAnterior(string CampaniaActual)
         {
             if (CampaniaActual.Substring(4, 2) == "01")

@@ -53,5 +53,7 @@ namespace Portal.Consultoras.Web.Models
             return (OfertaDelDiaModel)this.MemberwiseClone();
         }
         public string Agregado { get; set; }
+        public string DescripcionMarca { get; set; }
+        public string TipoEstrategiaDescripcion { get; set; }
     }
 }
