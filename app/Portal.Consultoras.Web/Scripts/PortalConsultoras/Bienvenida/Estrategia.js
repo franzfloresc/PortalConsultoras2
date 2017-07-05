@@ -176,7 +176,6 @@ function inicializarDivMasVendidos(origen) {
 }
 
 function ArmarCarouselMasVendidos(data) {
-    //debugger;
     if (typeof data.Lista !== 'undefined' && data.Lista.length > 0) {
         data.Lista = EstructurarDataCarousel(data.Lista);
         $("#divCarrouselMasVendidos").empty();
@@ -483,6 +482,7 @@ function EstrategiaVerDetalle(id, origen) {
 }
 
 function CargarEstrategiasEspeciales(objInput, e) {
+
     if (!($(e.target).attr('class') === undefined || $(e.target).attr('class').indexOf('js-no-popup') == -1)) {
         return false;
     }
@@ -540,6 +540,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
+
         var popupId = '#popupDetalleCarousel_lanzamiento';
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
@@ -628,7 +629,6 @@ function CargarEstrategiaSet(cuv) {
 }
 
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
-
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
         var divMensaje = $("#divMensajeBloqueada");
         if (divMensaje.length > 0) {

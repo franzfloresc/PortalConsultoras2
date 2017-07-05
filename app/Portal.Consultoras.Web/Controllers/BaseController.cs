@@ -1112,13 +1112,13 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneOfertaDelDia = false;
                 if (!ViewBag.MostrarODD)
                 {
-                    ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                    if (userData.TieneOfertaDelDia)
+                    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia;
+                    if (model.TieneOfertaDelDia)
                     {
                         if (!(
-                                (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                                || userData.IndicadorGPRSB == 0)
-                            || userData.CloseOfertaDelDia
+                                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                                || model.IndicadorGPRSB == 0)
+                            || model.CloseOfertaDelDia
                         )
                         {
                             ViewBag.TieneOfertaDelDia = false;

@@ -9722,7 +9722,7 @@ span.icon-advertencia{
     max-width:292px;
     height:auto;
     margin:0 auto;
-    margin-top:15px;
+    margin-top:15px !important;
     /*overflow:hidden;*/
     margin-bottom:40px;
 }
