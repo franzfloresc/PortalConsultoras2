@@ -21,7 +21,7 @@
         $(document).on("click", elements.btnAgregarComentario, function () {
             
         });
-
+         
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
@@ -34,7 +34,8 @@
             _pintarUltimoComentarioConsultora(item);
             let data = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(data);
-            inicializarDivMasVendidos('desktop');
+            if (tipoOrigenPantalla === 1) {inicializarDivMasVendidos('desktop');}
+            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidos('mobile'); }            
             _validarDivTituloMasVendidos();
         });
     }
@@ -162,7 +163,7 @@
 
     var _pintarUltimoComentarioConsultora = function (item) {
         let div = "#consultant-commentary-" + item.EstrategiaID.toString();
-        if (item.UltimoComentario.NombreConsultora !== '') {
+        if (item.UltimoComentario.NombreConsultora !== '' && item.UltimoComentario.NombreConsultora != null) {
             let consultant_commentary = "- " + item.UltimoComentario.NombreConsultora;
             $(div).html(consultant_commentary);
             $(div).show();
@@ -174,7 +175,7 @@
 
     var _pintarUltimoComentario = function (item) {
         let div = "#last-commentary-" + item.EstrategiaID.toString();
-        if (item.UltimoComentario.Comentario !== '') {
+        if (item.UltimoComentario.Comentario !== '' && item.UltimoComentario.Comentario != null) {
             let last_commentary = '"' + item.UltimoComentario.Comentario + '"';
             $(div).html(last_commentary);
             $(div).show();
@@ -234,7 +235,6 @@
     var _verDetalleProductoMasVendidos = function (estrategiaId) {
         var objProducto = _obtenerProductoDesdeStorage(estrategiaId);
         var verDetallePromise = _verDetallePromise(objProducto);
-
         $.when(verDetallePromise)
             .then(function (verDetalleResponse) {
                 if (checkTimeout(verDetalleResponse)) {
