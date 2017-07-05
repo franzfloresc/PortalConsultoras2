@@ -216,7 +216,18 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
-                Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String, entidad.CodigoAgrupacion);
+                //Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String, entidad.CodigoAgrupacion);
+                return Context.ExecuteReader(command);
+            }
+        }
+
+        public IDataReader GetMasVendidos(BEEstrategia entidad)
+        {
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.ListarOfertasMasVendidos"))
+            {
+                Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+                Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
+                Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
                 return Context.ExecuteReader(command);
             }
         }
@@ -317,8 +328,9 @@ namespace Portal.Consultoras.Data
                 LimiteVenta = item.LimiteVenta,
                 OfertaUltimoMinuto = item.OfertaUltimoMinuto,
                 PrecioOferta = item.Precio2,
-                PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario
+                PrecioTachado = item.Precio,             
+                UsuarioCreacion = codigoUsuario,
+                FotoProducto01 = item.FotoProducto01
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -366,7 +378,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
+         public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {
@@ -378,7 +390,8 @@ namespace Portal.Consultoras.Data
                 OfertaUltimoMinuto = item.OfertaUltimoMinuto,
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,
-                UsuarioCreacion = codigoUsuario
+                UsuarioCreacion = codigoUsuario,
+                FotoProducto01 = item.FotoProducto01
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");

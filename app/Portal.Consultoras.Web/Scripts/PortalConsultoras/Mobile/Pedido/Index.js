@@ -246,7 +246,6 @@ function CerrarDialogMesajePostulantePedido() {
     UpdateUsuarioTutoriales();
 }
 
-
 function UpdateUsuarioTutoriales() {
     var item = {
         tipo: '2' // Para mOBILE
@@ -604,13 +603,13 @@ function AgregarProductoListado() {
         async: true,
         success: function (datos) {
             if (checkTimeout(datos)) {
-                if (!datos.result) {
-                    MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-                    CloseLoading();
-                } else {
-                    InsertarProducto();
-                    return true;
-                }
+            if (!datos.result) {
+                MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
+                CloseLoading();
+            } else {
+                InsertarProducto();
+                return true;
+            }
             }
         },
         error: function (data, error) {
