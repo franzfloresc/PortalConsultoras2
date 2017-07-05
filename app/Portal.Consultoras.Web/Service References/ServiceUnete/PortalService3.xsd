@@ -601,6 +601,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="VerificarExisteCelular">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroCelular" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerificarExisteCelularResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" name="VerificarExisteCelularResult" nillable="true" type="q45:ExisteCelularBE" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerSolicitudPrePostulante">
     <xs:complexType>
       <xs:sequence>
@@ -612,7 +627,7 @@
   <xs:element name="ObtenerSolicitudPrePostulanteResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPrePostulanteResult" nillable="true" type="q45:SolicitudPrePostulante" />
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="ObtenerSolicitudPrePostulanteResult" nillable="true" type="q46:SolicitudPrePostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -620,7 +635,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
-        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPrePostulante" nillable="true" type="q46:SolicitudPrePostulante" />
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.DL.DataModel.BelcorpPais" minOccurs="0" name="solicitudPrePostulante" nillable="true" type="q47:SolicitudPrePostulante" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
