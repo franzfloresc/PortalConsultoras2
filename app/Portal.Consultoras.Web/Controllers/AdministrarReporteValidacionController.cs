@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
             nombresHojas.Add("Ofertas (Set)");
             nombresHojas.Add("Ofertas (Componentes del Set)");
 
-            Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration, nombresHojas);
+            Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration, nombresHojas, 30);
 
             return null;
         }
@@ -238,7 +238,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> GetConfiguracionExcelSRCampania()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "Pais");
+            dic.Add("País", "CodPais");
             dic.Add("Campaña", "Campania");
             dic.Add("Nombre Evento", "NombreEvento");
             dic.Add("Días Antes de Facturación", "DiasAntesFacturacion");
@@ -252,28 +252,28 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> GetConfiguracionExcelSRPersonalizacion()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Detalle Personalizción", "Personalizacion");
+            dic.Add("Detalle Personalización", "Personalizacion");
             dic.Add("Medio", "Medio");
-            dic.Add("BO", "BO");
-            dic.Add("CL", "CL");
-            dic.Add("CO", "CO");
-            dic.Add("CR", "CR");
-            dic.Add("DO", "DO");
-            dic.Add("EC", "EC");
-            dic.Add("GT", "GT");
-            dic.Add("MX", "MX");
-            dic.Add("PA", "PA");
-            dic.Add("PE", "PE");
-            dic.Add("PR", "PR");
-            dic.Add("SV", "SV");
-            dic.Add("VE", "VE");
+            dic.Add("Bolivia", "BO");
+            dic.Add("Chile", "CL");
+            dic.Add("Colombia", "CO");
+            dic.Add("Costa Rica", "CR");
+            dic.Add("Dominicana", "DO");
+            dic.Add("Ecuador", "EC");
+            dic.Add("Guatemala", "GT");
+            dic.Add("México", "MX");
+            dic.Add("Panama", "PA");
+            dic.Add("Perú", "PE");
+            dic.Add("Puerto Rico", "PR");
+            dic.Add("Salvador", "SV");
+            dic.Add("Venezuela", "VE");
             return dic;
         }
 
         private Dictionary<string, string> GetConfiguracionExcelSROferta()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "Pais");
+            dic.Add("País", "CodPais");
             dic.Add("Campaña", "Campania");
             dic.Add("Código TO", "CodigoTO");
             dic.Add("SAP", "CodigoSAP");
@@ -292,7 +292,7 @@ namespace Portal.Consultoras.Web.Controllers
         private Dictionary<string, string> GetConfiguracionExcelSRComponentes()
         {
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("País", "Pais");
+            dic.Add("País", "CodPais");
             dic.Add("Campaña", "Campania");
             dic.Add("CUV", "CUV");
             dic.Add("Nombre", "Nombre");

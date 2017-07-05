@@ -93,8 +93,8 @@ namespace Portal.Consultoras.Entities
                 if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
                     _AnioCampanaVenta = Convert.ToString(row["CampaniaID"]);
 
-                if (DataRecord.HasColumn(row, "CodPais") && row["CodPais"] != DBNull.Value)
-                    _CodPais = Convert.ToString(row["CodPais"]);
+                if (DataRecord.HasColumn(row, "Pais") && row["Pais"] != DBNull.Value)
+                    _CodPais = Convert.ToString(row["Pais"]);
 
                 if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
                     _DescripcionCUV2 = Convert.ToString(row["DescripcionCUV2"]);
@@ -194,7 +194,7 @@ namespace Portal.Consultoras.Entities
                             _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
 
                         if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
-                            _PrecioOferta = Convert.ToInt32(row["PrecioOferta"]);
+                            _PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
 
                         if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
                             _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);

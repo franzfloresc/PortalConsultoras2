@@ -1471,7 +1471,7 @@ namespace Portal.Consultoras.Common
         /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
         /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
         /// <returns></returns>
-        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions, List<string> nombresHojas)
+        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions, List<string> nombresHojas, int sizeColumn)
         {
             try
             {
@@ -1518,16 +1518,18 @@ namespace Portal.Consultoras.Common
                                         ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
 
                                     }
+                                    ws.Column(col).Width = sizeColumn;
                                     break;
                                 }
                             }
                             col++;
+
                         }
                         row++;
                     }
-                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
+                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");                    
                 }
-                
+
                 //ws.Row(1).Style.Font.Bold = true;
                 //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
