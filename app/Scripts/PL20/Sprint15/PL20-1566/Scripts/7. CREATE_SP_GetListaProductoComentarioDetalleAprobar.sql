@@ -8,6 +8,7 @@ BEGIN
     DROP PROCEDURE dbo.GetListaProductoComentarioDetalleAprobar
 END
 GO
+--
 
 CREATE PROCEDURE GetListaProductoComentarioDetalleAprobar
 (
@@ -64,7 +65,7 @@ BEGIN
 	INNER JOIN ProductoComentarioDetalle d ON c.ProdComentarioId = d.ProdComentarioId
 		AND d.Estado = @Estado
 	WHERE c.CodigoSap = @CodigoSap 
-		AND c.CodigoGenerico = CASE WHEN @Tipo = 1 THEN c.CodigoGenerico ELSE @CodigoGenerico END
+		AND ISNULL(c.CodigoGenerico,'') = CASE WHEN @Tipo = 1 THEN ISNULL(c.CodigoGenerico,'') ELSE @CodigoGenerico END
 		AND c.Estado = 1
 	ORDER BY c.FechaRegistro
 
