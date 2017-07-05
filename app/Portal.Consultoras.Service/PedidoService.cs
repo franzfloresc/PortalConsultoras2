@@ -1201,6 +1201,11 @@ namespace Portal.Consultoras.Service
         {
             return new BLEstrategia().GetRegionZonaZE(PaisID, RegionID, ZonaID);
         }
+
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
+        {
+            return new BLEstrategia().GetCodeEstrategiaByCUV(paisID, cuv, campaniaID);
+        }
         // 1747 - Fin
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)
         {

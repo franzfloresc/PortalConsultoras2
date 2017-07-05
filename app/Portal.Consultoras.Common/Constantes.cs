@@ -546,10 +546,6 @@ namespace Portal.Consultoras.Common
             public const string CatalogoPersonalizado = "FDTC";
         }
 
-        public const string RevistaDigitalReducida = "RDR";
-
-        public const int SinRegistroDB = 0;
-
         public class IngresoExternoPagina
         {
             public const string EstadoCuenta = "ESTADOCUENTA";
@@ -635,7 +631,13 @@ namespace Portal.Consultoras.Common
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
-
+	    public class SessionNames
+        {
+                // Lista de estrategias en session para OPT y BPT 
+                public const string ListaEstrategia = "ListadoEstrategiaPedido";
+                public const string ProductoTemporal = "ProductoTemporal";
+        }
+	
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;

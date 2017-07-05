@@ -39,6 +39,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_UpdOfertaShowRoomDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdOfertaShowRoomDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdOfertaShowRoomDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdOfertaShowRoomDetalleResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_EliminarOfertaShowRoomDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:EliminarOfertaShowRoomDetalle" />
   </wsdl:message>
@@ -555,6 +561,12 @@
   <wsdl:message name="IPedidoService_GetTipoEstrategias_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTipoEstrategiasResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCodeEstrategiaByCUV_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeEstrategiaByCUV" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetCodeEstrategiaByCUV_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeEstrategiaByCUVResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetEstrategias_InputMessage">
     <wsdl:part name="parameters" element="tns:GetEstrategias" />
   </wsdl:message>
@@ -1010,12 +1022,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsOfertaShowRoomDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsOfertaShowRoomDetalleResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdOfertaShowRoomDetalle_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdOfertaShowRoomDetalle" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdOfertaShowRoomDetalle_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdOfertaShowRoomDetalleResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsCrossSellingAsociacion_InputMessage">
     <wsdl:part name="parameters" element="tns:InsCrossSellingAsociacion" />
@@ -2038,6 +2044,10 @@
     <wsdl:part name="parameters" element="tns:GetDescripcionProductoByCUVResponse" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="UpdOfertaShowRoomDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" message="tns:IPedidoService_UpdOfertaShowRoomDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse" message="tns:IPedidoService_UpdOfertaShowRoomDetalle_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="EliminarOfertaShowRoomDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalle" message="tns:IPedidoService_EliminarOfertaShowRoomDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalleResponse" message="tns:IPedidoService_EliminarOfertaShowRoomDetalle_OutputMessage" />
@@ -2382,6 +2392,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategias" message="tns:IPedidoService_GetTipoEstrategias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTipoEstrategiasResponse" message="tns:IPedidoService_GetTipoEstrategias_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetCodeEstrategiaByCUV">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" message="tns:IPedidoService_GetCodeEstrategiaByCUV_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUVResponse" message="tns:IPedidoService_GetCodeEstrategiaByCUV_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategias">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategias" message="tns:IPedidoService_GetEstrategias_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEstrategiasResponse" message="tns:IPedidoService_GetEstrategias_OutputMessage" />
@@ -2685,10 +2699,6 @@
     <wsdl:operation name="InsOfertaShowRoomDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle" message="tns:IPedidoService_InsOfertaShowRoomDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalleResponse" message="tns:IPedidoService_InsOfertaShowRoomDetalle_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdOfertaShowRoomDetalle">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" message="tns:IPedidoService_UpdOfertaShowRoomDetalle_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalleResponse" message="tns:IPedidoService_UpdOfertaShowRoomDetalle_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsCrossSellingAsociacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsCrossSellingAsociacion" message="tns:IPedidoService_InsCrossSellingAsociacion_InputMessage" />
@@ -3373,6 +3383,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdOfertaShowRoomDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EliminarOfertaShowRoomDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalle" style="document" />
       <wsdl:input>
@@ -4147,6 +4166,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCodeEstrategiaByCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
@@ -4824,15 +4852,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsOfertaShowRoomDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdOfertaShowRoomDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6374,6 +6393,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UpdOfertaShowRoomDetalle">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="EliminarOfertaShowRoomDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/EliminarOfertaShowRoomDetalle" style="document" />
       <wsdl:input>
@@ -7148,6 +7176,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetCodeEstrategiaByCUV">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCodeEstrategiaByCUV" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetEstrategias">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEstrategias" style="document" />
       <wsdl:input>
@@ -7825,15 +7862,6 @@
     </wsdl:operation>
     <wsdl:operation name="InsOfertaShowRoomDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsOfertaShowRoomDetalle" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdOfertaShowRoomDetalle">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdOfertaShowRoomDetalle" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

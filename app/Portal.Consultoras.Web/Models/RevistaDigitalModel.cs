@@ -10,14 +10,16 @@ namespace Portal.Consultoras.Web.Models
         public RevistaDigitalModel()
         {
             SuscripcionModel = new RevistaDigitalSuscripcionModel();
-            SuscripcionAnteriorModel = new RevistaDigitalSuscripcionModel();
-            ListaProducto = new List<EstrategiaPedidoModel>();
+            SuscripcionAnterior2Model = new RevistaDigitalSuscripcionModel();
+            SuscripcionAnterior1Model = new RevistaDigitalSuscripcionModel();
+            ListaProductoLan = new List<EstrategiaPedidoModel>();
+            ListaProductoNoLan = new List<EstrategiaPedidoModel>();
             ListaTabs = new List<ComunModel>();
             FiltersBySorting = new List<BETablaLogicaDatos>();
             FiltersByCategory = new List<BETablaLogicaDatos>();
             FiltersByBrand = new List<BETablaLogicaDatos>();
             FiltersByPublished = new List<BETablaLogicaDatos>();
-            NombreRevista = "QUÉ ES ESIKA PARA MÍ";
+            NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
         }
 
         public bool Success { get; set; }
@@ -35,14 +37,21 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaID { get; set; }
         public int CampaniaMasUno { get; set; }
         public int CampaniaMasDos { get; set; }
+        public int CantidadFilas { get; set; }
         public string NumeroContacto { get; set; }
-        
+        public bool TieneRDR { get; set; }
+        public bool TieneRDC { get; set; }
+        public bool TieneRDS { get; set; }
+        public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
+
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }
         public List<BETablaLogicaDatos> FiltersByBrand { get; set; }
         public List<BETablaLogicaDatos> FiltersByPublished { get; set; }
         public RevistaDigitalSuscripcionModel SuscripcionModel { get; set; }
-        public RevistaDigitalSuscripcionModel SuscripcionAnteriorModel { get; set; }
-        public List<EstrategiaPedidoModel> ListaProducto { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnterior2Model { get; set; }
+        public RevistaDigitalSuscripcionModel SuscripcionAnterior1Model { get; set; }
+        public List<EstrategiaPedidoModel> ListaProductoLan { get; set; }
+        public List<EstrategiaPedidoModel> ListaProductoNoLan { get; set; }
     }
 }

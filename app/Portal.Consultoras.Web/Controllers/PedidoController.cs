@@ -408,6 +408,15 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
                 ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
 
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+                ViewBag.NombreConsultora = userData.Sobrenombre;
                 /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
@@ -1454,6 +1463,40 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
                 }
 
+                try
+                {
+                    var codigoEstrategia = "";
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    {
+                        codigoEstrategia =
+                            sv.GetCodeEstrategiaByCUV(oUsuarioModel.PaisID, model.CUV, oUsuarioModel.CampaniaID);
+                    }
+                    if (codigoEstrategia != null && (Constantes.TipoEstrategiaCodigo.Lanzamiento == codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.OfertasParaMi ==
+                                                     codigoEstrategia
+                                                     || Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ==
+                                                     codigoEstrategia))
+                    {
+                        if (!(ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida)
+                              || ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigital)))
+                        {
+                            olstProductoModel.Add(new ProductoModel()
+                            {
+                                MarcaID = 0,
+                                CUV = "Para agregar este producto tienes que estar incrita a la revista digital.",
+                                TieneSugerido = 0
+                            });
+                            return Json(olstProductoModel, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
+                }
+                
+
+
                 var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
                 var estrategia = listaEstrategias.FirstOrDefault(p => p.CUV2 == model.CUV) ?? new BEEstrategia();
                 if (estrategia.TipoEstrategiaImagenMostrar == @Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi)
@@ -2419,7 +2462,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     //ViewBag.Prol = "MODIFICA TU PEDIDO";
-                    ViewBag.ProlTooltip = "Haz click aquí para modificar tu pedido";
+                    ViewBag.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste."; //EPD-2561
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -2427,14 +2470,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
-                        {
-                            ViewBag.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                        }
-                        else
-                        {
-                            ViewBag.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                        }
+                        ViewBag.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt")); //EPD-2561
                     }
                 }
                 else // PROL 1
