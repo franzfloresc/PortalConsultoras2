@@ -21,61 +21,12 @@
    
 }
 <!--DETALLE FICHA PRODUCTO-->
-<div id="contenedor-detalle-producto"></div>    
-    <!--FIN-->
+    <div id="contenedor-detalle-producto"></div>    
+<!--FIN-->
     <hr class="clear" />
-    <!--CARROUSEL-->
-    <div class="content_carrusel_bestSeller">
-        <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
-        <div class="variable-width">
-            <div class="slider_item">
-                <a href="#" class="slider_item_content">
-                    <div data-img="">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                    </div>
-                    <div class="marca_carrusel_best">ESIKA</div>
-                    <span class="title">2 Cardigan + Prints</span>
-                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                    <span class="price"><b>S/. 69.90 </b></span>
-                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                    <div><div class="comentarios_detalle_best">(346)</div></div>
-                </a>
-            </div>
-            <div class="slider_item">
-                <a href="#" class="slider_item_content">
-                    <div data-img="">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                    </div>
-                    <div class="marca_carrusel_best">ESIKA</div>
-                    <span class="title">2 Cardigan + Prints</span>
-                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                    <span class="price"><b>S/. 69.90 </b></span>
-                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                    <div><div class="comentarios_detalle_best">(346)</div></div>
-                </a>
-            </div>
-            <div class="slider_item">
-                <a href="#" class="slider_item_content">
-                    <div data-img="">
-                        <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/nrKHedNhhLWGYgL/lbel_de.png" class="imagen_carrusel_best">
-                    </div>
-                    <div class="marca_carrusel_best">ESIKA</div>
-                    <span class="title">2 Cardigan + Prints</span>
-                    <span class="precio_tachado_carrusel_set">S/. 228.00</span>
-                    <span class="price"><b>S/. 69.90 </b></span>
-                    <div class="rateyo-readonly-carrusel" style="margin-top:6px;"></div>
-                    <div><div class="comentarios_detalle_best">(346)</div></div>
-                </a>
-            </div>
-        </div>
-
-        <div class="content_orden_carrusel" data-posicion-set="">
-            <div class="orden_listado_numero"><span data-posicion-current="">2</span> / 15</div>
-            <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
-            <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
-            <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
-        </div>
-    </div>
+<!--CARROUSEL-->
+    <div id="divCarrouselMasVendidos"></div>        
+<!--FIN-->
     <!--COMENTARIOS-->
     <div class="section_comentarios">
         <div class="wrapper_resumen_mobile">
@@ -170,7 +121,7 @@
     <!--AGREGAR-->
     <div id="contenedor-detalle-producto-agregar"></div>
 
-    <script id="template-detalle-producto-agregar" type="text/x-handlebars-template">        
+    <script id="template-detalle-producto-agregar" type="text/x-handlebars-template">
         <div class="content_btn_agregar" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div data-compartir-campos="" style="display:none;">
@@ -188,9 +139,9 @@
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="BS" />
                 <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
-            </div>                        
+            </div>
             <div data-estrategia="{{CodigoEstrategia}}"></div>
-            <div class="content_320">                
+            <div class="content_320">
                 <div class="content_cantidad_ficha_producto">
                     <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                     <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
@@ -266,6 +217,40 @@
                 </div>
             </div>
         </div>
+    </script>
+
+    <script id="template-detalle-producto-lista" type="text/x-handlebars-template">
+        {{#each this.Lista as |item|}}
+        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
+             class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
+            <div class="content_carrusel_bestSeller">
+                <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+                <div>
+                    <div class="variable-width" onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
+                        <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+                            <a href="#" class="slider_item_content">
+                                <div data-img="">
+                                    <img src="{{FotoProducto01}}" class="imagen_carrusel_best">
+                                </div>
+                                <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
+                                <span class="title">{{DescripcionCortada}}</span>
+                                <span class="precio_tachado_carrusel_set">{{Simbolo}} {{PrecioTachado}}</span>
+                                <span class="price"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                                <div class="rateyo-readonly-carrusel" id="star-{{EstrategiaID}}" style="margin-top:6px;"></div>
+                                <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="content_orden_carrusel" data-posicion-set="">
+                    <div class="orden_listado_numero"><span data-posicion-current="">2</span> / 15</div>
+                    <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
+                    <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
+                    <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
     </script>
 
     @section scripts{

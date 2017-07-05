@@ -99,7 +99,8 @@
     var _armarCarouselMasVendidos = function (data) {
         data.Lista = EstructurarDataCarousel(data.Lista);
         $("#divCarrouselMasVendidos").empty();
-        SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos');
+        if (tipoOrigenPantalla === 1) { SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos'); }
+        if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
         PintarEstrellasCarrusel(data.Lista);
         PintarRecomendacionesCarrusel(data.Lista);
     }
