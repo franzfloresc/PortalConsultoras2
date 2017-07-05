@@ -18,6 +18,7 @@
       <xs:element minOccurs="0" name="ApellidoNoFamiliar" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoPaterno" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ApellidoPaternoAval" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaDeIngreso" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaDeRegistro" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaID" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="Celular" nillable="true" type="xs:string" />
@@ -103,6 +104,7 @@
       <xs:element minOccurs="0" name="RazonSocial" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Referencia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ReferenciaEntrega" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequiereAprobacionSAC" type="xs:boolean" />
       <xs:element minOccurs="0" name="RequiereAval" nillable="true" type="xs:boolean" />
       <xs:element minOccurs="0" name="RespuestaGEO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SeccionConsultoraLider" nillable="true" type="xs:string" />

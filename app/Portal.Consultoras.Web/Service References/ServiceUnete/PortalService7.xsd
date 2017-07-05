@@ -60,6 +60,7 @@
       <xs:element minOccurs="0" name="ApellidoPaternoAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Calle" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Campania1Pedido" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaDeIngreso" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CampaniaDeRegistro" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="CelularAval" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CelularFamiliar" nillable="true" type="xs:string" />
@@ -227,10 +228,17 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="EventoId" type="xs:int" />
       <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaData" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Observacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="SolicitudPostulanteId" type="xs:int" />
       <xs:element minOccurs="0" name="TipoEvento" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EventoSolicitudPostulanteBE" nillable="true" type="tns:EventoSolicitudPostulanteBE" />
+  <xs:complexType name="ExisteCelularBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Existe" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ExisteCelularBE" nillable="true" type="tns:ExisteCelularBE" />
 </xs:schema>
