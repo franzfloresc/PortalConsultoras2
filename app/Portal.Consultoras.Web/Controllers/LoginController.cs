@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServiceLMS;
@@ -18,7 +19,6 @@ using System.ServiceModel;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -26,21 +26,29 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
+        private ILogManager logManager;
+
+        public LoginController()
+        {
+            logManager = LogManager.LogManager.Instance;
+        }
+
+        public LoginController(ILogManager logManager)
+        {
+            this.logManager = logManager;
+        }
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
         {
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (EsUsuarioAutenticado())
             {
-                bool esMovil = Request.Browser.IsMobileDevice;
-                if (esMovil)
+                if (EsDispositivoMovil())
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
-                else
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
+
+                return RedirectToAction("Index", "Bienvenida");
             }
             else
             {
@@ -50,19 +58,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    model.ListaPaises = DropDowListPaises();
-                    var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+                    model.ListaPaises = ObtenerPaises();
 
-                    if (buscarISOPorIP == "1")
+                    if (EstaActivoBuscarISOPorIP())
                     {
                         try
                         {
                             IP = GetIPCliente();
-                            ISO = Util.GetISObyIPAddress(IP);
+                            ISO = Util.GetISObyIPAddress(IP, ObtenerRutaBaseDatosGeoLite());
                         }
                         catch (Exception ex)
                         {
-                            LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
+                            logManager.LogErrorWebServicesBus2(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
                         }
                     }
 
@@ -73,14 +80,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     AsignarHojaEstilos(ISO);
-
-                    if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
-                        returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
-
-                    if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
-                    {
-                        ViewBag.ReturnURL = returnUrl;
-                    }
+                    AsignarUrlRetorno(returnUrl);
                 }
                 catch (FaultException ex)
                 {
@@ -88,7 +88,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-                    LogManager.LogManager.LogErrorWebServicesBus(ex, IP, ISO, "Login.GET.Index");
+                    logManager.LogErrorWebServicesBus2(ex, IP, ISO, "Login.GET.Index");
                 }
 
                 ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
@@ -97,9 +97,60 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        
+
+        protected virtual bool EsUsuarioAutenticado()
+        {
+            return HttpContext.User.Identity.IsAuthenticated;
+        }
+
+        protected virtual bool EsDispositivoMovil()
+        {
+            return Request.Browser.IsMobileDevice;
+        }
+
+        protected virtual bool EstaActivoBuscarISOPorIP()
+        {
+            var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
+            return buscarISOPorIP == "1";
+        }
+
+        protected virtual string GetIPCliente()
+        {
+            string IP = string.Empty;
+            try
+            {
+                // EPD-2929 Clase para Obtener la IP del cliente
+                //var HttpRequestBase = new HttpRequestWrapper(Request);
+                IP = ClientIP.ClientIPFromRequest(Request, true);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+
+            return IP;
+        }
+
+        protected virtual string ObtenerRutaBaseDatosGeoLite()
+        {
+            return Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
+        }
+
+        protected virtual void AsignarUrlRetorno(string returnUrl)
+        {
+            if (string.IsNullOrEmpty(returnUrl) && Request.UrlReferrer != null)
+                returnUrl = Server.UrlEncode(Request.UrlReferrer.PathAndQuery);
+
+            if (Url.IsLocalUrl(returnUrl) && !string.IsNullOrEmpty(returnUrl))
+            {
+                ViewBag.ReturnURL = returnUrl;
+            }
+        }
+
+
         [AllowAnonymous]
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl = null)
         {
             pasoLog = "Login.POST.Index";
@@ -282,9 +333,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (usuario.RolID == Constantes.Rol.Consultora)
                 {
-                    bool esMovil = Request.Browser.IsMobileDevice;
-
-                    if (esMovil)
+                    if (EsDispositivoMovil())
                     {
                         if (Request.IsAjaxRequest())
                         {
@@ -375,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private IEnumerable<PaisModel> DropDowListPaises()
+        protected virtual IEnumerable<PaisModel> ObtenerPaises()
         {
             List<BEPais> lst;
 
@@ -478,7 +527,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult LoginCargarConfiguracion(int paisID, string codigoUsuario)
         {
             GetUserData(paisID, codigoUsuario, 1, 1);
-            if (Request.Browser.IsMobileDevice)
+            if (EsDispositivoMovil())
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
             return RedirectToAction("Index", "Bienvenida");
         }
@@ -1082,22 +1131,6 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-        private string GetIPCliente()
-        {
-            string IP = string.Empty;
-            try
-            {
-                // EPD-2929 Clase para Obtener la IP del cliente
-                var HttpRequestBase = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-                IP = ClientIP.ClientIPFromRequest(HttpRequestBase, true);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
-
-            return IP;
-        }
 
         private void AsignarHojaEstilos(string iso)
         {
@@ -1584,7 +1617,7 @@ namespace Portal.Consultoras.Web.Controllers
         //MC-EPD1837
         private int GetPaisIdByISO(string codigoISO)
         {
-            var lstPaises = DropDowListPaises();
+            var lstPaises = ObtenerPaises();
             var r = 0;
 
             foreach (var item in lstPaises)
