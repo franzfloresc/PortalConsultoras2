@@ -47,6 +47,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.SelectByConsultora(paisID, consultoraID);
         }
 
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        {
+            return BLCliente.SelectByConsultoraByCodigo(paisID, consultoraID, ClienteID, codigoCliente);
+        }
+
         public BECliente SelectById(int paisID, long consultoraID, int clienteID)
         {
             return BLCliente.SelectById(paisID, consultoraID, clienteID);
@@ -130,5 +135,15 @@ namespace Portal.Consultoras.Service
         {
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
+        {
+            return BLCliente.SaveDB(paisID, clientes);
+        }
+
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        {
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+        }
     }
-    }
+}

@@ -15,7 +15,8 @@ namespace Portal.Consultoras.Data
         Portal = 1,
         ODS = 2,
         Digitacion = 3,
-        OnPremise = 4
+        OnPremise = 4,
+        Cliente = 5
     }
     
     public abstract class DataAccess
@@ -51,6 +52,21 @@ namespace Portal.Consultoras.Data
 
             if (logFileBaseName != string.Empty)
                 this.context.LogFileName = logFileBaseName + "-" + DateTime.Now.ToString("yyyyMMdd") + ".log";*/
+        }
+
+        public DataAccess(EDbSource dbSource)
+        {
+            string connectionKey = dbSource.ToString();
+
+            if (ExistInConfig(connectionKey))
+            {
+                context = new DbContext(connectionKey);
+            }
+        }
+
+        private static bool ExistInConfig(string connectionStringName)
+        {
+            return ConfigurationManager.ConnectionStrings[connectionStringName] != null;
         }
 
         public DbContext Context

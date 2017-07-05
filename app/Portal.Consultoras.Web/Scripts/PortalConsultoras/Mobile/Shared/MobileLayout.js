@@ -693,10 +693,18 @@ function messageInfo(message, fnAceptar) {
 
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacion .btn-aceptar').off('click');
-        $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacion .btn-aceptar').off('click');
+    $('#popupInformacion .cerrar_popMobile').off('click');
+
+    $('#popupInformacion .btn-aceptar').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
+    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
 }
 
 function messageInfoBueno(message, fnAceptar) {
@@ -724,10 +732,23 @@ function messageInfoError(message, fnAceptar) {
     }
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionSB2Error .btn-aceptar').off('click');
-        $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').off('click');
+    $('#popupInformacionSB2Error .btn_ok_mobile').off('click');
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+    });
+
+    $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+        fnAceptar();
+    });
+
+    //if ($.isFunction(fnAceptar)) {
+    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
+    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
+    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
