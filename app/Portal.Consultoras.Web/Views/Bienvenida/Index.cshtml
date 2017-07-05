@@ -1306,8 +1306,8 @@
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
-        <div class="content_item_carrusel" {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{ />iff}}>
-        <div {{#iff tipoestrategiaimagenmostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{ />iff}}>
+        <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
         <div class="producto_img_home">
             <img src="{{FotoProducto01}}" class="imagen_producto" />
             {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
@@ -1575,15 +1575,15 @@
             </div>
             <div class="content_right_ficha">
                 <div style="min-height:300px;">
-                    <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_left_ficha" {{ />iff}}>
+                    <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_left_ficha" {{/iff}}>
                     <div class="marca_producto">{{DescripcionMarca}}</div>
                     <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
-                         {{#iff codigoestrategia '==' '' }} style="font-size:22px; line-height:30px;" {{ />iff}}>
+                         {{#iff codigoestrategia '==' '' }} style="font-size:22px; line-height:30px;" {{/iff}}>
                     {{DescripcionCompleta}}
                 </div>
                 @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
             </div>
-            <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_right_ficha" style="text-align:right;" {{ />iff}}>
+            <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_right_ficha" style="text-align:right;" {{/iff}}>
             <div class="precio_ficha_producto">
                 {{#iff Precio '>' 0}}
                 <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
@@ -1716,11 +1716,9 @@
     </div>
     {{/if}}
     @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
-    </div>
+    
     <hr class="clear" />
-    </div>
 
-    </div>
 </script>
 
 <script id="miscursos-template" type="text/x-handlebars-template">
