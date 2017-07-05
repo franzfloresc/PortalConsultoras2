@@ -168,21 +168,10 @@
         </div>
     </div>
     <!--AGREGAR-->
-    <div class="content_btn_agregar">
-        <div class="content_320">
-            <div class="content_cantidad_ficha_producto">
-                <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
-                <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-            </div>
-            <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" href="javascript: void(0);">AGRÉGALO</a>
-            <hr class="clear">
-        </div>
-    </div>
+    <div id="contenedor-detalle-producto-agregar"></div>
 
-<script id="template-detalle-producto" type="text/x-handlebars-template">
-    <div>
-        <div class="content_room_product_sheet" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+    <script id="template-detalle-producto-agregar" type="text/x-handlebars-template">        
+        <div class="content_btn_agregar" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -199,52 +188,85 @@
                 <input type="hidden" class="Volumen" value="{{Volumen}}" />
                 <input type="hidden" class="Palanca" value="BS" />
                 <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
-            </div>
+            </div>                        
             <div data-estrategia="{{CodigoEstrategia}}"></div>
-            <div class="content_imagen_best">
-                <div class="content_fondo_bestSeller"><img src="{{FotoProducto01}}" /></div>
-            </div>
-            <hr class="clear" />
-            <div class="wrapper_resumen_mobile" style="margin-top:10px;">
-                <div class="marca_best">{{DescripcionMarca}}</div>
-                <h1>{{DescripcionCUV2}}</h1>
-                <div class="content_puntuacion_detalle">
-                    <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
-                    <a href="#ComentariosUsuarios" class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}"></a>
+            <div class="content_320">                
+                <div class="content_cantidad_ficha_producto">
+                    <a class="cantidad_menos_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
+                    <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
+                    <a class="cantidad_mas_home" href="javascript: void(0);"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                 </div>
-                <div class="price_product">
-                    <s class="price_offer">{{Simbolo}} {{PrecioTachado}}</s>
-                    <span class="price">Precio para ti <b>{{Simbolo}} {{PrecioString}}</b></span>
-                    <span class="comment">Gana {{Simbolo}} {{Ganancia}}</span>
-                </div>
-                <div class="comentarios_best_seller_ficha">
-                    <div id="last-commentary-{{EstrategiaID}}">
-                        <br />
-                    </div>
-                    <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
-                </div>
-                <!--COLOR TONO-->
-                @*<div class="content_tono_bestSeller">
-                    <div class="item_tono_best">
-                        <div class="cantidad_item_tono">x1</div>
-                        <div class="nombre_producto_item_best">Labial Hidracolor</div>
-                        <hr class="clear" />
-                        <div class="color_tono_item"></div>
-                        <div class="color_texto_item">Rojo Pimienta</div>
-                    </div>
-                    <div class="item_tono_best">
-                        <div class="cantidad_item_tono">x1</div>
-                        <div class="nombre_producto_item_best">Labial Hidracolor</div>
-                        <hr class="clear" />
-                        <div class="color_tono_item"></div>
-                        <div class="color_texto_item">Rojo Pimienta</div>
-                    </div>
-                </div>*@
-                <!--FIN-->
+                <a class="btn_agregar_ficha_producto" data-btn-agregar-sr="" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true); ">AGRÉGALO</a>
+                <hr class="clear">
             </div>
         </div>
-    </div>
-</script>
+    </script>
+
+    <script id="template-detalle-producto" type="text/x-handlebars-template">
+        <div>
+            <div class="content_room_product_sheet" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+                <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+                <div data-compartir-campos="" style="display:none;">
+                    <input type="hidden" class="CUV" value="{{CUV2}}" />
+                    <input type="hidden" class="rsFBMensaje" value="" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+                    <input type="hidden" class="rsWAMensaje" value="" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+                    <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                    <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                    <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                    <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                    <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                    <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                    <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                    <input type="hidden" class="Palanca" value="BS" />
+                    <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+                </div>
+                <div data-estrategia="{{CodigoEstrategia}}"></div>
+                <div class="content_imagen_best">
+                    <div class="content_fondo_bestSeller"><img src="{{FotoProducto01}}" /></div>
+                </div>
+                <hr class="clear" />
+                <div class="wrapper_resumen_mobile" style="margin-top:10px;">
+                    <div class="marca_best">{{DescripcionMarca}}</div>
+                    <h1>{{DescripcionCUV2}}</h1>
+                    <div class="content_puntuacion_detalle">
+                        <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                        <a href="#ComentariosUsuarios" class="texto_puntuacion_detalle" id="recommendation-{{EstrategiaID}}"></a>
+                    </div>
+                    <div class="price_product">
+                        <s class="price_offer">{{Simbolo}} {{PrecioTachado}}</s>
+                        <span class="price">Precio para ti <b>{{Simbolo}} {{PrecioString}}</b></span>
+                        <span class="comment">Gana {{Simbolo}} {{Ganancia}}</span>
+                    </div>
+                    <div class="comentarios_best_seller_ficha">
+                        <div id="last-commentary-{{EstrategiaID}}">
+                            <br />
+                        </div>
+                        <div id="consultant-commentary-{{EstrategiaID}}">- Sandra A.</div>
+                    </div>
+                    <!--COLOR TONO-->
+                    @*<div class="content_tono_bestSeller">
+                            <div class="item_tono_best">
+                                <div class="cantidad_item_tono">x1</div>
+                                <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                                <hr class="clear" />
+                                <div class="color_tono_item"></div>
+                                <div class="color_texto_item">Rojo Pimienta</div>
+                            </div>
+                            <div class="item_tono_best">
+                                <div class="cantidad_item_tono">x1</div>
+                                <div class="nombre_producto_item_best">Labial Hidracolor</div>
+                                <hr class="clear" />
+                                <div class="color_tono_item"></div>
+                                <div class="color_texto_item">Rojo Pimienta</div>
+                            </div>
+                        </div>*@
+                    <!--FIN-->
+                </div>
+            </div>
+        </div>
+    </script>
 
     @section scripts{
         <script type="text/javascript">
@@ -332,7 +354,7 @@
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
         <script type="text/javascript">
-            var tipoOrigenEstrategia = 1;
+            var tipoOrigenEstrategia = 2;
             var tieneMasVendidos = 1;
             var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
             var tipoOrigenPantalla = 2;

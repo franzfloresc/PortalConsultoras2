@@ -26,6 +26,7 @@
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
+            if (tipoOrigenPantalla == 2) { SetHandlebars("#template-detalle-producto-agregar", item, "#contenedor-detalle-producto-agregar"); }
             _validarGanancia(item);
             _validarPrecioTachado(item);
             _pintarEstrellas(item);
@@ -326,3 +327,43 @@ function _validarDivTituloMasVendidos() {
         }
     }
 }
+
+//function agregarProductoAlCarrito(o) {
+//    var btnClickeado = $(o);
+//    var contenedorItem = btnClickeado.parent().parent();
+//    var imagenProducto = $('.imagen_producto', contenedorItem);
+//    if (imagenProducto.length == 0) {
+//        imagenProducto = $('.imagen_producto', $(o).parents("[data-item]"));
+//    }
+//    if (imagenProducto.length > 0) {
+//        var carrito = $('.campana.cart_compras');
+
+//        $.each(carrito, function (indC, car) {
+//            if ($(car).offset().left > 0) {
+//                carrito = $(car);
+//            }
+//        });
+
+//        $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
+
+//        $(".transicion").css({
+//            'height': imagenProducto.css("height"),
+//            'width': imagenProducto.css("width"),
+//            'top': imagenProducto.offset().top,
+//            'left': imagenProducto.offset().left,
+//        }).animate({
+//            'top': carrito.offset().top,
+//            'left': carrito.offset().left,
+//            'height': carrito.css("height"),
+//            'width': carrito.css("width"),
+//            'opacity': 0.5
+//        }, 450, 'swing', function () {
+//            $(this).animate({
+//                'top': carrito.offset().top,
+//                'opacity': 0
+//            }, 150, 'swing', function () {
+//                $(this).remove();
+//            });
+//        });
+//    }
+//}
