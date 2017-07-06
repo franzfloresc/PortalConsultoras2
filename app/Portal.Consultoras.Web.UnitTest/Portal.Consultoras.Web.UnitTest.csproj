@@ -52,8 +52,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Web\Portal.Consultoras.Web.csproj">
       <Project>{f8b9b37b-8270-4602-b70c-4edb2986a28b}</Project>
       <Name>Portal.Consultoras.Web</Name>
