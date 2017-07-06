@@ -244,6 +244,7 @@
 
     var _initializer = function (parameters) {
         setting.baseUrl = parameters.baseUrl;
+        setting.urlDetalleProducto = parameters.urlDetalleProducto;
         _bindEvents();
     };
 
@@ -258,8 +259,8 @@
                         var model = get_local_storage("data_mas_vendidos");
                         model.Item = item;
                         model.Lista = _actualizarListaStorate(model.Lista, item);
-                        set_local_storage(model, "data_mas_vendidos");
-                        location.href = setting.baseUrl + 'EstrategiaProducto/DetalleProducto';
+                        set_local_storage(model, "data_mas_vendidos");                        
+                        location.href = setting.urlDetalleProducto;
                     } else {
                         console.log(verDetalleResponse.menssage);
                     }

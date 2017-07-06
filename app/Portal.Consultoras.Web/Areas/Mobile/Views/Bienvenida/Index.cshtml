@@ -1042,6 +1042,11 @@
                         intrigaAceptoTerminos = !intrigaAceptoTerminos;
                     }
                 });
+
+                masVendidosModule.ini({
+                    baseUrl: baseUrl,
+                    urlDetalleProducto:'@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
+                });
             });
             $(function () {
                 var rating = 1.6;
@@ -1053,7 +1058,6 @@
                     maxValue: 5,
                     starWidth: "17px"
                 }).on("rateyo.change", function (e, data) {
-
                     //console.log(data.rating);
                 });
             });

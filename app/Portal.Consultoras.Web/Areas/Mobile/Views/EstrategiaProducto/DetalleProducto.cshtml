@@ -331,7 +331,8 @@
                         urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
                     });
                     masVendidosModule.ini({
-                        baseUrl: baseUrl
+                        baseUrl: baseUrl,
+                        urlDetalleProducto:'@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
                     });
                 });
             });
@@ -342,7 +343,7 @@
             var tipoOrigenEstrategia = 2;
             var tieneMasVendidos = 1;
             var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
-            var tipoOrigenPantalla = 2;
+            var tipoOrigenPantalla = 2;            
         </script>
         <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
         <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>

@@ -2428,6 +2428,11 @@
                 $(this).toggleClass('check_intriga');
                 
             });
+
+            masVendidosModule.ini({
+                baseUrl: baseUrl,
+                urlDetalleProducto :'@Url.Action("DetalleProducto", "EstrategiaProducto")'
+            });
         });
         
     </script>
