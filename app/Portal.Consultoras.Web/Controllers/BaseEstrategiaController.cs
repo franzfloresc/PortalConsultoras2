@@ -57,6 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return listEstrategia;
             }
 
+            Session[varSession] = listEstrategia;
             return listEstrategia;
         }
         
@@ -129,7 +130,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (estrategia.CodigoEstrategia == "")
                     return estrategia;
 
-                string joinCuv = "";
+                string joinCuv = "|", separador = "|";
 
                 estrategia.CampaniaID = estrategia.CampaniaID > 0 ? estrategia.CampaniaID : userData.CampaniaID;
 
@@ -143,7 +144,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in listaHermanosE)
                     {
-                        joinCuv += item.CodigoSAP + "|";
+                        item.CodigoSAP = Util.Trim(item.CodigoSAP);
+                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
+                            joinCuv += item.CodigoSAP + separador;
                     }
                 }
 
@@ -158,13 +161,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                     foreach (var item in listaProducto)
                     {
-                        joinCuv += item.SAP + "|";
+                        item.SAP = Util.Trim(item.SAP);
+                        if (item.SAP != "" && !joinCuv.Contains(separador + item.SAP + separador))
+                            joinCuv += item.SAP + separador;
                     }
                 }
 
-                if (joinCuv == "") return estrategia;
+                if (joinCuv == separador) return estrategia;
 
-                joinCuv = joinCuv.Substring(0, joinCuv.Length - 1);
+                joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
 
                 var listaAppCatalogo = new List<Producto>();
                 using (ProductoServiceClient svc = new ProductoServiceClient())
@@ -237,7 +242,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija)
                     {
-                        listaHermanos.ForEach(h => h.Digitable = 0);
+                        listaHermanos.ForEach(h => { h.Digitable = 0; h.NombreComercial = Util.Trim(h.NombreComercial); });
+                        listaHermanos = listaHermanos.Where(h => h.NombreComercial != "").ToList();
                     }
                     else if (estrategia.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
@@ -453,9 +459,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
-                    estrategia.DescripcionResumen = estrategia.DescripcionCUV2.Split('|')[0];
+                    estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
-                    estrategia.DescripcionCortada = estrategia.DescripcionResumen;
+                    estrategia.DescripcionResumen = "";
                 }
                 else
                 {

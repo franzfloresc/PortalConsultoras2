@@ -540,37 +540,13 @@
     </div>
     <!--14092016 - FIN -->
 
-    <div class="caja_carousel_productos" id="divListaEstrategias" style="display:none;">
-        
-        <div id="" class="contenedorCupon">
-            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
-                Tienes un dscto exclusivo para ti,
-                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
-            </div>
-            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
-                Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-            </div>
-            <hr class="clear" />
-        </div>
-        <div class="contenedor_carousel">
-            <h1>
-                OFERTAS
-                <b>PARA TI</b>
-                <b class="">@Model.SobreNombre</b>
-            </h1>
-            <div class="texto_exclusivo_web">
-                EXCLUSIVAS SÓLO POR WEB
-            </div>
-            <div class="contenedor_productos">
-                <div id="cierreCarousel" class="background_carousel" style="display:none;"></div>
-                <div id="divListadoEstrategia" class="contenedor_carousel_productos content_carrusel_agregado slider center">
-                </div>
-            </div>
-        </div>
+    <div id="divListaEstrategias" class="caja_carousel_productos">
+        @if (ViewBag.MostrarPedidosPendientes == "1")
+        {
+            <div class="truco_bloqueo sim2"></div>
+        }
+        <div id="contenedor_template_estrategia_cabecera"></div>
     </div>
-
-        
-        
         
     <div class="clear"></div>
     <hr class="clear" />
@@ -2576,6 +2552,7 @@ else
                 var celular = '@Model.Celular';
 
                 var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
+                var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
                 var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
                 //var tieneMasVendidos = @Model.TieneMasVendidos;
             </script>
