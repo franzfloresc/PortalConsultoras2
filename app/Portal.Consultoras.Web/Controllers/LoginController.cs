@@ -62,15 +62,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (EstaActivoBuscarISOPorIP())
                     {
-                        try
-                        {
-                            IP = GetIPCliente();
+                        IP = GetIPCliente();
+                        if(!string.IsNullOrWhiteSpace(IP))
                             ISO = Util.GetISObyIPAddress(IP, ObtenerRutaBaseDatosGeoLite());
-                        }
-                        catch (Exception ex)
-                        {
-                            logManager.LogErrorWebServicesBus2(ex, IP, ISO, "Login.GET.Index: GetIPCliente,GetISObyIPAddress");
-                        }
                     }
 
                     if (string.IsNullOrEmpty(ISO))
@@ -97,8 +91,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        
-
         protected virtual bool EsUsuarioAutenticado()
         {
             return HttpContext.User.Identity.IsAuthenticated;
@@ -109,6 +101,33 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.Browser.IsMobileDevice;
         }
 
+        protected virtual IEnumerable<PaisModel> ObtenerPaises()
+        {
+            List<BEPais> lst;
+
+            try
+            {
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
+                    lst = sv.SelectPaises().ToList();
+                }
+
+                lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
+
+                Mapper.CreateMap<BEPais, PaisModel>()
+                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
+                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                        .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
+            }
+            catch (Exception ex)
+            {
+                lst = new List<BEPais>();
+            }
+
+            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
         protected virtual bool EstaActivoBuscarISOPorIP()
         {
             var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
@@ -117,24 +136,62 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected virtual string GetIPCliente()
         {
-            string IP = string.Empty;
-            try
-            {
-                // EPD-2929 Clase para Obtener la IP del cliente
-                //var HttpRequestBase = new HttpRequestWrapper(Request);
-                IP = ClientIP.ClientIPFromRequest(Request, true);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
+            var ip = string.Empty;
 
-            return IP;
+            var reques = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            ip = ClientIP.ClientIPFromRequest(reques, skipPrivate: true);
+
+            return ip;
         }
 
         protected virtual string ObtenerRutaBaseDatosGeoLite()
         {
             return Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
+        }
+
+        private void AsignarHojaEstilos(string iso)
+        {
+            if (string.IsNullOrEmpty(iso)) return;
+
+            ViewBag.IsoPais = iso;
+
+            if (iso == "BR") iso = "00";
+
+            if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
+            {
+                ViewBag.TituloPagina = " ÉSIKA ";
+                ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                ViewBag.EsPaisEsika = true;
+                ViewBag.EsPaisLbel = false;
+                ViewBag.AvisoASP = 1;
+                ViewBag.BanderaOk = true;
+            }
+            else
+            {
+                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
+                {
+                    ViewBag.TituloPagina = " L'BEL ";
+                    ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                    ViewBag.EsPaisEsika = false;
+                    ViewBag.EsPaisLbel = true;
+                    //ViewBag.AvisoASP = 1;
+                    ViewBag.BanderaOk = true;
+
+                    if (iso == "MX")
+                        ViewBag.AvisoASP = 2;
+                    else
+                        ViewBag.AvisoASP = 1;
+                }
+                else
+                {
+                    ViewBag.TituloPagina = " ÉSIKA ";
+                    ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+                    ViewBag.EsPaisEsika = true;
+                    ViewBag.EsPaisLbel = false;
+                    ViewBag.AvisoASP = 1;
+                    ViewBag.BanderaOk = false;
+                }
+            }
         }
 
         protected virtual void AsignarUrlRetorno(string returnUrl)
@@ -422,33 +479,6 @@ namespace Portal.Consultoras.Web.Controllers
                 string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
                 return Redirect(Url);
             }
-        }
-
-        protected virtual IEnumerable<PaisModel> ObtenerPaises()
-        {
-            List<BEPais> lst;
-
-            try
-            {
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    lst = sv.SelectPaises().ToList();
-                }
-
-                lst.RemoveAll(p => p.CodigoISO == Constantes.CodigosISOPais.Argentina);
-
-                Mapper.CreateMap<BEPais, PaisModel>()
-                        .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                        .ForMember(t => t.CodigoISO, f => f.MapFrom(c => c.CodigoISO))
-                        .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                        .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-            }
-            catch (Exception ex)
-            {
-                lst = new List<BEPais>();
-            }
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
         [AllowAnonymous]
@@ -1132,50 +1162,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private void AsignarHojaEstilos(string iso)
-        {
-            if (string.IsNullOrEmpty(iso)) return;
-
-            ViewBag.IsoPais = iso;
-
-            if (iso == "BR") iso = "00";
-
-            if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
-            {
-                ViewBag.TituloPagina = " ÉSIKA ";
-                ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                ViewBag.EsPaisEsika = true;
-                ViewBag.EsPaisLbel = false;
-                ViewBag.AvisoASP = 1;
-                ViewBag.BanderaOk = true;
-            }
-            else
-            {
-                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
-                {
-                    ViewBag.TituloPagina = " L'BEL ";
-                    ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
-                    ViewBag.EsPaisEsika = false;
-                    ViewBag.EsPaisLbel = true;
-                    //ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = true;
-
-                    if (iso == "MX")
-                        ViewBag.AvisoASP = 2;
-                    else
-                        ViewBag.AvisoASP = 1;
-                }
-                else
-                {
-                    ViewBag.TituloPagina = " ÉSIKA ";
-                    ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                    ViewBag.EsPaisEsika = true;
-                    ViewBag.EsPaisLbel = false;
-                    ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = false;
-                }
-            }
-        }
+        
 
         private int MenuNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
