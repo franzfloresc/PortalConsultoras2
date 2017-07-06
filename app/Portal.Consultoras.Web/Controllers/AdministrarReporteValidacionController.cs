@@ -13,6 +13,17 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AdministrarReporteValidacionController : BaseController
     {
+        private const string NombreReporteValidacionOPT = "ReporteValidacionOPT";
+        private const string NombreReporteValidacionODD = "ReporteValidacionODD";
+        private const string NombreReporteValidacionSR = "ReporteValidacionSR";
+
+        private const string NombreSRHoja1 = "Campaña";
+        private const string NombreSRHoja2 = "Personalización de Visuales";
+        private const string NombreSRHoja3 = "Ofertas (Set)";
+        private const string NombreSRHoja4 = "Ofertas (Componentes del Set)";
+
+        private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
+
         public ActionResult Index()
         {
             if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarReporteValidacion/Index"))
@@ -145,9 +156,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (int.Parse(TipoEstrategiaID) == 99)
                 return ExportarExcelShowRoom(CampaniaID);
             if (int.Parse(TipoEstrategiaID) == 4)
-                nombreReporte = "ReporteValidacionOPT";
+                nombreReporte = NombreReporteValidacionODD;
             if (int.Parse(TipoEstrategiaID) == 7)
-                nombreReporte = "ReporteValidacionODD";
+                nombreReporte = NombreReporteValidacionOPT;
 
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -155,6 +166,8 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetReporteValidacion(UserData().PaisID, Convert.ToInt32(CampaniaID), Convert.ToInt32(TipoEstrategiaID)).ToList();
             }
 
+            if (lst.Count == 0)
+                return Content("<script>alert(" + MensajeNoHayRegistros + ")</script>");
 
             foreach (var item in lst)
             {
@@ -174,11 +187,11 @@ namespace Portal.Consultoras.Web.Controllers
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
             List<string> nombresHojas = new List<string>();
 
-            List<BEReporteValidacion> lstSRCampania;
-            List<BEReporteValidacion> lstSRPersonalizacion;
-            List<BEReporteValidacion> lstSROferta;
-            List<BEReporteValidacion> lstSRComponente;
-            string nombreReporte = "ReporteValidacionSR";
+            List<BEReporteValidacion> lstSRCampania = new List<BEReporteValidacion>();
+            List<BEReporteValidacion> lstSRPersonalizacion = new List<BEReporteValidacion>();
+            List<BEReporteValidacion> lstSROferta = new List<BEReporteValidacion>();
+            List<BEReporteValidacion> lstSRComponente = new List<BEReporteValidacion>();
+            string nombreReporte = NombreReporteValidacionSR;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
@@ -187,6 +200,10 @@ namespace Portal.Consultoras.Web.Controllers
                 lstSROferta = sv.GetReporteShowRoomOferta(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
                 lstSRComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
+
+            if (lstSRCampania.Count == 0 && lstSRPersonalizacion.Count == 0 && lstSROferta.Count == 0 && lstSRComponente.Count == 0)
+                return Content("<script>alert(" + MensajeNoHayRegistros +")</script>");
+
             lst.Add(lstSRCampania);
             lst.Add(lstSRPersonalizacion);
             lst.Add(lstSROferta);
@@ -197,10 +214,10 @@ namespace Portal.Consultoras.Web.Controllers
             lstConfiguration.Add(GetConfiguracionExcelSROferta());
             lstConfiguration.Add(GetConfiguracionExcelSRComponentes());
 
-            nombresHojas.Add("Campaña");
-            nombresHojas.Add("Personalización de Visuales");
-            nombresHojas.Add("Ofertas (Set)");
-            nombresHojas.Add("Ofertas (Componentes del Set)");
+            nombresHojas.Add(NombreSRHoja1);
+            nombresHojas.Add(NombreSRHoja2);
+            nombresHojas.Add(NombreSRHoja3);
+            nombresHojas.Add(NombreSRHoja4);
 
             Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration, nombresHojas, 30);
 
@@ -262,7 +279,7 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Ecuador", "EC");
             dic.Add("Guatemala", "GT");
             dic.Add("México", "MX");
-            dic.Add("Panama", "PA");
+            dic.Add("Panamá", "PA");
             dic.Add("Perú", "PE");
             dic.Add("Puerto Rico", "PR");
             dic.Add("Salvador", "SV");

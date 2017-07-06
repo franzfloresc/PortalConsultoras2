@@ -95,6 +95,10 @@
         else {
             // Si es Firefox o Chrome
             $(iframe_).ready(function () {
+                waitingDialog({});
+            });
+
+            $(iframe_).load(function (e) {
                 closeWaitingDialog();
             });
         }
