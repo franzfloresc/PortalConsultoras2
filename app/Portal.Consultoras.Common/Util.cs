@@ -2899,8 +2899,14 @@ namespace Portal.Consultoras.Common
 
         public static string GetISObyIPAddress(string ip)
         {
+            string geoLiteDbPath = HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
+            return GetISObyIPAddress(ip, geoLiteDbPath);
+        }
+
+        public static string GetISObyIPAddress(string ip, string geoLiteDbPath)
+        {
             string ISO = "00";
-            using (var reader = new DatabaseReader(HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb", FileAccessMode.MemoryMapped))
+            using (var reader = new DatabaseReader(geoLiteDbPath, FileAccessMode.MemoryMapped))
             {
                 CountryResponse CountryResp = reader.Country(ip);
                 if (CountryResp != null)

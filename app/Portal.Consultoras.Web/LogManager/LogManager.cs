@@ -6,8 +6,20 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.LogManager
 {
-    public class LogManager
+    public class LogManager : ILogManager
     {
+        private static ILogManager instance;
+        public static ILogManager Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new LogManager();
+
+                return instance;
+            }
+        }
+
         private static string sPathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
 
         public static void LogActions(ErrorsLog model)
@@ -48,6 +60,11 @@ namespace Portal.Consultoras.Web.LogManager
                 sw.WriteLine("País : " + Pais + " ==> " + DateTime.Now + " - " + Usuario + " - Error : " + expException.Message + "(" + expException.StackTrace + ") - Paso : " + Paso + ".");
                 sw.WriteLine(string.Empty);
             }
+        }
+
+        public virtual void LogErrorWebServicesBus2(Exception exception, string usuario, string pais, string paso)
+        {
+            LogErrorWebServicesBus2(exception, usuario, pais, paso);
         }
     }
 }
