@@ -26,17 +26,16 @@
     </div>
 
 
-    <div class="div-3 div_3_fix estilo2">
-        <div class="validation_clear2"></div>
-        <div class="validation">
+    <div class="div-3 div_3_fix estilo2 w100">
+        <div class="validation_clear w8"></div>
+        <div class="validation w25">
             @Html.ValidationMessageFor(m => m.PrimerNombre)
         </div>
-        <div class="validation_clear2"></div>
-        <div class="validation">
+ 
+        <div class="validation w25">
             @Html.ValidationMessageFor(m => m.ApellidoPaterno)
         </div>
-        <div class="validation_clear2"></div>
-        <div class="validation" style="float: right;">
+         <div class="validation w25">
             @Html.ValidationMessageFor(m => m.Sexo)
         </div>
     </div>
@@ -63,17 +62,17 @@
 
             </div>
 
-            <div class="div-3 div_3_fix">
-                <div class="validation_clear2"></div>
-                <div class="validation">
+            <div class="div-3 div_3_fix w100">
+                <div class="validation_clear w8"></div>
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.SegundoNombre)
                 </div>
-                <div class="validation_clear2"></div>
-                <div class="validation">
+ 
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.ApellidoMaterno)
                 </div>
-                <div class="validation_clear2"></div>
-                <div class="validation">
+ 
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.FechaNacimiento)
                 </div>
             </div>
@@ -97,17 +96,17 @@
 
     </div>
 
-            <div class="div-3 div_3_fix">
-                <div class="validation_clear2"></div>
-                <div class="validation">
+            <div class="div-3 div_3_fix w100">
+                <div class="validation_clear w8"></div>
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.Telefono)
                 </div>
-                <div class="validation_clear2"></div>
-                <div class="validation">
+ 
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.Celular)
                 </div>
-                <div class="validation_clear2"></div>
-                <div class="validation">
+   
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.NumeroDocumento)
                 </div>
             </div>
@@ -122,21 +121,21 @@
             </div>
         </div>
     </div>
-            <div class="div-3 div_3_fix">
-                <div class="validation_clear2"></div>
-                <div class="validation">
+            <div class="div-3 div_3_fix w100">
+                <div class="validation_clear w8"></div>
+                <div class="validation w25">
                     @Html.ValidationMessageFor(m => m.CorreoElectronico)
                 </div>
             </div>
         </div>
 <style>
-    .validation_clear2 {
-        float: left;
-        width: 70px !important;
-        height: 1px !important;
-        padding: 0 9px !important;
+    .w100 {
+        width: 100% !important;
     }
-    .estilo2 {
-        margin-bottom: 5px !important;
+    .w8 {
+        width: 8% !important;
+    }
+     .w25 {
+        width: 25% !important;
     }
 </style>

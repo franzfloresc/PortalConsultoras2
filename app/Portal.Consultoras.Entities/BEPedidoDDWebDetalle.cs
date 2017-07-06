@@ -38,9 +38,9 @@ namespace Portal.Consultoras.Entities
         public bool IndicadorEnviado { get; set; }
         [DataMember]
         public DateTime FechaEnvio { get; set; }  // R20151003 - Fin
+        //SB20-871
         [DataMember]
         public string MotivoRechazo { get; set; }
-
         public BEPedidoDDWebDetalle()
         { }
 
