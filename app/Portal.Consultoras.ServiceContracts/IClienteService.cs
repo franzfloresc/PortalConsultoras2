@@ -88,7 +88,7 @@ namespace Portal.Consultoras.ServiceContracts
         int MovimientoInsertar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
-        IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId, int codigoCampania = 0);
+        IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId);
 
         [OperationContract]
         Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
