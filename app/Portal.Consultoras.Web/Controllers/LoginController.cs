@@ -138,8 +138,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var ip = string.Empty;
 
-            var reques = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            ip = ClientIP.ClientIPFromRequest(reques, skipPrivate: true);
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            ip = request.ClientIPFromRequest(skipPrivate: true);
 
             return ip;
         }

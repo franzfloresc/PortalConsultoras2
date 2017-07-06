@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Common
 
                 IP = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
 
-                if (IP != null)
+                if (!string.IsNullOrWhiteSpace(IP))
                     break;
             }
 
@@ -35,29 +35,33 @@ namespace Portal.Consultoras.Common
             }
 
            
-            if (IP != null && IP.IndexOf(":") > 0)
+            if (!string.IsNullOrWhiteSpace(IP) && IP.IndexOf(":") > 0)
                 IP = IP.Substring(0, IP.IndexOf(":") - 1);
 
             return IP;
         }
 
-        private static string GetFirstValidIpFromString(string ips, bool skipPrivateIps)
+        public static string GetFirstValidIpFromString(string ips, bool skipPrivateIps)
         {
             var result = string.Empty;
 
-            foreach (var ip in ips.Split(','))
+            if (!string.IsNullOrWhiteSpace(ips))
             {
-                if (ValidIP(ip, skipPrivateIps))
+                foreach (var ip in ips.Split(','))
                 {
-                    result = ip;
-                    break;
+                    var tmpIp = ip.Trim();
+                    if (ValidIP(tmpIp, skipPrivateIps))
+                    {
+                        result = tmpIp;
+                        break;
+                    }
                 }
             }
 
             return result;
         }
 
-        private static bool ValidIP(string ip, bool skipPrivate)
+        public static bool ValidIP(string ip, bool skipPrivate)
         {
             IPAddress ipAddr;
 
