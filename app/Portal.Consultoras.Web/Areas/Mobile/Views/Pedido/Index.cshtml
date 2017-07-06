@@ -720,7 +720,7 @@
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
     var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;
