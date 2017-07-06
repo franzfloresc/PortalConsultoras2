@@ -193,6 +193,10 @@
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@Session["IngresoExterno"]';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';

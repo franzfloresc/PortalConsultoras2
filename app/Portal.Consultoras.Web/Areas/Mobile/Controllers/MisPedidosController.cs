@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = "Se envió satisfactoriamente el correo al cliente seleccionado.",
+                        message = "Se envió satisfactoriamente el detalle del pedido a tu correo.",
                         extra = ""
                     });
                 }
