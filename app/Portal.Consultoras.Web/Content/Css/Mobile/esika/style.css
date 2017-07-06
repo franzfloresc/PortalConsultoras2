@@ -9879,7 +9879,7 @@ a{
 }
 
 .btn2-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     background: white;
     color: black;
     font-weight: 700;
@@ -9890,17 +9890,17 @@ a{
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
-     width: 48%;
+    width: 38%;
 }
 
 .select-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 17px 6px 7px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -12491,4 +12491,8 @@ a{
 }
 .content_carrusel_mas_vendidos .producto_precio{
     margin-bottom:5px;
+}
+#content-filters{
+    margin-left:14px;
+    margin-right:14px;
 }
