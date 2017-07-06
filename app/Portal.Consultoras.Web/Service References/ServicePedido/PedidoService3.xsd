@@ -318,6 +318,8 @@
       <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorMontoMinimo" type="xs:int" />
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
@@ -362,6 +364,8 @@
       <xs:element minOccurs="0" name="ImgFichaMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgFondoMobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgHomeDesktop" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImgHomeMobile" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ImgPrevDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlVideoDesktop" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlVideoMobile" nillable="true" type="xs:string" />
