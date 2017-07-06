@@ -212,35 +212,11 @@
     }
     <!--FIN-->
 
-
-
     <!--INICIO CARRUSEL-->
-    <div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-        @*<div id="contenedor_template_estrategia_cabecera"></div>*@
-        <div class="row contenedorCupon" id="">
-            <div class="label_cupon contenedorCuponConocelo">
-                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
-                <div class="texto_cupon">Tienes un dscto exclusivo para ti, <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
-            </div>
-            <div class="label_cupon contenedorCuponInfo">
-                <div class="icono_label"><img src="/Content/Images/PL20/icono_cupon.png"></div>
-                <div class="texto_cupon">
-                    Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-                </div>
-            </div>
-        </div>
-        <div class="titulo_ofertas_home">
-            OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-            <div class="texto_exclusivo">
-                EXCLUSIVO SÓLO POR WEB
-            </div>
-        </div>
-        <!--CONTENEDOR ITEM CARRUSEL-->
-        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-            <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /><br /></div>
-        </div>
-
+    <div id="divListaEstrategias" style="display:none">
+        <div id="contenedor_template_estrategia_cabecera"></div> 
     </div>
+
     <!--FIN CARRUSEL-->
 
     <div class="btn_agregarPedido">
@@ -744,7 +720,7 @@
     var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
     var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;

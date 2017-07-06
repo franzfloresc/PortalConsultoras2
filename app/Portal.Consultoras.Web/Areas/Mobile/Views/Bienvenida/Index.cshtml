@@ -330,31 +330,6 @@
     </div>
 }
 
-<div class="fondo_gris" id="divListaEstrategias" style="display: none;">
-    <div class="row contenedorCupon" id="">
-        <div class="label_cupon contenedorCuponConocelo">
-            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
-            <div class="texto_cupon">Tienes un dscto exclusivo para ti, 
-            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a> </div>
-        </div>
-        <div class="label_cupon contenedorCuponInfo">
-            <div class="icono_label"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
-            <div class="texto_cupon">
-                Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-            </div>
-        </div>
-    </div>
-    <div class="titulo_ofertas_home">
-        OFERTAS <b>PARA TI @(Model.NombreConsultora.ToUpper())</b>
-        <div class="texto_exclusivo">
-            EXCLUSIVO SÓLO POR WEB
-        </div>
-    </div>
-    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-        <div style="text-align: center;">Cargando Productos Destacados<br><img src="@Url.Content("~/Content/Images/Loading.gif")" /></div>
-    </div>
-</div>
-
 <!--LOS MAS VENDIDOS-->
 @if (Model.TieneMasVendidos == 1)
 {
