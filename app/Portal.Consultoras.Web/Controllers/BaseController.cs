@@ -17,6 +17,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -456,6 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var permiso in lista1)
             {
                 permiso.Codigo = Util.Trim(permiso.Codigo).ToLower();
+                permiso.Descripcion = Util.Trim(permiso.Descripcion);
                 permiso.UrlItem = Util.Trim(permiso.UrlItem);
                 permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
                 permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
@@ -538,6 +541,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                         {
+                            ViewBag.ClaseLogoSB = "negro";
                             if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                                 if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
                                     if (userData.RevistaDigital.NoVolverMostrar)
@@ -550,17 +554,18 @@ namespace Portal.Consultoras.Web.Controllers
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                         {
                                             permiso.ClaseMenuItem = "oculto";
+                                            ViewBag.ClaseLogoSB = "";
                                         }
                                     }
                                     else
                                     {
                                         permiso.ClaseMenuItem = "oculto";
+                                        ViewBag.ClaseLogoSB = "";
                                     }
                         }
 
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
                     }
-
 
                     lstModel.Add(permiso);
 
@@ -821,7 +826,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
         {
             // Asignar los hijos
-            menu = menuOriginal.Where(x => x.IdPadre == idPadre)
+            menu = menuOriginal.Where(x => x.IdPadre == idPadre && ( x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
                 .OrderBy(x => x.Posicion)
                 .ToList();
 
@@ -2117,15 +2122,29 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0",
                 };
 
-                dataString = JsonConvert.SerializeObject(data);
 
                 var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
-                using (var client = new HttpClient())
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(urlApi);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    var response = client.PostAsJsonAsync(urlApi, data).Result;
-                    response.EnsureSuccessStatusCode();
+                    var strResult = response.Content.ReadAsStringAsync().Result;
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(strResult), userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
+
+                httpClient.Dispose();
             }
             catch (Exception ex)
             {
