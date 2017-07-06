@@ -41,11 +41,48 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Overrides
 
+        // FREEZE
+        static readonly object _object= new object();
+        protected int _count;
+
+        #region TEST_HELPER
+        public int OnActionExecutingTest()
+        {
+            // Arrange
+            _count = 0;
+            ActionExecutingContext oAC = new ActionExecutingContext();
+            UsuarioModel oU = new UsuarioModel();
+            oAC.ActionParameters = new Dictionary<String, Object>();
+            oAC.ActionParameters.Add("TEST", 1);
+            oAC.ActionParameters.Add("USER_DATA", oU);
+
+            // Act
+            OnActionExecuting(oAC);
+
+            return _count;
+        }
+        #endregion
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             try
             {
-                userData = UserData();
+                #region TEST
+                KeyValuePair<String, Object> oK = new KeyValuePair<String, Object>("TEST",1);
+
+                if (filterContext.ActionParameters.Contains(oK))
+                {
+                    try
+                    {
+                        userData = (UsuarioModel)filterContext.ActionParameters["USER_DATA"];
+                    }
+                    catch (Exception) { }
+                }
+                else
+                {
+                    userData = UserData();
+                }
+                #endregion
 
                 if (userData == null)
                 {
@@ -64,12 +101,15 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    Byte b = 0x0;
+
                     // FREEZE 03/07/2017
                     if (Session["OP_BuildMenuMobile"] == null)
                     {
                         List<MenuMobileModel> oL = BuildMenuMobile(userData);
                         Session["OP_BuildMenuMobile"] = oL;
                         ViewBag.MenuMobile = oL;
+                        b |= 0x01;
                     }
                     else
                         ViewBag.MenuMobile = (List<MenuMobileModel>)Session["OP_BuildMenuMobile"];
@@ -79,6 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<PermisoModel> oL = BuildMenu();
                         Session["OP_BuildMenu"] = oL;
                         ViewBag.Permiso = oL;
+                        b |= 0x02;
                     }
                     else
                         ViewBag.Permiso = (List<PermisoModel>)Session["OP_BuildMenu"];
@@ -88,10 +129,13 @@ namespace Portal.Consultoras.Web.Controllers
                         List<ServicioCampaniaModel> oL = BuildMenuService();
                         Session["OP_BuildMenuService"] = oL;
                         ViewBag.ProgramaBelcorpMenu = oL;
+                        b |= 0x04;
                     }
                     else
                         ViewBag.ProgramaBelcorpMenu = (List<ServicioCampaniaModel>)Session["OP_BuildMenuService"];
                     // END FREEZE
+
+                    _count = (int)b;
 
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
@@ -114,8 +158,9 @@ namespace Portal.Consultoras.Web.Controllers
                     /*** FIN EPD 2170 ***/
 
                     ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
-                    ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+
+                    ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
+                    ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -131,15 +176,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    ViewBag.FingerprintOk = 0;
-                    ViewBag.TokenPedidoAutenticoOk = 0;
-
-                    if (Session["Fingerprint"] != null)
-                        ViewBag.FingerprintOk = 1;
-
-                    if (Session["TokenPedidoAutentico"] != null)
-                        ViewBag.TokenPedidoAutenticoOk = 1;
-
+                    ViewBag.FingerprintOk = (Session["Fingerprint"] != null) ? 1 : 0;
+                    ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                     ViewBag.CodigoEstrategia = GetCodigoEstrategia();
                 }
 
@@ -163,15 +201,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Session["PedidoWeb"] == null)
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                PedidoServiceClient sv = null;
+                try
+                {
+                    sv = new PedidoServiceClient();
+                }
+                catch (Exception) { }
+
+                if( sv != null )
                 {
                     bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
                 }
+
                 bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
             }
             else
             {
-                bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
+                try
+                {
+                    bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
+                }
+                catch (Exception) { }
             }
 
             bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
@@ -186,7 +236,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (Session["PedidoWebDetalle"] == null)
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                PedidoServiceClient sv = null;
+                try
+                {
+                    sv = new PedidoServiceClient();
+                }
+                catch (Exception) { }
+
+                if( sv != null )
                 {
                     olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                 }
@@ -451,7 +508,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
 
-                using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+                SeguridadServiceClient sv = null;
+                try
+                {
+                    sv = new ServiceSeguridad.SeguridadServiceClient();
+                }
+                catch (Exception) { }
+
+                if( sv != null )
                 {
                     lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
                 }
@@ -864,7 +928,14 @@ namespace Portal.Consultoras.Web.Controllers
                 IList<ServiceSAC.BEServicioCampania> lstTemp_2 = new List<ServiceSAC.BEServicioCampania>();
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
 
-                using (SACServiceClient sv = new SACServiceClient())
+                SACServiceClient sv = null;
+                try
+                {
+                    sv = new SACServiceClient();
+                }
+                catch (Exception) { }
+
+                if( sv != null )
                 {
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
@@ -914,14 +985,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         public UsuarioModel UserData()
         {
-            UsuarioModel model = (UsuarioModel)Session["UserData"];
-            string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
+            UsuarioModel model = null;
+            string UrlEMTELCO = "";
+
+            try
+            {
+                model = (UsuarioModel)Session["UserData"];
+            }
+            catch( Exception )
+            {
+                model = null;
+            }
+
+            try
+            {
+                UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
+            }
+            catch( Exception )
+            {
+                UrlEMTELCO = "";
+            }
+
             if (model == null)
             {
                 return model;
             }
 
-                #region Cargar variables
+            #region Cargar variables
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
 
