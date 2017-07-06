@@ -44,7 +44,7 @@
 
     function inicializarDivMasVendidosCarruselSinFlechas(origen) {
         if (origen == "mobile") {
-            $('.variable-width').on('init', function (event, slick) {
+            $('#Carrusel').on('init', function (event, slick) {
                 setTimeout(function () {
                     slick.setPosition();
                     slick.slickGoTo(1);

@@ -129,7 +129,7 @@
                 <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
             </div>
             <div data-estrategia="{{CodigoEstrategia}}"></div>
-            <div class="share_social_nertwoks">
+            <div>
                 <div class="title">Comparte este set con tus clientes</div>
                 <div class="content_redes_ficha">
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
@@ -247,7 +247,7 @@
     <script id="template-detalle-producto-lista" type="text/x-handlebars-template">        
         <div class="content_carrusel_intriga" id="divCarrouselMasVendidosLista">
             <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
-            <div class="variable-width">
+            <div id="Carrusel" class="variable-width">
                 {{#each this.Lista as |item|}}
                 <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
                      class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
@@ -285,33 +285,6 @@
     @section scripts{
         <script type="text/javascript">
             $(document).ready(function () {
-
-                //$('.variable-width').on('init', function (event, slick) {
-                //    setTimeout(function () {
-                //        slick.setPosition();
-                //        slick.slickGoTo(1);
-                //    }, 500);
-                //});
-
-                //$('.variable-width').slick({
-                //    dots: true,
-                //    infinite: false,
-                //    speed: 300,
-                //    slidesToShow: 2,
-                //    centerPadding: '0px',
-                //    centerMode: true,
-                //    variableWidth: true,
-                //    slidesToScroll: 1,
-                //    centerMode: true,
-                //    arrows: false,
-                //    dots: false,
-                //});
-                //$(".termino_condiciones_intriga").click(function () {
-                //    $(this).toggleClass('check_intriga');
-                //    if (typeof intrigaAceptoTerminos !== 'undefined') {
-                //        intrigaAceptoTerminos = !intrigaAceptoTerminos;
-                //    }
-                //});
             });
             $(function () {
                 var rating = 1.6;
