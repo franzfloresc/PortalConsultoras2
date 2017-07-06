@@ -187,47 +187,50 @@ namespace Portal.Consultoras.Entities
                 if (DataRecord.HasColumn(row, "CodigoTO") && row["CodigoTO"] != DBNull.Value)
                             _CodigoTO = Convert.ToString(row["CodigoTO"]);
 
-                        if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
-                            _Descripcion = Convert.ToString(row["Descripcion"]);
+                if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
+                    _CodigoSAP = Convert.ToString(row["CodigoSAP"]);
 
-                        if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
-                            _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
+                if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
+                    _Descripcion = Convert.ToString(row["Descripcion"]);
 
-                        if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
-                            _PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
+                if (DataRecord.HasColumn(row, "PrecioValorizado") && row["PrecioValorizado"] != DBNull.Value)
+                    _PrecioValorizado = Convert.ToDecimal(row["PrecioValorizado"]);
 
-                        if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
-                            _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
+                if (DataRecord.HasColumn(row, "PrecioOferta") && row["PrecioOferta"] != DBNull.Value)
+                    _PrecioOferta = Convert.ToDecimal(row["PrecioOferta"]);
 
-                        if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
-                            _UnidadesPermitidas = Convert.ToInt32(row["EsSubCampania"]);
+                if (DataRecord.HasColumn(row, "UnidadesPermitidas") && row["UnidadesPermitidas"] != DBNull.Value)
+                    _UnidadesPermitidas = Convert.ToInt32(row["UnidadesPermitidas"]);
 
-                        if (DataRecord.HasColumn(row, "HabilitarOferta") && row["HabilitarOferta"] != DBNull.Value)
-                            _HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
+                if (DataRecord.HasColumn(row, "EsSubCampania") && row["EsSubCampania"] != DBNull.Value)
+                   _UnidadesPermitidas = Convert.ToInt32(row["EsSubCampania"]);
 
-                        if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
-                            _HabilitarOferta = Convert.ToInt32(row["FlagImagenCargada"]);
+                if (DataRecord.HasColumn(row, "HabilitarOferta") && row["HabilitarOferta"] != DBNull.Value)
+                   _HabilitarOferta = Convert.ToInt32(row["HabilitarOferta"]);
 
-                        if (DataRecord.HasColumn(row, "FlagImagenMINI") && row["FlagImagenMINI"] != DBNull.Value)
-                            _FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
+                if (DataRecord.HasColumn(row, "FlagImagenCargada") && row["FlagImagenCargada"] != DBNull.Value)
+                   _HabilitarOferta = Convert.ToInt32(row["FlagImagenCargada"]);
+
+                if (DataRecord.HasColumn(row, "FlagImagenMINI") && row["FlagImagenMINI"] != DBNull.Value)
+                  _FlagImagenMINI = Convert.ToInt32(row["FlagImagenMINI"]);
 
                     #endregion
                 //*************************SHOW ROOM *****************************   <<< 4 >>>
                 #region Reporte Validacion para ShowRoom Hoja 4
 
                 if (DataRecord.HasColumn(row, "Nombre") && row["Nombre"] != DBNull.Value)
-                        _Nombre = Convert.ToString(row["Nombre"]);
+                  _Nombre = Convert.ToString(row["Nombre"]);
 
-                    if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
-                        _Descripcion1 = Convert.ToString(row["Descripcion1"]);
+                if (DataRecord.HasColumn(row, "Descripcion1") && row["Descripcion1"] != DBNull.Value)
+                  _Descripcion1 = Convert.ToString(row["Descripcion1"]);
 
-                    if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
-                        _Descripcion2 = Convert.ToString(row["Descripcion2"]);
+                if (DataRecord.HasColumn(row, "Descripcion2") && row["Descripcion2"] != DBNull.Value)
+                   _Descripcion2 = Convert.ToString(row["Descripcion2"]);
 
-                    if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
-                        _Descripcion3 = Convert.ToString(row["Descripcion3"]);
+                if (DataRecord.HasColumn(row, "Descripcion3") && row["Descripcion3"] != DBNull.Value)
+                   _Descripcion3 = Convert.ToString(row["Descripcion3"]);
 
-                    #endregion
+                #endregion
         }
 
         [DataMember]
