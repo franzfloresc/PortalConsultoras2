@@ -59,7 +59,7 @@
             {
 
                 <div class="precio_bpt">
-                    @if (Model.Precio > 0)
+                    @if (Model.Precio > 0){
                         <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
                     }
                     <b>@Model.Simbolo @Model.PrecioString</b>
@@ -254,6 +254,5 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
-        "tono_no_seleccionado" -> CUANDO SE DA AGREGAR Y NO SE HA SELECCIONADO TONO A TODOS LOS COMBOS Q FALTAN
-    *@
+
 }

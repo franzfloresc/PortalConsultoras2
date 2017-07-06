@@ -914,7 +914,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             }
                         }
-                        
+
                         catch (Exception)
                         {
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
@@ -1768,6 +1768,8 @@ namespace Portal.Consultoras.Web.Controllers
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
                         return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.ShowRoom:
+                        return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

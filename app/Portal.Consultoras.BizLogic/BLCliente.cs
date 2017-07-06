@@ -128,8 +128,9 @@ namespace Portal.Consultoras.BizLogic
             return daCliente.MovimientoInsertar(movimiento);
         }
 
-        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId, int codigoCampania = 0)
+        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId)
         {
+            int codigoCampania;
             var movimientos = new List<BEMovimiento>();
             var daCliente = new DACliente(paisId);
             var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
@@ -144,6 +145,9 @@ namespace Portal.Consultoras.BizLogic
             foreach (var movimiento in movimientos)
             {
                 if (movimiento.TipoMovimiento != "CB")
+                    continue;
+
+                if (!int.TryParse(movimiento.CodigoCampania, out codigoCampania))
                     continue;
 
                 if (codigoCampania <= 0)
