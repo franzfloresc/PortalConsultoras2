@@ -451,6 +451,8 @@
             LimpiarCamposLanzamiento('img-ficha-mobile');
             LimpiarCamposLanzamiento('img-ficha-fondo-desktop');
             LimpiarCamposLanzamiento('img-ficha-fondo-mobile');
+            LimpiarCamposLanzamiento('img-home-desktop');
+            LimpiarCamposLanzamiento('img-home-mobile');
             $("#url-video-desktop").val("");
             $("#url-video-mobile").val("");
 
@@ -929,6 +931,8 @@
         UploadFileLanzamineto('img-ficha-fondo-desktop');
         UploadFileLanzamineto('img-ficha-mobile');
         UploadFileLanzamineto('img-ficha-fondo-mobile');
+        UploadFileLanzamineto('img-home-desktop');
+        UploadFileLanzamineto('img-home-mobile');
     });
 
 
@@ -1924,7 +1928,8 @@
                     var urlVideoMobile = $("#url-video-mobile").val();
                     var imgFichaFondoDesktop = $("#nombre-img-ficha-fondo-desktop").val();
                     var imgFichaFondoMobile = $("#nombre-img-ficha-fondo-mobile").val();
-
+                    var imgHomeDesktop = $("#nombre-img-home-desktop").val();
+                    var imgHomeMobile = $("#nombre-img-home-mobile").val();
                     var params = {
                         EstrategiaID: EstrategiaID,
                         TipoEstrategiaID: TipoEstrategiaID,
@@ -1962,6 +1967,8 @@
                         UrlVideoMobile: urlVideoMobile,
                         ImgFichaFondoDesktop: imgFichaFondoDesktop,
                         ImgFichaFondoMobile: imgFichaFondoMobile,
+                        ImgHomeDesktop: imgHomeDesktop,
+                        ImgHomeMobile: imgHomeMobile,
                         PrecioAnt: $('#hdEstrategiaPrecioAnt').val()
                     };
                     jQuery.ajax({

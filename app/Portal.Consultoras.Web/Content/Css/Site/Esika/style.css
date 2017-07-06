@@ -28691,6 +28691,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
   letter-spacing: 0.5px;
   text-align: center;
   color: #a18328;
+  cursor: default;
 }
 
     .content_carrusel_agregado .agregado .icono {
