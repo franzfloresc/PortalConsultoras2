@@ -33740,7 +33740,7 @@ h1#penmostreo .campana {
     float:left;
     font-family:'Lato';
     font-size:13px;
-    margin-top:20px;
+    padding-top:20px;
 }
 .filtros_derecha{
     float:right;
