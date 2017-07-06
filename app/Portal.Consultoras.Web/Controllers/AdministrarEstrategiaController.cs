@@ -705,7 +705,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                             {
-                                entidad = verficarArchivos(entidad, estrategiaDetalle);
+                                entidad = VerficarArchivos(entidad, estrategiaDetalle);
                             }
                         }
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
@@ -1706,7 +1706,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public BEEstrategia verficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
+        public BEEstrategia VerficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
             if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
@@ -1734,6 +1734,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
+
+            if (!String.IsNullOrEmpty(estrategia.ImgHomeDesktop) &&
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgHomeDesktop) || estrategia.ImgHomeDesktop != estrategiaDetalle.ImgHomeDesktop))
+                estrategia.ImgHomeDesktop = SaveFileS3(estrategia.ImgHomeDesktop);
+
+            if (!String.IsNullOrEmpty(estrategia.ImgHomeMobile) &&
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgHomeMobile) || estrategia.ImgHomeMobile != estrategiaDetalle.ImgHomeMobile))
+                estrategia.ImgHomeMobile = SaveFileS3(estrategia.ImgHomeMobile);
 
             return estrategia;
         }
