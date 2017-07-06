@@ -245,8 +245,8 @@ function OfertaCargarProductos(busquedaModel, clear) {
         cache: false
     });
 
-    $('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
-    $("#divOfertaProductosLoad").show();
+    //$('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
+    //$("#divOfertaProductosLoad").show();
 
     busquedaModel.IsMobile = isMobile();
     busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
@@ -264,7 +264,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
-            $("#divOfertaProductosLoad").hide();
+            //$("#divOfertaProductosLoad").hide();
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
