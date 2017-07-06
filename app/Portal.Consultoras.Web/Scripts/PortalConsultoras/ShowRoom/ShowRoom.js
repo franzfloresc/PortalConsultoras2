@@ -261,6 +261,7 @@ function CargarProductosShowRoom(busquedaModel) {
 
     var aplicarFiltrosSubCampanias = (busquedaModel == null);
     var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
+
     $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
@@ -565,6 +566,7 @@ function recortarPalabra(palabra, tamanio) {
 }
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
+
     if (response.success) {        
         if (aplicarFiltrosSubCampanias) {
             response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
@@ -622,6 +624,7 @@ function CargarShowroomMobile(busquedaModel) {
 }
 
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
+
     if (response.success) {
         if (response.listaSubCampania.length < 1 && tieneCompraXCompra == 'False') {
             OcultarDivOfertaShowroomMobile();
@@ -709,9 +712,9 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
             $.each(listaShowRoomOferta,
                 function (index, value) {
                     if (value.EsSubCampania == true) {
-                        if (value.UnidadesPermitidasRestantes > 0) {
+                        //if (value.UnidadesPermitidasRestantes > 0) {
                             lista.push(value);
-                        }
+                        //}
                     }
                     else {
                         lista.push(value);
