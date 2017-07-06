@@ -462,29 +462,14 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
         }
         else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            if (tipoMeta == 'MM') {
-                if (montoTotal >= montoMeta) {
+            if (oRegaloPN.TippingPoint > 0) {
+                if (montoTotal >= oRegaloPN.TippingPoint) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                     disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
                 else {
-                    msgRegalo = 'AGREGA ' + simbolo + ' ' + montoSaldo.toString() + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
-                }
-            }
-            else {
-                if (oRegaloPN.TippingPoint > 0) {
-                    if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                        disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
-                    }
-                    else {
-                        var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
-                        msgRegalo = '<b>AGREGA ' + simbolo + ' ' + stp.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
-                    }
-                }
-                else {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
+                    var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
+                    msgRegalo = '<b>AGREGA ' + simbolo + ' ' + stp.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                 }
             }
         }
