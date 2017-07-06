@@ -222,30 +222,36 @@
         });
     }
 
-    var _validarGanancia = function(item){
+    var _validarGanancia = function (item) {
+        let element = "#precio-gana-" + item.EstrategiaID.toString();
         if (item.Ganancia > 0) {
-            $(".ganancia_showroom").show();
+            $(element).show();
         }
         else {
-            $(".ganancia_showroom").hide();
+            $(element).hide();
         }
     }
 
     var _validarPrecioTachado = function (item) {
+        let element = "#precio-tachado-" + item.EstrategiaID.toString();
         if (item.Ganancia > 0) {
-            $(".precio_valorizado_showroom").show();
+            $(element).show();
         }
         else {
-            $(".precio_valorizado_showroom").hide();
+            $(element).hide();
         }
     }
 
     var _setDefaultValues = function () { };
 
     var _initializer = function (parameters) {
+        _readVariables(parameters);
+        _bindEvents();
+    };
+
+    var _readVariables = function (parameters) {
         setting.baseUrl = parameters.baseUrl;
         setting.urlDetalleProducto = parameters.urlDetalleProducto;
-        _bindEvents();
     };
 
     var _verDetalleProductoMasVendidos = function (estrategiaId) {
@@ -315,7 +321,10 @@
         },
         estrategiaVerDetalle: function (estrategiaId) {
             _verDetalleProductoMasVendidos(estrategiaId);
-        }
+        },       
+        readVariables: function (parameters) {
+            _readVariables(parameters);
+        },
     };
 })();
 
