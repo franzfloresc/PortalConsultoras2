@@ -1,15 +1,19 @@
 ﻿var arrayOfertasParaTi = [];
 
 var AutocompleteLastLI = null;
+var AutocompleteClick = false;
 
 $(document).ready(function () {
     $('#txtClienteNombre').click(function (e) {
         if ($(this).prop('disabled')) return;
 
-        if ($(".ui-autocomplete").css("display") == "none")
+        if ($(".ui-autocomplete").css("display") == "none") {
+            AutocompleteClick = true;
             $(this).autocomplete("search", "");
-        else
+        }
+        else {
             $(this).autocomplete('close');
+        }
     });
 
     $('#txtClienteNombre').keyup(function (e) {
@@ -68,6 +72,9 @@ $(document).ready(function () {
         },
         search: function (oEvent, oUi) {
             var sValue = $(oEvent.target).val();
+
+            if (AutocompleteClick) sValue = "";
+            AutocompleteClick = false;
 
             var lstClientesFiltro = [];
             var lstClientesDefault = [];

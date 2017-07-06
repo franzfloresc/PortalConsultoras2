@@ -751,6 +751,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CLIENTENOREGISTRADO = "11";
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
                 public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
+                public const string ERROR_TIPOCONTACTOREPETIDO = "14";
             }
 
             public static Dictionary<string, string> Message
@@ -773,6 +774,7 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
+                        {Code.ERROR_TIPOCONTACTOREPETIDO, "El tipo de contacto {0} se encuentra repetido para el cliente."},
                     });
                 }
             }

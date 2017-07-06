@@ -276,6 +276,28 @@ namespace Portal.Consultoras.BizLogic
                     continue;
                 }
 
+                //VALIDAR TIPO CONTACTO REPETIDO
+                var contactoRepetido = (from tbl in clienteDB.Contactos
+                                        group tbl by tbl.TipoContactoID into grp
+                                        select new
+                                        {
+                                            TipoContactoID = grp.Key,
+                                            Cantidad = grp.Count()
+                                        }).Where(x => x.Cantidad > 1).OrderBy(x=>x.TipoContactoID).FirstOrDefault();
+
+                if (contactoRepetido != null)
+                {
+                    lstResponse.Add(new BEClienteResponse()
+                    {
+                        ClienteID = clienteDB.ClienteID,
+                        ConsultoraID = clienteDB.ConsultoraID,
+                        ClienteIDSB = clienteDB.ClienteIDSB,
+                        CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOREPETIDO,
+                        MensajeRespuesta = string.Format(Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOREPETIDO],contactoRepetido.TipoContactoID)
+                    });
+                    continue;
+                }
+
                 //OBTENER TELEFONO PRINCIPAL
                 var contactoPrincipal = (from tbl in clienteDB.Contactos
                                          where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
