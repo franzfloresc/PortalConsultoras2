@@ -192,6 +192,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
+        public string ImgHomeDesktop { get; set; }
+        [DataMember]
+        public string ImgHomeMobile { get; set; }
+        [DataMember]
         public string CodigoTipoEstrategia { get; set; }
         
         public BEEstrategia(IDataRecord row, bool partial)
