@@ -846,10 +846,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (model.ConfiguracionPais.Any())
                             {
+                                model.RevistaDigital.EstadoSuscripcion = 0;
+
                                 foreach (var c in model.ConfiguracionPais)
                                 {
-                                    model.RevistaDigital.EstadoSuscripcion = 0;
-
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                                     {
                                         model.RevistaDigital.TieneRDC = true;
@@ -878,7 +878,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date.AddDays(-1))
+                                        if (DateTime.Now.AddHours(model.ZonaHoraria).Date < model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
                                         {
                                             model.RevistaDigital.TieneRDS = true;
                                             //obtiene datos de Revista digital suscripcion.

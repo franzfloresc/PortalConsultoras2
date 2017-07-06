@@ -434,8 +434,19 @@ function AgregarProductoAlCarrito(padre) {
 
 function OfertaCargarScroll() {
     var footerH = $(window).scrollTop() + $(window).height() + $("footer").innerHeight();
+    if (campaniaId <= 0) return false;
+
+    var seccFix = $("[data-listado-campania='" + campaniaId + "'] #orderby-filter");
+
+    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top) {
+        seccFix.addClass("fix-search");
+        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height() + 20) + "px");
+    } else {
+        seccFix.removeClass("fix-search");
+        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
+    }
+
     if (footerH >= $(document).height()) {
-        if (campaniaId <= 0) return false;
         
         var filtroCamp = filtroCampania[OfertaObtenerDataLocal(campaniaId)];
         if (filtroCamp == undefined) filtroCamp = Clone(filtroIni);
