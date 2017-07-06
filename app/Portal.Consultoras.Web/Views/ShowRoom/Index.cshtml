@@ -83,9 +83,9 @@
 
     </div>
     <hr class="clear" />
-    @if (Model.TieneSubCampania && Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count > 0)
+    @if (Model.TieneSubCampania)
     {
-        var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList();
+        var listaSubCampania = Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList();
 
         if (listaSubCampania != null && listaSubCampania.Count > 0)
         {
@@ -407,7 +407,7 @@
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
         var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
-        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count;
+        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
