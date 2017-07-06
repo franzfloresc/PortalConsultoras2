@@ -438,9 +438,9 @@ function OfertaCargarScroll() {
 
     var seccFix = $("[data-listado-campania='" + campaniaId + "'] #orderby-filter");
 
-    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top) {
+    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top + $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() + 20) {
         seccFix.addClass("fix-search");
-        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height() + 20) + "px");
+        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height()) + "px");
     } else {
         seccFix.removeClass("fix-search");
         $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
