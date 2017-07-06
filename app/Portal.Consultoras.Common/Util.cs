@@ -3165,7 +3165,6 @@ namespace Portal.Consultoras.Common
 
     public static class LinqExtensions
     {
-        [Obsolete("Use ForEach from Linq")]
         public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
         {
             foreach (var item in outer)
