@@ -17,6 +17,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -2117,15 +2119,29 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0",
                 };
 
-                dataString = JsonConvert.SerializeObject(data);
 
                 var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
-                using (var client = new HttpClient())
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(urlApi);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    var response = client.PostAsJsonAsync(urlApi, data).Result;
-                    response.EnsureSuccessStatusCode();
+                    var strResult = response.Content.ReadAsStringAsync().Result;
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(strResult), userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
+
+                httpClient.Dispose();
             }
             catch (Exception ex)
             {
