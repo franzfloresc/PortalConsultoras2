@@ -1167,6 +1167,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
@@ -3424,13 +3425,13 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServiceODS\configuration91.svcinfo" />
     <None Include="Service References\ServiceODS\configuration.svcinfo" />
     <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServicePedido\PedidoService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3797,7 +3798,14 @@
     <Content Include="Service References\ServiceZonificacion\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
+    <None Include="Service References\ServicePedido\PedidoService.disco" />
+    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <None Include="Service References\ServicePedido\configuration.svcinfo" />
+    <None Include="Service References\ServicePedido\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">

@@ -3292,6 +3292,7 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                     pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
                     estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                    mensaje = result.Mensaje;
                 }
 
                 return Json(new
@@ -3674,9 +3675,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var pedidoWebDetalleModel = Mapper.Map<List<BEPedidoWebDetalle>, List<PedidoWebDetalleModel>>(listaDetalle);
 
-                pedidoWebDetalleModel.Update(p => p.Simbolo = userData.Simbolo);
-                pedidoWebDetalleModel.Update(p => p.CodigoIso = userData.CodigoISO);
-                pedidoWebDetalleModel.Update(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
+                pedidoWebDetalleModel.ForEach(p => p.Simbolo = userData.Simbolo);
+                pedidoWebDetalleModel.ForEach(p => p.CodigoIso = userData.CodigoISO);
+                pedidoWebDetalleModel.ForEach(p => p.DescripcionCortadaProd = Util.SubStrCortarNombre(p.DescripcionProd, 73, ""));
 
                 model.ListaDetalleModel = pedidoWebDetalleModel;
                 model.Total = total;
