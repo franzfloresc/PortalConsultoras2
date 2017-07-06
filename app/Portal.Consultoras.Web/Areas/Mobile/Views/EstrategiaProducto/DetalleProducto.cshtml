@@ -31,8 +31,8 @@
     <div class="section_comentarios">
         <div class="wrapper_resumen_mobile">
             <div class="titulo_principal_comentarios">COMENTARIOS</div>
-            <div style="text-align:center"><div class="rateyo-readonly-comentarios"></div></div>
-            <div class="subtexto_comentario">95% de personas lo recomiendan <br />(295 de 364)</div>
+            <div style="text-align:center;"><div id="star_promedio_valorizado" class="rateyo-readonly-comentarios"></div></div>
+            <div id="texto1_recomiendan" class="subtexto_comentario">95% de personas lo recomiendan (295 de 364)</div>
             <div class="content_filtros_bestSeller">
                 <div class="texto_filtros_bestSeller">ORDENAR POR</div>
                 <select class="select_bestSeller">
@@ -309,14 +309,6 @@
                     ratedFill: "#cca11e",
                     starWidth: "17px"
                 });
-                $(".rateyo-readonly-comentarios").rateYo({
-                    rating: 4.5,
-                    precision: 2,
-                    minValue: 1,
-                    maxValue: 5,
-                    starWidth: "33px",
-                    readOnly: true
-                });
                 $(".rateyo-puntuacion-seccion-comentario").rateYo({
                     rating: 0,
                     precision: 2,
@@ -327,14 +319,14 @@
                     fullStar: true
                 })
                 $(document).ready(function () {
+                    masVendidosModule.ini({
+                        baseUrl: baseUrl,
+                        urlDetalleProducto: '@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
+                    });
                     bestSellerCommentModule.ini({
                         urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario")',
                         urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")',
                         urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
-                    });
-                    masVendidosModule.ini({
-                        baseUrl: baseUrl,
-                        urlDetalleProducto: '@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
                     });
                 });
             });
