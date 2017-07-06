@@ -123,10 +123,10 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="PaisId" type="xs:int" />
-        <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+        <xs:element minOccurs="0" name="ClienteID" type="xs:short" />
         <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="ClienteID" type="xs:int" />
-        <xs:element minOccurs="0" name="pedidoId" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
