@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
     "use strict"
     
-    debugger;
     if (typeof tieneCupon != 'undefined' && tieneCupon == '1') {
         var _mostrarPopupCuponGanaste = ((typeof mostrarPopupCuponGanaste != 'undefined') ? mostrarPopupCuponGanaste.toLowerCase() == "true" : false);
         var objInitializer = {
