@@ -24,7 +24,10 @@
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
-            if (tipoOrigenPantalla == 2) { SetHandlebars("#template-detalle-producto-agregar", item, "#contenedor-detalle-producto-agregar"); }
+            if (tipoOrigenPantalla == 2) {
+                SetHandlebars("#template-detalle-producto-agregar", item, "#contenedor-detalle-producto-agregar");
+                SetHandlebars("#template-detalle-producto-compartir", item, "#contenedor-detalle-producto-compartir");
+            }
             _validarGanancia(item);
             _validarPrecioTachado(item);
             _pintarEstrellas(item);
@@ -34,9 +37,44 @@
             let data = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(data);
             if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
-            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidos('mobile'); }            
+            if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }            
             _validarDivTituloMasVendidos();
         });
+    }
+
+    function inicializarDivMasVendidosCarruselSinFlechas(origen) {
+        if (origen == "mobile") {
+            $('.variable-width').on('init', function (event, slick) {
+                setTimeout(function () {
+                    slick.setPosition();
+                    slick.slickGoTo(1);
+                    $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
+                }, 500);
+            }).slick({
+                dots: true,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 2,
+                centerPadding: '0px',
+                centerMode: true,
+                variableWidth: true,
+                slidesToScroll: 1,
+                centerMode: true,
+                arrows: false,
+                dots: false,
+            }).on('swipe', function (event, slick, direction) {
+                var posicion = slick.currentSlide;
+                posicion = Math.max(parseInt(posicion), 0);
+
+                if (direction == 'left') { // dedecha a izquierda
+                    posicion = posicion + 1;
+                } else if (direction == 'right') {
+                    posicion = posicion + 1;
+                }
+
+                $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
+            });
+        }
     }
 
     function inicializarDivMasVendidos(origen) {
@@ -101,21 +139,6 @@
         if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
         PintarEstrellasCarrusel(data.Lista);
         PintarRecomendacionesCarrusel(data.Lista);
-        if (tipoOrigenPantalla === 2) { PintarIndicePorItemCarrusel(data.Lista); }
-    }
-
-    function PintarIndicePorItemCarrusel(listaMasVendidos) {
-        let total = listaMasVendidos.length;
-        listaMasVendidos.forEach(item => {
-            _pintarIndicePorItemCarrusel(item, total);
-        });
-    }
-
-    function _pintarIndicePorItemCarrusel(item, total) {
-        let div = "#orden-" + item.EstrategiaID.toString();
-        let indice_posicion = item.Posicion.toString() + " / " + total.toString();
-        $(div).html(indice_posicion);
-        $(div).show();
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {

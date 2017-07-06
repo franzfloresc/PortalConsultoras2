@@ -107,17 +107,42 @@
         </div>
     </div>
     <!--REDES SOCIALES-->
-    <div class="share_social_nertwoks">
-        <div class="title">Comparte este set con tus clientes</div>
-        <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png">
-            </a>
-        </div>
+    <div id="contenedor-detalle-producto-compartir"></div>
+    <script id="template-detalle-producto-compartir" type="text/x-handlebars-template">
+    <div class="content_belcorp" data-popup-body="" data-item="">
+        <div class="content_solo_ficha_set" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                <input type="hidden" class="Palanca" value="BS" />
+                <input type="hidden" id="hdTipoEstrategiaID" value="{{TipoEstrategiaID}}" />
+            </div>
+            <div data-estrategia="{{CodigoEstrategia}}"></div>
+            <div class="share_social_nertwoks">
+                <div class="title">Comparte este set con tus clientes</div>
+                <div class="content_redes_ficha">
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                        <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                    </a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                        <img src="/Content/Images/Mobile/Esika/facebook.png">
+                    </a>
+                </div>
+            </div>
+        </div>                        
     </div>
+</script>
     <!--AGREGAR-->
     <div id="contenedor-detalle-producto-agregar"></div>
 
@@ -219,70 +244,74 @@
         </div>
     </script>
 
-    <script id="template-detalle-producto-lista" type="text/x-handlebars-template">
-        {{#each this.Lista as |item|}}
-        <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-             class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
-            <div class="content_carrusel_bestSeller">
-                <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
-                <div>
-                    <div class="variable-width" onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
-                        <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-                            <a href="#" class="slider_item_content">
-                                <div data-img="">
-                                    <img src="{{FotoProducto01}}" class="imagen_carrusel_best">
+    <script id="template-detalle-producto-lista" type="text/x-handlebars-template">        
+        <div class="content_carrusel_intriga" id="divCarrouselMasVendidosLista">
+            <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+            <div class="variable-width">
+                {{#each this.Lista as |item|}}
+                <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
+                     class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
+                    <div class="content_carrusel_bestSeller">
+                        <div>
+                            <div onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
+                                <div class="slider_item" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
+                                    <a href="#" class="slider_item_content">
+                                        <div data-img="">
+                                            <img src="{{FotoProducto01}}" class="imagen_carrusel_best">
+                                        </div>
+                                        <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
+                                        <span class="title">{{DescripcionCortada}}</span>
+                                        <span class="precio_tachado_carrusel_set">{{Simbolo}} {{PrecioTachado}}</span>
+                                        <span class="price"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                                        <div class="rateyo-readonly-carrusel" id="star-{{EstrategiaID}}" style="margin-top:6px;"></div>
+                                        <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
+                                    </a>
                                 </div>
-                                <div class="marca_carrusel_best">{{DescripcionMarca}}</div>
-                                <span class="title">{{DescripcionCortada}}</span>
-                                <span class="precio_tachado_carrusel_set">{{Simbolo}} {{PrecioTachado}}</span>
-                                <span class="price"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                                <div class="rateyo-readonly-carrusel" id="star-{{EstrategiaID}}" style="margin-top:6px;"></div>
-                                <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="content_orden_carrusel" data-posicion-set="">
-                    <div id="orden-{{EstrategiaID}}" class="orden_listado_numero"><span data-posicion-current="">2</span> / 15</div>
-                    <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
-                    <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
-                    <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
-                </div>
+                {{/each}}
+            </div>
+            <div class="content_orden_carrusel" data-posicion-set="">
+                <div class="orden_listado_numero"><span data-posicion-current=""></span> / {{this.Lista.length}}</div>
+                <div class="linea_separadora_mobile" style="margin-top:-7px;"></div>
+                <div class="orden_flecha"><img src="/Content/Images/Esika/flecha_orden.png" alt="flecha"></div>
+                <div class="orden_flecha" style="right:0;"><img src="/Content/Images/Esika/flecha_orden_right.png" alt="flecha"></div>
             </div>
         </div>
-        {{/each}}
-    </script>
+</script>
 
     @section scripts{
         <script type="text/javascript">
             $(document).ready(function () {
 
-                $('.variable-width').on('init', function (event, slick) {
-                    setTimeout(function () {
-                        slick.setPosition();
-                        slick.slickGoTo(1);
-                    }, 500);
-                });
+                //$('.variable-width').on('init', function (event, slick) {
+                //    setTimeout(function () {
+                //        slick.setPosition();
+                //        slick.slickGoTo(1);
+                //    }, 500);
+                //});
 
-                $('.variable-width').slick({
-                    dots: true,
-                    infinite: false,
-                    speed: 300,
-                    slidesToShow: 2,
-                    centerPadding: '0px',
-                    centerMode: true,
-                    variableWidth: true,
-                    slidesToScroll: 1,
-                    centerMode: true,
-                    arrows: false,
-                    dots: false,
-                });
-                $(".termino_condiciones_intriga").click(function () {
-                    $(this).toggleClass('check_intriga');
-                    if (typeof intrigaAceptoTerminos !== 'undefined') {
-                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
-                    }
-                });
+                //$('.variable-width').slick({
+                //    dots: true,
+                //    infinite: false,
+                //    speed: 300,
+                //    slidesToShow: 2,
+                //    centerPadding: '0px',
+                //    centerMode: true,
+                //    variableWidth: true,
+                //    slidesToScroll: 1,
+                //    centerMode: true,
+                //    arrows: false,
+                //    dots: false,
+                //});
+                //$(".termino_condiciones_intriga").click(function () {
+                //    $(this).toggleClass('check_intriga');
+                //    if (typeof intrigaAceptoTerminos !== 'undefined') {
+                //        intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                //    }
+                //});
             });
             $(function () {
                 var rating = 1.6;
@@ -332,7 +361,7 @@
                     });
                     masVendidosModule.ini({
                         baseUrl: baseUrl,
-                        urlDetalleProducto:'@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
+                        urlDetalleProducto: '@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
                     });
                 });
             });
@@ -343,9 +372,8 @@
             var tipoOrigenEstrategia = 2;
             var tieneMasVendidos = 1;
             var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
-            var tipoOrigenPantalla = 2;            
+            var tipoOrigenPantalla = 2;
         </script>
         <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
         <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
-
     }
