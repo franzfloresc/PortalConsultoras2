@@ -8,6 +8,12 @@
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+
+    <style>
+        .contenedorCuponInfo .contenedor-texto-agregar {
+            display: inline-block;
+        }
+    </style>
 }
 
 @{
@@ -124,7 +130,7 @@
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
             if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
         }
-        }
+        
         <div class="titulo_home_img"></div>
         <div class="titulo_home_belcorp">
             <div>MI ESTADO DE CUENTA</div>
