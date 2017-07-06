@@ -57,8 +57,6 @@
             return false;
         }
 
-        waitingDialog({});
-
         setTimeout(function () {
             _downloadAttachExcel();
         }, 0);
@@ -74,6 +72,10 @@
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";
         iframe_.setAttribute("src", content);
+
+        iframe_.onload = function () {
+            closeWaitingDialog();
+        };
 
         if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
             iframe_.onreadystatechange = function () {
@@ -95,15 +97,12 @@
         else {
             // Si es Firefox o Chrome
             $(iframe_).ready(function () {
-                waitingDialog({});
-            });
-
-            $(iframe_).load(function (e) {
-                closeWaitingDialog();
-            });
+                //waitingDialog({});
+            });     
         }
         document.body.appendChild(iframe_);
     }
+
 
     var _initialize = function () {
         jQuery(document).ready(function () {

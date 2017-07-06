@@ -187,8 +187,8 @@ namespace Portal.Consultoras.Entities
                 if (DataRecord.HasColumn(row, "CodigoTO") && row["CodigoTO"] != DBNull.Value)
                             _CodigoTO = Convert.ToString(row["CodigoTO"]);
 
-                if (DataRecord.HasColumn(row, "CodigoSAP") && row["CodigoSAP"] != DBNull.Value)
-                    _CodigoSAP = Convert.ToString(row["CodigoSAP"]);
+                if (DataRecord.HasColumn(row, "SAP") && row["SAP"] != DBNull.Value)
+                    _CodigoSAP = Convert.ToString(row["SAP"]);
 
                 if (DataRecord.HasColumn(row, "Descripcion") && row["Descripcion"] != DBNull.Value)
                     _Descripcion = Convert.ToString(row["Descripcion"]);
