@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.Controllers
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
-                CampaniaID = userData.CampaniaID,
+                CampaniaID = campaniaId > 0 ? campaniaId : userData.CampaniaID,
                 ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
                 CUV2 = Util.Trim(cuv),
                 Zona = userData.ZonaID.ToString(),
