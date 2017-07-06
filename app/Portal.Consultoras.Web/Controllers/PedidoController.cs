@@ -907,7 +907,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 List<BEPedidoWebDetalle> ListaPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
                 BEPedidoWebDetalle pedidoEliminado = ListaPedidoWebDetalle.FirstOrDefault(x => x.CUV == CUV);
-                if (pedidoEliminado == null) return ErrorJson("El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).");
+                if (pedidoEliminado == null) return ErrorJson(Constantes.MensajesError.DeletePedido_CuvNoExiste);
 
                 pedidoEliminado.DescripcionOferta = !string.IsNullOrEmpty(pedidoEliminado.DescripcionOferta)
                     ? pedidoEliminado.DescripcionOferta.Replace("[", "").Replace("]", "").Trim() : "";
