@@ -35,7 +35,7 @@
             _pintarUltimoComentarioConsultora(item);
             let data = _armarListaCarruselDetalleProducto();
             _armarCarouselMasVendidos(data);
-            if (tipoOrigenPantalla === 1) {inicializarDivMasVendidos('desktop');}
+            if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
             if (tipoOrigenPantalla === 2) { inicializarDivMasVendidos('mobile'); }            
             _validarDivTituloMasVendidos();
         });
@@ -103,6 +103,21 @@
         if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
         PintarEstrellasCarrusel(data.Lista);
         PintarRecomendacionesCarrusel(data.Lista);
+        if (tipoOrigenPantalla === 2) { PintarIndicePorItemCarrusel(data.Lista); }
+    }
+
+    function PintarIndicePorItemCarrusel(listaMasVendidos) {
+        let total = listaMasVendidos.length;
+        listaMasVendidos.forEach(item => {
+            _pintarIndicePorItemCarrusel(item, total);
+        });
+    }
+
+    function _pintarIndicePorItemCarrusel(item, total) {
+        let div = "#orden-" + item.EstrategiaID.toString();
+        let indice_posicion = item.Posicion.toString() + " / " + total.toString();
+        $(div).html(indice_posicion);
+        $(div).show();
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {
