@@ -4080,6 +4080,7 @@
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
+    <Content Include="Views\Bienvenida\template-seccion-bpt.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
