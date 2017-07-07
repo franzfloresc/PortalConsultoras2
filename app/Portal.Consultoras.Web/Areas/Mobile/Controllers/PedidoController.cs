@@ -332,7 +332,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MensajeCampaniaZona = userData.CampaniaID == 0 ? "Campaña" : "Zona";
             return View();
         }
-        
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")] 
         public ActionResult Validado()
         {
             BEConfiguracionCampania beConfiguracionCampania;
