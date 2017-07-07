@@ -35,5 +35,29 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             catch (Exception ex) { mensaje = ex.Message; }
             Assert.AreEqual(Constantes.MensajesError.DeletePedido_CuvNoExiste, mensaje);
         }
+
+        [TestMethod]
+        public void PedidoController_ValidarStockEstrategia()
+        {
+            // Arrange
+            String mensaje = "";
+            PedidoController oB = new PedidoController();
+            TestControllerBuilder oT = new TestControllerBuilder();
+            oT.InitializeController(oB);
+            String MarcaID = "1";
+            String CUV = "96215";
+            String PrecioUnidad = "16900";
+            String Descripcion = "L'Bel Essential Desmaquillador Bifásico de rostro y ojos 125ml";
+            String Cantidad = "1";
+            String IndicadorMontoMinimo = "1";
+            String TipoOferta = "1003";
+
+            // Act
+            var response = oB.ValidarStockEstrategia(MarcaID, CUV, PrecioUnidad, Descripcion, Cantidad, IndicadorMontoMinimo, TipoOferta);
+            mensaje = GetJsonMessage(response);
+
+            // Assert
+            Assert.AreEqual("", mensaje);
+        }
     }
 }

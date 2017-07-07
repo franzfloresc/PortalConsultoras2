@@ -12,21 +12,21 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
     public class BaseControllerUnitTest
     {
         [TestMethod]
-        public void BaseController_OnActionExecuting_UnitTest()
+        public void BaseController_OnActionExecuting()
         {
             // Arrange
-            int Iteration = 10;
+            // int Iteration = 10;
             // BaseController[] oBB = new BaseController[Iteration];
             // TestControllerBuilder[] oTT = new TestControllerBuilder[Iteration];
 
             // Single
-            /*
             BaseController oB = new BaseController();
             TestControllerBuilder oT = new TestControllerBuilder();
             oT.InitializeController(oB);
             Assert.AreEqual(oB.OnActionExecutingTest(), 7);
             Assert.AreEqual(oB.OnActionExecutingTest(), 0);
-            */
+
+            /*
             int totalSize = 0;
 
             Parallel.For(0, Iteration - 1,
@@ -51,7 +51,8 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                    });
 
             Assert.AreEqual(7 * Iteration, totalSize);
-            // Assert.AreEqual(oBB.OnActionExecutingTest(), 0);
+            */
+
         }
     }
 }

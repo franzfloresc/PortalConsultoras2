@@ -1305,10 +1305,15 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.CampaniaID = userData.CampaniaID;
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
-                using (PedidoServiceClient svc = new PedidoServiceClient())
+                PedidoServiceClient svc = null;
+                try
                 {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
+                    svc = new PedidoServiceClient();
                 }
+                catch( Exception )
+                {
+                }
+                if( svc != null ) mensaje = svc.ValidarStockEstrategia(entidad);
             }
             catch (FaultException ex)
             {
