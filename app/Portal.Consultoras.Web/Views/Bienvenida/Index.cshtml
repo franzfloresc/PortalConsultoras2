@@ -2545,6 +2545,21 @@
 </script>
 <!--EPD-1204 FIN-->
 @section scripts{
+    <script>
+            var nav = $('#bc_content_ofertas .bc_container .items-producto');
+            pos = nav.offset();
+
+            // Esperamos al DOM
+            $(window).scroll(function () {
+                // Anclamos el menú si el scroll es
+                // mayor a la posición superior del tag
+                if (($(this).scrollTop() >= pos.top)) {
+                    alert("d");
+                } else if (($(this).scrollTop() <= pos.top)) {
+                }
+            });
+    </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
 
