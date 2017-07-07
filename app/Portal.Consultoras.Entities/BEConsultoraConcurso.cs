@@ -120,7 +120,7 @@ namespace Portal.Consultoras.Entities
 
         public BEConsultoraConcurso()
         {
-            Premios = new List<BEPremio>();
+            //Premios = new List<BEPremio>();
         }
     }
 }
