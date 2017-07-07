@@ -935,13 +935,10 @@ namespace Portal.Consultoras.Web.Controllers
                 bool modificoBackOrder;
                 var olstPedidoWebDetalle = AdministradorPedido(obe, "D", out ErrorServer, out tipo, out modificoBackOrder);
 
-                decimal total = 0;
-                string formatoTotal = "";
+                decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
+                string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
                 decimal totalCliente = 0;
                 string formatoTotalCliente = "";
-
-                total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
                 if (!olstPedidoWebDetalle.Any())
                 {
@@ -1002,15 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    formatoTotal = "",
-                    total = "",
-                    formatoTotalCliente = "",
-                    listaCliente = ""
-                });
+                return ErrorJson(ex.Message);
             }
         }
 
