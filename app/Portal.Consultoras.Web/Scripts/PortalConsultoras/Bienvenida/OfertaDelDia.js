@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
-
+    
     var self = window.OfertaDelDia;
 
     var CONS_TIPO_ORIGEN = {
@@ -58,6 +58,7 @@
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 ResolverGetOfertaDelDiaResponse(response);
+                array_odd = response.data;
             },
             error: function (err) {
                 console.log(err);
@@ -67,7 +68,7 @@
 
     self.CargarODDEscritorio = function () {
         if (($('#OfertaDelDia') || new Array()).length == 0)
-            return false;
+            return false;        
 
         $.ajax({
             type: 'GET',
@@ -86,6 +87,8 @@
                 if (tq.TotalSeconds <= 0)
                     return false;
 
+                array_odd = response.data;
+
                 var lista = _data.ListaOfertas || new Array();
                 _data.CantidadProductos = lista.length;
 
@@ -98,7 +101,7 @@
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
                 var idOdd = '#OfertaDelDia';
                 _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
-                SetHandlebars("#ofertadeldia-template", _data, idOdd);
+                SetHandlebars("#ofertadeldia-template", _data, idOdd);               
 
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
                 $(idOdd + ' [data-odd-tipoventana="carrusel"]').hide();
@@ -135,7 +138,9 @@
                         speed: 260,
                         prevArrow: '<a style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_compra.png")" alt="" /></a>',
                         nextArrow: '<a style="display: block;right: 0;margin-right: -5%; text-align:right;  top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_compra.png")" alt="" /></a>'
-                    });
+                    }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+                        odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide);
+                    });                    
                     $('#PopOfertaDia [data-odd-tipoventana="carrusel"]').hide();
                 }
                 else {
@@ -173,6 +178,7 @@
                     countdown: true
                 });
 
+                odd_desktop_google_analytics_promotion_impresion();
             },
             error: function (err) {
                 console.log(err);
@@ -180,6 +186,27 @@
         });
     }
 
+    function odd_desktop_google_analytics_promotion_impresion() {
+        if ($('#banner-odd').length > 0) {
+            var id = $('#banner-odd').find(".estrategia-id-odd").val();
+            var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
+            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val()
+            dataLayer.push({
+                'event': 'promotionView',
+                'ecommerce': {
+                    'promoView': {
+                        'promotions': [
+                        {
+                            'id': id,
+                            'name': name,
+                            'position': 'Banner Superior Home - 1',
+                            'creative': creative
+                        }]
+                    }
+                }
+            });
+        }
+    }
     function AsignarPosicionAListaOfertas(listaOfertas) {
         var posicion = 0;
         var nuevaListaOfertas = [];
@@ -704,10 +731,10 @@
 
     $("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
         var accion = $(this).attr("data-odd-accion").toUpperCase();
-        var cantidad = parseInt($(this).attr("data-odd-cantidad"));
         if (accion == CONS_TIPO_ACCION.VEROFERTA) {
             ResetearCantidadesDelPopup();
             if (showDisplayODD == 0) {
+                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
                 if (cantidad > 3) {
                     var posicion = "0";
                     $('#divOddCarrusel').slick('slickGoTo', posicion);
@@ -744,9 +771,8 @@
             // asignar valores del ver detalle
         }
         else if (accion == CONS_TIPO_ACCION.REGRESAR) {
-            if (cantidad > 3) {
-                $('#divOddCarrusel').slick('refresh', false);
-            }
+
+            $('#divOddCarrusel').slick('refresh', false);
             $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
             $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
         }
@@ -766,3 +792,54 @@
 
     self.CargarODD();
 });
+
+function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide) {
+    if (currentSlide != nextSlide)
+    {
+        var accion = "";        
+        var index = 0;
+        var impresions = [];
+
+        if (nextSlide == 0 && currentSlide + 1 == array_odd.CantidadProductos) {
+            accion = 'next';
+        } else if (currentSlide == 0 && nextSlide + 1 == array_odd.CantidadProductos) {
+            accion = 'prev';
+        } else if (nextSlide > currentSlide) {
+            accion = 'next';
+        } else {
+            accion = 'prev';
+        };
+        
+        if (accion == "prev")
+        {
+            index = nextSlide;
+        }
+        if (accion == "next")
+        {
+            index = nextSlide + 2;
+        }
+        if (index >= array_odd.CantidadProductos)
+        {
+            index = index - array_odd.CantidadProductos;
+        }
+
+        var div = $('#divOddCarrusel').find("[data-item-position=" + index + "]");        
+        var name = $(div).find("[data-item-campos]").find(".nombre-odd").val();
+        var id = $(div).find("[data-item-campos]").find(".cuv2-odd").val();
+        var price = $(div).find("[data-item-campos]").find(".precio-odd").val();
+        var brand = $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val();
+        var variant = $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val();
+        var position = index + 1;
+        impresions.push({
+            'name': name,
+            'id': id,
+            'price': price,
+            'brand': brand,
+            'category': 'No disponible',
+            'variant': variant,
+            'list': 'Oferta del día',
+            'position': position
+        });
+        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });        
+    }
+}

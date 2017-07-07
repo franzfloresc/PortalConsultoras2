@@ -109,6 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.vrowNum = rowNum;
             model.Usuario = usuario;
             model.TipoProceso = TipoProceso;
+            model.MotivoRechazo = MotivoRechazo;
             return View(model);
         }
         public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
@@ -1129,7 +1130,6 @@ namespace Portal.Consultoras.Web.Controllers
             lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = UserData().Simbolo; lista[16] = UserData().BanderaImagen;
             lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString(); lista[20] = vMotivoRechazo;
 
-            //Util.ExportToPdf(this, "PedidosPDF.pdf", "ReportePedidosDDWebDetalleImp", Util.EncriptarQueryString(lista));
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));
             return View();
         }

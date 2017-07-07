@@ -1,5 +1,4 @@
-﻿
-/**************************************************************************
+﻿/**************************************************************************
 ***************************************************************************/
 
 @font-face {
@@ -603,13 +602,17 @@ Image .nav0:hover {
 /*ESTILOS NUEVOS NOHELY*/
 .text_bienvenida_esika {
     font-family: 'lato';
-    text-align: justify;
+    text-align: center;
     color: white;
-    font-size: 15px;
-    text-align:center;
-    margin-bottom: 23px;
-    line-height: 24px;
-    letter-spacing:0.2px;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.text_bienvenida_esika span {
+    font-size: 20px;
+}    
+.text_bienvenida_esika span {
+    font-size: 20px;
 }    
 .text_bienvenida_esika span {
     font-size: 20px;

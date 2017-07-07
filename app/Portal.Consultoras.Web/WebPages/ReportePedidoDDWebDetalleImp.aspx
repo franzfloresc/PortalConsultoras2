@@ -67,7 +67,7 @@
 
                     <div class="top_head">
                         <div class="top_head1" id="userWelcome">
-                            <asp:Label ID="Usuario" runat="server" Text=""></asp:Label>
+                            <asp:Label ID="Usuario" runat="server" Text=""></asp:Label></div>
                         </div>
                         <div class="top_head2">
                         </div>

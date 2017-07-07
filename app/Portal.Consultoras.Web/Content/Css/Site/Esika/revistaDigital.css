@@ -42,7 +42,7 @@
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-    max-width: 100% !important;
+  width: auto;
     height: 100%;
 }
 .revistadigital p.marca {
@@ -644,6 +644,33 @@
 .BloqueLandingRD{
     margin-top:35px;
 }
+.BloqueLandingRD .cantidad_productos_fav {
+    padding-bottom: 20px;
+    float: none; 
+    text-align: right;
+}
+.BloqueLandingRD .fix-search {
+    position: fixed;
+    top: 61px;
+    width: 100%;
+    background: #000;
+    margin: 0 -80px;
+    padding: 0px 80px;
+    z-index: 10;
+    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+}
+.BloqueLandingRD .fix-search .cantidad_productos_fav {
+    background: transparent;
+    padding: 0 0 5px 0;
+    color: #fff;
+}
+.BloqueLandingRD .fix-search .rd-busqueda-filtros{
+    padding: 15px 0;
+    overflow:hidden;
+}
+
 .titulo_pagina{
     float:left;
     width:300px;
