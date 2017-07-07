@@ -97,9 +97,10 @@
         else {
             // Si es Firefox o Chrome
             $(iframe_).ready(function () {
-                //waitingDialog({});
+                //waitingDialog({}); TODO FIX THIS
             });     
         }
+       
         document.body.appendChild(iframe_);
     }
 

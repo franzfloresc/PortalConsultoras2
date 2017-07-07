@@ -1165,7 +1165,7 @@
   <xs:element name="GetReporteShowRoomCampaniaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomCampaniaResult" nillable="true" type="q71:ArrayOfBEReporteValidacion" />
+        <xs:element xmlns:q71="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomCampaniaResult" nillable="true" type="q71:ArrayOfBEReporteValidacionSRCampania" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1180,7 +1180,7 @@
   <xs:element name="GetReporteShowRoomPersonalizacionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomPersonalizacionResult" nillable="true" type="q72:ArrayOfBEReporteValidacion" />
+        <xs:element xmlns:q72="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomPersonalizacionResult" nillable="true" type="q72:ArrayOfBEReporteValidacionSRPersonalizacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1195,7 +1195,7 @@
   <xs:element name="GetReporteShowRoomOfertaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomOfertaResult" nillable="true" type="q73:ArrayOfBEReporteValidacion" />
+        <xs:element xmlns:q73="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomOfertaResult" nillable="true" type="q73:ArrayOfBEReporteValidacionSROferta" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -1210,7 +1210,7 @@
   <xs:element name="GetReporteShowRoomComponentesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomComponentesResult" nillable="true" type="q74:ArrayOfBEReporteValidacion" />
+        <xs:element xmlns:q74="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetReporteShowRoomComponentesResult" nillable="true" type="q74:ArrayOfBEReporteValidacionSRComponentes" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

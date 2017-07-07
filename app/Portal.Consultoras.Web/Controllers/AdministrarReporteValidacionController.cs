@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
         private const string NombreSRHoja4 = "Ofertas (Componentes del Set)";
 
         private const string MensajeNoHayRegistros = "No existen registros para la campaña.";
+        private const string MensajeExitoso = "Se ha descargado satisfactoriamente.";
 
         public ActionResult Index()
         {
@@ -167,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (lst.Count == 0)
-                return Content("<script>alert(" + MensajeNoHayRegistros + ")</script>");
+                return Content("<script>alert('" + MensajeNoHayRegistros + "')</script>");
 
             foreach (var item in lst)
             {
@@ -183,14 +184,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         private ActionResult ExportarExcelShowRoom(string CampaniaID)
         {
-            List<List<BEReporteValidacion>> lst = new List<List<BEReporteValidacion>>();
+            List<List<ReporteValidacionSRModel>> lst = new List<List<ReporteValidacionSRModel>>();
             List<Dictionary<string, string>> lstConfiguration = new List<Dictionary<string, string>>();
             List<string> nombresHojas = new List<string>();
 
-            List<BEReporteValidacion> lstSRCampania = new List<BEReporteValidacion>();
-            List<BEReporteValidacion> lstSRPersonalizacion = new List<BEReporteValidacion>();
-            List<BEReporteValidacion> lstSROferta = new List<BEReporteValidacion>();
-            List<BEReporteValidacion> lstSRComponente = new List<BEReporteValidacion>();
+            List<BEReporteValidacionSRCampania> lstSRCampania = new List<BEReporteValidacionSRCampania>();
+            List<BEReporteValidacionSRPersonalizacion> lstSRPersonalizacion = new List<BEReporteValidacionSRPersonalizacion>();
+            List<BEReporteValidacionSROferta> lstSROferta = new List<BEReporteValidacionSROferta>();
+            List<BEReporteValidacionSRComponentes> lstSRComponente = new List<BEReporteValidacionSRComponentes>();
             string nombreReporte = NombreReporteValidacionSR;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -202,12 +203,80 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (lstSRCampania.Count == 0 && lstSRPersonalizacion.Count == 0 && lstSROferta.Count == 0 && lstSRComponente.Count == 0)
-                return Content("<script>alert(" + MensajeNoHayRegistros +")</script>");
+                return Content("<script>alert('" + MensajeNoHayRegistros +"')</script>");
 
-            lst.Add(lstSRCampania);
-            lst.Add(lstSRPersonalizacion);
-            lst.Add(lstSROferta);
-            lst.Add(lstSRComponente);
+            List<ReporteValidacionSRModel> listSRCampaniaModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSRPersonalizacionModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSROfertaModel = new List<ReporteValidacionSRModel>();
+            List<ReporteValidacionSRModel> lstSRComponenteModel = new List<ReporteValidacionSRModel>();
+
+             lstSRCampania.ForEach( x => listSRCampaniaModel.Add( new ReporteValidacionSRModel
+            {      
+                                    CodPais = x.CodPais,
+                                    Campania = x.Campania,
+                                    CUV = x.CUV,
+                                    NombreEvento = x.NombreEvento,
+                                    DiasAntesFacturacion = x.DiasAntesFacturacion,
+                                    DiasDespuesFacturacion = x.DiasDespuesFacturacion,
+                                    FlagHabilitarEvento = x.FlagHabilitarEvento,
+                                    FlagHabilitarCompraXCompra = x.FlagHabilitarCompraXCompra,
+                                    FlagHabilitarSubCampania = x.FlagHabilitarSubCampania
+
+            }));
+
+            lstSRPersonalizacion.ForEach(x => lstSRPersonalizacionModel.Add(new ReporteValidacionSRModel
+            {
+                Personalizacion = x.Personalizacion,
+                Medio = x.Medio,
+                BO = x.BO,
+                CL = x.CL,
+                CO = x.CO,
+                CR = x.CR,
+                DO = x.DO,
+                EC = x.EC,
+                GT = x.GT,
+                MX = x.MX,
+                PA = x.PA,
+                PE = x.PE,
+                PR = x.PR,
+                SV = x.SV,
+                VE = x.VE
+            }));
+
+            lstSROferta.ForEach(x => lstSROfertaModel.Add(new ReporteValidacionSRModel
+            {
+                CodPais = x.CodPais,
+                Campania = x.Campania,
+                CUV = x.CUV,
+                CodigoTO = x.CodigoTO,
+                CodigoSAP = x.CodigoSAP,
+                Descripcion = x.Descripcion,
+                PrecioValorizado = x.PrecioValorizado,
+                PrecioOferta = x.PrecioOferta,
+                UnidadesPermitidas = x.UnidadesPermitidas,
+                EsSubCampania = x.EsSubCampania,
+                HabilitarOferta = x.HabilitarOferta,
+                FlagImagenCargada = x.FlagImagenCargada,
+                FlagImagenMINI = x.FlagImagenMINI
+
+            }));
+
+            lstSRComponente.ForEach(x => lstSRComponenteModel.Add(new ReporteValidacionSRModel
+            {
+                CodPais = x.CodPais,
+                Campania = x.Campania,
+                CUV = x.CUV,
+                Nombre = x.Nombre,
+                Descripcion1 = x.Descripcion1,
+                Descripcion2 = x.Descripcion2,
+                Descripcion3 = x.Descripcion3
+
+            }));
+
+            lst.Add(listSRCampaniaModel);
+            lst.Add(lstSRPersonalizacionModel);
+            lst.Add(lstSROfertaModel);
+            lst.Add(lstSRComponenteModel);
 
             lstConfiguration.Add(GetConfiguracionExcelSRCampania());
             lstConfiguration.Add(GetConfiguracionExcelSRPersonalizacion());
@@ -219,7 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
             nombresHojas.Add(NombreSRHoja3);
             nombresHojas.Add(NombreSRHoja4);
 
-            Util.ExportToExcelManySheets<BEReporteValidacion>(nombreReporte, lst, lstConfiguration, nombresHojas, 30);
+            Util.ExportToExcelManySheets<ReporteValidacionSRModel>(nombreReporte, lst, lstConfiguration, nombresHojas, 30);
 
             return null;
         }

@@ -2022,22 +2022,22 @@ namespace Portal.Consultoras.Service
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
         }
 
-        public IList<BEReporteValidacion> GetReporteShowRoomCampania(int paisID, int campaniaID)
+        public List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomCampania(paisID, campaniaID).ToList();
         }
 
-        public IList<BEReporteValidacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
+        public List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomPersonalizacion(paisID, campaniaID).ToList();
         }
 
-        public IList<BEReporteValidacion> GetReporteShowRoomOferta(int paisID, int campaniaID)
+        public List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomOferta(paisID, campaniaID).ToList();
         }
 
-        public IList<BEReporteValidacion> GetReporteShowRoomComponentes(int paisID, int campaniaID)
+        public List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
         {
             return new BLReporteValidacion().GetReporteShowRoomComponentes(paisID, campaniaID).ToList();
         }

@@ -1109,13 +1109,17 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+
         [OperationContract]
-        IList<BEReporteValidacion> GetReporteShowRoomCampania(int paisID, int campaniaID);
+        List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID);
+
         [OperationContract]
-        IList<BEReporteValidacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
+        List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
+
         [OperationContract]
-        IList<BEReporteValidacion> GetReporteShowRoomOferta(int paisID, int campaniaID);
+        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
+
         [OperationContract]
-        IList<BEReporteValidacion> GetReporteShowRoomComponentes(int paisID, int campaniaID);
+        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
     }
 }
