@@ -353,7 +353,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     var top = listModel.Count();
 
-                    top = Math.Min(top, 4);
+                    top = Math.Min(top, 8);
 
                     if (top <= 0)
                     {
@@ -365,11 +365,11 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<BEEstrategia>();
 
                     listModel = new List<BEEstrategia>();
-                    //if (estrategiaLanzamiento.EstrategiaID > 0)
-                    //{
-                    //    top--;
-                    //    listModel.Add(estrategiaLanzamiento);
-                    //}
+                    if (estrategiaLanzamiento.EstrategiaID > 0)
+                    {
+                        top--;
+                        listModel.Add(estrategiaLanzamiento);
+                    }
                     if (estrategiaPackNuevas.EstrategiaID > 0)
                     {
                         top--;
