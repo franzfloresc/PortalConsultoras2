@@ -39,7 +39,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -50,7 +50,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -61,7 +61,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -72,7 +72,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -83,7 +83,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -94,7 +94,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -105,7 +105,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -116,7 +116,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -127,7 +127,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -138,7 +138,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -149,7 +149,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -160,7 +160,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -171,7 +171,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -237,7 +237,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -248,7 +248,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -259,7 +259,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -270,7 +270,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -281,7 +281,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -292,7 +292,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -303,7 +303,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -314,7 +314,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -325,7 +325,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -336,7 +336,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -347,7 +347,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -358,7 +358,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -369,7 +369,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -436,7 +436,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -447,7 +447,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -458,7 +458,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -469,7 +469,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -480,7 +480,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -491,7 +491,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -502,7 +502,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -513,7 +513,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -524,7 +524,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -535,7 +535,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -546,7 +546,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -557,7 +557,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -568,7 +568,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -635,7 +635,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -646,7 +646,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -657,7 +657,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -668,7 +668,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -679,7 +679,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -690,7 +690,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -701,7 +701,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -712,7 +712,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -723,7 +723,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -734,7 +734,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -745,7 +745,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -756,7 +756,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -767,7 +767,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -834,7 +834,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -845,7 +845,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -856,7 +856,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -867,7 +867,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -878,7 +878,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -889,7 +889,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -900,7 +900,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -911,7 +911,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -922,7 +922,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -933,7 +933,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -944,7 +944,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -955,7 +955,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -966,7 +966,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1033,7 +1033,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1044,7 +1044,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1055,7 +1055,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1066,7 +1066,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1077,7 +1077,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1088,7 +1088,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1099,7 +1099,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1110,7 +1110,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1121,7 +1121,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1132,7 +1132,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1143,7 +1143,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1154,7 +1154,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1165,7 +1165,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1232,7 +1232,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1243,7 +1243,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1254,7 +1254,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1265,7 +1265,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1276,7 +1276,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1287,7 +1287,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1298,7 +1298,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1309,7 +1309,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1320,7 +1320,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1331,7 +1331,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1342,7 +1342,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1353,7 +1353,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1364,7 +1364,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1431,7 +1431,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1442,7 +1442,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1453,7 +1453,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1464,7 +1464,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1475,7 +1475,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1486,7 +1486,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1497,7 +1497,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1508,7 +1508,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1519,7 +1519,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1530,7 +1530,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1541,7 +1541,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1552,7 +1552,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1563,7 +1563,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1630,7 +1630,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1641,7 +1641,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1652,7 +1652,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1663,7 +1663,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1674,7 +1674,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1685,7 +1685,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1696,7 +1696,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1707,7 +1707,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1718,7 +1718,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1729,7 +1729,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1740,7 +1740,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1751,7 +1751,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1762,7 +1762,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1829,7 +1829,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1840,7 +1840,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1851,7 +1851,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1862,7 +1862,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1873,7 +1873,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1884,7 +1884,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1895,7 +1895,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1906,7 +1906,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1917,7 +1917,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1928,7 +1928,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1939,7 +1939,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1950,7 +1950,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -1961,7 +1961,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2028,7 +2028,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2039,7 +2039,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2050,7 +2050,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2061,7 +2061,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2072,7 +2072,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2083,7 +2083,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2094,7 +2094,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2105,7 +2105,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2116,7 +2116,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2127,7 +2127,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2138,7 +2138,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2149,7 +2149,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2160,7 +2160,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2227,7 +2227,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2238,7 +2238,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2249,7 +2249,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2260,7 +2260,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2271,7 +2271,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2282,7 +2282,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2293,7 +2293,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2304,7 +2304,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2315,7 +2315,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2326,7 +2326,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2337,7 +2337,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2348,7 +2348,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2359,7 +2359,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2426,7 +2426,7 @@ BEGIN
 
 			SET @TipoPersonalizacion = 'OPT';
 
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'BO' as Pais, e.CUV2, e.DescripcionCUV2, 
 			CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 			e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 			, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2437,7 +2437,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDBolivia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CL' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2448,7 +2448,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDChile
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2459,7 +2459,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDColombia
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'CR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2470,7 +2470,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDCostaRica
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'DO' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2481,7 +2481,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDDominicana
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'EC' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2492,7 +2492,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDEcuador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'GT' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2503,7 +2503,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDGuatemala
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'MX' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2514,7 +2514,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDMexico
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PA' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2525,7 +2525,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPanama
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2536,7 +2536,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPeru
 			UNION
-			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'PR' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2547,7 +2547,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDPuertoRico
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'SV' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
@@ -2558,7 +2558,7 @@ BEGIN
 				 e.CampaniaID = @CampaniaID
 				and e.TipoEstrategiaID = @teIDSalvador
 			UNION
-			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as CodPais, e.CUV2, e.DescripcionCUV2, 
+			select  @TipoPersonalizacion as TipoEstrategia, e.CampaniaID, 'VE' as Pais, e.CUV2, e.DescripcionCUV2, 
 					CASE WHEN LEN(e.DescripcionCUV2) > 40 THEN SUBSTRING(e.DescripcionCUV2, 1, 40) ELSE e.DescripcionCUV2 END as DescripcionCorta,
 					e.ImagenUrl, e.Precio as PrecioNormal, e.Precio2 as PrecioOfertaDigital, e.LimiteVenta, e.Activo
 					, pc.CUV as CUVPrecioTachado, pc.PrecioCatalogo as PrecioTachado 
