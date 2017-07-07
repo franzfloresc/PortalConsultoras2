@@ -3425,13 +3425,13 @@
     <None Include="Service References\ServicePedidoRechazado\PedidoRechazadoService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServiceODS\configuration91.svcinfo" />
     <None Include="Service References\ServiceODS\configuration.svcinfo" />
     <None Include="Service References\ServiceODS\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Content Include="Service References\ServicePedido\PedidoService.wsdl" />
     <None Include="Service References\ServicePedido\PedidoService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3497,13 +3497,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServicePedido\PedidoService.disco" />
-    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <None Include="Service References\ServicePedido\configuration.svcinfo" />
-    <None Include="Service References\ServicePedido\Reference.svcmap">
+    <Content Include="Service References\ServicePedido\PedidoService.disco" />
+    <Content Include="Service References\ServicePedido\configuration91.svcinfo" />
+    <Content Include="Service References\ServicePedido\configuration.svcinfo" />
+    <Content Include="Service References\ServicePedido\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    </Content>
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService5.xsd">
       <SubType>Designer</SubType>
@@ -3799,13 +3799,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <None Include="Service References\ServicePedido\PedidoService.disco" />
-    <None Include="Service References\ServicePedido\configuration91.svcinfo" />
-    <None Include="Service References\ServicePedido\configuration.svcinfo" />
-    <None Include="Service References\ServicePedido\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
