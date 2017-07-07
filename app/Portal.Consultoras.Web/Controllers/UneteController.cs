@@ -2686,7 +2686,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lista)
                     {
-                        if (CodigoISO == Pais.Peru)
+                        if ((CodigoISO == Pais.Peru)|| (CodigoISO == Pais.Dominicana)|| (CodigoISO == Pais.PuertoRico))
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
@@ -4934,7 +4934,6 @@ namespace Portal.Consultoras.Web.Controllers
                     RechazadoPor = (c.SubEstadoPostulante != null && c.EstadoPostulanteID == EnumsEstadoPostulante.Rechazada.ToInt()) ?
                                         lstSubEstadosPostulante.FirstOrDefault(x => x.Valor == c.SubEstadoPostulante).Nombre
                                         : "",
-                    CampaniaDeIngreso = c.CampaniaDeIngreso,
                 };
 
             });
@@ -4961,7 +4960,6 @@ namespace Portal.Consultoras.Web.Controllers
                 {"Telefono Celular", "TelefonoCelular"},
                 {"Telefono Red Fija", "TelefonoFijo"},
                    {"Correo", "CorreoElectronico"},
-                          {"Campaña De Ingreso", "CampaniaDeIngreso"},
 
 
             };
