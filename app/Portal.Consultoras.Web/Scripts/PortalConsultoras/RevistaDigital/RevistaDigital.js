@@ -379,38 +379,6 @@ function ResizeBoxContnet() {
     }
 }
 
-function GuardarProductoTemporal(obj) {
-
-    $.ajaxSetup({
-        cache: false
-    });
-
-    AbrirLoad();
-
-    var varReturn = false;
-
-    jQuery.ajax({
-        type: 'POST',
-        url: urlOfertaDetalleProductoTem,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        async: false,
-        success: function (response) {
-            varReturn = response.success;
-        },
-        error: function (response, error) {
-            CerrarLoad();
-            localStorage.setItem(lsListaRD, '');
-            if (checkTimeout(response)) {
-                console.log(response);
-            }
-        }
-    });
-
-    return varReturn;
-}
-
 function RDDetalleObtener() {
 
     var param = location.href.toLowerCase().split('?');
@@ -495,8 +463,8 @@ function RenderCarrusel(divProd) {
         infinite: true,
         speed: 300,
         slidesToShow: 1,
-        autoplay: false,
-        autoplaySpeed: 3000,
+        autoplay: true,
+        autoplaySpeed: 5000,
         prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
         nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
     }).on('afterChange', function (event, slick, currentSlide) {

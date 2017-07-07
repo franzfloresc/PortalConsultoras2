@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Data
         public DataSet GetPedidoWebByFechaFacturacion(DateTime FechaFacturacion, int TipoCronograma, int NroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SB2");
+            command.CommandTimeout = 400;
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, FechaFacturacion);
             Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
@@ -325,6 +326,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
+            
 
             return Context.ExecuteReader(command);
         }
@@ -674,16 +676,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(BEOfertaFinalConsultoraLog entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CUV", DbType.String, CUV);
-            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
-            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, tipoOfertaFinal);
-            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, GAP);
-            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, tipoRegistro);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, entidad.Cantidad);
+            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, entidad.TipoOfertaFinal);
+            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, entidad.GAP);
+            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, entidad.TipoRegistro);
+            Context.Database.AddInParameter(command, "@DesTipoRegistro", DbType.String, entidad.DesTipoRegistro);
 
             Context.ExecuteNonQuery(command);
         }
@@ -711,23 +714,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }            
-        /*EPD-1025*/
-        public IDataReader ObtenerUltimaDescargaPedido()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
-            return Context.ExecuteReader(command);
-        }
-        public IDataReader DesmarcarUltimaDescargaPedido()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
-            return Context.ExecuteReader(command);
-        }
-        /*EPD-1025*/
-
-        public IDataReader ObtenerUltimaDescargaExitosa() {
-            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
-            return Context.ExecuteReader(Command);
-        }
 
         public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
         {
@@ -736,6 +722,24 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        
+        /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaPedido()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader DesmarcarUltimaDescargaPedido()
+        {                
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaExitosa() {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
 
         /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
@@ -793,5 +797,15 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+            return Context.ExecuteReader(command);
+        }        
+        
     }
 }

@@ -1434,7 +1434,6 @@ namespace Portal.Consultoras.BizLogic
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
-                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)

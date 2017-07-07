@@ -246,12 +246,11 @@
     }
     <!--FIN-->
 
-
-
     <!--INICIO CARRUSEL-->
-    <div id="divListaEstrategias" style="display: none;">
+    <div id="divListaEstrategias" style="display:none">
         <div id="contenedor_template_estrategia_cabecera"></div> 
     </div>
+
     <!--FIN CARRUSEL-->
 
     <div class="btn_agregarPedido">
@@ -767,6 +766,7 @@
         var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
 
         var tieneCupon = '@Model.TieneCupon';
+        //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';

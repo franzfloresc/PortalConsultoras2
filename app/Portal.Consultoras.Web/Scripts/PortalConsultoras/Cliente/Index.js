@@ -29,7 +29,7 @@
     //            return re.test(keyChar);
     //        }
     //    });
-
+    
     $("#txtBusqueda").keypress(function (e) {
         if (e.which == 13) {
             if (checkTimeout()) {
@@ -121,22 +121,22 @@ function CargarListaCliente(page, rows) {
         async: true,
         success: function (data) {
             if (checkTimeout(data)) {
-                var html = ArmarListaCliente(data.rows);
-                $('#divListaCliente').html(html);
+            var html = ArmarListaCliente(data.rows);
+            $('#divListaCliente').html(html);
 
-                var htmlPaginador = ArmarListaClientePaginador(data);
-                $('#paginadorCab').html(htmlPaginador);
-                $('#paginadorPie').html(htmlPaginador);
+            var htmlPaginador = ArmarListaClientePaginador(data);
+            $('#paginadorCab').html(htmlPaginador);
+            $('#paginadorPie').html(htmlPaginador);
 
-                $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
-                $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
+            $("#paginadorCab [data-paginacion='rows']").val(data.Registros || 10);
+            $("#paginadorPie [data-paginacion='rows']").val(data.Registros || 10);
 
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                alert(error);
-            }
+            alert(error);
+        }
         }
     });
 }

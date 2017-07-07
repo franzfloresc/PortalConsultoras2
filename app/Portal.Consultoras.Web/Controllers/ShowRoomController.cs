@@ -138,6 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 var showRoomEventoModel = CargarValoresModel();
+                showRoomEventoModel.ListaShowRoomOferta = ValidarUnidadesPermitidas(showRoomEventoModel.ListaShowRoomOferta);  
                 showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return RedirectToAction("Index", "Bienvenida");
@@ -195,6 +196,7 @@ namespace Portal.Consultoras.Web.Controllers
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             //IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+
             return Json(new
             {
                 lista = lst,
@@ -2783,7 +2785,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listaSubCampania = listaProductos.Where(x => x.EsSubCampania).ToList();
                 listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
-
+                listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
                 {
                     success = true,
@@ -2824,7 +2826,6 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
 
         [HttpPost]
         public JsonResult ProgramarAviso(MisDatosModel model)
@@ -3135,6 +3136,30 @@ namespace Portal.Consultoras.Web.Controllers
                     data = ""
                 });
             }
+        }
+
+        private List<ShowRoomOfertaModel> ValidarUnidadesPermitidas(List<ShowRoomOfertaModel> listaShowRoomOferta)
+        {
+            if (listaShowRoomOferta != null)
+            {
+                List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle> detalle = new List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>();
+                if (Session["PedidoWebDetalle"] != null)
+                    detalle = (List<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                if (detalle.Count > 0)
+                {
+                    for (int i = 0; i <= listaShowRoomOferta.Count - 1; i++)
+                    {
+                        var item = listaShowRoomOferta[i];
+                        item.UnidadesPermitidasRestantes = item.UnidadesPermitidas;
+                        if (item.EsSubCampania)
+                        {
+                            int cantidad = detalle.Where(x => x.CUV == item.CUV).Sum(x => x.Cantidad).ToInt();
+                            item.UnidadesPermitidasRestantes = item.UnidadesPermitidas - cantidad;
+                        }
+                    }
+                }
+            }
+            return listaShowRoomOferta;
         }
     }
 }

@@ -443,7 +443,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = CargarMotivoOperacionPorDias(model);
@@ -636,7 +636,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var respuestaServiceCdr = new RptCdr[1];
                 using (WsGestionWeb sv = new WsGestionWeb())
                 {
-                    respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
+                    respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
                     
@@ -648,10 +648,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-                
-            }
+            catch (Exception ex) { }
 
             #endregion
 
@@ -667,7 +664,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ValidarNoPack(MisReclamosModel model)
         {
             #region Validar Pack y Sets
-           
 
             try
             {
@@ -685,10 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex) { }
 
             #endregion
 

@@ -103,89 +103,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-
-                var listaFinal = listModel;
-                //listaFinal.AddRange(listModel);
-
+                
                 int cantidadTotal = listModel.Count;
 
-                #region Filtros y Orden
-
-                //#region Filtros
-                //if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
-                //{
-                //    listaFinal = new List<EstrategiaPedidoModel>();
-                //    var universo = new List<EstrategiaPedidoModel>();
-                //    int cont = 0, contVal = 0;
-                //    foreach (var filtro in model.ListaFiltro)
-                //    {
-                //        filtro.Valores = filtro.Valores ?? new List<string>();
-                //        if (!filtro.Valores.Any()) continue;
-
-                //        universo = cont == 0 ? listModel : listaFinal;
-                //        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
-                //        contVal = 0;
-                //        foreach (var valor in filtro.Valores)
-                //        {
-                //            var val = Util.Trim(valor).ToLower();
-                //            if (val == "" || val == "-")
-                //            {
-                //                listaFinal = contVal == 0 ? universo : listaFinal;
-                //                continue;
-                //            }
-
-                //            if (filtro.Tipo == "marca")
-                //            {
-                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                //                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
-                //            }
-                //            else if (filtro.Tipo == "precio")
-                //            {
-                //                var listaValDet = val.Split(',');
-                //                var valorDesde = Convert.ToDecimal(listaValDet[0]);
-                //                var valorHasta = Convert.ToDecimal(listaValDet[1]);
-
-                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                //                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
-                //            }
-                //            contVal++;
-                //        }
-                //        cont++;
-                //    }
-                //}
-                //#endregion
-
-                //#region Orden
-                //if (model.Ordenamiento != null)
-                //{
-                //    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                //    if (model.Ordenamiento.Tipo == "precio")
-                //    {
-                //        switch (model.Ordenamiento.Valor)
-                //        {
-                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                //                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
-                //                break;
-                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                //                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
-                //                break;
-                //            default:
-                //                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
-                //                break;
-                //        }
-                //    }
-                //}
-                //#endregion
-
-                #endregion
-
-                int cantidad = listaFinal.Count;
-
                 //var cantMostrar = 10;
-                //listaFinal = listaFinal.Skip(model.CantMostrados).Take(cantMostrar).ToList();
+                //listModel = listModel.Skip(model.CantMostrados).Take(cantMostrar).ToList();
 
-                listaFinal.ForEach(p =>
+                listModel.ForEach(p =>
                 {
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
@@ -194,10 +118,10 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    lista = listaFinal,
+                    lista = listModel,
                     listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad,
+                    cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID
                 });
             }
@@ -280,7 +204,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var entidad = new BERevistaDigitalSuscripcion();
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede suscribirse, estamos a dias de cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                    var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
                 entidad.CampaniaID = userData.CampaniaID;
@@ -301,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
@@ -361,6 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);

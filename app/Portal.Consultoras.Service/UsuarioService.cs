@@ -347,7 +347,6 @@ namespace Portal.Consultoras.Service
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
         }
-
         /* SB20-463 - FIN */
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
@@ -711,7 +710,7 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
         }
-        
+
         /*EPD-1837*/
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
         {
@@ -752,7 +751,6 @@ namespace Portal.Consultoras.Service
         }
          * */
         /*EPD-1837*/
-
         public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)
         {
             var BLUsuario = new BLUsuario();

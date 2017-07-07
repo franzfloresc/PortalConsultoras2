@@ -110,9 +110,14 @@ function GetProductoEntidad(id) {
 }
 
 function UpdateLiquidacionEvento(evento) {
-    var obj = $(evento.currentTarget);
+    var obj = $(evento.currentTarget);    
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+        return false;
+    }
+
+    if (ReservadoOEnHorarioRestringido()) {     
+        $('#Cantidad_'+id).val($("#CantidadTemporal_" + id).val());
         return false;
     }
 
@@ -458,6 +463,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 });
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
+                
+                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -596,6 +603,9 @@ function PedidoDetalleEliminarTodo() {
                 'label': '(not available)'
             });
             messageDelete("Se eliminaron todos productos del pedido.");
+
+            ActualizarLocalStorageAgregado("rd", "todo", false);
+
             location.reload();
           
             CloseLoading();
@@ -867,7 +877,7 @@ function EjecutarServicioPROL() {
                     mensaje_ = data.mensaje;
                 }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                console.error(data);
+                //console.error(data);
             }
         }
     })
@@ -1375,3 +1385,63 @@ function ValidarPermiso(obj) {
     return true;
 };
 
+function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
+
+    var ok = false;
+    try {
+
+        cuv = $.trim(cuv);
+        if (tipo == "rd") {
+            if (cuv == "" || valor == undefined) {
+                return false;
+            }
+            ok = RDActualizarLocalStorageAgragado(cuv, valor);
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+    return ok;
+}
+
+function RDActualizarLocalStorageAgragado(cuv, valor) {
+    var ok = false;
+    cuv = $.trim(cuv);
+    var lsListaRD = lsListaRD || "ListaRD";
+    var indCampania = indCampania || 0;
+    var valLocalStorage = localStorage.getItem(lsListaRD + campaniaCodigo);
+    if (valLocalStorage != null) {
+        var data = JSON.parse(valLocalStorage);
+
+        $.each(data.response.listaLan, function (ind, item) {
+            if (item.CUV2 == cuv || cuv == "todo") {
+                item.IsAgregado = valor;
+                if (cuv != "todo") {
+                    ok = true;
+                    return false;
+                }
+            }
+        });
+
+        if (!ok) {
+            $.each(data.response.lista, function (ind, item) {
+                if (item.CUV2 == cuv || cuv == "todo") {
+                    item.IsAgregado = valor;
+                    if (cuv != "todo") {
+                        ok = true;
+                        return false;
+                    }
+                }
+            });
+        }
+
+        if (cuv == "todo") {
+            ok = true;
+        }
+
+        if (ok) {
+            localStorage.setItem(lsListaRD + campaniaCodigo, JSON.stringify(data));
+        }
+    }
+    return ok;
+}

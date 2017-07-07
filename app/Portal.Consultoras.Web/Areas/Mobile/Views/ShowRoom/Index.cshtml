@@ -458,7 +458,7 @@ else
         </div>
         <div class="saludo_paginacion">
             @*Valeria, te mostramos <b>1 de 6</b> ofertas*@
-            <p>@ViewBag.NombreConsultora,</p> te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
+            @ViewBag.NombreConsultora, te mostramos <b>{{oferta.Posicion}} de {{../CantidadProductos}}</b>
             {{#iff ../CantidadProductos '>' 1}}
             &nbsp;ofertas
             {{/iff}}
@@ -507,5 +507,8 @@ else
         var origenPedidoWebTactica = '@Constantes.OrigenPedidoWeb.MobileShowRoomLandingCompraTactica';
         var origenPedidoWebSubCampania = '@Constantes.OrigenPedidoWeb.MobileShowRoomSubCampanias';
         var tieneCompraXCompra = '@Model.TieneCompraXcompra';
+        var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
+        var tieneSubCampania = '@Model.TieneSubCampania';
+        var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania && p.UnidadesPermitidasRestantes > 0).OrderBy(p => p.Orden).ToList().Count;
     </script>
 }
