@@ -149,6 +149,8 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@UrlVideoMobile", DbType.String, entidad.UrlVideoMobile);
                 Context.Database.AddInParameter(command, "@ImgFichaFondoDesktop", DbType.String, entidad.ImgFichaFondoDesktop);
                 Context.Database.AddInParameter(command, "@ImgFichaFondoMobile", DbType.String, entidad.ImgFichaFondoMobile);
+                Context.Database.AddInParameter(command, "@ImgHomeDesktop", DbType.String, entidad.ImgHomeDesktop);
+                Context.Database.AddInParameter(command, "@ImgHomeMobile", DbType.String, entidad.ImgHomeMobile);
                 Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, 0);
                 Context.ExecuteNonQuery(command);
                 result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
@@ -216,7 +218,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, entidad.ConsultoraID);
                 Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV2);
                 Context.Database.AddInParameter(command, "@ZonaID", DbType.String, entidad.Zona);
-                //Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String, entidad.CodigoAgrupacion);
+                Context.Database.AddInParameter(command, "@CodigoAgrupacion", DbType.String, entidad.CodigoAgrupacion);
                 return Context.ExecuteReader(command);
             }
         }
@@ -264,6 +266,25 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 		// 1747 - Fin
+
+        public string GetCodeEstrategiaByCUV(string cuv, int campaniaId)
+        {
+            var stringValue = "";
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCodeEstrategiaByCUV");
+            Context.Database.AddInParameter(command, "@Cuv", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
+
+            using (var reader = Context.ExecuteReader(command))
+            {
+                if (reader.Read())
+                {
+                    stringValue = reader.GetString(reader.GetOrdinal("Codigo"));
+                }
+                
+            }
+
+            return stringValue;
+        }
 
         public string GetImagenOfertaPersonalizadaOF(int campaniaID, string cuv)
         {
@@ -359,7 +380,7 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
-        public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
+         public int InsertEstrategiaOfertaParaTi(List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var listaTypes = lista.Select(item => new BEEstrategiaType
             {

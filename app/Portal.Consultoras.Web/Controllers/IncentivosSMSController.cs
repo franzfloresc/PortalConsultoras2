@@ -11,9 +11,9 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class IncentivosSMSController : BaseController
     {
-        private string IncentivoCUV = "96328";
+        private string IncentivoCUV = "96302"; //"96328"; EPD-2598
         private string IncentivoPaisISO = Constantes.CodigosISOPais.Bolivia;
-        private int IncentivoCampania = 201707;
+        private int IncentivoCampania = 201709; // EPD-2598
 
         public ActionResult Index()
         {

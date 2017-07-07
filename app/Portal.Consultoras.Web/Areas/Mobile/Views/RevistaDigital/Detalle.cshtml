@@ -14,7 +14,7 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
+<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -32,17 +32,17 @@
     </div>
     <div class="content_detalle_set_bpt">
         <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
-        @if (Model.EstrategiaDetalle.ImgFichaFondoDesktop != "")
+        @if (Model.EstrategiaDetalle.ImgFichaFondoMobile != "")
         {
-            <img src="@Model.EstrategiaDetalle.ImgFichaFondoDesktop" alt="" style="height: 280px;"/>
+            <img src="@Model.EstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;"/>
         }        
     </div>
     
     <div class="wrapper_resumen_mobile">
-        @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
+        @if (Model.EstrategiaDetalle.ImgFichaMobile != "")
         {
             <div class="etiqueta_nuevo_bpt">
-                <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
+                <img src="@Model.EstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
             </div>
         }
         
@@ -61,7 +61,7 @@
         }
     </div>
     <div class="share_social_nertwoks" data-posicion="0" data-item="165">       
-        <div class="title-compartir">Comparte este set con tus clientes</div>
+        <div class="title-compartir">Comparte este producto con tus clientes:</div>
         <div class="content_redes_ficha">
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
                 <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
@@ -71,32 +71,38 @@
             </a>
         </div>
     </div>
-    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
+    @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
     {
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
-   
-</div>
-<div style="background:#F6F6F6; padding:30px;">
-    @*<div class="nombre_titulo_set_detalle">MI PACK KADIA SPORT</div>*@
-    <div id="divOfertaProductos"></div>
-    @if (Model.EstrategiaDetalle.UrlVideoDesktop != "")
-    {
-        <div class="" style="padding-top:30px;" id="divDiveo">
-            <div class="video-responsive-bpt">
-                <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+
+    <div style="background:#F6F6F6; padding:30px;">
+        <div id="divOfertaProductos"></div>
+        @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
+        {
+            <div class="" style="padding-top:30px;" id="divDiveo">
+                <div class="video-responsive-bpt">
+                    <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
+                </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
 
-@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-mobile.cshtml")
+@if (Model.ClaseBloqueada != "")
+{
+    @Html.Action("MensajeBloqueado", "RevistaDigital")
+}
+
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
     var tipoOrigenEstrategia = 272;
-    var estadoAccion = 0;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
 }

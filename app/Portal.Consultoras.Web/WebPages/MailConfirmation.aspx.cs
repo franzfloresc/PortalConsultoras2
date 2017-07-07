@@ -88,6 +88,6 @@ namespace Portal.Consultoras.Web.WebPages
                 lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
         }
-        
+
     }
 }

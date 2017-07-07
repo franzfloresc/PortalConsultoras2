@@ -2822,7 +2822,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult ProgramarAviso(MisDatosModel model)
         {

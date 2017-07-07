@@ -211,7 +211,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
 
                     OfertaID = lista[5] != null ? Convert.ToInt32(lista[5]) : 0;
-                    
+
                     if (Convert.ToInt32(lista[3]) == userData.CampaniaID && blnRecibido == false)
                     {
                         BEShowRoomEventoConsultora Entidad = new BEShowRoomEventoConsultora();

@@ -70,7 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-
+        
         public string UrlCompartir { get; set; }
         public string CodigoEstrategia { get; set; }
         public List<BEEstrategiaProducto> EstrategiaProductos { get; set; }
@@ -83,6 +83,8 @@ namespace Portal.Consultoras.Web.Models
 
         public bool PuedeVerDetalle { get; set; }
         public bool PuedeVerDetalleMob { get; set; }
+        public string ClaseBloqueada { get; set; }
+        public string UrlDetalle { get; set; }
 
         public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
         public TipoEstrategiaModelo TipoEstrategia { get; set; }

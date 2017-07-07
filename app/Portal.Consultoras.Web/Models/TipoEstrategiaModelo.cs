@@ -2,6 +2,7 @@
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable]
     public class TipoEstrategiaModelo
     {
         public int TipoEstrategiaID { get; set; }

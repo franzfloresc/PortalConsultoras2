@@ -69,13 +69,14 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                 .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
+            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
             Mapper.CreateMap<UsuarioModel, BEInputReservaProl>()
                 .ForMember(t => t.PaisISO, f => f.MapFrom(c => c.CodigoISO))
                 .ForMember(t => t.FechaHoraReserva, f => f.MapFrom(c => c.DiaPROL && c.MostrarBotonValidar))
                 .ForMember(t => t.ProlV2, f => f.MapFrom(c => c.NuevoPROL && c.ZonaNuevoPROL));
 
-            Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>();
-            Mapper.CreateMap<RegistrarEstrategiaModel, BEEstrategia>();
+            Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
+                .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
 
         }
     }

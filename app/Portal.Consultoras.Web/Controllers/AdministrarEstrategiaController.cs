@@ -572,23 +572,12 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                     ///end GR-1060
-
                     descripcion = lst[0].DescripcionCUV2;
                     precio = lst[0].PrecioUnitario.ToString();
                     codigoSAP = lst[0].CodigoSAP.ToString();
                     enMatrizComercial = lst[0].EnMatrizComercial.ToInt();
                     idMatrizComercial = lst[0].IdMatrizComercial.ToInt();
                     wsprecio = wspreciopack.ToString();
-                    //imagen1 = lst[0].FotoProducto01; // ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen2 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen3 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen4 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto04, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen5 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto05, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen6 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto06, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen7 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto07, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen8 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto08, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen9 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto09, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                    //imagen10 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto10, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
                 }
 
                 return Json(new
@@ -769,7 +758,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         if (entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
                         {
-                            entidad = verficarArchivos(entidad, estrategiaDetalle);
+                            entidad = VerficarArchivos(entidad, estrategiaDetalle);
                         }
                     }
                     entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
@@ -1139,14 +1128,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetEstrategiasPedido(entidad).ToList();
             }
-
-            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-                lst.ForEach(x => x.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, x.ImagenURL, carpetapais));
-            }
-
+            
             return lst;
         }
 
@@ -1386,7 +1368,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "AdministrarEstrategia");
         }
 
-        public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
+         public ActionResult ConsultarCuvTipoConfigurado(string sidx, string sord, int page, int rows, int campaniaId, int tipoConfigurado, int estrategiaID)
         {
             if (ModelState.IsValid)
             {
@@ -1450,7 +1432,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
+                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
                     }
 
                     foreach (var opt in lst)
@@ -1798,7 +1780,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public BEEstrategia verficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
+        public BEEstrategia VerficarArchivos(BEEstrategia estrategia, BEEstrategiaDetalle estrategiaDetalle)
         {
             if (!String.IsNullOrEmpty(estrategia.ImgFondoDesktop) && 
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFondoDesktop) || estrategia.ImgFondoDesktop != estrategiaDetalle.ImgFondoDesktop))
@@ -1826,6 +1808,14 @@ namespace Portal.Consultoras.Web.Controllers
             if (!String.IsNullOrEmpty(estrategia.ImgFichaFondoMobile) && 
                 (String.IsNullOrEmpty(estrategiaDetalle.ImgFichaFondoMobile) || estrategia.ImgFichaFondoMobile != estrategiaDetalle.ImgFichaFondoMobile))
                 estrategia.ImgFichaFondoMobile = SaveFileS3(estrategia.ImgFichaFondoMobile);
+
+            if (!String.IsNullOrEmpty(estrategia.ImgHomeDesktop) &&
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgHomeDesktop) || estrategia.ImgHomeDesktop != estrategiaDetalle.ImgHomeDesktop))
+                estrategia.ImgHomeDesktop = SaveFileS3(estrategia.ImgHomeDesktop);
+
+            if (!String.IsNullOrEmpty(estrategia.ImgHomeMobile) &&
+                (String.IsNullOrEmpty(estrategiaDetalle.ImgHomeMobile) || estrategia.ImgHomeMobile != estrategiaDetalle.ImgHomeMobile))
+                estrategia.ImgHomeMobile = SaveFileS3(estrategia.ImgHomeMobile);
 
             return estrategia;
         }

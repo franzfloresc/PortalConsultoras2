@@ -69,10 +69,10 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
+            this.EsLebel = false;
             this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
-            this.EsLebel = false;
         }
 
         public string Celular { get; set; }
@@ -302,13 +302,13 @@ namespace Portal.Consultoras.Web.Models
         public bool EjecutaProl { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
-        public int VioTutorialSalvavidas { get; set; }
 
+        public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
-        public int IndicadorGPRSB { get; set; }
-        public int EstadoPedido { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
+        public int EstadoPedido { get; set; }
         public int TieneCDR { get; set; }
         public int TieneCupon { get; set; }
         public int TieneMasVendidos { get; set; }

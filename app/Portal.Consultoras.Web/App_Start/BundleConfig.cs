@@ -9,7 +9,7 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
-            
+
             bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
@@ -90,7 +90,6 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
-                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/fingerprint2.js",
                 "~/Scripts/General.js"
             ));
@@ -181,9 +180,9 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
-                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"
                 ));
 

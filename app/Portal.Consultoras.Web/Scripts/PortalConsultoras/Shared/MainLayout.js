@@ -3,7 +3,7 @@ var showDisplayODD = 0;
 var ventanaChat = null;
 
 $(document).ready(function () {
-
+    LayoutHeader();
     LayoutMenu();
 
     window.onresize = function (event) {
@@ -30,11 +30,11 @@ $(document).ready(function () {
             }
 
             if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+                CerrarPopup('#PopFichaProductoNueva');
             }
 
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+                CerrarPopup('#popupDetalleCarousel_lanzamiento');
             }
 
             if ($('[data-popup-main]').is(':visible')) {
@@ -73,10 +73,12 @@ $(document).ready(function () {
 
     $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
         if (!$(e.target).closest('[data-popup-body]').length) {
-            if ($(e.target).is(':visible')) {
-                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
-                FuncionEjecutar(functionHide);
-                CerrarPopup(e.target);
+            if ($(e.target).parent().attr("id") == "contentmain") {
+                if ($(e.target).is(':visible')) {
+                    var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                    FuncionEjecutar(functionHide);
+                    CerrarPopup(e.target);
+                }
             }
         }
     });
@@ -111,10 +113,14 @@ $(document).ready(function () {
             }
         }
     });
-
-    //waitingDialog();
-    //closeWaitingDialog();
-
+    
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();        
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+   
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
@@ -229,26 +235,31 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueda")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $(this).parent().prev().val(cantidad);
     });
 
     $("body").on("click", ".mas", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueda")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $(this).parent().prev().val(cantidad);
     });
 
     $("#belcorpChatEcuador").click(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
+    });
+    $("#belcorpChat a_").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
     });
 
     $("body").on('click', '.belcorpChat', function (e) {
@@ -287,11 +298,24 @@ function AbrirVentanaBelcorpChat(url) {
     ventanaChat.focus();
 }
 
-function messageInfoError(message, titulo) {
+function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
         $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
         $('#dialog_ErrorMainLayout').show();
+
+        $('#dialog_ErrorMainLayout .btn_ok').off('click');
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
     }
 }
 
@@ -622,13 +646,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+
 function alert_msg(message, titulo) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
 }
-
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');

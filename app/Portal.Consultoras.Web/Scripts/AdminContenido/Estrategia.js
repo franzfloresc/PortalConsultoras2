@@ -259,6 +259,8 @@
             _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
             _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
             _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
+        _agregarCamposLanzamiento('img-home-desktop', data.ImgHomeDesktop);
+        _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
 
@@ -404,6 +406,8 @@
         _limpiarCamposLanzamiento('img-ficha-mobile');
         _limpiarCamposLanzamiento('img-ficha-fondo-desktop');
         _limpiarCamposLanzamiento('img-ficha-fondo-mobile');
+        _limpiarCamposLanzamiento('img-home-desktop');
+        _limpiarCamposLanzamiento('img-home-mobile');
         $("#url-video-desktop").val("");
         $("#url-video-mobile").val("");
         if ($("#hdEstrategiaCodigo").val() === '005') $('#div-revista-digital').show();
