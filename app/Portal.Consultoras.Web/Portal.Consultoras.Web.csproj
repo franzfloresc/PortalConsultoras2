@@ -4124,9 +4124,8 @@
     <Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
-    <Content Include="Views\LoginChatbot\Facebook.cshtml" />
     <Content Include="Views\Cliente\Detalle.cshtml" />
-    <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
+	<Content Include="Views\LoginChatbot\_Main.cshtml" />
     <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-header-mobile.cshtml" />
