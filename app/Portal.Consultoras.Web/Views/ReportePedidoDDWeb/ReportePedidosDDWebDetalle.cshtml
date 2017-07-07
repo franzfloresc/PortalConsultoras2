@@ -36,7 +36,6 @@
             var vsortname = "";
             var vsortorder = "";
             var vrowNum = 0;
-
             setTimeout(function () {
                 DownloadAttachPDF(vPaisISO, vCampaniaCod, vConsultoraCod, vConsultoraNombre, vUsuarioNombre, vOrigen,
                     vValidado, vSaldo, vImporte, vImporteConDescuento, vpage, vsortname, vsortorder, vrowNum, vUsuario, vTipoProceso, vMotivoRechazo)
@@ -76,7 +75,7 @@
                     "&vsortorder=" + vsortorder +
                     "&vrowNum=" + vrowNum +
                     "&vUsuario=" + vUsuario +
-                     "&vTipoProceso=" + vTipoProceso +
+                    "&vTipoProceso=" + vTipoProceso +
                     "&vMotivoRechazo=" + encodeURIComponent(vMotivoRechazo.length > 122 ? vMotivoRechazo.substring(0, 121) + '...' : vMotivoRechazo);
 
             var iframe_ = document.createElement("iframe");

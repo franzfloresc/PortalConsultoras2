@@ -24,22 +24,22 @@
                     <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.EstadoCuenta">
                         <div class="icono_pagos imagen_1"></div>
                         <div class="texto_tab_pagos">ESTADO<b> DE CUENTA</b></div>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 <li class="two">
                     <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.LugaresPago">
                         <div class="icono_pagos imagen_2"></div>
                         <div class="texto_tab_pagos">LUGARES <b>DE PAGO</b></div>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
                 {
                     <li class="three">
                         <a href="javascript:;" data-tag="@Constantes.PestanhasMisPagos.MisPercepciones">
                             <div class="icono_pagos imagen_4"></div>
-                            <div class="texto_tab_pagos">MIS <b>PERCEPCIONES<br /> HISTÓRICAS</b></div>
+                            <div class="texto_tab_pagos">MIS <b>PERCEPCIONES<br/> HISTÓRICAS</b></div>
                             <div class="marcador_tab oculto"></div>
                         </a>
                     </li>
@@ -47,9 +47,9 @@
                 <li class="four" style="@(Model.MostrarFE)">
                     <a href="@Url.Action("Index", "FacturaElectronica")" data-action="LugaresPago" target="_blank">
                         <div class="icono_pagos imagen_3"></div>
-                        <div class="texto_tab_pagos">FACTURA Y <b>PERCEPCIÓN <br />ELECTRÓNICA</b></div>
-                        <div class="marcador_tab oculto"></div>
-                    </a>
+                        <div class="texto_tab_pagos">FACTURA Y <b>PERCEPCIÓN <br/>ELECTRÓNICA</b></div>
+                            <div class="marcador_tab oculto"></div>
+</a>
                 </li>
                 <hr id="barCursor" style="opacity:0;" />
             </ul>
@@ -80,6 +80,7 @@
                 <hr class="clear" />
                 <div class="linea_separadora" style="height:2px"></div>
                 <!--FIN CONTENIDO TITULO -->
+                
                 <!--CONTENIDO DE TABLAS -->
                 <div class="content_datos_mispagos">
                     <div class="fecha_pagos texto_gris">Fecha</div>
@@ -104,18 +105,18 @@
                 <div class="linea_separadora"></div>
                 @if (Model.CodigoISO.Equals(Constantes.CodigosISOPais.Peru))
                 {
-                    <div class="texto_paga_tiempo">
-                        Gastos Administrativos por pago en fecha vencida<br />
-                        Estimada consultora, te recordamos pagar a tiempo tu pedido para evitar el cobro de Gastos Administrativos y de Cobranzas, revisa la fecha de vencimiento en tu cup&oacute;n.<br />
-                        En caso no se pague en la fecha especificada en el cup&oacute;n se cargar&aacute; el cobro de Gastos administrativos y cobranzas en tu siguiente pedido:<br /><br />
-                        <span style="padding-left:20px;"> • S/. 7.50 si pagas despu&eacute;s del 3er d&iacute;a de la fecha de vencimiento.</span><br />
-                        <span style="padding-left:20px;"> • S/. 20.00 si pagas despu&eacute;s del 10mo d&iacute;a de la fecha de vencimiento.</span><br />
-                        <span style="padding-left:20px;"> • S/. 40.00 si pagas despu&eacute;s del 18 avo d&iacute;a de la fecha de vencimiento (Entra en vigencia a partir de la facturaci&oacute;n de C06)</span><br /><br />
-                        Gastos Administrativos por exceso de transacciones<br />
-                        Estimada consultora, te informamos que a partir de campaña 06:<br />
-                        <span style="padding-left:20px;">• Para Pedidos Menores o iguales a 700 soles Belcorp seguir&aacute; asumiendo el costo de recaudo de un solo pago en los lugares autorizados. Si cancelas en 2 o m&aacute;s pagos, por cada pago o dep&oacute;sito adicional se generar&aacute; un cargo de S/.2 que se aplicar&aacute; a tu siguiente pedido, te recomendamos pagar en un solo dep&oacute;sito as&iacute; evitar&aacute;s cobros adicionales por exceso de transacciones.</span><br />
-                        <span style="padding-left:20px;">• Los pedidos mayores a 700 soles No estar&aacute;n afectos a ning&uacute;n cobro por concepto de recaudo.</span>
-                    </div>
+					<div class="texto_paga_tiempo">
+					Gastos Administrativos por pago en fecha vencida<br />
+					Estimada consultora, te recordamos pagar a tiempo tu pedido para evitar el cobro de Gastos Administrativos y de Cobranzas, revisa la fecha de vencimiento en tu cup&oacute;n.<br />
+					En caso no se pague en la fecha especificada en el cup&oacute;n se cargar&aacute; el cobro de Gastos administrativos y cobranzas en tu siguiente pedido:<br /><br />
+					<span style="padding-left:20px;"> • S/. 7.50 si pagas despu&eacute;s del 3er d&iacute;a de la fecha de vencimiento.</span><br />
+					<span style="padding-left:20px;"> • S/. 20.00 si pagas despu&eacute;s del 10mo d&iacute;a de la fecha de vencimiento.</span><br />
+					<span style="padding-left:20px;"> • S/. 40.00 si pagas despu&eacute;s del 18 avo d&iacute;a de la fecha de vencimiento (Entra en vigencia a partir de la facturaci&oacute;n de C06)</span><br /><br />
+					Gastos Administrativos por exceso de transacciones<br />
+					Estimada consultora, te informamos que a partir de campaña 06:<br />
+					<span style="padding-left:20px;">• Para Pedidos Menores o iguales a 700 soles Belcorp seguir&aacute; asumiendo el costo de recaudo de un solo pago en los lugares autorizados. Si cancelas en 2 o m&aacute;s pagos, por cada pago o dep&oacute;sito adicional se generar&aacute; un cargo de S/.2 que se aplicar&aacute; a tu siguiente pedido, te recomendamos pagar en un solo dep&oacute;sito as&iacute; evitar&aacute;s cobros adicionales por exceso de transacciones.</span><br />
+					<span style="padding-left:20px;">• Los pedidos mayores a 700 soles No estar&aacute;n afectos a ning&uacute;n cobro por concepto de recaudo.</span>
+					</div>
                 }
                 <div class="linea_separadora" style="height:2px"></div>
 
@@ -212,24 +213,8 @@
     {{#each this.listaLugaresPago as |lugar|}}
     <div>
         <a href="{{lugar.UrlSitio}}" class="logos_bancos" target="_blank" onclick="EventoAnalytics('{{lugar.Nombre}}', 2)">
-            <div class="imagenConTexto">
-                @*<img src='http://i.picresize.com/images/2017/05/29/HyMFa.png' alt="Logo Lugar de Pago" />*@
-                <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
-                {{#iff lugar.Nombre '==' 'Banesco'}}
-                <p>Pagar en Línea</p>
-                {{/iff}}
-                {{#iff lugar.Nombre '==' 'Banco Sofitasa'}}
-                <p>Pagar en Línea</p>
-                {{/iff}}
-                {{#iff lugar.Nombre '==' 'Banco Provincial'}}
-                <p>Pagar en Línea</p>
-                {{/iff}}
-          
-           
-
-            </div>  
-        </a>  
-
+            <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
+        </a>
     </div>
     {{/each}}
 </script>

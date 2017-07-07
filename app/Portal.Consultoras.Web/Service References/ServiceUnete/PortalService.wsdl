@@ -180,6 +180,12 @@
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaByDoc" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ObtenerSolicitudPostulanteAptaByDoc_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulanteAptaByDocResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEstadoPostulanteRechazoZonificacion" />
   </wsdl:message>
@@ -239,6 +245,12 @@
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPostulantePorCorreo_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPostulantePorCorreoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_VerificarExisteCelular_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExisteCelular" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_VerificarExisteCelular_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExisteCelularResponse" />
   </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulante" />
@@ -365,6 +377,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteApta" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteApta_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteAptaByDoc">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaByDoc_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDocResponse" message="tns:IPortalService_ObtenerSolicitudPostulanteAptaByDoc_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoPostulanteRechazoZonificacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacion" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacionResponse" message="tns:IPortalService_ActualizarEstadoPostulanteRechazoZonificacion_OutputMessage" />
@@ -404,6 +420,10 @@
     <wsdl:operation name="ObtenerSolicitudPostulantePorCorreo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorCorreo" message="tns:IPortalService_ObtenerSolicitudPostulantePorCorreo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorCorreoResponse" message="tns:IPortalService_ObtenerSolicitudPostulantePorCorreo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExisteCelular">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/VerificarExisteCelular" message="tns:IPortalService_VerificarExisteCelular_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/VerificarExisteCelularResponse" message="tns:IPortalService_VerificarExisteCelular_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
@@ -668,6 +688,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerSolicitudPostulanteAptaByDoc">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulanteAptaByDoc" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoPostulanteRechazoZonificacion">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ActualizarEstadoPostulanteRechazoZonificacion" style="document" />
       <wsdl:input>
@@ -751,6 +780,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPostulantePorCorreo">
       <soap:operation soapAction="http://tempuri.org/IPortalService/ObtenerSolicitudPostulantePorCorreo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExisteCelular">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/VerificarExisteCelular" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

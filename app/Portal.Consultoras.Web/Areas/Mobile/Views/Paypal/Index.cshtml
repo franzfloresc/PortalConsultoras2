@@ -5,17 +5,17 @@
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
-
-<div class="row">
-    <div class="col-xs-12">
-        <ol class="breadcrumb-next upper">
-            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a></li>
-            <li>|</li>
-            <li>Pagos en línea</li>
-        </ol>
+    <div class="titulo_mobile">
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        &nbsp;&nbsp;&nbsp;&nbsp;PAGOS EN LÍNEA
     </div>
-</div>
-<div class="row">
+    <div class="fondo_f2f2f2" style="border-bottom:0; background:white">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    </div>
+   <br/>
+
+
     <div class="col-xs-12">
         <div class="block-center form-pagos">
             <form id="frmPago" method="POST" role="form">
@@ -63,7 +63,7 @@
                     <label for="CARDNUM2" class="fw-400">Número de tarjeta de crédito</label>
                     <input id="CARDNUM2" name="CARDNUM2" type="text" maxlength="25" class="form-control fc-line "/>
                     <span class="field-validation-valid" data-valmsg-for="CARDNUM2" data-valmsg-replace="true"></span>
-                    <div class="img-card">
+                    <div class="img-card" style="margin-top:10px;">
                         <img src="@Url.Content("~/Content/images/mobile/Tarjeta_Visa.png")" alt="Visa" />
                         <img src="@Url.Content("~/Content/images/mobile/Tarjeta_MasterCard.png")" alt="Master Card" />
                         <img src="@Url.Content("~/Content/images/mobile/Tarjeta_AmericanExpress.png")" alt="American Express" />
@@ -102,13 +102,13 @@
                         </div>
                     </div>
                 </div>
-                <p class="text-center">
-                    <button id="btnPagar" type="button" class="btn btn-action-hover btn-round btn-pago">Pagar</button>
-                </p><br>
+                <div class="row">
+                    <button id="btnPagar" type="button" class="btn_editar_pedido" style="margin-top:10px">Pagar</button> 
+                </div>              
             </form>
         </div>
     </div>
-</div>
+
 
 @section scripts
 {
