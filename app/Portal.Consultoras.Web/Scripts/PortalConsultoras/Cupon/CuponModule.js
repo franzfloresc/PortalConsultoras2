@@ -103,7 +103,7 @@
 
     var bindEvents = function () {
 
-        $(document).off().on("click", "div#chckTerminosCondiciones", function () {
+        $('div#Cupon1').off().on("click", "div#chckTerminosCondiciones", function () {
             $(this).toggleClass('check_intriga');
             if ($(this).hasClass('borde_seleccion_alerta')) {
                 ocultarMensajeTerminosCondiciones();

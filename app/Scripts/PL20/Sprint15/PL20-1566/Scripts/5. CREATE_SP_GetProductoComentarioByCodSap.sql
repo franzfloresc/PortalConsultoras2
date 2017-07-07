@@ -16,24 +16,13 @@ CREATE PROCEDURE GetProductoComentarioByCodSap
 AS
 BEGIN
 	SELECT 
-		c.ProdComentarioId, 
-		c.CodigoSap, 
-		c.CodigoGenerico, 
-		c.CantComentarios, 
-		c.CantAprobados, 
-		c.CantRecomendados,
-		d.Valorizado AS UltValorizado,
-		d.Recomendado AS UltRecomendado,
-		d.Comentario AS UltComentario
-	FROM ProductoComentario c
-	LEFT JOIN ProductoComentarioDetalle d ON c.ProdComentarioId = d.ProdComentarioId 
-		AND d.ProdComentarioDetalleId = (
-		SELECT TOP 1 ProdComentarioDetalleId 
-		FROM ProductoComentarioDetalle 
-		WHERE ProdComentarioId = c.ProdComentarioId
-		AND Estado = 2
-		ORDER BY FechaRegistro DESC
-	)
-	WHERE c.CodigoSap = @CodigoSap AND c.Estado = 1
+		ProdComentarioId, 
+		CodigoSap, 
+		CodigoGenerico, 
+		CantAprobados, 
+		CantRecomendados
+		PromValorizado
+	FROM ProductoComentario
+	WHERE CodigoSap = @CodigoSap AND Estado = 1
 END
 GO

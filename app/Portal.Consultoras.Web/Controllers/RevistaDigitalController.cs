@@ -2,7 +2,6 @@
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,13 +15,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var model = IndexModel();
-                if (model.EstadoAccion < 0)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
-                return View(model);
+                return IndexModel();
             }
             catch (Exception ex)
             {
@@ -32,19 +25,31 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Detalle(int id)
+        [HttpPost]
+        public JsonResult GuardarProductoTemporal(EstrategiaPedidoModel modelo)
+        {
+            Session[Constantes.SessionNames.ProductoTemporal] = modelo;
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var model = DetalleModel(id);
-                return View(model);
+                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "RevistaDigital");
         }
 
         public ActionResult _Landing(int id)
@@ -60,12 +65,25 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public ActionResult MensajeBloqueado()
+        {
+            try
+            {
+                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
+        }
+
         [HttpPost]
         public JsonResult GetProductos(BusquedaProductoModel model)
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -77,95 +95,34 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listModel = ConsultarEstrategiasModel("");
+                ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
+                var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
+
+                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+
+                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
+                
                 int cantidadTotal = listModel.Count;
 
-                var listaFinal = listModel;
+                //var cantMostrar = 10;
+                //listModel = listModel.Skip(model.CantMostrados).Take(cantMostrar).ToList();
 
-                if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
-                {
-                    listaFinal = new List<EstrategiaPedidoModel>();
-                    var universo = new List<EstrategiaPedidoModel>();
-                    int cont = 0, contVal = 0;
-                    foreach (var filtro in model.ListaFiltro)
-                    {
-                        filtro.Valores = filtro.Valores ?? new List<string>();
-                        if (!filtro.Valores.Any()) continue;
-
-                        universo = cont == 0 ? listModel : listaFinal;
-                        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
-                        contVal = 0;
-                        foreach (var valor in filtro.Valores)
-                        {
-                            var val = Util.Trim(valor).ToLower();
-                            if (val == "" || val == "-")
-                            {
-                                listaFinal = contVal == 0 ? universo : listaFinal;
-                                continue;
-                            }
-
-                            if (filtro.Tipo == "marca")
-                            {
-                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
-                            }
-                            else if (filtro.Tipo == "precio")
-                            {
-                                var listaValDet = val.Split(',');
-                                var valorDesde = Convert.ToDecimal(listaValDet[0]);
-                                var valorHasta = Convert.ToDecimal(listaValDet[1]);
-
-                                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
-                            }
-                            contVal++;
-                        }
-                        cont++;
-                    }
-                }
-
-                if (model.Ordenamiento != null)
-                {
-                    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                    if (model.Ordenamiento.Tipo == "precio")
-                    {
-                        switch (model.Ordenamiento.Valor)
-                        {
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
-                                break;
-                            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
-                                break;
-                            default:
-                                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
-                                break;
-                        }
-                    }
-                }
-
-                int cantidad = listaFinal.Count;
-
-                var cantMostrar = 10;
-                listaFinal = listaFinal.Skip(model.Limite).Take(cantMostrar).ToList();
-
-                listaFinal.ForEach(p =>
+                listModel.ForEach(p =>
                 {
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
-                    p.DescripcionMarca = IsMobile() ? "" : p.DescripcionMarca;
                 });
 
                 return Json(new
                 {
                     success = true,
-                    message = "Ok",
-                    lista = listaFinal,
+                    lista = listModel,
+                    listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad
+                    cantidad = cantidadTotal,
+                    campaniaId = model.CampaniaID
                 });
             }
             catch (Exception ex)
@@ -181,11 +138,21 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProductoDetalle(int id)
+        public JsonResult GetProductoDetalle(int id, int campaniaId)
         {
             try
             {
-                var listaFinal = ConsultarEstrategiasModel("") ?? new List<EstrategiaPedidoModel>();
+                if (EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new EstrategiaPedidoModel()
+                    });
+                }
+
+                var listaFinal = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
                 var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
 
                 producto.PuedeAgregar = 1;
@@ -215,13 +182,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                if (!userData.RevistaDigital.TieneRDC)
                 {
-                    return Json(new
+                    if (!userData.RevistaDigital.TieneRDS)
                     {
-                        success = false,
-                        message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
-                    }, JsonRequestBehavior.AllowGet);
+                        return Json(new
+                        {
+                            success = false,
+                            message = "Por el momento no está habilitada la suscripción a ÉSIKA PARA MÍ, gracias."
+                        }, JsonRequestBehavior.AllowGet);
+
+                    }
                 }
 
                 if (userData.RevistaDigital.EstadoSuscripcion == 1)
@@ -233,7 +204,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var entidad = new BERevistaDigitalSuscripcion();
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede suscribirse, estamos a dias de cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                    var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
                 entidad.CampaniaID = userData.CampaniaID;
@@ -254,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
@@ -262,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Felicitaciones por inscribirte a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo.",
+                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
                     CodigoMenu = Constantes.MenuCodigo.RevistaDigital
                 }, JsonRequestBehavior.AllowGet);
 
@@ -314,6 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
@@ -322,7 +306,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
-                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "¡Que pena, usted se desuscribio a ÉSIKA PARA MÍ!" : "Ocurrió un error, vuelva a intentarlo."
+                    message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo."
                 }, JsonRequestBehavior.AllowGet);
 
             }

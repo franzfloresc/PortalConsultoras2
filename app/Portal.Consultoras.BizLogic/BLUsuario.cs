@@ -299,6 +299,7 @@ namespace Portal.Consultoras.BizLogic
                             usuario.FechaActualPais = configuracion.FechaActualPais;
                             usuario.EstadoPedido = configuracion.EstadoPedido;
                             usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
                         }
                     }
                 }
@@ -1427,7 +1428,6 @@ namespace Portal.Consultoras.BizLogic
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
-                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)

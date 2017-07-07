@@ -25,7 +25,7 @@ BEGIN
 	SELECT 
 		@aprobados = COUNT(ProdComentarioDetalleId), 
 		@recomendados = SUM(CAST(Recomendado AS TINYINT)), 
-		@promValorizado = AVG(Valorizado) 
+		@promValorizado = CAST((CAST(AVG(Valorizado) AS FLOAT)/5)*100 AS INT)
 	FROM ProductoComentarioDetalle 
 	WHERE ProdComentarioId = @ProdComentarioId AND Estado = 2
 	GROUP BY ProdComentarioId

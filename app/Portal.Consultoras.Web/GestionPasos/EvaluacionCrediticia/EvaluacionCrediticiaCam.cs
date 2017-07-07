@@ -11,7 +11,8 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 
             using (var sv = new EvaluacionCrediticiaServiceClient())
             {
-                evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCam(codigoIso, entidad.NumeroDocumento);
+                int tipoDocumento = string.IsNullOrWhiteSpace(entidad.TipoDocumento) ? 0 : int.Parse(entidad.TipoDocumento);
+                evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCam(codigoIso, tipoDocumento, entidad.NumeroDocumento);
             }
 
             return evaluacionCrediticaBe;

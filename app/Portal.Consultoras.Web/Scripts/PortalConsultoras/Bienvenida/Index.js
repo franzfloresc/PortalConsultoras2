@@ -141,12 +141,8 @@ $(document).ready(function () {
                     opacity: 1
                 }, 100, 'swing');
             });
-
-
         } else {
-
             $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-
         }
 
     });
@@ -523,12 +519,12 @@ function CortarFoto() {
             contentType: 'application/json; charset=utf-8',
             success: function (data) {
                 if (checkTimeout(data)) {
-                    alert_msg(data.message);
-                    if (data.success) {
-                        $('#imgFotoUsuario').show();
-                        $('#imgFotoUsuarioDefault').hide();
-                        $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                    }
+                alert_msg(data.message);
+                if (data.success) {
+                    $('#imgFotoUsuario').show();
+                    $('#imgFotoUsuarioDefault').hide();
+                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+                }
                 }
             },
             error: function (data, error) {
@@ -563,12 +559,12 @@ function SubirFoto() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                alert_msg(data.message);
-                if (data.success) {
-                    $('#imgFotoUsuario').show();
-                    $('#imgFotoUsuarioDefault').hide();
-                    $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
-                }
+            alert_msg(data.message);
+            if (data.success) {
+                $('#imgFotoUsuario').show();
+                $('#imgFotoUsuarioDefault').hide();
+                $('#imgFotoUsuario').attr('src', data.imagen + '?' + Math.random());
+            }
             }
         },
         error: function (data, error) {
@@ -783,8 +779,6 @@ function CargarPopupsConsultora() {
     }
 };
 
-
-    
 function ShowPopupTonosTallas() {
     $('.js-contenedor-popup-tonotalla').show();
 };
@@ -836,13 +830,13 @@ function CargarCarouselLiquidaciones() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                ArmarCarouselLiquidaciones(data);
+            ArmarCarouselLiquidaciones(data);
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                $('#divCarruselLiquidaciones').html('');
-            }
+            $('#divCarruselLiquidaciones').html('');
+        }
         }
     });
 };
@@ -1783,28 +1777,28 @@ function CargarMisCursos() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response.success) {
-                    if (paisISO == 'VE') {
-                        SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
-                        $('#divTutoriales').hide();
-                        $('#divTutorialesV').show();
-                    }
-                    else {
-                        SetHandlebars("#miscursos-template", response.data, "#divMisCursos");
-                        $('#divTutoriales').show();
-                    }
+            if (response.success) {
+                if (paisISO == 'VE') {
+                    SetHandlebars("#miscursosv-template", response.data, "#divMisCursosV");
+                    $('#divTutoriales').hide();
+                    $('#divTutorialesV').show();
                 }
                 else {
-                    $('#divTutoriales').hide();
-                    $('#divSinTutoriales').show();
+                    SetHandlebars("#miscursos-template", response.data, "#divMisCursos");
+                    $('#divTutoriales').show();
                 }
+            }
+            else {
+                $('#divTutoriales').hide();
+                $('#divSinTutoriales').show();
+            }
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                $('#divTutoriales').hide();
-                $('#divSinTutoriales').show();
-            }
+            $('#divTutoriales').hide();
+            $('#divSinTutoriales').show();
+        }
         }
     });
 };
@@ -3118,22 +3112,21 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response);
-                var images = $("#popupComunicados img.img-comunicado");
-                var loadedImgNum = 0;
+            armarComunicadosPopup(response);
+            var images = $("#popupComunicados img.img-comunicado");
+            var loadedImgNum = 0;
 
-                if (images.length == 0) {
-                    closeWaitingDialog();
-                } else {
-                    images.on('load', function () {
-                        loadedImgNum += 1;
-                        if (loadedImgNum == images.length) {
-                            closeWaitingDialog();
-
-                            mostrarComunicadosPopup();
-                        }
-                    });
-                }
+            if (images.length == 0) {
+                closeWaitingDialog();
+            } else {
+                images.on('load', function () {
+                    loadedImgNum += 1;
+                    if (loadedImgNum == images.length) {
+                        closeWaitingDialog();
+                        mostrarComunicadosPopup();
+                    }
+                });
+            }
             }
         },
         error: function (data, error) {

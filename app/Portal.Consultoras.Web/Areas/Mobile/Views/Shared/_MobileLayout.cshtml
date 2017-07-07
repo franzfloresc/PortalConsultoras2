@@ -524,7 +524,7 @@
             {{/IsNullOrEmpty}}
             
             <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte la oferta con tus clientes</div>
+                <div class="texto_redes">Comparte este producto con tus clientes:</div>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
                 <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
             </div>
@@ -816,7 +816,6 @@
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
-
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
@@ -828,14 +827,12 @@
             'pais': '@ViewBag.AnalyticsPais',
             'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
         };
-
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
         if (vbFotoPerfil != null && vbFotoPerfil != "") {
             $('.foto_menu').show();
         }
 
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 
     </script>
@@ -1015,13 +1012,10 @@
                         }
                     }, 1000);
                 }
-               
+
             </script>
         }
-
     }
-    
-
     <script type="text/javascript">
         function messageInfoPostulante() {
             $('.icon-close').click();

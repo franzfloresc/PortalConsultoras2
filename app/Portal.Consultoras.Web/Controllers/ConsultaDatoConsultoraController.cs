@@ -131,16 +131,6 @@
                 simbolo = string.Format("{0} ", userData.Simbolo);
                 ///Fin Totales
 
-
-
-
-
-
-
-
-
-
-
                 if (lst.Count != 0)
                 {
                     lst.RemoveAt(lst.Count - 1);

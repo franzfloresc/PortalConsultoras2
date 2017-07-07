@@ -408,10 +408,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
                 TipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
-                
+            
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
-
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion") && row["FechaInicioFacturacion"] != DBNull.Value)
                 FechaInicioFacturacion = DbConvert.ToDateTime(row["FechaInicioFacturacion"]);
             if (DataRecord.HasColumn(row, "FechaFinFacturacion") && row["FechaFinFacturacion"] != DBNull.Value)

@@ -28,6 +28,6 @@ BEGIN
 	FROM ProductoComentarioDetalle d 
 	INNER JOIN ods.Consultora co ON d.CodigoConsultora = co.Codigo
 	WHERE d.ProdComentarioId = @ProdComentarioId AND d.Estado = 2
-	ORDER BY d.FechaRegistro DESC
+	ORDER BY d.Valorizado DESC
 END
 GO

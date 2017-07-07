@@ -630,6 +630,9 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BETipoEstrategia> GetTipoEstrategias(BETipoEstrategia entidad);
 
+        [OperationContract]
+        string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID);
+
         // Req. 1747 - Estrategia
         [OperationContract]
         List<BEEstrategia> GetEstrategias(BEEstrategia entidad);
@@ -1016,7 +1019,7 @@ namespace Portal.Consultoras.ServiceContracts
         /*EPD-1025*/
         [OperationContract]
         BEPedidoDescarga ObtenerUltimaDescargaExitosa(int PaisID); /*EPD1976*/
-
+       
         [OperationContract]
         int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId);
 
@@ -1049,7 +1052,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
-        
+ 
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
 
@@ -1083,10 +1086,10 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input);
-        
+
         [OperationContract]
         bool EnviarCorreoReservaProl(BEInputReservaProl input);
-   
+
         [OperationContract]
         int RDSuscripcion(BERevistaDigitalSuscripcion entidad);
 
@@ -1104,9 +1107,9 @@ namespace Portal.Consultoras.ServiceContracts
             
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
-
+       
         #region Cupon
-
+        
         [OperationContract]
         BECuponConsultora GetCuponConsultoraByCodigoConsultoraCampaniaId(int paisId, BECuponConsultora cuponConsultora);
 

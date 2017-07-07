@@ -35,7 +35,7 @@ BEGIN
 	INNER JOIN Usuario u ON co.Codigo = u.CodigoConsultora AND u.Activo = 1
 	LEFT JOIN UsuarioExterno ex ON u.CodigoUsuario = ex.CodigoUsuario 
 		AND ex.Proveedor = 'Facebook' 
-		AND ex.Estado = 2
+		AND ex.Estado = 1
 	WHERE c.CodigoSap = @CodigoSap AND c.Estado = 1
 	ORDER BY 
 		CASE WHEN @Ordenar = 1 THEN d.FechaRegistro END ASC,

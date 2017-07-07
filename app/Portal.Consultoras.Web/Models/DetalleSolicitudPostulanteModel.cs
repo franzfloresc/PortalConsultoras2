@@ -27,18 +27,18 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
+        [MaxLength(18, ErrorMessage = "Máximo 18 caractéres")]
         public string ApellidoPaterno { get; set; }
 
         [RequiredIf("CodigoPais", "CL,PE", ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
+        [MaxLength(18, ErrorMessage = "Máximo 18 caractéres")]
         public string ApellidoMaterno { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
+        [MaxLength(18, ErrorMessage = "Máximo 18 caractéres")]
         public string PrimerNombre { get; set; }
 
-        [MaxLength(15, ErrorMessage = "Máximo 15 caractéres")]
+        [MaxLength(18, ErrorMessage = "Máximo 18 caractéres")]
         public string SegundoNombre { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -48,13 +48,12 @@ namespace Portal.Consultoras.Web.Models
        //[ExpressionRequiredIf("TipoDocumento", "2,3,5", Expresion = @"^(?:[0-9]{12}|)$", ErrorMessage = "Formato incorrecto")]
        //[ExpressionRequiredIf("TipoDocumento", "4", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
 
-        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|PE", Expresion = @"^(?:[0-9]{8}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|PE", Expresion = @"^(?:[0-9]{8,10}|)$", ErrorMessage = "Formato incorrecto")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "2,3,5|PE", Expresion = @"^(?:[a-zA-Z0-9]{7,10}|)$", ErrorMessage = "Formato incorrecto")]
-        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "4|PE", Expresion = @"^(?:(20|10)[0-9]{9}|)$", ErrorMessage = "Formato incorrecto")]
+        [ExpressionRequiredIf("TipoDocumento|CodigoPais", "4|PE", Expresion = @"^(?:(20|10)[0-9]{10}|)$", ErrorMessage = "Formato incorrecto")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "1|EC", Expresion = @"^[0-9]{10}$", ErrorMessage = "Debe tener 10 dígitos")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "2|EC", Expresion = @"^[0-9]{13}$", ErrorMessage = "Debe tener 13 dígitos")]
         [ExpressionRequiredIf("TipoDocumento|CodigoPais", "3|EC", Expresion = @"^[a-zA-ZñáéíóúÑÁÉÍÓÚüÄÜ0-9]{6,15}$", ErrorMessage = "Debe tener 6 a 15 caracteres")]
-
         public string NumeroDocumento { get; set; }
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
@@ -80,7 +79,9 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "SV", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "PA", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "GT", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
-        [ExpressionRequiredIf("CodigoPais", "cR", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(8[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^(7[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
         [RequiredIf("CodigoPais", "CO,MX,EC", ErrorMessage = "Campo obligatorio")]
@@ -92,6 +93,8 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "PA", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "GT", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(8[0-9]{9})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^(7[0-9]{9})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Celular { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]

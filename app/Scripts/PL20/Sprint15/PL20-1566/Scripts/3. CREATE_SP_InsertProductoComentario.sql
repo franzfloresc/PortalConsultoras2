@@ -29,7 +29,6 @@ BEGIN
 		(
 			CodigoSap,
 			CodigoGenerico,
-			CantComentarios,
 			CantAprobados,
 			CantRecomendados,
 			FechaRegistro,
@@ -39,7 +38,6 @@ BEGIN
 		(
 			@CodigoSap,
 			@CodigoGenerico,
-			0,
 			0,
 			0,
 			GETDATE(),

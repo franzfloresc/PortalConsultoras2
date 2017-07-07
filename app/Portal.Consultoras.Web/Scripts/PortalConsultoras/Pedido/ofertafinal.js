@@ -93,7 +93,7 @@ $(document).ready(function () {
             return false;
         }
 
-        if (tieneOfertaLog == 1)
+        //if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
         
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -198,7 +198,7 @@ $(document).ready(function () {
             return false;
         }
 
-        if (tieneOfertaLog == 1)
+        //if (tieneOfertaLog == 1)
             AgregarOfertaFinalLog(cuv, cantidad, tipoOfertaFinal_Log, gap_Log, 1, 'Producto Agregado');
 
         ActulizarValoresPopupOfertaFinal(add, true);
@@ -251,7 +251,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     var objOf = cumpleOferta.productosMostrar[0];
     objOf.MetaPorcentaje = $.trim(objOf.TipoMeta);
-    objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
+    //objOf.TipoMeta = objOf.TipoMeta == "MM" || objOf.TipoMeta == "GM" ? objOf.TipoMeta : objOf.MetaPorcentaje != "" ? "ME" : "";
     objOf.Detalle = cumpleOferta.productosMostrar;
     objOf.TotalPedido = $("#hdfTotal").val();
     objOf.Simbolo = objOf.Simbolo || $("#hdSimbolo").val();;
@@ -261,6 +261,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
 
+    //debugger;
     if (consultoraRegaloPN == 'True') {
         //var montoMeta = parseFloat(objOf.TotalPedido) + parseFloat(objOf.MetaMontoStr);
         mostrarMensajeRegaloPN(objOf.TipoMeta, objOf.TotalPedido, objOf.MetaMontoStr, objOf.Simbolo, 1)
@@ -307,10 +308,10 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     of_google_analytics_producto_impresion(tipoOrigen, objOf.TipoMeta,objOf.Detalle);
     agregoOfertaFinal = tipoPopupMostrar == 1 ? 1 : agregoOfertaFinal;
     
-    if (tieneOfertaLog == 1) {       
+    //if (tieneOfertaLog == 1) {       
         AgregarOfertaFinalLog("", 0, cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, 2, 'Popup Mostrado');
         AgregarOfertaFinalLogBulk(cumpleOferta.tipoOfertaFinal_Log, cumpleOferta.gap_Log, cumpleOferta.productosMostrar);
-    }
+    //}
 
     $(".nohely").on('mousemove', function (e) {
         var texto = $.trim($(e.target).attr('data-tooltip-text'));
@@ -356,10 +357,12 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
 
+    //debugger;
     if (consultoraRegaloPN == 'True') {
         var aa = $("#msjOfertaFinal").attr("data-meta-monto");
         var bb = $("#divOfertaFinal > div").attr("data-meta-total");
         var montoMeta = parseFloat(aa) + parseFloat(bb);
+
         mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
@@ -402,7 +405,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         $("#msjOfertaFinal span").html("Monto total: " + simbolo + " " + data.formatoTotal);
         agregoOfertaFinal = 1;
     }
-    else if (tipoMeta == "ME") {
+    else {//if (tipoMeta == "ME") {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
         var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
@@ -429,6 +432,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
 }
 
 function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag) {
+    //debugger;
     if (oRegaloPN == null)
         oRegaloPN = GetRegaloProgramaNuevas();
 
@@ -436,7 +440,6 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         var msgRegalo = "";
         var disclaimer = "";
         var nivel = oRegaloPN.CodigoNivel;
-
         var montoMeta = 0;
         if (flag == 1) montoMeta = parseFloat(montoTotal) + parseFloat(montoSaldo);
         else montoMeta = montoSaldo;
@@ -459,29 +462,14 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
             }
         }
         else if (nivel == '04' || nivel == '05' || nivel == '06') {
-            if (tipoMeta == 'MM') {
-                if (montoTotal >= montoMeta) {
+            if (oRegaloPN.TippingPoint > 0) {
+                if (montoTotal >= oRegaloPN.TippingPoint) {
                     msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
                     disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
                 }
                 else {
-                    msgRegalo = 'AGREGA ' + simbolo + ' ' + montoSaldo.toString() + ' PARA <b>GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
-                }
-            }
-            else {
-                if (oRegaloPN.TippingPoint > 0) {
-                    if (montoTotal >= oRegaloPN.TippingPoint) {
-                        msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                        disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
-                    }
-                    else {
-                        var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
-                        msgRegalo = '<b>AGREGA ' + simbolo + ' ' + stp.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
-                    }
-                }
-                else {
-                    msgRegalo = '<b>¡GANASTE UN ' + oRegaloPN.DescripcionPremio + '!</b>';
-                    disclaimer = '*En caso tu pedido no tenga observaciones y se mantenga en un monto mínimo de ' + simbolo + ' ' + oRegaloPN.TippingPointFormat;
+                    var stp = (oRegaloPN.TippingPoint - parseFloat(montoTotal)).toFixed(2);
+                    msgRegalo = '<b>AGREGA ' + simbolo + ' ' + stp.toString() + ' PARA GANARTE UN ' + oRegaloPN.DescripcionPremio + ' Y ACCEDER A OFERTAS EXCLUSIVAS</b>';
                 }
             }
         }
@@ -494,7 +482,6 @@ function mostrarMensajeRegaloPN(tipoMeta, montoTotal, montoSaldo, simbolo, flag)
         else {
             $('#msg-regalo-pn').css('padding-top', '15px');
         }
-
         $('#msg-regalo-pn').html(msgRegalo);
         $('#msg-regalo-pn2').html(msgRegalo);   // mobile
         if (disclaimer != "") {

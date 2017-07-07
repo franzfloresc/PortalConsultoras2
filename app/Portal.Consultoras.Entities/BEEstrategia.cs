@@ -131,6 +131,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int TieneVariedad { get; set; }
 
+        [DataMember]
+        public string CodigoAgrupacion { get; set; }
+
+        
+        [DataMember]
+        public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
+
+        [DataMember]
+        public BETipoEstrategia TipoEstrategia { get; set; }
+
+        //[DataMember]
+        //public string CodigoSAP { get; set; }
+
         /// <summary>
         /// Url para compartir, es llenado en el servicio de estrategia
         /// GetEstrategiasPedido
@@ -154,17 +167,11 @@ namespace Portal.Consultoras.Entities
         /// <summary>
         /// [Filtro] del usuario
         /// </summary>
-        [DataMember]
-        public DateTime FechaInicioFacturacion { get; set; }
         
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-
-        [DataMember]
-        public string CodigoAgrupacion { get; set; }
-
         // Campos solo para la estrategia de lanzamiento...
         [DataMember]
         public string ImgFondoDesktop { get; set; }
@@ -185,13 +192,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
-        public string CodigoTipoEstrategia { get; set; }
-        
+        public string ImgHomeDesktop { get; set; }
         [DataMember]
-        public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
-
+        public string ImgHomeMobile { get; set; }
         [DataMember]
         public string CodigoGenerico { get; set; }
+        
+        [DataMember]
+        public string CodigoTipoEstrategia { get; set; }
 
         [DataMember]
         public int ProdComentarioId { get; set; }
@@ -205,11 +213,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PromValorizado { get; set; }
 
-        [DataMember]
-        public BETipoEstrategia TipoEstrategia { get; set; } 
-        public BEEstrategia()
-        { }
-
+        
         public BEEstrategia(IDataRecord row, bool partial)
         {
 
@@ -235,7 +239,12 @@ namespace Portal.Consultoras.Entities
                 CodigoProducto = row["CodigoProducto"].ToString();
 
         }
-
+        
+        [DataMember]
+        public DateTime FechaInicioFacturacion { get; set; }
+        
+        public BEEstrategia()
+        { }
         
         public BEEstrategia(IDataRecord row)
         {
@@ -381,7 +390,7 @@ namespace Portal.Consultoras.Entities
                 CodigoSAP = row["CodigoSAP"].ToString().Trim();
 
             if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
-                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]);
+                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
 
             if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
                 CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);

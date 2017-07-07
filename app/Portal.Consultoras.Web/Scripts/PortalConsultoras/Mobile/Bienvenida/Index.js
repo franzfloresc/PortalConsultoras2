@@ -277,12 +277,12 @@ function UpdateUsuarioTutorialMobile() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                viewBagVioTutorial = data.result;
+            viewBagVioTutorial = data.result;
             }
         },
         error: function (data) {
             if (checkTimeout(data)) {
-            }
+        }
         }
     });
 };
@@ -336,9 +336,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                console.log(error);
-                messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
-            }
+            console.log(error);
+            messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        }
         }
     });
     return restringido;
@@ -558,7 +558,6 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
-
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();

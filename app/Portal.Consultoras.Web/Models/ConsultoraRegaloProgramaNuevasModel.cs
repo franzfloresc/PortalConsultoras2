@@ -53,5 +53,6 @@ namespace Portal.Consultoras.Web.Models
                 return Util.DecimalToStringFormat(TippingPoint, CodigoIso);
             }
         }
+
     }
 }

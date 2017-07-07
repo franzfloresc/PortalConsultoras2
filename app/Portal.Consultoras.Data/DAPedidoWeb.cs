@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Data
         public DataSet GetPedidoWebByFechaFacturacion(DateTime FechaFacturacion, int TipoCronograma, int NroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SB2");
+            command.CommandTimeout = 400;
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, FechaFacturacion);
             Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
@@ -325,6 +326,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, BEPedidoDDWeb.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoPedido", DbType.AnsiString, BEPedidoDDWeb.EstadoValidacion);
             Context.Database.AddInParameter(command, "@EsRechazado", DbType.AnsiString, BEPedidoDDWeb.EsRechazado);
+            
 
             return Context.ExecuteReader(command);
         }
@@ -701,23 +703,6 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }            
-        /*EPD-1025*/
-        public IDataReader ObtenerUltimaDescargaPedido()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
-            return Context.ExecuteReader(command);
-        }
-        public IDataReader DesmarcarUltimaDescargaPedido()
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
-            return Context.ExecuteReader(command);
-        }
-        /*EPD-1025*/
-
-        public IDataReader ObtenerUltimaDescargaExitosa() {
-            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
-            return Context.ExecuteReader(Command);
-        }
 
         public IDataReader GetPedidosFacturadoDetalle(int pedidoID)
         {
@@ -726,6 +711,24 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+        
+        /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaPedido()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaPedido");
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader DesmarcarUltimaDescargaPedido()
+        {                
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DesmarcarUltimaDescargaPedido");            
+            return Context.ExecuteReader(command);
+        }
+        /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaExitosa() {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
 
         /*EPD-2248*/
         public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)

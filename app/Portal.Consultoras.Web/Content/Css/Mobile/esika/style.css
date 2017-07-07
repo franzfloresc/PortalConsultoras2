@@ -2301,6 +2301,7 @@ h4.re3 {
     .block-seguimiento-content .seg-active .seg-fecha {
         color: black;
     }
+
         .block-seguimiento-content .seg-active .seg-fecha .texto_valorTurno{
             text-transform: lowercase;
             color:#e81c36;
@@ -3899,6 +3900,22 @@ table > thead > tr > th {
 .contenedor_encuentralos {
     height: 33px;
     background: #e81c36;
+    position:relative;
+    margin-bottom: 20px;
+}
+.contenedor_encuentralos:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(232, 28, 54, 0);
+	border-top-color: #e81c36;
+	border-width: 18px;
+	margin-left: -18px;
 }
 
 .btn_encuentralos {
@@ -3940,11 +3957,10 @@ table > thead > tr > th {
     color: black;
     margin-top: 17px;
 }
-
-    .titulo_showroom_mobile a {
-        text-decoration: underline;
-        text-align: center;
-        display: block;
+.titulo_showroom_mobile a{
+    text-decoration:underline;
+    text-align:center;
+    display:block;
     }
 
     .titulo_showroom_mobile span {
@@ -4133,7 +4149,6 @@ table > thead > tr > th {
 }
 
     .btn_agregar_mobile:hover {
-        
         color: white !important;
         text-decoration: none;
     }
@@ -4938,6 +4953,14 @@ table > thead > tr > th {
     color: #e81c36;
     margin-top: 5px;
     font-weight: 400;
+}
+
+.texto_exclusivo_bpt {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #000;
+    margin-top: 5px;
+    font-weight: 800;
 }
 
 .banner_inferior_mobile {
@@ -6697,7 +6720,7 @@ input[type="checkbox"]:checked + span:after {
     font-size: 14px;
     text-align: center;
     margin-top: 13px;
-    margin-bottom: 23px;
+    margin-bottom: 17px;
     color: black;
 }
 
@@ -7640,6 +7663,7 @@ input[type="checkbox"]:checked + span:after {
     background: #FFF;
     width: 90%;
     max-width: 400px;
+    /*width:520px;*/
     height: auto;
     padding: 30px 20px 30px 20px;
     box-sizing: border-box;
@@ -8578,105 +8602,9 @@ span.title-app-b {
     line-height:19px;
 }
 
-.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
-    display:block;
-    text-align:left;
-}
-
-.mensaje_estadoActualPedido{
-    font-size:14px;
-    font-weight:700;
-}
-
-.mensaje_horarioIngresoPedido{
-    font-size:12px;
-    font-weight:normal;
-}
-
-.mensaje_horarioIngresoPedido a{
-    display: block;
-    margin-left: 2px;
-    color: #AAA;
-    text-decoration:underline;
-}
-
 .mensaje_horarioIngresoPedido a.CerrarBanner{
     color: #000;
 }
-
-/* FIN MENSAJES PEDIDO RECHAZADO */
-
-/* POPUP OFERTA FINAL */
-
-.popup_ofertaFinal{
-    display: block;
-    margin: 1% auto 5% auto;
-    position: relative;
-    background: #fff;
-    width: 95%;
-    max-width: 400px;
-    height: auto;
-    padding: 41px 0 0px 0;
-}
-
-.popup_ofertaFinal .cerrar_popMobile{
-    position: absolute;
-    top: 17px;
-    right: 17px;
-    float: none;
-}
-
-.popup_ofertaFinal .icono_aprobacion{
-    width:60px;
-    height:60px;
-}
-
-.ofertaFinal_titulo{
-   display: block;
-    margin: 0 0 8px 0;
-    padding: 0 17px;
-    font-family: 'Lato';
-    font-size: 17px;
-    font-weight: 300;
-    text-align: center;
-    line-height: 21px;
-    color: #000;
-}
-
-.ofertaFinal_descripcion{
-    display: block;
-    margin: 0 0 22px 0;
-    font-family: 'Lato';
-    font-size: 13px;
-    text-align: center;
-    /*font-weight: bold;*/
-    padding: 0 19px;
-}
-
-.contenedor_carruselOfertaFinal{
-    background: #f5f5f5;
-    padding: 22px 5px 40px 5px;
-}
-
-.ofertaFinal_info {
-    font-family: 'Lato';
-    text-align: center;
-    font-size: 13px;
-    font-weight: 300;
-    color: #000;
-    margin: 0 0 28px 0;
-    padding: 0px 26px;
-    line-height: 14px;
-}
-
-.bloque_carousel{
-    display: block;
-    width: 100%;
-    height: auto;
-    text-align:center;
-    margin-bottom:25px;
-}
-
 /*SHOWROOM*/
 .divShowRoom{
     /*margin-top: 63px;*/
@@ -8705,6 +8633,11 @@ span.title-app-b {
     width:100%;
     height:1px;
     background:black;
+}
+#divProductosAgotados .table>thead:first-child>tr:first-child>th {
+  font-family:'Lato';
+  color:black;
+  font-weight:700;
 }
 .titulo_popOferta{
     font-family:'Lato';
@@ -8865,40 +8798,76 @@ span.title-app-b {
     color: #e81c36;
     text-decoration: underline;
 }
-@media only screen and (max-width:380px) {
-    .iphone_1{
-    margin-top: 7px; float: left; width: 35px; height: 35px;
+
+/* POPUP OFERTA FINAL */
+
+.popup_ofertaFinal{
+    display: block;
+    margin: 1% auto 5% auto;
+    position: relative;
+    background: #fff;
+    width: 95%;
+    max-width: 400px;
+    height: auto;
+    padding: 41px 0 0px 0;
     }
-    .iphone_2{
-    float: left;
-    width: 80%;
-    margin-top: 7px;
-    padding-left: 10px;
-    text-align: left;
+
+.popup_ofertaFinal .cerrar_popMobile{
+    position: absolute;
+    top: 17px;
+    right: 17px;
+    float: none;
     }
-}
-#divProductosAgotados .table>thead:first-child>tr:first-child>th {
-  font-family:'Lato';
-  color:black;
-  font-weight:700;
+
+.popup_ofertaFinal .icono_aprobacion{
+    width:60px;
+    height:60px;
 }
 
-span.icon-advertencia{
-    display: inline-block;
-    /*background: #d20000;*/
-    background:url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
-    width: 18px;
-    height: 18px;
-    /*border-radius: 100%;*/
-    margin-right: 8px;
-    /*margin-bottom:32px;*/
+.ofertaFinal_titulo{
+    display: block;
+    margin: 0 0 8px 0;
+    padding: 0 28px;
     font-family: 'Lato';
-    font-size: 16px;
-    font-weight: bold;
-    color: #FFF;
+    font-size: 21px;
+    font-weight: 300;
     text-align: center;
-    vertical-align: middle;
-    margin-top: -6px;
+    line-height: 29.38px;
+    color: #000;
+}
+
+.ofertaFinal_descripcion{
+    display: block;
+    margin: 0 0 22px 0;
+    font-family: 'Lato';
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+    padding: 0 19px;
+}
+
+.contenedor_carruselOfertaFinal{
+    background: #f5f5f5;
+    padding: 22px 5px 40px 5px;
+}
+
+.ofertaFinal_info {
+    font-family: 'Lato';
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    margin:0 0 28px 0;
+    padding: 0px 26px;
+    line-height:22px;
+}
+
+.bloque_carousel{
+    display: block;
+    width: 100%;
+    height: auto;
+    text-align:center;
+    margin-bottom:25px;
 }
 
 .bloque_carousel .content_item_carrusel_ofertaFinal{
@@ -9010,6 +8979,61 @@ span.icon-advertencia{
 }
 
 /* FIN POPUP OFERTA FINAL */
+
+@media only screen and (max-width:380px) {
+    .iphone_1{
+    margin-top: 7px; float: left; width: 35px; height: 35px;
+    }
+    .iphone_2{
+    float: left;
+    width: 80%;
+    margin-top: 7px;
+    padding-left: 10px;
+    text-align: left;
+    }
+}
+
+.mensaje_estadoActualPedido, .mensaje_horarioIngresoPedido{
+    display:block;
+    text-align:left;
+}
+
+.mensaje_estadoActualPedido{
+    font-size:14px;
+    font-weight:700;
+}
+
+span.icon-advertencia{
+    display: inline-block;
+    /*background: #d20000;*/
+    background:url("/Content/Images/Esika/icono-admiracion.png") no-repeat center center;
+    width: 18px;
+    height: 18px;
+    /*border-radius: 100%;*/
+    margin-right: 8px;
+    /*margin-bottom:32px;*/
+    font-family: 'Lato';
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -6px;
+}
+
+.mensaje_horarioIngresoPedido{
+    font-size:12px;
+    font-weight:normal;
+}
+
+.mensaje_horarioIngresoPedido a{
+    display: block;
+    margin-left: 2px;
+    color: #AAA;
+    text-decoration:underline;
+}
+
+/* FIN MENSAJES PEDIDO RECHAZADO */
 .texto_valorTurno {
     text-transform: lowercase;
     color:#e81c36;
@@ -9416,7 +9440,6 @@ a{
     text-align:center;
     border:1px solid black;
     display:block; 
-    
 }
 .btn_rechazo_pedido:hover{    
     color:white;
@@ -9856,28 +9879,28 @@ a{
 }
 
 .btn2-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     background: white;
     color: black;
     font-weight: 700;
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-    width: 49%;
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
+    width: 38%;
 }
 
 .select-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 30px 6px 14px;
+    padding: 6px 17px 6px 7px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -10361,7 +10384,7 @@ a{
     font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 14%;
+    margin-top: 16%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10443,7 +10466,7 @@ a{
     max-width:292px;
     height:auto;
     margin:0 auto;
-    margin-top:15px;
+    margin-top:15px !important;
     /*overflow:hidden;*/
     margin-bottom:40px;
 }
@@ -10810,6 +10833,10 @@ a{
     margin-top:25px;
     margin-bottom:10px;
 }
+.form-control{
+    box-sizing:border-box;
+    height:39px !important;
+    }
 @media only screen and (max-width: 425px) {
     .landing_cat .etiqueta_guia_negocio {
         zoom:70%;
@@ -10888,7 +10915,6 @@ a{
 }
 .solo_hoy_mobile2{
     width: 200px;
-    /*margin-top: 6px;*/
     height:34px;
 }
 .solo_hoy_mobile2 img{
@@ -11779,23 +11805,6 @@ a{
     background: url(../../../Images/Esika/icono_advertencia_notificacion.png) center center no-repeat;
 }
 
-/***EPD 2107***/
-.btnwspDesktop {
-    display:none;
-}
-.btnfbDesktop {
-    margin-left: 55px;
-    width: 48%;
-}
-.btnwspMobile {
-    width:48%;
-}
-.btnfbMobile {
-    float:right; 
-    width:48%;
-}
-/*** FIN ******/
-
 .tono_select_opt{
     border: 2px solid black;
     height: 45px;
@@ -11819,7 +11828,7 @@ a{
     margin-top: 17px;
     text-align: center;
     margin-bottom: 4px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 .alerta_notificacion{
      font-family: 'Lato';
@@ -11881,19 +11890,19 @@ a{
     border-bottom:1px solid black;
     margin-top: 15px;
 }
-.nombre_producto_opt{
-    font-size:13px;
-    font-weight:700;
-    margin-top: 12px;
-    margin-bottom:15px;
-    height: 15px;
+.nombre_producto_opt {
+    font-size: 13px;
+    font-weight: 700;
+    margin-top: 10px;
+    /*margin-bottom: 15px;*/
+    height: auto !important;
 }
 .cantidad_producto_opt{
     margin-right:10px;
 }
 .content_producto_individual{
     border-bottom:1px solid #d7d7d7;
-    padding-bottom: 18px;
+    /*padding-bottom: 18px;*/
 }
 .content_producto_individual:last-child{
     border-bottom:0;
@@ -12038,6 +12047,23 @@ a{
     background: url(../../../Images/PL20/flecha_set_Especial_2white.png) no-repeat;
     background-position: -1px 3px;
 }
+
+/***EPD 2107***/
+.btnwspDesktop {
+    display:none;
+}
+.btnfbDesktop {
+    margin-left: 55px;
+    width: 48%;
+}
+.btnwspMobile {
+    width:48%;
+}
+.btnfbMobile {
+    float:right; 
+    width:48%;
+}
+/*** FIN ******/
 
 .color-por-marca {
     color: #e81c36;
@@ -12467,6 +12493,12 @@ a{
 .content_carrusel_mas_vendidos .producto_precio{
     margin-bottom:5px;
 }
+
+#content-filters{
+    margin-left:14px;
+    margin-right:14px;
+}
+
 /*SPRINT 15*/
 .content_fondo_bestSeller{
     height:192px;

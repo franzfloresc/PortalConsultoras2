@@ -53,29 +53,89 @@
     <!-- FIN CATALOGO -->
 
     <div class="expoferta_revista">
-
-        <!-- REVISTA -->
-        <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
-            <div class="titulo_central" data-titulo='revista'></div>
-            <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
-            <a class="revista_carrusel" id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
-                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
-            </a>
-            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
-        </div>
-        <!-- FIN REVISTA -->
-
-        <!-- REVISTA DIGITAL -->
-        @if (Model.MostrarRevistaDigital)
+       
+        @if (ViewBag.TieneRDC)
         {
-            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position:relative;">
+            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                <!-- INSCRITAS C-11 -->
+                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                    <div class="home_block_rd home_rd1 rd_catalogos">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                        </div>
+                        <div class="hblock_text">
+                            <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                            </div>
+                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN INSCRITAS C-11 -->
+            }
+            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            {
+                <!-- INSCRITAS C-12 -->
+                <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+                    <div class="content_belcorp" style="background-color: black;">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                        </div>
+                        <div class="hblock_text" style="padding-top: 34px;">ViewBag.NumeroCampania
+                            <div class="hblock_tit" style="font-size: 14px;">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
+                            <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                                          <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div style="height: 35px; background: #fff;"></div>
+                <!-- FIN INSCRITAS C-12 -->
+            }
+            else
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                    <div class="home_block_rd home_rd1 rd_catalogos">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                        </div>
+                        <div class="hblock_text">
+                            <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                            </div>
+                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else if (ViewBag.TieneRDR)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            <!-- Agregar revista -->
+            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
                 <div>
-                    <div style="height:127px; top:40px; position:relative; margin-bottom:16px;">
-                        <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height:100%; float: left;" />
+                    <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
+                        <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height: 100%; float: left;"/>
                     </div>
                     <div>
-                        <span style="display:block; font-size:18px; font-weight:bold; padding-left:0px;">TU REVISTA ONLINE PERSONALIZADA</span>
-                        <span style="display:block; font-size:15px; font-weight:bold; padding-left:10px;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                        <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0px;">TU REVISTA ONLINE PERSONALIZADA</span>
+                        <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
                     </div>
                     <div class="revistadigital revistaDigital_catalogosRevistas">
                         <div class="boxoffer" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
@@ -86,26 +146,23 @@
                 </div>
             </div>
         }
-        <!-- FIN REVISTA DIGITAL -->
+        else
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+        }
 
-        <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
+        <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
         <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
         @if (!ViewBag.EsConsultoraNueva)
         {
-            <div class="revista_content" id="contenedorExpofertaMCR" style="display:none;">
-                <div style="text-align: center;
-                        font-family: 'lato';
-                        font-size: 16pt;
-                        color: black;
-                        letter-spacing: 0.25px;
-                        font-weight: 700;
-                        margin-top: 48px;
-                        margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
-                        <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" /></div>
+            <div class="revista_content" id="contenedorExpofertaMCR" style="display: none;">
+                <div style="text-align: center; font-family: 'lato'; font-size: 16pt; color: black; letter-spacing: 0.25px; font-weight: 700; margin-top: 48px; margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
+                <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")"/>
+                </div>
             </div>
         }
-        <hr class="clear" />
+        <hr class="clear"/>
     </div>
 </div>
 
@@ -191,14 +248,10 @@
     <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
 }
 </div>
-
 @section styles{
 
     <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
-    @if (Model.MostrarRevistaDigital)
-    {
-        <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
-    }
+    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 @section scripts{
     <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
