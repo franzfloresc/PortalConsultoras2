@@ -10,7 +10,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -22,7 +22,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -35,7 +35,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -48,7 +48,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -61,7 +61,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -74,7 +74,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -87,7 +87,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -100,7 +100,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -113,7 +113,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -126,7 +126,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -139,7 +139,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -152,7 +152,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -165,7 +165,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -198,7 +198,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -211,7 +211,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -224,7 +224,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -237,7 +237,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -250,7 +250,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -263,7 +263,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -276,7 +276,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -289,7 +289,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -302,7 +302,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -315,7 +315,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -328,7 +328,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -341,7 +341,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -354,7 +354,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -387,7 +387,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -400,7 +400,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -413,7 +413,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -426,7 +426,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -439,7 +439,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -452,7 +452,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -465,7 +465,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -478,7 +478,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -491,7 +491,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -504,7 +504,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -517,7 +517,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -530,7 +530,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -543,7 +543,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -576,7 +576,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -589,7 +589,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -602,7 +602,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -615,7 +615,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -628,7 +628,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -641,7 +641,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -654,7 +654,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -667,7 +667,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -680,7 +680,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -693,7 +693,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -706,7 +706,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -719,7 +719,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -732,7 +732,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -765,7 +765,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -778,7 +778,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -791,7 +791,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -804,7 +804,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -817,7 +817,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -830,7 +830,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -843,7 +843,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -856,7 +856,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -869,7 +869,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -882,7 +882,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -895,7 +895,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -908,7 +908,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -921,7 +921,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -954,7 +954,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -967,7 +967,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -980,7 +980,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -993,7 +993,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1006,7 +1006,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1019,7 +1019,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1032,7 +1032,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1045,7 +1045,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1058,7 +1058,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1071,7 +1071,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1084,7 +1084,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1097,7 +1097,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1110,7 +1110,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1143,7 +1143,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -1156,7 +1156,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -1169,7 +1169,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1182,7 +1182,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1195,7 +1195,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1208,7 +1208,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1221,7 +1221,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1234,7 +1234,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1247,7 +1247,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1260,7 +1260,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1273,7 +1273,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1286,7 +1286,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1299,7 +1299,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1332,7 +1332,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -1345,7 +1345,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -1358,7 +1358,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1371,7 +1371,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1384,7 +1384,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1397,7 +1397,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1410,7 +1410,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1423,7 +1423,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1436,7 +1436,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1449,7 +1449,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1462,7 +1462,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1475,7 +1475,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1488,7 +1488,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1521,7 +1521,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -1534,7 +1534,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -1547,7 +1547,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1560,7 +1560,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1573,7 +1573,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1586,7 +1586,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1599,7 +1599,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1612,7 +1612,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1625,7 +1625,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1638,7 +1638,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1651,7 +1651,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1664,7 +1664,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1677,7 +1677,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1710,7 +1710,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -1723,7 +1723,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -1736,7 +1736,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1749,7 +1749,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1762,7 +1762,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1775,7 +1775,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1788,7 +1788,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1801,7 +1801,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1814,7 +1814,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1827,7 +1827,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1840,7 +1840,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1853,7 +1853,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1866,7 +1866,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1899,7 +1899,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -1912,7 +1912,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -1925,7 +1925,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1938,7 +1938,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1951,7 +1951,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1964,7 +1964,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1977,7 +1977,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -1990,7 +1990,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2003,7 +2003,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2016,7 +2016,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2029,7 +2029,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2042,7 +2042,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2055,7 +2055,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2088,7 +2088,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -2101,7 +2101,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -2114,7 +2114,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2127,7 +2127,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2140,7 +2140,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2153,7 +2153,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2166,7 +2166,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2179,7 +2179,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2192,7 +2192,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2205,7 +2205,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2218,7 +2218,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2231,7 +2231,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2244,7 +2244,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2277,7 +2277,7 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
@@ -2290,7 +2290,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
@@ -2303,7 +2303,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2316,7 +2316,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2329,7 +2329,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2342,7 +2342,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2355,7 +2355,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2368,7 +2368,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2381,7 +2381,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2394,7 +2394,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2407,7 +2407,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2420,7 +2420,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
@@ -2433,7 +2433,7 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.atributo Personalizacion,
+       p.textoayuda Personalizacion,
        p.tipoaplicacion Medio,
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
