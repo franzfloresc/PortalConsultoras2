@@ -12647,9 +12647,9 @@ a{
     margin-bottom:20px;
 }
 .ContentcomentariosVisibles:last-child{
-    border-bottom:0;
-    margin-bottom:0;
-    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 10px;
+    /* padding-bottom: 0; */
 }
 .foto_usuario_comentario{
     float:left;
