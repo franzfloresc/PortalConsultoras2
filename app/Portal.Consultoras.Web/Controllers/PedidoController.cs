@@ -781,6 +781,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool ErrorServer;
             string tipo;
             bool modificoBackOrder;
+
             olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo, out modificoBackOrder);
 
             decimal Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
@@ -1254,9 +1255,15 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
 
-                using (PedidoServiceClient svc = new PedidoServiceClient())
-                {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
+                //EPD-2337
+                mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                //FIN EPD-2337
+
+                if (mensaje == "") {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        mensaje = svc.ValidarStockEstrategia(entidad);
+                    }
                 }
             }
             catch (FaultException ex)
@@ -4646,6 +4653,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
-        }
+        }        
     }
 }

@@ -588,16 +588,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if (ReservadoOEnHorarioRestringido())
         return false;
 
-    if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) 
-    {
-        agregarProductoAlCarrito(objInput);
-
-        if (objParameter.FlagNueva == "1")
-            $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
-        else
-            $('#OfertaTipoNuevo').val("");
-    }
-
     AbrirLoad();
 
     popup = popup || false;
@@ -639,6 +629,16 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         success: function (datos) {
             //EstrategiaTallaColor(datos);
             //CerrarLoad();
+
+            if (tipoOrigenEstrategia == 1 || tipoOrigenEstrategia == 17 || tipoOrigenEstrategia == 172) {
+                agregarProductoAlCarrito(objInput);
+
+                if (objParameter.FlagNueva == "1")
+                    $('#OfertaTipoNuevo').val(objParameter.FlagNueva);
+                else
+                    $('#OfertaTipoNuevo').val("");
+            }
+
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
@@ -869,6 +869,11 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         data: JSON.stringify(param),
         async: false,
         success: function (datos) {
+            if (datos.message.length > 0) {                
+                AbrirMensajeEstrategia(datos.message);
+                CerrarLoad();
+                return false;
+            }
             if (!datos.result) {
                 AbrirMensajeEstrategia(datos.message);
                 CerrarLoad();

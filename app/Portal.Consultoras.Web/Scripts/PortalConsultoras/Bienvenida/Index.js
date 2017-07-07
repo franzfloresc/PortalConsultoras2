@@ -1009,7 +1009,6 @@ function AgregarProductoLiquidacion(contenedor) {
     }
 
     waitingDialog({});
-
     var item = {
         Cantidad: $(contenedor).find("#txtCantidad").val(),
         MarcaID: $(contenedor).find("#MarcaID").val(),
@@ -1028,7 +1027,12 @@ function AgregarProductoLiquidacion(contenedor) {
         cache: false
     });
 
-    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV }, function (data) {
+    $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: item.CUV,  Cantidad: item.Cantidad, PrecioUnidad: item.PrecioUnidad}, function (data) {
+        if (data.message.length > 0) {
+            AbrirMensajeEstrategia(data.message);
+            closeWaitingDialog();
+            return false;
+        }
         if (parseInt(data.Saldo) < parseInt(item.Cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;

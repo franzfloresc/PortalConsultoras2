@@ -408,6 +408,40 @@ namespace Portal.Consultoras.Web.Controllers
             return false;
         }
 
+        protected string ValidarPedidoMontoMaximo(decimal montoCuv, int Cantidad)
+        {
+            string mensaje = "";
+            try
+            {
+                if (userData.TieneValidacionMontoMaximo)
+                {
+                    if (userData.MontoMaximo == Convert.ToDecimal(9999999999.00)) // monto sin limites
+                        mensaje = "";
+                    else
+                    {
+                        var listaProducto = ObtenerPedidoWebDetalle();
+                        var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
+                        decimal _dTotalPedido = Convert.ToDecimal(totalPedido);
+
+                        decimal montoActual = (montoCuv * Cantidad) + _dTotalPedido;
+                        if (montoActual < userData.MontoMaximo)
+                            mensaje = "";
+                        else
+                        {
+                            string strmen = (userData.EsDiasFacturacion) ? "VALIDADO" : "GUARDADO";
+                            mensaje += "Haz superado el límite de tu línea de crédito de " + userData.Simbolo + userData.MontoMaximo.ToString();
+                            mensaje += ". Por favor modifica tu pedido para que sea " + strmen + " con éxito.";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO);
+            }
+            return mensaje;
+        }
+
         #endregion
 
         #region Menú

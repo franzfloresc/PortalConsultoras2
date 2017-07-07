@@ -225,6 +225,7 @@ $(document).ready(function () {
     });
     $("body").on("mouseleave", ".cantidad_detalle_focus", function () {
         var idPed = $(this).find("input.liquidacion_rango_cantidad_pedido").attr('data-pedido');
+        _idPed = idPed;
         var cant = $('#txtLPCant' + idPed).val();
         var cantAnti = $('#txtLPTempCant' + idPed).val();
         if (cant == cantAnti) {
@@ -722,11 +723,12 @@ function ValidarStockEstrategia() {
     }
 
     var cantidadSol = $("#txtCantidad").val();
+    var pprecio = $("#txtPrecioR").val(); //EPD-2337
 
     var param = {
         MarcaID: 0,
         CUV: CUV,
-        PrecioUnidad: 0,
+        PrecioUnidad: pprecio,
         Descripcion: 0,
         Cantidad: cantidadSol,
         IndicadorMontoMinimo: 0,
@@ -2120,7 +2122,7 @@ function EjecutarPROL() {
     if (HorarioRestringido())
         return;
 
-    AbrirSplash();
+    AbrirSplash
     RecalcularPROL();
 }
 
@@ -2185,7 +2187,6 @@ function EjecutarServicioPROL() {
                             if (!cumpleOferta.resultado) {
                                 $('#DivObsBut').css({ "display": "none" });
                                 $('#DivObsInfBut').css({ "display": "block" });
-
                                 showDialog("divObservacionesPROL");
                                 $("#divObservacionesPROL").css("width", "600px").parent().css("left", "372px");
                             }
@@ -2845,6 +2846,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     AbrirSplash();
+
     if (HorarioRestringido()) {
         CerrarSplash();
         return false;
@@ -2869,6 +2871,8 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
         CerrarSplash();
         return false;
     }
+
+    var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
 
     if (TipoOfertaSisID == constConfiguracionOfertaLiquidacion) {
         var PROL = $("#hdValidarPROL").val();
@@ -2901,7 +2905,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         }
 
-        var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
         if (CliDes.length == 0) {
             CliID = 0;
         }
@@ -3217,7 +3220,7 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             var param = ({
                 MarcaID: 0,
                 CUV: CUV,
-                PrecioUnidad: 0,
+                PrecioUnidad: PrecioUnidad,
                 Descripcion: 0,
                 Cantidad: CantidadSoli,
                 IndicadorMontoMinimo: 0,
@@ -3234,8 +3237,9 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 success: function (datos) {
                     if (checkTimeout(datos)) {
                         if (!datos.result) {
-                            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
-                            $('#dialog_ErrorMainLayout').show();
+                            //$('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
+                            //$('#dialog_ErrorMainLayout').show();
+                            AbrirMensajeEstrategia(datos.message);
                             CerrarSplash();
                             $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);
                             return false;

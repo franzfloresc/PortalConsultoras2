@@ -396,8 +396,10 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV)
+        public JsonResult ValidarUnidadesPermitidasPedidoProducto(string CUV, string Cantidad, string PrecioUnidad)
         {
+            string mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), Convert.ToInt32(Cantidad));
+            
             int UnidadesPermitidas = 0;
             int Saldo = 0;
             /* 2024 - Inicio */
@@ -408,18 +410,22 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.CUV = CUV;
             entidad.ConsultoraID = Convert.ToInt32(userData.ConsultoraID);
 
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            if (mensaje == "")
             {
-                UnidadesPermitidas = sv.GetUnidadesPermitidasByCuv(userData.PaisID, userData.CampaniaID, CUV);
-                Saldo = sv.ValidarUnidadesPermitidasEnPedido(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID);
-                CantidadPedida = sv.CantidadPedidoByConsultora(entidad);
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    UnidadesPermitidas = sv.GetUnidadesPermitidasByCuv(userData.PaisID, userData.CampaniaID, CUV);
+                    Saldo = sv.ValidarUnidadesPermitidasEnPedido(userData.PaisID, userData.CampaniaID, CUV, userData.ConsultoraID);
+                    CantidadPedida = sv.CantidadPedidoByConsultora(entidad);
+                }
             }
 
             return Json(new
             {
                 UnidadesPermitidas = UnidadesPermitidas,
                 Saldo = Saldo,
-                CantidadPedida = CantidadPedida
+                CantidadPedida = CantidadPedida,
+                message = mensaje
             }, JsonRequestBehavior.AllowGet);
         }
 
