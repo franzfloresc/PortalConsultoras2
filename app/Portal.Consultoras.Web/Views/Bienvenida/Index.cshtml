@@ -8,6 +8,12 @@
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+
+    <style>
+        .contenedorCuponInfo .contenedor-texto-agregar {
+            display: inline-block;
+        }
+    </style>
 }
 
 @{
@@ -120,11 +126,11 @@
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
             string clasePagoUltMovVZ = "";
-
-
+            
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
             if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
         }
+        
         <div class="titulo_home_img"></div>
         <div class="titulo_home_belcorp">
             <div>MI ESTADO DE CUENTA</div>
@@ -141,7 +147,7 @@
             <span>Vencimiento: <span id="spanVencimiento">@Model.FechaVencimiento</span></span>
         </div>
 
-        <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos @clasePagoUltMovVZ" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
+        <a role="link" region="Cuerpo" parent="Mi estado de cuenta" title="Ver mis Últimos Pagos" class="boton_ultimos_movimientos" style="@(ultPg)" href="@Url.Action("Index", "MisPagos")"> VER MIS ÚLTIMOS MOVIMIENTOS</a>
 
         @if (Model.PaisID == 3) //Chile
         {
@@ -167,7 +173,6 @@
                style="@clasePagoOnlineVZ"> PAGA EN L&Iacute;NEA</a>
 
         }
-
         <hr class="clear" />
 
     </div>
@@ -180,33 +185,33 @@
         <hr class="clear" />
         <div class="info_centro">
             @{string cabezaEscala = null, pieEscala = null;
-                if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
-                    Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
-                }
-                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
-                {
-                    cabezaEscala = "Comisión y ahorro total*";
-                    pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
-                }
-                else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
-                {
-                    cabezaEscala = "Ganancia estimada total*";
-                    pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
-                }
-                else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
-                {
-                    cabezaEscala = "Oportunidad de ahorro total";
-                    pieEscala = "";
-                }
+            if (Model.PrefijoPais == Constantes.CodigosISOPais.Peru ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Colombia ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Ecuador ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Bolivia ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Guatemala ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Salvador ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.Dominicana ||
+                Model.PrefijoPais == Constantes.CodigosISOPais.PuertoRico)
+            {
+                cabezaEscala = "Ganancia estimada total*";
+                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Guía de Negocio y Otros.";
+            }
+            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Chile)
+            {
+                cabezaEscala = "Comisión y ahorro total*";
+                pieEscala = "*Comisión = Ganancia estimada proveniente de tus descuentos por compras en catálogo; Ahorro = Ahorro estimado proveniente de compras de Guía de Negocio y Otros.";
+            }
+            else if (Model.PrefijoPais == Constantes.CodigosISOPais.Mexico || Model.PrefijoPais == Constantes.CodigosISOPais.Panama)
+            {
+                cabezaEscala = "Ganancia estimada total*";
+                pieEscala = "*Ganancia Total = Ahorro estimado proveniente de tus descuentos por compras en catálogo + ahorro estimado proveniente de compras en Revista y Otros.";
+            }
+            else if (Model.PrefijoPais == Constantes.CodigosISOPais.CostaRica || Model.PrefijoPais == Constantes.CodigosISOPais.Venezuela)
+            {
+                cabezaEscala = "Oportunidad de ahorro total";
+                pieEscala = "";
+            }
             }
             @(cabezaEscala)
             <div class="deuda_home">
@@ -239,25 +244,27 @@
 </div>
 
 
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
 
 <!--CAROUSEL OFERTAS PARA TI-->
 <div class="fondo_gris" id="divListaEstrategias" style="display:none;">
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
-
-
 <!--FIN CAROUSEL OFERTAS PARA TI-->
- <!--REVISTA DIGITAL -->
+
+<!--REVISTA DIGITAL -->
 <div class="fondo_gris content_belcorp" id="divRevistaDigital">
-    
+
 </div>
 <!-- FIN REVISTA DIGITAL -->
 <!--SHOWROOM -->
 <div class="content_belcorp" id="divProductosShowRoom">
-   
+
 </div>
 <!-- FIN-->
-
 <!--CATALOGO PERSONALIZADO-->
 @if (Model.CatalogoPersonalizadoDesktop != 0 && Model.EsCatalogoPersonalizadoZonaValida)
 {
@@ -955,42 +962,6 @@
     <!-- POPUP COMUNICADOS -->
     <div id="popupComunicados" style="display:none;"></div>
     <!-- FIN POPUP COMUNICADOS -->
-
-    <!--EDP-1204 INICIO-->
-    @*<div  id="popUpPagoOnlineVZ" class="popup_pagoOnlineVZ" style="display:none;">
-        <div class="contenido_popUp">
-            <div data-tag-html="@Constantes.PestanhasMisPagos.LugaresPago">
-                <div class="LugaresPago_VZ">
-                    <div class="content_left_pagos_VZ">
-                        <div>
-                            <div class="titulo_detalle_pago">
-                                <div class="titulo_detalle_lugares_img"></div>
-                                <div>LUGARES<b> DE PAGO</b></div>
-                            </div>
-                            <hr class="clear" />
-                            <div class="bancos_pagos">Ingresa con un click a los lugares de pagos de su preferencia</div>
-                            <div id="divContenidoLugarPago">
-                                <div>
-                                    <br />
-                                    Cargando lugares de pago...<br /><img src="@Url.Content("~/Content/Images/Loading.gif")" />
-                                    <br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr class="clear" />
-            </div>
-        </div>
-        <div class="btn_cerrar_popUpPagoOnlineVZ">
-            <a href="javascript:;" id="cerrarPopUpPagoOnlineVZ">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-    </div>*@
-    <!--EDP-1204 FIN comentado Cambio de requerimiento-->
-
 </div>
 <!-- FIN POPUP POPUPs HOME -->
 <!--POP UP FOTO CARGADA-->
@@ -1188,7 +1159,7 @@
 </div>
 
 <script id="template-estrategia-header" type="text/x-handlebars-template">
-    @if(ViewBag.TieneRDC)
+    @if (ViewBag.TieneRDC)
     {
         if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
         {
@@ -1202,10 +1173,11 @@
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                         <div style="max-width: 68%">ESTÁS INSCRITA EN ÉSIKA PARA MÍ, AHORA PUEDES VER TODAS TUS OFERTAS DE CAMPAÑA @ViewBag.NumeroCampania Y VER LAS DE CAMPAÑA @ViewBag.NumeroCampaniaMasUno</div>
                         <div class="btn_diagonal">
-                            <a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <a href="@Url.Action("Index", "RevistaDigital")">
+                                VER TODAS MIS OFERTAS
                                 <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
-                             </a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -1214,7 +1186,7 @@
             <div style="height: 35px; background: #fff;"></div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-11 -->
             @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+                new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
         }
         else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
         {
@@ -1241,13 +1213,19 @@
             <hr class="clear" />
             <div class="clear"></div>
             <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
+
+            @*<div style="">
+                <div>
+
+                </div>
+            </div>*@
             <!-- INICO SECCION DE CARRUSEL BPT -->
             <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
                 <div class="background-revistaSeccion"></div>
                 <div class="revistadigital-content">
                     <div style="height: 65px; background: transparent;"></div>
                     <hr class="clear" />
-                    <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+                    <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
                     <hr class="clear" />
                     <div style="height: 35px; background: transparent;"></div>
                 </div>
@@ -1265,9 +1243,11 @@
                     <div class="hblock_text">
                         <div class="hblock_tit">@(Model.NombreConsultora.ToUpper()), LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                         <div style="width: 65%">CONOCE AHORA ESTA NOVEDAD Y LAS OFERTAS CON HASTA 65% DE DESCUENTO QUE TENEMOS PARA TI.</div>
-                        <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
-                            <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                            <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                        <div class="btn_diagonal">
+                            <a href="@Url.Action("Index", "RevistaDigital")">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                             </a>
                         </div>
                     </div>
@@ -1277,7 +1257,7 @@
             <div style="height: 35px; background: #fff;"></div>
             <!-- FIN HOME BLOCK RD NO INSCRITAS C-11 -->
             @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-                new ViewDataDictionary{{"Source", 2}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+                new ViewDataDictionary { { "Source", 2 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
         }
     }
     else if (ViewBag.TieneRDR)
@@ -1294,7 +1274,7 @@
                         <div class="linea-separacion"></div>
                         <div class="titulo_nuevaRevista">
                             <span class="mensajeConsultora_nuevaRevista texto_nuevaRevista">
-                                {{Titulo}} 
+                                {{Titulo}}
                             </span>
                             <span class="mensajeConsultora_nuevaRevista texto_encuentraOfertas">
                                 {{TituloDescripcion}}
@@ -1303,7 +1283,7 @@
                     </div>
                 </div>
                 <hr class="clear" />
-                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
+                <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
                 <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
                     <div class="fondo_boton"></div>
                     <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
@@ -1317,9 +1297,10 @@
     else
     {
         @Html.Partial("~/Views/Bienvenida/template-seccion-opt.cshtml",
-            new ViewDataDictionary{{"Source", 1}, { "NombreConsultora", Model.SobreNombre}, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
+            new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
 </script>
+
 
 @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 
@@ -1329,114 +1310,114 @@
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" />
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
-                <div class="producto_img_home">
-                    <img src="{{FotoProducto01}}" class="imagen_producto" />
-                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
-                    <a class="ver_detalle_carrusel">VER DETALLE</a>
-                    {{/iff}}
-                </div>
-                {{#if_eq FlagMostrarImg '1'}}
-                {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
-                <div class="etiqueta_producto">
-                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
-                </div>
-                {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
-                {{#if_eq FlagEstrella '1' }}
-                <div class="etiqueta_producto">
-                    <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
-                </div>
-                {{/if_eq}}
-                {{/if_eq}}
-                {{/if_eq}}
-                <div class="producto_nombre_descripcion">
-                    <h6>{{DescripcionMarca}}</h6>
-                    {{#if_eq FlagNueva '1'}}
-                    <p class="nombre_producto">
-                        <b>{{DescripcionCUVSplit}}</b>
-                    </p>
-                    {{else}}
-                    <p class="nombre_producto">
-                        <b>{{DescripcionCUV2}}</b>
-                    </p>
-                    {{/if_eq}}
+        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+        <div class="producto_img_home">
+            <img src="{{FotoProducto01}}" class="imagen_producto" />
+            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
+            <a class="ver_detalle_carrusel">VER DETALLE</a>
+            {{/iff}}
+        </div>
+        {{#if_eq FlagMostrarImg '1'}}
+        {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.Lanzamiento'}}
+        <div class="etiqueta_producto">
+            <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+        </div>
+        {{else if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.OfertaParaTi'}}
+        {{#if_eq FlagEstrella '1' }}
+        <div class="etiqueta_producto">
+            <img src="@Url.Content("~/Content/Images/oferta-ultimo-minuto.png")" alt="Etiqueta Producto" />
+        </div>
+        {{/if_eq}}
+        {{/if_eq}}
+        {{/if_eq}}
+        <div class="producto_nombre_descripcion">
+            <h6>{{DescripcionMarca}}</h6>
+            {{#if_eq FlagNueva '1'}}
+            <p class="nombre_producto">
+                <b>{{DescripcionCUVSplit}}</b>
+            </p>
+            {{else}}
+            <p class="nombre_producto">
+                <b>{{DescripcionCUV2}}</b>
+            </p>
+            {{/if_eq}}
 
-                    {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                    {{#if_eq EtiquetaID '1'}}
-                    <div class="producto_precio">
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                        {{/iff}}
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{else}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{/if_eq}}
-                    {{else}}
-                    <div class="producto_precio">
-                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                    </div>
-                    {{/iff}}
-                </div>
+            {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
+            {{#if_eq EtiquetaID '1'}}
+            <div class="producto_precio">
+                {{#iff Precio '>' 0}}
+                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                {{/iff}}
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
             </div>
-            <div class="producto_nombre_descripcion">
-                {{#iff TieneVariedad '==' '0'}}
-                {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{else}}
-                <div class="liquidacion_rango_home js-no-popup">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
-                    <div class="liquidacion_rango_right_pedido js-no-popup">
-                        <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
-                        <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
-                    </div>
-                </div>
-                <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                    AGR&Eacute;GALO
-                </a>
-                {{/iff}}
-                {{else}}
-                <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
-                    <div class="texto_elige_tono">
-                        ¡AHORA ELIGE TU TONO!
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn_elige_tono js-no-popup">
-                        <div>ELIGE TU OPCIÓN</div>
-                    </a>
-                </div>
-                {{/iff}}
-                <div class="clear"></div>
-                <div style="padding-top:9px; height: 15px;">
-                    <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                        AGREGADO
-                        <div class="icono"></div>
-                    </div>
-                </div>
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/if_eq}}
+            {{else}}
+            <div class="producto_precio">
+                <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+            </div>
+            {{/iff}}
+        </div>
+    </div>
+    <div class="producto_nombre_descripcion">
+        {{#iff TieneVariedad '==' '0'}}
+        {{#iff TipoEstrategiaImagenMostrar '==' '2'}}
+        <div class="liquidacion_rango_home">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: '{{Posicion}}' , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3]'}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
             </div>
         </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{else}}
+        <div class="liquidacion_rango_home js-no-popup">
+            <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup" data-input='cantidad' />
+            <div class="liquidacion_rango_right_pedido js-no-popup">
+                <a class="mas js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/mas.png")" alt="" /></a>
+                <a class="menos js-no-popup"><img class="js-no-popup" src="@Url.Content("~/Content/Images/Esika/menos.png")" alt="" /></a>
+            </div>
+        </div>
+        <a class="boton_Agregalo_home js-no-popup" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
+            AGR&Eacute;GALO
+        </a>
+        {{/iff}}
+        {{else}}
+        <div onclick="javascript:CargarEstrategiasEspeciales('', event);">
+            <div class="texto_elige_tono">
+                ¡AHORA ELIGE TU TONO!
+            </div>
+            <div class="clear"></div>
+            <a class="btn_elige_tono js-no-popup">
+                <div>ELIGE TU OPCIÓN</div>
+            </a>
+        </div>
+        {{/iff}}
+        <div class="clear"></div>
+        <div style="padding-top:9px; height: 15px;">
+            <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
+                AGREGADO
+                <div class="icono"></div>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
     {{/each}}
 </script>
@@ -1597,152 +1578,150 @@
             </div>
             <div class="content_right_ficha">
                 <div style="min-height:300px;">
-                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
-                        <div class="marca_producto">{{DescripcionMarca}}</div>
-                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
-                             {{#iff CodigoEstrategia '==' ''}} style="font-size:22px; line-height:30px;" {{/iff}}>
-                            {{DescripcionCompleta}}
-                        </div>
-                        @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
+                    <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_left_ficha" {{/iff}}>
+                    <div class="marca_producto">{{DescripcionMarca}}</div>
+                    <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
+                         {{#iff codigoestrategia '==' '' }} style="font-size:22px; line-height:30px;" {{/iff}}>
+                    {{DescripcionCompleta}}
+                </div>
+                @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
+            </div>
+            <div {{#iff codigoestrategia 'ContainsArray' '[2002,2003]' }} class="content_right_ficha" style="text-align:right;" {{/iff}}>
+            <div class="precio_ficha_producto">
+                {{#iff Precio '>' 0}}
+                <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                {{/iff}}
+                <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
+                @*<div class="ganancia_ficha">Gana S/.90</div>*@
+            </div>
+        </div>
+        <hr class="clear">
+        <div data-estrategia="{{CodigoEstrategia}}">
+            {{#iff CodigoEstrategia '!=' ''}}
+            {{#iff CodigoEstrategia '==' '2001'}}
+            <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                @*<div class="linea_gris" style="height:1px;"></div>*@
+                <!--SELECCION DE TONOS-->
+                <!--NUEVA MAQUETA-->
+                <div class="tono_select_opt">
+                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                        <hr class="clear">
                     </div>
-                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
-                        <div class="precio_ficha_producto">
-                            {{#iff Precio '>' 0}}
-                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
-                            {{/iff}}
-                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
-                            @*<div class="ganancia_ficha">Gana S/.90</div>*@
-                        </div>
-                    </div>
-                    <hr class="clear">
-                    <div data-estrategia="{{CodigoEstrategia}}">
-                        {{#iff CodigoEstrategia '!=' ''}}
-                        {{#iff CodigoEstrategia '==' '2001'}}
-                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
-                            @*<div class="linea_gris" style="height:1px;"></div>*@
-                            <!--SELECCION DE TONOS-->
-                            <!--NUEVA MAQUETA-->
-                            <div class="tono_select_opt">
-                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                    <hr class="clear">
-                                </div>
 
-                                <div class="content_tonos_select" style="display:none;">
-                                    {{#each this.Detalle as |Tono|}}
-                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
-                                        <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
-                                        <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
-                                        <hr class="clear" />
-                                    </div>
-                                    {{/each}}
-                                </div>
-                            </div>
-                            <!--FIN-->
-                            @*<select class="tono_labial_select" data-tono-change="">
-                                    {{#each this.Detalle as |item2|}}
-                                    <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
-                                    {{/each}}
-                                </select>*@
-                            <div class="content_tonos_maquillaje" data-tono-div="">
-                                {{#each this.Detalle as |item1|}}
-                                <div style="display: none;">
-                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
-                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                                </div>
-                                <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="2" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcion="{{item1.NombreComercial}}">
-                                    <img src="{{item1.ImagenBulk}}" alt="">
-                                    @*<div class="tooltip_tono">{{item1.NombreBulk}}</div>*@
-                                </div>
-                                {{/each}}
-                            </div>
-                            <!--FIN-->
-                        </div>
-                        {{/iff}}
-                        {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
-                        <div class="titulo_contenido">CONTENIDO</div>
-
-                        {{#each this.Detalle as |item1|}}
-
-                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
-                            <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
-                            </div>
-                            <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
-                                @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
-                                <div class="sub_nombre_producto">
-                                    <span class="cantidad_producto_opt">x{{item1.Cantidad}} </span>
-                                    <span data-tono-select-nombrecomercial="">{{item1.NombreComercial}}</span>
-                                </div>
-                                @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
-                            </div>
-                            {{#iff item1.Digitable '==' '1'}}
-                            <div class="content_right_ficha" style="width:50%;">
-                                <!--MAQUETADO NUEVO-->
-                                <div class="tono_select_opt">
-                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
-                                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
-                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
-                                        <hr class="clear">
-                                    </div>
-                                    <div class="content_tonos_select" style="width:102%;">
-                                        {{#each item1.Hermanos as |tono|}}
-                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
-                                            <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
-                                            <div class="texto_tono_seleccionado">{{tono.NombreBulk}}</div>
-                                            <hr class="clear">
-                                        </div>
-                                        {{/each}}
-                                    </div>
-                                </div>
-                                <!--FIN-->
-                                @*<div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
-                                    <div>
-                                        <div class="combo_select_tono">
-                                            <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
-                                        </div>
-                                        <div class="content_tonos_ficha">
-                                            {{#each item1.Hermanos as |tono|}}
-                                            <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
-                                                <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
-                                            </div>
-                                            {{/each}}
-                                        </div>
-                                    </div>*@
-                            </div>
-                            {{/iff}}
+                    <div class="content_tonos_select" style="display:none;">
+                        {{#each this.Detalle as |Tono|}}
+                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
+                            <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
+                            <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
                             <hr class="clear" />
                         </div>
                         {{/each}}
-                        {{/iff}}
-                        {{/iff}}
                     </div>
                 </div>
-                <hr class="clear" />
-                <div class="liquidacion_rango_home">
-                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
-                    <div class="liquidacion_rango_right_pedido">
-                        <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
-                        <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                <!--FIN-->
+                @*<select class="tono_labial_select" data-tono-change="">
+                        {{#each this.Detalle as |item2|}}
+                        <option value="{{item2.CUV}}">{{item2.NombreBulk}}</option>
+                        {{/each}}
+                    </select>*@
+                <div class="content_tonos_maquillaje" data-tono-div="">
+                    {{#each this.Detalle as |item1|}}
+                    <div style="display: none;">
+                        <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                        <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                     </div>
+                    <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="2" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcion="{{item1.NombreComercial}}">
+                        <img src="{{item1.ImagenBulk}}" alt="">
+                        @*<div class="tooltip_tono">{{item1.NombreBulk}}</div>*@
+                    </div>
+                    {{/each}}
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
-                    AGRÉGALO
-                </a>
-                {{#if MostrarTextoLibre}}
-                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
-                    <span class="icono_advertencia_notificacion"></span>
-                    <span>{{TextoLibre}}</span>
-                </div>
-                {{/if}}
-                @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
+                <!--FIN-->
             </div>
-            <hr class="clear" />
-        </div>
+            {{/iff}}
+            {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
+            <div class="titulo_contenido">CONTENIDO</div>
 
+            {{#each this.Detalle as |item1|}}
+
+            <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
+                <div style="display: none;">
+                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                </div>
+                <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
+                    @*<div class="marca_producto">{{item1.DescripcionMarca}}</div>*@
+                    <div class="sub_nombre_producto">
+                        <span class="cantidad_producto_opt">x{{item1.Cantidad}} </span>
+                        <span data-tono-select-nombrecomercial="">{{item1.NombreComercial}}</span>
+                    </div>
+                    @*<div class="sub_precio">Precio regular: {{Simbolo}} {{item1.PrecioCatalogoString}}</div>*@
+                </div>
+                {{#iff item1.Digitable '==' '1'}}
+                <div class="content_right_ficha" style="width:50%;">
+                    <!--MAQUETADO NUEVO-->
+                    <div class="tono_select_opt">
+                        <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                            <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                            <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                            <hr class="clear">
+                        </div>
+                        <div class="content_tonos_select" style="width:102%;">
+                            {{#each item1.Hermanos as |tono|}}
+                            <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
+                                <div class="texto_tono_seleccionado">{{tono.NombreBulk}}</div>
+                                <hr class="clear">
+                            </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                    <!--FIN-->
+                    @*<div class="content_tono_principal"><img src="{{item1.ImagenBulkSelect}}" alt=""></div>
+                        <div>
+                            <div class="combo_select_tono">
+                                <span data-tono-select-html="">{{item1.NombreBulkSelect}}</span> <span class="mas_info_tono">+</span>
+                            </div>
+                            <div class="content_tonos_ficha">
+                                {{#each item1.Hermanos as |tono|}}
+                                <div class="content_tono_combo" data-tono-change="" data-tono-cuv="{{tono.CUV}}">
+                                    <img src="{{tono.ImagenBulk}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-cuv="{{tono.CUV}}" data-tono-descripcionComercial="{{tono.NombreComercial}}" alt="PRODUCTO">
+                                </div>
+                                {{/each}}
+                            </div>
+                        </div>*@
+                </div>
+                {{/iff}}
+                <hr class="clear" />
+            </div>
+            {{/each}}
+            {{/iff}}
+            {{/iff}}
+        </div>
     </div>
+    <hr class="clear" />
+    <div class="liquidacion_rango_home">
+        <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" data-cantidad-input="-">
+        <div class="liquidacion_rango_right_pedido">
+            <a class="mas" data-cantidad-agregar="+"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+            <a class="menos" data-cantidad-agregar="-"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+        </div>
+    </div>
+    <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+        AGRÉGALO
+    </a>
+    {{#if MostrarTextoLibre}}
+    <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
+        <span class="icono_advertencia_notificacion"></span>
+        <span>{{TextoLibre}}</span>
+    </div>
+    {{/if}}
+    @*<div class="notificacion_cantidad">Limitado a 5 packs por consultora</div>*@
+    
+    <hr class="clear" />
+
 </script>
 
 <script id="miscursos-template" type="text/x-handlebars-template">
@@ -2357,9 +2336,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -2471,7 +2450,6 @@
 </div>
 <!--FIN-->
 <!--POP UP DE CUPON-->
-
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGana.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmar.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanaste.cshtml")
@@ -2481,75 +2459,76 @@
 <!-- POPUP REVISTA DIGITAL Suscripcion -->
 @if (@ViewBag.TieneRDS == true)
 {
-<div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
-    <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="" >
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
-        </a>
-        <div class="popup_rd_cabecera">
-            <div class="rd_logo">
-                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
-            </div>
-            <div class="popup_cabecera_text" style="top: 14px;">
-                <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                <div>INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE</div>
-            </div>
-        </div>
-        <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
-            <div class="popup_rd_text">
-                <div class="popup_saludo">@Model.SobreNombre, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
-                <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
-                <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
-                <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>
-                <div class="rd_desc" style="top: 120px; left: 124px;">Productos que tus<br>clientes piden</div>
-                <div class="btn_diagonal"><a href="javascript: RDSuscripcion()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-            </div>
-            <div class="popup-textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
-        </div>
-        <div class="rid_text" style="left: 10px">
-            <div class="rid_tit">ANTES</div>
-            <hr class="rid_line">
-            <div>REVISTA IMPRESA</div>
-        </div>
-        <div class="rid_text" style="right: 10px; text-align: right;">
-            <div class="rid_tit">AHORA</div>
-            <hr class="rid_line">
-            <div>REVISTA ONLINE</div>
-        </div>
-        <div class="popup_revistaSuscripcion_noAMostrarMensaje">
-            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
-        </div>
-    </div>
-</div>
-<!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
-<!-- POPUP INSCRITA A REVISTA DIGITAL -->
-<div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(1)">
-    <div class="popup_rd rd_confirmacion" style="width: 620px;" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" data-popup-close="">
-            <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
-        </a>
-        <div class="popup_rd_cabecera">
-            <div class="rd_logo" style="width: 160px;">
-                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
-            </div>
-            <div class="popup_cabecera_text" style="top: 22px; left: 190px;">
-                <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                <div>INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA</div>
-            </div>
-        </div>
-        <div class="popup_rd_content" style="background-color: #f2eeef">
-            <div class="popup_rd_text">
-                <div class="popup_saludo" style="font-size: 15px;">¡FELICIDADES @Model.SobreNombre ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
-                <div class="rd_desc" style="top: 75px;">A partir de la C-@Model.CampaniaMasDos tu revista online reemplazará a tu revista impresa.</div>
-                <div class="btn_diagonal"><a href="javascript: RDSuscripcionRedireccionar()">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
-                <div class="rd_desc" style="top: 210px;">Para cancelar tu inscripción 
-                    <a href="javascript: RDRedireccionarDesuscripcion()" style="display: inline-block; text-decoration: underline;">ingresa aquí.</a>
+    <div class="Content_general_pop_up" id="PopRDSuscripcion" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(0)">
+        <div class="popup_rd rd_inscripcion" style="width: 940px;" data-popup-body="">
+            <a class="cerrar_fichaProducto" style="position: absolute; top:0px; right: 65px;" data-popup-close="">
+                <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+            </a>
+            <div class="popup_rd_cabecera">
+                <div class="rd_logo">
+                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
+                </div>
+                <div class="popup_cabecera_text" style="top: 14px;">
+                    <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    <div>INCREMENTA TUS GANANCIAS EN MÁS DE 20% REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE</div>
                 </div>
             </div>
-            <img class="rd_cons" src="/Content/Images/RevistaDigital/rd_cons.png" />
+            <div class="popup_rd_content" style="background: url(/Content/Images/RevistaDigital/fondo_popup.jpg)">
+                <div class="popup_rd_text">
+                    <div class="popup_saludo">@Model.SobreNombre, RECIBE OFERTAS CREADAS ÚNICAMENTE PARA TI</div>
+                    <div class="rd_tit" style="position: absolute; top: 60px;">GANA <span>+</span></div>
+                    <div class="rd_desc" style="top: 76px; left: 120px;">Hasta 65% descuento</div>
+                    <div class="rd_tit" style="position: absolute; top: 110px;">VENDE <span>+</span></div>
+                    <div class="rd_desc" style="top: 120px; left: 124px;">Productos que tus<br>clientes piden</div>
+                    <div class="btn_diagonal"><a href="javascript: RDSuscripcion()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+                </div>
+                <div class="popup-textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones.</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
+            </div>
+            <div class="rid_text" style="left: 10px">
+                <div class="rid_tit">ANTES</div>
+                <hr class="rid_line">
+                <div>REVISTA IMPRESA</div>
+            </div>
+            <div class="rid_text" style="right: 10px; text-align: right;">
+                <div class="rid_tit">AHORA</div>
+                <hr class="rid_line">
+                <div>REVISTA ONLINE</div>
+            </div>
+            <div class="popup_revistaSuscripcion_noAMostrarMensaje">
+                <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a mostrar este mensaje">No volver a mostrar este mensaje</a>
+            </div>
         </div>
     </div>
-</div>
+    <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
+    <!-- POPUP INSCRITA A REVISTA DIGITAL -->
+    <div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(1)">
+        <div class="popup_rd rd_confirmacion" style="width: 620px;" data-popup-body="">
+            <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" data-popup-close="">
+                <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
+            </a>
+            <div class="popup_rd_cabecera">
+                <div class="rd_logo" style="width: 160px;">
+                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
+                </div>
+                <div class="popup_cabecera_text" style="top: 22px; left: 190px;">
+                    <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    <div>INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA</div>
+                </div>
+            </div>
+            <div class="popup_rd_content" style="background-color: #f2eeef">
+                <div class="popup_rd_text">
+                    <div class="popup_saludo" style="font-size: 15px;">¡FELICIDADES @Model.SobreNombre ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
+                    <div class="rd_desc" style="top: 75px;">A partir de la C-@Model.CampaniaMasDos tu revista online reemplazará a tu revista impresa.</div>
+                    <div class="btn_diagonal"><a href="javascript: RDSuscripcionRedireccionar()">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
+                    <div class="rd_desc" style="top: 210px;">
+                        Para cancelar tu inscripción
+                        <a href="javascript: RDRedireccionarDesuscripcion()" style="display: inline-block; text-decoration: underline;">ingresa aquí.</a>
+                    </div>
+                </div>
+                <img class="rd_cons" src="/Content/Images/RevistaDigital/rd_cons.png" />
+            </div>
+        </div>
+    </div>
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
@@ -2565,18 +2544,19 @@
     {{/each}}
 </script>
 <!--EPD-1204 FIN-->
-
-
 @section scripts{
     <script type="text/javascript">
         $(document).ready(function () {
+
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
-                
+
             });
         });
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
@@ -2642,6 +2622,8 @@
         var popupFlexipago = '@Constantes.TipoPopUp.Flexipago';
         var popupComunicado = '@Constantes.TipoPopUp.Comunicado';
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
+        var popupCupon = '@Constantes.TipoPopUp.Cupon';
+        var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
 
@@ -2675,9 +2657,9 @@
 
             $('div.contenedor_img_perfil').show();
         }
-               
 
         var tieneCupon = '@Model.TieneCupon';
+        var tieneMasVendidos = @Model.TieneMasVendidos;
         var paginaOrigenCupon = 1;
         var esEmailActivo = '@Model.EmailActivo';
         var baseUrl = "@Url.Content("~")";
@@ -2685,6 +2667,7 @@
         var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

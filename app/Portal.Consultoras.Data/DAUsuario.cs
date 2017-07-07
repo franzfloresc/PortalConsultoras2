@@ -613,6 +613,7 @@ namespace Portal.Consultoras.Data
             return Convert.ToBoolean(Context.ExecuteScalar(command));
         }
 
+        
         public int UpdateUsuarioEmailTelefono(long ConsultoraID, string Email, string Telefono)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioEMailCDRWeb");
@@ -624,7 +625,6 @@ namespace Portal.Consultoras.Data
 
             return Convert.ToInt32(command.Parameters["@RetornoSiNoCorreoNuevo"].Value);
         }
-        
         /*PL20-1226*/
         //public int GetEsOfertaDelDia(int codCampania, string codConsultora, DateTime fechaInicioFact)
         //{
@@ -728,6 +728,7 @@ namespace Portal.Consultoras.Data
         }
          * */
 
+        
         public IDataReader GetListaLoginExterno(string codigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetListaLoginExterno");

@@ -10,7 +10,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using System.Linq;
 using System.ServiceModel;
