@@ -846,9 +846,9 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>@Model.TextoSobrenombre</label>
-                        @if (Model.PaisID != 4)
+                        @if (Model.PaisID == 4)
                         {
-                        <input type="text" disabled="disabled" name="txtSobrenombre" id="txtSobrenombreMD" />
+                        <input type="text" readonly disabled="disabled" name="txtSobrenombre" id="txtSobrenombreMD" />
                         }
                         else {
                         <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
@@ -856,9 +856,9 @@
                     </div>
                     <div>
                         <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico</label>
-                        @if (Model.PaisID != 4)
+                        @if (Model.PaisID == 4)
                         {
-                            <input type="text" disabled="disabled" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                            <input type="text" readonly disabled="disabled" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
                         }
                         else
                         {
@@ -869,9 +869,9 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono</label>
-                        @if (Model.PaisID != 4)
+                        @if (Model.PaisID == 4)
                         {
-                            <input type="text" disabled="disabled" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                            <input type="text" readonly disabled="disabled" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
                         }
                         else
                         {
@@ -880,9 +880,9 @@
                     </div>
                     <div>
                         <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular</label>
-                        @if (Model.PaisID != 4)
+                        @if (Model.PaisID == 4)
                         {
-                            <input type="text" disabled="disabled" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                            <input type="text" readonly disabled="disabled" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
                         }
                         else
                         {
@@ -893,7 +893,14 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label><span class="asterisco_actualizar_datos"></span>Otro teléfono:</label>
-                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" readonly disabled="disabled" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
