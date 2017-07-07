@@ -4079,6 +4079,10 @@
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
