@@ -37,13 +37,13 @@ namespace Portal.Consultoras.Common
             { "CL", "+562" },
             { "CO", "+57" },
             { "CR", "+506" },
-            { "DO", "+1" },
+            { "DO", "+1(809)" },
             { "EC", "+593" },
             { "GT", "+502" },
             { "MX", "+01" },
             { "PA", "+595" },
             { "PE", "+51" },
-            { "PR", "+1" },
+            { "PR", "+1(787)" },
             { "SV", "+503" },
             { "VE", "+58" }
         };
@@ -74,13 +74,13 @@ namespace Portal.Consultoras.Common
             { "CL", "+569" },
             { "CO", "+57" },
             { "CR", "+506" },
-            { "DO", "+1" },
+            { "DO", "+1(809)" },
             { "EC", "+593" },
             { "GT", "+502" },
             { "MX", "+52" },
             { "PA", "+595" },
             { "PE", "+51" },
-            { "PR", "+1" },
+            { "PR", "+1(787)" },
             { "SV", "+503" },
             { "VE", "+58" }
         };
@@ -262,13 +262,13 @@ namespace Portal.Consultoras.Common
             { "CL", "Ciudad (Región)" },
             { "CO",  "Departamento" },
             { "CR", "Provincia" },
-            { "DO", "" },
+            { "DO", "Provincia" },
             { "EC", "Provincia" },
             { "GT", "Departamento" },
             { "MX", "Estado" },
             { "PA", "Provincia" },
             { "PE", "Departamento" },
-            { "PR", "" },
+            { "PR", "Municipio" },
             { "SV", "Departamento" },
             { "VE", "" }
         };
@@ -282,13 +282,13 @@ namespace Portal.Consultoras.Common
             { "CL", "Comuna" },
             { "CO", "Ciudad" },
             { "CR", "Canton" },
-            { "DO", "" },
+            { "DO", "Municipio" },
             { "EC", "Ciudad" },
             { "GT", "Municipio" },
             { "MX", "Municipio" },
             { "PA", "Distrito" },
             { "PE", "Provincia" },
-            { "PR", "" },
+            { "PR", "Barrio" },
             { "SV", "Municipio" },
             { "VE", "" }
         };
@@ -302,13 +302,13 @@ namespace Portal.Consultoras.Common
             { "CL", "" },
             { "CO", "" },
             { "CR", "Distrito" },
-            { "DO", "" },
+            { "DO", "Barrio" },
             { "EC", "Barrio/Ciudadela" },
             { "GT", "Centro Poblado" },
             { "MX", "" },
             { "PA", "Corregimiento" },
             { "PE", "Distrito" },
-            { "PR", "" },
+            { "PR", "SubBarrio" },
             { "SV", "Canton" },
             { "VE", "" }
         };
@@ -381,59 +381,8 @@ namespace Portal.Consultoras.Common
             { "MX", "IFE" },
             { "PA", "DNI/RUC" },
             { "PE", "DNI/RUC" },
-            { "PR", "DNI/RUC" },
+            { "PR", "C" },
             { "SV", "DNI/RUC" },
-            { "VE", "" }
-        };
-        
-        public static Dictionary<string, string> TemplateUbigeos = new Dictionary<string, string>
-        {
-            { "BO", "" },
-            { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
-            { "CO", "TemplatesUbigeos/_UbigeoGrupo1"},
-            { "CR", "TemplatesUbigeos/_UbigeoGrupo4" },
-            { "DO", "" },
-            { "EC", "TemplatesUbigeos/_UbigeoGrupo5" },
-            { "GT", "TemplatesUbigeos/_UbigeoGrupo4" },
-            { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
-            { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
-            { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
-            { "PR", "" },
-            { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
-            { "VE", "" }
-        };
-
-        public static Dictionary<string, string> TemplatDatosGenerales = new Dictionary<string, string>
-        {
-            { "BO", "" },
-            { "CL", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "CO", "TemplatesDatosGenerales/_DatosGeneralesGrupo2"},
-            { "CR", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "DO", "" },
-            { "EC", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "GT", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "MX", "TemplatesDatosGenerales/_DatosGeneralesGrupo1" },
-            { "PA", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "PE", "TemplatesDatosGenerales/_DatosGeneralesGrupo3" },
-            { "PR", "" },
-            { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
-            { "VE", "" }
-        };
-
-        public static Dictionary<string, string> CabeceraDniAval = new Dictionary<string, string>
-        {
-            { "BO", "" },
-            { "CL", "DNI Aval" },
-            { "CO", "DNI Aval"},
-            { "CR", "DNI Aval" },
-            { "DO", "" },
-            { "EC", "DNI Reverso" },
-            { "GT", "DNI Aval" },
-            { "MX", "DNI Aval" },
-            { "PA", "DNI Aval" },
-            { "PE", "DNI Aval" },
-            { "PR", "DNI Aval" },
-            { "SV", "DNI Aval" },
             { "VE", "" }
         };
 
@@ -451,6 +400,56 @@ namespace Portal.Consultoras.Common
             { "PE", "Comprobante Domicilio" },
             { "PR", "Comprobante Domicilio" },
             { "SV", "Comprobante Domicilio" },
+            { "VE", "" }
+        };
+
+        public static Dictionary<string, string> CabeceraDniAval = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "DNI Aval" },
+            { "CO", "DNI Aval"},
+            { "CR", "DNI Aval" },
+            { "DO", "" },
+            { "EC", "DNI Reverso" },
+            { "GT", "DNI Aval" },
+            { "MX", "DNI Aval" },
+            { "PA", "DNI Aval" },
+            { "PE", "DNI Aval" },
+            { "PR", "" },
+            { "SV", "DNI Aval" },
+            { "VE", "" }
+        };
+        public static Dictionary<string, string> TemplateUbigeos = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "TemplatesUbigeos/_UbigeoGrupo1" },
+            { "CO", "TemplatesUbigeos/_UbigeoGrupo1"},
+            { "CR", "TemplatesUbigeos/_UbigeoGrupo4" },
+            { "DO", "TemplatesUbigeos/_UbigeoGrupo7" },
+            { "EC", "TemplatesUbigeos/_UbigeoGrupo5" },
+            { "GT", "TemplatesUbigeos/_UbigeoGrupo4" },
+            { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
+            { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
+            { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
+            { "PR", "TemplatesUbigeos/_UbigeoGrupo7" },
+            { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
+            { "VE", "" }
+        };
+
+        public static Dictionary<string, string> TemplatDatosGenerales = new Dictionary<string, string>
+        {
+            { "BO", "" },
+            { "CL", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "CO", "TemplatesDatosGenerales/_DatosGeneralesGrupo2"},
+            { "CR", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "DO", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "EC", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "GT", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "MX", "TemplatesDatosGenerales/_DatosGeneralesGrupo1" },
+            { "PA", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "PE", "TemplatesDatosGenerales/_DatosGeneralesGrupo3" },
+            { "PR", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
+            { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
     }

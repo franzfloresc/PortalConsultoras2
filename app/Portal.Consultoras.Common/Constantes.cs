@@ -1,4 +1,5 @@
-﻿namespace Portal.Consultoras.Common
+﻿using System.Collections.Generic;
+namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -118,6 +119,10 @@
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
             public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
         
         public class ParametrosNames
@@ -269,6 +274,7 @@
             public const int MobileShowRoomProductPageTactica = 2533;
             
             public const int MobileHomeOfertasParaTi = 2121;
+            public const int MobileHomeMasVendidos = 2123;
 
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
@@ -320,6 +326,14 @@
             /* FIN Revista Digital */
         }
 
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
+        }
+
         public class COTipoAtencionMensaje
         {
             public const string Agotado = "Agotado";
@@ -333,14 +347,6 @@
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
         
-        public class TipoTutorial
-        {
-            public const int Video = 1;
-            public const int Desktop = 2;
-            public const int Salvavidas = 3;
-            public const int Mobile = 4;
-        }
-
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
@@ -353,6 +359,7 @@
             public const int Aceptado = 3;
             public const int Observado = 4;
         }
+
 
         public class TipoMensajeCDR
         {
@@ -378,7 +385,6 @@
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
         }
-
         public class CdrWebMensajes
         {
             public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
@@ -422,6 +428,14 @@
             public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
 
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+            
+        }
+        
         public class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
@@ -429,13 +443,6 @@
 
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
-        }
-
-        public class ValidacionExisteUsuario
-        {
-            public const int NoExiste = 0;
-            public const int ExisteDiferenteClave = 1;
-            public const int Existe = 2;
         }
         
         public class MensajeEstaEnRevista
@@ -528,10 +535,20 @@
             }
         }
 
+        public class MatrizNemotecnicoMensajes
+        {
+            public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
+            public const string PlaceHolderTextoNemotecnico = "Ingrese patrón de búsqueda";
+            public const string TextoBotonBuscar = "Buscar por nemotécnico";
+            public const string TextoBotonLimpiar = "Limpiar filtros nemotécnico";
+            public const string TextoBusquedaExacta = "B.Exacta";
+        }
+
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
         public class MenuCodigo
         {
             public const string RevistaShowRoom = "ShowRoom";
@@ -581,13 +598,39 @@
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
         }
+        
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+            public const int Utilizado = 3;
+        }
 
+        public class NombreEstadoCupon
+        {
+            public const string Reservado = "Registrado";
+            public const string Activo = "Activado";
+            public const string Utilizado = "Utilizado";
+        }
+
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }
+
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+	
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
         }
-        
+
         public class ConfiguracionPais
         {
             public const string RevistaDigital = "RD";
@@ -609,7 +652,21 @@
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-        
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
+        }
+
+        public class TipoBusqueda
+        {
+            public const int Aproximacion = 1;
+            public const int Exacta = 2;
+        }
+
         public class TooltipLoginPassword
         {
             public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
@@ -644,18 +701,143 @@
             public const int Plan20 = 98;
         }
 
-        public class EstadoCupon
+
+        #region Clientes
+        public class ClienteTipoContacto
         {
-            public const int Reservado = 1;
-            public const int Activo = 2;
+            public const short Celular = 1;
+            public const short TelefonoFijo = 2;
+            public const short Correo = 3;
+            public const short Direccion = 4;
+            public const short Referencia = 5;
         }
 
-        public class TipoOfertasPlan20
+        public class ClienteCelularValidacion
         {
-            public const int OfertaFinal = 35;
-            public const int Showroom = 44;
-            public const int OPT = 45;
-            public const int ODD = 46;
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"BO", @""},
+                        {"CL", @"^(?:(9)[0-9]{8}|)$"},
+                        {"CO", @"^(?:(3)[0-9]{9}|)$"},
+                        {"CR", @"^[0-9]{8}$"},
+                        {"DO", @""},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                        {"GT", @"^[0-9]{8}$"},
+                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{10}$.*$"},
+                        {"PA", @"^[0-9]{8}$"},
+                        {"PE", @"^(?:(9)[0-9]{8}|)$"},
+                        {"PR", @""},
+                        {"SV", @"^[0-9]{8}$"},
+                        {"VE", @""},
+                    });
+                }
+            }
         }
+
+        public class ClienteTelefonoValidacion
+        {
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"BO", @""},
+                        {"CL", @""},
+                        {"CO", @"^(?:[0-9]{7}|)$"},
+                        {"CR", @"^(?:[0-9]{8}|)$"},
+                        {"DO", @""},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                        {"GT", @"^(?:[0-9]{8}|)$"},
+                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{8,12}$.*$"},
+                        {"PA", @"^(?:[0-9]{8}|)$"},
+                        {"PE", @"^(?:[0-9]{7,9}|)$"},
+                        {"PR", @""},
+                        {"SV", @"^(?:[0-9]{8}|)$"},
+                        {"VE", @""},
+                    });
+                }
+            }
+        }
+
+        public class ClienteValidacion
+        {
+            private static Dictionary<string, string> _Message;
+
+            public class Code
+            {
+                public const string SUCCESS = "0";
+                public const string ERROR_FORMATOTELCELULAR = "1";
+                public const string ERROR_FORMATOTELFIJO = "2";
+                public const string ERROR_NOMBRENOENVIADO = "3";
+                public const string ERROR_NUMEROTELEFONONOENVIADO = "4";
+                public const string ERROR_FORMATOCORREO = "5";
+                public const string ERROR_CONTACTOSNOENVIADO = "6";
+                public const string ERROR_TIPOCONTACTOVALORNOENVIADO = "7";
+                public const string ERROR_CONSULTORANOMBREEXISTE = "8";
+                public const string ERROR_CONSULTORATELEFONOEXISTE = "9";
+                public const string ERROR_NUMEROTELEFONOEXISTE = "10";
+                public const string ERROR_CLIENTENOREGISTRADO = "11";
+                public const string ERROR_CLIENTENOACTUALIZADO = "12";
+
+                //public const string ERROR_ORIGENNOENVIADO = "6";
+                //public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
+                
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
+                        {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
+                        {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
+                        {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente debe tener un teléfono de contacto."},
+                        {Code.ERROR_FORMATOCORREO, "Formato de correo incorrecto."},
+                        {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
+                        {Code.ERROR_TIPOCONTACTOVALORNOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
+                        {Code.ERROR_CONSULTORANOMBREEXISTE, "Nombre ya se encuentra registrado para la consultora."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
+                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
+                        {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
+                        {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
+
+                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},                        
+                        //{Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
+                    });
+                }
+            }
+        }
+
+        public class ClienteEstado
+        {
+            public const short Activo = 1;
+            public const short Inactivo = 0;
+        }
+
+        public class ClienteTipoRegistro
+        {
+            public const short Todos = 0;
+            public const short DatosGenerales = 1;
+            public const short TipoContacto = 2;
+        }
+
+        public class ClienteOrigen
+        {
+            public const string Desktop = "SOMOS_BELCORP_DESKTOP";
+            public const string Mobile = "SOMOS_BELCORP_MOBILE";
+        }
+        #endregion
     }
 }

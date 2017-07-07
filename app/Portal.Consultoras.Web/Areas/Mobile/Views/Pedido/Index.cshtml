@@ -9,6 +9,11 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <style>
+        #divAgregarCliente {
+            display:none
+        }
+    </style>
 <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
@@ -207,12 +212,11 @@
     }
     <!--FIN-->
 
-
-
     <!--INICIO CARRUSEL-->
-    <div id="divListaEstrategias" style="display: none;">
+    <div id="divListaEstrategias" style="display:none">
         <div id="contenedor_template_estrategia_cabecera"></div> 
     </div>
+
     <!--FIN CARRUSEL-->
 
     <div class="btn_agregarPedido">
@@ -328,7 +332,12 @@
 <!--SB20-483 - FIN -->
 
 <!-- POPUP AGREGAR CLIENTE -->
-<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
+<div class="contenedor_popup_clientes modal" id="divAgregarCliente">
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
+</div>
+@*<div class="contenedor_popup_clientes" id="divAgregarClientePedido">
     <div class="popup_agregarCliente">
         <div class="btn_cerrar_agregarUnidades">
             <a href="javascript:;" onclick="CerrarMantenerCliente();">
@@ -358,7 +367,7 @@
         </div>
         <input type="button" class="btnCliente_agregar" name="agregarCliente" value="GUARDAR" onclick="AgregarMantenerCliente();" />
     </div>
-</div>
+</div>*@
 <!-- FIN POPUP AGREGAR CLIENTE -->
 
 <!-- POPUP CLIENTE AGREGADO -->
@@ -667,52 +676,59 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
-    var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
-    var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
-    if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaMobile';
-    else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelMobile';
-    var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
-    var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
+        var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
+        var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
+        if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaMobile';
+        else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelMobile';
+        var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+        var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
-    var cantProductosLoad = 'Model.ListaEstrategias.Count';
-    var posicion = -1;
-    var posicionAnteriorPrimeraEstrategia = 0;
-    var posicionAnteriorUltimaEstrategia = 0;
-    var esTipoDrag = 0;
-    var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
-    var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
+        var cantProductosLoad = 'Model.ListaEstrategias.Count';
+        var posicion = -1;
+        var posicionAnteriorPrimeraEstrategia = 0;
+        var posicionAnteriorUltimaEstrategia = 0;
+        var esTipoDrag = 0;
+        var ofertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+        var ofertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
 
-    var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
-    var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
-    var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
-    var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
-    var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
-    var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlPedidoInsert = '@Url.Action("Insert", "Pedido", new {area = ""})';
+        var urlFindByCUV = '@Url.Action("FindByCUV", "Pedido", new {area = ""})';
+        var urlObtenerProductosSugeridos = '@Url.Action("ObtenerProductosSugeridos", "Pedido", new { area = "" })';
+        var urlIngresoFAD = '@Url.Action("IngresoFAD", "Pedido", new {area = ""})';
+        var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new {area = ""})';
+        var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
 
-    var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
-    var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
+        var urlCarruselPrev = "@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")";
+        var urlCarruselNext = "@Url.Content("~/Content/Images/mobile/Esika/next.png")";
 
-    var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
-    var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
-    var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
-    var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login")';
-    var paisIDSesion = '@Model.PaisId';
+        var urlValidarUnidadesPermitidasPedidoProducto = '@Url.Action("ValidarUnidadesPermitidasPedidoProducto", "Accesorizate", new {area = ""})';
+        var urlObtenerStockActualProducto = '@Url.Action("ObtenerStockActualProducto", "Accesorizate", new {area = ""})';
+        var urlEnHorarioRestringido = '@Url.Action("EnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlSesionExperirada = '@Url.Action("SesionExpirada", "Login")';
+        var paisIDSesion = '@Model.PaisId';
 
-    var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
-    var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+        var urlValidadoPedido = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
 
-    var simbolo = '@Model.Simbolo';
-    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-    var vbSimbolo = simbolo;
-    var productoSugerido = false
-    var productoAgotado = false;
-    var tieneCupon = '@Model.TieneCupon';
+        var simbolo = '@Model.Simbolo';
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var vbSimbolo = simbolo;
+        var productoSugerido = false
+        var productoAgotado = false;
+
+    var tipoOrigenEstrategia = 21;
+    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+
+    var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
+        var tieneCupon = '@Model.TieneCupon';
+        //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
-    var tipoOrigenEstrategia = 21;
-    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var tipoOrigenEstrategia = 21;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
         var paisISO = '@ViewBag.paisISO';
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';

@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         }
         public ActionResult Detalle(int id, int origen)
         {
-            var modelo = EstrategiaGetDetalle(id);
+            var modelo = EstrategiaGetDetalle(id, "", origen);
             var origenPantalla = Util.Trim(origen.ToString()).Substring(1, 1);
            
             if (modelo.EstrategiaID <= 0)

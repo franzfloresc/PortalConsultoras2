@@ -59,7 +59,13 @@
     <Compile Include="BaseEntidad.cs" />
     <Compile Include="BEAdministracionOfertaProducto.cs" />
     <Compile Include="BEAfiliaClienteConsultora.cs" />
+    <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
+    <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
+    <Compile Include="BEOfertaFinalConsultoraLog.cs" />
+    <Compile Include="BEClienteContactoDB.cs" />
+    <Compile Include="BEClienteDB.cs" />
+    <Compile Include="BEClienteResponse.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
@@ -67,6 +73,7 @@
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />
+    <Compile Include="BEMisPedidosAppCatalogo.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
     <Compile Include="BEProductoBusqueda.cs" />
     <Compile Include="BEConsultoraEmail.cs" />
@@ -185,13 +192,15 @@
     <Compile Include="BEOfertaFIC.cs" />
     <Compile Include="BEOfertaNueva.cs" />
     <Compile Include="BEOfertaProducto.cs" />
+    <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="BEPedidoDescarga.cs" />
     <Compile Include="BEPedidoRechazadoSicc.cs" />
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
-    <Compile Include="Cupon\BECuponConsultora.cs" />
+    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
+    <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />
     <Compile Include="ShowRoom\BEShowRoomCompraPorCompra.cs" />
     <Compile Include="ShowRoom\BEShowRoomNivel.cs" />
@@ -280,7 +289,6 @@
     <Compile Include="CDR\BECDRWebDetalle.cs" />
     <Compile Include="CDR\BECDRWebMotivoOperacion.cs" />
     <Compile Include="Enumerations.cs" />
-    <Compile Include="BEPedidoRechazado.cs" />
     <Compile Include="BEPopupPais.cs" />
     <Compile Include="BELogConfiguracionCronograma.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

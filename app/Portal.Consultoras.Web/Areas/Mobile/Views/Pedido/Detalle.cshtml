@@ -286,10 +286,7 @@
             <div class="label_pedido_cupon">
                 <div class="icono_pedido_cupon"><img src="@Url.Content("~/Content/Images/PL20/icono_cupon.png")" /></div>
             </div>
-            <div class="texto_cupon_black texto_cupon">Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
-            @*<div class="texto_cupon">
-                Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-            </div>*@
+            <div class="texto_cupon_black texto_cupon">Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00</div>
         </div>
     </div>
         
@@ -342,7 +339,15 @@
 
                             {{/if_eq}}
                         </span>
-                        <span class="cod_prod">{{detalle.CUV}}</span>
+                        <span class="cod_prod">
+                            {{#if detalle.EstadoSimplificacionCuv}}
+                            {{#if detalle.IndicadorOfertaCUV}}
+                            <input type="hidden" name="ExisteIndicadorOfertaCUV" class="ExisteIndicadorOfertaCUV" value="true" />
+                            <span class="icon-advertencia"></span>
+                            {{/if}}
+                            {{/if}}
+                            {{detalle.CUV}}
+                        </span>
                         <span class="desc_prod">
                             {{#iff detalle.IndicadorMontoMinimo '==' 0}}
                             <span class="texto_rojo">*</span>
@@ -536,8 +541,8 @@
 <!--SB20-565 - INICIO -->
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="">
-        <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body=""> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
+        <a class="cerrar_popMobile" href="javascript:;" data-popup-close="divOfertaFinal" onclick="of_google_analytics_cerrar_popup()">
             <img src="/Content/Images/mobile/Esika/cerrar_04.png" alt="Cerrar">
         </a>
         <!---->
@@ -545,30 +550,26 @@
             <div class="icono_alerta {{ofIconoSuperior}}" id="ofIconoSuperior" style="margin-top:10px; margin-bottom:10px;"></div>
 
             <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
-                {{#iff TipoMeta '==' 'MM'}}
+                {{#if_eq TipoMeta 'MM'}}
                 <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'GM'}}
+                {{else if_eq TipoMeta 'GM'}}
                 <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'ME'}}
+                {{else}} <!--se espera escala de dscto-->
                 <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
-                {{/iff}}
+                {{/if_eq}}
             </h1>
             <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
-                {{#iff TipoMeta '==' 'MM'}}
+                {{#if_eq TipoMeta 'MM'}}
                 <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
-                {{/iff}}
-                {{#iff TipoMeta '==' 'GM'}}
-                {{#iff Cross '==' '1'}}
-                <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
-                {{else}}
-                <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
-                {{/iff}}
-                {{/iff}}
-                {{#iff TipoMeta '==' 'ME'}}
+                {{else if_eq TipoMeta 'GM'}}
+                    {{#iff Cross '==' '1'}}
+                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                    {{else}}
+                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                    {{/iff}}
+                {{else}}    <!--se espera escala de dscto-->
                 <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
-                {{/iff}}
+                {{/if_eq}}
             </div>
         </div>
 
@@ -576,7 +577,7 @@
             <div class="bloque_carousel" style="margin-top:-90px;">
                 <div class="slider center" id="divCarruselOfertaFinal" style="width: 100%">
                     {{#each this.Detalle}}
-                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{id}}">
+                    <div class="content_item_carrusel_ofertaFinal" data-item="ofertaFinal" data-id="{{ID}}">
                         <div style="display: none;">
                             <input type="hidden" class="hdOfertaFinalCuv" value="{{CUV}}" />
                             <input type="hidden" class="hdOfertaFinalTipoOfertaSisID" value="{{TipoOfertaSisID}}" />
@@ -598,9 +599,11 @@
                             <input type="hidden" class="hdOfertaFinalPrecioValorizadoString" value="{{PrecioValorizadoString}}" />
                             <input type="hidden" class="hdOfertaFinalPrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionComercial" value="{{DescripcionComercial}}" />
-                            <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartir}}" />
+                            <input type="hidden" class="hdOfertaFinalUrlCompartirFB" value="{{UrlCompartirFB}}" />
                             <input type="hidden" class="hdOfertaFinalDescripcionRelacionado" value="{{CUVComplemento}}" />
                             <input type="hidden" class="hdOfertaFinalCUVPedidoImagen" value="{{CUVPedidoImagen}}" />
+                            <input type="hidden" class="hdOfertaFinalID" value="{{ID}}" />
+                            <input type="hidden" class="hdOfertaFinalTipoMeta" value="{{TipoMeta}}" />
                         </div>
                         <div class="contenido_item_ofertaFinal">
                             <div class="producto_img_home" onclick="javascript:CargarVerDetalleOF(this, event);" data-id="{{id}}" data-verdetalle="" >
@@ -628,7 +631,7 @@
                                         <div class="clear"></div>
                                     </div>
                                 </div>
-                                <a class="boton_Agregalo_home agregarOfertaFinal">
+                                <a class="boton_Agregalo_home agregarOfertaFinal" onclick="of_google_analytics_addtocar('mobile','list',{{ID}},'{{TipoMeta}}')">
                                     AGRÉGALO
                                 </a>
                                 <div class="clear"></div>
@@ -644,9 +647,20 @@
                     {{/each}}
                 </div>
             </div>
-            <a href="javascript:;" title="RESERVA TU PEDIDO" class="enlace_btnNoGracias btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}">
+            <a href="javascript:;" title="RESERVA TU PEDIDO" class="enlace_btnNoGracias btnNoGraciasOfertaFinal" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                 RESERVA TU PEDIDO
             </a>
+        </div>
+        <div class="content_producto_alternativo" id="div-regalo-pn" style="display:none;">
+            <div class="content_imagen_alternativo">
+                <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
+            </div>
+            <div class="content-texto-producto-alternativo">
+                <div id="msg-regalo-pn2">
+                    Llega al monto mínimo <b>Gana 1 ÉSIKA MAGNAT</b>
+                </div>
+                <div style="display: none;" id="txt-disclaimer-pn" class="txt-ayuda1-pn"></div>
+            </div>
         </div>
     </div>
 </script>
@@ -654,7 +668,7 @@
 
 <!-- PL20 1287 - INICIO -->
     <script id="ofertaFinalVerDetalle-template" type="text/x-handlebars-template">
-        <div class="content_popMobile" data-item="" style="padding-bottom:0;">
+        <div class="content_popMobile" data-item="{{ID}}" style="padding-bottom:0;">
             <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinalVerDetalle').hide();">REGRESAR</a>
             <hr class="clear">
             <div class="content_imagen_ficha" style="overflow:hidden;">
@@ -665,7 +679,7 @@
             <div class="precio_ficha_producto">
                 {{#iff PrecioValorizado '>' '0'}}
                 <span class="precio_tachado_ficha">{{Simbolo}} {{PrecioValorizadoString}}</span><br />
-                {{/iff}}
+                {{/iff}}contenedor_carruselOfertaFinal
                 <span class="texto_comple_ficha">Precio para ti </span>&nbsp;{{Simbolo}} {{PrecioCatalogoString}}
             </div>
             {{#iff DescripcionRelacionado '!=' ''}}
@@ -679,9 +693,9 @@
                 <div data-compartir-campos="" style="display:none;">
                     <input type="hidden" class="CUV" value="{{CUV}}" />
                     <input type="hidden" class="rsFBMensaje" value="" />
-                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+                    <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
                     <input type="hidden" class="rsWAMensaje" value="" />
-                    <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+                    <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
                     <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
                     <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -690,6 +704,13 @@
                     <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
                     <input type="hidden" class="Volumen" value="{{Volumen}}" />
                     <input type="hidden" class="Palanca" value="OF" />
+                    <input type="hidden" class="ID" value="{{ID}}" />
+                    <input type="hidden" class="TipoMeta" value="{{TipoMeta}}" />
+                    <input type="hidden" class="PrecioValorizado" value="{{PrecioValorizado}}" />
+                    <input type="hidden" class="PrecioCatalogo" value="{{PrecioCatalogo}}" />
+                    <input type="hidden" class="PrecioValorizadoString" value="{{PrecioValorizadoString}}" />
+                    <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
+                    <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
                 </div>
                 <a class="btn_compartir_ofertas"href="javascript: void(0);" data-compartir="WA">
                     <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
@@ -707,7 +728,8 @@
                             <input type="tel" value="1" size="2" maxlength="2" id="txtCantidadFichaOPT" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                             <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                         </div>
-                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{id}}">AGRÉGALO</a>
+                        <a class="btn_agregar_ficha_producto agregarOfertaFinalVerDetalle" href="javascript:;" data-popup-verdetalle="{{ID}}"
+                           onclick="of_google_analytics_addtocar('mobile','detail',{{ID}},'{{TipoMeta}}')">AGRÉGALO</a>
                         <hr class="clear">
                     </div>
                 </div>
@@ -716,9 +738,9 @@
     </script>
 <!-- PL20 1287 - FIN -->
 
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml");
-@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml");
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanaMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
+@Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
 @section Scripts{
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -778,6 +800,9 @@
         var paginaOrigenCupon = 21;
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+
+        var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>

@@ -27,6 +27,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetClienteByCodigo(long ConsultoraID, int ClienteID, long CodigoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByCodigo");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, ClienteID);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, CodigoCliente);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetClienteByNombre(long ConsultoraID, string Nombre)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByNombre");
@@ -53,6 +63,10 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, cliente.eMail);
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
             Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);//R20150903
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
+            Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
             
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -67,6 +81,11 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Nombre", DbType.AnsiString, cliente.Nombre);
             Context.Database.AddInParameter(command, "@eMail", DbType.AnsiString, cliente.eMail);
             Context.Database.AddInParameter(command, "@Activo", DbType.Boolean, cliente.Activo);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.AnsiString, cliente.Telefono);
+            Context.Database.AddInParameter(command, "@Celular", DbType.AnsiString, cliente.Celular);
+            Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
+            Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
 
             return Context.ExecuteNonQuery(command);
         }

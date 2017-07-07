@@ -18,6 +18,7 @@ namespace Portal.Consultoras.Web.Models
         public bool Success { get; set; }
         public bool IsMobile { get; set; }
         public int CampaniaID { get; set; }
+        public bool PuedeSuscribirse { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }
         public List<BETablaLogicaDatos> FiltersByCategory { get; set; }

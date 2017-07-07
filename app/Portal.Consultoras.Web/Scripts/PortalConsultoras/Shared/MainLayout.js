@@ -3,7 +3,7 @@ var showDisplayODD = 0;
 var ventanaChat = null;
 
 $(document).ready(function () {
-
+    LayoutHeader();
     LayoutMenu();
 
     window.onresize = function (event) {
@@ -113,10 +113,14 @@ $(document).ready(function () {
             }
         }
     });
-
-    //waitingDialog();
-    //closeWaitingDialog();
-
+    
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();        
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+   
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
@@ -252,6 +256,11 @@ $(document).ready(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
     });
+    $("#belcorpChat a_").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
+    });
 
     $("body").on('click', '.belcorpChat', function (e) {
         e.preventDefault();
@@ -289,11 +298,24 @@ function AbrirVentanaBelcorpChat(url) {
     ventanaChat.focus();
 }
 
-function messageInfoError(message, titulo) {
+function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
         $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
         $('#dialog_ErrorMainLayout').show();
+
+        $('#dialog_ErrorMainLayout .btn_ok').off('click');
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
     }
 }
 
@@ -624,13 +646,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+
 function alert_msg(message, titulo) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
 }
-
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
@@ -1127,6 +1149,7 @@ function closeOfertaDelDia() {
             {
                 $('#OfertaDelDia').hide();
                 LayoutHeader();
+                odd_desktop_google_analytics_cerrar_banner();
             }
         },
         error: function (err) {
@@ -1135,3 +1158,11 @@ function closeOfertaDelDia() {
     });
 }
 
+function odd_desktop_google_analytics_cerrar_banner() {
+    dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Oferta del día',
+            'action': 'Cerrar Banner',
+            'label': 'OfertaDelDia'
+        });
+}

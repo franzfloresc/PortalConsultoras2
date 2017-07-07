@@ -44,7 +44,8 @@ namespace Portal.Consultoras.Web.Models
         public string UrlVideoMobile { get; set; }
         public string ImgFichaFondoDesktop { get; set; }
         public string ImgFichaFondoMobile { get; set; }
-
+        public string ImgHomeDesktop { get; set; }
+        public string ImgHomeMobile { get; set; }
         public string PrecioAnt { get; set; }
     }
 }
