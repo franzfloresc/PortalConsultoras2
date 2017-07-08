@@ -27,12 +27,6 @@ namespace Portal.Consultoras.Web.Models
         public string Simbolo { get; set; }
         public decimal ConsultoraSaldo { get; set; }    //EPD-1665
 
-        //EPD-1919 INICIO
-        public bool? TipoDespacho { get; set; }
-        public decimal FleteDespacho { get; set; }
-        public string MensajeDespacho { get; set; }
-        //EPD-1919 FIN
-
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
         {
@@ -74,6 +68,5 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<PaisModel> listaPaises { get; set; }
         public IEnumerable<ZonaModel> listaZonas { get; set; }
         public IEnumerable<RegionModel> listaRegiones { get; set; }
-        public IEnumerable<EstadoActividadModel> TiposConsultora { get; set; }
     }
 }

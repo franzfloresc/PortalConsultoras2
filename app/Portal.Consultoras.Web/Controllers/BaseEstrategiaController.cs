@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (Session["ListadoMasVendidos"] != null && origen.Equals(Constantes.OrigenPedidoWeb.MobileHomeMasVendidos))
                 return (List<BEEstrategia>)Session["ListadoMasVendidos"];
+
             string varSession = Constantes.SessionNames.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
             if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
 
@@ -33,6 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Simbolo = userData.Simbolo,
                 CodigoAgrupacion = Util.Trim(codAgrupacion)
             };
+
 
             var listEstrategia = new List<BEEstrategia>();
             

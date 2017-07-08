@@ -21267,9 +21267,9 @@ label.checkpop.c_on {
     text-align: center;
     border: 2px solid #000;
     font-size: 13px; 
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 } 
 
 .liquidacion_rango_home{
@@ -34090,9 +34090,9 @@ h1#penmostreo .campana {
     font-weight:300;
 }
 .btn_aregar_set {
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
     /*width: 82%;*/
     float: right;
     /* text-align: right; */
@@ -34742,9 +34742,9 @@ h1#penmostreo .campana {
     margin-bottom:14px;
 }
 .content_item_carrusel_ODD .btn_pop_agregalo_oferta{
-    width: -moz-calc(100% - 80px);
+    /*width: -moz-calc(100% - 80px);
     width: calc(100% - 80px);
-    width: -webkit-calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);*/
 }
 /*.content_780_ODD .content_item_carrusel_ODD:last-child{
     float:right;
@@ -35346,44 +35346,3 @@ h1#penmostreo .campana {
 }
 
 /*SPRINT 14*/.titulo_mas_vendido{    background: white;    display: inline-block;    text-align: center;    letter-spacing: 2.1px;    font-size: 25px;    font-weight: 700;    margin-top: 31px;    margin-bottom: 37px;    font-family: 'lato';    PADDING-LEFT: 30px;    padding-right: 30px}.content_mas_vendidos{    padding-top:15px;    padding-bottom:40px;    overflow:hidden;}.content_carrusel_mas_vendidos{    width: 90%;    margin: 0 auto;    height: auto;}.content_carrusel_mas_vendidos .producto_nombre_descripcion{    margin-bottom:0;}.content_carrusel_mas_vendidos .producto_precio{    margin-bottom:0;}.content_carrusel_mas_vendidos .content_item_carrusel{    border:0;    box-shadow:none;}.content_puntuacion{    padding-left:16px;    padding-right:16px;    overflow:hidden;    padding-bottom:7px;    padding-top:8px;    text-align:center;}.cantidad_puntuacion{    font-family:'Lato';    font-size:13px;    font-weight:700;    padding-left: 2px;    padding-right: 5px;    display: inline-block;    vertical-align: top;}
-
-/*EPD-1919 INICIO*/
-.content_tipo_despacho {
-    font-weight: bold;
-    margin-top: 25px;
-    margin-bottom: 15px;
-    font-family: 'Lato';
-    font-size: 15px;
-    text-align: left;    
-}
-.cdr_tipo_despacho_icono {
-    padding-left: 35px; 
-    padding-bottom: 10px; 
-    padding-top: 2px; 
-    background: url(../../../Images/Esika/terminos.png) no-repeat; 
-    display: inline;
-}
-.cdr_tipo_despacho_icono_active {
-    padding-left: 35px; 
-    padding-bottom: 10px; 
-    padding-top: 2px;    
-    display: inline;    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
-    background-size: 75%;    
-}
-.cdr_color_consultora_nueva {
-    color: #d04437;
-}
-.cdr_color_consultora_antigua {
-    color: #205081;
-}
-.mensaje_informativo_despacho {
-    font-weight: bold;
-    /*color: #205081;*/
-    margin-bottom: 5px;
-    font-family: 'Lato';
-    font-size: 15px;
-    text-align: center; 
-    align-content : center;
-    display: block;
-}
-/*EPD-1919 FIN*/

@@ -56,16 +56,7 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private decimal FleteDespachoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal ImporteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MensajeDespachoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MonedaDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoIDField;
@@ -75,12 +66,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int RegionIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<bool> TipoDespachoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> TipoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ZonaIDField;
@@ -239,19 +224,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public decimal FleteDespacho {
-            get {
-                return this.FleteDespachoField;
-            }
-            set {
-                if ((this.FleteDespachoField.Equals(value) != true)) {
-                    this.FleteDespachoField = value;
-                    this.RaisePropertyChanged("FleteDespacho");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal Importe {
             get {
                 return this.ImporteField;
@@ -260,32 +232,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.ImporteField.Equals(value) != true)) {
                     this.ImporteField = value;
                     this.RaisePropertyChanged("Importe");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MensajeDespacho {
-            get {
-                return this.MensajeDespachoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MensajeDespachoField, value) != true)) {
-                    this.MensajeDespachoField = value;
-                    this.RaisePropertyChanged("MensajeDespacho");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MonedaDespacho {
-            get {
-                return this.MonedaDespachoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MonedaDespachoField, value) != true)) {
-                    this.MonedaDespachoField = value;
-                    this.RaisePropertyChanged("MonedaDespacho");
                 }
             }
         }
@@ -325,32 +271,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.RegionIDField.Equals(value) != true)) {
                     this.RegionIDField = value;
                     this.RaisePropertyChanged("RegionID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<bool> TipoDespacho {
-            get {
-                return this.TipoDespachoField;
-            }
-            set {
-                if ((this.TipoDespachoField.Equals(value) != true)) {
-                    this.TipoDespachoField = value;
-                    this.RaisePropertyChanged("TipoDespacho");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> TipoConsultora {
-            get {
-                return this.TipoConsultoraField;
-            }
-            set {
-                if ((this.TipoConsultoraField.Equals(value) != true)) {
-                    this.TipoConsultoraField = value;
-                    this.RaisePropertyChanged("TipoConsultora");
                 }
             }
         }
@@ -1857,9 +1777,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string FechaHoraSolicitudField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<decimal> FleteDespachoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoDevueltoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1885,12 +1802,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SeccionCodigoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoConsultoraField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int UnidadesDevueltasField;
@@ -2019,19 +1930,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<decimal> FleteDespacho {
-            get {
-                return this.FleteDespachoField;
-            }
-            set {
-                if ((this.FleteDespachoField.Equals(value) != true)) {
-                    this.FleteDespachoField = value;
-                    this.RaisePropertyChanged("FleteDespacho");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal MontoDevuelto {
             get {
                 return this.MontoDevueltoField;
@@ -2144,32 +2042,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.SeccionCodigoField, value) != true)) {
                     this.SeccionCodigoField = value;
                     this.RaisePropertyChanged("SeccionCodigo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoConsultora {
-            get {
-                return this.TipoConsultoraField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoConsultoraField, value) != true)) {
-                    this.TipoConsultoraField = value;
-                    this.RaisePropertyChanged("TipoConsultora");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoDespacho {
-            get {
-                return this.TipoDespachoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoDespachoField, value) != true)) {
-                    this.TipoDespachoField = value;
-                    this.RaisePropertyChanged("TipoDespacho");
                 }
             }
         }
@@ -2383,12 +2255,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetCDRWebDetalleReporte", ReplyAction="http://tempuri.org/ICDRService/GetCDRWebDetalleReporteResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalleReporte[]> GetCDRWebDetalleReporteAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetMontoFletePorZonaId", ReplyAction="http://tempuri.org/ICDRService/GetMontoFletePorZonaIdResponse")]
-        Portal.Consultoras.Web.ServiceCDR.BECDRWeb GetMontoFletePorZonaId(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ICDRService/GetMontoFletePorZonaId", ReplyAction="http://tempuri.org/ICDRService/GetMontoFletePorZonaIdResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetMontoFletePorZonaIdAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2608,14 +2474,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWebDetalleReporte[]> GetCDRWebDetalleReporteAsync(int PaisID, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
             return base.Channel.GetCDRWebDetalleReporteAsync(PaisID, entity);
-        }
-        
-        public Portal.Consultoras.Web.ServiceCDR.BECDRWeb GetMontoFletePorZonaId(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
-            return base.Channel.GetMontoFletePorZonaId(paisId, entity);
-        }
-        
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceCDR.BECDRWeb> GetMontoFletePorZonaIdAsync(int paisId, Portal.Consultoras.Web.ServiceCDR.BECDRWeb entity) {
-            return base.Channel.GetMontoFletePorZonaIdAsync(paisId, entity);
         }
     }
 }

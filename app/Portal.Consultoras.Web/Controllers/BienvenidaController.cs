@@ -534,7 +534,6 @@ namespace Portal.Consultoras.Web.Controllers
                     bool paisConsultoraTieneCupon = (userData.TieneCupon == 1);
 
                     if (paisConsultoraTieneCupon && consultoraTieneCupon && cupon.EstadoCupon == Constantes.EstadoCupon.Reservado)
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
                         break;

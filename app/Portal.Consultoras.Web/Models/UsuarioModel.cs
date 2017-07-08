@@ -73,7 +73,6 @@ namespace Portal.Consultoras.Web.Models
             this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
-            this.TieneCDRExpress = false;
         }
 
         public string Celular { get; set; }
@@ -322,10 +321,6 @@ namespace Portal.Consultoras.Web.Models
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
         public bool MostrarBannerPostulante { get; set; }
-
-        public bool TieneCDRExpress { get; set; } //EPD-1919
-        public string MensajeCDRExpress { get; set; } //EPD-1919
-        public string MensajeCDRExpressNueva { get; set; } //EPD-1919
 
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
