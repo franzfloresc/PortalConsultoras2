@@ -10,7 +10,6 @@
     }
 
     var formatoCampania = Model.CampaniaID.ToString().Substring(0, 4) + "-" + Model.CampaniaID.ToString().Substring(4, 2);
-    var TipoDespachoNot = Model.TipoDespacho == false ? "Despacho con su Pedido" : "Despacho Express";
 }
 
 <div class="logo_lista_detalle">    
@@ -25,11 +24,6 @@
         <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
     </div>
     <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
-    @if (@TipoDespachoNot != null)
-    {
-        <div class="resumen_aprobado_cdr">Tipo de Despacho: <span><b>@TipoDespachoNot</b></span></div>
-     }
-
     @if (Model.Estado == Constantes.EstadoCDRWeb.Aceptado)
     {
         <div class="saldo_aprobado_cdr">

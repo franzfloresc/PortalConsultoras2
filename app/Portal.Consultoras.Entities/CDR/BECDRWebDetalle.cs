@@ -149,20 +149,6 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal MontoDevuelto { get; set; }
 
-
-
-        //EPD-2582 INICIO         
-        [DataMember]
-        public string TipoDespacho { get; set; }
-        [DataMember]
-        public decimal? FleteDespacho { get; set; }
-        [DataMember]
-        public string TipoConsultora { get; set; }
-        //EPD-2582 FIN
-
-
-
-
         public BECDRWebDetalleReporte()
         { }
         public BECDRWebDetalleReporte(IDataRecord row)
@@ -188,12 +174,6 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Reclamo")) Reclamo = Convert.ToString(row["Reclamo"]);
             if (row.HasColumn("EstadoDetalle")) EstadoDetalle = Convert.ToString(row["EstadoDetalle"]);
             if (row.HasColumn("MotivoRechazo")) MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
-
-            //EPD-2582 INICIO
-            if (row.HasColumn("TipoDespacho")) TipoDespacho = (row["TipoDespacho"] ?? string.Empty).ToString();
-            if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"] ?? 0);
-            if (row.HasColumn("TipoConsultora")) TipoConsultora = (row["TipoConsultora"] ?? string.Empty).ToString();
-            //EPD-2582 FIN
         }
     }
 }

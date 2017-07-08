@@ -452,19 +452,5 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
-        public static Dictionary<string, RangoEdad> RangoEdadesPais = new Dictionary<string, RangoEdad>
-        {
-            { "CL", new RangoEdad(18, 80)},
-            {"CO", new RangoEdad(18, 80)},
-            {"MX", new RangoEdad(18, 80)},
-            {"PE", new RangoEdad(18, 80)},
-            {"GT", new RangoEdad(18, 65, int.MaxValue)},
-            {"PA", new RangoEdad(18, 65, int.MaxValue)},
-            {"CR", new RangoEdad(16,18, 65, 80)},
-            {"SV", new RangoEdad(18, 65, int.MaxValue)},
-            {"EC", new RangoEdad(18, 75)},
-            {"DO", new RangoEdad(18, 75)},
-            {"PR", new RangoEdad(18, 75)}
-        };
     }
 }

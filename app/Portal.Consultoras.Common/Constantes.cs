@@ -681,6 +681,13 @@ namespace Portal.Consultoras.Common
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
+	    public class SessionNames
+        {
+                // Lista de estrategias en session para OPT y BPT 
+                public const string ListaEstrategia = "ListadoEstrategiaPedido";
+                public const string ProductoTemporal = "ProductoTemporal";
+        }
+	
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;
@@ -694,7 +701,7 @@ namespace Portal.Consultoras.Common
             public const int Plan20 = 98;
         }
 
-        
+
         #region Clientes
         public class ClienteTipoContacto
         {
@@ -832,12 +839,5 @@ namespace Portal.Consultoras.Common
             public const string Mobile = "SOMOS_BELCORP_MOBILE";
         }
         #endregion
-        
-	    public class SessionNames
-        {
-                // Lista de estrategias en session para OPT y BPT 
-                public const string ListaEstrategia = "ListadoEstrategiaPedido";
-                public const string ProductoTemporal = "ProductoTemporal";
-        }	
     }
 }

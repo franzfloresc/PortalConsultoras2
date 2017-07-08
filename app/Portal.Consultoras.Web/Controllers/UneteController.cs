@@ -739,7 +739,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var DirCalleOAvenida = string.Empty;
                     var DirlugarNivel3 = string.Empty;
                     var DirNombreDireccionEdicion = string.Empty;
-                var DireccionConcatenada = new string[0];
+                    var DireccionConcatenada = new string[0];
 
                 if (!string.IsNullOrEmpty(solicitudPostulante.Direccion))
                 {
@@ -1673,7 +1673,6 @@ namespace Portal.Consultoras.Web.Controllers
                 solicitudPostulante.CodigoTerritorio = codterritorio;
                 solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
 
-                
                 actualziarCampaniaRegistro(ref solicitudPostulante);
 
                 var EstadosIniciales = new List<int>() {
@@ -2686,7 +2685,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lista)
                     {
-                        if ((CodigoISO == Pais.Peru)|| (CodigoISO == Pais.Dominicana)|| (CodigoISO == Pais.PuertoRico))
+                        if (CodigoISO == Pais.Peru)
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
@@ -3821,8 +3820,13 @@ namespace Portal.Consultoras.Web.Controllers
                                          String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
                         //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
                     }
-                    //solicitudPostulante.NumeroDocumento =
-                    //    AplicarFormatoNumeroDocumentoPorPais(CodigoISO, model.NumeroDocumento).ToUpper();
+ 
+
+                    if (CodigoISO == Pais.Mexico)
+                    {
+                        solicitudPostulante.NumeroDocumento = model.NumeroDocumento;
+
+                    }
 
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
@@ -4506,12 +4510,11 @@ namespace Portal.Consultoras.Web.Controllers
                         //        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.coordenadaY),
                         //            decimal.Parse(resultadoGeo.coordenadaX), resultadoGeo.direccionEstandar));
 
-                        //    zonaEncontrada = resultadoGeo.zona;
+                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
                         //    consultarUbicacionModel.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24
                         //        ? true
                         //        : false;
                         //}
-                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
                         var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
                             parametro, urlServicioLocalColombia);
                         if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
@@ -4962,6 +4965,7 @@ namespace Portal.Consultoras.Web.Controllers
                    {"Correo", "CorreoElectronico"},
 
 
+
             };
 
             if (Estado == 0) //TODOS
@@ -5247,23 +5251,16 @@ namespace Portal.Consultoras.Web.Controllers
             request.Method = "POST";
             request.ContentType = "application/json";
             request.ContentLength = bytes.Length;
-            request.Proxy = null;
 
             using (var stream = request.GetRequestStream())
             {
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            //var response = request.GetResponse() as HttpWebResponse;
-            //var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            var response = request.GetResponse() as HttpWebResponse;
+            var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
-                return JsonConvert.DeserializeObject(result) as JObject;
-            }
-
-          //  return JsonConvert.DeserializeObject(result) as JObject;
+            return JsonConvert.DeserializeObject(result) as JObject;
         }
 
         #endregion
@@ -5584,71 +5581,6 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteConsolidado", resultado, dic);
             return null;
         }
-
-
-
-
-
-        [HttpPost]
-        public JsonResult ValidarEdad(string fechaNacimiento, string codigoISO)
-        {
-            var jsonResponse = new JsonResponse();
-            try
-            {
-                var arr = fechaNacimiento.Split('/');
-                if (arr.Length == 3)
-                {
-                    var fecha = new DateTime(int.Parse(arr[2].ToString()), int.Parse(arr[1].ToString()), int.Parse(arr[0].ToString()));
-                    var fechaActual = DateTime.Now;
-                    int anios = fechaActual.Year - fecha.Year;
-
-                    if (fechaActual.Month < fecha.Month || (fechaActual.Month == fecha.Month && fechaActual.Day < fecha.Day))
-                        anios--;
-
-                    if (anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinima)
-                    {
-                        jsonResponse.Success = false;
-                        //jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdad;
-                    }
-                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinima &&
-                            anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaLimite)
-                    {
-                        jsonResponse.Success = false;
-                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdadLimite;
-                    }
-                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaRiesgo &&
-                        anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
-                    {
-                        jsonResponse.Success = false;
-                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorEdadRiesgo;
-                    }
-                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
-                    {
-                        jsonResponse.Success = false;
-                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorDeEdad;
-                    }
-                    else
-                    {
-                        jsonResponse.Success = true;
-                        jsonResponse.Data = 0;
-                    }
-                }
-                else
-                {
-                    jsonResponse.Success = false;
-                    jsonResponse.Data = 5;
-                }
-            }
-            catch (Exception ex)
-            {
-                jsonResponse.Success = false;
-                jsonResponse.Data = 5;
-            }
-
-            return Json(jsonResponse, JsonRequestBehavior.AllowGet);
-        }
-
-
 
 
     }

@@ -155,7 +155,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 try
                 {
-                    if (!string.IsNullOrEmpty(vPaisID))
+                    if (Session["PedidosWebDD"] == null)
                     {
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
@@ -175,11 +175,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }).ToList();
                         }
 
-                    //    Session["PedidosWebDD"] = lst;
-                    //}
-                    //else
-                    //{
-                    //    lst = (List<BEPedidoDDWeb>)Session["PedidosWebDD"];
+                        Session["PedidosWebDD"] = lst;
+                    }
+                    else
+                    {
+                        lst = (List<BEPedidoDDWeb>)Session["PedidosWebDD"];
                     }
                 }
                 catch (Exception ex)
@@ -320,8 +320,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                //items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-                items = items.Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).ToList();
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
                 pag = Paginador(grid, lst);
 
@@ -369,22 +368,15 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string FomatearMontoDecimalGPR(string MotivoRechazo)
         {
-            string TextoDecimal = string.Empty;
-            string[] Motivos = MotivoRechazo.Split(',');
-            string MotivoItem = string.Empty;
-
-            foreach (string item in Motivos)
+            string TextoDecimal = MotivoRechazo;
+            if (MotivoRechazo.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
             {
-                MotivoItem = item;
-                if (MotivoItem.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
-                {
-                    decimal MontoDecimal = Convert.ToDecimal(MotivoItem.Substring(MotivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
+                decimal MontoDecimal = Convert.ToDecimal(MotivoRechazo.Substring(MotivoRechazo.IndexOf(':') + 1).Replace(" ", string.Empty));
 
-                    MotivoItem = MotivoItem.Remove(MotivoItem.IndexOf(':'));
-                    TextoDecimal += string.Format("{0}: {1}", MotivoItem, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
-                }
+                MotivoRechazo = MotivoRechazo.Remove(MotivoRechazo.IndexOf(':'));
+                TextoDecimal = string.Format("{0}: {1}", MotivoRechazo, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
             }
-            return string.IsNullOrEmpty(TextoDecimal) ? MotivoRechazo : TextoDecimal;
+            return TextoDecimal;
         }
 
         public ActionResult ConsultarPedidosDDWebDetalle(string sidx, string sord, int page, int rows, string vPaisISO, string vCampania, string vConsultoraCodigo, string vTipoProceso)

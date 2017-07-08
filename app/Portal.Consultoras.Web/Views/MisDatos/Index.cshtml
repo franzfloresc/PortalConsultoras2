@@ -224,7 +224,6 @@
     function ValidateOnlyNums(id) {
         return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
     }
-
     function DownloadAttachPDF(requestedFile) {
         var iframe_ = document.createElement("iframe");
         iframe_.style.display = "none";
@@ -257,18 +256,15 @@
         }
         document.body.appendChild(iframe_);
     }
-
     function DownloadAttachContratoCO() {
         var requestedFile = "/Content/FAQ/Contrato_CO.pdf";
         DownloadAttachPDF(requestedFile);
     }
-
     function DownloadAttachContratoActualizarDatos() {
         var requestedFile = "/Content/FAQ/@Model.NombreArchivoContrato" + ".pdf";
         DownloadAttachPDF(requestedFile);
     }
 </script>
-
 <div class="wrap_cab">
     <div class="filtros">
         <div class="elements">
@@ -341,25 +337,25 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titE">@Model.TextoSobrenombre</div>
+                <div class="titE">¿Qu&eacute nombre te gustar&iacutea que te digamos?:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBoxFor(model => model.Sobrenombre, new { id = "txtSobrenombre", maxlength = "80" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titE">@Model.TextoCorreoElectronico</div>
+                <div class="titE">* Tu Correo Electrónico:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBoxFor(model => model.EMail, new { id = "txtEMail", maxlength = "50" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titE">@Model.TextoTelefono</div>
+                <div class="titE">Tu Teléfono:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBoxFor(model => model.Telefono, new { id = "txtTelefono", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titE">@Model.TextoCelular</div>
+                <div class="titE">Tu Celular:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBoxFor(model => model.Celular, new { id = "txtCelular", maxlength = "15", onblur = "return ValidateOnlyNums(this.id);" })
                 </div>
@@ -392,44 +388,32 @@
             }
 
             <div class="div-3">
-                @if (Model.PaisISO != "CO")
-                {
-                    <div class="titE">* Estos datos son obligatorios</div>
-                }
+                <div class="titE">* Estos datos son obligatorios</div>
                 <div class="input_add2_left">
-                    <input id="btnActualizar" type="button" value="@Model.TextoBoton" />
+                    <input id="btnActualizar" type="button" value="Actualizar" />
                 </div>
                 <div>
                     @Html.Label("", Model.CorreoAlerta, new { id = "lblCorreo", visible = true, @class = "laber_alerta" })
                 </div>
             </div>
-
             @if (Model.PaisISO == "CO")
             {
-                <!-- EPD-2811 -->
                 <div class="div-3">
                     <div style="font-size:14px;margin-left:155px;">
-                        Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        <a id="hrefContrato" style="color: #0094ff;cursor:pointer;text-decoration:underline"> Conoce aquí los términos legales de tu crédito de conformidad con la nueva ley multinivel.</a>
                     </div>
-                </div>
-                <!-- EPD-2811 -->
-
-                <div class="div-3">
-                        <div style="font-size:14px;margin-left:155px;">
-                            <a id="hrefContrato" style="color: #0094ff;cursor:pointer;text-decoration:underline"> Conoce aquí los términos legales de tu crédito de conformidad con la nueva ley multinivel.</a>
-                        </div>
                 </div>
             }
 
-                    <div class="gerente_zona">Gerente de Zona</div>
+            <div class="gerente_zona">Gerente de Zona</div>
 
-                    <div class="div-3">
-                        <div class="gerente_zona_body">
-                            <div class="titC">Nombre: </div>
-                            <div class="titAuto">@Model.NombreGerenteZonal</div>
-                        </div>
-                    </div>
+            <div class="div-3">
+                <div class="gerente_zona_body">
+                    <div class="titC">Nombre: </div>
+                    <div class="titAuto">@Model.NombreGerenteZonal</div>
                 </div>
+            </div>
+        </div>
 
 
         <div>

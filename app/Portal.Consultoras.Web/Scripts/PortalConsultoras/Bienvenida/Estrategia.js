@@ -1,4 +1,5 @@
-﻿// 1: escritorio Home    11 : escritorio Pedido 
+﻿
+// 1: escritorio Home    11 : escritorio Pedido 
 // 2: mobile  Home       21 : mobile pedido
 var tipoOrigenEstrategia = tipoOrigenEstrategia || "";
 
