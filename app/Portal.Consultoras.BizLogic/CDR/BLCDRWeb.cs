@@ -138,5 +138,31 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return listaEntity;
             }
         }
+
+        //EPD-1919
+        public BECDRWeb GetMontoFletePorZonaId(int PaisID, int ZonaId)
+        {
+            try
+            {
+                string moneda = string.Empty;
+                decimal monto = 0.00M;
+                var DACDRWeb = new DACDRWeb(PaisID);
+                using (IDataReader reader = DACDRWeb.GetMontoFletePorZonaId(ZonaId))
+                {
+                    while (reader.Read())
+                    {
+                        moneda = reader["Moneda"] is DBNull ? string.Empty : reader.GetString(reader.GetOrdinal("Moneda"));
+                        monto = reader["Monto"] is DBNull ? 0.00M : reader.GetDecimal(reader.GetOrdinal("Monto"));
+                    }
+                }
+                //return new {moneda, monto
+                //};
+                return new BECDRWeb() { MonedaDespacho = moneda, FleteDespacho = monto };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }

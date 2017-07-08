@@ -2520,7 +2520,8 @@ else
                 dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat('@Model.Total', 10);
                 var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
                 var listaMensajeMeta = dataBarra.ListaMensajeMeta;
-                $("#hdDataBarra, #hdListaEscala").val("");
+                // EPD-2848
+                // $("#hdDataBarra, #hdListaEscala").val("");
                 var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
                 var urlReservadoOEnHorarioRestringido =
                     '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';

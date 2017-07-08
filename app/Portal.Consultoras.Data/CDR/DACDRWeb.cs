@@ -24,7 +24,13 @@ namespace Portal.Consultoras.Data.CDR
             //Context.Database.AddInParameter(command, "FechaRegistro", DbType.DateTime, entity.FechaRegistro);
             //Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
             //Context.Database.AddInParameter(command, "FechaCulminado", DbType.DateTime, entity.FechaCulminado);
+
             Context.Database.AddInParameter(command, "Importe", DbType.Decimal, entity.Importe);
+
+            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho); //epd-1919
+            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);//epd-1919
+            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho); //epd-1919
+
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
@@ -59,6 +65,11 @@ namespace Portal.Consultoras.Data.CDR
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdEstadoCDRWeb");
             Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
             Context.Database.AddInParameter(command, "Estado", DbType.Int32, entity.Estado);
+
+            Context.Database.AddInParameter(command, "TipoDespacho", DbType.Boolean, entity.TipoDespacho); //epd-1919
+            Context.Database.AddInParameter(command, "FleteDespacho", DbType.Decimal, entity.FleteDespacho);//epd-1919
+            Context.Database.AddInParameter(command, "MensajeDespacho", DbType.String, entity.MensajeDespacho); //epd-1919
+
             Context.Database.AddOutParameter(command, "RetornoID", DbType.Int32, 10);
 
             Context.ExecuteNonQuery(command);
@@ -74,7 +85,16 @@ namespace Portal.Consultoras.Data.CDR
             Context.Database.AddInParameter(command, "@ZonaID", DbType.Int32, entity.ZonaID);
             Context.Database.AddInParameter(command, "@ConsultoraCodigo", DbType.String, entity.ConsultoraCodigo);
             Context.Database.AddInParameter(command, "@EstadoCDR", DbType.Int32, entity.Estado);
+            Context.Database.AddInParameter(command, "@TipoConsultora", DbType.Int32, entity.TipoConsultora);
 
+            return Context.ExecuteReader(command);
+        }
+
+        //EPD-1919
+        public IDataReader GetMontoFletePorZonaId(int ZonaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMontoFletePorZonaId");
+            Context.Database.AddInParameter(command, "ZonaId", DbType.Int32, ZonaId);
             return Context.ExecuteReader(command);
         }
     }

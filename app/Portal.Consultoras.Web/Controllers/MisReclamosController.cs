@@ -60,7 +60,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
             model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
-            
+
+            ViewBag.TieneCDRExpress = userData.TieneCDRExpress; //EPD-1919
+            ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress; //EPD-1919
+            ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva; //EPD-1919
+            ViewBag.ConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva; //EPD-1919
+
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             return View(model);
@@ -96,6 +101,12 @@ namespace Portal.Consultoras.Web.Controllers
             model.Email = userData.EMail;
             model.Telefono = userData.Celular;
             model.MontoMinimo = userData.MontoMinimo;
+            
+            //EPD-1919
+            ViewBag.TieneCDRExpress = userData.TieneCDRExpress;
+            ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress;
+            ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva;
+            ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva;
 
             if (userData.PaisID == 9)
             {
@@ -963,6 +974,17 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.PedidoNumero = model.NumeroPedido;
                     entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle};
+
+                    //EPD-1919 INICIO UNCOMMENTEDDICC
+                    entidad.TipoDespacho = model.TipoDespacho; 
+                    entidad.FleteDespacho = model.FleteDespacho;
+
+                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva)
+                        entidad.FleteDespacho = 0.00M;
+
+                    entidad.MensajeDespacho = model.MensajeDespacho;
+                    //EPD-1919 FIN
+
                     using (CDRServiceClient sv = new CDRServiceClient())
                     {
                         id = sv.InsCDRWeb(userData.PaisID, entidad);
@@ -997,6 +1019,20 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public bool EvaluarVisibilidadCDRExpress(int cdrWebId, int pedidoId)
+        {
+            bool rpta = false;
+            if (userData.TieneCDRExpress &&
+                CargarDetalle(new MisReclamosModel
+                {
+                    CDRWebID = cdrWebId,
+                    PedidoID = pedidoId
+                }).FindAll(x => x.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje ||
+                                x.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque).Count() > 0)
+                return true;
+            return rpta;
+        }
+
         public JsonResult DetalleCargar(MisReclamosModel model)
         {
             Session[Constantes.ConstSession.CDRWebDetalle] = null;
@@ -1009,6 +1045,8 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = lista,
                 cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
                 cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
+                cantProductosCambiados = lista.FindAll(x => x.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje ||
+                                                 x.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque).Count(), //EPD-1919
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
@@ -1066,7 +1104,15 @@ namespace Portal.Consultoras.Web.Controllers
                 var cDRWebMailConfirmacion = new BECDRWeb();
                 using (CDRServiceClient sv = new CDRServiceClient())
                 {
-                    var entidad = new BECDRWeb { CDRWebID = model.CDRWebID, Estado = Constantes.EstadoCDRWeb.Enviado };
+                    var entidad = new BECDRWeb
+                    {
+                        CDRWebID = model.CDRWebID,
+                        Estado = Constantes.EstadoCDRWeb.Enviado,
+                        TipoDespacho = !EvaluarVisibilidadCDRExpress(model.CDRWebID, model.PedidoID) ? null : model.TipoDespacho,
+                        FleteDespacho = model.FleteDespacho,
+                        MensajeDespacho = model.MensajeDespacho
+                    }; //EPD-1919
+
                     resultadoUpdate = sv.UpdEstadoCDRWeb(userData.PaisID, entidad);
                     sv.CreateLogCDRWebCulminadoFromCDRWeb(userData.PaisID, model.CDRWebID);
                     
@@ -1299,6 +1345,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = DropDowListCampanias(PaisId),
                 listaRegiones = DropDownListRegiones(PaisId),
                 listaZonas = DropDownListZonas(PaisId),
+                //TiposConsultora = DropDownListEstadoActividad(PaisId),
                 PaisID = PaisId,
                 CampaniaID = CampaniaIDActual
             };
@@ -1306,7 +1353,8 @@ namespace Portal.Consultoras.Web.Controllers
             return View(cdrWebModel);
         }
 
-        public ActionResult ConsultaCRDWebDetalleReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado, string Consulta)
+        public ActionResult ConsultaCRDWebDetalleReporte(string sidx, string sord, int page, int rows, string CampaniaID, string RegionID, 
+                                                         string ZonaID, string PaisID, string CodigoConsultora, string Estado, string Consulta, int? TipoConsultora)
         {
             if (ModelState.IsValid)
             {
@@ -1316,6 +1364,8 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
                 entidad.ConsultoraCodigo = CodigoConsultora;
                 entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+                entidad.TipoConsultora = TipoConsultora;//EPD-2582
+                
 
                 List<BECDRWebDetalleReporte> lst;
 
@@ -1407,6 +1457,20 @@ namespace Portal.Consultoras.Web.Controllers
                             items = lst.OrderBy(x => x.MotivoRechazo);
                             break;
 
+                        //EPD 2582 INICIO
+                        case "TipoConsultora":
+                            items = lst.OrderBy(x => x.TipoConsultora);
+                            break;
+
+                        case "TipoDespacho":
+                            items = lst.OrderBy(x => x.TipoDespacho);
+                            break;
+
+                        case "FleteDespacho":
+                            items = lst.OrderBy(x => x.FleteDespacho);
+                            break;
+                            //EPD 2582 FIN
+
                     }
                 }
                 else
@@ -1474,6 +1538,21 @@ namespace Portal.Consultoras.Web.Controllers
                             items = lst.OrderByDescending(x => x.MotivoRechazo);
                             break;
 
+
+                        //EPD-2582 INICIO
+                        case "TipoConsultora":
+                            items = lst.OrderByDescending(x => x.TipoConsultora);
+                            break;
+
+                        case "TipoDespacho":
+                            items = lst.OrderByDescending(x => x.TipoDespacho);
+                            break;
+
+                        case "FleteDespacho":
+                            items = lst.OrderByDescending(x => x.FleteDespacho);
+                            break;
+                            //EPD-2582 FIN
+
                     }
                 }
                 #endregion
@@ -1492,27 +1571,34 @@ namespace Portal.Consultoras.Web.Controllers
                                id = a.NroCDR,
                                cell = new string[]
                                {
-                                   a.NroCDR.ToString(),
-                                   a.ConsultoraCodigo.ToString(),
-                                   a.RegionCodigo.ToString(),
-                                   a.ZonaCodigo.ToString(),
-                                   a.SeccionCodigo.ToString(),
-                                   a.CampaniaOrigenPedido.ToString(),
-                                   a.FechaHoraSolicitud.ToString(),
-                                   a.FechaAtencion.ToString(),
-                                   a.EstadoDescripcion.ToString(),
-                                   a.CUV.ToString(),
+                                   (a.NroCDR??string.Empty).ToString(),
+                                   (a.ConsultoraCodigo??string.Empty).ToString(),
+                                   (a.RegionCodigo??string.Empty).ToString(),
+                                   (a.ZonaCodigo??string.Empty).ToString(),
+                                   (a.SeccionCodigo??string.Empty).ToString(),
+                                   (a.CampaniaOrigenPedido??string.Empty).ToString(),
+                                   (a.FechaHoraSolicitud??string.Empty).ToString(),
+                                   (a.FechaAtencion??string.Empty).ToString(),
+                                   (a.EstadoDescripcion??string.Empty).ToString(),
+                                   (a.CUV??string.Empty).ToString(),
                                    a.UnidadesFacturadas.ToString(),
                                    a.MontoFacturado.ToString(),
                                    a.UnidadesDevueltas.ToString(),
                                    a.MontoDevuelto.ToString(),
-                                   a.CUV2.ToString(),
+                                   (a.CUV2??string.Empty).ToString(),
                                    a.UnidadesEnviar.ToString(),
                                    a.MontoProductoEnviar.ToString(),
-                                   a.Operacion.ToString(),
-                                   a.Reclamo.ToString(),
-                                   a.EstadoDetalle.ToString(),
-                                   a.MotivoRechazo.ToString()
+                                   (a.Operacion??string.Empty).ToString(),
+                                   (a.Reclamo??string.Empty).ToString(),
+                                   (a.EstadoDetalle??string.Empty).ToString(),
+                                   (a.MotivoRechazo??string.Empty).ToString(),
+
+                                   //EPD-2582 INICIO
+                                   (a.TipoConsultora ?? string.Empty).ToString(),
+                                   (a.TipoDespacho??string.Empty).ToString(),
+                                   a.FleteDespacho.ToString()
+                                   //EPD-2582 FIN
+
                                    //Convert.ToDateTime(a.FechaFinDD.ToString()).ToShortDateString(),
                                    //a.ZonaID.ToString()
                                 }
@@ -1523,7 +1609,7 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado)
+        public ActionResult ExportarExcel(string CampaniaID, string RegionID, string ZonaID, string PaisID, string CodigoConsultora, string Estado, int? TipoConsultora)
         {
             BECDRWeb entidad = new BECDRWeb();
             entidad.CampaniaID = CampaniaID == "" ? 0 : int.Parse(CampaniaID);
@@ -1531,6 +1617,7 @@ namespace Portal.Consultoras.Web.Controllers
             entidad.ZonaID = ZonaID.Equals(string.Empty) ? 0 : int.Parse(ZonaID);
             entidad.ConsultoraCodigo = CodigoConsultora;
             entidad.Estado = Estado.Equals(string.Empty) ? 0 : int.Parse(Estado);
+            entidad.TipoConsultora = TipoConsultora;//EPD-2582
 
             IList<BECDRWebDetalleReporte> lst;
             using (CDRServiceClient sv = new CDRServiceClient())
@@ -1560,6 +1647,11 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("Motivo", "Reclamo");
             dic.Add("Estado", "EstadoDetalle");
             dic.Add("Motivo Rechazo", "MotivoRechazo");
+            //EPD-2598 INICIo
+            dic.Add("Segmento Consultora", "TipoConsultora");
+            dic.Add("Indicador Despacho", "TipoDespacho");
+            dic.Add("Flete CDR", "FleteDespacho");
+            //EPD-2598 FIn
             Util.ExportToExcel<BECDRWebDetalleReporte>("ReporteCDRWebDetalleExcel", lst.ToList(), dic);
             return View();
         }
@@ -1574,7 +1666,18 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_FECHACULIMNADO#", cDRWeb.FechaCulminado.Value.ToString("dd/MM/yyyy"));
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROSOLICITUD#", cDRWeb.CDRWebID.ToString());
             htmlTemplate = htmlTemplate.Replace("#FORMATO_CAMPANIA#", formatoCampania);
-            
+
+            if (EvaluarVisibilidadCDRExpress(cDRWeb.CDRWebID, cDRWeb.PedidoID))
+            {
+                string _tipodespacho = cDRWeb.TipoDespacho == false ? "Despacho con su Pedido" : "Despacho Express";
+                _tipodespacho = "Tipo de Despacho: <span><b>" + _tipodespacho + "</b></span>";
+                htmlTemplate = htmlTemplate.Replace("#TIPO_DESPACHO#", _tipodespacho);
+            }
+            else
+            {
+                htmlTemplate = htmlTemplate.Replace("#TIPO_DESPACHO#", "");
+            }
+
             #region Valores de Detalle
 
             var templateDetalleBasePath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_detalle.html";
@@ -1653,6 +1756,36 @@ namespace Portal.Consultoras.Web.Controllers
                 lista = lst
             }, JsonRequestBehavior.AllowGet);
         }
+
+        //EDP-1919 INICIO
+        public JsonResult BuscarCostoEnvio()
+        {
+
+            //Get information from SICC using userData info
+            string mensajeCostoEnvio = string.Empty;
+            string mensajeNuevaConsultora = string.Empty;
+            decimal costoFlete = 159.99M;
+            string monedaFlete = "S/.";
+            //Get information from SICC 
+            //Validacion Nueva Consultora
+            if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva)
+            {
+                mensajeNuevaConsultora = userData.MensajeCDRExpressNueva;                using (CDRServiceClient cdr = new CDRServiceClient())
+                {
+                    var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
+                    costoFlete = flete.FleteDespacho;
+                    monedaFlete = userData.Simbolo; //Sobreescribimos la moneda por que ya se obtiene del userData EPD-1919
+                }            }            
+            return Json(new
+            {
+                mensajeCostoEnvio = string.Format(string.IsNullOrEmpty(userData.MensajeCDRExpress) ? string.Empty : userData.MensajeCDRExpress,
+                                                  monedaFlete,
+                                                  costoFlete.ToString("###,###,###.00")),
+                mensajeNuevaConsultora = mensajeNuevaConsultora,
+                costoFlete = costoFlete
+            }, JsonRequestBehavior.AllowGet);
+        }
+        //EDP-1919 FIN
 
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {

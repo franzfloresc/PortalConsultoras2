@@ -903,11 +903,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             UsuarioModel model = (UsuarioModel)Session["UserData"];
             string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
-            if (model == null)
             {
-                return model;
-            }
-
                 #region Cargar variables
 
                 if (!model.CargoEntidadesShowRoom) CargarEntidadesShowRoom(model);
@@ -1151,6 +1147,7 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                 #endregion
+            }
 
             return model;
         }
@@ -2088,6 +2085,19 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
+
+        //EPD-2598 INICIO
+
+        //protected IEnumerable<EstadoActividadModel> DropDownListEstadoActividad(int PaisID)
+        //{
+        //    IList<BEConsultorasProgramaNuevas> lst;
+        //    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+        //    {
+        //        lst = sv.sele(PaisID);
+        //    }
+        //    return Mapper.Map<IList<BEZona>, IEnumerable<EstadoActividadModel>>(lst);
+        //}
+        //EPD-2598  FIN
 
         public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
         {

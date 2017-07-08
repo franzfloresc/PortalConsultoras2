@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="19440f4d-7e89-4fe8-95a0-f758ec76687c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="de631c3a-80c9-42ad-bcc6-b03168dfcb8c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:36239/ProductoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProductoService.wsdl" MetadataType="Wsdl" ID="b4ae1098-683c-4592-b9d6-932c921285ac" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" />
-    <MetadataFile FileName="ProductoService2.xsd" MetadataType="Schema" ID="93e93dbf-e7c7-4e9c-80aa-c4cacd434215" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ProductoService.xsd" MetadataType="Schema" ID="e12651c4-c369-41ae-9338-ffe2a229f1d2" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ProductoService1.xsd" MetadataType="Schema" ID="c1638ed0-06c6-43c6-ab3b-6e28d55fdd1d" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService.xsd" MetadataType="Schema" ID="74e1fdf7-423c-419d-86b7-3be96f9a4981" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService.wsdl" MetadataType="Wsdl" ID="e640756f-1394-42e0-86f7-0c8f8ced8ce7" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?wsdl" />
+    <MetadataFile FileName="ProductoService1.xsd" MetadataType="Schema" ID="cd34bae5-5d24-46d5-9b46-02327b561039" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProductoService.disco" MetadataType="Disco" ID="b82d46d2-38b7-4987-90b0-828822cac2c9" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?disco" />
+    <MetadataFile FileName="ProductoService2.xsd" MetadataType="Schema" ID="922a6e06-8762-40d7-9b79-1a6c05aaa2cb" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -35,17 +35,18 @@
         var esPaisEsika = '@ViewBag.EsPaisEsika';
         var esPaisLbel = '@ViewBag.EsPaisLbel';
 
+        //EPD-2828
         var _gaq = _gaq || [];
+        //_gaq.push(['_setAccount', 'UA-38299403-1']);
+        //_gaq.push(['_setDomainName', 'none']);
+        //_gaq.push(['_setAllowLinker', true]);
+        //_gaq.push(['_trackPageview']);
 
-        _gaq.push(['_setDomainName', 'none']);
-        _gaq.push(['_setAllowLinker', true]);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
+        //(function () {
+        //    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        //    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        //    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        //})();
 
     </script>
 
@@ -67,7 +68,8 @@
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    @*EPD-2828*@
+    @*<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <script>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -77,7 +79,8 @@
             j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
             '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
-    </script>
+    </script>*@
+    @*FIN EPD-2828*@
     <!-- End Google Tag Manager -->
     <!-- MANTENIMIENTO -->
     <div id="divMant" style="display: none;" class="modal_mantenimiento">

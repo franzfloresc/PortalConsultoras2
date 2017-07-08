@@ -9,12 +9,12 @@
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
     <style>
         #divAgregarCliente {
             display:none
         }
     </style>
-<link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
@@ -545,10 +545,7 @@
         <a class="btn_cerrar_escala" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar" style="float:left;" href="javascript:void(0);">REGRESAR</a>
         <hr class="clear" />
         <div data-compartir-campos="" style="display:none;">
-            <input type="hidden" class="CUV" value="{{CUV2}}" />
-            <input type="hidden" class="rsFBMensaje" value="" />
             <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
-            <input type="hidden" class="rsWAMensaje" value="" />
             <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
@@ -715,12 +712,6 @@
         var vbSimbolo = simbolo;
         var productoSugerido = false
         var productoAgotado = false;
-
-    var tipoOrigenEstrategia = 21;
-    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
-
-    var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon  = 21;
@@ -733,6 +724,9 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>

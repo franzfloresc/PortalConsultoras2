@@ -54,12 +54,13 @@ $(document).ready(function () {
     /*
     EPD-1871
     $(document).on('change', '.seleccion_pagina select', function () {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ver lista de productos',
-            'label': $(this).find('option:selected').text()
-        });
+        //EPD-2828
+        //dataLayer.push({
+        //    'event': 'virtualEvent',
+        //    'category': 'Ingresa tu pedido',
+        //    'action': 'Ver lista de productos',
+        //    'label': $(this).find('option:selected').text()
+        //});
     });
     */
     $('#txtClienteDescripcion').autocomplete({
@@ -848,26 +849,24 @@ function InsertarProducto(form) {
                         }
                     }
                 });
+            }
+            else {
+                var errorCliente = response.errorCliente || false;
+                if (!errorCliente) {
+                    AbrirMensaje(response.message);
                 }
                 else {
-                    var errorCliente = response.errorCliente || false;
-                    if (!errorCliente) {
-                        AbrirMensaje(response.message);
-                    }
-                    else {
-                        messageInfoError(response.message, null, function () {
-                            showClienteDetalle(currentClienteCreate, function (cliente) {
-                                currentInputClienteID.val(cliente.ClienteID);
-                                currentInputClienteNombre.val(cliente.Nombre);
-                                currentInputEdit.val(cliente.Nombre);
+                    messageInfoError(response.message, null, function () {
+                        showClienteDetalle(currentClienteCreate, function (cliente) {
+                            currentInputClienteID.val(cliente.ClienteID);
+                            currentInputClienteNombre.val(cliente.Nombre);
+                            currentInputEdit.val(cliente.Nombre);
 
-                                currentInputEdit.blur();
-                            });
+                            currentInputEdit.blur();
                         });
-                    }
+                    });
                 }
-
-
+            }
 
             PedidoOnSuccess();
 
@@ -877,7 +876,7 @@ function InsertarProducto(form) {
         error: function (response, x, xh, xhr) {
             if (checkTimeout(response)) {
                 //console.error(xh);
-        }
+          }
         }
     });
 }
@@ -3603,17 +3602,18 @@ function CambioPagina(obj) {
     if (rpt.page == undefined) {
         return false;
     }
-
+        
     /*
     EPD-1871
     var accion = obj.attr("data-paginacion");
     if (accion === "back" || accion === "next") {
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'Ingresa tu pedido',
-            'action': 'Ir a página',
-            'label': 'Pág. ' + rpt.page
-        });
+        //EPD-2828
+        //dataLayer.push({
+        //    'event': 'virtualEvent',
+        //    'category': 'Ingresa tu pedido',
+        //    'action': 'Ir a página',
+        //    'label': 'Pág. ' + rpt.page
+        //});
     }
     */
 
