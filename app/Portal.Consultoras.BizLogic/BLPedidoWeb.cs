@@ -2123,7 +2123,7 @@ namespace Portal.Consultoras.BizLogic
                 if (validarGPR && configuracion.IndicadorGPRSB == 1) {
                     return new BEValidacionModificacionPedido {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, int√©ntalo m√°s tarde", campania.Substring(4, 2))
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, intÈntalo m·s tarde", campania.Substring(4, 2))
                     };
                 }
                 if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
@@ -2131,7 +2131,7 @@ namespace Portal.Consultoras.BizLogic
                     return new BEValidacionModificacionPedido
                     {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                        Mensaje = "Ya tienes un pedido reservado para esta campa√±a."
+                        Mensaje = "Ya tienes un pedido reservado para esta campaÒa."
                     };
                 }
             }
@@ -2165,7 +2165,7 @@ namespace Portal.Consultoras.BizLogic
             if (!enHorarioRestringido) return null;
 
             TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
-            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los c√≥digos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
+            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los cÛdigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
         
         /*EPD-2248*/
