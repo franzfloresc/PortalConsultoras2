@@ -11,6 +11,8 @@ using AutoMapper;
 using Portal.Consultoras.Common;
 using System.IO;
 using Portal.Consultoras.Web.CustomHelpers;
+using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -30,8 +32,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var model = new MatrizComercialModel()
             {
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
+
             return View(model);
         }
 
@@ -293,13 +297,20 @@ namespace Portal.Consultoras.Web.Controllers
                 //sube la imagen selecciona a carpeta temporales
                 new UploadHelper().UploadFile(Request, nombreArchivo);
 
+                string nombreArchivoSinExtension = null;
+                if (model.NemotecnicoActivo)
+                {
+                    nombreArchivoSinExtension = nombreArchivo.Substring(0, nombreArchivo.LastIndexOf('.'));
+                }
+
                 var formatoArchivo = GetFileNameFormat(model.PaisID, model.CodigoSAP);
                 var entity = new BEMatrizComercialImagen
                 {
                     IdMatrizComercial = idMatrizComercial,
                     PaisID = model.PaisID,
                     UsuarioRegistro = userData.CodigoConsultora,
-                    UsuarioModificacion = userData.CodigoConsultora
+                    UsuarioModificacion = userData.CodigoConsultora,
+                    NemoTecnico = nombreArchivoSinExtension
                 };
 
                 bool isNewImage = false;
@@ -355,6 +366,30 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
+        }
+
+        [HttpPost]
+        public JsonResult ActualizarNemotecnicoMatrizComercial(MatrizComercialModel model)
+        {
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercialImagen = model.IdMatrizComercialImagen,
+                PaisID = model.PaisID,
+                UsuarioModificacion = userData.CodigoConsultora,
+                NemoTecnico = model.Nemotecnico
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                sv.UpdMatrizComercialNemotecnico(entity);
+            }
+
+            return Json(new
+            {
+                entity = model,
+                success = true,
+                message = "Se actualizó el nemotécnico satisfactoriamente."
+            });
         }
 
         [HttpPost]
@@ -460,10 +495,12 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerISOPais(int paisID)
         {
             string ISO = Util.GetPaisISO(paisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(paisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoMatriz);
 
             return Json(new
             {
-                ISO = ISO
+                ISO = ISO,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -476,19 +513,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetMatrizComercialImagenByIdMatrizImagen(paisID, idMatrizComercial, pagina, 10).ToList();
             }
 
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-            int totalRegistros = lst.Any()? lst[0].TotalRegistros: 0;
-            var data = lst.Select(p => new MatrizComercialImagen
-            {
-                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                Foto = urlS3 + p.Foto
-            }).ToList();
-
-            return Json(new { imagenes= data, totalRegistros=totalRegistros } );
+            return GetImagesCommonResult(lst, paisID);
         }
 
         public JsonResult GetImagesByCodigoSAP(int paisID, string codigoSAP, int pagina)
@@ -498,10 +523,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lst = sv.GetImagenesByCodigoSAPPaginado(paisID, codigoSAP, pagina, 10).ToList();
             }
-
-            string paisISO = Util.GetPaisISO(paisID);
-            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
-            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
 
             int totalRegistros = 0;
             int idMatrizComercial = 0;
@@ -513,16 +534,58 @@ namespace Portal.Consultoras.Web.Controllers
                 if (tieneImagenes)
                 {
                     totalRegistros = lst.First().TotalRegistros;
-                    data = lst.Select(p => new MatrizComercialImagen
-                    {
-                        IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                        FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                        Foto = urlS3 + p.Foto
-                    }).ToList();
+                    data = MapImages(lst, paisID);
                 }
             }
 
             return Json(new { imagenes = data, idMatrizComercial = idMatrizComercial, totalRegistros = totalRegistros });
+        }
+
+        public JsonResult GetImagesByNemotecnico(int paisID, int idMatrizComercial, string nemoTecnico, int tipoBusqueda, int pagina)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenByNemotecnico(paisID, idMatrizComercial, null, null, 0, 0, 0, nemoTecnico, tipoBusqueda, pagina, 10).ToList();
+            }
+
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        public JsonResult GetImagesByNemotecnicoSAP(int paisID, string codigoSAP, string nemoTecnico, int tipoBusqueda, int pagina)
+        {
+            List<BEMatrizComercialImagen> lst;
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.GetImagenByNemotecnico(paisID, 0, null, codigoSAP, 0, 0, 0, nemoTecnico, tipoBusqueda, pagina, 10).ToList();
+            }
+
+            return GetImagesCommonResult(lst, paisID);
+        }
+
+        private JsonResult GetImagesCommonResult(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            int totalRegistros = lst.Any() ? lst[0].TotalRegistros : 0;
+            var data = MapImages(lst, paisID);
+
+            return Json(new { imagenes = data, totalRegistros = totalRegistros });
+        }
+
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            string paisISO = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+            var data = lst.Select(p => new MatrizComercialImagen
+            {
+                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                Foto = urlS3 + p.Foto,
+                NemoTecnico = p.NemoTecnico
+            }).ToList();
+
+            return data;
         }
     }
 }

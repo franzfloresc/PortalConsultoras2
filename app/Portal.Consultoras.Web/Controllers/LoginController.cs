@@ -21,6 +21,8 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
 
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class LoginController : Controller
@@ -719,6 +721,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model.EsCDRWebZonaValida = oBEUsuario.EsCDRWebZonaValida;
                     model.TieneCDR = oBEUsuario.TieneCDR;
                     model.TieneCupon = oBEUsuario.TieneCupon;
+                    model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
+                    //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
                     model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919
                     model.MensajeCDRExpress = oBEUsuario.MensajeCDRExpress; //EPD-1919 
@@ -728,7 +732,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.RolID == Constantes.Rol.Consultora)
                     {
-                        #region TieneHana
+                        #region Hana
                         if (model.TieneHana == 1)
                         {
                             if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
@@ -765,13 +769,11 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-
                         #endregion
 
                         #region GPR
                         model.IndicadorGPRSB = oBEUsuario.IndicadorGPRSB;
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                        #region OfertaDelDia
                         {
                             CalcularMotivoRechazo(model);
 
@@ -782,9 +784,8 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
-
                         #endregion
-
+ 
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -794,6 +795,21 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         #endregion
 
+                        #region RegaloPN
+                        var regaloProgramaNuevasFlag = ConfigurationManager.AppSettings.Get("RegaloProgramaNuevasFlag");
+                        if (regaloProgramaNuevasFlag == "1")
+                        {
+                            DateTime fechaHoy = DateTime.Now.AddHours(model.ZonaHoraria).Date;
+                            var esDiasFacturacion = fechaHoy >= model.FechaInicioCampania.Date && fechaHoy <= model.FechaFinCampania.Date;
+
+                            if (esDiasFacturacion)
+                            {
+                                model.ConsultoraRegaloProgramaNuevas = GetConsultoraRegaloProgramaNuevas(model);
+                            }
+                        }
+                        #endregion
+
+                        #region LoginFB
                         if (oBEUsuario.TieneLoginExterno)
                         {
                             model.TieneLoginExterno = true;
@@ -835,10 +851,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                             if (model.ConfiguracionPais.Any())
                             {
+                                model.RevistaDigital.EstadoSuscripcion = 0;
+
                                 foreach (var c in model.ConfiguracionPais)
                                 {
-                                    model.RevistaDigital.EstadoSuscripcion = 0;
-
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                                     {
                                         model.RevistaDigital.TieneRDC = true;
@@ -867,7 +883,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        if (model.FechaActualPais.Date < model.FechaInicioCampania.Date.AddDays(-1))
+                                        if (DateTime.Now.AddHours(model.ZonaHoraria).Date < model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
                                         {
                                             model.RevistaDigital.TieneRDS = true;
                                             //obtiene datos de Revista digital suscripcion.
@@ -1711,7 +1727,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message = ""
             });
         }
-
+        
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
@@ -1763,6 +1779,57 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("UserUnknown");
         }
 
+        private ConsultoraRegaloProgramaNuevasModel GetConsultoraRegaloProgramaNuevas(UsuarioModel model)
+        {
+            ConsultoraRegaloProgramaNuevasModel result = null;
+            pasoLog = "GetConsultoraRegaloProgramaNuevas";
+
+            try
+            {
+                BEConsultoraRegaloProgramaNuevas entidad;
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    entidad = svc.GetConsultoraRegaloProgramaNuevas(model.PaisID, model.CampaniaID, model.CodigoConsultora, model.CodigorRegion, model.CodigoZona);
+                }
+
+                if (entidad != null)
+                {
+                    var listaProdCatalogo = new List<Producto>();
+                    if (!string.IsNullOrEmpty(entidad.CodigoSap))
+                    {
+                        using (ProductoServiceClient svc = new ProductoServiceClient())
+                        {
+                            listaProdCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
+                        }
+                    }
+                    
+                    if (listaProdCatalogo.Any())
+                    {
+                        var prodCatalogo = listaProdCatalogo.FirstOrDefault();
+                        if (prodCatalogo != null)
+                        {
+                            var dd = (!string.IsNullOrEmpty(prodCatalogo.NombreComercial) ? prodCatalogo.NombreComercial : prodCatalogo.DescripcionComercial);
+                            if (!string.IsNullOrEmpty(dd)) entidad.DescripcionPremio = dd;
+
+                            if (prodCatalogo.PrecioCatalogo > 0) entidad.PrecioCatalogo = prodCatalogo.PrecioCatalogo;
+                            if (prodCatalogo.PrecioValorizado > 0) entidad.PrecioValorizado = prodCatalogo.PrecioValorizado;
+                            entidad.UrlImagenRegalo = prodCatalogo.Imagen;
+                        }
+                    }
+
+                    result = Mapper.Map<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>(entidad);
+                    result.CodigoIso = model.CodigoISO;
+                    result.DescripcionPremio = result.DescripcionPremio.ToUpper();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO, pasoLog);
+            }
+
+            return result;
+        }
+                                
         private JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);

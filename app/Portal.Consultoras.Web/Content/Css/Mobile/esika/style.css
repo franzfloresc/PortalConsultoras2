@@ -8807,7 +8807,7 @@ span.title-app-b {
     position: relative;
     background: #fff;
     width: 95%;
-    max-width: 304px;
+    max-width: 400px;
     height: auto;
     padding: 41px 0 0px 0;
     }
@@ -9879,29 +9879,28 @@ a{
 }
 
 .btn2-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     background: white;
     color: black;
     font-weight: 700;
     height: 45px;
     border: 1px solid #ccc;
     float: left;
-   
     /* line-height: 32px; */
     text-align-last: center;
     /* border-radius: 0; */
     display: inline-block;
-     width: 48%;
+    width: 38%;
 }
 
 .select-ffc {
-    font-family: 'lato';
+   font-family: 'lato';
     font-size: 13px;
     font-weight: 700;
     width: 60%;
     margin-right: 2%;
     height: 45px;
-    padding: 6px 15px 6px 14px;
+    padding: 6px 17px 6px 7px;
     /* display: inline-block; */
     /* border-radius: 0; */
     /* -webkit-appearance: none; */
@@ -10467,7 +10466,7 @@ a{
     max-width:292px;
     height:auto;
     margin:0 auto;
-    margin-top:15px;
+    margin-top:15px !important;
     /*overflow:hidden;*/
     margin-bottom:40px;
 }
@@ -10489,7 +10488,7 @@ a{
     font-size:13.5px;
     color:black;
     width:100%;
-    line-height:20px;
+    line-height:17px;
     margin:0 auto;
     margin-top:10px;
     margin-bottom:13px;
@@ -10955,6 +10954,7 @@ a{
     margin-bottom:20px;
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
     padding-left:32px;
+    position:relative;
 }
 .correo_showroon input{ 
      width: 100%;
@@ -10980,18 +10980,19 @@ a{
     margin-top:15px;
 }
 .termino_condiciones_intriga, .termino_condiciones_cupon {
-    position:relative;
-    padding-left:18px;
-    margin:0 auto;
-    margin-top:20px;
-    font-family:'Lato';
-    font-size:10.5px;
-    max-width:260px;    
+    position: relative;
+    padding-left: 18px;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    max-width: 260px;    
     text-align: left;
 }
 .termino_condiciones_cupon {
     position: relative;
     padding-left: 18px;
+    margin-top:0;
 }
 .contenedor_termino_condiciones_cupon {
     margin:0 auto;
@@ -11000,6 +11001,7 @@ a{
     font-size:10.5px;
     width:248px;    
     text-align: left;
+    position:relative;
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before{
     position:absolute;
@@ -11708,7 +11710,7 @@ a{
 .icono_celular {
     background: url(../../../Images/Esika/celular_mailing.png) no-repeat;
     background-position: 4px 0px;
-    height: 24px;
+    /*height: 24px;*/
     padding-top: 3px;
 }
 .titulo_confirmacion {
@@ -11951,7 +11953,7 @@ a{
 }
 
 .saludo_paginacion{
-   
+   margin-top: 10px;
    margin-bottom: 12px;
    font-family: 'Lato';
    font-size: 13px;
@@ -12072,9 +12074,8 @@ a{
 }
 
 .content_cronometro{
-     margin-top: 26px;
-    height: 25px;
-    /* margin-bottom: -28px; */;
+    margin-top: 26px;
+    margin-bottom: -28px;
 }
 .saludo_paginacion p {
 	margin:0;
@@ -12111,14 +12112,28 @@ a{
     /*padding-left:12px;*/
     font-size:12.5px;
     text-align:left;
+    width: 232px;
+}
+
+@media (min-width: 440px) {
+    .contenedor-texto-agregar{
+       display: block;
+    }
+    .texto_cupon{
+        width:260px;
+    }
 }
 .texto_cupon_black{
-    color:black;
-    font-family:'Lato';
+    color: #000;
+    font-family: 'Lato';
     line-height: 16px;
-    padding-left:30px;
-    font-size:12.5px;
-    float:left;
+    padding-left: 10px;
+    font-size: 12.5px;
+    float: right;
+    width: calc(100% - 110px);
+    width:-moz-calc(100% -110px);
+    width:-webkit-calc(100% - 110px);
+    text-align: left;
 }
 .link_cupon_home{
     display:block;
@@ -12178,46 +12193,70 @@ a{
     text-align:center;
     font-family:'Lato';
 }
-.titulo_gana{
-    font-size: 35px;
-    color: white;
+.titulo_gana {
+    font-size: 10px;
+    color: #fff;
     height: 46px;
+    letter-spacing: .5px;
+    -moz-text-align-last: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+    margin: 0 auto;
+    margin-top: 27px;
+    margin-bottom: 8px;
+    width: 200px;
+    line-height: 18px;
     font-weight: 700;
-    letter-spacing: 2px;
-    margin-top:28px;
 }
-.subtitulo_gana{
-    font-family:'Lato';
-    color:white;
-    font-size:14px;
-    /*font-weight:900;*/
-    letter-spacing:1.2px;   
+.titulo_gana span {
+    font-size: 19px;
+    letter-spacing: 1.1px;
+    font-weight: 700;
 }
-.monto_gana{
-    font-family:'Lato';
-    font-size:48px;
-    color:white;
-    font-weight:700;
-    margin-top: -8px;
+.subtitulo_gana {
+    font-family: 'Lato';
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    width: 196px;
+    margin: 0 auto;
+    margin-bottom: -5px;
+    -moz-text-align-last: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+}
+.monto_gana {
+    font-family: 'Lato';
+    font-size: 94px;
+    color: white;
+    font-weight: 700;
+    margin-top: -35px;
+    float: left;
+    padding-left: 23px;
+    height: 107px;
+    letter-spacing: 4px;
 }
 .tipo_moneda{
     font-size:38px;    
 }
 .texto_cupon_datos{
     font-family: 'LAto';
-    font-size: 13px;
+    font-size: 14px;
     text-align: center;
     margin-bottom: 12px;
     line-height: 19px;
     color: black;
-    font-weight: 700;
-    margin-top: 27px;
+    /* font-weight: 400; */
+    margin-top: 35px;
+}
+.texto_cupon_datos b{
+    font-size:16px;
 }
 .texto_legal_mobile_c{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:10px;
+    margin-top:8px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12283,15 +12322,15 @@ a{
     margin:0 auto;
     background:url(../../../Images/PL20/cupon_gif_rojo.gif) no-repeat;
     margin-bottom: 3px;
-    margin-top: 22px;
+    margin-top: 44px;
 }
 
 .info_recuerda_cupon{
-    float: left; */
+    float: left;
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */
     /* height: 72px; */
 }
@@ -12314,8 +12353,9 @@ a{
 }
 .titulo_cupon3{
     color:white;
-    font-size:20px;
+    /*font-size:20px;*/
     letter-spacing:1.5px;
+    margin-top:14px;
 }
 .texto_cupon3{
     font-family: 'lato';
@@ -12327,4 +12367,132 @@ a{
     font-weight: 400;
     margin-bottom: 30px;
     
+}
+.texto_recuerda_cupon{
+    font-family: 'LAto';
+    font-size: 14px;
+    margin-top: 53px;
+    text-align: left;
+    padding-left: 51px;
+}
+.tipo_porcentaje {
+        color: white;
+    font-size: 59px;
+    float: right;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 48px;
+    margin-right: 23px;
+    text-align: right;
+    margin-right: 39px;
+    box-sizing: border-box;
+}
+.mensaje_alerta_cupon1 {
+    color: #e81c36;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid;
+    width: 88%;
+    padding-top: 2px;
+    text-align:left;
+}
+.icono_alerta_cupon {
+    width: 15px;
+    height: 15px;
+    background: url(../../../Images/Esika/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.borde_seleccion_alerta:before {
+    border: 1px solid #e81c36;
+}
+/*SPRINT 13*/
+
+.content_producto_alternativo{   
+    margin-top: -26px;
+    text-align:center;
+    min-height:52px;
+    background:white;
+    width:100%;
+    -webkit-box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
+    box-shadow: 0px -5px 22px -6px rgba(0,0,0,0.25);
+}
+.content_imagen_alternativo{
+    width:45px;
+    height:auto;
+    display:inline-block;
+    vertical-align:middle
+}
+.content_imagen_alternativo img{
+    width:100%;
+}
+.content-texto-producto-alternativo{
+    display:inline-block;
+    /*padding-left:10px;*/
+    font-family:'Lato';
+    font-size:11.5px;
+    max-width: 242px;
+    color:black;
+    vertical-align:middle;
+    padding-top:5px;
+    
+}
+.content-texto-producto-alternativo b{
+    font-weight:900 !important;
+}
+.fondo_gris_OF{
+    background: #f5f5f5;
+}
+
+.txt-ayuda1-pn{
+    font-size:11px;
+    font-family:'Lato';
+    color:#979797;
+    text-align: left;
+    padding-left: 5px;
+}
+
+/*SPRINT 14*/
+.content_mas_vendidos{
+    background:white;
+   padding:30px 14px 30px 14px;
+   font-family:'Lato';
+}
+.titulo_mas_vendido{
+    color:black;
+    font-size:19px;
+    letter-spacing:1.7px;
+    text-align:center;
+    font-weight:700;
+    margin-bottom:20px;
+}
+.content_carrusel_mas_vendidos{
+    width:80%;
+    margin: 0 auto;
+}
+.content_puntuacion{
+    padding-left: 8%;
+    padding-right: 8%;
+    text-align:center;
+}
+.cantidad_puntuacion{
+    font-weight:700;
+    font-size:13px;
+    margin-bottom:10px;
+}
+.content_carrusel_mas_vendidos .producto_nombre_descripcion{
+    margin-bottom:0px;
+}
+.content_carrusel_mas_vendidos .producto_precio{
+    margin-bottom:5px;
+}
+#content-filters{
+    margin-left:14px;
+    margin-right:14px;
 }

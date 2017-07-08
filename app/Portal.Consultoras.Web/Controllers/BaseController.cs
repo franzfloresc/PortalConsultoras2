@@ -17,6 +17,8 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -901,8 +903,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             UsuarioModel model = (UsuarioModel)Session["UserData"];
             string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
-
-            if (model != null)
             {
                 #region Cargar variables
 
@@ -1134,9 +1134,17 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
                 ViewBag.ModificarPedidoProl = model.NuevoPROL && model.ZonaNuevoPROL ? 0 : 1;
                 ViewBag.TipoUsuario = model.TipoUsuario;
-                ViewBag.MensajePedidoDesktop = model.MensajePedidoDesktop;
-                ViewBag.MensajePedidoMobile = model.MensajePedidoMobile;
-                return model;
+                ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
+                ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+
+                #region RegaloPN
+                ViewBag.ConsultoraTieneRegaloPN = false;
+                if (model.ConsultoraRegaloProgramaNuevas != null)
+                {
+                    ViewBag.ConsultoraTieneRegaloPN = true;
+                }
+                #endregion
+
 
                 #endregion
             }
@@ -2124,15 +2132,29 @@ namespace Portal.Consultoras.Web.Controllers
                     Version = "2.0",
                 };
 
-                dataString = JsonConvert.SerializeObject(data);
 
                 var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
 
-                using (var client = new HttpClient())
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(urlApi);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
+
+                if (!response.IsSuccessStatusCode)
                 {
-                    var response = client.PostAsJsonAsync(urlApi, data).Result;
-                    response.EnsureSuccessStatusCode();
+                    var strResult = response.Content.ReadAsStringAsync().Result;
+                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(strResult), userData.CodigoConsultora, userData.CodigoISO, dataString);
                 }
+
+                httpClient.Dispose();
             }
             catch (Exception ex)
             {
@@ -2405,18 +2427,18 @@ namespace Portal.Consultoras.Web.Controllers
                         bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
                         accion = esVenta ? "Index" : "Intriga";
                         break;
-                }
-
+                 }
+        
                 if (onlyAction) return accion;
                 return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return accion;
             }
-             * */
-        }
+            
+            * */
+         }
 
         //public bool MostrarFAV()
         //{
@@ -2429,6 +2451,35 @@ namespace Portal.Consultoras.Web.Controllers
             if (url.Contains("/mobile/")) return true;
             else return false;
         }
+
+        public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId)
+        {
+            var datos = new List<BETablaLogicaDatos>();
+            using (var svc = new SACServiceClient())
+            {
+                datos = svc.GetTablaLogicaDatos(paisID, tablaLogicaId).ToList();
+            }
+            return datos;
+        }
+
+        public string ObtenerValorTablaLogica(int paisID, short tablaLogicaId, short idTablaLogicaDatos)
+        {
+            return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
+        }
+        public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
+        {
+            var valor = "";
+            if (datos.Any())
+            {
+                var par = datos.FirstOrDefault(d => d.TablaLogicaDatosID == idTablaLogicaDatos);
+                if (par != null)
+                {
+                    valor = par.Codigo;
+                }
+            }
+            return valor;
+        }
+
     }
 }
 

@@ -246,7 +246,6 @@ function CerrarDialogMesajePostulantePedido() {
     UpdateUsuarioTutoriales();
 }
 
-
 function UpdateUsuarioTutoriales() {
     var item = {
         tipo: '2' // Para mOBILE
@@ -775,7 +774,7 @@ function VisibleEstrategias(accion) {
     else {
         $("#divListaEstrategias").hide();
     }
-        }
+}
 
 function PedidoOnSuccess() {
     var ItemCantidad = $("#txtCantidad").val();

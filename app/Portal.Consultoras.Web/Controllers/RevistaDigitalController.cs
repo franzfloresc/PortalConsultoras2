@@ -204,7 +204,18 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                var entidad = new BERevistaDigitalSuscripcion();
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede suscribirse, estamos a dias de cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
+                    var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
                 entidad.CampaniaID = userData.CampaniaID;
@@ -225,6 +236,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
@@ -285,6 +297,7 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);

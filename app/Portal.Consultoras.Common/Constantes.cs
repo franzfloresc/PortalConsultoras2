@@ -119,6 +119,10 @@ namespace Portal.Consultoras.Common
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
             public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
         
         public class ParametrosNames
@@ -270,6 +274,7 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoomProductPageTactica = 2533;
             
             public const int MobileHomeOfertasParaTi = 2121;
+            public const int MobileHomeMasVendidos = 2123;
 
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
@@ -530,6 +535,15 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        public class MatrizNemotecnicoMensajes
+        {
+            public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
+            public const string PlaceHolderTextoNemotecnico = "Ingrese patrón de búsqueda";
+            public const string TextoBotonBuscar = "Buscar por nemotécnico";
+            public const string TextoBotonLimpiar = "Limpiar filtros nemotécnico";
+            public const string TextoBusquedaExacta = "B.Exacta";
+        }
+
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
@@ -584,7 +598,33 @@ namespace Portal.Consultoras.Common
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
         }
+        
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+            public const int Utilizado = 3;
+        }
 
+        public class NombreEstadoCupon
+        {
+            public const string Reservado = "Registrado";
+            public const string Activo = "Activado";
+            public const string Utilizado = "Utilizado";
+        }
+
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }
+
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+	
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
@@ -611,6 +651,20 @@ namespace Portal.Consultoras.Common
             public const string PR = "Tu código de consultora,<br/>tarjeta electoral<br/>o correo electrónico.";
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
+        }
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
+        }
+
+        public class TipoBusqueda
+        {
+            public const int Aproximacion = 1;
+            public const int Exacta = 2;
         }
 
         public class TooltipLoginPassword
@@ -640,19 +694,6 @@ namespace Portal.Consultoras.Common
             public const int Plan20 = 98;
         }
 
-        public class EstadoCupon
-        {
-            public const int Reservado = 1;
-            public const int Activo = 2;
-        }
-
-        public class TipoOfertasPlan20
-        {
-            public const int OfertaFinal = 35;
-            public const int Showroom = 44;
-            public const int OPT = 45;
-            public const int ODD = 46;
-        }
         
         #region Clientes
         public class ClienteTipoContacto

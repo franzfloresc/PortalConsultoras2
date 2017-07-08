@@ -384,6 +384,10 @@ namespace Portal.Consultoras.Entities
                 TieneCDR = Convert.ToInt32(row["TieneCDR"]);
             if (DataRecord.HasColumn(row, "TieneCupon") && row["TieneCupon"] != DBNull.Value)
                 TieneCupon = Convert.ToInt32(row["TieneCupon"]);
+            if (DataRecord.HasColumn(row, "TieneMasVendidos") && row["TieneMasVendidos"] != DBNull.Value)
+                TieneMasVendidos = Convert.ToInt32(row["TieneMasVendidos"]);
+            if (DataRecord.HasColumn(row, "TieneOfertaLog") && row["TieneOfertaLog"] != DBNull.Value)
+                TieneOfertaLog = Convert.ToInt32(row["TieneOfertaLog"]);
 
             if (DataRecord.HasColumn(row, "IndicadorGPRSB") && row["IndicadorGPRSB"] != DBNull.Value)
                 IndicadorGPRSB = Convert.ToInt32(row["IndicadorGPRSB"]);
@@ -1098,7 +1102,10 @@ namespace Portal.Consultoras.Entities
         public int TieneCDR { get; set; }
         [DataMember]
         public int TieneCupon { get; set; }
-
+        [DataMember]
+        public int TieneMasVendidos { get; set; }
+        [DataMember]
+        public int TieneOfertaLog { get; set; }
         [DataMember]
         public decimal MontoDeuda { get; set; }
 

@@ -31,6 +31,9 @@ namespace Portal.Consultoras.Entities
         public string UsuarioModificacion { get; set; }
 
         [DataMember]
+        public string NemoTecnico { get; set; }
+
+        [DataMember]
         public int TotalRegistros { get; set; }
 
         public BEMatrizComercialImagen(IDataRecord row)
@@ -41,6 +44,8 @@ namespace Portal.Consultoras.Entities
                 IdMatrizComercial = Convert.ToInt32(row["IdMatrizComercial"]);
             if (DataRecord.HasColumn(row, "Foto") && row["Foto"] != DBNull.Value)
                 Foto = Convert.ToString(row["Foto"]);
+            if (DataRecord.HasColumn(row, "NemoTecnico") && row["NemoTecnico"] != DBNull.Value)
+                NemoTecnico = Convert.ToString(row["NemoTecnico"]);
             if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value)
                 FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
             if (DataRecord.HasColumn(row, "TotalRegistros") && row["TotalRegistros"] != DBNull.Value)

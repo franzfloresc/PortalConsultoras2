@@ -430,7 +430,9 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
                 ViewBag.paisISO = userData.CodigoISO;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-
+                ViewBag.CodigoConsultora = userData.CodigoConsultora;
+                model.TieneMasVendidos = userData.TieneMasVendidos;
+                //model.TieneOfertaLog = userData.TieneOfertaLog;
             }
             catch (FaultException ex)
             {
@@ -3714,7 +3716,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 model.MensajeCierreCampania = ViewBag.MensajeCierreCampania;
-                model.Simbolo = userData.Simbolo;                
+                model.Simbolo = userData.Simbolo;
 
                 return Json(new
                 {
@@ -3818,18 +3820,82 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro)
+        public JsonResult InsertarOfertaFinalLog(string CUV, int cantidad, string tipoOfertaFinal_Log, decimal gap_Log, int tipoRegistro, string desTipoRegistro)
         {
             try
             {
                 using (PedidoServiceClient svp = new PedidoServiceClient())
                 {
-                    svp.InsLogOfertaFinal(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, CUV, cantidad, tipoOfertaFinal_Log, gap_Log, tipoRegistro);
+                    BEOfertaFinalConsultoraLog entidad = new BEOfertaFinalConsultoraLog();
+                    entidad.CampaniaID = userData.CampaniaID;
+                    entidad.CodigoConsultora = userData.CodigoConsultora;
+                    entidad.CUV = CUV;
+                    entidad.Cantidad = cantidad;
+                    entidad.TipoOfertaFinal = tipoOfertaFinal_Log;
+                    entidad.GAP = gap_Log;
+                    entidad.TipoRegistro = tipoRegistro;
+                    entidad.DesTipoRegistro = desTipoRegistro;
+
+                    svp.InsLogOfertaFinal(userData.PaisID, entidad);
                 }
                 return Json(new
                 {
                     success = true,
                     message = "El log ha sido registrado satisfactoriamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                    extra = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult InsertarOfertaFinalLogBulk(List<OfertaFinalConsultoraLogModel> lista)
+        {
+            try
+            {
+                var s = false;
+                var m = string.Empty;
+
+                if (lista.Any())
+                {
+                    List<BEOfertaFinalConsultoraLog> listaOfertaFinalLog = new List<BEOfertaFinalConsultoraLog>();
+
+                    foreach (var item in lista)
+                    {
+                        BEOfertaFinalConsultoraLog ofertaFinalLog = new BEOfertaFinalConsultoraLog();
+                        ofertaFinalLog.CampaniaID = userData.CampaniaID;
+                        ofertaFinalLog.CodigoConsultora = userData.CodigoConsultora;
+                        ofertaFinalLog.CUV = item.CUV; 
+                        ofertaFinalLog.Cantidad = item.Cantidad;                         
+                        ofertaFinalLog.TipoOfertaFinal = item.TipoOfertaFinal;
+                        ofertaFinalLog.GAP = item.GAP;
+                        ofertaFinalLog.TipoRegistro = item.TipoRegistro;
+                        ofertaFinalLog.DesTipoRegistro = item.DesTipoRegistro;
+                        listaOfertaFinalLog.Add(ofertaFinalLog);
+                    }
+
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        svc.InsLogOfertaFinalBulk(userData.PaisID, listaOfertaFinalLog.ToArray());
+                    }
+
+                    s = true;
+                    m = "El log ha sido registrado satisfactoriamente.";
+                }
+                
+                return Json(new
+                {
+                    success = s,
+                    message = m,
                     extra = ""
                 });
             }
@@ -3881,9 +3947,11 @@ namespace Portal.Consultoras.Web.Controllers
                 //lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
                 //    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
-
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
-
+            if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)
+            {
+                for (int i = 0; i <= listaProductoModel.Count - 1; i++) { listaProductoModel[i].ID = i; }
+            }
             if (lista.Count != 0)
             {
                 var detallePedido = ObtenerPedidoWebDetalle();
@@ -3980,8 +4048,7 @@ namespace Portal.Consultoras.Web.Controllers
             //        Simbolo = userData.Simbolo*/
             //    });
 
-            //}
-
+            //}     
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
@@ -3992,6 +4059,14 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var oddModel = this.GetOfertaDelDiaModel();
+                oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
+                foreach (var item in oddModel.ListaOfertas)
+                {
+                    item.TipoEstrategiaDescripcion = string.Empty;
+                    var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
+                    if (tipo_estrategia != null)
+                        item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
+                }
                 return Json(new
                 {
                     success = oddModel != null,
@@ -4293,6 +4368,39 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetRegaloProgramaNuevas()
+        {
+            try
+            {
+                UsuarioModel userData = UserData();
+                ConsultoraRegaloProgramaNuevasModel model = null;
+                var f = false;
+
+                if (userData != null)
+                {
+                    model = userData.ConsultoraRegaloProgramaNuevas;
+                    if (model != null) f = true;
+                }
+
+                return Json(new
+                {
+                    success = f,
+                    message = "OK",
+                    data = model,
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al procesar la solicitud",
+                    data = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

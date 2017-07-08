@@ -325,7 +325,7 @@
                                 <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                                 <a class=" cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                             </div>
-                            <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar">AGRÉGALO</a>
+                            <a id="btnAgregarMobile" href="#" class="btn_agregar_ficha_producto" data-odd-accion="agregar" onclick="odd_mobile_google_analytics_addtocart()">AGRÉGALO</a>
                             <hr class="clear">
                         </div>
                     </div>
@@ -423,6 +423,9 @@
                                                 <input type="hidden" id="nombre-odd" value="@ofertaDelDia.NombreOferta" />
                                                 <input type="hidden" id="indmonto-min-odd" value="@ofertaDelDia.IndicadorMontoMinimo" />
                                                 <input type="hidden" id="teimagenmostrar-odd" value="@ofertaDelDia.TipoEstrategiaImagenMostrar" />
+                                                <input type="hidden" id="estrategia-id-odd" value="@ofertaDelDia.EstrategiaID" />
+                                                <input type="hidden" id="marca-descripcion-odd" value="@ofertaDelDia.DescripcionMarca" />
+                                                <input type="hidden" id="tipoestrategia-descripcion-odd" value="@ofertaDelDia.TipoEstrategiaDescripcion" />
                                             </div>
                                         </div>
                                     </li>
@@ -481,6 +484,7 @@
                 <input type="text" class="teimagenmostrar-odd" value="{{oferta.TipoEstrategiaImagenMostrar}}" />
                 <input type="text" Class="imagen-odd" value="{{oferta.ImagenDisplay}}" />
                 <input type="text" class="origenPedidoWeb-odd" value="1" />
+                <input type="hidden" class="DescripcionEstrategia" value="{{oferta.DescripcionEstrategia}}" />
             </div>
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{oferta.CUV2}}" />
@@ -809,11 +813,9 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 
-        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
-        
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
-
+        var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
         var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
         var userData = {
             'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',

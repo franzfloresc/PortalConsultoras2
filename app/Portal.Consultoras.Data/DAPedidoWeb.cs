@@ -688,16 +688,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(BEOfertaFinalConsultoraLog entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CUV", DbType.String, CUV);
-            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
-            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, tipoOfertaFinal);
-            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, GAP);
-            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, tipoRegistro);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, entidad.Cantidad);
+            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, entidad.TipoOfertaFinal);
+            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, entidad.GAP);
+            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, entidad.TipoRegistro);
+            Context.Database.AddInParameter(command, "@DesTipoRegistro", DbType.String, entidad.DesTipoRegistro);
 
             Context.ExecuteNonQuery(command);
         }
@@ -800,5 +801,15 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-2248*/
 
+        public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+            return Context.ExecuteReader(command);
+        }
+        
     }
 }

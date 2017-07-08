@@ -59,7 +59,6 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.DescripcionLarga, f => f.MapFrom(c => c.Categoria))
                 .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia))
                 .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
-                .ForMember(t => t.TipoEstrategiaCodigo, f => f.MapFrom(c => c.TipoEstrategiaCodigo))
                 .ForMember(t => t.IndicadorOfertaCUV, f => f.MapFrom(c => c.IndicadorOfertaCUV))
                 .ForMember(t => t.FlagConsultoraOnline, f => f.MapFrom(c => c.FlagConsultoraOnline))
                 .ForMember(t => t.ClienteID_, f => f.MapFrom(c => c.ClienteID == 0 ? "-1" : c.ClienteID.ToString()));
@@ -188,6 +187,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
+            Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
+                .ForMember(t => t.CodigoNivel, f => f.MapFrom(c => c.CodigoNivel))
+                //.ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma))
+                .ForMember(t => t.TippingPoint, f => f.MapFrom(c => c.TippingPoint))
+                .ForMember(t => t.CUVPremio, f => f.MapFrom(c => c.CUVPremio))
+                .ForMember(t => t.DescripcionPremio, f => f.MapFrom(c => c.DescripcionPremio))
+                .ForMember(t => t.CodigoSap, f => f.MapFrom(c => c.CodigoSap))
+                .ForMember(t => t.PrecioCatalogo, f => f.MapFrom(c => c.PrecioCatalogo))
+                .ForMember(t => t.PrecioValorizado, f => f.MapFrom(c => c.PrecioValorizado))
+                .ForMember(t => t.UrlImagenRegalo, f => f.MapFrom(c => c.UrlImagenRegalo));
+                
             Mapper.CreateMap<BEPermiso, PermisoModel>()
                 .ForMember(t => t.EsDireccionExterior, f => f.MapFrom(c => c.UrlItem.ToLower().StartsWith("http")))
                 .ForMember(t => t.DescripcionFormateada, f => f.MapFrom(c => c.Descripcion.ToLower()));

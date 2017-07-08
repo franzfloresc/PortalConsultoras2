@@ -10,6 +10,7 @@ var analyticsGuardarValidarEnviado = false;
 
 var esPedidoValidado = false;
 var arrayOfertasParaTi = [];
+var array_odd = [];
 var arrayProductosSugeridos = [];
 var numImagen = 1;
 var fnMovimientoTutorial;
@@ -35,7 +36,6 @@ $(document).ready(function () {
         cerrar_popup_tutorial();
     });
 
-
     //EPD-1564
     $("body").click(function (e) {        
         if (!$(e.target).closest('.ui-dialog').length) {
@@ -50,8 +50,6 @@ $(document).ready(function () {
         }
     })
     //FIn EPD-1564
-
-   
 
     /*
     EPD-1871

@@ -1039,6 +1039,8 @@ namespace Portal.Consultoras.BizLogic
                     case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
                     case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
                     case "IPUSUARIO": item = (row["IPUsuario"] == DBNull.Value ? string.Empty : row["IPUsuario"].ToString()); break;
+                    case "TIPOCUPON": item = (row["TipoCupon"] == DBNull.Value ? string.Empty : row["TipoCupon"].ToString()); break;
+                    case "VALORCUPON": item = (row["ValorCupon"] == DBNull.Value ? string.Empty : row["ValorCupon"].ToString()); break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);
@@ -1925,9 +1927,23 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
-        public void InsLogOfertaFinal(int PaisID, int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-            new DAPedidoWeb(PaisID).InsLogOfertaFinal(CampaniaID, CodigoConsultora, CUV, cantidad, tipoOfertaFinal, GAP, tipoRegistro);
+            new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
+        }
+
+        public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
+        {
+            var DAPedidoWeb = new DAPedidoWeb(PaisID);
+
+            if (lista.Any())
+            {
+                foreach (var item in lista)
+                {
+                    if (item != null)
+                        DAPedidoWeb.InsLogOfertaFinal(item);
+                }
+            }
         }
 
         public void ActualizarIndicadorGPRPedidosRechazados(int PaisID, long ProcesoID)
@@ -2114,6 +2130,21 @@ namespace Portal.Consultoras.BizLogic
             return DAPedidoWeb.GetTokenIndicadorPedidoAutentico(paisISO, codigoRegion, codigoZona);
         }
         /*EPD-2248*/
+
+        public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            BEConsultoraRegaloProgramaNuevas entidad = null;
+            DAPedidoWeb DAPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = DAPedidoWeb.GetConsultoraRegaloProgramaNuevas(campaniaId, codigoConsultora, codigoRegion, codigoZona))
+            {
+                while (reader.Read())
+                {
+                    entidad = new BEConsultoraRegaloProgramaNuevas(reader);
+                }
+            }
+            return entidad;
+        }
     }
 
 

@@ -192,6 +192,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImgFichaFondoMobile { get; set; }
         [DataMember]
+        public string ImgHomeDesktop { get; set; }
+        [DataMember]
+        public string ImgHomeMobile { get; set; }
+        [DataMember]
         public string CodigoTipoEstrategia { get; set; }
         
         public BEEstrategia(IDataRecord row, bool partial)
@@ -441,8 +445,9 @@ namespace Portal.Consultoras.Entities
         public string CodigoSap { get; set; }
         public int OfertaUltimoMinuto { get; set; }
         public int LimiteVenta { get; set; }
-
+        
         public string UsuarioCreacion { get; set; }
+        public string FotoProducto01 { get; set; }
     }
     // 1747 - Fin
 }

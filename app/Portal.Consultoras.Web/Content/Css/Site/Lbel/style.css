@@ -4901,6 +4901,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     color:#000;
     font-weight:300!important;
     text-align:center;
+    margin-bottom:3px;
 }
 
 .descripcion_ofertaFinal{
@@ -4908,8 +4909,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-size: 17px;
     font-weight:700;
     text-align:center;
-    margin-bottom: 18px;
-    margin-top: 18px;
+    /*margin-bottom: 18px;*/
+    /*margin-top: 18px;*/
     TEXT-TRANSFORM: uppercase;
 }
 .texto_complemento_oferta{
@@ -4986,6 +4987,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 .icono_terminar_pedido{
     background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background-size:22px;
     padding-left: 40px;
     background-position: 10px 14px;
 }
@@ -26888,7 +26890,7 @@ position: relative; float: left;
 }
 .icono_check_alerta{
     background:url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
-    background-size:cover;
+    background-size: 80%;
 }
 .texto_mensaje_alerta {
     font-family: 'Lato';
@@ -32597,7 +32599,7 @@ h1#penmostreo .campana {
     float:left;
     font-family:'Lato';
     font-size:13px;
-    margin-top:20px;
+    padding-top:20px;
 }
 .filtros_derecha{
     float:right;
@@ -34935,40 +34937,58 @@ h1#penmostreo .campana {
     background:url(../../../Images/PL20/fondo_cupon1.png) no-repeat;
 }
 .content_monto_cupon{
-    float:left;
-    width: 43%;
-    padding-right: 3%;
-    padding-top:45px;
-    padding-left:60px;
-    font-family:'Lato';
-    /*letter-spacing:2px;
-    font-weight:700;*/
+        float: left;
+    width: 38%;
+    padding-right: 2%;
+    padding-top: 40px;
+    margin-left: 27px;
+    font-family: 'Lato';
+    box-sizing: border-box;
 }
-.titulo_gana{
-        font-size: 35px;
+.titulo_gana {
+    font-size: 13.7px;
     color: white;
     height: 46px;
+    /*width: 90%;*/
+    letter-spacing: 0.5px;
+    line-height: 20px;
+    -moz-text-align-last: justify;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+    /* padding-left: 15px; */
+    margin-top: -8px;
+    margin-bottom: 18px;
+    text-align: center;
+}
+.titulo_gana span {
+    font-size: 20px;
+    letter-spacing: 1.1px;
     font-weight: 700;
-    letter-spacing: 2px;
 }
 .subtitulo_gana{
-    font-family:'Lato';
-    color:white;
-    font-size:14px;
-    /*font-weight:900;*/
-    letter-spacing:1.2px;   
-     -moz-text-align-last: justify;
-    -webkit-text-align-last: justify;
-    text-align-last: justify;
-    text-align: justify;
-    padding-right: 10px; 
+   font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 14px;
+    /* font-weight: 900; */
+    letter-spacing: 1.2px;
+    /* text-align-last: justify; */
+    /* text-align: justify; */
+    /* padding-right: 10px; */
+    text-align: center;   
+
 }
 .monto_gana{
-    font-family:'Lato';
-    font-size:48px;
-    color:white;
-    font-weight:700;
-    margin-top: -8px;
+    font-family: 'Lato';
+    font-size: 103px;
+    color: white;
+    font-weight: 700;
+    margin-top: -36px;
+    /* float: left; */
+    width: 124px;
+    height: 126px;
+    text-align: right;
+    display: inline-block;
 }
 .tipo_moneda{
     font-size:38px;    
@@ -34982,7 +35002,7 @@ h1#penmostreo .campana {
 }
 .content_cupon_datos{
     float:left;
-    width:56%;
+    width:57%;
     padding:35px 60px 0 42px;
     position:relative;
 }
@@ -35071,7 +35091,7 @@ h1#penmostreo .campana {
     margin-top:12px;
     font-family:'Lato';
     font-size:12px;
-    border-right: 1px solid rgba(149, 145, 146, 0.2);
+    /*border-right: 1px solid rgba(149, 145, 146, 0.2);*/
     height: 72px;
 }
 .info_recuerda_cupon span{
@@ -35139,3 +35159,71 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+/*SPRINT 13*/
+
+.content_producto_alternativo{
+    margin-top: -40px;
+    margin-bottom: 23px;
+    text-align:center;
+    height:52px;
+    background:white;
+    width:100%;
+    -webkit-box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
+    box-shadow: 0px 3px 22px -1px rgba(0,0,0,0.25);
+}
+.content_imagen_alternativo{
+    width:45px;
+    height:auto;
+    display:inline-block;
+    vertical-align:middle
+}
+.content_imagen_alternativo img{
+    width:100%;
+}
+.content-texto-producto-alternativo{
+    display:inline-block;
+    padding-left:10px;
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:1px;
+    color:black;
+    vertical-align:middle;
+    padding-top:5px;
+    
+}
+.content-texto-producto-alternativo b{
+    font-weight:900 !important;
+}
+.fondo_gris_OF{
+    background: #f5f5f5;
+}
+.tipo_porcentaje {
+    color: white;
+    font-size: 73px;
+    float: d;
+    display: inline-block;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 63px;
+    text-align: right;
+    /* margin-right: 9px; */
+    margin-bottom: 13px;
+}
+.txt-ayuda1-pn{
+    font-family:'Lato';
+    font-size:13px;
+    text-align:center;
+    margin-top:15px;
+    color:#6a6a6a;
+    margin-bottom:20px;
+}
+.contenedor-texto-agregar{
+    display:block;
+}
+.contenedorCuponInfo.content_cupon_pedido .contenedor-texto-agregar{
+    display:inline-block;
+}
+
+/*SPRINT 14*/.titulo_mas_vendido{    background: white;    display: inline-block;    text-align: center;    letter-spacing: 2.1px;    font-size: 25px;    font-weight: 700;    margin-top: 31px;    margin-bottom: 37px;    font-family: 'lato';    PADDING-LEFT: 30px;    padding-right: 30px}.content_mas_vendidos{    padding-top:15px;    padding-bottom:40px;    overflow:hidden;}.content_carrusel_mas_vendidos{    width: 90%;    margin: 0 auto;    height: auto;}.content_carrusel_mas_vendidos .producto_nombre_descripcion{    margin-bottom:0;}.content_carrusel_mas_vendidos .producto_precio{    margin-bottom:0;}.content_carrusel_mas_vendidos .content_item_carrusel{    border:0;    box-shadow:none;}.content_puntuacion{    padding-left:16px;    padding-right:16px;    overflow:hidden;    padding-bottom:7px;    padding-top:8px;    text-align:center;}.cantidad_puntuacion{    font-family:'Lato';    font-size:13px;    font-weight:700;    padding-left: 2px;    padding-right: 5px;    display: inline-block;    vertical-align: top;}

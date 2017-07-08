@@ -119,8 +119,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-
-            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            model.TieneMasVendidos = userData.TieneMasVendidos;
+            //model.TieneOfertaLog = userData.TieneOfertaLog;
+ 
             ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
             ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
             ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;

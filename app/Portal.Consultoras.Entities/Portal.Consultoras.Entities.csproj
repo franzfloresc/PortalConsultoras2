@@ -61,16 +61,17 @@
     <Compile Include="BEAfiliaClienteConsultora.cs" />
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
-    <Compile Include="BEReporteValidacion.cs" />
-    <Compile Include="DEPalabra.cs" />
-    <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
+    <Compile Include="BEReporteValidacion.cs" />
+    <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
+    <Compile Include="BEOfertaFinalConsultoraLog.cs" />
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
     <Compile Include="BEClienteResponse.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
+    <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />
     <Compile Include="BEMisPedidosAppCatalogo.cs" />
     <Compile Include="BEChatbotMensajeProactiva.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
+    <Compile Include="DEPalabra.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
+    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

@@ -312,6 +312,8 @@ namespace Portal.Consultoras.Web.Models
         public int EstadoPedido { get; set; }
         public int TieneCDR { get; set; }
         public int TieneCupon { get; set; }
+        public int TieneMasVendidos { get; set; }
+        public int TieneOfertaLog { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string GPRBannerTitulo { get; set; }
@@ -363,6 +365,7 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
+        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; internal set; }
     }
 }
