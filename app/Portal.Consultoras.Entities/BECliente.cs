@@ -26,7 +26,8 @@ namespace Portal.Consultoras.Entities
         private long miCodigoCliente;
         private short miFavorito;
         private short miTipoContactoFavorito;
-        
+        private decimal saldo;
+
         public BECliente()
         {
             msNombre = string.Empty;
@@ -60,6 +61,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(datarec, "TipoContactoFavorito") && datarec["TipoContactoFavorito"] != DBNull.Value)
                 miTipoContactoFavorito = Convert.ToInt16(datarec["TipoContactoFavorito"]);
+
+            if (datarec.HasColumn("Saldo"))
+                saldo = datarec.GetValue<decimal>("Saldo");
         }
 
         [DataMember]
@@ -162,6 +166,13 @@ namespace Portal.Consultoras.Entities
         {
             get { return miTipoContactoFavorito; }
             set { miTipoContactoFavorito = value; }
+        }
+
+        [DataMember]
+        public decimal Saldo
+        {
+            get { return saldo; }
+            set { saldo = value; }
         }
 
         [DataMember]

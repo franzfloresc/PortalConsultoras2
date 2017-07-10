@@ -494,11 +494,7 @@ namespace Portal.Consultoras.BizLogic
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
             var lstCliente = daClienteDB.GetClienteByClienteID(strclientes);
-            //var taskCliente = daClienteDB.GetClienteByClienteID(strclientes);
-            //Task.WaitAll(taskCliente);
-
-            //var lstCliente = taskCliente.Result;
-
+            
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
                         join tblCliente in lstCliente
@@ -516,6 +512,7 @@ namespace Portal.Consultoras.BizLogic
                             Origen = tblCliente.Origen,
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
+                            Saldo = tblConsultoraCliente.Saldo,
                             Contactos = tblCliente.Contactos.Select(itemContacto => new BEClienteContactoDB
                             {
                                 ContactoClienteID = itemContacto.ContactoClienteID,

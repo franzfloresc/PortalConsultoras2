@@ -61,6 +61,9 @@ namespace Portal.Consultoras.Entities
         public short TipoContactoFavorito { get; set; }
 
         [DataMember]
+        public decimal Saldo { get; set; }
+
+        [DataMember]
         public List<BEClienteContactoDB> Contactos { get; set; }
 
         [DataMember]
