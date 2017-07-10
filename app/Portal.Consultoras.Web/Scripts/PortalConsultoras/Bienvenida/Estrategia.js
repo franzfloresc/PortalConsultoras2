@@ -544,7 +544,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
-
+        estrategia.DescripcionCompleta = estrategia.DescripcionCompleta || estrategia.DescripcionCUV2.split('|')[0];
         var popupId = '#popupDetalleCarousel_lanzamiento';
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
