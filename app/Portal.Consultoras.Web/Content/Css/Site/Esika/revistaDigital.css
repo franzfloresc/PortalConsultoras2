@@ -656,7 +656,7 @@
     background: #000;
     margin: 0 -80px;
     padding: 0px 80px;
-    z-index: 10;
+    z-index: 1000;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
