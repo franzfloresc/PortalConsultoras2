@@ -22,8 +22,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                model.CampaniaID =userData.CampaniaID;
-                model.CodigoConsultora = userData.CodigoConsultora;
+                if (model.CampaniaID == 0 || model.CodigoConsultora == string.Empty)
+                {
+                    model.CampaniaID = userData.CampaniaID;
+                    model.CodigoConsultora = userData.CodigoConsultora;
+                }
 
                 var BEProdComentario = MapearProductoComentarioModelAProductoComentarioBE(model);
                 RegistrarComentarioServicio(BEProdComentario);
