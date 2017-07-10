@@ -15,11 +15,7 @@
 
     var lista = [];
 
-    var _bindEvents = function () {
-        $(document).on("click", elements.btnAgregarComentario, function () {
-            
-        });
-         
+    var _bindEvents = function () {         
         $(document).ready(function () {
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;

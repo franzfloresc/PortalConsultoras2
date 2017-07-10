@@ -44,11 +44,12 @@
                 </select>
             </div>
             <hr class="clear" />
+            <a name="ComentariosUsuarios"></a>
             <div class="contentAgregarComentarios">
                 <!--AGREGA COMENTARIOS-->
                 <div class="texto_agregarComentarios" style="display:none">AGREGA TU COMENTARIO</div>
                 <!--AÑADIENDO COMENTARIOS-->
-                <div class="contentValoracion" style="display:none">
+                <div class="contentValoracion">
                     <div class="titulo_principal_valoracion">¡VALORAMOS TU OPINIÓN!</div>
                     <div class="subtitulo_comentarios">Cuéntanos tu experiencia con este producto</div>
                     <div class="content_detalle_puntuación">
@@ -61,10 +62,14 @@
                             <input type="hidden" id="hdRecomendado" value="" />
                         </div>
                     </div>
-                    <textarea type="text" class="texto_comentario_usuario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
-                    <a class="enviar_comentario_Seller">ENVIAR COMENTARIO</a>
-                    <a class="cancelar_comentario">CANCELAR</a>
-                </div>
+                    <div class="content_detalle_comentarios">
+                        <textarea type="text" class="texto_comentario_usuario" id="txtComentario" placeholder="Escribe un comentario sobre el producto" maxlength="400"> </textarea>
+                        <a class="enviar_comentario_Seller" disabled="disabled">ENVIAR COMENTARIO</a>
+                        <a class="cancelar_comentario">CANCELAR</a>
+                    </div>
+                    <hr class="clear" />
+                    </div>
+                <!--FIN-->
                 <!--CONFIRMACIÓN COMENTARIOS-->
                 <div class="content_confirmacion_comentario">
                     <div class="icono_check_comentario"></div>
@@ -75,6 +80,8 @@
                 <!--FIN-->
             </div>
             <!--COMENTARIO VISIBLES USUARIO-->
+            <div id="contenedorComentarios">
+            </div>
             <div class="ContentcomentariosVisibles">
                 <div class="foto_usuario_comentario"><img src="@Url.Content("~/Content/Images/Esika/user.jpg")" /></div>
                 <div class="datos_usuario_comentario">
@@ -309,24 +316,15 @@
                     ratedFill: "#cca11e",
                     starWidth: "17px"
                 });
-                $(".rateyo-puntuacion-seccion-comentario").rateYo({
-                    rating: 0,
-                    precision: 2,
-                    minValue: 1,
-                    maxValue: 5,
-                    starWidth: "25px",
-                    spacing: "7px",
-                    fullStar: true
-                })
                 $(document).ready(function () {
+                    bestSellerCommentModule.ini({
+                        urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario", new { area = "Mobile" })',
+                        urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario", new { area = "Mobile" })',
+                        urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
+                    });
                     masVendidosModule.ini({
                         baseUrl: baseUrl,
                         urlDetalleProducto: '@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
-                    });
-                    bestSellerCommentModule.ini({
-                        urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario")',
-                        urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")',
-                        urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
                     });
                 });
             });
