@@ -12827,3 +12827,7 @@ a{
     margin-left:10px;
     padding-top: 3px;
 }
+.respuesta_valida{
+    background:black;
+    color:white;
+}
