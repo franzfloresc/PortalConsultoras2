@@ -87,6 +87,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var lista = new List<EstrategiaPedidoModel>() { modelo };
                 modelo = ConsultarEstrategiasModelFormato(lista)[0];
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
