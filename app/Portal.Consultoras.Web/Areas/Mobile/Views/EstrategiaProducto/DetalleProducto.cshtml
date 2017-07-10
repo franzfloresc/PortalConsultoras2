@@ -81,7 +81,7 @@
             </div>
             <!--COMENTARIO VISIBLES USUARIO-->
             <div id="contenedorComentarios">
-            </div>            
+            </div>                        
         </div>
     </div>
     <!--REDES SOCIALES-->
@@ -289,7 +289,8 @@
                     bestSellerCommentModule.ini({
                         urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario", new { area = "Mobile" })',
                         urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario", new { area = "Mobile" })',
-                        urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")'
+                        urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")',
+                        origenPantalla:2
                     });
                     masVendidosModule.ini({
                         baseUrl: baseUrl,

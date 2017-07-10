@@ -29,7 +29,8 @@
         urlImagenUsuarioDefault: '',
         cantidadCrecienteMostrarInicial: 0,
         cantidadCrecienteMostrar: 10,
-        esperarScroll: false
+        esperarScroll: false,
+        origenPantalla:1
     };
 
     var _bindEvents = function () {
@@ -182,17 +183,35 @@
             listaContenedoresEstrellasId.push({ contenedorStarsId: contenedorStarsId, cantidadEstellas: item.Valorizado });
 
             htmlSeccionComentarios += '';
-            htmlSeccionComentarios += '<div class="content_comentario_usuario">';
-            htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
-            htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
-            htmlSeccionComentarios += '</div>';
-            htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
-            htmlSeccionComentarios += '<div class="' + contenedorStarsId + '"></div>';
-            htmlSeccionComentarios += '<div class="nombre_usuario_comentario">' + item.NombreConsultora + '</div>';
-            htmlSeccionComentarios += '<div class="fecha_comentario">' + item.FechaRegistroFormateada + '</div>';
-            htmlSeccionComentarios += '</div>';
-            htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + (item.Comentario ? item.Comentario : '') + '</div>';
-            htmlSeccionComentarios += '</div>';
+            if (setting.origenPantalla === 1) {
+                htmlSeccionComentarios += '<div class="content_comentario_usuario">';
+                htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
+                htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
+                htmlSeccionComentarios += '</div>';
+                htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
+                htmlSeccionComentarios += '<div class="' + contenedorStarsId + '"></div>';
+                htmlSeccionComentarios += '<div class="nombre_usuario_comentario">' + item.NombreConsultora + '</div>';
+                htmlSeccionComentarios += '<div class="fecha_comentario">' + item.FechaRegistroFormateada + '</div>';
+                htmlSeccionComentarios += '</div>';
+                htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + (item.Comentario ? item.Comentario : '') + '</div>';
+                htmlSeccionComentarios += '</div>';
+            }
+           
+            if (setting.origenPantalla === 2) {
+                htmlSeccionComentarios += '<div class="ContentcomentariosVisibles">';
+                htmlSeccionComentarios += '<div class="foto_usuario_comentario">';
+                htmlSeccionComentarios += '<img src="' + (item.URLFotoConsultora == null ? setting.urlImagenUsuarioDefault : item.URLFotoConsultora) + '" />';
+                htmlSeccionComentarios += '</div>';
+                htmlSeccionComentarios += '<div class="datos_usuario_comentario">';
+                htmlSeccionComentarios += '<div class="' + contenedorStarsId + '"></div>';
+                htmlSeccionComentarios += '<div class="nombre_usuario_comentario">' + item.NombreConsultora + '</div>';
+                htmlSeccionComentarios += '<div class="fecha_comentario">' + item.FechaRegistroFormateada + '</div>';
+                htmlSeccionComentarios += '</div>';
+                htmlSeccionComentarios += '<hr class="clear">';
+                htmlSeccionComentarios += '<div class="comentario_realizado_usuario">' + "\r" + (item.Comentario ? item.Comentario : '') + '</div>';
+                htmlSeccionComentarios += '</div>';
+            }
+            
         });
 
         $(elements.contenedorComentarios).append(htmlSeccionComentarios);
@@ -349,6 +368,7 @@
         _bindScroll();
         _setearComentarioResumen();
         _listarComentarios(setting.cantidadCrecienteMostrarInicial);
+        setting.origenPantalla = parameters.origenPantalla;
     };
 
     return {
