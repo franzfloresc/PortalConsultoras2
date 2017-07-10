@@ -12052,3 +12052,10 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     background:black;
     color:white;
 }
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_pregunta:last-child{    
+    margin-right:0;
+}

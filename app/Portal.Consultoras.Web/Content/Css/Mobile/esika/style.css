@@ -12831,3 +12831,10 @@ a{
     background:black;
     color:white;
 }
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_pregunta:last-child{    
+    margin-right:0;
+}
