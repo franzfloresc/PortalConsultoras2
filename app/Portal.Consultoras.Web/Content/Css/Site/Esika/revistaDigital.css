@@ -2427,12 +2427,12 @@
     text-align: center;
  }
  .popup_rd_bloqueado .box_producto {
- 	max-height: 305px;
- 	margin: 15px 0;
+ 	max-height: 320px;
+ 	margin: 10px 0;
  	background-color: #fff;
  }
  .popup_rd_bloqueado .popup_text {
- 	margin: 10px 48px;
+ 	margin: 7px 48px;
     font-size: 16px;
     line-height: 20px;
     color: black;
