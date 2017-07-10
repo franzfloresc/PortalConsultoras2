@@ -1313,7 +1313,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new
                 {
-                    result = true
+                    result = true,
+                    message = ""
                 });
             }
             else
