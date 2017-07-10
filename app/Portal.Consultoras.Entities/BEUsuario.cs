@@ -418,17 +418,13 @@ namespace Portal.Consultoras.Entities
                 
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
-
-
+            
             //EPD-1919 INICIO
-            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
-                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
-            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
-                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
-            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
-                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress")) MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva")) MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
             //EPD-1919 FIN
-
 
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion") && row["FechaInicioFacturacion"] != DBNull.Value)
                 FechaInicioFacturacion = DbConvert.ToDateTime(row["FechaInicioFacturacion"]);
@@ -1295,6 +1291,8 @@ namespace Portal.Consultoras.Entities
         public string MensajeCDRExpress { get; set; }
         [DataMember]
         public string MensajeCDRExpressNueva { get; set; }
+        [DataMember]
+        public bool EsConsecutivoNueva { get; set; }
         //EPD-1919 FIN
     }
 }

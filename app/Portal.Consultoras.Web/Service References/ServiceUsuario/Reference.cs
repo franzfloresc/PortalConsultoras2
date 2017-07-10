@@ -829,6 +829,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool EsCatalogoPersonalizadoZonaValidaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EsConsecutivoNuevaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int EsJovenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1715,6 +1718,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.EsCatalogoPersonalizadoZonaValidaField.Equals(value) != true)) {
                     this.EsCatalogoPersonalizadoZonaValidaField = value;
                     this.RaisePropertyChanged("EsCatalogoPersonalizadoZonaValida");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool EsConsecutivoNueva {
+            get {
+                return this.EsConsecutivoNuevaField;
+            }
+            set {
+                if ((this.EsConsecutivoNuevaField.Equals(value) != true)) {
+                    this.EsConsecutivoNuevaField = value;
+                    this.RaisePropertyChanged("EsConsecutivoNueva");
                 }
             }
         }

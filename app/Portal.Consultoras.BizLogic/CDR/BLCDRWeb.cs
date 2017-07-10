@@ -151,7 +151,6 @@ namespace Portal.Consultoras.BizLogic.CDR
                 {
                     while (reader.Read())
                     {
-                        moneda = reader["Moneda"] is DBNull ? string.Empty : reader.GetString(reader.GetOrdinal("Moneda"));
                         monto = reader["Monto"] is DBNull ? 0.00M : reader.GetDecimal(reader.GetOrdinal("Monto"));
                     }
                 }

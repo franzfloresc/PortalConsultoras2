@@ -193,7 +193,7 @@
 
                 <!--EPD-1919 INICIO-->
                 @if (ViewBag.TieneCDRExpress)
-            {
+                {
                     @*<div id="TipoDespacho" class="@(Model.EsConsultoraNueva ? 'cdr_color_consultora_nueva' : 'cdr_color_consultora_antigua')">*@
                     <div id="TipoDespacho">
                         <div class="linea_separadora_roja" style="height: 2px;"></div>
@@ -201,15 +201,15 @@
                             <div style="padding-bottom:10px">
                                 <div id="btnDespachoNormal" class="cdr_tipo_despacho_icono_active"></div>
                                 <div @*class="@(@Model.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")"*@
-                                     style="display: inline;padding-bottom: 8px;">Despacho con su pedido</div>
+                                     style="display: inline;padding-bottom: 8px;">Despacho con tu siguiente pedido</div>
                             </div>
                             <div style="padding-bottom:10px">
                                 <div id="btnDespachoExpress" class="cdr_tipo_despacho_icono"></div>
                                 <div @*class="@(@Model.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")"*@
                                      style="display: inline;">Despacho Express</div>
-                                <div class="informacion_despacho_express @(ViewBag.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")">
-                                    <span id="tipo_express_costo_envio" class="mensaje_informativo_despacho @(ViewBag.EsConsultoraNueva ? "cdr_color_consultora_nueva" : "cdr_color_consultora_antigua")"></span>
-                                    <span id="tipo_express_nueva_consultora" class="mensaje_informativo_despacho @(ViewBag.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")"></span>
+                                <div class="informacion_despacho_express @(ViewBag.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")" style="display: inline;">
+                                    <span id="tipo_express_costo_envio" class="mensaje_informativo_despacho @(ViewBag.EsConsultoraNueva ? "cdr_color_consultora_nueva" : "cdr_color_consultora_antigua")" style="display:inline;"></span>
+                                    <span id="tipo_express_nueva_consultora" class="mensaje_informativo_despacho @(ViewBag.EsConsultoraNueva ? " cdr_color_consultora_nueva" : " cdr_color_consultora_antigua")"  style="display:inline;"></span>
                                 </div>
                             </div>
                         </div>

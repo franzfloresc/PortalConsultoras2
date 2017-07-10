@@ -80,8 +80,8 @@ GO
 --modify if it's necesary: 
 
 update pais set TieneCDRExpress = 0, 
-				MensajeCDRExpress = 'Solo aplicable a cambios. Tiene un costo de envió {0} {1}.', 
-				MensajeCDRExpressNueva = 'Por se consultora nueva en esta oportunidad tu envio es gratis.'
+				MensajeCDRExpress = 'Sólo aplicable a cambios. Tiene un costo de envío{0}{1}.', 
+				MensajeCDRExpressNueva = 'Por ser consultora nueva en esta oportunidad tu envío es gratis.'
 go
 
 
@@ -279,7 +279,8 @@ BEGIN
 			isnull(p.TieneCupon,0) as TieneCupon,
 			isnull(p.TieneCDRExpress,0) As TieneCDRExpress, --EPD-1919  
 			isnull(p.MensajeCDRExpress,'') As MensajeCDRExpress, --EPD-1919  
-			isnull(p.MensajeCDRExpressNueva,'') As MensajeCDRExpressNueva --EPD-1919 
+			isnull(p.MensajeCDRExpressNueva,'') As MensajeCDRExpressNueva, --EPD-1919  
+			iif(c.ConsecutivoNueva > 0, 1, 0) As EsConsecutivoNueva --EPD-1919
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
 			select *
@@ -391,7 +392,8 @@ BEGIN
 			isnull(p.TieneCupon,0) as TieneCupon,
 			isnull(p.TieneCDRExpress,0) As TieneCDRExpress, --EPD-1919  
 			isnull(p.MensajeCDRExpress,'') As MensajeCDRExpress, --EPD-1919  
-			isnull(p.MensajeCDRExpressNueva,'') As MensajeCDRExpressNueva --EPD-1919 
+			isnull(p.MensajeCDRExpressNueva,'') As MensajeCDRExpressNueva, --EPD-1919  
+			0 As EsConsecutivoNueva --EPD-1919
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur (nolock) ON u.CodigoUsuario = ur.CodigoUsuario
@@ -664,12 +666,9 @@ ALTER procedure [dbo].[GetMontoFletePorZonaId]
 (@ZonaId varchar(8) = null)
 as
 begin
-
-	select top 1 '' Moneda, 
-				Montoflete Monto,*
+	select top 1 Montoflete as Monto
 	from ods.cdrwebflete c
 	inner join ods.zona z on c.codigozona = z.codigo
-	where c.codigozona = @ZonaId
-	
+	where z.zonaId = @ZonaId;	
 end
 GO

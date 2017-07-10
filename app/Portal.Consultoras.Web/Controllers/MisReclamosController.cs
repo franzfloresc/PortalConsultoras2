@@ -64,7 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneCDRExpress = userData.TieneCDRExpress; //EPD-1919
             ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress; //EPD-1919
             ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva; //EPD-1919
-            ViewBag.ConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva; //EPD-1919
+            ViewBag.ConsultoraNueva = userData.EsConsecutivoNueva; //EPD-1919
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
@@ -106,7 +106,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneCDRExpress = userData.TieneCDRExpress;
             ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress;
             ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva;
-            ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva;
+            ViewBag.EsConsultoraNueva = userData.EsConsecutivoNueva;
 
             if (userData.PaisID == 9)
             {
@@ -1719,27 +1719,29 @@ namespace Portal.Consultoras.Web.Controllers
         //EDP-1919 INICIO
         public JsonResult BuscarCostoEnvio()
         {
-
-            //Get information from SICC using userData info
             string mensajeCostoEnvio = string.Empty;
             string mensajeNuevaConsultora = string.Empty;
-            decimal costoFlete = 159.99M;
-            string monedaFlete = "S/.";
-            //Get information from SICC 
-            //Validacion Nueva Consultora
-            if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva)
+            decimal costoFlete = 0;            try
             {
-                mensajeNuevaConsultora = userData.MensajeCDRExpressNueva;                using (CDRServiceClient cdr = new CDRServiceClient())
+                using (CDRServiceClient cdr = new CDRServiceClient())
                 {
                     var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
                     costoFlete = flete.FleteDespacho;
-                    monedaFlete = userData.Simbolo; //Sobreescribimos la moneda por que ya se obtiene del userData EPD-1919
-                }            }            
+                }
+            }            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO, "");
+            }            if (!string.IsNullOrEmpty(userData.MensajeCDRExpress))
+            {
+                mensajeCostoEnvio = string.Format(
+                    userData.MensajeCDRExpress,
+                    costoFlete > 0 ? (" " + userData.Simbolo) : "",
+                    costoFlete > 0 ? (" " + costoFlete.ToString("###,###,###.00")) : ""                    
+                );
+            }            if (userData.EsConsecutivoNueva) mensajeNuevaConsultora = userData.MensajeCDRExpressNueva;                        
             return Json(new
             {
-                mensajeCostoEnvio = string.Format(string.IsNullOrEmpty(userData.MensajeCDRExpress) ? string.Empty : userData.MensajeCDRExpress,
-                                                  monedaFlete,
-                                                  costoFlete.ToString("###,###,###.00")),
+                mensajeCostoEnvio = mensajeCostoEnvio,
                 mensajeNuevaConsultora = mensajeNuevaConsultora,
                 costoFlete = costoFlete
             }, JsonRequestBehavior.AllowGet);

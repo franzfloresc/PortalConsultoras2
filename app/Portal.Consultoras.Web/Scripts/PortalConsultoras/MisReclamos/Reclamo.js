@@ -218,7 +218,7 @@ $(document).ready(function () {
 
                     //Getting 1st label: Costo Envio
                     if (data.mensajeCostoEnvio.length > 0) {
-                        textoInformativoCostoEnvio.html(data.mensajeCostoEnvio);
+                        textoInformativoCostoEnvio.html(' : ' + data.mensajeCostoEnvio);
                         hiddenTextoMensajeDespacho.val(hiddenTextoMensajeDespacho.val() + data.mensajeCostoEnvio);
                     } else {
                         textoInformativoCostoEnvio.html('');
