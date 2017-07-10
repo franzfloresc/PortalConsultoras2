@@ -123,6 +123,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.TieneOfertaLog = userData.TieneOfertaLog;
  
             ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
             ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
             ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
