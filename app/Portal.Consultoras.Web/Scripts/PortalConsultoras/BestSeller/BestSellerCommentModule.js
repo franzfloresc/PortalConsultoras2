@@ -44,7 +44,8 @@
         });
 
         $(document).on("click", elements.btnEnviarComentario, function () {
-            waitingDialog({});
+            if (setting.origenPantalla === 1) { waitingDialog({}); }
+            if (setting.origenPantalla === 2) { waitingDialog({}); }
             _registrarComentario();
         });
 
@@ -298,7 +299,7 @@
     var _habilitarBotonEnviarComentario = function () {
         var pendiente = 0;
 
-        if ($(elements.txtComentario).val() == '') {
+        if ($(elements.txtComentario).val().trim() == '') {
             pendiente++;
         }
 
