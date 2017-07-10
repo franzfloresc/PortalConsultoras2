@@ -1205,6 +1205,7 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
                 };
             }
 
+            ClienteDetalleCANCEL = null;
             if ($.isFunction(pClienteDetalleCANCEL)) ClienteDetalleCANCEL = pClienteDetalleCANCEL;
         },
         error: function (xhr, ajaxOptions, error) {
@@ -3480,6 +3481,8 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
+
+    if ($("#txtLPCli" + PedidoDetalleID).val() == "" && cliAnt > 0) cliNue = 0;
 
     if (cliAnt == cliNue) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
