@@ -250,7 +250,7 @@
 }
 
 <!--CAROUSEL OFERTAS PARA TI-->
-<div class="fondo_gris" id="divListaEstrategias" style="display:none;">
+<div id="divListaEstrategias" style="display:none;">
     <div id="contenedor_template_estrategia_cabecera"></div>
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
@@ -1211,18 +1211,16 @@
                 </div>
             </div>
             <hr class="clear" />
-            <div class="clear"></div>
+       
             <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
 
-            <div style="">
-             <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
-            </div>
+            <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+            <hr class="clear" />
             <!-- INICO SECCION DE CARRUSEL BPT -->
             @*<div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
                 <div class="background-revistaSeccion"></div>
                 <div class="revistadigital-content">
                     <div style="height: 65px; background: transparent;"></div>
-                    <hr class="clear" />
                     <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
                     <hr class="clear" />
                     <div style="height: 35px; background: transparent;"></div>
@@ -2661,6 +2659,8 @@ else
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
+
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
 
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';

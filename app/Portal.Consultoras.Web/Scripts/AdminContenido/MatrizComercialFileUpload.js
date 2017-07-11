@@ -15,8 +15,8 @@ var MatrizComercialFileUpload = function (config) {
 
     var _onFileSubmit = function (id, fileName) {
         if (_config.habilitarNemotecnico && !_validarNemotecnico(fileName)) {
-            alert('El formato del nombre de imagen no es válido.');
-            return false;
+            //alert('El formato del nombre de imagen no es válido.');
+            //return false;
         }
 
         $(".qq-upload-list").css("display", "none");
