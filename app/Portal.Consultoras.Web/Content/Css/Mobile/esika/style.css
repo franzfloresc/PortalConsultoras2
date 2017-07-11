@@ -12256,7 +12256,7 @@ a{
     font-family:'Lato';
     font-size:10.5px;
     text-align:left;
-    margin-top:8px;
+    margin-top:12px;
 }
 .btn_cupon_mobile1{
     position:absolute;
@@ -12328,7 +12328,7 @@ a{
 .info_recuerda_cupon{
     float: left;
     width: 100%;
-    margin-top: 15px;
+    margin-top: 14px;
     font-family: 'Lato';
     font-size: 12.5px;
     /* border-right: 1px solid rgba(149, 145, 146, 0.2); */
@@ -12495,4 +12495,68 @@ a{
 #content-filters{
     margin-left:14px;
     margin-right:14px;
+}
+.tipo_porcentaje {
+        color: white;
+    font-size: 59px;
+    float: right;
+    font-weight: 700;
+    margin-top: -21px;
+    letter-spacing: 1px;
+    width: 48px;
+    margin-right: 23px;
+    text-align: right;
+    margin-right: 39px;
+    box-sizing: border-box;
+}
+.mensaje_alerta_cupon1 {
+    color: #613c87;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+    position: absolute;
+    bottom: -17px;
+    border-top: 1px solid;
+    width: 88%;
+    padding-top: 2px;
+    text-align: left;
+}
+.contenedor_termino_condiciones_cupon {
+    margin: 0 auto;
+    margin-top: 20px;
+    font-family: 'Lato';
+    font-size: 10.5px;
+    width: 248px;
+    text-align: left;
+    position: relative;
+}
+.icono_alerta_cupon {
+    width: 15px;
+    height: 15px;
+    background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
+    background-size: contain;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.texto_recuerda_cupon {
+    font-family: 'LAto';
+    font-size: 14px;
+    margin-top: 53px;
+    text-align: left;
+    padding-left: 51px;
+}
+.info_recuerda_cupon_icono{
+   width: 34px !important;
+    height:42px;
+   background:url(../../../Images/PL20/calendario.png) no-repeat center center;
+    /*display: inline-block;*/
+    /* padding-top: 10px; */
+    margin-right: 13px;
+    /*vertical-align: middle;*/
+}
+.icono2_ganaste{
+    background:url(../../../Images/PL20/maquillaje.png) no-repeat center center;
+}
+.icono3_ganaste{
+    background:url(../../../Images/PL20/agenda.png) no-repeat center center;
 }
