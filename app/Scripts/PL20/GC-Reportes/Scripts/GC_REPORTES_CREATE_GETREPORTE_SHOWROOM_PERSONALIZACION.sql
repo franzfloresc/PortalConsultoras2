@@ -10,8 +10,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
  inner join BelcorpBolivia.dbo.Pais pp on pp.estadoactivo = 1
@@ -22,8 +22,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -35,8 +35,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -48,8 +48,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -61,8 +61,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -74,8 +74,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -87,8 +87,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -100,8 +100,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -113,8 +113,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -126,8 +126,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -139,8 +139,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -152,8 +152,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -165,8 +165,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -198,8 +198,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -211,8 +211,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -224,8 +224,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -237,8 +237,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -250,8 +250,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -263,8 +263,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -276,8 +276,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -289,8 +289,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -302,8 +302,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -315,8 +315,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -328,8 +328,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -341,8 +341,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -354,8 +354,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -387,8 +387,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -400,8 +400,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -413,8 +413,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -426,8 +426,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -439,8 +439,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -452,8 +452,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -465,8 +465,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -478,8 +478,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -491,8 +491,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -504,8 +504,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -517,8 +517,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -530,8 +530,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -543,8 +543,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -576,8 +576,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -589,8 +589,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -602,8 +602,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -615,8 +615,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -628,8 +628,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -641,8 +641,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -654,8 +654,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -667,8 +667,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -680,8 +680,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -693,8 +693,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -706,8 +706,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -719,8 +719,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -732,8 +732,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -765,8 +765,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -778,8 +778,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -791,8 +791,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -804,8 +804,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -817,8 +817,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -830,8 +830,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -843,8 +843,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -856,8 +856,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -869,8 +869,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -882,8 +882,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -895,8 +895,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -908,8 +908,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -921,8 +921,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -954,8 +954,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -967,8 +967,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -980,8 +980,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -993,8 +993,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1006,8 +1006,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1019,8 +1019,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1032,8 +1032,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1045,8 +1045,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -1058,8 +1058,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -1071,8 +1071,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -1084,8 +1084,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -1097,8 +1097,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -1110,8 +1110,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -1143,8 +1143,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -1156,8 +1156,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -1169,8 +1169,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -1182,8 +1182,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1195,8 +1195,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1208,8 +1208,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1221,8 +1221,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1234,8 +1234,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -1247,8 +1247,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -1260,8 +1260,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -1273,8 +1273,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -1286,8 +1286,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -1299,8 +1299,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -1332,8 +1332,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -1345,8 +1345,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -1358,8 +1358,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -1371,8 +1371,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1384,8 +1384,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1397,8 +1397,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1410,8 +1410,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1423,8 +1423,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -1436,8 +1436,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -1449,8 +1449,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -1462,8 +1462,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -1475,8 +1475,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -1488,8 +1488,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -1521,8 +1521,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -1534,8 +1534,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -1547,8 +1547,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -1560,8 +1560,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1573,8 +1573,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1586,8 +1586,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1599,8 +1599,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1612,8 +1612,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -1625,8 +1625,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -1638,8 +1638,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -1651,8 +1651,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -1664,8 +1664,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -1677,8 +1677,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -1710,8 +1710,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -1723,8 +1723,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -1736,8 +1736,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -1749,8 +1749,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1762,8 +1762,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1775,8 +1775,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1788,8 +1788,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1801,8 +1801,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -1814,8 +1814,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -1827,8 +1827,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -1840,8 +1840,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -1853,8 +1853,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -1866,8 +1866,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -1899,8 +1899,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -1912,8 +1912,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -1925,8 +1925,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -1938,8 +1938,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -1951,8 +1951,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -1964,8 +1964,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -1977,8 +1977,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -1990,8 +1990,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -2003,8 +2003,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -2016,8 +2016,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -2029,8 +2029,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -2042,8 +2042,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -2055,8 +2055,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -2088,8 +2088,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -2101,8 +2101,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -2114,8 +2114,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -2127,8 +2127,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -2140,8 +2140,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -2153,8 +2153,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -2166,8 +2166,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -2179,8 +2179,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -2192,8 +2192,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -2205,8 +2205,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -2218,8 +2218,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -2231,8 +2231,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -2244,8 +2244,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
@@ -2277,8 +2277,8 @@ BEGIN
 SELECT *
 from (
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
 	   
   from BelcorpBolivia.ShowRoom.Personalizacion p
@@ -2290,8 +2290,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
       (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
       
   from BelcorpChile.ShowRoom.Personalizacion p
@@ -2303,8 +2303,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpColombia.ShowRoom.Personalizacion p
@@ -2316,8 +2316,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpCostaRica.ShowRoom.Personalizacion p
@@ -2329,8 +2329,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpDominicana.ShowRoom.Personalizacion p
@@ -2342,8 +2342,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpEcuador.ShowRoom.Personalizacion p
@@ -2355,8 +2355,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpGuatemala.ShowRoom.Personalizacion p
@@ -2368,8 +2368,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpMexico.ShowRoom.Personalizacion p
@@ -2381,8 +2381,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPanama.ShowRoom.Personalizacion p
@@ -2394,8 +2394,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPeru.ShowRoom.Personalizacion p
@@ -2407,8 +2407,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpPuertoRico.ShowRoom.Personalizacion p
@@ -2420,8 +2420,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpSalvador.ShowRoom.Personalizacion p
@@ -2433,8 +2433,8 @@ select pp.codigoiso Pais,
  where p.estado = 1  and p.atributo != 'TituloPrincipal' and p.atributo != 'ImagenPrincipal' and p.atributo != 'ColorFondo'
 union
 select pp.codigoiso Pais,
-       p.textoayuda Personalizacion,
-       p.tipoaplicacion Medio,
+        p.tipoaplicacion Medio, p.atributo, p.textoayuda Personalizacion,
+       
        (case when isnull(pn.personalizacionid, 0) = 0 then (case when p.tipoatributo = 'IMAGEN' then '0' else '' end) else (case when p.tipoatributo = 'IMAGEN' then '1' else pn.valor end) end) FlagContenido
        
   from BelcorpVenezuela.ShowRoom.Personalizacion p
