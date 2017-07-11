@@ -211,11 +211,11 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Lo sentimos no puede suscribirse, estamos a dias de cierre de campaña."
+                        message = "Lo sentimos no puede suscribirse, " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                    var entidad = new BERevistaDigitalSuscripcion();
+                var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
                 entidad.CampaniaID = userData.CampaniaID;

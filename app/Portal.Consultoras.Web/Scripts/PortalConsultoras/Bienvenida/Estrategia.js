@@ -544,7 +544,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
-
+        estrategia.DescripcionCompleta = estrategia.DescripcionCompleta || estrategia.DescripcionCUV2.split('|')[0];
         var popupId = '#popupDetalleCarousel_lanzamiento';
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
@@ -552,7 +552,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
             btnDesabled = $(popupId).find("#tbnAgregarProducto").attr("data-bloqueada") || "";
             if (btnDesabled == "") {
                 $(popupId).find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-            }            
+            }
         }
         else {
             $(popupId).find("#tbnAgregarProducto").addClass("btn_desactivado_general");

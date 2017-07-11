@@ -2458,3 +2458,131 @@
     margin-left: 8px;
     margin-top: 4px;
 }
+
+#bc_content_ofertas{
+    width:100%; 
+    background: white; 
+    height: 600px;
+    overflow: hidden:;
+}
+#bc_content_ofertas .bc_container{
+    max-width: 1189px;
+    margin:auto;
+    font-family: 'Lato';
+}
+#bc_content_ofertas .bc_container .producto{
+    float: left;
+    width: 32%;
+    height: 600px;
+    background: white;
+    
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+#bc_content_ofertas .bc_container .producto .bloque{
+		
+}
+#bc_content_ofertas .bc_container .producto .bloque p.ven-conoce{
+    display: inline-block;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10.5px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid white;
+    letter-spacing: 0.75pt;
+    text-align: center;
+    padding: 0px 50px;
+    margin: 20px;
+    margin-bottom: 10px;
+}
+
+#bc_content_ofertas .bc_container .producto .bloque a.btn-descubre{
+    background: black;
+    color: white;
+    letter-spacing: 0.75pt;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10.5px;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+#bc_content_ofertas .bc_container .producto .bloque a.ver-mas{
+    
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    /* border-bottom: 2px solid white; */
+    letter-spacing: 0.75pt;
+    text-align: center;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
+
+#bc_content_ofertas .bc_container .producto .bloque a.ver-mas img{
+    width: 7px;
+    margin-top: 4px;
+    position: absolute;
+    margin-left: 5px;
+}
+	
+#bc_content_ofertas .bc_container .producto img.modelo{
+    max-width: 100%;
+    display: block;
+    margin:auto;
+}
+#bc_content_ofertas .bc_container .items-producto{
+    float: left;
+    background: #f1edef;
+    width: 68%;
+    height: 600px;
+    box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.10);
+    padding: 20px;
+    overflow-y:scroll;
+}
+#bc_content_ofertas .bc_container .items-producto .bc__grid{
+    /* moz-column-count: 3;
+        -webkit-column-count: 3;
+        column-count: 3;*/
+}
+#bc_content_ofertas .bc_container .items-producto .grid-item { 
+    display: inline-block;
+    /*padding: 1.5em;*/
+    float:left;
+    margin: 0 0 1.5em;
+    width: auto;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    min-width: 300px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
+#bc_content_ofertas .bc_container .items-producto .grid-item bc_content_item_carrusel{
+    min-width:100% !important;
+}
+#bc_content_ofertas .bc_container .items-producto .grid-item .revistadigital-landing{
+    width: 100% !important;
+    overflow: hidden !important;
+    display: inline-block !important;
+    margin-right:0% !important; 
+    margin-left:0% !important; 
+    padding-bottom: 0px !important; 
+    margin-bottom: 0px !important; 
+}
+#bc_content_ofertas .bc_container .items-producto .grid-item--width2 {
+    width: 400px; 
+}
+#bc_content_ofertas .bc_container .clearfix{
+    clear: both;
+}

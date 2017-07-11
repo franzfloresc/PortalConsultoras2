@@ -11,8 +11,11 @@ $(document).ready(function () {
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
-    estador = estador == 1 ? estador : 0;
-    $("[data-estadoregistro" + estador + "]").show();
+    var rdaccion = estador == 1 ? estador : 0;
+    $("[data-estadoregistro" + rdaccion + "]").show();
+    if (estador == 2) {
+        $("[data-estadoregistro2]").show();
+    }
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
@@ -168,7 +171,9 @@ function RDMostrarPosicion() {
             }
             else {
                 $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-                // poner el scroll en el div
+                setTimeout(function () {
+                    $(window).scrollTop($(window).scrollTop() + $(document).height());
+                }, 1000);
             }
 
         }
