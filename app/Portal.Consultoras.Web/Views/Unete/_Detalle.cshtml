@@ -77,6 +77,7 @@
 {
     @Html.HiddenFor(m => m.EstadoPostulante)
     @Html.HiddenFor(m => m.CodigoConsultora)
+    @Html.HiddenFor(m => m.CelularExiste)
 
     @Html.HiddenFor(m => m.SolicitudPostulanteID)
     @Html.HiddenFor(m => m.CodigoPais)
@@ -427,6 +428,35 @@
         }
         });
     
+        $("#Celular").blur(function () {
+               
+            val = $(this).val();
+        
+            if (val !== '') {
+
+                Utils.Ajax({
+                    url: "@Url.Action("ValidarCelularExiste", "Unete", new {area = ""})",
+                    parametros: {
+                        Celular: $("#Celular").val(),
+                        SolicitudPostulanteId: $("#SolicitudPostulanteID").val()
+                    }
+                }, function (response) {
+
+                    if (response) {
+                        $("#CelularExiste").val('2');
+                    }
+                    else {
+                        $("#CelularExiste").val('');
+                    }
+                });
+
+            }
+            else {
+                $("#CelularExiste").val('');
+            }
+
+        });
+
         
         $('.numero').keydown(IntegerNumber);
         $('.texto').keydown(Text);

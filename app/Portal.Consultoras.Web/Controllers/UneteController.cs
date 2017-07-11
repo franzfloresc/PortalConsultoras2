@@ -5561,7 +5561,25 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
+        [HttpPost]
+        public JsonResult ValidarCelularExiste(string Celular, int SolicitudPostulanteId)
+        {
+            bool jsonResponse = false;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    jsonResponse = sv.ValidarCelularExisteConId(CodigoISO, Celular, SolicitudPostulanteId).Existe;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+                jsonResponse = false;
+            }
 
+            return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
