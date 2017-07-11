@@ -552,7 +552,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
             btnDesabled = $(popupId).find("#tbnAgregarProducto").attr("data-bloqueada") || "";
             if (btnDesabled == "") {
                 $(popupId).find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-            }            
+            }
         }
         else {
             $(popupId).find("#tbnAgregarProducto").addClass("btn_desactivado_general");
