@@ -2138,11 +2138,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 HttpResponseMessage response = httpClient.PostAsync("Api/LogUsabilidad", contentPost).GetAwaiter().GetResult();
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    var strResult = response.Content.ReadAsStringAsync().Result;
-                    LogManager.LogManager.LogErrorWebServicesBus(new Exception(strResult), userData.CodigoConsultora, userData.CodigoISO, dataString);
-                }
+                var noQuitar = response.IsSuccessStatusCode;
 
                 httpClient.Dispose();
             }
