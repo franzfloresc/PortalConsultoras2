@@ -209,10 +209,18 @@ function ArmarCarouselEstrategias(data) {
     //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
-    //try {
-    //    ResizeBoxContnet();
-    //}catch(e){ console.log(e)}
-    
+
+    try {
+        SetHandlebars("#estrategia-template", data, '#divListadoEstrategia2');
+
+        if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
+            $('#divListaEstrategias').show();
+            return false;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+   
     
     if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();

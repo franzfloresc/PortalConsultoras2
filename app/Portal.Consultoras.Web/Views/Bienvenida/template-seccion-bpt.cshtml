@@ -3,27 +3,25 @@
     <div id="bc_content_ofertas">
         <div class="bc_container">
             {{#each this.Lista as |item|}}
+            {{#iff item.TipoEstrategia.Codigo '==' '005'}}
             <div class="producto">
                 <div class="bloque">
-                    {{#iff TipoEstrategia.Codigo '==' '005'}} 
-                        {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                        <div class="etiqueta_producto" data-item-tag="etiqueta">
-                            <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="Etiqueta Producto" />
-                        </div>
-                        {{/iff}}
-                    <img src="/Content/Images/modelo.png" alt="" class="modelo">
-                    <p class="ven-conoce">YULIANA, CONOCE {{DescripcionResumen}}</p>
+                    {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
+                        <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
+                    {{/iff}}
+                    <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
                     <a href="" class="btn-descubre">DESCUBRIR MÁS</a>
                     <a href="" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
-                    {{/iff}}
+                    
                 </div>
             </div>
+            {{/iff}}
             {{/each}}
 
             <div class="items-producto">
                 <div class="bc__grid">
                     {{#each this.Lista as |item|}}
-                    {{#iff TipoEstrategia.Codigo '!=' '005'}}
+                    {{#iff item.TipoEstrategia.Codigo '!=' '005'}}
                     <div class="grid-item">
                         <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
                              class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
