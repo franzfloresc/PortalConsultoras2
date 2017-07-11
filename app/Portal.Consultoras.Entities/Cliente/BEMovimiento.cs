@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Entities.Cliente
         public string CodigoCampania { get; set; }
 
         [DataMember]
-        public IEnumerable<BEPedidoFacturado> Pedidos { get; set; }
+        public IEnumerable<BEPedidoDDWebDetalle> Pedidos { get; set; }
 
         public BEMovimiento(IDataReader row)
         {

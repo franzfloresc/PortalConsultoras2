@@ -153,16 +153,15 @@ namespace Portal.Consultoras.BizLogic
                 if (codigoCampania <= 0)
                     continue;
 
-                var pedidos = new List<BEPedidoFacturado>();
+                var pedidos = new List<BEPedidoDDWebDetalle>();
                 using (IDataReader reader = daPedidoDetalle.ClientePedidoFacturadoListar(codigoCampania, consultoraId, clienteId))
                     while (reader.Read())
                     {
-                        var pedido = new BEPedidoFacturado(reader);
+                        var pedido = new BEPedidoDDWebDetalle(reader);
                         pedidos.Add(pedido);
                     }
 
                 movimiento.Pedidos = pedidos;
-
             }
 
             return movimientos;
