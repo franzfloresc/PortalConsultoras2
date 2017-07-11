@@ -698,12 +698,15 @@
                     <input type="hidden" class="PrecioCatalogoString" value="{{PrecioCatalogoString}}" />
                     <input type="hidden" class="DescripcionEstrategia" value="{{DescripcionEstrategia}}" />
             </div>
+            @if (mobileConfiguracion.MostrarHipervinculo)
+            {
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
                 <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
             </a>
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
                 <img src="/Content/Images/Mobile/Esika/facebook.png" alt="">
             </a>
+            }
         </div>
         <hr class="clear">
         <div style="margin-left:-20px; margin-right:-20px;">

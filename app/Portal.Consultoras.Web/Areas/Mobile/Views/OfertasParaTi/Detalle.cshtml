@@ -25,7 +25,12 @@
     @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
     {
         <div class="revistadigital-detalle-titulo">
-            <div class="logo_EPT_content"><span>VOLVER</span></div>
+            <div class="logo_EPT_content">
+                @if (mobileConfiguracion.MostrarBotonAtras)
+                {
+                    <span>VOLVER</span>
+                }                
+            </div>
             <div class="texto_usuario_ept">ÉSIKA PARA MÍ</div>
         </div>
     }
@@ -194,6 +199,8 @@
                 </div>
             }
             <!--REDES-->
+            @if (mobileConfiguracion.MostrarHipervinculo)
+            {
             <div>
                 <div class="content_redes_ficha">
                     <div class="texto_redes">Comparte este producto con tus clientes:</div>
@@ -202,6 +209,7 @@
                 </div>
                 <hr class="clear">
             </div>
+            }
             <!--FIN REDES-->
 
             @if (Model.TextoLibre != "")
