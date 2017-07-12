@@ -47,6 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
         static readonly object _object = new object();
         protected int _count;
 
+        /*
         public int OnActionExecutingTest()
         {
             // Arrange
@@ -62,6 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return _count;
         }
+        */
         #endregion
 
         protected override void OnActionExecuting(ActionExecutingContext filterContext)

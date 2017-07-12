@@ -24,8 +24,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             TestControllerBuilder oT = new TestControllerBuilder();
             oT.InitializeController(oB);
             Assert.AreEqual(oB.OnActionExecutingTest(), 7);
-            Assert.AreEqual(oB.OnActionExecutingTest(), 0);
-
             /*
             int totalSize = 0;
 
