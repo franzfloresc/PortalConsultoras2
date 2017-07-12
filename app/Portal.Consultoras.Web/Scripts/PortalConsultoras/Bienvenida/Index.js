@@ -1684,15 +1684,16 @@ function ActualizarMD() {
                 return false;
             }
         }
+    }
 
-        if (!$('#chkAceptoContratoMD').is(':checked')) {
-            alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
-            return false;
-        }
+    if (!$('#chkAceptoContratoMD').is(':checked')) {
+        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+        return false;
+    }
 
-        waitingDialog({});
+    waitingDialog({});
 
-        var item = {
+    var item = {
             CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
             EMail: $.trim(jQuery('#txtEMailMD').val()),
             Telefono: jQuery('#txtTelefonoMD').val(),
@@ -1703,9 +1704,9 @@ function ActualizarMD() {
             NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
-        };
+    };
 
-        jQuery.ajax({
+    jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'MisDatos/ActualizarDatos',
             dataType: 'json',
@@ -1727,11 +1728,6 @@ function ActualizarMD() {
                 }
             }
         });
-    }
-    else {
-        closeWaitingDialog();
-        PopupCerrar('popupMisDatos');
-    }
 }
 
 
