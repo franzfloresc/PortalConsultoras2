@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
         {
             listaProducto = listaProducto ?? new List<BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);

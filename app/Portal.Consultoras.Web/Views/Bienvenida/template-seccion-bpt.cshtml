@@ -68,7 +68,7 @@
                     <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
                 {{/iff}}
                 <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
-                <a href="@Url.Action("Detalle", "RevistaDigital" )" class="btn-descubre">DESCUBRIR MÁS</a>
+                <a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})" class="btn-descubre">DESCUBRIR MÁS</a>
                 <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
             </div>
             {{/iff}}

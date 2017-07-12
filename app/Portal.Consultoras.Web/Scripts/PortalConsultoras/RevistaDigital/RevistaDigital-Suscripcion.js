@@ -160,6 +160,11 @@ function RDRedireccionarDesuscripcion() {
     window.location.reload();
 }
 
+function RDRedireccionarDetalle(cuv, campaniaId) {
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
+    window.location = url + "?cuv=" + cuv + "&campaniaId=" + campaniaId;
+}
+
 function MostrarTerminos() {
     var win = window.open(urlTerminosCondicionesRD, '_blank');
     if (win) {
