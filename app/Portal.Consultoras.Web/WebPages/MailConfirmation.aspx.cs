@@ -31,7 +31,7 @@ namespace Portal.Consultoras.Web.WebPages
                     if (Request.QueryString["data"] != null)
                     {
                         string parametros = Request.QueryString["data"];
-                        var parametrosDesencriptados = Util.DesencriptarQueryString(parametros);
+                        var parametrosDesencriptados = Util.Decrypt(parametros);// Util.DesencriptarQueryString(parametros);
                         string[] query = parametrosDesencriptados.Split(';');
                         string paisid = query[1];
                         //032610099;11;PE;leonarddgl@gmail.com;31/12/9999 23:59:59
@@ -84,6 +84,7 @@ namespace Portal.Consultoras.Web.WebPages
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
                 //lblConfirmacion.Text = ex.Message;
                 lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
