@@ -20319,6 +20319,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CantidadField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short ClienteIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DescripcionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -20386,6 +20389,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CantidadField.Equals(value) != true)) {
                     this.CantidadField = value;
                     this.RaisePropertyChanged("Cantidad");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short ClienteID {
+            get {
+                return this.ClienteIDField;
+            }
+            set {
+                if ((this.ClienteIDField.Equals(value) != true)) {
+                    this.ClienteIDField = value;
+                    this.RaisePropertyChanged("ClienteID");
                 }
             }
         }
