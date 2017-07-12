@@ -116,6 +116,12 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdUsuarioDatos(usuario, CorreoAnterior);
         }
 
+        public void AceptarContrato(BEUsuario usuario)
+        {
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            DAUsuario.AceptarContrato(usuario);
+        }
+
         public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -1381,6 +1387,24 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string AceptarContratoColombia(BEUsuario usuario)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                        this.AceptarContrato(usuario);
+                        resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
             }
             catch (Exception ex)
             {

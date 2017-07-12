@@ -1706,7 +1706,9 @@ function ActualizarMD() {
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
     };
 
-    jQuery.ajax({
+    if (viewBagPaisID != 4) {
+
+        jQuery.ajax({
             type: 'POST',
             url: baseUrl + 'MisDatos/ActualizarDatos',
             dataType: 'json',
@@ -1728,6 +1730,32 @@ function ActualizarMD() {
                 }
             }
         });
+    }
+    else {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MisDatos/AceptarContrato',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert("ERROR");
+                }
+            }
+        });
+    }
 }
 
 

@@ -692,6 +692,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
         }
 
+        public string AceptarContrato(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.AceptarContratoColombia(usuario);
+        }
+
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
         {
             int paisID = GetPaisID(paisISO);
