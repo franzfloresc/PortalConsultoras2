@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lstSRComponente = sv.GetReporteShowRoomComponentes(UserData().PaisID, Convert.ToInt32(CampaniaID)).ToList();
             }
 
-            if (lstSRCampania.Count == 0 && lstSRPersonalizacion.Count == 0 && lstSROferta.Count == 0 && lstSRComponente.Count == 0)
+            if (lstSRCampania.Count == 0)
                 return Content("<script>alert('" + MensajeNoHayRegistros +"')</script>");
 
             List<ReporteValidacionSRModel> listSRCampaniaModel = new List<ReporteValidacionSRModel>();
