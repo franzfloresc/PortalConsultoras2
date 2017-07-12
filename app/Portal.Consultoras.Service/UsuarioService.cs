@@ -144,6 +144,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
         }
 
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+        }
+
         public bool IsUserExist(string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();

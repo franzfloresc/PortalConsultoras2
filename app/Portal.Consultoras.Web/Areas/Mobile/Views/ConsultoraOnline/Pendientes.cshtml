@@ -6,7 +6,11 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;PENDIENTES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -19,27 +23,27 @@
         {
             <div class="content_pendiente">
                 <div class="titulo_pendiente">
-                @if (item.FlagConsultora)
-                {
-                    <label> CLIENTE EXISTENTE </label>
-                }
-                else
-                {
-                    <label> NUEVO CLIENTE </label>
-                }
+                    @if (item.FlagConsultora)
+                    {
+                        <label> CLIENTE EXISTENTE </label>
+                    }
+                    else
+                    {
+                        <label> NUEVO CLIENTE </label>
+                    }
                 </div>
                 <div class="nombre_cliente_pendiente">@item.Cliente</div>
                 <div class="descripcion_pendiente">
                     <span style="float:left;">Origen</span>
                     <span style="float: right;">
-                    @if (item.MarcaID == 0)
+                        @if (item.MarcaID == 0)
                     {
-                        <text>@item.MedioContacto</text>
-                    }
-                    else
-                    {
-                        <text>Portal @item.Marca</text> 
-                    }
+                            <text>@item.MedioContacto</text>
+                        }
+                        else
+                        {
+                            <text>Portal @item.Marca</text>
+                        }
                     </span>
                 </div>
                 <hr class="clear" />
@@ -52,14 +56,14 @@
                     <div style="float:left;">
                         <div class="titulo_tooltip_p">¡No pierdas esta oportunidad!</div>
                         <div class="hora_tooltip_p">
-                        @if (item.FlagConsultora)
-                        {
-                            <text> Te quedan <b>24:00:00</b> horas</text>
-                        }
-                        else
-                        {
-                            <text>Te quedan <b>@item.SaldoHoras</b> horas</text>
-                        }
+                            @if (item.FlagConsultora)
+                            {
+                                <text> Te quedan <b>24:00:00</b> horas</text>
+                            }
+                            else
+                            {
+                                <text>Te quedan <b>@item.SaldoHoras</b> horas</text>
+                            }
                         </div>
                     </div>
                     <div style="float:right;">
@@ -68,7 +72,7 @@
                     <hr class="clear" />
                 </div>
             </div>
-        } 
+        }
     }
 
     <div class="linea_separadora_mobile"></div>

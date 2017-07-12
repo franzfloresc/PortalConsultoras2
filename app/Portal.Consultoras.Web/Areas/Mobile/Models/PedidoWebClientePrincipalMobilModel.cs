@@ -14,6 +14,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string Simbolo {get; set; }
 
         public int PaisID {get; set; }
+
+        public int ClienteID { get; set; }
         
         public List<PedidoWebMobilModel> ListaPedidoCliente { get; set; }
     }
