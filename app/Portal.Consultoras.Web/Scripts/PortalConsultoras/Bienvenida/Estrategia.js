@@ -552,7 +552,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
-        estrategia.DescripcionCompleta = estrategia.DescripcionCompleta || estrategia.DescripcionCUV2.split('|')[0];
+        
         var popupId = '#popupDetalleCarousel_lanzamiento';
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
@@ -669,6 +669,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
                 //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
             }
             
+            $(".contenedor_popup_detalleCarousel").hide();
             $("#divMensajeBloqueada").show();
         }
         return false;
