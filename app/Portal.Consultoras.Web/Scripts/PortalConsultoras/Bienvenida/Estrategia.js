@@ -176,9 +176,21 @@ function inicializarDivMasVendidos(origen) {
 function ArmarCarouselMasVendidos(data) {
     data.Lista = EstructurarDataCarousel(data.Lista);
     $("#divCarrouselMasVendidos").empty();
-    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
-    PintarEstrellas(data.Lista);
-    PintarRecomendaciones(data.Lista);
+
+    var promesa = _actualizarModelMasVendidosPromise(data);
+    $.when(promesa)
+        .then(function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    data = response.data;
+                    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+                    PintarEstrellas(data.Lista);
+                    PintarRecomendaciones(data.Lista);
+                } else {
+                    console.log(response.menssage);
+                }
+            }
+        });
 }
 
 function PintarRecomendaciones(listaMasVendidos) {

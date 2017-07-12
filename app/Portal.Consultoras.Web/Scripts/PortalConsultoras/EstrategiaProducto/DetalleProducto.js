@@ -131,10 +131,21 @@
     var _armarCarouselMasVendidos = function (data) {
         data.Lista = EstructurarDataCarousel(data.Lista);
         $("#divCarrouselMasVendidos").empty();
-        if (tipoOrigenPantalla === 1) { SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos'); }
-        if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
-        PintarEstrellasCarrusel(data.Lista);
-        PintarRecomendacionesCarrusel(data.Lista);
+        var promesa = _actualizarModelMasVendidosPromise(data);
+        $.when(promesa)
+            .then(function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        data = response.data;               
+                        if (tipoOrigenPantalla === 1) { SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos'); }
+                        if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
+                        PintarEstrellasCarrusel(data.Lista);
+                        PintarRecomendacionesCarrusel(data.Lista);
+                    } else {
+                        console.log(response.menssage);
+                    }
+                }
+            });
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {

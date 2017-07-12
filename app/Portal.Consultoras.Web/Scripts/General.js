@@ -1645,21 +1645,6 @@ function _validartieneMasVendidos() {
     }
 }
 
-var actualizarModelMasVendidosPromise = function (model) {
-    var promesa = _actualizarModelMasVendidosPromise(model);
-    $.when(promesa)
-    .then(function (response) {
-        if (checkTimeout(response)) {
-            if (response.success) {
-                return response.data;
-            } else {
-                console.log(response.menssage);
-                return null;
-            }
-        }
-    });
-}
-
 var _actualizarModelMasVendidosPromise = function (model) {
     var d = $.Deferred();
     var promise = $.ajax({
