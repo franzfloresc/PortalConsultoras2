@@ -3036,6 +3036,51 @@ namespace Portal.Consultoras.Common
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
+
+        public static string NombreMes(int Mes)
+        {
+            string Result = string.Empty;
+            switch (Mes)
+            {
+                case 1:
+                    Result = "Ene";
+                    break;
+                case 2:
+                    Result = "Feb";
+                    break;
+                case 3:
+                    Result = "Mar";
+                    break;
+                case 4:
+                    Result = "Abr";
+                    break;
+                case 5:
+                    Result = "May";
+                    break;
+                case 6:
+                    Result = "Jun";
+                    break;
+                case 7:
+                    Result = "Jul";
+                    break;
+                case 8:
+                    Result = "Ago";
+                    break;
+                case 9:
+                    Result = "Sep";
+                    break;
+                case 10:
+                    Result = "Oct";
+                    break;
+                case 11:
+                    Result = "Nov";
+                    break;
+                case 12:
+                    Result = "Dic";
+                    break;
+            }
+            return Result;
+        }
     }
 
     public static class DataRecord
@@ -3090,11 +3135,35 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /// <summary>
+        /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
+        /// </summary>
+        /// <typeparam name="T">Data Row</typeparam>
+        /// <param name="row">Fila</param>
+        /// <param name="name">Nombre de la columna</param>
+        /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
+        /// <returns>Valor convertido</returns>
+        public static T GetValue<T>(this IDataRecord row, string name)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException("nombre enviado es nulo o vacio");
+                }
+
+                return (T)row.GetValue(row.GetOrdinal(name));
+            }
+            catch (Exception ex)
+            {
+                var value = row.GetValue(row.GetOrdinal(name));
+                throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
+            }
+        }
     }
 
     public static class LinqExtensions
     {
-        [Obsolete("Use ForEach from Linq")]
         public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
         {
             foreach (var item in outer)

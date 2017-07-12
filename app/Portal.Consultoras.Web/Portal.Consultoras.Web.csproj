@@ -189,6 +189,7 @@
     <Compile Include="Areas\Mobile\Controllers\ClienteController.cs" />
     <Compile Include="Areas\Mobile\Controllers\ConsultoraOnlineController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MiAsesorBellezaController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\MisPedidosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NovedadesCampaniaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BaseMobileController.cs" />
     <Compile Include="Areas\Mobile\Controllers\BienvenidaController.cs" />
@@ -475,6 +476,7 @@
     <Compile Include="Models\ClienteOnlineModel.cs" />
     <Compile Include="Models\MisPedidosSb2Model.cs" />
     <Compile Include="Models\MisReclamosModel.cs" />
+    <Compile Include="Areas\Mobile\Models\MobileAppConfiguracionModel.cs" />
     <Compile Include="Models\ModificacionCronogramaModel.cs" />
     <Compile Include="Models\CronogramaModel.cs" />
     <Compile Include="Models\DescargarPedidoModel.cs" />
@@ -1163,6 +1165,7 @@
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
+    <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
@@ -2742,6 +2745,7 @@
     <Content Include="Content\Images\PL20\cupon_gif_rojo.gif" />
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial.png" />
+    <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial_2.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial_2white.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial_white.png" />
@@ -3052,7 +3056,6 @@
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponModule.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Main.js" />
-    <Content Include="Scripts\PortalConsultoras\Cupon\CuponModule.js" />
     <Content Include="Scripts\PortalConsultoras\Login\FormsSignIn.js" />
     <Content Include="Scripts\PortalConsultoras\MisBeneficios\Index.js" />
     <Content Include="Scripts\PortalConsultoras\IncentivosSMS\Index.js" />
@@ -3330,7 +3333,10 @@
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\Shared\_SinSesionMobileLayout.cshtml" />
     <Content Include="Content\Images\mobile\Esika\icon-tip-red.svg" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoRevista\MiRevista2.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\IngresadoDetalle.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisPedidos\FacturadoDetalle.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\MasVendidos.cshtml" />
@@ -3382,7 +3388,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.wsdl" />
     <None Include="Service References\ServiceContenido\ContenidoService.xsd">
       <SubType>Designer</SubType>
@@ -3792,13 +3797,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService1.disco" />
-    <Content Include="Service References\ServiceZonificacion\configuration.svcinfo" />
-    <Content Include="Service References\ServiceZonificacion\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
     <Content Include="Service References\ServicioGenerarLideres\configuration91.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\configuration.svcinfo" />
     <Content Include="Service References\ServicioGenerarLideres\Reference.svcmap">
@@ -4073,6 +4072,10 @@
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4090,13 +4093,18 @@
     <Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
-    <Content Include="Views\LoginChatbot\Facebook.cshtml" />
-	<Content Include="Views\LoginChatbot\_Main.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
+    <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
+    <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
+    <Content Include="Views\RevistaDigital\Detalle.cshtml" />
     <Content Include="Views\Cliente\Detalle.cshtml" />
-    <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
+    <Content Include="Views\LoginChatbot\_Main.cshtml" />
     <Content Include="Views\CatalogosBelcorp\Index.cshtml" />
     <Content Include="Views\LoginChatbot\Normal.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-header-mobile.cshtml" />
+    <Content Include="Views\LoginChatbot\Facebook.cshtml" />
+    <Content Include="Views\LoginChatbot\_NormalPartial.cshtml" />
+    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGana.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponConfirmar.cshtml" />
     <Content Include="Views\Shared\Cupon\popupCuponGanaste.cshtml" />
@@ -4111,7 +4119,6 @@
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\Bienvenida\MasVendidos.cshtml" />
     <Content Include="Views\Bienvenida\template-mas-vendidos.cshtml" />
-    <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCuponConsultora.cshtml" />
     <Content Include="Views\RevistaDigital\template-informativa.cshtml" />
     <Content Include="Views\RevistaDigital\template-landing.cshtml" />
@@ -4264,12 +4271,10 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
-    <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
-    <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
@@ -4287,10 +4292,8 @@
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalleImp.cshtml" />
-    <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\GestionContenido\ContenidoDato.cshtml" />
     <Content Include="Views\Shared\_PrintLayout.cshtml" />
-    <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\ActualizarDatos\Index.cshtml" />
     <Content Include="Views\ReportePedidoCampania\ReportePedidoCampaniaImp.cshtml" />
     <Content Include="Views\DescargaPedidos\DescargarPedidos.cshtml" />
@@ -4564,7 +4567,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>20267</DevelopmentServerPort>
+          <DevelopmentServerPort>45233</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:20267/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
