@@ -38,5 +38,33 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return model;
         }
+
+        [HttpPost]
+        public JsonResult ActualizarModel(EstrategiaOutModel model)
+        {
+            try
+            {
+                var listaPedido = ObtenerPedidoWebDetalle();
+                if (model != null)
+                {
+                    if (model.Lista != null)
+                    {
+                        for (int i = 0; i <= model.Lista.Count - 1; i++)
+                        {
+                            model.Lista[i].IsAgregado = listaPedido.Any(p => p.CUV == model.Lista[i].CUV2.Trim());
+                        }
+                    }
+                    if (model.Item != null)
+                    {
+                        model.Item.IsAgregado = listaPedido.Any(p => p.CUV == model.Item.CUV2.Trim());
+                    }
+                }
+                return Json(new { success = true, data = model });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+            }
+        }
     }
 }

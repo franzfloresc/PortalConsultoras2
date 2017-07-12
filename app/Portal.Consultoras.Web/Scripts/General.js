@@ -1644,3 +1644,36 @@ function _validartieneMasVendidos() {
         return valor;
     }
 }
+
+var actualizarModelMasVendidosPromise = function (model) {
+    var promesa = _actualizarModelMasVendidosPromise(model);
+    $.when(promesa)
+    .then(function (response) {
+        if (checkTimeout(response)) {
+            if (response.success) {
+                return response.data;
+            } else {
+                console.log(response.menssage);
+                return null;
+            }
+        }
+    });
+}
+
+var _actualizarModelMasVendidosPromise = function (model) {
+    var d = $.Deferred();
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/OfertasMasVendidos/ActualizarModel',
+        data: JSON.stringify(model),
+        dataType: 'json',        
+        contentType: 'application/json; charset=utf-8',
+        async: false
+    });
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
+}

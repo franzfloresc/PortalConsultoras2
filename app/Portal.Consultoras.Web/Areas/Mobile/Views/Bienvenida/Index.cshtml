@@ -262,6 +262,12 @@
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
 </div>
+
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
+
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none;">
     <div id="contenedor_template_estrategia_cabecera"></div>
@@ -329,13 +335,6 @@
         <!--FIN APP CATÁLOGOS-->
     </div>
 }
-
-
-@if (Model.TieneMasVendidos == 1)
-{
-    Html.RenderPartial("MasVendidos");
-}
-
 <!--LOS MAS VENDIDOS-->
 
 <div class="wrapper_resumen_mobile">
