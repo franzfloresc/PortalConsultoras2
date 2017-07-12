@@ -223,6 +223,7 @@ function OfertaArmarEstrategias(response) {
         if (response.Completo == 0) {
             var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
             response.listaLan = response.listaLan || new Array();
+            response.listaLan = EstructurarDataCarousel(response.listaLan);
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
@@ -230,6 +231,11 @@ function OfertaArmarEstrategias(response) {
                     tem.EstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.EstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.EstrategiaDetalle.ImgFichaMobile : tem.EstrategiaDetalle.ImgFichaDesktop;
                     tem.EstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.DescripcionCUV2 = $.trim(tem.DescripcionCUV2);
+                    tem.DescripcionCompleta = tem.DescripcionCUV2.split('|')[0];
+                    tem.Posicion = ind + 1;
+                    tem.TextoLibre = $.trim(tem.TextoLibre);
+                    tem.MostrarTextoLibre = tem.TextoLibre.length > 0;
                 });
                 
                 var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
