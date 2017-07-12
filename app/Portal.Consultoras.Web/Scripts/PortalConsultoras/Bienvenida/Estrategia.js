@@ -973,7 +973,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad límite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }
