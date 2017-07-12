@@ -43,11 +43,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Overrides
 
-        // FREEZE
-        static readonly object _object= new object();
+        #region TEST_HELPER
+        static readonly object _object = new object();
         protected int _count;
 
-        #region TEST_HELPER
         public int OnActionExecutingTest()
         {
             // Arrange
@@ -103,9 +102,23 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    if( Request.IsAjaxRequest())
+                    {
+                        base.OnActionExecuting(filterContext);
+                        return;
+                    }
+
+                    Byte b = 0x0;
+                    ViewBag.MenuMobile = BuildMenuMobile(userData);
+                    b |= 0x01;
+                    ViewBag.Permiso = BuildMenu();
+                    b |= 0x02;
+                    ViewBag.ProgramaBelcorpMenu = BuildMenuService();
+                    b |= 0x04;
+
+                    /*
                     Byte b = 0x0;
 
-                    // FREEZE 03/07/2017
                     if (Session["OP_BuildMenuMobile"] == null)
                     {
                         List<MenuMobileModel> oL = BuildMenuMobile(userData);
@@ -136,6 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                         ViewBag.ProgramaBelcorpMenu = (List<ServicioCampaniaModel>)Session["OP_BuildMenuService"];
                     // END FREEZE
+                    */
 
                     _count = (int)b;
 
