@@ -4093,7 +4093,6 @@
     <Content Include="Views\AdministrarEstrategia\AdministrarEstrategiaDialog.cshtml" />
     <Content Include="Views\Bienvenida\ChatBelcorp.cshtml" />
     <Content Include="Views\Unete\_HistorialPostulante.cshtml" />
-    <Content Include="Views\Bienvenida\template-opt-mobile.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header-mobile.cshtml" />
     <Content Include="Views\RevistaDigital\Inscripcion.cshtml" />
     <Content Include="Views\RevistaDigital\Detalle.cshtml" />
