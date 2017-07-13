@@ -1137,18 +1137,15 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneOfertaDelDia = false;
             if (!ViewBag.MostrarODD)
             {
-                ViewBag.TieneOfertaDelDia = userData.TieneOfertaDelDia;
-                if (userData.TieneOfertaDelDia)
-                {
-                    if (!(
-                            (!userData.ValidacionAbierta && userData.EstadoPedido == 202 && userData.IndicadorGPRSB == 2)
-                            || userData.IndicadorGPRSB == 0)
-                        || userData.CloseOfertaDelDia
+                ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia
+                    && (
+                        !(
+                            (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                            || model.IndicadorGPRSB == 0)
+                        || model.CloseOfertaDelDia
                     )
-                    {
-                        ViewBag.TieneOfertaDelDia = false;
-                    }
-                }
+                    ? false
+                    : model.TieneOfertaDelDia;
             }
 
             // ShowRoom (Mobile)
@@ -1161,13 +1158,13 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MensajePedidoDesktop = userData.MensajePedidoDesktop;
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
-                #region RegaloPN
-                ViewBag.ConsultoraTieneRegaloPN = false;
-                if (model.ConsultoraRegaloProgramaNuevas != null)
-                {
-                    ViewBag.ConsultoraTieneRegaloPN = true;
-                }
-                #endregion
+            #region RegaloPN
+            ViewBag.ConsultoraTieneRegaloPN = false;
+            if (model.ConsultoraRegaloProgramaNuevas != null)
+            {
+                ViewBag.ConsultoraTieneRegaloPN = true;
+            }
+            #endregion
 
 
             #endregion
