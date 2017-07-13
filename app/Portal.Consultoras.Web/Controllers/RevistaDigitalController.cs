@@ -42,6 +42,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+
+                if (modelo == null || modelo.ID == 0)
+                {
+                    List <BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+                }
                 return DetalleModel(modelo);
             }
             catch (Exception ex)
