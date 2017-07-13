@@ -767,7 +767,8 @@
 
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
-        var paginaOrigenCupon  = 21;
+        var paginaOrigenCupon = 21;
+        var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
@@ -777,7 +778,6 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
-        var tieneMasVendidos = @Model.TieneMasVendidos;
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
