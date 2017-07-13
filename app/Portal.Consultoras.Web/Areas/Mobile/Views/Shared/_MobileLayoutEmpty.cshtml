@@ -219,6 +219,8 @@
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
     </script>
 
     <script type="text/javascript">
@@ -432,6 +434,7 @@
         };
     </script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
 
 </body>
