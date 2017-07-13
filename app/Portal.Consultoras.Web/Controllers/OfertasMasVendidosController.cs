@@ -14,17 +14,24 @@ namespace Portal.Consultoras.Web.Controllers
     {
                
         [HttpGet]
-        public JsonResult ObtenerOfertas(string cuv) 
+        public JsonResult ObtenerOfertas() 
         {
-            var model =  new EstrategiaOutModel();
+            try
+            {
+                var model = new EstrategiaOutModel();
 
-            var listModel = ConsultarMasVendidosModel();
-           
-            model.Lista = listModel;
+                var listModel = ConsultarMasVendidosModel();
 
-            model = ActualizarPosicion(model);
+                model.Lista = listModel;
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+                model = ActualizarPosicion(model);
+
+                return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
+            }
         }
 
         private EstrategiaOutModel ActualizarPosicion(EstrategiaOutModel model)

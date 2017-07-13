@@ -102,31 +102,53 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
-function CargarCarouselMasVendidos(origen) {    
-    var dataMasVendidos = get_local_storage("data_mas_vendidos");
-    if (typeof dataMasVendidos !== 'undefined' && dataMasVendidos != null) {
+var CargarCarouselMasVendidos = function (origen) {
+    var model = obtenerModelMasVendidos();
+    if (model != null) {
         $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
-        ArmarCarouselMasVendidos(dataMasVendidos);
+        ArmarCarouselMasVendidos(model);
         inicializarDivMasVendidos(origen);
         _validarDivTituloMasVendidos();
-        return;
-    }
-    $.ajax({
+    }    
+}
+
+var obtenerModelMasVendidos = function () {
+    var model = get_local_storage("data_mas_vendidos");
+    if (typeof model === 'undefined' || model === null) {
+        var promesa = _obtenerModelMasVendidosPromise();
+        $.when(promesa)
+            .then(function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        model = response.data;
+                        set_local_storage(model, "data_mas_vendidos");
+                    }
+                    else {
+                        console.log(response.message);
+                    }
+                }
+            });
+    }    
+    return model;
+}
+
+var _obtenerModelMasVendidosPromise = function () {
+    var d = $.Deferred();
+    var promise = $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasMasVendidos/ObtenerOfertas',
+        url: baseUrl + "OfertasMasVendidos/ObtenerOfertas",
+        data: "",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            set_local_storage(data, "data_mas_vendidos");
-            $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');            
-            ArmarCarouselMasVendidos(data);
-            inicializarDivMasVendidos(origen);
-            _validarDivTituloMasVendidos();
-        },
-        error: function (error) {
-            $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
-        }
+        async: false
     });
+
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
 };
 
 function inicializarDivMasVendidos(origen) {
