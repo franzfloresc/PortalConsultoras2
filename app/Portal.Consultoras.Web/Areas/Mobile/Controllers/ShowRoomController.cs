@@ -51,6 +51,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
+            //es intriga si if (showRoomEvento != null && showRoomEvento.Estado == 1 && showRoomEventoConsultora != null)
+
             return RedirectToAction(esShowRoom ? "Index" : "Intriga");
         }
 
