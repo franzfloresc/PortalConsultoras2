@@ -42,9 +42,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
-            {
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
-            }
 
             var lstPedidoWebDetalle = ObtenerPedidoWebDetalle();
 
@@ -121,9 +119,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.Celular = userData.Celular;
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
-
-            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            model.TieneMasVendidos = userData.TieneMasVendidos;
+            //model.TieneOfertaLog = userData.TieneOfertaLog;
+ 
             ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
             ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
             ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
@@ -154,10 +154,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
-            {
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
-            }
-
             var model = new PedidoDetalleMobileModel();
             model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;

@@ -12,9 +12,20 @@
                         </div>
                     </div>
                     {{/iff}}
-                    <div class="content_set_imagen_banner" data-item-tag="foto" {{#if ../Mobile}} onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}}); {{/if}}">
+                    
+                    {{#if ../Mobile}} 
+                    <div class="content_set_imagen_banner" data-item-tag="foto"
+                        onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}});">
                         <img src="{{lan.FotoProducto01}}" alt="" />
                     </div>
+                    {{else}}
+                    <div class="content_set_imagen_banner producto_img_home" data-item-tag="foto" style="cursor:pointer"
+                        onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                        <img src="{{lan.FotoProducto01}}" alt="" />
+                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                    </div>
+                    {{/if}}
+                    
                     <div data-item-tag="descripcion">
                         {{#iff lan.DescripcionResumen '!=' ''}}
                             <div class="titulo_set_banner_ept">{{lan.DescripcionResumen}}</div>
@@ -67,16 +78,20 @@
                     </div>
 
                     {{#if ../Mobile}}
-                    <div class="btn_negro" style="text-align: center;">
-                        <a data-item-accion="verdetalle" href="javascript:;">
-                            VER MÁS
-                            <img class="rd_arrowright" src="/Content/Images/RevistaDigital/rd_arrowright.png">
-                        </a>
-                    </div>
+                        {{#if lan.PuedeVerDetalleMob}}
+                        <div class="btn_negro" style="text-align: center;">
+                            <a data-item-accion="verdetalle" href="javascript:;">
+                                VER MÁS
+                                <img class="rd_arrowright" src="/Content/Images/RevistaDigital/rd_arrowright.png">
+                            </a>
+                        </div>
+                        {{/if}}
                     {{else}}
-                    <a class="btn_mas_info_set rd_ver_mas" data-item-accion="verdetalle" href="javascript:;">
-                        ver más de este producto
-                    </a>
+                        {{#if lan.PuedeVerDetalle}}
+                            <a class="btn_mas_info_set rd_ver_mas" data-item-accion="verdetalle" href="javascript:;">
+                                ver más de este producto
+                            </a>
+                        {{/if}}
                     {{/if}}
                 </div>
             </div>

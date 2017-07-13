@@ -3142,7 +3142,6 @@ namespace Portal.Consultoras.Common
         }
     }
 
-
     public static class DataRecord
     {
         public static bool HasColumn(this IDataRecord r, string columnName)

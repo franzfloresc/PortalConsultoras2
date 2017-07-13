@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Models
             FiltersByBrand = new List<BETablaLogicaDatos>();
             FiltersByPublished = new List<BETablaLogicaDatos>();
             NombreRevista = "SABER MÁS DE {0}ÉSIKA PARA MÍ";
+            DiasAntesFacturaHoy = -1;
         }
 
         public bool Success { get; set; }
@@ -42,6 +43,7 @@ namespace Portal.Consultoras.Web.Models
         public bool TieneRDR { get; set; }
         public bool TieneRDC { get; set; }
         public bool TieneRDS { get; set; }
+        public int DiasAntesFacturaHoy { get; set; }
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado { get; set; }
 
         public List<BETablaLogicaDatos> FiltersBySorting { get; set; }

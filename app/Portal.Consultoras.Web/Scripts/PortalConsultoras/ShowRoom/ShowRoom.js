@@ -261,12 +261,15 @@ function CargarProductosShowRoom(busquedaModel) {
 
     var aplicarFiltrosSubCampanias = (busquedaModel == null);
     var cargarProductosShowRoomPromise = CargarProductosShowRoomPromise(busquedaModel);
+
     $.when(cargarProductosShowRoomPromise)
         .then(function (response) {
             ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel);
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
+                if (value != undefined) {
+
                     var impression = {
                         name: value.Descripcion,
                         id: value.CUV,
@@ -278,6 +281,7 @@ function CargarProductosShowRoom(busquedaModel) {
                     };
 
                     impressions.push(impression);
+                }
 
                 if (impressions.length > 0)
                 {
@@ -551,22 +555,21 @@ function CargarProductosShowRoomPromise(busquedaModel) {
         data: JSON.stringify(busquedaModel),
         async: true
     });
-
     promise.done(function (response) {
         d.resolve(response);
     })
     promise.fail(d.reject);
-
     return d.promise();
 }
-
 function recortarPalabra(palabra, tamanio) {
     return palabra.length > tamanio ? (palabra.substring(0, tamanio - 3) + '...') : palabra;
 }
 
 function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosSubCampanias, busquedaModel) {
+
     if (response.success) {        
         if (aplicarFiltrosSubCampanias) {
+            response.listaSubCampania = validarUnidadesPermitidas(response.listaSubCampania);
             $.each(response.listaSubCampania, function (i, v) { v.Descripcion = IfNull(v.Descripcion, '').SubStrToMax(35, true); });
 
             SetHandlebars("#template-showroom-subcampania", response.listaSubCampania, "#contenedor-showroom-subcampanias");
@@ -621,6 +624,7 @@ function CargarShowroomMobile(busquedaModel) {
 }
 
 function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
+
     if (response.success) {
         if (response.listaSubCampania.length < 1 && tieneCompraXCompra == 'False') {
             OcultarDivOfertaShowroomMobile();
@@ -639,7 +643,6 @@ function ResolverCargarProductosShowRoomPromiseMobile(response, busquedaModel) {
         if (busquedaModel.hidden == true) $("#divProductosShowRoom").hide();
     }
 }
-
 function ConfigurarSlick() {
     $('#contenedor-showroom-subcampanias-mobile.slick-initialized').slick('unslick');
     $('#contenedor-showroom-subcampanias-mobile').slick({
@@ -669,7 +672,6 @@ function AsignarPosicionAListaOfertas(listaOfertas) {
 
     return nuevaListaOfertas;
 }
-
 function ConstruirDescripcionOferta(arrDescripcion) {
     var descripcion = "";
     $.each(arrDescripcion, function (index, value) {
@@ -682,7 +684,6 @@ function OcultarDivOfertaShowroomMobile() {
     $("#content_sub_oferta_showroom").hide();
     $(".content_promocion").hide();
 }
-
 $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", function (e) {
     var accion = $(this).attr("data-odd-accion").toUpperCase();
     if (accion == "AGREGAR") {
@@ -699,8 +700,27 @@ $("body").on("click", ".content_display_set_suboferta [data-odd-accion]", functi
         //AgregarProductoAlCarrito(padre);
         AgregarOfertaShowRoom(article, cantidad);
         $(this).parents("div.content_btn_agregar").find("#txtCantidad").val(1);
-
         e.preventDefault();
         (this).blur();
     }
 });
+
+function validarUnidadesPermitidas(listaShowRoomOferta) {
+    var lista = [];
+    if (listaShowRoomOferta != null) {
+        if (listaShowRoomOferta.length > 0) {
+            $.each(listaShowRoomOferta,
+                function (index, value) {
+                    if (value.EsSubCampania == true) {
+                        //if (value.UnidadesPermitidasRestantes > 0) {
+                            lista.push(value);
+                        //}
+                    }
+                    else {
+                        lista.push(value);
+                    }
+                });
+        }
+    }
+    return lista;
+}

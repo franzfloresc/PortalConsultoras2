@@ -667,10 +667,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (lst.Any())
                 lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + iso));
 
-
-            //PDT-1204: Order by Pago Online Venezuela
-            if (paisID == 14) lst = ReOrderLugaresPagoVZ(lst);
-
             var lugaresPagoModel = new LugaresPagoModel()
             {
                 PaisID = paisID,
@@ -680,14 +676,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
 
             return lugaresPagoModel;
-        }
-
-        //PDT-1204
-        private List<BELugarPago> ReOrderLugaresPagoVZ(List<BELugarPago> listado) {
-            return listado.OrderBy(x => x.Nombre == "Banesco" ? 1 :
-                                        x.Nombre== "Banco Sofitasa" ? 2: 
-                                        x.Nombre == "Banco Provincial" ? 3  : 4).ToList();
-        }
+        }        
 
         private void ExportToExcelEstadoCuenta(string filename, List<EstadoCuentaModel> SourceDetails, List<KeyValuePair<int, string>> columnHeaderDefinition,
            Dictionary<string, string> columnDetailDefinition, string[] arrTotal, decimal cargoTotal, decimal abonoTotal)

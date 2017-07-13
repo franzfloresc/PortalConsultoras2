@@ -64,37 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "CYZONE", Descripcion = "CYZONE" });
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "ÉSIKA", Descripcion = "ÉSIKA" });
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
-
-            //var codAgrupa = userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC ? Constantes.TipoEstrategiaCodigo.RevistaDigital : "";
-
-            //tipo = Util.Trim(tipo);
-            //if (codAgrupa != "" && tipo == Constantes.TipoEstrategiaCodigo.OfertaParaTi)
-            //    codAgrupa = "";
-
-            // verificar si se guarda en session cuando codAgrupa = "", en caso se guarde debe limpiar
-            //var listaProducto = ConsultarEstrategiasModel("", id, codAgrupa);
-            //model.ListaProductoLan = listaProducto.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            //model.ListaProductoLan.ForEach(l => l.UrlDetalle = Url.Action("Detalle", "RevistaDigital", new { area = (model.IsMobile && l.PuedeVerDetalleMob ? "Mobile" : ""), id = l.EtiquetaID, campaniaId = l.CampaniaID }));
-            //model.ListaProductoNoLan = listaProducto.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<EstrategiaPedidoModel>();
-            //var listadoNoLanzamiento = model.ListaProductoNoLan;
-
-            //if (listadoNoLanzamiento.Any())
-            //{
-            //    var listaMarca = listadoNoLanzamiento.GroupBy(p => p.DescripcionMarca).ToList();
-            //    model.FiltersByBrand = new List<BETablaLogicaDatos>();
-            //    if (listaMarca.Any())
-            //    {
-            //        model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "-", Descripcion = model.IsMobile ? "MARCAS" : "FILTRAR POR MARCA" });
-            //        foreach (var marca in listaMarca)
-            //        {
-            //            model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = marca.Key, Descripcion = marca.Key.ToUpper() });
-            //        }
-            //    }
-
-            //    //model.PrecioMin = listadoNoLanzamiento.Min(p => p.Precio2);
-            //    //model.PrecioMax = listadoNoLanzamiento.Max(p => p.Precio2);
-            //}
-
+            
             model.Success = true;
             return PartialView("template-Landing", model);
         }
@@ -110,15 +80,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
             }
-
-            //var listaProducto = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-            //modelo = listaProducto.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+            
             if (modelo.EstrategiaID > 0)
             {
                 modelo.EstrategiaDetalle = modelo.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
 
                 var lista = new List<EstrategiaPedidoModel>() { modelo };
                 modelo = ConsultarEstrategiasModelFormato(lista)[0];
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -221,7 +190,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
                 {
                     model.Titulo += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIRÁ DE LA PRÓXIMA CAMPAÑA";
+                    model.TituloDescripcion = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIR DE LA PRÓXIMA CAMPAÑA";
                 }
                 else
                 {
