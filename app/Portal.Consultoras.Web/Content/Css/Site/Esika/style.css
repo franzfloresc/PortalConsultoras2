@@ -33034,7 +33034,7 @@ h1#penmostreo .campana {
 
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
-        float: left;
+    float: left;
     width: 40%;
     margin-right: 5%;
 }
@@ -33047,6 +33047,7 @@ h1#penmostreo .campana {
 
 .content_ficha_producto img {
     max-height: 300px;
+    max-width: 100% !important;
 }
 
 .content_right_ficha {
