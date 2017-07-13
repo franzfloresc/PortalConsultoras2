@@ -141,11 +141,28 @@
                         if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
                         PintarEstrellasCarrusel(data.Lista);
                         PintarRecomendacionesCarrusel(data.Lista);
+                        PintarPrecioTachadoCarrusel(data.Lista);
                     } else {
                         console.log(response.menssage);
                     }
                 }
             });
+    }
+
+    function PintarPrecioTachadoCarrusel(listaMasVendidos) {
+        listaMasVendidos.forEach(item => {
+            _pintarPrecioTachadoCarrusel(item);
+        });
+    }
+
+    function _pintarPrecioTachadoCarrusel(item) {
+        let div = "#precio-tachado-" + item.EstrategiaID.toString();
+        if (item.Ganancia > 0) {
+            $(div).show();
+        }
+        else {
+            $(div).hide();
+        }
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {

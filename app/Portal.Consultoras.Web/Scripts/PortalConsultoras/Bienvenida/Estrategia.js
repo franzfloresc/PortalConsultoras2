@@ -186,11 +186,28 @@ function ArmarCarouselMasVendidos(data) {
                     SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
                     PintarEstrellas(data.Lista);
                     PintarRecomendaciones(data.Lista);
+                    PintarPrecioTachado(data.Lista);
                 } else {
                     console.log(response.menssage);
                 }
             }
         });
+}
+
+function PintarPrecioTachado(listaMasVendidos) {
+    listaMasVendidos.forEach(item => {
+        _pintarPrecioTachado(item);
+    });
+}
+
+function _pintarPrecioTachado(item) {
+    let div = "#precio-tachado-" + item.EstrategiaID.toString();    
+    if (item.Ganancia > 0) {
+        $(div).show();
+    }
+    else {
+        $(div).hide();
+    }
 }
 
 function PintarRecomendaciones(listaMasVendidos) {
