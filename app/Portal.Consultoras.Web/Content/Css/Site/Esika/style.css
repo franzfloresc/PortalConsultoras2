@@ -219,7 +219,7 @@ header {
     float: left;
     margin-top: 18px;
     height: 23px;
-    margin-right: 13px;
+    margin-right: 12px;
     margin-left: 12px;
 }
 
@@ -6379,6 +6379,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .boton_cerrar_s{
     overflow:hidden;
+    float:left;
 }
 
 .boton_cerrar_s a:hover{
