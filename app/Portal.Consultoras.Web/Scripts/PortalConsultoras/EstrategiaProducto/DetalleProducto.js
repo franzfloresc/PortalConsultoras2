@@ -44,7 +44,7 @@
                 setTimeout(function () {
                     slick.setPosition();
                     slick.slickGoTo(1);
-                    $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(2);
+                    $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(1);
                 }, 500);
             }).slick({
                 dots: true,
@@ -136,17 +136,49 @@
             .then(function (response) {
                 if (checkTimeout(response)) {
                     if (response.success) {
-                        data = response.data;               
-                        if (tipoOrigenPantalla === 1) { SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos'); }
-                        if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
-                        PintarEstrellasCarrusel(data.Lista);
-                        PintarRecomendacionesCarrusel(data.Lista);
-                        PintarPrecioTachadoCarrusel(data.Lista);
+                        data = response.data;
+                        if (ValidarPintarMasVendidos(data.Lista)) {
+                            if (tipoOrigenPantalla === 1) { SetHandlebars("#mas-vendidos-templateDP", data, '#divCarrouselMasVendidos'); }
+                            if (tipoOrigenPantalla === 2) { SetHandlebars("#template-detalle-producto-lista", data, '#divCarrouselMasVendidos'); }
+                            PintarEstrellasCarrusel(data.Lista);
+                            PintarRecomendacionesCarrusel(data.Lista);
+                            PintarPrecioTachadoCarrusel(data.Lista);
+                            if (tipoOrigenPantalla === 2) { ValidarPosicionesCarruselMobile(data); }
+                        }
+                        else {
+                            OcultarPanelMasVendidos();
+                        }
                     } else {
                         console.log(response.menssage);
                     }
                 }
             });
+    }
+
+    function ValidarPosicionesCarruselMobile(data) {
+        if (data != null) {
+            if (data.Lista != null) {
+                var posicion = 0;
+                if (data.Lista.length === 1) {
+                    posicion = 1;
+                    $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(posicion);
+                }
+            }
+        }
+    }
+
+    function OcultarPanelMasVendidos() {
+        $(".content_carrusel_bestSeller").hide();
+    }
+
+    function ValidarPintarMasVendidos(listaMasVendidos) {
+        if (listaMasVendidos == null) {
+            return false;
+        }
+        if (listaMasVendidos.length === 0) {
+            return false;
+        }
+        return true;
     }
 
     function PintarPrecioTachadoCarrusel(listaMasVendidos) {
