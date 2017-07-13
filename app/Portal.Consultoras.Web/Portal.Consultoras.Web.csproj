@@ -4273,12 +4273,12 @@
     <Content Include="Views\Cliente\Index.cshtml" />
     <Content Include="Views\Shared\_SACLayout.cshtml" />
     <Content Include="Views\GestionFaltantes\GestionFaltantes.cshtml" />
-    <Content Include="Views\ConsultoraDigitales\ConsultaPedido\ConsultaPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\MatrizCampania\Actualizarmatrizcampania.cshtml" />
     <Content Include="Views\ConfiguracionValidacion\Index.cshtml" />
     <Content Include="Views\Cronograma\CronogramaDemandaAnticipada.cshtml" />
     <Content Include="Views\Cronograma\Index.cshtml" />
-    <Content Include="Views\ConsultoraDigitales\ConsultaPedido\BloqueoPedido.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ReportePedidoCampania\Index.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWeb.cshtml" />
     <Content Include="Views\Banner\Index.cshtml" />
@@ -4296,10 +4296,10 @@
     <Content Include="Views\UsuarioRol\Index.cshtml" />
     <Content Include="Views\Pedido\CampaniaZonaNoConfigurada.cshtml" />
     <Content Include="Views\ReportePedidoDDWeb\ReportePedidosDDWebDetalleImp.cshtml" />
-    <Content Include="Views\ConsultoraDigitales\ConsultaPedido\BloqueoPedidoImp.cshtml" />
+    <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\GestionContenido\ContenidoDato.cshtml" />
     <Content Include="Views\Shared\_PrintLayout.cshtml" />
-    <Content Include="Views\ConsultoraDigitales\ConsultaPedido\ConsultaPedidoImp.cshtml" />
+    <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\ActualizarDatos\Index.cshtml" />
     <Content Include="Views\ReportePedidoCampania\ReportePedidoCampaniaImp.cshtml" />
     <Content Include="Views\DescargaPedidos\DescargarPedidos.cshtml" />
