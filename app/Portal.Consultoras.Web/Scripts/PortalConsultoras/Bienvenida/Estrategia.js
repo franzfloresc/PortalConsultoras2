@@ -167,7 +167,6 @@ function inicializarDivMasVendidos(origen) {
    
     $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
         infinite: true,
-
         vertical: false,
         centerMode: false,
         centerPadding: '0px',

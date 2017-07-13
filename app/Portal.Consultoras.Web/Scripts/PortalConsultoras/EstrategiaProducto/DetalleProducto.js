@@ -50,7 +50,7 @@
                 dots: true,
                 infinite: true,
                 speed: 300,
-                slidesToShow: 2,
+                slidesToShow: 1,
                 centerPadding: '0px',
                 centerMode: true,
                 variableWidth: true,
