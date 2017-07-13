@@ -51,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
             model.ListaLan = listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+            model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

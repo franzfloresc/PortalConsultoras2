@@ -83,32 +83,17 @@
                         </div>
                         <div class="cabecera_pedido_text">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                     </div>
-                </div>
-                <div class="wrapper_resumen_mobile">
-                    <div class="rd_lanzamiento">
-                        <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
-                        <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
-                        <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
-                        <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
+                        <div class="btn_red">
+                            <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                        </div>
                     </div>
-                </div>
-                <hr class="clear" />
-                <div class="fondo_gris" style="padding-top:20px" id="divContenedorListaEstrategia">
-                    <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-                        <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                    <div class="fondo_gris" style="padding-top:20px" id="divContenedorListaEstrategia">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                            <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                        </div>
                     </div>
-                </div>
-
-                <hr class="clear" />
-                <div class="mob_carrusel_bpt">
-                    <div class="wrapper_resumen_mobile">
-                        <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
-                    </div>
-                </div>
-
-                <div class="rd_verofertas">
-                    <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
-                    <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital", new {area = "Mobile"})">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
                 </div>
             </div>
         }

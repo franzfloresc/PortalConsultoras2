@@ -1,6 +1,5 @@
 ﻿<script id="estrategia-template" type="text/x-handlebars-template">
 {{#each this.Lista as |item|}}
-{{#iff item.TipoEstrategia.Codigo '!=' '005'}}
 <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}" 
      class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
     <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -86,8 +85,5 @@
         </div>
     </div>
 </div>
-    
-{{/iff}}
-
 {{/each}}
 </script>

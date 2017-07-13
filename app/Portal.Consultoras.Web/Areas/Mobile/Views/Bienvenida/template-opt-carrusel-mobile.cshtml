@@ -1,6 +1,5 @@
 ﻿<script id="estrategia-template" type="text/x-handlebars-template">
     {{#each this.Lista as |item|}}
-    
     <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
          {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
@@ -86,6 +85,5 @@
             </div>
         </div>
     </div>
-
     {{/each}}
 </script>

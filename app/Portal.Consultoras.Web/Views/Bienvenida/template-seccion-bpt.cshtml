@@ -61,8 +61,7 @@
 
     <div id="bc_content_oferta">
         <div id="bc_promo">
-            {{#each this.Lista as |item|}}
-            {{#iff item.TipoEstrategia.Codigo '==' '005'}}
+            {{#each this.ListaLan as |item|}}
             <div class="bc_promo_contenido">
                 {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
                     <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
@@ -71,13 +70,11 @@
                 <a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})" class="btn-descubre">DESCUBRIR MÁS</a>
                 <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
             </div>
-            {{/iff}}
             {{/each}}
         </div>
         <div id="bc_productos">
             <div class="bc_productos_contenido">
             {{#each this.Lista as |item|}}
-            {{#iff item.TipoEstrategia.Codigo '!=' '005'}}
             <div class="grid-item">
                 <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
                         class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
@@ -164,7 +161,6 @@
                     </div>
                 </div>
             </div>
-            {{/iff}}
             {{/each}}
             <div class="clearfix"></div>
                 <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas-ofertas">VER MÁS OFERTAS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
