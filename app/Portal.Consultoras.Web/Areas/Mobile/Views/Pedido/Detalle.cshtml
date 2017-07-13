@@ -395,7 +395,8 @@
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                                    data-cantidad-input="-"
-                                   readonly="readonly">
+                                   readonly="readonly"
+                                   autocomplete="off">
                             {{else iff detalle.TipoEstrategiaID '==' 1}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral"
@@ -405,7 +406,8 @@
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
                                    data-cantidad-input="-"
-                                   readonly="readonly">
+                                   readonly="readonly"
+                                   autocomplete="off">
                             {{else}}
                             <input type="tel"
                                    class="ValidaNumeral ValidaPasteNumeral"
@@ -416,7 +418,8 @@
                                    onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);"
                                    value="{{detalle.Cantidad}}"
                                    data-pedidodetalleid="{{detalle.PedidoDetalleID}}"
-                                   data-cantidad-input="-">
+                                   data-cantidad-input="-"
+                                   autocomplete="off">
                             {{/iff}}
                         </div>
                         <div class="clear"></div>
