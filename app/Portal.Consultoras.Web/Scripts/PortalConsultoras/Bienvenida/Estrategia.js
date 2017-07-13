@@ -208,25 +208,25 @@ function ArmarCarouselEstrategias(data) {
     
     //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
-    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+   
 
     try {
-        SetHandlebars("#estrategia-template", data, '#divListadoEstrategia2');
+        SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
 
         if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
             $('#divListaEstrategias').show();
-            return false;
+            //return false;
         }
     } catch (e) {
         console.log(e);
     }
-   
+    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
     
     if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
-        $('#divListaEstrategias').hide();
+        //$('#divListaEstrategias').hide();
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }

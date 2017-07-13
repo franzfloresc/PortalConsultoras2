@@ -385,9 +385,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
-            if (userData.RevistaDigital.TieneRDR ||(userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
+            if (IsMobile() && listaProductoModel.Any())
             {
-                if (IsMobile() && listaProductoModel.Any())
+                if (userData.RevistaDigital.TieneRDR )
                 {
                     listaProductoModel = listaProductoModel.Take(1).ToList();
                 }

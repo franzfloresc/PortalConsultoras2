@@ -223,7 +223,7 @@ function OfertaArmarEstrategias(response) {
         if (response.Completo == 0) {
             var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
             response.listaLan = response.listaLan || new Array();
-            response.listaLan = EstructurarDataCarousel(response.listaLan);
+            //response.listaLan = EstructurarDataCarousel(response.listaLan);
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
                     tem.PuedeAgregar = response.Mobile ? 0 : 1;
