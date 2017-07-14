@@ -23,6 +23,7 @@ namespace Portal.Consultoras.Data
         /// <returns></returns>
         public List<ObjMontosProl> CalculoMontosProl(string pais, string periodo, string codigoconsultora, string zona, System.Data.DataTable lstProductos)
         {
+           
             var rtpa = new List<ObjMontosProl>();
             using (var sv = new ServicesCalculoPrecioNiveles())
             {

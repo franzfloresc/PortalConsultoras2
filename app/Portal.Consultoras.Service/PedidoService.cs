@@ -38,8 +38,8 @@ namespace Portal.Consultoras.Service
         private BLCupon BLCupon;
         private BLEstrategia blEstrategia;        
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
+        private BLConsultoraConcurso BLConsultoraConcurso;
         private BLCuponConsultora BLCuponConsultora;
-
 
         public PedidoService()
         {
@@ -65,6 +65,7 @@ namespace Portal.Consultoras.Service
             BLCupon = new BLCupon();
             blEstrategia = new BLEstrategia();            
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
+            BLConsultoraConcurso = new BLConsultoraConcurso();
             BLCuponConsultora = new BLCuponConsultora();
         }
 
@@ -1172,7 +1173,7 @@ namespace Portal.Consultoras.Service
         }
         public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
         {
-            return new BLEstrategia().GetImagenesByEstrategiaMatrizComercialImagen(entidad , pagina, registros);
+            return new BLEstrategia().GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros);
         }
         public int DeshabilitarEstrategia(BEEstrategia entidad)
         {
@@ -1793,6 +1794,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidosIngresadoFacturado(paisID, consultoraID, campaniaID, codigoConsultora);
         }
 
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)
+        {
+            return BLPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(paisID, consultoraID, campaniaID, clienteID, top, codigoConsultora);
+        }
+
         /*GR2089*/
         public void InsertarLogPedidoWeb(int PaisID, int CampaniaID, string CodigoConsultora, int PedidoId, string Accion, string CodigoUsuario)
         {
@@ -1861,7 +1867,7 @@ namespace Portal.Consultoras.Service
         }
         /*EPD-1025*/
         
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int  estrategiaId)
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
         {
             return new BLEstrategia().GetCantidadOfertasParaTi(paisId, campaniaId, tipoConfigurado, estrategiaId);
         }
@@ -1952,7 +1958,7 @@ namespace Portal.Consultoras.Service
         {
             return new BLReservaProl().CargarSesionAndEjecutarReservaProl(paisISO, campania, consultoraID, usuarioPrueba, aceptacionConsultoraDA, esMovil, enviarCorreo);
         }
-        
+
         public BEResultadoReservaProl EjecutarReservaProl(BEInputReservaProl input)
         {
             return new BLReservaProl().EjecutarReservaProl(input);
@@ -1966,7 +1972,7 @@ namespace Portal.Consultoras.Service
         public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
         {
             return new BLOfertaProducto().UpdMatrizComercialImagen(entity);
-	    }
+        }
 
         public bool EnviarCorreoReservaProl(BEInputReservaProl input)
         {
@@ -2099,6 +2105,25 @@ namespace Portal.Consultoras.Service
         public BERevistaDigitalSuscripcion RDGetSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Single(entidad);
+        }
+        public List<BEConsultoraConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona)
+        {
+            return BLConsultoraConcurso.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
+        }
+
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos)
+        {
+            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
+        }
+
+        public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
+        {
+            return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
+        }
+
+        public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
+        {
+            return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
     }
 }

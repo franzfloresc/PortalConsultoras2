@@ -163,17 +163,17 @@ function inicializarDivMasVendidos(origen) {
         ]
     });
 
-    var rating = 1.6;
-    $(".rateyo-readonly-widg").rateYo({
-        rating: rating,
-        numStars: 5,
-        precision: 2,
-        minValue: 1,
-        maxValue: 5,
-        starWidth: "17px"
-    }).on("rateyo.change", function (e, data) {
-        //console.log(data.rating);
-    });
+    //var rating = 1.6;
+    //$(".rateyo-readonly-widg").rateYo({
+    //    rating: rating,
+    //    numStars: 5,
+    //    precision: 2,
+    //    minValue: 1,
+    //    maxValue: 5,
+    //    starWidth: "17px"
+    //}).on("rateyo.change", function (e, data) {
+    //    //console.log(data.rating);
+    //});
 }
 
 function ArmarCarouselMasVendidos(data) {
