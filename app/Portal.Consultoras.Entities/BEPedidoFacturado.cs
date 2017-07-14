@@ -58,6 +58,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PedidoId { get; set; }
 
+        [DataMember]
+        public int ClienteID { get; set; }
+
+        [DataMember]
+        public string NombreCliente { get; set; }
+
         public BEPedidoFacturado()
         { }
 
@@ -119,6 +125,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PedidoId") && row["PedidoId"] != DBNull.Value)
                 PedidoId = Convert.ToInt32(row["PedidoId"]);
+
+            if (DataRecord.HasColumn(row, "ClienteID") && row["ClienteID"] != DBNull.Value)
+                ClienteID = Convert.ToInt32(row["ClienteID"]);
+
+            if (DataRecord.HasColumn(row, "NombreCliente") && row["NombreCliente"] != DBNull.Value)
+                NombreCliente = Convert.ToString(row["NombreCliente"]);
         }
     }
 }
