@@ -12696,6 +12696,7 @@ a{
     font-family:'Lato';
     font-size:13px;
     letter-spacing:0.4px;
+    display:none;
 }
 .titulo_principal_valoracion{
     font-size:16px;
@@ -12837,4 +12838,12 @@ a{
 }
 .respuesta_pregunta:last-child{    
     margin-right:0;
+}
+.content_confirmacion_comentario{
+    display:none;
+}
+.content_detalle_comentarios{
+    float:right;
+    width:75%;
+
 }
