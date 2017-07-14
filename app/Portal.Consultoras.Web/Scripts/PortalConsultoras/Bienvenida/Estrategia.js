@@ -505,6 +505,11 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('#popupDetalleCarousel_packNuevas').show();
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
+        estrategia.DescripcionCompleta = estrategia.DescripcionCUV2.split('|')[0];
+        estrategia.Posicion = 1;
+        estrategia.TextoLibre = $.trim(estrategia.TextoLibre);
+        estrategia.MostrarTextoLibre = estrategia.TextoLibre.length > 0;
+
         estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia);
         estrategia.Detalle = new Array();
         var btnDesabled = 0;
@@ -554,6 +559,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
         }
         
         var popupId = '#popupDetalleCarousel_lanzamiento';
+
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
         if (btnDesabled == 0) {

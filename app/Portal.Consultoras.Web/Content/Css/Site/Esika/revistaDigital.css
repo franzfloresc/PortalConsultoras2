@@ -2534,6 +2534,7 @@
     max-width: 100% !important;
     display: block;
     margin: auto;
+    height: auto;
 }
 
 /**/

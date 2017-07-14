@@ -62,13 +62,22 @@
     <div id="bc_content_oferta">
         <div id="bc_promo">
             {{#each this.ListaLan as |item|}}
-            <div class="bc_promo_contenido">
-                {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                    <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
-                {{/iff}}
-                <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
-                <a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})" class="btn-descubre">DESCUBRIR MÁS</a>
-                <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
+            <div class="bc_promo_contenido" data-item="{{EstrategiaID}}" data-item-tag="body"
+                 data-item-cuv="{{CUV2}}" 
+                 data-estrategia="{{JSON2string item}}" 
+                 data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+                <div data-item-tag="contenido">
+                    <div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:350px; margin: 0 !important; height:initial !important" onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                        {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
+                        <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
+                        {{/iff}}
+                        <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
+                    <a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})" class="btn-descubre">DESCUBRIR MÁS</a>
+                    <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
+                </div>
             </div>
             {{/each}}
         </div>

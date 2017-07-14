@@ -108,8 +108,14 @@ namespace Portal.Consultoras.Web.Controllers
                     var lista = new List<EstrategiaPedidoModel>() { estrategia };
                     estrategia = ConsultarEstrategiasModelFormato(lista)[0];
                 }
-                
-                if (estrategia.EstrategiaID <= 0)
+
+                if (estrategia == null || estrategia.ID == 0)
+                {
+                    List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    estrategia = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+                }
+                if (estrategia == null || estrategia.EstrategiaID <= 0)
                 {
                     var lista = ConsultarEstrategias("",0, "", origen);
                     cuv = Util.Trim(cuv);
