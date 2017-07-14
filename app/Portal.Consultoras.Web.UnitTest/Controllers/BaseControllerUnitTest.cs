@@ -97,5 +97,20 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 Assert.IsNotNull(pedido);
             }
         }
+
+        [TestClass]
+        public class ObtenerPedidoWebDetalle
+        {
+            [TestMethod]
+            public void ObtenerPedidoWebDetalle_WhenIsInvoke_AlwaysReturnANotNullList()
+            {
+                var controller = new BaseController();
+
+                var detallesPedidoWeb = controller.ObtenerPedidoWebDetalle();
+
+                Assert.IsNotNull(detallesPedidoWeb);
+            }
+        }
+
     }
 }

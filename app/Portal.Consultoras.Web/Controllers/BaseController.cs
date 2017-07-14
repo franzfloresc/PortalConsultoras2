@@ -239,7 +239,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             finally
             {
-                if (pedidoWeb == null) pedidoWeb = new BEPedidoWeb();
+                pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
             }
 
             Session["PedidoWeb"] = pedidoWeb;
@@ -247,52 +247,56 @@ namespace Portal.Consultoras.Web.Controllers
             return pedidoWeb;
         }
 
-        protected List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+        public List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-            if (Session["PedidoWebDetalle"] == null)
+            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
+            try
             {
-                PedidoServiceClient sv = null;
-                try
+                detallesPedidoWeb = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+
+                if (detallesPedidoWeb == null)
                 {
-                    sv = new PedidoServiceClient();
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(
+                            userData.PaisID,
+                            userData.CampaniaID,
+                            userData.ConsultoraID,
+                            userData.NombreConsultora).ToList();
+                    }
                 }
-                catch (Exception) { }
 
-                if( sv != null )
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+
+                foreach (var item in detallesPedidoWeb)
                 {
-                    olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
                 }
-            }
-            else
-            {
-                olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-            }
 
-            if (Session["ObservacionesPROL"] != null)
-            {
-                List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
-                if (Observaciones != null)
+                var observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
+                if (detallesPedidoWeb.Count > 0 && observaciones != null)
                 {
-                    olstPedidoWebDetalle = PedidoConObservaciones(olstPedidoWebDetalle, Observaciones);
+                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observaciones);
                 }
+
+
+                userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
+                SetUserData(userData);
+
             }
-
-            olstPedidoWebDetalle = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
-
-            foreach (var item in olstPedidoWebDetalle)
+            catch (Exception ex)
             {
-                item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+
+            }
+            finally
+            {
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
             }
 
-            Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
+            Session["PedidoWebDetalle"] = detallesPedidoWeb;
 
-            userData.PedidoID = olstPedidoWebDetalle.Count > 0 ? olstPedidoWebDetalle[0].PedidoID : 0;
-            SetUserData(userData);
-
-            return olstPedidoWebDetalle;
+            return detallesPedidoWeb;
         }
 
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> Pedido, List<ObservacionModel> Observaciones)
