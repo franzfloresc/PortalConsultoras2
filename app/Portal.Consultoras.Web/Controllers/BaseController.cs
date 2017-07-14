@@ -213,39 +213,38 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Pedido
 
-        protected BEPedidoWeb ObtenerPedidoWeb()
+        public BEPedidoWeb ObtenerPedidoWeb()
         {
-            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+            var pedidoWeb = (BEPedidoWeb)null;
 
-            if (Session["PedidoWeb"] == null)
+            try
             {
-                PedidoServiceClient sv = null;
-                try
-                {
-                    sv = new PedidoServiceClient();
-                }
-                catch (Exception) { }
 
-                if( sv != null )
-                {
-                    bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                }
+                pedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
 
-                bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
+                if(pedidoWeb == null)
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoWeb = pedidoServiceClient.GetPedidoWebByCampaniaConsultora(
+                            userData.PaisID, 
+                            userData.CampaniaID, 
+                            userData.ConsultoraID
+                        );
+                    }              
+
             }
-            else
+            catch (Exception ex)
             {
-                try
-                {
-                    bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
-                }
-                catch (Exception) { }
+
+            }
+            finally
+            {
+                if (pedidoWeb == null) pedidoWeb = new BEPedidoWeb();
             }
 
-            bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
+            Session["PedidoWeb"] = pedidoWeb;
 
-            Session["PedidoWeb"] = bePedidoWeb;
-            return bePedidoWeb;
+            return pedidoWeb;
         }
 
         protected List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()

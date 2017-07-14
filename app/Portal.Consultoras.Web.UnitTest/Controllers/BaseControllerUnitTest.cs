@@ -83,5 +83,19 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             Assert.AreEqual(true, existeMenuHijoIDConsultoraOnline);
             Assert.AreEqual(true, existeMenuPadreIDConsultoraOnline);
         }
+
+        [TestClass]
+        public class ObtenerPedidoWeb
+        {
+            [TestMethod]
+            public void ObtenerPedidoWeb_WhenIsInvoke_ReturnsANotNullEntity()
+            {
+                var controller = new BaseController();
+
+                var pedido = controller.ObtenerPedidoWeb();
+
+                Assert.IsNotNull(pedido);
+            }
+        }
     }
 }

@@ -94,7 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseControllerUnitTest.cs" />
-    <Compile Include="Controllers\GestionContenidoUnitTest.cs" />
+    <Compile Include="Controllers\GestionContenidoControllerUnitTest.cs" />
     <Compile Include="Controllers\PedidoControllerUnitTest.cs" />
     <Compile Include="Controllers\LoginControllerUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

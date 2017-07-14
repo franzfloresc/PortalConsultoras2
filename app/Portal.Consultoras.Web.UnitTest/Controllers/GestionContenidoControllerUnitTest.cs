@@ -9,7 +9,17 @@ using Portal.Consultoras.Web.LogManager;
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
     [TestClass]
-    public class GestionContenidoUnitTest
+    public class GestionContenidoControllerUnitTest
     {
+        [TestClass]
+        public class GetResumenCampania
+        {
+            [TestMethod]
+            public void GetResumenCampania__()
+            {
+                
+            }
+        }
+
     }
 }
