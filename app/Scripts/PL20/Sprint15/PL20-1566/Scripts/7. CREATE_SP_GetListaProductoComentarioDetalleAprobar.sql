@@ -48,7 +48,7 @@ BEGIN
 		@CodigoGenerico = RTRIM(SP.CodigoGenerico) 
 		FROM ods.ProductoComercial PC
 			JOIN ods.SAP_PRODUCTO SP ON PC.CodigoProducto = SP.CodigoSap
-			AND PC.AnoCampania = CampaniaId
+			AND PC.AnoCampania = @CampaniaId
 			AND PC.CUV = @Codigo
 			AND PC.EstadoActivo = 1
 	END

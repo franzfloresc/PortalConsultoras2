@@ -112,6 +112,10 @@ var productoComentarioAdmModule = (function () {
             _validarMostrarContenedorBotonBuscarComentarios();
         });
 
+        $(document).on('change', elements.ddlCampania, function () {
+            _validarMostrarContenedorBotonBuscarComentarios();
+        });
+
         $(document).on('keyup focus blur', elements.txtCUV, function () {
             _validarMostrarContenedorBotonBuscarComentarios();
         });
@@ -182,12 +186,13 @@ var productoComentarioAdmModule = (function () {
         var estadoComentarioId = $(elements.ddlEstadoComentario).val(); 
         var tipoComentarioId = $(elements.ddlTipoComentario).val();
         var codigoSAP = $.trim($(elements.txtSAP).val());
+        var campaniaId = $(elements.ddlCampania).val();
         var codigoCUV = $.trim($(elements.txtCUV).val());
 
         if (paisId != '' &&
             estadoComentarioId != '' &&
             ((tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.SAP && codigoSAP != '') ||
-            (tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.CUV && codigoCUV != ''))
+            (tipoComentarioId == TIPO_PRODUCTO_COMENTARIO.CUV && codigoCUV != '' && campaniaId != ''))
             ) {
             $(elements.divBuscarComentarios).show();
         } else {
