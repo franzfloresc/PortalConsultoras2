@@ -2125,5 +2125,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
+
+        #endregion
     }
 }
