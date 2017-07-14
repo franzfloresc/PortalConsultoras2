@@ -35346,29 +35346,28 @@ h1#penmostreo .campana {
     display:inline-block;
 }
 
-/*SPRINT 14*/.titulo_mas_vendido{    background: white;    display: inline-block;    text-align: center;    letter-spacing: 2.1px;    font-size: 25px;    font-weight: 700;    margin-top: 31px;    margin-bottom: 37px;    font-family: 'lato';    PADDING-LEFT: 30px;    padding-right: 30px}.content_mas_vendidos{    padding-top:15px;    padding-bottom:40px;    overflow:hidden;}.content_carrusel_mas_vendidos{    width: 90%;    margin: 0 auto;    height: auto;}.content_carrusel_mas_vendidos .producto_nombre_descripcion{    margin-bottom:0;}.content_carrusel_mas_vendidos .producto_precio{    margin-bottom:0;}.content_carrusel_mas_vendidos .content_item_carrusel{    border:0;    box-shadow:none;}.content_puntuacion{    padding-left:16px;    padding-right:16px;    overflow:hidden;    padding-bottom:7px;    padding-top:8px;    text-align:center;}.cantidad_puntuacion{    font-family:'Lato';    font-size:13px;    font-weight:700;    padding-left: 2px;    padding-right: 5px;    display: inline-block;    vertical-align: top;}
-
 /*SPRINT 14*/
 
 .titulo_mas_vendido{
 
-    background: white;
+    /*background: white;*/
     display: inline-block;
     text-align: center;
     letter-spacing: 2.1px;
     font-size: 25px;
-    font-weight: 700;
+    /*font-weight: 700;*/
     margin-top: 31px;
     margin-bottom: 37px;
     font-family: 'lato';
-    PADDING-LEFT: 30px;
-    padding-right: 30px
+    PADDING-LEFT: 15px;
+    padding-right: 15px
 }
 
 .content_mas_vendidos{
     padding-top:15px;
     padding-bottom:40px;
     overflow:hidden;
+    margin-top:30px;
 }
 
 .content_carrusel_mas_vendidos{

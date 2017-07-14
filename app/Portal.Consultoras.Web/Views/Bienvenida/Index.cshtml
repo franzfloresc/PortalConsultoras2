@@ -2564,6 +2564,15 @@
                 baseUrl: baseUrl,
                 urlDetalleProducto :'@Url.Action("DetalleProducto", "EstrategiaProducto")'
             });
+            $('.titulo_estrellas').rateYo({
+                rating    : "100%",
+                spacing   : "15px",
+                numStars: 2,                
+                starWidth: "23px",
+                readOnly: true,
+                ratedFill: "#cca11e"
+            });
+           
         });
 
     </script>
