@@ -13,6 +13,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public int PedidoId { get; set; }
 
+        public int PaisID { get; set; }
+
         public string CodigoISO { get; set; }
 
         public string Simbolo { get; set; }
@@ -41,5 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CodigoUsuarioCreacion { get; set; }
 
         public List<PedidoWebClienteMobilModel> ListaPedidoWebDetalle { get; set; }
+
+        public List<ServiceCliente.BECliente> ListaClientes { get; set; }
     }
 }

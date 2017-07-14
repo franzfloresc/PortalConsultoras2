@@ -39,6 +39,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_GetTokenIndicadorPedidoAutentico_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenIndicadorPedidoAutentico" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTokenIndicadorPedidoAutenticoResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsIndicadorPedidoAutentico_InputMessage">
     <wsdl:part name="parameters" element="tns:InsIndicadorPedidoAutentico" />
   </wsdl:message>
@@ -104,6 +110,30 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_DeshacerPedidoValidado_OutputMessage">
     <wsdl:part name="parameters" element="tns:DeshacerPedidoValidadoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerConcursosXConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerConcursosXConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcurso" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarInsertarPuntosConcursoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcurso" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerPuntosXConsultoraConcursoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerResumen_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResumen" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerResumen_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerResumenResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCuponConsultoraByCodigoConsultoraCampaniaId" />
@@ -417,6 +447,12 @@
   <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoWebMobile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoWebMobile" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetPedidosIngresadoFacturadoWebMobile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosIngresadoFacturadoWebMobileResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetConsultorasProgramaNuevas_InputMessage">
     <wsdl:part name="parameters" element="tns:GetConsultorasProgramaNuevas" />
   </wsdl:message>
@@ -578,12 +614,6 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_GetEventoConsultoraRecibido_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetEventoConsultoraRecibidoResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetTokenIndicadorPedidoAutentico_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTokenIndicadorPedidoAutentico" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTokenIndicadorPedidoAutenticoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ValidarCUVsRecomendados_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarCUVsRecomendados" />
@@ -2122,6 +2152,10 @@
     <wsdl:part name="parameters" element="tns:GetOfertaProductosPortal2Response" />
   </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsIndicadorPedidoAutentico">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" message="tns:IPedidoService_InsIndicadorPedidoAutentico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_InsIndicadorPedidoAutentico_OutputMessage" />
@@ -2165,6 +2199,22 @@
     <wsdl:operation name="DeshacerPedidoValidado">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" message="tns:IPedidoService_DeshacerPedidoValidado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DeshacerPedidoValidadoResponse" message="tns:IPedidoService_DeshacerPedidoValidado_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" message="tns:IPedidoService_ObtenerConcursosXConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultoraResponse" message="tns:IPedidoService_ObtenerConcursosXConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse" message="tns:IPedidoService_ActualizarInsertarPuntosConcurso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse" message="tns:IPedidoService_ObtenerPuntosXConsultoraConcurso_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumen">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumen" message="tns:IPedidoService_ObtenerResumen_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumenResponse" message="tns:IPedidoService_ObtenerResumen_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCuponConsultoraByCodigoConsultoraCampaniaId">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCuponConsultoraByCodigoConsultoraCampaniaId" message="tns:IPedidoService_GetCuponConsultoraByCodigoConsultoraCampaniaId_InputMessage" />
@@ -2374,6 +2424,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturado" message="tns:IPedidoService_GetPedidosIngresadoFacturado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoWebMobile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile" message="tns:IPedidoService_GetPedidosIngresadoFacturadoWebMobile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobileResponse" message="tns:IPedidoService_GetPedidosIngresadoFacturadoWebMobile_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" message="tns:IPedidoService_GetConsultorasProgramaNuevas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevasResponse" message="tns:IPedidoService_GetConsultorasProgramaNuevas_OutputMessage" />
@@ -2481,10 +2535,6 @@
     <wsdl:operation name="GetEventoConsultoraRecibido">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" message="tns:IPedidoService_GetEventoConsultoraRecibido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibidoResponse" message="tns:IPedidoService_GetEventoConsultoraRecibido_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutenticoResponse" message="tns:IPedidoService_GetTokenIndicadorPedidoAutentico_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarCUVsRecomendados">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarCUVsRecomendados" message="tns:IPedidoService_ValidarCUVsRecomendados_InputMessage" />
@@ -3513,6 +3563,15 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsIndicadorPedidoAutentico">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
@@ -3605,6 +3664,42 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumen">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4080,6 +4175,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoWebMobile">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -4316,15 +4420,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetEventoConsultoraRecibido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6640,6 +6735,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsIndicadorPedidoAutentico">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
@@ -6732,6 +6836,42 @@
     </wsdl:operation>
     <wsdl:operation name="DeshacerPedidoValidado">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/DeshacerPedidoValidado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerConcursosXConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerConcursosXConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarInsertarPuntosConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerPuntosXConsultoraConcurso">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerResumen">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7207,6 +7347,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosIngresadoFacturadoWebMobile">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosIngresadoFacturadoWebMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetConsultorasProgramaNuevas">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetConsultorasProgramaNuevas" style="document" />
       <wsdl:input>
@@ -7443,15 +7592,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetEventoConsultoraRecibido">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetEventoConsultoraRecibido" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetTokenIndicadorPedidoAutentico">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetTokenIndicadorPedidoAutentico" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

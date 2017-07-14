@@ -16,7 +16,11 @@
     </style>
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;LOS FAVORITOS DE TUS CLIENTES
 </div>
 <div class="fondo_f2f2f2" style="background: #f5f7f7; border-bottom:0">
@@ -334,14 +338,14 @@
                     <img src="{{ImagenProductoSugerido}}" class="imagen_producto" />
                 </div>
                 {{#if TieneOfertaEnRevista}}
-                    @if (EsLebel)
-                    {
-                        <div class="etiqueta_guia_negocio"><span>OFERTA</span> MI NEGOCIO L'BEL</div>
-                    }
-                    else
-                    {
-                        <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
-                    }
+                @if (EsLebel)
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> MI NEGOCIO L'BEL</div>
+                }
+                else
+                {
+                    <div class="etiqueta_guia_negocio"><span>OFERTA</span> GUÍA DE NEGOCIO</div>
+                }
                 {{/if}}
                 {{#if item.TieneLanzamientoCatalogoPersonalizado}}
                 <div class="etiqueta_producto nuevofavorito">
