@@ -66,6 +66,8 @@
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
     <Compile Include="BEClienteResponse.cs" />
+    <Compile Include="BEReporteValidacion.cs" />
+    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
@@ -198,7 +200,6 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
-    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

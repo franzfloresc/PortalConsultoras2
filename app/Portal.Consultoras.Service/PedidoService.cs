@@ -2071,7 +2071,7 @@ namespace Portal.Consultoras.Service
             return new BLReporteValidacion().GetReporteShowRoomPersonalizacion(paisID, campaniaID).ToList();
         }
 
-public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
+        public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
         {
             BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
         }
