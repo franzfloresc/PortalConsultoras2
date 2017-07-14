@@ -610,10 +610,26 @@ namespace Portal.Consultoras.Web.Controllers
         {
             int resultado = 0;
             int OrdenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
+            string _nroPedido = string.Empty;
 
             try
             {
+                //Fixed: hacking..
+                 if (!string.IsNullOrEmpty(model.NumeroPedido) && model.NumeroPedido.Contains(","))
+                 {
+                     _nroPedido = model.NumeroPedido;
+                     model.NumeroPedido = "0";
+                 }
+                 //Mapping..
                 BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
+
+                //Fixed revert: Para que realize el mapping correctamente, se devuelve el valor del modelo para que realize la iteracion posteriormente.
+                 if (!string.IsNullOrEmpty(_nroPedido))
+                 {
+                     model.NumeroPedido = _nroPedido;
+                     //_nroPedido = string.Empty;
+                 }
+
                 entidad.PaisID = UserData().PaisID;
                 entidad.Orden = OrdenEstrategia;
                 entidad.UsuarioCreacion = UserData().CodigoUsuario;
@@ -689,6 +705,7 @@ namespace Portal.Consultoras.Web.Controllers
                 foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
                     entidad.NumeroPedido = item;
+                    if (!string.IsNullOrEmpty(_nroPedido)) entidad.EstrategiaID = 0; //Fixed bug: _nropedido: 1,2,3 --> Solo Nuevos
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         if (entidad.CodigoTipoEstrategia != null)
@@ -706,6 +723,9 @@ namespace Portal.Consultoras.Web.Controllers
                         
                     }
                 }
+
+                //Cleaning 
+                _nroPedido = string.Empty;
 
                 foreach (var producto in respuestaServiceCdr)
                 {

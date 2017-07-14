@@ -20,11 +20,13 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
+
 namespace Portal.Consultoras.Web.Controllers
 {
     public class PedidoController : BaseController
@@ -522,7 +524,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if(!string.IsNullOrEmpty(model.ClienteID))
+                if (!string.IsNullOrEmpty(model.ClienteID))
                 {
                     int ClienteID = Convert.ToInt32(model.ClienteID);
 
@@ -1319,7 +1321,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new
                 {
-                    result = true
+                    result = true,
+                    message = ""
                 });
             }
             else
@@ -2050,14 +2053,35 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EjecutarServicioPROL()
         {
             UpdateDiaPROLAndMostrarBotonValidar(userData);
-            //userData.CodigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraID.ToString() : userData.CodigoConsultora;
-
+          
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EnviarCorreo = false;
-            BEResultadoReservaProl resultado = null;
-            using (var sv = new PedidoServiceClient()) { resultado = sv.EjecutarReservaProl(input); }
-            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
+            List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+            try
+            {
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                Concursos = new List<BEConsultoraConcurso>();
+            }
+            if (Concursos.Any())
+                input.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
+
+            BEResultadoReservaProl resultado = null;
+            using (var sv = new PedidoServiceClient())
+            {
+                resultado = sv.EjecutarReservaProl(input);
+                // Insertar/Actualizar los puntos de la consultora.
+                if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
+            }
+            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
+                        
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
             if (resultado.RefreshMontosProl)
@@ -2119,14 +2143,14 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EnviarCorreoPedidoReservado()
+        public async Task<JsonResult> EnviarCorreoPedidoReservado()
         {
             try
             {
                 bool envioCorreo = false;
                 var input = Mapper.Map<BEInputReservaProl>(userData);
-                using (var sv = new PedidoServiceClient()) { envioCorreo = sv.EnviarCorreoReservaProl(input); }
-                if(envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
+                using (var sv = new PedidoServiceClient()) { envioCorreo = await sv.EnviarCorreoReservaProlAsync(input); }
+                if (envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
             catch (Exception ex)
             {
@@ -2763,91 +2787,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = respuesta == "",
                     message = respuesta == "" ? "OK" : respuesta,
                     extra = ""
-                }, JsonRequestBehavior.AllowGet);
-
-                // esta parte quitar si paso todas las pruebas
-                //var mensaje = "";
-                //if (EstaProcesoFacturacion(out mensaje))
-                //{
-                //    return Json(new
-                //    {
-                //        success = false,
-                //        message = mensaje,
-                //        extra = ""
-                //    }, JsonRequestBehavior.AllowGet);
-                //}
-
-                //bool valida = false;
-
-                //if (!userData.NuevoPROL && !userData.ZonaNuevoPROL && Tipo == "PV")
-                //{
-                //    using (ServicePROL.ServiceStockSsic sv = new ServicePROL.ServiceStockSsic())
-                //    {
-                //        sv.Url = ConfigurarUrlServiceProl();
-                //        valida = sv.wsDesReservarPedido(userData.CodigoConsultora, userData.CodigoISO);
-                //    }
-                //}
-                //else valida = true;
-
-                //if (valida)
-                //{
-                //    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-                //    using (PedidoServiceClient sv = new PedidoServiceClient())
-                //    {
-                //        bool ValidacionAbierta = false;
-                //        short Estado = Constantes.EstadoPedido.Pendiente;
-
-                //        if (userData.NuevoPROL && userData.ZonaNuevoPROL && Tipo == "PV")
-                //        {
-                //            ValidacionAbierta = true;
-                //            Estado = Constantes.EstadoPedido.Procesado;
-                //        }
-                //        olstPedidoWebDetalle = ObtenerPedidoWebDetalle();
-
-                //        if (userData.PedidoID == 0 && !olstPedidoWebDetalle.Any()) // Si el userData no tiene información del PedidoID y no tiene pedidos.
-                //        {
-                //            userData.PedidoID = sv.GetPedidoWebID(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                //            Estado = Constantes.EstadoPedido.Pendiente;
-                //        }
-                //        //Dado que no se usa el indicador de ModificaPedidoReservado, este campo en el servicio será utilizado para enviar el campo: ValidacionAbierta
-
-
-                //        var CodigoUsuario = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : userData.CodigoUsuario.ToString();
-
-                //        sv.UpdPedidoWebByEstado(userData.PaisID, userData.CampaniaID, userData.PedidoID, Estado, false, true, CodigoUsuario, ValidacionAbierta);
-                //        if (Tipo == "PI")
-                //        {
-                //            //Inserta Aceptacion Reemplazos
-                //            List<BEPedidoWebDetalle> Reemplazos = olstPedidoWebDetalle.Where(p => !string.IsNullOrEmpty(p.Mensaje)).ToList();
-                //            if (Reemplazos.Count != 0)
-                //            {
-                //                //Tipo 100: Manual
-                //                //Tipo 103: Rechazar Reemplazos
-                //                sv.InsPedidoWebAccionesPROL(Reemplazos.ToArray(), 100, 103);
-                //            }
-                //        }
-
-                //        BEConfiguracionCampania oBEConfiguracionCampania = null;
-                //        oBEConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
-
-                //        if (userData.IndicadorGPRSB == 2 && oBEConfiguracionCampania.ValidacionAbierta && !string.IsNullOrEmpty(userData.GPRBannerMensaje))
-                //        {
-                //            userData.MostrarBannerRechazo = true;
-                //            userData.CerrarRechazado = 0;
-                //            SetUserData(userData);
-                //            //ObtenerMotivoRechazo(userData);
-                //        }
-                //    }
-                //}
-
-                ////Session["ProductosOfertaFinal"] = null;
-                //return Json(new
-                //{
-                //    success = true,
-                //    message = "OK",
-                //    extra = ""
-                //}, JsonRequestBehavior.AllowGet);
+                }, JsonRequestBehavior.AllowGet);              
             }
             catch (FaultException ex)
             {
@@ -2931,55 +2871,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
         
+               
         #endregion
 
-        public ServicePROL.TransferirDatos Devolver()
-        {
-            ServicePROL.TransferirDatos datos = new ServicePROL.TransferirDatos();
-            datos.codigoMensaje = "00";
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("0");
-            dt.Columns.Add("1");
-            dt.Columns.Add("2");
-            dt.Columns.Add("3");
-
-            dt.Rows.Add("1", "05400", "Test", "Test");
-
-            ds.Tables.Add(dt);
-
-
-            datos.data = ds;
-
-
-            return datos;
-        }
-
-        public ServicePROL.TransferirDatos Devolver2()
-        {
-            ServicePROL.TransferirDatos datos = new ServicePROL.TransferirDatos();
-            datos.codigoMensaje = "00";
-            DataSet ds = new DataSet();
-            DataTable dt = new DataTable();
-
-            dt.Columns.Add("0");
-            dt.Columns.Add("1");
-            dt.Columns.Add("2");
-            dt.Columns.Add("3");
-            dt.Columns.Add("4");
-            dt.Columns.Add("5");
-
-            dt.Rows.Add("05400", "ES AVENTOUR EDT 100 ML", "17.90", "12", "214.80", "1");
-
-            ds.Tables.Add(dt);
-
-
-            datos.data = ds;
-
-
-            return datos;
-        }
 
         private List<BEPedidoWebDetalle> PedidoJerarquico(List<BEPedidoWebDetalle> ListadoPedidos)
         {
@@ -4306,7 +4200,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case "2":
                         using (PedidoServiceClient svc = new PedidoServiceClient())
                         {
-                            var tpa  = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
+                            var tpa = svc.GetTokenIndicadorPedidoAutentico(userData.PaisID, userData.CodigoISO, userData.CodigorRegion, userData.CodigoZona);
                             codigo = AESAlgorithm.Encrypt(tpa);
                         }
                         if (!string.IsNullOrEmpty(codigo))

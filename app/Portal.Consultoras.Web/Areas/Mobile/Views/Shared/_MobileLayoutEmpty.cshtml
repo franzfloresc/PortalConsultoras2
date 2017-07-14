@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Portal.Consultoras.Common
+
+<!DOCTYPE html>
 <html lang="es-PE">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -177,6 +179,10 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
+    
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
+    </div>
 
     @Scripts.Render("~/Scripts/Mobile")
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
@@ -191,9 +197,16 @@
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@Session["IngresoExterno"]';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
         //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
+
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
     </script>
 
     <script type="text/javascript">
