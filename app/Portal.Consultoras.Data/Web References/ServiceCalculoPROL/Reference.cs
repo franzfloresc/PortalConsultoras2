@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
         
         private System.Threading.SendOrPostCallback CalculoMontosProlOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CalculoMontosProlxIncentivosOperationCompleted;
+        
         private System.Threading.SendOrPostCallback Ofertas_catalogoOperationCompleted;
         
         private bool useDefaultCredentialsSetExplicitly;
@@ -79,6 +81,9 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
         
         /// <remarks/>
         public event CalculoMontosProlCompletedEventHandler CalculoMontosProlCompleted;
+        
+        /// <remarks/>
+        public event CalculoMontosProlxIncentivosCompletedEventHandler CalculoMontosProlxIncentivosCompleted;
         
         /// <remarks/>
         public event Ofertas_catalogoCompletedEventHandler Ofertas_catalogoCompleted;
@@ -154,6 +159,47 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
             if ((this.CalculoMontosProlCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.CalculoMontosProlCompleted(this, new CalculoMontosProlCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/CalculoMontosProlxIncentivos", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public ObjMontosProl[] CalculoMontosProlxIncentivos(string pais, string periodo, string codigoconsultora, string zona, string lstProductos, string lstCantidades, string Listaconcursos) {
+            object[] results = this.Invoke("CalculoMontosProlxIncentivos", new object[] {
+                        pais,
+                        periodo,
+                        codigoconsultora,
+                        zona,
+                        lstProductos,
+                        lstCantidades,
+                        Listaconcursos});
+            return ((ObjMontosProl[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CalculoMontosProlxIncentivosAsync(string pais, string periodo, string codigoconsultora, string zona, string lstProductos, string lstCantidades, string Listaconcursos) {
+            this.CalculoMontosProlxIncentivosAsync(pais, periodo, codigoconsultora, zona, lstProductos, lstCantidades, Listaconcursos, null);
+        }
+        
+        /// <remarks/>
+        public void CalculoMontosProlxIncentivosAsync(string pais, string periodo, string codigoconsultora, string zona, string lstProductos, string lstCantidades, string Listaconcursos, object userState) {
+            if ((this.CalculoMontosProlxIncentivosOperationCompleted == null)) {
+                this.CalculoMontosProlxIncentivosOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCalculoMontosProlxIncentivosOperationCompleted);
+            }
+            this.InvokeAsync("CalculoMontosProlxIncentivos", new object[] {
+                        pais,
+                        periodo,
+                        codigoconsultora,
+                        zona,
+                        lstProductos,
+                        lstCantidades,
+                        Listaconcursos}, this.CalculoMontosProlxIncentivosOperationCompleted, userState);
+        }
+        
+        private void OnCalculoMontosProlxIncentivosOperationCompleted(object arg) {
+            if ((this.CalculoMontosProlxIncentivosCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CalculoMontosProlxIncentivosCompleted(this, new CalculoMontosProlxIncentivosCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -719,6 +765,39 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConcursoIncentivos {
+        
+        private string codigoconcursoField;
+        
+        private string puntajeconcursoField;
+        
+        /// <remarks/>
+        public string codigoconcurso {
+            get {
+                return this.codigoconcursoField;
+            }
+            set {
+                this.codigoconcursoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string puntajeconcurso {
+            get {
+                return this.puntajeconcursoField;
+            }
+            set {
+                this.puntajeconcursoField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
     public partial class ObjMontosProl {
         
         private string montoTotalDescuentoField;
@@ -728,6 +807,10 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
         private string ahorroCatalogoField;
         
         private string ahorroRevistaField;
+        
+        private ConcursoIncentivos[] listaConcursoIncentivosField;
+        
+        private string observacionField;
         
         /// <remarks/>
         public string MontoTotalDescuento {
@@ -766,6 +849,26 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
             }
             set {
                 this.ahorroRevistaField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ConcursoIncentivos[] ListaConcursoIncentivos {
+            get {
+                return this.listaConcursoIncentivosField;
+            }
+            set {
+                this.listaConcursoIncentivosField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string observacion {
+            get {
+                return this.observacionField;
+            }
+            set {
+                this.observacionField = value;
             }
         }
     }
@@ -809,6 +912,32 @@ namespace Portal.Consultoras.Data.ServiceCalculoPROL {
         private object[] results;
         
         internal CalculoMontosProlCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public ObjMontosProl[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((ObjMontosProl[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    public delegate void CalculoMontosProlxIncentivosCompletedEventHandler(object sender, CalculoMontosProlxIncentivosCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CalculoMontosProlxIncentivosCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CalculoMontosProlxIncentivosCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

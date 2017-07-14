@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
@@ -267,8 +268,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
 
                                     svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-                                    
-                                    if(userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
+
+                                    if (userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
                                     return SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
                                 }
                                 else
@@ -914,15 +915,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var config = new BEConfiguracionPais
                             {
-                                Detalle = new BEConfiguracionPaisDetalle {
+                                Detalle = new BEConfiguracionPaisDetalle
+                                {
                                     PaisID = model.PaisID,
                                     CodigoConsultora = model.CodigoConsultora,
                                     CodigoRegion = model.CodigorRegion,
                                     CodigoZona = model.CodigoZona,
                                     CodigoSeccion = model.SeccionAnalytics
-                                }                               
+                                }
                             };
-                            
+
                             using (UsuarioServiceClient sv = new UsuarioServiceClient())
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
@@ -1007,7 +1009,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             }
                         }
-                        
+
                         catch (Exception)
                         {
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
@@ -1767,7 +1769,14 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null) return RedirectToAction("UserUnknown");
 
                 FormsAuthentication.SetAuthCookie(model.CodigoUsuario, false);
-                
+
+                Session["MobileAppConfiguracion"] = new MobileAppConfiguracionModel()
+                {
+                    MostrarBotonAtras = !model.EsAppMobile,
+                    ClienteID = model.ClienteID,
+                    MostrarHipervinculo = !model.EsAppMobile
+                };
+
                 Session.Add("IngresoExterno", model.Version ?? "");
 
                 switch (model.Pagina.ToUpper())
@@ -1782,6 +1791,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
                         return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
+                    case Constantes.IngresoExternoPagina.Pedido:
+                        return RedirectToAction("Index", "Pedido", new { Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
                         return RedirectToAction("CompartirEnChatBot", "Compartir",
                             new
@@ -1791,6 +1802,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
                             });
+                    case Constantes.IngresoExternoPagina.MisPedidos:
+                        return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.ShowRoom:
+                        return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)

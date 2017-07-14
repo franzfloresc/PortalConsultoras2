@@ -252,6 +252,12 @@
   <wsdl:message name="IPortalService_VerificarExisteCelular_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerificarExisteCelularResponse" />
   </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCelularExisteConId_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCelularExisteConId" />
+  </wsdl:message>
+  <wsdl:message name="IPortalService_ValidarCelularExisteConId_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCelularExisteConIdResponse" />
+  </wsdl:message>
   <wsdl:message name="IPortalService_ObtenerSolicitudPrePostulante_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerSolicitudPrePostulante" />
   </wsdl:message>
@@ -424,6 +430,10 @@
     <wsdl:operation name="VerificarExisteCelular">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/VerificarExisteCelular" message="tns:IPortalService_VerificarExisteCelular_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/VerificarExisteCelularResponse" message="tns:IPortalService_VerificarExisteCelular_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCelularExisteConId">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ValidarCelularExisteConId" message="tns:IPortalService_ValidarCelularExisteConId_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPortalService/ValidarCelularExisteConIdResponse" message="tns:IPortalService_ValidarCelularExisteConId_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerSolicitudPrePostulante">
       <wsdl:input wsaw:Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante" message="tns:IPortalService_ObtenerSolicitudPrePostulante_InputMessage" />
@@ -789,6 +799,15 @@
     </wsdl:operation>
     <wsdl:operation name="VerificarExisteCelular">
       <soap:operation soapAction="http://tempuri.org/IPortalService/VerificarExisteCelular" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCelularExisteConId">
+      <soap:operation soapAction="http://tempuri.org/IPortalService/ValidarCelularExisteConId" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
