@@ -306,13 +306,13 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public List<BEConsultora> GetConsultorasPorUbigeo(int paisId,string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
+        public List<BEConsultora> GetConsultorasPorUbigeo(int paisId, string codigoUbigeo, string campania, int marcaId, int tipoFiltroUbigeo)
         {
 
             var vConsultora = new BEConsultora();
             var vListaConsultora = new List<BEConsultora>();
 
-            if (paisId > 0) 
+            if (paisId > 0)
             {
                 var DAConsultora = new DAConsultora(paisId);
                 using (IDataReader reader = DAConsultora.GetConsultorasPorUbigeo(paisId, codigoUbigeo, campania, marcaId, tipoFiltroUbigeo))
@@ -326,7 +326,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return vListaConsultora;
         }
-
+                
 
     }
 }

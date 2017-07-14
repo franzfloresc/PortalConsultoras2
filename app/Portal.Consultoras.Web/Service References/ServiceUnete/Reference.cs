@@ -7419,6 +7419,12 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/VerificarExisteCelular", ReplyAction="http://tempuri.org/IPortalService/VerificarExisteCelularResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarCelularExisteConId", ReplyAction="http://tempuri.org/IPortalService/ValidarCelularExisteConIdResponse")]
+        Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE ValidarCelularExisteConId(string CodigoISO, string Celular, int SolicitudPostulanteId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ValidarCelularExisteConId", ReplyAction="http://tempuri.org/IPortalService/ValidarCelularExisteConIdResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> ValidarCelularExisteConIdAsync(string CodigoISO, string Celular, int SolicitudPostulanteId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulante", ReplyAction="http://tempuri.org/IPortalService/ObtenerSolicitudPrePostulanteResponse")]
         Portal.Consultoras.Web.ServiceUnete.SolicitudPrePostulante ObtenerSolicitudPrePostulante(string codigoISO, string correoElectronico);
         
@@ -7777,6 +7783,14 @@ namespace Portal.Consultoras.Web.ServiceUnete {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> VerificarExisteCelularAsync(string codigoISO, string numeroCelular) {
             return base.Channel.VerificarExisteCelularAsync(codigoISO, numeroCelular);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE ValidarCelularExisteConId(string CodigoISO, string Celular, int SolicitudPostulanteId) {
+            return base.Channel.ValidarCelularExisteConId(CodigoISO, Celular, SolicitudPostulanteId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUnete.ExisteCelularBE> ValidarCelularExisteConIdAsync(string CodigoISO, string Celular, int SolicitudPostulanteId) {
+            return base.Channel.ValidarCelularExisteConIdAsync(CodigoISO, Celular, SolicitudPostulanteId);
         }
         
         public Portal.Consultoras.Web.ServiceUnete.SolicitudPrePostulante ObtenerSolicitudPrePostulante(string codigoISO, string correoElectronico) {

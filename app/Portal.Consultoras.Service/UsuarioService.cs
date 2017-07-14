@@ -144,6 +144,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
         }
 
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+        }
+
         public bool IsUserExist(string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -690,6 +696,12 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+        }
+
+        public string AceptarContrato(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.AceptarContratoColombia(usuario);
         }
 
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)

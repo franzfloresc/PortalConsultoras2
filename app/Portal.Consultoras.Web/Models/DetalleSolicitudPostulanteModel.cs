@@ -95,7 +95,9 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(8[0-9]{9})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^(7[0-9]{9})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CelularExiste", "2", Expresion = @"^[RegexThatDontMatch]$", ErrorMessage = "El celular ya se encuentra registrado.")]
         public string Celular { get; set; }
+        public string CelularExiste { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caractéres")]
