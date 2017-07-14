@@ -14,5 +14,9 @@
         public string TipoCatalogo { get; set; }
 
         public string UrlCatalogo { get; set; }
+
+        public bool EsAppMobile { get; set; }
+
+        public int ClienteID { get; set; }
     }
 }

@@ -331,9 +331,9 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         mailBody += "<img style=\"vertical-align:middle;\"  src=\"" + urlIconTelefono + "\" alt=\"Icono Celular\" /> &nbsp;" + userData.Celular;
                         if (!string.IsNullOrEmpty(userData.Telefono))
-                        {
+                    {
                             mailBody += " / " + userData.Telefono;
-                        }
+                    }
                     }
 
                     mailBody += "</td>";
@@ -408,7 +408,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             RutaPublicaImagen = Constantes.CatalogoUrlParameters.UrlPart01 + catalogoCyZone.DocumentID + Constantes.CatalogoUrlParameters.UrlPart03;
                             urlIssuCatalogo = catalogoCyZone.SkinURL;
-                        }
+                    }
 
                         mailBody += "<td style=\"width:29.3%; display: table-cell; padding-left:2%; padding-right:2%;\">";
                         mailBody += "<a href=\"" + urlIssuCatalogo + "\" style=\"width:100%; display:block;\">";
@@ -426,10 +426,10 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "</table>";
                     mailBody += "</td>";
                     mailBody += "</tr>";
-                    mailBody += "<tr>";
+                        mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\" style=\"text-align:center; font-family:'Calibri'; color:#000; font-size:12px; font-weight:400;padding-top:45px; padding-bottom:27px;\"></td>";
-                    mailBody += "</tr>";
-                    mailBody += "<tr>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\" style=\"background:#000; height:62px;\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; padding:0 13px; width:100%; max-width:550px; \">";
                     mailBody += "<!--[if gte mso 9]>";
@@ -458,7 +458,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<td style=\"width:15%; font-family:'Calibri'; font-weight:400; font-size:13px; color:#FFF; vertical-align:middle;\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; width:100%;\">";
                     mailBody += "<tbody>";
-                    mailBody += "<tr>";
+                        mailBody += "<tr>";
                     mailBody += "<td style=\"text-align: right; font-family:'Calibri'; font-weight:400; font-size:13px; vertical-align: middle; width: 69%; color:white;\">S&Iacute;GUENOS</td>";
                     mailBody += "<td style=\"text-align: right; position: relative; top: 2px; left: 10px; width: 20%; vertical-align: top;\">";
                     mailBody += "<a href=\"https://es-la.facebook.com/SomosBelcorpOficial\" style=\"width:100%; display:block;\">";
@@ -475,14 +475,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mailBody += "<![endif]-->";
                     mailBody += "</table>";
                     mailBody += "</td>";
-                    mailBody += "</tr>";
-                    mailBody += "<tr>";
+                        mailBody += "</tr>";
+                        mailBody += "<tr>";
                     mailBody += "<td colspan=\"3\">";
                     mailBody += "<table align=\"center\" style=\"text-align:center; width:200px;\">";
                     mailBody += "<tbody>";
-                    mailBody += "<tr>";
+                        mailBody += "<tr>";
                     mailBody += "<td colspan=\"2\" style=\"height:6px;\"></td>";
-                    mailBody += "</tr>";
+                        mailBody += "</tr>";
                     mailBody += "<tr>";
                     mailBody += "<td style=\"text-align:center; width:48%; border-right:1px solid #000;\">";
                     mailBody += "<a href=\"http://comunidad.somosbelcorp.com\" style=\"width:100%; display:block;\">";

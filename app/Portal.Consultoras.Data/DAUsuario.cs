@@ -165,6 +165,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int AceptarContrato(BEUsuario usuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAceptarContrato");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuario.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@AceptoContrato", DbType.Boolean, usuario.AceptoContrato);
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdUsuarioDatosPrimeraVez(string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioDatosPrimeraVez");
@@ -246,6 +254,17 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioAsociado");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            DbCommand command = Context.Database.GetSqlStringCommand("SELECT Result FROM dbo.fnGetAccesoUsuario(@PaisID, @CodigoUsuario, @CodigoConsultora, @TipoUsuario)");
+            Context.Database.AddInParameter(command, "@PaisID", DbType.Int32, paisID);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@TipoUsuario", DbType.Int16, tipoUsuario);
 
             return Convert.ToString(Context.ExecuteScalar(command));
         }

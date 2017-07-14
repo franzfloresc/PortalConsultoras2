@@ -88,5 +88,46 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
+
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
+        {
+            var lista = new List<BEPedidoFacturado>();
+
+            var BLPais = new BLPais();
+
+            if (!BLPais.EsPaisHana(PaisId)) // Validar si informacion de pais es de origen Normal o Hana
+            {
+                var DAPedidoFacturado = new DAPedidoFacturado(PaisId);
+                using (IDataReader reader = DAPedidoFacturado.GetPedidosFacturadosDetalleMobile(CampaniaID, ConsultoraID, ClienteID))
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoFacturado(reader);
+
+                        lista.Add(entidad);
+                    }
+            }
+            else
+            {
+                var DAHPedido = new DAHPedido();
+
+                var listaPedidoHana = DAHPedido.GetPedidosIngresadoFacturado(PaisId, CodigoConsultora);
+                var pedidoHana = listaPedidoHana.Where(p => p.EstadoPedidoDesc.ToUpper() == "FACTURADO" && p.CampaniaID == CampaniaID).FirstOrDefault();
+
+                if (pedidoHana != null)
+                {
+                    var DAHPedidoDetalle = new DAHPedidoDetalle();
+                    lista = DAHPedidoDetalle.GetPedidoDetalle(PaisId, pedidoHana.PedidoID);
+                    if (ClienteID > 0) lista = lista.Where(x => x.ClienteID == ClienteID).ToList();
+                }
+            }
+
+            return lista;
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            var DAPedidoWeb = new DAPedidoFacturado(paisID);
+            return DAPedidoWeb.UpdateClientePedidoFacturado(codigoPedido, ClienteID);
+        }
     }
 }

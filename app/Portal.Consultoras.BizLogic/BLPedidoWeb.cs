@@ -1926,9 +1926,74 @@ namespace Portal.Consultoras.BizLogic
             return listaPedidosFacturados;
         }
 
+        public List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora)
+        {
+            var listaResultado = new List<BEPedidoWeb>();
+
+            var BLPais = new BLPais();
+
+            var DAPedidoWeb = new DAPedidoWeb(paisID);
+            var DAPHedidoWeb = new DAHPedido();
+
+            var listaPedidoIngresado = new List<BEPedidoWeb>();
+            var listaPedidoFacturado = new List<BEPedidoWeb>();
+            var listaPedido = new List<BEPedidoWeb>();
+
+            if (!BLPais.EsPaisHana(paisID))
+            {
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresadoFacturadoWebMobile(consultoraID, campaniaID, clienteID, top))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaResultado.Add(entidad);
+                    }
+                }
+            }
+            else
+            {
+                listaPedidoFacturado = DAPHedidoWeb.GetPedidosIngresadoFacturado(paisID, codigoConsultora);
+
+                using (IDataReader reader = DAPedidoWeb.GetPedidosIngresado(consultoraID, campaniaID))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEPedidoWeb(reader);
+                        listaPedidoIngresado.Add(entidad);
+                    }
+                }
+
+                listaPedido.AddRange(listaPedidoIngresado.OrderByDescending(p => p.CampaniaID).Take(top));
+                listaPedido.AddRange(listaPedidoFacturado.OrderByDescending(p => p.CampaniaID).Take(top));
+
+                var listaPedidoAgrupada = (from tbl in listaPedido
+                                            group tbl by tbl.CampaniaID into grp
+                                            select new 
+                                            {
+                                                CampaniaID = grp.Key,
+                                                Cantidad = grp.Count()
+                                            }).Where(x=>x.Cantidad > 1);
+
+                var listaPedidoEliminar = (from tblPedido in listaPedido
+                                           join tblGroup in listaPedidoAgrupada
+                                           on tblPedido.CampaniaID equals tblGroup.CampaniaID
+                                           where tblPedido.EstadoPedidoDesc == "INGRESADO"
+                                           select tblPedido).ToList();
+
+                listaPedidoEliminar.ForEach(itemPedido =>
+                {
+                    listaPedido.Remove(itemPedido);
+                });
+
+                listaPedido = listaPedido.Take(top).ToList();
+            }
+
+            return listaResultado;
+        }
+
         public void InsLogOfertaFinal(int PaisID, BEOfertaFinalConsultoraLog entidad)
         {
-            new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
+             new DAPedidoWeb(PaisID).InsLogOfertaFinal(entidad);
         }
 
         public void InsLogOfertaFinalBulk(int PaisID, List<BEOfertaFinalConsultoraLog> lista)
@@ -2058,7 +2123,7 @@ namespace Portal.Consultoras.BizLogic
                 if (validarGPR && configuracion.IndicadorGPRSB == 1) {
                     return new BEValidacionModificacionPedido {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.GPR,
-                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, int√©ntalo m√°s tarde", campania.Substring(4, 2))
+                        Mensaje = string.Format("En este momento nos encontramos facturando tu pedido de C-{0}, intÈntalo m·s tarde", campania.Substring(4, 2))
                     };
                 }
                 if (validarReservado && configuracion.EstadoPedido == Constantes.EstadoPedido.Procesado && !configuracion.ModificaPedidoReservado && !configuracion.ValidacionAbierta)
@@ -2066,7 +2131,7 @@ namespace Portal.Consultoras.BizLogic
                     return new BEValidacionModificacionPedido
                     {
                         MotivoPedidoLock = Enumeradores.MotivoPedidoLock.Reservado,
-                        Mensaje = "Ya tienes un pedido reservado para esta campa√±a."
+                        Mensaje = "Ya tienes un pedido reservado para esta campaÒa."
                     };
                 }
             }
@@ -2100,7 +2165,7 @@ namespace Portal.Consultoras.BizLogic
             if (!enHorarioRestringido) return null;
 
             TimeSpan horaCierre = usuario.EsZonaDemAnti != 0 ? usuario.HoraCierreZonaDemAnti : usuario.HoraCierreZonaNormal;
-            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los c√≥digos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
+            return string.Format("En este momento nos encontramos facturando tu pedido de C-{0}. Todos los cÛdigos ingresados hasta las {1} horas han sido registrados en el sistema. Gracias!", campania.Substring(4, 2), horaCierre.ToString(@"hh\:mm"));
         }
         
         /*EPD-2248*/
@@ -2130,6 +2195,24 @@ namespace Portal.Consultoras.BizLogic
         }
         /*EPD-2248*/
 
+        public BEConsultoraResumen GetResumen(int paisId, int codigoConsultora, int codigoCampania)
+        {
+            var resumen = new BEConsultoraResumen();
+            var DAConsultora = new DAPedidoWeb(paisId);
+            using (IDataReader reader = DAConsultora.GetResumenPorCampania(codigoConsultora, codigoCampania))
+            {
+                do
+                {
+                    while (reader.Read())
+                    {
+                        resumen.Build(reader);
+                    }
+
+                } while (reader.NextResult());
+            }
+
+            return resumen;
+        }
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             BEConsultoraRegaloProgramaNuevas entidad = null;

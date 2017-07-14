@@ -36,7 +36,11 @@
     }
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS
 </div>
 <div class="fondo_f2f2f2">
@@ -55,7 +59,7 @@
                 <div class="marcador_tab oculto"></div>
             </a>
         </li>
-        
+
         <hr id="barCursor">
     </ul>
     <hr class="clear" />
@@ -66,15 +70,15 @@
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_carrusel_catalogo" id="divCatalogo">
-            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
-            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
+            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)" /></a>
+            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)" /></a>
         </div>
-       
+
     </div>
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo" data-titulo="" >REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
         <div class="content_revistas_mob">
         @if (@ViewBag.TieneRDC == true)
         {
@@ -205,8 +209,7 @@
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
-        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
-        </textarea>
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500"></textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
         <div id="divCheckbox">
@@ -269,13 +272,13 @@
     </div>
 
 </div>
-<!--FIN--> 
+<!--FIN-->
 
 
 
 
 <div style="display: none;">
-    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))
+    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
     {
         <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
     }
@@ -293,6 +296,7 @@
                 <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
+
         </div>
     </div>
 </script>
@@ -324,9 +328,9 @@
         var RevistaCodigoIssuu = {
             '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
             '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
-            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'        
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
         };
-        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })'; 
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
     </script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
