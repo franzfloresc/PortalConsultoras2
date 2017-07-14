@@ -31,8 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected string ConcursosCodigos = string.Empty;
-
-        protected ISessionManager sessionManager;
+        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         #endregion
 
@@ -41,7 +40,6 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController()
         {
             userData = new UsuarioModel();
-            sessionManager = SessionManager.SessionManager.Instance;
         }
 
         public BaseController(ISessionManager sessionManager)
@@ -241,6 +239,9 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.ConsultoraID
                         );
                     }
+
+                pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
+                sessionManager.SetPedidoWeb(pedidoWeb);
             }
             catch (Exception ex)
             {
@@ -288,6 +289,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
                 SetUserData(userData);
+
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+                sessionManager.SetDetallesPedido(detallesPedidoWeb);
             }
             catch (Exception ex)
             {
