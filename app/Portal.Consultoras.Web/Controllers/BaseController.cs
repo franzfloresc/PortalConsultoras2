@@ -701,209 +701,160 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
-            ViewBag.CantPedidosPendientes = 0;
-
-            var lstModel = new List<MenuMobileModel>();
-
-            if (userData.RolID != Constantes.Rol.Consultora)
-            {
-                return lstModel;
-            }
-
             if (userData.MenuMobile != null)
             {
-                lstModel = userData.MenuMobile;
+                SetConsultoraOnlineViewBag(userData);
+                return userData.MenuMobile;
             }
-            else
+
+            userData.MenuMobile = new List<MenuMobileModel>();
+            userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
+            if (userData.RolID != Constantes.Rol.Consultora)
             {
-                IList<BEMenuMobile> lst;
-                using (var sv = new SeguridadServiceClient())
+                SetConsultoraOnlineViewBag(userData);
+                return userData.MenuMobile;
+            }
+
+            IList<BEMenuMobile> lst;
+            using (var sv = new SeguridadServiceClient())
+            {
+                lst = sv.GetItemsMenuMobile(userData.PaisID).ToList();
+            }
+
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
+                lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
+            ValidateConsultoraOnlineMenu(userData, lst);
+
+            var listadoMenu = Mapper.Map<List<MenuMobileModel>>(lst);
+            var listadoMenuFinal = new List<MenuMobileModel>();
+            foreach (var menu in listadoMenu)
+            {
+                menu.Codigo = Util.Trim(menu.Codigo).ToLower();
+
+                if (menu.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                 {
-                    lst = sv.GetItemsMenuMobile(userData.PaisID).ToList();
+                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                            continue;
                 }
 
-                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
-                    lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
+                menu.UrlItem = Util.Trim(menu.UrlItem);
+                menu.UrlImagen = Util.Trim(menu.UrlImagen);
+                menu.Descripcion = Util.Trim(menu.Descripcion);
+                menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
+                menu.Posicion = Util.Trim(menu.Posicion);
 
-                var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
-                var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-
-                if (!mostrarClienteOnline)
+                if (menu.Posicion.ToLower() != "menu")
                 {
-                    lst.Remove(menuConsultoraOnlinePadre);
-                    lst.Remove(menuConsultoraOnlineHijo);
-                    ViewBag.TipoMenuConsultoraOnline = 0;
+                    listadoMenuFinal.Add(menu);
+                    continue;
                 }
-                else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
+
+                menu.ClaseMenu = "";
+                menu.ClaseMenuItem = "";
+
+                menu.PageTarget = menu.PaginaNueva ? "_blank" : "_self";
+                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
+                menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
+
+                menu.UrlItem = menu.Version == "Completa"
+                    ? menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", Util.GetUrlHost(Request), menu.UrlItem)
+                    : menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}{1}", Util.GetUrlHost(Request), menu.UrlItem);
+                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
+                menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
+
+                if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 {
-                    int esConsultoraOnline = -1;
-                    using (var svc = new UsuarioServiceClient())
+                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                     {
-                        esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                        if (esConsultoraOnline >= 0)
+                        menu.OnClickFunt = "";
+                        menu.MenuPadreDescripcion = menu.Descripcion;
+                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
                         {
-                            ViewBag.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                            ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                        }
-                    }
-
-                    if (esConsultoraOnline == -1)
-                    {
-                        ViewBag.TipoMenuConsultoraOnline = 1;
-                        ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
-                        lst.Remove(menuConsultoraOnlinePadre);
-                    }
-                    else
-                    {
-                        ViewBag.TipoMenuConsultoraOnline = 2;
-                        ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
-                    }
-
-                    if (menuConsultoraOnlineHijo != null)
-                    {
-                        string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
-                        menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
-                    }
-                }
-
-                var listadoMenu = Mapper.Map<List<MenuMobileModel>>(lst);
-                var listadoMenuFinal = new List<MenuMobileModel>();
-                foreach (var menu in listadoMenu)
-                {
-                    menu.Codigo = Util.Trim(menu.Codigo).ToLower();
-
-                    if (menu.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
-                    {
-                        if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                            if (!ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
-                                continue;
-                    }
-
-                    menu.UrlItem = Util.Trim(menu.UrlItem);
-                    menu.UrlImagen = Util.Trim(menu.UrlImagen);
-                    menu.Descripcion = Util.Trim(menu.Descripcion);
-                    menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
-                    menu.Posicion = Util.Trim(menu.Posicion);
-
-                    if (menu.Posicion.ToLower() != "menu")
-                    {
-                        listadoMenuFinal.Add(menu);
-                        continue;
-                    }
-
-                    menu.ClaseMenu = "";
-                    menu.ClaseMenuItem = "";
-
-                    menu.PageTarget = menu.PaginaNueva ? "_blank" : "_self";
-                    menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "onclick='return messageInfoPostulante();'" : "";
-                    menu.OnClickFunt = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "onclick='return messageInfoPostulante();'" : menu.OnClickFunt;
-
-                    menu.UrlItem = menu.Version == "Completa"
-                        ? menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}Mobile/Menu/Ver?url={1}", Util.GetUrlHost(Request), menu.UrlItem)
-                        : menu.UrlItem.StartsWith("http") ? menu.UrlItem : string.Format("{0}{1}", Util.GetUrlHost(Request), menu.UrlItem);
-                    menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
-                    menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
-
-                    if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
-                    {
-                        if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
-                        {
-                            menu.OnClickFunt = "";
-                            menu.MenuPadreDescripcion = menu.Descripcion;
-                            if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
-                            {
-                                menu.ClaseMenu = " etiqueta_showroom wsventa";
-                            }
-                            else
-                            {
-                                menu.ClaseMenu = " etiqueta_showroom wsintriga";
-                            }
-
-                            menu.UrlImagen = "";
-                            menu.UrlItem = AccionControlador("sr", false, true);
+                            menu.ClaseMenu = " etiqueta_showroom wsventa";
                         }
                         else
                         {
-                            continue;
+                            menu.ClaseMenu = " etiqueta_showroom wsintriga";
                         }
+
+                        menu.UrlImagen = "";
+                        menu.UrlItem = AccionControlador("sr", false, true);
                     }
-                    else if (menu.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+                    else
                     {
-                        if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                            if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
-                                if (userData.RevistaDigital.NoVolverMostrar)
+                        continue;
+                    }
+                }
+                else if (menu.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
+                {
+                    if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                        if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                            if (userData.RevistaDigital.NoVolverMostrar)
+                            {
+                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
+                                    || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
                                 {
-                                    if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
-                                        || userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                    {
-                                        continue;
-                                    }
-                                    if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
-                                    {
-                                        menu.ClaseMenuItem = "oculto";
-                                    }
+                                    continue;
                                 }
-                                else
+                                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                 {
                                     menu.ClaseMenuItem = "oculto";
                                 }
-                    }
-
-                    listadoMenuFinal.Add(menu);
-                }
-
-                //Agregamos los menú Padre
-                foreach (var item in listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
-                {
-                    lstModel.Add(item);
-                }
-
-                //Agregamos los items para cada menú Padre
-                foreach (var item in lstModel)
-                {
-                    var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
-                    foreach (var subItem in subItems)
-                    {
-                        subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
-                        if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
-                        {
-                            if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                                continue;
-                        }
-
-                        item.SubMenu.Add(subItem);
-                    }
-                }
-
-                if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
-                {
-                    var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
-                    if (menuRd.ClaseMenuItem != "oculto")
-                    {
-                        var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
-                        if (menuNego.MenuMobileID > 0)
-                        {
-                            lstModel.ForEach(m =>
+                            }
+                            else
                             {
-                                m.OrdenItem = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                                    ? menuNego.OrdenItem + 1
-                                    : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
-                                m.UrlImagen = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                                    ? ""
-                                    : m.UrlImagen;
-                            });
-
-                            lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
-                        }
-                    }
+                                menu.ClaseMenuItem = "oculto";
+                            }
                 }
 
-                userData.MenuMobile = lstModel;
+                listadoMenuFinal.Add(menu);
             }
 
+            //Agregamos los menú Padre
+            var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
+            //Agregamos los items para cada menú Padre
+            foreach (var item in lstModel)
+            {
+                var subItems = listadoMenuFinal.Where(p => p.MenuPadreID == item.MenuMobileID).OrderBy(p => p.OrdenItem);
+                foreach (var subItem in subItems)
+                {
+                    subItem.Codigo = Util.Trim(subItem.Codigo).ToLower();
+                    if (subItem.Codigo == Constantes.MenuCodigo.CatalogoPersonalizado.ToLower())
+                    {
+                        if (ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
+                            continue;
+                    }
+
+                    item.SubMenu.Add(subItem);
+                }
+            }
+
+            if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
+            {
+                var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
+                if (menuRd.ClaseMenuItem != "oculto")
+                {
+                    var menuNego = lstModel.FirstOrDefault(m => m.Codigo == Constantes.MenuCodigo.MiNegocio.ToLower()) ?? new MenuMobileModel();
+                    if (menuNego.MenuMobileID > 0)
+                    {
+                        lstModel.ForEach(m =>
+                        {
+                            m.OrdenItem = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                                ? menuNego.OrdenItem + 1
+                                : m.OrdenItem > menuNego.OrdenItem ? m.OrdenItem + 1 : m.OrdenItem;
+                            m.UrlImagen = m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower()
+                                ? ""
+                                : m.UrlImagen;
+                        });
+
+                        lstModel = lstModel.OrderBy(p => p.OrdenItem).ToList();
+                    }
+                }
+            }
+
+            userData.MenuMobile = lstModel;
+            SetConsultoraOnlineViewBag(userData);
             return lstModel;
         }
 
@@ -1002,6 +953,59 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return userData.MenuService;
         }
+
+        private void SetConsultoraOnlineViewBag(UsuarioModel userData)
+        {
+            userData.ConsultoraOnlineMenuResumen = userData.ConsultoraOnlineMenuResumen ?? new ConsultoraOnlineMenuResumenModel();
+            ViewBag.TipoMenuConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline;
+            ViewBag.CantPedidosPendientes = userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes;
+            ViewBag.TeQuedanConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline;
+            ViewBag.MenuHijoIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline;
+            ViewBag.MenuPadreIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline;
+        }
+        
+        private void ValidateConsultoraOnlineMenu(UsuarioModel userData, IList<BEMenuMobile> lst)
+        {
+            var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
+            var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
+            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+
+            if (!mostrarClienteOnline)
+            {
+                lst.Remove(menuConsultoraOnlinePadre);
+                lst.Remove(menuConsultoraOnlineHijo);
+                userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 0;
+            }
+            else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
+            {
+                int esConsultoraOnline = -1;
+                using (var svc = new UsuarioServiceClient())
+                {
+                    esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                    if (esConsultoraOnline >= 0)
+                    {
+                        userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 2;
+                        userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
+                    }
+                    else
+                    {
+                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 1;
+                        userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
+                        lst.Remove(menuConsultoraOnlinePadre);
+                    }
+                }
+
+                if (menuConsultoraOnlineHijo != null)
+                {
+                    string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
+                    menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
+                }
+            }
+    }
 
         #endregion
 
