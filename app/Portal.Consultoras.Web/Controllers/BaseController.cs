@@ -11,6 +11,7 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,6 +31,9 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected UsuarioModel userData;
         protected string ConcursosCodigos = string.Empty;
+
+        protected ISessionManager sessionManager;
+
         #endregion
 
         #region Constructor
@@ -37,6 +41,12 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController()
         {
             userData = new UsuarioModel();
+            sessionManager = SessionManager.SessionManager.Instance;
+        }
+
+        public BaseController(ISessionManager sessionManager)
+        {
+            this.sessionManager = sessionManager;
         }
 
         #endregion
@@ -220,39 +230,35 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
 
-                pedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
+                pedidoWeb = sessionManager.GetPedidoWeb();
 
-                if(pedidoWeb == null)
+                if (pedidoWeb == null)
                     using (var pedidoServiceClient = new PedidoServiceClient())
                     {
                         pedidoWeb = pedidoServiceClient.GetPedidoWebByCampaniaConsultora(
-                            userData.PaisID, 
-                            userData.CampaniaID, 
+                            userData.PaisID,
+                            userData.CampaniaID,
                             userData.ConsultoraID
                         );
-                    }              
-
+                    }
             }
             catch (Exception ex)
             {
-
-            }
-            finally
-            {
                 pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
+                sessionManager.SetPedidoWeb(pedidoWeb);
             }
-
-            Session["PedidoWeb"] = pedidoWeb;
 
             return pedidoWeb;
         }
+
+        
 
         public List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try
             {
-                detallesPedidoWeb = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
+                detallesPedidoWeb = sessionManager.GetDetallesPedido();
 
                 if (detallesPedidoWeb == null)
                 {
@@ -273,31 +279,26 @@ namespace Portal.Consultoras.Web.Controllers
                     item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
                     item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
                 }
-
-                var observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
-                if (detallesPedidoWeb.Count > 0 && observaciones != null)
+                var  observacionesProl = sessionManager.GetObservacionesProl();
+                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
                 {
-                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observaciones);
+                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
                 }
 
 
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
                 SetUserData(userData);
-
             }
             catch (Exception ex)
             {
-
-            }
-            finally
-            {
                 detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+                sessionManager.SetDetallesPedido(detallesPedidoWeb);
             }
-
-            Session["PedidoWebDetalle"] = detallesPedidoWeb;
 
             return detallesPedidoWeb;
         }
+
+        
 
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> Pedido, List<ObservacionModel> Observaciones)
         {
@@ -423,25 +424,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session["PedidoWebDetalle"] != null)
-                {
-                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                    olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-                    if (olstPedidoWebDetalle.Any())
-                    {
-                        BEPedidoWebDetalle bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == cuv).FirstOrDefault();
-                        if (bePedidoWebDetalle != null)
-                        {
-                            indPedidoAutentico.PedidoID = bePedidoWebDetalle.PedidoID;
-                            indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
+                var detallesPedido = sessionManager.GetDetallesPedido();
 
-                            using (PedidoServiceClient svc = new PedidoServiceClient())
-                            {
-                                svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
-                            }
+                if (detallesPedido != null && detallesPedido.Any())
+                {
+                    var detallePedido = detallesPedido.Where(x => x.CUV == cuv).FirstOrDefault();
+                    if (detallePedido != null)
+                    {
+                        indPedidoAutentico.PedidoID = detallePedido.PedidoID;
+                        indPedidoAutentico.PedidoDetalleID = detallePedido.PedidoDetalleID;
+
+                        using (PedidoServiceClient svc = new PedidoServiceClient())
+                        {
+                            svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -486,7 +485,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), ConcursosCodigos, Puntajes);
 
                 // poner en Session
-                Session["PedidoWeb"] = null;
+                sessionManager.SetPedidoWeb(null);
                 userData.EjecutaProl = true;
                 ObtenerPedidoWeb();
             }

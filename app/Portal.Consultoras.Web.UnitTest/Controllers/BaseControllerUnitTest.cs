@@ -10,12 +10,33 @@ using Portal.Consultoras.Common;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Collections.Generic;
+using Portal.Consultoras.Web.SessionManager;
+using Moq;
 
 namespace Portal.Consultoras.Web.UnitTest.Controllers
 {
     [TestClass]
     public class BaseControllerUnitTest
     {
+        [TestClass]
+        public class Base
+        {
+            public Mock<ISessionManager> sessionManager;
+
+            [TestInitialize]
+            public void Test_Initialize()
+            {
+                sessionManager = new Mock<ISessionManager>();
+
+            }
+
+            [TestCleanup]
+            public void Test_Cleanup()
+            {
+                sessionManager = null;
+            }
+        }
+
         [TestMethod]
         public void BaseController_OnActionExecuting()
         {
@@ -85,12 +106,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         }
 
         [TestClass]
-        public class ObtenerPedidoWeb
+        public class ObtenerPedidoWeb : Base
         {
             [TestMethod]
             public void ObtenerPedidoWeb_WhenIsInvoke_ReturnsANotNullEntity()
             {
-                var controller = new BaseController();
+                var controller = new BaseController(sessionManager.Object);
 
                 var pedido = controller.ObtenerPedidoWeb();
 
@@ -99,12 +120,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         }
 
         [TestClass]
-        public class ObtenerPedidoWebDetalle
+        public class ObtenerPedidoWebDetalle : Base
         {
             [TestMethod]
             public void ObtenerPedidoWebDetalle_WhenIsInvoke_AlwaysReturnANotNullList()
             {
-                var controller = new BaseController();
+                var controller = new BaseController(sessionManager.Object);
 
                 var detallesPedidoWeb = controller.ObtenerPedidoWebDetalle();
 
