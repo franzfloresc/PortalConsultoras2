@@ -2050,31 +2050,13 @@ namespace Portal.Consultoras.Web.Controllers
           
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EnviarCorreo = false;
-
-            List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
-
-            try
-            {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Concursos = new List<BEConsultoraConcurso>();
-            }
-
-            if (Concursos.Any())
-            {
-                input.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
-            }
+            input.CodigosConcursos = userData.CodigosConcursos;
 
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient())
             {
                 resultado = sv.EjecutarReservaProl(input);
+
                 // Insertar/Actualizar los puntos de la consultora.
                 if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);

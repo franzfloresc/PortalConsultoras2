@@ -939,6 +939,30 @@ namespace Portal.Consultoras.Web.Controllers
 
 
                         #endregion
+
+                        #region Concursos
+
+                        List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+
+                        try
+                        {
+                            using (PedidoServiceClient sv = new PedidoServiceClient())
+                            {
+                                Concursos = sv.ObtenerConcursosXConsultora(model.PaisID, model.CampaniaID.ToString(), model.CodigoConsultora, model.CodigorRegion, model.CodigoZona).ToList();
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO);
+                            Concursos = new List<BEConsultoraConcurso>();
+                        }
+
+                        if (Concursos.Any())
+                        {
+                            model.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
+                        }
+
+                        #endregion
                     }
                 }
 
