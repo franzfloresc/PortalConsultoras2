@@ -2052,6 +2052,7 @@ namespace Portal.Consultoras.Web.Controllers
             input.EnviarCorreo = false;
 
             List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
+
             try
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
@@ -2059,12 +2060,16 @@ namespace Portal.Consultoras.Web.Controllers
                     Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Concursos = new List<BEConsultoraConcurso>();
             }
+
             if (Concursos.Any())
+            {
                 input.CodigosConcursos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
+            }
 
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient())
