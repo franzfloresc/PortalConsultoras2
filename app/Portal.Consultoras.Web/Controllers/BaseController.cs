@@ -286,11 +286,10 @@ namespace Portal.Consultoras.Web.Controllers
                     detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
                 }
 
-
                 userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
+
                 SetUserData(userData);
 
-                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
                 sessionManager.SetDetallesPedido(detallesPedidoWeb);
             }
             catch (Exception ex)
