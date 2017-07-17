@@ -6,7 +6,7 @@
     var items = (List<MenuMobileModel>)ViewBag.MenuMobile;
     var itemsMenu = items == null ? new List<MenuMobileModel>() : items.Where(p => p.Posicion.ToLower().Equals("menu")).ToList();
     var urlDomain = Util.GetUrlHost(Request);
-    var tipoUsuaio = ViewBag.TipoUsuario;
+    var tipoUsuario = ViewBag.TipoUsuario;
 }
 
 <div class="botones" id="ulNavPrincipal" data-menu-count="@(itemsMenu.Count())">
@@ -43,7 +43,7 @@
                        class="menu_subHeader" href="@subItem.UrlItem" @subItem.OnClickFunt target="@subItem.PageTarget"
                        id="lnk-prin-@subItem.Descripcion.GenerateLinkForGoogleTagManager()">
                         @subItem.Descripcion
-                        @if (tipoUsuaio == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
+                        @if (tipoUsuario == 2 && subItem.Descripcion.ToLower().Trim() == "app de catálogos")
                         {
                             <div class="notificaciones_menu_mobile2">¡Afiliate!</div>
                         }

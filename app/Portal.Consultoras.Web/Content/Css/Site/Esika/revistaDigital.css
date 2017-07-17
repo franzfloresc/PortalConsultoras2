@@ -42,7 +42,7 @@
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-  width: auto;
+  max-width: 100% !important;
     height: 100%;
 }
 .revistadigital p.marca {
@@ -656,7 +656,7 @@
     background: #000;
     margin: 0 -80px;
     padding: 0px 80px;
-    z-index: 10;
+    z-index: 1000;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
@@ -2423,16 +2423,16 @@
     top: 50%;
     margin: auto;
     margin-top: -295px;
-    padding: 40px;
+    padding: 25px 40px;
     text-align: center;
  }
  .popup_rd_bloqueado .box_producto {
- 	max-height: 305px;
- 	margin: 15px 0;
+ 	max-height: 320px;
+ 	margin: 10px 0;
  	background-color: #fff;
  }
  .popup_rd_bloqueado .popup_text {
- 	margin: 10px 48px;
+ 	margin: 7px 48px;
     font-size: 16px;
     line-height: 20px;
     color: black;

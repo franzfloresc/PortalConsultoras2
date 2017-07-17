@@ -1,5 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
+using Portal.Consultoras.Entities.Cliente;
 
 namespace Portal.Consultoras.Entities
 {
@@ -60,6 +61,15 @@ namespace Portal.Consultoras.Entities
         public short TipoContactoFavorito { get; set; }
 
         [DataMember]
+        public decimal Saldo { get; set; }
+
+        [DataMember]
         public List<BEClienteContactoDB> Contactos { get; set; }
+
+        [DataMember]
+        public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
+
+        [DataMember]
+        public IEnumerable<BENota> Notas { get; set; }
     }
 }

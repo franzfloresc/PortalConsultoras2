@@ -1,0 +1,176 @@
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model PedidoWebMobilModel
+
+@{
+    var sessionMobile = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+}
+
+<div class="block-white" style="margin-top:1px;">
+    @foreach (var item2 in Model.ListaPedidoWebDetalle)
+    {
+        var totalPedido = Model.PaisID == 4 ? (string.Format("{0:#,##0}", item2.ImporteTotalPedido).Replace(',', '.')) : (string.Format("{0:#,##0.00}", item2.ImporteTotalPedido));
+        var collapse = "collapse";
+        var icon = "icon-plus-belcorp";
+
+        if (sessionMobile.ClienteID != 0)
+        {
+            collapse = "collapse in";
+            icon = "icon-minus-belcorp";
+        }
+
+        <div class="panel-group claseAcordion" id="accordion_@(item2.ClienteID)" role="tablist" aria-multiselectable="false">
+            <div class="panel panel-line-info border_bababa">
+                <div class="panel-heading" role="tab">
+                    <h4 class="panel-title upper">
+                        <a role="button" class="esconderPrecio" data-toggle="collapse" data-parent="#accordion" href="#collapseOne_@(string.Format("{0}_{1}", item2.CampaniaID, item2.ClienteID))" aria-expanded="false" aria-controls="collapseOne">
+                            <i class="@icon"></i> @Html.DisplayTextFor(modelItem => @item2.Nombre)
+                            <div class="panel-title-total">@Model.Simbolo @totalPedido</div>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne_@(string.Format("{0}_{1}", item2.CampaniaID, item2.ClienteID))" class="panel-collapse @collapse" role="tabpanel" aria-labelledby="headingOne">
+                    <div class="panel-body posr">
+                        <div class="list-table-new">
+                            <ul class="list-table-title upper">
+                                <li>Productos <span class="table-title-right">Cant</span></li>
+                            </ul>
+                            <ul class="list-table-body">
+                                @foreach (var item3 in item2.ListaPedidoWebDetalleProductos)
+                                {
+                                    <li>
+                                        <div class="posr">
+                                            <div class="table-width">
+                                                <div class="upper">@Html.DisplayTextFor(modelItem => @item3.DescripcionProd)</div>
+                                                <div class="mb-10">
+                                                    <div>@Html.DisplayTextFor(modelItem => item3.CUV)</div>
+                                                </div>
+                                                Precio Unitario
+                                                @if (Model.PaisID == 4)//CO
+                                                {
+                                                    @Model.Simbolo @(string.Format("{0:#,##0}", item3.PrecioUnidad).Replace(',', '.'))
+                                                }
+                                                else
+                                                {
+                                                    @Model.Simbolo @(string.Format("{0:#,##0.00}", item3.PrecioUnidad))
+                                                }
+                                                <br />
+                                                <div class="upper">
+                                                    <strong>Subtotal </strong>
+                                                    @if (Model.PaisID == 4)//CO
+                                                    {
+                                                        <b>@Model.Simbolo  @(string.Format("{0:#,##0}", item3.ImporteTotal).Replace(',', '.'))</b>
+                                                    }
+                                                    else
+                                                    {
+                                                        <b>@Model.Simbolo  @(string.Format("{0:#,##0.00}", item3.ImporteTotal))</b>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <span class="cantidad-numero"> @Html.DisplayTextFor(modelItem => @item3.Cantidad) </span>
+
+                                            @if (Model.TieneDescuentoCuv && item3.IndicadorOfertaCUV)
+                                            {
+                                                <div class="alert-top-icon text-success">
+                                                    <div class="text-left">
+                                                        El precio total no incluye el descuento para ofertas con más de
+                                                        un precio (1x, 2x).
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </li>
+                                }
+
+
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="upper" style="padding-top:30px;"><strong>Total Pedido</strong></td>
+                                            <td class="text-right" style="padding-top: 30px;">
+                                                <b>@Model.Simbolo @totalPedido</b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@{
+    if (sessionMobile.ClienteID == 0)
+    { 
+        if (Model.TieneDescuentoCuv)
+        {
+            <div id="parteSubTotal" class="block-info text-center" style="margin-top: -10px;">
+                SUBTOTAL<br />
+                <div class="text-lg">@Model.Simbolo @Model.SubtotalString</div>
+            </div>
+            <div id="parteDescuento" class="block-info text-center" style="margin-top: -10px;">
+                DESCUENTO OFERTAS CON MAS DE UN PRECIO<br />
+                <div class="text-lg">@Model.Simbolo @Model.DescuentoString</div>
+            </div>
+        }
+        <div id="parteFinal" class="block-info text-center" style="margin-top: -10px;">
+            TOTAL PEDIDO <br />
+            <div class="text-lg">@Model.Simbolo @Model.ImporteTotalString</div>
+        </div>
+
+        <hr class="clear" />
+        <a href="javascript:;" class="btn_editar_pedido" onclick="onEnviarCorreoConsultora();">
+            Enviar listado a mi correo
+        </a>
+    }
+}
+
+<script type="text/javascript">
+    $('.claseAcordion .panel-collapse').on('shown.bs.collapse', function () {
+        $(this).prev().find(".icon-plus-belcorp").removeClass("icon-plus-belcorp").addClass("icon-minus-belcorp");
+    }).on('hidden.bs.collapse', function () {
+        $(this).prev().find(".icon-minus-belcorp").removeClass("icon-minus-belcorp").addClass("icon-plus-belcorp");
+    });
+
+    function onEnviarCorreoConsultora() {
+        //var valorTab = $('.mytab.active');
+        //var id = $(valorTab).attr("id");
+        //var campaniaHidden = $("#h" + id).val();
+        var item = {
+            CampaniaId: "@Model.CampaniaID"
+        };
+        ShowLoading();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("EnviarEmailConsultora", "MisPedidos", new { area = "Mobile" })',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    if (data.success == true) {
+                        messageInfo(data.message);
+                        CloseLoading();
+                        dataLayer.push({ 'event': 'virtualEvent', 'category': 'Pedidos Web', 'action': 'Enviar email', 'label': 'Detalle consultora - ' + campaniaHidden });
+                    }
+                    else {
+                        CloseLoading();
+                        messageInfo(data.message);
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    messageInfo(data.message);
+                    CloseLoading();
+                }
+            }
+        });
+    }
+</script>

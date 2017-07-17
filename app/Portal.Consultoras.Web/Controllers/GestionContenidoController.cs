@@ -138,18 +138,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult GetResumenCampania()
+        public JsonResult GetResumenCampania(bool soloCantidad)
         {
             try
             {
                 var PaisID = userData.PaisID;
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var ultimosTresPedidos = pedidoWebDetalle.Count > 0 ?
-                                         pedidoWebDetalle.Take(3).ToList() :
-                                         new List<BEPedidoWebDetalle>();
-                var totalPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
-                return Json(new
+                var ultimosTresPedidos = ObtenerUltimosDetallesPedido(soloCantidad, pedidoWebDetalle);
+
+                return Json(new ResumenCampaniaModel
                 {
                     result = true,
                     montoWebAcumulado = pedidoWebDetalle.Sum(p => p.ImporteTotal),
@@ -157,9 +155,9 @@ namespace Portal.Consultoras.Web.Controllers
                     ultimosTresPedidos = ultimosTresPedidos,
                     Simbolo = userData.Simbolo,
                     paisID = PaisID,
-                    montoWebConDescuentoStr = Util.DecimalToStringFormat(totalPedido - pedidoWeb.DescuentoProl, userData.CodigoISO),
+                    montoWebConDescuentoStr = Util.DecimalToStringFormat(pedidoWebDetalle.Sum(p => p.ImporteTotal) - pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
-                    pedidoWeb.DescuentoProl,
+                    DescuentoProl = pedidoWeb.DescuentoProl,
                 }, JsonRequestBehavior.AllowGet);
 
             }
@@ -179,6 +177,26 @@ namespace Portal.Consultoras.Web.Controllers
                     result = false
                 }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private List<PedidoDetalleCarritoModel> ObtenerUltimosDetallesPedido(bool soloCantidad, List<BEPedidoWebDetalle> pedidoWebDetalle)
+        {
+            const int CANTIDAD_ULTIMOS_DETALLES_PEDIDO = 3;
+            var ultimosTresPedidos = new List<PedidoDetalleCarritoModel>();
+            if (!soloCantidad && pedidoWebDetalle.Count > 0)
+            {
+                pedidoWebDetalle
+                    .Take(CANTIDAD_ULTIMOS_DETALLES_PEDIDO)
+                    .Each(d => ultimosTresPedidos.Add(new PedidoDetalleCarritoModel
+                {
+                    Cantidad = d.Cantidad,
+                    DescripcionLarga = d.DescripcionLarga,
+                    DescripcionProd = d.DescripcionProd,
+                    ImporteTotal = d.ImporteTotal
+                }));
+            }
+
+            return ultimosTresPedidos;
         }
 
         public ServiceUsuario.BEUsuario GetUserData(int PaisID, string Codigo)

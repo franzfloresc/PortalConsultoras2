@@ -235,7 +235,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -244,7 +244,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".mas", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -325,10 +325,11 @@ function microefectoPedidoGuardado() {
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
+
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
+        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
