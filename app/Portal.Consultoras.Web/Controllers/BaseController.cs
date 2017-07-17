@@ -221,7 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Pedido
 
-        public BEPedidoWeb ObtenerPedidoWeb()
+        public virtual BEPedidoWeb ObtenerPedidoWeb()
         {
             var pedidoWeb = (BEPedidoWeb)null;
 
@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         
 
-        public List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
             try

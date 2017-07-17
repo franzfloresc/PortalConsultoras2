@@ -67,6 +67,8 @@
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
+
+        var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
     </script>
 
     @RenderSection("styles", required: false)

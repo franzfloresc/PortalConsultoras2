@@ -138,18 +138,27 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult GetResumenCampania()
+        public JsonResult GetResumenCampania(bool soloCantidad)
         {
             try
             {
                 var PaisID = userData.PaisID;
                 var pedidoWeb = ObtenerPedidoWeb();
                 var pedidoWebDetalle = ObtenerPedidoWebDetalle();
-                var ultimosTresPedidos = pedidoWebDetalle.Count > 0 ?
-                                         pedidoWebDetalle.Take(3).ToList() :
-                                         new List<BEPedidoWebDetalle>();
+
+                var ultimosTresPedidos = new List<PedidoDetalleCarritoModel>();
+                if(!soloCantidad && pedidoWebDetalle.Count> 0)
+                {
+                    pedidoWebDetalle.Take(3).Each(d => ultimosTresPedidos.Add(new PedidoDetalleCarritoModel {
+                        Cantidad = d.Cantidad,
+                        DescripcionLarga = d.DescripcionLarga,
+                        DescripcionProd = d.DescripcionProd,
+                        ImporteTotal = d.ImporteTotal
+                    }));
+                }
+
                 var totalPedido = pedidoWebDetalle.Sum(p => p.ImporteTotal);
-                return Json(new
+                return Json(new ResumenCampaniaModel
                 {
                     result = true,
                     montoWebAcumulado = pedidoWebDetalle.Sum(p => p.ImporteTotal),
@@ -159,7 +168,7 @@ namespace Portal.Consultoras.Web.Controllers
                     paisID = PaisID,
                     montoWebConDescuentoStr = Util.DecimalToStringFormat(totalPedido - pedidoWeb.DescuentoProl, userData.CodigoISO),
                     DescuentoProlStr = Util.DecimalToStringFormat(pedidoWeb.DescuentoProl, userData.CodigoISO),
-                    pedidoWeb.DescuentoProl,
+                    DescuentoProl = pedidoWeb.DescuentoProl,
                 }, JsonRequestBehavior.AllowGet);
 
             }

@@ -325,10 +325,11 @@ function microefectoPedidoGuardado() {
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
+
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
+        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',

@@ -516,6 +516,7 @@
     <Compile Include="Models\Paso3CoreVm.cs" />
     <Compile Include="Models\PedidoActualizaModel.cs" />
     <Compile Include="Models\PedidoAsociadoModel.cs" />
+    <Compile Include="Models\PedidoDetalleCarritoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
     <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\PedidoSb2Model.cs" />
