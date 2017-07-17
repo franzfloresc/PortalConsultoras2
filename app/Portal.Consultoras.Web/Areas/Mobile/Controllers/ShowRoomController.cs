@@ -25,31 +25,35 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private bool blnRecibido = false;
         #endregion
 
-        //TODO: en desarrollo
+        /// <summary>
+        /// Procesa la accion segun se determine si es Intriga o ShowRoom
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Procesar()
         {
+            var userData = (UsuarioModel)Session["UserData"];
+            if (userData != null)
+                CargarEntidadesShowRoom(userData);
+
             var esShowRoom = false;
 
             ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
-            //model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
             model.BEShowRoom = userData.BeShowRoom;
 
             if (model.BEShowRoom == null)
             {
                 model.BEShowRoom = new BEShowRoomEvento();
-                //model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
             }
-            //else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
 
-            //model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
-                //model.MostrarShowRoomProductos = true;
                 esShowRoom = true && OfertaShowRoom() != null;
             }
+
+            //es intriga si if (showRoomEvento != null && showRoomEvento.Estado == 1 && showRoomEventoConsultora != null)
 
             return RedirectToAction(esShowRoom ? "Index" : "Intriga");
         }
