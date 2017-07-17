@@ -788,6 +788,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         type: 'POST',
         url: urlGetCantidadProductos,
         dataType: 'json',
+        data: JSON.stringify({ soloCantidad : true }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
