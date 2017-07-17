@@ -450,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetNotificacionesSinLeer()
         {
-            var cantidadNotificaciones = -1;
+            int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
@@ -467,6 +467,12 @@ namespace Portal.Consultoras.Web.Controllers
                     Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
                     Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
                 }
+
+                //using (var sv = new UsuarioServiceClient())
+                //{
+                //    cantidadNotificaciones = sv.GetCantidadNotificaciones(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
+                //}
+
             }
             catch (Exception ex)
             {

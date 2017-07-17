@@ -13,7 +13,6 @@ namespace Portal.Consultoras.BizLogic
     {
         public IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
-
             var DANotificaciones = new DANotificaciones(PaisID);
             var notificaciones = new List<BENotificaciones>();
             using (IDataReader reader = DANotificaciones.GetNotificacionesConsultora(ConsultoraId, indicadorBloqueoCDR))
@@ -28,6 +27,14 @@ namespace Portal.Consultoras.BizLogic
             });
             return notificaciones;
         }
+
+        /*FRZ-12*/
+        public int GetCantidadNotificaciones(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        {
+            var DANotificaciones = new DANotificaciones(PaisID);
+            return DANotificaciones.GetCantidadNotificaciones(ConsultoraId, indicadorBloqueoCDR);
+        }    
+        /*FRZ-12*/
 
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) // R2073
         {

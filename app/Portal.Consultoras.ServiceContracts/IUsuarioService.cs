@@ -156,6 +156,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
 
+        //FRZ-12
+        [OperationContract]
+        int GetCantidadNotificaciones(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+
         [OperationContract]
         IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
 
