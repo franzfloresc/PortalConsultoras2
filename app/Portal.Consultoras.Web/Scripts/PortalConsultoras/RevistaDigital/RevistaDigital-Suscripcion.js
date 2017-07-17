@@ -107,7 +107,7 @@ function RDDesuscripcion(accion) {
             if (accion == 2) {
                 $("[data-estadoregistro]").attr("data-estadoregistro", "2");
                 $("[data-estadoregistro0]").show();
-                $("divCambiosEstadoRegistro [data-estadoregistro0]").hide();
+                $("#divCambiosEstadoRegistro [data-estadoregistro0]").hide();
                 $("[data-estadoregistro1]").hide();
                 $("[data-estadoregistro2]").show();
             }

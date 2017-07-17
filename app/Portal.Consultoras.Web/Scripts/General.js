@@ -933,7 +933,7 @@ function LayoutMenuFin() {
 
     var wt = $(".wrapper_header").width();
     var wl = $(".logo_esika").innerWidth();
-    var wr = $(".menu_esika_b").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth() + 1;
     $(".wrapper_header").css("max-width", wt + "px");
     $(".wrapper_header").css("width", wt + "px");
 
@@ -968,6 +968,7 @@ function LayoutMenuFin() {
     }
     else if (wt > wr) {
         wr = (wt - wr) / $(idMenus).length;
+        wr = parseInt(wr * 10) / 10;
         wr = Math.min(wr, 20);
 
         $.each($(idMenus), function (ind, menupadre) {

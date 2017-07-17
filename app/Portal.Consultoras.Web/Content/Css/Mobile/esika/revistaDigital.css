@@ -949,8 +949,15 @@ div#tab_revistasdigital_mobile {
 .content_carrusel_landing{
     width:80%;
     margin: 0 auto;
-    padding-top:43px;
+    padding-top:30px;
     padding-bottom:20px;
+}
+
+.content_carrusel_landing .btn_negro a {
+    border: none;
+}
+.tabs_pagos li a{
+    padding-bottom: 5px;
 }
 .content_item_ept {
     background: white;
@@ -1857,7 +1864,7 @@ height: 100%;
 }
 
 .btn_red, .btn_black_solid, .btn_white_stroke, .btn_negro {
-    margin: 30px 0;
+    margin: 20px 0;
 }
 
 .btn_red a {

@@ -232,7 +232,7 @@ function OfertaArmarEstrategias(response) {
             //response.listaLan = EstructurarDataCarousel(response.listaLan);
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
-                    tem.PuedeAgregar = response.Mobile ? 0 : 1;
+                    //tem.PuedeAgregar = response.Mobile ? 0 : 1;
                     tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
                     tem.EstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.EstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.EstrategiaDetalle.ImgFichaMobile : tem.EstrategiaDetalle.ImgFichaDesktop;
@@ -287,7 +287,6 @@ function OfertaArmarEstrategias(response) {
         $.each(modeloTemp.Lista, function (ind, tem) {
             tem.PuedeAgregar = 0;
         });
-
     }
     var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
