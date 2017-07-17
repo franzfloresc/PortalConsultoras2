@@ -879,34 +879,34 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
                                         if (DateTime.Now.AddHours(model.ZonaHoraria).Date < model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
+                                            continue;
+                                        
+                                        model.RevistaDigital.TieneRDS = true;
+                                        //obtiene datos de Revista digital suscripcion.
+                                        var rds = new BERevistaDigitalSuscripcion
                                         {
-                                            model.RevistaDigital.TieneRDS = true;
-                                            //obtiene datos de Revista digital suscripcion.
-                                            var rds = new BERevistaDigitalSuscripcion
-                                            {
-                                                PaisID = model.PaisID,
-                                                CodigoConsultora = model.CodigoConsultora
-                                            };
-                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                            {
-                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                            }
+                                            PaisID = model.PaisID,
+                                            CodigoConsultora = model.CodigoConsultora
+                                        };
+                                        using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                        {
+                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                        }
 
-                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                                        model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
 
-                                            //se verifica que el usuario tiene una suscripcion activa
-                                            if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = true;
-                                            }
-                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = false;
-                                            }
-                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
-                                            }
+                                        //se verifica que el usuario tiene una suscripcion activa
+                                        if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = true;
+                                        }
+                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = false;
+                                        }
+                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
                                         }
 
                                         continue;
