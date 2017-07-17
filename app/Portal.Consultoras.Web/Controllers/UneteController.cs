@@ -2187,6 +2187,40 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_RechazarPostulante", rechazoModel);
         }
 
+
+        public ActionResult DevolverSolicitud(int id)
+        {
+            ViewBag.Id = id;
+            return PartialView("_DevolverSolicitud");
+        }
+
+        [HttpPost]
+        public ActionResult DevolverSolicitud(int id, string observacion)
+        {
+            var response = false;
+
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                    solicitudPostulante.EstadoPostulante = Enumeradores.EstadoPostulante.EnAprobacionFFVV.ToInt();
+
+                    sv.DevolverSolicitudSAC(CodigoISO, solicitudPostulante, observacion);
+                    response = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult VerHistorialPostulante(int id, string nombre, string FechaRegistro)
         {
             var historialPostulanteModel = new HistorialPostulanteModel();
@@ -5600,6 +5634,38 @@ namespace Portal.Consultoras.Web.Controllers
                 jsonResponse = false;
             }
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFunnel(string.Empty, string.Empty);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteFunnel()
+        {
+            ViewBag.Result = GetReporteFunnel(string.Empty, string.Empty);
+            return View();
+        }
+
+        public List<ReporteFunnel> GetReporteFunnel(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFunnel>();
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFunnel("", "", CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
         }
     }
 }
