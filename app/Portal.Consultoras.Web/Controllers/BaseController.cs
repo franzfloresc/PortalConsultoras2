@@ -269,21 +269,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-            List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
-            var rtpa = new List<ObjMontosProl>();
-            if (listProducto.Any())
-            {
-
-            string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
-            string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
-
-                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
-                var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
-
             #region Concursos
-
             List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
-
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 try
@@ -299,19 +286,29 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 ConcursosCodigos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
             }
-
             #endregion
+
+            List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
+            var rtpa = new List<ObjMontosProl>();
+            if (listProducto.Any())
+            {
+                string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
+                string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
+
+                var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
+                var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
                 using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
                 {
-                sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, ConcursosCodigos).ToList();
+                    sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
+                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, ConcursosCodigos).ToList();
                 }
             }
             else
             {
                 rtpa.Add(new ObjMontosProl());
             }
+
             rtpa = rtpa ?? new List<ObjMontosProl>();
             Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
             return rtpa;
@@ -380,7 +377,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
                 // Insertar/Actualizar los puntos de la consultora.
-                if (lista[0].ListaConcursoIncentivos != null)
+                //if (lista[0].ListaConcursoIncentivos != null)
+                if(!string.IsNullOrEmpty(ConcursosCodigos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), ConcursosCodigos, Puntajes);
 
                 // poner en Session
