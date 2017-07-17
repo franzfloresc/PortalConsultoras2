@@ -28,7 +28,7 @@
         urlRegistrarComentario: '',
         urlImagenUsuarioDefault: '',
         cantidadCrecienteMostrarInicial: 0,
-        cantidadCrecienteMostrar: 10,
+        cantidadCrecienteMostrar: 5,
         esperarScroll: false,
         origenPantalla:1
     };
