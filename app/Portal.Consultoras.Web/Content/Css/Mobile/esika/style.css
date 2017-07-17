@@ -12545,8 +12545,8 @@ a{
 
 /*SPRINT 14*/
 .content_mas_vendidos{
-    background:white;
-   padding:30px 14px 30px 14px;
+    background:#f0f0f0;
+   padding:30px 14px 0px 14px;
    font-family:'Lato';
 }
 .titulo_mas_vendido{
@@ -12554,8 +12554,11 @@ a{
     font-size:19px;
     letter-spacing:1.7px;
     text-align:center;
-    font-weight:700;
+    font-weight:300;
     margin-bottom:20px;
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 .content_carrusel_mas_vendidos{
     width:80%;
@@ -12929,5 +12932,11 @@ a{
 .content_detalle_comentarios{
     float:right;
     width:75%;
-
+}
+.titulo_estrellas{
+    vertical-align: top;   
+    padding-top: 6px !important;
+}
+.content_mas_vendidos .slick-slide{
+        padding-bottom: 12px;
 }
