@@ -2126,6 +2126,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
 
+        public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
+        {
+            return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
+        }
+
         #endregion
     }
 }

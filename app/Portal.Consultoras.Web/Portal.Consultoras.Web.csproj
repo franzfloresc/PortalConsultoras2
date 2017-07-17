@@ -254,6 +254,7 @@
     <Compile Include="Controllers\AdministrarLinksController.cs" />
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
+    <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
@@ -532,6 +533,7 @@
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ReporteValidacionModel.cs" />
     <Compile Include="Models\ReporteValidacionSRModel.cs" />
     <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
@@ -4077,6 +4079,7 @@
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
+    <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
