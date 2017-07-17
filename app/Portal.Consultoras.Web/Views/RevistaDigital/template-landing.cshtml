@@ -19,52 +19,44 @@
         <div id="orderby-filter">
             <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
                 <div class="titulo_pagina">MIS OFERTAS</div>
-                <div id="divFiltros">
-                    <div id="divCantProductos" class="cantidad_productos_fav total-count-derecho-fix">
-                        <div style="display: inline-block;">
+                <div class="rd-seccion2">
+                    <div id="divFiltros" class="rd-filtros">
+                        @if (Model.FiltersByBrand.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                @foreach (var item in Model.FiltersByBrand)
+                                {
+                                    <option value="@item.Codigo">@item.Descripcion</option>
+                                }
+                            </select>
+                        }
+                        @if (Model.FiltersBySorting.Any())
+                        {
+                            <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                @foreach (var item1 in Model.FiltersBySorting)
+                                {
+                                    <option value="@item1.Codigo">@item1.Descripcion</option>
+                                }
+                            </select>
+                        }
+
+                    </div>
+                    <hr class="clear" />
+                    <div id="divCantProductos" class="cantidad_productos_fav">
+                        <div class="rd-cantidad">
                             Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
                         </div>
-                        <div style="display: inline-block; margin: 0 0 0 15px;">
+                        <div class="rd-filtro-limpiar">
                             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
                                 <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
                             </div>
                         </div>
                     </div>
-                    @if (Model.FiltersByBrand.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
-                            @foreach (var item in Model.FiltersByBrand)
-                            {
-                                <option value="@item.Codigo">@item.Descripcion</option>
-                            }
-                        </select>
-                    }
-                    @if (Model.FiltersBySorting.Any())
-                    {
-                        <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
-                            @foreach (var item1 in Model.FiltersBySorting)
-                            {
-                                <option value="@item1.Codigo">@item1.Descripcion</option>
-                            }
-                        </select>
-                    }
-                    
                 </div>
                 @*<div class="content_buscador_landing">
                     <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
                     <a class="buscar_landing_ept">BUSCAR</a>
                 </div>*@
-            </div>
-            <hr class="clear" />
-            <div id="divCantProductos" class="cantidad_productos_fav" style="display:none;">
-                <div style="display: inline-block;">
-                    Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
-                </div>
-                <div style="display: inline-block; margin: 0 0 0 15px;">
-                    <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                        <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
-                    </div>
-                </div>
             </div>
         </div>
         <hr class="clear" />

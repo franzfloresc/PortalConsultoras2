@@ -649,6 +649,13 @@
     float: none; 
     text-align: right;
 }
+.BloqueLandingRD .rd-cantidad{
+    display: inline-block;
+}
+.BloqueLandingRD .rd-filtro-limpiar{
+    display: inline-block; margin: 0 0 0 15px;
+}
+
 .BloqueLandingRD .fix-search {
     position: fixed;
     top: 61px;
@@ -657,52 +664,64 @@
     /*margin: 0 -80px;*/
     left: 0;
     padding: 0px 80px;
-    z-index: 1000;
+    z-index: 100;
     box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
     -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
 }
 .BloqueLandingRD .fix-search .cantidad_productos_fav {
     background: transparent;
-    padding: 0 0 5px 0;
+    padding: 0 0 0 7px;
     color: #fff;
+    float: right;
+    text-align: right;
+    margin-left: 2%;
+}
+.BloqueLandingRD .fix-search .clear {
+        clear: initial;
 }
 .BloqueLandingRD .fix-search .rd-busqueda-filtros{
     padding: 15px 0;
     overflow:hidden;
 }
-.total-count-derecho-fix{
-    float: right !important;
-    width: 15% !important;
-    margin-left: 20px !important;
-    padding: 0 !important;
-    padding-bottom: 0 !important;
-    padding-top: 5px !important;
-    height: 30px !important;
+
+.BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-seccion2 {
+    width: 75%;
+    overflow: hidden;
 }
+.BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-filtros {
+    width: 75%;
+    overflow: hidden;
+    float: left;
+}
+
+.BloqueLandingRD .fix-search .rd-cantidad{
+    display: block;
+}
+
 .titulo_pagina{
     float:left;
-    width:300px;
-    height:30px;
+    width:25%;
+    height:auto;
     color:white;
     font-family:'Lato';
-    font-size:11px;
-    line-height:30px;
+    font-size:17px;
+    line-height:40px;
     letter-spacing:2px;
     font-weight:700;
     padding-left:20px;
     background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
 }
+
 .marca_ept{
     display:block;
-    width:15%;
-    height:30px;
+    min-width:15%;
+    height:40px;
     color:black;
     font-family:'Lato';
-    border: none;
     float:right;
     padding-left:7px;
-    font-size:11px;
+    font-size:12px;
     margin-left:2%;
 }
 .content_buscador_landing{
