@@ -107,5 +107,6 @@ namespace Portal.Consultoras.Web.Models
         public int PromValorizado { get; set; }
         public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
         public int Posicion {get;set;}
+        public string GananciaString { get; set; }
     }
 }
