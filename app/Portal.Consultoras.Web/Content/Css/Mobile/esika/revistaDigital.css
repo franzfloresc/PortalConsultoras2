@@ -1933,7 +1933,7 @@ height: 100%;
     font-family:Lato;
     font-size:13px;
     color:white;
-    width:100%;
+    width:75%;
     max-width:320px;
     height:45px;
     margin:0 auto;
@@ -2000,12 +2000,11 @@ height: 100%;
 .enterate_aqui{
     display:block;
     font-family:'Lato';
-    font-size:13px;
+    font-size:11px;
     margin:0 auto;
     margin-top:15px;
     margin-bottom:20px;
     text-align:center;
     width:270px;
-    
-    
+    font-weight: 400;
 }

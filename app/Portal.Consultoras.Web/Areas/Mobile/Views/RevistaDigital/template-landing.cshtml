@@ -2,7 +2,9 @@
 @using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
-
+@{
+    var nameTagScrollTo = "divTopFiltros" + @Model.CampaniaID;
+}
 <div style="background:#F6F6F6">
     <div class="content_carrusel_landing">
         <div id="divCarruselLan" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
@@ -10,26 +12,26 @@
         </div>
     </div>
 </div>
-<div class="arrow_misofertas flecha_scroll_mob">MÁS<br />OFERTAS<br /><img style="margin-top: 5px;" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
+<div class="arrow_misofertas" onclick="FlechaScrollDown(@Model.CampaniaID)">MÁS<br/>OFERTAS<br/><img style="margin-top: 5px;" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
 <hr class="clear" />
 <div data-listado-campania="@Model.CampaniaID">
     <div>
 
         <div class="subtitulo_landing">MIS OFERTAS</div>
 
-        <div class="wrapper_resumen_mobile" id="divTopFiltros">
+        <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
             <div id="orderby-filter" style="display: block;">
                 <div id="content-orderby" style="margin: 15px 0; text-align: center;">
                     @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
                         <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
                     <div id="divFiltros">
-                        <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                        <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
                             @foreach (var item in Model.FiltersByBrand)
                             {
                                 <option value="@item.Codigo">@item.Descripcion</option>
                             }
                         </select>
-                        <select class="btn2-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
+                        <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
                             @foreach (var item1 in Model.FiltersBySorting)
                             {
                                 <option value="@item1.Codigo">@item1.Descripcion</option>

@@ -2618,3 +2618,63 @@
 #bc_content_oferta .clearfix {
     clear: both;
 }
+
+.producto_img_home_bpt {
+    position: relative;
+    height: 135px;
+    text-align: center;
+    margin: 10px 10px 0px 10px;
+}
+
+.producto_img_home_bpt img {
+    width: auto;
+    height: 93.5%;
+}
+.producto_img_home_bpt:hover .ver_detalle_carrusel{
+    opacity: 1;
+}
+
+.producto_nombre_descripcion_bpt{
+    width:100%;
+    padding-left:16px;
+    padding-right:16px;
+    /*margin-bottom: 10px;*/
+    height:auto;
+    font-family:'Lato';
+    letter-spacing:0.2px;
+    text-align:center;
+    position:relative;
+}
+
+.producto_nombre_descripcion_bpt h6{
+    margin:0px;
+    padding:0px;
+    font-size:11px;
+    color:#000;
+    /*margin-top:8px;*/
+    margin-bottom:2px;
+    text-transform:uppercase;
+}
+
+.producto_nombre_descripcion_bpt .nombre_producto{
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    max-width: 90%;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    line-height:18px;
+}
+
+.producto_precio_bpt {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato';
+    letter-spacing: 0.2px;
+    color: #000;
+}

@@ -103,7 +103,7 @@ $(document).ready(function () {
             scrollTop: $('#divTopFiltros').position().top - 60
         }, 1000, 'swing');
     });
-   
+
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
         //debugger;
@@ -152,6 +152,12 @@ $(document).ready(function () {
     })
    
 });
+
+function FlechaScrollDown(idCamapania) {
+    $('html, body').animate({
+        scrollTop: $('#divTopFiltros' + idCamapania).position().top - 60
+    }, 1000, 'swing');
+}
 
 function RDMostrarPosicion() {
     if ($('[data-tag-html]').length == 1) {

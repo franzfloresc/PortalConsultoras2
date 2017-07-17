@@ -486,7 +486,9 @@ function EstrategiaVerDetalle(id, origen) {
                     return window.location = url;
             }
         }
-    } catch (e) {}
+    } catch (e) {
+        console.log(e);
+    }
     window.location = url;
 }
 

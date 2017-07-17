@@ -101,7 +101,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (Session[Constantes.SessionNames.ProductoTemporal] != null)
+                List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                estrategia = (listaEstrategiaPedidoModel == null || listaEstrategiaPedidoModel.Count == 0) ? 
+                        null : ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+
+                if ((estrategia == null || estrategia.EstrategiaID <= 0) && Session[Constantes.SessionNames.ProductoTemporal] != null)
                 {
                     estrategia = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
 
@@ -109,18 +114,13 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia = ConsultarEstrategiasModelFormato(lista)[0];
                 }
 
-                if (estrategia == null || estrategia.ID == 0)
-                {
-                    List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                    estrategia = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
-
-                }
                 if (estrategia == null || estrategia.EstrategiaID <= 0)
                 {
                     var lista = ConsultarEstrategias("",0, "", origen);
                     cuv = Util.Trim(cuv);
                     estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
                 }
+                
 
                 estrategia.Hermanos = new List<ProductoModel>();
                 estrategia.PaisID = userData.PaisID;
