@@ -1598,12 +1598,11 @@
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
         var cISO = "@Model.CodigoIso";
         $('#divConsultarUbicacion').empty();
-        if (cISO == 'CL' || cISO == 'MX')
-        {
+        if (cISO == 'CL' || cISO == 'MX') {
             LoadSpinner('divConsultarUbicacion');
             $('#divConsultarUbicacion').show();
 
-            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID}, function (html) {
+            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID }, function (html) {
 
                 $('#divConsultarUbicacion').html(html);
                 loadExtraData(solicitudPostulanteID);
@@ -1616,6 +1615,7 @@
             });
         }
         else {
+
             LoadSpinner('divConsultarUbicacion');
             $('#divConsultarUbicacion').show();
 

@@ -165,6 +165,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
+        public int AceptarContrato(BEUsuario usuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdAceptarContrato");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, usuario.CodigoUsuario);
+            Context.Database.AddInParameter(command, "@AceptoContrato", DbType.Boolean, usuario.AceptoContrato);
+            return Context.ExecuteNonQuery(command);
+        }
+
         public int UpdUsuarioDatosPrimeraVez(string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioDatosPrimeraVez");

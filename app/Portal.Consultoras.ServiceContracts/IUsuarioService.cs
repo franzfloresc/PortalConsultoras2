@@ -134,6 +134,9 @@ namespace Portal.Consultoras.ServiceContracts
         void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
 
         [OperationContract]
+        String AceptarContrato(BEUsuario usuario);
+
+        [OperationContract]
         int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);
 
         [OperationContract]

@@ -235,7 +235,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -244,7 +244,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".mas", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
