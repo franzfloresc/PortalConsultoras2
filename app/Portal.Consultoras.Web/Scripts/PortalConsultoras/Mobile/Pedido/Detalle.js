@@ -888,7 +888,6 @@ function EjecutarServicioPROL() {
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -899,14 +898,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         success: function (response) {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1") {
-                    EnviarCorreoPedidoReservado().done(function () {
-                        RespuestaEjecutarServicioPROL(response, false);
-                    }).always(function () {
-                        CloseLoading();
-                    }); //EPD-2378
-                } else {
-                    RespuestaEjecutarServicioPROL(response, false);
-                }                 
+                    EnviarCorreoPedidoReservado(); //EPD-2378
+                }   
+                RespuestaEjecutarServicioPROL(response, false);
             }
         },
         error: function (data, error) {
