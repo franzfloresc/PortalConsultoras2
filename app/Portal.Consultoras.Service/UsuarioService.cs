@@ -306,10 +306,10 @@ namespace Portal.Consultoras.Service
         }
 
         //FRZ-12
-        public int GetCantidadNotificaciones(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var BLNotificaciones = new BLNotificaciones();
-            return BLNotificaciones.GetCantidadNotificaciones(PaisID, ConsultoraId, indicadorBloqueoCDR);
+            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }       
 
         //R2073

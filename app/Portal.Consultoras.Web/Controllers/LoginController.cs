@@ -1215,16 +1215,9 @@ namespace Portal.Consultoras.Web.Controllers
         private int TieneNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
             int Tiene = 0;
-            List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
-            }
-            if (olstNotificaciones.Count != 0)
-            {
-                int Cantidad = olstNotificaciones.Count(p => p.Visualizado == false);
-                if (Cantidad > 0)
-                    Tiene = 1;
+                Tiene = sv.GetNotificacionesSinLeer(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR);
             }
             return Tiene;
         }

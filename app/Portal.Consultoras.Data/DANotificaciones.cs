@@ -26,9 +26,9 @@ namespace Portal.Consultoras.Data
         }
 
         /*FRZ-12*/
-        public int GetCantidadNotificaciones(long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(long ConsultoraId, int indicadorBloqueoCDR)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCantidadNotificacionesConsultora");
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetNotificacionesSinLeer");
             Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, ConsultoraId);
             Context.Database.AddInParameter(command, "@ShowCDR", DbType.Boolean, indicadorBloqueoCDR == 0);
             object obj = Context.ExecuteScalar(command);

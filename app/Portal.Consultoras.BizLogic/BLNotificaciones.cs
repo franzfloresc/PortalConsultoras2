@@ -29,10 +29,10 @@ namespace Portal.Consultoras.BizLogic
         }
 
         /*FRZ-12*/
-        public int GetCantidadNotificaciones(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
         {
             var DANotificaciones = new DANotificaciones(PaisID);
-            return DANotificaciones.GetCantidadNotificaciones(ConsultoraId, indicadorBloqueoCDR);
+            return DANotificaciones.GetNotificacionesSinLeer(ConsultoraId, indicadorBloqueoCDR);
         }    
         /*FRZ-12*/
 

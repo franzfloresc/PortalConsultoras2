@@ -460,19 +460,14 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    var listaNotificaciones = ObtenerNotificaciones();
-
-                    cantidadNotificaciones = listaNotificaciones.Count(p => p.Visualizado == false);
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
+                    }
 
                     Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
                     Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
                 }
-
-                //using (var sv = new UsuarioServiceClient())
-                //{
-                //    cantidadNotificaciones = sv.GetCantidadNotificaciones(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
-                //}
-
             }
             catch (Exception ex)
             {
