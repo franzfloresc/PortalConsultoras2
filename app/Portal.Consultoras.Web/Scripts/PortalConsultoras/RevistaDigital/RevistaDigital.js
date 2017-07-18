@@ -27,7 +27,7 @@ $(document).ready(function () {
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
             if (tag == 0 && !isMobile()) {
-                $(objTag).css('padding-top', '105px');
+                $(objTag).css('padding-top', '50px');
             }
         });        
 
@@ -162,7 +162,7 @@ function FlechaScrollDown(idCamapania) {
 function RDMostrarPosicion() {
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
-        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0
+        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0;
         campaniaId = parseInt(campaniaId);
     }
     else {
@@ -216,14 +216,14 @@ function OfertaArmarEstrategias(response) {
 
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
-    response.Consultora = usuarioNombre.toUpperCase()
+    response.Consultora = usuarioNombre.toUpperCase();
     //response.CodigoEstrategia = "101";
 
     // Listado Carrusel
 
     response.Mobile = isMobile();
     var cantProdFiltros = response.cantidadTotal;
-    OfertaObtenerDataLocal(response.CampaniaID)
+    OfertaObtenerDataLocal(response.CampaniaID);
     if (filtroCampania[indCampania] != undefined) {
 
         if (response.Completo == 0) {
