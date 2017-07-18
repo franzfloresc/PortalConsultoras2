@@ -1673,8 +1673,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
-
-            if (nroCampania <= 0) return 0;
+                      
             if (nroCampanias <= 0) return 0;
 
             int sumNroCampania = (nroCampania + numero) - 1;
