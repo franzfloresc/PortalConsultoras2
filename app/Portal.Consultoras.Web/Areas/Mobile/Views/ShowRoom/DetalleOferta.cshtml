@@ -2,11 +2,20 @@
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    @if (Session["IngresoExterno"] != null)
+    {
+        <style>
+            #content {
+                margin-top: 0px !important;
+            }
+        </style>
+    }    
 }
 
 <div class="content_room_product_sheet">
@@ -276,6 +285,8 @@
             <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
             <input type="hidden" class="Palanca" value="SR" />
         </div>
+    @if (mobileConfiguracion.MostrarBotonAtras)
+    {
         <div class="title">Comparte este producto con tus clientes:</div>
         <div class="content_redes_ficha">
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
@@ -285,6 +296,7 @@
                 <img src="/Content/Images/Mobile/Esika/facebook.png">
             </a>
         </div>
+    }        
     </div>
 </div>
 <div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
