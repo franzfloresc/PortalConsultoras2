@@ -265,8 +265,6 @@
 
     @section scripts{
         <script type="text/javascript">
-            $(document).ready(function () {
-            });
             $(function () {
                 var rating = 1.6;
                 $(".rateyo-readonly-widg").rateYo({
@@ -290,7 +288,7 @@
                     ratedFill: "#cca11e",
                     starWidth: "17px"
                 });
-                $(document).ready(function () {
+                $(document).ready(function () {            
                     bestSellerCommentModule.ini({
                         urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario", new { area = "Mobile" })',
                         urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario", new { area = "Mobile" })',
