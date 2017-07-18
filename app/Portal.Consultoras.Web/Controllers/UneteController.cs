@@ -1683,7 +1683,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
                 {
-                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile, Pais.Dominicana
                 };
 
                 if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
