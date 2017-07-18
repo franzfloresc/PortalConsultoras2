@@ -819,7 +819,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -847,7 +847,7 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -881,7 +881,7 @@ function CargarCantidadPedidosConsultoraOnline() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
