@@ -2816,7 +2816,7 @@ function CalcularTotalPedido(Total, Total_Minimo) {
         $('#hdfTotal').val(parseFloat(Total).toFixed(2));
         $("#spPedidoWebAcumulado").text(vbSimbolo + " " + parseFloat(Total).toFixed(2));
     }
-    CargarResumenCampaniaHeader();
+    //CargarResumenCampaniaHeader();
 }
 
 function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
@@ -3042,7 +3042,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#pCantidadProductosPedido").html(totalUnidades);
 
             MostrarBarra(data);
-            CargarResumenCampaniaHeader();
+            //CargarResumenCampaniaHeader();
             if (data.modificoBackOrder) {
                 showDialog('divBackOrderModificado');
                 //CargarDetallePedido();
