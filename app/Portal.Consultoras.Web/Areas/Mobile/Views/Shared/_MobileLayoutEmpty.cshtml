@@ -185,12 +185,15 @@
     </div>
 
     @Scripts.Render("~/Scripts/Mobile")
+    @Scripts.Render("~/Scripts/MobileLayout")
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -202,11 +205,22 @@
         var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
         var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
 
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
+
         //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
 
         var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
         var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+
+        //ODD
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
     </script>
 
     <script type="text/javascript">
@@ -420,6 +434,7 @@
         };
     </script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
 
 </body>
