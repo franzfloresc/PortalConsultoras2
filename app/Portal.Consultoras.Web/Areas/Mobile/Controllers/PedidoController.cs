@@ -23,9 +23,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new PedidoMobileModel();
 
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWeb"] = null;
-            Session["PedidoWebDetalle"] = null;
+            sessionManager.SetObservacionesProl(null);
+            sessionManager.SetPedidoWeb(null);
+            sessionManager.SetDetallesPedido(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -154,8 +154,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         
         public ActionResult Detalle(bool autoReservar = false)
         {
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWebDetalle"] = null;
+            sessionManager.SetObservacionesProl(null);
+            sessionManager.SetDetallesPedido(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())

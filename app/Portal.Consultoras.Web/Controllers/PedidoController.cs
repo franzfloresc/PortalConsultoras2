@@ -37,34 +37,20 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                model.EsPais = System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika")
-                    .Contains(userData.CodigoISO) ? "Ésika" : "L'bel";
+                model.EsPais = GetMarcaPorCodigoIso(userData.CodigoISO);
                 model.CodigoIso = userData.CodigoISO;
 
-                #region Sesiones
+                sessionManager.SetObservacionesProl(null);
+                sessionManager.SetPedidoWeb(null);
+                sessionManager.SetDetallesPedido(null);
+                sessionManager.SetCorreoPedidoDetalle(null);
 
-                Session["ObservacionesPROL"] = null;
-                Session["PedidoWeb"] = null;
-                Session["PedidoWebDetalle"] = null;
-
-                /*** EPD-2378 ***/
-                Session["EmailPedidoDetalle"] = null;
-                /*** FIN EPD-2378 ***/
-
-                #endregion
-
-                #region Kit Nuevas
-
-                if (Session["ConfiguracionProgramaNuevas"] == null)
-                    AgregarKitNuevas();
-
-                #endregion
+                AgregarKitNuevas();
 
                 #region Flexipago
 
-                string hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
-
-                if (hasFlexipago.Contains(userData.CodigoISO))
+                model.IndicadorFlexiPago = 0;
+                if (PaisTieneFlexiPago(userData.CodigoISO))
                 {
                     model.IndicadorFlexiPago = userData.IndicadorFlexiPago;
 
@@ -78,8 +64,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.PedidoBase = pedidoBase;
                     }
                 }
-                else
-                    model.IndicadorFlexiPago = 0;
+                    
 
                 #endregion
 
@@ -134,21 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("CampaniaZonaNoConfigurada");
                 }
 
-                //if (userData.TipoUsuario == 1)
-                //{
                 ValidarStatusCampania(oBEConfiguracionCampania);
-                //}
-
-                //model.Prol = oBEConfiguracionCampania.ZonaValida
-                //    ? userData.PROLSinStock
-                //        ? "Guarda tu pedido"
-                //        : userData.NuevoPROL && userData.ZonaNuevoPROL
-                //            ? "Guarda tu pedido"
-                //            : userData.MostrarBotonValidar
-                //                ? "Valida tu pedido"
-                //                : "Guarda tu pedido"
-                //    : "Guarda tu pedido";
-
 
                 /* SB20-287 - INICIO */
                 TimeSpan HoraCierrePortal = userData.EsZonaDemAnti == 0 ? userData.HoraCierreZonaNormal : userData.HoraCierreZonaDemAnti;
@@ -345,13 +316,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                //if (model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore ||
-                //        model.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-                //{
-                //    if (esFacturacion)
-                //        ObtenerListadoProductosOfertaFinal();
-                //}
-
                 #region Pedidos Pendientes
 
                 ViewBag.MostrarPedidosPendientes = "0";
@@ -380,26 +344,6 @@ namespace Portal.Consultoras.Web.Controllers
                                 }
                             }
                         }
-
-                        //List<BEMisPedidos> olstMisPedidos = new List<BEMisPedidos>();
-                        //using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                        //{
-                        //    olstMisPedidos = svc.GetMisPedidosConsultoraOnline(UserData().PaisID, UserData().ConsultoraID, UserData().CampaniaID).ToList();
-                        //}
-                        //if (olstMisPedidos.Any())
-                        //{
-                        //    olstMisPedidos.RemoveAll(x => x.Estado.Trim().Length > 0);  // solo pendientes
-                        //    if (olstMisPedidos.Count > 0)
-                        //    {
-                        //        ViewBag.MostrarPedidosPendientes = "1";
-
-                        //        using (SACServiceClient sv = new SACServiceClient())
-                        //        {
-                        //            List<BEMotivoSolicitud> motivoSolicitud = sv.GetMotivosRechazo(userData.PaisID).ToList();
-                        //            ViewBag.MotivosRechazo = Mapper.Map<List<MisPedidosMotivoRechazoModel>>(motivoSolicitud);
-                        //        }
-                        //    }
-                        //}
                     }
                 }
 
@@ -417,10 +361,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
                 ViewBag.NombreConsultora = userData.Sobrenombre;
-                /*** EPD 2170 ***/
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     model.Prol = "GUARDA TU PEDIDO";
-                /*** FIN 2170 ***/
 
                 model.CampaniaActual = userData.CampaniaID;
                 model.Simbolo = userData.Simbolo;
@@ -434,7 +376,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
-                //model.TieneOfertaLog = userData.TieneOfertaLog;
             }
             catch (FaultException ex)
             {
@@ -447,6 +388,30 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
+
+       
+
+        private string GetPaisesEsika()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+        }
+
+        private string GetMarcaPorCodigoIso(string codigoIso)
+        {
+            return GetPaisesEsika().Contains(codigoIso) ? "Ésika" : "L'bel";
+        }
+
+        private string GetPaisesFlexiPago()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
+        }
+
+        private bool PaisTieneFlexiPago(string codigoIso)
+        {
+            return GetPaisesFlexiPago().Contains(codigoIso);
+        }
+
+
 
         private void ValidarStatusCampania(BEConfiguracionCampania oBEConfiguracionCampania)
         {
@@ -868,9 +833,9 @@ namespace Portal.Consultoras.Web.Controllers
             PedidoDetalleModel PedidoModelo = new PedidoDetalleModel();
             PedidoModelo.Simbolo = userData.Simbolo;
             List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-            if (Session["ObservacionesPROL"] != null)
+            if (sessionManager.GetObservacionesProl() != null)
             {
-                List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
+                List<ObservacionModel> Observaciones = sessionManager.GetObservacionesProl();
                 List<ObservacionModel> Obs = Observaciones.Where(p => p.CUV == obe.CUV).ToList();
                 if (Obs.Count != 0)
                 {
@@ -927,9 +892,9 @@ namespace Portal.Consultoras.Web.Controllers
                 obe.Mensaje = string.Empty;
 
                 if (EsBackOrder) obe.Mensaje = Constantes.BackOrder.LogAccionCancelar;
-                else if (Session["ObservacionesPROL"] != null)
+                else if (sessionManager.GetObservacionesProl() != null)
                 {
-                    List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
+                    List<ObservacionModel> Observaciones = sessionManager.GetObservacionesProl();
                     List<ObservacionModel> Obs = Observaciones.Where(p => p.CUV == CUV).ToList();
                     if (Obs.Count != 0) obe.Mensaje = Obs[0].Descripcion;
                 }
@@ -1228,8 +1193,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
 
                 }
-                //ViewBag.LineaCredito = string.Format("{0:#,##0.00}", 0);
-                //ViewBag.PedidoBase = string.Format("{0:#,##0.00}", 0);
             }
             catch (FaultException ex)
             {
@@ -2068,9 +2031,9 @@ namespace Portal.Consultoras.Web.Controllers
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
             }
             var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
-                        
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWebDetalle"] = null;
+
+            sessionManager.SetObservacionesProl(null);
+            sessionManager.SetDetallesPedido(null);
             if (resultado.RefreshMontosProl)
             {
                 Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
@@ -2083,8 +2046,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
             {
                 if (resultado.Reserva) CambioBannerGPR(true);
-                Session["ObservacionesPROL"] = listObservacionModel;
-                if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
+                sessionManager.SetObservacionesProl(listObservacionModel);
+                if (resultado.RefreshPedido) sessionManager.SetPedidoWeb(null);
             }
             SetUserData(userData);
 
