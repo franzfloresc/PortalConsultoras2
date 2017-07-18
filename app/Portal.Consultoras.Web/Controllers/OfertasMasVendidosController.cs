@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Lista = listModel;
 
                 model = ActualizarPosicion(model);
+                model = ActualizarPrecioFormateado(model);                
 
                 return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
             }
@@ -76,6 +77,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
+        }
+
+        private EstrategiaOutModel ActualizarPrecioFormateado(EstrategiaOutModel model)
+        {
+            if (model != null)
+            {
+                for (int i = 0; i <= model.Lista.Count - 1; i++)
+                {
+                    model.Lista[i].Posicion = i + 1;
+                    model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
+                    model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
+                }
+            }
+            return model;
         }
     }
 }
