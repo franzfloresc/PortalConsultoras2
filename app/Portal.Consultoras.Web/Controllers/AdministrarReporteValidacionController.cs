@@ -157,9 +157,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (int.Parse(TipoEstrategiaID) == 99)
                 return ExportarExcelShowRoom(CampaniaID);
             if (int.Parse(TipoEstrategiaID) == 4)
-                nombreReporte = NombreReporteValidacionODD;
-            if (int.Parse(TipoEstrategiaID) == 7)
                 nombreReporte = NombreReporteValidacionOPT;
+            if (int.Parse(TipoEstrategiaID) == 7)
+                nombreReporte = NombreReporteValidacionODD;
 
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
