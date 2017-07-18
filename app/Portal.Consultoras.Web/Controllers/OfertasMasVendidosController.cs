@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Lista = listModel;
 
                 model = ActualizarPosicion(model);
+                model = ActualizarPrecioFormateado(model);                
 
                 return Json(new { success = true, data = model }, JsonRequestBehavior.AllowGet);
             }
@@ -59,11 +60,15 @@ namespace Portal.Consultoras.Web.Controllers
                         for (int i = 0; i <= model.Lista.Count - 1; i++)
                         {
                             model.Lista[i].IsAgregado = listaPedido.Any(p => p.CUV == model.Lista[i].CUV2.Trim());
+                            model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
+                            model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
                         }
                     }
                     if (model.Item != null)
                     {
                         model.Item.IsAgregado = listaPedido.Any(p => p.CUV == model.Item.CUV2.Trim());
+                        model.Item.PrecioTachado = Util.DecimalToStringFormat(model.Item.Precio, userData.CodigoISO);
+                        model.Item.GananciaString = Util.DecimalToStringFormat(model.Item.Ganancia, userData.CodigoISO);
                     }
                 }
                 return Json(new { success = true, data = model });
@@ -72,6 +77,20 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message });
             }
+        }
+
+        private EstrategiaOutModel ActualizarPrecioFormateado(EstrategiaOutModel model)
+        {
+            if (model != null)
+            {
+                for (int i = 0; i <= model.Lista.Count - 1; i++)
+                {
+                    model.Lista[i].Posicion = i + 1;
+                    model.Lista[i].PrecioTachado = Util.DecimalToStringFormat(model.Lista[i].Precio, userData.CodigoISO);
+                    model.Lista[i].GananciaString = Util.DecimalToStringFormat(model.Lista[i].Ganancia, userData.CodigoISO);
+                }
+            }
+            return model;
         }
     }
 }
