@@ -363,5 +363,7 @@ namespace Portal.Consultoras.Web.Models
         public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
+
+        public string CodigosConcursos { get; set; }
     }
 }

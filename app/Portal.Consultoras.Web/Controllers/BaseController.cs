@@ -30,7 +30,6 @@ namespace Portal.Consultoras.Web.Controllers
         #region Variables
 
         protected UsuarioModel userData;
-        protected string ConcursosCodigos = string.Empty;
         protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
 
         #endregion
@@ -380,38 +379,16 @@ namespace Portal.Consultoras.Web.Controllers
             if (listProducto.Any())
             {
 
-            string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
-            string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
+                string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
+                string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
 
                 var ambiente = ConfigurationManager.AppSettings["Ambiente"] ?? "";
                 var keyWeb = ambiente.ToUpper() == "QA" ? "QA_Prol_ServicesCalculos" : "PR_Prol_ServicesCalculos";
 
-            #region Concursos
-
-            List<BEConsultoraConcurso> Concursos = new List<BEConsultoraConcurso>();
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                try
+                using (var sv = new ServicesCalculoPrecioNiveles())
                 {
-                    Concursos = sv.ObtenerConcursosXConsultora(userData.PaisID, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigorRegion, userData.CodigoZona).ToList();
-                }
-                catch (Exception)
-                {
-                    Concursos = new List<BEConsultoraConcurso>();
-                }
-            }
-            if (Concursos.Any())
-            {
-                ConcursosCodigos = string.Join("|", Concursos.Select(c => c.CodigoConcurso).ToArray());
-            }
-
-            #endregion
-
-                using (var sv = new ServicesCalculosPROL.ServicesCalculoPrecioNiveles())
-                {
-                sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, ConcursosCodigos).ToList();
+                    sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
+                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
                 }
             }
             else
@@ -467,31 +444,32 @@ namespace Portal.Consultoras.Web.Controllers
                 Decimal.TryParse(datos.MontoEscala, out montoEscala);
             }
 
+            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+            bePedidoWeb.PaisID = userData.PaisID;
+            bePedidoWeb.CampaniaID = userData.CampaniaID;
+            bePedidoWeb.ConsultoraID = userData.ConsultoraID;
+            bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
+            bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
+            bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
+            bePedidoWeb.DescuentoProl = montoDescuento;
+            bePedidoWeb.MontoEscala = montoEscala;
+
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 string Concursos = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.codigoconcurso).ToArray()) : string.Empty;
                 string Puntajes = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.puntajeconcurso).ToArray()) : string.Empty;
 
-                BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
-                bePedidoWeb.PaisID = userData.PaisID;
-                bePedidoWeb.CampaniaID = userData.CampaniaID;
-                bePedidoWeb.ConsultoraID = userData.ConsultoraID;
-                bePedidoWeb.CodigoConsultora = userData.CodigoConsultora;
-                bePedidoWeb.MontoAhorroCatalogo = montoAhorroCatalogo;
-                bePedidoWeb.MontoAhorroRevista = montoAhorroRevista;
-                bePedidoWeb.DescuentoProl = montoDescuento;
-                bePedidoWeb.MontoEscala = montoEscala;
-
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
+
                 // Insertar/Actualizar los puntos de la consultora.
                 if (lista[0].ListaConcursoIncentivos != null)
-                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), ConcursosCodigos, Puntajes);
-
-                // poner en Session
-                sessionManager.SetPedidoWeb(null);
-                userData.EjecutaProl = true;
-                ObtenerPedidoWeb();
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
             }
+
+            // poner en Session
+                sessionManager.SetPedidoWeb(null);
+            userData.EjecutaProl = true;
+            ObtenerPedidoWeb();
         }
 
         protected bool ReservadoEnHorarioRestringido(out string mensaje)
@@ -908,7 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
         private void SepararItemsMenu(ref List<PermisoModel> menu, List<PermisoModel> menuOriginal, int idPadre)
         {
             // Asignar los hijos
-            menu = menuOriginal.Where(x => x.IdPadre == idPadre && ( x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
+            menu = menuOriginal.Where(x => x.IdPadre == idPadre && (x.Descripcion != "" || x.UrlItem != "" || x.UrlImagen != ""))
                 .OrderBy(x => x.Posicion)
                 .ToList();
 
@@ -1691,12 +1669,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
-            if(campania<=0 )return 0;
+            if (campania <= 0) return 0;
 
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
-
-            if (nroCampania <= 0) return 0;
+                      
+            if (nroCampanias <= 0) return 0;
 
             int sumNroCampania = (nroCampania + numero) - 1;
             int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
@@ -1797,10 +1775,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaEscalaDescuento = new List<BEEscalaDescuento>();
                 if (inEscala)
                 {
-                    //if (objR.MontoMaximoStr == "")
-                    //{
                     listaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-                    //}
                 }
 
                 foreach (var escala in listaEscalaDescuento)
@@ -1825,8 +1800,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-
-                //return new BarraConsultoraModel();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             return objR;
@@ -1843,8 +1817,9 @@ namespace Portal.Consultoras.Web.Controllers
                     listaEscalaDescuento = sv.GetEscalaDescuento(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 listaEscalaDescuento = new List<BEEscalaDescuento>();
             }
 
@@ -1874,8 +1849,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[constSession] = oBEConsultorasProgramaNuevas ?? new BEConsultorasProgramaNuevas();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Session[constSession] = new BEConsultorasProgramaNuevas();
             }
 
@@ -1904,8 +1880,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 Session[constSession] = lista ?? new List<BEMensajeMetaConsultora>();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 Session[constSession] = new List<BEMensajeMetaConsultora>();
             }
 
@@ -2006,9 +1983,9 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return sFecha;
         }
@@ -2441,7 +2418,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return urlBase_fb;
         }
-        
+
         protected JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -2561,34 +2538,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
                 return accion;
             }
-            /*
-            try
-            {
-                tipo = Util.Trim(tipo).ToLower();
-                switch (tipo)
-                {
-                    case "sr":
-                        controlador = "ShowRoom";
-                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
-                        accion = esVenta ? "Index" : "Intriga";
-                        break;
-                 }
-        
-                if (onlyAction) return accion;
-                return (mobile ? "/Mobile/" : "") + controlador + (controlador == "" ? "" : "/") + accion;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            
-            * */
-         }
-
-        //public bool MostrarFAV()
-        //{
-        //    return !(userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida);
-        //}
+        }
 
         public bool IsMobile()
         {
