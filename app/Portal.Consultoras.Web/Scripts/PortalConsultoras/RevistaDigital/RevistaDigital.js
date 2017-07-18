@@ -418,7 +418,7 @@ function RDDetalleObtener() {
     
     var prod = GetProductoStorage(cuv, campania);
     var mobile = isMobile();
-    if (prod == undefined) {
+    if (prod == null || prod == undefined) {
         window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
     }
     if (prod.CUV2 == undefined) {
@@ -451,8 +451,10 @@ function RDDetalleObtener() {
 
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
-    if (sl == undefined) {
-        return undefined;
+    if (model == null || sl == undefined) {
+        var model = CargarEstrategiaCuv(cuv);
+        if (model != null) return model;
+        else return null;
     }
 
     sl = JSON.parse(sl);
@@ -462,7 +464,7 @@ function GetProductoStorage(cuv, campania) {
     }
     if (listaProd.length > 0) {
         listaProd[0].Posicion = 0;
-        return listaProd[0]
+        return listaProd[0];
     }
 
     return new Object();

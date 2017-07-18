@@ -648,6 +648,25 @@ function CargarEstrategiaSet(cuv) {
     return detalle;
 }
 
+function CargarEstrategiaCuv(cuv) {
+    AbrirLoad();
+    var detalle = new Array();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            detalle = data || new Array();
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+    CerrarLoad();
+    return detalle;
+}
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
         var divMensaje = $("#divMensajeBloqueada");
