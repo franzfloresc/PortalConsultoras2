@@ -570,16 +570,14 @@ namespace Portal.Consultoras.Web.Controllers
                 olstPedidoWebDetalle = AdministradorPedido(oBePedidoWebDetalle, "I", out errorServer, out tipo, out modificoBackOrder);
 
                 decimal total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
-                string formatoTotal = "";
-
-                formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
+                string formatoTotal = Util.DecimalToStringFormat(total, userData.CodigoISO);
 
                 var listaCliente = new List<BECliente>();
                 if (model.ClienteID_ != "-1")
                 {
-                    listaCliente = (from item in olstPedidoWebDetalle
-                                    select new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
-                        ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+                    listaCliente = olstPedidoWebDetalle
+                        .Select( item =>new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                        .GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
                     listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
                 }
 
@@ -617,7 +615,8 @@ namespace Portal.Consultoras.Web.Controllers
                     errorInsertarProducto = !errorServer ? "0" : "1",
                     tipo,
                     modificoBackOrder,
-                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel()
+                    DataBarra = !errorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                    cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum(dp => dp.Cantidad)
                 });
 
             }
@@ -824,6 +823,7 @@ namespace Portal.Consultoras.Web.Controllers
                 tipo,
                 modificoBackOrder,
                 DataBarra = !ErrorServer ? GetDataBarra() : new BarraConsultoraModel(),
+                cantidadTotalProductos = ObtenerPedidoWebDetalle().Sum( x => x.Cantidad)
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -935,9 +935,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 List<BECliente> listaCliente;
-                listaCliente = (from item in olstPedidoWebDetalle
-                                select new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre }
-                                                        ).GroupBy(x => x.ClienteID).Select(x => x.First()).ToList();
+                listaCliente = olstPedidoWebDetalle
+                    .Select( item => new BECliente { ClienteID = item.ClienteID, Nombre = item.Nombre })
+                    .GroupBy(x => x.ClienteID).Select(x => x.First())
+                    .ToList();
                 listaCliente.Insert(0, new BECliente { ClienteID = -1, Nombre = "-- TODOS --" });
                 Session["ListadoEstrategiaPedido"] = null;
 
@@ -962,7 +963,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Precio = pedidoEliminado.PrecioUnidad.ToString("F"),
                         DescripcionMarca = pedidoEliminado.DescripcionLarga,
                         DescripcionOferta = pedidoEliminado.DescripcionOferta
-                    }
+                    },
+                    cantidadTotalProductos = olstPedidoWebDetalle.Sum(x => x.Cantidad)
                 });
             }
             catch (Exception ex)
@@ -3013,7 +3015,7 @@ namespace Portal.Consultoras.Web.Controllers
                     /*EPD-1252*/
                 }
 
-                Session["PedidoWebDetalle"] = null;
+                sessionManager.SetDetallesPedido(null);
                 olstTempListado = ObtenerPedidoWebDetalle();
                 UpdPedidoWebMontosPROL();
             }

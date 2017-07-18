@@ -319,9 +319,7 @@ function messageInfoError(message, titulo, fnAceptar) {
     }
 }
 
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-}
+
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
@@ -359,9 +357,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
                     if (showPopup == true) {
                         microefectoPedidoGuardado();
-                        setTimeout(function () {
-                            $(".contenedor_circulos").fadeOut();
-                        }, 2700);
+                       
                     }
                 }
                 else {
@@ -376,6 +372,14 @@ function CargarResumenCampaniaHeader(showPopup) {
         }
     });
 };
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
+}
+
 function CargarCantidadNotificacionesSinLeer() {
     jQuery.ajax({
         type: 'POST',
