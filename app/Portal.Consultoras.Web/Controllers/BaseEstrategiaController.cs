@@ -392,13 +392,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
-            if (IsMobile() && listaProductoModel.Any())
-            {
-                if (userData.RevistaDigital.TieneRDR )
-                {
-                    listaProductoModel = listaProductoModel.Take(1).ToList();
-                }
-            }
+            //if (IsMobile() && listaProductoModel.Any())
+            //{
+            //    if (userData.RevistaDigital.TieneRDR )
+            //    {
+            //        listaProductoModel = listaProductoModel.Take(1).ToList();
+            //    }
+            //}
             return listaProductoModel;
         }
 
