@@ -493,7 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
+
         [AllowAnonymous]
         public ActionResult LogOut()
         {
