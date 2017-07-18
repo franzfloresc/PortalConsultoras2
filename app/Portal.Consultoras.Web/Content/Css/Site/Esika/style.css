@@ -21220,10 +21220,8 @@ label.checkpop.c_on {
 
 .producto_img_home{
     height: 158px;
-   
     text-align:center;
-    margin:20px;
-   
+    margin-top:20px;
     /*background:#ccc;*/
 }
 
