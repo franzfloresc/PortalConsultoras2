@@ -36,6 +36,7 @@ function RDPopupCerrar(tipo) {
 }
 
 function RDSuscripcion(accion) {
+    CerrarPopup("#PopRDSuscripcion");
     AbrirLoad();
     InscripcionRDAnalytics();
     $.ajax({
@@ -66,7 +67,7 @@ function RDSuscripcion(accion) {
             $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
 
             if (accion == 0) {
-                CerrarPopup("#PopRDSuscripcion");
+                
                 MostrarMenu(data.CodigoMenu);
                 if (!isMobile()) {
                     CargarBanners();
@@ -80,7 +81,7 @@ function RDSuscripcion(accion) {
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
+            
         }
     });
 }

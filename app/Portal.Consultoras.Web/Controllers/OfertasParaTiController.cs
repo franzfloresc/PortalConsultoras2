@@ -15,7 +15,14 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = EstrategiaGetDetalleCuv(cuv);
             return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        public JsonResult ConsultarEstrategiaCuv(string cuv)
+        {
+            var modelo = EstrategiaGetDetalleCuv(cuv);
+            return Json(modelo, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "") 
         {

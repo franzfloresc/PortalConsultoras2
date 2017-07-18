@@ -247,7 +247,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -319,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -364,7 +362,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -389,7 +386,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
