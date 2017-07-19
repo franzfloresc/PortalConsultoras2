@@ -360,7 +360,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // Insertar/Actualizar los puntos de la consultora.
                 if (lista[0].ListaConcursoIncentivos != null)     
-                //if(!string.IsNullOrEmpty(userData.CodigosConcursos))         
                  sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
             }
 
