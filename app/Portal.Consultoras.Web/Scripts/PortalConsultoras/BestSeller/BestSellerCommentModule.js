@@ -30,7 +30,7 @@
         cantidadCrecienteMostrarInicial: 0,
         cantidadCrecienteMostrar: 5,
         esperarScroll: false,
-        origenPantalla:1
+        origenPantalla:0
     };
 
     var _bindEvents = function () {
@@ -43,9 +43,8 @@
             _ocultarContenedorValoracion();
         });
 
-        $(document).on("click", elements.btnEnviarComentario, function () {
-            if (setting.origenPantalla === 1) { waitingDialog({}); }
-            if (setting.origenPantalla === 2) { waitingDialog({}); }
+        $("body").on("click", elements.btnEnviarComentario, function () {
+            abrirModalCargando();
             _registrarComentario();
         });
 
@@ -122,16 +121,15 @@
                     _mostrarContenedorConfirmacionComentario();
                 } else {
                     alert(registrarComentarioResponse.message);
-                }
-
-                closeWaitingDialog();
+                }                
+                cerrarModalCargando();
             }
         });
 
     };
 
     var _listarComentarios = function (cantidadCrecienteMostrarInicial) {
-        waitingDialog();
+        abrirModalCargando();
         setting.esperarScroll = true;
 
         var model = _obtenerFiltrosListarComentarios(cantidadCrecienteMostrarInicial);
@@ -148,7 +146,7 @@
                 }
 
                 setting.esperarScroll = false;
-                closeWaitingDialog();
+                cerrarModalCargando();
             }
         });
     };
@@ -371,6 +369,17 @@
         _listarComentarios(setting.cantidadCrecienteMostrarInicial);
         setting.origenPantalla = parameters.origenPantalla;
     };
+
+    var abrirModalCargando = function () {
+        if (setting.origenPantalla === 1) {waitingDialog();}
+        if (setting.origenPantalla === 2) {ShowLoading();}
+
+    }
+
+    var cerrarModalCargando = function () {
+        if (setting.origenPantalla === 1) { closeWaitingDialog(); }
+        if (setting.origenPantalla === 2) { CloseLoading(); }
+    }
 
     return {
         ini: function (parameters) {
