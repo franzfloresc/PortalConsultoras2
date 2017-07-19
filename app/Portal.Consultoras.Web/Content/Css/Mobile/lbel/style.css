@@ -11776,7 +11776,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     letter-spacing:1.7px;
     text-align:center;
     font-weight:300;
-    margin-bottom:20px;
+    margin-bottom:7px;
     display: inline-block;
     padding-left: 8px;
     padding-right: 8px;
@@ -12047,7 +12047,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     color:black;
     border:1px solid #979797;
     margin-top:15px;
-    padding:10px;    
+    padding:10px;   
+    height:160px; 
 }
 .enviar_comentario_Seller{
     width:100%;
@@ -12146,9 +12147,14 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .respuesta_pregunta:last-child{    
     margin-right:0;
 }
+.content_detalle_comentarios{
+    /*float:right;*/
+    width:100%;
+}
 .titulo_estrellas{
     vertical-align: top;   
-   padding-top: 6px !important;
+   /*padding-top: 6px !important;*/
+   margin-bottom:15px;
 }
 .content_mas_vendidos .slick-slide{
         padding-bottom: 12px;
