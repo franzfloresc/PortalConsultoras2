@@ -827,7 +827,8 @@ function InsertarProducto(form) {
                 MostrarBarra(response);
                 if (response.modificoBackOrder) showDialog('divBackOrderModificado');
                 CargarDetallePedido();
-
+                $("#pCantidadProductosPedido").html(response.cantidadTotalProductos > 0 ? response.cantidadTotalProductos : 0);
+                microefectoPedidoGuardado();
                 TrackingJetloreAdd(form.data.Cantidad, $("#hdCampaniaCodigo").val(), form.data.CUV);
                 dataLayer.push({
                     'event': 'addToCart',
@@ -2097,7 +2098,7 @@ function CalcularTotal() {
         content: "<img src='" + baseUrl + "Content/Images/aviso.png" + "' />",
         position: { my: "left bottom", at: "left top-20%", collision: "flipfit" }
     });
-    CargarResumenCampaniaHeader();
+    //CargarResumenCampaniaHeader();
 }
 
 function MostrarProductoAgregado(imagen, descripcion, cantidad, total) {
@@ -2161,7 +2162,8 @@ function DeletePedido(campaniaId, pedidoId, pedidoDetalleId, tipoOfertaSisId, cu
                 CargarCarouselEstrategias(cuv);
             }
             MostrarBarra(data);
-            CargarResumenCampaniaHeader(true);
+            $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
+            microefectoPedidoGuardado();
             TrackingJetloreRemove(cantidad, $("#hdCampaniaCodigo").val(), cuv);
             dataLayer.push({
                 'event': 'removeFromCart',
@@ -2814,7 +2816,7 @@ function CalcularTotalPedido(Total, Total_Minimo) {
         $('#hdfTotal').val(parseFloat(Total).toFixed(2));
         $("#spPedidoWebAcumulado").text(vbSimbolo + " " + parseFloat(Total).toFixed(2));
     }
-    CargarResumenCampaniaHeader();
+    //CargarResumenCampaniaHeader();
 }
 
 function ValidarUpdate(PedidoDetalleID, FlagValidacion) {
@@ -2929,6 +2931,9 @@ function UpdateConCantidad(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion
 
             MostrarBarra(data);
 
+             $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
+             microefectoPedidoGuardado();
+
         },
         error: function (data, error) {
             CerrarSplash();
@@ -3037,7 +3042,7 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             $("#pCantidadProductosPedido").html(totalUnidades);
 
             MostrarBarra(data);
-            CargarResumenCampaniaHeader();
+            //CargarResumenCampaniaHeader();
             if (data.modificoBackOrder) {
                 showDialog('divBackOrderModificado');
                 //CargarDetallePedido();
@@ -3666,7 +3671,8 @@ function AgregarProducto(url, model, divDialog, cerrarSplash, asyncX) {
                 PedidoOnSuccessSugerido(model);
 
             CargarDetallePedido();
-            CargarResumenCampaniaHeader();
+            $("#pCantidadProductosPedido").html(data.cantidadTotalProductos > 0 ? data.cantidadTotalProductos : 0);
+            microefectoPedidoGuardado();
             if (cerrarSplash) CerrarSplash();
             MostrarBarra(data);
             TrackingJetloreAdd(model.Cantidad, $("#hdCampaniaCodigo").val(), model.CUV);

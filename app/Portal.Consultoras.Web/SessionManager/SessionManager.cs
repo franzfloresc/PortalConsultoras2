@@ -46,5 +46,15 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             return (List<ObservacionModel>)HttpContext.Current.Session["ObservacionesPROL"];
         }
+
+        public void SetObservacionesProl(List<ObservacionModel> observaciones)
+        {
+            HttpContext.Current.Session["ObservacionesPROL"] = observaciones;
+        }
+
+        public void SetCorreoPedidoDetalle(string correoPedidoDetalle)
+        {
+            HttpContext.Current.Session["EmailPedidoDetalle"] = correoPedidoDetalle;
+        }
     }
 }

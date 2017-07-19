@@ -20,5 +20,9 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetDetallesPedido(List<BEPedidoWebDetalle> detallesPedidoWeb);
 
         List<ObservacionModel> GetObservacionesProl();
+
+        void SetObservacionesProl(List<ObservacionModel> observaciones);
+
+        void SetCorreoPedidoDetalle(string correoPedidoDetalle);
     }
 }
