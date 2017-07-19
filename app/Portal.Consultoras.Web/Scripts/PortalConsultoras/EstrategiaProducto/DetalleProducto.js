@@ -35,7 +35,7 @@
             if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
             if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }            
             _validarDivTituloMasVendidos();
-            if (tipoOrigenPantalla === 2) { $('.header_slider').hide(); OcultarBannerTop(); }
+            if (tipoOrigenPantalla === 2) { $('.header_slider').hide(); LayoutHeader(); }
         });
     }
 
