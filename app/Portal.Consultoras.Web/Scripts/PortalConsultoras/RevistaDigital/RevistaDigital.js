@@ -429,15 +429,16 @@ function RDDetalleObtener() {
     obj.CampaniaID = prod.CampaniaID;
     obj.Lista = new Array();
     obj.Lista.push(prod);
-    if (mobile) {
+    //if (mobile) {
         $.each(obj.Lista, function (ind, tem) {
             tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
             tem.PuedeAgregar = 1;
+            tem.Posicion = ind + 1;
             if (tem.ClaseBloqueada != "") {
                 tem.PuedeAgregar = 0;
             }
         });
-    }
+    //}
 
     SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
