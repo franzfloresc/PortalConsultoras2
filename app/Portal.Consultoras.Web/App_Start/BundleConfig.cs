@@ -194,9 +194,19 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/JS-Login").Include(
+               "~/Scripts/General.js",
+               "~/Scripts/PortalConsultoras/Login/FormsSignIn.js"
+               ));
+
+
+            bundles.Add(new StyleBundle("~/Content/Css/Login").Include(
+               "~/Content/Css/ui.jquery/jquery-ui.css",
+               "~/Content/Css/Site/jquery.custom-scrollbar.css"
+               ));
             #endregion
 
-#if DEBUG
+#if !DEBUG
             BundleTable.EnableOptimizations = false;
 #else
             BundleTable.EnableOptimizations = true;
