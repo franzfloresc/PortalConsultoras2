@@ -41,7 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var cantidadConstante = 10;
+                var cantidadConstante = 5;
                 var listaComentarios = ListarComentariosServicio(codigoSAP, cantidadMostrar, cantidadConstante, orden);
                 foreach (var item in listaComentarios)
                 {
