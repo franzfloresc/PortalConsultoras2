@@ -40,6 +40,23 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             ModelState.Clear();
 
+            using (var sv = new ClienteServiceClient())
+            {
+                var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, model.ClienteID, 0);
+
+                model = new ClienteMobileModel()
+                {
+                    ClienteID = clienteService.ClienteID,
+                    CodigoCliente = clienteService.CodigoCliente,
+                    Nombre = clienteService.Nombre,
+                    NombreCliente = clienteService.NombreCliente,
+                    ApellidoCliente = clienteService.ApellidoCliente,
+                    Celular = clienteService.Celular,
+                    Telefono = clienteService.Telefono,
+                    Email = clienteService.eMail,
+                };
+            }
+
             return PartialView(model);
         }
 
@@ -82,7 +99,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     ClienteID = model.CodigoCliente,
                     ClienteIDSB = model.ClienteID,
-                    Nombres = model.Nombre,
+                    //Nombres = model.Nombre,
+                    Nombres = model.NombreCliente,
+                    Apellidos = model.ApellidoCliente,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Mobile,
                     Estado = Constantes.ClienteEstado.Activo,

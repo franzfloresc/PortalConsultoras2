@@ -33,6 +33,25 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public PartialViewResult Detalle(ClienteModel cliente)
         {
+            ModelState.Clear();
+
+            using (var sv = new ClienteServiceClient())
+            {
+                var clienteService = sv.SelectByConsultoraByCodigo(userData.PaisID, userData.ConsultoraID, cliente.ClienteID, 0);
+
+                cliente = new ClienteModel()
+                {
+                    ClienteID = clienteService.ClienteID,
+                    CodigoCliente = clienteService.CodigoCliente,
+                    Nombre = clienteService.Nombre,
+                    NombreCliente = clienteService.NombreCliente,
+                    ApellidoCliente = clienteService.ApellidoCliente,
+                    Celular = clienteService.Celular,
+                    Telefono = clienteService.Telefono,
+                    eMail = clienteService.eMail,
+                };
+            }
+
             return PartialView(cliente);
         }
 
@@ -78,7 +97,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ClienteID = model.CodigoCliente,
                     ClienteIDSB = model.ClienteID,
-                    Nombres = model.Nombre,
+                    //Nombres = model.Nombre,
+                    Nombres = model.NombreCliente,
+                    Apellidos = model.ApellidoCliente,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Desktop,
                     Estado = Constantes.ClienteEstado.Activo,
