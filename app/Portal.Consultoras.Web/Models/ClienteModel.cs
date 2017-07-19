@@ -34,5 +34,8 @@ namespace Portal.Consultoras.Web.Models
         public string Celular { get; set; }
         public long CodigoCliente { get; set; }
         public short TieneTelefono { get; set; }
+
+        public string NombreCliente { get; set; }
+        public string ApellidoCliente { get; set; }
     }
 }
