@@ -218,7 +218,6 @@ $(document).ready(function () {
 });
 
 function PopupOfertaFinalCerrar() {
-
     if (agregoOfertaFinal == 1) {
         setTimeout(function () {
             $("#divOfertaFinal").hide();
