@@ -15,7 +15,28 @@ namespace Portal.Consultoras.Web.Models
         public string m_Nombre { get; set; }
         /*2116-FIN  */
 
-        public int PaisID { get; set; }
+        /* EPD-2811 */
+        private int _paisID;
+        public int PaisID
+        {
+            get
+            {
+                return _paisID;
+            }
+            set
+            {
+                    if (value == 4)
+                    {
+                        TextoSobrenombre = "Nombre: ";
+                        TextoCorreoElectronico = "Correo Electrónico:";
+                        TextoTelefono = "Teléfono:";
+                        TextoCelular = "Celular:";
+                        TextoBoton = "Aceptar";
+                    }
+                    _paisID = value;
+            }
+        }
+
         public int IndicadorContrato { get; set; }
         public int CambioClave { get; set; }
         public bool EmailActivo { get; set; }
@@ -95,10 +116,30 @@ namespace Portal.Consultoras.Web.Models
         public int MostrarPopupActualizarDatosXPais { get; set; }
         #endregion
 
+        #region Propiedades para PopUp MIS DATOS
+        // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
+        // HOLA
+        public string TextoSobrenombre { get; set; }
+        public string TextoCorreoElectronico { get; set; }
+        public string TextoTelefono { get; set; }
+        public string TextoCelular { get; set; }
+        public string TextoBoton { get; set; }
+        #endregion
+
         public int ShowRoomMostrarLista { get; set; }
         public string ShowRoomBannerUrl { get; set; }
         public int TieneCupon { get; set; }
         public int CampaniaMasDos { get; set; }
         public int TieneMasVendidos { get; set; }
+        
+        public BienvenidaHomeModel()
+        {
+            // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
+            TextoSobrenombre = "¿Qué nombre te gustaría que te digamos?:";
+            TextoCorreoElectronico = "Tu Correo Electrónico:";
+            TextoTelefono = "Tu Teléfono:";
+            TextoCelular = "Tu Celular:";
+            TextoBoton = "Actualizar";
+        }
     }
 }

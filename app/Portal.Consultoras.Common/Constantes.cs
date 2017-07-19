@@ -57,6 +57,9 @@ namespace Portal.Consultoras.Common
         {
             public const short Pendiente = 201;
             public const short Procesado = 202;
+
+            public const short Registrado = 1;
+            public const short Facturado = 2;
         }
 
         public class CodigosISOPais
@@ -158,7 +161,7 @@ namespace Portal.Consultoras.Common
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
-        
+
         public class TipoEstrategiaSet
         {
             public const string IndividualConTonos = "2001";
@@ -203,7 +206,7 @@ namespace Portal.Consultoras.Common
             // Tabla LOgica
 
             public const string TablaLogicaDatos = "TablaLogicaDatos";
-            
+
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
@@ -272,7 +275,7 @@ namespace Portal.Consultoras.Common
             public const int MobileShowRoomProductPage = 2531;
             public const int MobileShowRoomProductPageCarrusel = 2532;
             public const int MobileShowRoomProductPageTactica = 2533;
-            
+
             public const int MobileHomeOfertasParaTi = 2121;
             public const int MobileHomeMasVendidos = 2123;
 
@@ -297,7 +300,7 @@ namespace Portal.Consultoras.Common
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
-            
+
             /* Revista Digital */
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
@@ -315,7 +318,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
-            
+
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
@@ -346,12 +349,12 @@ namespace Portal.Consultoras.Common
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-        
+
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -368,7 +371,7 @@ namespace Portal.Consultoras.Common
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado"; 
+            public const string MensajeFinalizado = "MensajeFinalizado";
         }
 
         public class ParametriaCDR
@@ -445,6 +448,7 @@ namespace Portal.Consultoras.Common
             public const string RolSociaEmpresaria = "SE";
         }
         
+
         public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
@@ -452,7 +456,7 @@ namespace Portal.Consultoras.Common
             public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelMobile = "Este producto está en Mi Negocio L’Bel con oferta especial.";
         }
-        
+
         public class PestanhasMisPagos
         {
             public const string EstadoCuenta = "EstadoCuenta";
@@ -484,7 +488,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
                 public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
-                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";                                   
+                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";
             }
 
             public class Mobile
@@ -502,7 +506,7 @@ namespace Portal.Consultoras.Common
                 public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
                 public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
                 public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
-                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";               
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
             }
 
             public class TipoAplicacion
@@ -565,6 +569,9 @@ namespace Portal.Consultoras.Common
             public const string PedidoDetalle = "PEDIDODETALLE";
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
             public const string CompartirCatalogo = "COMPARTIRCATALOGO";
+            public const string Pedido = "PEDIDO";
+            public const string MisPedidos = "MISPEDIDOS";
+            public const string ShowRoom = "SHOWROOM";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -787,10 +794,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_NUMEROTELEFONOEXISTE = "10";
                 public const string ERROR_CLIENTENOREGISTRADO = "11";
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
-
-                //public const string ERROR_ORIGENNOENVIADO = "6";
-                //public const string ERROR_ANOTACIONDESCRIPCIONNOENVIADO = "9";
-                
+                public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
+                public const string ERROR_TIPOCONTACTOREPETIDO = "14";
             }
 
             public static Dictionary<string, string> Message
@@ -807,14 +812,13 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_FORMATOCORREO, "Formato de correo incorrecto."},
                         {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
                         {Code.ERROR_TIPOCONTACTOVALORNOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
-                        {Code.ERROR_CONSULTORANOMBREEXISTE, "Nombre ya se encuentra registrado para la consultora."},
-                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "Número de telefono ya esta registrado para la consultora."},
+                        {Code.ERROR_CONSULTORANOMBREEXISTE, "El nombre ya se encuentra registrado para otro cliente."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "El número de teléfono ya se encuentra registrado para otro cliente."},
                         {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
-
-                        //{Code.ERROR_ORIGENNOENVIADO, "Campo Origen no fue enviado."},                        
-                        //{Code.ERROR_ANOTACIONDESCRIPCIONNOENVIADO, "Campo Anotación Descripción no fue enviado."},
+                        {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
+                        {Code.ERROR_TIPOCONTACTOREPETIDO, "El tipo de contacto {0} se encuentra repetido para el cliente."},
                     });
                 }
             }
@@ -839,5 +843,51 @@ namespace Portal.Consultoras.Common
             public const string Mobile = "SOMOS_BELCORP_MOBILE";
         }
         #endregion
+
+        public class MovimientoTipo
+        {
+            /// <summary>
+            /// Abono
+            /// </summary>
+            public const string Abono = "A";
+
+            /// <summary>
+            /// Cargo
+            /// </summary>
+            public const string Cargo = "C";
+
+            /// <summary>
+            /// Cargo belcorp, no editable desde la api
+            /// </summary>
+            public const string CargoBelcorp = "CB";
+
+            public static string[] Todos
+            {
+                get
+                {
+                    return new[]
+                    {
+                        Abono, Cargo, CargoBelcorp
+                    };
+                }
+            }
+        }
+
+        public class Incentivo
+        {
+            public const string TeFaltan = "Te faltan {0} puntos";
+            public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
+            public const string VasXPuntos = "VAS {0} PUNTOS.";
+            public const string GANASTE = "¡GANASTE!";
+            public const string TEFALTA = "¡TE FALTA!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
+            public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";            
+            public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
+            public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
+
+        }
     }
 }

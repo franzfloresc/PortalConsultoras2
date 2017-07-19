@@ -703,7 +703,7 @@ function CloseComunidad() {
 }
 
 function ShowLoading() {
-    $("#loading-spin").fadeIn();
+    $("#loading-spin").css('visibility', 'visible').fadeIn();
 }
 
 function CloseLoading() {
