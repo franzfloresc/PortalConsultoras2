@@ -451,7 +451,7 @@ function RDDetalleObtener() {
 
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
-    if (model == null || sl == undefined) {
+    if (sl == null || sl == undefined) {
         var model = CargarEstrategiaCuv(cuv);
         if (model != null) return model;
         else return null;

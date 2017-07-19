@@ -36,7 +36,7 @@ function RDPopupCerrar(tipo) {
 }
 
 function RDSuscripcion(accion) {
-    CerrarPopup("#PopRDSuscripcion");
+   
     AbrirLoad();
     InscripcionRDAnalytics();
     $.ajax({
@@ -50,6 +50,8 @@ function RDSuscripcion(accion) {
                 return false;
 
             if (data.success != true) {
+                CerrarPopup("#PopRDSuscripcion");
+                CerrarPopup("#divMensajeBloqueada");
                 AbrirMensaje(data.message);
                 return false;
             }

@@ -669,36 +669,41 @@ function CargarEstrategiaCuv(cuv) {
 }
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
-        var divMensaje = $("#divMensajeBloqueada");
-        if (divMensaje.length > 0) {
-            var itemClone = $(objInput).parents("[data-item]");
-            var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-            if (cuvClone != "") {
-                itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        if (isMobile()) {
+            EstrategiaVerDetalle(objParameter.EstrategiaID);
+        } else {
+            var divMensaje = $("#divMensajeBloqueada");
+            if (divMensaje.length > 0) {
+                var itemClone = $(objInput).parents("[data-item]");
+                var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+                if (cuvClone != "") {
+                    itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+                }
+                if (itemClone.length > 0) {
+                    divMensaje.find("[data-item-html]").html(itemClone.html());
+                    divMensaje = divMensaje.find("[data-item-html]");
+                    //var htmlProd = $(objInput).parents("[data-item]");
+                    divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+                    divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
+                    divMensaje.find('[data-item-tag="body"]').css("float", "none");
+                    divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
+                    divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
+                    divMensaje.find('[data-item-tag="body"]').attr("class", "");
+                    divMensaje.find('[data-item-tag="agregar"]').remove();
+                    divMensaje.find('[data-item-tag="fotofondo"]').remove();
+                    divMensaje.find('[data-item-tag="verdetalle"]').remove();
+                    divMensaje.find('[data-item-accion="verdetalle"]').remove();
+                    divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                    divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                    divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
+                    //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                }
+
+                $(".contenedor_popup_detalleCarousel").hide();
+                $("#divMensajeBloqueada").show();
             }
-            if (itemClone.length > 0) {
-                divMensaje.find("[data-item-html]").html(itemClone.html());
-                divMensaje = divMensaje.find("[data-item-html]");
-                //var htmlProd = $(objInput).parents("[data-item]");
-                divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-                divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
-                divMensaje.find('[data-item-tag="body"]').css("float", "none");
-                divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
-                divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
-                divMensaje.find('[data-item-tag="body"]').attr("class", "");
-                divMensaje.find('[data-item-tag="agregar"]').remove();
-                divMensaje.find('[data-item-tag="fotofondo"]').remove();
-                divMensaje.find('[data-item-tag="verdetalle"]').remove();
-                divMensaje.find('[data-item-accion="verdetalle"]').remove();
-                divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
-                divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-                divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
-                //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-            }
-            
-            $(".contenedor_popup_detalleCarousel").hide();
-            $("#divMensajeBloqueada").show();
         }
+       
         return false;
     }
 
