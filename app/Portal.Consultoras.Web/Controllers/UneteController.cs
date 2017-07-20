@@ -5640,24 +5640,25 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
         {
-            var result = GetReporteFunnel(string.Empty, string.Empty);
+            var result = GetReporteFunnel(CampaniaInicio, CampaniaFin);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ReporteFunnel()
-        {
-            ViewBag.Result = GetReporteFunnel(string.Empty, string.Empty);
+        {       
             return View();
         }
 
         public List<ReporteFunnel> GetReporteFunnel(string CampaniaInicio, string CampaniaFin)
         {
             var Result = new List<ReporteFunnel>();
+            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
             try
             {
                 using (var sv = new PortalServiceClient())
                 {
-                    Result = sv.GetReporteFunnel("", "", CodigoISO).ToList();
+                    Result = sv.GetReporteFunnel(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
                 }
             }
             catch (Exception ex)
@@ -5666,6 +5667,31 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             return Result;
+        }
+
+        public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin)
+        {
+            var solicitudes = GetReporteFunnel(CampaniaInicio, CampaniaFin); 
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                 {"Campaña", "Campania"},
+                { "Registro Completo", "RegistroCompleto"},
+                 {"Registro Completo %", "RegistroCompletoPer"},
+                  {"Registro Validado", "RegistroValidado"},
+                   {"Registro Validado %", "RegistroValidadoPer"},
+                    {"Codigo Creado", "CodigoCreado"},
+                     {"Codigo Creado %", "CodigoCreadoPer"},
+                      {"Ingreso Total", "IngresoTotal"},
+                       {"Ingresos X", "IngresoX"},
+                        {"Ingresos X+1", "IngresoX1"},
+                         {"TC (Ingresos/RV)", "TCIngresoRV"},
+                          {"TC (IngresosX/RV)", "TCIngresoXRV"},
+                           {"TC (IngresosX+1/RV)", "TCIngresoX1RV"},
+                            {"Dias en Espera", "DiasEnEspera"} 
+            }; 
+            Util.ExportToExcel("ReporteFunnel", solicitudes, dic);
+            return View();
         }
     }
 }

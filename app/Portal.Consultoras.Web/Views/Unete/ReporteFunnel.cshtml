@@ -18,52 +18,62 @@
                 <input type="text" id="CampFin" placeholder="Campaña Fin" name="name" value="" />
             </div>
             <div class="buttonContainer redborder">
-                <div class="buttonFunnel" onclick="GetData()">
-                    Aceptar
-                </div>
+                   <input type="button" id="buttonFunnel" onclick="GetData()" value="Aceptar" />
             </div>
         </div>
 
     </div>
+    <div  class="excelDiv  redborder" style="height:30px;">
+
+        <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px; float:right; " onclick="ExportExcel();" class="acciones_pagos redborder"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
+
+    </div>
+ 
     <div id="ContainerGrid" class="redborder" style="height:auto">
+       
         <div id="gridFunnel">
         </div>
     </div>
 
 </div>
 <script>
-     var dataGrid = @Html.Raw(Json.Encode(ViewBag.Result));
+    @*var dataGrid = @Html.Raw(Json.Encode(ViewBag.Result));*@
+    var dataGrid = null;
+    var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
-     $(document).ready(function () {
+     $(document).ready(function () { 
+       
          setGridHeaders();
-         setDataToGrid(dataGrid);
-
      });
 
      function setGridHeaders()
      {
          $('#gridFunnel').append('<div class="headers" >'+
-                '<div class="headFunnel cellFunnel"></div>'+
-                '<div class="headFunnel cellFunnel">Visitas Unicas</div>'+
-                '<div class="headFunnel cellFunnel"></div>'+
-                '<div class="headFunnel cellFunnel">Registros Completos</div>'+
-                '<div class="headFunnel cellFunnel"></div>'+
-                '<div class="headFunnel cellFunnel">Registros Validados</div>'+
-                '<div class="headFunnel cellFunnel"></div>'+
-                '<div class="headFunnel cellFunnel">Codigos Creados</div>'+
-                '<div class="headFunnel cellFunnel"></div>'+
-                '<div class="headFunnel cellFunnel">Ingresos Totales</div>'+
-                   '<div class="headFunnel cellFunnel">Ingresos</BR>X</div>'+
-                '<div class="headFunnel cellFunnel">Ingresos</BR>X+1</div>'+
-                '<div class="headFunnel cellFunnel">TC </BR> (Ingresos/ </BR> RV)</div>'+
-                '<div class="headFunnel cellFunnel">TC </BR> (IngresosX/ </BR> RV)</div>'+
-                '<div class="headFunnel cellFunnel">TC </BR> (IngresosX+1/</BR> RV)</div>'+
-                '<div class="headFunnel cellFunnel">Dias de</BR> espera</div>'+
+                '<div class="headFunnel   cellFunnel"></div>'+
+                '<div class="headFunnel   cellFunnel">Registros Completos</div>'+
+                '<div class="headFunnel   cellFunnel"></div>'+
+                '<div class="headFunnel   cellFunnel">Registros Validados</div>'+
+                '<div class="headFunnel   cellFunnel"></div>'+
+                '<div class="headFunnel   cellFunnel">Codigos Creados</div>'+
+                '<div class="headFunnel   cellFunnel"></div>'+
+                '<div class="headFunnel   cellFunnel">Ingresos Totales</div>'+
+                   '<div class="headFunnel borderLeft    cellFunnel">Ingresos</BR>X</div>'+
+                '<div class="headFunnel borderLeft  cellFunnel">Ingresos</BR>X+1</div>'+
+                '<div class="headFunnel borderLeft  cellFunnel">TC </BR> (Ingresos/ </BR> RV)</div>'+
+                '<div class="headFunnel borderLeft  cellFunnel">TC </BR> (IngresosX/ </BR> RV)</div>'+
+                '<div class="headFunnel borderLeft  cellFunnel">TC </BR> (IngresosX+1/</BR> RV)</div>'+
+                '<div class="headFunnel   cellFunnel">Dias de</BR> espera</div>'+
 
              '</div>');
      }
      function GetData()
      {
+         if( $('#CampIni').val()=='' && $('#CampFin').val()=='')
+         {
+             alert('Por favor ingrese los filtros de Campaña Inicio y fin.');
+             return false;
+         }
+
          var obj ={CampaniaInicio: $('#CampIni').val() ,CampaniaFin: $('#CampFin').val() };
 
          $.ajax({
@@ -74,21 +84,33 @@
              data: JSON.stringify(obj),
              async: true,
              success: function (data) {
-
+               
                  setDataToGrid(data);
 
              },
              error: function (error) {
 
+             },
+             beforeSend: function(){
+                 LoadSpinner('gridFunnel'); 
+                 
+                 $('#buttonFunnel').attr('disabled', true);
+
+             },
+             complete: function(){
+           
+                 $('#buttonFunnel').removeAttr('disabled');
              }
+             
          });
 
+         return false;
      }
 
      function setDataToGrid(data)
      {
          ResetGrid();
-
+         setGridHeaders();
          if(data)
          {
              $(data).each(function(a,b){
@@ -102,6 +124,7 @@
      function ResetGrid()
      {
          $('.gridDataRow').remove();
+         $('#spinner').remove();
      }
 
      function buildDataCell(colName, className, value)
@@ -123,8 +146,7 @@
 
 
          rowHtml = rowHtml + buildDataCell('Campania', 'Campania', row.Campania);
-         rowHtml = rowHtml + buildDataCell('VisitaUnica', 'VisitaUnica purpleCell', row.VisitaUnica);
-         rowHtml = rowHtml + buildDataCell('VisitaUnicaPer', 'VisitaUnicaPer whiteCell', row.VisitaUnicaPer);
+
          rowHtml = rowHtml + buildDataCell('RegistroCompleto', 'RegistroCompleto purpleCell', row.RegistroCompleto);
          rowHtml = rowHtml + buildDataCell('RegistroCompletoPer', 'RegistroCompletoPer whiteCell', row.RegistroCompletoPer);
          rowHtml = rowHtml + buildDataCell('RegistroValidado', 'RegistroValidado purpleCell', row.RegistroValidado);
@@ -144,9 +166,57 @@
 
 
      }
+
+     function LoadSpinner(elementId)
+     {
+
+         $('#'+elementId).html('<div id="spinner" style="text-align: center; color:white;">Cargando, por favor espere<br><img src="' + urlLoad + '" /></div>');
+     }
+   
+
+     function ExportExcel() {
+         var content = baseUrl +
+             "Unete/ExportarExcelFunnel?" +
+             "CampaniaInicio=" +
+               $('#CampIni').val() +             
+             "&CampaniaFin=" +
+           $('#CampFin').val();
+
+         var iframe_ = document.createElement("iframe");
+         iframe_.style.display = "none";
+         iframe_.setAttribute("src", content);
+
+         if (navigator.userAgent.indexOf("MSIE") > -1 && !window.opera) { // Si es Internet Explorer
+             iframe_.onreadystatechange = function () {
+                 switch (this.readyState) {
+                     case "loading":
+                         waitingDialog({});
+                         break;
+                     case "complete":
+                     case "interactive":
+                     case "uninitialized":
+                         closeWaitingDialog();
+                         break;
+                     default:
+                         closeWaitingDialog();
+                         break;
+                 }
+             };
+         }
+         else {
+             // Si es Firefox o Chrome
+             $(iframe_).ready(function () {
+                
+             });
+         }
+         document.body.appendChild(iframe_);
+     }
 </script>
 <style>
+
+ 
     .redborder {
+  
     }
 
     .greenBorder {
@@ -209,6 +279,9 @@
         border-left: 3px solid white;
     }
 
+    .borderLeft {
+     border-left: 3px solid white;
+    }
     .blueCell {
         color: white;
         background-color: #2376b4;
@@ -224,7 +297,7 @@
     #Filters {
         text-align: center;
         height: 150px;
-        border-bottom: solid 2px black;
+        
     }
 
     .inputContainer {
@@ -251,16 +324,28 @@
         font-size: 100%;
     }
 
-    .buttonFunnel {
+    #buttonFunnel {
         background: #642f80;
         color: #FFF;
         border: none;
-        font-weight: bold !important;
+        font-weight: normal !important;
         text-align: center;
         padding-top: 7px;
         padding-bottom: 8px;
         cursor: pointer;
         width: 70%;
         float: right;
+    }
+
+      
+
+      #buttonFunnel:disabled  {
+ 
+    background-color:#B75D9F !important;
+    cursor:default;
+    }
+
+    .excelDiv{
+        border-bottom: solid 2px black;
     }
 </style>
