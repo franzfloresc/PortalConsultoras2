@@ -3816,9 +3816,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.CodigoConsultoraRecomienda != null)
                     {
+                    //    var ConsultoraRecomienda = String.Concat("0000000", model.CodigoConsultoraRecomienda);
+
                         solicitudPostulante.CodigoConsultoraRecomienda =
-                                         String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
-                        //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
+                                       model.CodigoConsultoraRecomienda.PadLeft(9,'0');
                     }
  
 
