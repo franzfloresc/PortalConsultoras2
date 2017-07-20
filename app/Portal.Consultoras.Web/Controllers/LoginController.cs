@@ -31,8 +31,10 @@ namespace Portal.Consultoras.Web.Controllers
         private ILogManager logManager;
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = "PE";
+        private readonly int USUARIO_VALIDO = 3;
 
-        public LoginController()
+
+        public LoginController() 
         {
             logManager = LogManager.LogManager.Instance;
         }
@@ -41,6 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             this.logManager = logManager;
         }
+
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -201,6 +204,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl = null)
@@ -208,116 +212,94 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
-                BEValidaLoginSB2 validaLogin = null;
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
-                }
+                var resultadoInicioSesion = ObtenerResultadoInicioSesion(model);
 
-                if (validaLogin != null && validaLogin.Result == 3)
+                if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
-                    if (model.UsuarioExterno != null)
+                    if (model.UsuarioExterno == null)
+                        return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
+
+                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
-                        if (validaLogin.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                        if (Request.IsAjaxRequest())
                         {
-                            if (Request.IsAjaxRequest())
+                            return Json(new
                             {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "Por ahora no podemos asociar tu cuenta con Facebook."
-                                });
-                            }
-                        }
-
-                        var userExtModel = model.UsuarioExterno;
-                        if (!string.IsNullOrEmpty(userExtModel.IdAplicacion))
-                        {
-                            using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                            {
-                                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
-                                if (userExt == null)
-                                {
-                                    BEUsuarioExternoPais beUserExtPais = new BEUsuarioExternoPais();
-                                    beUserExtPais.Proveedor = userExtModel.Proveedor;
-                                    beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
-                                    beUserExtPais.PaisID = model.PaisID;
-                                    beUserExtPais.CodigoISO = Util.GetPaisISO(model.PaisID);
-                                    svc.InsUsuarioExternoPais(11, beUserExtPais);
-
-                                    BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
-                                    beUsuarioExterno.CodigoUsuario = validaLogin.CodigoUsuario;
-                                    beUsuarioExterno.Proveedor = userExtModel.Proveedor;
-                                    beUsuarioExterno.IdAplicacion = userExtModel.IdAplicacion;
-                                    beUsuarioExterno.Login = userExtModel.Login;
-                                    beUsuarioExterno.Nombres = userExtModel.Nombres;
-                                    beUsuarioExterno.Apellidos = userExtModel.Apellidos;
-                                    beUsuarioExterno.FechaNacimiento = userExtModel.FechaNacimiento;
-                                    beUsuarioExterno.Correo = userExtModel.Correo;
-                                    beUsuarioExterno.Genero = userExtModel.Genero;
-                                    beUsuarioExterno.Ubicacion = userExtModel.Ubicacion;
-                                    beUsuarioExterno.LinkPerfil = userExtModel.LinkPerfil;
-                                    beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
-
-                                    svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-
-                                    if (userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
-                                    return SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
-                                }
-                                else
-                                {
-                                    if (Request.IsAjaxRequest())
-                                    {
-                                        return Json(new
-                                        {
-                                            success = false,
-                                            message = "El codigo de consultora ya tiene una cuenta de Facebook asociada."
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Request.IsAjaxRequest())
-                            {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "Error al procesar la solicitud"
-                                });
-                            }
+                                success = false,
+                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                            });
                         }
                     }
 
-                    return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
-                }
-                else
-                {
-                    var mensaje = "";
-
-                    if (validaLogin != null)
+                    var usuarioExterno = model.UsuarioExterno;
+                    if (string.IsNullOrEmpty(usuarioExterno.IdAplicacion))
                     {
-                        mensaje = validaLogin.Mensaje;
+                        if (Request.IsAjaxRequest())
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Error al procesar la solicitud"
+                            });
+                        }
                     }
                     else
                     {
-                        mensaje = "Error al procesar la solicitud";
-                    }
-
-                    if (Request.IsAjaxRequest())
-                    {
-                        return Json(new
+                        using (var svc = new UsuarioServiceClient())
                         {
-                            success = false,
-                            message = mensaje
-                        });
+                            var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
+                            if (userExt == null)
+                            {
+                                var beUserExtPais = new BEUsuarioExternoPais
+                                {
+                                    Proveedor = usuarioExterno.Proveedor,
+                                    IdAplicacion = usuarioExterno.IdAplicacion,
+                                    PaisID = model.PaisID,
+                                    CodigoISO = Util.GetPaisISO(model.PaisID)
+                                };
+                                svc.InsUsuarioExternoPais(11, beUserExtPais);
+
+                                var beUsuarioExterno = new BEUsuarioExterno
+                                {
+                                    CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
+                                    Proveedor = usuarioExterno.Proveedor,
+                                    IdAplicacion = usuarioExterno.IdAplicacion,
+                                    Login = usuarioExterno.Login,
+                                    Nombres = usuarioExterno.Nombres,
+                                    Apellidos = usuarioExterno.Apellidos,
+                                    FechaNacimiento = usuarioExterno.FechaNacimiento,
+                                    Correo = usuarioExterno.Correo,
+                                    Genero = usuarioExterno.Genero,
+                                    Ubicacion = usuarioExterno.Ubicacion,
+                                    LinkPerfil = usuarioExterno.LinkPerfil,
+                                    FotoPerfil = usuarioExterno.FotoPerfil
+                                };
+                                svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+
+                                return usuarioExterno.Redireccionar
+                                    ? Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
+                                    : SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
+                            }
+                        }
                     }
 
-                    TempData["errorLogin"] = mensaje;
-
-                    return RedirectToAction("Index", "Login");
+                    return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
                 }
+
+                var mensaje = resultadoInicioSesion != null ? resultadoInicioSesion.Mensaje : "Error al procesar la solicitud";
+
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    });
+                }
+
+                TempData["errorLogin"] = mensaje;
+
+                return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -353,6 +335,16 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        private  BEValidaLoginSB2 ObtenerResultadoInicioSesion(LoginModel model)
+        {
+            BEValidaLoginSB2 resultadoInicioSesion;
+            using (var svc = new UsuarioServiceClient())
+            {
+                resultadoInicioSesion = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
+            }
+            return resultadoInicioSesion;
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult LoginAdmin(UsuarioModel model)
@@ -376,114 +368,95 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null, bool hizoLoginExterno = false)
         {
             pasoLog = "Login.Redireccionar";
-            UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
+            var usuario = GetUserData(paisId, codigoUsuario, 1);
 
-            if (usuario != null)
+            if (usuario == null && Request.IsAjaxRequest())
+                return Json(new
+                {
+                    success = false,
+                    redirectTo = "Error al procesar la solicitud"
+                });
+
+            if (usuario == null && !Request.IsAjaxRequest())
             {
-                pasoLog = "Login.Redireccionar.SetAuthCookie";
-                FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
+                var url = GetUrlUsuarioDesconocido();
+                return Redirect(url);
+            }
 
-                if (hizoLoginExterno)
-                {
-                    usuario.HizoLoginExterno = true;
-                    Session["UserData"] = usuario;
-                }
+            pasoLog = "Login.Redireccionar.SetAuthCookie";
+            FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
-                string decodedUrl = "";
-                if (!string.IsNullOrEmpty(returnUrl))
-                    decodedUrl = Server.UrlDecode(returnUrl);
+            if (hizoLoginExterno)
+            {
+                usuario.HizoLoginExterno = true;
+                Session["UserData"] = usuario;
+            }
 
-                if (usuario.RolID == Constantes.Rol.Consultora)
-                {
-                    if (EsDispositivoMovil())
-                    {
-                        if (Request.IsAjaxRequest())
-                        {
-                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
-                            return Json(new
-                            {
-                                success = true,
-                                redirectTo = urlx
-                            });
-                        }
-                        else
-                        {
-                            if (Url.IsLocalUrl(decodedUrl))
-                            {
-                                return Redirect(decodedUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
-                        {
-                            Session["PrimeraVezSession"] = 0;
-                        }
+            var decodedUrl = string.Empty;
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
 
-                        if (Request.IsAjaxRequest())
-                        {
-                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
-                            return Json(new
-                            {
-                                success = true,
-                                redirectTo = urlx
-                            });
-                        }
-                        else
-                        {
-                            if (Url.IsLocalUrl(decodedUrl))
-                            {
-                                return Redirect(decodedUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
-                    }
-                }
-                else
+            if (usuario.RolID == Constantes.Rol.Consultora)
+            {
+                if (EsDispositivoMovil())
                 {
                     if (Request.IsAjaxRequest())
                     {
+                        var urlx = (Url.IsLocalUrl(decodedUrl))
+                            ? decodedUrl
+                            : Url.Action("Index", "Bienvenida", new {area = "Mobile"});
                         return Json(new
                         {
                             success = true,
-                            redirectTo = Url.Action("Index", "Bienvenida")
+                            redirectTo = urlx
                         });
                     }
-                    else
+                    if (Url.IsLocalUrl(decodedUrl))
                     {
-                        if (Url.IsLocalUrl(decodedUrl))
-                        {
-                            return Redirect(decodedUrl);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
+                        return Redirect(decodedUrl);
                     }
+                    return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
                 }
-            }
-            else
-            {
-                if (Request.IsAjaxRequest())
+                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        redirectTo = "Error al procesar la solicitud"
-                    });
+                    Session["PrimeraVezSession"] = 0;
                 }
 
-                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                return Redirect(Url);
+                if (Request.IsAjaxRequest())
+                {
+                    var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                    return Json(new
+                    {
+                        success = true,
+                        redirectTo = urlx
+                    });
+                }
+                if (Url.IsLocalUrl(decodedUrl))
+                {
+                    return Redirect(decodedUrl);
+                }
+                return RedirectToAction("Index", "Bienvenida");
             }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new
+                {
+                    success = true,
+                    redirectTo = Url.Action("Index", "Bienvenida")
+                });
+            }
+            if (Url.IsLocalUrl(decodedUrl))
+            {
+                return Redirect(decodedUrl);
+            }
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        private string GetUrlUsuarioDesconocido()
+        {
+            return Request.Url.Scheme + "://" + Request.Url.Authority +
+                   (Request.ApplicationPath.Equals("/") ? "/" : (Request.ApplicationPath + "/")) +
+                   "WebPages/UserUnknown.aspx";
         }
 
 
@@ -506,8 +479,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        ServiceComunidad.BEUsuarioComunidad usuario = null;
-                        using (ServiceComunidad.ComunidadServiceClient sv = new ServiceComunidad.ComunidadServiceClient())
+                        ServiceComunidad.BEUsuarioComunidad usuario;
+                        using (var sv = new ServiceComunidad.ComunidadServiceClient())
                         {
                             usuario = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
                             {
@@ -537,12 +510,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             FormsAuthentication.SignOut();
 
-            string URLSignOut = "/Login";
+            string urlSignOut = "/Login";
 
             if (tipoUsuario == Constantes.TipoUsuario.Admin)
-                URLSignOut = "/Login/Admin";
+                urlSignOut = "/Login/Admin";
 
-            return Redirect(URLSignOut);
+            return Redirect(urlSignOut);
         }
 
         [AllowAnonymous]
@@ -1566,15 +1539,12 @@ namespace Portal.Consultoras.Web.Controllers
                         correo = correo
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
+                string msj = MensajesOlvideContrasena(tipomsj);
+                return Json(new
                 {
-                    string msj = MensajesOlvideContrasena(tipomsj);
-                    return Json(new
-                    {
-                        success = false,
-                        message = msj
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                    success = false,
+                    message = msj
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -1736,14 +1706,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl, true);
                     }
-                    else
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = validaLogin.Mensaje
-                        });
-                    }
+                        success = false,
+                        message = validaLogin.Mensaje
+                    });
                 }
                 //}
                 //}
