@@ -18,9 +18,10 @@
          
         }
     </style>
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />*@
+    @Scripts.Render("~/bundles/Css/Site/CcsBienvenida")
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -1094,9 +1095,11 @@
                 var celular = '@Model.Celular';
         </script>
 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
+        @Scripts.Render("~/bundles/JsMobile/Bienvenida")
+
+        @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
         <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
         <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>      
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>*@      
     }

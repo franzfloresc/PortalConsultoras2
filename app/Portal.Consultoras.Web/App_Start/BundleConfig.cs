@@ -162,6 +162,12 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/lbel/theme.css"
                ));
 
+            bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/slick.min.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+                ));
+
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
                 "~/Scripts/modernizr.custom.js",
                 "~/Scripts/respond.js",
@@ -182,7 +188,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/jquery.flexslider.js", //FRZ-26
+                "~/Scripts/jquery.rateyo.js", //FRZ-26
+                "~/Scripts/jquery.easy-pie-chart.js" //FRZ-26
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -192,6 +201,20 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/Bienvenida").Include(
+                "~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Css/Site/CcsBienvenida").Include(
+                "~/Content/Css/Site/slick.min.css",
+                "~/Content/Css/Site/jquery.rateyo.css",
+                "~/Content/Css/Mobile/esika/revistaDigital.css"
                 ));
 
             #endregion
