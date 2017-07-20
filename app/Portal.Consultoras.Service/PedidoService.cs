@@ -2103,6 +2103,16 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
         }
 
+        public List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora)
+        {
+            return BLConsultoraConcurso.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
+        }
+
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampania, string codigoConsultora, bool esCampaniaActual)
+        {
+            return BLConsultoraConcurso.ListConcursosByCampania(paisId, codigoCampania, codigoConsultora, esCampaniaActual);
+        }
+
         public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
