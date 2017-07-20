@@ -42,6 +42,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+
+                if (modelo == null || modelo.ID == 0)
+                {
+                    List <BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+                }
                 return DetalleModel(modelo);
             }
             catch (Exception ex)
@@ -211,11 +218,11 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "Lo sentimos no puede suscribirse, estamos a dias de cierre de campaña."
+                        message = "Lo sentimos no puede suscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
                     }, JsonRequestBehavior.AllowGet);
                 }
 
-                    var entidad = new BERevistaDigitalSuscripcion();
+                var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
                 entidad.CampaniaID = userData.CampaniaID;
@@ -240,7 +247,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -276,6 +282,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede desuscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
@@ -301,7 +318,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -346,7 +362,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -371,7 +386,6 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
