@@ -51,12 +51,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new List<PaisModel>();
                 }
 
-                protected override string GetIPCliente()
+                protected override string GetIpCliente()
                 {
                     return "190.57.170.225, 66.249.83.8";
                 }
 
-                protected override bool EstaActivoBuscarISOPorIP()
+                protected override bool EstaActivoBuscarIsoPorIp()
                 {
                     return true;
                 }
@@ -98,12 +98,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new List<PaisModel>();
                 }
 
-                protected override string GetIPCliente()
+                protected override string GetIpCliente()
                 {
                     return "190.57.170.225";
                 }
 
-                protected override bool EstaActivoBuscarISOPorIP()
+                protected override bool EstaActivoBuscarIsoPorIp()
                 {
                     return true;
                 }

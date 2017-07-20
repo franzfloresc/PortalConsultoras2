@@ -2575,6 +2575,10 @@ namespace Portal.Consultoras.Web.Controllers
             return valor;
         }
 
+        protected string GetPaisesEsikaFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+        }
     }
 }
 

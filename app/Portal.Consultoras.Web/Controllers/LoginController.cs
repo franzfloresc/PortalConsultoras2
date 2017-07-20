@@ -29,6 +29,8 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private ILogManager logManager;
+        private readonly string IP_DEFECTO = "190.187.154.154";
+        private readonly string ISO_DEFECTO = "PE";
 
         public LoginController()
         {
@@ -43,54 +45,49 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
         {
-            if (EsUsuarioAutenticado())
-            {
-                if (EsDispositivoMovil())
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
+            if (EsUsuarioAutenticado() && EsDispositivoMovil())
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
+            if (EsUsuarioAutenticado() && !EsDispositivoMovil())
                 return RedirectToAction("Index", "Bienvenida");
-            }
-            else
+
+
+            var ip = string.Empty;
+            var iso = string.Empty;
+            var model = new LoginModel();
+
+            try
             {
-                var IP = string.Empty;
-                var ISO = string.Empty;
-                var model = new LoginModel();
+                model.ListaPaises = ObtenerPaises();
 
-                try
+                if (EstaActivoBuscarIsoPorIp())
                 {
-                    model.ListaPaises = ObtenerPaises();
-
-                    if (EstaActivoBuscarISOPorIP())
-                    {
-                        IP = GetIPCliente();
-                        if(!string.IsNullOrWhiteSpace(IP))
-                            ISO = Util.GetISObyIPAddress(IP, ObtenerRutaBaseDatosGeoLite());
-                    }
-
-                    if (string.IsNullOrEmpty(ISO))
-                    {
-                        IP = "190.187.154.154";
-                        ISO = "PE";
-                    }
-
-                    AsignarHojaEstilos(ISO);
-                    AsignarUrlRetorno(returnUrl);
-                }
-                catch (FaultException ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
-                }
-                catch (Exception ex)
-                {
-                    logManager.LogErrorWebServicesBus2(ex, IP, ISO, "Login.GET.Index");
+                    ip = GetIpCliente();
+                    if (!string.IsNullOrWhiteSpace(ip))
+                        iso = Util.GetISObyIPAddress(ip, ObtenerRutaBaseDatosGeoLite());
                 }
 
-                ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
+                if (string.IsNullOrEmpty(iso))
+                {
+                    ip = IP_DEFECTO;
+                    iso = ISO_DEFECTO;
+                }
 
-                return View(model);
+                AsignarViewBagPorIso(iso);
+                AsignarUrlRetorno(returnUrl);
             }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, ip, iso);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBus2(ex, ip, iso, "Login.GET.Index");
+            }
+
+            ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
+
+            return View(model);
         }
 
         protected virtual bool EsUsuarioAutenticado()
@@ -130,13 +127,13 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        protected virtual bool EstaActivoBuscarISOPorIP()
+        protected virtual bool EstaActivoBuscarIsoPorIp()
         {
-            var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
-            return buscarISOPorIP == "1";
+            var buscarIsoPorIp = ConfigurationManager.AppSettings.Get("BuscarISOPorIP") ?? string.Empty;
+            return buscarIsoPorIp == "1";
         }
 
-        protected virtual string GetIPCliente()
+        protected virtual string GetIpCliente()
         {
             var ip = string.Empty;
 
@@ -151,49 +148,46 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
         }
 
-        private void AsignarHojaEstilos(string iso)
+        private void AsignarViewBagPorIso(string iso)
         {
-            if (string.IsNullOrEmpty(iso)) return;
+            if (string.IsNullOrWhiteSpace(iso)) return;
 
             ViewBag.IsoPais = iso;
 
             if (iso == "BR") iso = "00";
+            ViewBag.TituloPagina = " ÉSIKA ";
+            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+            ViewBag.EsPaisEsika = true;
+            ViewBag.EsPaisLbel = false;
+            ViewBag.AvisoASP = 1;
 
-            if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
+            if (GetPaisesEsikaFromConfig().Contains(iso))
             {
-                ViewBag.TituloPagina = " ÉSIKA ";
-                ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                ViewBag.EsPaisEsika = true;
-                ViewBag.EsPaisLbel = false;
-                ViewBag.AvisoASP = 1;
+                ViewBag.BanderaOk = true;
+            }
+            else if (GetPaisesLbelFromConfig().Contains(iso))
+            {
+                ViewBag.TituloPagina = " L'BEL ";
+                ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                ViewBag.EsPaisEsika = false;
+                ViewBag.EsPaisLbel = true;
+                if (iso == "MX") ViewBag.AvisoASP = 2;
                 ViewBag.BanderaOk = true;
             }
             else
             {
-                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
-                {
-                    ViewBag.TituloPagina = " L'BEL ";
-                    ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
-                    ViewBag.EsPaisEsika = false;
-                    ViewBag.EsPaisLbel = true;
-                    //ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = true;
-
-                    if (iso == "MX")
-                        ViewBag.AvisoASP = 2;
-                    else
-                        ViewBag.AvisoASP = 1;
-                }
-                else
-                {
-                    ViewBag.TituloPagina = " ÉSIKA ";
-                    ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                    ViewBag.EsPaisEsika = true;
-                    ViewBag.EsPaisLbel = false;
-                    ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = false;
-                }
+                ViewBag.BanderaOk = false;
             }
+        }
+
+        protected string GetPaisesEsikaFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+        }
+
+        protected string GetPaisesLbelFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
         }
 
         protected virtual void AsignarUrlRetorno(string returnUrl)
@@ -206,7 +200,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.ReturnURL = returnUrl;
             }
         }
-
 
         [AllowAnonymous]
         [HttpPost]
@@ -303,7 +296,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var mensaje = "";
 
-                    if(validaLogin != null)
+                    if (validaLogin != null)
                     {
                         mensaje = validaLogin.Mensaje;
                     }
@@ -431,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Session["PrimeraVezSession"] = 0;
                         }
-                        
+
                         if (Request.IsAjaxRequest())
                         {
                             string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -545,7 +538,7 @@ namespace Portal.Consultoras.Web.Controllers
             FormsAuthentication.SignOut();
 
             string URLSignOut = "/Login";
-            
+
             if (tipoUsuario == Constantes.TipoUsuario.Admin)
                 URLSignOut = "/Login/Admin";
 
@@ -596,7 +589,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
-                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIPCliente(), 1, oBEUsuario.CampaniaID.ToString());
+                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIpCliente(), 1, oBEUsuario.CampaniaID.ToString());
                         }
                         catch
                         {
@@ -715,7 +708,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
-                    model.IPUsuario = GetIPCliente();
+                    model.IPUsuario = GetIpCliente();
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -877,7 +870,7 @@ namespace Portal.Consultoras.Web.Controllers
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
                         #endregion
- 
+
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -1217,7 +1210,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        
+
 
         private int MenuNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
@@ -1270,7 +1263,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
             }
@@ -1293,7 +1286,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
             }
@@ -1781,7 +1774,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message = ""
             });
         }
-        
+
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
@@ -1841,7 +1834,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                if(model != null)
+                if (model != null)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.Pais, token);
                 }
@@ -1879,7 +1872,7 @@ namespace Portal.Consultoras.Web.Controllers
                             listaProdCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                         }
                     }
-                    
+
                     if (listaProdCatalogo.Any())
                     {
                         var prodCatalogo = listaProdCatalogo.FirstOrDefault();
@@ -1906,7 +1899,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-                                
+
         private JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
