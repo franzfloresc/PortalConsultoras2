@@ -205,6 +205,7 @@ function ArmarCarouselMasVendidos(data) {
                 if (response.success) {
                     data = response.data;
                     SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+                    if (data.Lista == null) data.Lista = [];
                     PintarEstrellas(data.Lista);
                     PintarRecomendaciones(data.Lista);
                     PintarPrecioTachado(data.Lista);
