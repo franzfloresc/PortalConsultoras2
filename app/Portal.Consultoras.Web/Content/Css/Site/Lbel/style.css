@@ -5220,8 +5220,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .monto_ganancia_producto{
     display:inline-block;
     background:#000;
-    width:139px;
-    height:18px;
+    width:136px;
+    height:100%;
     color:#FFF;
     text-align:center;
     line-height:18px;

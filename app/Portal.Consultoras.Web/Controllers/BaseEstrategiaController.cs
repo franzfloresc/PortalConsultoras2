@@ -44,10 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
             
-
             // Filtrar precio cero o precio de oferta mayor al precio normal.
             listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
-            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e => {
+            // EPD 3029, Solo para estrategias != Nuevas (1)
+            listEstrategia.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e => {
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
