@@ -4,10 +4,11 @@
 
 @section styles{
 
-    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />*@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+    @*<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />*@
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
 
     <style>
         .contenedorCuponInfo .contenedor-texto-agregar {
@@ -2627,10 +2628,10 @@
         });
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>*@
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
 
     <script type="text/javascript">
@@ -2741,6 +2742,6 @@
         var celular = '@Model.Celular';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")    
     @{ Session["IsContrato"] = 0; }
 }
