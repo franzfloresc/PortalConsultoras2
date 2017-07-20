@@ -917,50 +917,65 @@ function LayoutMenu() {
 }
 function LayoutMenuFin() {
     // validar si sale en dos lineas
-    var hok = true;
-    var idMenus = "#ulNavPrincipal > li";
-        $(".wrapper_header").css("max-width", "");
-        $(".wrapper_header").css("width", "");
+    var idMenus = "#ulNavPrincipal-0 > li";
 
-        $(".logo_esika").css("width", "");
-        $(".menu_esika_b").css("width", "");
-        $(idMenus).css("margin-left", "0px");
-        $(".menu_new_esika").css("width", "");
+    if ($(idMenus).length == 0) {
+        return false;
+    }
 
-        var wt = $(".wrapper_header").width();
-        var wl = $(".logo_esika").innerWidth();
-        var wr = $(".menu_esika_b").innerWidth();
-        $(".wrapper_header").css("max-width", wt + "px");
-        $(".wrapper_header").css("width", wt + "px");
+    $(".wrapper_header").css("max-width", "");
+    $(".wrapper_header").css("width", "");
+    $(".logo_esika").css("width", "");
+    $(".menu_esika_b").css("width", "");
+    $(idMenus).css("margin-left", "0px");
+    $(".menu_new_esika").css("width", "");
 
+    var wt = $(".wrapper_header").width();
+    var wl = $(".logo_esika").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth() + 1;
+    $(".wrapper_header").css("max-width", wt + "px");
+    $(".wrapper_header").css("width", wt + "px");
 
-        $(".logo_esika").css("width", wl + "px");
-        $(".menu_esika_b").css("width", wr + "px");
+    wl = Math.min(wl, 100);
+    $(".logo_esika").css("width", wl + "px");
+    $(".menu_esika_b").css("width", wr + "px");
 
-        wt = wt - wl - wr;
-        $(".menu_new_esika").css("width", wt + "px");
+    wt = wt - wl - wr;
+    $(".menu_new_esika").css("width", wt + "px");
 
-        hok = false;
+    var h = $(".wrapper_header").height();
 
-        var h = $(".wrapper_header").height();
+    if (h > 61) {
+        $(idMenus + " a").css("font-size", "9px");
+    }
 
-        if (h <= 61 && $(idMenus).length > 0) {
-            wr = 0;
-            $.each($(idMenus), function (ind, menupadre) {
-                wr += $(menupadre).innerWidth();
-            });
+    wr = 0;
+    $.each($(idMenus), function (ind, menupadre) {
+        wr += $(menupadre).innerWidth();
+    });
 
-            if (wt > wr) {
-            wr = (wt - wr) / $(idMenus).length;
-            wr = Math.min(wr, 20);
+    if (wt == wr) {
+        $(idMenus + " a").css("font-size", "9px");
+        wr = 0;
+        $.each($(idMenus), function (ind, menupadre) {
+            wr += $(menupadre).innerWidth();
+        });
+    }
 
-            $.each($(idMenus), function (ind, menupadre) {
-                if (ind > 0 && ind + 1 < $(idMenus).length) {
-                    $(menupadre).css("margin-left", wr + "px");
-                }
-            });
+    if (wt < wr) {
+        $(idMenus + " a").css("font-size", "10.5px");
+    }
+    else if (wt > wr) {
+        wr = (wt - wr) / $(idMenus).length;
+        wr = parseInt(wr * 10) / 10;
+        wr = Math.min(wr, 20);
+
+        $.each($(idMenus), function (ind, menupadre) {
+            if (ind > 0 && ind + 1 < $(idMenus).length) {
+                $(menupadre).css("margin-left", wr + "px");
             }
-        }
+        });
+    }
 
     // caso no entre en el menu
     // poner en dos renglones
@@ -971,6 +986,7 @@ function LayoutMenuFin() {
 
     LayoutHeader();
 }
+
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");
@@ -1315,9 +1331,10 @@ function MostrarMenu(codigo, accion) {
     if (codigo == "") {
         return false;
     }
-    var menu = $("#ulNavPrincipal").find("[data-codigo='" + codigo + "']");
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
+    var idMenus = "#ulNavPrincipal-0";
+    var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
 
     if (menu.length == 0) {
         // puede implementarse para los iconos de la parte derecha

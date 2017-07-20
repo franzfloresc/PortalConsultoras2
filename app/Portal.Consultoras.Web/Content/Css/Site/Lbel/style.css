@@ -260,7 +260,7 @@ header {
 .nav_principal li:hover > ul {
     display:block;
 }
-.nav_principal li:hover .pestana_esika{
+.nav_principal li:hover > a > .pestana_esika{
     display:block;
 }
 .sub_menu_home1{
@@ -279,7 +279,7 @@ header {
 }
 .sub_menu_home2{
     position:absolute;
-    left: -365px;
+    left: -150px;
     display:none;
     top: 39px;
     width:615px;
@@ -22302,7 +22302,7 @@ body{
     }
     .sub_menu_home2 {
       width: 560px;
-        left: -310px;
+        left: -150px;
     }
     .info_cam {
       margin-left: -265px;

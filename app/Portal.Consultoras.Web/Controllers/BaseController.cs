@@ -564,6 +564,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
                     }
+                    else
+                    {
+                        if (permiso.UrlItem != "")
+                        {
+                            if (permiso.EsDireccionExterior)
+                            {
+                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                            }
+                            else
+                            {
+                                var urlSplit = permiso.UrlItem.Split('/');
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                            }
+                        }
+                    }
 
                     lstModel.Add(permiso);
 
