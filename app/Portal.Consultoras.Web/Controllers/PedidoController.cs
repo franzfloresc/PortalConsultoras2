@@ -3646,27 +3646,13 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //int limiteJetlore = int.Parse(ConfigurationManager.AppSettings.Get("LimiteJetloreOfertaFinal"));
-
                 var listaProductoModel = ObtenerListadoProductosOfertaFinal(tipoOfertaFinal);
-
-                // Si ya esta en pedido detalle no se debe mostrar
-                //var pedidoDetalle = ObtenerPedidoWebDetalle();
-                //var listaRetorno = new List<ProductoModel>();
-                //foreach (var item in listaProductoModel)
-                //{
-                //    var addProducto = pedidoDetalle.FirstOrDefault(p => p.CUV == item.CUV) ?? new BEPedidoWebDetalle();
-                //    addProducto.CUV = Util.SubStr(addProducto.CUV, 0);
-                //    if (addProducto.CUV == "")
-                //        listaRetorno.Add(item);
-                //}
-
+                
                 return Json(new
                 {
                     success = true,
                     message = "OK",
-                    data = listaProductoModel,
-                    //limiteJetlore = limiteJetlore
+                    data = listaProductoModel
                 });
             }
             catch (Exception ex)
@@ -3861,75 +3847,7 @@ namespace Portal.Consultoras.Web.Controllers
                     p.TipoCross = TipoCross;
                 });
             }
-
-            //string listaCuv = string.Join(",", lista.Select(p => p.Cuv));
-
-            //List<BEProducto> lstProducto = new List<BEProducto>();
-            //using (ODSServiceClient sv = new ODSServiceClient())
-            //{
-            //    lstProducto = sv.GetProductoComercialByListaCuv(userData.PaisID, userData.CampaniaID, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, listaCuv).ToList();
-            //}
-
-            //foreach (var producto in lista)
-            //{
-            //    BEProducto beProducto = lstProducto.FirstOrDefault(p => p.CUV == producto.Cuv);
-
-            //    if (beProducto == null) continue;
-
-            //    if (!beProducto.TieneStock)
-            //        continue;
-
-            //    string descripcion = producto.NombreComercial;
-            //    string imagenUrl = Util.SubStr(producto.Imagen, 0);
-
-            //    //VERIFICAR
-            //    /*if (userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp)
-            //    {
-            //        string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-            //        imagenUrl = ConfigS3.GetUrlFileS3(carpetapais, imagenUrl, carpetapais);
-            //    }*/
-
-            //    if (imagenUrl == "")
-            //        continue;
-            //    //VERIFICAR
-            //    var precioTachado = userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Arp
-            //        ? producto.PrecioValorizado
-            //        : userData.OfertaFinal == Constantes.TipoOfertaFinalCatalogoPersonalizado.Jetlore && tipoProductoMostrar == 1
-            //        ? producto.PrecioValorizado : 0;
-
-            //    listaProductoModel.Add(new ProductoModel()
-            //    {
-            //        CUV = beProducto.CUV.Trim(),
-            //        Descripcion = descripcion,
-            //        //VERIFICAR
-            //        /*PrecioCatalogoString = Util.DecimalToStringFormat(beProducto.PrecioCatalogo, userData.CodigoISO),*/
-            //        PrecioCatalogo = beProducto.PrecioCatalogo,
-            //        MarcaID = beProducto.MarcaID,
-            //        EstaEnRevista = beProducto.EstaEnRevista,
-            //        TieneStock = true,
-            //        EsExpoOferta = beProducto.EsExpoOferta,
-            //        CUVRevista = beProducto.CUVRevista.Trim(),
-            //        CUVComplemento = beProducto.CUVComplemento.Trim(),
-            //        IndicadorMontoMinimo = beProducto.IndicadorMontoMinimo.ToString().Trim(),
-            //        TipoOfertaSisID = beProducto.TipoOfertaSisID,
-            //        ConfiguracionOfertaID = beProducto.ConfiguracionOfertaID,
-            //        MensajeCUV = "",
-            //        DesactivaRevistaGana = -1,
-            //        DescripcionMarca = beProducto.DescripcionMarca,
-            //        DescripcionEstrategia = beProducto.DescripcionEstrategia,
-            //        DescripcionCategoria = beProducto.DescripcionCategoria,
-            //        FlagNueva = beProducto.FlagNueva,
-            //        TipoEstrategiaID = beProducto.TipoEstrategiaID,
-            //        ImagenProductoSugerido = imagenUrl,
-            //        CodigoProducto = beProducto.CodigoProducto,
-            //        TieneStockPROL = true,
-            //        PrecioValorizado = Convert.ToDecimal("0.00"),//precioTachado,
-            //        //VERIFICAR
-            //        /*PrecioValorizadoString = Util.DecimalToStringFormat(precioTachado, userData.CodigoISO),
-            //        Simbolo = userData.Simbolo*/
-            //    });
-
-            //}     
+    
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
