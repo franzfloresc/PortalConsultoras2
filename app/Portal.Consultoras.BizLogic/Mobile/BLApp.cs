@@ -8,7 +8,7 @@ namespace Portal.Consultoras.BizLogic.Mobile
 {
     public class BLApp
     {
-        public static List<BEApp> ObtenerApps(int paisID)
+        public List<BEApp> ObtenerApps(int paisID)
         {
             var apps = CacheManager<BEApp>.GetData(ECacheItem.Apps);
 
@@ -18,7 +18,7 @@ namespace Portal.Consultoras.BizLogic.Mobile
             return apps.ToList();
         }
 
-        private static List<BEApp> CargarApps(int paisID)
+        private List<BEApp> CargarApps(int paisID)
         {
             var apps = new List<BEApp>();
 
