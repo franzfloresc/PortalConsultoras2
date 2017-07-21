@@ -1,11 +1,5 @@
-﻿using Portal.Consultoras.Entities.Mobile;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data.Mobile
 {
@@ -16,11 +10,9 @@ namespace Portal.Consultoras.Data.Mobile
 
         public IDataReader ObtenerAps()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetBannerByCampania");
-            //Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.AppVersion_listar");
 
             return Context.ExecuteReader(command);
         }
-
     }
 }

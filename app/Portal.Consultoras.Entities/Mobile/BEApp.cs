@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities.Mobile
 {
@@ -13,13 +9,13 @@ namespace Portal.Consultoras.Entities.Mobile
     public class BEApp
     {
         [DataMember]
-        public string CodigoPais { get; set; }
+        public string AplicacionNombre { get; set; }
 
         [DataMember]
-        public string Name { get; set; }
+        public string PaisISO { get; set; }
 
         [DataMember]
-        public string SO { get; set; }
+        public string SistemaOperativo { get; set; }
 
         [DataMember]
         public string Version { get; set; }
@@ -44,21 +40,21 @@ namespace Portal.Consultoras.Entities.Mobile
 
         public BEApp(IDataRecord row)
         {
+            if (row.HasColumn("Aplicacion"))
+                AplicacionNombre = row.GetValue<string>("Aplicacion");
+
             if (row.HasColumn("CodigoPais"))
-                CodigoPais = row.GetValue<string>("CodigoPais");
+                PaisISO = row.GetValue<string>("CodigoPais");
 
-            if (row.HasColumn("Name"))
-                Name = row.GetValue<string>("Name");
-
-            if (row.HasColumn("SO"))
-                SO = row.GetValue<string>("SO");
-
-            if (row.HasColumn("Version"))
-                Version = row.GetValue<string>("Version");
+            if (row.HasColumn("SistemaOperativo"))
+                SistemaOperativo = row.GetValue<string>("SistemaOperativo");
 
             if (row.HasColumn("Url"))
                 Url = row.GetValue<string>("Url");
 
+            if (row.HasColumn("Version"))
+                Version = row.GetValue<string>("Version");
+            
             if (row.HasColumn("RequiereActualizacion"))
                 RequiereActualizacion = row.GetValue<bool>("RequiereActualizacion");
 
