@@ -226,12 +226,18 @@ header {
         color: black;
         border-bottom: 2px solid white;
         letter-spacing: 0.75pt;
+        height: 90%;
     }
 
-        .new_menu_a:hover {
-            /*border-bottom: 2px solid #623989;*/
-            text-decoration:underline;
-        }
+.new_menu_a:hover {
+    /*border-bottom: 2px solid #623989;*/
+    text-decoration:underline;
+}
+        
+.new_menu_a img{
+    height: 100%;
+}
+
 .new_menu {
     margin-top: 21px;
     margin-left: 4%;
