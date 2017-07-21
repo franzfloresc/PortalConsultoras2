@@ -114,10 +114,6 @@ function RDDesuscripcion(accion) {
                 $("[data-estadoregistro1]").hide();
                 $("[data-estadoregistro2]").show();
             }
-
-            //$('html, body').animate({
-            //    scrollTop: $(window).scrollTop() - 200
-            //}, 1000, 'swing');
         },
         error: function (data, error) {
             CerrarLoad();
@@ -175,7 +171,6 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        //alert('Please allow popups for this website');
         console.log("Habilitar mostrar popup");
     }
 }
