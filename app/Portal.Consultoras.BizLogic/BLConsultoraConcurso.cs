@@ -113,21 +113,20 @@ namespace Portal.Consultoras.BizLogic
         /// </summary>
         /// <param name="paisID"></param>
         /// <param name="codigoCampania"></param>
-        /// <param name="codigoConsultora"></param>
-        /// <param name="esCampaniaActual"></param>
+        /// <param name="codigoCampaniaActual"></param>
+        /// <param name="codigoCampania"></param>
         /// <returns></returns>
-        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisID, string codigoCampania, string codigoConsultora, bool esCampaniaActual)
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisID, string codigoCampaniaActual, string codigoCampania, string codigoConsultora)
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {
-                using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
+                using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampaniaActual, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
                 }
-                if (esCampaniaActual) puntosXConcurso = puntosXConcurso.Where(c => !c.EsCampaniaAnterior).ToList();
-                else puntosXConcurso = puntosXConcurso.Where(c => c.EsCampaniaAnterior).ToList();
+                puntosXConcurso = puntosXConcurso.Where(c => c.CodigoCampania == codigoCampania).ToList();
             }
             catch (Exception)
             {

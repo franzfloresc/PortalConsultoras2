@@ -2108,9 +2108,9 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
         }
 
-        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampania, string codigoConsultora, bool esCampaniaActual)
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string codigoConsultora)
         {
-            return BLConsultoraConcurso.ListConcursosByCampania(paisId, codigoCampania, codigoConsultora, esCampaniaActual);
+            return BLConsultoraConcurso.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, codigoConsultora);
         }
 
         public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
