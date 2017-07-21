@@ -98,6 +98,7 @@ namespace Portal.Consultoras.BizLogic
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader, false);
+                    puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
                 }
             }
             catch (Exception)
@@ -116,7 +117,7 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="codigoCampaniaActual"></param>
         /// <param name="codigoCampania"></param>
         /// <returns></returns>
-        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisID, string codigoCampaniaActual, string codigoCampania, string codigoConsultora)
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisID, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora)
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
             DAConcurso DAConcurso = new DAConcurso(paisID);
@@ -125,8 +126,10 @@ namespace Portal.Consultoras.BizLogic
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampaniaActual, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
+                    puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
                 }
-                puntosXConcurso = puntosXConcurso.Where(c => c.CodigoCampania == codigoCampania).ToList();
+                tipoConcurso = tipoConcurso.ToUpper();
+                puntosXConcurso = puntosXConcurso.Where(c => c.CodigoCampania == codigoCampania && c.TipoConcurso.ToUpper() == tipoConcurso).ToList();
             }
             catch (Exception)
             {
