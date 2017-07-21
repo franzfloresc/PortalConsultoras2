@@ -3830,6 +3830,7 @@
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Unete\ReporteFuenteIngreso.cshtml" />
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
