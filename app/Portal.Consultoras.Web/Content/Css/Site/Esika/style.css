@@ -240,7 +240,7 @@ header {
 }
         
 .new_menu_a img{
-    height: 100%;
+    max-height: 100%;
 }
 
 .new_menu {
