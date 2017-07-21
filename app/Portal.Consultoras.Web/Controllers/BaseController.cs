@@ -540,8 +540,8 @@ namespace Portal.Consultoras.Web.Controllers
                         if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                         {
                             ViewBag.ClaseLogoSB = "negro";
-                            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                            if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                                if (userData.RevistaDigital.TieneRDS)
                                     if (userData.RevistaDigital.NoVolverMostrar)
                                     {
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
@@ -589,14 +589,24 @@ namespace Portal.Consultoras.Web.Controllers
                 lstModel.Add(permiso);
             }
 
-            if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
+            if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()))
+            {
+                var listaJunto = lstModel.Where(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower());
+                if (listaJunto.Count() == 2)
+                {
+                    lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
+                }
+                else if (listaJunto.Count() == 1)
+                {
+                    lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
+                }
+            }
+            else if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
                 var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
                 lstModel.ForEach(m =>
-                m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                    ? m.UrlImagen
-                    : menuRd.ClaseMenuItem == "oculto"
-                        ? m.UrlImagen : ""
+                m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower() || menuRd.ClaseMenuItem == "oculto"
+                    ? m.UrlImagen : ""
                 );
             }
 
