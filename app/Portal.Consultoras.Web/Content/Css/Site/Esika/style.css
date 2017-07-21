@@ -33169,8 +33169,9 @@ h1#penmostreo .campana {
     display: block;
 }
 .btn_desactivado_general{
-    background:#d6d6d6 !important;
-    border: none;
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 .ficha_btn_agregar {
     width: 358px;

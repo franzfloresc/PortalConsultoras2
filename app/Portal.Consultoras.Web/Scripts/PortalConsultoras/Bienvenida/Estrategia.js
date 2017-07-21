@@ -376,7 +376,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
             'price': recomendado.Precio2.toString(),
-            'brand': recomendado.DescripcionMarca,
+            'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
             'list': 'Ofertas para ti – ' + origen,
@@ -1015,7 +1015,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                         else if ($.trim(tipoOrigenEstrategia)[0] == "1") {
                             CargarResumenCampaniaHeader(true);
                         }
-                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
+                        else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27|| tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
                             ActualizarGanancia(data.DataBarra);
                             if (tipoOrigenEstrategia == 262) {
                                 origenRetorno = $.trim(origenRetorno);
