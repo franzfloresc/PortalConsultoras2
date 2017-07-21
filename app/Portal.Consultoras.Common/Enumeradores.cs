@@ -262,6 +262,7 @@
 
         public enum ResultadoReserva
         {
+            Ninguno = 0,
             Reservado = 1,
             ReservadoObservaciones = 2,
             NoReservadoObservaciones = 3,

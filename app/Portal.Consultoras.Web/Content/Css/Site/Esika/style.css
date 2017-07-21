@@ -219,7 +219,7 @@ header {
     float: left;
     margin-top: 18px;
     height: 23px;
-    margin-right: 13px;
+    margin-right: 12px;
     margin-left: 12px;
 }
 
@@ -5265,8 +5265,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .monto_ganancia_producto{
     display:inline-block;
     background:#000;
-    width:139px;
-    height:18px;
+    width:136px;
+    height:100%;
     color:#FFF;
     text-align:center;
     line-height:18px;
@@ -6383,6 +6383,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .boton_cerrar_s{
     overflow:hidden;
+    float:left;
 }
 
 .boton_cerrar_s a:hover{
@@ -21187,7 +21188,7 @@ label.checkpop.c_on {
     float: left;
     width: 248px;
     margin-right:25px;
-    min-height: 372px;
+    min-height: 305px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -21223,10 +21224,8 @@ label.checkpop.c_on {
 
 .producto_img_home{
     height: 158px;
-   
     text-align:center;
     margin-top:20px;
-   
     /*background:#ccc;*/
 }
 
@@ -29084,7 +29083,7 @@ h1#penmostreo .campana {
     position: absolute;
     height: 40px;
     line-height: 38px;
-    width: 43%;
+    width: 55%;
     font-weight: 700;
     border: 1px solid black;
     font-family: 'Lato';
