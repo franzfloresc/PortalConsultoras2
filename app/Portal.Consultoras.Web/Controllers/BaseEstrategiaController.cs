@@ -44,10 +44,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             listEstrategia = listEstrategia ?? new List<BEEstrategia>();
             
-
             // Filtrar precio cero o precio de oferta mayor al precio normal.
             listEstrategia = listEstrategia.Where(e => e.Precio2 > 0).ToList();
-            listEstrategia.Where(e => e.Precio <= e.Precio2).ToList().ForEach(e => {
+            // EPD 3029, Solo para estrategias != Nuevas (1)
+            listEstrategia.Where(e => (e.Precio <= e.Precio2) && e.FlagNueva != 1).ToList().ForEach(e => {
                 e.Precio = 0;
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
@@ -98,20 +98,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                if (Session[Constantes.SessionNames.ProductoTemporal] != null)
+                List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                estrategia = (listaEstrategiaPedidoModel == null || listaEstrategiaPedidoModel.Count == 0) ? 
+                        null : ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+
+                if ((estrategia == null || estrategia.EstrategiaID <= 0) && Session[Constantes.SessionNames.ProductoTemporal] != null)
                 {
                     estrategia = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
 
                     var lista = new List<EstrategiaPedidoModel>() { estrategia };
                     estrategia = ConsultarEstrategiasModelFormato(lista)[0];
                 }
-                
-                if (estrategia.EstrategiaID <= 0)
+
+                if (estrategia == null || estrategia.EstrategiaID <= 0)
                 {
                     var lista = ConsultarEstrategias("",0, "", origen);
                     cuv = Util.Trim(cuv);
                     estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
                 }
+                
 
                 estrategia.Hermanos = new List<ProductoModel>();
                 estrategia.PaisID = userData.PaisID;
@@ -314,43 +320,44 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo
-                if (userData.RevistaDigital.TieneRDR)
-                {
-                    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<BEEstrategia>();
-                    var top = listModel.Count();
+                //if (userData.RevistaDigital.TieneRDR)
+                //{
+                //    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<BEEstrategia>();
+                //    var top = listModel.Count();
 
-                    top = Math.Min(top, 4);
+                //    top = Math.Min(top, 4);
 
-                    if (top <= 0)
-                    {
-                        Session[Constantes.SessionNames.ListaEstrategia] = listModel;
-                        return new List<EstrategiaPedidoModel>();
-                    }
+                //    if (top <= 0)
+                //    {
+                //        Session[Constantes.SessionNames.ListaEstrategia] = listModel;
+                //        return new List<EstrategiaPedidoModel>();
+                //    }
 
-                    var estrategiaPackNuevas = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new BEEstrategia();
-                    var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<BEEstrategia>();
+                //    var estrategiaPackNuevas = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new BEEstrategia();
+                //    var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<BEEstrategia>();
 
-                    listModel = new List<BEEstrategia>();
-                    if (estrategiaPackNuevas.EstrategiaID > 0)
-                    {
-                        top--;
-                        listModel.Add(estrategiaPackNuevas);
-                    }
+                //    listModel = new List<BEEstrategia>();
+                //    if (estrategiaPackNuevas.EstrategiaID > 0)
+                //    {
+                //        top--;
+                //        listModel.Add(estrategiaPackNuevas);
+                //    }
 
-                    if (listaDemas.Count() > top)
-                        listaDemas.RemoveRange(top, listaDemas.Count() - top);
+                //    if (listaDemas.Count() > top)
+                //        listaDemas.RemoveRange(top, listaDemas.Count() - top);
                     
-                    listModel.AddRange(listaDemas);
-                    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
-                }
-                else if (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1)
+                //    listModel.AddRange(listaDemas);
+                //    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
+                //}
+                //else 
+                if (userData.RevistaDigital.TieneRDR || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
 
                     listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                     var top = listModel.Count();
 
-                    top = Math.Min(top, 4);
+                    top = Math.Min(top, 8);
 
                     if (top <= 0)
                     {
@@ -362,11 +369,10 @@ namespace Portal.Consultoras.Web.Controllers
                     var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<BEEstrategia>();
 
                     listModel = new List<BEEstrategia>();
-                    //if (estrategiaLanzamiento.EstrategiaID > 0)
-                    //{
-                    //    top--;
-                    //    listModel.Add(estrategiaLanzamiento);
-                    //}
+                    if (estrategiaLanzamiento.EstrategiaID > 0)
+                    {
+                        listModel.Add(estrategiaLanzamiento);
+                    }
                     if (estrategiaPackNuevas.EstrategiaID > 0)
                     {
                         top--;
@@ -383,13 +389,13 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
-            if (userData.RevistaDigital.TieneRDR ||(userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
-            {
-                if (IsMobile() && listaProductoModel.Any())
-                {
-                    listaProductoModel = listaProductoModel.Take(1).ToList();
-                }
-            }
+            //if (IsMobile() && listaProductoModel.Any())
+            //{
+            //    if (userData.RevistaDigital.TieneRDR )
+            //    {
+            //        listaProductoModel = listaProductoModel.Take(1).ToList();
+            //    }
+            //}
             return listaProductoModel;
         }
 
@@ -402,7 +408,7 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        private List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
+        public List<EstrategiaPedidoModel> ConsultarEstrategiasModelFormato(List<BEEstrategia> listaProducto)
         {
             listaProducto = listaProducto ?? new List<BEEstrategia>();
             List<EstrategiaPedidoModel> listaProductoModel = Mapper.Map<List<BEEstrategia>, List<EstrategiaPedidoModel>>(listaProducto);
@@ -437,6 +443,8 @@ namespace Portal.Consultoras.Web.Controllers
                     estrategia.EstrategiaDetalle.ImgFichaMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaMobile);
                     estrategia.EstrategiaDetalle.ImgFichaFondoMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaFondoMobile);
                     estrategia.EstrategiaDetalle.UrlVideoMobile = Util.Trim(estrategia.EstrategiaDetalle.UrlVideoMobile);
+                    estrategia.EstrategiaDetalle.ImgHomeDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeDesktop);
+                    estrategia.EstrategiaDetalle.ImgHomeMobile = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgHomeMobile);
 
                     //estrategia.EstrategiaDetalle.ImgFondoDesktop = isMobile ? "" : estrategia.EstrategiaDetalle.ImgFondoDesktop;
                     //estrategia.EstrategiaDetalle.ImgPrevDesktop = isMobile ? "" : estrategia.EstrategiaDetalle.ImgPrevDesktop;

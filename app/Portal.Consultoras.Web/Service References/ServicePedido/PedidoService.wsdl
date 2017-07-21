@@ -165,11 +165,23 @@
   <wsdl:message name="IPedidoService_ActualizarCupon_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarCuponResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ListarCuponesPorCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:ListarCuponesPorCampania" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ListarCuponesPorCampania_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListarCuponesPorCampaniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomPersonalizacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomPersonalizacion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomPersonalizacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomPersonalizacionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_CrearCuponConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:CrearCuponConsultora" />
@@ -177,11 +189,23 @@
   <wsdl:message name="IPedidoService_CrearCuponConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:CrearCuponConsultoraResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomOferta_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomOferta" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomOferta_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomOfertaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ActualizarCuponConsultora_InputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarCuponConsultora" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ActualizarCuponConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarCuponConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomComponentes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomComponentes" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteShowRoomComponentes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteShowRoomComponentesResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_ListarCuponConsultorasPorCupon_InputMessage">
     <wsdl:part name="parameters" element="tns:ListarCuponConsultorasPorCupon" />
@@ -194,6 +218,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarCuponConsultorasXML_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsertarCuponConsultorasXMLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacion" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarProductoComentarioDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarProductoComentarioDetalle" />
@@ -2236,17 +2266,33 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCupon" message="tns:IPedidoService_ActualizarCupon_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCuponResponse" message="tns:IPedidoService_ActualizarCupon_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomCampania" message="tns:IPedidoService_GetReporteShowRoomCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomCampaniaResponse" message="tns:IPedidoService_GetReporteShowRoomCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ListarCuponesPorCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampania" message="tns:IPedidoService_ListarCuponesPorCampania_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponesPorCampaniaResponse" message="tns:IPedidoService_ListarCuponesPorCampania_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomPersonalizacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacion" message="tns:IPedidoService_GetReporteShowRoomPersonalizacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacionResponse" message="tns:IPedidoService_GetReporteShowRoomPersonalizacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CrearCuponConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CrearCuponConsultora" message="tns:IPedidoService_CrearCuponConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/CrearCuponConsultoraResponse" message="tns:IPedidoService_CrearCuponConsultora_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomOferta">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomOferta" message="tns:IPedidoService_GetReporteShowRoomOferta_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomOfertaResponse" message="tns:IPedidoService_GetReporteShowRoomOferta_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCuponConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCuponConsultora" message="tns:IPedidoService_ActualizarCuponConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ActualizarCuponConsultoraResponse" message="tns:IPedidoService_ActualizarCuponConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomComponentes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentes" message="tns:IPedidoService_GetReporteShowRoomComponentes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentesResponse" message="tns:IPedidoService_GetReporteShowRoomComponentes_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ListarCuponConsultorasPorCupon">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListarCuponConsultorasPorCupon" message="tns:IPedidoService_ListarCuponConsultorasPorCupon_InputMessage" />
@@ -2255,6 +2301,10 @@
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" message="tns:IPedidoService_InsertarCuponConsultorasXML_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXMLResponse" message="tns:IPedidoService_InsertarCuponConsultorasXML_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsertarProductoComentarioDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" message="tns:IPedidoService_InsertarProductoComentarioDetalle_InputMessage" />
@@ -3752,8 +3802,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarCuponesPorCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomPersonalizacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3770,8 +3838,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomOferta">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomOferta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCuponConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarCuponConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomComponentes">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3790,6 +3876,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6924,8 +7019,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ListarCuponesPorCampania">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ListarCuponesPorCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomPersonalizacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomPersonalizacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6942,8 +7055,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomOferta">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomOferta" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ActualizarCuponConsultora">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ActualizarCuponConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteShowRoomComponentes">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteShowRoomComponentes" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6962,6 +7093,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsertarCuponConsultorasXML">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarCuponConsultorasXML" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReporteValidacion">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/GetReporteValidacion" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
