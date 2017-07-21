@@ -29,7 +29,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Sexo", DbType.String, cliente.Sexo);
             Context.Database.AddInParameter(command, "@Documento", DbType.String, cliente.Documento);
             Context.Database.AddInParameter(command, "@Origen", DbType.String, cliente.Origen);
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int16, cliente.PaisID);
 
             return Convert.ToInt64(Context.ExecuteScalar(command));
         }
@@ -47,12 +46,11 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Sexo", DbType.String, cliente.Sexo);
             Context.Database.AddInParameter(command, "@Documento", DbType.String, cliente.Documento);
             Context.Database.AddInParameter(command, "@Origen", DbType.String, cliente.Origen);
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int16, cliente.PaisID);
 
             return Context.ExecuteNonQuery(command) > 0;
         }
 
-        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor, int PaisID)
+        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
         {
             var list = new List<BEClienteDB>();
 
@@ -60,7 +58,6 @@ namespace Portal.Consultoras.Data
 
             Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, TipoContactoID);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, Valor);
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int16, PaisID);
 
             using (var reader = Context.ExecuteReader(command))
             {
@@ -86,14 +83,13 @@ namespace Portal.Consultoras.Data
             return list;
         }
 
-        public List<BEClienteContactoDB> GetClienteByClienteID(string Clientes, int PaisID)
+        public List<BEClienteContactoDB> GetClienteByClienteID(string Clientes)
         {
             var list = new List<BEClienteContactoDB>();
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByClienteID");
 
             Context.Database.AddInParameter(command, "@Clientes", DbType.String, Clientes);
-            Context.Database.AddInParameter(command, "@PaisID", DbType.Int16, PaisID);
 
             using (var reader = Context.ExecuteReader(command))
             {

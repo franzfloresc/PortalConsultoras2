@@ -1953,11 +1953,11 @@ div.texto_encabezado_pedidos.cabecera_cliente, div.texto_pedidos.clientePedido{
 
 #divNotiNombre, #divNotiNombre2 {
     /*top: -25.1%;*/
-    top: -10.1% !important;
+    top: -10.1%;
 }
 
 #divNotiCorreo, #divNotiCorreo2 {
-    top: 58.1% !important
+    top: 48.1%
 }
 
 #divValidationSummary, #divValidationSummary2{
@@ -3823,7 +3823,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     max-width:446px;
     /*height: 346px;*/
-    height:560px;
+    height:520px;
     padding-top:60px;
     box-sizing:border-box;
 }
@@ -26290,46 +26290,34 @@ div.subir_archivo input {
 }
 
 .nombre_cliente_sb{
-    width: 18%;
+    width: 20%;
     display:inline-block;
     vertical-align:middle;
-    padding-left:5px;
-    padding-top:23px;
-    padding-bottom:23px;
-}
-
-.apellido_cliente_sb{
-    width: 18%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:5px;
+    padding-left:15px;
     padding-top:23px;
     padding-bottom:23px;
 }
 
 .telefonofijo_cliente_sb {
-    width: 15%;
+    width: 19%;
     display: inline-block;
     vertical-align: middle;
-    padding-left:5px;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
 .celular_cliente_sb {
-    width: 15%;
+    width: 19%;
     display: inline-block;
     vertical-align: middle;
-    padding-left:5px;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
 .correo_clientes{
-    width: 18%;
+    width: 20%;
     display: inline-block;
     vertical-align: middle;
-    padding-left:5px;
     padding-top:23px;
     padding-bottom:23px;
 }
@@ -26358,7 +26346,7 @@ div.subir_archivo input {
     filter:alpha(opacity=60);
 }
 .editar_cliente{
-    width:5%;
+    width:8%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26366,7 +26354,7 @@ div.subir_archivo input {
     padding-bottom:23px;
 }
 .eliminar_cliente{
-    width: 5%;
+    width: 8%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;

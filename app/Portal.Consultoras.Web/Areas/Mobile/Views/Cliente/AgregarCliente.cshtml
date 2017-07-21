@@ -70,19 +70,9 @@ else
     @Html.HiddenFor(model => model.ClienteID)
     @Html.HiddenFor(model => model.CodigoCliente)
 
-    @*<div class="form-group">
+    <div class="form-group">
         @Html.TextBoxFor(model => model.Nombre, new { placeholder = "Nombres y Apellidos", maxlength = "50", @class = "", autocomplete = "off" })
         @Html.ValidationMessageFor(model => model.Nombre)
-    </div>*@
-
-    <div class="form-group">
-        @Html.TextBoxFor(model => model.NombreCliente, new { placeholder = "Nombres", maxlength = "100", @class = "", autocomplete = "off" })
-        @Html.ValidationMessageFor(model => model.NombreCliente)
-    </div>
-
-    <div class="form-group">
-        @Html.TextBoxFor(model => model.ApellidoCliente, new { placeholder = "Apellidos", maxlength = "100", @class = "", autocomplete = "off" })
-        @Html.ValidationMessageFor(model => model.ApellidoCliente)
     </div>
 
     <div class="form-group">
@@ -175,16 +165,10 @@ else
 
                 if (!$("#frmAgregarCliente").valid()) return;
 
-                var nombreCliente = jQuery.trim($('#NombreCliente').val());
-                var apellidoCliente = jQuery.trim($('#ApellidoCliente').val());
-
                 var item = {
                     ClienteID: $("#ClienteID").val(),
                     CodigoCliente: $("#CodigoCliente").val(),
-                    //Nombre: $('#Nombre').val(),
-                    NombreCliente: nombreCliente,
-                    ApellidoCliente: apellidoCliente,
-                    Nombre: jQuery.trim(nombreCliente + " " + apellidoCliente),
+                    Nombre: $('#Nombre').val(),
                     Email: $('#Email').val(),
                     Telefono: $('#Telefono').val(),
                     Celular: $('#Celular').val(),
