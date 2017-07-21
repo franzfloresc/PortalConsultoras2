@@ -5693,5 +5693,59 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteFunnel", solicitudes, dic);
             return View();
         }
+
+
+        ////////////////////////////////////////////////////////////////77
+
+
+        [HttpPost]
+        public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteFuenteIngreso()
+        {
+            return View();
+        }
+
+        public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFuenteIngreso>();
+            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
+        }
+
+        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin)
+        {
+            var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                 {"Campaña", "Campania"},
+                { "UB", "UB"},
+                 { "Portal GZ", "PortalGZ"},
+                  { "Call Center", "CallCenter"},
+                   { "App SE", "AppSE"}, 
+
+            };
+            Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
+            return View();
+        }
+
     }
 }
