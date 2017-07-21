@@ -69,6 +69,7 @@
     <Compile Include="BEPremio.cs" />
     <Compile Include="Cliente\BENota.cs" />
     <Compile Include="Cliente\BEClienteDeudaRecordatorio.cs" />
+    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="DEPalabra.cs" />
     <Compile Include="DEChatbotProactivaMensaje.cs" />
     <Compile Include="BEAsistenciaCompartamos.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
     <Compile Include="BEClienteResponse.cs" />
+    <Compile Include="BEReporteValidacion.cs" />
     <Compile Include="BEEstrategiaDetalle.cs" />
     <Compile Include="BEMatrizComercialImagen.cs" />
     <Compile Include="DEChatbotProactivaResultado.cs" />
@@ -206,7 +208,6 @@
     <Compile Include="BEProcesoPedidoRechazado.cs" />
     <Compile Include="BEProductoCompartido.cs" />
     <Compile Include="BEProductoSugerido.cs" />
-    <Compile Include="Cupon\BECupon.cs" />
     <Compile Include="RevistaDigital\BERevistaDigitalSuscripcion.cs" />
     <Compile Include="Cupon\BECuponConsultora.cs" />
     <Compile Include="ShowRoom\BEShowRoomCategoria.cs" />

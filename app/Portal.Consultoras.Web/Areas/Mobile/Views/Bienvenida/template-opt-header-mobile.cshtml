@@ -30,42 +30,73 @@
     else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
     {
         <!-- INSCRITAS C-12 -->
-        <div class="mob_home_bpt">
-        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
-            <div class="cabecera_pedido_rd">
-                <div class="rd_logo">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+        if (ViewBag.SourcePage == 1)
+        {
+            <div class="mob_home_bpt">
+                <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        </div>
+                        <div class="cabecera_pedido_text">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    </div>
                 </div>
-                <div class="cabecera_pedido_text">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-            </div>
-        </div>
-        @*<div class="wrapper_resumen_mobile">
-            <div class="rd_lanzamiento">
-                <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
-                <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
-                <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
-                <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
-            </div>
-        </div>*@
-        <hr class="clear" />
-        <div class="fondo_gris" style="padding-top:20px" id="divContenedorListaEstrategia">
-            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
-            </div>
-        </div>
-        
-        <hr class="clear" />
-        <div class="mob_carrusel_bpt">
-            <div class="wrapper_resumen_mobile">
-                <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"/></a>
-            </div>
-        </div>
+                @*<div class="wrapper_resumen_mobile">
+                    <div class="rd_lanzamiento">
+                        <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
+                        <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
+                        <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
+                        <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                    </div>
+                </div>
+                <hr class="clear" />*@
+                <div id="divContenedorListaEstrategia">
+                    <div id="divListadoEstrategia2">
+                        <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                    </div>
+                    <hr class="clear" />
+                    <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"> </div>
+                    </div>
+                </div>
 
-        <div class="rd_verofertas">
-            <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
-            <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")"/></a></div>
-        </div>
-        </div>
+                <hr class="clear" />
+                <div class="mob_carrusel_bpt">
+                    <div class="wrapper_resumen_mobile">
+                        <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                    </div>
+                </div>
+
+                <div class="rd_verofertas">
+                    <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
+                    <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital", new {area = "Mobile"})">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="mob_home_bpt">
+                <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        </div>
+                        <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    </div>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
+                        <div class="btn_red">
+                            <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                        </div>
+                    </div>
+                    <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                            <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <!-- FIN INSCRITAS C-12 -->
     }
     else
@@ -95,38 +126,96 @@
 }
 else if (@ViewBag.TieneRDR == true)
 {
-    <div class="fondo_gris">
-    <div class="revistadigital" style="text-align:center;" id="divContenedorListaEstrategia">
-        <div class="revistadigital-content">
-            <div>
-                <div class="revistadigital-title">
-                    <div class="contenedor_cabecera_revistaDigital">
-                        <div class="fondo_franja"></div>
-                        <div class="linea-negra"></div>
-                        <div class="contenedor_contenido_cabecera">
-                            <div class="cabecera_contenedor_logoMarca">
-                                <img src="/Content/Images/esika-para-mi-img-blanco.svg" alt="Ésika Para Mí">
-                            </div>
-                            <div class="cabecera_texto">{{Titulo}}</div>
+    <!-- INCIO REDUCIDA -->
+    if (ViewBag.SourcePage == 1)
+    {
+        <div class="mob_home_bpt">
+                <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        </div>
+                        <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    </div>
+                </div>
+                @*<div class="wrapper_resumen_mobile">
+                    <div class="rd_lanzamiento">
+                        <img class="rd_lanzamiento_producto" src="@Url.Content("~/Content/Images/RevistaDigital/rd_lanzamiento.jpg")">
+                        <div>CONOCE INSTANT PERFECTION 3 EN 1 LA NUEVA BASE DE ÉSIKA PRO</div>
+                        <div class="btn_black_solid"><a href="#">DESCUBRE ESTA NOVEDAD</a></div>
+                        <a href="#">VER MÁS LANZAMIENTOS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                    </div>
+                </div>
+                <hr class="clear" />*@
+                <div id="divContenedorListaEstrategia">
+                    <div id="divListadoEstrategia2">
+                        <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                    </div>
+                    <hr class="clear" />
+                    <div class="fondo_gris wrapper_resumen_mobile" style="padding-top:20px">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia"> </div>
+                    </div>
+                </div>
+
+                <hr class="clear" />
+                <div class="mob_carrusel_bpt">
+                    <div class="wrapper_resumen_mobile">
+                        <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                    </div>
+                </div>
+
+                <div class="rd_verofertas">
+                    <div>@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
+                    <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital", new {area = "Mobile"})">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
+                </div>
+            </div>
+    }
+    else
+    {
+        <div class="mob_home_bpt">
+                <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+                    <div class="cabecera_pedido_rd">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                        </div>
+                        <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                    </div>
+                    <div class="banner_pedido_masofertas">
+                        <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
+                        <div class="btn_red">
+                            <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                         </div>
                     </div>
-                    <div class="texto_ofertas_bonificaciones">
-                        <span>{{TituloDescripcion}}</span>
+                    <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                        <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                            <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr class="clear" />
-            <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
-                <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+    }
+    <!-- FIN REDUCIDA -->
+    @*<div class="mob_home_bpt">
+        <div class="banner_pedido_rd" style="margin-bottom:0 !important;">
+            <div class="cabecera_pedido_rd">
+                <div class="rd_logo">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                </div>
+                <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
             </div>
-            <div class="boxoffer" style="cursor: pointer;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
-                <div class="fondo_boton"></div>
-                <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+            <div class="banner_pedido_masofertas">
+                <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
+                <div class="btn_red">
+                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                </div>
             </div>
-            <hr class="clear" />
+            <div style="padding-top:20px" id="divContenedorListaEstrategia">
+                <div class="contenedor_carrusel_home content_carrusel_agregado" id="divListadoEstrategia">
+                    <div style="text-align: center;">Cargando Productos Destacados<br><img src="/Content/Images/Loading.gif" /><br /></div>
+                </div>
+            </div>
         </div>
-    </div>
-    </div>
+    </div>*@
 }
 else
 {

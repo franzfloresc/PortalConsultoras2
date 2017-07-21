@@ -592,7 +592,7 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
                 tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
         }
     }
-
+    tipoOfertaFinal_Log = tipoMeta || 0;
     return {
         resultado: resultado,
         productosMostrar: productoOfertaFinal.lista || new Array(),
