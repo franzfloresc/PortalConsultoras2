@@ -12,9 +12,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public int FlagValidate { get; set; }
 
-        //[Display(Name = "Nombre")]
-        //[Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
-        //[StringLength(150, ErrorMessage = "No puede ingresar mas de 150 caracteres", MinimumLength = 1)]
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
+        [StringLength(150, ErrorMessage = "No puede ingresar mas de 150 caracteres", MinimumLength = 1)]
         public string Nombre { get; set; }
 
         [Display(Name = "Correo")]
@@ -41,12 +41,5 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public long CodigoCliente { get; set; }
 
         public short TieneTelefono { get; set; }
-
-        [Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
-        [StringLength(100, ErrorMessage = "No puede ingresar mas de 100 caracteres", MinimumLength = 1)]
-        public string NombreCliente { get; set; }
-
-        [StringLength(100, ErrorMessage = "No puede ingresar mas de 100 caracteres", MinimumLength = 0)]
-        public string ApellidoCliente { get; set; }
     }
 }

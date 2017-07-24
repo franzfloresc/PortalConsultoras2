@@ -63,8 +63,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
-            Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
-            Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
 
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -84,8 +82,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
-            Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
-            Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
 
             return Context.ExecuteNonQuery(command);
         }

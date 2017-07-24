@@ -264,8 +264,6 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var clienteDB in clientes)
             {
-                clienteDB.PaisID = paisID;
-
                 //VALIDAR CLIENTE
                 var validacion = this.ValidateAttribute(paisID, clienteDB);
                 if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
@@ -327,7 +325,7 @@ namespace Portal.Consultoras.BizLogic
 
 
                 //OBTENER CLIENTE TELEFONO
-                var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID);
+                var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor);
                 resGetCliente = resGetCliente.Where(x => x.ClienteID != clienteDB.ClienteID).ToList();
 
                 if (resGetCliente.Count > 0)
@@ -363,9 +361,7 @@ namespace Portal.Consultoras.BizLogic
                     if (clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
                         clienteDB.Contactos = null;
 
-                    //VERIFICAR POR CODIGO Y PAIS
-                    var existeClientePais = daClienteDB.GetClienteByClienteID(clienteDB.ClienteID.ToString(), paisID);
-                    if(existeClientePais.Count == 0)
+                    if (clienteDB.ClienteID == 0)
                     {
                         //INSERTAR CLIENTE
                         clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
@@ -401,50 +397,11 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
 
-                    //if (clienteDB.ClienteID == 0)
-                    //{
-                    //    //INSERTAR CLIENTE
-                    //    clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
-                    //    if (clienteDB.ClienteID == 0)
-                    //    {
-                    //        lstResponse.Add(new BEClienteResponse()
-                    //        {
-                    //            ClienteID = clienteDB.ClienteID,
-                    //            ConsultoraID = clienteDB.ConsultoraID,
-                    //            ClienteIDSB = clienteDB.ClienteIDSB,
-                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO,
-                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO]
-                    //        });
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //ACTUALIZAR CLIENTE
-                    //    var resUpdateCliente = daClienteDB.UpdateCliente(clienteDB);
-
-                    //    if (!resUpdateCliente)
-                    //    {
-                    //        lstResponse.Add(new BEClienteResponse()
-                    //        {
-                    //            ClienteID = clienteDB.ClienteID,
-                    //            ConsultoraID = clienteDB.ConsultoraID,
-                    //            ClienteIDSB = clienteDB.ClienteIDSB,
-                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO,
-                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO]
-                    //        });
-                    //        continue;
-                    //    }
-                    //}
-
                     clienteSB = new BECliente()
                     {
                         ConsultoraID = clienteDB.ConsultoraID,
                         ClienteID = clienteDB.ClienteIDSB,
-                        //Nombre = clienteDB.Nombres,
-                        Nombre = clienteDB.NombreCompleto,
-                        NombreCliente = clienteDB.Nombres,
-                        ApellidoCliente = clienteDB.Apellidos,
+                        Nombre = clienteDB.Nombres,
                         eMail = correo,
                         Activo = true,
                         Telefono = telefonoFijo,
@@ -476,10 +433,7 @@ namespace Portal.Consultoras.BizLogic
                             }
                         }
                     }
-                    else
-                    {
-                        daCliente.UpdCliente(clienteSB);
-                    }
+                    else daCliente.UpdCliente(clienteSB);
                 }
                 else
                 {
@@ -538,7 +492,7 @@ namespace Portal.Consultoras.BizLogic
 
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
-            var lstCliente = daClienteDB.GetClienteByClienteID(strclientes, paisID);
+            var lstCliente = daClienteDB.GetClienteByClienteID(strclientes);
             
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
@@ -609,7 +563,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor, paisID);
+                    var lstCliente = daClienteDB.GetCliente(contactoCliente.TipoContactoID, contactoCliente.Valor);
                     lstCliente = lstCliente.Where(x => x.ClienteID != contactoCliente.ClienteID).ToList();
 
                     if (lstCliente.Count > 0)
@@ -736,8 +690,7 @@ namespace Portal.Consultoras.BizLogic
             lstCliente = lstCliente.Where(x => x.CodigoCliente != cliente.ClienteID).ToList();
             lstCliente = lstCliente.Where(x => x.ClienteID != cliente.ClienteIDSB).ToList();
 
-            //var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.Nombres.ToUpper()).Count();
-            var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.NombreCompleto.ToUpper()).Count();
+            var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.Nombres.ToUpper()).Count();
             if (nombreExiste > 0) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORANOMBREEXISTE;
 
             if (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular)

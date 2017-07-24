@@ -89,14 +89,14 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor, int PaisID)
+        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
         {
-            return clienteData.GetCliente(TipoContactoID, Valor, PaisID);
+            return clienteData.GetCliente(TipoContactoID, Valor);
         }
 
-        public List<BEClienteDB> GetClienteByClienteID(string Clientes, int PaisID)
+        public List<BEClienteDB> GetClienteByClienteID(string Clientes)
         {
-            var lst = clienteData.GetClienteByClienteID(Clientes, PaisID);
+            var lst = clienteData.GetClienteByClienteID(Clientes);
             List<BEClienteDB> result = (from tbl in lst
                                     group tbl by tbl.ClienteID into grp
                                         select new BEClienteDB
