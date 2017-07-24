@@ -2125,10 +2125,44 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
-
+        
         public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
+        }
+
+        #endregion
+
+        #region Producto Comentario
+
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
+        }
+
+        public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);
+        }
+
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            return blEstrategia.GetUltimoProductoComentarioByCodigoSap(paisID, codigoSap);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, filter);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, filter);
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
 
         #endregion
