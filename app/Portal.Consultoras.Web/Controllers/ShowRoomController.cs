@@ -1157,6 +1157,18 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
+        public JsonResult PopupCerrar()
+        {
+            userData.BeShowRoomConsultora.MostrarPopup = false;
+            userData.BeShowRoomConsultora.MostrarPopupVenta = false;
+            return Json(new
+            {
+                success = true,
+                message = "Actualizado correctamente"
+            });
+        }
+
+        [HttpPost]
         public JsonResult UpdatePopupShowRoom(bool noMostrarPopup)
         {
             try

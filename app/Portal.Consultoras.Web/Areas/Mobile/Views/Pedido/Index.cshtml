@@ -4,6 +4,7 @@
 @model PedidoMobileModel
 @{
     var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    ViewBag.SourcePage = 2;
 
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
