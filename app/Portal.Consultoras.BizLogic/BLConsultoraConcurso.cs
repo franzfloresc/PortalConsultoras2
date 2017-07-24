@@ -97,16 +97,12 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
-                    puntosXConcurso = GetConcursos(reader, false);
-                    puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
+                    puntosXConcurso = GetConcursos(reader);
                 }
             }
-            catch (Exception)
-            {
-                puntosXConcurso = new List<BEConsultoraConcurso>();
-            }
-
-            return puntosXConcurso;
+            catch (Exception ex) { LogManager.SaveLog(ex, codigoConsultora, paisID.ToString()); }
+            
+            return puntosXConcurso.Where(c => EsCampaniaVisible(c)).ToList();
         }
 
         /// <summary>
@@ -126,7 +122,6 @@ namespace Portal.Consultoras.BizLogic
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampaniaActual, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
-                    puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
                 }
                 tipoConcurso = tipoConcurso.ToUpper();
                 puntosXConcurso = puntosXConcurso.Where(c => c.CodigoCampania == codigoCampania && c.TipoConcurso.ToUpper() == tipoConcurso).ToList();
@@ -162,6 +157,7 @@ namespace Portal.Consultoras.BizLogic
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
+            puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
             return puntosXConcurso;
         }
 
@@ -245,6 +241,16 @@ namespace Portal.Consultoras.BizLogic
             if (concurso.NivelAlcanzado == 0) concurso.NivelSiguiente = 1;
             concurso.Premios.RemoveAll(p => p.NumeroNivel > concurso.NivelSiguiente && concurso.NivelSiguiente != 0);
             if (concurso.FechaVentaRetail <= DateTime.Today) concurso.Premios.RemoveAll(p => p.PuntajeMinimo > concurso.PuntajeTotal);
+        }
+
+        private bool EsCampaniaVisible(BEConsultoraConcurso concurso)
+        {
+            if (concurso.Premios == null || concurso.Premios.Count == 0) return false;
+
+            if (!concurso.EsCampaniaAnterior) return true;
+            if (concurso.PuntajeTotal > concurso.Premios.First().PuntajeMinimo) return true;
+            if (concurso.FechaVentaRetail >= DateTime.Today) return true;
+            return false;
         }
     }
 }
