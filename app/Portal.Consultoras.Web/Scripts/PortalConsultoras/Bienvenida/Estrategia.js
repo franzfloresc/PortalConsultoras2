@@ -290,17 +290,25 @@ function ArmarCarouselEstrategias(data) {
     
     //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
+   
+
+    try {
+        SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
+
+        if ($.trim($('#divListadoEstrategia2').html()).length > 0) {
+            $('#divListaEstrategias').show();
+            //return false;
+        }
+    } catch (e) {
+        console.log(e);
+    }
     SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
-    //try {
-    //    ResizeBoxContnet();
-    //}catch(e){ console.log(e)}
-    
     
     if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
         $("[data-barra-width]").css("width", indicadorFlexiPago == 1 ? "68%" : "100%");
 
-        $('#divListaEstrategias').hide();
+        //$('#divListaEstrategias').hide();
         $('.caja_pedidos').addClass('sinOfertasParaTi');
         $('.tooltip_infoCopy').addClass('tooltip_infoCopy_expand');
     }
@@ -347,7 +355,7 @@ function ArmarCarouselEstrategias(data) {
         var heightReference = $("#divListadoPedido").find("[data-tag='table']").height();
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
-        cant = data.CodigoEstrategia == "101" ? data.Lista.length : cant;
+        cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
         $('#divListadoEstrategia').slick({
             infinite: true,
             vertical: true,
@@ -560,7 +568,9 @@ function EstrategiaVerDetalle(id, origen) {
                     return window.location = url;
             }
         }
-    } catch (e) {}
+    } catch (e) {
+        console.log(e);
+    }
     window.location = url;
 }
 
@@ -579,6 +589,11 @@ function CargarEstrategiasEspeciales(objInput, e) {
         $('#popupDetalleCarousel_packNuevas').show();
         TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
     } else if (estrategia.TipoEstrategiaImagenMostrar == '5' || estrategia.TipoEstrategiaImagenMostrar == '3') {
+        estrategia.DescripcionCompleta = estrategia.DescripcionCUV2.split('|')[0];
+        estrategia.Posicion = 1;
+        estrategia.TextoLibre = $.trim(estrategia.TextoLibre);
+        estrategia.MostrarTextoLibre = estrategia.TextoLibre.length > 0;
+
         estrategia.CodigoEstrategia = $.trim(estrategia.CodigoEstrategia);
         estrategia.Detalle = new Array();
         var btnDesabled = 0;
@@ -626,15 +641,16 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 estrategia.CodigoEstrategia = "";
             }
         }
-
+        
         var popupId = '#popupDetalleCarousel_lanzamiento';
+
         SetHandlebars("#lanzamiento-template", estrategia, popupId);
 
         if (btnDesabled == 0) {
             btnDesabled = $(popupId).find("#tbnAgregarProducto").attr("data-bloqueada") || "";
             if (btnDesabled == "") {
                 $(popupId).find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-            }            
+            }
         }
         else {
             $(popupId).find("#tbnAgregarProducto").addClass("btn_desactivado_general");
@@ -714,37 +730,62 @@ function CargarEstrategiaSet(cuv) {
     return detalle;
 }
 
+function CargarEstrategiaCuv(cuv) {
+    AbrirLoad();
+    var detalle = new Array();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            detalle = data || new Array();
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+    CerrarLoad();
+    return detalle;
+}
 function CargarProductoDestacado(objParameter, objInput, popup, limite) {
     if ($.trim($(objInput).attr("data-bloqueada")) != "") {
-        var divMensaje = $("#divMensajeBloqueada");
-        if (divMensaje.length > 0) {
-            var itemClone = $(objInput).parents("[data-item]");
-            var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-            if (cuvClone != "") {
-                itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        if (isMobile()) {
+            EstrategiaVerDetalle(objParameter.EstrategiaID);
+        } else {
+            var divMensaje = $("#divMensajeBloqueada");
+            if (divMensaje.length > 0) {
+                var itemClone = $(objInput).parents("[data-item]");
+                var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+                if (cuvClone != "") {
+                    itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+                }
+                if (itemClone.length > 0) {
+                    divMensaje.find("[data-item-html]").html(itemClone.html());
+                    divMensaje = divMensaje.find("[data-item-html]");
+                    //var htmlProd = $(objInput).parents("[data-item]");
+                    divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+                    divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
+                    divMensaje.find('[data-item-tag="body"]').css("float", "none");
+                    divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
+                    divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
+                    divMensaje.find('[data-item-tag="body"]').attr("class", "");
+                    divMensaje.find('[data-item-tag="agregar"]').remove();
+                    divMensaje.find('[data-item-tag="fotofondo"]').remove();
+                    divMensaje.find('[data-item-tag="verdetalle"]').remove();
+                    divMensaje.find('[data-item-accion="verdetalle"]').remove();
+                    divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
+                    divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                    divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
+                    //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+                }
+
+                $(".contenedor_popup_detalleCarousel").hide();
+                $("#divMensajeBloqueada").show();
             }
-            if (itemClone.length > 0) {
-                divMensaje.find("[data-item-html]").html(itemClone.html());
-                divMensaje = divMensaje.find("[data-item-html]");
-                //var htmlProd = $(objInput).parents("[data-item]");
-                divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-                divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
-                divMensaje.find('[data-item-tag="body"]').css("float", "none");
-                divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
-                divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
-                divMensaje.find('[data-item-tag="body"]').attr("class", "");
-                divMensaje.find('[data-item-tag="agregar"]').remove();
-                divMensaje.find('[data-item-tag="fotofondo"]').remove();
-                divMensaje.find('[data-item-tag="verdetalle"]').remove();
-                divMensaje.find('[data-item-accion="verdetalle"]').remove();
-                divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
-                divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-                divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
-                //divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-            }
-            
-            $("#divMensajeBloqueada").show();
         }
+       
         return false;
     }
     var attrClass = $.trim($(objInput).attr("class"));

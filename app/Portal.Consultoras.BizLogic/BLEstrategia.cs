@@ -73,6 +73,8 @@ namespace Portal.Consultoras.BizLogic
                     estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
                     estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
                     estrategia.ImgFichaFondoMobile = estrategiaDetalle.ImgFichaFondoMobile;
+                    estrategia.ImgHomeDesktop = estrategiaDetalle.ImgHomeDesktop;
+                    estrategia.ImgHomeMobile = estrategiaDetalle.ImgHomeMobile;
                 }
                 return listaEstrategias;
             }

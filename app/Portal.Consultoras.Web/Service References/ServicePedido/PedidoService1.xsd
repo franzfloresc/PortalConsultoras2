@@ -278,6 +278,118 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEConsultoraResumen.PedidoResumen" nillable="true" type="tns:BEConsultoraResumen.PedidoResumen" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRCampania">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSRCampania" nillable="true" type="tns:ArrayOfBEReporteValidacionSRCampania" />
+  <xs:complexType name="BEReporteValidacionSRCampania">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DiasAntesFacturacion" type="xs:int" />
+      <xs:element minOccurs="0" name="DiasDespuesFacturacion" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarCompraXCompra" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarEvento" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagHabilitarSubCampania" type="xs:int" />
+      <xs:element minOccurs="0" name="NombreEvento" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRCampania" nillable="true" type="tns:BEReporteValidacionSRCampania" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSRPersonalizacion" nillable="true" type="tns:ArrayOfBEReporteValidacionSRPersonalizacion" />
+  <xs:complexType name="BEReporteValidacionSRPersonalizacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CL" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EC" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GT" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MX" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Medio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PA" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PE" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PR" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VE" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRPersonalizacion" nillable="true" type="tns:BEReporteValidacionSRPersonalizacion" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSROferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSROferta" nillable="true" type="tns:ArrayOfBEReporteValidacionSROferta" />
+  <xs:complexType name="BEReporteValidacionSROferta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoSAP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoTO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EsSubCampania" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagImagenCargada" type="xs:int" />
+      <xs:element minOccurs="0" name="FlagImagenMINI" type="xs:int" />
+      <xs:element minOccurs="0" name="HabilitarOferta" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioOferta" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioValorizado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UnidadesPermitidas" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSROferta" nillable="true" type="tns:BEReporteValidacionSROferta" />
+  <xs:complexType name="ArrayOfBEReporteValidacionSRComponentes">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacionSRComponentes" nillable="true" type="tns:ArrayOfBEReporteValidacionSRComponentes" />
+  <xs:complexType name="BEReporteValidacionSRComponentes">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Campania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion1" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Descripcion3" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacionSRComponentes" nillable="true" type="tns:BEReporteValidacionSRComponentes" />
+  <xs:complexType name="ArrayOfBEReporteValidacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEReporteValidacion" nillable="true" type="tns:ArrayOfBEReporteValidacion" />
+  <xs:complexType name="BEReporteValidacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Activo" type="xs:int" />
+      <xs:element minOccurs="0" name="AnioCampanaVenta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CUVPrecioTachado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodPais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCUV2" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionCorta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ImagenUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
+      <xs:element minOccurs="0" name="PrecioNormal" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioOfertaDigital" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PrecioTachado" type="xs:decimal" />
+      <xs:element minOccurs="0" name="TipoPersonalizacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
   <xs:complexType name="BEProductoComentarioDetalle">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BEPaging">

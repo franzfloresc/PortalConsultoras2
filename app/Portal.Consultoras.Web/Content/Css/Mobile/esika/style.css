@@ -9908,6 +9908,20 @@ a{
     width: 38%;
 }
 
+.btn3-ffc {
+    font-family: 'lato';
+    background: white;
+    color: black;
+    font-weight: 700;
+    height: 45px;
+    border: 1px solid #ccc;
+    float: left;
+    /* line-height: 32px; */
+    text-align-last: center;
+    /* border-radius: 0; */
+    display: inline-block;
+    width: 48%;
+}
 .select-ffc {
    font-family: 'lato';
     font-size: 13px;
@@ -10300,6 +10314,7 @@ a{
 }
 .btn_desactivado_general{
     background:#d6d6d6 !important;
+    border:none;
 }
 .btn_agregar_ficha_producto{
     width:50%;
