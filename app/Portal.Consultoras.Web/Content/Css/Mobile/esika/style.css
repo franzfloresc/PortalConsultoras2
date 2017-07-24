@@ -12637,6 +12637,7 @@ a{
     display:inline-block;
     vertical-align:top;
     padding-left:10px;
+    text-decoration:underline;
 }
 .comentarios_best_seller_ficha {
     height: auto;
@@ -12959,4 +12960,7 @@ a{
 }
 .content_detalle_s{
     margin-top:-11px;
+}
+.fondo_pestana{
+    background:#eeeeee;
 }
