@@ -1141,6 +1141,9 @@ namespace Portal.Consultoras.ServiceContracts
         void ActualizarCupon(int paisId, BECupon cupon);
 
         [OperationContract]
+        List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID);
+        
+        [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
 
         #endregion
@@ -1148,16 +1151,28 @@ namespace Portal.Consultoras.ServiceContracts
         #region Cupon Consultora
 
         [OperationContract]
+        List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
+        
+        [OperationContract]
         void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
+        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
+        
+        [OperationContract]
         void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
+        [OperationContract]
+        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
+        
         [OperationContract]
         List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
 
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
+        
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);        
         #endregion
 
         #region Producto Comentario

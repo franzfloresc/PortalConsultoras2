@@ -9553,6 +9553,7 @@ span.icon-advertencia{
 }
 .btn_desactivado_general{
     background:#d6d6d6 !important;
+    border:none;
 }
 .btn_agregar_ficha_producto{
     width:50%;
@@ -11843,6 +11844,7 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     display:inline-block;
     vertical-align:top;
     padding-left:10px;
+    text-decoration:underline;
 }
 .comentarios_best_seller_ficha {
     height: auto;
@@ -12161,4 +12163,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 }
 .content_detalle_s{
     margin-top:-26px;
+}
+.fondo_pestana{
+    background:#eeeeee;
+    overflow: hidden;
 }

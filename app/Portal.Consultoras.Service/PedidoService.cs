@@ -2060,11 +2060,21 @@ namespace Portal.Consultoras.Service
         {
             BLCuponConsultora.ActualizarCuponConsultora(paisId, cuponConsultora);
         }
+        
+        public List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID)
+        {
+            return new BLReporteValidacion().GetReporteShowRoomCampania(paisID, campaniaID).ToList();
+        }
 
         public List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId)
         {
             var listaCuponConsultoras = BLCuponConsultora.ListarCuponConsultorasPorCupon(paisId, cuponId);
             return listaCuponConsultoras;
+        }
+        
+        public List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID)
+        {
+            return new BLReporteValidacion().GetReporteShowRoomPersonalizacion(paisID, campaniaID).ToList();
         }
 
         public void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras)
@@ -2072,11 +2082,19 @@ namespace Portal.Consultoras.Service
             BLCuponConsultora.InsertarCuponConsultorasXML(paisId, cuponId, campaniaId, listaCuponConsultoras);
         }
 
-        #endregion
+        public List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID)
+        {
+            return new BLReporteValidacion().GetReporteShowRoomOferta(paisID, campaniaID).ToList();
+        }
 
         public int RDSuscripcion(BERevistaDigitalSuscripcion entidad)
         {
             return BLRevistaDigitalSuscripcion.Suscripcion(entidad);
+        }
+        
+        public List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID)
+        {
+            return new BLReporteValidacion().GetReporteShowRoomComponentes(paisID, campaniaID).ToList();
         }
 
         public int RDDesuscripcion(BERevistaDigitalSuscripcion entidad)
@@ -2107,14 +2125,20 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
+        
+        public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
+        {
+            return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
+        }
+
+        #endregion
 
         #region Producto Comentario
-
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-
+        
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);

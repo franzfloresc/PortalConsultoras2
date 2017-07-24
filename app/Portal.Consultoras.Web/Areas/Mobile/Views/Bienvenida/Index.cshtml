@@ -9,6 +9,7 @@
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
+    ViewBag.SourcePage = 1;
 }
 
 @section styles{
@@ -713,9 +714,10 @@
 
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
+
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}

@@ -256,6 +256,7 @@
     <Compile Include="Controllers\AdministrarLinksController.cs" />
     <Compile Include="Controllers\AdministrarLugaresPagoController.cs" />
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
+    <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
@@ -541,6 +542,8 @@
     <Compile Include="Models\ReportePedidoCampaniaModel.cs" />
     <Compile Include="Models\ReportePedidoDDWebModel.cs" />
     <Compile Include="Models\ReportePedidoFICModel.cs" />
+    <Compile Include="Models\ReporteValidacionModel.cs" />
+    <Compile Include="Models\ReporteValidacionSRModel.cs" />
     <Compile Include="Models\ResponseGeoCoDto.cs" />
     <Compile Include="Models\ResponseGeoCoDtoTemp.cs" />
     <Compile Include="Models\ResumenCampaniaModel.cs" />
@@ -2990,6 +2993,7 @@
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
+    <Content Include="Scripts\AdminContenido\ReporteValidacion.js" />
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
     <Content Include="Scripts\AdminContenido\Nemotecnico.js" />
     <Content Include="Scripts\AdminContenido\OfertaLiquidacion.js" />
@@ -3365,6 +3369,7 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
+    <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4092,10 +4097,12 @@
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
     <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
+    <Content Include="Views\Bienvenida\template-seccion-bpt.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
+    <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4588,7 +4595,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>45233</DevelopmentServerPort>
+          <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:20267/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

@@ -2441,8 +2441,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
-            RespuestaEjecutarServicioPROL(response, false);
-            MostrarMensajeProl(response);
+                RespuestaEjecutarServicioPROL(response, false);
+                MostrarMensajeProl(response);
             }
         },
         error: function (data, error) {
