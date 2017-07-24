@@ -441,8 +441,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
                 if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
+                // EPD 2765 - Comentado agregado para que pueda aparecer "App Catalogos" como opcion
+                /*
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     lst = lst.Where(x => x.PermisoID != 1019).ToList();
+                */
 
                 lista1 = Mapper.Map<List<PermisoModel>>(lst);
             }
