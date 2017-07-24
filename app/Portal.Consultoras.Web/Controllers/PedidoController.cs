@@ -3834,12 +3834,12 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
+            ObjOfertaFinal.Algoritmo = userData.OfertaFinalModel.Algoritmo;
+            ObjOfertaFinal.Estado = userData.OfertaFinalModel.Estado;
 
             using (ProductoServiceClient ps = new ProductoServiceClient())
             {
                 lista = ps.ObtenerProductosOfertaFinal(ObjOfertaFinal).ToList();
-                //lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
-                //    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
             if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)

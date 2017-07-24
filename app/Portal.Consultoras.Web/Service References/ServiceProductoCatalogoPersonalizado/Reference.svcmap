@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:36239/ProductoService.svc?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ProductoService.wsdl" MetadataType="Wsdl" ID="b4ae1098-683c-4592-b9d6-932c921285ac" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?wsdl" />
-    <MetadataFile FileName="ProductoService2.xsd" MetadataType="Schema" ID="93e93dbf-e7c7-4e9c-80aa-c4cacd434215" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ProductoService.xsd" MetadataType="Schema" ID="e12651c4-c369-41ae-9338-ffe2a229f1d2" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ProductoService1.xsd" MetadataType="Schema" ID="c1638ed0-06c6-43c6-ab3b-6e28d55fdd1d" SourceId="1" SourceUrl="http://internal-qaielbserviciosconsultoras-253844361.us-east-1.elb.amazonaws.com/CatalogoWCF/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService36.xsd" MetadataType="Schema" ID="d66ffa75-bb5c-477f-9b9f-a0d32445d312" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd2" />
+    <MetadataFile FileName="ProductoService12.wsdl" MetadataType="Wsdl" ID="195bf5ae-2b37-438a-b87e-36e28e6d6796" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?wsdl" />
+    <MetadataFile FileName="ProductoService37.xsd" MetadataType="Schema" ID="d3326768-e730-41b5-8067-2c275ecaa5de" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProductoService38.xsd" MetadataType="Schema" ID="f53bc393-1208-47c0-90c0-c112eb69badc" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

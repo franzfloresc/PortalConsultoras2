@@ -919,6 +919,14 @@ namespace Portal.Consultoras.Web.Controllers
                                         model.RevistaDigital.TieneRDR = true;
                                         continue;
                                     }
+
+                                    if (c.Codigo == Constantes.ConfiguracionPais.OfertaFinalTradicional ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling)
+                                    {
+                                        model.OfertaFinalModel.Estado = c.Estado;
+                                        model.OfertaFinalModel.Algoritmo = c.Codigo;                                                                                
+                                        continue;
+                                    }
                                 }
 
                             }

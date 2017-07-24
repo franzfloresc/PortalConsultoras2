@@ -73,6 +73,7 @@ namespace Portal.Consultoras.Web.Models
             this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
+            this.OfertaFinalModel = new OfertaFinalModel();
         }
 
         public string Celular { get; set; }
@@ -362,5 +363,7 @@ namespace Portal.Consultoras.Web.Models
 
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; internal set; }
+
+        public OfertaFinalModel OfertaFinalModel { get; set; }
     }
 }
