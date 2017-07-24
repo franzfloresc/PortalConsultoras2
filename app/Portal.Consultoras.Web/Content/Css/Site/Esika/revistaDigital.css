@@ -2003,7 +2003,7 @@
 .rd_ver_mas:after {
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 6px 10px;
+    background-size: 6px 8px;
     display: inline-block;
     width: 6px;
     position: absolute;
@@ -2011,6 +2011,7 @@
     content: "";
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 10;
 }
 
 .rd_ver_mas:hover:after {
@@ -2478,13 +2479,14 @@
     content: "";
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 10px 14px;
+    background-size: 8px 12px;
     display: inline-block;
     width: 10px;
     position: absolute;
     height: 14px;
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 2 !important;
 }
 
 #bc_content_oferta {

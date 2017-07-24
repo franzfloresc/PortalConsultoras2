@@ -33,7 +33,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 ViewBag.EsMobile = 2;
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
-                if (modelo == null || modelo.ID == 0)
+                if (modelo == null || modelo.ID == 0 || modelo.CUV2 != cuv)
                 {
                     List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
                     modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();

@@ -837,6 +837,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             model.RevistaDigital.NoVolverMostrar = true;
+                            if(model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
                             var config = new BEConfiguracionPais
                             {
