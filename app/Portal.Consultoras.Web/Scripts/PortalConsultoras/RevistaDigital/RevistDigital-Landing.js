@@ -132,7 +132,8 @@ function OfertaObtenerFiltro(filtro, clear) {
     }
     listaFiltros.CampaniaID = campaniaId;
 
-    $("[data-filtro-tipo='borrar']").parent().show();
+    var borrarFiltro = 'borrar' + campaniaId;
+    $("[data-filtro-tipo='" + borrarFiltro +"']").parent().show();
 
     $.each(listadoFiltros, function (indSel, select) {
         variante = $.trim($(select).attr("data-filtro-tipo"));
@@ -217,7 +218,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
 
     var divProd = $("[data-listado-campania=" + busquedaModel.CampaniaID + "]");
 
-    divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
+    divProd.find('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:100px;padding: 15px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
     divProd.find("#divOfertaProductosLoad").show();
 
     if (filtroCampania[indCampania] != undefined) {
@@ -244,10 +245,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
     $.ajaxSetup({
         cache: false
     });
-
-    //$('#divOfertaProductosLoad').html('<div style="text-align: center; min-height:150px;padding: 50px;">Cargando Productos<br><img src="' + urlLoad + '" /></div>');
-    //$("#divOfertaProductosLoad").show();
-
+    
     busquedaModel.IsMobile = isMobile();
     busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
     jQuery.ajax({
