@@ -503,6 +503,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
+
+        [OperationContract]
         void AnularPedido(int paisID, int campaniaID, int pedidoID);
 
         #region Pedidos DD

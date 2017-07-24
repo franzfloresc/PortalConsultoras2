@@ -914,6 +914,11 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
         }
 
+        public BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
+        {
+            return BLPedidoWeb.GetResumenPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
+        }
+
         public List<BEEscalaDescuento> GetEscalaDescuento(int paisID)
         {
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
