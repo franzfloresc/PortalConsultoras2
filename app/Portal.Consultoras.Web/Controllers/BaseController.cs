@@ -268,11 +268,11 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+               
             List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
             var rtpa = new List<ObjMontosProl>();
             if (listProducto.Any())
             {
-
                 string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
                 string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
 
@@ -282,13 +282,14 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
+                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
                 }
             }
             else
             {
                 rtpa.Add(new ObjMontosProl());
             }
+
             rtpa = rtpa ?? new List<ObjMontosProl>();
             Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
             return rtpa;

@@ -62,8 +62,11 @@ namespace Portal.Consultoras.BizLogic
             List<BEConsultoraConcurso> PuntosXConcurso = new List<BEConsultoraConcurso>();
             DAConcurso DAConcurso = new DAConcurso(PaisID);
             List<BEPremio> Premios = new List<BEPremio>();
+
             try
             {
+                DAConcurso.GenerarConcursoVigente(CodigoConsultora, CodigoCampania);
+
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(CodigoCampania, CodigoConsultora))
                 {
                     while (reader.Read())
