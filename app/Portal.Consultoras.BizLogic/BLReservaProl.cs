@@ -309,7 +309,8 @@ namespace Portal.Consultoras.BizLogic
                     string CUV = item.codvta;
                     string Observacion = item.observacion.Replace("+", "");
 
-                    if (TipoObs == 8) {
+                    if (TipoObs == 8)
+                    {
                         lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
                     }
                     else
