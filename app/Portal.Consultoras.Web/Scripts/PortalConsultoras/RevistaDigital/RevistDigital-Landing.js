@@ -123,7 +123,8 @@ function OfertaObtenerFiltro(filtro, clear) {
     }
     listaFiltros.CampaniaID = campaniaId;
 
-    $("[data-filtro-tipo='borrar']").parent().show();
+    var borrarFiltro = 'borrar' + campaniaId;
+    $("[data-filtro-tipo='" + borrarFiltro +"']").parent().show();
 
     $.each(listadoFiltros, function (indSel, select) {
         variante = $.trim($(select).attr("data-filtro-tipo"));

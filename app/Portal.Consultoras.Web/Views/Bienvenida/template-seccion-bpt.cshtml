@@ -76,7 +76,8 @@
                     <div class="clearfix"></div>
                     <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
                     <a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})" class="btn-descubre">DESCUBRIR MÁS</a>
-                    <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas">VER MÁS LANZAMIENTOS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
+                    <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas rd_ver_mas">VER MÁS LANZAMIENTOS 
+                    </a>
                 </div>
             </div>
             {{/each}}
@@ -172,7 +173,10 @@
             </div>
             {{/each}}
             <div class="clearfix"></div>
-                <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas-ofertas">VER MÁS OFERTAS <img src="/Content/Images/Esika/arrow_right.png" alt=""></a>
+            <div style="position: relative;">
+                <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas-ofertas rd_ver_mas">VER MÁS OFERTAS </a>
+            </div>
+                
             </div>
         </div>
     </div>

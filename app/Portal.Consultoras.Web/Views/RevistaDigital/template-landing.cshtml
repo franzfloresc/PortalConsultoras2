@@ -3,6 +3,9 @@
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
 
+@{
+    var idBorrar = "borrar" + Model.CampaniaID;
+}
 @if (Model.Success)
 {
 
@@ -48,7 +51,7 @@
                         </div>
                         <div class="rd-filtro-limpiar">
                             <div id="div-delete-filters" style="display: none; margin-right: 0px;">
-                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="borrar" style="text-decoration: underline;">Borrar Filtros</a>
+                                <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
                             </div>
                         </div>
                     </div>

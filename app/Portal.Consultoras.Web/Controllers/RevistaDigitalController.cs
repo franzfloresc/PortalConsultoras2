@@ -45,10 +45,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (modelo == null || modelo.ID == 0)
                 {
-                    List <BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+                    List<BEEstrategia> listaEstrategiaPedidoModel =
+                        (List<BEEstrategia>) Session[Constantes.SessionNames.ListaEstrategia];
+                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv)
+                        .ToList()).FirstOrDefault();
 
                 }
+                
                 return DetalleModel(modelo);
             }
             catch (Exception ex)
@@ -231,12 +234,16 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EstadoEnvio = 0;
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
-
+                if (entidad.CodigoConsultora == "")
+                    throw new Exception("El codigo de la consultora no puede ser nulo.");
+               
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-
+                
+                
+                
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
