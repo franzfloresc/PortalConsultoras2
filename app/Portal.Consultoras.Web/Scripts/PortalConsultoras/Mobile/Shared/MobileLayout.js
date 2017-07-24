@@ -60,6 +60,8 @@
     });
 
     $("body").on("click", "[data-cantidad-agregar]", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
+
         var signo = $(this).attr("data-cantidad-agregar");
         var objPadre = $(this).parents("[data-cantidad-contenedor]");
         var objInput = objPadre.find("[data-cantidad-input]");
@@ -75,6 +77,7 @@
     });
 
     $(document).on("click", ".cantidad_menos_home", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -85,6 +88,7 @@
     });
 
     $(document).on("click", ".cantidad_mas_home", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -819,7 +823,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -847,7 +851,7 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -881,7 +885,7 @@ function CargarCantidadPedidosConsultoraOnline() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });

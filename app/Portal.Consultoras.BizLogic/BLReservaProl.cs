@@ -271,20 +271,16 @@ namespace Portal.Consultoras.BizLogic
         private BEResultadoReservaProl GetObservacionesPROL(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
-            DataSet ds = DataSetPedidoDetalleParaProl(olstPedidoWebDetalle, input.CodigoConsultora);
-            if (ds.Tables[0].Rows.Count == 0) return resultado;
+            string listaProductos = string.Join("|", olstPedidoWebDetalle.Select(x => x.CUV).ToArray());
+            string listaCantidades = string.Join("|", olstPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
+            string listaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
 
             decimal montoenviar = GetMontoEnviar(input);
-            TransferirDatos datos = null;
+            RespuestaProl datos = null;
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva)
-                {
-                    bool valida = sv.wsDesReservarPedido(input.CodigoConsultora, input.PaisISO);
-                    datos = sv.wsValidarPedidoEX(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
-                }
-                else datos = sv.wsValidarEstrategia(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
+                datos = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
             if (datos == null) return resultado;
 
@@ -300,61 +296,36 @@ namespace Portal.Consultoras.BizLogic
             resultado.RefreshPedido = true;
             resultado.RefreshMontosProl = true;
 
-            DataTable dtr = datos.data.Tables[0];
-            if (datos.codigoMensaje != "00")
+            List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
+            //bool ValidacionPROLMM = false;
+            string CUV_Val = string.Empty;
+            int ValidacionReemplazo = 0;
+
+            if (!datos.codigoMensaje.Equals("00"))
             {
-                foreach (DataRow row in dtr.Rows)
+                foreach (var item in datos.ListaObservaciones)
                 {
-                    int TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
-                    switch (TipoObs)
+                    int TipoObs = Convert.ToInt32(item.cod_observacion);
+                    string CUV = item.codvta;
+                    string Observacion = item.observacion.Replace("+", "");
+
+                    if (TipoObs == 8)
                     {
-                        case 0:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Informativas = true;
-                            break;
-                        case 1:
-                        case 7:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 7, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 2:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 2, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 5:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 5, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 8:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 8, CUV = string.Empty, Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 9:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 9, CUV = string.Empty, Tipo = 3, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true; //R2004
-                            break;
-                        case 10:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 10, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 11:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 11, CUV = string.Empty, Tipo = 3, Descripcion = string.Empty });
-                            resultado.Error = true;
-                            break;
-                        case 16:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 16, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 95:
-                            string value = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
-                            string Observacion = Regex.Replace(value, "(\\#.*\\#)", input.MontoMinimo.ToString());
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 95, CUV = string.Empty, Tipo = 2, Descripcion = Observacion });
-                            resultado.Restrictivas = true;
-                            break;
-                        default:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
+                        lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
+                    }
+                    else
+                    {
+                        if (TipoObs == 0)
+                        {
+                            ValidacionReemplazo += 1;
+                        }
+                        else if (TipoObs == 95)
+                        {
+                            //ValidacionPROLMM = true;
+                            CUV_Val = CUV;
+                            Observacion = Regex.Replace(Observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+                        }
+                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
                 }
                 resultado.Reserva = input.FechaHoraReserva && resultado.Informativas && !resultado.Restrictivas;
@@ -365,11 +336,115 @@ namespace Portal.Consultoras.BizLogic
             {
                 decimal montoTotalPROL = datos.montototal.ToDecimalSecure();
                 decimal descuentoPROL = datos.montoDescuento.ToDecimalSecure();
-                var listPedidoReserva = GetPedidoReserva(dtr, olstPedidoWebDetalle, input.CodigoUsuario);
+                var listPedidoReserva = GetPedidoReservaV2(datos, olstPedidoWebDetalle);
+
                 EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalPROL, descuentoPROL);
             }
             return resultado;
         }
+
+        //private BEResultadoReservaProl GetObservacionesPROL(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
+        //{
+        //    var resultado = new BEResultadoReservaProl();
+        //    DataSet ds = DataSetPedidoDetalleParaProl(olstPedidoWebDetalle, input.CodigoConsultora);
+        //    if (ds.Tables[0].Rows.Count == 0) return resultado;
+
+        //    decimal montoenviar = GetMontoEnviar(input);
+        //    TransferirDatos datos = null;
+        //    using (var sv = new ServiceStockSsic())
+        //    {
+        //        sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
+        //        if (input.FechaHoraReserva)
+        //        {
+        //            bool valida = sv.wsDesReservarPedido(input.CodigoConsultora, input.PaisISO);
+        //            datos = sv.wsValidarPedidoEX(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
+        //        }
+        //        else datos = sv.wsValidarEstrategia(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
+        //    }
+        //    if (datos == null) return resultado;
+
+        //    resultado.MontoAhorroCatalogo = datos.montoAhorroCatalogo.ToDecimalSecure();
+        //    resultado.MontoAhorroRevista = datos.montoAhorroRevista.ToDecimalSecure();
+        //    resultado.MontoGanancia = resultado.MontoAhorroCatalogo + resultado.MontoAhorroRevista;
+        //    resultado.MontoDescuento = datos.montoDescuento.ToDecimalSecure();
+        //    resultado.MontoEscala = datos.montoEscala.ToDecimalSecure();
+        //    resultado.MontoTotal = olstPedidoWebDetalle.Sum(pd => pd.ImporteTotal) - resultado.MontoDescuento;
+        //    resultado.UnidadesAgregadas = olstPedidoWebDetalle.Sum(pd => pd.Cantidad);
+        //    resultado.CodigoMensaje = datos.codigoMensaje;
+        //    this.UpdateMontosPedidoWeb(resultado, input);
+        //    resultado.RefreshPedido = true;
+        //    resultado.RefreshMontosProl = true;
+
+        //    DataTable dtr = datos.data.Tables[0];
+        //    if (datos.codigoMensaje != "00")
+        //    {
+        //        foreach (DataRow row in dtr.Rows)
+        //        {
+        //            int TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
+        //            switch (TipoObs)
+        //            {
+        //                case 0:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Informativas = true;
+        //                    break;
+        //                case 1:
+        //                case 7:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 7, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 2:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 2, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 5:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 5, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 8:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 8, CUV = string.Empty, Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 9:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 9, CUV = string.Empty, Tipo = 3, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true; //R2004
+        //                    break;
+        //                case 10:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 10, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 11:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 11, CUV = string.Empty, Tipo = 3, Descripcion = string.Empty });
+        //                    resultado.Error = true;
+        //                    break;
+        //                case 16:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 16, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                case 95:
+        //                    string value = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
+        //                    string Observacion = Regex.Replace(value, "(\\#.*\\#)", input.MontoMinimo.ToString());
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 95, CUV = string.Empty, Tipo = 2, Descripcion = Observacion });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //                default:
+        //                    resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
+        //                    resultado.Restrictivas = true;
+        //                    break;
+        //            }
+        //        }
+        //        resultado.Reserva = input.FechaHoraReserva && resultado.Informativas && !resultado.Restrictivas;
+        //    }
+        //    else resultado.Reserva = input.FechaHoraReserva;
+
+        //    if (resultado.Reserva)
+        //    {
+        //        decimal montoTotalPROL = datos.montototal.ToDecimalSecure();
+        //        decimal descuentoPROL = datos.montoDescuento.ToDecimalSecure();
+        //        var listPedidoReserva = GetPedidoReserva(dtr, olstPedidoWebDetalle, input.CodigoUsuario);
+        //        EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalPROL, descuentoPROL);
+        //    }
+        //    return resultado;
+        //}
 
         private BEResultadoReservaProl GetObservacionesPROLv2(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
