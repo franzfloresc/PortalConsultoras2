@@ -121,6 +121,7 @@ namespace Portal.Consultoras.Entities
                 ImporteTotal = Convert.ToDecimal(row["ImporteTotal"]);
             if (row.HasColumn("ImporteCredito"))
                 ImporteCredito = Convert.ToDecimal(row["ImporteCredito"]);
+            if (row.HasColumn("EstadoPedido")) EstadoPedido = Convert.ToByte(row["EstadoPedido"]);
             if (row.HasColumn("EstadoPedidoDesc"))
                 EstadoPedidoDesc = Convert.ToString(row["EstadoPedidoDesc"]);
             if (row.HasColumn("MotivoCreditoID"))
