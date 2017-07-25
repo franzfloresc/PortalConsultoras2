@@ -108,6 +108,18 @@ namespace Portal.Consultoras.Data
             return result;
         }
 
+        public int GetExisteClienteConsultora(BECliente entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteClienteConsultora");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, entidad.ConsultoraID);
+            Context.Database.AddInParameter(command, "@Nombre", DbType.String, entidad.Nombre);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.String, entidad.Telefono);
+            Context.Database.AddInParameter(command, "@Email", DbType.String, entidad.eMail);
+
+            int result = Convert.ToInt32(Context.ExecuteScalar(command));
+            return result;
+        }
+
 
         public int UndoCliente(long ConsultoraID, int ClienteID)
         {

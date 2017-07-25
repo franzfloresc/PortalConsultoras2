@@ -395,6 +395,7 @@
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
     <Compile Include="Models\ConsultoraOnlineMenuResumenModel.cs" />
+    <Compile Include="Models\ConsultoraOnlinePedidoModel.cs" />
     <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
     <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
@@ -3360,6 +3361,15 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService.disco" />
+    <None Include="Service References\ServiceCliente\ClienteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">

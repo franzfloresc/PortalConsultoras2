@@ -1980,7 +1980,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.RegistrosTotal = pag.RecordCount.ToString();
                     //model.Pagina = pag.CurrentPage.ToString();
                     //model.PaginaDe = pag.PageCount.ToString();
-                    model.RegistrosTotal = model.ListaDetalle.Count.ToString();
+                    model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
                 }
                 else
                 {

@@ -1,5 +1,6 @@
 ﻿
 var flagHuboPedidosPend = false;
+var _pedido = null;
 
 $(document).ready(function () {
 
@@ -345,83 +346,147 @@ function CerrarMensajeRechazado() {
 }
 
 function AceptarPedido(pedidoId, tipo) {
+    var popup = (tipo == 1) ? $('#divPopupPedidoPend') : $('#divPopup2PedidoPend');
+    var container = (tipo == 1) ? $('#divDetPedidoPend') : $('#divDet2PedidoPend');
 
-    var isOk = true;
-    var detalle = [];
-    var divId = (tipo == 1) ? "divDetPedidoPend" : "divDet2PedidoPend";
-    var totalIng = 0;
+    if (typeof popup !== 'undefined' && typeof container !== 'undefined') {
+        var detalle = [];
+        var isOk = true;
+        var ing = 0;
 
-    $('div#' + divId + ' > div').each(function () {
-        var val1 = $(this).find(":nth-child(1)").val();
-        var val2 = $(this).find(":nth-child(7) select").val();
-        var val3 = $(this).find("#pedpend-deta2-cantidad").text();
-        var opt = 0;
+        var nodes = $(container).find('> div');
+        $(nodes).each(function () {
+            var id = $(this).find(":nth-child(1)").val();
+            var opt = $(this).find(":nth-child(7) select").val();
+            var cant = $(this).find("#pedpend-deta2-cantidad").text();
+            var k = 0;
 
-        if (typeof val2 !== 'undefined') {
-            if (val2 == "") {
-                $('#dialog_mensajeComoAtender').show();
-                isOk = false;
-                return false;
-            }
-            else {
-                opt = val2;
-                if (val2 == 'ingrped') {
-                    totalIng += parseInt(val3);
+            if (typeof opt !== 'undefined') {
+                if (opt == "") {
+                    $('#dialog_mensajeComoAtender').show();
+                    isOk = false;
+                    return false;
                 }
-            }
-        }
-
-        var d = {
-            PedidoDetalleId: val1,
-            OpcionAcepta: opt,
-            typeAction: '1'
-        }
-
-        detalle.push(d);
-    });
-
-    if (isOk) {
-        var pedido = {
-            pedidoId: pedidoId,
-            ListaDetalleModel: detalle,
-        }
-
-        waitingDialog({});
-
-        $.ajax({
-            type: 'POST',
-            url: '/ConsultoraOnline/AceptarPedido',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(pedido),
-            async: true,
-            success: function (response) {
-                closeWaitingDialog();
-                if (checkTimeout(response)) {
-                    if (response.success) {
-                        if (tipo == 1) {
-                            $('#popup_pendientes').hide();
-                            $('#msgPedidoAceptado1').text('Se han agregado ' + totalIng + ' productos a tu pedido')
-                            $('#dialog_aceptasPendientes').show();
-                        }
-                        else {
-                            $('#popup2_pendientes').hide();
-                            $('#dialog2_aceptasPendientes').show();
-                        }
-                    }
-                    else {
-                        alert_msg(response.message);
+                else {
+                    k = opt;
+                    if (opt == 'ingrped') {
+                        ing += parseInt(cant);
                     }
                 }
-            },
-            error: function (data, error) {
-                closeWaitingDialog();
-                if (checkTimeout(data)) {
-                    alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+            }
+
+            if (typeof id !== 'undefined' && id !== "") {
+                var d = {
+                    PedidoDetalleId: id,
+                    OpcionAcepta: k,
+                    Accion: 1
                 }
+                detalle.push(d);
             }
         });
+
+        if (isOk) {
+            var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
+            var name = $(popup).find(key + '-nombre').text();
+            //var phone = $(popup).find(key + '-telefono').text();
+            //var email = $(popup).find(key + '-email').text();
+
+            var cliente = {
+                ConsultoraId: 0,
+                Nombre: name,
+                Telefono: "",
+                Email: ""
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/ConsultoraOnline/GetExisteClienteConsultora',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(cliente),
+                async: true,
+                success: function (response) {
+                    if (response.success) {
+                        var pedido = {
+                            PedidoId: pedidoId,
+                            ClienteId: 0,
+                            ListaDetalleModel: detalle,
+                            Accion: 1,
+                            Tipo: tipo,
+                            Ingresos: ing
+                        }
+
+                        if (response.codigo == 0) {
+                            $('#popup_pendientes').hide();
+                            _pedido = pedido;
+
+                            showClienteDetalle(cliente, AceptarPedidoBeforeRegisterClienteOK, AceptarPedidoBeforeRegisterClienteCancel);
+                        }
+                        else {
+                            pedido.ClienteId = response.codigo;
+                            ProcesarAceptarPedido(pedido);
+                        }
+                    }
+                },
+                error: function (response) {
+                    console.log(response)
+                }
+            });
+        }
     }
+}
+
+function AceptarPedidoBeforeRegisterClienteOK(obj) {
+    console.log(obj);
+
+    if (obj != null && _pedido !== null) {
+        _pedido.ClienteId = obj.ClienteID;
+        ProcesarAceptarPedido(_pedido);
+        _pedido = null;
+    }
+}
+
+function AceptarPedidoBeforeRegisterClienteCancel(obj) {
+    console.log(obj);
+}
+
+function ProcesarAceptarPedido(pedido) {
+    console.log(pedido);
+
+    waitingDialog({});
+    $.ajax({
+        type: 'POST',
+        url: '/ConsultoraOnline/AceptarPedido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(pedido),
+        async: true,
+        success: function (response) {
+            closeWaitingDialog();
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    if (pedido.Tipo == 1) {
+                        $('#popup_pendientes').hide();
+                        $('#msgPedidoAceptado1').text('Se han agregado ' + pedido.Ingresos.toString() + ' productos a tu pedido')
+                        $('#dialog_aceptasPendientes').show();
+                    }
+                    else {
+                        $('#popup2_pendientes').hide();
+                        $('#dialog2_aceptasPendientes').show();
+                    }
+                }
+                else {
+                    alert_msg(response.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert_msg("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
 }
 
 function CerrarMensajeAceptado(tipo) {
