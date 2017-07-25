@@ -14,19 +14,19 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
         [TestClass]
         public class Base
         {
-            public Mock<ILogManager> logManager;
+            public Mock<ILogManager> LogManager;
 
             [TestInitialize]
             public void Test_Initialize()
             {
-                logManager = new Mock<ILogManager>();
+                LogManager = new Mock<ILogManager>();
 
             }
 
             [TestCleanup]
             public void Test_Cleanup()
             {
-                logManager = null;
+                LogManager = null;
             }
         }
         
@@ -51,12 +51,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new List<PaisModel>();
                 }
 
-                protected override string GetIPCliente()
+                protected override string GetIpCliente()
                 {
                     return "190.57.170.225, 66.249.83.8";
                 }
 
-                protected override bool EstaActivoBuscarISOPorIP()
+                protected override bool EstaActivoBuscarIsoPorIp()
                 {
                     return true;
                 }
@@ -71,11 +71,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Index_GetClientIpReturnsMultipleIps_LogsError()
             {
                 
-                var controler = new LoginController_GetClientIpReturnsMultipleIps(logManager.Object);
+                var controler = new LoginController_GetClientIpReturnsMultipleIps(LogManager.Object);
 
                 controler.Index();
 
-                logManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>( e => e.Message.Contains("The specified IP address was incorrectly formatted")),
+                LogManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>( e => e.Message.Contains("The specified IP address was incorrectly formatted")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>()), Times.AtLeastOnce);
@@ -98,12 +98,12 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                     return new List<PaisModel>();
                 }
 
-                protected override string GetIPCliente()
+                protected override string GetIpCliente()
                 {
                     return "190.57.170.225";
                 }
 
-                protected override bool EstaActivoBuscarISOPorIP()
+                protected override bool EstaActivoBuscarIsoPorIp()
                 {
                     return true;
                 }
@@ -118,11 +118,11 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
             public void Index_GetClientIpReturnsOneIp_LogsZeError()
             {
 
-                var controler = new LoginController_GetClientIpReturnsOneIp(logManager.Object);
+                var controler = new LoginController_GetClientIpReturnsOneIp(LogManager.Object);
 
                 controler.Index();
 
-                logManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>(e => e.Message.Contains("The specified IP address was incorrectly formatted")),
+                LogManager.Verify(x => x.LogErrorWebServicesBus2(It.Is<Exception>(e => e.Message.Contains("The specified IP address was incorrectly formatted")),
                     It.IsAny<string>(),
                     It.IsAny<string>(),
                     It.IsAny<string>()), Times.Never);

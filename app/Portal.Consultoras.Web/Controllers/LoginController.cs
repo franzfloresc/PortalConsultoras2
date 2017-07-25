@@ -29,8 +29,12 @@ namespace Portal.Consultoras.Web.Controllers
     {
         private string pasoLog;
         private ILogManager logManager;
+        private readonly string IP_DEFECTO = "190.187.154.154";
+        private readonly string ISO_DEFECTO = "PE";
+        private readonly int USUARIO_VALIDO = 3;
 
-        public LoginController()
+
+        public LoginController() 
         {
             logManager = LogManager.LogManager.Instance;
         }
@@ -40,57 +44,53 @@ namespace Portal.Consultoras.Web.Controllers
             this.logManager = logManager;
         }
 
+
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
         {
-            if (EsUsuarioAutenticado())
-            {
-                if (EsDispositivoMovil())
-                {
-                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                }
+            if (EsUsuarioAutenticado() && EsDispositivoMovil())
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
+            if (EsUsuarioAutenticado() && !EsDispositivoMovil())
                 return RedirectToAction("Index", "Bienvenida");
-            }
-            else
+
+
+            var ip = string.Empty;
+            var iso = string.Empty;
+            var model = new LoginModel();
+
+            try
             {
-                var IP = string.Empty;
-                var ISO = string.Empty;
-                var model = new LoginModel();
+                model.ListaPaises = ObtenerPaises();
 
-                try
+                if (EstaActivoBuscarIsoPorIp())
                 {
-                    model.ListaPaises = ObtenerPaises();
-
-                    if (EstaActivoBuscarISOPorIP())
-                    {
-                        IP = GetIPCliente();
-                        if(!string.IsNullOrWhiteSpace(IP))
-                            ISO = Util.GetISObyIPAddress(IP, ObtenerRutaBaseDatosGeoLite());
-                    }
-
-                    if (string.IsNullOrEmpty(ISO))
-                    {
-                        IP = "190.187.154.154";
-                        ISO = "PE";
-                    }
-
-                    AsignarHojaEstilos(ISO);
-                    AsignarUrlRetorno(returnUrl);
-                }
-                catch (FaultException ex)
-                {
-                    LogManager.LogManager.LogErrorWebServicesPortal(ex, IP, ISO);
-                }
-                catch (Exception ex)
-                {
-                    logManager.LogErrorWebServicesBus2(ex, IP, ISO, "Login.GET.Index");
+                    ip = GetIpCliente();
+                    if (!string.IsNullOrWhiteSpace(ip))
+                        iso = Util.GetISObyIPAddress(ip, ObtenerRutaBaseDatosGeoLite());
                 }
 
-                ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
+                if (string.IsNullOrEmpty(iso))
+                {
+                    ip = IP_DEFECTO;
+                    iso = ISO_DEFECTO;
+                }
 
-                return View(model);
+                AsignarViewBagPorIso(iso);
+                AsignarUrlRetorno(returnUrl);
             }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, ip, iso);
+            }
+            catch (Exception ex)
+            {
+                logManager.LogErrorWebServicesBus2(ex, ip, iso, "Login.GET.Index");
+            }
+
+            ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");
+
+            return View(model);
         }
 
         protected virtual bool EsUsuarioAutenticado()
@@ -130,13 +130,13 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        protected virtual bool EstaActivoBuscarISOPorIP()
+        protected virtual bool EstaActivoBuscarIsoPorIp()
         {
-            var buscarISOPorIP = ConfigurationManager.AppSettings.Get("BuscarISOPorIP");
-            return buscarISOPorIP == "1";
+            var buscarIsoPorIp = ConfigurationManager.AppSettings.Get("BuscarISOPorIP") ?? string.Empty;
+            return buscarIsoPorIp == "1";
         }
 
-        protected virtual string GetIPCliente()
+        protected virtual string GetIpCliente()
         {
             var ip = string.Empty;
 
@@ -151,49 +151,46 @@ namespace Portal.Consultoras.Web.Controllers
             return Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
         }
 
-        private void AsignarHojaEstilos(string iso)
+        private void AsignarViewBagPorIso(string iso)
         {
-            if (string.IsNullOrEmpty(iso)) return;
+            if (string.IsNullOrWhiteSpace(iso)) return;
 
             ViewBag.IsoPais = iso;
 
             if (iso == "BR") iso = "00";
+            ViewBag.TituloPagina = " ÉSIKA ";
+            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+            ViewBag.EsPaisEsika = true;
+            ViewBag.EsPaisLbel = false;
+            ViewBag.AvisoASP = 1;
 
-            if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
+            if (GetPaisesEsikaFromConfig().Contains(iso))
             {
-                ViewBag.TituloPagina = " ÉSIKA ";
-                ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                ViewBag.EsPaisEsika = true;
-                ViewBag.EsPaisLbel = false;
-                ViewBag.AvisoASP = 1;
+                ViewBag.BanderaOk = true;
+            }
+            else if (GetPaisesLbelFromConfig().Contains(iso))
+            {
+                ViewBag.TituloPagina = " L'BEL ";
+                ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                ViewBag.EsPaisEsika = false;
+                ViewBag.EsPaisLbel = true;
+                if (iso == "MX") ViewBag.AvisoASP = 2;
                 ViewBag.BanderaOk = true;
             }
             else
             {
-                if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
-                {
-                    ViewBag.TituloPagina = " L'BEL ";
-                    ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
-                    ViewBag.EsPaisEsika = false;
-                    ViewBag.EsPaisLbel = true;
-                    //ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = true;
-
-                    if (iso == "MX")
-                        ViewBag.AvisoASP = 2;
-                    else
-                        ViewBag.AvisoASP = 1;
-                }
-                else
-                {
-                    ViewBag.TituloPagina = " ÉSIKA ";
-                    ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
-                    ViewBag.EsPaisEsika = true;
-                    ViewBag.EsPaisLbel = false;
-                    ViewBag.AvisoASP = 1;
-                    ViewBag.BanderaOk = false;
-                }
+                ViewBag.BanderaOk = false;
             }
+        }
+
+        protected string GetPaisesEsikaFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+        }
+
+        protected string GetPaisesLbelFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("paisesLBel") ?? string.Empty;
         }
 
         protected virtual void AsignarUrlRetorno(string returnUrl)
@@ -215,116 +212,94 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
-                BEValidaLoginSB2 validaLogin = null;
-                using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                {
-                    validaLogin = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
-                }
+                var resultadoInicioSesion = ObtenerResultadoInicioSesion(model);
 
-                if (validaLogin != null && validaLogin.Result == 3)
+                if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
-                    if (model.UsuarioExterno != null)
+                    if (model.UsuarioExterno == null)
+                        return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
+
+                    if (resultadoInicioSesion.TipoUsuario == Constantes.TipoUsuario.Postulante)
                     {
-                        if (validaLogin.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                        if (Request.IsAjaxRequest())
                         {
-                            if (Request.IsAjaxRequest())
+                            return Json(new
                             {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "Por ahora no podemos asociar tu cuenta con Facebook."
-                                });
-                            }
-                        }
-
-                        var userExtModel = model.UsuarioExterno;
-                        if (!string.IsNullOrEmpty(userExtModel.IdAplicacion))
-                        {
-                            using (UsuarioServiceClient svc = new UsuarioServiceClient())
-                            {
-                                var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
-                                if (userExt == null)
-                                {
-                                    BEUsuarioExternoPais beUserExtPais = new BEUsuarioExternoPais();
-                                    beUserExtPais.Proveedor = userExtModel.Proveedor;
-                                    beUserExtPais.IdAplicacion = userExtModel.IdAplicacion;
-                                    beUserExtPais.PaisID = model.PaisID;
-                                    beUserExtPais.CodigoISO = Util.GetPaisISO(model.PaisID);
-                                    svc.InsUsuarioExternoPais(11, beUserExtPais);
-
-                                    BEUsuarioExterno beUsuarioExterno = new BEUsuarioExterno();
-                                    beUsuarioExterno.CodigoUsuario = validaLogin.CodigoUsuario;
-                                    beUsuarioExterno.Proveedor = userExtModel.Proveedor;
-                                    beUsuarioExterno.IdAplicacion = userExtModel.IdAplicacion;
-                                    beUsuarioExterno.Login = userExtModel.Login;
-                                    beUsuarioExterno.Nombres = userExtModel.Nombres;
-                                    beUsuarioExterno.Apellidos = userExtModel.Apellidos;
-                                    beUsuarioExterno.FechaNacimiento = userExtModel.FechaNacimiento;
-                                    beUsuarioExterno.Correo = userExtModel.Correo;
-                                    beUsuarioExterno.Genero = userExtModel.Genero;
-                                    beUsuarioExterno.Ubicacion = userExtModel.Ubicacion;
-                                    beUsuarioExterno.LinkPerfil = userExtModel.LinkPerfil;
-                                    beUsuarioExterno.FotoPerfil = userExtModel.FotoPerfil;
-
-                                    svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
-
-                                    if (userExtModel.Redireccionar) return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl, true);
-                                    return SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
-                                }
-                                else
-                                {
-                                    if (Request.IsAjaxRequest())
-                                    {
-                                        return Json(new
-                                        {
-                                            success = false,
-                                            message = "El codigo de consultora ya tiene una cuenta de Facebook asociada."
-                                        });
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Request.IsAjaxRequest())
-                            {
-                                return Json(new
-                                {
-                                    success = false,
-                                    message = "Error al procesar la solicitud"
-                                });
-                            }
+                                success = false,
+                                message = "Por ahora no podemos asociar tu cuenta con Facebook."
+                            });
                         }
                     }
 
-                    return Redireccionar(model.PaisID, validaLogin.CodigoUsuario, returnUrl);
-                }
-                else
-                {
-                    var mensaje = "";
-
-                    if(validaLogin != null)
+                    var usuarioExterno = model.UsuarioExterno;
+                    if (string.IsNullOrEmpty(usuarioExterno.IdAplicacion))
                     {
-                        mensaje = validaLogin.Mensaje;
+                        if (Request.IsAjaxRequest())
+                        {
+                            return Json(new
+                            {
+                                success = false,
+                                message = "Error al procesar la solicitud"
+                            });
+                        }
                     }
                     else
                     {
-                        mensaje = "Error al procesar la solicitud";
-                    }
-
-                    if (Request.IsAjaxRequest())
-                    {
-                        return Json(new
+                        using (var svc = new UsuarioServiceClient())
                         {
-                            success = false,
-                            message = mensaje
-                        });
+                            var userExt = svc.GetUsuarioExternoByCodigoUsuario(model.PaisID, model.CodigoUsuario);
+                            if (userExt == null)
+                            {
+                                var beUserExtPais = new BEUsuarioExternoPais
+                                {
+                                    Proveedor = usuarioExterno.Proveedor,
+                                    IdAplicacion = usuarioExterno.IdAplicacion,
+                                    PaisID = model.PaisID,
+                                    CodigoISO = Util.GetPaisISO(model.PaisID)
+                                };
+                                svc.InsUsuarioExternoPais(11, beUserExtPais);
+
+                                var beUsuarioExterno = new BEUsuarioExterno
+                                {
+                                    CodigoUsuario = resultadoInicioSesion.CodigoUsuario,
+                                    Proveedor = usuarioExterno.Proveedor,
+                                    IdAplicacion = usuarioExterno.IdAplicacion,
+                                    Login = usuarioExterno.Login,
+                                    Nombres = usuarioExterno.Nombres,
+                                    Apellidos = usuarioExterno.Apellidos,
+                                    FechaNacimiento = usuarioExterno.FechaNacimiento,
+                                    Correo = usuarioExterno.Correo,
+                                    Genero = usuarioExterno.Genero,
+                                    Ubicacion = usuarioExterno.Ubicacion,
+                                    LinkPerfil = usuarioExterno.LinkPerfil,
+                                    FotoPerfil = usuarioExterno.FotoPerfil
+                                };
+                                svc.InsertUsuarioExterno(model.PaisID, beUsuarioExterno);
+
+                                return usuarioExterno.Redireccionar
+                                    ? Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl, true)
+                                    : SuccessJson("El codigo de consultora se asoció con su cuenta de Facebook");
+                            }
+                        }
                     }
 
-                    TempData["errorLogin"] = mensaje;
-
-                    return RedirectToAction("Index", "Login");
+                    return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
                 }
+
+                var mensaje = resultadoInicioSesion != null ? resultadoInicioSesion.Mensaje : "Error al procesar la solicitud";
+
+                if (Request.IsAjaxRequest())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = mensaje
+                    });
+                }
+
+                TempData["errorLogin"] = mensaje;
+
+                return RedirectToAction("Index", "Login");
             }
             catch (FaultException ex)
             {
@@ -360,6 +335,16 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Login");
         }
 
+        private  BEValidaLoginSB2 ObtenerResultadoInicioSesion(LoginModel model)
+        {
+            BEValidaLoginSB2 resultadoInicioSesion;
+            using (var svc = new UsuarioServiceClient())
+            {
+                resultadoInicioSesion = svc.GetValidarLoginSB2(model.PaisID, model.CodigoUsuario, model.ClaveSecreta);
+            }
+            return resultadoInicioSesion;
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult LoginAdmin(UsuarioModel model)
@@ -383,114 +368,95 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Redireccionar(int paisId, string codigoUsuario, string returnUrl = null, bool hizoLoginExterno = false)
         {
             pasoLog = "Login.Redireccionar";
-            UsuarioModel usuario = GetUserData(paisId, codigoUsuario, 1);
+            var usuario = GetUserData(paisId, codigoUsuario, 1);
 
-            if (usuario != null)
+            if (usuario == null && Request.IsAjaxRequest())
+                return Json(new
+                {
+                    success = false,
+                    redirectTo = "Error al procesar la solicitud"
+                });
+
+            if (usuario == null && !Request.IsAjaxRequest())
             {
-                pasoLog = "Login.Redireccionar.SetAuthCookie";
-                FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
+                var url = GetUrlUsuarioDesconocido();
+                return Redirect(url);
+            }
 
-                if (hizoLoginExterno)
-                {
-                    usuario.HizoLoginExterno = true;
-                    Session["UserData"] = usuario;
-                }
+            pasoLog = "Login.Redireccionar.SetAuthCookie";
+            FormsAuthentication.SetAuthCookie(usuario.CodigoUsuario, false);
 
-                string decodedUrl = "";
-                if (!string.IsNullOrEmpty(returnUrl))
-                    decodedUrl = Server.UrlDecode(returnUrl);
+            if (hizoLoginExterno)
+            {
+                usuario.HizoLoginExterno = true;
+                Session["UserData"] = usuario;
+            }
 
-                if (usuario.RolID == Constantes.Rol.Consultora)
-                {
-                    if (EsDispositivoMovil())
-                    {
-                        if (Request.IsAjaxRequest())
-                        {
-                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
-                            return Json(new
-                            {
-                                success = true,
-                                redirectTo = urlx
-                            });
-                        }
-                        else
-                        {
-                            if (Url.IsLocalUrl(decodedUrl))
-                            {
-                                return Redirect(decodedUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
-                        {
-                            Session["PrimeraVezSession"] = 0;
-                        }
-                        
-                        if (Request.IsAjaxRequest())
-                        {
-                            string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
-                            return Json(new
-                            {
-                                success = true,
-                                redirectTo = urlx
-                            });
-                        }
-                        else
-                        {
-                            if (Url.IsLocalUrl(decodedUrl))
-                            {
-                                return Redirect(decodedUrl);
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Bienvenida");
-                            }
-                        }
-                    }
-                }
-                else
+            var decodedUrl = string.Empty;
+            if (!string.IsNullOrEmpty(returnUrl))
+                decodedUrl = Server.UrlDecode(returnUrl);
+
+            if (usuario.RolID == Constantes.Rol.Consultora)
+            {
+                if (EsDispositivoMovil())
                 {
                     if (Request.IsAjaxRequest())
                     {
+                        var urlx = (Url.IsLocalUrl(decodedUrl))
+                            ? decodedUrl
+                            : Url.Action("Index", "Bienvenida", new {area = "Mobile"});
                         return Json(new
                         {
                             success = true,
-                            redirectTo = Url.Action("Index", "Bienvenida")
+                            redirectTo = urlx
                         });
                     }
-                    else
+                    if (Url.IsLocalUrl(decodedUrl))
                     {
-                        if (Url.IsLocalUrl(decodedUrl))
-                        {
-                            return Redirect(decodedUrl);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index", "Bienvenida");
-                        }
+                        return Redirect(decodedUrl);
                     }
+                    return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
                 }
-            }
-            else
-            {
-                if (Request.IsAjaxRequest())
+                if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                 {
-                    return Json(new
-                    {
-                        success = false,
-                        redirectTo = "Error al procesar la solicitud"
-                    });
+                    Session["PrimeraVezSession"] = 0;
                 }
 
-                string Url = Request.Url.Scheme + "://" + Request.Url.Authority + (Request.ApplicationPath.ToString().Equals("/") ? "/" : (Request.ApplicationPath + "/")) + "WebPages/UserUnknown.aspx";
-                return Redirect(Url);
+                if (Request.IsAjaxRequest())
+                {
+                    var urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
+                    return Json(new
+                    {
+                        success = true,
+                        redirectTo = urlx
+                    });
+                }
+                if (Url.IsLocalUrl(decodedUrl))
+                {
+                    return Redirect(decodedUrl);
+                }
+                return RedirectToAction("Index", "Bienvenida");
             }
+            if (Request.IsAjaxRequest())
+            {
+                return Json(new
+                {
+                    success = true,
+                    redirectTo = Url.Action("Index", "Bienvenida")
+                });
+            }
+            if (Url.IsLocalUrl(decodedUrl))
+            {
+                return Redirect(decodedUrl);
+            }
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        private string GetUrlUsuarioDesconocido()
+        {
+            return Request.Url.Scheme + "://" + Request.Url.Authority +
+                   (Request.ApplicationPath.Equals("/") ? "/" : (Request.ApplicationPath + "/")) +
+                   "WebPages/UserUnknown.aspx";
         }
 
 
@@ -513,8 +479,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     try
                     {
-                        ServiceComunidad.BEUsuarioComunidad usuario = null;
-                        using (ServiceComunidad.ComunidadServiceClient sv = new ServiceComunidad.ComunidadServiceClient())
+                        ServiceComunidad.BEUsuarioComunidad usuario;
+                        using (var sv = new ServiceComunidad.ComunidadServiceClient())
                         {
                             usuario = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
                             {
@@ -544,12 +510,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             FormsAuthentication.SignOut();
 
-            string URLSignOut = "/Login";
-            
-            if (tipoUsuario == Constantes.TipoUsuario.Admin)
-                URLSignOut = "/Login/Admin";
+            string urlSignOut = "/Login";
 
-            return Redirect(URLSignOut);
+            if (tipoUsuario == Constantes.TipoUsuario.Admin)
+                urlSignOut = "/Login/Admin";
+
+            return Redirect(urlSignOut);
         }
 
         [AllowAnonymous]
@@ -596,7 +562,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
-                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIPCliente(), 1, oBEUsuario.CampaniaID.ToString());
+                            sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIpCliente(), 1, oBEUsuario.CampaniaID.ToString());
                         }
                         catch
                         {
@@ -715,7 +681,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Sobrenombre = oBEUsuario.Sobrenombre;
                     model.SobrenombreOriginal = oBEUsuario.Sobrenombre;
                     model.Direccion = oBEUsuario.Direccion;
-                    model.IPUsuario = GetIPCliente();
+                    model.IPUsuario = GetIpCliente();
                     model.AnoCampaniaIngreso = oBEUsuario.AnoCampaniaIngreso;
                     model.PrimerNombre = oBEUsuario.PrimerNombre;
                     model.PrimerApellido = oBEUsuario.PrimerApellido;
@@ -877,7 +843,7 @@ namespace Portal.Consultoras.Web.Controllers
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
                         #endregion
- 
+
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -1217,7 +1183,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        
+
 
         private int MenuNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
@@ -1270,7 +1236,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
             }
@@ -1293,7 +1259,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
             }
@@ -1573,15 +1539,12 @@ namespace Portal.Consultoras.Web.Controllers
                         correo = correo
                     }, JsonRequestBehavior.AllowGet);
                 }
-                else
+                string msj = MensajesOlvideContrasena(tipomsj);
+                return Json(new
                 {
-                    string msj = MensajesOlvideContrasena(tipomsj);
-                    return Json(new
-                    {
-                        success = false,
-                        message = msj
-                    }, JsonRequestBehavior.AllowGet);
-                }
+                    success = false,
+                    message = msj
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -1743,14 +1706,11 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         return Redireccionar(beUsuarioExt.PaisID, beUsuarioExt.CodigoUsuario, returnUrl, true);
                     }
-                    else
+                    return Json(new
                     {
-                        return Json(new
-                        {
-                            success = false,
-                            message = validaLogin.Mensaje
-                        });
-                    }
+                        success = false,
+                        message = validaLogin.Mensaje
+                    });
                 }
                 //}
                 //}
@@ -1781,7 +1741,7 @@ namespace Portal.Consultoras.Web.Controllers
                 message = ""
             });
         }
-        
+
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
@@ -1841,7 +1801,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                if(model != null)
+                if (model != null)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.Pais, token);
                 }
@@ -1879,7 +1839,7 @@ namespace Portal.Consultoras.Web.Controllers
                             listaProdCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                         }
                     }
-                    
+
                     if (listaProdCatalogo.Any())
                     {
                         var prodCatalogo = listaProdCatalogo.FirstOrDefault();
@@ -1906,7 +1866,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-                                
+
         private JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);

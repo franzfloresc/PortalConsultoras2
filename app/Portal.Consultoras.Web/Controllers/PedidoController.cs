@@ -389,16 +389,9 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-       
-
-        private string GetPaisesEsika()
-        {
-            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
-        }
-
         private string GetMarcaPorCodigoIso(string codigoIso)
         {
-            return GetPaisesEsika().Contains(codigoIso) ? "Ésika" : "L'bel";
+            return GetPaisesEsikaFromConfig().Contains(codigoIso) ? "Ésika" : "L'bel";
         }
 
         private string GetPaisesFlexiPago()
