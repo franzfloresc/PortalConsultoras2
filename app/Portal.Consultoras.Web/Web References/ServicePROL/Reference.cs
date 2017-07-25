@@ -24,7 +24,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Web.Services.WebServiceBindingAttribute(Name="ServiceStockSsicSoap", Namespace="http://tempuri.org/")]
@@ -505,7 +505,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidacionInteractiva", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RespuestaProl wsValidacionInteractiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
+        public RespuestaProl wsValidacionInteractiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, string idsegmentonueva) {
             object[] results = this.Invoke("wsValidacionInteractiva", new object[] {
                         ListProductos,
                         ListCantidades,
@@ -517,17 +517,18 @@ namespace Portal.Consultoras.Web.ServicePROL {
                         campa,
                         estadoconsultora,
                         MontoMax,
-                        Listconcursos});
+                        Listconcursos,
+                        idsegmentonueva});
             return ((RespuestaProl)(results[0]));
         }
         
         /// <remarks/>
-        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
-            this.wsValidacionInteractivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, null);
+        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, string idsegmentonueva) {
+            this.wsValidacionInteractivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, idsegmentonueva, null);
         }
         
         /// <remarks/>
-        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, object userState) {
+        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, string idsegmentonueva, object userState) {
             if ((this.wsValidacionInteractivaOperationCompleted == null)) {
                 this.wsValidacionInteractivaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidacionInteractivaOperationCompleted);
             }
@@ -542,7 +543,8 @@ namespace Portal.Consultoras.Web.ServicePROL {
                         campa,
                         estadoconsultora,
                         MontoMax,
-                        Listconcursos}, this.wsValidacionInteractivaOperationCompleted, userState);
+                        Listconcursos,
+                        idsegmentonueva}, this.wsValidacionInteractivaOperationCompleted, userState);
         }
         
         private void OnwsValidacionInteractivaOperationCompleted(object arg) {
@@ -670,7 +672,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1099.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -775,7 +777,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1099.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -808,7 +810,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1099.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -865,7 +867,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1099.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -970,7 +972,7 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1099.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -1003,11 +1005,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarEstrategiaCompletedEventHandler(object sender, wsValidarEstrategiaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarEstrategiaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1029,11 +1031,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarEstrategiaRetailCompletedEventHandler(object sender, wsValidarEstrategiaRetailCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarEstrategiaRetailCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1055,11 +1057,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void ObtenerExplotadoCompletedEventHandler(object sender, ObtenerExplotadoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class ObtenerExplotadoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1081,11 +1083,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarPedidoEXCompletedEventHandler(object sender, wsValidarPedidoEXCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarPedidoEXCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1107,11 +1109,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarPedidoAutomaticoCompletedEventHandler(object sender, wsValidarPedidoAutomaticoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarPedidoAutomaticoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1133,11 +1135,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarPedidoInteractivoCompletedEventHandler(object sender, wsValidarPedidoInteractivoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarPedidoInteractivoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1159,11 +1161,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsDesReservarPedidoCompletedEventHandler(object sender, wsDesReservarPedidoCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsDesReservarPedidoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1185,11 +1187,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void revisarWebControlCompletedEventHandler(object sender, revisarWebControlCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class revisarWebControlCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1211,11 +1213,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidarDeudaCompletedEventHandler(object sender, wsValidarDeudaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidarDeudaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1237,11 +1239,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsObtenerPrecioPackCompletedEventHandler(object sender, wsObtenerPrecioPackCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsObtenerPrecioPackCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1263,11 +1265,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidacionInteractivaCompletedEventHandler(object sender, wsValidacionInteractivaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidacionInteractivaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1289,11 +1291,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidacionEstrategiaCompletedEventHandler(object sender, wsValidacionEstrategiaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidacionEstrategiaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
@@ -1315,11 +1317,11 @@ namespace Portal.Consultoras.Web.ServicePROL {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     public delegate void wsValidacionMasivaCompletedEventHandler(object sender, wsValidacionMasivaCompletedEventArgs e);
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1099.0")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     public partial class wsValidacionMasivaCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {

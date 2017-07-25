@@ -9385,6 +9385,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string ListaConcursosPuntajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ListaConcursosPuntajeExigidoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoAhorroCatalogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -9555,6 +9558,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.ListaConcursosPuntajeField, value) != true)) {
                     this.ListaConcursosPuntajeField = value;
                     this.RaisePropertyChanged("ListaConcursosPuntaje");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ListaConcursosPuntajeExigido {
+            get {
+                return this.ListaConcursosPuntajeExigidoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ListaConcursosPuntajeExigidoField, value) != true)) {
+                    this.ListaConcursosPuntajeExigidoField = value;
+                    this.RaisePropertyChanged("ListaConcursosPuntajeExigido");
                 }
             }
         }
@@ -9943,6 +9959,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool ProlV2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SegmentoInternoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -10239,6 +10258,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProlV2Field.Equals(value) != true)) {
                     this.ProlV2Field = value;
                     this.RaisePropertyChanged("ProlV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SegmentoInternoID {
+            get {
+                return this.SegmentoInternoIDField;
+            }
+            set {
+                if ((this.SegmentoInternoIDField.Equals(value) != true)) {
+                    this.SegmentoInternoIDField = value;
+                    this.RaisePropertyChanged("SegmentoInternoID");
                 }
             }
         }
@@ -27057,10 +27089,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[]> ObtenerConcursosXConsultoraAsync(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso", ReplyAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse")]
-        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos);
+        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcurso", ReplyAction="http://tempuri.org/IPedidoService/ActualizarInsertarPuntosConcursoResponse")]
-        System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos);
+        System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcurso", ReplyAction="http://tempuri.org/IPedidoService/ObtenerPuntosXConsultoraConcursoResponse")]
         Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
@@ -29390,12 +29422,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.ObtenerConcursosXConsultoraAsync(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona);
         }
         
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos) {
-            base.Channel.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso) {
+            base.Channel.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
         }
         
-        public System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos) {
-            return base.Channel.ActualizarInsertarPuntosConcursoAsync(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
+        public System.Threading.Tasks.Task ActualizarInsertarPuntosConcursoAsync(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso) {
+            return base.Channel.ActualizarInsertarPuntosConcursoAsync(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEConsultoraConcurso[] ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos) {
