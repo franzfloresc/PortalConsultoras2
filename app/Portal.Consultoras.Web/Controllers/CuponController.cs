@@ -65,7 +65,8 @@ namespace Portal.Consultoras.Web.Controllers
                     var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    //string param_querystring = Util.EncriptarQueryString(parametros);
+                    string param_querystring = Util.Encrypt(string.Join(",", parametros));
                     HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);

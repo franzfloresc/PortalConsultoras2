@@ -2908,7 +2908,8 @@ namespace Portal.Consultoras.Web.Controllers
                 if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
                 {
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,sr" };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    //string param_querystring = Util.EncriptarQueryString(parametros);
+                    string param_querystring = Util.Encrypt(string.Join(",", parametros));
                     HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
