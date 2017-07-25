@@ -43,10 +43,10 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <param name="Puntos"></param>
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
             DAConcurso DAConcurso = new DAConcurso(PaisID);
-            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace Portal.Consultoras.BizLogic
 
             try
             {
-                DAConcurso.GenerarConcursoVigente(CodigoConsultora, CodigoCampania);
+                DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
                 
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
