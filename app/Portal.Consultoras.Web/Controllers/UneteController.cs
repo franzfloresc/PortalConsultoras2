@@ -1683,7 +1683,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
                 {
-                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile, Pais.Dominicana
                 };
 
                 if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
@@ -3816,9 +3816,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.CodigoConsultoraRecomienda != null)
                     {
+                    //    var ConsultoraRecomienda = String.Concat("0000000", model.CodigoConsultoraRecomienda);
+
                         solicitudPostulante.CodigoConsultoraRecomienda =
-                                         String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
-                        //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
+                                       model.CodigoConsultoraRecomienda.PadLeft(9,'0');
                     }
  
 
