@@ -270,5 +270,19 @@
             NoReservadoMontoMaximo = 5,
             ReservaNoDisponible = 6
         }
+
+        public enum TipoProductoComentario
+        {
+            SAP = 1,
+            CUV = 2
+        }
+
+        public enum EstadoProductoComentario
+        {
+            Ingresado = 1,
+            Aprobado = 2,
+            Rechazado = 3
+        }
+
     }
 }

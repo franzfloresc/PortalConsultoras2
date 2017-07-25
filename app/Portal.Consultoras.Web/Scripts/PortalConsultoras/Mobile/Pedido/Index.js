@@ -745,7 +745,10 @@ function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model;
-       
+    if ($("#hdTipoOfertaSisID").val() === "0") {
+        $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());
+    }
+
     if (!esOfertaNueva) {
 
         if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");

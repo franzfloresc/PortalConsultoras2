@@ -169,7 +169,7 @@ $(document).ready(function () {
 
     CrearDialogs();
     CargarCarouselEstrategias("");
-    if (tieneMasVendidos===1) {
+    if (_validartieneMasVendidos()=== 1) {
         CargarCarouselMasVendidos('desktop');
     }
     
