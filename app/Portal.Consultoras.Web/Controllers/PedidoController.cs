@@ -2059,7 +2059,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // Insertar/Actualizar los puntos de la consultora.
                 if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
-                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
             }
             var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
                         

@@ -326,19 +326,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected void UpdPedidoWebMontosPROL()
-        {
-            userData.EjecutaProl = false;
+        {   
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
+            ObjMontosProl oRespuestaProl = null;
+            string Puntajes = string.Empty;
+            string PuntajesExigidos = string.Empty;
+
+            userData.EjecutaProl = false;
 
             var lista = ServicioProl_CalculoMontosProl(false);
 
-            if (lista.Count > 0)
+            if (lista != null)
             {
-                var datos = lista[0];
-                Decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
-                Decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
-                Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
-                Decimal.TryParse(datos.MontoEscala, out montoEscala);
+                if (lista.Count > 0)
+                {
+                    oRespuestaProl = lista[0];
+
+                    Decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
+                    Decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
+                    Decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
+                    Decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+
+                    if (oRespuestaProl != null)
+                    {
+                        if (oRespuestaProl.ListaConcursoIncentivos != null)
+                        {
+                            Puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                            PuntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                        }
+                    }
+                }
             }
 
             BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
@@ -353,15 +370,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                string Concursos = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.codigoconcurso).ToArray()) : string.Empty;
-                string Puntajes = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.puntajeconcurso).ToArray()) : string.Empty;
-
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
                 // Insertar/Actualizar los puntos de la consultora.
-                //if (lista[0].ListaConcursoIncentivos != null)     
                 if(!string.IsNullOrEmpty(userData.CodigosConcursos))
-                 sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
+                 sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes, PuntajesExigidos);
             }
 
             // poner en Session
