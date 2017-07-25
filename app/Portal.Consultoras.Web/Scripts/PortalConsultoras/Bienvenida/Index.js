@@ -240,7 +240,14 @@ $(document).ready(function () {
     }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
-    $("#btnActualizarMD").click(function () { ActualizarMD(); });
+
+    $("#btnActualizarMD2").click(function () {
+        ActualizarMD();
+    });
+    $("#btnActualizarMD").click(function () {
+        ActualizarMD();
+    });
+
     $("#btnActualizarDatos").click(function () {
         ActualizarDatos();
         return false;
@@ -1621,50 +1628,62 @@ function CambiarContrasenia() {
         });
     }
 }
-function ActualizarMD() {
-    if (jQuery.trim($('#txtEMailMD').val()) == "") {
-        $('#txtEMailMD').focus();
-        alert("Debe ingresar EMail.\n");
-        return false;
-    }
-    if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
-        $('#txtEMailMD').focus();
-        alert("El formato del correo electrónico ingresado no es correcto.\n");
-        return false;
-    }
-    
-    if (!ValidarTelefono($("#txtCelularMD").val())) {
-        alert('Este número de celular ya está siendo utilizado. Intenta con otro.');
-        return false;
-    }
 
-    if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
-        ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
+
+function ActualizarMD() {
+
+    if (viewBagPaisID != 4) {
+
+        if (jQuery.trim($('#txtEMailMD').val()) == "") {
+            $('#txtEMailMD').focus();
+            alert("Debe ingresar EMail.\n");
+            return false;
+        }
+
+        if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+            $('#txtEMailMD').focus();
+            alert("El formato del correo electrónico ingresado no es correcto.\n");
+            return false;
+        }
+
+        if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
+                ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
             $('#txtTelefonoMD').focus();
             alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
             return false;
-    }
+        }
 
-    //Validando cantidad de caracteres minimos.
-    var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-    if (!MinCaracterCelular) {
-        $('#txtCelularMD').focus();
-        return false;
-    }
-    
-    if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-        if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-            alert('Número de celular tiene formato incorrecto.');
+        if (jQuery.trim($('#txtCelularMD').val()) != "") {
+            if (!ValidarTelefono($("#txtCelularMD").val())) {
+                alert('El formato del celular no es correcto.');
+                return false;
+            }
+        }
+
+        //Validando cantidad de caracteres minimos.
+        var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+        if (!MinCaracterCelular) {
             $('#txtCelularMD').focus();
+            alert('El formato del celular no es correcto.');
             return false;
         }
-    }
 
-    if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
-        
-        var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
-        if (!MinCaracterOtroTelefono)
-            return false;
+        /*
+        if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
+            if ($('#txtCelularMD').val().substr(0, 1) != "3") {
+                alert('Número de celular tiene formato incorrecto.');
+                $('#txtCelularMD').focus();
+                return false;
+            }
+        }
+        */
+
+        if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+            var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
+            if (!MinCaracterOtroTelefono) {
+                return false;
+            }
+        }
     }
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
@@ -1673,41 +1692,73 @@ function ActualizarMD() {
     }
 
     waitingDialog({});
+
     var item = {
-        CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
-        EMail: $.trim(jQuery('#txtEMailMD').val()),
-        Telefono: jQuery('#txtTelefonoMD').val(),
-        TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
-        Celular: jQuery('#txtCelularMD').val(),
-        Sobrenombre: jQuery('#txtSobrenombreMD').val(),
-        CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
-        NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
-        CompartirDatos: false,
-        AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
+            CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
+            EMail: $.trim(jQuery('#txtEMailMD').val()),
+            Telefono: jQuery('#txtTelefonoMD').val(),
+            TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
+            Celular: jQuery('#txtCelularMD').val(),
+            Sobrenombre: jQuery('#txtSobrenombreMD').val(),
+            CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
+            NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
+            CompartirDatos: false,
+            AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
     };
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'MisDatos/ActualizarDatos',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-                PopupCerrar('popupMisDatos');
-                alert(data.message);
+
+    if (viewBagPaisID != 4) {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MisDatos/ActualizarDatos',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert("ERROR");
+                }
             }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-                PopupCerrar('popupMisDatos');
-                alert("ERROR");
+        });
+    }
+    else {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: baseUrl + 'MisDatos/AceptarContrato',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert(data.message);
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    PopupCerrar('popupMisDatos');
+                    alert("ERROR");
+                }
             }
-        }
-    });
+        });
+    }
 }
+
+
 function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
 }
@@ -2787,6 +2838,10 @@ function playVideo() {
 };
 
 function CrearPopShow() {
+    // 18/07/2017 => AlanAupe => cbNoMostrarPopupShowRoom => no existe en todo el portal
+    // En desktop se llama solo en "switch (TipoPopUpMostrar)" y En mobile no se llama
+    // el metod ShowRoom/UpdatePopupShowRoom solo se llama en CrearPopShow();
+
     /*
     if (typeof gTipoUsuario !== 'undefined') {
         if (gTipoUsuario == '2') {
@@ -2843,6 +2898,11 @@ function MostrarShowRoom() {
                 if (checkTimeout(response)) {
                     if (response.success) {
                         var showroomConsultora = response.data;
+                       
+                        if (!(showroomConsultora.EventoConsultoraID != 0 && showroomConsultora.MostrarPopup)) {
+                            return false;
+                        }
+
                         var evento = response.evento;
                         var personalizacion = response.personalizacion;
                         var urlImagenPopupIntriga = "";
@@ -2863,11 +2923,10 @@ function MostrarShowRoom() {
                                 return;
                             }
                         });
-                        if (showroomConsultora.EventoConsultoraID != 0) {
-                            if (showroomConsultora.MostrarPopup) {
+
+                        $("#spnShowRoomEvento").html(evento.Tema);
+
                                 if (response.mostrarShowRoomProductos) {
-                                    $("#spnShowRoomEvento").html(evento.Tema);
-                                    
                                     if (noMostrarShowRoomVenta) {
                                         
                                         $("#spnShowRoomEventoVenta").html(eventoNombre);
@@ -2884,13 +2943,11 @@ function MostrarShowRoom() {
                                         //venta analytics                                     
                                     }
                                 } else {
-                                    $("#spnShowRoomEvento").html(evento.Tema);
-                                    
                                     if (noMostrarShowRoomIntriga) {
                                         
                                         $("#spnShowRoomEvento").html(eventoNombre);
                                         $("#spnShowRoomEvento").val(eventoNombre);
-                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);                                        
+                                        $("#spnShowRoomEventoDescripcion").val(evento.Tema);
                                         AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, evento.Tema, "0")
                                         $('#hdEventoIDShowRoom').val(eventoID);
                                         if (parseInt(response.diasFaltan) > 0) {
@@ -2902,12 +2959,10 @@ function MostrarShowRoom() {
                                             $(container).find('.dias_intriga_home').text(txtDiasIntriga);
                                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
                                             $(container).show();
-                                            //intriga analytics                                           
+                                            //intriga analytics
                                         }
-                                    }                                    
+                                    }
                                 }
-                            }
-                        }
                     }
                 }
             },
@@ -3380,15 +3435,39 @@ function VerShowRoomVenta() {
 
 function CerrarPopShowroomIntriga()
 {
-    var action = 'Banner ' + $("#spnShowRoomEventoDescripcion").val() + ' Entérate Primero';
+    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' Entérate Primero';
     
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 
-    $('#PopShowroomIntriga').hide();
+    CerrarPopup("#PopShowroomVenta");
+    CerrarPopup("#PopShowroomIntriga");
+}
+
+function SRPopupCerrar(tipo) {
+    CerrarPopShowroomIntriga();
+    AbrirLoad();
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'ShowRoom/PopupCerrar',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (data) {
+            CerrarLoad();
+            CerrarPopup("#PopShowroomVenta");
+            CerrarPopup("#PopShowroomIntriga");
+        },
+        error: function (data, error) {
+            console.log(data);
+            CerrarLoad();
+            CerrarPopup("#PopShowroomVenta");
+            CerrarPopup("#PopShowroomIntriga");
+        }
+    });
 }
 
 function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()

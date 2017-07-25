@@ -656,6 +656,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosIngresadoFacturadoWebMobile(int consultoraID, int campaniaID, int clienteID, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, clienteID);
+            Context.Database.AddInParameter(command, "@top", DbType.Int32, top);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPedidosIngresado(int consultoraID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresado_SB2");
@@ -778,6 +789,14 @@ namespace Portal.Consultoras.Data
         }
         /*EPD-2248*/
 
+        public IDataReader GetResumenPorCampania(int consultoraId, int codigoCampania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraPedidoResumen");
+            Context.Database.AddInParameter(command, "@consultoraId", DbType.Int32, consultoraId);
+            Context.Database.AddInParameter(command, "@codigoCampania", DbType.Int32, codigoCampania);
+
+            return Context.ExecuteReader(command);
+        }
         public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
@@ -786,7 +805,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
             Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
             return Context.ExecuteReader(command);
-        }
+        }        
         
     }
 }

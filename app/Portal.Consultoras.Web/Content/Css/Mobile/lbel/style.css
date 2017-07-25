@@ -4552,10 +4552,25 @@ body{
 
 .banner_ingresoPedido{
     display:block;
-    height:132px;
+    /*height:132px;*/
     background:#000 url(../../../Images/Lbel/background_pedido.png) no-repeat center center;
     background-size:cover;
+    height:200px
 }
+
+/*.PedidoClienteCombo {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: solid 1px #000;
+    color: #000;
+    padding-left: 17px;
+    line-height: 45px;
+    font-size: 13px;
+    font-weight:bold;
+    margin-bottom:15px;
+    margin-top:5px
+}*/
 
 .ingresoPedido{
     display:block;
@@ -4872,7 +4887,7 @@ body{
 }
 
 .enlace_regresar.ingresoP{
-    top: 18%;
+    top: 12%;
     left: 2.45%;
     background:url(../../../Images/flecha_volver_mobile_blanca.svg) no-repeat center center;
 }
@@ -9538,6 +9553,7 @@ span.icon-advertencia{
 }
 .btn_desactivado_general{
     background:#d6d6d6 !important;
+    border:none;
 }
 .btn_agregar_ficha_producto{
     width:50%;
@@ -11351,6 +11367,76 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     display:inline-block;
 }
 
+.cbolstClientes {
+    margin: 20px auto 20px 8px;
+    padding: 5px 8px;
+    width: auto;
+    border: 1px solid black;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+}
+
+.PedidoClienteNombre {
+    /*width: 100%;
+    height: 45px;
+    background: #fff;
+    border: solid 1px #000;
+    color: #000;
+    padding-left: 17px;
+    line-height: 45px;
+    font-size: 13px;
+    font-weight:bold;*/
+    margin-bottom:15px;
+    margin-top:5px;
+    background-position: right 10px center !important;
+    background-repeat:no-repeat !important;
+    padding-right:45px
+}
+
+.PedidoClienteNombre:disabled {
+    background-color: #ecebf0
+}
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 1000;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 2px;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ededed;
+    -webkit-box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
+    -moz-box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
+    box-shadow: 0 4px 8px rgba(237, 237, 237, 0.8);
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.ui-autocomplete > li {
+    padding-left: 17px;
+    border-bottom:solid 1px #ecebf0;
+    padding-top:15px;
+    padding-bottom:15px;
+    line-height:17px;
+    font-size:13px;
+    font-weight:bold
+}
+.ui-helper-hidden-accessible {
+    display: none;
+}
+.ui-autocomplete.ui-menu li:first-child a{
+    color:#642f80;
+}
+.ui-autocomplete :hover {
+    background-color:#ecebf0 !important   
+}
+
+.ui-autocomplete .ui-state-focus {
+    background-color: #ecebf0;
+}
+
 /*SPRINT 12*/
 .label_cupon{
     width:100%;
@@ -11629,7 +11715,6 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     line-height: 18px;
     font-weight: 400;
     margin-bottom: 30px;
-    
 }
 
 /*SPRINT 13*/

@@ -1,45 +1,46 @@
-﻿
-<div id="" class="contenedorCupon">
-    <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
-        Tienes un dscto exclusivo para ti,
-        <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
-    </div>
-    <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
-        Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-    </div>
-</div>
-<hr class="clear"/>
-<div id="divContenedorListaEstrategia">
-    <div class="contenedor_carousel">
-    @if (ViewBag.Source == 1)
-    {
-        <div>
-            <h1>
-                OFERTAS <b>PARA TI @ViewBag.NombreConsultora</b>
-            </h1>
-            <div class="texto_exclusivo_web">
-                EXCLUSIVAS SÓLO POR WEB
-            </div>
+﻿<div class="fondo_gris">
+    <div id="" class="contenedorCupon">
+        <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
+            Tienes un dscto exclusivo para ti,
+            <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
         </div>
-    }
-    else
-    {
-        <div>
-            <h1>
-                OFERTAS <b style="color: #e81c36">ÉSIKA PARA MÍ</b>
-            </h1>
-            <div class="texto_exclusivo_pedido_bpt">
-                @ViewBag.NombreConsultora, REVISA TUS OFERTAS DE TU REVISTA <br/>DIGITAL PERSONALIZADA
-            </div>
+        <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
+            Agrega alguna oferta web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
         </div>
-    }
+    </div>
+    <hr class="clear"/>
+    <div id="divContenedorListaEstrategia">
+        <div class="contenedor_carousel">
+            @if (ViewBag.Source == 1)
+            {
+                <div>
+                    <h1>
+                        OFERTAS <b>PARA TI @ViewBag.NombreConsultora</b>
+                    </h1>
+                    <div class="texto_exclusivo_web">
+                        EXCLUSIVAS SÓLO POR WEB
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div>
+                    <h1>
+                        OFERTAS <b style="color: #e81c36">ÉSIKA PARA MÍ</b>
+                    </h1>
+                    <div class="texto_exclusivo_pedido_bpt">
+                        @ViewBag.NombreConsultora, REVISA TUS OFERTAS DE TU REVISTA <br/>ONLINE PERSONALIZADA
+                    </div>
+                </div>
+            }
         
-    <hr class="clear"/>
-    <div class="contenedor_productos">
-        <div id="cierreCarousel" class="background_carousel" style="display: none;"></div>
-        <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+            <hr class="clear"/>
+            <div class="contenedor_productos">
+                <div id="cierreCarousel" class="background_carousel" style="display: none;"></div>
+                <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
+                </div>
+            </div>
+            <hr class="clear"/>
         </div>
     </div>
-    <hr class="clear"/>
-</div>
 </div>

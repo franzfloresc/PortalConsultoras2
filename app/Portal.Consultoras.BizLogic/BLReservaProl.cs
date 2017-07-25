@@ -49,7 +49,7 @@ namespace Portal.Consultoras.BizLogic
 
         public string DeshacerPedidoValidado(BEUsuario usuario, string tipo)
         {
-            if(usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
+            if (usuario.IndicadorGPRSB == 1) return string.Format("En este momento nos encontramos facturando tu pedido de C{0}, inténtalo más tarde", usuario.CampaniaID.Substring(4, 2));
 
             bool valida = true;
             if (!usuario.NuevoPROL && !usuario.ZonaNuevoPROL && tipo == "PV")
@@ -104,7 +104,8 @@ namespace Portal.Consultoras.BizLogic
                 }
                 UpdateDiaPROLAndEsHoraReserva(usuario);
 
-                var input = new BEInputReservaProl {
+                var input = new BEInputReservaProl
+                {
                     PaisISO = paisISO,
                     PaisID = paisID,
                     Simbolo = usuario.Simbolo,
@@ -144,13 +145,13 @@ namespace Portal.Consultoras.BizLogic
                     input.MontoMinimo = usuario.MontoMinimoPedido;
                     input.MontoMaximo = usuario.MontoMaximoPedido;
                 }
-                
+
                 var resultado = EjecutarReservaProl(input);
                 resultado.Simbolo = input.Simbolo;
                 resultado.MontoMinimo = input.MontoMinimo;
                 resultado.MontoMaximo = input.MontoMaximo;
                 resultado.FacturaHoy = (DateTime.Now.AddHours(input.ZonaHoraria).Date >= input.FechaInicioCampania.Date);
-                if(!resultado.FacturaHoy) resultado.FechaFacturacion = input.FechaInicioCampania;
+                if (!resultado.FacturaHoy) resultado.FechaFacturacion = input.FechaInicioCampania;
                 return resultado;
             }
             catch (Exception ex)
@@ -172,7 +173,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (!usuario.DiaPROL) return false;
 
-            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);            
+            TimeSpan HoraNow = new TimeSpan(fechaHoraActual.Hour, fechaHoraActual.Minute, 0);
             bool esHorarioReserva = (fechaHoraActual < usuario.FechaInicioFacturacion) ?
                 (HoraNow > usuario.HoraInicioNoFacturable && HoraNow < usuario.HoraCierreNoFacturable) :
                 (HoraNow > usuario.HoraInicio && HoraNow < usuario.HoraFin);
@@ -193,24 +194,25 @@ namespace Portal.Consultoras.BizLogic
             {
                 var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
-                
+
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
                 var lst = new BLCuv().GetProductoCuvAutomatico(input.PaisID, producto, "CUV", "asc", 1, 1, 100).ToList();
                 if (lst.Count > 0) listPedidoWebDetalle = listPedidoWebDetalle.Where(x => !lst.Select(y => y.CUV).Contains(x.CUV)).ToList();
-                
+
                 BEResultadoReservaProl resultado;
                 if (input.ProlV2) resultado = GetObservacionesPROLv2(input, listPedidoWebDetalle);
                 else resultado = GetObservacionesPROL(input, listPedidoWebDetalle);
                 resultado.PedidoID = input.PedidoID;
 
                 resultado.EnviarCorreo = DebeEnviarCorreoReservaProl(input, resultado, listPedidoWebDetalle);
-                if(input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
+                if (input.EnviarCorreo && resultado.EnviarCorreo) EnviarCorreoReservaProl(input, listPedidoWebDetalle);
                 return resultado;
             }
             catch (Exception ex)
             {
                 LogManager.SaveLog(ex, input.CodigoConsultora, input.PaisISO);
-                return new BEResultadoReservaProl {
+                return new BEResultadoReservaProl
+                {
                     Error = true,
                     ListPedidoObservacion = new List<BEPedidoObservacion> {
                         new BEPedidoObservacion() { Descripcion = "Hubo un error al tratar de realizar la validación del pedido, por favor vuelva a intentarlo." }
@@ -269,20 +271,16 @@ namespace Portal.Consultoras.BizLogic
         private BEResultadoReservaProl GetObservacionesPROL(BEInputReservaProl input, List<BEPedidoWebDetalle> olstPedidoWebDetalle)
         {
             var resultado = new BEResultadoReservaProl();
-            DataSet ds = DataSetPedidoDetalleParaProl(olstPedidoWebDetalle, input.CodigoConsultora);
-            if (ds.Tables[0].Rows.Count == 0) return resultado;
+            string listaProductos = string.Join("|", olstPedidoWebDetalle.Select(x => x.CUV).ToArray());
+            string listaCantidades = string.Join("|", olstPedidoWebDetalle.Select(x => x.Cantidad).ToArray());
+            string listaRecuperacion = string.Join("|", olstPedidoWebDetalle.Select(x => Convert.ToInt32(x.AceptoBackOrder)).ToArray());
 
             decimal montoenviar = GetMontoEnviar(input);
-            TransferirDatos datos = null;
+            RespuestaProl datos = null;
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva)
-                {
-                    bool valida = sv.wsDesReservarPedido(input.CodigoConsultora, input.PaisISO);
-                    datos = sv.wsValidarPedidoEX(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
-                }
-                else datos = sv.wsValidarEstrategia(ds, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
+                datos = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoenviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
             if (datos == null) return resultado;
 
@@ -298,61 +296,36 @@ namespace Portal.Consultoras.BizLogic
             resultado.RefreshPedido = true;
             resultado.RefreshMontosProl = true;
 
-            DataTable dtr = datos.data.Tables[0];
-            if (datos.codigoMensaje != "00")
+            List<BEPedidoWebDetalle> lstPedidoWebDetalleBackOrder = new List<BEPedidoWebDetalle>();
+            //bool ValidacionPROLMM = false;
+            string CUV_Val = string.Empty;
+            int ValidacionReemplazo = 0;
+
+            if (!datos.codigoMensaje.Equals("00"))
             {
-                foreach (DataRow row in dtr.Rows)
+                foreach (var item in datos.ListaObservaciones)
                 {
-                    int TipoObs = Convert.ToInt32(row.ItemArray.GetValue(0));
-                    switch (TipoObs)
+                    int TipoObs = Convert.ToInt32(item.cod_observacion);
+                    string CUV = item.codvta;
+                    string Observacion = item.observacion.Replace("+", "");
+
+                    if (TipoObs == 8)
                     {
-                        case 0:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 0, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 1, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Informativas = true;
-                            break;
-                        case 1:
-                        case 7:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 7, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 2:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 2, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 5:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 5, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0}", Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 8:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 8, CUV = string.Empty, Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 9:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 9, CUV = string.Empty, Tipo = 3, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true; //R2004
-                            break;
-                        case 10:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 10, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 11:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 11, CUV = string.Empty, Tipo = 3, Descripcion = string.Empty });
-                            resultado.Error = true;
-                            break;
-                        case 16:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 16, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("PRODUCTO {0} - {1} {2}", Convert.ToString(row.ItemArray.GetValue(1)), Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
-                        case 95:
-                            string value = Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "");
-                            string Observacion = Regex.Replace(value, "(\\#.*\\#)", input.MontoMinimo.ToString());
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = 95, CUV = string.Empty, Tipo = 2, Descripcion = Observacion });
-                            resultado.Restrictivas = true;
-                            break;
-                        default:
-                            resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = Convert.ToString(row.ItemArray.GetValue(1)), Tipo = 2, Descripcion = string.Format("{0} {1}", Convert.ToString(row.ItemArray.GetValue(2)).Replace("+", ""), Convert.ToString(row.ItemArray.GetValue(3)).Replace("+", "")) });
-                            resultado.Restrictivas = true;
-                            break;
+                        lstPedidoWebDetalleBackOrder.AddRange(olstPedidoWebDetalle.Where(d => d.CUV == CUV));
+                    }
+                    else
+                    {
+                        if (TipoObs == 0)
+                        {
+                            ValidacionReemplazo += 1;
+                        }
+                        else if (TipoObs == 95)
+                        {
+                            //ValidacionPROLMM = true;
+                            CUV_Val = CUV;
+                            Observacion = Regex.Replace(Observacion, "(\\#.*\\#)", Util.DecimalToStringFormat(input.MontoMinimo, input.PaisISO));
+                        }
+                        resultado.ListPedidoObservacion.Add(new BEPedidoObservacion() { Caso = TipoObs, CUV = CUV, Tipo = 2, Descripcion = Observacion });
                     }
                 }
                 resultado.Reserva = input.FechaHoraReserva && resultado.Informativas && !resultado.Restrictivas;
@@ -363,9 +336,10 @@ namespace Portal.Consultoras.BizLogic
             {
                 decimal montoTotalPROL = datos.montototal.ToDecimalSecure();
                 decimal descuentoPROL = datos.montoDescuento.ToDecimalSecure();
-                var listPedidoReserva = GetPedidoReserva(dtr, olstPedidoWebDetalle, input.CodigoUsuario);
+                var listPedidoReserva = GetPedidoReservaV2(datos, olstPedidoWebDetalle);
+
                 EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalPROL, descuentoPROL);
-            }            
+            }
             return resultado;
         }
 
@@ -383,8 +357,8 @@ namespace Portal.Consultoras.BizLogic
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
-                else RespuestaPROL = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo);
+                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
+                else RespuestaPROL = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
             if (RespuestaPROL == null) return resultado;
 
@@ -445,7 +419,6 @@ namespace Portal.Consultoras.BizLogic
                 resultado.ResultadoReservaEnum = Enumeradores.ResultadoReserva.Reservado;
                 resultado.Reserva = input.FechaHoraReserva;
             }
-
             if (resultado.Reserva)
             {
                 decimal montoTotalPROL = RespuestaPROL.montototal.ToDecimalSecure();
@@ -453,6 +426,13 @@ namespace Portal.Consultoras.BizLogic
                 var listPedidoReserva = GetPedidoReservaV2(RespuestaPROL, olstPedidoWebDetalle);
                 EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, true, montoTotalPROL, descuentoPROL);
             }
+
+            resultado.ListaConcursosCodigos = RespuestaPROL.ListaConcursoIncentivos != null ?
+                string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray()) : string.Empty;
+
+            resultado.ListaConcursosPuntaje = RespuestaPROL.ListaConcursoIncentivos != null ?
+                string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.puntajeconcurso).ToArray()) : string.Empty;
+
             return resultado;
         }
 
@@ -462,12 +442,12 @@ namespace Portal.Consultoras.BizLogic
             var estadoPedido = input.PROLSinStock ? Constantes.EstadoPedido.Pendiente : Constantes.EstadoPedido.Procesado;
             if (version2) bLPedidoWebDetalle.InsPedidoWebDetallePROLv2(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, false, input.CodigoUsuario, montoTotalProl, descuentoProl);
             else bLPedidoWebDetalle.InsPedidoWebDetallePROL(input.PaisID, input.CampaniaID, input.PedidoID, estadoPedido, listPedidoReserva, 0, input.CodigoUsuario, montoTotalProl, descuentoProl);
-            
+
             decimal totalPedido = listPedidoWebDetalle.Sum(p => p.ImporteTotal);
             decimal gananciaEstimada = CalcularGananciaEstimada(input.PaisID, input.CampaniaID, input.PedidoID, totalPedido);
             new BLFactorGanancia().UpdatePedidoWebEstimadoGanancia(input.PaisID, input.CampaniaID, input.PedidoID, gananciaEstimada);
         }
-        
+
         private List<BEPedidoWebDetalle> GetPedidoReservaV2(RespuestaProl respuestaPROL, List<BEPedidoWebDetalle> listPedidoWebDetalle)
         {
             var listPedidoReserva = new List<BEPedidoWebDetalle>();
@@ -533,7 +513,8 @@ namespace Portal.Consultoras.BizLogic
 
             // se recorren los productos del pedido y se evalua su indicador de descuento aplicando la logica siguiente:
             var ProductosIndicadorDscto = bLFactorGanancia.GetProductoComercialIndicadorDescuentoByPedidoWebDetalle(paisId, campaniaId, pedidoId).ToList();
-            ProductosIndicadorDscto.ForEach(pid => {
+            ProductosIndicadorDscto.ForEach(pid =>
+            {
                 string indicador = pid.IndicadorDscto.ToLower();
 
                 if (indicador == " ") pid.MontoDscto = (pid.PrecioUnidad - pid.PrecioCatalogo2) * pid.Cantidad;
@@ -545,7 +526,7 @@ namespace Portal.Consultoras.BizLogic
             });
             return ProductosIndicadorDscto.Sum(p => p.MontoDscto);
         }
-        
+
         private void UpdateMontosPedidoWeb(BEResultadoReservaProl resultado, BEInputReservaProl input)
         {
             BEPedidoWeb BePedidoWeb = new BEPedidoWeb

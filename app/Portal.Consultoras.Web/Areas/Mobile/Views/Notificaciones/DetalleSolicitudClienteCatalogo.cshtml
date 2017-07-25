@@ -13,16 +13,20 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-         
+
 <div class="col-xs-12">
     <ul class="list-notificaciones noti-detalle">
         <li>
-                        
+
             <div class="text-noti">
                 <div class="sub_titulo_noti">
                     <span>@ViewBag.Asunto</span>
@@ -32,7 +36,7 @@
             </div>
         </li>
     </ul>
-</div>  
+</div>
 <hr class="clear" />
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
@@ -50,18 +54,18 @@
             </li>
         </ul>
     </div>
-    
-@if (!string.IsNullOrEmpty(Model.NotificacionDetalleCatalogo.DetalleNotificacion))
-{
-    <div id="divTablaDetalle" class="hide">
-        @Html.Raw(Model.NotificacionDetalleCatalogo.DetalleNotificacion)
-    </div>
-    <h3 class="title-line">Detalle del pedido</h3>
-    <p class="consultora_saludo_noti" style="margin:20px 0 0 0">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar.</p>
-    <div id="DetalleNotificacion">
 
-    </div>
-}
+    @if (!string.IsNullOrEmpty(Model.NotificacionDetalleCatalogo.DetalleNotificacion))
+    {
+        <div id="divTablaDetalle" class="hide">
+            @Html.Raw(Model.NotificacionDetalleCatalogo.DetalleNotificacion)
+        </div>
+        <h3 class="title-line">Detalle del pedido</h3>
+        <p class="consultora_saludo_noti" style="margin:20px 0 0 0">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar.</p>
+        <div id="DetalleNotificacion">
+
+        </div>
+    }
     <hr class="clear" />
     <div class="left_reservado">
         <div class="importe_final">

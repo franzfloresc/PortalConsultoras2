@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "OfertaLiquidacion") return true;
             return false;
         }
-        
+
         private bool NoMostrarBannerODD()
         {
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
