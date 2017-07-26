@@ -451,6 +451,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
+                
+                
 
         private string GetUrlUsuarioDesconocido()
         {
@@ -564,8 +566,9 @@ namespace Portal.Consultoras.Web.Controllers
                             //El campo DetalleError, se reutiliza para enviar la campania de la consultora.
                             sv.InsLogIngresoPortal(PaisID, oBEUsuario.CodigoConsultora, GetIpCliente(), 1, oBEUsuario.CampaniaID.ToString());
                         }
-                        catch
+                        catch (Exception ex)
                         {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, oBEUsuario.CodigoConsultora, PaisID.ToString());
                             pasoLog = "Ocurrió un error al registrar log de ingreso al portal";
                         }
                     }
@@ -941,35 +944,35 @@ namespace Portal.Consultoras.Web.Controllers
                                     //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
-                                        if (DateTime.Now.AddHours(model.ZonaHoraria).Date < model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
+                                        if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
+                                            continue;
+                                        
+                                        model.RevistaDigital.TieneRDS = true;
+                                        //obtiene datos de Revista digital suscripcion.
+                                        var rds = new BERevistaDigitalSuscripcion
                                         {
-                                            model.RevistaDigital.TieneRDS = true;
-                                            //obtiene datos de Revista digital suscripcion.
-                                            var rds = new BERevistaDigitalSuscripcion
-                                            {
-                                                PaisID = model.PaisID,
-                                                CodigoConsultora = model.CodigoConsultora
-                                            };
-                                            using (PedidoServiceClient sv1 = new PedidoServiceClient())
-                                            {
-                                                model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
-                                            }
+                                            PaisID = model.PaisID,
+                                            CodigoConsultora = model.CodigoConsultora
+                                        };
+                                        using (PedidoServiceClient sv1 = new PedidoServiceClient())
+                                        {
+                                            model.RevistaDigital.SuscripcionModel = Mapper.Map<RevistaDigitalSuscripcionModel>(sv1.RDGetSuscripcion(rds));
+                                        }
 
-                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
+                                        model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.RevistaDigitalSuscripcionID > 0;
 
-                                            //se verifica que el usuario tiene una suscripcion activa
-                                            if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = true;
-                                            }
-                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = false;
-                                            }
-                                            else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
-                                            {
-                                                model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
-                                            }
+                                        //se verifica que el usuario tiene una suscripcion activa
+                                        if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = true;
+                                        }
+                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Desactivo)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = false;
+                                        }
+                                        else if (model.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp)
+                                        {
+                                            model.RevistaDigital.NoVolverMostrar = model.RevistaDigital.SuscripcionModel.CampaniaID == model.CampaniaID;
                                         }
 
                                         continue;
@@ -985,8 +988,9 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
 
-                        catch (Exception)
+                        catch (Exception ex)
                         {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
                             pasoLog = "Ocurrió un error al cargar ConfiguracionPais";
                             model.ConfiguracionPais = new List<ConfiguracionPaisModel>();
                         }
@@ -1051,6 +1055,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisID.ToString());
                 pasoLog = "Error: " + ex.Message;
                 throw;
             }
@@ -1082,6 +1087,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", "GetHostname()");
                 System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
                 return "Unknown host";
 
@@ -1182,6 +1188,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
+                
 
 
 
@@ -1227,8 +1234,8 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
-            String sFecha = Convert.ToDateTime("2000-01-01").ToString();
-            DateTime Fecha = Convert.ToDateTime("2000-01-01");
+            string sFecha = Convert.ToDateTime("2000-01-01").ToString();
+            //DateTime Fecha = Convert.ToDateTime("2000-01-01");
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
@@ -1289,7 +1296,10 @@ namespace Portal.Consultoras.Web.Controllers
                     svcLMS.ws_servercreate_user(isoUsuario, model.NombreConsultora, eMail, model.CampaniaID.ToString(), model.CodigorRegion, model.CodigoZona, model.SegmentoConstancia, model.SeccionAnalytics, model.Lider.ToString(), model.NivelLider.ToString(), model.CampaniaInicioLider.ToString(), model.SeccionGestionLider, nivelProyectado, key);
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.CodigoISO, "CrearUsuarioMiAcademia()");
+            }
         }
 
         private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
@@ -1745,10 +1755,10 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
-            string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
             IngresoExternoModel model = null;
             try
             {
+                string secretKey = ConfigurationManager.AppSettings["JsonWebTokenSecretKey"] ?? "";
                 model = JWT.JsonWebToken.DecodeToObject<IngresoExternoModel>(token, secretKey);
                 if (model == null) return RedirectToAction("UserUnknown");
 

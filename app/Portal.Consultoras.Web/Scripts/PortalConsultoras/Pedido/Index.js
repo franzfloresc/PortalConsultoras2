@@ -414,6 +414,7 @@ $(document).ready(function () {
 
             var flagNueva = $.trim($("#hdFlagNueva").val());
             if (flagNueva == "0" || flagNueva == "") {
+                form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
                 InsertarProducto(form);
             } else {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
@@ -2443,8 +2444,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
-            RespuestaEjecutarServicioPROL(response, false);
-            MostrarMensajeProl(response);
+                RespuestaEjecutarServicioPROL(response, false);
+                MostrarMensajeProl(response);
             }
         },
         error: function (data, error) {

@@ -9,6 +9,7 @@
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
+    ViewBag.SourcePage = 1;
 }
 
 @section styles{
@@ -263,6 +264,12 @@
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
 </div>
+
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
+
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none;">
     <div id="contenedor_template_estrategia_cabecera"></div>
@@ -330,12 +337,7 @@
         <!--FIN APP CATÁLOGOS-->
     </div>
 }
-
 <!--LOS MAS VENDIDOS-->
-@if (Model.TieneMasVendidos == 1)
-{
-    Html.RenderPartial("MasVendidos");
-}
 
 <div class="wrapper_resumen_mobile">
     <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
@@ -713,9 +715,10 @@
 
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
-
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
+
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1031,6 +1034,11 @@
                         intrigaAceptoTerminos = !intrigaAceptoTerminos;
                     }
                 });
+
+                masVendidosModule.readVariables({
+                    baseUrl: baseUrl,
+                    urlDetalleProducto:'@Url.Action("DetalleProducto", "EstrategiaProducto", new { area = "Mobile" })'
+                });
             });
             $(function () {
                 var rating = 1.6;
@@ -1042,10 +1050,17 @@
                     maxValue: 5,
                     starWidth: "17px"
                 }).on("rateyo.change", function (e, data) {
-
-                    //console.log(data.rating);
+                });
+                $('.titulo_estrellas').rateYo({
+                    rating    : "100%",
+                    spacing   : "10px",
+                    numStars: 5,                
+                    starWidth: "14px",
+                    readOnly: true,
+                    ratedFill: "#cca11e"
                 });
             });
+            
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
             <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
@@ -1093,6 +1108,7 @@
                 var viewBagAmbiente = '@ViewBag.Ambiente';
                 var correo = '@Model.EMail';
                 var celular = '@Model.Celular';
+                var tipoOrigenPantalla = 2;
         </script>
 
         @Scripts.Render("~/bundles/JsMobile/Bienvenida")
@@ -1102,4 +1118,5 @@
         <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
         <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>*@      
+        <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
     }

@@ -14,7 +14,7 @@ function HorarioRestringido(fnSuccess) {
         .fail(function (jqXHR, textStatus, error) {
             if (!checkTimeout(jqXHR)) return false;
 
-            console.error(error);
+            console.error(jqXHR, textStatus, error);
             messageInfoError(mensajePostFail);
         })
         .done(function (response) {
@@ -34,7 +34,7 @@ function DesreservarPedido(fnSuccess) {
         .fail(function (jqXHR, textStatus, error) {
             if (!checkTimeout(jqXHR)) return false;
 
-            console.error(error);
+            console.error(jqXHR, textStatus, error);
             messageInfoError(mensajePostFail);
         })
         .done(function (response) {
@@ -54,7 +54,7 @@ function AgregarCuv(fnSuccess) {
         .fail(function (jqXHR, textStatus, error) {
             if (!checkTimeout(jqXHR)) return false;
 
-            console.error(error);
+            console.error(jqXHR, textStatus, error);
             messageInfoError(mensajePostFail);
         })
         .done(function (response) {

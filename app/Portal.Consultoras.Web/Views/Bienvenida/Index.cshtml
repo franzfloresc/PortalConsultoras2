@@ -8,6 +8,7 @@
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />*@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     @*<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />*@
+    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
 
     <style>
@@ -247,21 +248,12 @@
 
 @if (Model.TieneMasVendidos == 1)
 {
-    //Html.RenderPartial("MasVendidos");
+    Html.RenderPartial("MasVendidos");
 }
-
 <!--CAROUSEL OFERTAS PARA TI-->
-<div class="fondo_gris" id="divListaEstrategias" style="display:none;">
-    <div id="" class="contenedorCupon">
-        <div id="" class="contenedorCuponConocelo contenedor_cupon" style="display: none;">
-            Tienes un dscto exclusivo para ti, <br />
-            <a id="linkConocerDescuento" class="link_cupon_home">conócelo aquí</a>
-        </div>
-        <div id="" class="contenedorCuponInfo contenedor_cupon" style="display: none;">
-            Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-        </div>
-    </div>
-    <div id="contenedor_template_estrategia_cabecera"></div>
+<div id="divListaEstrategias" style="display:none;">
+    <div id="contenedor_template_estrategia_cabecera" class="fondo_gris"></div>
+    
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
@@ -1284,25 +1276,21 @@
                 </div>
             </div>
             <hr class="clear" />
-            <div class="clear"></div>
+       
             <!-- FIN HOME BLOCK RD INSCRITAS C-12 -->
 
-            @*<div style="">
-                <div>
-
-                </div>
-            </div>*@
+            <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+            <hr class="clear" />
             <!-- INICO SECCION DE CARRUSEL BPT -->
-            <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
+            @*<div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
                 <div class="background-revistaSeccion"></div>
                 <div class="revistadigital-content">
                     <div style="height: 65px; background: transparent;"></div>
-                    <hr class="clear" />
                     <div class="content_carrusel_ofertas content_carrusel_agregado" id="divListadoEstrategia" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi" style="padding-bottom: 25px;"></div>
                     <hr class="clear" />
                     <div style="height: 35px; background: transparent;"></div>
                 </div>
-            </div>
+            </div>*@
             <!-- FIN SECCION DE CARRUSEL BPT -->
         }
         else
@@ -1335,8 +1323,35 @@
     }
     else if (ViewBag.TieneRDR)
     {
+        <!-- INICIO HOME BLOCK RD REDUCIDA INSCRITAS C-12 -->
+        <div class="home_block_rd home_rd" style="position:relative; z-index:1">
+                <div class="hblock"></div>
+                <div class="content_belcorp" style="background-color: black;">
+                    <div class="rd_logo">
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                    </div>
+                    <div class="hblock_text">
+                        <div class="hblock_tit">{{Titulo}}</div>
+                        <div style="width: 65%">{{TituloDescripcion}}</div>
+                        <div class="btn_diagonal">
+                            <a href="@Url.Action("Index", "RevistaDigital")">
+                                VER TODAS MIS OFERTAS
+                                <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <hr class="clear" />
+       
+        <!-- FIN HOME BLOCK RD REDUCIDA INSCRITAS C-12 -->
+
+        <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+        <hr class="clear" />
+
         <!--INCION SECCION DE REVISTA DIGITAL REDUCIDA -->
-        <div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
+        @*<div class="revistadigital" style="text-align:center;box-shadow:none;margin-top:0px;">
             <div class="background-revistaSeccion"></div>
             <div class="revistadigital-content">
                 <div>
@@ -1364,7 +1379,7 @@
                 <hr class="clear" />
                 <div style="height: 35px; background: transparent;"></div>
             </div>
-        </div>
+        </div>*@
         <!--FIN SECCION DE REVISTA DIGITAL REDUCIDA -->
     }
     else
@@ -1373,9 +1388,16 @@
             new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
 </script>
+@if (ViewBag.TieneRDR || (ViewBag.TieneRDC && ViewBag.EstadoSucripcionRDAnterior2 == 1))
+{
+    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary {{ "NombreConsultora", Model.SobreNombre }})
+}
+else
+{
+    @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
+}
 
 
-@Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 
 <script id="estrategia-template1" type="text/x-handlebars-template">
     {{#each this as |item|}}
@@ -1655,7 +1677,8 @@
                     <div class="marca_producto">{{DescripcionMarca}}</div>
                     <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
                          {{#iff codigoestrategia '==' '' }} style="font-size:22px; line-height:30px;" {{/iff}}>
-                    {{DescripcionCompleta}}
+                        {{DescripcionCompleta}}
+                       
                 </div>
                 @*<div id="fav_descripcion_prod" class="descripcion_ficha_producto">CY STUDIO DEL 1.5 G BROWN</div>*@
             </div>
@@ -2481,12 +2504,12 @@
 <input type="hidden" id="hdDataBarra" value="@Newtonsoft.Json.JsonConvert.SerializeObject(Model.DataBarra)" />
 
 <!--NUEVO POP UP DE SHOWROOM INTRIGA-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomIntriga" data-popup-main="" data-popup-function-hide="SRPopupCerrar('I')">
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
         <input type="hidden" id="spnShowRoomEventoDescripcion" />
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="CerrarPopShowroomIntriga()">
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;"  data-popup-close="" >
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
@@ -2502,12 +2525,12 @@
 </div>
 <!--FIN-->
 <!--NUEVO POP UP DE SHOWROOM Venta-->
-<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main>
+<div class="Content_general_pop_up" style="display: none;" id="PopShowroomVenta" data-popup-main="" data-popup-function-hide="SRPopupCerrar('V')">
     <div class="content_pop_up_intriga" data-popup-body>
         <input type="hidden" id="hdEventoIDShowRoomVenta" />
         <input type="hidden" id="spnShowRoomEventoVenta" />
         <input type="hidden" id="spnShowRoomEventoDescripcionVenta" />
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" onclick="javascript: $('#PopShowroomVenta').hide();">
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" data-popup-close="">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria YA COMENZÓ LA</div>
@@ -2618,6 +2641,21 @@
 </script>
 <!--EPD-1204 FIN-->
 @section scripts{
+    @*<script>
+            var nav = $('#bc_content_ofertas .bc_container .items-producto');
+            pos = nav.offset();
+
+            // Esperamos al DOM
+            $(window).scroll(function () {
+                // Anclamos el menú si el scroll es
+                // mayor a la posición superior del tag
+                if (($(this).scrollTop() >= pos.top)) {
+                    alert("d");
+                } else if (($(this).scrollTop() <= pos.top)) {
+                }
+            });
+    </script>*@
+
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -2625,6 +2663,20 @@
                 $(this).toggleClass('check_intriga');
 
             });
+
+            masVendidosModule.readVariables({
+                baseUrl: baseUrl,
+                urlDetalleProducto :'@Url.Action("DetalleProducto", "EstrategiaProducto")'
+            });
+            $('.titulo_estrellas').rateYo({
+                rating    : "100%",
+                spacing   : "14px",
+                numStars: 5,                
+                starWidth: "18.5px",
+                readOnly: true,
+                ratedFill: "#cca11e"
+            });
+           
         });
 
     </script>
@@ -2633,7 +2685,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>*@
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
-
+    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
@@ -2714,6 +2766,8 @@
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
+
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
 
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
