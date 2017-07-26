@@ -5,6 +5,7 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.Data
 {
@@ -23,9 +24,10 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetParametriaOfertaFinal()
-        {
+        public IDataReader GetParametriaOfertaFinal(string algoritmo)
+        {            
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetParametriaOfertaFinal_SB2");
+            Context.Database.AddInParameter(command, "@Algoritmo", DbType.String, algoritmo);
 
             return Context.ExecuteReader(command);
         }        

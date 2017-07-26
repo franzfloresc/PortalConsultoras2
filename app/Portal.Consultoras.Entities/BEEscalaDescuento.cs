@@ -45,6 +45,10 @@ namespace Portal.Consultoras.Entities
                 TipoParametriaOfertaFinal = Convert.ToString(row["TipoParametriaOfertaFinal"]);
             if (DataRecord.HasColumn(row, "PrecioMinimo") && row["PrecioMinimo"] != DBNull.Value)
                 PrecioMinimo = Convert.ToDecimal(row["PrecioMinimo"]);
+            if (DataRecord.HasColumn(row, "Algoritmo") && row["Algoritmo"] != DBNull.Value)
+                Algoritmo = Convert.ToString(row["Algoritmo"]);
         }
+
+        public string Algoritmo { get; set; }
     }
 }

@@ -56,9 +56,13 @@ namespace Portal.Consultoras.BizLogic
             return lstEscalaDescuento;
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
             List<BEEscalaDescuento> lstParametriaOfertaFinal = (List<BEEscalaDescuento>)CacheManager<BEEscalaDescuento>.GetData(paisID, ECacheItem.ParametriaOfertaFinal);
+            if (lstParametriaOfertaFinal != null)
+            {
+                lstParametriaOfertaFinal = lstParametriaOfertaFinal.Where(x => x.Algoritmo == algoritmo).ToList();
+            }            
 
             try
             {
@@ -68,7 +72,7 @@ namespace Portal.Consultoras.BizLogic
                     DAEscalaDescuento DAEscalaDescuento = new DAEscalaDescuento(paisID);
                     
                     List<BEEscalaDescuento> lstEscalaDescuentoTemp = new List<BEEscalaDescuento>();
-                    using (IDataReader reader = DAEscalaDescuento.GetParametriaOfertaFinal())
+                    using (IDataReader reader = DAEscalaDescuento.GetParametriaOfertaFinal(algoritmo))
                         while (reader.Read())
                         {
                             var entidad = new BEEscalaDescuento(reader);

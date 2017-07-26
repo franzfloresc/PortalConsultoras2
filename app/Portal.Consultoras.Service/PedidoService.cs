@@ -919,9 +919,9 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
-            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID);
+            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
         #region Pedidos DD
