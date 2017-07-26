@@ -160,7 +160,13 @@ namespace Portal.Consultoras.BizLogic
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
-            puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
+            puntosXConcurso.Update(c =>
+            {
+                //Fix mientras el SP retorna tipoConcurso = NULL.
+                if (string.IsNullOrEmpty(c.TipoConcurso))
+                    c.TipoConcurso = "X";
+            }); 
+
             return puntosXConcurso;
         }
 
@@ -244,6 +250,8 @@ namespace Portal.Consultoras.BizLogic
             if (concurso.NivelAlcanzado == 0) concurso.NivelSiguiente = 1;
             concurso.Premios.RemoveAll(p => p.NumeroNivel > concurso.NivelSiguiente && concurso.NivelSiguiente != 0);
             if (concurso.FechaVentaRetail <= DateTime.Today) concurso.Premios.RemoveAll(p => p.PuntajeMinimo > concurso.PuntajeTotal);
+
+            concurso.IndicadorPremiacionPedido = concurso.Premios.Any();
         }
 
         private bool EsCampaniaVisible(BEConsultoraConcurso concurso)
