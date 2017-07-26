@@ -10,7 +10,7 @@
     font-family: 'icomoon';
     src: url('fonts/icomoon.eot?-q1bfik');
     src: url('fonts/icomoon.eot?#iefix-q1bfik') format('embedded-opentype'), url('fonts/icomoon.woff?-q1bfik') format('woff'), url('fonts/icomoon.ttf?-q1bfik') format('truetype'), url('fonts/icomoon.svg?-q1bfik#icomoon') format('svg');
-    font-weight: normal;
+    font-weight: normal;T
     font-style: normal;
 }
 
@@ -31050,15 +31050,15 @@ h1#penmostreo .campana {
 }*/
 
 .content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
+    position: relative;
+    width: 99%;
+    height: 2px;
+    z-index: 3;
+    left:0;
+    width:310px;
+    margin:0 auto;
+    margin-top:-18px;
+    background: #d1d1d1;
 }
 .paso_reclamo{
     width:36px;
@@ -33228,18 +33228,6 @@ h1#penmostreo .campana {
     font-size: 13.9px;
     font-weight: 700;
     height: 14px;
-}
-.content_pasos_linea {
-    position: relative;
-    width: 99%;
-    height: 2px;      
-    /*z-index: 3;*/
-    z-index:4;
-    left: 0;
-    width: 310px;
-    margin: 0 auto;
-    margin-top: -18px;
-    background: #d1d1d1;
 }
 
 

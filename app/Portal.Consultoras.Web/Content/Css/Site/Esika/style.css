@@ -31068,18 +31068,6 @@ h1#penmostreo .campana {
     background:#d1d1d1;
 }*/
 
-.content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
-}
-
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -33574,15 +33562,15 @@ h1#penmostreo .campana {
 }
 
 .content_pasos_linea {
-        position: relative;
-        width: 99%;
-        height: 2px;      
-        z-index: 3;
+    position: relative;
+    width: 99%;
+    height: 2px;      
+    z-index: 3;
     left: 0;
     width: 310px;
     margin: 0 auto;
     margin-top: -18px;
-        background: #d1d1d1;
+    background: #d1d1d1;
 }
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante{
