@@ -3855,6 +3855,7 @@
     <Content Include="Views\CatalogoPersonalizado\Index.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Unete\ReporteFuenteIngreso.cshtml" />
     <Content Include="Web References\ServiceCatalogosIssuu\MulticatalogoWebService.disco" />
     <Content Include="WebPages\AppCatalogoTyC\BO_AppCatalogoTyC.html" />
     <Content Include="WebPages\AppCatalogoTyC\CL_AppCatalogoTyC.html" />
@@ -4103,6 +4104,8 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
+    <Content Include="Views\Unete\ReporteFunnel.cshtml" />
+    <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
