@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServicePedido;
+using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,12 +15,13 @@ namespace Portal.Consultoras.Web.Controllers
     public class CuponController : BaseController
     {
         [HttpPost]
-        public JsonResult ActualizarCupon(CuponUsuarioModel model)
+        public JsonResult ActivarCupon(CuponUsuarioModel model)
         {
             try
             {
-                ActivarCupon();
+                ActivacionCupon();
                 ActualizarCelularUsuario(model);
+                ValidarPopupDelGestorPopups();
                 return Json(new { success = true, message = "El cupón fue activado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }); }
@@ -56,14 +58,15 @@ namespace Portal.Consultoras.Web.Controllers
                     string correoAnterior = Util.Trim(userData.EMail);
                     string correoNuevo = entidad.EMail;
                     bool emailActivo = userData.EMailActivo;
-                    
+
                     ActualizarDatos(entidad, correoAnterior);
                     ActualizarDatosSesion(entidad, correoNuevo, correoAnterior);
-                    
+
                     var emailValidado = userData.EMailActivo;
 
                     string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, correoNuevo, "UrlReturn,cupon" };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
+                    //string param_querystring = Util.EncriptarQueryString(parametros);
+                    string param_querystring = Util.Encrypt(string.Join(";", parametros));
                     HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
@@ -88,7 +91,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                CuponModel cuponModel = ObtenerDatosCupon();
+                CuponConsultoraModel cuponModel = ObtenerDatosCupon();
+                if (cuponModel != null)
+                    cuponModel.MontoLimiteFormateado = ObtenerMontoLimiteDelCupon();
+
                 return Json(new { success = true, data = cuponModel }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
@@ -100,12 +106,13 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
-                CuponModel cuponModel = ObtenerDatosCupon();
-                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url);
+                string montoLimite = ObtenerMontoLimiteDelCupon();
+                CuponConsultoraModel cuponModel = ObtenerDatosCupon();
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
-                return Json(new { success = true, message="El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, message = "El correo de activación fue enviado." }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
@@ -120,16 +127,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex) { return Json(new { success = false, message = "Ocurrió un error al ejecutar la operación. " + ex.Message }, JsonRequestBehavior.AllowGet); }
         }
-
-        private CuponModel ObtenerDatosCupon()
+        
+        private CuponConsultoraModel ObtenerDatosCupon()
         {
-            CuponModel cuponModel;
+            CuponConsultoraModel cuponModel;
             BECuponConsultora cuponResult = ObtenerCuponDesdeServicio();
-            
+
             if (cuponResult != null)
-                cuponModel = MapearBECuponACuponModel(cuponResult);
+                cuponModel = MapearBECuponConsultoraACuponConsultoraModel(cuponResult);
             else
-                throw new Exception();
+                cuponModel = null;
 
             return cuponModel;
         }
@@ -145,6 +152,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBE);
                 return cuponResult;
+            }
+        }
+
+        private string ObtenerMontoLimiteDelCupon()
+        {
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                List<BETablaLogicaDatos> list_segmentos = new List<BETablaLogicaDatos>();
+                list_segmentos = sv.GetTablaLogicaDatos(userData.PaisID, 103).ToList();
+
+                var descripcion = list_segmentos.FirstOrDefault(x => x.Codigo == userData.CampaniaID.ToString()).Descripcion;
+                decimal montoLimite = (string.IsNullOrEmpty(descripcion) ? 0 : Convert.ToDecimal(descripcion));
+                string montoLimiteFormateado = String.Format("{0:0.00}", montoLimite);
+
+                return montoLimiteFormateado;
             }
         }
 
@@ -173,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
             SetUserData(userData);
         }
 
-        private void ActivarCupon()
+        private void ActivacionCupon()
         {
             using (PedidoServiceClient svClient = new PedidoServiceClient())
             {
@@ -207,11 +229,24 @@ namespace Portal.Consultoras.Web.Controllers
             return (listaPedidoWebDetalle.Any(x => x.CodigoCatalago == Constantes.TipoOfertasPlan20.OfertaFinal || x.CodigoCatalago == Constantes.TipoOfertasPlan20.Showroom || x.CodigoCatalago == Constantes.TipoOfertasPlan20.OPT || x.CodigoCatalago == Constantes.TipoOfertasPlan20.ODD));
         }
 
-        private CuponModel MapearBECuponACuponModel(BECuponConsultora cuponBE)
+        private void ValidarPopupDelGestorPopups()
+        {
+            if (!IsMobile())
+            {
+                int tipoPopup = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+
+                if (tipoPopup == Constantes.TipoPopUp.Cupon)
+                {
+                    Session["TipoPopUpMostrar"] = null;
+                }
+            }
+        }
+        
+        private CuponConsultoraModel MapearBECuponConsultoraACuponConsultoraModel(BECuponConsultora cuponBE)
         {
             var codigoISO = userData.CodigoISO;
 
-            return new CuponModel(codigoISO) {
+            return new CuponConsultoraModel(codigoISO) {
                 CuponConsultoraId = cuponBE.CuponConsultoraId,
                 CodigoConsultora = cuponBE.CodigoConsultora,
                 CampaniaId = cuponBE.CampaniaId,
@@ -224,6 +259,38 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioCreacion = cuponBE.UsuarioCreacion,
                 UsuarioModificacion = cuponBE.UsuarioModificacion,
                 TipoCupon = cuponBE.TipoCupon
+            };
+        }
+
+        private BECupon MapearCuponModelABECupon(CuponModel cuponModel)
+        {
+            return new BECupon()
+            {
+                CuponId = cuponModel.CuponId,
+                Tipo = cuponModel.Tipo,
+                Descripcion = cuponModel.Descripcion,
+                CampaniaId = cuponModel.CampaniaId,
+                Estado = cuponModel.Estado,
+                FechaCreacion = cuponModel.FechaCreacion,
+                FechaModificacion = cuponModel.FechaModificacion,
+                UsuarioCreacion = cuponModel.UsuarioCreacion,
+                UsuarioModificacion = cuponModel.UsuarioModificacion
+            };
+        }
+
+        private CuponModel MapearBECuponACuponModel(BECupon cuponBE)
+        {
+            return new CuponModel()
+            {
+                CuponId = cuponBE.CuponId,
+                Tipo = cuponBE.Tipo,
+                Descripcion = cuponBE.Descripcion,
+                CampaniaId = cuponBE.CampaniaId,
+                Estado = cuponBE.Estado,
+                FechaCreacion = cuponBE.FechaCreacion,
+                FechaModificacion = cuponBE.FechaModificacion,
+                UsuarioCreacion = cuponBE.UsuarioCreacion,
+                UsuarioModificacion = cuponBE.UsuarioModificacion
             };
         }
 

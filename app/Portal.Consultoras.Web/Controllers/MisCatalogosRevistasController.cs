@@ -22,22 +22,29 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult Index()
         {
             var clienteModel = new MisCatalogosRevistasModel();
-            var mostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
+            
             clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
-            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual, mostrarRevistaDigital);
-            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, mostrarRevistaDigital);
-            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, mostrarRevistaDigital);
+            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual, userData.RevistaDigital.TieneRDR);
+            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, userData.RevistaDigital.TieneRDR);
+            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, userData.RevistaDigital.TieneRDR);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
                                         userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Retirada;
             ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
-            clienteModel.MostrarRevistaDigital = mostrarRevistaDigital;
-
+            clienteModel.MostrarRevistaDigital = userData.RevistaDigital.TieneRDR;
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+            ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+            ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro; 
+            ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+            ViewBag.NombreConsultora = userData.Sobrenombre;
+            ViewBag.NumeroCampania = userData.CampaniaID % 100;
             return View(clienteModel);
         }
 

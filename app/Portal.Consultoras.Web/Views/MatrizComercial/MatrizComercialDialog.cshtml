@@ -1,5 +1,6 @@
-﻿<script id="matriz-comercial-template" type="text/x-handlebars-template">
-    <div class="Content_modal">
+﻿@using Mensajes = Portal.Consultoras.Common.Constantes.MatrizNemotecnicoMensajes
+<script id="matriz-comercial-template" type="text/x-handlebars-template">
+    <div class="Content_modal" style="padding-top:10px">
         <div class="div-3">
             <div class="titF">País:</div>
             <div class="selectP2 borde_redondeado">
@@ -18,7 +19,31 @@
             <div class="titG" style="padding:0px"><div id="file-upload-add"></div></div>
         </div>
         <div>
+            {{#if habilitarNemotecnico}}
+            <div id="matriz-busqueda-nemotecnico">
+                <a title="@HttpUtility.HtmlDecode(Mensajes.TooltipInformacionFormatoBusqueda)" class="search-button-field">
+                    <i class="material-icons">info</i>
+                </a>
+                <div class="busqueda-exacta">
+                    <label for="chkTipoBusquedaNemotecnico">@Mensajes.TextoBusquedaExacta</label>
+                    <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                </div>
+
+                <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="@Mensajes.PlaceHolderTextoNemotecnico" maxlength="100" type="text" />
+                <a id="btnBuscarNemotecnico" title="@Mensajes.TextoBotonBuscar" class="search-button-field">
+                    <i class="material-icons">search</i>
+                </a>
+                <a id="btnLimpiarBusquedaNemotecnico" title="@Mensajes.TextoBotonLimpiar" class="search-button-field">
+                    <i class="material-icons">undo</i>
+                </a>
+            </div>
+            {{/if}}
+            {{#if habilitarNemotecnico}}
+            <div id="matriz-imagenes-paginacion" style="display:inline-block"></div>
+            {{else}}
             <div id="matriz-imagenes-paginacion"></div>
+            {{/if}}
+            
         </div>
         <div class="div-3">
             <div id="matriz-comercial-images" class="matriz-comercial-list">                
@@ -27,14 +52,21 @@
     </div>
 </script>
 <script id="matriz-comercial-item-template" type="text/x-handlebars-template">
-    {{#each imagenes}}
+    {{#each data.imagenes}}
     <div class="item">
         <div class="content selectP2 borde_redondeado aligncenter">
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
-        <div class="actions">
+        <div class="actions" style="text-align:center">
+            {{#if ../habilitarNemotecnico}}
+            <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
+                <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+            </div>
+            {{/if}}
             <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
         </div>
     </div>
     {{/each}}
 </script>
+
+

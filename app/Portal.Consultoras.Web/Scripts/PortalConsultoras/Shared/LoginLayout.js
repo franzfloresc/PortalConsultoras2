@@ -10,6 +10,8 @@ function noback() {
 
 $(document).ready(function () {
 
+    LocalStorageLimpiar();
+
     if (esPaisEsika == 'True') {
         $('#cssStyle').attr('disabled', false);
         $('#cssStyleLbel').attr('disabled', true);
@@ -254,3 +256,20 @@ function AbrirFooter(Marca, Url) {
     window.open(Url, '_blank');
     return false;
 }
+
+function LocalStorageLimpiar() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
+};

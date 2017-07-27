@@ -144,6 +144,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
         }
 
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+        }
+
         public bool IsUserExist(string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -341,7 +347,6 @@ namespace Portal.Consultoras.Service
             var BLMisPedidos = new BLConsultoraOnline();
             return BLMisPedidos.GetSaldoHorasSolicitudesPedido(PaisID, ConsultoraId, Campania);
         }
-
         /* SB20-463 - FIN */
 
         public IList<BEMisPedidos> GetMisPedidosClienteOnline(int paisID, long consultoraId, int campania)
@@ -693,6 +698,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
         }
 
+        public string AceptarContrato(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.AceptarContratoColombia(usuario);
+        }
+
         public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
         {
             int paisID = GetPaisID(paisISO);
@@ -705,7 +716,7 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
         }
-        
+
         /*EPD-1837*/
         public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
         {
@@ -746,7 +757,6 @@ namespace Portal.Consultoras.Service
         }
          * */
         /*EPD-1837*/
-
         public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)
         {
             var BLUsuario = new BLUsuario();

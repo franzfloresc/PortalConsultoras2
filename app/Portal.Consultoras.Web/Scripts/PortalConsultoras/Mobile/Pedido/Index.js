@@ -1,7 +1,126 @@
-﻿
-var arrayOfertasParaTi = [];
+﻿var arrayOfertasParaTi = [];
+
+var AutocompleteLastLI = null;
+var AutocompleteClick = false;
 
 $(document).ready(function () {
+    $('#txtClienteNombre').click(function (e) {
+        if ($(this).prop('disabled')) return;
+
+        if ($(".ui-autocomplete").css("display") == "none") {
+            AutocompleteClick = true;
+            $(this).autocomplete("search", "");
+        }
+        else {
+            $(this).autocomplete('close');
+        }
+    });
+
+    $('#txtClienteNombre').keyup(function (e) {
+        if (e.keyCode == 8) {
+            if ($.trim($(this).val()) == "") $("#txtClienteId").val("0");
+        }
+    });
+
+    $("#txtClienteNombre").css("background-image", "url('" + urlImagenListaCliente + "')");
+    $('#txtClienteNombre').autocomplete({
+        minLength: 0,
+        autoFocus: true,
+        open: function (event, ui) {
+            $('#txtClienteNombre').attr("placeholder", "Buscar...");
+        },
+        close: function (event, ui) {
+            $('#txtClienteNombre').attr("placeholder", "Cliente");
+        },
+        focus: function (event, ui) {
+            if (AutocompleteLastLI != null) AutocompleteLastLI.removeClass("ui-state-focus");
+
+            AutocompleteLastLI = $(event.currentTarget).find("a.ui-state-focus").parent();
+            AutocompleteLastLI.addClass("ui-state-focus");
+
+            return false;
+        },
+        select: function (event, ui) {
+            $("#txtClienteId").val("0");
+
+            if (ui.item.cliente.ClienteID == -1)
+            {
+                $("#txtClienteNombre").val("");
+
+                if (gTipoUsuario == '2') {
+                    var msgg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
+                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(msgg);
+                    $('#popupInformacionSB2Error').show();
+                    return false;
+                }
+
+                showClienteDetalle(null);
+
+                return false;
+            }
+            else if (ui.item.cliente.ClienteID != 0)
+            {
+                $.each(lstClientes, function (key, cliente) {
+                    if (cliente.ClienteID == ui.item.cliente.ClienteID && cliente.TieneTelefono == 0) {
+                        showClienteDetalle(cliente);
+                        return false;
+                    }
+                });
+            }
+
+            $("#txtClienteId").val(ui.item.cliente.ClienteID);
+        },
+        search: function (oEvent, oUi) {
+            var sValue = $(oEvent.target).val();
+
+            if (AutocompleteClick) sValue = "";
+            AutocompleteClick = false;
+
+            var lstClientesFiltro = [];
+            var lstClientesDefault = [];
+            var lstClientesFinal = [];
+
+            $(lstClientes).each(function (iIndex, sElement) {
+                if (sElement.ClienteID == 0 || sElement.ClienteID == -1) {
+                    lstClientesDefault.push(sElement);
+                }
+                else {
+                    if (sElement.Nombre.toUpperCase().indexOf(sValue.toUpperCase()) > -1) lstClientesFiltro.push(sElement);
+                }
+            });
+
+            lstClientesFiltro.sort(function (a, b) {
+                if (a.Nombre.toUpperCase() < b.Nombre.toUpperCase()) return -1;
+                if (b.Nombre.toUpperCase() < a.Nombre.toUpperCase()) return 1;
+                return 0;
+            });
+
+            lstClientesFinal.push.apply(lstClientesFinal, lstClientesDefault);
+            lstClientesFinal.push.apply(lstClientesFinal, lstClientesFiltro);
+
+            $(this).autocomplete('option', 'source', function (request, response) {
+                response($.map(lstClientesFinal, function (item) {
+                    return {
+                        label: item.Nombre,
+                        value: item.Nombre,
+                        cliente: item
+                    }
+                }));
+            });
+        }
+    });
+
+    //$("#ddlClientes").change(function () {
+    //    if($(this).val() == 0) return;
+
+    //    $.each(lstClientes, function (key, cliente) {
+    //        if (cliente.ClienteID == $("#ddlClientes").val() && cliente.TieneTelefono == 0) {
+    //            showClienteDetalle(cliente);
+    //            return false;
+    //        }
+    //    });
+    //});
+
     ReservadoOEnHorarioRestringido(false);
     $("#divProductoMantenedor").hide();
     $(".btn_verMiPedido").on("click", function () {
@@ -57,6 +176,12 @@ $(document).ready(function () {
         $("#txtCantidad").val(numactual);
     });
     $("#btnAgregarProducto").click(function () {
+        //var cliente = $.trim($("#txtClienteNombre").val());
+        //if (cliente == "") {
+        //    AbrirMensaje("Seleccione un cliente.");
+        //    return false;
+        //}
+
         var cantidad = $.trim($("#txtCantidad").val());
         if (cantidad == "" || cantidad[0] == "-") {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
@@ -70,6 +195,20 @@ $(document).ready(function () {
             AbrirMensaje("Ingrese una cantidad mayor que cero.");
             return false;
         }
+
+        //var clienteValido = true;
+        //if ($("#ddlClientes").val() != "0") {
+        //    $.each(lstClientes, function (ind, cli) {
+        //        if (cli.ClienteID == $("#ddlClientes").val() && cli.TieneTelefono == 0) {
+        //            AbrirMensaje("Debe actualizar los datos del cliente.", null, function () {
+        //                showClienteDetalle(cli);
+        //            });
+        //            clienteValido = false;
+        //            return false;
+        //        }
+        //    });
+        //}
+        //if (!clienteValido) return false;
 
         var cantidadProductos = $.trim($("#txtCantidad").val()) || 0;
         if (cantidadProductos > 0) {
@@ -136,9 +275,9 @@ $(document).ready(function () {
             $('#popupInformacionSB2Error').show();
             return false;
         }
-
-        CerrarMantenerCliente();
-        $("#divAgregarClientePedido").show();
+        showClienteDetalle(null);
+        //CerrarMantenerCliente();
+        //$("#divAgregarClientePedido").show();
     });
 
     CargarCarouselEstrategias("");
@@ -152,6 +291,61 @@ $(document).ready(function () {
     CargarDialogMesajePostulantePedido();
 });
 
+var ClienteDetalleOK = null;
+function showClienteDetalle(pcliente) {
+    var url = urlClienteDetalle;
+
+    var cliente = pcliente || {};
+
+    ShowLoading();
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        cache: false,
+        url: url,
+        data: cliente,
+        success: function (data) {
+            CloseLoading();
+
+            $("#divDetalleCliente").html(data);
+            $("#divAgregarCliente").modal("show");
+            //$("#divAgregarCliente").show();
+
+            ClienteDetalleOK = function (cliente) {
+                $("#txtClienteId").val(cliente.ClienteID);
+                $("#txtClienteNombre").val(cliente.Nombre);
+
+                if (pcliente == null) {
+                    //$("#ddlClientes").append(new Option(cliente.Nombre, cliente.ClienteID));
+                    //$("#ddlClientes").val(cliente.ClienteID);
+
+                    lstClientes.push(cliente);
+                }
+                else {
+                    //$.each($("#ddlClientes option"), function (ind, cli) {
+                    //    if ($(cli).val() == cliente.ClienteID) {
+                    //        $(cli).text(cliente.Nombre);
+                    //        return false;
+                    //    }
+                    //});
+
+                    $.each(lstClientes, function (ind, cli) {
+                        if (cli.ClienteID == cliente.ClienteID) {
+                            cli.Nombre = cliente.Nombre;
+                            cli.TieneTelefono = 1;
+                            return false;
+                        }
+                    });
+                }
+            };
+        },
+        error: function (xhr, ajaxOptions, error) {
+            CloseLoading();
+            alert('Error: ' + xhr.status + " - " + xhr.responseText);
+        }
+    });
+}
 
 function CargarDialogMesajePostulantePedido() {
     if (gTipoUsuario == '2' && MensajePedidoMobile == '0') {
@@ -169,7 +363,6 @@ function CerrarDialogMesajePostulantePedido() {
     $('#dialog_MensajePostulante_Pedido').hide();
     UpdateUsuarioTutoriales();
 }
-
 
 function UpdateUsuarioTutoriales() {
     var item = {
@@ -528,13 +721,13 @@ function AgregarProductoListado() {
         async: true,
         success: function (datos) {
             if (checkTimeout(datos)) {
-                if (!datos.result) {
-                    MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
-                    CloseLoading();
-                } else {
-                    InsertarProducto();
-                    return true;
-                }
+            if (!datos.result) {
+                MostrarMensaje("mensajeCUVCantidadMaxima", datos.message);
+                CloseLoading();
+            } else {
+                InsertarProducto();
+                return true;
+            }
             }
         },
         error: function (data, error) {
@@ -552,8 +745,14 @@ function InsertarProducto() {
     var esOfertaNueva = $("#hdfValorFlagNueva").val() === "1";
     var urlInsertar = esOfertaNueva ? urlPedidoInsertZe : urlPedidoInsert;
     var model;
-       
+    if ($("#hdTipoOfertaSisID").val() === "0") {
+        $("#hdTipoOfertaSisID").val($("#hdTipoEstrategiaID").val());
+    }
+
     if (!esOfertaNueva) {
+
+        if ($.trim($("#txtClienteNombre").val()) == "") $("#txtClienteId").val("0");
+
         model = {
             Tipo: 1,
             CUVComplemento: "",
@@ -575,8 +774,10 @@ function InsertarProducto() {
             PrecioUnidad: $("#hdfPrecioUnidad").val(),
             DescripcionProd: $("#divNombreProducto").html(),
             Cantidad: $("#txtCantidad").val(),
-            ClienteID: $("#ddlClientes").val(),
-            ClienteDescripcion: $("#ddlClientes option:selected").text()
+            //ClienteID: $("#ddlClientes").val(),
+            //ClienteDescripcion: $("#ddlClientes option:selected").text()
+            ClienteID: $("#txtClienteId").val(),
+            ClienteDescripcion: $("#txtClienteNombre").val()
         };
 
     } else {
@@ -605,12 +806,26 @@ function InsertarProducto() {
                 CloseLoading();
                 return false;
             }
-
             if (data.success != true) {
+                CloseLoading();
                 $("#btnAgregarProducto").removeAttr("disabled", "disabled");
                 $("#btnAgregarProducto").show();
-                messageInfoError(data.message);
-                CloseLoading();
+
+                var errorCliente = data.errorCliente || false;
+                if (!errorCliente) {
+                    messageInfoError(data.message);   
+                }
+                else {
+                    $.each(lstClientes, function (ind, cli) {
+                        //if (cli.ClienteID == $("#ddlClientes").val()) {
+                        if (cli.ClienteID == $("#txtClienteId").val()) {
+                            messageInfoError(data.message, function () {
+                                showClienteDetalle(cli);
+                            });
+                            return false;
+                        }
+                    });
+                }
                 return false;
             }
 
@@ -992,115 +1207,116 @@ function MostrarDetalleGanancia() {
     $('#popupGanancias').show();
 }
 
-function CerrarMantenerCliente() {
-    $("#divAgregarClientePedido input[type='text']").val("");
-    $("#divAgregarClientePedido input[type='email']").val("");
-    $("#divAgregarClientePedido").hide();
-}
-function AgregarMantenerCliente() {
-    var entidad = ValidarMantenerCliente();
-    if (entidad.Error) return false;
+//function CerrarMantenerCliente() {
+//    $("#divAgregarClientePedido input[type='text']").val("");
+//    $("#divAgregarClientePedido input[type='email']").val("");
+//    $("#divAgregarClientePedido").hide();
+//}
 
-    var item = {
-        ClienteID: 0,
-        Nombre: entidad.nombre,
-        eMail: entidad.correo,
-        FlagValidate: 1
-    };
+//function AgregarMantenerCliente() {
+//    var entidad = ValidarMantenerCliente();
+//    if (entidad.Error) return false;
 
-    ShowLoading();
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Cliente/Mantener',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
-        async: true,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                if (data.success == false) {
-                    AbrirMensaje(data.message);
-                    CloseLoading();
-                    return false;
-                }
+//    var item = {
+//        ClienteID: 0,
+//        Nombre: entidad.nombre,
+//        eMail: entidad.correo,
+//        FlagValidate: 1
+//    };
 
-                CargarListaCliente();
+//    ShowLoading();
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Cliente/Mantener',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(item),
+//        async: true,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                if (data.success == false) {
+//                    AbrirMensaje(data.message);
+//                    CloseLoading();
+//                    return false;
+//                }
 
-                $.each($("#ddlClientes option"), function (ind, cli) {
-                    if ($(cli).text() == entidad.nombre) {
-                        $(cli).attr("selected", "selected");
-                    }
-                });
-                CerrarMantenerCliente();
+//                CargarListaCliente();
 
-                $("#popupClienteIngresado").show();
-                dataLayer.push({
-                    'event': 'virtualEvent',
-                    'category': 'Clientes',
-                    'action': 'Agregar',
-                    'label': 'Satisfactorio'
-                });
-            }
-            CloseLoading();
-        },
-        error: function (data, error) {
-            CloseLoading();
-            if (checkTimeout(data)) {
-                alert(data.message);
-            }
-        }
-    });
-}
+//                $.each($("#ddlClientes option"), function (ind, cli) {
+//                    if ($(cli).text() == entidad.nombre) {
+//                        $(cli).attr("selected", "selected");
+//                    }
+//                });
+//                CerrarMantenerCliente();
 
-function ValidarMantenerCliente() {
-    var nombre = $.trim($('#Nombres').val());
-    var correo = $.trim($('#Correo').val());
-    var entidad = new Object();
-    entidad.Error = false;
+//                $("#popupClienteIngresado").show();
+//                dataLayer.push({
+//                    'event': 'virtualEvent',
+//                    'category': 'Clientes',
+//                    'action': 'Agregar',
+//                    'label': 'Satisfactorio'
+//                });
+//            }
+//            CloseLoading();
+//        },
+//        error: function (data, error) {
+//            CloseLoading();
+//            if (checkTimeout(data)) {
+//                alert(data.message);
+//            }
+//        }
+//    });
+//}
 
-    $('#divNotiNombre, #divNotiEmail').hide();
-    if (nombre == "") {
-        $('#divNotiNombre').show();
-        entidad.Error = true;
-    }
-    if (correo != "") {
-        if (!validateEmail(correo)) {
-            $('#divNotiEmail').show();
-            entidad.Error = true;
-        }
-    }
-    entidad.nombre = nombre;
-    entidad.correo = correo;
-    return entidad;
-}
+//function ValidarMantenerCliente() {
+//    var nombre = $.trim($('#Nombres').val());
+//    var correo = $.trim($('#Correo').val());
+//    var entidad = new Object();
+//    entidad.Error = false;
 
-function CargarListaCliente() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Cliente/ObtenerTodosClientes',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        async: false,
-        success: function (data) {
-            if (checkTimeout(data)) {
-                $("#ddlClientes option[value!='0']").remove();
+//    $('#divNotiNombre, #divNotiEmail').hide();
+//    if (nombre == "") {
+//        $('#divNotiNombre').show();
+//        entidad.Error = true;
+//    }
+//    if (correo != "") {
+//        if (!validateEmail(correo)) {
+//            $('#divNotiEmail').show();
+//            entidad.Error = true;
+//        }
+//    }
+//    entidad.nombre = nombre;
+//    entidad.correo = correo;
+//    return entidad;
+//}
 
-                if (data.success == false) {
-                    return false;
-                }
-                data.lista = data.lista || new Array();
-                $.each(data.lista, function (ind, cli) {
-                    $("#ddlClientes").append(new Option(cli.Nombre, cli.ClienteID));
-                });
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                alert(data.message);
-            }
-        }
-    });
-}
+//function CargarListaCliente() {
+//    jQuery.ajax({
+//        type: 'POST',
+//        url: baseUrl + 'Cliente/ObtenerTodosClientes',
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        async: false,
+//        success: function (data) {
+//            if (checkTimeout(data)) {
+//                $("#ddlClientes option[value!='0']").remove();
+
+//                if (data.success == false) {
+//                    return false;
+//                }
+//                data.lista = data.lista || new Array();
+//                $.each(data.lista, function (ind, cli) {
+//                    $("#ddlClientes").append(new Option(cli.Nombre, cli.ClienteID));
+//                });
+//            }
+//        },
+//        error: function (data, error) {
+//            if (checkTimeout(data)) {
+//                alert(data.message);
+//            }
+//        }
+//    });
+//}
 
 function TagManagerCarruselInicio(arrayItems) {
     var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;

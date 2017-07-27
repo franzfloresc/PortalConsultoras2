@@ -109,6 +109,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.vrowNum = rowNum;
             model.Usuario = usuario;
             model.TipoProceso = TipoProceso;
+            model.MotivoRechazo = MotivoRechazo;
             return View(model);
         }
         public ActionResult ConsultarPedidosDDWeb(string sidx, string sord, int page, int rows, string vPaisID, string vCampania, string vConsultora, string vRegionID, string vZonaID, string vOrigen, string vEstadoValidacion, string vEsRechazado)
@@ -158,6 +159,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         using (PedidoServiceClient sv = new PedidoServiceClient())
                         {
+                            ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                             lst = sv.GetPedidosWebDDNoFacturados(
                                 new BEPedidoDDWeb
                                 {
@@ -213,6 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
                             IndicadorEnviado = item.IndicadorEnviado,
                             PrimeraCampaniaCodigo = item.PrimeraCampaniaCodigo,
                             Region = item.Region,
+                            DocumentoIdentidad = item.DocumentoIdentidad,
                             MotivoRechazo = string.IsNullOrEmpty(item.MotivoRechazo) ? " " : item.MotivoRechazo
                         });
                         fila = fila + 1;
@@ -332,7 +335,7 @@ namespace Portal.Consultoras.Web.Controllers
                            {
                                idCampania = a.CampaniaID.ToString(),
                                idPedido = a.PedidoID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    //a.CampaniaID.ToString(),
                                    //a.PedidoID.ToString(),
@@ -341,17 +344,17 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.FechaRegistro.ToString(),
                                    a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
                                    a.CampaniaCodigo.ToString(),
-                                   a.Seccion.ToString(),
                                    a.Region,
                                    a.Zona,
+                                   a.Seccion.ToString(),
                                    a.ConsultoraCodigo.ToString(),
                                    a.ConsultoraNombre.ToString(),
-                                   a.PrimeraCampaniaCodigo,
+                                   a.DocumentoIdentidad.ToString(),
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotal.ToString("#,##0").Replace(',','.') : a.ImporteTotal.ToString("0.00")), // Validación país colombia req. 1478
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")), // GR-846
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")), // Validación país colombia req. 1478
                                    a.OrigenNombre.ToString(),
-                                   a.EstadoValidacionNombre.ToString(),               
+                                   a.EstadoValidacionNombre.ToString(),
                                    a.IndicadorEnviado,
                                    a.TipoProceso,
                                    FomatearMontoDecimalGPR(a.MotivoRechazo)
@@ -362,18 +365,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
-
         private string FomatearMontoDecimalGPR(string MotivoRechazo)
         {
-            string TextoDecimal = MotivoRechazo;
-            if (MotivoRechazo.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
-            {
-                decimal MontoDecimal = Convert.ToDecimal(MotivoRechazo.Substring(MotivoRechazo.IndexOf(':') + 1).Replace(" ", string.Empty));
+            string TextoDecimal = string.Empty;
+            string[] Motivos = MotivoRechazo.Split(',');
+            string MotivoItem = string.Empty;
 
-                MotivoRechazo = MotivoRechazo.Remove(MotivoRechazo.IndexOf(':'));
-                TextoDecimal = string.Format("{0}: {1}", MotivoRechazo, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+            foreach (string item in Motivos)
+            {
+                MotivoItem = item;
+                if (MotivoItem.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+                {
+                    decimal MontoDecimal = Convert.ToDecimal(MotivoItem.Substring(MotivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
+
+                    MotivoItem = MotivoItem.Remove(MotivoItem.IndexOf(':'));
+                    TextoDecimal += string.Format("{0}: {1}", MotivoItem, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+                }
             }
-            return TextoDecimal;
+            return string.IsNullOrEmpty(TextoDecimal) ? MotivoRechazo : TextoDecimal;
         }
 
         public ActionResult ConsultarPedidosDDWebDetalle(string sidx, string sord, int page, int rows, string vPaisISO, string vCampania, string vConsultoraCodigo, string vTipoProceso)
@@ -410,13 +419,13 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = (from c in lista
                                where string.IsNullOrEmpty(c.descripcion.Trim()) == false
                                select new BEPedidoDDWebDetalle
-                                    {
-                                        CUV = c.cuv,
-                                        Descripcion = c.descripcion,
-                                        Cantidad = c.cantidad,
-                                        PrecioUnitario = Convert.ToDecimal(c.precioUnidad),
-                                        PrecioTotal = Convert.ToDecimal(c.importeTotal)
-                                    }).ToList();
+                               {
+                                   CUV = c.cuv,
+                                   Descripcion = c.descripcion,
+                                   Cantidad = c.cantidad,
+                                   PrecioUnitario = Convert.ToDecimal(c.precioUnidad),
+                                   PrecioTotal = Convert.ToDecimal(c.importeTotal)
+                               }).ToList();
 
                         //foreach (var pedidoWebAnteriorDetalleBean in lista)
                         //{
@@ -526,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CUV.ToString(),
                                    a.Descripcion.ToString(),
@@ -692,6 +701,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
+                    ((BasicHttpBinding)sv.Endpoint.Binding).MaxReceivedMessageSize = int.MaxValue;
                     lst = sv.GetPedidosWebDDNoFacturados(
                         new BEPedidoDDWeb
                         {
@@ -740,7 +750,8 @@ namespace Portal.Consultoras.Web.Controllers
                         Zona = item.Zona,
                         IndicadorEnviado = item.IndicadorEnviado,
                         Region = item.Region, // 2446
-                        MotivoRechazo = item.MotivoRechazo
+                        MotivoRechazo = item.MotivoRechazo,
+                        DocumentoIdentidad = item.DocumentoIdentidad,
                     });
                     fila = fila + 1;
                 }
@@ -754,15 +765,16 @@ namespace Portal.Consultoras.Web.Controllers
             dic.Add("FechaRegistro", "Fecha/Hora Ingreso,");
             dic.Add("FechaReserva", "Fecha Reserva,");
             dic.Add("CampaniaCodigo", "Año/Campaña,");
-            dic.Add("Seccion", "Sección,");
             dic.Add("Region", "Región,");
             dic.Add("Zona", "Zona,");
+            dic.Add("Seccion", "Sección,");
             dic.Add("ConsultoraCodigo", "Cod. Consultora,");
             dic.Add("ConsultoraNombre", "Nombre Consultora,");
-            if (UserData().PaisID == 9)
-            {
-                dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
-            }
+            //if (UserData().PaisID == 9)
+            //{
+            //    dic.Add("PrimeraCampaniaCodigo", "Campaña de 1er Pedido,"); // 1630
+            //}
+            dic.Add("DocumentoIdentidad", "Documento Identidad,");
             dic.Add("ImporteTotal", "Monto Total Pedido,");
             dic.Add("ImporteTotalConDescuento", "Monto Total Pedido con Descuento,");
             dic.Add("ConsultoraSaldo", "Saldo,");
@@ -778,12 +790,13 @@ namespace Portal.Consultoras.Web.Controllers
                             a.FechaRegistro,
                             a.FechaReserva,
                             a.CampaniaCodigo,
-                            a.Seccion,
                             a.Region,
                             a.Zona,
+                            a.Seccion,
                             a.ConsultoraCodigo,
                             a.ConsultoraNombre,
-                            a.PrimeraCampaniaCodigo,
+                            //a.PrimeraCampaniaCodigo,
+                            a.DocumentoIdentidad,
                             ImporteTotal = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotal.ToString("#,##0").Replace(',', '.') : a.ImporteTotal.ToString("0.00")),
                             ImporteTotalConDescuento = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',', '.') : a.ImporteTotalConDescuento.ToString("0.00")),
                             ConsultoraSaldo = UserData().Simbolo + " " + ((UserData().PaisID == 4) ? a.ConsultoraSaldo.ToString("#,##0").Replace(',', '.') : a.ConsultoraSaldo.ToString("0.00")),
@@ -1123,7 +1136,6 @@ namespace Portal.Consultoras.Web.Controllers
             lista[13] = vrowNum; lista[14] = vUsuario; lista[15] = UserData().Simbolo; lista[16] = UserData().BanderaImagen;
             lista[17] = UserData().NombrePais; lista[18] = vTipoProceso; lista[19] = UserData().PaisID.ToString(); lista[20] = vMotivoRechazo;
 
-            //Util.ExportToPdf(this, "PedidosPDF.pdf", "ReportePedidosDDWebDetalleImp", Util.EncriptarQueryString(lista));
             Util.ExportToPdfWebPages(this, "PedidoDDWeb.pdf", "ReportePedidoDDWebDetalleImp", Util.EncriptarQueryString(lista));
             return View();
         }

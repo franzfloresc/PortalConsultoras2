@@ -1463,6 +1463,110 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /// <summary>
+        /// Metodo que exporta una lista a documento Excel.
+        /// </summary>
+        /// <typeparam name="V">Tipo de entidad</typeparam>
+        /// <param name="filename">nombre del archivo sin la extension</param>
+        /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
+        /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
+        /// <returns></returns>
+        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions, List<string> nombresHojas, int sizeColumn)
+        {
+            try
+            {
+                string extension = ".xlsx";
+                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
+
+                var wb = new XLWorkbook();
+                for (int i = 0; i < Sources.Count; i++)
+                {
+                    var ws = wb.Worksheets.Add(nombresHojas[i]);
+                    List<string> Columns = new List<string>();
+                    int index = 1;
+
+                    foreach (KeyValuePair<string, string> keyvalue in columnDefinitions[i])
+                    {
+                        //Establece las columnas
+                        ws.Cell(1, index).Value = keyvalue.Key;
+                        index++;
+                        Columns.Add(keyvalue.Value);
+                    }
+                    int row = 2;
+                    int col = 0;
+                    foreach (var dataItem in (System.Collections.IEnumerable)Sources[i])
+                    {
+                        col = 1;
+                        foreach (string column in Columns)
+                        {
+                            //Establece el valor para esa columna
+                            foreach (PropertyInfo property in dataItem.GetType().GetProperties())
+                            {
+                                if (column == property.Name)
+                                {
+                                    if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
+                                    {
+                                        string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                        ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
+                                    }
+                                    else
+                                    {
+                                        if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
+                                            ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                                        else
+                                            ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                        ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                                    }
+                                    ws.Column(col).Width = sizeColumn;
+                                    break;
+                                }
+                            }
+                            col++;
+
+                        }
+                        row++;
+                    }
+                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");                    
+                }
+
+                //ws.Row(1).Style.Font.Bold = true;
+                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
+
+                var titlesStyle = wb.Style;
+                titlesStyle.Font.Bold = true;
+                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
+
+                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
+                //ws.Columns().AdjustToContents();
+
+                var stream = new MemoryStream();
+                wb.SaveAs(stream);
+
+                HttpContext.Current.Response.ClearHeaders();
+                HttpContext.Current.Response.Clear();
+                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
+                HttpContext.Current.Response.Buffer = false;
+                HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Current.Response.Charset = "UTF-8";
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
+                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Current.Response.ContentType = "application/octet-stream";
+                HttpContext.Current.Response.BinaryWrite(stream.ToArray());
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+                stream = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// Metodo que exporta una lista a documento Excel.
@@ -1940,6 +2044,28 @@ namespace Portal.Consultoras.Common
                 stringBuilder.Append(secureQueryString[i]);
             }
             return stringBuilder.ToString();
+        }
+
+        public static string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
         }
 
         public static string Decrypt(string cipherText)
@@ -3036,8 +3162,52 @@ namespace Portal.Consultoras.Common
             var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
             return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
         }
-    }
 
+        public static string NombreMes(int Mes)
+        {
+            string Result = string.Empty;
+            switch (Mes)
+            {
+                case 1:
+                    Result = "Ene";
+                    break;
+                case 2:
+                    Result = "Feb";
+                    break;
+                case 3:
+                    Result = "Mar";
+                    break;
+                case 4:
+                    Result = "Abr";
+                    break;
+                case 5:
+                    Result = "May";
+                    break;
+                case 6:
+                    Result = "Jun";
+                    break;
+                case 7:
+                    Result = "Jul";
+                    break;
+                case 8:
+                    Result = "Ago";
+                    break;
+                case 9:
+                    Result = "Sep";
+                    break;
+                case 10:
+                    Result = "Oct";
+                    break;
+                case 11:
+                    Result = "Nov";
+                    break;
+                case 12:
+                    Result = "Dic";
+                    break;
+            }
+            return Result;
+        }
+    }
 
     public static class DataRecord
     {
@@ -3091,11 +3261,35 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /// <summary>
+        /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
+        /// </summary>
+        /// <typeparam name="T">Data Row</typeparam>
+        /// <param name="row">Fila</param>
+        /// <param name="name">Nombre de la columna</param>
+        /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
+        /// <returns>Valor convertido</returns>
+        public static T GetValue<T>(this IDataRecord row, string name)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException("nombre enviado es nulo o vacio");
+                }
+
+                return (T)row.GetValue(row.GetOrdinal(name));
+            }
+            catch (Exception ex)
+            {
+                var value = row.GetValue(row.GetOrdinal(name));
+                throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
+            }
+        }
     }
 
     public static class LinqExtensions
     {
-        [Obsolete("Use ForEach from Linq")]
         public static void Update<TSource>(this IEnumerable<TSource> outer, Action<TSource> updator)
         {
             foreach (var item in outer)

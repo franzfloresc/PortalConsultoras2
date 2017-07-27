@@ -16,7 +16,11 @@
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
             <li>
-                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+                @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+                    } }
             </li>
             <li>|</li>
             <li>

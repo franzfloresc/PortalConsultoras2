@@ -27,66 +27,90 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult MisClientes()
         {
-
             return View();
+        }
 
+        [HttpGet]
+        public PartialViewResult Detalle(ClienteModel cliente)
+        {
+            return PartialView(cliente);
         }
 
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
-            if (model.ClienteID == 0)
-                return Insert(model);
-            else
-                return Update(model);
-        }
+            //if (model.ClienteID == 0)
+            //    return Insert(model);
+            //else
+            //    return Update(model);
 
-        [HttpPost]
-        public JsonResult Update(ClienteModel model)
-        {
-            int vValidation = 0;
+            List<BEClienteDB> clientes = new List<BEClienteDB>();
+            List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
+            List<BEClienteResponse> response = new List<BEClienteResponse>();
+
             try
             {
-                Mapper.CreateMap<ClienteModel, BECliente>()
-                    .ForMember(t => t.ClienteID, f => f.MapFrom(c => c.ClienteID))
-                    .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-                BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
-                //string x = "sdasda";
-                //int dsds = int.Parse(x);
-                entidad.ClienteID = model.ClienteID;
-
-                using (ClienteServiceClient sv = new ClienteServiceClient())
+                contactos.Add(new BEClienteContactoDB()
                 {
-                    if (model.FlagValidate == 1)
-                    {
-                        vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
-                        if (vValidation > 0)
-                        {
-                            return Json(new
-                            {
-                                success = false,
-                                message = "El nombre del cliente ya se encuentra registrado, verifique.",
-                                extra = ""
-                            });
-                        }
-                    }
-
-                    entidad.PaisID = userData.PaisID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.Activo = true;
-                    sv.Update(entidad);
-
-                    Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
-
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "Se actualizó con éxito tu cliente.",
-                    extra = ""
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.Celular) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                    Valor = model.Celular
                 });
+
+                contactos.Add(new BEClienteContactoDB()
+                {
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.Telefono) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                    Valor = model.Telefono
+                });
+
+                contactos.Add(new BEClienteContactoDB()
+                {
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.eMail) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                    Valor = model.eMail
+                });
+
+                clientes.Add(new BEClienteDB()
+                {
+                    ClienteID = model.CodigoCliente,
+                    ClienteIDSB = model.ClienteID,
+                    Nombres = model.Nombre,
+                    ConsultoraID = userData.ConsultoraID,
+                    Origen = Constantes.ClienteOrigen.Desktop,
+                    Estado = Constantes.ClienteEstado.Activo,
+                    TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
+                    Contactos = contactos.ToArray()
+                });
+
+                using (var sv = new ClienteServiceClient())
+                {
+                    response = sv.SaveDB(userData.PaisID, clientes.ToArray()).ToList();
+                }
+
+                var itemResponse = response.First();
+
+                if (itemResponse.CodigoRespuesta == Constantes.ClienteValidacion.Code.SUCCESS)
+                {
+                    return Json(new
+                    {
+                        success = true,
+                        message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
+                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
+                    });
+                }
+                else
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = itemResponse.MensajeRespuesta,
+                        extra = ""
+                    });
+                }
             }
             catch (FaultException ex)
             {
@@ -110,69 +134,142 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult Insert(ClienteModel model)
-        {
-            int vValidation = 0;
-            try
-            {
-                Mapper.CreateMap<ClienteModel, BECliente>()
-                    .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
+        //[HttpPost]
+        //public JsonResult Update(ClienteModel model)
+        //{
+        //    int vValidation = 0;
+        //    try
+        //    {
+        //        Mapper.CreateMap<ClienteModel, BECliente>()
+        //            .ForMember(t => t.ClienteID, f => f.MapFrom(c => c.ClienteID))
+        //            .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
+        //            .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+        //            .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+        //            .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
 
-                BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
+        //        BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
+        //        //string x = "sdasda";
+        //        //int dsds = int.Parse(x);
+        //        entidad.ClienteID = model.ClienteID;
 
-                using (ClienteServiceClient sv = new ClienteServiceClient())
-                {
-                    vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
+        //        using (ClienteServiceClient sv = new ClienteServiceClient())
+        //        {
+        //            if (model.FlagValidate == 1)
+        //            {
+        //                vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
+        //                if (vValidation > 0)
+        //                {
+        //                    return Json(new
+        //                    {
+        //                        success = false,
+        //                        message = "El nombre del cliente ya se encuentra registrado, verifique.",
+        //                        extra = ""
+        //                    });
+        //                }
+        //            }
 
-                    if (vValidation == 0)
-                    {
-                        entidad.PaisID = userData.PaisID;
-                        entidad.ConsultoraID = userData.ConsultoraID;
-                        entidad.Activo = true;
-                        sv.Insert(entidad);
+        //            entidad.PaisID = userData.PaisID;
+        //            entidad.ConsultoraID = userData.ConsultoraID;
+        //            entidad.Activo = true;
+        //            sv.Update(entidad);
 
-                        Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
-                    }
-                    else
-                    {
-                        return Json(new
-                        {
-                            success = false,
-                            message = "El nombre del cliente ya se encuentra registrado, verifique.",
-                            extra = ""
-                        });
-                    }
-                }
-                return Json(new
-                {
-                    success = true,
-                    message = "Se registró con éxito tu cliente.",
-                    extra = ""
-                });
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
-            }
-        }
+        //            Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+
+        //        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Se actualizó con éxito tu cliente.",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
+
+        //[HttpPost]
+        //public JsonResult Insert(ClienteModel model)
+        //{
+        //    int vValidation = 0;
+        //    try
+        //    {
+        //        Mapper.CreateMap<ClienteModel, BECliente>()
+        //            .ForMember(t => t.eMail, f => f.MapFrom(c => c.eMail))
+        //            .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+        //            .ForMember(t => t.Celular, f => f.MapFrom(c => c.Celular))
+        //            .ForMember(t => t.Telefono, f => f.MapFrom(c => c.Telefono));
+
+        //        BECliente entidad = Mapper.Map<ClienteModel, BECliente>(model);
+
+        //        using (ClienteServiceClient sv = new ClienteServiceClient())
+        //        {
+        //            vValidation = sv.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, model.Nombre);
+
+        //            if (vValidation == 0)
+        //            {
+        //                entidad.PaisID = userData.PaisID;
+        //                entidad.ConsultoraID = userData.ConsultoraID;
+        //                entidad.Activo = true;
+        //                sv.Insert(entidad);
+
+        //                Session[Constantes.ConstSession.ClientesByConsultora] = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
+        //            }
+        //            else
+        //            {
+        //                return Json(new
+        //                {
+        //                    success = false,
+        //                    message = "El nombre del cliente ya se encuentra registrado, verifique.",
+        //                    extra = ""
+        //                });
+        //            }
+        //        }
+        //        return Json(new
+        //        {
+        //            success = true,
+        //            message = "Se registró con éxito tu cliente.",
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (FaultException ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        return Json(new
+        //        {
+        //            success = false,
+        //            message = ex.Message,
+        //            extra = ""
+        //        });
+        //    }
+        //}
 
         public ActionResult Consultar(string sidx, string sord, int page, int rows, string vBusqueda)
         {
@@ -202,6 +299,12 @@ namespace Portal.Consultoras.Web.Controllers
                         case "Nombre":
                             items = lst.OrderBy(x => x.Nombre);
                             break;
+                        case "Telefono":
+                            items = lst.OrderBy(x => x.Telefono);
+                            break;
+                        case "Celular":
+                            items = lst.OrderBy(x => x.Celular);
+                            break;
                         case "eMail":
                             items = lst.OrderBy(x => x.eMail);
                             break;
@@ -216,6 +319,12 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         case "Nombre":
                             items = lst.OrderByDescending(x => x.Nombre);
+                            break;
+                        case "Telefono":
+                            items = lst.OrderByDescending(x => x.Telefono);
+                            break;
+                        case "Celular":
+                            items = lst.OrderByDescending(x => x.Celular);
                             break;
                         case "eMail":
                             items = lst.OrderByDescending(x => x.eMail);
@@ -436,6 +545,8 @@ namespace Portal.Consultoras.Web.Controllers
             Dictionary<string, string> dic = new Dictionary<string, string>();
 
             dic.Add("Nombres y Apellidos", "msNombre");
+            dic.Add("Teléfono Fijo", "msTelefono");
+            dic.Add("Celular", "msCelular");
             dic.Add("Correo", "mseMail");
 
             string[] arrTotal = { "Total a Pagar:", userData.Simbolo + " #Cargo" };
@@ -505,7 +616,18 @@ namespace Portal.Consultoras.Web.Controllers
                                 ws.Cell(row, col).Value = arr[0] + source.Nombre;
                                 ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
                             }
-
+                            else if (arr[1] == "msTelefono")
+                            {
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                ws.Cell(row, col).Value = arr[0] + source.Telefono;
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
+                            }
+                            else if (arr[1] == "msCelular")
+                            {
+                                ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                ws.Cell(row, col).Value = arr[0] + source.Celular;
+                                ws.Cell(row, col).Style.Fill.BackgroundColor = XLColor.FromHtml("#F0F6F8");
+                            }
                             else if (arr[1] == "mseMail")
                             {
                                 ws.Cell(row, col).Style.NumberFormat.Format = "@";

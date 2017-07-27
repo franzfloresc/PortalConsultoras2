@@ -25,7 +25,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstCampania = new List<CampaniaModel>(),
                 lstPais = DropDowListPaises(),
-                PaisIDUser = userData.PaisID
+                PaisIDUser = userData.PaisID,
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(model);
         }
@@ -244,15 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if(imagenes != null)
                 {
-                    var carpetaPais = Globals.UrlMatriz + "/" + pais.CodigoISO;
-                    var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
-
-                    var data = imagenes.Select(p => new MatrizComercialImagen
-                    {
-                        IdMatrizComercialImagen = p.IdMatrizComercialImagen,
-                        FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
-                        Foto = urlS3 + p.Foto
-                    }).ToList();
+                    var data = MapImages(imagenes, paisID);
 
                     model.Imagenes = data;
                     totalImagenes = imagenes.Any() ? imagenes[0].TotalRegistros : 0;
@@ -269,6 +262,53 @@ namespace Portal.Consultoras.Web.Controllers
                 if (paisesCCC.Contains(pais.CodigoISO)) model.FotoProductoAppCatalogo = ImagenAppCatalogo(campaniaID, model.CodigoSAP, nroCampaniasAtras);
             }
             return Json(new { success = true, matriz = model, totalImagenes = totalImagenes }, JsonRequestBehavior.AllowGet);
+        }
+
+        private List<MatrizComercialImagen> MapImages(List<BEMatrizComercialImagen> lst, int paisID)
+        {
+            string paisISO = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            var urlS3 = ConfigS3.GetUrlS3(carpetaPais);
+
+            var data = lst.Select(p => new MatrizComercialImagen
+            {
+                IdMatrizComercialImagen = p.IdMatrizComercialImagen,
+                FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
+                Foto = urlS3 + p.Foto,
+                NemoTecnico = p.NemoTecnico
+            }).ToList();
+
+            return data;
+        }
+
+        private IEnumerable<CampaniaModel> DropDowListCampanias(int PaisID)
+        {
+            IList<BECampania> lst;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                lst = sv.SelectCampanias(PaisID);
+            }
+            Mapper.CreateMap<BECampania, CampaniaModel>()
+                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
+                    .ForMember(t => t.Anio, f => f.MapFrom(c => c.Anio))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto))
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Activo, f => f.MapFrom(c => c.Activo));
+
+            return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
+        }
+
+        public JsonResult ObtenerCampaniasPorPais(int PaisID)
+        {
+            IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoProductoSugerido);
+
+            return Json(new
+            {
+                lista = lst,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
+            }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

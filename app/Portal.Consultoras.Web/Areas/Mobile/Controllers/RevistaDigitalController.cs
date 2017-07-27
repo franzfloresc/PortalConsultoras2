@@ -2,8 +2,11 @@
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -14,35 +17,37 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                var model = IndexModel();
-                if (model.EstadoAccion < 0)
-                {
-                    return RedirectToAction("Index", "Bienvenida");
-                }
-
-                return View(model);
+                return IndexModel();
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
         }
 
-        public ActionResult Detalle(int id)
+        public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var model = DetalleModel(id);
-                return View(model);
+                ViewBag.EsMobile = 2;
+                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                if (modelo == null || modelo.ID == 0)
+                {
+                    List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+                }
+                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+                return DetalleModel(modelo);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return RedirectToAction("Index", "Bienvenida");
+            return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
 
         public ActionResult _Landing(int id)
@@ -58,5 +63,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 return PartialView("template-Landing", new RevistaDigitalModel());
             }
         }
+
+        public ActionResult MensajeBloqueado()
+        {
+            try
+            {
+                ViewBag.EsMobile = 2;
+                return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return PartialView("template-mensaje-bloqueado", new MensajeProductoBloqueadoModel());
+        }
+
     }
 }

@@ -936,7 +936,7 @@
     $(function () {
 
         $(document).ready(function () {
-            
+
             var ZonaSeccionRechazo = "@Model.ZonaSeccionRechazo";
             if (ZonaSeccionRechazo == null || ZonaSeccionRechazo == "") {
                 $('#spMalaZonificacion').hide();
@@ -1014,7 +1014,6 @@
                            { id: this.value, codigoIso: "@Model.EditarDireccionModel.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel2.ToInt()' },
                            function (data) {
                                nivel2.html(defaultOption);
-
                                $.map(data,
                                    function (e, i) {
                                        nivel2.append('<option value="' + e.Value + '">' + e.Text + '</option>');
@@ -1026,6 +1025,14 @@
                                nivel2.html(defaultOption);
                            }
                        });
+                   
+
+                   if ("@Model.EditarDireccionModel.CodigoPais"  == "PR")
+                   {
+                       ObtenerCodigoPostal(this.value);
+                   }
+
+
                });
 
             $('#LugarNivel2')
@@ -1066,7 +1073,7 @@
             $('#LugarNivel3')
                 .change(function () {
                     var nivel3 = $(this);
-
+                    
                     $('#NombreLugarNivel3').val($(this).find('option:selected').text());
 
                     var nivel4 = $('#LugarNivel4');
@@ -1084,10 +1091,12 @@
                     $.getJSON('@Url.Action("ObtenerNivelN")',
                             { id: this.value, codigoIso: "@Model.EditarDireccionModel.CodigoPais", nivel: '@Enumeradores.TipoParametro.LugarNivel4.ToInt()' },
                             function (data) {
+                                
                                 nivel4.html(defaultOption);
                                 if (data.length == 0) {
                                     $('#ContaValorNivel3').val('0');
                                     nivel4.val('');
+                               
                                     div.hide();
                                 }
                                 else {
@@ -1100,6 +1109,7 @@
                                     });
                             })
                         .complete(function () {
+                            
                             nivel4.attr('disabled', false);
                             if (nivel3.val() == '') {
                                 nivel4.html(defaultOption);
@@ -1109,6 +1119,7 @@
                 });
 
             $('#LugarNivel4').change(function () {
+                
                 //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
                 var nivel3 = $(this);
 
@@ -1166,7 +1177,25 @@
         $('#divTemplateMensaje').css('z-index', '2000');
         HabilitarDatosDireccion(0);
     }
-    
+
+    function ObtenerCodigoPostal(id)
+    {
+        
+           $.getJSON('@Url.Action("ObtenerCodigoPostal")',
+                           { id: id, codigoIso: "@Model.EditarDireccionModel.CodigoPais" },
+                           function (data) {
+                               
+                               if (data)
+                               {
+                                   $('#Numero').val(data.CodigoPostal);
+                               }
+
+                           })
+                       .complete(function () {
+
+                       });
+    }
+
 </script>
 
 
@@ -1747,7 +1776,7 @@
             {
                 <text>
                 marker.addListener('mouseover', function () {
-
+          
                     infowindow.setContent('<div><strong>' + '@punto.Item3' + '</strong></div>');
                     infowindow.open(map, this);
                 });

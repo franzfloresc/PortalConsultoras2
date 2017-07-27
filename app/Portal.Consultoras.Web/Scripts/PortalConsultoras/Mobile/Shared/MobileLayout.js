@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
 
     LayoutHeader();
 
@@ -61,6 +60,8 @@ $(function () {
     });
 
     $("body").on("click", "[data-cantidad-agregar]", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
+
         var signo = $(this).attr("data-cantidad-agregar");
         var objPadre = $(this).parents("[data-cantidad-contenedor]");
         var objInput = objPadre.find("[data-cantidad-input]");
@@ -76,6 +77,7 @@ $(function () {
     });
 
     $("body").on("click", ".cantidad_menos_home", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -85,7 +87,8 @@ $(function () {
         $txtcantidad.val(cantidad);
     });
 
-    $("body").on("click", ".cantidad_mas_home", function () { 
+    $("body").on("click", ".cantidad_mas_home", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -264,8 +267,30 @@ $(function () {
         });
 
     });
-    
+    odd_mobile_google_analytics_promotion_impresion();
 });
+
+function odd_mobile_google_analytics_promotion_impresion() {
+    if ($('#BloqueMobileOfertaDia').length > 0) {
+        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
+        dataLayer.push({
+            'event': 'promotionView',
+            'ecommerce': {
+                'promoView': {
+                    'promotions': [
+					{
+					    'id': id,
+					    'name': name,
+					    'position': 'Banner Superior Home - 1',
+					    'creative': creative
+					}]
+                }
+            }
+        });
+    }
+}
 
 function loadBannerLP20() {
     if (typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();
@@ -678,7 +703,7 @@ function CloseComunidad() {
 }
 
 function ShowLoading() {
-    $("#loading-spin").fadeIn();
+    $("#loading-spin").css('visibility', 'visible').fadeIn();
 }
 
 function CloseLoading() {
@@ -693,10 +718,18 @@ function messageInfo(message, fnAceptar) {
 
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacion .btn-aceptar').off('click');
-        $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacion .btn-aceptar').off('click');
+    $('#popupInformacion .cerrar_popMobile').off('click');
+
+    $('#popupInformacion .btn-aceptar').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
+    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
 }
 
 function messageInfoBueno(message, fnAceptar) {
@@ -724,10 +757,23 @@ function messageInfoError(message, fnAceptar) {
     }
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionSB2Error .btn-aceptar').off('click');
-        $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').off('click');
+    $('#popupInformacionSB2Error .btn_ok_mobile').off('click');
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+    });
+
+    $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+        fnAceptar();
+    });
+
+    //if ($.isFunction(fnAceptar)) {
+    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
+    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
+    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
@@ -777,7 +823,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -805,7 +851,7 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -839,7 +885,7 @@ function CargarCantidadPedidosConsultoraOnline() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });

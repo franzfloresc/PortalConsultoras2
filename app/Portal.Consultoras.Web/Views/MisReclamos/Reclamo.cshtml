@@ -395,17 +395,17 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'G'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
             Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
             {{/if_eq}}
@@ -431,18 +431,18 @@
         <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
         <div class="listado_solicitada_reclamo">
             {{#if_eq CodigoOperacion 'C'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'D'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'F'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'G'}}
-            {{item.SolucionSolicitada}}
+                {{item.SolucionSolicitada}}
             {{else if_eq CodigoOperacion 'T'}}
-            {{item.CUV2}}<br />
-            <b>{{item.Descripcion2}}</b> <br />
-            {{item.Cantidad2}} unidades<br />
-            Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
             {{else}}
 
             {{/if_eq}}
@@ -468,15 +468,15 @@
 </script>
 @section scripts{
 
-    <script type="text/javascript">
-        var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-        var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
-        var urlRegresar = '@Url.Action("Index","MisReclamos")';
-        var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
+<script type="text/javascript">
+    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+    var imgPasos = '@Url.Content("~/Content/Images/Esika/{0}.png")';
+    var urlRegresar = '@Url.Action("Index","MisReclamos")';
+    var urlRegresarReclamo = '@Url.Action("Reclamo","MisReclamos")';
 
-        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-        var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
-    </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
+    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+</script>
+<script src="@Url.Content("~/Scripts/PortalConsultoras/MisReclamos/Reclamo.js")"></script>
 }
 

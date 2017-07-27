@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="div-3 div_3_fix">
+        <div class="div-3 div_3_fix ">
             <div class="validation_clear"></div>
             <div class="validation">
                 @Html.ValidationMessageFor(m => m.RazonSocial)
@@ -71,7 +71,7 @@
             </div>
             <div class="filterEdit">
                 <div class="selectP2 seleccion_pagina textboxSBEdit2 fechaDetalleSolicitud">
-                    @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "texto textboxSB", @placeholder = "Fecha de Nacimiento" })
+                    @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "textboxSB", @placeholder = "Fecha de Nacimiento" })
                 </div>
             </div>
         </div>
@@ -158,3 +158,4 @@ else
 {
     @Html.Partial("TemplatesDatosGenerales/_DatosGeneralesGrupo2", Model)
 }
+

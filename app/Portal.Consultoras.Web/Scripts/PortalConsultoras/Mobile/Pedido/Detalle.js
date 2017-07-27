@@ -55,6 +55,7 @@ function CargarPedido(firstLoad) {
         clienteId: -1,
         mobil: true
     };
+    ShowLoading();
 
     jQuery.ajax({
         type: 'POST',
@@ -86,6 +87,8 @@ function CargarPedido(firstLoad) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
+    }).always(function () {
+        CloseLoading();
     });
 }
 
@@ -107,9 +110,14 @@ function GetProductoEntidad(id) {
 }
 
 function UpdateLiquidacionEvento(evento) {
-    var obj = $(evento.currentTarget);
+    var obj = $(evento.currentTarget);    
     var id = $.trim(obj.attr("data-pedidodetalleid")) || "0";
     if (parseInt(id, 10) <= 0 || parseInt(id, 10) == NaN) {
+        return false;
+    }
+
+    if (ReservadoOEnHorarioRestringido()) {     
+        $('#Cantidad_'+id).val($("#CantidadTemporal_" + id).val());
         return false;
     }
 
@@ -455,6 +463,8 @@ function EliminarPedido(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, 
                 });
                 cuponModule.actualizarContenedorCupon();
                 messageDelete('El producto fue Eliminado.');
+                
+                ActualizarLocalStorageAgregado("rd", data.data.CUV, false);
             },
             error: function (data, error) {
                 CloseLoading();
@@ -593,6 +603,9 @@ function PedidoDetalleEliminarTodo() {
                 'label': '(not available)'
             });
             messageDelete("Se eliminaron todos productos del pedido.");
+
+            ActualizarLocalStorageAgregado("rd", "todo", false);
+
             location.reload();
           
             CloseLoading();
@@ -675,7 +688,8 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV, EsBa
         ClienteID: CliID,
         Cantidad: Cantidad,
         PrecioUnidad: PrecioUnidad,
-        ClienteDescripcion: CliDes,
+        //ClienteDescripcion: CliDes,
+        Nombre: CliDes,
         DescripcionProd: DesProd,
         ClienteID_: "-1",
         CUV: CUV,
@@ -863,15 +877,17 @@ function EjecutarServicioPROL() {
                     mensaje_ = data.mensaje;
                 }
                 messageInfoMalo('<h3>' + mensaje_ + '</h3>')
-                console.error(data);
+                //console.error(data);
             }
         }
+    })
+    .always(function () {
+        CloseLoading();
     });
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -881,8 +897,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response.flagCorreo == "1")
+                if (response.flagCorreo == "1") {
                     EnviarCorreoPedidoReservado(); //EPD-2378
+                }   
                 RespuestaEjecutarServicioPROL(response, false);
             }
         },
@@ -907,7 +924,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
 
-    CloseLoading();
+    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -972,7 +989,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);
                 setTimeout(function () {
-                    location.href = urlPedidoValidado;
+                    ShowLoading();
+                    document.location = urlPedidoValidado;
                 }, 2000);
 
             }
@@ -1120,7 +1138,7 @@ function AceptarObsInformativas() {
                         messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                     } else
-                        location.href = urlPedidoValidado;
+                        document.location = urlPedidoValidado;
                 } else {
                     messageInfoMalo(data.message);
                 }
@@ -1323,7 +1341,7 @@ function MostrarMensajeProl(data) {
 
             messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
             setTimeout(function () {
-                location.href = urlPedidoValidado;
+                document.location = urlPedidoValidado;
             }, 2000);
             return true;
         }
@@ -1361,3 +1379,63 @@ function ValidarPermiso(obj) {
     return true;
 };
 
+function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
+
+    var ok = false;
+    try {
+
+        cuv = $.trim(cuv);
+        if (tipo == "rd") {
+            if (cuv == "" || valor == undefined) {
+                return false;
+            }
+            ok = RDActualizarLocalStorageAgragado(cuv, valor);
+        }
+
+    } catch (e) {
+        console.log(e);
+    }
+    return ok;
+}
+
+function RDActualizarLocalStorageAgragado(cuv, valor) {
+    var ok = false;
+    cuv = $.trim(cuv);
+    var lsListaRD = lsListaRD || "ListaRD";
+    var indCampania = indCampania || 0;
+    var valLocalStorage = localStorage.getItem(lsListaRD + campaniaCodigo);
+    if (valLocalStorage != null) {
+        var data = JSON.parse(valLocalStorage);
+
+        $.each(data.response.listaLan, function (ind, item) {
+            if (item.CUV2 == cuv || cuv == "todo") {
+                item.IsAgregado = valor;
+                if (cuv != "todo") {
+                    ok = true;
+                    return false;
+                }
+            }
+        });
+
+        if (!ok) {
+            $.each(data.response.lista, function (ind, item) {
+                if (item.CUV2 == cuv || cuv == "todo") {
+                    item.IsAgregado = valor;
+                    if (cuv != "todo") {
+                        ok = true;
+                        return false;
+                    }
+                }
+            });
+        }
+
+        if (cuv == "todo") {
+            ok = true;
+        }
+
+        if (ok) {
+            localStorage.setItem(lsListaRD + campaniaCodigo, JSON.stringify(data));
+        }
+    }
+    return ok;
+}

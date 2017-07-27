@@ -107,6 +107,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetUsuarioAsociado(int paisID, string CodigoConsultora);
 
         [OperationContract]
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+
+        [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
 
         [OperationContract]
@@ -129,6 +132,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+
+        [OperationContract]
+        String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
         int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);

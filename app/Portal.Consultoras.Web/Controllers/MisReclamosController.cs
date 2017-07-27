@@ -454,7 +454,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = CargarMotivoOperacionPorDias(model);
@@ -647,7 +647,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var respuestaServiceCdr = new RptCdr[1];
                 using (WsGestionWeb sv = new WsGestionWeb())
                 {
-                    respuestaServiceCdr = sv.GetCdrWebConsulta(userData.CodigoISO, model.CampaniaID.ToString(),
+                    respuestaServiceCdr = sv.GetCdrWebConsulta_Reclamo(userData.CodigoISO, model.CampaniaID.ToString(),
                         userData.CodigoConsultora, model.CUV, model.Cantidad, userData.CodigoZona);
 
                     
@@ -659,10 +659,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-                
-            }
+            catch (Exception ex) { }
 
             #endregion
 
@@ -678,7 +675,6 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ValidarNoPack(MisReclamosModel model)
         {
             #region Validar Pack y Sets
-           
 
             try
             {
@@ -696,10 +692,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex) { }
 
             #endregion
 
@@ -1138,26 +1131,28 @@ namespace Portal.Consultoras.Web.Controllers
                 userData.Celular = model.Telefono;
                 SetUserData(userData);
 
-                string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
-                Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
-
-                //Proceso de envio de correo en caso el email sea nuevo.
-                if (SiNoEmail == 1)
+                if(!string.IsNullOrWhiteSpace(model.Email))
                 {
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
-                    string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                     "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
-                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
-                    
-                    return Json(new
+                    string contenidoMailCulminado = CrearEmailReclamoCulminado(cDRWebMailConfirmacion);
+                    Util.EnviarMail("no-responder@somosbelcorp.com", model.Email, "CDR: EN EVALUACIÓN", contenidoMailCulminado, true, userData.NombreConsultora);
+
+                    //Proceso de envio de correo en caso el email sea nuevo.
+                    if (SiNoEmail == 1)
                     {
-                        Cantidad = SiNoEmail,
-                        success = true,
-                        message = "Sus datos se actualizaron correctamente.\n Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                        extra = "",
-                        cdrWeb = cDRWebMailConfirmacion
-                    }, JsonRequestBehavior.AllowGet);
+                        string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, model.Email };
+                        string param_querystring = Util.EncriptarQueryString(parametros);
+                        string cadena = "<br /><br /> Estimada consultora " + userData.NombreConsultora + " Para confirmar la dirección de correo electrónico ingresada haga click " +
+                                         "<br /> <a href='" + Util.GetUrlHost(HttpContext.Request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
+                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.Email, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, userData.NombreConsultora);
+                    
+                        return Json(new
+                        {
+                            Cantidad = SiNoEmail,
+                            success = true,
+                            message = "Sus datos se actualizaron correctamente.\n Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                            cdrWeb = cDRWebMailConfirmacion
+                        }, JsonRequestBehavior.AllowGet);
+                    }
                 }
 
                 return Json(new

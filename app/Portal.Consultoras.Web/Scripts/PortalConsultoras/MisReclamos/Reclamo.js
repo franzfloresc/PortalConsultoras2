@@ -122,7 +122,7 @@ $(document).ready(function () {
         }
 
         $("#ddlCampania").removeAttr("disabled");
-        SolicitudEnviar();
+        SolicitudEnviar(false, true);
     });
 
     $(document).on('click', '[data-accion]', function () {
@@ -157,7 +157,7 @@ $(document).ready(function () {
         var textoInformativoCostoEnvio = $("#tipo_express_costo_envio");
         var textoInformativoEnvioNuevaConsultora = $("#tipo_express_nueva_consultora");        var hiddenTextoTipoDespacho = $("#hdTipoDespacho");
         var hiddenTextoFleteDespacho = $("#hdFleteDespacho");
-        var hiddenTextoMensajeDespacho = $("#hdMensajeDespacho");
+        var hiddenTextoMensajeDespacho = $("#hdMensajeDespacho");
         if ($(this).hasClass(claseBotonActivado)) {
             //$(this).removeClass(claseBotonActivado);  Stay with the class
         } else {
@@ -289,7 +289,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({        
+    $('#alertEMailDialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -403,8 +403,7 @@ function BuscarCUV(CUV) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {
-            }
+            checkTimeout(data);
         }
     });
 }
@@ -599,11 +598,11 @@ function ValidarPaso1() {
         success: function (data) {
             closeWaitingDialog();
             if (checkTimeout(data)) {
-                ok = data.success;
+            ok = data.success;
 
-                if (!data.success && data.message != "") {
-                    alert_msg(data.message);
-                }
+            if (!data.success && data.message != "") {
+                alert_msg(data.message);
+            }
             }
         },
         error: function (data, error) {
@@ -1133,6 +1132,18 @@ function DetalleEliminar(objItem) {
     });
 }
 
+function ControlSetError(inputId, spanId, message) {
+	if (IfNull(message, '') == '') {
+		$(inputId).css('border-color', '#b5b5b5');
+		$(spanId).css('display', 'none');
+	}
+	else {
+		$(inputId).css('border-color', 'red');
+		$(spanId).css('display', '');
+		$(spanId).html(message);
+	}
+}
+
 function SolicitudEnviar() {
     var ok = true;
 
@@ -1402,48 +1413,35 @@ function ObtenerCantidadProductosByCodigoSsic(codigoSsic) {
 
 function ValidarTelefono() {
     var resultado = false;
-
-    var item = {
-        Telefono: $("#txtTelefono").val()
-    };
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
+		data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
         async: false,
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data))
-                resultado = false;
-            else
-                resultado = data.success;
+            if (!checkTimeout(data)) resultado = false;
+            else resultado = data.success;
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) { }
+			checkTimeout(data);
         }
     });
-
     return resultado;
 }
 
 function ValidarCorreoDuplicado(correo) {
     var resultado = false;
-
-    var item = {
-        correo: correo
-    };
-
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/ValidarCorreoDuplicado',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(item),
+		data: JSON.stringify({ correo: correo }),
         async: false,
         cache: false,
         success: function (data) {
@@ -1458,7 +1456,6 @@ function ValidarCorreoDuplicado(correo) {
             if (checkTimeout(data)) { }
         }
     });
-
     return resultado;
 }
 

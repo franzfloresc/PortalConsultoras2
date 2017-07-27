@@ -70,6 +70,7 @@ namespace Portal.Consultoras.Web.Models
         public SelectList LugaresNivel5 { get; set; }
         public int ContaValorNivel3 { get; set; }
 
-       
+        public string CodigoPostal { get; set; }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -10,8 +11,6 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
-
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -114,6 +113,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(usuario.PaisID);
             DAUsuario.UpdUsuarioDatos(usuario, CorreoAnterior);
+        }
+
+        public void AceptarContrato(BEUsuario usuario)
+        {
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            DAUsuario.AceptarContrato(usuario);
         }
 
         public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
@@ -299,6 +304,7 @@ namespace Portal.Consultoras.BizLogic
                             usuario.FechaActualPais = configuracion.FechaActualPais;
                             usuario.EstadoPedido = configuracion.EstadoPedido;
                             usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
                         }
                     }
                 }
@@ -311,6 +317,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetUsuarioAsociado(codigoConsultora);
+        }
+
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
         }
 
         public bool IsUserExist(string CodigoUsuario)
@@ -1363,8 +1375,9 @@ namespace Portal.Consultoras.BizLogic
                             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
                             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
-                            string param_querystring = Portal.Consultoras.Common.Util.EncriptarQueryString(parametros);
-
+                            string param_querystring = Common.Util.Encrypt(string.Join(";", parametros)); // Common.Util.EncriptarQueryString(parametros);
+                            //este Log para hacer verificar error al DesencriptarQueryString
+                            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario + " | data=" + param_querystring, string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
                             string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
                             string fondo = (esEsika ? "e81c36" : "642f80");
@@ -1379,6 +1392,24 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string AceptarContratoColombia(BEUsuario usuario)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                        this.AceptarContrato(usuario);
+                        resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
             }
             catch (Exception ex)
             {
@@ -1427,7 +1458,6 @@ namespace Portal.Consultoras.BizLogic
                         usuarioRol.Activo = true;
 
                         var DARol = new DARol(paisID);
-                        // insertar rol usuario
                         int r2 = DARol.InsUsuarioRol(usuarioRol);
 
                         if (r2 > 0)

@@ -303,15 +303,17 @@ namespace Portal.Consultoras.Web.Models
         public bool EjecutaProl { get; set; }
 
         public bool EsCatalogoPersonalizadoZonaValida { get; set; }
-        public int VioTutorialSalvavidas { get; set; }
 
+        public int VioTutorialSalvavidas { get; set; }
         public int TieneHana { get; set; }
-        public int IndicadorGPRSB { get; set; }
-        public int EstadoPedido { get; set; }
         public int IndicadorBloqueoCDR { get; set; }
+        public int IndicadorGPRSB { get; set; }
         public int EsCDRWebZonaValida { get; set; }
+        public int EstadoPedido { get; set; }
         public int TieneCDR { get; set; }
         public int TieneCupon { get; set; }
+        public int TieneMasVendidos { get; set; }
+        public int TieneOfertaLog { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
         public string GPRBannerTitulo { get; set; }
@@ -325,7 +327,6 @@ namespace Portal.Consultoras.Web.Models
         public string MensajeCDRExpress { get; set; } //EPD-1919
         public string MensajeCDRExpressNueva { get; set; } //EPD-1919
         public bool EsConsecutivoNueva { get; set; } //EPD-1919
-
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
@@ -364,6 +365,9 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
+        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; internal set; }
+
+        public string CodigosConcursos { get; set; }
     }
 }

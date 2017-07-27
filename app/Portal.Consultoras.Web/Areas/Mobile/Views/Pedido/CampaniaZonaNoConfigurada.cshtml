@@ -1,4 +1,6 @@
-﻿@{
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@{
     var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
@@ -6,7 +8,12 @@
 <div class="row">
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
-            <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
+            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                if (mobileConfiguracion.MostrarBotonAtras)
+                {
+                    <li><a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> VOLVER </a></li>
+                }
+            }            
             <li>|</li>
             <li>MI PEDIDO</li>
         </ol>

@@ -92,13 +92,7 @@
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
-            <div class="div-2" style="letter-spacing: 2.1px;
-    font-size: 25px;
-    font-weight: 300;
-  color:black;
-    margin-bottom: 37px;
-    font-family: 'lato';
-    ">
+            <div class="div-2" style="letter-spacing: 2.1px; font-size: 25px; font-weight: 300; color:black; margin-bottom: 37px; font-family: 'lato'; ">
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
@@ -173,7 +167,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -205,8 +198,8 @@
                 <div class="cellGrid  headerGrid" data-colName="CodigoConsultora">Codigo<br />de<br />Consultora</div>
                 <div class="cellGrid  headerGrid"  data-colName="FechaIngreso">Fecha<br />Ingreso</div>
                 <div class="cellGrid  headerGrid" data-colName="CampanaIngreso">Campaña<br />Ingreso</div>   
-                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
-                    <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderUbicacion')" data-colname="Ubicacion">Ubicacion</div>
+                <div class="cellGrid  headerGrid headerGridSort" onclick="OrderListByColumnn(this, 'OrderEvaluacionCrediticia')" data-colname="EvaluacionCrediticia">Evaluacion<br />Crediticia</div>
                 <div class="cellGrid  headerGrid"  data-colName="EvaluacionTelefonica">Evaluacion<br />Telefonica</div>
                 <div class="cellGrid  headerGrid"  onclick="OrderListByColumnn(this, 'EstadoPostulante')" data-colName="Estado">Estado</div>
                 <div class="cellGrid  headerGrid" data-colName="TipoRechazo">Tipo<br />Rechazo</div>
@@ -217,6 +210,7 @@
                 <div class="cellGrid  headerGrid" data-colName="PendienteConfirmacion">Pendiente<br />de<br />Confirmacion</div>
                 <div class="cellGrid  headerGrid"  data-colName="Reactivar">Reactivar</div>
                 <div class="cellGrid  headerGrid" data-colName="Aprobar">Aprobar</div>
+                    <div class="cellGrid  headerGrid" data-colName="Devolver">Devolver</div>
                 <div class="cellGrid  headerGrid"  data-colName="Rechazar">Rechazar</div>
                 <div class="cellGrid  headerGrid"   data-colName="EnviarAFFVV">Enviar<br />a<br />FFVV</div>
                 <div class="cellGrid  headerGrid" data-colName="DiasEnEspera">Días<br />en<br />Espera</div>
@@ -290,6 +284,7 @@
 
         <div class="cellGrid " data-colname="Reactivar"><span class="buttonGrid" onclick="reactivar('{{SolicitudPostulanteID}}')" style="visibility:{{ShowReactivar}}">Reactivar</span></div>
         <div class="cellGrid " data-colname="Aprobar"><span class="buttonGrid" onclick="Aprobar('{{SolicitudPostulanteID}}')">Aprobar</span></div>
+        <div class="cellGrid " data-colname="Devolver"><span class="buttonGrid" onclick="Devolver('{{SolicitudPostulanteID}}' )">Devolver</span></div>
         <div class="cellGrid " data-colname="Rechazar"><span class="buttonGrid" onclick="Rechazar('{{SolicitudPostulanteID}}', '{{NombreCompleto}}')">Rechazar</span></div>
         <div class="cellGrid " data-colname="EnviarAFFVV"><span class="buttonGrid" onclick="enviarFFVV('{{SolicitudPostulanteID}}')" style="visibility:{{ShowEnviarAFFVV}}">Enviar a<br />FFVV</span></div>
         <div class="cellGrid " data-colname="DiasEnEspera">{{DiasEnEspera}}</div>
@@ -343,6 +338,30 @@
             }
         });
 
+        $('#Nombre').focusout(function () {       
+
+            if ($('#Nombre').val())
+            {
+                var strNombre = $('#Nombre').val();
+                var splitString = strNombre.split(' ');
+
+                if (splitString)
+                {
+                    if ($(splitString).filter(function (a, b) { return b != ""; }).length > 3) {
+                        alert('Solo se permiten busquedas de nombres compuestas de 3 palabras');
+                        $('#Nombre').val('');
+                    }
+                    else {
+                        var strNombreSpaces =''
+                        $(splitString).filter(function (a, b) { return b != ""; }).each(function (c, d) {
+                            strNombreSpaces = strNombreSpaces + ' ' + d;
+                        });
+
+                        $('#Nombre').val(strNombreSpaces.trim());
+                    }
+                }
+            }
+        });
 
         fnGrilla(null, null, 2);
     });
@@ -539,6 +558,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -582,6 +602,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     showColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '60px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -625,6 +646,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -669,6 +691,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     showColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -712,6 +735,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '50px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '50px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '50px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '50px');
                     hideColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -755,6 +779,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -771,7 +796,7 @@
                     break;
                 //    // inicio pendiente por confirmar Estado 8 para Perú
                 case "@Enumeradores.EstadoPostulante.EnAprobacionSAC.ToInt()": //En aprobacion SAC
-                    $('#blackGrid').css('width', '1350px')
+                    $('#blackGrid').css('width', '1500px')
                     showColumn('FechaCreacion'); $('[data-colname="FechaCreacion"]').css('width', '65px');
                     showColumn('CampanaRegistro'); $('[data-colname="CampanaRegistro"]').css('width', '65px');
                     showColumn('Tipo'); $('[data-colname="Tipo"]').css('width', '49px');
@@ -800,6 +825,7 @@
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     showColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
                     showColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '60px');
+                    showColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '70px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
                     hideColumn('FechaCreacionCodigo'); $('[data-colname="FechaCreacionCodigo"]').css('width', '60px');
@@ -845,6 +871,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '70px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '70px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '70px');
                     showColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '45px');
                     showColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -888,6 +915,7 @@
                     //showColumn('MalaZonificacion'); $('[data-colname="MalaZonificacion"]').css('width', '70px');
                     hideColumn('Reactivar'); $('[data-colname="Reactivar"]').css('width', '50px');
                     hideColumn('Aprobar'); $('[data-colname="Aprobar"]').css('width', '50px');
+                    hideColumn('Devolver'); $('[data-colname="Devolver"]').css('width', '70px');
                     hideColumn('Rechazar'); $('[data-colname="Rechazar"]').css('width', '50px');
                     hideColumn('EnviarAFFVV'); $('[data-colname="EnviarAFFVV"]').css('width', '50px');
                     hideColumn('DiasEnEspera'); $('[data-colname="DiasEnEspera"]').css('width', '60px');
@@ -1075,6 +1103,8 @@
 <div class="contenedor_popup_eliminarCliente" id="divReenviarPostulante">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divEditarSolicitud">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divDevolverSolicitud">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divGeneralLoading">
     
@@ -1339,7 +1369,7 @@
                },
                {
                    name: 'Tipo Rechazo', index: 'Tipo Rechazo', width: 20, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
-                       return rowObject[27].toUpperCase();
+                       return  rowObject[27].toUpperCase();
                    }
                },
                 {
@@ -1392,13 +1422,13 @@
                     name: 'RFC', index: 'RFC', width: 6, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[21].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[21] + '\', 1)" /></a>' : '';
                     }
-                },
+                }
+                 ,
                 {
                     name: 'DNI Aval', index: 'DNI Aval', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[25].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[25] + '\', 5)" /></a>' : '';
                     }
-                }
-                ,
+                },
                 {
                     name: 'ComprobanteDomicilio', index: 'ComprobanteDomicilio', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[22].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[22] + '\', 2)" /></a>' : '';
@@ -1410,7 +1440,7 @@
                         return rowObject[23].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[23] + '\', 3)" /></a>' : '';
                     }
                 }
-                ,
+                 ,
                 {
                     name: 'Pagare', index: 'Pagare', width: 10, editable: true, resizable: false, align: 'center', formatter: function (cellvalue, options, rowObject) {
                         return rowObject[24].length > 0 ? '<a href="javascript:void(0);"><img src="@Url.Content("~/Content/Images/Detail.png")" onclick="verAdjunto(\'' + rowObject[24] + '\', 4)" /></a>' : '';
@@ -1479,6 +1509,23 @@
             ],
             gridComplete: function () {
 
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo Otra Marca');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Recibo de Pago de Servicios de Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Autorizacion de consulta de credito Fiador');
+                jQuery("#gvwSolicitudesPostulante").jqGrid('hideCol', 'Constancia Laboral Fiador');
+
+       
+                    
+                    var showImageColumnsWhenStatusIn = ['0','2','3','4','5','7','8','9'];
+                  
+                    if (jQuery.inArray(option, showImageColumnsWhenStatusIn) !== -1)
+                    {
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo Otra Marca');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Recibo de Pago de Servicios de Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Autorizacion de consulta de credito Fiador');
+                        jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'Constancia Laboral Fiador');
+                    }  
+
             }
         });
     }
@@ -1500,6 +1547,7 @@
         var codigoZonaFiltro = $("#CodigoZonaFiltro").val();
         var CodigoRegion = $("#CodigoRegionFiltro").val();
         var FuenteIngreso = ($("#MovilSE")[0].checked ? $("#MovilSE").val() + '|' : '') + ($("#PortalGZ")[0].checked ? $("#PortalGZ").val() + '|' : '') + ($("#UB")[0].checked ? $("#UB").val() + '|' : '') + ($("#CALL_CENTER")[0].checked ? $("#CALL_CENTER").val() + '|' : '');
+
         
         generalLoading();
 
@@ -1524,9 +1572,9 @@
             "&DocumentoIdentidad=" +
             DocumentoIdentidad +
             "&CodigoZona=" +
-            codigoZonaFiltro +
+            codigoZonaFiltro+
             "&CodigoRegion=" +
-            CodigoRegion +
+            CodigoRegion+
             "&FuenteIngreso=" +
             FuenteIngreso;
 
@@ -1563,12 +1611,11 @@
     function consultarUbicacion(solicitudPostulanteID,NombreCompleto, Celular, pintarMalaZonificacion) {
         var cISO = "@Model.CodigoIso";
         $('#divConsultarUbicacion').empty();
-        if (cISO == 'CL' || cISO == 'MX')
-        {
+        if (cISO == 'CL' || cISO == 'MX') {
             LoadSpinner('divConsultarUbicacion');
             $('#divConsultarUbicacion').show();
 
-            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID}, function (html) {
+            $.get('@Url.Action("ConsultarUbicacionCL", "Unete")', { id: solicitudPostulanteID }, function (html) {
 
                 $('#divConsultarUbicacion').html(html);
                 loadExtraData(solicitudPostulanteID);
@@ -1581,6 +1628,7 @@
             });
         }
         else {
+
             LoadSpinner('divConsultarUbicacion');
             $('#divConsultarUbicacion').show();
 
@@ -1639,12 +1687,12 @@
 
     function buildDocsCO(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Cedula'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
     }
     function buildDocsPE(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DNI RUC'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DNI Aval'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
+        $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenAval'), 5, 'DNI Aval'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
@@ -1659,18 +1707,22 @@
 
     function buildDocsMX(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'IFE'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'IFE Reverso'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
+
+
     }
 
     function buildDocsCL(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'RUT'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
     }
 
     function buildDocsCR(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DNI RUC'));
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Comprobante Domicilio'));
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Recibo de pago de servicios'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenPagare'), 4, 'Pagare'));
     }
@@ -1683,6 +1735,18 @@
 
 
     }
+
+    function buildDocsDO(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Cedula Identidad (FRENTE)'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'Cedula Identidad (REVERSO)'));//ImagenCDD
+         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));//ImagenContrato
+    }
+
+    function buildDocsPR(solicitudPostulanteID) {
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Seguro Social'));//Imagen IFE
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 2, 'Contrato'));//ImagenContrato
+    }
+
     function buildDocsGT(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'DPI (FRENTE)'));//Imagen IFE
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenComprobanteDomicilio'), 2, 'DPI (REVERSO)'));//ImagenCDD
@@ -1738,9 +1802,12 @@
         else if (codigoIso == 'PA') {
             buildDocsPA(solicitudPostulanteID);
         }
-
-
-
+        else if (codigoIso == 'DO') {
+            buildDocsDO(solicitudPostulanteID);
+        }
+        else if (codigoIso == 'PR') {
+            buildDocsPR(solicitudPostulanteID);
+        }
         //Documentos Fiador
         if (codigoIso == 'SV' || codigoIso == 'GT' || codigoIso == 'PA') {
             if (codigoIso == 'SV') {
@@ -1758,12 +1825,14 @@
                 $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'CERTIFICACIÓN'));//ImagenCreditoAval
             }
         }
-        else {
+        else
+        {
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboOtraMarca'), 6, 'Recibo Otra Marca'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenReciboPagoAval'), 7, 'Recibo de Pago de Servicios de Fiador'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenCreditoAval'), 8, 'autorizacion de Consulta de Credito Fiador'));
             $('#list02').append(buildItemList2(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenConstanciaLaboralAval'), 9, 'Constancia laboral Fiador'));
         }
+        
 
         $('#divEliminarCliente').show();
         setImageSrc('image01Visor', '');
@@ -1836,6 +1905,19 @@
         $.get('@Url.Action("RechazarPostulante", "Unete")', { id: solicitudPostulanteID, nombre: nombreCompleto}, function (html) {
             $('#divRechazarPostulante').html(html);
             $('#divRechazarPostulante').show();
+        }).done(function () { });
+
+    }
+
+    function Devolver(solicitudPostulanteID) {
+        limpiarPopUps();
+
+        $('#divDevolverSolicitud').empty();
+        $('#divDevolverSolicitud').show();
+        LoadSpinner('divDevolverSolicitud');
+        $.get('@Url.Action("DevolverSolicitud", "Unete")', { id: solicitudPostulanteID}, function (html) {
+            $('#divDevolverSolicitud').html(html);
+            $('#divDevolverSolicitud').show();
         }).done(function () { });
 
     }
@@ -2057,6 +2139,8 @@
         $('#divVerHistorialPostulante').empty();
         $('#divReenviarPostulante').empty();
         $('#divEditarSolicitud').empty();
+        $('#divDevolverSolicitud').empty();
+        
 
     }
 
@@ -2637,6 +2721,9 @@
         display: none;
     }
 
+    #divDevolverSolicitud {
+        display: none;
+    }
     #divVerHistorialPostulante {
         display: none;
     }
@@ -2940,8 +3027,8 @@
         font-size: 13px;
         line-height: normal !important;
     }
-         #btnBuscar:disabled  {
- 
+   
+        #btnBuscar:disabled  {
     background-color:#B75D9F !important;
     cursor:default;
     }
