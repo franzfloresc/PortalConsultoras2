@@ -142,15 +142,11 @@ namespace Portal.Consultoras.Entities
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
 
             //EPD-1919 INICIO
-            if (DataRecord.HasColumn(row, "TieneCDRExpress") && row["TieneCDRExpress"] != DBNull.Value)
-                TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
-            if (DataRecord.HasColumn(row, "MensajeCDRExpress") && row["MensajeCDRExpress"] != DBNull.Value)
-                MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
-            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva") && row["MensajeCDRExpressNueva"] != DBNull.Value)
-                MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "MensajeCDRExpress")) MensajeCDRExpress = row["MensajeCDRExpress"].ToString();
+            if (DataRecord.HasColumn(row, "MensajeCDRExpressNueva")) MensajeCDRExpressNueva = row["MensajeCDRExpressNueva"].ToString();
+            if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
             //EPD-1919 FIN
-
-
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
