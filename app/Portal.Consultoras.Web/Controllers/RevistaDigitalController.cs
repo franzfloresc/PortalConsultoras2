@@ -124,11 +124,24 @@ namespace Portal.Consultoras.Web.Controllers
                     p.PuedeAgregar = IsMobile() ? 0 : 1;
                     p.IsMobile = IsMobile() ? 1 : 0;
                 });
+                var listPerdio = new List<EstrategiaPedidoModel>();
+                if (TieneProductosPerdio(model.CampaniaID))
+                {
+                    listPerdio = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio.ForEach(p =>
+                    {
+                        p.ClaseBloqueada = "btn_desactivado_general";
+                        p.ProductoPerdio = true; 
+                    });
+                    listModelLan = listPerdio.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                    listPerdio = listPerdio.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                }
 
                 return Json(new
                 {
                     success = true,
                     lista = listModel,
+                    listaPerdio = listPerdio,
                     listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
