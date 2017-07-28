@@ -497,6 +497,7 @@ namespace Portal.Consultoras.BizLogic
 
             return validaLogin;
         }
+         
         /*EPD-1012*/
 
         /*EPD-2340*/
