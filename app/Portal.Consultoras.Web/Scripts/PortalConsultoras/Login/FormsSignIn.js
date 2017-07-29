@@ -695,7 +695,8 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                $('#ErrorTextLabel2').html(response.message);
+                var errorMessage = "Mensaje: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
 
@@ -707,8 +708,10 @@ function login2() {
         error: function (response) {
             //console.log(response);
             closeWaitingDialog();
-            alert("Error al procesar la solicitud");
-
+            
+            var errorMessage = " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+            alert("Error al procesar la solicitud" + errorMessage);
+           
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
             //preventClick(2, false);
