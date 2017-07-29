@@ -1,9 +1,13 @@
-﻿var imgISO = "";
+var imgISO = "";
 var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
+
+var CodigoISO;
+var PaisID;
+var CodigoUsuario;
 
 $(document).ready(function () {
     $(window).resize(function () {
@@ -154,9 +158,9 @@ $(document).ready(function () {
     $('#frmLogin').on('submit', function (e) {
         // validation code here
         var valid = true;
-        var CodigoISO = $('#ddlPais').val();
-        var PaisID = $('#ddlPais :selected').data('id');
-        var CodigoUsuario = jQuery.trim($("#txtUsuario").val());
+        CodigoISO = $('#ddlPais').val();
+        PaisID = $('#ddlPais :selected').data('id');
+        CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
         $('#hdeCodigoISO').val(CodigoISO);
         var mensaje = "";
@@ -236,8 +240,9 @@ $(document).ready(function () {
             }
         });
 
-    if (typeof errorLogin !== 'undefined') {        
-        $('#ErrorTextLabel').html(errorLogin);
+    if (typeof errorLogin !== 'undefined') {
+        var errorMessage = "Mensaje: " + errorLogin + " \n|CodigoISO: " + CodigoISO + " \n|PaisID: " + PaisID + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
     }
 
@@ -695,7 +700,8 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                $('#ErrorTextLabel2').html(response.message);
+                var errorMessage = "Mensaje: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
 
@@ -707,8 +713,10 @@ function login2() {
         error: function (response) {
             //console.log(response);
             closeWaitingDialog();
-            alert("Error al procesar la solicitud");
-
+            
+            var errorMessage = " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+            alert("Error al procesar la solicitud" + errorMessage);
+           
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
             //preventClick(2, false);
