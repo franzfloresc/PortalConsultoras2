@@ -159,7 +159,7 @@ $(document).ready(function () {
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
-        PaisID = $("#ddlPais").find('option:selected').attr('data-id');
+        PaisID = getVALbyISO($("#ddlPais").val());
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
         $('#hdeCodigoISO').val(CodigoISO);
@@ -649,7 +649,7 @@ function EsconderLogoEsikaPanama(imgISO) {
 function login2() {
     var valid = true;
     var CodigoISO = $('#ddlPais2').val();
-    var PaisID = $('#ddlPais2 :selected').data('id');
+    var PaisID = $("#ddlPais2").find('option:selected').attr('data-id');
     var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
     var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
     $('#hdeCodigoISO').val(CodigoISO);
