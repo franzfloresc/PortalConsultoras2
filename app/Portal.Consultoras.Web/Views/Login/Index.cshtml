@@ -621,8 +621,14 @@
     </script>
 }
 
+
 @section scripts {
     <script src="~/Scripts/General.js"></script>
     <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
+
+    <script>
+        var serverPaisId = !@string.IsNullOrEmpty(TempData["serverPaisId"].ToString()) ?TempData["serverPaisId"] : "";
+        var serverCodigoUsuario = !@string.IsNullOrEmpty(TempData["serverCodigoUsuario"].ToString()) ? TempData["serverCodigoUsuario"] : "";
+    </script>
 }
 

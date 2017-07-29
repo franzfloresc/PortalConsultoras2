@@ -91,6 +91,29 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult SaveLogErrorLogin(string message, string usuario, string iso)
+        {
+            bool s = false;
+            string m = string.Empty;
+
+            try
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(message), usuario, iso, "Login.SaveLogErrorLogin");
+                s = true;
+            }
+            catch (Exception ex)
+            {
+                s = false;
+                m = ex.ToString();
+            }
+
+            return Json(new
+            {
+                succes = s,
+                message = m
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl = null)
@@ -98,6 +121,9 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                TempData["serverPaisId"] = model.PaisID;
+                TempData["serverCodigoUsuario"] = model.CodigoUsuario;
+
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
