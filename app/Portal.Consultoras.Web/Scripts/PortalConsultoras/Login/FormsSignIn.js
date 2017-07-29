@@ -241,10 +241,12 @@ $(document).ready(function () {
         });
 
     if (typeof errorLogin !== 'undefined') {
-        var errorMessage = "Mensaje: " + errorLogin + " \n|PaisID: " + PaisID + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        var errorMessage = "Mensaje: " + errorLogin + " \n|PaisID: " + serverPaisId + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
 
         $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
+
+        saveLog(errorMessage, serverCodigoUsuario, serverPaisId);
 
         //TODO:Call al service de Log usando: errorMessage
     }
@@ -703,10 +705,12 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                var errorMessage = "Mensaje: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                var errorMessage = "Mensaje, login2: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
                 $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
+
+                saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
@@ -716,9 +720,11 @@ function login2() {
         error: function (response) {
             //console.log(response);
             closeWaitingDialog();
-            
-            var errorMessage = " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+
+            var errorMessage = "login2, |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
             alert("Error al procesar la solicitud" + errorMessage);
+
+            saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
            
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
@@ -762,4 +768,27 @@ function resizeNameUserExt() {
         }
         $('#btnLoginFB2').text('Continuar como ' + fname);
     }
+}
+
+function saveLog(message, usuario. iso) {
+    var obj = {
+        message: message,
+        usuario: usuario,
+        iso: iso
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/Login/SaveLogErrorLogin",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
 }
