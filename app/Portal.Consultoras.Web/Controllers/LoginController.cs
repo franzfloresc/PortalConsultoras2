@@ -98,6 +98,9 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                TempData["serverPaisId"] = model.PaisID;
+                TempData["serverCodigoUsuario"] = model.CodigoUsuario;
+
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
