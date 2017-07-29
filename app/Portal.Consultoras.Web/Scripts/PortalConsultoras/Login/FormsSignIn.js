@@ -236,8 +236,9 @@ $(document).ready(function () {
             }
         });
 
-    if (typeof errorLogin !== 'undefined') {        
-        $('#ErrorTextLabel').html(errorLogin);
+    if (typeof errorLogin !== 'undefined') {
+        var errorMessage = "Mensaje: " + errorLogin + " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+        $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
     }
 
