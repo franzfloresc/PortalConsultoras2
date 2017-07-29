@@ -124,6 +124,11 @@ namespace Portal.Consultoras.Web.Controllers
                 TempData["serverPaisId"] = model.PaisID;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
+                if (model.PaisID == 0)
+                {
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+                }
+
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
