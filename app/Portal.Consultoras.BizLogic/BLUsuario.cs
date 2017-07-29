@@ -482,6 +482,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
                 var DAUsuario = new DAUsuario(paisID);
 
                 using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
@@ -510,6 +511,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
                 var DAUsuario = new DAUsuario(paisID);
 
                 using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
