@@ -159,7 +159,7 @@ $(document).ready(function () {
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
-        PaisID = getVALbyISO($("#ddlPais").val());
+        PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
         $('#hdeCodigoISO').val(CodigoISO);
@@ -342,51 +342,75 @@ $(window).resize(function () {
 });
 
 function getVALbyISO(ISO) {
-    if ($('#ddlPais').val() == "00") {
-        return "0";
+    var result = "98";
+
+    switch (ISO) {
+        case "00":
+            result = "0";
+            break;
+        
+        case "BO":
+            result = "2";
+            break;
+
+        case "CL":
+            result = "3";
+            break;
+
+        case "CO":
+            result = "4";
+            break;
+
+        case "CR":
+            result = "5";
+            break;
+        
+        case "EC":
+            result = "6";
+            break;
+
+        case "SV":
+            result = "7";
+            break;
+
+        case "GT":
+            result = "8";
+            break;
+
+        case "MX":
+            result = "9";
+            break;
+        
+        case "PA":
+            result = "10";
+            break;
+
+        case "PE":
+            result = "11";
+            break;
+
+        case "PR":
+            result = "12";
+            break;
+
+        case "DO":
+            result = "13";
+            break;
+        
+        case "VE":
+            result = "14";
+            break;
+
+        case "BR":
+            result = "15";
+            break;
+
+        default:
+            break;
     }
-    if ($('#ddlPais').val() == "BO") {
-        return "2";
-    }
-    if ($('#ddlPais').val() == "CL") {
-        return "3";
-    }
-    if ($('#ddlPais').val() == "CO") {
-        return "4";
-    }
-    if ($('#ddlPais').val() == "CR") {
-        return "5";
-    }
-    if ($('#ddlPais').val() == "EC") {
-        return "6";
-    }
-    if ($('#ddlPais').val() == "SV") {
-        return "7";
-    }
-    if ($('#ddlPais').val() == "GT") {
-        return "8";
-    }
-    if ($('#ddlPais').val() == "MX") {
-        return "9";
-    }
-    if ($('#ddlPais').val() == "PA") {
-        return "10";
-    }
-    if ($('#ddlPais').val() == "PE") {
-        return "11";
-    }
-    if ($('#ddlPais').val() == "PR") {
-        return "12";
-    }
-    if ($('#ddlPais').val() == "DO") {
-        return "13";
-    }
-    if ($('#ddlPais').val() == "VE") {
-        return "14";
-    }
-    if ($('#ddlPais').val() == "BR") {
-        return "15";
-    }
+    
+    return result;
+
 }
 
 function LugarMensaje() {
@@ -649,7 +673,7 @@ function EsconderLogoEsikaPanama(imgISO) {
 function login2() {
     var valid = true;
     var CodigoISO = $('#ddlPais2').val();
-    var PaisID = $("#ddlPais2").find('option:selected').attr('data-id');
+    var PaisID = getVALbyISO(CodigoISO);
     var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
     var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
     $('#hdeCodigoISO').val(CodigoISO);
