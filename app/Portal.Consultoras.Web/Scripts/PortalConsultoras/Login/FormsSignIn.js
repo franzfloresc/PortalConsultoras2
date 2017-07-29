@@ -770,7 +770,7 @@ function resizeNameUserExt() {
     }
 }
 
-function saveLog(message, usuario. iso) {
+function saveLog(message, usuario, iso) {
     var obj = {
         message: message,
         usuario: usuario,
