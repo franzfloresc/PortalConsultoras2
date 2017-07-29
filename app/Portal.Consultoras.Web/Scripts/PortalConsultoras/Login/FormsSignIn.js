@@ -5,6 +5,11 @@ var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
 
+
+var CodigoISO;
+var PaisID;
+var CodigoUsuario;
+
 $(document).ready(function () {
     $(window).resize(function () {
         //resize just happened, pixels changed
@@ -154,10 +159,11 @@ $(document).ready(function () {
     $('#frmLogin').on('submit', function (e) {
         // validation code here
         var valid = true;
-        var CodigoISO = $('#ddlPais').val();
-        var PaisID = $('#ddlPais :selected').data('id');
-        var CodigoUsuario = jQuery.trim($("#txtUsuario").val());
+        CodigoISO = $('#ddlPais').val();
+        PaisID = $('#ddlPais :selected').data('id');
+        CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
+        
         $('#hdeCodigoISO').val(CodigoISO);
         var mensaje = "";
 
