@@ -162,7 +162,7 @@ $(document).ready(function () {
         PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
-        $('#hdeCodigoISO').val(CodigoISO);
+       
         var mensaje = "";
 
         if (PaisID == "")
@@ -171,6 +171,9 @@ $(document).ready(function () {
             mensaje += "- Debe ingresar el Usuario.\n";
         if (Contrasenia == "")
             mensaje += "- Debe ingresar la Clave Secreta.\n";
+
+        $('#hdeCodigoISO').val(CodigoISO);
+        $('#HdePaisID').val(PaisID);
 
         if (mensaje != "") {
             valid = false;
@@ -184,8 +187,6 @@ $(document).ready(function () {
         }
 
         waitingDialog();
-
-        $('#HdePaisID').val(PaisID);
 
         preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
