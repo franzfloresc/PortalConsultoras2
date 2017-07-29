@@ -159,7 +159,7 @@ $(document).ready(function () {
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
-        PaisID = $('#ddlPais :selected').data('id');
+        PaisID = $("#ddlPais").find('option:selected').attr('data-id');
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
         $('#hdeCodigoISO').val(CodigoISO);
@@ -189,6 +189,8 @@ $(document).ready(function () {
 
         preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
+
+        limpiar_local_storage();
     });
 
     $("#txtUsuario").keypress(
