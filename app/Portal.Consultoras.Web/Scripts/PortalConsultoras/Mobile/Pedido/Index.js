@@ -1472,9 +1472,26 @@ function procesarFindByCUV() {
     $('#divMensajeCUV').hide();
     posicion = -1;
     // var codigo = $("#txtCodigoProducto").val();
-    var codigo = document.getElementById("txtCodigoProducto").value;
+    var codigo = '';
+    
+    try {
+        codigo = document.getElementById("txtCodigoProducto").value;
+        alert('Paso 2: Codigo del producto ' + codigo);
+    
+    } catch (error) {
+        alert('Paso 2-error:' + error);
+        
+    }
 
-    alert('Paso 2: Codigo del producto ' + codigo);
+    try {
+        codigo = document.getElementById("txtCodigoProducto").text;
+        alert('Paso 2b: Codigo del producto (text) ' + codigo);
+    
+    } catch (error) {
+        alert('Paso 2b-error:' + error);
+        
+    }
+
 
     $("#txtCantidad").removeAttr("disabled");
     $("#divProductoMantenedor").hide();
