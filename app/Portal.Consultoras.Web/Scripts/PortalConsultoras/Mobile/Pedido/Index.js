@@ -126,8 +126,40 @@ $(document).ready(function () {
     $(".btn_verMiPedido").on("click", function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
     });
+
     //$("#txtCodigoProducto").on("keyup", function () {
-    $("#txtCodigoProducto").on("keyup input", function () {
+    //    alert('paso 1');
+    //    $('#divMensajeCUV').hide();
+    //    posicion = -1;
+    //    var codigo = $("#txtCodigoProducto").val();
+
+    //    $("#txtCantidad").removeAttr("disabled");
+    //    $("#divProductoMantenedor").hide();
+    //    $("#divResumenPedido").hide();
+    //    $("#btnAgregarProducto").hide();
+    //    $('#PopSugerido').hide();
+
+    //    //alert('codigo: ' + codigo);
+    //    if (codigo == "") {
+    //        if (typeof tieneOPT !== 'undefined' && tieneOPT) {
+    //            VisibleEstrategias(true);
+    //        }
+    //        $("#divResumenPedido").show();
+    //        $("footer").show();
+    //        $(".footer-page").css({ "margin-bottom": "0px" });
+    //    } else {
+    //        VisibleEstrategias(false);
+    //        $("footer").hide();
+    //    };
+
+    //    if (codigo.length == 5) {
+    //        //alert('paso 2');
+    //        $("#txtCodigoProducto").blur();
+    //        BuscarByCUV(codigo);
+    //    };
+    //});
+
+    function procesarFindByCUV() {
         alert('paso 1');
         $('#divMensajeCUV').hide();
         posicion = -1;
@@ -139,7 +171,7 @@ $(document).ready(function () {
         $("#btnAgregarProducto").hide();
         $('#PopSugerido').hide();
 
-        alert('codigo: ' + codigo);
+        //alert('codigo: ' + codigo);
         if (codigo == "") {
             if (typeof tieneOPT !== 'undefined' && tieneOPT) {
                 VisibleEstrategias(true);
@@ -153,11 +185,12 @@ $(document).ready(function () {
         };
 
         if (codigo.length == 5) {
-            alert('paso 2');
+            //alert('paso 2');
             $("#txtCodigoProducto").blur();
             BuscarByCUV(codigo);
         };
-    });
+    }
+
     $(".ValidaAlfabeto").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
@@ -395,7 +428,7 @@ function ValidarPermiso(obj) {
 };
 
 function BuscarByCUV(cuv) {
-    alert('paso 3');
+    //alert('paso 3');
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -410,7 +443,7 @@ function BuscarByCUV(cuv) {
 
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
-    alert('paso 4');
+    //alert('paso 4');
 
     ShowLoading();
     jQuery.ajax({
@@ -427,8 +460,7 @@ function BuscarByCUV(cuv) {
                 return false;
             }
 
-            alert('paso 5');
-            alert(data);
+            //alert('paso 5');
 
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
