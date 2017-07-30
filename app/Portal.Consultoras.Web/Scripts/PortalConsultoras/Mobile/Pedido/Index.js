@@ -397,7 +397,8 @@ function ValidarPermiso(obj) {
 };
 
 function BuscarByCUV(cuv) {
-    //alert('paso 3');
+    
+    alert('Paso 5: Ingreso al buscador BuscarByCUV');
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -412,9 +413,11 @@ function BuscarByCUV(cuv) {
 
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
-    //alert('paso 4');
-
+    
+    alert('Paso 6: BuscarByCUV.ShowLoading');
     ShowLoading();
+
+    alert('Paso 7: Llamada a controller' + urlFindByCUV);    
     jQuery.ajax({
         type: 'POST',
         url: urlFindByCUV,
@@ -430,9 +433,13 @@ function BuscarByCUV(cuv) {
             }
 
             //alert('paso 5');
+            alert('Paso 8: Llamada exitosa');    
 
             $("#txtCantidad").removeAttr("disabled");
             var item = data[0];
+
+            alert('Paso 9: Resultado ' + item.Descripcion);    
+            
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
                 $("#divProductoInformacion").hide();
@@ -1461,10 +1468,13 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function procesarFindByCUV() {
-    alert('paso 1');
+    alert('Paso 1: Evento enlazado a procesarFindByCUV()');
     $('#divMensajeCUV').hide();
     posicion = -1;
-    var codigo = $("#txtCodigoProducto").val();
+    // var codigo = $("#txtCodigoProducto").val();
+    var codigo = document.getElementById("txtCodigoProducto").value;
+
+    alert('Paso 2: Codigo del producto ' + codigo);
 
     $("#txtCantidad").removeAttr("disabled");
     $("#divProductoMantenedor").hide();
@@ -1472,7 +1482,6 @@ function procesarFindByCUV() {
     $("#btnAgregarProducto").hide();
     $('#PopSugerido').hide();
 
-    //alert('codigo: ' + codigo);
     if (codigo == "") {
         if (typeof tieneOPT !== 'undefined' && tieneOPT) {
             VisibleEstrategias(true);
@@ -1485,8 +1494,11 @@ function procesarFindByCUV() {
         $("footer").hide();
     };
 
+    alert('Paso 3: Longitud del codigo ' + codigo.length);
+
     if (codigo.length == 5) {
-        //alert('paso 2');
+        alert('Paso 4: Llamando al buscador');
+        
         $("#txtCodigoProducto").blur();
         BuscarByCUV(codigo);
     };
