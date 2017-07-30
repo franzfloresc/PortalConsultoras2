@@ -1469,7 +1469,14 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 
 function procesarFindByCUV() {
     alert('Paso 1: Evento enlazado a procesarFindByCUV()');
-    $('#divMensajeCUV').hide();
+    
+    try {
+        $('#divMensajeCUV').hide();
+
+    } catch (error) {
+        alert('Paso 1b: Error al ocultar divMensajeCUV' + error);
+    }
+
     posicion = -1;
     // var codigo = $("#txtCodigoProducto").val();
     var codigo = '';
