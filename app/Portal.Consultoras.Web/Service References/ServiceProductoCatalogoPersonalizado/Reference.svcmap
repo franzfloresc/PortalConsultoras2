@@ -19,12 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:36239/ProductoService.svc?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:36239/ProductoService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="ProductoService36.xsd" MetadataType="Schema" ID="d66ffa75-bb5c-477f-9b9f-a0d32445d312" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd2" />
     <MetadataFile FileName="ProductoService12.wsdl" MetadataType="Wsdl" ID="195bf5ae-2b37-438a-b87e-36e28e6d6796" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?wsdl" />
     <MetadataFile FileName="ProductoService37.xsd" MetadataType="Schema" ID="d3326768-e730-41b5-8067-2c275ecaa5de" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd0" />
+    <MetadataFile FileName="ProductoService2.disco" MetadataType="Disco" ID="58417737-6dd8-449e-b928-e9fc98559f71" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?disco" />
     <MetadataFile FileName="ProductoService38.xsd" MetadataType="Schema" ID="f53bc393-1208-47c0-90c0-c112eb69badc" SourceId="1" SourceUrl="http://localhost:36239/ProductoService.svc?xsd=xsd1" />
   </Metadata>
   <Extensions>
