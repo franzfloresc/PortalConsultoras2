@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string TipoConcurso { get; set; }
         [DataMember]
-        public DateTime FechaVentaRetail { get; set; }
+        public DateTime? FechaVentaRetail { get; set; }
         [DataMember]
         public List<BEPremio> Premios { get; set; }
         [DataMember]
@@ -55,6 +55,13 @@ namespace Portal.Consultoras.Entities
         public int NumeroNiveles { get; set; }
         [DataMember]
         public string Simbolo { get; set; }
+
+        [DataMember]
+        public string CampaniaInicio { get; set; }
+
+        [DataMember]
+        public string CampaniaFin { get; set; }
+
         public BEConsultoraConcurso(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "COD_CLIE"))
@@ -116,6 +123,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Simbolo"))
                 Simbolo = row["Simbolo"].ToString();
+
+            if (row.HasColumn("CampaniaInicio"))
+                CampaniaInicio = row.GetValue<string>("CampaniaInicio");
+
+            if (row.HasColumn("CampaniaFinal"))
+                CampaniaFin = row.GetValue<string>("CampaniaFinal");
         }
 
         public BEConsultoraConcurso()
