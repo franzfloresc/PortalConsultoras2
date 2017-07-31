@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
             ArrayContenidoSet = new List<string>();
         }
 
+        public int CampaniaID { get; set; }
         public int EstrategiaID { get; set; }
         public string CUV2 { get; set; }
         public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
@@ -41,7 +42,11 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoEstrategia { get; set; }
         public string CodigoVariante { get; set; }        
         public List<string> ArrayContenidoSet { get; set; }
+        public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
+
+        public int MarcaID { get; set; }
+        public string UrlCompartir { get; set; }
 
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
     }

@@ -408,6 +408,8 @@ function EstrategiaAgregar(event, popup, limite) {
 
     AbrirLoad();
     
+    divAgregado = $(objInput).parents("[data-item]").find(".agregado.product-add");
+
     var cuvs = "";
     var CodigoVariante = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategia.CodigoVariante;
     if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
@@ -435,18 +437,18 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
-    var params = {
-        listaCuvTonos: cuvs,
-        EstrategiaID: estrategia.EstrategiaID,
-        FlagNueva: estrategia.FlagNueva,
-        Cantidad: cantidad,
-        OrigenPedidoWeb: origenPedidoWebEstrategia,
+    var params = ({
+        listaCuvTonos: $.trim(cuvs),
+        EstrategiaID: $.trim(estrategia.EstrategiaID),
+        FlagNueva: $.trim(estrategia.FlagNueva),
+        Cantidad: $.trim(cantidad),
+        OrigenPedidoWeb: $.trim(origenPedidoWebEstrategia),
         ClienteID_: '-1',
         tipoEstrategiaImagen: tipoEstrategiaImagen || 0
-    };
+    });
 
     jQuery.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'Pedido/AgregarProducto',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -531,10 +533,9 @@ function EstrategiaAgregar(event, popup, limite) {
                 HidePopupEstrategiasEspeciales();
             }
 
-            ActualizarLocalStorageAgregado("rd", param.CUV, true);
+            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
-
 
         },
         error: function (data, error) {

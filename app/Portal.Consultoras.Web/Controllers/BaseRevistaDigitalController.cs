@@ -71,6 +71,28 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-Landing", model);
         }
 
+        public ActionResult DetalleModel(EstrategiaPersonalizadaProductoModel modelo = null)
+        {
+            modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
+            if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+            if (EsCampaniaFalsa(modelo.CampaniaID))
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+
+            if (modelo.EstrategiaID > 0)
+            {
+                modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+                modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                return View(modelo);
+            }
+            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+        }
+
         public ActionResult DetalleModel(EstrategiaPedidoModel modelo = null)
         {
             modelo = modelo ?? new EstrategiaPedidoModel();

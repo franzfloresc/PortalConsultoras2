@@ -2,7 +2,7 @@
 @using Portal.Consultoras.Common
 @using Portal.Consultoras.Web.Models
 
-@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
     ViewBag.Title = "Revista Digital - Detalle";
@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
 }
 
-<div class="revista_ficha" style='background: url(@Model.EstrategiaDetalle.ImgFichaFondoDesktop);' data-estadoregistro="@ViewBag.EstadoSuscripcion">
+<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop);' data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="revista_fondo_ficha"></div>
     <div class="content_belcorp">       
         <div class="rd_volver">
@@ -39,10 +39,10 @@
                 <input type="hidden" class="Palanca" value="LAN" />
             </div>
             <div class="content_revista_ficha_descripcion">
-                @if (Model.EstrategiaDetalle.ImgFichaDesktop != "")
+                @if (Model.TipoEstrategiaDetalle.ImgFichaDesktop != "")
                 {
                     <div class="etiqueta_nuevo_bpt" style="position: absolute;top: 0;left: 0;">
-                        <img src="@Model.EstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
+                        <img src="@Model.TipoEstrategiaDetalle.ImgFichaDesktop" alt="" style="max-height:50px;" />
                     </div>
                 }
                 <div class="descripcion_text">
@@ -79,12 +79,12 @@
         <div class="lanzamiento-view-detalle">
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage"></div>
         </div>
-        @if ((Model.EstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+        @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
         {
             <div class="revista_producto_video" style="width: 60%">
                 @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
                 <iframe width="100%" height="415" frameborder="0" allowfullscreen
-                        src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+                        src="https://www.youtube.com/embed/@Model.TipoEstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
             </div>
          } 
     </div>
@@ -96,13 +96,16 @@
 </div>
 
 
-@Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @section scripts{
     <script type="text/javascript">
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
         var tipoOrigenEstrategia = 172;
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Cupon.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>

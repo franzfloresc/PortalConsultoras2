@@ -145,7 +145,7 @@ $(document).ready(function () {
         }
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {
-            var guardo = GuardarProductoTemporal(obj);
+            var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo)
                 return window.location = urlOfertaDetalleProducto + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
         }
@@ -421,10 +421,10 @@ function RDDetalleObtener() {
 
     var obj = new Object();
     obj.CampaniaID = prod.CampaniaID;
-    obj.Lista = new Array();
-    obj.Lista.push(prod);
+    obj.lista = new Array();
+    obj.lista.push(prod);
     //if (mobile) {
-    $.each(obj.Lista, function (ind, tem) {
+    $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.PuedeAgregar = 1;
         tem.Posicion = ind + 1;

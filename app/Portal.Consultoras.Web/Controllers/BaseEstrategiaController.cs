@@ -522,6 +522,7 @@ namespace Portal.Consultoras.Web.Controllers
             listaProductoModel.ForEach(estrategia =>
             {
                 var prodModel = new EstrategiaPersonalizadaProductoModel();
+                prodModel.CampaniaID = estrategia.CampaniaID;
                 prodModel.EstrategiaID = estrategia.EstrategiaID;
                 prodModel.CUV2 = estrategia.CUV2;
                 prodModel.TipoEstrategiaImagenMostrar = estrategia.TipoEstrategiaImagenMostrar;
@@ -545,8 +546,12 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
+                prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
                 prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
+                
+                prodModel.MarcaID = estrategia.MarcaID;
+                prodModel.UrlCompartir = estrategia.UrlCompartir;
 
                 prodModel.TienePaginaProducto = estrategia.PuedeVerDetalle;
                 prodModel.TienePaginaProductoMob = estrategia.PuedeVerDetalleMob;

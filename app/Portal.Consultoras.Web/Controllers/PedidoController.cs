@@ -4203,15 +4203,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Nuevo AgregarProducto
-
-        [HttpGet]
+        
         public JsonResult AgregarProducto(string listaCuvTonos
             , string EstrategiaID, string FlagNueva
             , string Cantidad
             , string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0
         )
         {
-            // bucle de listaCuvTonos => cuv,cuv,cuv,...
+            try
+            {
 
             string mensaje = "", urlRedireccionar = "",
             area = IsMobile() ? "Mobile" : "";
@@ -4248,7 +4248,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region FiltrarEstrategiaPedido
             FlagNueva = Util.Trim(FlagNueva);
-            int IndFlagNueva = Convert.ToInt32(FlagNueva ?? "0");
+            int IndFlagNueva = 0;
+            Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
             BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
             if (estrategia.EstrategiaID <= 0)
             {
@@ -4275,11 +4276,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             listaCuvTonos = Util.Trim(listaCuvTonos);
-            if (listaCuvTonos != "")
+            if (listaCuvTonos == "")
             {
                 listaCuvTonos = estrategia.CUV2;
             }
             var tonos = listaCuvTonos.Split('|');
+            var respuesta = new JsonResult();
             foreach (var tono in tonos)
             {
                 var listSp = tono.Split(';');
@@ -4287,13 +4289,24 @@ namespace Portal.Consultoras.Web.Controllers
                 estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
                 estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
 
-                EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+                respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
             }
 
-            return Json(null, JsonRequestBehavior.AllowGet);
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error, vuelva ha intentalo."
+                });
+            }
         }
 
-        private bool EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
             #region ValidarStockEstrategia
             var ofertas = estrategia.DescripcionCUV2.Split('|');
@@ -4310,17 +4323,20 @@ namespace Portal.Consultoras.Web.Controllers
             mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
             if (mensaje != "")
             {
-                return false; // Json(mensaje);
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
             }
             #endregion
             
             #region AgregarProductoZE
 
-            AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
+            return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
                      estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
             #endregion
-
-            return true;
+            
         }
 
         private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
