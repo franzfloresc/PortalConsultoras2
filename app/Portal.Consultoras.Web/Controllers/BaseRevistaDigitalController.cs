@@ -66,6 +66,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
             
             model.Success = true;
+            ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
+
             return PartialView("template-Landing", model);
         }
 
@@ -255,6 +257,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return model;
+        }
+
+        public bool TieneProductosPerdio(int campaniaID)
+        {
+            if (userData.RevistaDigital.TieneRDC &&
+                userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 0 &&
+                campaniaID == userData.CampaniaID)
+                return  true;
+            return false;
         }
 
     }

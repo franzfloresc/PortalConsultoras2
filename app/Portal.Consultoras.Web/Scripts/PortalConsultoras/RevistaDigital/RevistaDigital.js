@@ -277,9 +277,16 @@ function OfertaArmarEstrategias(response) {
     }
     var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
-    ResizeBoxContnet();
+    //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
+
+    modeloTemp.Lista = response.listaPerdio;
+    var divPredio = $("#divOfertaProductosPerdio").parent();
+    var htmlDivPerdio = SetHandlebars("#estrategia-template", modeloTemp);
+    divPredio.append(htmlDivPerdio);
+    ResizeBoxContnet();
+
 
     if (!isDetalle) {
         LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));

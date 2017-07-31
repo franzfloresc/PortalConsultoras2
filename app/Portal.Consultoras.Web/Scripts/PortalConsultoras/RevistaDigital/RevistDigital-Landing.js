@@ -169,7 +169,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
 
     if (busquedaModel.CampaniaID <= 0) return false;
 
-    OfertaObtenerIndLocal(busquedaModel.CampaniaID)
+    OfertaObtenerIndLocal(busquedaModel.CampaniaID);
 
     if (filtroCampania[indCampania] == undefined) {
         filtroCampania[indCampania] = Clone(busquedaModel);
@@ -200,7 +200,7 @@ function OfertaCargarProductos(busquedaModel, clear) {
     if (valLocalStorage != null) {
         filtroCampania[indCampania] = JSON.parse(valLocalStorage);
         jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
-        filtroCampania[indCampania].response.Completo = 0
+        filtroCampania[indCampania].response.Completo = 0;
         OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear);
         return true;
     }

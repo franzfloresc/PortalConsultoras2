@@ -21159,8 +21159,8 @@ label.checkpop.c_on {
 }
 
 .texto_exclusivo_bpt {
-    font-size: 14px;
-    letter-spacing: 3px;
+    font-size: 12px;
+    letter-spacing: 2px;
     color: #000;
     font-weight: 600;
 }
