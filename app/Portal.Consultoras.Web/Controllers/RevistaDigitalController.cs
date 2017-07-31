@@ -117,17 +117,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int cantidadTotal = listModel.Count;
                 
-                var listPerdio = new List<EstrategiaPedidoModel>();
+                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
                 if (TieneProductosPerdio(model.CampaniaID))
                 {
-                    listPerdio = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                    listPerdio.ForEach(p =>
-                    {
-                        p.ClaseBloqueada = "btn_desactivado_general";
-                        p.ProductoPerdio = true; 
-                    });
-                    listModelLan = listPerdio.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                    listPerdio = listPerdio.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+                    
+                    listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
                 return Json(new
                 {
