@@ -244,12 +244,13 @@ $(document).ready(function () {
         });
 
     if (typeof errorLogin !== 'undefined') {
-        var errorMessage = "Mensaje: " + errorLogin + " \n|PaisID: " + serverPaisId + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        var errorMessage = "Mensaje: " + errorLogin;
 
         $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
 
-        saveLog(errorMessage, serverCodigoUsuario, serverPaisId);
+        var errorMessageLog = "Mensaje: " + errorLogin + " \n|PaisISO: " + serverPaisISO + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
 
         //TODO:Call al service de Log usando: errorMessage
     }
@@ -797,11 +798,11 @@ function resizeNameUserExt() {
     }
 }
 
-function saveLog(message, usuario, iso) {
+function saveLog(ISO, usuario, mensaje) {
     var obj = {
-        message: message,
-        usuario: usuario,
-        iso: iso
+        paisISO: ISO,
+        codigoUsuario: usuario,
+        mensaje: mensaje
     };
 
     jQuery.ajax({
@@ -812,7 +813,9 @@ function saveLog(message, usuario, iso) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            console.log(response);
+            if (response.success) {
+                
+            }
         },
         error: function (response) {
             console.log(response);

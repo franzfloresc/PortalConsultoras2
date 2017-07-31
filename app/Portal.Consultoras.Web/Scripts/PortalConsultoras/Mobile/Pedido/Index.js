@@ -127,37 +127,34 @@ $(document).ready(function () {
         window.location.href = baseUrl + "Mobile/Pedido/Detalle";
     });
 
-    //$("#txtCodigoProducto").on("keyup", function () {
-    //    alert('paso 1');
-    //    $('#divMensajeCUV').hide();
-    //    posicion = -1;
-    //    var codigo = $("#txtCodigoProducto").val();
+    $("#txtCodigoProducto").on("keyup", function () {
+        $('#divMensajeCUV').hide();
+        posicion = -1;
+        var codigo = $("#txtCodigoProducto").val();
 
-    //    $("#txtCantidad").removeAttr("disabled");
-    //    $("#divProductoMantenedor").hide();
-    //    $("#divResumenPedido").hide();
-    //    $("#btnAgregarProducto").hide();
-    //    $('#PopSugerido').hide();
+        $("#txtCantidad").removeAttr("disabled");
+        $("#divProductoMantenedor").hide();
+        $("#divResumenPedido").hide();
+        $("#btnAgregarProducto").hide();
+        $('#PopSugerido').hide();
 
-    //    //alert('codigo: ' + codigo);
-    //    if (codigo == "") {
-    //        if (typeof tieneOPT !== 'undefined' && tieneOPT) {
-    //            VisibleEstrategias(true);
-    //        }
-    //        $("#divResumenPedido").show();
-    //        $("footer").show();
-    //        $(".footer-page").css({ "margin-bottom": "0px" });
-    //    } else {
-    //        VisibleEstrategias(false);
-    //        $("footer").hide();
-    //    };
+        if (codigo == "") {
+            if (typeof tieneOPT !== 'undefined' && tieneOPT) {
+                VisibleEstrategias(true);
+            }
+            $("#divResumenPedido").show();
+            $("footer").show();
+            $(".footer-page").css({ "margin-bottom": "0px" });
+        } else {
+            VisibleEstrategias(false);
+            $("footer").hide();
+        };
 
-    //    if (codigo.length == 5) {
-    //        //alert('paso 2');
-    //        $("#txtCodigoProducto").blur();
-    //        BuscarByCUV(codigo);
-    //    };
-    //});
+        if (codigo.length == 5) {
+            $("#txtCodigoProducto").blur();
+            BuscarByCUV(codigo);
+        };
+    });
 
 
     $(".ValidaAlfabeto").keypress(function (evt) {
@@ -398,7 +395,6 @@ function ValidarPermiso(obj) {
 
 function BuscarByCUV(cuv) {
     
-    alert('Paso 5: Ingreso al buscador BuscarByCUV');
     if (cuv == $('#hdfCUV').val()) {
         if (productoSugerido) {
             if (productoAgotado) MostrarMensaje("mensajeCUVAgotado");
@@ -413,11 +409,8 @@ function BuscarByCUV(cuv) {
 
     $("#divProductoObservaciones").html('');
     productoSugerido = false;
-    
-    alert('Paso 6: BuscarByCUV.ShowLoading');
     ShowLoading();
 
-    alert('Paso 7: Llamada a controller' + urlFindByCUV);    
     jQuery.ajax({
         type: 'POST',
         url: urlFindByCUV,
@@ -432,13 +425,8 @@ function BuscarByCUV(cuv) {
                 return false;
             }
 
-            //alert('paso 5');
-            alert('Paso 8: Llamada exitosa');    
-
             $("#txtCantidad").removeAttr("disabled");
-            var item = data[0];
-
-            alert('Paso 9: Resultado ' + item.Descripcion);    
+            var item = data[0];  
             
             if (item.MarcaID == 0) {
                 MostrarMensaje("mensajeCUVNoExiste");
@@ -1465,65 +1453,4 @@ function ProcesarActualizacionMostrarContenedorCupon() {
             cuponModule.actualizarContenedorCupon();
         }
     }
-}
-
-function procesarFindByCUV() {
-    alert('Paso 1: Evento enlazado a procesarFindByCUV()');
-    
-    try {
-        $('#divMensajeCUV').hide();
-
-    } catch (error) {
-        alert('Paso 1b: Error al ocultar divMensajeCUV' + error);
-    }
-
-    posicion = -1;
-    // var codigo = $("#txtCodigoProducto").val();
-    var codigo = '';
-    
-    try {
-        codigo = document.getElementById("txtCodigoProducto").value;
-        alert('Paso 2: Codigo del producto ' + codigo);
-    
-    } catch (error) {
-        alert('Paso 2-error:' + error);
-        
-    }
-
-    try {
-        codigo = document.getElementById("txtCodigoProducto").text;
-        alert('Paso 2b: Codigo del producto (text) ' + codigo);
-    
-    } catch (error) {
-        alert('Paso 2b-error:' + error);
-        
-    }
-
-
-    $("#txtCantidad").removeAttr("disabled");
-    $("#divProductoMantenedor").hide();
-    $("#divResumenPedido").hide();
-    $("#btnAgregarProducto").hide();
-    $('#PopSugerido').hide();
-
-    if (codigo == "") {
-        if (typeof tieneOPT !== 'undefined' && tieneOPT) {
-            VisibleEstrategias(true);
-        }
-        $("#divResumenPedido").show();
-        $("footer").show();
-        $(".footer-page").css({ "margin-bottom": "0px" });
-    } else {
-        VisibleEstrategias(false);
-        $("footer").hide();
-    };
-
-    alert('Paso 3: Longitud del codigo ' + codigo.length);
-
-    if (codigo.length == 5) {
-        alert('Paso 4: Llamando al buscador');
-        
-        $("#txtCodigoProducto").blur();
-        BuscarByCUV(codigo);
-    };
 }
