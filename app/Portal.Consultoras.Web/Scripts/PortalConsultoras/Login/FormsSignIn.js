@@ -1,4 +1,4 @@
-﻿var imgISO = "";
+var imgISO = "";
 var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
@@ -160,11 +160,10 @@ $(document).ready(function () {
         // validation code here
         var valid = true;
         CodigoISO = $('#ddlPais').val();
-        PaisID = $('#ddlPais :selected').data('id');
+        PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
         
-        $('#hdeCodigoISO').val(CodigoISO);
         var mensaje = "";
 
         if (PaisID == "")
@@ -173,6 +172,9 @@ $(document).ready(function () {
             mensaje += "- Debe ingresar el Usuario.\n";
         if (Contrasenia == "")
             mensaje += "- Debe ingresar la Clave Secreta.\n";
+
+        $('#hdeCodigoISO').val(CodigoISO);
+        $('#HdePaisID').val(PaisID);
 
         if (mensaje != "") {
             valid = false;
@@ -187,10 +189,10 @@ $(document).ready(function () {
 
         waitingDialog();
 
-        $('#HdePaisID').val(PaisID);
-
         preventClick(1, true);
         $('#btnLoginFB').prop('disabled', true);
+
+        limpiar_local_storage();
     });
 
     $("#txtUsuario").keypress(
@@ -243,9 +245,14 @@ $(document).ready(function () {
         });
 
     if (typeof errorLogin !== 'undefined') {
-        var errorMessage = "Mensaje: " + errorLogin + " |CodigoISO: " + CodigoISO + " |PaisID: " + PaisID + " |CodigoUsuario: " + CodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+        var errorMessage = "Mensaje: " + errorLogin + " \n|PaisID: " + serverPaisId + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+
         $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
+
+        saveLog(errorMessage, serverCodigoUsuario, serverPaisId);
+
+        //TODO:Call al service de Log usando: errorMessage
     }
 
     $("#btnRecuperarClave").click(function() {
@@ -337,51 +344,75 @@ $(window).resize(function () {
 });
 
 function getVALbyISO(ISO) {
-    if ($('#ddlPais').val() == "00") {
-        return "0";
+    var result = "98";
+
+    switch (ISO) {
+        case "00":
+            result = "0";
+            break;
+        
+        case "BO":
+            result = "2";
+            break;
+
+        case "CL":
+            result = "3";
+            break;
+
+        case "CO":
+            result = "4";
+            break;
+
+        case "CR":
+            result = "5";
+            break;
+        
+        case "EC":
+            result = "6";
+            break;
+
+        case "SV":
+            result = "7";
+            break;
+
+        case "GT":
+            result = "8";
+            break;
+
+        case "MX":
+            result = "9";
+            break;
+        
+        case "PA":
+            result = "10";
+            break;
+
+        case "PE":
+            result = "11";
+            break;
+
+        case "PR":
+            result = "12";
+            break;
+
+        case "DO":
+            result = "13";
+            break;
+        
+        case "VE":
+            result = "14";
+            break;
+
+        case "BR":
+            result = "15";
+            break;
+
+        default:
+            break;
     }
-    if ($('#ddlPais').val() == "BO") {
-        return "2";
-    }
-    if ($('#ddlPais').val() == "CL") {
-        return "3";
-    }
-    if ($('#ddlPais').val() == "CO") {
-        return "4";
-    }
-    if ($('#ddlPais').val() == "CR") {
-        return "5";
-    }
-    if ($('#ddlPais').val() == "EC") {
-        return "6";
-    }
-    if ($('#ddlPais').val() == "SV") {
-        return "7";
-    }
-    if ($('#ddlPais').val() == "GT") {
-        return "8";
-    }
-    if ($('#ddlPais').val() == "MX") {
-        return "9";
-    }
-    if ($('#ddlPais').val() == "PA") {
-        return "10";
-    }
-    if ($('#ddlPais').val() == "PE") {
-        return "11";
-    }
-    if ($('#ddlPais').val() == "PR") {
-        return "12";
-    }
-    if ($('#ddlPais').val() == "DO") {
-        return "13";
-    }
-    if ($('#ddlPais').val() == "VE") {
-        return "14";
-    }
-    if ($('#ddlPais').val() == "BR") {
-        return "15";
-    }
+    
+    return result;
+
 }
 
 function LugarMensaje() {
@@ -644,7 +675,7 @@ function EsconderLogoEsikaPanama(imgISO) {
 function login2() {
     var valid = true;
     var CodigoISO = $('#ddlPais2').val();
-    var PaisID = $('#ddlPais2 :selected').data('id');
+    var PaisID = getVALbyISO(CodigoISO);
     var CodigoUsuario = jQuery.trim($('#txtUsuario2').val());
     var Contrasenia = jQuery.trim($('#txtContrasenia2').val());
     $('#hdeCodigoISO').val(CodigoISO);
@@ -702,9 +733,12 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                $('#ErrorTextLabel2').html(response.message);
+                var errorMessage = "Mensaje, login2: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
+
+                saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
@@ -714,8 +748,12 @@ function login2() {
         error: function (response) {
             //console.log(response);
             closeWaitingDialog();
-            alert("Error al procesar la solicitud");
 
+            var errorMessage = "login2, |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+            alert("Error al procesar la solicitud" + errorMessage);
+
+            saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
+           
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');
             //preventClick(2, false);
@@ -758,4 +796,27 @@ function resizeNameUserExt() {
         }
         $('#btnLoginFB2').text('Continuar como ' + fname);
     }
+}
+
+function saveLog(message, usuario, iso) {
+    var obj = {
+        message: message,
+        usuario: usuario,
+        iso: iso
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/Login/SaveLogErrorLogin",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(obj),
+        async: true,
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
 }
