@@ -109,22 +109,14 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
-                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-
-                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
                 
+                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
                 int cantidadTotal = listModel.Count;
-
-                //var cantMostrar = 10;
-                //listModel = listModel.Skip(model.CantMostrados).Take(cantMostrar).ToList();
-
-                listModel.ForEach(p =>
-                {
-                    p.PuedeAgregar = IsMobile() ? 0 : 1;
-                    p.IsMobile = IsMobile() ? 1 : 0;
-                });
-
+                
                 return Json(new
                 {
                     success = true,
@@ -162,10 +154,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listaFinal = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                var listaFinal = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPersonalizadaProductoModel();
 
-                producto.PuedeAgregar = 1;
+                //producto.PuedeAgregar = 1;
                 producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
 
                 return Json(new
