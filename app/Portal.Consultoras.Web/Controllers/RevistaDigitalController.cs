@@ -26,7 +26,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPedidoModel modelo)
+        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
             Session[Constantes.SessionNames.ProductoTemporal] = modelo;
 
@@ -34,25 +34,25 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 success = true
             }, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
 
-                if (modelo == null || modelo.ID == 0)
+                if (modelo == null || modelo.EstrategiaID == 0)
                 {
                     List<BEEstrategia> listaEstrategiaPedidoModel =
-                        (List<BEEstrategia>) Session[Constantes.SessionNames.ListaEstrategia];
-                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv)
-                        .ToList()).FirstOrDefault();
-
+                        (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    var modelo1 = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv)
+                        .ToList());
+                    modelo = ConsultarEstrategiasFormatearModelo(modelo1).FirstOrDefault();
                 }
-                
+
                 return DetalleModel(modelo);
+                
             }
             catch (Exception ex)
             {

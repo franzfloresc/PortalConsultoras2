@@ -145,7 +145,7 @@ $(document).ready(function () {
         }
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {
-            var guardo = GuardarProductoTemporal(obj);
+            var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo)
                 return window.location = urlOfertaDetalleProducto + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
         }
@@ -275,7 +275,7 @@ function OfertaArmarEstrategias(response) {
             tem.PuedeAgregar = 0;
         });
     }
-    var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
+    var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
     //ResizeBoxContnet();
     divProd.find("#spnCantidadFiltro").html(cantProdFiltros);
@@ -283,7 +283,7 @@ function OfertaArmarEstrategias(response) {
 
     modeloTemp.lista = response.listaPerdio;
     var divPredio = $("#divOfertaProductosPerdio").parent();
-    var htmlDivPerdio = SetHandlebars("#estrategia-template", modeloTemp);
+    var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
     divPredio.append(htmlDivPerdio);
     ResizeBoxContnet();
 
@@ -421,10 +421,10 @@ function RDDetalleObtener() {
 
     var obj = new Object();
     obj.CampaniaID = prod.CampaniaID;
-    obj.Lista = new Array();
-    obj.Lista.push(prod);
+    obj.lista = new Array();
+    obj.lista.push(prod);
     //if (mobile) {
-    $.each(obj.Lista, function (ind, tem) {
+    $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.PuedeAgregar = 1;
         tem.Posicion = ind + 1;
@@ -434,7 +434,7 @@ function RDDetalleObtener() {
     });
     //}
 
-    SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
+    SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
     //divProd.find('#divOfertaProductos').append(htmlDiv);
