@@ -17,7 +17,6 @@
 
     var _bindEvents = function () {         
         $(document).ready(function () {
-            debugger;
             var model = get_local_storage("data_mas_vendidos");
             var item = model.Item;
             SetHandlebars("#template-detalle-producto", item, "#contenedor-detalle-producto");
@@ -118,7 +117,6 @@
     }
 
     var _armarListaCarruselDetalleProducto = function () {
-        debugger;
         var model = get_local_storage("data_mas_vendidos");
         var item = model.Item;
         var lista = [];
