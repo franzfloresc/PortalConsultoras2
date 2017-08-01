@@ -219,10 +219,9 @@
                 }
 
                 <div style="display:none;">
-                    <input type="hidden" id="hdTieneCDRExpress" value="@Model.TieneCDRExpress ? 1 : 0" />
+                    <input type="hidden" id="hdTieneCDRExpress" value="@(Model.TieneCDRExpress ? 1 : 0)" />
                     <input type="hidden" id="hdTipoDespacho" value="false" />
                     <input type="hidden" id="hdFleteDespacho" value="@Model.FleteDespacho" />
-                    <input type="hidden" id="hdMensajeDespacho" value="@Model.MensajeDespacho" />
                 </div>
                 <!--EPD-1919 FIN-->
 
@@ -300,7 +299,7 @@
                 <div class="detalle_estado_reclamo">Solicitud:<b> Nº <span id="spnSolicitudNumeroSolicitud">12345678</span></b></div>
                 <div class="detalle_estado_reclamo">Campaña:<b> <span id="spnSolicitudCampania">2016-15</span></b></div>
             </div>
-            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width: 40%;text-align:left;border-right: 0px solid black; margin-bottom: 10px;">
+            <div id="spnTipoDespacho" class="detalle_estado_reclamo" style="width:100%;text-align:left;border-right: 0px solid black; margin-bottom: 10px;">
             </div>
             <div class="linea_separadora"></div>
             <!--GRILLA-->

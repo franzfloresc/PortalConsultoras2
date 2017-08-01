@@ -1177,7 +1177,7 @@ function SolicitudEnviar() {
     if ($("#hdTieneCDRExpress").val() == '1') {
         item.TipoDespacho = $("#hdTipoDespacho").val();
         item.FleteDespacho = !item.TipoDespacho ? 0 : $("#hdFleteDespacho").val();
-        item.MensajeDespacho = $(!item.TipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').html();
+        item.MensajeDespacho = $(!item.TipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
     }
 
     waitingDialog();
@@ -1190,8 +1190,7 @@ function SolicitudEnviar() {
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data))
-                return false;
+            if (!checkTimeout(data)) return false;
 
             if (data.success != true) {
                 alert_msg(data.message);
@@ -1201,8 +1200,7 @@ function SolicitudEnviar() {
             var formatoFechaCulminado = "";
             var numeroSolicitud = 0;
             var formatoCampania = "";
-            var tipoDespacho = data.cdrWeb.TipoDespacho == false ? "Despacho con su Pedido" : "Despacho Express";
-            tipoDespacho = "Tipo de despacho: <span><b>" + tipoDespacho + "</b></span>";
+            var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho,'');
             if (data.cdrWeb.CDRWebID > 0) {
                 if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
                     var dateString = data.cdrWeb.FechaCulminado.substr(6);
@@ -1223,7 +1221,8 @@ function SolicitudEnviar() {
             $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
             $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
             $("#spnSolicitudCampania").html(formatoCampania);
-            $("#spnTipoDespacho").html(tipoDespacho);
+            if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+            else $("#spnTipoDespacho").show().html(mensajeDespacho);
             $("#divProcesoReclamo").hide();
             $("#divUltimasSolicitudes").hide();
             $("#TituloReclamo").hide();

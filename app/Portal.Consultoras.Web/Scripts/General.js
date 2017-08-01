@@ -56,6 +56,13 @@ jQuery(document).ready(function () {
         }
     };
 
+    $.fn.CleanWhitespace = function () {
+        textNodes = this.contents().filter(
+            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
+            .remove();
+        return this;
+    }
+
     Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
             return obj;
@@ -405,8 +412,7 @@ jQuery(document).ready(function () {
         });
 
         return newLista;
-    };
-    
+    };    
 })(jQuery);
 
 function showDialog(dialogId) {
