@@ -169,7 +169,19 @@ $(document).ready(function () {
 
     CrearDialogs();
     CargarCarouselEstrategias("");
-    if (_validartieneMasVendidos()=== 1) {
+    if (_validartieneMasVendidos() === 1) {
+        masVendidosModule.readVariables({
+            baseUrl: baseUrl,
+            urlDetalleProducto: baseUrl + 'EstrategiaProducto/DetalleProducto'
+        });
+        $('.titulo_estrellas').rateYo({
+            rating: "100%",
+            spacing: "14px",
+            numStars: 5,
+            starWidth: "18.5px",
+            readOnly: true,
+            ratedFill: "#cca11e"
+        });
         CargarCarouselMasVendidos('desktop');
     }
     
