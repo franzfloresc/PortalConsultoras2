@@ -89,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProductos(BusquedaProductoModel model)
+        public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
             try
             {
