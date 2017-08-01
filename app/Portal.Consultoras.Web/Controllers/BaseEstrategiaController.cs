@@ -515,9 +515,9 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.CodigoVariante = estrategia.CodigoEstrategia;
                 prodModel.ClaseEstrategia = 
                     (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi) 
-                    || (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi 
-                        && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)) 
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi)
+                    || (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
+                        && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
