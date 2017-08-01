@@ -932,10 +932,23 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
 
                                     if (c.Codigo == Constantes.ConfiguracionPais.OfertaFinalTradicional ||
-                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling)
-                                    {
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa)
+                                    {                                        
+                                        model.OfertaFinalModel.Algoritmo = c.Codigo;
                                         model.OfertaFinalModel.Estado = c.Estado;
-                                        model.OfertaFinalModel.Algoritmo = c.Codigo;                                                                                
+                                        if (c.Estado)
+                                        {
+                                            model.OfertaFinal = 1;
+                                            model.EsOfertaFinalZonaValida = true;
+                                        }                                            
+                                        continue;
+                                    }
+
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
+                                    {
+                                        if (c.Estado)
+                                            model.OfertaFinalGanaMas = 1;
                                         continue;
                                     }
                                 }

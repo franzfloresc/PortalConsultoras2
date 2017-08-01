@@ -645,7 +645,8 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
             public const string OfertaFinalTradicional = "OFT";
-            public const string OfertaFinalCrossSelling = "OFC";            
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class TooltipLoginUsuario
