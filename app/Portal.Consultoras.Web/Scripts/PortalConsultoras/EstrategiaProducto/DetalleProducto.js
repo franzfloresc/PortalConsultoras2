@@ -56,9 +56,7 @@
                 centerMode: true,
                 variableWidth: true,
                 slidesToScroll: 1,
-                centerMode: true,
-                arrows: false,
-                dots: false,
+                arrows: false
             }).on('swipe', function (event, slick, direction) {
                 var posicion = slick.currentSlide;
                 posicion = Math.max(parseInt(posicion), 0);
@@ -116,15 +114,26 @@
         });
     }
 
-    var _armarListaCarruselDetalleProducto = function() {
+    var _armarListaCarruselDetalleProducto = function () {
         var model = get_local_storage("data_mas_vendidos");
         var item = model.Item;
         var lista = [];
+        var elem = null;
+
+        for (var i = 0; i < model.Lista.length; i++) {
+            elem = model.Lista[i];
+            if (elem.EstrategiaID !== item.EstrategiaID) {
+                lista.push(elem);
+            }
+        }
+
+        /*
         model.Lista.forEach(elem => {
             if (elem.EstrategiaID !== item.EstrategiaID) {
                 lista.push(elem);
             }
         });
+        */
         model.Lista = lista;
         return model;
     }
@@ -183,9 +192,14 @@
     }
 
     function PintarPrecioTachadoCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarPrecioTachadoCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarPrecioTachadoCarrusel(item);
         });
+        */
     }
 
     function _pintarPrecioTachadoCarrusel(item) {
@@ -199,9 +213,14 @@
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarRecomendacionesCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarRecomendacionesCarrusel(item);
         });
+        */
     }
 
     function _pintarRecomendacionesCarrusel(item) {
@@ -212,9 +231,14 @@
     }
 
     function PintarEstrellasCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarEstrellasCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarEstrellasCarrusel(item);
         });
+        */
     }
 
     function _pintarEstrellasCarrusel(item) {
@@ -358,14 +382,33 @@
         var model = get_local_storage("data_mas_vendidos");
         var lista = model.Lista;
         var item = null;
+        var elem = null;
 
-        lista.forEach(elem => {if (elem.EstrategiaID === estrategiaId) {item = elem;}});
+        for (var i = 0; i < lista.length; i++) {
+            elem = lista[i];
+            if (elem.EstrategiaID === estrategiaId) { item = elem; }
+
+        }
+
+        //lista.forEach(elem => { if (elem.EstrategiaID === estrategiaId) { item = elem; } });
 
         return item;
     };
     
     var _actualizarListaStorate = function (lista, item) {
         var temp = [];
+        var elem = null;
+
+        for (var i = 0; i < lista.length; i++) {
+            elem = lista[i];
+            if (elem.EstrategiaID === item.EstrategiaID) {
+                temp.push(item);
+            } else {
+                temp.push(elem);
+            }
+        }
+
+        /*
         lista.forEach(elem => {
             if (elem.EstrategiaID === item.EstrategiaID) {
                 temp.push(item);
@@ -373,6 +416,7 @@
                 temp.push(elem);
             }
         })
+        */
         return temp;
     };
 

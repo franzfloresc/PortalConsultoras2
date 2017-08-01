@@ -2640,51 +2640,19 @@ else
 </script>
 <!--EPD-1204 FIN-->
 @section scripts{
-    @*<script>
-            var nav = $('#bc_content_ofertas .bc_container .items-producto');
-            pos = nav.offset();
-
-            // Esperamos al DOM
-            $(window).scroll(function () {
-                // Anclamos el menú si el scroll es
-                // mayor a la posición superior del tag
-                if (($(this).scrollTop() >= pos.top)) {
-                    alert("d");
-                } else if (($(this).scrollTop() <= pos.top)) {
-                }
-            });
-    </script>*@
-
+   
     <script type="text/javascript">
         $(document).ready(function () {
-
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
-
-            });
-
-            masVendidosModule.readVariables({
-                baseUrl: baseUrl,
-                urlDetalleProducto :'@Url.Action("DetalleProducto", "EstrategiaProducto")'
-            });
-            $('.titulo_estrellas').rateYo({
-                rating    : "100%",
-                spacing   : "14px",
-                numStars: 5,                
-                starWidth: "18.5px",
-                readOnly: true,
-                ratedFill: "#cca11e"
-            });
-           
+            });           
         });
-
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
-    <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
