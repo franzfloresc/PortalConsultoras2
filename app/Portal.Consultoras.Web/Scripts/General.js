@@ -1657,8 +1657,8 @@ function _validartieneMasVendidos() {
         return tieneMasVendidos;
     }
     else {
-        let valor = get_local_storage("tieneMasVendidos");
-        return valor;
+        var xvalor = get_local_storage("tieneMasVendidos");
+        return xvalor;
     }
 }
 

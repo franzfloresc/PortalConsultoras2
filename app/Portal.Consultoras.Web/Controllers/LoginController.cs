@@ -91,29 +91,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult SaveLogErrorLogin(string message, string usuario, string iso)
-        {
-            bool s = false;
-            string m = string.Empty;
-
-            try
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(new Exception(message), usuario, iso, "Login.SaveLogErrorLogin");
-                s = true;
-            }
-            catch (Exception ex)
-            {
-                s = false;
-                m = ex.ToString();
-            }
-
-            return Json(new
-            {
-                succes = s,
-                message = m
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         [AllowAnonymous]
         [HttpPost]
         public ActionResult Login(LoginModel model, string returnUrl = null)
@@ -122,6 +99,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 TempData["serverPaisId"] = model.PaisID;
+                TempData["serverPaisISO"] = model.CodigoISO;
                 TempData["serverCodigoUsuario"] = model.CodigoUsuario;
 
                 if (model.PaisID == 0)
@@ -272,6 +250,28 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Login");
+        }
+
+        [HttpPost]
+        public JsonResult SaveLogErrorLogin(string paisISO, string codigoUsuario, string mensaje)
+        {
+            try
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [AllowAnonymous]
