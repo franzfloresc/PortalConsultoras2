@@ -2495,7 +2495,7 @@
 }
 
 #bc_promo {
-    width: 38%;
+    width: 26%;
     float: left;
     background: white;
     padding: 20px;
@@ -2504,7 +2504,7 @@
 
 #bc_promo .bc_promo_contenido {
     float: right;
-    width: 245px;
+    width: 100%;
 }
 
 #bc_promo .bc_promo_contenido p.ven-conoce {
@@ -2573,6 +2573,7 @@
 #bc_productos {
     width: 62%;
     float: left;
+        height: 462px;
     background: #f0f0f0;
 }
 
