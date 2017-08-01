@@ -20,16 +20,58 @@
         </div>
 
     </div>
-    <div class="excelDiv  redborder" style="height:30px;">
+    <div class="excelDiv redborder" style="height:30px;">
 
-        <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px; float:right; " onclick="ExportExcel();" class="acciones_pagos redborder"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
+        <a href="javascript:void(0);" style="margin-left:40px; margin-top:-5px; float:right;" onclick="ExportExcel();" class="acciones_pagos redborder"><img src="@Url.Content("~/Content/Images/Esika/excel.png")" /></a>
 
     </div>
 
     <div id="ContainerGrid" class="redborder" style="height:auto">
 
-        <div id="gridFuenteIngreso">
+        @*<div id="gridFuenteIngreso">
+        </div>*@
+        <h1 class="titulo_reporte_fuente_ingreso tipografia_lato tipografia_lato_light">
+            REPORTE POR <span class="tipografia_lato_regular">FUENTE DE INGRESO</span>
+        </h1>
+
+        <div class="grilla_reporte_fuente_ingreso tipografia_lato">
+            <div class="grilla_cabecera">
+                <div class="col_campania col_cabecera tipografia_lato_semibold">Campaña</div>
+                <div class="col_ub col_cabecera tipografia_lato_semibold">UB</div>
+                <div class="col_portalGZ col_cabecera tipografia_lato_semibold">Portal GZ</div>
+                <div class="col_callCenter col_cabecera tipografia_lato_semibold">Call Center</div>
+                <div class="col_AppSE col_cabecera tipografia_lato_semibold">App SE</div>
+            </div>
+            <div class="grilla_contenido">
+                <div class="col_campania tipografia_lato_semibold">201705</div>
+                <div class="col_ub tipografia_lato_regular">152</div>
+                <div class="col_portalGZ tipografia_lato_regular">0</div>
+                <div class="col_callCenter tipografia_lato_regular">0</div>
+                <div class="col_AppSE tipografia_lato_regular">0</div>
+            </div>
+            <div class="grilla_contenido">
+                <div class="col_campania tipografia_lato_semibold">201706</div>
+                <div class="col_ub tipografia_lato_regular">211</div>
+                <div class="col_portalGZ tipografia_lato_regular">1</div>
+                <div class="col_callCenter tipografia_lato_regular">0</div>
+                <div class="col_AppSE tipografia_lato_regular">0</div>
+            </div>
+            <div class="grilla_contenido">
+                <div class="col_campania tipografia_lato_semibold">201707</div>
+                <div class="col_ub tipografia_lato_regular">679</div>
+                <div class="col_portalGZ tipografia_lato_regular">6</div>
+                <div class="col_callCenter tipografia_lato_regular">0</div>
+                <div class="col_AppSE tipografia_lato_regular">0</div>
+            </div>
+            <div class="grilla_contenido">
+                <div class="col_campania tipografia_lato_semibold">201708</div>
+                <div class="col_ub tipografia_lato_regular">433</div>
+                <div class="col_portalGZ tipografia_lato_regular">6</div>
+                <div class="col_callCenter tipografia_lato_regular">0</div>
+                <div class="col_AppSE tipografia_lato_regular">0</div>
+            </div>
         </div>
+
     </div>
 
 </div>
@@ -191,6 +233,7 @@
      }
 </script>
 <style>
+
     .redborder {
     }
 
@@ -312,14 +355,75 @@
         float: right;
     }
 
-
-
-        #buttonFuenteIngreso:disabled {
-            background-color: #B75D9F !important;
-            cursor: default;
-        }
+    #buttonFuenteIngreso:disabled {
+        background-color: #B75D9F !important;
+        cursor: default;
+    }
 
     .excelDiv {
         border-bottom: solid 2px black;
     }
+
+    /* REPORTE FUENTE DE INGRESO */
+
+    .tipografia_lato{
+        font-family:'Lato';
+        font-weight:normal;
+    }
+
+    .tipografia_lato_light{
+        font-weight:300!important;
+    }
+
+    .tipografia_lato_regular{
+        font-weight:400;
+    }
+
+    .tipografia_lato_semibold{
+        font-weight:600;
+    }
+
+    .titulo_reporte_fuente_ingreso{
+        margin:52.3px auto 32px auto;
+        padding:0;
+        color:#000;
+        font-size:20px;
+    }
+
+    .titulo_reporte_fuente_ingreso, .grilla_reporte_fuente_ingreso{
+        display:block;
+        width:517px;
+        text-align:center;
+    }
+
+    .grilla_reporte_fuente_ingreso{
+        margin:0 auto;
+    }
+
+    .grilla_cabecera, .grilla_contenido{
+        display:block;
+        margin-bottom:8.3px;
+    }
+
+    .grilla_cabecera, .col_campania{
+        color:#642f80;
+    }
+
+    .grilla_contenido{
+        background-color:#f3f3f3;
+        color:#000;
+    }
+
+    .col_campania, .col_ub, .col_portalGZ, .col_callCenter, .col_AppSE{
+        display:inline-block;
+        width:20%;
+        height:39px;
+        margin-left:-3px;
+        font-size:16.8px;
+        line-height:39px;
+        letter-spacing:0.1px;
+    }
+
+    /* FIN REPORTE FUENTE DE INGRESO */
+
 </style>
