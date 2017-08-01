@@ -175,6 +175,7 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
@@ -182,8 +183,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
-                "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(

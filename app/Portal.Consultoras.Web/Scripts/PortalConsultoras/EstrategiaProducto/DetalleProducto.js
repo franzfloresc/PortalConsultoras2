@@ -56,9 +56,7 @@
                 centerMode: true,
                 variableWidth: true,
                 slidesToScroll: 1,
-                centerMode: true,
-                arrows: false,
-                dots: false,
+                arrows: false
             }).on('swipe', function (event, slick, direction) {
                 var posicion = slick.currentSlide;
                 posicion = Math.max(parseInt(posicion), 0);
