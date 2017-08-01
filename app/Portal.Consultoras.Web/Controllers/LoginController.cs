@@ -98,6 +98,15 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                TempData["serverPaisId"] = model.PaisID;
+                TempData["serverPaisISO"] = model.CodigoISO;
+                TempData["serverCodigoUsuario"] = model.CodigoUsuario;
+
+                if (model.PaisID == 0)
+                {
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+                }
+
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
@@ -241,6 +250,28 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Login");
+        }
+
+        [HttpPost]
+        public JsonResult SaveLogErrorLogin(string paisISO, string codigoUsuario, string mensaje)
+        {
+            try
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [AllowAnonymous]
