@@ -123,3 +123,299 @@ end
 
 
 GO
+use BelcorpBolivia
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpEcuador
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpCostaRica
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpDominicana
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpGuatemala
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpPanama
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti 
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpPuertoRico
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpSalvador
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
+go
+use BelcorpVenezuela
+go
+
+alter procedure dbo.GetPaisByCodigoISO
+@CodigoISO char(2)
+as
+/*
+GetPaisByCodigoISO 'PE'
+*/
+begin
+	/*Existe Oferta final por Pais*/
+	declare @OfertaFinal int 
+	set @OfertaFinal = 0;
+
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFT','OFC') and Estado = 1)
+	set @OfertaFinal = 1;
+
+	/*Existe Oferta Final Gana Mas*/
+	declare @OFGanaMas tinyint
+	set @OFGanaMas = 0
+	if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','','','','') where Codigo in ('OFTGM') and Estado = 1)
+	set @OFGanaMas = 1
+
+select PaisID, Nombre, Simbolo, OfertaFinal = @OfertaFinal, OFGanaMas = @OFGanaMas, HoraCierreZonaNormal, HoraCierreZonaDemAnti
+from dbo.Pais 
+where CodigoISO = @CodigoISO
+
+end
+
+
+GO
+
