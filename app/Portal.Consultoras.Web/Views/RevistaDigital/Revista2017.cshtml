@@ -1,0 +1,570 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+
+<!--<div class="home_block_rd" style="margin-top: 61px;">
+    <div class="hblock"></div>
+    <div class="content_belcorp" style="background-color: black; padding: 0 !important">
+        <div class="rd_logo">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
+        </div>
+        <div class="hblock_text">
+            <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
+            <div style="width: 85%">@Model.TituloDescripcion</div>
+        </div>
+    </div>
+</div>-->
+
+<hr class="clear" />
+
+<style>
+    .bc_barra_opciones{
+            height: 100%;
+    background: black;
+    position: fixed;
+    width: 7%;
+    top: 0;
+        z-index: 10;
+    }
+    ul.bc_opciones{
+        padding: 0;
+        margin:0;
+
+        list-style: none;
+    }
+    ul.bc_opciones li{
+        width:100%;
+    }
+    ul.bc_opciones li a{
+            display: block;
+    color: white;
+    padding: 10px;
+    word-wrap: break-word;
+    text-align: center;
+    transition:.3s;
+    }
+    ul.bc_opciones li a::after{
+            content: '';
+    width: 50px;
+    background: red;
+    height: 1px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    display: none;
+    transition:.3s;
+    }
+    ul.bc_opciones li a:hover::after{
+        display: block;
+    }
+    ul.bc_opciones li img.icono-menu{
+        display: block;
+        margin:auto;
+            margin-bottom: 10px;
+    }
+    ul.bc_opciones span.bc_campana{
+        font-size: 13px;
+    }
+    ul.bc_opciones li ul{
+        padding: 0;
+            height: 100%;
+        margin:0;
+        list-style: none;
+        position: absolute;
+        left: -150%;
+        top:0;
+        /*display: none;*/
+        z-index:1;
+        width: 125px;
+        background: #f5f4f4;
+         transition:2s;
+            -webkit-transition:2s;
+        -moz-transition:2s;
+    }
+    ul.bc_opciones li ul li{
+        transition:.3s;
+    }
+    ul.bc_opciones li ul li:hover{
+             box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.28);
+
+    }
+
+    ul.bc_opciones li ul li a{
+            color: #929292;
+        text-decoration: none;
+        transition:.3s;
+    }
+    ul.bc_opciones li ul li a:hover{
+        color:#333;
+    }
+    ul.bc_opciones li ul li a:hover::after{
+        display: none;
+    }
+    ul.bc_opciones li ul li a p{
+        text-transform: uppercase;
+        display: block;
+        text-align: left;
+            margin-bottom: 5px;
+        transition:.3s;
+    }
+
+    ul.bc_opciones li ul li a span{
+        display: block;
+        text-align: left;
+    }
+
+    .bc_contenido{
+        margin-left: 7%;
+        margin-top:30px;
+    }
+    .bc_contenido a.btn-comprar{
+            background: black;
+    color: white;
+    letter-spacing: 1px;
+    padding: 10px;
+    text-decoration: none;
+    margin: auto;
+    /* position: absolute; */
+    width: 180px;
+    /* bottom: 0; */
+    left: 0;
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    }
+    .bc_contenido .bc_venta_exclusiva{
+            background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));
+    background-size: cover;
+    height: 489px;
+    background-repeat: no-repeat;
+    background-position: left center;
+
+
+    }
+    .bc_contenido .bc_ofertas_personalizadas{
+             background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png"));
+    background-size: contain;
+    height: 332px;
+    background-repeat: no-repeat;
+    background-position: right top;
+    padding: 70px 0px;
+    margin-top: -50px;
+
+    }
+    .bc_contenedor_showroom{
+        margin:auto;
+        padding: 0px 250px;
+    }
+    .bc_adorno1{
+        position: absolute;
+    top: 0;
+    }
+    .bc_adorno2{
+        margin-top: -14px;
+        position: absolute;
+    top: 0;
+    right:0;
+    }
+    .bc_adorno3{
+            display: none;
+        margin-top: -14px;
+        position: absolute;
+    top: 0;
+    right:0;
+    }
+    .bc_vineta_baja{
+    width:100%;
+    margin:25px 0px;
+    }
+    .bc_vineta_baja img{
+        display: block;
+        margin: auto;
+        width:50px;
+    }
+    .bc_showroom {
+        margin-bottom: 20px;
+    }
+    .bc_showroom span.txt1{
+        color:#cb1723;
+        border-top:1px solid #cb1723;
+        border-bottom: 1px solid #cb1723;
+        letter-spacing: 2px;
+        font-weight: bolder;
+    font-size: 15px;
+
+    }
+    .bc_showroom span.txt2{
+        color:#333;
+        letter-spacing: 1.5px;
+        font-weight: bolder;
+        font-size: 12px;
+        margin-left: 20px;
+    }
+</style>
+
+<div class="bc_barra_opciones">
+    <ul class="bc_opciones">
+        <li>
+            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
+            <ul>
+                <li><a href=""><p>Inicio</p><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>MIS OFERTAS</p><span>Ofertas creadas para tí.</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">REVISAR <br><span class="bc_campana">C - 15</span></a>
+            <ul>
+                <li><a href=""><p>MIS OFERTAS</p><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>Inicio</p><span>Ofertas creadas para tí.</span></a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">SABER <br>MÁS</a>
+            <ul>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>MIS OFERTAS</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>Inicio</p><span>Ofertas creadas para tí.</span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>
+<div class="bc_contenido">
+    <div class="bc_venta_exclusiva">
+        <div class="bc_adorno1"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-1.png")" alt=""></div>
+        <div class="bc_adorno2"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-2.png")" alt=""></div>
+        <div class="bc_adorno3"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-22.png")" alt=""></div>
+        <div class="bc_contenedor_showroom">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur alias dicta odit mollitia error libero natus inventore optio, soluta, suscipit officia quae debitis eaque minima, quia aspernatur. Fugiat, voluptatum optio.
+            <a href="" class="btn-comprar">! COMPRA YA !</a>
+        </div>
+
+    </div>
+    <div class="bc_vineta_baja">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_ofertas_personalizadas">
+        <div class="bc_contenedor_showroom">
+            <p class="bc_showroom">
+                <span class="txt1">
+                    OFERTAS PERSONALIZADAS
+                </span>
+                <span class="txt2">
+                    OFERTAS EXCLUSIVAS PARA TÍ
+                </span>
+            </p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae fugit dignissimos vel, tenetur quo dolore nostrum facilis voluptas nam animi aperiam perferendis eum quia, excepturi dolorum. Velit architecto ipsam iusto!
+            <a href="" class="btn-comprar">VER TODAS MIS OFERTAS</a>
+        </div>
+    </div>
+    <div class="bc_vineta_baja">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/VectoruP.png")" alt="">
+    </div>
+</div>
+
+
+
+
+
+<hr class="clear" />
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+    @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
+</div>
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+<script id="lanzamiento-template" type="text/x-handlebars-template">
+    <div class="content_ficha_producto_nueva" data-popup-body="" data-item="">
+        <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
+            <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
+        </a>
+        <div data-item="" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div data-compartir-campos="" style="display:none;">
+                <input type="hidden" class="CUV" value="{{CUV2}}" />
+                <input type="hidden" class="rsFBMensaje" value="" />
+                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsWAMensaje" value="" />
+                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+                <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
+                <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
+                <input type="hidden" class="MarcaNombre" value="{{DescripcionMarca}}" />
+                <input type="hidden" class="Nombre" value="{{DescripcionCompleta}}" />
+                <input type="hidden" class="ProductoDescripcion" value="{{DescripcionComercial}}" />
+                <input type="hidden" class="Volumen" value="{{Volumen}}" />
+                <input type="hidden" class="Palanca" value="OPT" />
+            </div>
+            <div class="content_left_ficha">
+                {{#if_eq FlagMostrarImg '1'}}
+                {{#if_eq TipoEstrategiaImagenMostrar '@Constantes.TipoEstrategia.Lanzamiento'}}
+                <div class="etiqueta_producto">
+                    <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                </div>
+                {{/if_eq}}
+                {{/if_eq}}
+                <div class="content_ficha_producto">
+                    <img id="fav_imagen_prod" src="{{FotoProducto01}}" style="max-width: 300px !important;">
+                </div>
+                <div class="compartir_redes_ficha" style="padding-left:0;margin-left: -16px;">
+                    <div class="texto_compartelo">Compártelo con tus clientes</div>
+                    <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
+                        <img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" />
+                    </a>
+                    <hr class="clear">
+                </div>
+            </div>
+            <div class="content_right_ficha">
+                <div style="min-height:300px;">
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
+                        <div class="marca_producto">{{DescripcionMarca}}</div>
+                        <div id="fav_nombre_prod" class="titulo_ficha_producto" data-prod-descripcion=""
+                             {{#iff CodigoEstrategia '==' ''}} style="font-size:22px; line-height:30px;" {{/iff}}>
+                            {{DescripcionCompleta}}
+                        </div>
+                    </div>
+                    <div {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
+                        <div class="precio_ficha_producto">
+                            {{#iff Precio '>' 0}}
+                            <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
+                            {{/iff}}
+                            <div style="margin-top:-5px;"><span class="texto_precio_ficha">Precio para ti:</span>{{Simbolo}} {{PrecioString}}</div>
+                        </div>
+                    </div>
+                    <hr class="clear">
+                    <div data-estrategia="{{CodigoEstrategia}}">
+                        {{#iff CodigoEstrategia '!=' ''}}
+                        {{#iff CodigoEstrategia '==' '2001'}}
+                        <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
+                            <div class="tono_select_opt">
+                                <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                    <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                    <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                    <hr class="clear">
+                                </div>
+                                <div class="content_tonos_select" style="display:none;">
+                                    {{#each this.Detalle as |Tono|}}
+                                    <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{Tono.CUV}}" data-tono-nombre="{{Tono.NombreBulk}}" data-tono-descripcion="{{Tono.NombreComercial}}">
+                                        <div class="tono_seleccionado"><img src="{{Tono.ImagenBulk}}" alt=""></div>
+                                        <div class="texto_tono_seleccionado">{{Tono.NombreBulk}}</div>
+                                        <hr class="clear" />
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                            <div class="content_tonos_maquillaje" data-tono-div="">
+                                {{#each this.Detalle as |item1|}}
+                                <div style="display: none;">
+                                    <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                    <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                                </div>
+                                <div id="fav_tono_{{item1.CUV}}" class="content_tono_detalle {{#iff item1.CUVSelect '!=' ''}}borde_seleccion_tono{{/iff}}" data-tono-cuv="{{item1.CUV}}" data-tono-change="2" data-tono-nombre="{{item1.NombreBulk}}" data-tono-descripcion="{{item1.NombreComercial}}">
+                                    <img src="{{item1.ImagenBulk}}" alt="">
+                                </div>
+                                {{/each}}
+                            </div>
+                            <!--FIN-->
+                        </div>
+                        {{/iff}}
+                        {{#iff CodigoEstrategia 'ContainsArray' '[2002,2003]'}}
+                        <div class="titulo_contenido">CONTENIDO</div>
+
+                        {{#each this.Detalle as |item1|}}
+
+                        <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
+                            <div style="display: none;">
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                            </div>
+                            <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
+                                <div class="sub_nombre_producto">
+                                    <span class="cantidad_producto_opt">x{{item1.Cantidad}} </span>
+                                    <span data-tono-select-nombrecomercial="">{{item1.NombreComercial}}</span>
+                                </div>
+                            </div>
+                            {{#iff item1.Digitable '==' '1'}}
+                            <div class="content_right_ficha" style="width:50%;">
+                                <div class="tono_select_opt">
+                                    <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
+                                        <div class="tono_seleccionado" style="display:none;"><img src="~/Content/Images/showroom/no_disponible.png" alt=""></div>
+                                        <div class="texto_tono_seleccionado">ELIGE TU TONO</div>
+                                        <hr class="clear">
+                                    </div>
+                                    <div class="content_tonos_select" style="width:102%;">
+                                        {{#each item1.Hermanos as |tono|}}
+                                        <div class="content_tono_elegido" data-tono-change="2" data-tono-cuv="{{tono.CUV}}" data-tono-nombre="{{tono.NombreBulk}}" data-tono-descripcion="{{tono.NombreComercial}}">
+                                            <div class="tono_seleccionado"><img src="{{tono.ImagenBulk}}" alt="PRODUCTO"></div>
+                                            <div class="texto_tono_seleccionado">{{tono.NombreBulk}}</div>
+                                            <hr class="clear">
+                                        </div>
+                                        {{/each}}
+                                    </div>
+                                </div>
+                            </div>
+                            {{/iff}}
+                            <hr class="clear" />
+                        </div>
+                        {{/each}}
+                        {{/iff}}
+                        {{/iff}}
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div class="liquidacion_rango_home">
+                    <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" data-input="cantidad" data-cantidad-input="-" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
+                    <div class="liquidacion_rango_right_pedido">
+                        <a class="mas" data-cantidad-agregar="+"  data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/mas.png" alt=""></a>
+                        <a class="menos" data-cantidad-agregar="-"  data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
+                    </div>
+                </div>
+                <a class="boton_Agregalo_home ficha_btn_agregar btn_desactivado_general {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true);" style="cursor: pointer;">
+                    AGRÉGALO
+                </a>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <hr class="clear" />
+        </div>
+    </div>
+</script>
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+<script id="packnuevas-template" type="text/x-handlebars-template">
+    <div class="popup_detalleCarousel packNuevas" data-popup-body="">
+        <div class="btn_cerrar_detalleCarousel">
+            <a href="javascript:;" onclick="return $('#popupDetalleCarousel_packNuevas').hide();" title="Cerrar">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+        <div class="contenido_popUp" data-item="packNueva" data-clone-item="{{EstrategiaID}}" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}">
+            <input type="hidden" class="OrigenPedidoWeb" value="@Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <div class="bloque_producto_packNuevas">
+                <div class="content_item_carrusel">
+                    {{#if_eq FlagMostrarImg '1'}}
+                    {{#if_eq TipoEstrategiaImagenMostrar '@Portal.Consultoras.Common.Constantes.TipoEstrategia.PackNuevas'}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                    {{/if_eq}}
+                    {{/if_eq}}
+                    <div class="producto_img_home">
+                        <img src="{{FotoProducto01}}">
+                    </div>
+                    <div class="etiqueta_producto">
+                    </div>
+                    <div class="producto_nombre_descripcion">
+                        <h6>{{DescripcionMarca}}</h6>
+                        <p class="nombre_producto">
+                            <b>{{DescripcionCUVSplit}}</b>
+                        </p>
+                        <div class="producto_precio">
+                            <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
+                        </div>
+                        <div class="monto_ganancia_producto">
+                            <span>GANANCIA :</span><span>&nbsp;{{Simbolo}} {{PrecioTachado}}</span>
+                        </div>
+                        <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this, true, 1); ">
+                            AGRÉGALO
+                        </a>
+
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="descripcion_set_packNuevas">
+                <h6>Contenido del Set:</h6>
+                <div class="descripcion_lista">
+                    {{#each ArrayContenidoSet as |item|}}
+                    <span>
+                        {{item}}
+                    </span>
+                    {{/each}}
+                </div>
+                {{#if MostrarTextoLibre}}
+                <div class="mensaje_advertencia_detalleCarousel">
+                    <span class="icono_advertencia_notificacion"></span>
+                    <span>{{TextoLibre}}</span>
+                </div>
+                {{/if}}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</script>
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Views/RevistaDigital/template-lan.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml")
+
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+    </script>
+
+<script>
+
+    /*ejecutar menu modo desktop*/
+    $('ul.bc_opciones li ul li a').hover(function(e) {
+        $(this).find('p').css('font-weight', 'bolder')
+    }, function(e) {
+        $(this).find('p').css('font-weight', 'normal')
+    });
+
+</script>
+
+<script>
+
+    $('ul.bc_opciones li ').hover(function(e) {
+        $(this).find('ul').css({
+            display: "block"
+        });
+    }, function(e) {
+        $(this).find('ul').css({
+            display: "none"
+        });
+    });
+
+
+</script>
+
+
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+}
