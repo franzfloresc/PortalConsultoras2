@@ -14,7 +14,7 @@ using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System.ServiceModel;
-
+using Portal.Consultoras.Web.ServiceSAC;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -61,11 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
             model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
 
-            ViewBag.TieneCDRExpress = userData.TieneCDRExpress; //EPD-1919
-            ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress; //EPD-1919
-            ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva; //EPD-1919
-            ViewBag.ConsultoraNueva = userData.EsConsecutivoNueva; //EPD-1919
-
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             return View(model);
@@ -103,10 +98,18 @@ namespace Portal.Consultoras.Web.Controllers
             model.MontoMinimo = userData.MontoMinimo;
             
             //EPD-1919
-            ViewBag.TieneCDRExpress = userData.TieneCDRExpress;
-            ViewBag.MensajeCDRExpress = userData.MensajeCDRExpress;
-            ViewBag.MensajeCDRExpressNueva = userData.MensajeCDRExpressNueva;
-            ViewBag.EsConsultoraNueva = userData.EsConsecutivoNueva;
+            model.TieneCDRExpress = userData.TieneCDRExpress;
+            model.EsConsultoraNueva = userData.EsConsecutivoNueva;
+            model.FleteDespacho = GetValorFleteExpress();
+            model.MensajesExpress = new MensajesCDRExpressModel {
+                RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
+                RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
+                ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
+                ExpressFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete),
+                ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
+                Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas)
+            };
+            model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.MensajesExpress.ExpressFlete, model.FleteDespacho);
 
             if (userData.PaisID == 9)
             {
@@ -976,12 +979,8 @@ namespace Portal.Consultoras.Web.Controllers
                     entidad.CDRWebDetalle = new BECDRWebDetalle[] {entidadDetalle};
 
                     //EPD-1919 INICIO UNCOMMENTEDDICC
-                    entidad.TipoDespacho = model.TipoDespacho; 
-                    entidad.FleteDespacho = model.FleteDespacho;
-
-                    if (userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Ingreso_Nueva)
-                        entidad.FleteDespacho = 0.00M;
-
+                    entidad.TipoDespacho = model.TipoDespacho;                    
+                    entidad.FleteDespacho = userData.EsConsecutivoNueva ? 0 : model.FleteDespacho;
                     entidad.MensajeDespacho = model.MensajeDespacho;
                     //EPD-1919 FIN
 
@@ -1019,18 +1018,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public bool TieneDetalleCDRExpress(List<BECDRWebDetalle> list)
+        {
+            var OperacionesExpress = new List<string> {
+                Constantes.CodigoOperacionCDR.Canje,
+                Constantes.CodigoOperacionCDR.Trueque,
+                Constantes.CodigoOperacionCDR.Faltante,
+                Constantes.CodigoOperacionCDR.FaltanteAbono
+            };
+            return list.Any(x => OperacionesExpress.Contains(x.CodigoOperacion));
+        }
+
         public bool EvaluarVisibilidadCDRExpress(int cdrWebId, int pedidoId)
         {
-            bool rpta = false;
-            if (userData.TieneCDRExpress &&
-                CargarDetalle(new MisReclamosModel
-                {
-                    CDRWebID = cdrWebId,
-                    PedidoID = pedidoId
-                }).FindAll(x => x.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje ||
-                                x.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque).Count() > 0)
-                return true;
-            return rpta;
+            if (!userData.TieneCDRExpress) return false;
+
+            var reclamoFiltro = new MisReclamosModel {
+                CDRWebID = cdrWebId,
+                PedidoID = pedidoId
+            };
+            return TieneDetalleCDRExpress(CargarDetalle(reclamoFiltro));
         }
 
         public JsonResult DetalleCargar(MisReclamosModel model)
@@ -1045,8 +1052,7 @@ namespace Portal.Consultoras.Web.Controllers
                 detalle = lista,
                 cantobservado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Observado).Count(),
                 cantaprobado = lista.FindAll(x => x.Estado == Constantes.EstadoCDRWeb.Aceptado).Count(),
-                cantProductosCambiados = lista.FindAll(x => x.CodigoOperacion == Constantes.CodigoOperacionCDR.Canje ||
-                                                 x.CodigoOperacion == Constantes.CodigoOperacionCDR.Trueque).Count(), //EPD-1919
+                esCDRExpress = TieneDetalleCDRExpress(lista), //EPD-1919
                 Simbolo = userData.Simbolo
             }, JsonRequestBehavior.AllowGet);
         }
@@ -1711,38 +1717,6 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        //EDP-1919 INICIO
-        public JsonResult BuscarCostoEnvio()
-        {
-            string mensajeCostoEnvio = string.Empty;
-            string mensajeNuevaConsultora = string.Empty;
-            decimal costoFlete = 0;            try
-            {
-                using (CDRServiceClient cdr = new CDRServiceClient())
-                {
-                    var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
-                    costoFlete = flete.FleteDespacho;
-                }
-            }            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO, "");
-            }            if (!string.IsNullOrEmpty(userData.MensajeCDRExpress))
-            {
-                mensajeCostoEnvio = string.Format(
-                    userData.MensajeCDRExpress,
-                    costoFlete > 0 ? (" " + userData.Simbolo) : "",
-                    costoFlete > 0 ? (" " + costoFlete.ToString("###,###,###.00")) : ""                    
-                );
-            }            if (userData.EsConsecutivoNueva) mensajeNuevaConsultora = userData.MensajeCDRExpressNueva;                        
-            return Json(new
-            {
-                mensajeCostoEnvio = mensajeCostoEnvio,
-                mensajeNuevaConsultora = mensajeNuevaConsultora,
-                costoFlete = costoFlete
-            }, JsonRequestBehavior.AllowGet);
-        }
-        //EDP-1919 FIN
-
         public JsonResult ObtenterCampaniasPorPais(int PaisID)
         {
             //PaisID = 11;
@@ -1801,5 +1775,57 @@ namespace Portal.Consultoras.Web.Controllers
 
             return string.Empty;
         }
+
+        //EDP-1919 INICIO
+        private List<BETablaLogicaDatos> GetListMensajeCDRExpress()
+        {
+            if (Session[Constantes.ConstSession.CDRExpressMensajes] != null)
+            {
+                return (List<BETablaLogicaDatos>)Session[Constantes.ConstSession.CDRExpressMensajes];
+            }
+
+            var listMensaje = new List<BETablaLogicaDatos>();
+            try
+            {
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    listMensaje = sv.GetTablaLogicaDatos(userData.PaisID, Constantes.TablaLogica.CDRExpress).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            Session[Constantes.ConstSession.CDRExpressMensajes] = listMensaje;
+            return listMensaje;
+        }
+
+        private string GetMensajeCDRExpress(string key)
+        {
+            var listMensaje = GetListMensajeCDRExpress();
+            var item = listMensaje.FirstOrDefault(i => i.Codigo == key);
+            return (item ?? new BETablaLogicaDatos()).Descripcion;
+        }
+
+        private decimal GetValorFleteExpress()
+        {
+            decimal costoFlete = 0;            try
+            {
+                using (CDRServiceClient cdr = new CDRServiceClient())
+                {
+                    var flete = cdr.GetMontoFletePorZonaId(userData.PaisID, new BECDRWeb() { ZonaID = userData.ZonaID });
+                    costoFlete = flete.FleteDespacho;
+                }
+            }            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoUsuario, userData.CodigoISO, "");
+            }            return costoFlete;
+        }
+
+        private string SetMensajeFleteExpress(string mensaje, decimal flete)
+        {            if (flete <= 0) return string.Empty;
+            return string.Format(mensaje, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
+        }
+        //EDP-1919 FIN
     }
 }

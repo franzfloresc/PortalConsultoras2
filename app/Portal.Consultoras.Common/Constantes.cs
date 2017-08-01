@@ -203,6 +203,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+            public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
 
@@ -707,6 +708,17 @@ namespace Portal.Consultoras.Common
         public struct TablaLogica
         {
             public const int Plan20 = 98;
+            public const int CDRExpress = 104;
+        }
+
+        public struct MensajesCDRExpress
+        {
+            public const string RegularPrincipal = "Regular1";
+            public const string RegularAdicional = "Regular2";
+            public const string ExpressPrincipal = "Express1";
+            public const string ExpressFlete = "Express2";
+            public const string ExpressAdicional = "Express3";
+            public const string Nuevas = "Nuevas1";
         }
 
 

@@ -154,93 +154,24 @@ $(document).ready(function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
         var claseBotonDesactivado = "cdr_tipo_despacho_icono";
         var botonExpress = $("#btnDespachoExpress");
-        var textoInformativoCostoEnvio = $("#tipo_express_costo_envio");
-        var textoInformativoEnvioNuevaConsultora = $("#tipo_express_nueva_consultora");        var hiddenTextoTipoDespacho = $("#hdTipoDespacho");
-        var hiddenTextoFleteDespacho = $("#hdFleteDespacho");
-        var hiddenTextoMensajeDespacho = $("#hdMensajeDespacho");
-        if ($(this).hasClass(claseBotonActivado)) {
-            //$(this).removeClass(claseBotonActivado);  Stay with the class
-        } else {
-            $(this).addClass(claseBotonActivado);
-            //Removing Check for Express option
-            if (botonExpress.hasClass(claseBotonActivado)) {
-                botonExpress.removeClass(claseBotonActivado);
-                botonExpress.addClass(claseBotonDesactivado);
-                //Removing data from Cost and New clients
-                textoInformativoCostoEnvio.html('');
-                textoInformativoEnvioNuevaConsultora.html('');
 
-                //Cleaning...
-                hiddenTextoTipoDespacho.val(false);
-                hiddenTextoFleteDespacho.val(0);
-                hiddenTextoMensajeDespacho.val('');
-            }
+        if (!$(this).hasClass(claseBotonActivado)) {
+            $(this).addClass(claseBotonActivado);
+            botonExpress.removeClass(claseBotonActivado);
+            botonExpress.addClass(claseBotonDesactivado);
+            $("#hdTipoDespacho").val(false);
         }
     });    
     $("#btnDespachoExpress").on("click", function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
         var claseBotonDesactivado = "cdr_tipo_despacho_icono";
         var botonNormal = $("#btnDespachoNormal");
-        var textoInformativoCostoEnvio = $("#tipo_express_costo_envio");
-        var textoInformativoEnvioNuevaConsultora = $("#tipo_express_nueva_consultora");
 
-        var hiddenTextoTipoDespacho = $("#hdTipoDespacho");
-        var hiddenTextoFleteDespacho = $("#hdFleteDespacho");
-        var hiddenTextoMensajeDespacho = $("#hdMensajeDespacho");
-
-        if ($(this).hasClass(claseBotonActivado)) {
-            // $(this).removeClass(claseBotonActivado); Stay with the class
-        } else {
+        if (!$(this).hasClass(claseBotonActivado)) {
             $(this).addClass(claseBotonActivado);
-            //Removing Check for Normal option
-            if (botonNormal.hasClass(claseBotonActivado)) {
-                botonNormal.removeClass(claseBotonActivado);
-                botonNormal.addClass(claseBotonDesactivado);
-                hiddenTextoTipoDespacho.val(true);
-            }
-            //Validating MSG if its checked:
-            waitingDialog();
-            $.ajax({
-                type: 'POST',
-                url: baseUrl + 'MisReclamos/BuscarCostoEnvio',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                //data: JSON.stringify(item),
-                cache: false,
-                success: function (data) {
-                    closeWaitingDialog();
-                    if (!checkTimeout(data))
-                        return false;
-
-                    //Cleaning...
-                    hiddenTextoFleteDespacho.val(0);
-                    hiddenTextoMensajeDespacho.val('');
-
-                    //Getting 1st label: Costo Envio
-                    if (data.mensajeCostoEnvio.length > 0) {
-                        textoInformativoCostoEnvio.html(' : ' + data.mensajeCostoEnvio);
-                        hiddenTextoMensajeDespacho.val(hiddenTextoMensajeDespacho.val() + data.mensajeCostoEnvio);
-                    } else {
-                        textoInformativoCostoEnvio.html('');
-                    }
-                    //Getting 2nd label: Nueva Consultora
-                    if (data.mensajeNuevaConsultora.length > 0) {
-                        textoInformativoEnvioNuevaConsultora.html(data.mensajeNuevaConsultora);
-                        hiddenTextoMensajeDespacho.val(hiddenTextoMensajeDespacho.val() + ' ' + data.mensajeNuevaConsultora);
-                    } else {
-                        textoInformativoEnvioNuevaConsultora.html('');
-                    }
-
-                    if (data.costoFlete > 0) {
-                        hiddenTextoFleteDespacho.val(data.costoFlete);
-                    }
-
-                },
-                error: function (data, error) {
-                    closeWaitingDialog();
-                    if (checkTimeout(data)) { }
-                }
-            });
+            botonNormal.removeClass(claseBotonActivado);
+            botonNormal.addClass(claseBotonDesactivado);
+            $("#hdTipoDespacho").val(true);
         }
     });
     //EPD-1919 FIN
@@ -1063,11 +994,8 @@ function DetalleCargar() {
             SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
 
             //EPD-1919 INICIO
-            if (data.cantProductosCambiados > 0) {
-                $("#TipoDespacho").show();
-            } else {
-                $("#TipoDespacho").hide();
-            }
+            if (data.esCDRExpress) $("#TipoDespacho").show();
+            else $("#TipoDespacho").hide();
             //EPD-1919 FIN
 
         },
@@ -1242,12 +1170,17 @@ function SolicitudEnviar() {
         PedidoID: $("#txtPedidoID").val() || 0,
         Email: $("#txtEmail").val(),
         Telefono: $("#txtTelefono").val(),
-        TipoDespacho: $("#hdTipoDespacho").val() || 0,
-        FleteDespacho: $("#hdFleteDespacho").val() || 0,
-        MensajeDespacho: $("#hdMensajeDespacho").val() || ""
+        TipoDespacho: 0,
+        FleteDespacho: 0,
+        MensajeDespacho: ''
     };
-    waitingDialog();
+    if ($("#hdTieneCDRExpress").val() == '1') {
+        item.TipoDespacho = $("#hdTipoDespacho").val();
+        item.FleteDespacho = !item.TipoDespacho ? 0 : $("#hdFleteDespacho").val();
+        item.MensajeDespacho = $(!item.TipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').html();
+    }
 
+    waitingDialog();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/SolicitudEnviar',

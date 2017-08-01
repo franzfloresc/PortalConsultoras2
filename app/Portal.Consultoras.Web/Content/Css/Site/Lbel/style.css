@@ -35585,7 +35585,6 @@ h1#penmostreo .campana {
 
 /*EPD-1919 INICIO*/
 .content_tipo_despacho {
-    font-weight: bold;
     margin-top: 25px;
     margin-bottom: 15px;
     font-family: 'Lato';
@@ -35610,12 +35609,18 @@ h1#penmostreo .campana {
     background-size: 75%;
 }
 
-.cdr_color_consultora_nueva {
-    color: #d04437;
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url(../../../Images/Esika/terminos.png) no-repeat;
+    display: inline;
 }
 
-.cdr_color_consultora_antigua {
-    color: #205081;
+.cdr_tipo_despacho_contenido {
+    margin-left: 35px;
+    margin-top: -22px;
+    display: block;
 }
 
 .mensaje_informativo_despacho {

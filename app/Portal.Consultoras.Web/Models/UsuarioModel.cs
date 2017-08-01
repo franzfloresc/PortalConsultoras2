@@ -325,7 +325,6 @@ namespace Portal.Consultoras.Web.Models
 
         public bool TieneCDRExpress { get; set; } //EPD-1919
         public string MensajeCDRExpress { get; set; } //EPD-1919
-        public string MensajeCDRExpressNueva { get; set; } //EPD-1919
         public bool EsConsecutivoNueva { get; set; } //EPD-1919
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado

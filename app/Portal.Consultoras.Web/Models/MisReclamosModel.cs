@@ -46,9 +46,12 @@ namespace Portal.Consultoras.Web.Models
         public int limiteMaximoTelef { get; set; }
 
         //EPD-1919 INICIO
+        public bool TieneCDRExpress { get; set; }
+        public bool EsConsultoraNueva { get; set; }
         public bool? TipoDespacho { get; set; }
         public decimal FleteDespacho { get; set; }
         public string MensajeDespacho { get; set; }
+        public MensajesCDRExpressModel MensajesExpress { get; set; }
         //EPD-1919 FIN
     }
 }
