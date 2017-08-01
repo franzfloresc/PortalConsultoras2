@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
-        public ActionResult IndexModel()
+        public ActionResult IndexModel(int nuevo = 0)
         {
             var model = new RevistaDigitalModel();
             model.EstadoAccion = -1;
@@ -42,6 +42,11 @@ namespace Portal.Consultoras.Web.Controllers
             model.CantidadFilas = 10;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
+
+            if (nuevo == 1)
+            {
+                return View("Revista2017", model);
+            }
 
             return View("Index", model);
         }
