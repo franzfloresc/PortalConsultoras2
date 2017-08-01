@@ -733,12 +733,13 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                var errorMessage = "Mensaje, login2: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                var errorMessage = "Mensaje: " + response.message;
                 $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
 
-                saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
+                var errorMessageLog = "Mensaje: " + response.message + " \n|PaisISO: " + CodigoISO + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+                saveLog(CodigoISO, CodigoUsuario, errorMessageLog);
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
