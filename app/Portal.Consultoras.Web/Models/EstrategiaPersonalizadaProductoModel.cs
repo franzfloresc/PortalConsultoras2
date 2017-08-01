@@ -49,5 +49,7 @@ namespace Portal.Consultoras.Web.Models
         public string UrlCompartir { get; set; }
 
         public EstrategiaDetalleModelo TipoEstrategiaDetalle { get; set; }
+
+        public List<ProductoModel> Hermanos { get; set; }
     }
 }

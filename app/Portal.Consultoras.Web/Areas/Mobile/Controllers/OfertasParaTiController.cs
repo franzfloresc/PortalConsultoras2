@@ -26,20 +26,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
             }
 
-            modelo.Origen = origen;
-            modelo.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+            //ViewBag.Origen = origen;
+            ViewBag.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
 
             switch (origenPantalla)
             {
                 case "1":
-                    modelo.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
+                    ViewBag.OrigenUrl = Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                     break;
                 case "2":
-                    modelo.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
+                    ViewBag.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
                     break;
                 case "7":
-                    modelo.Codigo = Constantes.MenuCodigo.RevistaDigital;
-                    modelo.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" }); 
+                    ViewBag.Codigo = Constantes.MenuCodigo.RevistaDigital;
+                    ViewBag.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" }); 
                     break;
             }
 
