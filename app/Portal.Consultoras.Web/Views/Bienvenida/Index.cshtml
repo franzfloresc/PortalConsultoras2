@@ -1386,6 +1386,7 @@
             new ViewDataDictionary { { "Source", 1 }, { "NombreConsultora", Model.SobreNombre }, { "Origen", Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi } });
     }
 </script>
+
 @if (ViewBag.TieneRDR || (ViewBag.TieneRDC && ViewBag.EstadoSucripcionRDAnterior2 == 1))
 {
     @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary {{ "NombreConsultora", Model.SobreNombre }})

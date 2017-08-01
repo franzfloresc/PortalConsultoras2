@@ -191,7 +191,6 @@ function ArmarCarouselEstrategias(data) {
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
     $('#divListadoEstrategia.slick-initialized').slick('unslick');
-    //SetHandlebars("#template-estrategia-header", data, '#divListaEstrategias');
     SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $('#contenedor_template_estrategia_cabecera').show();
 
@@ -209,7 +208,6 @@ function ArmarCarouselEstrategias(data) {
     tieneOPT = true;
     arrayOfertasParaTi = data.Lista;
 
-    //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
    
     try {
