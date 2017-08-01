@@ -511,8 +511,14 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.EstrategiaID = estrategia.EstrategiaID;
                 prodModel.CUV2 = estrategia.CUV2;
                 prodModel.TipoEstrategiaImagenMostrar = estrategia.TipoEstrategiaImagenMostrar;
-                prodModel.ClaseEstrategia = estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
-                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi ? "revistadigital-landing" : "";
+                prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
+                prodModel.CodigoVariante = estrategia.CodigoEstrategia;
+                prodModel.ClaseEstrategia = 
+                    (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso
+                    || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi) 
+                    || (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi 
+                        && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)) 
+                    ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
                 prodModel.DescripcionMarca = estrategia.DescripcionMarca;
@@ -529,11 +535,9 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.TipoEstrategiaID = estrategia.TipoEstrategiaID;
                 prodModel.FlagNueva = estrategia.FlagNueva;
                 prodModel.IsAgregado = listaPedido.Any(p => p.CUV == estrategia.CUV2.Trim());
-                prodModel.CodigoVariante = estrategia.CodigoEstrategia;
                 prodModel.ArrayContenidoSet = estrategia.FlagNueva == 1 ? estrategia.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
                 prodModel.ListaDescripcionDetalle = estrategia.ListaDescripcionDetalle ?? new List<string>();
                 prodModel.TextoLibre = Util.Trim(estrategia.TextoLibre);
-                prodModel.CodigoEstrategia = estrategia.TipoEstrategia.Codigo;
                 
                 prodModel.MarcaID = estrategia.MarcaID;
                 prodModel.UrlCompartir = estrategia.UrlCompartir;

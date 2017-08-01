@@ -71,7 +71,7 @@
         var tipoOrigenPantalla = 1;
         var precioMin = '@Model.PrecioMin';
         var precioMax = '@Model.PrecioMax';
-        var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital", new { area = ""})';
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
