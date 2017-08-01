@@ -262,6 +262,7 @@
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
+    <Compile Include="Controllers\EstrategiaPersonalizadaController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
@@ -403,6 +404,7 @@
     <Compile Include="Models\EstrategiaDetalleModelo.cs" />
     <Compile Include="Models\CuponModel.cs" />
     <Compile Include="Models\EstrategiaOutModel.cs" />
+    <Compile Include="Models\EstrategiaPersonalizadaProductoModel.cs" />
     <Compile Include="Models\EstrategiaPedidoModel.cs" />
     <Compile Include="Models\ConsultarValidacionTelefonicaModel.cs" />
     <Compile Include="Models\EventoPostulanteModel.cs" />
@@ -3055,6 +3057,8 @@
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\LocalStorage.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Index.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Facebook.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Normal.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
@@ -3083,7 +3087,6 @@
     <Content Include="Scripts\PortalConsultoras\Mobile\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Notificaciones\Index.js" />
     <Content Include="Scripts\PortalConsultoras\OfertaLiquidacion\Index.js" />
-    <Content Include="Scripts\PortalConsultoras\OfertasParaTi\Ofertas.js" />
     <Content Include="Scripts\PortalConsultoras\PedidoFIC\Index.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\barra.js" />
     <Content Include="Scripts\PortalConsultoras\Pedido\ConsultoraOnline.js" />
@@ -3353,6 +3356,7 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
+    <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4085,6 +4089,11 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\Index.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

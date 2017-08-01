@@ -60,88 +60,10 @@
 }
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
-<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
-    <script id="estrategia-template" type="text/x-handlebars-template">
-        {{#each this.Lista as |item|}}
-        <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
-             {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" {{/iff}}>
-            <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
-            <div class="content_item_home_bpt">
-                <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});" {{/iff}}>
-                    <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
-                        <div class="producto_img_mobile_bpt">
-                            <img src="{{FotoProducto01}}" />
-                        </div>
-                    </div>
-                    <div class="producto_nombre_descripcion_bpt">
-                        <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} style="cursor:pointer;" {{/iff}}>
-                            {{#iff DescripcionMarca '!=' ''}}
-                                <h6>{{DescripcionMarca}}</h6>
-                            {{/iff}}
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"></div>
 
-                            {{#iff DescripcionResumen '!=' ''}}
-                                <p class="nombre_producto_bpt" style="cursor:pointer;">
-                                    <b class="text_descrition_prd_bpt">{{DescripcionResumen}}</b>
-                                </p>
-                            {{/iff}}
-                            {{#iff DescripcionCortada '!=' ''}}
-                            <p class="nombre_producto_bpt" style="cursor:pointer;">
-                                <b class="text_descrition_prd_bpt">{{DescripcionCortada}}</b>
-                            </p>
-                            {{/iff}}
-
-                            <div class="producto_precio_bpt">
-                                {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                                {{#if_eq EtiquetaID '1'}}
-                                {{#iff Precio '>' 0}}
-                                <span class="producto_precio_normal_bpt" style="text-decoration: line-through; font-size: 12px;">{{Simbolo}} {{PrecioTachado}}</span>
-                                {{/iff}}
-                                {{/if_eq}}
-                                {{/iff}}
-                                <span class="producto_precio_oferta_bpt"><b>{{Simbolo}} {{PrecioString}}</b></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="producto_nombre_descripcion">
-                    {{#iff TieneVariedad '==' '0'}}
-                    {{#iff PuedeAgregar '!=' '0'}}
-                    <div class="liquidacion_rango_home">
-                        {{#iff PuedeCambiarCantidad '==' '0'}}
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" disabled="disabled" style="border: 1px solid #b0b0b0;width:100%!important" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                        {{else}}
-                        <a class="cantidad_menos_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" data-input='cantidad' class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral {{ClaseBloqueada}}" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" {{#iff ClaseBloqueada '!=' ''}} disbled="disable" {{/iff}}>
-                        <a class="cantidad_mas_home" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
-                        {{/iff}}
-                    </div>
-                    <div class="clear"></div>
-                    <a class="boton_Agregalo_home {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{EstrategiaID}}' , TipoEstrategiaID: '{{TipoEstrategiaID}}' , Posicion: {{Posicion}} , FlagNueva: '{{FlagNueva}}' }, this); ">
-                        AGR&Eacute;GALO
-                    </a>
-                    {{/iff}}
-                    {{else}}
-                    <div class="texto_elige_tono">
-                        ¡AHORA ELIGE TU TONO!
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn_elige_tono" onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});" href="javascript:;">
-                        ELIGE TU OPCIÓN
-                    </a>
-                    {{/iff}}
-                    <div class="clear"></div>
-                    <div style="height: 15px;">
-                        <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
-                            AGREGADO
-                            <div class="icono"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{/each}}
-    </script>
-</div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 @section scripts{
     <script type="text/javascript">
@@ -163,6 +85,8 @@
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>

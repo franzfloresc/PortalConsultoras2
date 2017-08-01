@@ -174,6 +174,21 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
+                var ret = false;
+                
+                switch (b) {
+                    case undefined:
+                    case null:
+                        ret = typeof a == "boolean";
+                        bool = ret ? a : false;
+                        break;
+                    default:  break;
+                }
+
+                if (ret)
+                    return bool ? operator.fn(this) : operator.inverse(this);
+                
+
                 switch (operator) {
                     case '==':
                         bool = a == b;

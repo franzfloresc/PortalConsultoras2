@@ -1,5 +1,5 @@
 ﻿@using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
     var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
@@ -21,8 +21,9 @@
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
-        } }
-    @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
+        } 
+    }
+    @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
     {
         <div class="revistadigital-detalle-titulo">
             <div class="logo_EPT_content">
@@ -39,7 +40,7 @@
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
     }
 </div>
-@if (Model.Codigo != Constantes.MenuCodigo.RevistaDigital)
+@if (ViewBag.Codigo != Constantes.MenuCodigo.RevistaDigital)
 {
     <div class="" style="border-bottom:0">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -53,21 +54,22 @@
 
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
+        <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="content_oferta_guia_negocio">
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
             </div>
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
-            <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.Descripcion</div>
+            <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
-            @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
+            @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
             {
 
                 <div class="precio_bpt">
                     @if (Model.Precio > 0){
                         <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
                     }
-                    <b>@Model.Simbolo @Model.PrecioString</b>
+                    <b>@Model.Simbolo @Model.PrecioVenta</b>
                 </div>
             }
             else
@@ -76,7 +78,7 @@
                 {
                     <div class="precio_tachado_048">@Model.Simbolo @Model.PrecioTachado</div>
                 }
-                <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioString</b></div>
+                <div class="precio_para_ti_048">Precio para ti <b>@Model.Simbolo @Model.PrecioVenta</b></div>
             }
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="@Model.CUV2" />
@@ -88,16 +90,16 @@
                 <input type="hidden" class="rsWARutaImagen" value="@Model.FotoProducto01" />
                 <input type="hidden" class="MarcaID" value="@Model.MarcaID" />
                 <input type="hidden" class="MarcaNombre" value="@Model.DescripcionMarca" />
-                <input type="hidden" class="Nombre" value="@Model.Descripcion" />
+                <input type="hidden" class="Nombre" value="@Model.DescripcionCompleta" />
                 <input type="hidden" class="ProductoDescripcion" value="" />
                 <input type="hidden" class="Volumen" value="" />
                 <input type="hidden" class="Palanca" value="OPT" />
             </div>
             @if (Model.CodigoEstrategia != "")
             {
-                <div data-estrategia="@Model.CodigoEstrategia">
+                <div data-estrategia="@Model.CodigoVariante">
 
-                    @if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.IndividualConTonos)
+                    @if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                     {
                         if ((Model.Hermanos.Any()))
                         {
@@ -137,10 +139,10 @@
                             </div>
                         }
                     }
-                    else if (Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable)
+                    else if (Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                     {
-                        var claseItem = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
-                        var claseItem3 = Model.CodigoEstrategia == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
+                        var claseItem = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija ? "content_producto_individual" : "";
+                        var claseItem3 = Model.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable ? "content_producto_compuesto" : "";
                         if (Model.Hermanos != null && Model.Hermanos.Any())
                         {
                             <div class="titulo_contenido">CONTENIDO</div>
@@ -226,16 +228,16 @@
             <div class="content_btn_agregar">
                 <div class="content_320">
                     @if (btnDesabled == 1)
-                {
-                    btnDesabledClass = "btn_desactivado_general";
-                }
+                    {
+                        btnDesabledClass = "btn_desactivado_general";
+                    }
                     <div class="content_cantidad_ficha_producto">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
                         <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" data-input="cantidad">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                     <a class="btn_agregar_ficha_producto @btnDesabledClass" id="tbnAgregarProducto"
-                       onclick="javascript:CargarProductoDestacado({ EstrategiaID: '@Model.EstrategiaID', TipoEstrategiaID: '@Model.TipoEstrategiaID', Posicion: '@Model.Orden', FlagNueva: '@Model.FlagNueva' }, this, true); ">AGRÉGALO</a>
+                       onclick="javascript:EstrategiaAgregar(event, true); ">AGRÉGALO</a>
                     <hr class="clear">
                 </div>
             </div>
@@ -256,9 +258,11 @@
 
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
-        var origenRetorno = $.trim('@Model.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+        var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
 
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
