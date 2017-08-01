@@ -83,7 +83,9 @@ $(document).ready(function () {
 });
 
 function EstrategiaObtenerObj(e) {
-    var objHtml = $(e.target).parents("[data-item]");
+    var objHtmlEvent = $(e.target);
+    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+    var objHtml = objHtmlEvent.parents("[data-item]");
     var estrategia = JSON.parse($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
     return estrategia;
 }
@@ -318,6 +320,26 @@ function EstrategiaGuardarTemporal(obj) {
     return varReturn;
 }
 
+function EstrategiaCargarCuv(cuv) {
+    AbrirLoad();
+    var detalle = new Array();
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'OfertasParaTi/ConsultarEstrategiaCuv?cuv=' + cuv,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            detalle = data || new Array();
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+    CerrarLoad();
+    return detalle;
+}
+
 function EstrategiaAgregar(event, popup, limite) {
 
     var estrategia = EstrategiaObtenerObj(event);
@@ -530,7 +552,7 @@ function EstrategiaAgregar(event, popup, limite) {
             CerrarLoad();
             if (popup) {
                 CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                HidePopupEstrategiasEspeciales();
+                $('#popupDetalleCarousel_packNuevas').hide();
             }
 
             ActualizarLocalStorageAgregado("rd", params.listaCuvTonos, true);

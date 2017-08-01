@@ -20,7 +20,7 @@ function LocalStorageListado(key, valor, accion) {
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
     if (sl == null || sl == undefined) {
-        var model = CargarEstrategiaCuv(cuv);
+        var model = EstrategiaCargarCuv(cuv);
         if (model != null) return model;
         else return null;
     }

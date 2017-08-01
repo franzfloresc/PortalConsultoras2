@@ -202,6 +202,10 @@ function ArmarCarouselEstrategias(data) {
     }
 
     data.Lista = EstructurarDataCarousel(data.Lista);
+    $.each(data.ListaLan, function (i, item) {
+        item.Posicion = i + 1;
+    });
+
     tieneOPT = true;
     arrayOfertasParaTi = data.Lista;
 
@@ -463,6 +467,7 @@ function EstructurarDataCarousel(array) {
         item.Posicion = i + 1;
         item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
         item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
+        item.PrecioVenta = item.PrecioString;
     });
     return isList ? lista : lista[0];
 };
@@ -498,7 +503,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     AbrirLoad();
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedidos" : "";
 
-    var estrategia = JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
+    var estrategia = EstrategiaObtenerObj(e); // JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
     if (estrategia.TipoEstrategiaImagenMostrar == '2' && $.trim(tipoOrigenEstrategia)[0] == "1") {
         SetHandlebars("#packnuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
@@ -771,7 +776,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
-            var estrategiaCarrusel = popup ? new Object() : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
+            var estrategiaCarrusel = popup ? new Object() : EstrategiaObtenerObj(objInput);//JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {

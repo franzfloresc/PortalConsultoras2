@@ -103,25 +103,26 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                estrategia = (listaEstrategiaPedidoModel == null || listaEstrategiaPedidoModel.Count == 0) ? 
-                        null : ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
-                
-                if ((estrategia == null || estrategia.EstrategiaID <= 0) && Session[Constantes.SessionNames.ProductoTemporal] != null)
-                {
-                    estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                //List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                //estrategia = (listaEstrategiaPedidoModel == null || listaEstrategiaPedidoModel.Count == 0) ? 
+                //        null : ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
 
-                    //var lista = new List<EstrategiaPedidoModel>() { estrategia };
-                    //estrategia = ConsultarEstrategiasModelFormato(lista)[0];
-                }
+                //if ((estrategia == null || estrategia.EstrategiaID <= 0) && Session[Constantes.SessionNames.ProductoTemporal] != null)
+                //{
+                //    var lista = new List<EstrategiaPedidoModel>() { estrategia };
+                //    estrategia = ConsultarEstrategiasModelFormato(lista)[0];
+                //}
 
-                if (estrategia == null || estrategia.EstrategiaID <= 0)
-                {
-                    var lista = ConsultarEstrategias("", 0, "", origen);
-                    cuv = Util.Trim(cuv);
-                    estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
-                }
-                
+                //if (estrategia == null || estrategia.EstrategiaID <= 0)
+                //{
+                //    var lista = ConsultarEstrategias("", 0, "", origen);
+                //    cuv = Util.Trim(cuv);
+                //    estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
+                //}
+
+                estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                if (estrategiaModelo == null || estrategiaModelo.EstrategiaID <= 0)
+                    return estrategiaModelo;
 
                 estrategiaModelo.Hermanos = new List<ProductoModel>();
                 //estrategiaModelo.PaisID = userData.PaisID;

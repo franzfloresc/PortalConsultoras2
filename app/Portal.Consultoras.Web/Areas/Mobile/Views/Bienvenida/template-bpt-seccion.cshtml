@@ -1,15 +1,16 @@
 ﻿<script id="estrategia-template2" type="text/x-handlebars-template">
     {{#each this.ListaLan as |item|}}
     {{#iff item.TipoEstrategia.Codigo '==' '005'}}
-    <div class="wrapper_resumen_mobile">
+    <div class="wrapper_resumen_mobile" data-item="{{EstrategiaID}}" >
         <div class="rd_lanzamiento">
+            <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
             <div onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});">
                 {{#iff EstrategiaDetalle.ImgHomeMobile '!=' ''}}
                 <img class="rd_lanzamiento_producto" src="{{EstrategiaDetalle.ImgHomeMobile}}">
                 {{/iff}}
             </div>
             <div>CONOCE {{DescripcionResumen}}</div>
-            <div class="btn_black_solid"><a href="javascript: RDRedireccionarDetalle({{CUV2}}, {{CampaniaID}})">DESCUBRE ESTA NOVEDAD</a></div>
+            <div class="btn_black_solid"><a href="javascript: RDRedireccionarDetalle(event)">DESCUBRE ESTA NOVEDAD</a></div>
             <a href="@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })">VER MÁS LANZAMIENTOS 
                 <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
             </a>
