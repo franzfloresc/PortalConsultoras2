@@ -51,7 +51,8 @@ namespace Portal.Consultoras.Web.Controllers
                         .ToList()).FirstOrDefault();
 
                 }
-                
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.TieneProductosPerdio = TieneProductosPerdio(campaniaId);
                 return DetalleModel(modelo);
             }
             catch (Exception ex)

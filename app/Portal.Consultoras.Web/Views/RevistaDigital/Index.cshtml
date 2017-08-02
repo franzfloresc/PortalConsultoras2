@@ -20,9 +20,17 @@
             <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
         </div>
         <div class="hblock_text">
+            @if (Model.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
+            {
+                <div class="btn_diagonal rd_btn_rojo_right"><a href="javascript: RDPageInformativa()">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+            }
             <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
-            <div style="width: 85%">@Model.TituloDescripcion</div>
+            <div style="width: 85%">@Html.Raw(Util.Trim(Model.TituloDescripcion))</div>
+
+
+
         </div>
+      
     </div>
 </div>
 

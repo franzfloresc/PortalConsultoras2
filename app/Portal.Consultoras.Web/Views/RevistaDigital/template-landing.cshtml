@@ -24,7 +24,8 @@
             {
                 <div class="rd-busqueda-filtros">
                     <div class="titulo_pagina">RECOMENDADOS PARA TI</div>
-                    <div class="hblock_tit" style="float: right">
+                    <hr class="clear" />
+                    <div class="hblock_title_perdio" style="">
                         MILAGROS, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
                     </div>
                 </div>
@@ -82,12 +83,21 @@
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
+                <div id="block_inscribete">
+                    <div class="content_belcorp">
+                        <div style="width: 80%; float: left" class="block_inscribete_predio">
+                            <span class="hblock_title_perdio">MILAGROS, MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ</span><br />
+                            <span class="hblock_title_perdio2">HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C14</span>
+                        </div>
 
-                <div style="width: 85%">
-                    MILAGROS,  MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ<br/>
-                    HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C14
+                        @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
+                        {
+                            <div class="btn_diagonal rd_btn_rojo_right">
+                                <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                            </div>
+                        }
+                    </div>
                 </div>
-                <div class="btn_diagonal rd_btn_rojo"><a href="javascript: RDSuscripcion(1)">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
                 <hr class="clear" />
                 <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
                 <hr class="clear" />

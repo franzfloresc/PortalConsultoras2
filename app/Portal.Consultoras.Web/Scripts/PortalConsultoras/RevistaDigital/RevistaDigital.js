@@ -295,7 +295,7 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     modeloTemp.Lista = response.listaPerdio;
-    var divPredio = $("#divOfertaProductosPerdio").parent();
+    var divPredio = $("#divOfertaProductosPerdio");
     var htmlDivPerdio = SetHandlebars("#estrategia-template", modeloTemp);
     divPredio.append(htmlDivPerdio);
     ResizeBoxContnet();
