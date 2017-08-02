@@ -65,9 +65,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private string MensajeDespachoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MonedaDespachoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -270,19 +267,6 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((object.ReferenceEquals(this.MensajeDespachoField, value) != true)) {
                     this.MensajeDespachoField = value;
                     this.RaisePropertyChanged("MensajeDespacho");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MonedaDespacho {
-            get {
-                return this.MonedaDespachoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MonedaDespachoField, value) != true)) {
-                    this.MonedaDespachoField = value;
-                    this.RaisePropertyChanged("MonedaDespacho");
                 }
             }
         }

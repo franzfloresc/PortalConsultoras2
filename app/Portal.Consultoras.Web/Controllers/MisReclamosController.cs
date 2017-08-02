@@ -177,7 +177,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void CargarInformacion()
         {
-            Session[Constantes.ConstSession.CDRPedidosFacturado] = null;
             Session[Constantes.ConstSession.CDRWebDetalle] = null;
             Session[Constantes.ConstSession.CDRWeb] = null;
 
@@ -1627,16 +1626,18 @@ namespace Portal.Consultoras.Web.Controllers
             htmlTemplate = htmlTemplate.Replace("#FORMATO_NUMEROSOLICITUD#", cDRWeb.CDRWebID.ToString());
             htmlTemplate = htmlTemplate.Replace("#FORMATO_CAMPANIA#", formatoCampania);
 
-            if (EvaluarVisibilidadCDRExpress(cDRWeb.CDRWebID, cDRWeb.PedidoID))
+            #region Valores de Mensaje Express
+
+            if (!string.IsNullOrEmpty(cDRWeb.MensajeDespacho))
             {
-                string _tipodespacho = cDRWeb.TipoDespacho == false ? "Despacho con su Pedido" : "Despacho Express";
-                _tipodespacho = "Tipo de Despacho: <span><b>" + _tipodespacho + "</b></span>";
-                htmlTemplate = htmlTemplate.Replace("#TIPO_DESPACHO#", _tipodespacho);
+                var templateMensajeExpressPath = AppDomain.CurrentDomain.BaseDirectory + "Content\\Template\\mailing_mensaje_express.html";
+                string htmlTemplateMensajeExpress = FileManager.GetContenido(templateMensajeExpressPath);
+                htmlTemplateMensajeExpress = htmlTemplateMensajeExpress.Replace("#MENSAJE#", cDRWeb.MensajeDespacho);
+                htmlTemplate = htmlTemplate.Replace("#MENSAJE_EXPRESS#", htmlTemplateMensajeExpress);
             }
-            else
-            {
-                htmlTemplate = htmlTemplate.Replace("#TIPO_DESPACHO#", "");
-            }
+            else htmlTemplate = htmlTemplate.Replace("#MENSAJE_EXPRESS#", "");
+
+            #endregion
 
             #region Valores de Detalle
 

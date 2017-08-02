@@ -48,10 +48,7 @@ namespace Portal.Consultoras.Entities.CDR
 
         //EPD-1919 INICIO
         [DataMember]
-        public bool? TipoDespacho { get; set; }
-
-        [DataMember]
-        public string MonedaDespacho { get; set; }        
+        public bool? TipoDespacho { get; set; }        
         [DataMember]
         public decimal FleteDespacho { get; set; }        
         [DataMember]
@@ -75,6 +72,9 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
             if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
             if (row.HasColumn("ConsultoraSaldo")) ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
+            if (row.HasColumn("TipoDespacho")) TipoDespacho = Convert.ToBoolean(row["TipoDespacho"]);
+            if (row.HasColumn("FleteDespacho")) FleteDespacho = Convert.ToDecimal(row["FleteDespacho"]);
+            if (row.HasColumn("MensajeDespacho")) MensajeDespacho = Convert.ToString(row["MensajeDespacho"]);
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }

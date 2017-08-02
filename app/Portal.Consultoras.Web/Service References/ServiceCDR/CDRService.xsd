@@ -16,7 +16,6 @@
       <xs:element minOccurs="0" name="FleteDespacho" type="xs:decimal" />
       <xs:element minOccurs="0" name="Importe" type="xs:decimal" />
       <xs:element minOccurs="0" name="MensajeDespacho" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MonedaDespacho" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoNumero" type="xs:int" />
       <xs:element minOccurs="0" name="RegionID" type="xs:int" />

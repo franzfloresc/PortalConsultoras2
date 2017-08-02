@@ -144,7 +144,6 @@ namespace Portal.Consultoras.BizLogic.CDR
         {
             try
             {
-                string moneda = string.Empty;
                 decimal monto = 0.00M;
                 var DACDRWeb = new DACDRWeb(PaisID);
                 using (IDataReader reader = DACDRWeb.GetMontoFletePorZonaId(ZonaId))
@@ -154,9 +153,7 @@ namespace Portal.Consultoras.BizLogic.CDR
                         monto = reader["Monto"] is DBNull ? 0.00M : reader.GetDecimal(reader.GetOrdinal("Monto"));
                     }
                 }
-                //return new {moneda, monto
-                //};
-                return new BECDRWeb() { MonedaDespacho = moneda, FleteDespacho = monto };
+                return new BECDRWeb() { FleteDespacho = monto };
             }
             catch (Exception)
             {
