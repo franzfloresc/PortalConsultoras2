@@ -65,7 +65,7 @@ namespace Portal.Consultoras.BizLogic
             try
             {
                 DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
-                
+
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
@@ -104,7 +104,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception ex) { LogManager.SaveLog(ex, codigoConsultora, paisID.ToString()); }
-            
+
             return puntosXConcurso.Where(c => EsCampaniaVisible(c)).ToList();
         }
 
@@ -147,7 +147,7 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
             List<BEPremio> premios = new List<BEPremio>();
-            
+
             while (reader.Read()) puntosXConcurso.Add(new BEConsultoraConcurso(reader));
             if (loadPremios)
             {
@@ -163,7 +163,7 @@ namespace Portal.Consultoras.BizLogic
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
-            
+
             return puntosXConcurso;
         }
 
@@ -230,9 +230,9 @@ namespace Portal.Consultoras.BizLogic
             foreach (BEPremio Premio in concurso.Premios)
             {
                 Premio.Importante = 0;
-                if (concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= concurso.FechaVentaRetail)
+                if (concurso.FechaVentaRetail.HasValue && concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= concurso.FechaVentaRetail)
                 {
-                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Day, Util.NombreMes(concurso.FechaVentaRetail.Month));
+                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Value.Day, Util.NombreMes(concurso.FechaVentaRetail.Value.Month));
                     Premio.Importante = 2;
                 }
                 else if (concurso.PuntajeTotal >= Premio.PuntajeMinimo)
@@ -248,6 +248,8 @@ namespace Portal.Consultoras.BizLogic
             if (concurso.NivelAlcanzado == 0) concurso.NivelSiguiente = 1;
             concurso.Premios.RemoveAll(p => p.NumeroNivel > concurso.NivelSiguiente && concurso.NivelSiguiente != 0);
             if (concurso.FechaVentaRetail <= DateTime.Today) concurso.Premios.RemoveAll(p => p.PuntajeMinimo > concurso.PuntajeTotal);
+
+            concurso.IndicadorPremiacionPedido = concurso.Premios.Any();
         }
 
         private bool EsCampaniaVisible(BEConsultoraConcurso concurso)
