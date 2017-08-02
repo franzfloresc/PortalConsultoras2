@@ -225,6 +225,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
                     sv.InsPedidoWebDetalleOferta(entidad);
                     
