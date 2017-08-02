@@ -180,7 +180,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(                
+            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
@@ -209,10 +209,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js"
+                "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/jquery.rateyo.js" //FRZ-26
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/Css/Site/CcsBienvenida").Include(
+            bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
                 "~/Content/Css/Site/slick.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
                 "~/Content/Css/Mobile/esika/revistaDigital.css"
