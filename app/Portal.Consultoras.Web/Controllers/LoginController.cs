@@ -34,7 +34,7 @@ namespace Portal.Consultoras.Web.Controllers
         private readonly int USUARIO_VALIDO = 3;
 
 
-        public LoginController() 
+        public LoginController()
         {
             logManager = LogManager.LogManager.Instance;
         }
@@ -212,6 +212,13 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                TempData["serverPaisId"] = model.PaisID;
+                TempData["serverPaisISO"] = model.CodigoISO;
+                TempData["serverCodigoUsuario"] = model.CodigoUsuario;
+
+                if (model.PaisID == 0)
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+                
                 var resultadoInicioSesion = ObtenerResultadoInicioSesion(model);
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
@@ -335,7 +342,29 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Login");
         }
 
-        private  BEValidaLoginSB2 ObtenerResultadoInicioSesion(LoginModel model)
+        [HttpPost]
+        public JsonResult SaveLogErrorLogin(string paisISO, string codigoUsuario, string mensaje)
+        {
+            try
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private BEValidaLoginSB2 ObtenerResultadoInicioSesion(LoginModel model)
         {
             BEValidaLoginSB2 resultadoInicioSesion;
             using (var svc = new UsuarioServiceClient())
@@ -404,7 +433,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var urlx = (Url.IsLocalUrl(decodedUrl))
                             ? decodedUrl
-                            : Url.Action("Index", "Bienvenida", new {area = "Mobile"});
+                            : Url.Action("Index", "Bienvenida", new { area = "Mobile" });
                         return Json(new
                         {
                             success = true,
@@ -415,7 +444,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         return Redirect(decodedUrl);
                     }
-                    return RedirectToAction("Index", "Bienvenida", new {area = "Mobile"});
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
                 if (string.IsNullOrEmpty(usuario.EMail) || usuario.EMailActivo == false)
                 {
@@ -451,8 +480,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
-                
-                
+
+
 
         private string GetUrlUsuarioDesconocido()
         {
@@ -946,7 +975,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
                                             continue;
-                                        
+
                                         model.RevistaDigital.TieneRDS = true;
                                         //obtiene datos de Revista digital suscripcion.
                                         var rds = new BERevistaDigitalSuscripcion
@@ -1188,7 +1217,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Result;
         }
 
-                
+
 
 
 
