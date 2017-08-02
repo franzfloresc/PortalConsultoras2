@@ -2495,7 +2495,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             (!string.IsNullOrEmpty(i.TipoRechazo)) ?
                                                 ((i.SubEstadoPostulante == Enumeradores.TipoSubEstadoPostulanteRechazada.RechazadoGZ.ToInt()
                                                 && i.TipoRechazo.ToInt() == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()
-                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacion"
+                                                && i.EstadoPostulanteID == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt()) ? " " + "estiloMalaZonificacionZona"
                                                 : string.Empty)
                                             : string.Empty,
                 MotivoRechazo = i.MotivoRechazo,
