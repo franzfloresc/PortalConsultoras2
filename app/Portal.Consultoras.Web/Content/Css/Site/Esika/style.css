@@ -3475,10 +3475,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:hidden;
     position:relative;
     margin:0 auto!important;
-    padding:31px 0 23px 0;
+    /*padding:31px 0 0 0;*/
     width:240px;
     /*height:auto;*/
-    height:425px;
+    height:370px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;

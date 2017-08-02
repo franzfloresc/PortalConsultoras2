@@ -72,6 +72,7 @@ namespace Portal.Consultoras.Web.Controllers
             
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
+            ViewBag.NombreConsultora = userData.Sobrenombre;
 
             return PartialView("template-Landing", model);
         }

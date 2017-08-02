@@ -125,7 +125,7 @@ function VerDetalleEstrategia(e) {
                 'actionField': { 'list': 'Ofertas para ti – ' + origen },
                 'products': [{
                     'id': estrategia.CUV2,
-                    'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
+                    'name': estrategia.DescripcionCompleta,
                     'price': $.trim(estrategia.Precio2),
                     'brand': estrategia.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
@@ -135,6 +135,7 @@ function VerDetalleEstrategia(e) {
             }
         }
     });
+
     return true;
 }
 
@@ -414,11 +415,6 @@ function EstrategiaAgregar(event, popup, limite) {
         CerrarLoad();
         return false;
     }
-    //if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-    //    AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
-    //    CerrarLoad();
-    //    return false;
-    //}
 
     var agregoAlCarro = false;
     if (!isMobile()) {
@@ -498,7 +494,7 @@ function EstrategiaAgregar(event, popup, limite) {
             if (divAgregado != null) {
                 $(divAgregado).show();
             }
-
+            var cuv = estrategia.CUV2;
             if (tipoOrigenEstrategia == 1) {
                 MostrarBarra(data, '1');
                 ActualizarGanancia(data.DataBarra);

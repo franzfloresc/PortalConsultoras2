@@ -94,6 +94,8 @@ function CargarCarouselEstrategias(cuv) {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            data.Lista = Clone(data.ListaModelo);
+            data.ListaModelo = [];
             ArmarCarouselEstrategias(data);
         },
         error: function (error) {
@@ -200,8 +202,11 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
-    data.Lista = EstructurarDataCarousel(data.Lista);
+    //data.Lista = EstructurarDataCarousel(data.Lista);
     $.each(data.ListaLan, function (i, item) {
+        item.Posicion = i + 1;
+    });
+    $.each(data.Lista, function (i, item) {
         item.Posicion = i + 1;
     });
 
@@ -220,7 +225,8 @@ function ArmarCarouselEstrategias(data) {
     } catch (e) {
         console.log(e);
     }
-    SetHandlebars("#estrategia-template", data, '#divListadoEstrategia');
+    data.lista = data.Lista;
+    SetHandlebars("#producto-landing-template", data, '#divListadoEstrategia');
     
     if (tipoOrigenEstrategia == 11) { 
         $('#cierreCarousel').hide();
@@ -236,22 +242,24 @@ function ArmarCarouselEstrategias(data) {
     }
 
     if (tipoOrigenEstrategia == 1) {
+        var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ?  1 : 4;
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
         $('#divListadoEstrategia').not('.slick-initialized').slick({
             infinite: true,
             vertical: false,
-            slidesToShow: 4,
+            slidesToShow: cantProCarrusel,
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
+            variableWidth: cantProCarrusel > 1 ? false : true,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
             nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1025,
                     settings: {
-                        slidesToShow: 3
+                        slidesToShow: cantProCarrusel > 3 ? 3 : cantProCarrusel
                     }
                 }
             ]
@@ -261,6 +269,7 @@ function ArmarCarouselEstrategias(data) {
     }
     else if (tipoOrigenEstrategia == 11) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "producto_carousel");
+        $('#divListaEstrategias #divListadoEstrategia [data-item]').css("padding-bottom", "0");
 
         $("[data-barra-width]").css("width", "100%");
         $('#divListaEstrategias').show();
@@ -383,7 +392,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         var impresionRecomendado = {
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
+            'price': $.trim(recomendado.Precio2),
             'brand': recomendado.DescripcionMarcaEstrategiaAgregarProducto,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
@@ -415,7 +424,7 @@ function EstrategiaCarouselOn(event, slick, currentSlide, nextSlide) {
         var impresionRecomendado = {
             'name': recomendado.DescripcionCompleta,
             'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
+            'price': $.trim(recomendado.Precio2),
             'brand': recomendado.DescripcionMarca,
             'category': 'NO DISPONIBLE',
             'variant': recomendado.DescripcionEstrategia,
@@ -590,7 +599,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
                 'products': [{
                     'id': estrategia.CUV2,
                     'name': (estrategia.DescripcionCUVSplit == undefined || estrategia.DescripcionCUVSplit == '') ? estrategia.DescripcionCompleta : estrategia.DescripcionCUVSplit,
-                    'price': estrategia.Precio2.toString(),
+                    'price': $.trim(estrategia.Precio2),
                     'brand': estrategia.DescripcionMarca,
                     'category': 'NO DISPONIBLE',
                     'variant': estrategia.DescripcionEstrategia,

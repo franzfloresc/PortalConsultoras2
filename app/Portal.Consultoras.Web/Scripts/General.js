@@ -618,6 +618,10 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
     return isUrlMobile;
 }
+function isHome() {
+    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    return isUrl;
+}
 
 function isInt(n) {
     var patron = /^[0-9]+$/;

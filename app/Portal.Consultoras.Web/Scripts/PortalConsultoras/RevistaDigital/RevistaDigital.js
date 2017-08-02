@@ -282,11 +282,10 @@ function OfertaArmarEstrategias(response) {
     divProd.find("#spnCantidadTotal").html(response.cantidadTotal);
 
     modeloTemp.lista = response.listaPerdio;
-    var divPredio = $("#divOfertaProductosPerdio").parent();
+    var divPredio = $("#divOfertaProductosPerdio");
     var htmlDivPerdio = SetHandlebars("#producto-landing-template", modeloTemp);
     divPredio.append(htmlDivPerdio);
     ResizeBoxContnet();
-
 
     if (!isDetalle) {
         LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));

@@ -1,5 +1,6 @@
 ﻿<script id="producto-landing-template" type="text/x-handlebars-template">
 {{#each this.lista as |item|}}
+
 <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}" >
     <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
     <div data-item-tag="body" class="content_item_carrusel" {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}} >
@@ -28,7 +29,7 @@
                 {{/iff}}
             </div>
             <div class="producto_nombre_descripcion" data-item-tag="precio">
-                <div class="producto_precio">
+                <div>
                     {{#iff Precio '>' 0}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
                     {{/iff}}
@@ -36,7 +37,9 @@
                 </div>
             </div>
         </div>
+        <div class="clear"></div>
         <div class="producto_nombre_descripcion" data-item-tag="agregar">
+            <div>
             {{#iff TipoAccionAgregar '==' '1'}}
                 <div class="liquidacion_rango_home">
                     <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input='cantidad' style="width: 62px!important;border-right:1px solid #CCCCCC !important;opacity:0.5;" disabled />
@@ -60,7 +63,7 @@
                 </a>
             {{/iff}}
             {{#iff TipoAccionAgregar '==' '3'}}
-                <div onclick="javascript:CargarEstrategiasEspeciales(event);">
+                <div onclick="javascript: VerDetalleEstrategia(event);">
                     <div class="texto_elige_tono">¡AHORA ELIGE TU TONO!</div>
                     <div class="clear"></div>
                     <a href="javascript:;" class="btn_elige_tono js-no-popup">
@@ -68,6 +71,7 @@
                     </a>
                 </div>
             {{/iff}}
+            </div>
             <div class="clear"></div>
             <div style="padding-top:9px; height: 15px;">
                 <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
@@ -78,5 +82,6 @@
         </div>
     </div>
 </div>
+
 {{/each}}
 </script>

@@ -756,18 +756,15 @@
     width: auto;
     overflow: hidden;
     display: inline-block;
-    margin-right: 1%;
-    margin-left: 1%;
-    padding-bottom: 18px;
-    margin-bottom:10px;
+    padding : 0 20px 25px 20px;
 }
 .revistadigital-landing .content_item_carrusel{   
     margin-right: 0;
     width:100%;
     min-width: 230px;
-    padding-top: 10px;
-    padding-right: 16px;
-    padding-left:16px;
+    /*padding-top: 10px;*/
+    padding-right: 10px;
+    padding-left:10px;
 }
 /*.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
@@ -778,7 +775,7 @@
 }
 
 .revistadigital-landing .producto_img_home img {
-    height: 150px;
+    height: 100%;
     width: auto;
 }
 
@@ -2570,23 +2567,21 @@
 
 /**/
 
-#bc_productos {
-    width: 62%;
+.bc_productos {
+    width: 65%;
     float: left;
-        height: 462px;
+    height: 462px;
     background: #f0f0f0;
 }
 
-#bc_productos .bc_productos_contenido {
-    width: 780px;
-    float: left;
+.bc_productos .bc_productos_contenido {
     overflow-y: auto;
     height: 485.98px;
-    padding-top: 20px;
+    padding: 20px;
     text-align: center;
 }
 
-#bc_productos .bc_productos_contenido .grid-item {
+.bc_productos .bc_productos_contenido .grid-item {
     display: inline-block;
     /*padding-left: 20px;*/
     /* margin: 0 0 1.5em; */
@@ -2600,7 +2595,7 @@
     text-align: center;
 }
 
-#bc_productos .bc_productos_contenido a.ver-mas-ofertas {
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
     font-family: 'lato';
     font-weight: 700;
     font-size: 10px;
@@ -2616,13 +2611,13 @@
     margin-bottom: 10px;
 }
 
-#bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
     width: 7px;
     margin-top: 4px;
     margin-left: 5px;
 }
 
-#bc_productos .bc_productos_contenido .grid-item .revistadigital-landing {
+.bc_productos .bc_productos_contenido .grid-item .revistadigital-landing {
     width: 100% !important;
     overflow: hidden !important;
     display: inline-block !important;
@@ -2632,15 +2627,15 @@
     margin-bottom: 0px !important;
 }
 
-#bc_productos .bc_productos_contenido .grid-item--width2 {
+.bc_productos .bc_productos_contenido .grid-item--width2 {
     width: 400px;
 }
 
-#bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
+.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
     width: 140px !important;
 }
 
-#bc_productos .bc_productos_contenido .clearfix {
+.bc_productos .bc_productos_contenido .clearfix {
     clear: both;
 }
 .bc_content_item_carrusel {
