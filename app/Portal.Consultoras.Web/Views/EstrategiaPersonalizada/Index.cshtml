@@ -1,0 +1,107 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="home_block_rd" style="margin-top: 61px;">
+    <div class="hblock"></div>
+    <div class="content_belcorp" style="background-color: black; padding: 0 !important">
+        <div class="rd_logo">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
+        </div>
+        <div class="hblock_text">
+            <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
+            <div style="width: 85%">@Model.TituloDescripcion</div>
+        </div>
+    </div>
+</div>
+
+<hr class="clear" />
+
+@if (Model.ListaTabs.Count() > 1)
+{
+    <div class="content_tabs_landing">
+        <div class="content_tabs_bpt">
+            <ul class="tabs_pagos" data-tab="tab">
+                @foreach (var tab in Model.ListaTabs)
+                {
+                    <li>
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id" data-tab-tipo="@tab.ValorOpcional">
+                            <div class="texto_tab_pagos">@tab.Descripcion</div>
+                            <div class="marcador_tab oculto"></div>
+                        </a>
+                    </li>
+                }
+                <hr id="barCursor">
+            </ul>
+        </div>
+    </div>
+}
+
+@foreach (var tab in Model.ListaTabs)
+{
+    <hr class="clear" />
+    <div style="display: none;" data-tag-html="@tab.Id">
+        @if (tab.Id > 0)
+        {
+            @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
+        }
+        else
+        {
+            @Html.Partial("~/Views/RevistaDigital/template-informativa.cshtml", Model)
+        }
+    </div>
+}
+
+<hr class="clear" />
+<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
+    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+</div>
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml")
+
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+}

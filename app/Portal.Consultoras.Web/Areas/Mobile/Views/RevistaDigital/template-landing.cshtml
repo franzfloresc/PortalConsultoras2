@@ -8,7 +8,7 @@
 <div style="background:#F6F6F6">
     <div class="content_carrusel_landing">
         <div id="divCarruselLan" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel">
-            @Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)
+           
         </div>
     </div>
 </div>
@@ -57,7 +57,7 @@
     <div>
         <hr class="clear" />
         <div class="wrapper_resumen_mobile ">
-            <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" class="ofertaProductoslanding flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding" data-content-item="@Model.CampaniaID" class="ofertaProductoslanding flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
         </div>
         <hr class="clear" />
         <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>

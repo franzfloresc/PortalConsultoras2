@@ -10,7 +10,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
-        public ActionResult IndexModel()
+        public ActionResult IndexModel(int nuevo = 0)
         {
             var model = new RevistaDigitalModel();
             model.EstadoAccion = -1;
@@ -43,6 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
+            if (nuevo == 1)
+            {
+                return View("Revista2017", model);
+            }
+
             return View("Index", model);
         }
 
@@ -69,6 +74,28 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return PartialView("template-Landing", model);
+        }
+
+        public ActionResult DetalleModel(EstrategiaPersonalizadaProductoModel modelo = null)
+        {
+            modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
+            if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+            if (EsCampaniaFalsa(modelo.CampaniaID))
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            }
+
+            if (modelo.EstrategiaID > 0)
+            {
+                modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+                modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                return View(modelo);
+            }
+            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
         }
 
         public ActionResult DetalleModel(EstrategiaPedidoModel modelo = null)

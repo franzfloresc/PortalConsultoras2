@@ -57,7 +57,8 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
-            model.ListaLan = listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+            var ListaLan = listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+            model.ListaLan = ConsultarEstrategiasFormatearModelo(ListaLan);
             model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
             return Json(model, JsonRequestBehavior.AllowGet);
         }

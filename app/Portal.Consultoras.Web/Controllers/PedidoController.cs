@@ -4201,5 +4201,256 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        #region Nuevo AgregarProducto
+        
+        public JsonResult AgregarProducto(string listaCuvTonos
+            , string EstrategiaID, string FlagNueva
+            , string Cantidad
+            , string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0
+        )
+        {
+            try
+            {
+
+            string mensaje = "", urlRedireccionar = "",
+            area = IsMobile() ? "Mobile" : "";
+
+            #region SesiónExpirada
+            if (userData == null)
+            {
+                mensaje = "Sesión expirada.";
+                urlRedireccionar = Url.Action("Index", "Login");
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+
+                //return Json(urlRedireccionar);
+            }
+            #endregion
+
+            #region ReservadoOEnHorarioRestringido
+            bool horario = ReservadoOEnHorarioRestringido(ref mensaje, ref urlRedireccionar);
+            if (horario)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje,
+                    urlRedireccionar
+                }, JsonRequestBehavior.AllowGet);
+                //return Json(urlRedireccionar);
+            }
+            #endregion
+
+            #region FiltrarEstrategiaPedido
+            FlagNueva = Util.Trim(FlagNueva);
+            int IndFlagNueva = 0;
+            Int32.TryParse(FlagNueva == "" ? "0" : FlagNueva, out IndFlagNueva);
+            BEEstrategia estrategia = FiltrarEstrategiaPedido(EstrategiaID, IndFlagNueva);
+            if (estrategia.EstrategiaID <= 0)
+            {
+                mensaje = "Estrategia no encontrada.";
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                }, JsonRequestBehavior.AllowGet);
+            }
+            #endregion
+
+            estrategia.Cantidad = Convert.ToInt32(Cantidad);
+
+            if (estrategia.Cantidad > estrategia.LimiteVenta)
+            {
+                mensaje = "La cantidad no debe ser mayor que la cantidad limite ( " + estrategia.LimiteVenta + " ).";
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            listaCuvTonos = Util.Trim(listaCuvTonos);
+            if (listaCuvTonos == "")
+            {
+                listaCuvTonos = estrategia.CUV2;
+            }
+            var tonos = listaCuvTonos.Split('|');
+            var respuesta = new JsonResult();
+            foreach (var tono in tonos)
+            {
+                var listSp = tono.Split(';');
+                estrategia.CUV2 = listSp.Length > 0 ? listSp[0] : estrategia.CUV2;
+                estrategia.MarcaID = listSp.Length > 1 ? Convert.ToInt32(listSp[1]) : estrategia.MarcaID;
+                estrategia.Precio2 = listSp.Length > 2 ? Convert.ToDecimal(listSp[2]) : estrategia.Precio2;
+
+                respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+            }
+
+            return Json(respuesta, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrio un error, vuelva ha intentalo."
+                });
+            }
+        }
+
+        private JsonResult EstrategiaAgregarProducto(ref string mensaje, BEEstrategia estrategia, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
+        {
+            #region ValidarStockEstrategia
+            var ofertas = estrategia.DescripcionCUV2.Split('|');
+            var descripcion = ofertas[0];
+            if (estrategia.FlagNueva == 1)
+            {
+                estrategia.Cantidad = estrategia.LimiteVenta;
+            }
+            else
+            {
+                descripcion = estrategia.DescripcionCUV2;
+            }
+
+            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+            if (mensaje != "")
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = mensaje
+                });
+            }
+            #endregion
+            
+            #region AgregarProductoZE
+
+            return AgregarProductoZE(estrategia.MarcaID.ToString(), estrategia.CUV2, estrategia.Precio2.ToString(), descripcion, estrategia.Cantidad.ToString(), estrategia.IndicadorMontoMinimo.ToString(),
+                     estrategia.TipoEstrategiaID.ToString(), OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
+            #endregion
+            
+        }
+
+        private bool ReservadoOEnHorarioRestringido(ref string mensaje, ref string urlRedireccionar, bool mostrarAlerta = true)
+        {
+            bool estado = false;
+            try
+            {
+                mensaje = "";
+                string area = Request.Browser.IsMobileDevice ? "Mobile" : "";
+
+                if (userData == null)
+                {
+                    mensaje = "Sesión expirada.";
+                    urlRedireccionar = Url.Action("Index", "Login");
+                    return true;
+                }
+
+                BEValidacionModificacionPedido result = null;
+                using (var sv = new PedidoServiceClient())
+                {
+                    result = sv.ValidacionModificarPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA);
+                }
+
+                estado = result.MotivoPedidoLock != Enumeradores.MotivoPedidoLock.Ninguno;
+                bool pedidoReservado = result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado;
+
+                if (estado)
+                {
+                    mensaje = mostrarAlerta ? Util.Trim(result.Mensaje) : "";
+
+                    if (pedidoReservado)
+                    {
+                        urlRedireccionar = Url.Action("PedidoValidado", "Pedido", new { area = area });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                mensaje = "Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.";
+            }
+
+            return estado;
+        }
+
+        private BEEstrategia FiltrarEstrategiaPedido(string EstrategiaID, int FlagNueva = 0)
+        {
+            List<BEEstrategia> lst;
+
+            var entidad = new BEEstrategia();
+            entidad.PaisID = userData.PaisID;
+            entidad.EstrategiaID = Convert.ToInt32(EstrategiaID);
+            entidad.FlagNueva = FlagNueva;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                lst = sv.FiltrarEstrategiaPedido(entidad).ToList();
+            }
+
+            string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var estrategia = lst != null && lst.Count > 0 ? lst[0] : new BEEstrategia();
+            estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetapais, estrategia.ImagenURL);
+            estrategia.Simbolo = userData.Simbolo;
+
+            return estrategia;
+
+            //return Json(new
+            //{
+            //    data = estrategia,
+            //    precio = (userData.PaisID == 4) ? estrategia.Precio.ToString("#,##0").Replace(',', '.') : estrategia.Precio.ToString("#,##0.00"),
+            //    precio2 = (userData.PaisID == 4) ? estrategia.Precio2.ToString("#,##0").Replace(',', '.') : estrategia.Precio2.ToString("#,##0.00")
+            //}, JsonRequestBehavior.AllowGet);
+        }
+
+        private string ValidarStockEstrategia(string CUV, int Cantidad, int TipoOferta)
+        {
+            string mensaje = "";
+            try
+            {
+                // Validar la cantidad que se está ingresando compararla con la cantidad ya ingresada y el campo límite
+                var entidad = new BEEstrategia();
+                entidad.PaisID = userData.PaisID;
+                entidad.Cantidad = Cantidad;
+                entidad.CUV2 = CUV;
+                entidad.CampaniaID = userData.CampaniaID;
+                entidad.ConsultoraID = userData.ConsultoraID.ToString();
+                entidad.FlagCantidad = TipoOferta;
+
+                using (PedidoServiceClient svc = new PedidoServiceClient())
+                {
+                    mensaje = svc.ValidarStockEstrategia(entidad);
+                }
+
+                mensaje = Util.Trim(mensaje);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            //return Json(new
+            //{
+            //    result = mensaje == "OK",
+            //    message = mensaje == "OK" ? "" : mensaje
+            //}, JsonRequestBehavior.AllowGet);
+
+            mensaje = mensaje == "OK" ? "" : mensaje;
+            return mensaje;
+
+        }
+        #endregion
     }
 }

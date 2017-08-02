@@ -202,14 +202,16 @@ function ArmarCarouselEstrategias(data) {
     }
 
     data.Lista = EstructurarDataCarousel(data.Lista);
+    $.each(data.ListaLan, function (i, item) {
+        item.Posicion = i + 1;
+    });
+
     tieneOPT = true;
     arrayOfertasParaTi = data.Lista;
 
-    
     //SetHandlebars("#template-estrategia-header", data, '#contenedor_template_estrategia_cabecera');
     $("#divListaEstrategias").attr("data-OrigenPedidoWeb", data.OrigenPedidoWeb);
    
-
     try {
         SetHandlebars("#estrategia-template2", data, '#divListadoEstrategia2');
 
@@ -465,6 +467,7 @@ function EstructurarDataCarousel(array) {
         item.Posicion = i + 1;
         item.MostrarTextoLibre = (item.TextoLibre ? $.trim(item.TextoLibre).length > 0 : false);
         item.UrlDetalle = urlOfertaDetalle + '/' + (item.ID || item.Id) || "";
+        item.PrecioVenta = item.PrecioString;
     });
     return isList ? lista : lista[0];
 };
@@ -500,7 +503,7 @@ function CargarEstrategiasEspeciales(objInput, e) {
     AbrirLoad();
     var origen = tipoOrigenEstrategia == 1 ? "Home" : tipoOrigenEstrategia == 11 ? "Pedidos" : "";
 
-    var estrategia = JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
+    var estrategia = EstrategiaObtenerObj(e); // JSON.parse($(e.target).parents("[data-estrategia]").attr("data-estrategia"));
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
     if (estrategia.TipoEstrategiaImagenMostrar == '2' && $.trim(tipoOrigenEstrategia)[0] == "1") {
         SetHandlebars("#packnuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
@@ -773,7 +776,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
-            var estrategiaCarrusel = popup ? new Object() : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
+            var estrategiaCarrusel = popup ? new Object() : EstrategiaObtenerObj(objInput);//JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {
@@ -1187,62 +1190,4 @@ function GuardarProductoTemporal(obj) {
     });
 
     return varReturn;
-}
-
-function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
-    var ok = false;
-    try {
-        cuv = $.trim(cuv);
-        if (tipo == "rd") {
-            if (cuv == "" || valor == undefined) {
-                return false;
-            }
-            ok = RDActualizarLocalStorageAgragado(cuv, valor);
-        }
-    } catch (e) {
-        console.log(e);
-    }
-    return ok;
-}
-
-function RDActualizarLocalStorageAgragado(cuv, valor) {
-    var ok = false;
-    cuv = $.trim(cuv);
-    var lsListaRD = lsListaRD || "ListaRD";
-    var indCampania = indCampania || 0;
-    var valLocalStorage = localStorage.getItem(lsListaRD + campaniaCodigo);
-    if (valLocalStorage != null) {
-        var data = JSON.parse(valLocalStorage);
-
-        $.each(data.response.listaLan, function (ind, item) {
-            if (item.CUV2 == cuv || cuv == "todo") {
-                item.IsAgregado = valor;
-                if (cuv != "todo") {
-                    ok = true;
-                    return false;
-                }
-            }
-        });
-
-        if (!ok) {
-            $.each(data.response.lista, function (ind, item) {
-                if (item.CUV2 == cuv || cuv == "todo") {
-                    item.IsAgregado = valor;
-                    if (cuv != "todo") {
-                        ok = true;
-                        return false;
-                    }
-                }
-            });
-        }
-
-        if (cuv == "todo") {
-            ok = true;
-        }
-
-        if (ok) {
-            localStorage.setItem(lsListaRD + campaniaCodigo, JSON.stringify(data));
-        }
-    }
-    return ok;
 }

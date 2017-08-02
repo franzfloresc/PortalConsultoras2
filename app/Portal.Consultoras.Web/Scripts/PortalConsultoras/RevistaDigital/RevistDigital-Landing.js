@@ -28,42 +28,15 @@ $(document).ready(function () {
     $("a[data-filtro-tipo]").click(function (event) {
         OfertaObtenerProductos(this, true);
     });
-        
+
     $("#divBorrarFiltros").click(function () {
-
-        /*Ordenamiento*/
-        var ordenamiento = {
-            Tipo: "PRECIO",
-            Valor: $("#filter-sorting").val()
-        }
-
-        var busquedaModel = {
-            Ordenamiento: ordenamiento
-        };
-
-        OfertaCargarProductos(busquedaModel);
-
+        OfertaCargarProductos(null);
         $(this).hide();
     });
 
     OfertaCargarProductos(null);
-        
-    $(window).scroll(function () {
-        //alert("scroll test");
-        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-            $(".flecha_scroll").animate({
-                opacity: 0
-            }, 100, 'swing', function () {
-                $(".flecha_scroll a").addClass("flecha_scroll_arriba");
-                $(".flecha_scroll").delay(100);
-                $(".flecha_scroll").animate({
-                    opacity: 1
-                }, 100, 'swing');
-            });
-        } else {
-            $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
-        }
 
+    $(window).scroll(function () {
         OfertaCargarScroll();
     });
 
@@ -82,7 +55,7 @@ function OfertaObtenerFiltro(filtro, clear) {
     var listaFiltros = Clone(filtroIni);
     if (filtro == null) {
         // solo con el scroll
-        listaFiltros = filtroCampania[OfertaObtenerDataLocal(campaniaId)];
+        listaFiltros = filtroCampania[OfertaObtenerIndLocal(campaniaId)];
         if (listaFiltros != undefined) {
             return listaFiltros;
         }
@@ -112,12 +85,12 @@ function OfertaObtenerFiltro(filtro, clear) {
 
         return listaFiltros;
     }
-    
+
     if (listadoFiltros.length == 0) {
         return new Array();
     }
 
-    OfertaObtenerDataLocal(campaniaId);
+    OfertaObtenerIndLocal(campaniaId);
     if (filtroCampania[indCampania] != undefined && clear) {
         var aux = filtroCampania[indCampania].ListaFiltro || new Array();
         listaFiltros = aux.length > 0 ? filtroCampania[indCampania] : Clone(filtroIni);
@@ -125,7 +98,7 @@ function OfertaObtenerFiltro(filtro, clear) {
     listaFiltros.CampaniaID = campaniaId;
 
     var borrarFiltro = 'borrar' + campaniaId;
-    $("[data-filtro-tipo='" + borrarFiltro +"']").parent().show();
+    $("[data-filtro-tipo='" + borrarFiltro + "']").parent().show();
 
     $.each(listadoFiltros, function (indSel, select) {
         variante = $.trim($(select).attr("data-filtro-tipo"));
@@ -190,13 +163,13 @@ function OfertaObtenerFiltro(filtro, clear) {
 function OfertaCargarProductos(busquedaModel, clear) {
 
     if (urlOfertaCargarProductos == '') return false;
-    
+
     busquedaModel = busquedaModel || Clone(filtroIni);
     busquedaModel.CampaniaID = busquedaModel.CampaniaID || campaniaId || 0;
 
     if (busquedaModel.CampaniaID <= 0) return false;
 
-    OfertaObtenerDataLocal(busquedaModel.CampaniaID);
+    OfertaObtenerIndLocal(busquedaModel.CampaniaID);
 
     if (filtroCampania[indCampania] == undefined) {
         filtroCampania[indCampania] = Clone(busquedaModel);
@@ -233,11 +206,11 @@ function OfertaCargarProductos(busquedaModel, clear) {
     }
 
     busquedaModel = busquedaModel || new Object();
-    //AbrirLoad();
+
     $.ajaxSetup({
         cache: false
     });
-    
+
     busquedaModel.IsMobile = isMobile();
     busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
     jQuery.ajax({
@@ -248,7 +221,9 @@ function OfertaCargarProductos(busquedaModel, clear) {
         data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {
+
             OfertaCargarProductoRespuesta(response, clear);
+
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
@@ -271,21 +246,23 @@ function OfertaCargarProductoRespuesta(response, clear) {
     else {
         $("#divOfertaProductosLoad").hide();
     }
-    
-    if (response.success == true) {
-        OfertaObtenerDataLocal(response.campaniaId);
-        if (clear || false) {
-            divProd.find('#divOfertaProductos').html("");
-            filtroCampania[indCampania].CantMostrados = 0;
-        }
-        filtroCampania[indCampania].response = response;
-        OfertaArmarEstrategias(response);
-        filtroCampania[indCampania].IsLoad = false;
-        return true;
+
+    if (response.success !== true) {
+        return false;
     }
+
+    OfertaObtenerIndLocal(response.campaniaId);
+    if (clear || false) {
+        divProd.find('#divOfertaProductos').html("");
+        filtroCampania[indCampania].CantMostrados = 0;
+    }
+    filtroCampania[indCampania].response = response;
+    OfertaArmarEstrategias(response);
+    filtroCampania[indCampania].IsLoad = false;
+    return true;
 }
 
-function OfertaObtenerDataLocal(campId) {
+function OfertaObtenerIndLocal(campId) {
     indCampania = 0;
     if (campId > campaniaAnio * 100 + campaniaNro) {
         indCampania = 1;
@@ -332,6 +309,22 @@ function AgregarProductoAlCarrito(padre) {
 }
 
 function OfertaCargarScroll() {
+
+    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+        $(".flecha_scroll").animate({
+            opacity: 0
+        }, 100, 'swing', function () {
+            $(".flecha_scroll a").addClass("flecha_scroll_arriba");
+            $(".flecha_scroll").delay(100);
+            $(".flecha_scroll").animate({
+                opacity: 1
+            }, 100, 'swing');
+        });
+    }
+    else {
+        $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
+    }
+
     var footerH = $(window).scrollTop() + $(window).height() + $("footer").innerHeight();
     if (campaniaId <= 0) return false;
 
@@ -358,8 +351,8 @@ function OfertaCargarScroll() {
        // $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
     }
     if (footerH >= $(document).height()) {
-        
-        var filtroCamp = filtroCampania[OfertaObtenerDataLocal(campaniaId)];
+
+        var filtroCamp = filtroCampania[OfertaObtenerIndLocal(campaniaId)];
         if (filtroCamp == undefined) filtroCamp = Clone(filtroIni);
 
         if ((filtroCamp.CantMostrados < filtroCamp.CantTotal && !filtroCamp.IsLoad) || filtroCamp.CantTotal == -1) {
@@ -368,22 +361,4 @@ function OfertaCargarScroll() {
         }
     }
 
-}
-
-function LocalStorageListado(key, valor, accion) {
-    // accion => 0 insertar => 1 obtener => 2 eliminar
-    accion = accion || 0;
-
-    if (accion == 0) {
-        if (valor != undefined) {
-            localStorage.setItem(key, valor);
-        }
-    }
-    else if (accion == 1) {
-        return localStorage.getItem(key);
-    }
-
-    if (accion == 3) {
-        localStorage.removeItem(key);
-    }
 }
