@@ -153,19 +153,16 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (puntosXConcurso.Any() && reader.NextResult())
                 {
-                    while (reader.Read()) premios.Add(new BEPremio(reader));
+                    while (reader.Read())
+                    {
+                        premios.Add(new BEPremio(reader));
+                    }
                 }
                 foreach (var item in puntosXConcurso)
                 {
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
-            puntosXConcurso.Update(c =>
-            {
-                //Fix mientras el SP retorna tipoConcurso = NULL.
-                if (string.IsNullOrEmpty(c.TipoConcurso))
-                    c.TipoConcurso = "X";
-            }); 
 
             return puntosXConcurso;
         }
@@ -200,6 +197,7 @@ namespace Portal.Consultoras.BizLogic
                 concurso.Premios = new List<BEPremio>{
                     new BEPremio
                     {
+                        Codigo = concurso.Premios.FirstOrDefault() != null ? concurso.Premios.FirstOrDefault().Codigo : default(string),
                         CodigoConcurso = concurso.CodigoConcurso,
                         Importante = 1,
                         Descripcion = string.Join(", ", concurso.Premios.Select(p => p.Descripcion).ToArray()),
