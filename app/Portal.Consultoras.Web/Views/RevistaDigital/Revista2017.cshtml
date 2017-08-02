@@ -13,22 +13,27 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 
 <style>
+    .SubHeader{
+        display:none;
+    }
     .bc_barra_opciones{
             height: 100%;
     background: black;
     position: fixed;
     width: 7%;
+    margin-top:62px;
     top: 0;
         z-index: 10;
     }
     ul.bc_opciones{
         padding: 0;
         margin:0;
-
+        height: 100%;
         list-style: none;
     }
     ul.bc_opciones li{
         width:100%;
+    height:33.3%;
     }
     ul.bc_opciones li a{
             display: block;
@@ -120,7 +125,7 @@
     text-decoration: none;
     margin: auto;
     /* position: absolute; */
-    width: 180px;
+    width: 200px;
     /* bottom: 0; */
     left: 0;
     display: block;
@@ -130,7 +135,7 @@
     .bc_contenido .bc_venta_exclusiva{
             background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));
     background-size: cover;
-    height: 489px;
+    height: 580px;
     background-repeat: no-repeat;
     background-position: left center;
 
@@ -147,29 +152,31 @@
 
     }
     .bc_contenedor_showroom{
-        margin:auto;
-        padding: 0px 250px;
+       margin: auto;
+    /* padding: 0px 250px; */
+    display: block;
+    text-align: left;
+    width: 750px;
+    padding-top: 30px;
     }
     .bc_adorno1{
-        position: absolute;
-    top: 0;
+            position: absolute;
+    margin-top: -34px;
     }
     .bc_adorno2{
-        margin-top: -14px;
-        position: absolute;
-    top: 0;
+            position: absolute;
+    margin-top: -34px;
     right:0;
     }
     .bc_adorno3{
-            display: none;
-        margin-top: -14px;
-        position: absolute;
-    top: 0;
-    right:0;
+               position: absolute;
+    margin-top: 11px;
+    left: 0;
+    margin-left: 11%;
     }
     .bc_vineta_baja{
     width:100%;
-    margin:25px 0px;
+    margin:60px 0px;
     }
     .bc_vineta_baja img{
         display: block;
@@ -194,6 +201,9 @@
         font-weight: bolder;
         font-size: 12px;
         margin-left: 20px;
+    }
+    .revistadigital-landing .content_item_carrusel{
+            box-shadow: none !important;
     }
 </style>
 }
@@ -241,36 +251,56 @@
     </ul>
 </div>
 <div class="bc_contenido">
+    <div class="bc_venta_exclusiva" style="background:none; background-color:white;">
+        slider aqui
+    </div>
+    <div class="bc_vineta_baja" style=" margin-bottom 15px;">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
     <div class="bc_venta_exclusiva">
         <div class="bc_adorno1"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-1.png")" alt=""></div>
         <div class="bc_adorno2"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-2.png")" alt=""></div>
         <div class="bc_adorno3"><img src="@Url.Content("~/Content/Images/RevistaDigital/CORAZON-22.png")" alt=""></div>
         <div class="bc_contenedor_showroom">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur alias dicta odit mollitia error libero natus inventore optio, soluta, suscipit officia quae debitis eaque minima, quia aspernatur. Fugiat, voluptatum optio.
-            <a href="" class="btn-comprar">! COMPRA YA !</a>
-        </div>
-        <div style="display: none; height: 410px; overflow: hidden;" data-tag-html="201712">
-            <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
-        </div>
-    </div>
-    <div class="bc_vineta_baja">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
-    </div>
-    <div class="bc_ofertas_personalizadas">
-        <div class="bc_contenedor_showroom">
             <p class="bc_showroom">
-                <span class="txt1">
+                <span class="txt1" style="color:white; border-bottom:1px solid white; border-top:1px solid white;">
                     OFERTAS PERSONALIZADAS
                 </span>
-                <span class="txt2">
-                    OFERTAS EXCLUSIVAS PARA TÍ
+                <span class="txt2" style="color:white; font-weight:normal;">
+                    HASTA <b>65% DE DSCTO</b> EN SETS EXCLUSIVOS ONLINE
                 </span>
             </p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae fugit dignissimos vel, tenetur quo dolore nostrum facilis voluptas nam animi aperiam perferendis eum quia, excepturi dolorum. Velit architecto ipsam iusto!
-            <a href="" class="btn-comprar">VER TODAS MIS OFERTAS</a>
-            @*<div style="display: none;" data-tag-html="201712">
+        </div>
+        @*<div style="display: none; height: 410px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 60px;" data-tag-html="201712">
+            <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
+        </div>*@
+        <div class="bc_contenedor_showroom" style="padding-top: 0;
+    margin-top: -25px;">
+            <a href="" class="btn-comprar">!COMPRA YA!</a>
+        </div>
+    </div>
+    <div class="bc_vineta_baja" style="    margin-bottom: 15px;">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_venta_exclusiva" style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: right top;">
+        <div class="bc_contenedor_showroom" style="    padding-top: 74px;">
+            <p class="bc_showroom">
+                <span class="txt1">
+                    RECOMENDADAS PARA TÍ
+                </span>
+                <span class="txt2">
+                   OFERTAS PERSONALIZADAS PARA TU NEGOCIO
+                </span>
+            </p>
+        </div>
+        <div style="display: none; height: 410px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 30px;" data-tag-html="201712">
                 <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
-            </div>*@
+            </div>
+        <div class="bc_contenedor_showroom" style="padding-top: 0;
+    margin-top: -25px;">
+            <a href="" class="btn-comprar">VER TODAS MIS OFERTAS</a>
         </div>
     </div>
     <div class="bc_vineta_baja">
@@ -301,7 +331,7 @@
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
         var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("GetProductos", "RevistaDigital")';
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
         var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
