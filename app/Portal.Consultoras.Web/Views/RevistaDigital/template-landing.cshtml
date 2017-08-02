@@ -24,8 +24,9 @@
             {
                 <div class="rd-busqueda-filtros">
                     <div class="titulo_pagina">RECOMENDADOS PARA TI</div>
-                    <div class="hblock_tit" style="float: right">
-                        MILAGROS, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
+                    <hr class="clear" />
+                    <div class="hblock_title_perdio" style="">
+                        @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
                     </div>
                 </div>
             }
@@ -82,13 +83,19 @@
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
-                <div style="display: block; padding: 30px 0;">
-                    <div style="width: 80%; display: inline-block;">
-                        MILAGROS,  MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ<br />
-                        HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C14
-                    </div>
-                    <div class="btn_diagonal rd_btn_rojo" style="display: inline-block;left: auto;margin: auto;">
-                        <a href="javascript: RDSuscripcion(1)">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                <div id="block_inscribete">
+                    <div class="content_belcorp">
+                        <div style="width: 80%; float: left" class="block_inscribete_predio">
+                            <span class="hblock_title_perdio">@ViewBag.NombreConsultora, MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ</span><br />
+                            <span class="hblock_title_perdio2">HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C14</span>
+                        </div>
+
+                        @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
+                        {
+                            <div class="btn_diagonal rd_btn_rojo_right">
+                                <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                            </div>
+                        }
                     </div>
                 </div>
                 <hr class="clear" />

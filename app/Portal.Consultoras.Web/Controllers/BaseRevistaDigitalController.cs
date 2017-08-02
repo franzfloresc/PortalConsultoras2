@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CantidadFilas = 10;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-
+            ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             if (nuevo == 1)
             {
                 return View("Revista2017", model);
@@ -72,7 +72,8 @@ namespace Portal.Consultoras.Web.Controllers
             
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
-
+            ViewBag.NombreConsultora = userData.Sobrenombre;
+            ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return PartialView("template-Landing", model);
         }
 
@@ -149,7 +150,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!userData.RevistaDigital.TieneRDR)
                 {
-                    if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                   if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
                     {
                         model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                         model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
@@ -226,11 +227,16 @@ namespace Portal.Consultoras.Web.Controllers
                     return model;
                 }
             }
-            else
+            else 
             {
-                model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
+                model.Titulo += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA <br />";
+                model.TituloDescripcion = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. <br />INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
             }
+            //else
+            //{
+            //    model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+            //    model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
+            //}
             
             model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
             model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
@@ -258,8 +264,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.MensajeIconoSuperior = false;
                     model.MensajeTitulo = model.IsMobile 
-                        ? "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />PODRÁS ACCEDER A OFERTAS COMO ESTA"
-                        : "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
+                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
                 }
             }
@@ -277,8 +283,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.MensajeIconoSuperior = false;
                     model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />PODRÁS ACCEDER A OFERTAS COMO ESTA"
-                        : "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
+                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
                 }
             }
@@ -289,7 +295,7 @@ namespace Portal.Consultoras.Web.Controllers
         public bool TieneProductosPerdio(int campaniaID)
         {
             if (userData.RevistaDigital.TieneRDC &&
-                userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 0 &&
+                userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
                 campaniaID == userData.CampaniaID)
                 return  true;
             return false;

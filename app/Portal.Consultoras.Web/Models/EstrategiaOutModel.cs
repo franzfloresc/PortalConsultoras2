@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
         public int OrigenPedidoWeb { get; set; }
 
         public List<EstrategiaPedidoModel> Lista { get; set; }
+        public List<EstrategiaPersonalizadaProductoModel> ListaModelo { get; set; }
         public List<EstrategiaPersonalizadaProductoModel> ListaLan { get; set; }
     }
 }

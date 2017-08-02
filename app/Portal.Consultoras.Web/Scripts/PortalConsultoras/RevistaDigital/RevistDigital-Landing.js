@@ -338,6 +338,18 @@ function OfertaCargarScroll() {
         $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
     }
 
+
+    var seccFixInscribite= $("#block_inscribete");
+
+    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top +
+        $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() +
+        $("[data-tag-html='" + campaniaId + "']").find("#divOfertaProductos").height() + 20) {
+        seccFixInscribite.addClass("fix-search");
+        //$("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height()) + "px");
+    } else {
+        seccFixInscribite.removeClass("fix-search");
+       // $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
+    }
     if (footerH >= $(document).height()) {
 
         var filtroCamp = filtroCampania[OfertaObtenerIndLocal(campaniaId)];

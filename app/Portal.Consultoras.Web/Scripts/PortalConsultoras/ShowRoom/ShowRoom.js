@@ -268,7 +268,7 @@ function CargarProductosShowRoom(busquedaModel) {
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
-                if (value != undefined) {
+                if (typeof value != "undefined") {
 
                     var impression = {
                         name: value.Descripcion,

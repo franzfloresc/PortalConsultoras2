@@ -35,7 +35,6 @@ namespace Portal.Consultoras.Web.Controllers
             var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
 
             var model = new EstrategiaOutModel();
-            model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(); ;
             model.CodigoEstrategia = GetCodigoEstrategia();
             model.Consultora = userData.Sobrenombre;
             model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
@@ -57,9 +56,10 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
-            var ListaLan = listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-            model.ListaLan = ConsultarEstrategiasFormatearModelo(ListaLan);
-            model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+            model.ListaLan = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+            model.ListaModelo = ConsultarEstrategiasFormatearModelo(listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

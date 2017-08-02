@@ -3099,6 +3099,8 @@
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\ShowRoom.js" />
+    <Content Include="Scripts\PortalConsultoras\TagManager\Liquidacion.js" />
+    <Content Include="Scripts\PortalConsultoras\TagManager\Home-Pedido.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
     <Content Include="Scripts\slick.min.js" />
@@ -4081,7 +4083,6 @@
     <Content Include="Views\Login\SesionExpirada.cshtml" />
     <Content Include="Views\Login\UserUnknown.cshtml" />
     <Content Include="Views\Bienvenida\ActualizarContrasenia.cshtml" />
-    <Content Include="Views\Bienvenida\template-opt-header.cshtml" />
     <Content Include="Views\Bienvenida\template-seccion-bpt.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedido.cshtml" />
     <Content Include="Views\ConsultaPedido\BloqueoPedidoImp.cshtml" />
