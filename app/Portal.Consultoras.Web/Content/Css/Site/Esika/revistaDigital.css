@@ -699,6 +699,13 @@
     display: block;
 }
 
+.BloqueLandingRD .fix-search span {
+    color: #ffffff !important;
+}
+
+    .BloqueLandingRD .fix-search .btn_diagonal {
+        margin-top: 15px;
+    }
 .titulo_pagina{
     float:left;
     width:25%;
@@ -1497,6 +1504,15 @@
     color: #fff;
     font-size: 13px;
 }
+
+.rd_btn_rojo_right {
+    background: #e81c36;
+    width: 220px;
+    right: 20px;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+}
 .rd_btn_rojo:after {
     background: rgba(233,27,55,1);
     background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
@@ -2153,6 +2169,33 @@
     text-transform: uppercase;
 }
 
+.hblock_title_perdio {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+.hblock_title_perdio2 {
+    height: 120px;
+    left: 300px;
+    font-size: 18px;
+    font-weight: 100;
+    padding-top: 24px;
+    line-height: 24px;
+    letter-spacing: 2px;
+}
+.hblock_title_perdio3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
 .content_item_home_bpt {
     background: white;
     /*border: 1px solid #e7e1e1;*/
@@ -2704,4 +2747,9 @@
     font-family: 'Lato';
     letter-spacing: 0.2px;
     color: #000;
+}
+
+
+.block_inscribete_predio {
+    margin: 15px 0px;
 }

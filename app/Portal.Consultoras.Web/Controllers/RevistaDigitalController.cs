@@ -64,7 +64,8 @@ namespace Portal.Consultoras.Web.Controllers
                         .ToList());
                     modelo = ConsultarEstrategiasFormatearModelo(modelo1).FirstOrDefault();
                 }
-
+                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.TieneProductosPerdio = TieneProductosPerdio(campaniaId);
                 return DetalleModel(modelo);
                 
             }
