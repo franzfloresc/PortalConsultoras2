@@ -14,15 +14,10 @@
 
 @section styles{
     <style type="text/css">
-        body {
-            background: #FFF !important;
-         
-        }
+        body { background: #FFF !important; }
     </style>
-    @*<link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />*@
-    @Scripts.Render("~/bundles/Css/Site/CcsBienvenida")
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/CcsBienvenida")
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -1047,8 +1042,6 @@
             });
             
         </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>*@
         <script type="text/javascript">
 
                 var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
@@ -1095,12 +1088,5 @@
                 var celular = '@Model.Celular';
                 var tipoOrigenPantalla = 2;
         </script>
-       
         @Scripts.Render("~/bundles/JsMobile/Bienvenida")
-
-        @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-        <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-        <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>*@      
     }

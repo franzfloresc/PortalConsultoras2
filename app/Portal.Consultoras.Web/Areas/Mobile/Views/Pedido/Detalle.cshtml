@@ -735,8 +735,6 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
 @section Scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
 
     <script type="text/javascript">
 
@@ -796,8 +794,5 @@
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/Detalle.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ofertaFinal.js")"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-<script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/PedidoDetalle")
 }

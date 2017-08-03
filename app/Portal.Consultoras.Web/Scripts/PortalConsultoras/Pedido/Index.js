@@ -19,9 +19,13 @@ var origenPedidoWebEstrategia = origenPedidoWebEstrategia || 0;
 var tipoOfertaFinal_Log = "";
 var gap_Log = 0;
 var tipoOrigen = '1';
-var FlagEnviarCorreo = false; //EPD-23787
+var FlagEnviarCorreo = false; 
 
 $(document).ready(function () {
+
+    dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat($("#hdfTotal").val(), 10);
+
+    $("#hdDataBarra, #hdListaEscala").val("");
 
     ReservadoOEnHorarioRestringido(false);
 

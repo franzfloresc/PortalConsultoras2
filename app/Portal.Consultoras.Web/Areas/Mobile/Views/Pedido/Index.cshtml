@@ -10,7 +10,6 @@
 }
 @section styles
 {
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
     <style>
         #divAgregarCliente {
@@ -708,7 +707,6 @@
 
 @section scripts
 {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
 
         var mensajeCUVNoExiste = "Lo sentimos, el producto solicitado no existe.";
@@ -780,8 +778,5 @@
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
     </script>
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-    <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
 }

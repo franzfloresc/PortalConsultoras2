@@ -3,15 +3,9 @@
 @model Portal.Consultoras.Web.Models.BienvenidaHomeModel
 
 @section styles{
-
-    @*<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />*@
-    <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-    @*<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />*@
-    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
-
-    <style>
+    <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
         }
@@ -2641,19 +2635,6 @@ else
 </script>
 <!--EPD-1204 FIN-->
 @section scripts{
-   
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $(".termino_condiciones_intriga").click(function () {
-                $(this).toggleClass('check_intriga');
-            });           
-        });
-    </script>
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>*@
-    <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';
@@ -2695,13 +2676,11 @@ else
         var urlObtenerProductosCatalogoPersonalizado = '@Url.Action("ObtenerProductosCatalogoPersonalizadoHome", "CatalogoPersonalizado", new { area = "" })';
         var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var dataBarra = JSON.parse($("#hdDataBarra").val());
-        $("#hdDataBarra").val("");
         var urlPedidoValidado = '@Url.Action("PedidoValidado", "Pedido", new { area = "" })';
         var viewBagVioTutorialSalvavidas = '@Model.VioTutorialSalvavidas';
         var constanteVioVideo = '@Constantes.TipoTutorial.Video';
         var constanteVioTutorialDesktop = '@Constantes.TipoTutorial.Desktop';
         var constanteVioTutorialSalvavidas = '@Constantes.TipoTutorial.Salvavidas';
-
         var UrlPdfTerminosyCondiciones = '@ViewBag.UrlPdfTerminosyCondiciones';
         var cantidadRegistros = 8;
         var TipoPopUpMostrar = '@Model.TipoPopUpMostrar';
@@ -2719,40 +2698,23 @@ else
         var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
-
         var origenPagina = 1;
         var urlGetInfoFichaProducto = '@Url.Action("GetInfoFichaProductoFAV", "CatalogoPersonalizado")';
         var urlCargarFiltros = '@Url.Action("CargarFiltros", "CatalogoPersonalizado", new { area = "" })';
         var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "" })';
-
         var tipoOrigenEstrategia = 1;
         var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi';
-
         var urlShowRoomIntriga = '@Url.Action("Intriga","ShowRoom")';
-
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
         var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
-
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
-
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';
         var showRoomOrigenInsertar = '@Constantes.OrigenPedidoWeb.DesktopShowRoomBienvenida';
         var tipoOrigenPantalla = 1;
-
-        //EPD-1837
         var vbFotoPerfil = '@ViewBag.FotoPerfil';
-        if (vbFotoPerfil != null && vbFotoPerfil != "") {
-            $('div.content_datos').css('max-width', '100%');
-            $('div.resumen_belcorp_cam').css('margin-left', '3%');
-            $('div.resumen_belcorp_cam').css('margin-right', '0%');
-            $('div.socia_negocio_home').css('margin-left', '4%');
-
-            $('div.contenedor_img_perfil').show();
-        }
-
         var tieneCupon = '@Model.TieneCupon';
         var tieneMasVendidos = @Model.TieneMasVendidos;
         var paginaOrigenCupon = 1;
@@ -2764,6 +2726,6 @@ else
         var celular = '@Model.Celular';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     </script>
-    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")    
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
 }
