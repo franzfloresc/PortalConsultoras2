@@ -1015,7 +1015,8 @@ div#tab_revistasdigital_mobile {
     
 }
 .subtitulo_landing{
-    width:200px;
+    float: left;
+    width:auto;
     background:#D6251F;
     font-family:'LAto';
     font-size:17px;
@@ -1023,6 +1024,7 @@ div#tab_revistasdigital_mobile {
     line-height:45px;
     color:white;
     padding-left:15px;
+    padding-right:20px;
     font-weight:700;
     letter-spacing:2px;
     position:relative;
@@ -1031,7 +1033,7 @@ div#tab_revistasdigital_mobile {
 .subtitulo_landing:after{
     content:'';
     position:absolute;
-    right:-20px;
+    right:-19px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -2014,4 +2016,23 @@ height: 100%;
     text-align:center;
     width:270px;
     font-weight: 400;
+}
+
+.hblock_title_perdio {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+.hblock_title_perdio2 {
+    height: 120px;
+    left: 300px;
+    font-size: 18px;
+    font-weight: 100;
+    padding-top: 24px;
+    line-height: 24px;
+    letter-spacing: 2px;
 }

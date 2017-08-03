@@ -422,23 +422,16 @@ function RDDetalleObtener() {
     obj.CampaniaID = prod.CampaniaID;
     obj.lista = new Array();
     obj.lista.push(prod);
-    //if (mobile) {
+
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
-        tem.PuedeAgregar = 1;
         tem.Posicion = ind + 1;
-        if (tem.ClaseBloqueada != "") {
-            tem.PuedeAgregar = 0;
-        }
     });
-    //}
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("data-item-accion");
-    //divProd.find('#divOfertaProductos').append(htmlDiv);
 
-    //OfertaArmarEstrategias(obj);
     $(".ver_detalle_carrusel").parent().parent().attr("onclick", "");
     $(".ver_detalle_carrusel").remove();
 }

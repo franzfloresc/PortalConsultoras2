@@ -4,11 +4,16 @@
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-            <div {{#iff TieneVerDetalle }} onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});" {{/iff}}>
+            <div {{#iff TieneVerDetalle }} onclick="javascript:VerDetalleEstrategia(event);" {{/iff}}>
                 <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
                     <div class="producto_img_mobile_bpt">
                         <img src="{{FotoProducto01}}" />
                     </div>
+                    {{#iff ImagenURL '!=' ''}}
+                    <div class="etiqueta_producto">
+                        <img src="{{ImagenURL}}" alt="Etiqueta Producto" />
+                    </div>
+                    {{/iff}}
                 </div>
                 <div class="producto_nombre_descripcion_bpt">
                     <div {{#iff TieneVerDetalle }} style="cursor:pointer;" {{/iff}}>
@@ -62,12 +67,12 @@
                     ¡AHORA ELIGE TU TONO!
                 </div>
                 <div class="clear"></div>
-                <a class="btn_elige_tono" onclick="javascript:EstrategiaVerDetalle({{EstrategiaID}});" href="javascript:;">
+                <a class="btn_elige_tono" onclick="javascript:VerDetalleEstrategia(event);" href="javascript:;">
                     ELIGE TU OPCIÓN
                 </a>
                 {{/iff}}
                 <div class="clear"></div>
-                <div style="height: 15px;">
+                <div style="padding-top:9px; height: 25px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO
                         <div class="icono"></div>

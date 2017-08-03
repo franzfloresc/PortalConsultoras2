@@ -35,6 +35,7 @@
                 <div id="orderby-filter">
                     <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
                         <div class="titulo_pagina">MIS OFERTAS</div>
+                        <hr class="clear" />
                         <div class="rd-seccion2">
                             <div id="divFiltros" class="rd-filtros">
                                 @if (Model.FiltersByBrand.Any())
@@ -87,7 +88,7 @@
                     <div class="content_belcorp">
                         <div style="width: 80%; float: left" class="block_inscribete_predio">
                             <span class="hblock_title_perdio">@ViewBag.NombreConsultora, MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ</span><br />
-                            <span class="hblock_title_perdio2">HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C14</span>
+                            <span class="hblock_title_perdio2">HAZLO HOY Y GANA MÁS CON OFERTAS COMO ESTA EN C @ViewBag.CampaniaMasDos</span>
                         </div>
 
                         @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)

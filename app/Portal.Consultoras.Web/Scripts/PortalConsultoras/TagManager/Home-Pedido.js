@@ -21,27 +21,37 @@ function TagManagerCarruselInicio(arrayItems) {
 
         arrayEstrategia.push(impresionRecomendado);
     }
-    var nunX = isHome() ? "1" : "2";
-    if (arrayEstrategia.length > 0) {
-        var sentListEstrategia = false;
-        if (typeof (Storage) !== 'undefined') {
-            var sle = localStorage.getItem('sentListEstrategia' + nunX);
-            if (sle !== null && sle === '1') {
-                sentListEstrategia = true;
-            }
-            else {
-                localStorage.setItem('sentListEstrategia' + nunX, '1');
-            }
-        }
+    var add = false;
 
-        if (!sentListEstrategia) {
-            dataLayer.push({
-                'event': 'productImpression',
-                'ecommerce': {
-                    'impressions': arrayEstrategia
+    if (arrayEstrategia.length > 0) {
+        add = true;
+        if (!isMobile()) {
+            add = false;
+            var sentListEstrategia = false;
+            if (typeof (Storage) !== 'undefined') {
+                var nunX = isHome() ? "1" : "2";
+                var sle = localStorage.getItem('sentListEstrategia' + nunX);
+                if (sle !== null && sle === '1') {
+                    sentListEstrategia = true;
                 }
-            });
+                else {
+                    localStorage.setItem('sentListEstrategia' + nunX, '1');
+                }
+            }
+
+            if (!sentListEstrategia) {
+                add = true;
+            }
         }
+    }
+
+    if (add) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': arrayEstrategia
+            }
+        });
     }
 }
 
@@ -118,7 +128,6 @@ function TagManagerCarruselPrevia() {
             'impressions': arrayEstrategia
         }
     });
-    pagina = isHome() ? "Home" : "Ingresa tu pedido";
     dataLayer.push({
         'event': 'virtualEvent',
         'category': pagina,
@@ -127,6 +136,7 @@ function TagManagerCarruselPrevia() {
     });
 
 }
+
 function TagManagerCarruselSiguiente() {
     var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
     var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
@@ -152,7 +162,6 @@ function TagManagerCarruselSiguiente() {
             'impressions': arrayEstrategia
         }
     });
-    pagina = isHome() ? "Home" : "Ingresa tu pedido";
     dataLayer.push({
         'event': 'virtualEvent',
         'category': pagina,
@@ -161,4 +170,3 @@ function TagManagerCarruselSiguiente() {
     });
 
 }
-
