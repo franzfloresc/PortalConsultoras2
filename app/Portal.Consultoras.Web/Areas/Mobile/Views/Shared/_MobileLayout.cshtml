@@ -34,9 +34,6 @@
     }
     <link href="@Url.Content("~/Content/Css/Mobile/calc.css")" rel="stylesheet" type="text/css" />
 
-    <link href="@Url.Content("~/Content/Css/Mobile/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Mobile/flipclock.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
     </script>
@@ -736,22 +733,6 @@
     @if (ViewBag.MostrarOfertaDelDia == true) {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     }
-    <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
-    
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/flipclock.js")"></script>
-    <!--<script type="text/javascript">
-
-
-		$(document).ready(function() {
-			
-		    var clock = $('.clock').FlipClock(3600, {
-		        countdown: true
-		    });
-  
-
-		});
-    </script>-->
     
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
@@ -1024,9 +1005,6 @@
             return false;
         }
     </script>
-
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     @RenderSection("scripts", required: false)
     @{Html.PlaceScripts();}
 </body>

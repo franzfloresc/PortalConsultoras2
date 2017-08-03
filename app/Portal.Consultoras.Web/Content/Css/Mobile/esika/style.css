@@ -12224,18 +12224,6 @@ a{
         width:260px;
     }
 }
-.texto_cupon_black{
-    color: #000;
-    font-family: 'Lato';
-    line-height: 16px;
-    padding-left: 10px;
-    font-size: 12.5px;
-    float: right;
-    width: calc(100% - 110px);
-    width:-moz-calc(100% -110px);
-    width:-webkit-calc(100% - 110px);
-    text-align: left;
-}
 .link_cupon_home{
     display:block;
     color:inherit;
