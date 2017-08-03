@@ -77,9 +77,15 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("template-Landing", model);
         }
 
-        public ActionResult DetalleModel(EstrategiaPersonalizadaProductoModel modelo = null)
+        public ActionResult DetalleModel(string cuv,int campaniaId)
         {
-            modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
+            //modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
+            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
+            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv  || modelo.CampaniaID != campaniaId)
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+            }
+
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -93,30 +99,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
                 modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                return View(modelo);
-            }
-            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
-        }
-
-        public ActionResult DetalleModel(EstrategiaPedidoModel modelo = null)
-        {
-            modelo = modelo ?? new EstrategiaPedidoModel();
-            if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
-            {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
-            }
-            if (EsCampaniaFalsa(modelo.CampaniaID))
-            {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
-            }
-            
-            if (modelo.EstrategiaID > 0)
-            {
-                modelo.EstrategiaDetalle = modelo.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
-
-                var lista = new List<EstrategiaPedidoModel>() { modelo };
-                modelo = ConsultarEstrategiasModelFormato(lista)[0];
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 return View(modelo);
             }

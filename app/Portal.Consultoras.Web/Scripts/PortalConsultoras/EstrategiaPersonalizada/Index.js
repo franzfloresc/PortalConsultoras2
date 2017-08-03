@@ -95,7 +95,9 @@ function VerDetalleEstrategia(e) {
     AbrirLoad();
 
     var estrategia = EstrategiaObtenerObj(e);
-    var origenPedido = $().parents("[data-OrigenPedidoWeb]").data("OrigenPedidoWeb");
+    var objHtmlEvent = $(e.target);
+    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+    var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").data("OrigenPedidoWeb");
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia.EstrategiaID, origenPedido);
         return true;
@@ -149,17 +151,28 @@ function EstrategiaVerDetalleMobile(id, origen) {
         if (typeof EstrategiaGuardarTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
-            var obj = GetProductoStorage(cuv, campania);
+            var obj  = {};
+            if (typeof cuv == "undefined" || typeof campania == "undefined") {
+                obj = JSON.parse($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
+            }
+            else {
+                obj = GetProductoStorage(cuv, campania);
+            }
             obj.CUV2 = $.trim(obj.CUV2);
+            if (obj.CUV2 === "") {
+                obj = JSON.parse($("[data-item=" + id + "]").find("[data-estrategia]").attr("data-estrategia"));
+                obj.CUV2 = $.trim(obj.CUV2);
+            }
             if (obj.CUV2 != "") {
                 if (EstrategiaGuardarTemporal(obj))
-                    return window.location = url;
+                    window.location = url;
             }
         }
     } catch (e) {
         console.log(e);
+        CerrarLoad();
     }
-    window.location = url;
+    //window.location = url;
 }
 
 function EstrategiaVerDetallePackNueva() {
@@ -299,9 +312,18 @@ function EstrategiaGuardarTemporal(obj) {
 
     var varReturn = false;
 
+    var ruta = "";
+
+    if (typeof urlOfertaDetalleProductoTem == "undefined") {
+        ruta = "/RevistaDigital/GuardarProductoTemporal";
+    }
+    else {
+        ruta = urlOfertaDetalleProductoTem;
+    }
+
     jQuery.ajax({
         type: 'POST',
-        url: urlOfertaDetalleProductoTem,
+        url: ruta,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(obj),
@@ -347,50 +369,11 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var objInput = $(event.target);
 
-    if ($.trim($(objInput).attr("data-bloqueada")) != "") {
-        if (isMobile()) {
-            EstrategiaVerDetalleMobile(estrategia.EstrategiaID);
-            return false;
-        }
-
-        var divMensaje = $("#divMensajeBloqueada");
-        if (divMensaje.length > 0) {
-            var itemClone = $(objInput).parents("[data-item]");
-            var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-            if (cuvClone != "") {
-                itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
-            }
-            if (itemClone.length > 0) {
-                divMensaje.find("[data-item-html]").html(itemClone.html());
-                divMensaje = divMensaje.find("[data-item-html]");
-                divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
-                divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
-                divMensaje.find('[data-item-tag="body"]').css("float", "none");
-                divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
-                divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
-                divMensaje.find('[data-item-tag="body"]').attr("class", "");
-                divMensaje.find('[data-item-tag="agregar"]').remove();
-                divMensaje.find('[data-item-tag="fotofondo"]').remove();
-                divMensaje.find('[data-item-tag="verdetalle"]').remove();
-                divMensaje.find('[data-item-accion="verdetalle"]').remove();
-                divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
-                divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
-                divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
-            }
-
-            $(".contenedor_popup_detalleCarousel").hide();
-            $("#divMensajeBloqueada").show();
-        }
-
+    if (EstrategiaValidarBloqueada(objInput)) {
         return false;
     }
 
-    var attrClass = $.trim($(objInput).attr("class"));
-    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
-        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
-        setTimeout(function () {
-            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
-        }, 500);
+    if (EstrategiaValidarSeleccionTono(objInput)) {
         return false;
     }
 
@@ -562,6 +545,61 @@ function EstrategiaAgregar(event, popup, limite) {
         }
     });
 
+}
+
+function EstrategiaValidarBloqueada(objInput, estrategia) {
+    if ($.trim($(objInput).attr("data-bloqueada")) == "") {
+        return false;
+    }
+
+    if (isMobile()) {
+        EstrategiaVerDetalleMobile(estrategia.EstrategiaID);
+        return true;
+    }
+
+    var divMensaje = $("#divMensajeBloqueada");
+    if (divMensaje.length > 0) {
+        var itemClone = $(objInput).parents("[data-item]");
+        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+        if (cuvClone != "") {
+            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length > 0) {
+            divMensaje.find("[data-item-html]").html(itemClone.html());
+            divMensaje = divMensaje.find("[data-item-html]");
+            divMensaje.find('[data-item-tag="body"]').removeAttr("data-estrategia");
+            divMensaje.find('[data-item-tag="body"]').css("min-height", "auto");
+            divMensaje.find('[data-item-tag="body"]').css("float", "none");
+            divMensaje.find('[data-item-tag="body"]').css("margin", "0 auto");
+            divMensaje.find('[data-item-tag="body"]').css("background-color", "#fff");
+            divMensaje.find('[data-item-tag="body"]').attr("class", "");
+            divMensaje.find('[data-item-tag="agregar"]').remove();
+            divMensaje.find('[data-item-tag="fotofondo"]').remove();
+            divMensaje.find('[data-item-tag="verdetalle"]').remove();
+            divMensaje.find('[data-item-accion="verdetalle"]').remove();
+            divMensaje.find('[data-item-tag="contenido"]').removeAttr("onclick");
+            divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
+            divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
+        }
+
+        $(".contenedor_popup_detalleCarousel").hide();
+        $("#divMensajeBloqueada").show();
+    }
+
+    return true;
+
+}
+
+function EstrategiaValidarSeleccionTono(objInput) {
+    var attrClass = $.trim($(objInput).attr("class"));
+    if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
+        $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
+        setTimeout(function () {
+            $(objInput).parents("[data-item]").find("[data-tono-change='1']").parent().removeClass("tono_no_seleccionado");
+        }, 500);
+        return true;
+    }
+    return false;
 }
 
 function AbrirMensajeEstrategia(txt) {

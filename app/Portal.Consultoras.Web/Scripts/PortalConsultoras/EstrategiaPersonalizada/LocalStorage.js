@@ -1,4 +1,6 @@
 ﻿
+var lsListaRD = lsListaRD || "";
+
 function LocalStorageListado(key, valor, accion) {
     // accion => 0 insertar => 1 obtener => 2 eliminar
     accion = accion || 0;
@@ -63,7 +65,7 @@ function ActualizarLocalStorageAgregado(tipo, cuv, valor) {
 function RDActualizarLocalStorageAgragado(cuv, valor) {
     var ok = false;
     cuv = $.trim(cuv);
-    var lsListaRD = lsListaRD || "ListaRD";
+    lsListaRD = lsListaRD || "ListaRD";
     var indCampania = indCampania || 0;
     var valLocalStorage = localStorage.getItem(lsListaRD + campaniaCodigo);
     if (valLocalStorage != null) {

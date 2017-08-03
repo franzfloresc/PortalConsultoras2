@@ -422,6 +422,7 @@
 
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 <script id="js-CarruselSugerido" type="text/x-handlebars-template">
     {{#each this}}
@@ -675,6 +676,9 @@
     </script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Pedido/index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js")"></script> 
     <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
     <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
 }

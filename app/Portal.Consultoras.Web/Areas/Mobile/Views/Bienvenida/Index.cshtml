@@ -716,6 +716,7 @@
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-header-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-bpt-seccion.cshtml")
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 <!--SHOWROOM: modal popup -->
 <div class="modal fade" id="PopShowroom">
@@ -941,56 +942,58 @@
             });
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-            <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
         <script type="text/javascript">
 
-                var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
-                var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
-                var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
-                var ViewBagRutaChile = '@Model.RutaChile';
-                var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
-                var viewBagPaisID = '@Model.PaisID';
-                var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
-                var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-                var contadorFondoPopUp = 0;
-                var viewBagVioTutorial = '@Model.VioTutorial';
-                var origenPagina = 1;//PL20-1233
-                var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
-                var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
-                var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
-                var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
-                var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
-                var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
-                var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
-                var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-                var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+            var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
+            var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
+            var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+            var ViewBagRutaChile = '@Model.RutaChile';
+            var ViewBagUrlChileEncriptada = '@Model.UrlChileEncriptada';
+            var viewBagPaisID = '@Model.PaisID';
+            var urlJSONSetUsuarioTutorial = '@Url.Action("JSONSetUsuarioTutorial", "Bienvenida", new { area = "Mobile" })';
+            var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+            var contadorFondoPopUp = 0;
+            var viewBagVioTutorial = '@Model.VioTutorial';
+            var origenPagina = 1;//PL20-1233
+            var urlUpdatePopupShowRoom = '@Url.Action("UpdatePopupShowRoom", "ShowRoom", new { area = "" })';
+            var urlMostrarShowRoomPopup = '@Url.Action("MostrarShowRoomPopup", "Bienvenida", new { area = "" })';
+            var urlShowRoomBienvenida = '@Url.Action("Index", "ShowRoom", new { area = "Mobile" })';
+            var urlGetProductoFichaOPT = '@Url.Action("GetProductoFichaOPT", "Pedido", new { area = ""})'; //PL20-1265
+            var urlInsertarProductoCompartido = '@Url.Action("InsertarProductoCompartido", "CatalogoPersonalizado", new { area = "" })'; //PL20-1266
+            var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
+            var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+            var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
+            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
 
-                var tipoOrigenEstrategia = 2;
-                var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
-                var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
+            var tipoOrigenEstrategia = 2;
+            var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi';
+            var noMostrarPopUpRevistaDig = '@Model.RevistaDigitalPopUpMostrar';
 
+            //EPD-1837
+            var vbFotoPerfil = '@ViewBag.FotoPerfil';
+            if (vbFotoPerfil != null && vbFotoPerfil != "") {
+                $('.content_foto').show();
+            }
 
-                //EPD-1837
-                var vbFotoPerfil = '@ViewBag.FotoPerfil';
-                if (vbFotoPerfil != null && vbFotoPerfil != "") {
-                    $('.content_foto').show();
-                }
-
-                var viewBagCampaniaActual = '@Model.CampaniaActual';
-                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-                var tieneCupon = '@Model.TieneCupon';
-                var tieneMasVendidos = @Model.TieneMasVendidos;
-                var paginaOrigenCupon = 2;
-                var esEmailActivo = '@Model.EmailActivo';
-                var paisISO = '@ViewBag.paisISO';
-                var viewBagAmbiente = '@ViewBag.Ambiente';
-                var correo = '@Model.EMail';
-                var celular = '@Model.Celular';
+            var viewBagCampaniaActual = '@Model.CampaniaActual';
+            var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+            var tieneCupon = '@Model.TieneCupon';
+            var tieneMasVendidos = @Model.TieneMasVendidos;
+            var paginaOrigenCupon = 2;
+            var esEmailActivo = '@Model.EmailActivo';
+            var paisISO = '@ViewBag.paisISO';
+            var viewBagAmbiente = '@ViewBag.Ambiente';
+            var correo = '@Model.EMail';
+            var celular = '@Model.Celular';
         </script>
 
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-        <script src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-        <script src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>      
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js")"></script>
+        <script type="text/javascript" src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
+        <script type="text/javascript" src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>    
     }

@@ -54,19 +54,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
-
-                if (modelo == null || modelo.EstrategiaID == 0)
-                {
-                    List<BEEstrategia> listaEstrategiaPedidoModel =
-                        (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                    var modelo1 = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv)
-                        .ToList());
-                    modelo = ConsultarEstrategiasFormatearModelo(modelo1).FirstOrDefault();
-                }
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.TieneProductosPerdio = TieneProductosPerdio(campaniaId);
-                return DetalleModel(modelo);
+                return DetalleModel(cuv, campaniaId);
                 
             }
             catch (Exception ex)

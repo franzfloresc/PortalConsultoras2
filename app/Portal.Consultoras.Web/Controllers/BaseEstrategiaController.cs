@@ -96,38 +96,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public EstrategiaPersonalizadaProductoModel EstrategiaGetDetalle(int id, string cuv = "", int origen = 0)
         {
-            var estrategia = new EstrategiaPedidoModel();
-            estrategia.Hermanos = new List<ProductoModel>();
             var estrategiaModelo = new EstrategiaPersonalizadaProductoModel();
             estrategiaModelo.Hermanos = new List<ProductoModel>();
 
             try
             {
-                //List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                //estrategia = (listaEstrategiaPedidoModel == null || listaEstrategiaPedidoModel.Count == 0) ? 
-                //        null : ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
-
-                //if ((estrategia == null || estrategia.EstrategiaID <= 0) && Session[Constantes.SessionNames.ProductoTemporal] != null)
-                //{
-                //    var lista = new List<EstrategiaPedidoModel>() { estrategia };
-                //    estrategia = ConsultarEstrategiasModelFormato(lista)[0];
-                //}
-
-                //if (estrategia == null || estrategia.EstrategiaID <= 0)
-                //{
-                //    var lista = ConsultarEstrategias("", 0, "", origen);
-                //    cuv = Util.Trim(cuv);
-                //    estrategia = Mapper.Map<BEEstrategia, EstrategiaPedidoModel>(lista.Find(e => e.EstrategiaID == id || (e.CUV2 == cuv && cuv != "")) ?? new BEEstrategia());
-                //}
-
                 estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
                 if (estrategiaModelo == null || estrategiaModelo.EstrategiaID <= 0)
                     return estrategiaModelo;
 
                 estrategiaModelo.Hermanos = new List<ProductoModel>();
-                //estrategiaModelo.PaisID = userData.PaisID;
-                //estrategiaModelo.DescripcionCUV2 = Util.Trim(estrategia.DescripcionCUV2);
-                //estrategiaModelo.Descripcion = estrategia.DescripcionCUV2.Split('|')[0];
                 estrategiaModelo.TextoLibre = Util.Trim(estrategiaModelo.TextoLibre);
                 estrategiaModelo.CodigoVariante = Util.Trim(estrategiaModelo.CodigoVariante);
                 estrategiaModelo.UrlCompartir = GetUrlCompartirFB();
