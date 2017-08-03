@@ -62,6 +62,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public string CodigosConcursos { get; set; }
         public bool ZonaProlActiva { get { return ZonaValida && ValidacionInteractiva; } }
         public int PedidoID { get; set; }
-
+        [DataMember]
+        public int SegmentoInternoID { get; set; }
     }
 }
