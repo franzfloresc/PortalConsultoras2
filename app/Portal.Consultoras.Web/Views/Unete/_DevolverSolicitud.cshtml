@@ -480,7 +480,7 @@
         modal.dialog('close');
     });
     $('#btnAceptar').click(function () {
-        debugger;
+        //debugger;
 
         if ($('#Observacion').val() != '') {
             var data = {
@@ -488,7 +488,7 @@
                 observacion: $('#Observacion').val()
             };
             $.post('@Url.Action("DevolverSolicitud", "Unete")', data, function (reactivada) {
-                debugger;
+                //debugger;
                 if (reactivada) {
                     cerrarDevolver();
                     fnGrilla();
