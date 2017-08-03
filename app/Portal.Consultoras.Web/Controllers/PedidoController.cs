@@ -41,7 +41,6 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetObservacionesProl(null);
                 sessionManager.SetPedidoWeb(null);
                 sessionManager.SetDetallesPedido(null);
-                sessionManager.SetCorreoPedidoDetalle(null);
 
                 AgregarKitNuevas();
 

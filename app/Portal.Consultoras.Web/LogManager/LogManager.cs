@@ -6,20 +6,8 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.LogManager
 {
-    public class LogManager : ILogManager
+    public static class LogManager
     {
-        private static ILogManager instance;
-        public static ILogManager Instance
-        {
-            get
-            {
-                if (instance == null)
-                    instance = new LogManager();
-
-                return instance;
-            }
-        }
-
         private static string sPathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
 
         public static void LogErrorWebServicesPortal(FaultException faulException, string usuario, string pais)
@@ -70,11 +58,6 @@ namespace Portal.Consultoras.Web.LogManager
                 oStream.WriteLine("Fecha y Hora: " + model.FechaHora + " ==> Controller: " + model.Controller + " - Action: " + model.Action);
                 oStream.WriteLine(string.Empty);
             }
-        }
-
-        public virtual void LogErrorWebServicesBus2(Exception exception, string usuario, string pais, string paso)
-        {
-            LogErrorWebServicesBus2(exception, usuario, pais, paso);
         }
     }
 }

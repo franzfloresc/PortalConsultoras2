@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
-using Portal.Consultoras.Web.LogManager;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
@@ -24,20 +23,9 @@ namespace Portal.Consultoras.Web.Controllers
     public class LoginController : Controller
     {
         private string pasoLog;
-        private ILogManager logManager;
         private readonly string IP_DEFECTO = "190.187.154.154";
         private readonly string ISO_DEFECTO = "PE";
         private readonly int USUARIO_VALIDO = 3;
-
-        public LoginController()
-        {
-            logManager = LogManager.LogManager.Instance;
-        }
-
-        public LoginController(ILogManager logManager)
-        {
-            this.logManager = logManager;
-        }
 
         [AllowAnonymous]
         public ActionResult Index(string returnUrl = null)
@@ -79,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                logManager.LogErrorWebServicesBus2(ex, ip, iso, "Login.GET.Index");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, ip, iso, "Login.GET.Index");
             }
 
             ViewBag.FBAppId = ConfigurationManager.AppSettings.Get("FB_AppId");

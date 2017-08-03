@@ -51,10 +51,5 @@ namespace Portal.Consultoras.Web.SessionManager
         {
             HttpContext.Current.Session["ObservacionesPROL"] = observaciones;
         }
-
-        public void SetCorreoPedidoDetalle(string correoPedidoDetalle)
-        {
-            HttpContext.Current.Session["EmailPedidoDetalle"] = correoPedidoDetalle;
-        }
     }
 }

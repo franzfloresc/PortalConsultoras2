@@ -41,6 +41,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public BaseController(ISessionManager sessionManager)
+            : this()
         {
             this.sessionManager = sessionManager;
         }
