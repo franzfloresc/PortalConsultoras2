@@ -14,6 +14,7 @@ using System.Globalization;
 
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServicePedido;
+//using Portal.Consultoras.Web.ServiceCliente;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -945,90 +946,48 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_ListaPedidos", mostrarPagina());
         }
 
-        //public ActionResult AceptarPedido(string id)
-        //{
-        //    MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-        //    consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-        //    BEMisPedidos pedido = new BEMisPedidos();
-        //    long pedidoId = long.Parse(id);
-        //    pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == pedidoId).FirstOrDefault();
-        //    ViewBag.Simbolo = UserData().Simbolo;
+        [HttpPost]
+        public JsonResult GetExisteClienteConsultora(ServiceCliente.BECliente model)
+        {
+            try
+            {
+                int id = 0;
+                using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
+                {
+                    model.ConsultoraID = userData.ConsultoraID;
+                    id = svc.GetExisteClienteConsultora(userData.PaisID, model);
+                }
 
-        //    string marcaPedido = pedido.DetallePedido.Count() > 0 ? pedido.DetallePedido[0].Marca : "";
-
-        //    #region AceptarPedido
-
-        //    int paisId = UserData().PaisID;
-        //    string MensajeaCliente = "Gracias por haberme escogido como tu Consultora. Me pondré en contacto contigo para coordinar la hora y lugar de entrega.";
-        //    try
-        //    {
-        //        using (ServiceSAC.SACServiceClient sc = new ServiceSAC.SACServiceClient())
-        //        {
-        //            ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
-        //            beSolicitudCliente.SolicitudClienteID = pedidoId;
-        //            beSolicitudCliente.CodigoConsultora = UserData().ConsultoraID.ToString();
-        //            beSolicitudCliente.MensajeaCliente = MensajeaCliente;
-        //            beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
-        //            beSolicitudCliente.Estado = "A";
-        //            sc.UpdSolicitudCliente(paisId, beSolicitudCliente);
-        //        }
-
-        //        List<BEMisPedidos> refresh = new List<BEMisPedidos>();
-        //        foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
-        //        {
-        //            if (item.PedidoId == int.Parse(id))
-        //            {
-        //                item.Estado = "A";
-        //                item.FechaModificacion = DateTime.Now;
-        //            }
-        //            refresh.Add(item);
-        //        }
-        //        MisPedidosModel refreshMisPedidos = new MisPedidosModel();
-        //        refreshMisPedidos.ListaPedidos = refresh;
-        //        Session["objMisPedidos"] = refreshMisPedidos;
-
-        //        using (ServiceCliente.ClienteServiceClient sc = new ServiceCliente.ClienteServiceClient())
-        //        {
-        //            ServiceCliente.BECliente beCliente = new ServiceCliente.BECliente();
-        //            beCliente.ConsultoraID = pedidoId;
-        //            beCliente.eMail = pedido.Email;//emailCliente;
-        //            beCliente.Nombre = pedido.Cliente;// NombreCliente;
-        //            beCliente.PaisID = UserData().PaisID;
-        //            beCliente.Activo = true;
-        //            sc.Insert(beCliente);
-
-        //        }
-
-        //        //R2548 - CS
-        //        String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
-        //        StringBuilder mensaje = new StringBuilder();
-        //        mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
-        //        mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente);
-        //        mensaje.Append("<br/>Saludos,<br/><br />");
-        //        mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
-        //        mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
-        //        try
-        //        {
-        //            Common.Util.EnviarMail3(UserData().EMail, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-        //        }
-        //    }
-        //    catch (FaultException e)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesPortal(e, UserData().CodigoConsultora, UserData().CodigoISO);
-        //    }
-
-        //    #endregion
-
-        //    return PartialView("_PedidoCliente", pedido);
-        //}
+                return Json(new
+                {
+                    success = true,
+                    codigo = id
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch(Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
         [HttpPost]
-        public JsonResult AceptarPedido(string pedidoId, MisPedidosModel pedidoModel, string typeAction = null)
+        //public JsonResult AceptarPedido(string pedidoId, MisPedidosModel pedidoModel, string typeAction = null)
+        public JsonResult AceptarPedido(ConsultoraOnlinePedidoModel pedido)
         {
+            /*
+            var cant = pedido.ListaDetalleModel.Count();
+            return Json(new
+            {
+                success = true,
+                message = "Ok",
+                code = 0
+            }, JsonRequestBehavior.AllowGet);
+            */
+
             // validar si puede ingresar el pedido
             var mensajeR = "";
             var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
@@ -1042,16 +1001,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
 
-            MisPedidosModel consultoraOnlineMisPedidos = new MisPedidosModel();
-            consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
-            BEMisPedidos pedido = new BEMisPedidos();
-            long _pedidoId = long.Parse(pedidoId);
-            pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == _pedidoId).FirstOrDefault();
+            MisPedidosModel consultoraOnlineMisPedidos = (MisPedidosModel)Session["objMisPedidos"];
+            BEMisPedidos _pedido = new BEMisPedidos();
+            _pedido = consultoraOnlineMisPedidos.ListaPedidos.Where(p => p.PedidoId == pedido.PedidoId).FirstOrDefault();
 
             // set detalles del pedido
-            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
-            olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
-            pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == pedido.PedidoId).ToArray();
+            List<BEMisPedidosDetalle> olstMisPedidosDet = (List<BEMisPedidosDetalle>)Session["objMisPedidosDetalle"];
+            _pedido.DetallePedido = olstMisPedidosDet.Where(x => x.PedidoId == _pedido.PedidoId).ToArray();
 
             //ViewBag.Simbolo = UserData().Simbolo;
 
@@ -1060,17 +1016,17 @@ namespace Portal.Consultoras.Web.Controllers
             string marcaPedido;
 
             // 0=App Catalogos, >0=Portal Marca
-            if (pedido.MarcaID == 0)        
+            if (_pedido.MarcaID == 0)
             {
                 tipo = 1;
-                marcaPedido = pedido.MedioContacto;
+                marcaPedido = _pedido.MedioContacto;
             }
             else
             {
                 tipo = 2;
-                marcaPedido = pedido.Marca;
+                marcaPedido = _pedido.Marca;
             }
-           
+
             #region AceptarPedido
 
             int paisId = userData.PaisID;
@@ -1081,7 +1037,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                 {
                     ServiceSAC.BESolicitudCliente beSolicitudCliente = new ServiceSAC.BESolicitudCliente();
-                    beSolicitudCliente.SolicitudClienteID = _pedidoId;
+                    beSolicitudCliente.SolicitudClienteID = _pedido.PedidoId;
                     beSolicitudCliente.CodigoConsultora = UserData().ConsultoraID.ToString();
                     beSolicitudCliente.MensajeaCliente = mensajeaCliente;
                     beSolicitudCliente.UsuarioModificacion = UserData().CodigoUsuario;
@@ -1092,7 +1048,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEMisPedidos> refresh = new List<BEMisPedidos>();
                 foreach (BEMisPedidos item in consultoraOnlineMisPedidos.ListaPedidos)
                 {
-                    if (item.PedidoId == _pedidoId)
+                    if (item.PedidoId == _pedido.PedidoId)
                     {
                         item.Estado = "A";
                         item.FechaModificacion = DateTime.Now;
@@ -1106,26 +1062,38 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string clienteId = string.Empty;
 
-                using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
+                if (pedido.ClienteId == 0)
                 {
-                    int vValidation = svc.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, pedido.Cliente);
+                    using (ServiceCliente.ClienteServiceClient svc = new ServiceCliente.ClienteServiceClient())
+                    {
+                        //int vValidation = svc.CheckClienteByConsultora(userData.PaisID, userData.ConsultoraID, _pedido.Cliente);
+                        ServiceCliente.BECliente a = new ServiceCliente.BECliente();
+                        a.ConsultoraID = userData.ConsultoraID;
+                        a.Nombre = _pedido.Cliente;
+                        int xclienteId = svc.GetExisteClienteConsultora(userData.PaisID, a);
 
-                    if (vValidation == 0)
-                    {
-                        ServiceCliente.BECliente beCliente = new ServiceCliente.BECliente();
-                        beCliente.ConsultoraID = UserData().ConsultoraID;
-                        beCliente.eMail = pedido.Email;//emailCliente;
-                        beCliente.Nombre = pedido.Cliente;// NombreCliente;
-                        beCliente.PaisID = UserData().PaisID;
-                        beCliente.Activo = true;
-                        //clienteId = beCliente.ClienteID;
-                        clienteId = svc.Insert(beCliente).ToString();
+                        if (xclienteId == 0)
+                        {
+                            ServiceCliente.BECliente beCliente = new ServiceCliente.BECliente();
+                            beCliente.ConsultoraID = UserData().ConsultoraID;
+                            beCliente.eMail = _pedido.Email;//emailCliente;
+                            beCliente.Nombre = _pedido.Cliente;// NombreCliente;
+                            beCliente.PaisID = UserData().PaisID;
+                            beCliente.Activo = true;
+                            //clienteId = beCliente.ClienteID;
+                            clienteId = svc.Insert(beCliente).ToString();
+                        }
+                        else
+                        {
+                            //var _cliente = svc.SelectByNombre(userData.PaisID, userData.ConsultoraID, _pedido.Cliente).First();
+                            //clienteId = _cliente.ClienteID.ToString();
+                            clienteId = xclienteId.ToString();
+                        }
                     }
-                    else
-                    {
-                        var _cliente = svc.SelectByNombre(userData.PaisID, userData.ConsultoraID, pedido.Cliente).First();
-                        clienteId = _cliente.ClienteID.ToString();
-                    }
+                }
+                else
+                {
+                    clienteId = pedido.ClienteId.ToString();
                 }
 
                 if (tipo == 1)  // solo para App Catalogos
@@ -1138,7 +1106,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     int contOk = 0;
 
-                    foreach (var item in pedidoModel.ListaDetalleModel)
+                    foreach (var item in pedido.ListaDetalleModel)
                     {
                         if (item.OpcionAcepta == "ingrped") // ingresa al pedido
                         {
@@ -1165,7 +1133,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     model.PrecioUnidad = Convert.ToDecimal(pedidoDetalle.PrecioUnitario);
                                     model.CUV = pedidoDetalle.CUV;
                                     model.DescripcionProd = pedidoDetalle.Producto;
-                                    model.ClienteDescripcion = pedido.Cliente;
+                                    model.ClienteDescripcion = _pedido.Cliente;
                                     //model.OrigenPedidoWeb = 1281;
                                     model.OrigenPedidoWeb = 0;
 
@@ -1176,7 +1144,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         using (ServiceSAC.SACServiceClient svc = new ServiceSAC.SACServiceClient())
                                         {
-                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where( x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId) ).FirstOrDefault();
+                                            bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == pedidoDetalle.CUV && x.MarcaID == pedidoDetalle.MarcaID && x.ClienteID == Convert.ToInt16(clienteId)).FirstOrDefault();
 
                                             if (bePedidoWebDetalle != null)
                                             {
@@ -1217,7 +1185,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string emailDe = ConfigurationManager.AppSettings["ConsultoraOnlineEmailDe"];
 
                 //Inicio GR-1385
-                if (pedido.FlagMedio == "01")
+                if (_pedido.FlagMedio == "01")
                 {
                     double totalPedido = 0;
 
@@ -1254,14 +1222,14 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("<td align='center' valign='middle'>");
                     mensajecliente.Append("<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' align='center' style='border-collapse: collapse!important;'>");
                     mensajecliente.Append("<tbody>");
-                   
+
                     mensajecliente.Append("<tr>");
                     mensajecliente.Append("<td align='center' valign='middle'>");
                     mensajecliente.Append("<table width='600' border='0' cellspacing='0' cellpadding='0' border-spacing='0' style='border-collapse: collapse!important;' align='center'>");
-                    
+
                     mensajecliente.Append("<tbody><tr>");
                     mensajecliente.Append("<td colspan='2'>");
-                    mensajecliente.Append("<span style='display: block; color: #7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Hola " + pedido.Cliente.Split(' ').First() + "</span>");
+                    mensajecliente.Append("<span style='display: block; color: #7f7f7f; font-size: 16px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Hola " + _pedido.Cliente.Split(' ').First() + "</span>");
                     mensajecliente.Append("<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>Tu Consultora " + UserData().PrimerNombre + " " + UserData().PrimerApellido + " ha confirmado tu pedido.</p>");
                     mensajecliente.Append("<p style='display: block; color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif; margin: 0.4em 0 0 0em;'>En seguida se pondrá en contacto contigo para coordinar la hora y lugar de entrega.</p><br>");
                     mensajecliente.Append("</td>");
@@ -1277,16 +1245,16 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("<span style='color: #7f7f7f; font-size: 15px; text-align: left; font-family: Arial, Helvetica, sans-serif;'>CLIENTE:");
                     mensajecliente.Append("</span>");
                     mensajecliente.Append("<br>");
-                    mensajecliente.Append("<span style='color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif;'> " + pedido.Cliente + "<br>");
-                    mensajecliente.Append(pedido.Email + "<br>");
-                    mensajecliente.Append(pedido.Telefono);
+                    mensajecliente.Append("<span style='color: #7f7f7f; font-size: 14px; text-align: left; font-family: Arial, Helvetica, sans-serif;'> " + _pedido.Cliente + "<br>");
+                    mensajecliente.Append(_pedido.Email + "<br>");
+                    mensajecliente.Append(_pedido.Telefono);
                     mensajecliente.Append("</span>");
                     mensajecliente.Append("</span>");
                     mensajecliente.Append("</td>");
                     mensajecliente.Append("<td style='width: 35%;' align='top' valign='middle'>");
                     mensajecliente.Append("<span style='display: block; margin: 0.6em 0 0 0.6em;'>");
-                    mensajecliente.Append("<span style='color: #7f7f7f; font-size: 11px; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 1em'>FECHA: " + String.Format("{0:dd/MM/yyyy}", pedido.FechaSolicitud) + "<br>");
-                    mensajecliente.Append("CAMPAÑA: " + pedido.Campania + "<br>");
+                    mensajecliente.Append("<span style='color: #7f7f7f; font-size: 11px; text-align: left; font-family: Arial, Helvetica, sans-serif; line-height: 1em'>FECHA: " + String.Format("{0:dd/MM/yyyy}", _pedido.FechaSolicitud) + "<br>");
+                    mensajecliente.Append("CAMPAÑA: " + _pedido.Campania + "<br>");
                     mensajecliente.Append("</span>");
                     mensajecliente.Append("</span>");
                     mensajecliente.Append("</td>");
@@ -1305,7 +1273,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensajecliente.Append("</tr>");
                     int cntfila = 0;
 
-                    foreach (var item in pedido.DetallePedido)
+                    foreach (var item in _pedido.DetallePedido)
                     {
                         totalPedido += item.PrecioTotal;
                         cntfila = cntfila + 1;
@@ -1355,13 +1323,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (typeAction == "1")  // desktop
+                        if (pedido.Accion == 1)  // desktop
                         {
-                            Common.Util.EnviarMail3(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
+                            Common.Util.EnviarMail3(emailDe, _pedido.Email, titulocliente, mensajecliente.ToString(), true, _pedido.Email);
                         }
                         else
                         {
-                            Common.Util.EnviarMail3Mobile(emailDe, pedido.Email, titulocliente, mensajecliente.ToString(), true, pedido.Email);
+                            Common.Util.EnviarMail3Mobile(emailDe, _pedido.Email, titulocliente, mensajecliente.ToString(), true, _pedido.Email);
                         }
                     }
                     catch (Exception ex)
@@ -1374,7 +1342,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //R2548 - CS
                     String titulo = "(" + UserData().CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(marcaPedido); //Marca
                     StringBuilder mensaje = new StringBuilder();
-                    mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(pedido.Cliente));
+                    mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(_pedido.Cliente));
                     mensaje.AppendFormat("{0}</p><br/>", mensajeaCliente);
                     mensaje.Append("<br/>Saludos,<br/><br />");
                     mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
@@ -1382,13 +1350,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                     try
                     {
-                        if (typeAction == "1")      // desktop
+                        if (pedido.Accion == 1)      // desktop
                         {
-                            Common.Util.EnviarMail3(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                            Common.Util.EnviarMail3(emailDe, _pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         }
                         else
                         {
-                            Common.Util.EnviarMail3Mobile(emailDe, pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
+                            Common.Util.EnviarMail3Mobile(emailDe, _pedido.Email, titulo, mensaje.ToString(), true, string.Empty);
                         }
                     }
                     catch (Exception ex)
@@ -1403,7 +1371,7 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "OK",
                     DataBarra = GetDataBarra(),
                     code = 1
-                }, JsonRequestBehavior.AllowGet); 
+                }, JsonRequestBehavior.AllowGet);
 
                 //Fín GR-1385
             }
@@ -1416,12 +1384,13 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = e.Message,
                     code = 1
-                }, JsonRequestBehavior.AllowGet); 
+                }, JsonRequestBehavior.AllowGet);
             }
 
             #endregion
 
             //return PartialView("_PedidoCliente", pedido);
+
         }
 
         private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)

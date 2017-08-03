@@ -80,6 +80,7 @@ namespace Portal.Consultoras.BizLogic
             string detailFileAct = null, NombreDetalleAct = null; //CGI (VVA) 2450
             string headerFileS3 = null, detailFileS3 = null, dataConFileS3 = null;
             DateTime FechaHoraPais;
+            bool incluirConsultora = ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1;
 
             try
             {
@@ -198,7 +199,7 @@ namespace Portal.Consultoras.BizLogic
 
                 //CGI (VVA) - 2450
                 // if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
+                if (incluirConsultora) //VVA CO528
                 {
                     try
                     {
@@ -329,40 +330,34 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && !isFox && tipoCronograma == 1)
-                if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA 2450 CGI //CO528
+                if (incluirConsultora && string.IsNullOrEmpty(ErrorCoDat))
                 {
-                    bool descargaActDatosv2 = ConfigurationManager.AppSettings["DescargaActDatosv2"] == "1";
-                    actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate], descargaActDatosv2);
-                    if (string.IsNullOrEmpty(ErrorCoDat))
+                    try
                     {
-                        try
+                        bool descargaActDatosv2 = ConfigurationManager.AppSettings["DescargaActDatosv2"] == "1";
+                        actdatosTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.ActDatosTemplate], descargaActDatosv2);
+                        ftpElementCoDat = ftpSection.FtpConfigurations[codigoPais + "-ACDAT"];
+                        dataConFileS3 = dataConFile = FormatFile(codigoPais, ftpElementCoDat.Header, fechaFacturacion, fileGuid);
+
+                        NombreCoDat = dataConFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
+
+                        using (var streamWriter = new StreamWriter(dataConFile))
                         {
-                            ftpElementCoDat = ftpSection.FtpConfigurations[codigoPais + "-ACDAT"];
-                            dataConFileS3 = dataConFile = FormatFile(codigoPais, ftpElementCoDat.Header, fechaFacturacion, fileGuid);
-
-                            NombreCoDat = dataConFile.Replace(ConfigurationManager.AppSettings["OrderDownloadPath"], "");
-
-                            using (var streamWriter = new StreamWriter(dataConFile))
+                            if (dtDatosConsultora != null && dtDatosConsultora.Rows.Count != 0)
                             {
-                                if (dtDatosConsultora != null && dtDatosConsultora.Rows.Count != 0)
+                                foreach (DataRow row in dtDatosConsultora.Rows)
                                 {
-                                    foreach (DataRow row in dtDatosConsultora.Rows)
-                                    {
-                                        streamWriter.WriteLine(CoDatLine(actdatosTemplate, row, codigoPaisProd));
-                                    }
-                                }
-                                else
-                                {
-                                    streamWriter.Write(string.Empty);
+                                    streamWriter.WriteLine(CoDatLine(actdatosTemplate, row, codigoPaisProd));
                                 }
                             }
+                            else streamWriter.Write(string.Empty);
                         }
-                        catch (Exception ex)
-                        {
-                            LogManager.SaveLog(ex, usuario, codigoPais);
-                            exceptionCoDat = ex;
-                            ErrorCoDat = "No se pudo generar los archivos de datos de consultora.";
-                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        LogManager.SaveLog(ex, usuario, codigoPais);
+                        exceptionCoDat = ex;
+                        ErrorCoDat = "No se pudo generar los archivos de datos de consultora.";
                     }
                 }
 
@@ -384,10 +379,7 @@ namespace Portal.Consultoras.BizLogic
                         headerFile = srvName + Path.GetFileName(headerFile);
                         detailFile = srvName + Path.GetFileName(detailFile);
                         detailFileAct = srvName + Path.GetFileName(detailFileAct); //CGI (VVA) 2450
-                        if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
-                        {
-                            dataConFile = srvName + Path.GetFileName(dataConFile);
-                        }
+                        if (incluirConsultora) dataConFile = srvName + Path.GetFileName(dataConFile);
                     }
                     else
                     {
@@ -453,53 +445,55 @@ namespace Portal.Consultoras.BizLogic
                         throw new BizLogicException("No se pudo marcar los pedidos Web como enviados.", ex);
                     }
 
-                    if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
+                    if (incluirConsultora && string.IsNullOrEmpty(ErrorCoDat))
                     {
-                        if (string.IsNullOrEmpty(ErrorCoDat))
+                        try
                         {
-                            try
-                            {
-                                DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 2, null, null, NombreCoDat, System.Environment.MachineName);
-                            }
-                            catch (Exception ex)
-                            {
-                                LogManager.SaveLog(ex, usuario, codigoPais);
-                                exceptionCoDat = ex;
-                                ErrorCoDat = "No se pudo marcar los datos de la consultora como enviados.";
-                            }
+                            DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 2, null, null, NombreCoDat, System.Environment.MachineName);
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.SaveLog(ex, usuario, codigoPais);
+                            exceptionCoDat = ex;
+                            ErrorCoDat = "No se pudo marcar los datos de la consultora como enviados.";
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
+                LogManager.SaveLog(ex, usuario, codigoPais);
+
+                string error = "Error desconocido: " + ex.Message;
+                string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                 if (nroLote > 0)
                 {
-                    string error = "Error desconocido: " + ex.Message;
-                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                     try { DAPedidoWeb.UpdPedidoWebIndicadorEnviado(nroLote, false, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
                     catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
 
-                        if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
-                        {
+                    if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
+                    {
                         try { DAPedidoDD.UpdPedidoDDIndicadorEnviado(nroLote, false, FechaHoraPais); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        }
-
-                    if (ConfigurationManager.AppSettings["OrderDownloadIncludeDatosConsultora"] == "1" && tipoCronograma == 1) //VVA CO528
-                    {
-                        if (exceptionCoDat != null)
-                        {
-                            error = ErrorCoDat;
-                            errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
-                        }
-
-                        try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty); }
-                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("ActualizaciÃ³n Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                     }
                 }
+                MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
+
+                if (incluirConsultora)
+                {
+                    if (exceptionCoDat != null)
+                    {
+                        error = ErrorCoDat;
+                        errorExcepcion = ErrorUtilities.GetExceptionMessage(exceptionCoDat);
+                    }
+                    if (nroLote > 0)
+                    {
+                        try { DAPedidoWeb.UpdDatosConsultoraIndicadorEnviado(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty); }
+                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
+                    }
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
+                }
+
                 throw;
             }
 
@@ -515,6 +509,8 @@ namespace Portal.Consultoras.BizLogic
                 }
                 catch (Exception ex)
                 {
+                    LogManager.SaveLog(ex, usuario, codigoPais);
+
                     string error = "Terminado OK; pero con error al guardar backups en S3.";
                     string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                     try { DAPedidoWeb.UpdPedidoDescargaGuardoS3(nroLote, false, error, errorExcepcion); }
@@ -533,11 +529,13 @@ namespace Portal.Consultoras.BizLogic
                     }
                     catch (Exception ex)
                     {
+                        LogManager.SaveLog(ex, usuario, codigoPais);
+
                         string error = "Terminado OK; pero con error al guardar backups en S3.";
                         string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
                         try { DAPedidoWeb.UpdConsultoraDescargaGuardoS3(nroLote, false, error, errorExcepcion); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("ActualizaciÃ³n Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Actualización Datos Consultora", codigoPais, FechaHoraPais, descripcionProceso, error, errorExcepcion);
                     }
                 }
             }
@@ -721,17 +719,17 @@ namespace Portal.Consultoras.BizLogic
             }
             catch (Exception ex)
             {
-                if (nroLote > 0)
+                LogManager.SaveLog(ex, usuario, codigoPais);
+
+                string error = "Error desconocido: " + ex.Message;
+                string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                if (nroLote > 0 && dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
                 {
-                    if (dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
-                    {
-                        string error = "Error desconocido: " + ex.Message;
-                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
-                        try { DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, false, FechaHoraPais, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
-                        catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
-                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, Enumeradores.TipoDescargaPedidos.DigitacionDistribuidaParcial.ToString(), error, errorExcepcion);
-                    }
+                    try { DAPedidoDD.UpdPedidoDDIndicadorEnviadoDD(nroLote, false, FechaHoraPais, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty); }
+                    catch (Exception ex2) { LogManager.SaveLog(ex2, usuario, codigoPais); }
                 }
+                MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", codigoPais, FechaHoraPais, Enumeradores.TipoDescargaPedidos.DigitacionDistribuidaParcial.ToString(), error, errorExcepcion);
+
                 throw;
             }
             string[] s = null;

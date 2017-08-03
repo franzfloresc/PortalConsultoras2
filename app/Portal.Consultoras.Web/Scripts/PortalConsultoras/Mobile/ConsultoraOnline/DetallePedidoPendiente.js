@@ -77,45 +77,45 @@ function RechazarPedido(id) {
 };
 
 function AceptarPedido(id, tipo) {
-
     var isOk = true;
     var detalle = [];
-
-    var totIng = 0;
+    var ing = 0;
 
     $('div.detalle_pedido_reservado').each(function () {
-        var detid = $(this).find("input[id*='soldet_']").val();
-        var qty = $(this).find('#soldet_qty_' + detid).text();
-        var tipoate = $(this).find('#soldet_tipoate_' + detid).val();
-        var opt = 0;
+        var id = $(this).find("input[id*='soldet_']").val();
+        var cant = $(this).find('#soldet_qty_' + id).text();
+        var opt = $(this).find('#soldet_tipoate_' + id).val();
+        var k = 0;
 
-        if (typeof tipoate !== 'undefined') {
-            if (tipoate == "") {
+        if (typeof opt !== 'undefined') {
+            if (opt == "") {
                 $('#ComoloAtenderas').show();
                 isOk = false;
                 return false;
             }
             else {
-                opt = tipoate;
-                if (tipoate == 'ingrped') {
-                    totIng += parseInt(qty);
+                k = opt;
+                if (opt == 'ingrped') {
+                    ing += parseInt(cant);
                 }
             }
         }
 
-        var d = {
-            PedidoDetalleId: detid,
-            OpcionAcepta: opt
+        if (typeof id !== 'undefined' && id !== "") {
+            var d = {
+                PedidoDetalleId: id,
+                OpcionAcepta: k
+            }
+            detalle.push(d);
         }
-
-        detalle.push(d);
     });
 
     if (isOk) {
         var pedido = {
-            pedidoId: id,
+            PedidoId: id,
+            ClienteId: 0,
             ListaDetalleModel: detalle,
-            typeAction: '2'
+            Accion: 2
         }
 
         ShowLoading();
@@ -130,9 +130,8 @@ function AceptarPedido(id, tipo) {
                 CloseLoading();
                 if (checkTimeout(response)) {
                     if (response.success) {
-                    
                         if (tipo == 1) {
-                            $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' producto(s) a tu pedido');
+                            $('#detallePedidoAceptado').text('Has agregado ' + ing.toString() + ' producto(s) a tu pedido');
                         }
                         else {
                             $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
@@ -143,7 +142,7 @@ function AceptarPedido(id, tipo) {
                     }
                     else {
                         if (response.code == 1) {
-                        AbrirMensaje(response.message);
+                            AbrirMensaje(response.message);
                         }
                         else if (response.code == 2) {
                             $('#MensajePedidoReservado').text(response.message);
@@ -154,7 +153,6 @@ function AceptarPedido(id, tipo) {
             },
             error: function (data, error) {
                 CloseLoading();
-                
                 if (checkTimeout(data)) {
                     AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
                 }

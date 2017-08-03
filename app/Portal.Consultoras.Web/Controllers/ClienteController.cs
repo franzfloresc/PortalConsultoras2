@@ -39,6 +39,15 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Mantener(ClienteModel model)
         {
+            /*
+            return Json(new
+            {
+                success = true,
+                message = "OK",
+                extra = string.Format("{0}|{1}", 2, 2)
+            });
+            */
+
             //if (model.ClienteID == 0)
             //    return Insert(model);
             //else

@@ -8,19 +8,21 @@
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
 }
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        } }
+    &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
+    
+</div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-<div class="content_room_product_sheet">
+<div class="content_room_product_sheet content_detalle_s">
     <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
-        <div class="titulo_mobile" style="margin-top:-28px; margin-bottom:20px;">
-            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-                if (mobileConfiguracion.MostrarBotonAtras)
-                {
-                    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-                } }
-            &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
-            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-            <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
-        </div>
+        
         <img src="@Model.ImagenProducto" width="236" style="margin-top:20px;">
     </div>
     <div class="wrapper_resumen_mobile" style="margin-top:10px;">

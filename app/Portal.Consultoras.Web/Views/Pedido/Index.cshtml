@@ -1,4 +1,4 @@
-﻿'@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.PedidoSb2Model
 
 @{
@@ -8,9 +8,8 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
-<link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
-
 <span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra"></div>
 <div class="envolvente_pop_up">
@@ -541,17 +540,6 @@
     <!--14092016 - FIN -->
 
     <div id="divListaEstrategias" class="caja_carousel_productos">
-        <div id="" class="contenedorCupon">
-            <div id="" class="contenedorCuponConocelo content_cupon_pedido" style="display: none;">
-                Tienes un dscto exclusivo para ti,
-                <a id="linkConocerDescuento" class="link_cupon_home"> conócelo aquí</a>
-            </div>
-            <div id="" class="contenedorCuponInfo content_cupon_pedido" style="display: none;">
-                Agrega alguna oferta exclusiva web para hacer válido tu cupón de descuento de 00 % || S/. 00.00
-            </div>
-        </div>
-
-        <hr class="clear" />
         @if (ViewBag.MostrarPedidosPendientes == "1")
         {
             <div class="truco_bloqueo sim2"></div>
@@ -1290,18 +1278,18 @@
                             <div class="bloque_datos izq">
                                 <div class="nombre_cliente">
                                     <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente">{{Nombre}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
                                 </div>
 
                                 <div class="telefono_cliente">
                                     <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente">{{Telefono}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
                                 </div>
                             </div>
                             <div class="bloque_datos der">
                                 <div class="correo_cliente">
                                     <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente">{{Email}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-email">{{Email}}</span>
                                 </div>
 
                                 <div class="direccion_cliente">
@@ -1375,18 +1363,18 @@
                             <div class="bloque_datos izq">
                                 <div class="nombre_cliente">
                                     <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente">{{Nombre}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
                                 </div>
 
                                 <div class="telefono_cliente">
                                     <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente">{{Telefono}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
                                 </div>
                             </div>
                             <div class="bloque_datos der">
                                 <div class="correo_cliente">
                                     <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente">{{Email}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-email">{{Email}}</span>
                                 </div>
 
                                 <div class="direccion_cliente">

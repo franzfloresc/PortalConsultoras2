@@ -917,50 +917,66 @@ function LayoutMenu() {
 }
 function LayoutMenuFin() {
     // validar si sale en dos lineas
-    var hok = true;
     var idMenus = "#ulNavPrincipal > li";
-        $(".wrapper_header").css("max-width", "");
-        $(".wrapper_header").css("width", "");
 
-        $(".logo_esika").css("width", "");
-        $(".menu_esika_b").css("width", "");
-        $(idMenus).css("margin-left", "0px");
-        $(".menu_new_esika").css("width", "");
+    if ($(idMenus).length == 0) {
+        return false;
+    }
 
-        var wt = $(".wrapper_header").width();
-        var wl = $(".logo_esika").innerWidth();
-        var wr = $(".menu_esika_b").innerWidth();
-        $(".wrapper_header").css("max-width", wt + "px");
-        $(".wrapper_header").css("width", wt + "px");
+    $(".wrapper_header").css("max-width", "");
+    $(".wrapper_header").css("width", "");
 
+    $(".logo_esika").css("width", "");
+    $(".menu_esika_b").css("width", "");
+    $(idMenus).css("margin-left", "0px");
+    $(".menu_new_esika").css("width", "");
 
-        $(".logo_esika").css("width", wl + "px");
-        $(".menu_esika_b").css("width", wr + "px");
+    var wt = $(".wrapper_header").width();
+    var wl = $(".logo_esika").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth() + 1;
+    $(".wrapper_header").css("max-width", wt + "px");
+    $(".wrapper_header").css("width", wt + "px");
 
-        wt = wt - wl - wr;
-        $(".menu_new_esika").css("width", wt + "px");
+    wl = Math.min(wl, 100);
+    $(".logo_esika").css("width", wl + "px");
+    $(".menu_esika_b").css("width", wr + "px");
 
-        hok = false;
+    wt = wt - wl - wr;
+    $(".menu_new_esika").css("width", wt + "px");
 
-        var h = $(".wrapper_header").height();
+    var h = $(".wrapper_header").height();
 
-        if (h <= 61 && $(idMenus).length > 0) {
-            wr = 0;
-            $.each($(idMenus), function (ind, menupadre) {
-                wr += $(menupadre).innerWidth();
-            });
+    if (h > 61) {
+        $("#ulNavPrincipal li a").css("font-size", "9px");
+    }
 
-            if (wt > wr) {
-            wr = (wt - wr) / $(idMenus).length;
-            wr = Math.min(wr, 20);
+    wr = 0;
+    $.each($(idMenus), function (ind, menupadre) {
+        wr += $(menupadre).innerWidth();
+    });
 
-            $.each($(idMenus), function (ind, menupadre) {
-                if (ind > 0 && ind + 1 < $(idMenus).length) {
-                    $(menupadre).css("margin-left", wr + "px");
-                }
-            });
+    if (wt == wr) {
+        $("#ulNavPrincipal li a").css("font-size", "9px");
+        wr = 0;
+        $.each($(idMenus), function (ind, menupadre) {
+            wr += $(menupadre).innerWidth();
+        });
+    }
+
+    if (wt < wr) {
+        $("#ulNavPrincipal li a").css("font-size", "10.5px");
+    }
+    else if (wt > wr) {
+        wr = (wt - wr) / $(idMenus).length;
+        wr = parseInt(wr * 10) / 10;
+        wr = Math.min(wr, 20);
+
+        $.each($(idMenus), function (ind, menupadre) {
+            if (ind > 0 && ind + 1 < $(idMenus).length) {
+                $(menupadre).css("margin-left", wr + "px");
             }
-        }
+        });
+    }
 
     // caso no entre en el menu
     // poner en dos renglones
@@ -971,6 +987,7 @@ function LayoutMenuFin() {
 
     LayoutHeader();
 }
+
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");
@@ -1604,4 +1621,61 @@ function CerrarPopupFade(ident) {
     $('body').css({ 'overflow-y': 'auto' });
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
+}
+
+function set_local_storage(data, key) {
+    var value = JSON.stringify(data);
+    localStorage.setItem(key, value);
+}
+
+function get_local_storage(key) {
+    var value = localStorage.getItem(key);
+    value = JSON.parse(value);
+    return value;
+}
+
+function limpiar_local_storage() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+ 
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
+};
+
+function _validartieneMasVendidos() {
+    if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
+        set_local_storage(tieneMasVendidos, "tieneMasVendidos");
+        return tieneMasVendidos;
+    }
+    else {
+        var xvalor = get_local_storage("tieneMasVendidos");
+        return xvalor;
+    }
+}
+
+var _actualizarModelMasVendidosPromise = function (model) {
+    var d = $.Deferred();
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/OfertasMasVendidos/ActualizarModel',
+        data: JSON.stringify(model),
+        dataType: 'json',        
+        contentType: 'application/json; charset=utf-8',
+        async: false
+    });
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
 }

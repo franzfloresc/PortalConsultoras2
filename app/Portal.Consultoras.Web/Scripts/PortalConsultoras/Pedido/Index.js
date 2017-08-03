@@ -414,6 +414,7 @@ $(document).ready(function () {
 
             var flagNueva = $.trim($("#hdFlagNueva").val());
             if (flagNueva == "0" || flagNueva == "") {
+                form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
                 InsertarProducto(form);
             } else {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
@@ -1154,6 +1155,7 @@ var ClienteDetalleCANCEL = null;
 var flagClienteDetalle = false;
 
 function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
+    debugger;
     if (gTipoUsuario == '2') {
         var mesg = "Por el momento esta sección no está habilitada, te encuentras en una sesión de prueba. Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.";
         $('#dialog_MensajePostulante #tituloContenido').text("LO SENTIMOS");
@@ -2442,8 +2444,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
-            RespuestaEjecutarServicioPROL(response, false);
-            MostrarMensajeProl(response);
+                RespuestaEjecutarServicioPROL(response, false);
+                MostrarMensajeProl(response);
             }
         },
         error: function (data, error) {

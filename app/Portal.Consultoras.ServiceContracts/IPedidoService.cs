@@ -796,6 +796,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEResultadoSolicitud InsertarSolicitudClienteAppCatalogo(string prefijoISO, BESolicitudClienteAppCatalogo entidadSolicitud);
 
+        [OperationContract]
+        BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania);
+
+        [OperationContract]
+        BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID);
+
         #region ShowRoom
 
         [OperationContract]
@@ -1141,6 +1147,9 @@ namespace Portal.Consultoras.ServiceContracts
         void ActualizarCupon(int paisId, BECupon cupon);
 
         [OperationContract]
+        List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID);
+        
+        [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
 
         #endregion
@@ -1148,18 +1157,48 @@ namespace Portal.Consultoras.ServiceContracts
         #region Cupon Consultora
 
         [OperationContract]
+        List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
+        
+        [OperationContract]
         void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
+        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
+        
+        [OperationContract]
         void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
+        [OperationContract]
+        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
+        
         [OperationContract]
         List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
 
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
-        #endregion
         
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);        
+        #endregion
 
+        #region Producto Comentario
+        [OperationContract]
+        int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+
+        [OperationContract]
+        BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+        #endregion
     }
 }

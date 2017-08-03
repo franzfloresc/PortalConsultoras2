@@ -2,8 +2,11 @@
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServicePedido;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -30,6 +33,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 ViewBag.EsMobile = 2;
                 var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                if (modelo == null || modelo.ID == 0)
+                {
+                    List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
+
+                }
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(modelo);
             }

@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -10,8 +11,6 @@ using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
-
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -476,29 +475,54 @@ namespace Portal.Consultoras.BizLogic
         /*EPD-1012*/
         public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
         {
-            BEValidaLoginSB2 validaLogin = null; 
-            var DAUsuario = new DAUsuario(paisID);
+            BEValidaLoginSB2 validaLogin = null;
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
 
-            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
+            try
             {
-                if (reader.Read())
-                    validaLogin = new BEValidaLoginSB2(reader);
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
             }
 
             return validaLogin;
         }
+         
         /*EPD-1012*/
 
         /*EPD-2340*/
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
-            var DAUsuario = new DAUsuario(paisID);
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
 
-            using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
+            try
             {
-                if (reader.Read())
-                    validaLogin = new BEValidaLoginSB2(reader);
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
             }
 
             return validaLogin;
@@ -1376,7 +1400,7 @@ namespace Portal.Consultoras.BizLogic
                             string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
 
                             string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
-                            string param_querystring = Portal.Consultoras.Common.Util.EncriptarQueryString(parametros);
+                            string param_querystring = Common.Util.Encrypt(string.Join(";", parametros)); // Common.Util.EncriptarQueryString(parametros);
                             //este Log para hacer verificar error al DesencriptarQueryString
                             LogManager.SaveLog(new Exception(), usuario.CodigoUsuario + " | data=" + param_querystring, string.Join("|", parametros));
                             bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
