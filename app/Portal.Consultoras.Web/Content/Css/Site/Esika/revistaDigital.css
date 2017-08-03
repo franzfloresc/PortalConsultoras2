@@ -708,7 +708,7 @@
     }
 .titulo_pagina{
     float:left;
-    width:25%;
+    width:auto;
     height:auto;
     color:white;
     font-family:'Lato';
@@ -717,6 +717,7 @@
     letter-spacing:2px;
     font-weight:700;
     padding-left:20px;
+    padding-right:20px;
     background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
 }
 

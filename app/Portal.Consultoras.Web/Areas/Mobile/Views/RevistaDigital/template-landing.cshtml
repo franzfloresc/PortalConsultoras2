@@ -29,7 +29,7 @@
     else
     {
         <div class="subtitulo_landing">MIS OFERTAS</div>
-
+        <hr class="clear" />
         <div class="wrapper_resumen_mobile" id="@nameTagScrollTo">
             <div id="orderby-filter" style="display: block;">
                 <div id="content-orderby" style="margin: 15px 0; text-align: center;">
@@ -69,12 +69,15 @@
     <div>
         <hr class="clear" />
         <div class="wrapper_resumen_mobile ">
-            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding" data-content-item="@Model.CampaniaID" class="ofertaProductoslanding flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
+            <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding" 
+                 data-content-item="@Model.CampaniaID" 
+                 class="ofertaProductoslanding flex-container" 
+                 style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
 
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
-                <div id="block_inscribete">
+                <div id="block_inscribete" style="padding: 20px 0;">
                     <div class="content_belcorp">
                         <div class="block_inscribete_predio">
                             <span class="hblock_title_perdio">@ViewBag.NombreConsultora, MIRA TODO LO QUE TE PIERDES POR NO ESTAR INSCRITA EN ÉSIKA PARA MÍ</span><br />
@@ -84,13 +87,15 @@
                         @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
                         {
                             <div class="btn_diagonal rd_btn_rojo_right">
-                                <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                                <a href="javascript: RDPageInformativa();" class="btn_inscribirse">INSCRIBIRME A ÉSIKA PARA MÍ</a>
                             </div>
                         }
                     </div>
                 </div>
                 <hr class="clear" />
-                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" class="flex-container" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding" style="text-align: center;"></div>
+                <div id="divOfertaProductosPerdio" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding"
+                     data-content-perdido="@Model.CampaniaID" 
+                     class="flex-container" style="display: inline-flex;flex-wrap: wrap;justify-content: center;"></div>
                 <hr class="clear" />
             }
             <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
