@@ -8,62 +8,51 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,		
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT *
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT
-			LGPRV.ProcesoValidacionPedidoRechazadoId AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId
-		)
-	as rows
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
+	as rows 
 	where row_number = 1
 	
 	IF(@ShowCDR = 1)
 	BEGIN
-		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
-		
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
+
 		UNION ALL
-		
+
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -79,58 +68,49 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,		
-		Visualizado bit,
-		RowsCount int
-	);
+		FechaHoraValidación datetime
+	)
+
 	insert into @Temporal
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
-	UNION ALL
-	SELECT *
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
 	(SELECT
-		LGPRV.ProcesoValidacionPedidoRechazadoId AS ProcesoId,
+		LGPRV.LogGPRValidacionId AS ProcesoId,
 		LGPRV.FechaFinValidacion AS FechaHoraValidación,
-		LGPRV.Visualizado AS Visualizado,
 		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
 	FROM GPR.LogGPRValidacion LGPRV
-	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
-	as rows
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
+	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-	insert into @Temporal
-	SELECT
-		LCDRW.LogCDRWebId AS ProcesoId,
-		LCDRW.FechaAtencion AS FechaHoraValidación,
-		LCDRW.Visualizado AS Visualizado,
-		1
-	FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-	WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
-	UNION ALL
-	SELECT
-		LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-		LCDRWC.FechaCulminado AS FechaHoraValidación,
-		LCDRWC.Visualizado,
-		1
-	FROM dbo.LogCDRWebCulminado LCDRWC
-	WHERE LCDRWC.ConsultoraId = @ConsultoraId;
-	END
+		SELECT
+			LCDRW.LogCDRWebId AS ProcesoId,
+			LCDRW.FechaAtencion AS FechaHoraValidación
+		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+		UNION ALL
+
+		SELECT
+			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
+		END
+
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -146,72 +126,60 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,		
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado, 
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -227,73 +195,60 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
-	);
+		FechaHoraValidación datetime
+	)
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))	
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0	 
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -309,69 +264,59 @@ BEGIN
 	declare @Temporal table
 	(
 	ProcesoId bigint,
-	FechaHoraValidación datetime,
-	Visualizado bit,
-	RowsCount int
+	FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 		select 
 			ValAutomaticaPROLLogId as ProcesoId,
-			FechaHoraValidación,
-			ISNULL(Visualizado,0) as Visualizado,
-			1
+			FechaHoraValidación
 		from ValidacionAutomaticaPROLLog with(nolock)
-		where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+		where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 		select
 			SolicitudClienteID as ProcesoId,
-			FechaSolicitud as FechaHoraValidación,
-			Leido as Visualizado,
-			1
+			FechaSolicitud as FechaHoraValidación
 		from SolicitudCliente
-		where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+		where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
-		SELECT *
+		SELECT ProcesoId, FechaHoraValidación 
 		FROM
 		(SELECT
 			LGPRV.LogGPRValidacionId AS ProcesoId,
 			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
 			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
 		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
-		as rows
+		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
+		as rows 
 		where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-	insert into @Temporal
+		insert into @Temporal
 		SELECT
-		LCDRW.LogCDRWebId AS ProcesoId,
-		LCDRW.FechaAtencion AS FechaHoraValidación,
-		LCDRW.Visualizado AS Visualizado,
-		1
+			LCDRW.LogCDRWebId AS ProcesoId,
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
-	UNION ALL
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
+
+		UNION ALL
+
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -387,73 +332,59 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
-	);
+		FechaHoraValidación datetime
+	)
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
-		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -470,73 +401,60 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -552,73 +470,60 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
-	);
+		FechaHoraValidación datetime
+	)
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 	--
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
-	END
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
+	END	
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -634,74 +539,61 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 
 	UNION ALL
 	--
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -718,41 +610,34 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,		
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	)
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId AS ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId, 
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
@@ -761,29 +646,24 @@ BEGIN
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END	
 	
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -800,17 +680,13 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado,
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
 	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
 	
@@ -818,55 +694,46 @@ BEGIN
 	
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
 	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -882,73 +749,60 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal 
 	select 
 		ValAutomaticaPROLLogId as ProcesoId,
-		FechaHoraValidación,
-		ISNULL(Visualizado,0) as Visualizado, 
-		1
+		FechaHoraValidación
 	from ValidacionAutomaticaPROLLog with(nolock)
-	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId
+	where Estado in (2,3,4,5) and ConsultoraId = @ConsultoraId and ISNULL(Visualizado,0) = 0
 
 	UNION ALL
 
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente 
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT * 
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT 	
-			LGPRV.LogGPRValidacionId  AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId)
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
 	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
-
 		insert into @Temporal
 		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
-		UNION ALL	
+		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO
 
@@ -964,62 +818,51 @@ BEGIN
 	declare @Temporal table
 	(
 		ProcesoId bigint,
-		FechaHoraValidación datetime,
-		Visualizado bit,
-		RowsCount int
+		FechaHoraValidación datetime
 	);
 
 	insert into @Temporal
 	select
 		SolicitudClienteID as ProcesoId,
-		FechaSolicitud as FechaHoraValidación,
-		Leido as Visualizado,
-		1
+		FechaSolicitud as FechaHoraValidación
 	from SolicitudCliente
-	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C'))
+	where ConsultoraID = @ConsultoraId and (Estado IS NULL or LTRIM(RTRIM(Estado)) IN ('A', 'C')) and Leido = 0
 
 	UNION ALL
 
-	SELECT *
+	SELECT ProcesoId, FechaHoraValidación 
 	FROM
-		(SELECT
-			LGPRV.ProcesoValidacionPedidoRechazadoId AS ProcesoId,
-			LGPRV.FechaFinValidacion AS FechaHoraValidación,
-			LGPRV.Visualizado AS Visualizado,
-			row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
-		FROM GPR.LogGPRValidacion LGPRV
-		WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId
-		)
-	as rows
+	(SELECT
+		LGPRV.LogGPRValidacionId AS ProcesoId,
+		LGPRV.FechaFinValidacion AS FechaHoraValidación,
+		row_number() over (partition by LGPRV.ProcesoValidacionPedidoRechazadoId order by LGPRV.ProcesoValidacionPedidoRechazadoId) as row_number
+	FROM GPR.LogGPRValidacion LGPRV
+	WHERE LGPRV.Rechazado = 1 AND LGPRV.ConsultoraId = @ConsultoraId AND LGPRV.Visualizado = 0)
+	as rows 
 	where row_number = 1
 
 	IF(@ShowCDR = 1)
 	BEGIN
 		insert into @Temporal
-			SELECT
+		SELECT
 			LCDRW.LogCDRWebId AS ProcesoId,
-			LCDRW.FechaAtencion AS FechaHoraValidación,
-			LCDRW.Visualizado AS Visualizado,
-			1
+			LCDRW.FechaAtencion AS FechaHoraValidación
 		FROM interfaces.LogCDRWeb LCDRW WITH(NOLOCK)
-		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId
+		WHERE LCDRW.Estado = 2 AND LCDRW.ConsultoraId = @ConsultoraId AND LCDRW.Visualizado = 0
 
 		UNION ALL
 
 		SELECT
 			LCDRWC.LogCDRWebCulminadoId AS ProcesoId,
-			LCDRWC.FechaCulminado AS FechaHoraValidación,
-			LCDRWC.Visualizado,
-			1
-		FROM dbo.LogCDRWebCulminado LCDRWC
-		WHERE LCDRWC.ConsultoraId = @ConsultoraId;
+			LCDRWC.FechaCulminado AS FechaHoraValidación
+		FROM dbo.LogCDRWebCulminado LCDRWC WITH(NOLOCK)
+		WHERE LCDRWC.ConsultoraId = @ConsultoraId AND LCDRWC.Visualizado = 0
 	END
 
-	select count(*) as Cantidad
-	from (	
-		SELECT top 10 * FROM @Temporal t	
-		ORDER by t.FechaHoraValidación desc	
-	) as p
-	where p.Visualizado = 0
+	SELECT COUNT(*) as Cantidad
+	FROM (
+		SELECT TOP 10 * FROM @Temporal t
+		ORDER BY t.FechaHoraValidación DESC
+	) AS p
 END
 GO

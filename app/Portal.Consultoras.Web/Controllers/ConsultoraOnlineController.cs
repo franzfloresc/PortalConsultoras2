@@ -978,16 +978,6 @@ namespace Portal.Consultoras.Web.Controllers
         //public JsonResult AceptarPedido(string pedidoId, MisPedidosModel pedidoModel, string typeAction = null)
         public JsonResult AceptarPedido(ConsultoraOnlinePedidoModel pedido)
         {
-            /*
-            var cant = pedido.ListaDetalleModel.Count();
-            return Json(new
-            {
-                success = true,
-                message = "Ok",
-                code = 0
-            }, JsonRequestBehavior.AllowGet);
-            */
-
             // validar si puede ingresar el pedido
             var mensajeR = "";
             var noPasa = ReservadoEnHorarioRestringido(out mensajeR);
@@ -1390,7 +1380,6 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             //return PartialView("_PedidoCliente", pedido);
-
         }
 
         private List<BEPedidoWebDetalle> AgregarDetallePedido(PedidoSb2Model model)
