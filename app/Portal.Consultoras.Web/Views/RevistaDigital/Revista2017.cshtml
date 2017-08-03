@@ -33,7 +33,6 @@
     }
     ul.bc_opciones li{
         width:100%;
-    height:33.3%;
     }
     ul.bc_opciones li a{
             display: block;
@@ -71,9 +70,9 @@
         margin:0;
         list-style: none;
         position: absolute;
-        left: -150%;
+        left: 100%;
         top:0;
-        /*display: none;*/
+        display: block;
         z-index:1;
         width: 125px;
         background: #f5f4f4;
@@ -226,7 +225,7 @@
     <ul class="bc_opciones">
         <li>
             <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
-            <ul>
+            <ul class="default">
                 <li><a href=""><p>Inicio</p><span>Lanzamientos y novedades</span></a></li>
                 <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
                 <li><a href=""><p>MIS OFERTAS</p><span>Ofertas creadas para tí.</span></a></li>
@@ -350,7 +349,7 @@
         $(this).find('p').css('font-weight', 'normal')
     });
 
-    $('ul.bc_opciones li ').hover(function(e) {
+    $('ul.bc_opciones li').hover(function(e) {
         $(this).find('ul').css({
             display: "block"
         });
@@ -360,6 +359,9 @@
         });
     });
 
+    /*$("ul.bc_opciones li ul").mouseleave(function(){
+        $("ul.bc_opciones li ul.default").css("display", "block !important");
+    }); */
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
