@@ -72,10 +72,13 @@
       <xs:element minOccurs="0" name="FechaAtencion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaCulminado" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FleteDespacho" type="xs:decimal" />
       <xs:element minOccurs="0" name="ImporteCDR" type="xs:decimal" />
       <xs:element minOccurs="0" name="LogCDRWebId" type="xs:long" />
+      <xs:element minOccurs="0" name="MensajeDespacho" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PedidoFacturadoId" type="xs:int" />
       <xs:element minOccurs="0" name="PedidoId" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoDespacho" nillable="true" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BELogCDRWeb" nillable="true" type="tns:BELogCDRWeb" />

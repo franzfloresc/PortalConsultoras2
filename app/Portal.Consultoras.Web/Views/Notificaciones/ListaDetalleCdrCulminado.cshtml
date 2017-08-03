@@ -17,7 +17,11 @@
         <div class="texto_fila_cdr">Solicitud: Nº @Model.CDRWebID</div>
         <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
     </div>
-    <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
+    @if (!string.IsNullOrEmpty(Model.MensajeDespacho))
+    {
+        <div class="resumen_aprobado_cdr">@Html.Raw(Model.MensajeDespacho)</div>
+    }
+
     <div class="subtitulo_cdr">DETALLE DE LA SOLICITUD</div>
     @foreach (var item in Model.ListaDetalle)
     {

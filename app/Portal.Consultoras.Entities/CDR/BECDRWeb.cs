@@ -48,9 +48,9 @@ namespace Portal.Consultoras.Entities.CDR
 
         //EPD-1919 INICIO
         [DataMember]
-        public bool? TipoDespacho { get; set; }        
+        public bool? TipoDespacho { get; set; }        
         [DataMember]
-        public decimal FleteDespacho { get; set; }        
+        public decimal FleteDespacho { get; set; }        
         [DataMember]
         public string MensajeDespacho { get; set; }
         //EPD-1919 FIN

@@ -732,16 +732,25 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         private System.DateTime FechaRegistroField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private decimal FleteDespachoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal ImporteCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long LogCDRWebIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MensajeDespachoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoFacturadoIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PedidoIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<bool> TipoDespachoField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -871,6 +880,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public decimal FleteDespacho {
+            get {
+                return this.FleteDespachoField;
+            }
+            set {
+                if ((this.FleteDespachoField.Equals(value) != true)) {
+                    this.FleteDespachoField = value;
+                    this.RaisePropertyChanged("FleteDespacho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal ImporteCDR {
             get {
                 return this.ImporteCDRField;
@@ -897,6 +919,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string MensajeDespacho {
+            get {
+                return this.MensajeDespachoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MensajeDespachoField, value) != true)) {
+                    this.MensajeDespachoField = value;
+                    this.RaisePropertyChanged("MensajeDespacho");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int PedidoFacturadoId {
             get {
                 return this.PedidoFacturadoIdField;
@@ -918,6 +953,19 @@ namespace Portal.Consultoras.Web.ServiceCDR {
                 if ((this.PedidoIdField.Equals(value) != true)) {
                     this.PedidoIdField = value;
                     this.RaisePropertyChanged("PedidoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<bool> TipoDespacho {
+            get {
+                return this.TipoDespachoField;
+            }
+            set {
+                if ((this.TipoDespachoField.Equals(value) != true)) {
+                    this.TipoDespachoField = value;
+                    this.RaisePropertyChanged("TipoDespacho");
                 }
             }
         }
