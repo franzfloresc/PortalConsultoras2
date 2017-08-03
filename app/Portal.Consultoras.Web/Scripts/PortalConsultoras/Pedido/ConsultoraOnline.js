@@ -385,17 +385,17 @@ function AceptarPedido(pedidoId, tipo) {
             }
         });
 
-        if (isOk) {
+        if (isOk && detalle.length > 0) {
             var key = (tipo == 1) ? '#sc-d1' : '#sc-d2';
             var name = $(popup).find(key + '-nombre').text();
-            //var phone = $(popup).find(key + '-telefono').text();
-            //var email = $(popup).find(key + '-email').text();
+            var phone = $(popup).find(key + '-telefono').text();
+            var email = $(popup).find(key + '-correo').text();
 
             var cliente = {
                 ConsultoraId: 0,
                 Nombre: name,
-                Telefono: "",
-                Email: ""
+                Telefono: phone,
+                eMail: email
             };
 
             $.ajax({
@@ -420,7 +420,7 @@ function AceptarPedido(pedidoId, tipo) {
                             $('#popup_pendientes').hide();
                             _pedido = pedido;
 
-                            showClienteDetalle(cliente, AceptarPedidoBeforeRegisterClienteOK, AceptarPedidoBeforeRegisterClienteCancel);
+                            showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK, AceptarPedidoRegistraClienteCancel);
                         }
                         else {
                             pedido.ClienteId = response.codigo;
@@ -436,7 +436,7 @@ function AceptarPedido(pedidoId, tipo) {
     }
 }
 
-function AceptarPedidoBeforeRegisterClienteOK(obj) {
+function AceptarPedidoRegistraClienteOK(obj) {
     console.log(obj);
 
     if (obj != null && _pedido !== null) {
@@ -446,7 +446,7 @@ function AceptarPedidoBeforeRegisterClienteOK(obj) {
     }
 }
 
-function AceptarPedidoBeforeRegisterClienteCancel(obj) {
+function AceptarPedidoRegistraClienteCancel(obj) {
     console.log(obj);
 }
 
