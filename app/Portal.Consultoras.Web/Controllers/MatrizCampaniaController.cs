@@ -16,12 +16,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class MatrizCampaniaController : BaseController
     {
-        //
-        // GET: /MatrizCampaniaModel/
-
-        #region Action
-
-        public ActionResult Actualizarmatrizcampania()
+        public ActionResult ActualizarMatrizCampania()
         {
             try
             {
@@ -32,98 +27,82 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
             }
+
             var model = new MatrizCampaniaModel();
-            model.listaPaises = DropDowListPaises();
-            model.DropDownListCampania = DropDowListCampania();
+            model.listaPaises = ObtenerPaises();
+            model.DropDownListCampania = ObtenerCampanias();
+
             return View(model);
         }
-        //public ActionResult ConsultarProductoCampania(string sidx, string sord, int page, int rows, string vCampania, string vNombre)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        List<ServiceODS.BEProductoDescripcion> lst;
-        //        using (ODSServiceClient sv = new ODSServiceClient())
-        //        {
-        //            lst = sv.GetProductoComercialByCampania(UserData().PaisID, Convert.ToInt32(vCampania)).ToList();
-        //        }
 
-        //        // Usamos el modelo para obtener los datos
-        //        BEGrid grid = new BEGrid();
-        //        grid.PageSize = rows;
-        //        grid.CurrentPage = page;
-        //        grid.SortColumn = sidx;
-        //        grid.SortOrder = sord;
-        //        //int buscar = int.Parse(txtBuscar);
-        //        BEPager pag = new BEPager();
-        //        IEnumerable<ServiceODS.BEProductoDescripcion> items = lst;
+        private IEnumerable<PaisModel> ObtenerPaises()
+        {
+            List<BEPais> paises;
+            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+            {
+                if (UserData().RolID == Constantes.Rol.Administrador)
+                {
+                    paises = sv.SelectPaises().ToList();
+                }
+                else
+                {
+                    paises = new List<BEPais>
+                    {
+                        sv.SelectPais(UserData().PaisID)
+                    };
+                }
 
-        //        #region Sort Section
-        //        if (sord == "asc")
-        //        {
-        //            switch (sidx)
-        //            {
-        //                case "CUV":
-        //                    items = lst.OrderBy(x => x.CUV);
-        //                    break;
-        //                case "Descripcion":
-        //                    items = lst.OrderBy(x => x.Descripcion);
-        //                    break;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            switch (sidx)
-        //            {
-        //                case "CUV":
-        //                    items = lst.OrderByDescending(x => x.CUV);
-        //                    break;
-        //                case "Descripcion":
-        //                    items = lst.OrderByDescending(x => x.Descripcion);
-        //                    break;
-        //            }
-        //        }
-        //        #endregion
+            }
+            Mapper.CreateMap<BEPais, PaisModel>()
+                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
-        //        if (string.IsNullOrEmpty(vNombre))
-        //            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-        //        else
-        //            items = items.Where(p => p.Descripcion.ToUpper().Contains(vNombre.ToUpper())).ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(paises);
+        }
 
-        //        pag = Paginador(grid, Convert.ToInt32(vCampania), vNombre);
+        private List<BECampania> ObtenerCampanias()
+        {
+            var campanias = new List<BECampania>();
+            campanias.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
+            return campanias;
+        }
 
-        //        // Creamos la estructura
-        //        var data = new
-        //        {
-        //            total = pag.PageCount,
-        //            page = pag.CurrentPage,
-        //            records = pag.RecordCount,
-        //            rows = from a in items
-        //                   select new
-        //                   {
-        //                       id = a.CUV,
-        //                       cell = new string[] 
-        //                       {
-        //                           a.CUV.ToString(),
-        //                           a.Descripcion
-        //                        }
-        //                   }
-        //        };
-        //        return Json(data, JsonRequestBehavior.AllowGet);
-        //    }
-        //    return RedirectToAction("Consultar");
-        //}
+        public JsonResult CargarCampania(string paisId)
+        {
+            var campanias = new List<BECampania>() {
+                new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" }
+            };
+
+            try
+            {
+                if (string.IsNullOrEmpty(paisId)) throw new ArgumentNullException("vPaisID","No puede ser nulo o vacío.");
+                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
+                {
+                        campanias.AddRange(sv.SelectCampanias(UserData().PaisID).ToList());
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+            }
+            
+            return Json(new
+            {
+                DropDownListCampania = campanias
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult InsertarProductoDescripcion(MatrizCampaniaModel model)
         {
             try
             {
-                Mapper.CreateMap<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>()
-                    .ForMember(t => t.CUV, f => f.MapFrom(c => c.CUV))
-                    .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                    .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                    .ForMember(t => t.PrecioProducto, f => f.MapFrom(c => c.PrecioProducto))
-                    .ForMember(t => t.FactorRepeticion, f => f.MapFrom(c => c.FactorRepeticion))
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
+                Mapper.CreateMap<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>();
 
                 ServiceSAC.BEProductoDescripcion entidad = Mapper.Map<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>(model);
 
@@ -159,21 +138,20 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
         [HttpPost]
         public JsonResult ConsultarDescripcion(string CUV, string IDCampania, string paisID)
         {
             try
             {
-                List<ServiceSAC.BEProductoDescripcion> lst = new List<ServiceSAC.BEProductoDescripcion>();
-                //decimal precio = 0; GR-1060
-
+                var productos = (List<ServiceSAC.BEProductoDescripcion>)null;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    lst = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
+                    productos = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
                     
                 }
 
-                if (lst.Count == 0)
+                if (!productos.Any())
                 {
                     return Json(new
                     {
@@ -182,28 +160,14 @@ namespace Portal.Consultoras.Web.Controllers
                         extra = ""
                     });
                 }
-                else
+
+                return Json(new
                 {
-                    ///GR-1060
-
-                    //using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
-                    //{
-                    //    svs.Url = ConfigurarUrlServiceProl();
-                    //    precio = svs.wsObtenerPrecioPack(CUV,UserData().CodigoISO, IDCampania);
-                    //}
-
-                    ///end GR-1060
-
-                    return Json(new
-                    {
-                        success = true,
-                        lstProducto = lst,
-                        //precio = precio, //////////GR-1060
-                        message = "",
-                        extra = ""
-                    });
-                }
-
+                    success = true,
+                    lstProducto = productos,
+                    message = "",
+                    extra = ""
+                });
             }
             catch (FaultException ex)
             {
@@ -226,120 +190,5 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-        #endregion
-
-        #region Metodos
-
-        public JsonResult CargarCampania(string vPaisID)
-        {
-            var model = new MatrizCampaniaModel();
-            List<BECampania> lst = new List<BECampania>();
-            try
-            {
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    if (vPaisID != "")
-                    {
-                        lst = sv.SelectCampanias(UserData().PaisID).ToList();
-                        lst.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-                        return Json(new
-                        {
-                            DropDownListCampania = lst
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-                    else
-                    {
-                        lst.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-                        return Json(new
-                        {
-                            DropDownListCampania = lst
-                        }, JsonRequestBehavior.AllowGet);
-                    }
-                }
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                lst.Insert(0, new BECampania { CampaniaID = 0, NombreCorto = "-- Seleccionar --" });
-                return Json(new
-                {
-                    DropDownListCampania = lst
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                lst.Insert(0, new BECampania { CampaniaID = 0, NombreCorto = "-- Seleccionar --" });
-                return Json(new
-                {
-                    DropDownListCampania = lst
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
-
-        private IEnumerable<PaisModel> DropDowListPaises()
-        {
-            List<BEPais> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                if (UserData().RolID == 2) lst = sv.SelectPaises().ToList();
-                else
-                {
-                    lst = new List<BEPais>();
-                    lst.Add(sv.SelectPais(UserData().PaisID));
-                }
-
-            }
-            Mapper.CreateMap<BEPais, PaisModel>()
-                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                    .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
-
-            return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-        private List<BECampania> DropDowListCampania()
-        {
-            var model = new MatrizCampaniaModel();
-            List<BECampania> lst = new List<BECampania>();
-            lst.Insert(0, new BECampania { CampaniaID = 0, Codigo = "-- Seleccionar --" });
-            return lst;
-
-        }
-
-        //public BEPager Paginador(BEGrid item, int campaniaID, string vBusqueda)
-        //{
-        //    List<ServiceODS.BEProductoDescripcion> lst;
-        //    using (ODSServiceClient sv = new ODSServiceClient())
-        //    {
-        //        lst = sv.GetProductoComercialByCampania(UserData().PaisID, campaniaID).ToList();
-        //    }
-
-        //    BEPager pag = new BEPager();
-
-        //    int RecordCount;
-
-        //    if (string.IsNullOrEmpty(vBusqueda))
-        //        RecordCount = lst.Count;
-        //    else
-        //        RecordCount = lst.Where(p => p.Descripcion.ToUpper().Contains(vBusqueda.ToUpper())).ToList().Count();
-
-        //    pag.RecordCount = RecordCount;
-
-        //    int PageCount = (int)(((float)RecordCount / (float)item.PageSize) + 1);
-        //    pag.PageCount = PageCount;
-
-        //    int CurrentPage = (int)item.CurrentPage;
-        //    pag.CurrentPage = CurrentPage;
-
-        //    if (CurrentPage > PageCount)
-        //        pag.CurrentPage = PageCount;
-
-        //    return pag;
-        //}
-
-        #endregion
-
     }
 }

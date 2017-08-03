@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0",
+  "name": "portal.consultoras.web",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-minify": "^1.0.0"
+  }
+}
