@@ -74,5 +74,3 @@ BEGIN
 	WHERE l.ProcesoAutomaticoId = @ProcesoAutomaticoId;	
 END
 GO
-GRANT EXECUTE ON OBJECT::[interfaces].[GetLogCDRWeb] TO [usr_prolprd];
-GO

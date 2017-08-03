@@ -70,6 +70,7 @@ BEGIN
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 
 	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID);
+	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
 
 	IF @UsuarioPrueba = 0
 	BEGIN
@@ -110,12 +111,6 @@ BEGIN
 		)
 
 		select  @CountCodigoNivel =count(*) from ods.ConsultoraLider with(nolock) where consultoraid=@ConsultoraID
-		
-		--INI: EPD-1919
-		declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);
-		declare @MensajeCDRExpress varchar(200) = isnull((select top 1 Descripcion from TablaLogicaDatos where TablaLogicaID = 104 and Codigo = 'Mensaje'),'');
-		declare @MensajeCDRExpressNueva varchar(200) = isnull((select top 1 Descripcion from TablaLogicaDatos where TablaLogicaID = 104 and Codigo = 'MensajeNew'),'');
-		--FIN: EPD-1919
 
 		SELECT
 			u.PaisID,
@@ -208,9 +203,7 @@ BEGIN
 			isnull(p.TieneMasVendidos,0) as TieneMasVendidos,
 			@IndicadorPermiso as IndicadorPermisoFIC,
 			isnull(i.Numero, '') as DocumentoIdentidad,
-			@TieneCDRExpress as TieneCDRExpress, --EPD-1919  
-			@MensajeCDRExpress as MensajeCDRExpress, --EPD-1919  
-			@MensajeCDRExpressNueva as MensajeCDRExpressNueva, --EPD-1919  
+			@TieneCDRExpress as TieneCDRExpress, --EPD-1919
 			iif(c.ConsecutivoNueva > 0, 1, 0) As EsConsecutivoNueva --EPD-1919
 		FROM dbo.Usuario u with(nolock)
 		LEFT JOIN (
@@ -322,9 +315,7 @@ BEGIN
 			isnull(p.TieneMasVendidos,0) as TieneMasVendidos,
 			@IndicadorPermiso as IndicadorPermisoFIC,
 			isnull(i.Numero, '') as DocumentoIdentidad,
-			@TieneCDRExpress as TieneCDRExpress, --EPD-1919  
-			@MensajeCDRExpress as MensajeCDRExpress, --EPD-1919  
-			@MensajeCDRExpressNueva as MensajeCDRExpressNueva, --EPD-1919  
+			@TieneCDRExpress as TieneCDRExpress, --EPD-1919
 			0 As EsConsecutivoNueva --EPD-1919
 		FROM dbo.Usuario u (nolock)
 		LEFT JOIN [ConsultoraFicticia] c (nolock) ON u.CodigoConsultora = c.Codigo

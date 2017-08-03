@@ -5,7 +5,7 @@ ALTER PROCEDURE dbo.UpdEstadoCDRWeb
 	,@RetornoID int output
 	,@TipoDespacho bit  = null --EPD-1919
 	,@FleteDespacho decimal(15,2) = null --EPD-1919
-	,@MensajeDespacho varchar(200) = null --EPD-1919
+	,@MensajeDespacho varchar(500) = null --EPD-1919
 AS
 /*
 declare @retorno int

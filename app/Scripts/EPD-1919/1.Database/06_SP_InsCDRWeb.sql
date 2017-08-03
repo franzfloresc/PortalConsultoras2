@@ -1,5 +1,5 @@
 GO
-alter PROCEDURE dbo.InsCDRWeb
+ALTER PROCEDURE dbo.InsCDRWeb
 (
 	 @CDRWebID int
 	,@PedidoID int
@@ -12,7 +12,7 @@ alter PROCEDURE dbo.InsCDRWeb
 	,@Importe decimal(9,2)
 	,@TipoDespacho bit  = null --EPD-1919
 	,@FleteDespacho decimal(15,2) = null --EPD-1919
-	,@MensajeDespacho varchar(200) = null --EPD-1919
+	,@MensajeDespacho varchar(500) = null --EPD-1919
 	,@RetornoID int output
 )
 AS

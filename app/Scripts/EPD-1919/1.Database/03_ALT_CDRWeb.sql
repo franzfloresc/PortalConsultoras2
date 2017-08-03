@@ -14,6 +14,6 @@ GO
 IF NOT EXISTS(SELECT 1 FROM sys.columns WHERE Name = N'MensajeDespacho' AND Object_ID = Object_ID(N'dbo.CDRWeb'))
 BEGIN
 	alter table CDRWeb
-	add MensajeDespacho varchar(200) null;
+	add MensajeDespacho varchar(500) null;
 END
 GO

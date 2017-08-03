@@ -9,7 +9,7 @@ begin
 end
 GO
 create procedure dbo.GetMontoFletePorZonaId
-	@ZonaId varchar(8) = null
+	@ZonaId int = null
 as
 begin
 	select top 1 Montoflete as Monto
