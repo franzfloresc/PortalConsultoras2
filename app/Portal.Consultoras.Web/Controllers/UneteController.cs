@@ -2296,6 +2296,13 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("_DevolverSolicitud");
         }
 
+        public ActionResult MotivoRechazoGZ()
+        {
+ 
+            return PartialView("_MotivoRechazo");
+        }
+
+
         [HttpPost]
         public ActionResult DevolverSolicitud(int id, string observacion)
         {
@@ -2549,7 +2556,7 @@ namespace Portal.Consultoras.Web.Controllers
             items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
 
             var pag = Paginador(grid, solicitudes);
-           
+
 
             var itemsRename = items.Select(i => new {
                 SolicitudPostulanteID = i.SolicitudPostulanteID,
@@ -2565,7 +2572,7 @@ namespace Portal.Consultoras.Web.Controllers
                                 ? string.Empty
                                 : i.CodigoPais == Pais.Peru
                                   ? ((string.IsNullOrEmpty(i.LugarPadre) && string.IsNullOrEmpty(i.LugarHijo)) ? i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper() : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper() + ", " + i.Referencia.ToUpper())
-                                  : 
+                                  :
                                   ((string.IsNullOrEmpty(i.LugarPadre) && string.IsNullOrEmpty(i.LugarHijo)) ? i.Direccion.Replace("|", " ").ToUpper() : i.LugarPadre.ToUpper() + ", " + i.LugarHijo.ToUpper() + ", " + i.Direccion.Replace("|", " ").ToUpper()), //9
                 CodigoConsultora = i.CodigoConsultora,
                 FechaIngreso = i.FechaIngreso,
@@ -2573,8 +2580,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IconEvaluacionCrediticia = (i.EstadoBuroCrediticioID == 2 || i.EstadoBuroCrediticioID == 30 || i.EstadoBuroCrediticioID == 31 || i.EstadoBuroCrediticioID == 32 || i.EstadoBuroCrediticioID == 33) ? "webtracking/si.png" :
                 (i.EstadoBuroCrediticioID == 3 ? "Esika/icono-admiracion.png" : "Esika/icono_advertencia_notificacion.png"),
                 EstadoBuroCrediticioID = i.EstadoBuroCrediticioID,
-                IconEvaluacionTelefonica = i.EstadoTelefonico == "1" ? "webtracking/si.png" : i.EstadoTelefonico == "0" ? "Esika/icono_advertencia_notificacion.png" : i.EstadoTelefonico == "2" ? "Esika/icono-admiracion.png":"no.png",
-                ShowEvaliuacionTelefonica = i.EstadoTelefonico == "3"?"hidden": "visible",
+                IconEvaluacionTelefonica = i.EstadoTelefonico == "1" ? "webtracking/si.png" : i.EstadoTelefonico == "0" ? "Esika/icono_advertencia_notificacion.png" : i.EstadoTelefonico == "2" ? "Esika/icono-admiracion.png" : "no.png",
+                ShowEvaliuacionTelefonica = i.EstadoTelefonico == "3" ? "hidden" : "visible",
                 EstadoTelefonico = i.EstadoTelefonico,
                 Estado = i.EstadoPostulante,
                 UrlContentImage = Url.Content("~/Content/Images/"),
@@ -2612,7 +2619,7 @@ namespace Portal.Consultoras.Web.Controllers
                 campania1erPasePedido = i.campania1erPasePedido,
                 NumDiasAprobadoFFVV = ((CalcularDias(i.FechaAproFVVV) == "-1") ? "-" : CalcularDias(i.FechaAproFVVV)).ToString(),
                 NumDiasRechazado = ((CalcularDias(i.FechaRechazo) == "-1") ? "-" : CalcularDias(i.FechaRechazo)).ToString(),
-                TipoDocumento = (tiposDocumentos!=null? (tiposDocumentos.FirstOrDefault(tp=>tp.Valor.Value == i.TipoDocumento.ToInt())!=null? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre): "") :""),
+                TipoDocumento = (tiposDocumentos != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()) != null ? (tiposDocumentos.FirstOrDefault(tp => tp.Valor.Value == i.TipoDocumento.ToInt()).Nombre) : "") : ""),
                 Correo = i.CorreoElectronico,
                 CampanaRegistro = i.CampaniaDeRegistro,
                 CampanaIngreso = string.Empty,
@@ -2622,20 +2629,21 @@ namespace Portal.Consultoras.Web.Controllers
                 ImagenDNI = i.ImagenIFE,
                 ImagenAval = i.ImagenDniAval,
                 ImagenComprobanteDomicilio = i.ImagenCDD,
-                ImagenContrato=i.ImagenContrato,
+                ImagenContrato = i.ImagenContrato,
                 ImagenPagare = i.ImagenPagare,
-                ImagenReciboOtraMarca =i.ImagenReciboOtraMarca,
+                ImagenReciboOtraMarca = i.ImagenReciboOtraMarca,
                 ImagenReciboPagoAval = i.ImagenReciboPagoAval,
-                ImagenCreditoAval= i.ImagenCreditoAval,
-                ImagenConstanciaLaboralAval= i.ImagenConstanciaLaboralAval,
-                ShowDocs= (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato) 
+                ImagenCreditoAval = i.ImagenCreditoAval,
+                ImagenConstanciaLaboralAval = i.ImagenConstanciaLaboralAval,
+                ShowDocs = (string.IsNullOrEmpty(i.ImagenIFE) && string.IsNullOrEmpty(i.ImagenDniAval) && string.IsNullOrEmpty(i.ImagenCDD) && string.IsNullOrEmpty(i.ImagenContrato)
                 && string.IsNullOrEmpty(i.ImagenPagare) && string.IsNullOrEmpty(i.ImagenReciboOtraMarca) && string.IsNullOrEmpty(i.ImagenReciboPagoAval) && string.IsNullOrEmpty(i.ImagenCreditoAval) &&
                  string.IsNullOrEmpty(i.ImagenConstanciaLaboralAval)) == false ? "visible" : "hidden",
                 UsuarioModificacion = (i.SubEstadoPostulante != null) ?
                                         ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
-                                        :"",
+                                        : "",
                 TelefonoCelular = i.TelefonoCelular,
-                
+                ClaseRechazoZonaSeccion = i.EstadoPostulante == "RECHAZADA" ? ( i.TipoRechazo == "4" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "3" ? "estiloMalaZonificacionSeccion" :""  ) : "",
+                PopupRechazoZonaSeccion = i.EstadoPostulante == "RECHAZADA" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : ""
             }).ToList();
 
  

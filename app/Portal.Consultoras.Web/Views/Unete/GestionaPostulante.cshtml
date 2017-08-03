@@ -253,9 +253,9 @@
 
 <script id="cliente-template" type="text/x-handlebars-template">
     {{#each this }}
-    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}">
+    <div class="content_listado_notificaciones{{PintarMalaZonificacion}}  {{ClaseRechazoZonaSeccion}}">
         <!-- Inicio - Si existe mala zonificación mostrar -->
-        <div class="icono_malaZonificacion"></div>
+        <div class="icono_malaZonificacion  {{PopupRechazoZonaSeccion}}  "></div>
         <!-- Fin - Si existe mala zonificación mostrar -->
         <div class="cellGrid " data-colname="FechaCreacion">
             <span>{{FechaCreacion}}</span>
@@ -319,6 +319,9 @@
 
     $(document).ready(function () {
 
+
+     
+
         $('.headerGrid').hide();
         $('.container_landing').css('overflow-y', 'scroll');
 
@@ -366,6 +369,7 @@
         });
 
         fnGrilla(null, null, 2);
+
     });
 
     function getValueFromDataAttrib(id, col) {
@@ -940,6 +944,31 @@
                 showColumn('EvaluacionTelefonica');
             }
 
+
+            $('.openPopupMotivoRechazo').click(function (a, b) {
+
+                if ($($(a.target).parent().find('[data-colname="MotivoRechazo"]')[0])) {
+                    var motivoRechazo = $($(a.target).parent().find('[data-colname="MotivoRechazo"]')[0]).html();
+                    
+
+                    $('#divMotivoRechazo').empty();
+                    $('#divMotivoRechazo').show();
+                    LoadSpinner('divMotivoRechazo');
+                    $.get('@Url.Action("MotivoRechazoGZ", "Unete")', {   }, function (html) {
+                        $('#divMotivoRechazo').html(html);
+                        $('#divMotivoRechazo').show();
+     
+                        $('#MotivoRechazo').empty();
+                        $('#MotivoRechazo').val(motivoRechazo);
+
+                    }).done(function () { });
+
+
+                }
+
+
+            });
+
         }
 
     }
@@ -1105,6 +1134,8 @@
 <div class="contenedor_popup_eliminarCliente" id="divEditarSolicitud">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divDevolverSolicitud">
+</div>
+<div class="contenedor_popup_eliminarCliente" id="divMotivoRechazo">
 </div>
 <div class="contenedor_popup_eliminarCliente" id="divGeneralLoading">
 
@@ -2144,8 +2175,12 @@
         $('#divEditarSolicitud').empty();
         $('#divDevolverSolicitud').empty();
 
+        $('#divMotivoRechazo').empty();
+
 
     }
+
+   
 
 </script>
 
@@ -2758,6 +2793,10 @@
         display: none;
     }
 
+    #divMotivoRechazo {
+        display: none;
+    }
+    
     #divVerHistorialPostulante {
         display: none;
     }
@@ -3068,5 +3107,9 @@
     #btnBuscar:disabled {
         background-color: #B75D9F !important;
         cursor: default;
+    }
+    .openPopupMotivoRechazo {
+    cursor:pointer;
+        z-index: 3;
     }
 </style>
