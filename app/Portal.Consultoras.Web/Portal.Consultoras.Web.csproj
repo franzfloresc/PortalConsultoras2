@@ -1192,6 +1192,9 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
+    <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\popup1.png" />
+    <Content Include="Content\Images\Esika\RevistaDigital\previous.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
