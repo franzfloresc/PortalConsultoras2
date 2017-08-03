@@ -319,7 +319,7 @@
             getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             habilitarNemotecnico: @Json.Encode(Model.habilitarNemotecnico),
-            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
+            expValidacionNemotecnico: $.trim(@Html.Raw(Model.ExpValidacionNemotecnico))
         });
 
         if(habilitarNemoTecnico) {

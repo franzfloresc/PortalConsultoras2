@@ -31,7 +31,7 @@
             actualizarNemotecnicoAction: '@Url.Action("ActualizarNemotecnicoMatrizComercial", "MatrizComercial")',
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
-            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
+            expValidacionNemotecnico: $.trim(@Html.Raw(Model.ExpValidacionNemotecnico))
         });
 
         fnGrilla();
