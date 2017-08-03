@@ -2,6 +2,42 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:import schemaLocation="http://localhost:41615/ContenidoService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfBEConsultoraMailing">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEConsultoraMailing" nillable="true" type="tns:ArrayOfBEConsultoraMailing" />
+  <xs:complexType name="BEConsultoraMailing">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Plantilla" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlantillaID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
+      <xs:element minOccurs="0" name="SeccionID" type="xs:int" />
+      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
+  <xs:complexType name="ArrayOfBEPlantillasMailing">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPlantillasMailing" nillable="true" type="tns:BEPlantillasMailing" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEPlantillasMailing" nillable="true" type="tns:ArrayOfBEPlantillasMailing" />
+  <xs:complexType name="BEPlantillasMailing">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DescripcionTipo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Disponibilidad" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlantillaDetalle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PlantillaID" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEPlantillasMailing" nillable="true" type="tns:BEPlantillasMailing" />
   <xs:complexType name="ArrayOfBEBanner">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEBanner" nillable="true" type="tns:BEBanner" />
@@ -355,21 +391,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEItemCarruselInicio" nillable="true" type="tns:BEItemCarruselInicio" />
-  <xs:complexType name="ArrayOfBEPlantillasMailing">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEPlantillasMailing" nillable="true" type="tns:BEPlantillasMailing" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEPlantillasMailing" nillable="true" type="tns:ArrayOfBEPlantillasMailing" />
-  <xs:complexType name="BEPlantillasMailing">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="DescripcionTipo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Disponibilidad" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PlantillaDetalle" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PlantillaID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEPlantillasMailing" nillable="true" type="tns:BEPlantillasMailing" />
   <xs:complexType name="ArrayOfBEMailing">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMailing" nillable="true" type="tns:BEMailing" />
@@ -389,25 +410,4 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEMailing" nillable="true" type="tns:BEMailing" />
-  <xs:complexType name="ArrayOfBEConsultoraMailing">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEConsultoraMailing" nillable="true" type="tns:ArrayOfBEConsultoraMailing" />
-  <xs:complexType name="BEConsultoraMailing">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
-      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Plantilla" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PlantillaID" type="xs:int" />
-      <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="RegionID" type="xs:int" />
-      <xs:element minOccurs="0" name="SeccionID" type="xs:int" />
-      <xs:element minOccurs="0" name="ZonaID" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEConsultoraMailing" nillable="true" type="tns:BEConsultoraMailing" />
 </xs:schema>

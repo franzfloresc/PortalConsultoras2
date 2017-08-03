@@ -329,6 +329,9 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         private string AutorizaPedidoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CelularField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -386,6 +389,19 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
                 if ((object.ReferenceEquals(this.AutorizaPedidoField, value) != true)) {
                     this.AutorizaPedidoField = value;
                     this.RaisePropertyChanged("AutorizaPedido");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Celular {
+            get {
+                return this.CelularField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CelularField, value) != true)) {
+                    this.CelularField = value;
+                    this.RaisePropertyChanged("Celular");
                 }
             }
         }
@@ -962,6 +978,12 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActualRespo" +
             "nse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection> ObtenerCampaniasAnterioresDesdeActualAsync(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultoraResponse")]
+        Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE ObtenerDatosConsultora(string codigoISO, int consultoraID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora", ReplyAction="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultoraResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> ObtenerDatosConsultoraAsync(string codigoISO, int consultoraID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1117,6 +1139,14 @@ namespace Portal.Consultoras.Web.HojaInscripcionBelcorpPais {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.CampaniaCollection> ObtenerCampaniasAnterioresDesdeActualAsync(string codigoISO, string campaniaActual, int numeroCampanias, string codigoZona) {
             return base.Channel.ObtenerCampaniasAnterioresDesdeActualAsync(codigoISO, campaniaActual, numeroCampanias, codigoZona);
+        }
+        
+        public Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE ObtenerDatosConsultora(string codigoISO, int consultoraID) {
+            return base.Channel.ObtenerDatosConsultora(codigoISO, consultoraID);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE> ObtenerDatosConsultoraAsync(string codigoISO, int consultoraID) {
+            return base.Channel.ObtenerDatosConsultoraAsync(codigoISO, consultoraID);
         }
     }
 }
