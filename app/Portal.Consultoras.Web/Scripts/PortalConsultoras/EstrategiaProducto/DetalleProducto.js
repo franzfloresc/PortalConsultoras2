@@ -30,8 +30,8 @@
             _pintarRecomendaciones(item);
             _pintarUltimoComentario(item);
             _pintarUltimoComentarioConsultora(item);
-            let data = _armarListaCarruselDetalleProducto();
-            _armarCarouselMasVendidos(data);
+            var xdata = _armarListaCarruselDetalleProducto();
+            _armarCarouselMasVendidos(xdata);
             if (tipoOrigenPantalla === 1) { inicializarDivMasVendidos('desktop');}
             if (tipoOrigenPantalla === 2) { inicializarDivMasVendidosCarruselSinFlechas('mobile'); }            
             _validarDivTituloMasVendidos();
@@ -56,9 +56,7 @@
                 centerMode: true,
                 variableWidth: true,
                 slidesToScroll: 1,
-                centerMode: true,
-                arrows: false,
-                dots: false,
+                arrows: false
             }).on('swipe', function (event, slick, direction) {
                 var posicion = slick.currentSlide;
                 posicion = Math.max(parseInt(posicion), 0);
@@ -116,15 +114,26 @@
         });
     }
 
-    var _armarListaCarruselDetalleProducto = function() {
+    var _armarListaCarruselDetalleProducto = function () {
         var model = get_local_storage("data_mas_vendidos");
         var item = model.Item;
         var lista = [];
+        var elem = null;
+
+        for (var i = 0; i < model.Lista.length; i++) {
+            elem = model.Lista[i];
+            if (elem.EstrategiaID !== item.EstrategiaID) {
+                lista.push(elem);
+            }
+        }
+
+        /*
         model.Lista.forEach(elem => {
             if (elem.EstrategiaID !== item.EstrategiaID) {
                 lista.push(elem);
             }
         });
+        */
         model.Lista = lista;
         return model;
     }
@@ -183,45 +192,60 @@
     }
 
     function PintarPrecioTachadoCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarPrecioTachadoCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarPrecioTachadoCarrusel(item);
         });
+        */
     }
 
     function _pintarPrecioTachadoCarrusel(item) {
-        let div = "#precio-tachado-" + item.EstrategiaID.toString();
+        var xdiv = "#precio-tachado-" + item.EstrategiaID.toString();
         if (item.Ganancia > 0) {
-            $(div).show();
+            $(xdiv).show();
         }
         else {
-            $(div).hide();
+            $(xdiv).hide();
         }
     }
 
     function PintarRecomendacionesCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarRecomendacionesCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarRecomendacionesCarrusel(item);
         });
+        */
     }
 
     function _pintarRecomendacionesCarrusel(item) {
-        let div = "#recommedation-" + item.EstrategiaID.toString();
-        let recommendation = '(' + item.CantComenAprob.toString() + ')'
-        $(div).html(recommendation);
-        $(div).show();
+        var xdiv = "#recommedation-" + item.EstrategiaID.toString();
+        var recommendation = '(' + item.CantComenAprob.toString() + ')'
+        $(xdiv).html(recommendation);
+        $(xdiv).show();
     }
 
     function PintarEstrellasCarrusel(listaMasVendidos) {
+        for (var i = 0; i < listaMasVendidos.length; i++) {
+            _pintarEstrellasCarrusel(listaMasVendidos[i]);
+        }
+        /*
         listaMasVendidos.forEach(item => {
             _pintarEstrellasCarrusel(item);
         });
+        */
     }
 
     function _pintarEstrellasCarrusel(item) {
-        let div = "#star-" + item.EstrategiaID.toString();
-        let rating = '';
+        var xdiv = "#star-" + item.EstrategiaID.toString();
+        var rating = '';
         rating = item.PromValorizado.toString() + '%';
-        $(div).rateYo({
+        $(xdiv).rateYo({
             rating: rating,
             numStars: 5,
             precision: 2,
@@ -257,41 +281,41 @@
     };
 
     var _pintarUltimoComentarioConsultora = function (item) {
-        let div = "#consultant-commentary-" + item.EstrategiaID.toString();
+        var xdiv = "#consultant-commentary-" + item.EstrategiaID.toString();
         if (item.UltimoComentario.NombreConsultora !== '' && item.UltimoComentario.NombreConsultora != null) {
-            let consultant_commentary = "- " + item.UltimoComentario.NombreConsultora;
-            $(div).html(consultant_commentary);
-            $(div).show();
+            var consultant_commentary = "- " + item.UltimoComentario.NombreConsultora;
+            $(xdiv).html(consultant_commentary);
+            $(xdiv).show();
         }
         else {
-            $(div).hide();
+            $(xdiv).hide();
         }
     }
 
     var _pintarUltimoComentario = function (item) {
-        let div = "#last-commentary-" + item.EstrategiaID.toString();
+        var xdiv = "#last-commentary-" + item.EstrategiaID.toString();
         if (item.UltimoComentario.Comentario !== '' && item.UltimoComentario.Comentario != null) {
-            let last_commentary = '"' + item.UltimoComentario.Comentario + '"';
-            $(div).html(last_commentary);
-            $(div).show();
+            var last_commentary = '"' + item.UltimoComentario.Comentario + '"';
+            $(xdiv).html(last_commentary);
+            $(xdiv).show();
         }
         else {
-            $(div).hide();
+            $(xdiv).hide();
         }
     }
 
     var _pintarRecomendaciones = function (item) {
-        let div = "#recommendation-" + item.EstrategiaID.toString();
-        let recommendation = '(' + item.CantComenAprob.toString() + ' Comentarios)'
-        $(div).html(recommendation);
-        $(div).show();
+        var xdiv = "#recommendation-" + item.EstrategiaID.toString();
+        var recommendation = '(' + item.CantComenAprob.toString() + ' Comentarios)'
+        $(xdiv).html(recommendation);
+        $(xdiv).show();
     }
 
     var _pintarEstrellas = function (item) {
-        let div = "#star-" + item.EstrategiaID.toString();
-        let rating = '';
+        var xdiv = "#star-" + item.EstrategiaID.toString();
+        var rating = '';
         rating = item.PromValorizado.toString() + '%';
-        $(div).rateYo({
+        $(xdiv).rateYo({
             rating: rating,
             numStars: 5,
             precision: 2,
@@ -303,7 +327,7 @@
     }
 
     var _validarGanancia = function (item) {
-        let element = "#precio-gana-" + item.EstrategiaID.toString();
+        var element = "#precio-gana-" + item.EstrategiaID.toString();
         if (item.Ganancia > 0) {
             $(element).show();
         }
@@ -313,7 +337,7 @@
     }
 
     var _validarPrecioTachado = function (item) {
-        let element = "#precio-tachado-" + item.EstrategiaID.toString();
+        var element = "#precio-tachado-" + item.EstrategiaID.toString();
         if (item.Ganancia > 0) {
             $(element).show();
         }
@@ -358,14 +382,33 @@
         var model = get_local_storage("data_mas_vendidos");
         var lista = model.Lista;
         var item = null;
+        var elem = null;
 
-        lista.forEach(elem => {if (elem.EstrategiaID === estrategiaId) {item = elem;}});
+        for (var i = 0; i < lista.length; i++) {
+            elem = lista[i];
+            if (elem.EstrategiaID === estrategiaId) { item = elem; }
+
+        }
+
+        //lista.forEach(elem => { if (elem.EstrategiaID === estrategiaId) { item = elem; } });
 
         return item;
     };
     
     var _actualizarListaStorate = function (lista, item) {
         var temp = [];
+        var elem = null;
+
+        for (var i = 0; i < lista.length; i++) {
+            elem = lista[i];
+            if (elem.EstrategiaID === item.EstrategiaID) {
+                temp.push(item);
+            } else {
+                temp.push(elem);
+            }
+        }
+
+        /*
         lista.forEach(elem => {
             if (elem.EstrategiaID === item.EstrategiaID) {
                 temp.push(item);
@@ -373,6 +416,7 @@
                 temp.push(elem);
             }
         })
+        */
         return temp;
     };
 
@@ -409,12 +453,12 @@
 })();
 
 function _validarDivTituloMasVendidos() {
-    let tieneMasVendidosFlag = _validartieneMasVendidos();
-    let model = get_local_storage("data_mas_vendidos");
-    let lista = [];
+    var tieneMasVendidosFlag = _validartieneMasVendidos();
+    var xmodel = get_local_storage("data_mas_vendidos");
+    var xlista = [];
 
-    if (model !== 'undefined' && model !== null) {
-        lista = model.Lista;
+    if (xmodel !== 'undefined' && xmodel !== null) {
+        xlista = xmodel.Lista;
     }
 
     if (tieneMasVendidosFlag === 0) {
@@ -423,7 +467,7 @@ function _validarDivTituloMasVendidos() {
     }
 
     if (tieneMasVendidosFlag === 1) {
-        if (lista.length === 0) {
+        if (xlista.length === 0) {
             $(".content_mas_vendidos").hide();
         }
         else {

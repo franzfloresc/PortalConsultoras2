@@ -217,45 +217,60 @@ function ArmarCarouselMasVendidos(data) {
 }
 
 function PintarPrecioTachado(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarPrecioTachado(listaMasVendidos[i]);
+    }
+    /*
     listaMasVendidos.forEach(item => {
         _pintarPrecioTachado(item);
     });
+    */
 }
 
 function _pintarPrecioTachado(item) {
-    let div = "#precio-tachado-" + item.EstrategiaID.toString();    
+    var xdiv = "#precio-tachado-" + item.EstrategiaID.toString();    
     if (item.Ganancia > 0) {
-        $(div).show();
+        $(xdiv).show();
     }
     else {
-        $(div).hide();
+        $(xdiv).hide();
     }
 }
 
 function PintarRecomendaciones(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarRecomendaciones(listaMasVendidos[i]);
+    }
+    /*
     listaMasVendidos.forEach(item => {
         _pintarRecomendaciones(item);
-    });    
+    });
+    */
 }
 
 function _pintarRecomendaciones(item) {
-    let div = "#recommedation-" + item.EstrategiaID.toString();
-    let recommendation = '(' + item.CantComenAprob.toString() + ')';
-    $(div).html(recommendation);
-    $(div).show();
+    var xdiv = "#recommedation-" + item.EstrategiaID.toString();
+    var recommendation = '(' + item.CantComenAprob.toString() + ')';
+    $(xdiv).html(recommendation);
+    $(xdiv).show();
 }
 
 function PintarEstrellas(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarEstrellas(listaMasVendidos[i]);
+    }
+    /*
     listaMasVendidos.forEach(item => {
         _pintarEstrellas(item);
-    }); 
+    });
+    */
 }
 
 function _pintarEstrellas(item) {
-    let div = "#star-" + item.EstrategiaID.toString();
-    let rating = '';
+    var xdiv = "#star-" + item.EstrategiaID.toString();
+    var rating = '';
     rating = item.PromValorizado.toString() + '%';
-    $(div).rateYo({
+    $(xdiv).rateYo({
         rating: rating,
         numStars: 5,
         precision: 2,
@@ -264,7 +279,7 @@ function _pintarEstrellas(item) {
         starWidth: "17px",
         readOnly: true
     });
-    $(div).show();
+    $(xdiv).show();
 }
 
 function ArmarCarouselEstrategias(data) {
@@ -1233,12 +1248,12 @@ function ProcesarActualizacionMostrarContenedorCupon() {
 }
 
 function _validarDivTituloMasVendidos() {
-    let tieneMasVendidosFlag = _validartieneMasVendidos();
-    let model = get_local_storage("data_mas_vendidos");
-    let lista = [];
+    var tieneMasVendidosFlag = _validartieneMasVendidos();
+    var xmodel = get_local_storage("data_mas_vendidos");
+    var xlista = [];
 
-    if (model !== 'undefined' && model !== null) {
-        lista = model.Lista;
+    if (xmodel !== 'undefined' && xmodel !== null) {
+        xlista = xmodel.Lista;
     }
 
     if (tieneMasVendidosFlag === 0) {
@@ -1247,7 +1262,7 @@ function _validarDivTituloMasVendidos() {
     }    
 
     if (tieneMasVendidosFlag === 1) {
-        if (lista.length === 0) {
+        if (xlista.length === 0) {
             $(".content_mas_vendidos").hide();
         }
         else {
