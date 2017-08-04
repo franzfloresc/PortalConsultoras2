@@ -2642,8 +2642,8 @@ namespace Portal.Consultoras.Web.Controllers
                                         ((Enumeradores.TipoSubEstadoPostulanteRechazada)i.SubEstadoPostulante).ToString()
                                         : "",
                 TelefonoCelular = i.TelefonoCelular,
-                ClaseRechazoZonaSeccion = i.EstadoPostulante == "RECHAZADA" ? ( i.TipoRechazo == "4" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "3" ? "estiloMalaZonificacionSeccion" :""  ) : "",
-                PopupRechazoZonaSeccion = i.EstadoPostulante == "RECHAZADA" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : ""
+                ClaseRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? ( i.TipoRechazo == "4" ? "estiloMalaZonificacionZona" : i.TipoRechazo == "3" ? "estiloMalaZonificacionSeccion" :""  ) : "",
+                PopupRechazoZonaSeccion = i.EstadoPostulante == "EN GESTIÓN DEL SERVICIO AL CLIENTE" ? (i.TipoRechazo == "4" || i.TipoRechazo == "3" ? "openPopupMotivoRechazo" : "") : ""
             }).ToList();
 
  
