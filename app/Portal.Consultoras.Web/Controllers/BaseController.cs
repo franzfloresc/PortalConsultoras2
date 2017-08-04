@@ -461,8 +461,9 @@ namespace Portal.Consultoras.Web.Controllers
                 permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
                 permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
 
-                if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
-                {
+                //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
+                    {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         permiso.UrlItem = AccionControlador("sr");
                     else
@@ -724,7 +725,8 @@ namespace Portal.Consultoras.Web.Controllers
                     menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
                     menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
 
-                    if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                    //if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                    if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                     {
                         if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         {
@@ -795,7 +797,19 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
 
-                if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
+                if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()))
+                {
+                    var listaJunto = lstModel.Where(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower());
+                    if (listaJunto.Count() == 2)
+                    {
+                        lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
+                    }
+                    else if (listaJunto.Count() == 1)
+                    {
+                        lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
+                    }
+                }
+                else if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
                 {
                     var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
                     if (menuRd.ClaseMenuItem != "oculto")
