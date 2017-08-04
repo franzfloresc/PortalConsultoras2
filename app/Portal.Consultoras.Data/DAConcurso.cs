@@ -45,5 +45,13 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
             return Context.ExecuteReader(command);
         }
+
+        public void GenerarConcursoVigente(string CodigoConsultora, string CodigoCampania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GenerarConcursoVigente");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoCampania", DbType.String, CodigoCampania);
+            Context.ExecuteNonQuery(command);
+        }
     }
 }

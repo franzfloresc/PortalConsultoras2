@@ -2986,9 +2986,11 @@
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
     <Content Include="Content\Temporales\FolderContent.txt" />
+    <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
+    <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />

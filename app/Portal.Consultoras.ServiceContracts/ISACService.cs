@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;//AOB
+using Portal.Consultoras.Entities.Mobile;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -693,5 +691,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
+        
+        [OperationContract]
+        IList<BEApp> ListarApps(int paisID);
     }
 }
