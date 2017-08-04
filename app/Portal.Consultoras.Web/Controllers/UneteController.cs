@@ -318,15 +318,18 @@ namespace Portal.Consultoras.Web.Controllers
                     var MalaZonificacionString = string.Empty;
                     MalaZonificacionString = tipoRechazosGZ.Where(x => x.Valor == Enumeradores.TiposRechazoPortalGZ.MalaZonificación_CorrespondeAotraZona.ToInt()).FirstOrDefault().Nombre;
 
-                    var eventoMZ = eventos.ToList().
-                                        Where(e => e.Observacion != null && e.Observacion.Contains(MalaZonificacionString)).
-                                            OrderByDescending(ev => ev.Fecha.ToDatetime()).ToList().FirstOrDefault();
+                if (eventos.ToList().OrderByDescending(ev => ev.Fecha.ToDatetime()).FirstOrDefault(e => e.Observacion != null && e.Observacion.Contains("MALA ZONIFICACIÓN")) !=null)
+                {
+                    var eventoMZ = eventos.ToList().OrderByDescending(ev => ev.Fecha.ToDatetime()).FirstOrDefault(e => e.Observacion != null && e.Observacion.Contains("MALA ZONIFICACIÓN"));
 
                     model.ZonaSeccionRechazo = (eventoMZ.Observacion.Split(':').Length > 1 ?
                                                   eventoMZ.Observacion.Split(':')[1].ToString()
                                                : (eventoMZ.Observacion.Split('|').Length > 1 ?
                                                   eventoMZ.Observacion.Substring(eventoMZ.Observacion.Split('|')[0].Length + 1).ToString()
                                                   : string.Empty));
+
+                }
+                   
                                                
                     model.ZonaSeccionRechazo = string.IsNullOrEmpty(model.ZonaSeccionRechazo)? string.Empty :  model.ZonaSeccionRechazo.Replace('|', '/');
                 }
@@ -4173,11 +4176,17 @@ namespace Portal.Consultoras.Web.Controllers
                         solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
                     }
 
+
+                    if ((CodigoISO == Pais.Colombia) && (!string.IsNullOrEmpty(consultarUbicacionModel.Zona)))
+                    {
+                        solicitudPostulante.CodigoZona = consultarUbicacionModel.Zona;
+                    }
+
                     //if (CodigoISO == Pais.PuertoRico)
                     //{
                     //    solicitudPostulante.CodigoPostal =model.CodigoPostal;
                     //}
-                        actualziarCampaniaRegistro(ref solicitudPostulante);
+                    actualziarCampaniaRegistro(ref solicitudPostulante);
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
                 }
             }
