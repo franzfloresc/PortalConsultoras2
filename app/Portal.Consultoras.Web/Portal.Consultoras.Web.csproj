@@ -1182,6 +1182,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
     <Content Include="Content\Images\dislike.png" />

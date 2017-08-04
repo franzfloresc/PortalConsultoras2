@@ -4908,17 +4908,22 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_ofertaFinal{
-    display:block;
+    display:inline-block;
     position:relative;
-    top:50%;
-    margin:-298.5px auto 0 auto;
+    
+    margin:0 auto;
     background:#FFF;
-    width:100%;
-    max-width:892px;
+    
+    width:850px;
     height:auto;
     padding-top:40px;
     box-sizing:border-box;
     font-family:'Lato';
+    margin-top:50px;
+    vertical-align:top;
+}
+.center_text{
+    text-align:center;
 }
 
 .popup_ofertaFinal .icono_advertencia{
@@ -35742,3 +35747,104 @@ h1#penmostreo .campana {
     background:black;
     color:white;
 }
+/*SPRINT 18*/
+.content_regalo_sorpresa{
+    display:inline-block;
+    width:310px;
+    height:570px;
+    margin-top: 50px;
+    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    vertical-align:top;
+    margin-right: -25px;
+    z-index: 21;
+    position: relative;
+    padding-top:30px;
+    padding-left:25px;
+    padding-right:25px;
+}
+.fondo_blanco_regalo{
+    width:240px;
+    min-height:294px;
+    margin:0 auto;
+    background:white;  
+    padding-top:18px;  
+}
+.titulo_regalo_sorpresa{
+    font-family:'Lato';
+    font-size:17px;
+    letter-spacing:1px;
+    margin-bottom: 22px;
+    text-align:center;
+    margin-top:7px;
+    color:white;
+    line-height: 22px;
+}
+.titulo_regalo_producto{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-bottom:15px;
+}
+.content_imagen_sorpresa{
+    height:178px;
+    width:180px;
+    /*background:black;*/   
+    margin:0 auto;
+    margin-bottom:12px;
+}
+.descripcion_regalo{
+    font-family: 'Lato';
+    /* font-weight: 300; */
+    font-size: 10px;
+    color: black;
+    line-height: 12px;
+}
+.descripcion_regalo a{
+    display:block;
+    text-decoration:underline;
+    margin-top:4px;
+}
+.content_detalle_monto{
+   font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.5px;
+    color: white;
+    background: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    width: 240px;
+    margin: 0 auto;
+    min-height: 40px;
+}
+.icono_regalo_sorpresa{
+    width:85px;
+    height:55px;
+    background:url(https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png);
+    margin: 0 auto;
+    margin-top:26px;
+}
+.titulo_regalo_2{
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    font-size: 19px;
+    margin-bottom: 36px;
+    margin-top: 7px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+.font_32{
+    font-weight:700;
+    padding-bottom:6px;    
+    display:block;
+    font-size:32px;
+    line-height: 35px;
+}
+.bold_900{
+    font-weight:900;
+

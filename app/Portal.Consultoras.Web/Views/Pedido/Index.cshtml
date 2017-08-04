@@ -951,12 +951,13 @@
 </div>
 <!-- FIN PRODUCTOS SUGERIDOS -->
 <!-- POPUP OFERTA FINAL -->
-<div class="contenedor_popup_ofertaFinal" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
+<div class="contenedor_popup_ofertaFinal center_text" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
 
                     </div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
         <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
+            
             <div class="popup_ofertaFinal" style="padding:35px;">
                 <a class="btn_cerrar_escala" href="javascript:;" onclick="javascript: $('#contenedor_popup_ofertaFinal').hide();">REGRESAR</a>
                 <hr class="clear" />
@@ -2278,7 +2279,25 @@ else
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body=""> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
+    <div class="content_regalo_sorpresa">
+        <div class="icono_regalo_sorpresa"></div>
+        <div class="titulo_regalo_sorpresa"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR DÍA DE LA MADRE!</div>
+        <div class="titulo_regalo_2">FELICIDADES VALERIA <br/><span class="font_32">¡GANASTE!</span></div>
+        <div class="titulo_regalo_2">¡FELICIDADES VALERIA <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
+        <div class="fondo_blanco_regalo">
+            <div class="titulo_regalo_producto">Bicicleta Rockrider 340 Azul</div>
+            <div class="content_imagen_sorpresa"><img src="https://image.prntscr.com/image/jehvsnsYSyS4klODMOPo5w.png" alt=""/></div>
+            <div class="descripcion_regalo">
+            Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.
+            <a href="#">*Leer términos y condiciones</a>
+            </div>
+        </div>
+        <div class="content_detalle_monto">
+            MONTO A ALCANZAR: $200.000<br/>
+            <b>TE FALTA AGREGAR: $23.999</b>
+        </div>
+    </div>
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:570px;"> <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
             <div class="content_imagen_alternativo">
                 <img id="img-regalo-pn" src="http://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000111962017530330_cjzkqorxhx.png">
