@@ -1059,6 +1059,8 @@
       <xs:element minOccurs="0" name="NombreCorto" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PaisNombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Posicion" type="xs:int" />
+      <xs:element minOccurs="0" name="TextoPago" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UrlSitio" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>

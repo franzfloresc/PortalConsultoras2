@@ -20926,7 +20926,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     margin:0 auto;
-    margin-top: 45px !important;
+    /*margin-top: 45px !important;*/
     font-weight:700;
 }
 .boton_ultimos_movimientos:hover{

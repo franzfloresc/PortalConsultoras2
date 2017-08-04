@@ -269,10 +269,10 @@ namespace Portal.Consultoras.ServiceContracts
         BELugarPago GetLugarPagoById(int paisID, int lugarPagoID);
 
         [OperationContract]
-        void InsertLugarPago(BELugarPago entidad);
+        int InsertLugarPago(BELugarPago entidad);
 
         [OperationContract]
-        void UpdateLugarPago(BELugarPago entidad);
+        int UpdateLugarPago(BELugarPago entidad);
 
         [OperationContract]
         void DeleteLugarPago(int paisID, int lugarPagoID);

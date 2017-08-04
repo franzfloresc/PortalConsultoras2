@@ -42,16 +42,16 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        public void InsertLugarPago(BELugarPago entidad)
+        public int InsertLugarPago(BELugarPago entidad)
         {
             var DALugarPago = new DALugarPago(entidad.PaisID);
-            DALugarPago.Insert(entidad);
+           return Convert.ToInt32(DALugarPago.Insert(entidad));
         }
 
-        public void UpdateLugarPago(BELugarPago entidad)
+        public int UpdateLugarPago(BELugarPago entidad)
         {
             var DALugarPago = new DALugarPago(entidad.PaisID);
-            DALugarPago.Update(entidad);
+         return DALugarPago.Update(entidad);
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)

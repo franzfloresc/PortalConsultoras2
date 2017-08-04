@@ -5,6 +5,7 @@ using System.Data.Common;
 using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
+using System;
 
 namespace Portal.Consultoras.Data
 {
@@ -43,8 +44,9 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@UrlSitio", SqlDbType.VarChar).Value = entidad.UrlSitio;
             cmd.Parameters.Add("@ArchivoLogo", SqlDbType.VarChar).Value = entidad.ArchivoLogo;
             cmd.Parameters.Add("@ArchivoInstructivo", SqlDbType.VarChar).Value = entidad.ArchivoInstructivo;
-
-            return Context.ExecuteNonQuery(cmd);
+            cmd.Parameters.Add("@TextoPago", SqlDbType.VarChar).Value = entidad.TextoPago;
+            cmd.Parameters.Add("@Posicion", SqlDbType.Int).Value = entidad.Posicion;
+            return Convert.ToInt32(Context.ExecuteScalar(cmd));
         }
 
         public int Update(BELugarPago entidad)
@@ -60,8 +62,10 @@ namespace Portal.Consultoras.Data
             cmd.Parameters.Add("@UrlSitio", SqlDbType.VarChar).Value = entidad.UrlSitio;
             cmd.Parameters.Add("@ArchivoLogo", SqlDbType.VarChar).Value = entidad.ArchivoLogo;
             cmd.Parameters.Add("@ArchivoInstructivo", SqlDbType.VarChar).Value = entidad.ArchivoInstructivo;
+            cmd.Parameters.Add("@TextoPago", SqlDbType.VarChar).Value = entidad.TextoPago;
+            cmd.Parameters.Add("@Posicion", SqlDbType.Int).Value = entidad.Posicion;
 
-            return Context.ExecuteNonQuery(cmd);
+            return Convert.ToInt32(Context.ExecuteScalar(cmd));
         }
 
         public int Delete(int lugarPagoID)

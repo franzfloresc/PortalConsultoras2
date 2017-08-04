@@ -15,6 +15,9 @@ namespace Portal.Consultoras.Web.Models
         public string ArchivoLogo { set; get; }
         public string ArchivoLogoAnterior { set; get; }
         public string ArchivoInstructivo { set; get; }
+
+        public string TextoPago { set; get; }
+        public int Posicion { set; get; }
         //public IEnumerable<CampaniaModel> listaCampania { set; get; }
         public IEnumerable<PaisModel> listaPaises { set; get; }
     }

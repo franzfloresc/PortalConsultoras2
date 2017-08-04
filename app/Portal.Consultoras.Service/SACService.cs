@@ -585,28 +585,32 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public void InsertLugarPago(BELugarPago entidad)
+        public int InsertLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
-        public void UpdateLugarPago(BELugarPago entidad)
+        public int UpdateLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)

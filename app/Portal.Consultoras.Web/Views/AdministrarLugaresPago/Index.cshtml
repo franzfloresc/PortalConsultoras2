@@ -26,7 +26,7 @@
         });
 
         $("#btnBuscar").click(function () {
-            
+
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
@@ -37,7 +37,7 @@
 
         $('#frmLugarPago').ajaxForm({
             beforeSubmit: function () {
-                
+
                 var message = '';
 
                 if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
@@ -70,13 +70,20 @@
         });
 
         function fnRespuestaLugarPago(responseText, statusText, xhr, $form) {
-            
+
             if (checkTimeout(responseText)) {
                 $("#gvwLugaresPago").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                if (responseText && typeof responseText === "string") {                    
+
+    if(responseText.posicion==-1)
+    {
+    alert('La posición ingresada ya existe, ingrese una diferente');
+    return false;
+    }
+
+               else if (responseText && typeof responseText === "string") {
                     alert($.parseJSON(responseText).message);
-                } else {                    
-                    alert(responseText.message);                    
+                } else {
+                    alert(responseText.message);
                 }
                 $('#DialogRegistroLugaresPago').dialog('close');
             }
@@ -111,7 +118,7 @@
     }
 
     function fnGrilla() {
-        
+
         jQuery("#gvwLugaresPago").jqGrid({
             url: baseUrl + "AdministrarLugaresPago/Consultar",
             hidegrid: false,
@@ -121,18 +128,26 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['LugarPagoID', 'PaisID', 'ArchivoLogo', 'Lugar', 'Url del Site', 'Logo', 'Url del Instructivo', 'Opcion', 'UrlSitioOculto', 'ArchivoInstructivoOculto'],
-            colModel: [
-                { name: 'LugarPagoID', index: 'LugarPagoID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'ArchivoLogo', index: 'ArchivoLogo', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'Lugar', index: 'Lugar', width: 20, editable: true, resizable: false },
-                { name: 'UrlSitio', index: 'UrlSitio', width: 25, editable: true, resizable: false, formatter: ShowUrl },
-                { name: 'Imagen', index: 'Imagen', width: 22, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
-                { name: 'ArchivoInstructivo', index: 'ArchivoInstructivo', width: 30, editable: true, resizable: false, formatter: ShowFile },
-                { name: 'Activo', index: 'Activo', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
-                { name: 'UrlSitioOculto', index: 'UrlSitioOculto', width: 25, editable: true, resizable: false, hidden: true },
-                { name: 'ArchivoInstructivoOculto', index: 'ArchivoInstructivoOculto', width: 30, editable: true, resizable: false, hidden: true }
+colNames: ['LugarPagoID', 'PaisID', 'ArchivoLogo', 'Lugar', 'Url del Site', 'Logo', 'Url del Instructivo','UrlSitioOculto', 'ArchivoInstructivoOculto','Texto Pago','Posición', 'Opcion'],
+colModel: [
+{ name: 'LugarPagoID', index: 'LugarPagoID', width: 0, editable: true, resizable: false, hidden: true },
+{ name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
+{ name: 'ArchivoLogo', index: 'ArchivoLogo', width: 0, editable: true, resizable: false, hidden: true },
+
+{ name: 'Lugar', index: 'Lugar', width: 20, editable: true, resizable: false },
+{ name: 'UrlSitio', index: 'UrlSitio', width: 25, editable: true, resizable: false, formatter: ShowUrl },
+{ name: 'Imagen', index: 'Imagen', width: 22, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
+{ name: 'ArchivoInstructivo', index: 'ArchivoInstructivo', width: 30, editable: true, resizable: false, formatter: ShowFile },
+{ name: 'UrlSitioOculto', index: 'UrlSitioOculto', width: 25, editable: true, resizable: false, hidden: true },
+{ name: 'ArchivoInstructivoOculto', index: 'ArchivoInstructivoOculto', width: 30, editable: true, resizable: false, hidden: true },
+{ name: 'TextoPago', index: 'TextoPago', width: 30, editable: true, resizable: false  },
+{ name: 'Posicion', index: 'Posicion', width: 10, editable: true, resizable: false  },
+{ name: 'Activo', index: 'Activo', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
+
+
+
+
+
             ],
             jsonReader:
                 {
@@ -151,7 +166,7 @@
             emptyrecords: 'No hay resultados',
             rowNum: 10,
             scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
+            rowList: [10, 20, 30, 40, 50,60],
             sortname: 'Lugar',
             sortorder: 'asc',
             viewrecords: true,
@@ -176,7 +191,7 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            
+
             var image = "";
             if (rowObject[2] !== "")
                 image = '<img src="' + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
@@ -186,7 +201,7 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            
+
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 15);
             if (cellvalue.length > 15) {
@@ -196,7 +211,7 @@
         };
 
         function ShowFile(cellvalue, options, rowObject) {
-            
+
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 20);
             if (cellvalue.length > 20) {
@@ -208,13 +223,14 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            
+
             if (Id) {
                 $('#LugarPagoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
                 $('#ddlPaisDialogo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
                 $('#Nombre').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'Lugar'));
-                $('#UrlSitio').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'UrlSitioOculto'));
+
+    $('#UrlSitio').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'UrlSitioOculto'));
                 $('#ArchivoLogo').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
                 $('#ArchivoLogoAnterior').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
 
@@ -233,7 +249,11 @@
                         $('#ArchivoLogoAnterior').val(img01);
                     }
                 }
+    $('#TextoPago').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'TextoPago'));
+     $('#Posicion').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'Posicion'));
                 $('#ArchivoInstructivo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoInstructivoOculto'));
+
+
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
                 showDialog("DialogRegistroLugaresPago");
             } else {
@@ -277,14 +297,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        
+
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        
+
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -302,17 +322,31 @@
     }
 
     function limpiarPopup() {
-        
+
         $('#PaisID').val("");
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
         $('#Nombre').val("");
+        $('#TextoPago').val("");
+        $('#Posicion').val("");
         $('#UrlSitio').val("");
         $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
         $('#ArchivoLogo').val("");
         $('#ArchivoInstructivo').val("");
         $('#LugarPagoID').val("0");
     }
+
+ 
+
+     $(function () {
+        $('#Posicion').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+    });
+
+
 </script>
 
 <div class="wrap_cab">
@@ -386,6 +420,18 @@
                             @Html.TextBox("ArchivoInstructivo", null, new { maxlength = 3000 })
                         </div>
                     </div>
+                    <div class="div-3">
+                        <div class="titG">TextoPago:</div>
+                        <div class="selectA borde_redondeado">
+                            @Html.TextBox("TextoPago", null, new { maxlength = 100 })
+                        </div>
+                    </div> 
+                    <div class="div-3">
+                        <div class="titG">Posición:</div>
+                        <div class="selectA borde_redondeado">
+                            @Html.TextBox("Posicion", null, new { maxlength = 2 })
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="div-3">
