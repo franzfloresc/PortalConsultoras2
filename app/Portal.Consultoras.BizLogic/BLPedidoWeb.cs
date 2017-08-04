@@ -1744,6 +1744,18 @@ namespace Portal.Consultoras.BizLogic
             return bePedidoWeb;
         }
 
+        public BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
+        {
+            BEPedidoWeb bePedidoWeb = null;
+            DAPedidoWeb daPedidoWeb = new DAPedidoWeb(paisID);
+
+            using (IDataReader reader = daPedidoWeb.GetResumenPedidoWebByCampaniaConsultora(campaniaID, consultoraID))
+            {
+                if (reader.Read()) bePedidoWeb = new BEPedidoWeb(reader);
+            }
+            return bePedidoWeb;
+        }
+
         public List<BEPedidoWebService> GetPedidoConsolidado(int paisID, int CampaniaID, string CodigoConsultora, string ZonaCodigo, int PedidoPROL, string Origen, int IndicadorPedido, int IdEstadoActividad, int IndicadorSaldo, string SeccionCodigo, string NombreConsultora)
         {
             var listaPedidoPortal = new List<BEPedidoWebService>();
