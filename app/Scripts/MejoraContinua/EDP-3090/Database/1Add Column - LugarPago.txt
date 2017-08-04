@@ -1,0 +1,3 @@
+Alter table LugarPago add TextoPago varchar(100) null
+go
+Alter table LugarPago add Posicion int null

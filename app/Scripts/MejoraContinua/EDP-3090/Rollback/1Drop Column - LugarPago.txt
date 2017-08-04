@@ -1,0 +1,3 @@
+Alter table LugarPago drop column TextoPago
+go
+Alter table LugarPago drop column Posicion int null
