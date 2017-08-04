@@ -22033,18 +22033,19 @@ body{
     margin-top:10px;
 }
 .logos_bancos{
-    width:25%;
-    float:left;
-    margin-top:70px;
-    
+    width: 25%;
+    /* float: left; */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 70px;
+    margin-left: -2px;    
 }
 .logos_bancos:hover{
     filter: alpha(opacity=50);
     -moz-opacity: 0.50;
     opacity: 0.50;
-    -khtml-opacity: 0.50;   
-
-    }
+    -khtml-opacity: 0.50;
+}
 .tutoriales_svg{
     background: url(../../../Images/Esika/tutorial.png) no-repeat;
     background-position: 2px 3px;
