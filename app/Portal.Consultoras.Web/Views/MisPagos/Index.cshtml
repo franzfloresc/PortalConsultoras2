@@ -211,10 +211,11 @@
 
 <script id="js-LugaresPago" type="text/x-handlebars-template">
     {{#each this.listaLugaresPago as |lugar|}}
-    <div class="logos_bancos">
+    <div class="logos_bancos" style="text-align:center;">
         <a href="{{lugar.UrlSitio}}" target="_blank" onclick="EventoAnalytics('{{lugar.Nombre}}', 2)">
             <img src='{{lugar.ArchivoLogo}}' alt="Logo Lugar de Pago" />
-             <span stye="font-weight:500!important; color:#e81c36;!important">{{lugar.TextoPago}} </span>
+             @*<span stye="font-weight:500!important; color:#e81c36!important;font-size:30px!important;">{{lugar.TextoPago}} </span>*@
+            <span style="font-weight:500!important;font-size:15px!important;color: #e81c36;text-align:center;">{{lugar.TextoPago}} </span> 
         </a> 
     </div>
     {{/each}}
