@@ -154,9 +154,14 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    $('html, body').animate({
-        scrollTop: $('#divTopFiltros' + idCamapania).position().top - 60
-    }, 1000, 'swing');
+    var top = $('#divTopFiltros' + idCamapania);
+    if (top.length > 0) {
+        top = top.position().top;
+
+        $('html, body').animate({
+            scrollTop: top - 60
+        }, 1000, 'swing');
+    }
 }
 
 function RDMostrarPosicion() {

@@ -42,6 +42,20 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
+            if (modelo != null)
+            {
+                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
+                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
+                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
+                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
+                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
+                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
+                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
+                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
+                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
+            }
+
             Session[Constantes.SessionNames.ProductoTemporal] = modelo;
 
             return Json(new
@@ -400,6 +414,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                 SetUserData(userData);
 
                 return Json(new

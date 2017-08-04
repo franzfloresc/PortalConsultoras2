@@ -182,6 +182,9 @@ $(document).ready(function () {
     }
     
     switch (TipoPopUpMostrar) {
+        case 0:
+            break;
+
         case popupVideoIntroductorio:
             mostrarVideoIntroductorio();
             break;
