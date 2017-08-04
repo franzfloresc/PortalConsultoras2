@@ -7,6 +7,7 @@ var MatrizComercialFileUpload = function (config) {
     };
 
     var _nemotecnico = config.nemotecnico; //|| Nemotecnico({})
+    var _uploader = '';
 
     var _validarNemotecnico = function (fileName) {
         var sinExtension = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -24,7 +25,8 @@ var MatrizComercialFileUpload = function (config) {
     };
 
     var _crearFileUpload = function (data) {
-        var uploader = new qq.FileUploader({
+
+        _uploader = new qq.FileUploader({
             allowedExtensions: _config.allowedExtensions,
             element: document.getElementById(data.elementId),
             action: _config.actualizarMatrizComercialAction,
@@ -35,6 +37,7 @@ var MatrizComercialFileUpload = function (config) {
                 PaisID: data.paisID,
                 CodigoSAP: data.codigoSAP,
                 DescripcionOriginal: data.descripcionOriginal,
+                DescripcionComercial: data.descripcionOriginal,
                 NemotecnicoActivo: _config.habilitarNemotecnico
             },
             onComplete: data.onComplete,

@@ -227,6 +227,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
             Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+            Context.Database.AddInParameter(command, "@DescripcionComercial", DbType.AnsiString, entity.DescripcionComercial);
 
             return Convert.ToInt32(Context.ExecuteScalar(command));
         }
@@ -248,6 +249,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+            Context.Database.AddInParameter(command, "@DescripcionComercial", DbType.AnsiString, entity.DescripcionComercial);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -258,6 +260,16 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
             Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdMatrizComercialDescripcionComercial(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialDescripcionComercial");
+            Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@DescripcionComercial", DbType.AnsiString, entity.DescripcionComercial);
 
             return Context.ExecuteNonQuery(command);
         }

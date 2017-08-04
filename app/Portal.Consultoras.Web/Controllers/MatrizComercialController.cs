@@ -310,7 +310,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = model.PaisID,
                     UsuarioRegistro = userData.CodigoConsultora,
                     UsuarioModificacion = userData.CodigoConsultora,
-                    NemoTecnico = nombreArchivoSinExtension
+                    NemoTecnico = nombreArchivoSinExtension,
+                    DescripcionComercial = model.DescripcionComercial
                 };
 
                 bool isNewImage = false;
@@ -391,6 +392,30 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "Se actualizó el nemotécnico satisfactoriamente."
             });
         }
+
+        [HttpPost]
+        public JsonResult ActualizarDescripcionComercialAction(MatrizComercialModel model)
+        {
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercialImagen = model.IdMatrizComercialImagen,
+                PaisID = model.PaisID,
+                UsuarioModificacion = userData.CodigoConsultora,
+                DescripcionComercial = model.DescripcionComercial
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                sv.UpdMatrizComercialDescripcionComercial(entity);
+            }
+
+            return Json(new
+            {
+                entity = model,
+                success = true,
+                message = "Se actualizó el nemotécnico satisfactoriamente."
+            });
+        }    
 
         [HttpPost]
         public string UpdDescripcionProductoMasivo(HttpPostedFileBase flDescProd)
@@ -582,7 +607,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
                 Foto = urlS3 + p.Foto,
-                NemoTecnico = p.NemoTecnico
+                NemoTecnico = p.NemoTecnico,
+                DescripcionComercial = p.DescripcionComercial
             }).ToList();
 
             return data;

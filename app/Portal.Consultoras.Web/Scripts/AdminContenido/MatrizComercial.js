@@ -8,7 +8,8 @@ var MatrizComercial = function (config) {
         actualizarNemotecnicoAction: config.actualizarNemotecnicoAction || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,      
         habilitarNemotecnico: false,
-        expValidacionNemotecnico: config.expValidacionNemotecnico
+        expValidacionNemotecnico: config.expValidacionNemotecnico,
+        actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction
     };
 
     var _editData = {};
@@ -22,6 +23,7 @@ var MatrizComercial = function (config) {
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina});
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico, prefixControlNemotecnico: 'label-nemotecnico-', actualizarNemotecnicoAction: _config.actualizarNemotecnicoAction });
+    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -80,6 +82,7 @@ var MatrizComercial = function (config) {
                     alert(response.message);
                 }
             }
+            $('#txtDescripcionComercial').val('')
             closeWaitingDialog();
         };
     };
@@ -103,11 +106,12 @@ var MatrizComercial = function (config) {
             descripcionOriginal: getCell(id, 'DescripcionOriginal'),
             imagenes: [],
             habilitarNemotecnico: _config.habilitarNemotecnico
-        };
+        };       
 
         $("#matriz-imagenes-paginacion").empty();
 
         SetHandlebars('#matriz-comercial-template', editData, '#matriz-comercial-dialog');
+
         _crearFileUploadAdd(editData);
 
         _obtenerImagenes(editData, 1, true).done(function () {
@@ -115,6 +119,7 @@ var MatrizComercial = function (config) {
         });
 
         _nemotecnico.actualizarPais(editData.paisID);
+        _descripcionComercial.actualizarPais(editData.paisID);
 
         return false;
     };
@@ -196,11 +201,16 @@ var MatrizComercial = function (config) {
         _nemotecnico.editarNemotecnico(idImagen);
     };
 
+    var _editarDescripcionComercial = function (idImagen) {
+        _descripcionComercial.editarDescripcionComercial(idImagen);
+    };
+
     return {
         editar: _editar,
         actualizarParNemotecnico: _actualizarParNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,
         limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
-        editarNemotecnico: _editarNemotecnico
+        editarNemotecnico: _editarNemotecnico,
+        editarDescripcionComercial: _editarDescripcionComercial
     }
 };

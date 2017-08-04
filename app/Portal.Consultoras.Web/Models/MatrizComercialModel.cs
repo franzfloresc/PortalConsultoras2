@@ -13,6 +13,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoSAP { get; set; }
         public string Foto { get; set; }
         public string DescripcionOriginal { get; set; }
+        public string DescripcionComercial { get; set; }
         public string Descripcion { get; set; }
         public string UsuarioRegistro { get; set; }
         public string UsuarioModificacion { get; set; }
@@ -28,5 +29,6 @@ namespace Portal.Consultoras.Web.Models
         public string Foto { get; set; }
         public DateTime FechaRegistro { get; set; }
         public string NemoTecnico { get; set; }
+        public string DescripcionComercial { get; set; }
     }
 }
