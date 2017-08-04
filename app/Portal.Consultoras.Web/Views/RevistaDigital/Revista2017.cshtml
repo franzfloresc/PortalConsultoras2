@@ -357,11 +357,19 @@
         $(this).find('ul').css({
             display: "none"
         });
+        $("ul.bc_opciones li ul.default").css({
+            display: "block"
+        });
     });
 
     /*$("ul.bc_opciones li ul").mouseleave(function(){
         $("ul.bc_opciones li ul.default").css("display", "block !important");
     }); */
+
+   /* $("ul.bc_opciones").mouseleave(function(e){
+        $("ul.bc_opciones li ul.default").css("display", "block !important");
+    });*/
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
