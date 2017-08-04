@@ -2018,8 +2018,13 @@ height: 100%;
     font-weight: 400;
 }
 
+.block_inscribete_predio
+{
+    text-align: center;
+}
+
 .hblock_title_perdio {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 1.2px;
     text-transform: uppercase;
@@ -2028,11 +2033,12 @@ height: 100%;
     margin-bottom: 18px;
 }
 .hblock_title_perdio2 {
-    height: 120px;
+    height: auto;
     left: 300px;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 100;
-    padding-top: 24px;
+    padding-top: 13px;
     line-height: 24px;
     letter-spacing: 2px;
+    display: block;
 }
