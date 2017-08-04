@@ -214,6 +214,7 @@
     <Compile Include="CDR\BLCDRWebDetalle.cs" />
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
     <Compile Include="FtpConfiguration.cs" />
+    <Compile Include="Mobile\BLApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
