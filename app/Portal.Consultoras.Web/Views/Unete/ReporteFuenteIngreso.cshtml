@@ -28,52 +28,14 @@
 
     </div>
 
-    <div id="ContainerGrid" class="redborder" style="height:auto">
+    <h1 class="titulo_reporte_fuente_ingreso tipografia_lato tipografia_lato_light">
+        REPORTE POR <span class="tipografia_lato_regular">FUENTE DE INGRESO</span>
+    </h1>
 
-        @*<div id="gridFuenteIngreso">
-        </div>*@
-        <h1 class="titulo_reporte_fuente_ingreso tipografia_lato tipografia_lato_light">
-            REPORTE POR <span class="tipografia_lato_regular">FUENTE DE INGRESO</span>
-        </h1>
 
-        <div class="grilla_reporte_fuente_ingreso tipografia_lato">
-            <div class="grilla_cabecera">
-                <div class="col_campania col_cabecera tipografia_lato_semibold">Campaña</div>
-                <div class="col_ub col_cabecera tipografia_lato_semibold">UB</div>
-                <div class="col_portalGZ col_cabecera tipografia_lato_semibold">Portal GZ</div>
-                <div class="col_callCenter col_cabecera tipografia_lato_semibold">Call Center</div>
-                <div class="col_AppSE col_cabecera tipografia_lato_semibold">App SE</div>
-            </div>
-            <div class="grilla_contenido">
-                <div class="col_campania tipografia_lato_semibold">201705</div>
-                <div class="col_ub tipografia_lato_regular">152</div>
-                <div class="col_portalGZ tipografia_lato_regular">0</div>
-                <div class="col_callCenter tipografia_lato_regular">0</div>
-                <div class="col_AppSE tipografia_lato_regular">0</div>
-            </div>
-            <div class="grilla_contenido">
-                <div class="col_campania tipografia_lato_semibold">201706</div>
-                <div class="col_ub tipografia_lato_regular">211</div>
-                <div class="col_portalGZ tipografia_lato_regular">1</div>
-                <div class="col_callCenter tipografia_lato_regular">0</div>
-                <div class="col_AppSE tipografia_lato_regular">0</div>
-            </div>
-            <div class="grilla_contenido">
-                <div class="col_campania tipografia_lato_semibold">201707</div>
-                <div class="col_ub tipografia_lato_regular">679</div>
-                <div class="col_portalGZ tipografia_lato_regular">6</div>
-                <div class="col_callCenter tipografia_lato_regular">0</div>
-                <div class="col_AppSE tipografia_lato_regular">0</div>
-            </div>
-            <div class="grilla_contenido">
-                <div class="col_campania tipografia_lato_semibold">201708</div>
-                <div class="col_ub tipografia_lato_regular">433</div>
-                <div class="col_portalGZ tipografia_lato_regular">6</div>
-                <div class="col_callCenter tipografia_lato_regular">0</div>
-                <div class="col_AppSE tipografia_lato_regular">0</div>
-            </div>
+    <div id="ContainerGrid" class="redborder" style="height:auto">  
+        <div id="gridFuenteIngreso" class="grilla_reporte_fuente_ingreso tipografia_lato">             
         </div>
-
     </div>
 
 </div>
@@ -89,12 +51,12 @@
 
      function setGridHeaders()
      {
-         $('#gridFuenteIngreso').append('<div class="headers" >'+
-                '<div class="headFuenteIngreso   cellFuenteIngreso">Campaña</div>'+
-                '<div class="headFuenteIngreso   cellFuenteIngreso">UB</div>'+
-                '<div class="headFuenteIngreso   cellFuenteIngreso">Portal GZ</div>'+
-                '<div class="headFuenteIngreso   cellFuenteIngreso">Call center</div>'+
-                '<div class="headFuenteIngreso   cellFuenteIngreso">App SE</div>'+
+         $('#gridFuenteIngreso').append('<div class="grilla_cabecera" >' +
+                '<div class="col_campania col_cabecera tipografia_lato_semibold">Campaña</div>' +
+                '<div class="col_ub col_cabecera tipografia_lato_semibold">UB</div>' +
+                '<div class="col_portalGZ col_cabecera tipografia_lato_semibold">Portal GZ</div>' +
+                '<div class="col_callCenter col_cabecera tipografia_lato_semibold">Call center</div>' +
+                '<div class="col_AppSE col_cabecera tipografia_lato_semibold">App SE</div>' +
 
              '</div>');
      }
@@ -116,7 +78,7 @@
              data: JSON.stringify(obj),
              async: true,
              success: function (data) {
-
+       
                  setDataToGrid(data);
 
              },
@@ -155,13 +117,13 @@
      }
      function ResetGrid()
      {
-         $('.gridDataRow').remove();
+         $('.grilla_contenido').remove();
          $('#spinner').remove();
      }
 
      function buildDataCell(colName, className, value)
      {
-         var strClass = 'cellFuenteIngreso ';
+         var strClass = 'tipografia_lato_regular ';
 
          if(className)
          {
@@ -174,15 +136,15 @@
 
      function buildDataRow(row)
      {
-         var rowHtml ='<div class="gridDataRow" data-id="'+ row.Campania+'">';
+         var rowHtml ='<div class="grilla_contenido" data-id="'+ row.Campania+'">';
 
 
-         rowHtml = rowHtml + buildDataCell('Campania', 'Campania', row.Campania);
+         rowHtml = rowHtml + buildDataCell('Campania', 'col_campania', row.Campania);
 
-         rowHtml = rowHtml + buildDataCell('UB', 'RegistroCompleto whiteCell', row.UB);
-         rowHtml = rowHtml + buildDataCell('PortalGZ', 'PortalGZ whiteCell', row.PortalGZ);
-         rowHtml = rowHtml + buildDataCell('CallCenter', 'CallCenter whiteCell', row.CallCenter);
-         rowHtml = rowHtml + buildDataCell('AppSE', 'AppSE whiteCell', row.AppSE);
+         rowHtml = rowHtml + buildDataCell('UB', 'col_ub', row.UB);
+         rowHtml = rowHtml + buildDataCell('PortalGZ', 'col_portalGZ', row.PortalGZ);
+         rowHtml = rowHtml + buildDataCell('CallCenter', 'col_callCenter', row.CallCenter);
+         rowHtml = rowHtml + buildDataCell('AppSE', 'col_AppSE', row.AppSE);
 
          $('#gridFuenteIngreso').append(rowHtml +'</div>');
 
