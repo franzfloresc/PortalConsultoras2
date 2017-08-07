@@ -18,5 +18,10 @@
         public bool EsAppMobile { get; set; }
 
         public int ClienteID { get; set; }
+
+        /// <summary>
+        /// Identificador unico para App Mobile, usado como tokenPedido 
+        /// </summary>
+        public string Identifier { get; set; }
     }
 }
