@@ -227,7 +227,6 @@ function OfertaCargarProductos(busquedaModel, clear) {
         },
         error: function (response, error) {
             divProd.find("#divOfertaProductosLoad").hide();
-            //$("#divOfertaProductosLoad").hide();
             if (checkTimeout(response)) {
                 CerrarLoad();
                 console.log(response);
@@ -250,7 +249,7 @@ function OfertaCargarProductoRespuesta(response, clear) {
     if (response.success !== true) {
         return false;
     }
-
+    divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);
     if (clear || false) {
         divProd.find('#divOfertaProductos').html("");

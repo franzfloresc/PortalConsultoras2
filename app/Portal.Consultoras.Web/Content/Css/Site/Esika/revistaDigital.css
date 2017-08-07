@@ -1509,7 +1509,7 @@
 .rd_btn_rojo_right {
     background: #e81c36;
     width: 220px;
-    right: 20px;
+    right: 0;
     border: 0px solid;
     color: #fff;
     font-size: 13px;
@@ -2612,7 +2612,7 @@
 /**/
 
 .bc_productos {
-    width: 65%;
+    width: 68%;
     float: left;
     height: 462px;
     background: #f0f0f0;

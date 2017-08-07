@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
 
+                #region Montos
                 //EPD-2058
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
@@ -53,6 +54,7 @@ namespace Portal.Consultoras.Web.Controllers
                         model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
                     }
                 }
+                #endregion
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
@@ -226,6 +228,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
+                #region limite Min - Max Telef
                 //EPD-1089
                 if (userData.PaisID == 9)
                 {
@@ -258,6 +261,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.limiteMaximoTelef = 15;
                 }
                 //
+                #endregion
 
                 #region Lógica de Popups
 
@@ -291,11 +295,12 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
+
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
@@ -347,19 +352,18 @@ namespace Portal.Consultoras.Web.Controllers
                 return TipoPopUpMostrar;
             }
 
-            if (Session["TipoPopUpMostrar"] != null)
+            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
-                TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                return TipoPopUpMostrar;
             }
-            else
-            {
-                listaPopUps = ObtenerListaPopupsDesdeServicio();
 
-                if (listaPopUps.Any())
-                {
-                    TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
-                    Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
-                }
+            listaPopUps = ObtenerListaPopupsDesdeServicio();
+
+            if (listaPopUps.Any())
+            {
+                TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
             }
 
             return TipoPopUpMostrar;

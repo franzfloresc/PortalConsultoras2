@@ -210,6 +210,9 @@ namespace Portal.Consultoras.Common
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+
+
+            public const string TipoPopUpMostrar = "TipoPopUpMostrar";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -408,6 +411,7 @@ namespace Portal.Consultoras.Common
 
         public class TipoPopUp
         {
+            public const int Ninguno = 0;
             public const int VideoIntroductorio = 1;
             public const int GPR = 2;
             public const int DemandaAnticipada = 3;

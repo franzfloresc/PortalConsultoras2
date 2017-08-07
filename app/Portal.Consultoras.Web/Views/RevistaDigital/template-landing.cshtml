@@ -18,7 +18,7 @@
 </div>
 <hr class="clear" />
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
-    <div class="content_belcorp">
+    <div class="content_belcorp" data-listado-content="" style="display: none;">
         
             @if (ViewBag.TieneProductosPerdio)
             {
@@ -103,10 +103,10 @@
                 <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
                 <hr class="clear" />
             }
-            <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
-            <hr class="clear" />
         </div>
     </div>
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
     <hr class="clear" />
 </div>
 

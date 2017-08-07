@@ -17,12 +17,12 @@
         display:none;
     }
     .bc_barra_opciones{
-            height: 100%;
-    background: black;
-    position: fixed;
-    width: 7%;
-    margin-top:62px;
-    top: 0;
+        height: 100%;
+        background: black;
+        position: fixed;
+        width: 7%;
+        margin-top:62px;
+        top: 0;
         z-index: 10;
     }
     ul.bc_opciones{
@@ -33,41 +33,50 @@
     }
     ul.bc_opciones li{
         width:100%;
+        padding-bottom: 25px;
+        height: 105px;
     }
     ul.bc_opciones li a{
-            display: block;
-    color: white;
-    padding: 10px;
-    word-wrap: break-word;
-    text-align: center;
-    transition:.3s;
+        display: block;
+        color: white;
+        padding: 10px;
+        word-wrap: break-word;
+        text-align: center;
+        transition:.3s;
         padding: 20px 0px;
     }
-    ul.bc_opciones li a::after{
-            content: '';
-    width: 50px;
-    background: red;
-    height: 1px;
-    display: block;
-    margin: auto;
-    margin-top: 10px;
-    display: none;
-    transition:.3s;
+    /*ul.bc_opciones li a::after{
+        content: '';
+        margin-top: 10px;
+        width: 50px;
+        background: red;
+        height: 1px;
+        display: block;
+        margin: auto;
+        display: none;
+        transition:.3s;
     }
     ul.bc_opciones li a:hover::after{
         display: block;
+    }*/
+    ul.bc_opciones li hr{
+        color: red;
+        width: 60%;
+        margin: 0 auto;
+        height: 1px;
+        display: none;
     }
     ul.bc_opciones li img.icono-menu{
         display: block;
         margin:auto;
-            margin-bottom: 10px;
+        margin-bottom: 10px;
     }
     ul.bc_opciones span.bc_campana{
         font-size: 13px;
     }
     ul.bc_opciones li ul{
         padding: 0;
-            height: 100%;
+        height: 100%;
         margin:0;
         list-style: none;
         position: absolute;
@@ -77,20 +86,19 @@
         z-index:1;
         width: 125px;
         background: #f5f4f4;
-         transition:2s;
-            -webkit-transition:2s;
+        transition:2s;
+        -webkit-transition:2s;
         -moz-transition:2s;
     }
     ul.bc_opciones li ul li{
         transition:.3s;
     }
     ul.bc_opciones li ul li:hover{
-             box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.28);
-
+        box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.28);
     }
 
     ul.bc_opciones li ul li a{
-            color: #929292;
+        color: #929292;
         text-decoration: none;
         transition:.3s;
             border-bottom: 1px solid rgba(0, 0, 0, 0.10);
@@ -106,7 +114,7 @@
         text-transform: uppercase;
         display: block;
         text-align: left;
-            margin-bottom: 5px;
+        margin-bottom: 5px;
         transition:.3s;
     }
     ul.bc_opciones li ul li a .separa-titulo{
@@ -128,63 +136,62 @@
         margin-top:30px;
     }
     .bc_contenido a.btn-comprar{
-           background: black;
-    color: white;
-    letter-spacing: 1px;
-    padding: 10px;
-    text-decoration: none;
-    margin: auto;
-    width: 200px;
-    /* bottom: 0; */
-    display: inline-block;
-    margin-top: 10px;
-    text-align: center;
+        background: black;
+        color: white;
+        letter-spacing: 1px;
+        padding: 10px;
+        text-decoration: none;
+        margin: auto;
+        /* position: absolute; */
+        width: 200px;
+        /* bottom: 0; */
+        left: 0;
+        display: block;
+        margin-top: 20px;
+        text-align: center;
     }
     .bc_contenido .bc_venta_exclusiva{
-            background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));
-    background-size: cover;
+        background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));
+        background-size: cover;
     height: 500px;
-    background-repeat: no-repeat;
-    background-position: left center;
-
-
+        background-repeat: no-repeat;
+        background-position: left center;
     }
     .bc_contenido .bc_ofertas_personalizadas{
-             background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png"));
-    background-size: contain;
-    height: 332px;
-    background-repeat: no-repeat;
-    background-position: right top;
-    padding: 70px 0px;
-    margin-top: -50px;
-
+        background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png"));
+        background-size: contain;
+        height: 332px;
+        background-repeat: no-repeat;
+        background-position: right top;
+        padding: 70px 0px;
+        margin-top: -50px;
     }
     .bc_contenedor_showroom{
-       margin: auto;
-    /* padding: 0px 250px; */
-    display: block;
-    text-align: center !important;
-    width: 750px;
-    padding-top: 20px;
+        margin: auto;
+        /* padding: 0px 250px; */
+        display: block;
+        text-align: left;
+        width: 750px;
+        padding-top: 30px;
     }
     .bc_adorno1{
-            position: absolute;
-    margin-top: -34px;
+        position: absolute;
+        margin-top: -34px;
     }
     .bc_adorno2{
-            position: absolute;
-    margin-top: -34px;
-    right:0;
+        position: absolute;
+        margin-top: -34px;
+        right:0;
     }
     .bc_adorno3{
-               position: absolute;
-    margin-top: 11px;
-    left: 0;
-    margin-left: 11%;
+        position: absolute;
+        margin-top: 11px;
+        left: 0;
+        margin-left: 11%;
     }
     .bc_vineta_baja{
-    width:100%;
-    margin:60px 0px;
+        width:100%;
+        margin:60px 0px;
     }
     .bc_vineta_baja img{
         display: block;
@@ -200,8 +207,7 @@
         border-bottom: 1px solid #cb1723;
         letter-spacing: 2px;
         font-weight: bolder;
-    font-size: 15px;
-
+        font-size: 15px;
     }
     .bc_showroom span.txt2{
         color:#333;
@@ -210,8 +216,8 @@
         font-size: 12px;
         margin-left: 20px;
     }
-    .revistadigital-landing .content_item_carrusel{
-            box-shadow: none !important;
+    .revistadigital-landing .content_item_carrusel {
+        box-shadow: none !important;
     }
         .bc_contenido .bc_venta_exclusiva_recomendado{
             background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png"));
@@ -251,45 +257,43 @@
     </style>
 }
 
-<!--<div class="home_block_rd" style="margin-top: 61px;">
-    <div class="hblock"></div>
-    <div class="content_belcorp" style="background-color: black; padding: 0 !important">
-        <div class="rd_logo">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
-        </div>
-        <div class="hblock_text">
-            <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
-            <div style="width: 85%">@Model.TituloDescripcion</div>
-        </div>
-    </div>
-</div>-->
-
 <hr class="clear" />
 <div class="bc_barra_opciones">
     <ul class="bc_opciones">
         <li>
-            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
+            <a href="javascript:;">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">
+                COMPRAR<br><span class="bc_campana">C - 14</span>
+            </a>
             <ul class="default">
                 <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
                 <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
                 <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
+            <hr />
         </li>
         <li>
-            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">REVISAR <br><span class="bc_campana">C - 15</span></a>
+            <a href="javascript:;">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">
+                REVISAR<br><span class="bc_campana">C - 15</span>
+            </a>
             <ul>
                 <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
                 <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
                 <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
+            <hr />
         </li>
         <li>
-            <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">SABER <br>MÁS</a>
+            <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">
+                SABER<br>MÁS
+            </a>
             <ul>
                 <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
                 <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
                 <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
+            <hr />
         </li>
     </ul>
 </div>
@@ -317,8 +321,7 @@
         @* <div style="height: 350px; overflow: hidden; width: 1020px; margin: 28px auto auto; float: right;" data-tag-html="201712">
         <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
     </div> *@
-        <div class="bc_contenedor_showroom" style="padding-top: 0;
-    margin-top: -25px;">
+        <div class="bc_contenedor_showroom" style="padding-top: 0;margin-top: -25px;">
             <a href="" class="btn-comprar">!COMPRA YA!</a>
         </div>
     </div>
@@ -326,9 +329,12 @@
         <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
     </div>
     <div class="bc_venta_exclusiva_recomendado" style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); background-size: contain !important;
-    background-repeat: no-repeat !important;
-    background-position: right top;">
-        <div class="bc_contenedor_showroom" style=" padding-top 74px;">
+         style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); 
+                background-size: contain !important;
+                background-repeat: no-repeat !important; 
+                background-position: right top;">
+
+        <div class="bc_contenedor_showroom" style="padding-top: 74px;">
             <p class="bc_showroom">
                 <span class="txt1">
                     RECOMENDADAS PARA TÍ
@@ -341,8 +347,7 @@
         <div style="display: none; height: 370px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 20px;" data-tag-html="201712">
             <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
         </div>
-        <div class="bc_contenedor_showroom" style="padding-top: 0;
-    margin-top: -25px;">
+        <div class="bc_contenedor_showroom" style="padding-top: 0; margin-top: -25px;">
             <a href="" class="btn-comprar">VER TODAS MIS OFERTAS</a>
         </div>
     </div>
@@ -352,9 +357,8 @@
 </div>
 
 <hr class="clear" />
-<div data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
-    @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-</div>
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
@@ -386,42 +390,61 @@
         var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
         var tieneMasVendidos = 0;
 
-    /*ejecutar menu modo desktop*/
-    $('ul.bc_opciones li ul li a').hover(function(e) {
-        $(this).find('p').css('font-weight', 'bolder')
-    }, function(e) {
-        $(this).find('p').css('font-weight', 'normal')
-    });
+        /*ejecutar menu modo desktop*/
+        $(document).ready(function () {
 
-    $('ul.bc_opciones li').hover(function(e) {
-        $(this).find('ul').css({
-            display: "block"
-        });
-    }, function(e) {
-        $(this).find('ul').css({
-            display: "none"
-        });
-        $("ul.bc_opciones li ul.default").css({
-            display: "block"
-        });
-    });
+            $('ul.bc_opciones li').find("hr").attr("data-activo", 0);
 
-    /*$("ul.bc_opciones li ul").mouseleave(function(){
-        $("ul.bc_opciones li ul.default").css("display", "block !important");
-    }); */
+            $('ul.bc_opciones li a').click(function(e) {
+                $('ul.bc_opciones li').find("hr").hide();
+                $('ul.bc_opciones li').find("hr").attr("data-activo", 0);
+                $(this).parent().find("hr").show();
+                $(this).parent().find("hr").attr("data-activo", 1);
+            });
 
-   /* $("ul.bc_opciones").mouseleave(function(e){
-        $("ul.bc_opciones li ul.default").css("display", "block !important");
-    });*/
+            $('ul.bc_opciones li').hover(function(e) {
+                $(this).find('ul').css({
+                    display: "block"
+                });
+                $(this).find('hr').css({
+                    display: "block"
+                });
+            }, function(e) {
+                $(this).find('ul').css({
+                    display: "none"
+                });
+                $(this).find('hr[data-activo=0]').css({
+                    display: "none"
+                });
+                $("ul.bc_opciones li ul.default").css({
+                    display: "block"
+                });
+            });
+
+            $('ul.bc_opciones li ul li a').hover(function(e) {
+                $(this).find('p').css('font-weight', 'bolder')
+            }, function(e) {
+                $(this).find('p').css('font-weight', 'normal')
+            });
+
+            /*$("ul.bc_opciones li ul").mouseleave(function(){
+                $("ul.bc_opciones li ul.default").css("display", "block !important");
+            }); */
+
+            /* $("ul.bc_opciones").mouseleave(function(e){
+                 $("ul.bc_opciones li ul.default").css("display", "block !important");
+             });*/
+        });
 
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>*@
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>*@
 }

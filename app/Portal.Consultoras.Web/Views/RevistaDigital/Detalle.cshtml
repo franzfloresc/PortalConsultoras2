@@ -75,7 +75,7 @@
 <hr class="clear">
 <div class="pack_personalizado_ficha">
     <div class="content_belcorp">
-        @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
+        @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo && ViewBag.TieneRDC == true)
         {
             <div style="margin-bottom: 30px">
                 <div >

@@ -1394,5 +1394,25 @@ namespace Portal.Consultoras.Service
             return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
 
         }
+
+        #region ConfiguracionPais
+        public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(paisId, tienePerfil);
+        }
+
+        public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, configuracionPaisId);
+        }
+
+        public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
+        {
+            var bl = new BLConfiguracionPais();
+            bl.Update(configuracionPais);
+        }
+        #endregion
     }
 }

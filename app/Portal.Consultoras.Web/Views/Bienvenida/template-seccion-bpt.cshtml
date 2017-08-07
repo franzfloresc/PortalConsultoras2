@@ -9,9 +9,10 @@
                  data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
                 <div data-item-tag="contenido">
                     <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
-                    <div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:320px; margin: 0 !important; height:initial !important" onclick="javascript:CargarEstrategiasEspeciales('', event);">
-                        {{#iff EstrategiaDetalle.ImgHomeDesktop '!=' ''}}
-                        <img src="{{EstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo">
+                    <div data-item-tag="foto" class="producto_img_home" style="cursor:pointer; min-height:320px; margin: 0 !important; height:initial !important" 
+                         onclick="javascript: VerDetalleEstrategia(event);">
+                        {{#iff TipoEstrategiaDetalle.ImgHomeDesktop '!=' ''}}
+                        <img src="{{TipoEstrategiaDetalle.ImgHomeDesktop}}" alt="" class="modelo" style="height: 300px;">
                         {{/iff}}
                         <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     </div>
