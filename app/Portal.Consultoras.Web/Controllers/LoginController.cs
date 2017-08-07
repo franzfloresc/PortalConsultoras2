@@ -1794,7 +1794,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile
+                    MostrarHipervinculo = !model.EsAppMobile,
+                    EsAppMobile = model.EsAppMobile
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");

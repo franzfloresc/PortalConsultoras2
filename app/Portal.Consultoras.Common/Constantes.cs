@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
-        
+
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Common
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-        
+
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -327,6 +327,66 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
             /* FIN Revista Digital */
+
+            /// <summary>
+            /// App/Pedido/Digitación de Pedido
+            /// </summary>
+            public const int AppDigitaciondePedido = 4201;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Sin Popup
+            /// </summary>
+            public const int AppOfertasparaTiSinPopup = 4221;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Con Popup
+            /// </summary>
+            public const int AppOfertasparaTiConPopup = 4222;
+
+            /// <summary>
+            /// App/Pedido/Reemplazos Sugeridos
+            /// </summary>
+            public const int AppReemplazosSugeridos = 4251;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Sin Popup
+            /// </summary>
+            public const int AppOfertaFinalSinPopup = 4261;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Con Popup
+            /// </summary>
+            public const int AppOfertaFinalConPopup = 4262;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Sin Popup
+            /// </summary>
+            public const int AppEsikaparamiSinPopup = 4201;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Con Popup
+            /// </summary>
+            public const int AppEsikaparamiConPopup = 4202;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingSeccionSimplesyNiveles = 4711;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Popup Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingPopupSeccionSimplesyNiveles = 4712;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel
+            /// </summary>
+            public const int AppEsikaparamiLandingCarrusel = 4721;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel Ficha
+            /// </summary>
+            public const int AppEsikaparamiLandingCarruselFicha = 4731;
         }
 
         public class TipoTutorial
@@ -436,9 +496,9 @@ namespace Portal.Consultoras.Common
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
-            
+
         }
-        
+
         public class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
@@ -447,7 +507,7 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-        
+
 
         public class MensajeEstaEnRevista
         {
@@ -605,7 +665,7 @@ namespace Portal.Consultoras.Common
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
         }
-        
+
         public class EstadoCupon
         {
             public const int Reservado = 1;
@@ -631,7 +691,7 @@ namespace Portal.Consultoras.Common
             public const string Monto = "Monto";
             public const string Porcentaje = "Porcentaje";
         }
-	
+
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
@@ -688,13 +748,13 @@ namespace Portal.Consultoras.Common
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
-	    public class SessionNames
+        public class SessionNames
         {
-                // Lista de estrategias en session para OPT y BPT 
-                public const string ListaEstrategia = "ListadoEstrategiaPedido";
-                public const string ProductoTemporal = "ProductoTemporal";
+            // Lista de estrategias en session para OPT y BPT 
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+            public const string ProductoTemporal = "ProductoTemporal";
         }
-	
+
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;
@@ -875,16 +935,16 @@ namespace Portal.Consultoras.Common
 
         public class Incentivo
         {
-            public const string TeFaltan = "Te faltan {0} puntos";
+            public const string TeFaltan = "Te faltan {0}* puntos";
             public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
-            public const string VasXPuntos = "VAS {0} PUNTOS.";
+            public const string VasXPuntos = "VAS {0}* PUNTOS.";
             public const string GANASTE = "¡GANASTE!";
             public const string TEFALTA = "¡TE FALTA!";
-            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
-            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
             public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
-            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";            
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
 
