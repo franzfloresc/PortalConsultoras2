@@ -597,7 +597,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
                 }
-                else if (listaJunto.Count() == 1)
+                else
                 {
                     lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
                 }
@@ -804,7 +804,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
                     }
-                    else if (listaJunto.Count() == 1)
+                    else
                     {
                         lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
                     }
