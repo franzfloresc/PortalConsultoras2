@@ -1,0 +1,17 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@{
+    ViewBag.Title = "Cambios y Devoluciones";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="titulo_mobile">
+    @{
+        var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
+    CAMBIOS Y DEVOLUCIONES
+</div>
+
