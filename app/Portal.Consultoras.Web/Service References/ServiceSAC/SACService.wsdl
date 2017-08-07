@@ -101,6 +101,24 @@
   <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePaisResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1166,6 +1184,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" message="tns:ISACService_GetCampaniaActualAndSiguientePais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse" message="tns:ISACService_GetCampaniaActualAndSiguientePais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionPais" message="tns:ISACService_ListConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionPaisResponse" message="tns:ISACService_ListConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPais" message="tns:ISACService_GetConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisResponse" message="tns:ISACService_GetConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -1941,6 +1971,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3574,6 +3631,33 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

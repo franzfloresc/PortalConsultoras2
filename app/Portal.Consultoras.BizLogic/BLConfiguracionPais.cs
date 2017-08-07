@@ -31,5 +31,56 @@ namespace Portal.Consultoras.BizLogic
             }
             return lista;
         }
+
+        public BEConfiguracionPais Get(int paisId, int configuracionPaisId)
+        {
+            var configuracionPais = new BEConfiguracionPais();
+
+            try
+            {
+                var da = new DAConfiguracionPais(paisId);
+                using (IDataReader reader = da.Get(configuracionPaisId))
+                {
+                    if (reader.Read())
+                    {
+                        configuracionPais = new BEConfiguracionPais(reader);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.StackTrace);
+            }
+            return configuracionPais;
+        }
+
+        public List<BEConfiguracionPais> GetList(int paisId, bool tienePerfil)
+        {
+            var lista = new List<BEConfiguracionPais>();
+
+            try
+            {
+                var da = new DAConfiguracionPais(paisId);
+                using (IDataReader reader = da.GetList(tienePerfil))
+                {
+                    while (reader.Read())
+                    {
+                        lista.Add(new BEConfiguracionPais(reader));
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.StackTrace);
+                lista = new List<BEConfiguracionPais>();
+            }
+            return lista;
+        }
+
+        public void Update(BEConfiguracionPais entidad)
+        {
+            var dAConfiguracionPais = new DAConfiguracionPais(entidad.PaisID);
+            dAConfiguracionPais.Update(entidad);
+        }
     }
 }

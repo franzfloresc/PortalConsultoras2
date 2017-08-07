@@ -1,0 +1,85 @@
+﻿
+@model Portal.Consultoras.Web.Models.AdministrarPalancaModel
+@{
+    string imagenVacia = "prod_grilla_vacio.png";
+}
+
+<div id="DialogAdministracionPalanca" style="display: none;">
+    <div class="Content_modal" id="contentDialogPalanca">
+    <div class="div-3">
+        <div class="titG">Incluyente:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.RadioButton("Tipo", "Incluyente")
+        </div>
+        <div class="titG">Excluyente:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.RadioButton("Tipo", "Excluyente")
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">¿Activar Palanca?</div>
+        <div class="selectCheck borde_redondeado">
+           @Html.CheckBoxFor(m => m.Estado)
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Desde Campaña:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+        </div>
+    </div>
+    <div class="div-3">
+        <div class="titG">Mostrar Campaña Siguiente:</div>
+        <div class="selectCheck borde_redondeado">
+            @Html.CheckBoxFor(m => m.MostrarCampaniaSiguiente)
+        </div>
+        <div class="titG">Mostrar Pagina Informativa:</div>
+        <div class="selectCheck borde_redondeado">
+            @Html.CheckBoxFor(m => m.MostrarPagInformativa)
+        </div>
+    </div>
+    <div class="div-3" style="display: none">
+        <div class="titG">Tipo Estrategia:</div>
+        <div class="selectP2 borde_redondeado">
+            @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlEstrategia" })
+        </div>
+    </div>
+
+        <!--SECCION PARA HOME DE PALANACA -->
+        <div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
+            <div style="color: white;">
+                <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
+                   Datos para Home
+                </div>
+            </div>
+          
+            <div style="display: inline-block; width: 100%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                <h4>Imagen de fondo</h4>
+                <div style="display: inline-block; width: 100%;">
+                    <input type="hidden" id="nombre-img-home-desktop" />
+                    <label style="width: 130px; display: inline-block;">Img. Lanzamiento:</label>
+                    <div id="img-home-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-home-desktop" class="img-matriz-preview2" data-id="">
+                    </div>
+                </div>
+            </div>
+            <div class="clear-fix"></div>
+            <div class="div-3">
+                <div class="titG">Tipo Presentacion:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
+                </div>
+            </div>
+            <div class="div-3" style="display: none">
+                <div class="titG">Tipo Estrategia:</div>
+                <div class="selectP2 borde_redondeado">
+                    @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlEstrategia" })
+                </div>
+            </div>
+        </div>
+        <!--FIN SECCION PARA CARRUSEL DE LANZAMIENTOS -->
+
+11    </div>
+</div>
+
