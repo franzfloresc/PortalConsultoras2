@@ -20,16 +20,16 @@
             <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco2.svg")" height="70px">
         </div>
         <div class="hblock_text">
-            @if (Model.SuscripcionModel.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo)
-            {
-                <div class="btn_diagonal rd_btn_rojo_right" style="max-width: 25%;">
-                    <a href="javascript: RDPageInformativa()">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-                </div>
-            }
-            <div style="width: 73%">
+            <div>
                 <div class="hblock_tit">@Html.Raw(Util.Trim(Model.Titulo))</div>
                 <div>@Html.Raw(Util.Trim(Model.TituloDescripcion))</div>
-            </div>
+            </div>            
+            @*@if (Model.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
+            {
+                <div class="btn_diagonal rd_btn_rojo_right" style="max-width: 25%;" data-estadoregistro0="">
+                    <a href="javascript: RDPageInformativa()">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                </div>
+            }*@
         </div>
       
     </div>
