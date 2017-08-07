@@ -1184,5 +1184,7 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
 
+        [OperationContract]
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania);
     }
 }

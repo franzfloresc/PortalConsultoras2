@@ -143,6 +143,60 @@ namespace Portal.Consultoras.BizLogic
             return puntosXConcurso;
         }
 
+        /// <summary>
+        /// Obtener la informacion de concursos, niveles y premios por consultora.
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// <param name="CodigoCampania"></param>
+        /// <param name="CodigoConsultora"></param>
+        /// <returns></returns>
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
+            List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
+            List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
+            DAConcurso DAConcurso = new DAConcurso(paisID);
+
+            DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
+
+            using (IDataReader reader = DAConcurso.ObtenerIncentivosConsultora(codigoConsultora, codigoCampania))
+            {
+                while (reader.Read())
+                {
+                    incentivosConcursos.Add(new BEIncentivoConcurso(reader));
+                }
+
+                if (reader.NextResult())
+                {
+                    while (reader.Read())
+                    {
+                        incentivosNivel.Add(new BEIncentivoNivel(reader));
+                    }
+
+                    if (reader.NextResult())
+                    {
+                        while (reader.Read())
+                        {
+                            incentivosPremios.Add(new BEIncentivoPremio(reader));
+                        }
+                    }
+
+                    foreach (var item in incentivosNivel)
+                    {
+                        item.CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.CodigoPremio));
+                        item.DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.DescripcionPremio));
+                    }
+                }
+
+                foreach (var item in incentivosConcursos)
+                {
+                    item.Niveles = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
+                }
+            }
+
+            return incentivosConcursos;
+        }
+
         private List<BEConsultoraConcurso> GetConcursos(IDataReader reader, bool loadPremios = true)
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
@@ -153,19 +207,16 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (puntosXConcurso.Any() && reader.NextResult())
                 {
-                    while (reader.Read()) premios.Add(new BEPremio(reader));
+                    while (reader.Read())
+                    {
+                        premios.Add(new BEPremio(reader));
+                    }
                 }
                 foreach (var item in puntosXConcurso)
                 {
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
-            puntosXConcurso.Update(c =>
-            {
-                //Fix mientras el SP retorna tipoConcurso = NULL.
-                if (string.IsNullOrEmpty(c.TipoConcurso))
-                    c.TipoConcurso = "X";
-            }); 
 
             return puntosXConcurso;
         }
@@ -200,6 +251,7 @@ namespace Portal.Consultoras.BizLogic
                 concurso.Premios = new List<BEPremio>{
                     new BEPremio
                     {
+                        Codigo = concurso.Premios.FirstOrDefault() != null ? concurso.Premios.FirstOrDefault().Codigo : default(string),
                         CodigoConcurso = concurso.CodigoConcurso,
                         Importante = 1,
                         Descripcion = string.Join(", ", concurso.Premios.Select(p => p.Descripcion).ToArray()),

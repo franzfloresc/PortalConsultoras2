@@ -267,7 +267,7 @@
                 <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
                     border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
             </div>
-            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial"></div>
+            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
             <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
                 <div class="content_320">
                     <div class="content_cantidad_ficha_producto">
@@ -479,10 +479,13 @@ else
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
             <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div>
+                @if (mobileConfiguracion.MostrarHipervinculo)
+                {
+                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                }
+             </div>
         </div>
     </div>
     {{/each}}
