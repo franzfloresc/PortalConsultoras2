@@ -120,13 +120,13 @@
     <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
         <img id="imgPreview" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
     </div>
-    <div class="div-3">
-        <div id="descripcion-comercial" class="matriz-comercial-list matriz-comercial-zona-estrategia">
+    <div class="div-3" style="text-align:center; color:black;">
+        <div id="descripcion-comercial">
         </div>
     </div>
 </div>
 <script id="descripcion-comercial-template" type="text/x-handlebars-template">
-    <div style="text-align:center;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+    <div style="text-align:center; color:black;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
         <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
     </div>
 </script>
