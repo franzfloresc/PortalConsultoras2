@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CantidadFilas = 10;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-            ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
+            
             if (nuevo == 1)
             {
                 return View("Revista2017", model);
@@ -104,6 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                 modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
                 ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
                 ViewBag.NombreConsultora = userData.Sobrenombre;
                 var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;

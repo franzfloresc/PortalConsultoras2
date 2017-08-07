@@ -3509,7 +3509,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
-    z-index:400;
+    z-index: 10;
 }
 
 .producto_img img {

@@ -3,6 +3,13 @@ use [BelcorpPeru]
 
 go
 
+delete from TipoEstrategia where DescripcionEstrategia = 'Pack Nuevas' and isnull(CodigoPrograma, '')  = '' 
+
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 3012
+
+go
 update Permiso
 set Codigo = 'Megocio'
 where PermisoId = 1003
@@ -10,8 +17,8 @@ where PermisoId = 1003
 go
 update Permiso
 set Codigo = 'AsesorBelleza'
-, IdPadre = 1003 -- 0
-, OrdenItem = 13 -- 5
+, IdPadre = 1003
+, OrdenItem = 13
 where PermisoId = 1006
 
 go
@@ -36,4 +43,259 @@ begin
 end
 go
 
+go
+use [BelcorpBolivia]
 
+go 
+
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 2004
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+use [BelcorpChile]
+
+go 
+
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 2004
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+use [BelcorpColombia]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 1005
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+use [BelcorpCostaRica]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 1008
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+
+use [BelcorpDominicana]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 2004
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+use [BelcorpEcuador]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 2
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+
+go
+
+use [BelcorpGuatemala]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 6
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+use [BelcorpMexico]
+
+--go 
+--update TipoEstrategia
+--set Codigo = '002'
+--where TipoEstrategiaID = 2
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+use [BelcorpPanama]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 8
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+
+go
+
+
+use [BelcorpPuertoRico]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 4
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+
+go
+
+
+use [BelcorpSalvador]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 5
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+go
+
+use [BelcorpVenezuela]
+
+go 
+update TipoEstrategia
+set Codigo = '002'
+where TipoEstrategiaID = 2
+
+go
+update Permiso
+set Codigo = 'Megocio'
+where PermisoId = 1003
+
+go
+update Permiso
+set Codigo = 'AsesorBelleza'
+--, IdPadre = 1003
+--, OrdenItem = 13
+where PermisoId = 1006
+go

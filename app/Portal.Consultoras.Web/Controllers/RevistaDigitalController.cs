@@ -68,10 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.TieneProductosPerdio = TieneProductosPerdio(campaniaId);
                 return DetalleModel(cuv, campaniaId);
-                
             }
             catch (Exception ex)
             {
@@ -140,6 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (TieneProductosPerdio(model.CampaniaID))
                 {
                     var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
                     listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
                     
                     listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());

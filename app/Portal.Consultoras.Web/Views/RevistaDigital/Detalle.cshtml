@@ -13,7 +13,8 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
 }
 
-<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop);' data-estadoregistro="@ViewBag.EstadoSuscripcion">
+<div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop);' 
+     data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="revista_fondo_ficha"></div>
     <div class="content_belcorp">       
         <div class="rd_volver">
@@ -75,7 +76,7 @@
 <hr class="clear">
 <div class="pack_personalizado_ficha">
     <div class="content_belcorp">
-        @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo && ViewBag.TieneRDC == true)
+        @if (ViewBag.TieneProductosPerdio)
         {
             <div style="margin-bottom: 30px">
                 <div >

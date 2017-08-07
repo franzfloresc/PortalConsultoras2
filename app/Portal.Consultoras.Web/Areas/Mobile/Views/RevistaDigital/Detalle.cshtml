@@ -14,7 +14,10 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" data-estadoregistro="@ViewBag.EstadoSuscripcion">
+<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" 
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" 
+     data-estadoregistro="@ViewBag.EstadoSuscripcion">
+
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -86,7 +89,7 @@
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
 
-    @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo && ViewBag.TieneRDC == true)
+    @if (ViewBag.TieneProductosPerdio)
     {
         <div id="block_inscribete">
             <div class="content_belcorp">
