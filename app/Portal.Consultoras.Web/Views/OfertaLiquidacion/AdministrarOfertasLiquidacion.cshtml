@@ -50,7 +50,7 @@
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
             imagenProductoElementId: 'ImagenProducto',
-            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
+            expValidacionNemotecnico: $.trim(@Html.Raw(Model.ExpValidacionNemotecnico))
         });
 
         IniDialogOfertas();

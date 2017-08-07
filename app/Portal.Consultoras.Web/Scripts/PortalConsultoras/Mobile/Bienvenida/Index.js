@@ -375,10 +375,12 @@ function MostrarDemandaAnticipada() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                if (tipo == 1) {
-                    alert("Ocurrió un error al validar demanda anticipada.");
-                } else {
-                    alert("Ocurrió un error al validar la demanda anticipada.");
+                if (typeof tipo !== "undefined") {
+                    if (tipo == 1) {
+                        alert("Ocurrió un error al validar demanda anticipada.");
+                    } else {
+                        alert("Ocurrió un error al validar la demanda anticipada.");
+                    }
                 }
             }
         }

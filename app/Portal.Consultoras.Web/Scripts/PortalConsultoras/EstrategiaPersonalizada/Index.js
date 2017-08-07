@@ -369,7 +369,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var objInput = $(event.target);
 
-    if (EstrategiaValidarBloqueada(objInput)) {
+    if (EstrategiaValidarBloqueada(objInput, estrategia)) {
         return false;
     }
 

@@ -73,6 +73,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             ViewBag.NombreConsultora = userData.Sobrenombre;
+            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
             ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return PartialView("template-Landing", model);
         }
@@ -99,7 +100,11 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
                 modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.NombreConsultora = userData.Sobrenombre;
+                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });

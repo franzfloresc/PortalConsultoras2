@@ -1,6 +1,6 @@
 ﻿<script id="producto-landing-template" type="text/x-handlebars-template">
     {{#each this.lista as |item|}}
-    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}">
+    <div data-item="{{EstrategiaID}}" data-item-cuv="{{CUV2}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" class="{{ClaseEstrategia}}">
         <input type="hidden" class="PosicionEstrategia" value="{{Posicion}}" />
         <div class="content_item_home_bpt">
             <div style="display:none;"><div data-estrategia="{{JSON2string item}}"></div></div>
