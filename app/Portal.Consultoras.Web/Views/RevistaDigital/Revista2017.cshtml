@@ -41,6 +41,7 @@
     word-wrap: break-word;
     text-align: center;
     transition:.3s;
+        padding: 20px 0px;
     }
     ul.bc_opciones li a::after{
             content: '';
@@ -92,6 +93,8 @@
             color: #929292;
         text-decoration: none;
         transition:.3s;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+            padding: 20px 10px;
     }
     ul.bc_opciones li ul li a:hover{
         color:#333;
@@ -106,7 +109,15 @@
             margin-bottom: 5px;
         transition:.3s;
     }
-
+    ul.bc_opciones li ul li a .separa-titulo{
+           display: block;
+    border: 1px solid #929292;
+    /* height: 10px; */
+    width: 20px;
+    margin-bottom: 7px;
+    margin-left: 0;
+    margin-top: 0;
+        }
     ul.bc_opciones li ul li a span{
         display: block;
         text-align: left;
@@ -117,24 +128,22 @@
         margin-top:30px;
     }
     .bc_contenido a.btn-comprar{
-            background: black;
+           background: black;
     color: white;
     letter-spacing: 1px;
     padding: 10px;
     text-decoration: none;
     margin: auto;
-    /* position: absolute; */
     width: 200px;
     /* bottom: 0; */
-    left: 0;
-    display: block;
-    margin-top: 20px;
+    display: inline-block;
+    margin-top: 10px;
     text-align: center;
     }
     .bc_contenido .bc_venta_exclusiva{
             background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));
     background-size: cover;
-    height: 580px;
+    height: 500px;
     background-repeat: no-repeat;
     background-position: left center;
 
@@ -154,9 +163,9 @@
        margin: auto;
     /* padding: 0px 250px; */
     display: block;
-    text-align: left;
+    text-align: center !important;
     width: 750px;
-    padding-top: 30px;
+    padding-top: 20px;
     }
     .bc_adorno1{
             position: absolute;
@@ -204,6 +213,41 @@
     .revistadigital-landing .content_item_carrusel{
             box-shadow: none !important;
     }
+        .bc_contenido .bc_venta_exclusiva_recomendado{
+            background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png"));
+    background-size: cover;
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: left center;
+    }
+  .bc_contenido .bc_venta_exclusiva_recomendado .bc_showroom .bc_showroom span.txt2 {
+    color: #333;
+    letter-spacing: 1.5px;
+    font-weight: bolder;
+    font-size: 12px;
+    margin-left: 20px;
+}
+        .bc_contenido .bc_venta_exclusiva_recomendado  a.btn-comprar {
+    background: black;
+    color: white;
+    letter-spacing: 1px;
+    padding: 10px;
+    text-decoration: none;
+    margin: auto;
+    width: 200px;
+    /* bottom: 0; */
+    display: inline-block;
+    margin-top: 25px;
+    text-align: center;
+}
+        .bc_contenido .bc_venta_exclusiva_recomendado .bc_contenedor_showroom {
+    margin: auto;
+    /* padding: 0px 250px; */
+    display: block;
+    text-align: center !important;
+    width: 750px;
+    padding-top: 65px;
+}
     </style>
 }
 
@@ -226,25 +270,25 @@
         <li>
             <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
             <ul class="default">
-                <li><a href=""><p>Inicio</p><span>Lanzamientos y novedades</span></a></li>
-                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                <li><a href=""><p>MIS OFERTAS</p><span>Ofertas creadas para tí.</span></a></li>
+                <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
         </li>
         <li>
             <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">REVISAR <br><span class="bc_campana">C - 15</span></a>
             <ul>
-                <li><a href=""><p>MIS OFERTAS</p><span>Lanzamientos y novedades</span></a></li>
-                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                <li><a href=""><p>Inicio</p><span>Ofertas creadas para tí.</span></a></li>
+                <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
         </li>
         <li>
             <a href="#"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">SABER <br>MÁS</a>
             <ul>
-                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><span>Lanzamientos y novedades</span></a></li>
-                <li><a href=""><p>MIS OFERTAS</p><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                <li><a href=""><p>Inicio</p><span>Ofertas creadas para tí.</span></a></li>
+                <li><a href=""><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                <li><a href=""><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                <li><a href=""><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
             </ul>
         </li>
     </ul>
@@ -270,9 +314,9 @@
                 </span>
             </p>
         </div>
-        @*<div style="display: none; height: 410px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 60px;" data-tag-html="201712">
-                <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
-            </div>*@
+        @* <div style="height: 350px; overflow: hidden; width: 1020px; margin: 28px auto auto; float: right;" data-tag-html="201712">
+        <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
+    </div> *@
         <div class="bc_contenedor_showroom" style="padding-top: 0;
     margin-top: -25px;">
             <a href="" class="btn-comprar">!COMPRA YA!</a>
@@ -281,7 +325,7 @@
     <div class="bc_vineta_baja" style=" margin-bottom 15px;">
         <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
     </div>
-    <div class="bc_venta_exclusiva" style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); background-size: contain !important;
+    <div class="bc_venta_exclusiva_recomendado" style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); background-size: contain !important;
     background-repeat: no-repeat !important;
     background-position: right top;">
         <div class="bc_contenedor_showroom" style=" padding-top 74px;">
@@ -294,7 +338,7 @@
                 </span>
             </p>
         </div>
-        <div style="display: none; height: 410px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 30px;" data-tag-html="201712">
+        <div style="display: none; height: 370px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 20px;" data-tag-html="201712">
             <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
         </div>
         <div class="bc_contenedor_showroom" style="padding-top: 0;
