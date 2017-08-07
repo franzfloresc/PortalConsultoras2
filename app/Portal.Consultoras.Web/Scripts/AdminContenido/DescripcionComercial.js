@@ -13,6 +13,29 @@ var DescripcionComercial = function (config) {
         return template.replace('{0}', id).replace('{1}', val);
     };
 
+    var _generarControlEditableParaEstrategia = function (val) {
+        var template = '<input class="input-descripcioncomercial" id="input-descripcioncomercial" type = "text" value="{0}" />';
+        return template.replace('{0}', val);
+    };
+
+    var _editarDescripcionComercialParaEstrategia = function () {
+        var input = $('#input-descripcioncomercial');
+        if (input.length > 0) {
+            return false;
+        }
+        var label = $('#' + _config.prefixControlDescripcionComercial);
+        var value = label.prop('title');
+        var htmlInput = _generarControlEditableParaEstrategia(value);
+        label.after(htmlInput);
+        _agregarEventos(idImagen);
+
+        input = $('#input-descripcioncomercial-' + idImagen);
+        input.focus();
+        var strLength = input.val().length;
+        input[0].setSelectionRange(strLength, strLength);
+        label.hide();
+    };
+
     var _editarDescripcionComercial = function (idImagen) {
         var input = $('#input-descripcioncomercial-' + idImagen);
         if (input.length > 0) {
@@ -77,6 +100,7 @@ var DescripcionComercial = function (config) {
 
     return {
         editarDescripcionComercial: _editarDescripcionComercial,
+        editarDescripcionComercialParaEstrategia: _editarDescripcionComercialParaEstrategia,
         actualizarPais: _actualizarPais
     }
 };

@@ -105,7 +105,28 @@
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}" id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
         </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="descripcion-comercial-{{@@index}}" value='{{DescripcionComercial}}'>
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="id-matriz-comercial-imagen-{{@@index}}" value='{{IdMatrizComercialImagen}}'>
+        </div>
     </div>
 
     {{/each}}
+</script>
+
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <img id="imgPreview" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="div-3">
+        <div id="descripcion-comercial" class="matriz-comercial-list matriz-comercial-zona-estrategia">
+        </div>
+    </div>
+</div>
+<script id="descripcion-comercial-template" type="text/x-handlebars-template">
+    <div style="text-align:center;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+        <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+    </div>
 </script>

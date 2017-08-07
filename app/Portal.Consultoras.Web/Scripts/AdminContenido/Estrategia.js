@@ -8,7 +8,8 @@
         getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction || '',
         habilitarNemotecnico: config.habilitarNemotecnico || false,
         getImagesByNemotecnico: config.getImagesByNemotecnico,
-        expValidacionNemotecnico: config.expValidacionNemotecnico
+        expValidacionNemotecnico: config.expValidacionNemotecnico,
+        actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction
     };
 
     var _editData = {};
@@ -22,6 +23,7 @@
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -96,6 +98,8 @@
             closeWaitingDialog();
         }
         );
+
+        _descripcionComercial.actualizarPais(_editData.paisID);
 
         return false;
     };
@@ -562,6 +566,9 @@
         _matrizFileUploader.actualizarParNemotecnico(val);
     };
 
+    var _editarDescripcionComercial = function (idImagen) {
+        _descripcionComercial.editarDescripcionComercial(idImagen);
+    };
 
     return {
         editar: function (id, event) {
@@ -638,6 +645,8 @@
         habilitarNemotecnico: _config.habilitarNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,
         limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
-        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico,
+        editarDescripcionComercial: _editarDescripcionComercial,
+        obtenerImagenes: _obtenerImagenes
     }
 };

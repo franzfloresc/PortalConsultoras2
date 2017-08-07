@@ -323,12 +323,20 @@
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
         </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="descripcion-comercial-{{@@index}}" value='{{DescripcionComercial}}'>
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="id-matriz-comercial-imagen-{{@@index}}" value='{{IdMatrizComercialImagen}}'>
+        </div>
        
     </div>
     {{/each}}
 </script>
 
+
 <script type="text/javascript">
+
      $("#linkTallaColor").click(function () {
             if ($.trim($("#txtCUV2").val()) == "") {
                 alert("Debe ingresar un valor para CUV2");
@@ -448,6 +456,15 @@
 
      var imagenOnClick = function () {
          $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
+         var index = $(this).attr("id").split("-");
+         var descripcionComercial = $("#descripcion-comercial-"+index[2]).attr("value");
+         var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
+         var editData = {
+             IdMatrizComercialImagen: idMatrizComercial,
+             DescripcionComercial: descripcionComercial
+         };
+         SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+         isVistaPreviaOpened = true;
          showDialog('divVistaPrevia');
      };
 
@@ -472,5 +489,6 @@
      $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
 
      $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
+
 
 </script>
