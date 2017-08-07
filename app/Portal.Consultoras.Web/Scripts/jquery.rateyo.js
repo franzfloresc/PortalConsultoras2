@@ -27,8 +27,8 @@
   var DEFAULTS = {
 
     starWidth : "32px",
-    normalFill: "#bcb5b9",
-    ratedFill : "black",
+    normalFill: "#d3d0d0",
+    ratedFill: "#e6c68a",
     numStars  : 5,
     maxValue  : 5,
     precision : 1,

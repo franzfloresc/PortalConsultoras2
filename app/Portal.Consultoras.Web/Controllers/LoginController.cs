@@ -21,6 +21,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -98,6 +99,15 @@ namespace Portal.Consultoras.Web.Controllers
             pasoLog = "Login.POST.Index";
             try
             {
+                TempData["serverPaisId"] = model.PaisID;
+                TempData["serverPaisISO"] = model.CodigoISO;
+                TempData["serverCodigoUsuario"] = model.CodigoUsuario;
+
+                if (model.PaisID == 0)
+                {
+                    model.PaisID = Util.GetPaisID(model.CodigoISO);
+                }
+
                 BEValidaLoginSB2 validaLogin = null;
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
@@ -241,6 +251,28 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return RedirectToAction("Index", "Login");
+        }
+
+        [HttpPost]
+        public JsonResult SaveLogErrorLogin(string paisISO, string codigoUsuario, string mensaje)
+        {
+            try
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(new Exception(mensaje), codigoUsuario, paisISO, "Login.SaveLogErrorLogin");
+
+                return Json(new
+                {
+                    success = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [AllowAnonymous]
@@ -1799,6 +1831,11 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
+
+                if (!string.IsNullOrEmpty(model.Identifier))
+                {
+                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                }
 
                 switch (model.Pagina.ToUpper())
                 {

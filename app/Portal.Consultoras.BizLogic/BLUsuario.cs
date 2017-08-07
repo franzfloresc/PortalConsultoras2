@@ -475,29 +475,54 @@ namespace Portal.Consultoras.BizLogic
         /*EPD-1012*/
         public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
         {
-            BEValidaLoginSB2 validaLogin = null; 
-            var DAUsuario = new DAUsuario(paisID);
+            BEValidaLoginSB2 validaLogin = null;
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
 
-            using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
+            try
             {
-                if (reader.Read())
-                    validaLogin = new BEValidaLoginSB2(reader);
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
             }
 
             return validaLogin;
         }
+         
         /*EPD-1012*/
 
         /*EPD-2340*/
         public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
         {
             BEValidaLoginSB2 validaLogin = null;
-            var DAUsuario = new DAUsuario(paisID);
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
 
-            using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
+            try
             {
-                if (reader.Read())
-                    validaLogin = new BEValidaLoginSB2(reader);
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
             }
 
             return validaLogin;

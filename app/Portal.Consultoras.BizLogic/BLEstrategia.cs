@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -524,5 +525,123 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
         }
 
+        #region Producto Comentario
+
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var daEstrategia = new DAEstrategia(paisID);
+            var oTransactionOptions = new TransactionOptions();
+            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+            try
+            {
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    if (entidad.ProdComentarioId == 0)
+                    {
+                        BEProductoComentario oProdComentario = new BEProductoComentario();
+                        oProdComentario.CodigoSap = entidad.CodigoSap;
+                        oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
+                        entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
+                    }
+
+                    result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
+
+                    oTransactionScope.Complete();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSap)
+        {
+            BEProductoComentario entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSap))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentario(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            BEProductoComentarioDetalle entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetUltimoProductoComentarioByCodigoSap(codigoSap))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentarioDetalle(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            try
+            {
+                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioId, entidad.ProdComentarioDetalleId, entidad.Estado);
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }
