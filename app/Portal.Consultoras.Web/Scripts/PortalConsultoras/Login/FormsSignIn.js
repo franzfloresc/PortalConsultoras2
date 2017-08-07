@@ -5,6 +5,7 @@ var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
 
+
 var CodigoISO;
 var PaisID;
 var CodigoUsuario;
@@ -162,7 +163,7 @@ $(document).ready(function () {
         PaisID = getVALbyISO(CodigoISO);
         CodigoUsuario = jQuery.trim($("#txtUsuario").val());
         var Contrasenia = jQuery.trim($("#txtContrasenia").val());
-       
+        
         var mensaje = "";
 
         if (PaisID == "")
