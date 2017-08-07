@@ -2467,13 +2467,14 @@ namespace Portal.Consultoras.Web.Controllers
         protected int ProcesarOrigenPedido(int origenActual)
         {
             if (!MobileAppConfiguracion.EsAppMobile) return origenActual;
-            if (!origenActual.ToString().StartsWith("2")) return origenActual;
-
-            var nuevoOrigen = origenActual.ToString()
+            if (origenActual.ToString().StartsWith("2") || origenActual.ToString().StartsWith("0"))
+            {
+                var nuevoOrigen = origenActual.ToString()
                 .Remove(0, 1)
                 .Insert(0, "4");
 
-            origenActual = int.Parse(nuevoOrigen);
+                origenActual = int.Parse(nuevoOrigen);
+            };
 
             return origenActual;
         }
