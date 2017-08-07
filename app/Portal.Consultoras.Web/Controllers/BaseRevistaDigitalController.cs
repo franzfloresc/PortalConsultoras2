@@ -105,7 +105,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.NombreConsultora = userData.Sobrenombre;
-                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
 
                 return View(modelo);
             }
