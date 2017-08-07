@@ -86,6 +86,18 @@
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
 
+    @if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo && ViewBag.TieneRDC == true)
+    {
+        <div id="block_inscribete">
+            <div class="content_belcorp">
+                <div class="block_inscribete_predio">
+                    <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
+                    <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA INSCRITAS DESDE C-@ViewBag.CampaniaMasDos</span>
+                </div>
+            </div>
+        </div>
+    }
+
     <div style="background:#F6F6F6; padding:30px;">
         <div id="divOfertaProductos"></div>
         @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
@@ -105,7 +117,7 @@
 }
 @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
-@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDosX)
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';

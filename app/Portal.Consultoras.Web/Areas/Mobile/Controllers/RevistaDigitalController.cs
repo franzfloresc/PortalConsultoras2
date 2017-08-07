@@ -32,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+                ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
