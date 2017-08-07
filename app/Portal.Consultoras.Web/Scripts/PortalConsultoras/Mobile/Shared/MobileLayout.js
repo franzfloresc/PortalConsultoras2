@@ -76,7 +76,7 @@
         objInput.val(actual);
     });
 
-    $(document).on("click", ".cantidad_menos_home", function () {
+    $("body").on("click", ".cantidad_menos_home", function () {
         if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
@@ -87,7 +87,7 @@
         $txtcantidad.val(cantidad);
     });
 
-    $(document).on("click", ".cantidad_mas_home", function () {
+    $("body").on("click", ".cantidad_mas_home", function () {
         if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());

@@ -428,7 +428,7 @@
 
 
                             <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
-                                <option value="00">Elige tu País</option>
+                                <option value="00" data-id="99">Elige tu País</option>
                                 @if (Model.ListaPaises != null)
                                 {
                                     foreach (var item in Model.ListaPaises)
@@ -618,8 +618,13 @@
 {
     <script type="text/javascript">
         var errorLogin = '@TempData["errorLogin"]';
+        var serverPaisId = '@TempData["serverPaisId"]'
+        var serverPaisISO = '@TempData["serverPaisISO"]'
+        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]'
+
     </script>
 }
+
 
 @section scripts {
     <script src="~/Scripts/General.js"></script>
