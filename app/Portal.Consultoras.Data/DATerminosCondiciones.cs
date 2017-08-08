@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsTerminosCondiciones");
 
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, terminos.CodigoConsultora);
-            Context.Database.AddInParameter(command, "@Acepta", DbType.Boolean, terminos.Acepta);
+            Context.Database.AddInParameter(command, "@Aceptado", DbType.Boolean, terminos.Aceptado);
             Context.Database.AddInParameter(command, "@Tipo", DbType.Int16, terminos.Tipo);
 
             return Context.ExecuteNonQuery(command) > 0;
