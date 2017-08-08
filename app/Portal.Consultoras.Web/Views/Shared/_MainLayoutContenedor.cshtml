@@ -315,29 +315,55 @@
 
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
-        <div class="SubHeader">
-            <div class="ubicacion_web @(controllerAction == "bienvenidaindex"
+        <div>
+            <div class="bc_barra_opciones">
+                <ul class="bc_opciones">
+                    <li>
+                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
+                        <ul class="default">
+                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">REVISAR <br><span class="bc_campana">C - 15</span></a>
+                        <ul>
+                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">SABER <br>MÁS</a>
+                        <ul>
+                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
+                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
+                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>   
+        </div>
+        <div>
+            <div class="SubHeader">
+                <div class="ubicacion_web @(controllerAction == "bienvenidaindex"
                             || controllerAction == "showroomindex"
                             || controllerAction == "showroomintriga"
                             || controllerAction == "revistadigitalindex"
                             || controllerAction == "revistadigitaldetalle"
                             || controllerAction == "revistadigitalinscripcion" ? "oculto" : "")">
-                <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+                    <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+                </div>
             </div>
+            @RenderBody()
+            @if (ViewBag.TerminoMostrar == 1)
+            {
+                <div class="footerTerminos">
+                    <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
+                </div>
+            }
         </div>
-        @RenderBody()
-        @if (ViewBag.TerminoMostrar == 1)
-        {
-            <div class="footerTerminos">
-                <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
-            </div>
-        }
-        <!-- footer -->
-        <hr class="clear" />
-        <footer class="footer_e">
-            @Html.Partial("~/Views/Shared/_Footer.cshtml")
-        </footer>
-        <!-- end footer -->
     </div>
     <!-- end contenedor -->
     <div id="ModalFeDeErratas" style="display: none;">
@@ -881,6 +907,30 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
+
+        $(document).ready(function () {
+
+            $('ul.bc_opciones li ul li a').hover(function(e) {
+                $(this).find('p').css('font-weight', 'bolder')
+            }, function(e) {
+                $(this).find('p').css('font-weight', 'normal')
+            });
+
+            $('ul.bc_opciones li').hover(function(e) {
+                $(this).find('ul').css({
+                    display: "block"
+                });
+            }, function(e) {
+                $(this).find('ul').css({
+                    display: "none"
+                });
+                $("ul.bc_opciones li ul.default").css({
+                    display: "block"
+                });
+            });
+        });
+
+
      </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>

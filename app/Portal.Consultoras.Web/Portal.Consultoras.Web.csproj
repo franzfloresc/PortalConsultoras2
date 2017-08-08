@@ -1170,6 +1170,7 @@
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
+    <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
