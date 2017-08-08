@@ -4292,7 +4292,7 @@ namespace Portal.Consultoras.Web.Controllers
                 respuesta = EstrategiaAgregarProducto(ref mensaje, estrategia, OrigenPedidoWeb, ClienteID_, tipoEstrategiaImagen);
             }
 
-            return Json(respuesta, JsonRequestBehavior.AllowGet);
+            return Json(respuesta.Data, JsonRequestBehavior.AllowGet);
 
             }
             catch (Exception ex)

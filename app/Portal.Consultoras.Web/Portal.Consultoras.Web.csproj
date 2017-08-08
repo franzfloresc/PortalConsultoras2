@@ -4135,7 +4135,6 @@
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
     <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
     <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
-    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\AdministrarCupon\Index.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\Bienvenida\MasVendidos.cshtml" />
