@@ -317,6 +317,8 @@ function ArmarCarouselEstrategias(data) {
         return false;
     }
 
+    RevisarMostrarContenedorCupon();
+
     if (tipoOrigenEstrategia == 1) {
         $('#divListaEstrategias #divListadoEstrategia [data-item] > div').attr("class", "content_item_carrusel");
         $('#divListaEstrategias').show();
@@ -1228,6 +1230,14 @@ function ProcesarActualizacionMostrarContenedorCupon() {
     if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
+function RevisarMostrarContenedorCupon() {
+    if (typeof finishLoadCuponContenedorInfo !== 'undefined' && finishLoadCuponContenedorInfo) {
+        if (cuponModule) {
+            cuponModule.revisarMostrarContenedorCupon();
         }
     }
 }
