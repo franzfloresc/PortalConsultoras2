@@ -14,7 +14,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoConsultora { get; set; }
         [DataMember]
-        public bool Acepta { get; set; }
+        public bool Aceptado { get; set; }
         [DataMember]
         public short Tipo { get; set; }
 
@@ -23,8 +23,8 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoConsultora"))
                 CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "Acepta"))
-                Acepta = Convert.ToBoolean(row["Acepta"]);
+            if (DataRecord.HasColumn(row, "Aceptado"))
+                Aceptado = Convert.ToBoolean(row["Aceptado"]);
 
             if (DataRecord.HasColumn(row, "Tipo"))
                 Tipo = Convert.ToInt16(row["Tipo"]);
