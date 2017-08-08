@@ -320,6 +320,7 @@ namespace Portal.Consultoras.Web.Models
         public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool RechazadoXdeuda { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
         public DateTime FechaActualPais { get; set; }

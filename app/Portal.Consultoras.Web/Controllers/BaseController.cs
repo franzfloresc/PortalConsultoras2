@@ -890,8 +890,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region UserData
-
+        #region UserData        
         protected void SetUserData(UsuarioModel model)
         {
             Session["UserData"] = model;
@@ -1104,8 +1103,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             //GPR
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
-            ViewBag.CerrarRechazado = model.CerrarRechazado;
+            ViewBag.CerrarRechazado = model.CerrarRechazado;  
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+           
+
+
             ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
             ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
             ViewBag.GPRBannerUrl = model.GPRBannerUrl;
