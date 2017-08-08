@@ -45,7 +45,7 @@
 <div class="div-3">
     <div class="titG">Tipo Estrategia:</div>
     <div class="selectMulti borde_redondeado">
-        @Html.DropDownListFor(model => model.TipoEstrategia, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlEstrategia", multiple = "multiple" })
+        @Html.DropDownListFor(model => model.TipoEstrategiaSeleccionado, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlEstrategia", multiple = "multiple" })
     </div>
 </div>
 
@@ -82,7 +82,7 @@
     <div class="div-3">
         <div class="titG">Tipo Estrategia:</div>
         <div class="selectMulti borde_redondeado">
-            @Html.DropDownListFor(model => model.HTipoEstrategia, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlHEstrategia", multiple = "multiple" })
+            @Html.DropDownListFor(model => model.HTipoEstrategiaSeleccionado, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlHEstrategia", multiple = "multiple" })
         </div>
     </div>
 </div>

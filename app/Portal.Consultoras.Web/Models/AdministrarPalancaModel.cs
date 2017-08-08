@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
         public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
         public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+        public IEnumerable<string> TipoEstrategiaSeleccionado { get; set; }
+        public IEnumerable<string> HTipoEstrategiaSeleccionado { get; set; }
 
         public int PaisID { get; set; }
         public int DesdeCampania { get; set; }
