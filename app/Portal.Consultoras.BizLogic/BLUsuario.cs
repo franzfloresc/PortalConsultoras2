@@ -1764,5 +1764,24 @@ namespace Portal.Consultoras.BizLogic
 
             return usuarioConfiguracion;
         }
+
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            var daTerminosCondiciones = new DATerminosCondiciones(terminos.PaisID);
+            return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
+        }
+
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            var terminos = new BETerminosCondiciones();
+            var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
+
+            using (IDataReader reader = daTerminosCondiciones.GetTerminosCondiciones(CodigoConsultora, Tipo))
+            {
+                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
+            }
+
+            return terminos;
+        }
     }
 }
