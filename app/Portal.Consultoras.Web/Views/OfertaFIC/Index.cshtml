@@ -474,8 +474,7 @@
         var extend = $.jgrid.extend({
             Eliminar: function (Campaniaid, cuv_) {
                 var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado?');
-                if (!elimina)
-                    return false;
+                if (!elimina) return false;
                 waitingDialog({});
                 jQuery.ajax({
                     type: 'POST',
@@ -495,8 +494,8 @@
                                 limpiarM(true);
                                 jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                             }
-                            else
-                                alert(data.message);
+                            else alert(data.message);
+
                             limpiarM(true);
                             return false;
                         }
@@ -516,7 +515,6 @@
 </script>
 
 <div class="wrap_cab">
-
     <div class="filtros2">
         <div class="elements">
             <div class="div-2">
@@ -524,17 +522,13 @@
             </div>
         </div>
     </div>
-
 </div>
 
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper">
-
             @using (Html.BeginForm("Insertar", "OfertaFIC", FormMethod.Post, new { id = "frmProcesarMasivo", enctype = "multipart/form-data" }))
-            {
-
-                
+            {                
                 <div class="div-3">
                     <div class="titF">País:</div>
                     <div class="select_tab">
@@ -550,14 +544,12 @@
 
                 <div class="div-3">
                     <div class="titF">Código de Venta:</div>
-
                     <div class="select_tab">
                         @Html.TextBoxFor(model => model.CUV, new { id = "txtCUV", maxlength = "5" })
                         <input type="hidden" id="VentaID" name="VentaID" />
                         <div class="mensaje_tab">
                             <span>Ingresa un solo código.</span>
                         </div>
-
                     </div>
                 </div>
 
@@ -586,8 +578,6 @@
                         <input id="btnLimpiar" type="button" value="Limpiar" onclick="limpiar(this);" />
                     </div>
                 </div>
-
-
             }
 
             <div style="padding: 0; margin: 15px; overflow: hidden">
@@ -595,7 +585,6 @@
                     <h3>Listado de CUV</h3>
                 </div>
             </div>
-
             <div class="grid_tab" style="padding: 0; margin: 0 15px 15px 15px; overflow: hidden">
                 <table id="list"></table>
                 <div id="pager"></div>

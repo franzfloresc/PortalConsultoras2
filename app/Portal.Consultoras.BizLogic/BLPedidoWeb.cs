@@ -750,10 +750,6 @@ namespace Portal.Consultoras.BizLogic
         {
             int nroLote = 0;
             DAPedidoFIC DAPedidoFIC = null;
-
-            DataSet dsPedidosDD = null;
-            DataTable dtPedidosDD = null;
-
             string headerFile = null, detailFile = null;
 
             try
@@ -763,22 +759,13 @@ namespace Portal.Consultoras.BizLogic
 
                 TemplateField[] headerTemplate, detailTemplate; //VVA 2450 CGI
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
-                var element = section.Countries[paisID];
-
-                string OrderHeaderTemplate = null;
-
-                OrderHeaderTemplate = element.OrderHeaderTemplate;
-
-                headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderHeaderTemplate]);
-                //headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate]);
+                var element = section.Countries[paisID];                                
+                headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderHeaderTemplate]);
                 detailTemplate = ParseTemplate(ConfigurationManager.AppSettings[element.OrderDetailTemplate]);
 
                 DAPedidoFIC = new DAPedidoFIC(paisID);
-
                 DataSet dsPedidosWeb;
                 DataTable dtPedidosWeb;
-                bool isFox = ConfigurationManager.AppSettings["IsFOX"].Contains(codigoPais);
-
                 try
                 {
                     dsPedidosWeb = DAPedidoFIC.GetPedidoFICByFechaFacturacion(fechaFacturacion, nroLote);
@@ -789,10 +776,7 @@ namespace Portal.Consultoras.BizLogic
                     throw new BizLogicException("No se pudo acceder al origen de datos de pedidos Web.", ex);
                 }
 
-                FtpConfigurationElement ftpElement = null;
-
-                //if (dtPedidosWeb.Rows.Count > 0 || dtPedidosDD != null && dtPedidosDD.Rows.Count > 0)
-                //{
+                FtpConfigurationElement ftpElement = null;                
                 try
                 {
                     Guid fileGuid = Guid.NewGuid();
@@ -815,33 +799,10 @@ namespace Portal.Consultoras.BizLogic
                             {
                                 streamWriter.WriteLine(HeaderLine_FIC(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "W"));
                             }
-
-                            if (dtPedidosDD != null)
-                            {
-                                foreach (DataRow row in dtPedidosDD.Rows)
-                                {
-                                    streamWriter.WriteLine(HeaderLine_FIC(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "D"));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (dtPedidosDD != null)
-                            {
-                                foreach (DataRow row in dtPedidosDD.Rows)
-                                {
-                                    streamWriter.WriteLine(HeaderLine_FIC(headerTemplate, row, codigoPaisProd, fechaProceso, fechaFactura, lote, "D"));
-                                }
-                            }
-                            else
-                                streamWriter.Write(string.Empty);
                         }
                     }
 
                     dtPedidosWeb = dsPedidosWeb.Tables[1];
-                    if (dsPedidosDD != null)
-                        dtPedidosDD = dsPedidosDD.Tables[1];
-
                     using (var streamWriter = new StreamWriter(detailFile))
                     {
                         if (dtPedidosWeb.Rows.Count != 0)
@@ -850,26 +811,6 @@ namespace Portal.Consultoras.BizLogic
                             {
                                 streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
                             }
-
-                            if (dtPedidosDD != null)
-                            {
-                                foreach (DataRow row in dtPedidosDD.Rows)
-                                {
-                                    streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (dtPedidosDD != null)
-                            {
-                                foreach (DataRow row in dtPedidosDD.Rows)
-                                {
-                                    streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
-                                }
-                            }
-                            else
-                                streamWriter.Write(string.Empty);
                         }
                     }
                 }
@@ -877,6 +818,7 @@ namespace Portal.Consultoras.BizLogic
                 {
                     throw new BizLogicException("No se pudo generar los archivos de descarga de pedidos.", ex);
                 }
+
                 if (headerFile != null) //Si generó algún archivo continúa
                 {
                     if (ConfigurationManager.AppSettings["OrderDownloadCompress"] == "1")
@@ -892,33 +834,23 @@ namespace Portal.Consultoras.BizLogic
                         //File.Delete(headerFile);
                         //File.Delete(detailFile);
                     }
-
-                    if (isFox)
+                    
+                    if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
                     {
-                        string srvName = ConfigurationManager.AppSettings["GetServerName"];
-                        headerFile = srvName + Path.GetFileName(headerFile);
-                        detailFile = srvName + Path.GetFileName(detailFile);
-                    }
-                    else
-                    {
-                        if (ConfigurationManager.AppSettings["OrderDownloadFtpUpload"] == "1")
+                        try
                         {
-                            try
-                            {
-                                //Sube los archivos zip al FTP
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
-                                    headerFile, ftpElement.UserName, ftpElement.Password);
-
-                                BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail,
-                                    detailFile, ftpElement.UserName, ftpElement.Password);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new BizLogicException("No se pudo subir los archivos al destino FTP.", ex);
-                            }
-                        } // Si es pais FOX, obtiene los nombres de los archivos.
-                        detailFile = headerFile = null;
+                            //Sube los archivos zip al FTP
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Header,
+                                headerFile, ftpElement.UserName, ftpElement.Password);
+                            BLFileManager.FtpUploadFile(ftpElement.Address + ftpElement.Detail,
+                                detailFile, ftpElement.UserName, ftpElement.Password);
+                        }
+                        catch (Exception ex)
+                        {
+                            throw new BizLogicException("No se pudo subir los archivos al destino FTP.", ex);
+                        }
                     }
+                    detailFile = headerFile = null;
                 }
             }
             catch (Exception) { throw; }

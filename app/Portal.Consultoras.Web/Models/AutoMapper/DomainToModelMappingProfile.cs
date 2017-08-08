@@ -208,6 +208,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
 
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
+
+            Mapper.CreateMap<BEPais, PaisModel>();
+            Mapper.CreateMap<BECampania, CampaniaModel>();
+            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>();
         }
     }
 }
