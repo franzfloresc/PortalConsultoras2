@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using svUsuario = Portal.Consultoras.Web.ServiceUsuario;
@@ -74,7 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                     Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
 
-
                     return Json(new { success = true, message = "Se envió el correo de confirmar email." });
                 }
                 else
@@ -107,7 +107,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string url = (Util.GetUrlHost(this.HttpContext.Request).ToString());
                 string montoLimite = ObtenerMontoLimiteDelCupon();
                 CuponConsultoraModel cuponModel = ObtenerDatosCupon();
-                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite);
+                bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
+                string mailBody = MailUtilities.CuerpoCorreoActivacionCupon(userData.PrimerNombre, userData.CampaniaID.ToString(), userData.Simbolo, cuponModel.ValorAsociado, cuponModel.TipoCupon, url, montoLimite, tipopais);
                 string correo = userData.EMail;
                 Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correo, "Activación de Cupón", mailBody, true, userData.NombreConsultora);
 
