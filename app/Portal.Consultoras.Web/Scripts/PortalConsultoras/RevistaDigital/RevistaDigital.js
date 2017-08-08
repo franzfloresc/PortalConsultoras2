@@ -154,12 +154,12 @@ $(document).ready(function () {
 });
 
 function FlechaScrollDown(idCamapania) {
-    var top = $('#divTopFiltros' + idCamapania);
+    var top = $('[data-listado-campania=' + idCamapania + ']');
     if (top.length > 0) {
         top = top.position().top;
 
         $('html, body').animate({
-            scrollTop: top - 60
+            scrollTop: top - 70
         }, 1000, 'swing');
     }
 }
@@ -497,9 +497,12 @@ function RenderCarrusel(divProd) {
 function RDPageInformativa() {
     $('#popupDetalleCarousel_packNuevas').hide();
     $('#popupDetalleCarousel_lanzamiento').hide();
-    $("#divMensajeBloqueada").hide();
+    CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
+
+    Cerra
+
     isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
     if (isDetalle) {
         window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";

@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
-        public ActionResult IndexModel(int nuevo = 0)
+        public ActionResult IndexModel()
         {
             var model = new RevistaDigitalModel();
             model.EstadoAccion = -1;
@@ -44,11 +44,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
             
-            if (nuevo == 1)
-            {
-                return View("Revista2017", model);
-            }
-
             return View("Index", model);
         }
 
@@ -74,7 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
             model.Success = true;
             ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
             ViewBag.NombreConsultora = userData.Sobrenombre;
-            var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+            var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
             ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
             ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return PartialView("template-Landing", model);

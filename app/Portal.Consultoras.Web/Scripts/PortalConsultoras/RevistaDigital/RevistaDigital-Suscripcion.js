@@ -148,7 +148,6 @@ function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
     window.location = url;
-    window.location.reload();
 }
 
 function RDRedireccionarDesuscripcion() {
@@ -156,7 +155,6 @@ function RDRedireccionarDesuscripcion() {
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital"); //urlRevistaDigital;
     var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
-    window.location.reload();
 }
 
 function RDRedireccionarDetalle(event) {

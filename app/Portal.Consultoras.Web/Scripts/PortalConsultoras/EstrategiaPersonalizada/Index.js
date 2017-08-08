@@ -117,7 +117,6 @@ function VerDetalleEstrategia(e) {
 
     };
 
-
     CerrarLoad();
 
     dataLayer.push({

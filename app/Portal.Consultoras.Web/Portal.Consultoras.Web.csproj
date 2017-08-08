@@ -1178,6 +1178,7 @@
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
+    <Content Include="Content\Css\Site\Esika\Contenedor.css" />
     <Content Include="Content\Css\Site\Esika\reset.css" />
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
@@ -2808,8 +2809,10 @@
     <Content Include="Content\Images\regalo_microefecto_esika.png" />
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
+    <Content Include="Content\Images\RevistaDigital\barra-mis-ofertas.png" />
     <Content Include="Content\Images\RevistaDigital\bg_detalle.png" />
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
+    <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
     <Content Include="Content\Images\RevistaDigital\bg_ficha_kadia.jpg" />
     <Content Include="Content\Images\RevistaDigital\celular_revista.png" />
@@ -4122,6 +4125,9 @@
     <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\ManatenimientoPalanca.cshtml" />
+    <Content Include="Views\RevistaDigital\MisOfertas2017.cshtml" />
+    <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
+    <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4155,7 +4161,6 @@
     <Content Include="Views\Shared\Cupon\popupCuponConfirmarMobile.cshtml" />
     <Content Include="Views\Unete\_ConfirmarPosicion.cshtml" />
     <Content Include="Views\Unete\_TemplateMensaje.cshtml" />
-    <Content Include="Views\RevistaDigital\template-lan.cshtml" />
     <Content Include="Views\AdministrarCupon\Index.cshtml" />
     <Content Include="Views\AdministrarCupon\Partials\mantenimientoCupon.cshtml" />
     <Content Include="Views\Bienvenida\MasVendidos.cshtml" />
