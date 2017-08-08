@@ -12961,3 +12961,152 @@ a{
 .content_detalle_s{
     margin-top:-11px;
 }
+
+/* CDR MOBILE */
+
+.mensaje_vista_cdr, .btn_registrar_solicitud_cdr{
+    display:block;
+    font-family:'Lato';
+    text-align:center;
+}
+
+.mensaje_vista_cdr{
+    font-size:13px;
+    color:#000;
+}
+
+.mensaje_vista_cdr:first-child{
+    margin-top:20px;
+    margin-bottom:15px;
+}
+
+.tipografia_lato_light{
+    font-weight:300;
+}
+
+.tipografia_lato_regular{
+    font-weight:400;
+}
+
+.tipografia_lato_bold{
+    font-weight:bold;
+}
+
+.plazo_permitido{
+    text-decoration:underline;
+    color:#000;
+    font-weight:500;
+}
+
+.btn_registrar_solicitud_cdr{
+    margin:13px auto 46px auto;
+    width:100%;
+    max-width:200px;
+    height:45px;
+    background:#e81c36;
+    text-transform:uppercase;
+    color:#FFF;
+    font-size:15px;
+    line-height:45px;
+}
+
+.grilla_registros_solicitud_cdr{
+    display:block;
+    height:auto;
+    margin-top:30px;
+    margin-bottom:52px;
+    padding: 0 5px;
+}
+
+.registro_solicitud_cdr{
+    display:block;
+    height:auto;
+    min-height:63px;
+    border-top: 1px solid #979797;
+    /*border-bottom: 1px solid #979797;*/
+    padding:17px 0;
+    text-align:left;
+    position:relative;
+}
+
+.datos_solicitud_cdr{
+    display:block;
+    font-family:'Lato';
+}
+
+.num_solicitud, .fecha_solicitud{
+    font-size:13px;
+}
+
+.num_campania, .resumen_resolucion{
+    font-size:15px;
+}
+
+.productos_aprobados, .productos_rechazados{
+    display:block;
+}
+
+.estado_registro_solicitud_cdr{
+    display:block;
+    width:82.6px;
+    height:22px;
+    position:absolute;
+    top:19px;
+    right:27px;
+    font-family:'Lato';
+    font-size:11px;
+    text-align:center;
+    line-height:20px;
+    text-transform:uppercase;
+}
+
+.estado_pendiente{
+    border: 1px solid #c1c1c1;
+    color:#c1c1c1;
+}
+
+.estado_observado{
+    border:1px solid #e81c36;
+    color:#e81c36;
+}
+
+.estado_rechazado, .estado_aprobado{
+    color:#FFF;
+}
+
+.estado_rechazado{
+    border:1px solid #777777;
+    background:#777777;
+}
+
+.estado_aprobado{
+    border:1px solid #a18328;
+    background:#a18328;
+}
+
+.icono_busqueda{
+    display: block;
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 19px;
+    right: 0;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    opacity:0.5;
+}
+
+.ver_solicitud_cdr{
+    display:block;
+    text-decoration:none;
+}
+
+.ver_solicitud_cdr img{
+    width:100%;
+    height:auto;
+}
+
+/* FIN CDR MOBILE */
