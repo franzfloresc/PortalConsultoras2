@@ -254,7 +254,7 @@ function ArmarCarouselEstrategias(data) {
             speed: 260,
             variableWidth: cantProCarrusel > 1 ? false : true,
             prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;padding-left: 25px;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+            nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             responsive: [
                 {
                     breakpoint: 1025,
