@@ -9,9 +9,7 @@ CREATE PROCEDURE [dbo].[GetListaProductoOfertaFinalRegaloSorpresa]
 	@Table1 dbo.ListaOfertaFinalType READONLY
 )
 AS
-
 BEGIN
-
 	SET NOCOUNT ON;
 
 	-- PASO 1 (obtener datos iniciales)
@@ -37,23 +35,30 @@ BEGIN
 		@TipoMeta CHAR(2)
 
 	IF (@MontoTotal >= @MontoMinPedido)
-	BEGIN
-		PRINT 'RANGO' 
+	Begin
+		Print 'RANGO' 
 		Set @TipoMeta = 'RG'
-		Declare @GapAgregar decimal(18,2),@MontoMeta decimal(18,2),@OfertaFinalParametriaID int,@GapMinimo decimal(18,2),@GapMaximo decimal(18,2)
+		Set @PrecioMinimo = 0
+		Declare @GapAgregar decimal(18,2),@MontoMeta decimal(18,2),@RangoId int,@GapMinimo decimal(18,2),@GapMaximo decimal(18,2)
 		Select
-			@OfertaFinalParametriaID = OfertaFinalParametriaID,
-			@GapAgregar = PrecioMinimo,
-			@GapMinimo = GapMinimo,
-			@GapMaximo = GapMaximo
+			@RangoId = OfertaFinalParametriaID,
+			@GapAgregar = isnull(PrecioMinimo,0),
+			@GapMinimo = isnull(GapMinimo,0),
+			@GapMaximo = isnull(GapMaximo,0),
+			@CumpleParametria = 1
 		From dbo.OfertaFinalParametria
 		Where Tipo = 'RG' And @MontoTotal >= GapMinimo And @MontoTotal <= GapMaximo And Algoritmo = @Algoritmo			
-
-		Set @MontoMeta = (Select MontoMeta From PedidoConsultoraMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)
-		if @MontoMeta is null
-		begin
-			Set @MontoMeta = @MontoTotal + @GapAgregar
-			insert into PedidoConsultoraMontoMeta(CampaniaId,ConsultoraId,MontoPedido,GapMinimo,GapMaximo,GapAgregar,MontoMeta)
+		
+		Declare @ConsultoraId int		
+		Set @ConsultoraId = (Select ConsultoraId From ods.Consultora with (nolock) Where Codigo = @CodigoConsultora)
+				
+		if Not Exists(Select 1 From OfertaFinalMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)
+		Begin
+			/*Monto Meta y Regalo*/
+			Declare @Cuv varchar(100)		
+			Set @Cuv = (Select Cuv From OfertaFinalRegaloXCampania with (nolock) Where CampaniaId = @CampaniaId And RangoId = @RangoId)
+			Set @MontoMeta = @MontoTotal + @GapAgregar			
+			insert into OfertaFinalMontoMeta(CampaniaId,ConsultoraId,MontoPedido,GapMinimo,GapMaximo,GapAgregar,MontoMeta,Cuv)
 			select 
 				CampaniaId = @CampaniaId,
 				ConsultoraId = @ConsultoraId,
@@ -61,55 +66,25 @@ BEGIN
 				GapMinimo = @GapMinimo,
 				GapMaximo = @GapMaximo,
 				GapAgregar = @GapAgregar,
-				MontoMeta = @MontoMeta
-		end
-
+				MontoMeta = @MontoMeta,
+				Cuv = @Cuv									
+		End
+		Else
+		Begin
+			Set @MontoMeta = (Select MontoMeta From OfertaFinalMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)
+		End	
+				
 		if (@MontoTotal >= @MontoMeta)
 		begin
 			Set @TipoMeta = 'GM'
-			SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-				@CumpleParametria = 1
-			FROM OfertaFinalParametria 
-			Where Tipo = 'GM'And Algoritmo = @Algoritmo
-		end													
-
-		DECLARE @MontoHasta NUMERIC(15,2)
-
-		IF (ISNULL(@MontoHasta,0) > 0)
-		BEGIN
-				--PRINT 'AA'
-
-				--PRINT @TipoMeta
-
-				SET @MontoHasta = CEILING(@MontoHasta)
-				SET @MontoFaltante = (@MontoHasta - @MontoEscala)
-
-
-				IF (@MontoHasta > @MontoMinPedido)
-				BEGIN
-					SELECT TOP 1
-						@TipoMeta = PorDescuento
-					FROM ods.EscalaDescuento 
-					WHERE PorDescuento > @TipoMeta
-				END
-
-				--PRINT @CumpleParametria
-
-				IF (ISNULL(@CumpleParametria,0) = 0)
-				BEGIN
-					--PRINT 'CC'
-					SELECT TOP 1 @PrecioMinimo = PrecioMinimo,
-						@CumpleParametria = 1
-					FROM OfertaFinalParametria 
-					WHERE Tipo = 'GM'
-					AND Algoritmo = @Algoritmo
-
-					SET @TipoMeta = 'GM'
-				END
-		END
-	END
-	ELSE
-	BEGIN
+			if exists(Select 1 From OfertaFinalParametria with (nolock) Where Tipo = 'GM' And Algoritmo = @Algoritmo)
+				Set @CumpleParametria = 1
+			else
+				Set @CumpleParametria = 0
+		End													
+	End
+	Else
+	Begin
 		PRINT 'MM'
 		SET @MontoFaltante = (@MontoMinPedido - @MontoTotal)
 
@@ -128,9 +103,6 @@ BEGIN
 
 	IF (@CumpleParametria = 1)
 	BEGIN
-
-		--PRINT 'DD'
-		-- PASO 3 (obtener datos OF)
 		DECLARE @tablaCuvFaltante TABLE (CUV VARCHAR(6))
 
 		-- 3.1
@@ -185,14 +157,13 @@ BEGIN
 			AND op.TipoPersonalizacion = 'OF'
 		WHERE pc.AnoCampania = @CampaniaID
 			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
-			--AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
 			AND pc.CodigoProducto NOT IN ( SELECT CodigoSap FROM @tablaCuvPedido )
 		
 		-- en caso no hay registro de la consultora
 		-- poner la consultora XXX XXX XXX
 		declare @cantXXX int = 0, @codigoXXX varchar(30) = ''
 		select @cantXXX = COUNT(1) from @tablaCodigosCuv
-		set @cantXXX = isnull(@cantXXX, 0)
+		set @cantXXX = IsNull(@cantXXX, 0)
 
 		if	@cantXXX = 0
 		begin
@@ -200,7 +171,7 @@ BEGIN
 			select @codigoXXX = Codigo
 			from TablaLogicaDatos where TablaLogicaDatosID = 10001
 			
-			set @codigoXXX = ISNULL(@codigoXXX, '')
+			set @codigoXXX = IsNull(@codigoXXX, '')
 
 			if @codigoXXX <> ''
 			begin
@@ -242,14 +213,10 @@ BEGIN
 			op.TipoOfertaSisID
 		FROM OfertaProducto op WITH(NOLOCK)
 		INNER JOIN @tablaCodigosCuv tc ON op.CampaniaID = tc.CampaniaID and op.CUV = tc.CUV
-
-		--PRINT @TipoMeta
-		--PRINT @PrecioMinimo
-		--PRINT @MontoFaltante
 		
 		IF (@TipoMeta = 'GM')
 		BEGIN
-			SET @MontoFaltante = 0
+			Set @MontoFaltante = 0
 		END
 
 		-- PASO 5 (completar datos)
@@ -266,24 +233,27 @@ BEGIN
 			p.IndicadorMontoMinimo,
 			p.IndicadorOferta,
 			0 AS EstaEnRevista,
-			ISNULL(pcc.EsExpoOferta,0) AS EsExpoOferta,
-			ISNULL(pcc.CUVRevista,'') AS CUVRevista,
+			IsNull(pcc.EsExpoOferta,0) AS EsExpoOferta,
+			IsNull(pcc.CUVRevista,'') AS CUVRevista,
 			m.Descripcion AS NombreMarca, 
 			'NO DISPONIBLE' AS DescripcionCategoria, 
 			'' AS CUVComplemento,
 			'' AS DescripcionEstrategia, 
-			ISNULL(op.ConfiguracionOfertaID,0) AS ConfiguracionOfertaID,
-			ISNULL(op.TipoOfertaSisID,0) AS TipoOfertaSisID,
+			IsNull(op.ConfiguracionOfertaID,0) AS ConfiguracionOfertaID,
+			IsNull(op.TipoOfertaSisID,0) AS TipoOfertaSisID,
 			0 AS FlagNueva, 
 			0 AS TipoEstrategiaID, 
 			0 AS TieneSugerido,
 			CASE WHEN pl.CodigoSAP IS NULL THEN 0 ELSE 1 END AS TieneLanzamientoCatalogoPersonalizado,		
 			CASE WHEN pcor.SAP IS NULL THEN 0 ELSE 1 END AS TieneOfertaRevista,		
-			ISNULL(pcor.Oferta,'') AS TipoOfertaRevista,
-			--tc.CodigoSap,
+			IsNull(pcor.Oferta,'') AS TipoOfertaRevista,
 			tc.Orden,
 			@TipoMeta AS TipoMeta,
-			@MontoFaltante AS MontoMeta
+			Case @TipoMeta 
+				When 'MM' Then @MontoFaltante 
+				When 'RG' Then @MontoMeta 
+				When 'GM' Then @MontoMeta
+			End As MontoMeta
 		FROM @tablaCodigosCuv tc  
 		INNER JOIN ods.ProductoComercial p WITH(NOLOCK) ON tc.CampaniaID = p.CampaniaID AND tc.CUV = p.CUV
 		LEFT JOIN ProductoComercialConfiguracion pcc WITH(NOLOCK) ON p.AnoCampania = pcc.CampaniaID AND p.CUV = pcc.CUV
@@ -291,9 +261,9 @@ BEGIN
 		LEFT JOIN ods.ProductosLanzamiento pl WITH(NOLOCK) ON p.CodigoProducto = pl.CodigoSAP AND p.AnoCampania = pl.Campania
 		LEFT JOIN ProductoComercialOfertaRevista pcor WITH(NOLOCK) ON p.AnoCampania = pcor.Campania AND p.CUV = pcor.CUV
 		LEFT JOIN Marca M WITH(NOLOCK) ON p.MarcaId = m.MarcaId
-		WHERE  
-			p.IndicadorDigitable = 1 
-			AND (p.PrecioCatalogo >= ISNULL(@PrecioMinimo,0)) AND PrecioCatalogo >= ISNULL(@MontoFaltante,0)
+		Where
+			p.IndicadorDigitable = 1
+			And (p.PrecioCatalogo >= IsNull(@PrecioMinimo,0)) And PrecioCatalogo >= IsNull(@MontoFaltante,0)
 		ORDER BY tc.Orden
 
 	END
