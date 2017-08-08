@@ -817,19 +817,7 @@ namespace Portal.Consultoras.Web.Controllers
                             CalcularMotivoRechazo(model);
                             if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
                             {
-                                //if (model.RechazadoXdeuda == true)
-                                //{
-                                //    model.MostrarBannerRechazo = true;
-                                //}
-                                //else if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && oBEUsuario.ValidacionAbierta == false && (oBEUsuario.EstadoPedido == 201))
-                                //{
-                                //    model.MostrarBannerRechazo = true;
-                                //}
-                                //else if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && oBEUsuario.ValidacionAbierta == true && (oBEUsuario.EstadoPedido == 202))
-                                //{
-                                //    model.MostrarBannerRechazo = true;
-                                //}
-                                  if (model.RechazadoXdeuda == true)
+                                if (model.RechazadoXdeuda == true)
                                 {
                                     model.MostrarBannerRechazo = true;
                                 }
