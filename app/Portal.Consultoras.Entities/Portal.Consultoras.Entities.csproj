@@ -63,6 +63,7 @@
     <Compile Include="BEIncentivoConcurso.cs" />
     <Compile Include="BEIncentivoNivel.cs" />
     <Compile Include="BEIncentivoPremio.cs" />
+    <Compile Include="BETerminosCondiciones.cs" />
     <Compile Include="Cliente\BEClienteRecordatorio.cs" />
     <Compile Include="BEConfiguracionPais.cs" />
     <Compile Include="BEConfiguracionPaisDetalle.cs" />

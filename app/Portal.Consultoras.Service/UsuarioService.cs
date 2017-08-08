@@ -763,5 +763,14 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            return new BLUsuario().InsertTerminosCondiciones(terminos);
+        }
+
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
+        }
     }
 }

@@ -346,5 +346,10 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
+
+        [OperationContract]
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
     }
 }
