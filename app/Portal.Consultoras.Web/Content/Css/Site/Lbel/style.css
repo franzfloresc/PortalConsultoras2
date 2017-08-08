@@ -33040,8 +33040,8 @@ h1#penmostreo .campana {
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
     float: left;
-    width: 40%;
-    margin-right: 5%;
+    width: 43%;
+    margin-right: 2%;
 }
 
 .content_ficha_producto {
@@ -35185,4 +35185,400 @@ h1#penmostreo .campana {
     display:inline-block;
 }
 
-/*SPRINT 14*/.titulo_mas_vendido{    background: white;    display: inline-block;    text-align: center;    letter-spacing: 2.1px;    font-size: 25px;    font-weight: 700;    margin-top: 31px;    margin-bottom: 37px;    font-family: 'lato';    PADDING-LEFT: 30px;    padding-right: 30px}.content_mas_vendidos{    padding-top:15px;    padding-bottom:40px;    overflow:hidden;}.content_carrusel_mas_vendidos{    width: 90%;    margin: 0 auto;    height: auto;}.content_carrusel_mas_vendidos .producto_nombre_descripcion{    margin-bottom:0;}.content_carrusel_mas_vendidos .producto_precio{    margin-bottom:0;}.content_carrusel_mas_vendidos .content_item_carrusel{    border:0;    box-shadow:none;}.content_puntuacion{    padding-left:16px;    padding-right:16px;    overflow:hidden;    padding-bottom:7px;    padding-top:8px;    text-align:center;}.cantidad_puntuacion{    font-family:'Lato';    font-size:13px;    font-weight:700;    padding-left: 2px;    padding-right: 5px;    display: inline-block;    vertical-align: top;}
+/*SPRINT 14*/
+
+.titulo_mas_vendido{
+
+    background: #f0f0f0;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2.1px;
+    font-size: 25px;
+    /*font-weight: 700;*/
+    margin-top: 31px;
+    margin-bottom: 7px;
+    font-family: 'lato';
+    PADDING-LEFT: 15px;
+    padding-right: 15px;
+    position: relative;
+    font-weight: 300;
+    z-index:10;
+}
+
+.content_mas_vendidos{
+    padding-top:15px;
+    padding-bottom:40px;
+    overflow:hidden;
+    margin-top:30px;
+}
+
+.content_carrusel_mas_vendidos{
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.content_carrusel_mas_vendidos .producto_nombre_descripcion{
+    margin-bottom:0;
+}
+
+.content_carrusel_mas_vendidos .producto_precio{
+    margin-bottom:0;
+}
+
+.content_carrusel_mas_vendidos .content_item_carrusel{
+    border:0;
+    box-shadow:none;
+}
+
+.content_puntuacion{
+    padding-left:16px;
+    padding-right:16px;
+    overflow:hidden;
+    padding-bottom:7px;
+    padding-top:8px;
+    text-align:center;
+}
+
+.cantidad_puntuacion{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    padding-left: 2px;
+    padding-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*SPRINT 15*/
+.fondo_set_best_seller{
+    width:100%;
+    background:#eeeeee;
+    height:400px;
+    padding-top: 60px;
+}
+.content_producto_set_best_seller{
+    float: left;
+    width: 35%;
+    height: auto;
+    /* margin-top: 60px; */
+    text-align: center;
+}
+.imagen_producto_best_seller{
+    height:400px;
+    width:auto;
+}
+.fondo_set_best_seller .content_detalle_set{
+    width:53%;
+    min-height:500px;
+}
+.producto_best_detalle{
+    font-family:'Lato';
+    font-size:12px;
+    color:black;
+    /*text-transform:uppercase;*/ 
+    letter-spacing:0.8px;
+    line-height:22px;
+}
+.titulo_set{
+    letter-spacing:0.8px;
+}
+.comentarios_best_seller_ficha{
+    min-height:150px;
+    width:100%;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight: 400;
+    font-style: italic;
+}
+.content_puntuacion_detalle{
+    margin-bottom: 34px;
+    margin-top: 7px;
+}
+.content_puntuacion_detalle .rateyo-readonly-widg{
+    padding:0;
+}
+.texto_puntuacion_detalle{
+    display:inline-block;
+    padding-left:10px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    vertical-align:top;
+    text-decoration:underline;
+}
+.fondo_set_best_seller .ganancia_showroom{
+    margin-top:3px;
+}
+.content_carrusel_bestSeller{
+    margin-top: 40px;
+    width: 100%;
+    /* margin: 0 auto; */
+    background: #eeeeee;
+    overflow: hidden;
+    padding-bottom: 41px;
+}
+.titulo_carrusel_best{
+    letter-spacing:0.9px;
+    font-family:'Lato';
+    font-size:17px;
+    color:black;
+    margin-top:42px;
+    text-align:center;
+    margin-bottom:20px;
+}
+.content_carrusel_bestSeller .content_item_carrusel{
+    border:0;
+    background:none;
+}
+.content_carrusel_best{
+    width:90%;
+    margin:0 auto;
+}
+.content_carrusel_bestSeller .producto_nombre_descripcion{
+    margin-bottom:0;
+}
+.content_carrusel_bestSeller .producto_precio{
+    margin-bottom:0;
+}
+.content_carrusel_bestSeller .content_item_carrusel{
+    border:0;
+    box-shadow:none;
+}
+.section_comentarios{
+    margin-top:35px;
+}
+.titulo_principal_comentarios{
+    font-family:'Lato';
+    font-size:20px;
+    color:black;
+    font-weight:700;
+    text-align:center;
+    line-height:22px;
+    letter-spacing:1.2px;
+    margin-bottom:15px;
+}
+.subtexto_comentario{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:25px;
+}
+.content_filtros_bestSeller{
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.select_bestSeller{
+    display:block;
+    float:right;
+    width:188px;
+    border:1px solid #979797;
+    height:44px;
+    line-height:44px;
+    font-family:'Lato';
+    font-size:13px;
+    padding-left:9px;
+    color:black;
+}
+.texto_filtros_bestSeller{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    float:right;
+    margin-right:20px;
+    margin-top: 12px;
+}
+.contentAgregarComentarios{
+    padding:35px 90px 35px 90px;
+    width:100%;
+    background:#f6f6f6;
+    border:1px dashed #979797;
+    margin-bottom:45px;
+    
+}
+.texto_agregarComentarios{
+    width:220px;
+    margin: 0 auto;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    padding-left:25px;
+    
+    cursor:pointer;
+    background:url(../../../Images/PL20/icono_agregar.png) no-repeat;
+}
+.contentValoracion{
+    display:none;
+}
+.subtitulo_comentarios{
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+    margin-bottom:25px;
+    text-align:center;
+    margin-top: -5px;
+}
+.content_detalle_puntuación{
+    float:left;
+    width:20%;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+}
+.content_detalle_comentarios{
+    float:right;
+    width:75%;
+
+}
+.texto_comentario_usuario{
+    display:block;
+    width:100%;
+    height:156px;
+    background:white;
+    border:1px solid #979797;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+}
+.rateyo-readonly-puntuacion{
+   padding: 0 !important;
+   margin-top: 4px;
+   margin-bottom: 40px;
+   display: block !important;
+}
+.respuesta_pregunta{
+    width: 42%;
+    max-width: 70px;
+    float:left;
+    margin-right:13px;
+    border:1px solid #979797;
+    height:30px;
+    line-height:30px;
+    font-family:'Lato';
+    font-size:14px;
+    color:#979797;
+    text-align:center;
+    margin-top:15px;
+}
+.respuesta_pregunta:last-child{    
+    margin-right:0;
+}
+.enviar_comentario_Seller{
+    display:block;
+    width:215px;
+    height:44px;
+    background:#ababab;
+    font-family:'Lato';
+    font-size:13px;
+    color:#979797;
+    letter-spacing:0.4px;
+    color:white;
+    text-align:center;
+    float:right;
+    line-height:44px;
+    margin-top:17px;
+}
+.cancelar_comentario{
+    display:block;
+    float:right;
+    margin-right:26px;
+    margin-top:30px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    letter-spacing:0.4px;
+    text-decoration:underline;
+}
+.content_confirmacion_comentario{
+    display:none;
+}
+.icono_check_comentario{    
+    width:60px;
+    height:60px;
+    margin:0 auto;
+    background:url(../../../Images/Esika/icono_check_esika.png) no-repeat;
+    background-size:cover;
+    margin-top:30px;
+}
+.extra_titulo{
+    margin-top:20px;
+    letter-spacing:0.6px;
+}
+.btn_cerrar_comentario{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.4px;
+    margin: 0 auto;
+    width:215px;
+    height:45px;
+    line-height:45px;
+    background:black;
+    color:white;
+    text-align:center;
+    MARGIN-BOTTOM: 30px;
+}
+.content_comentario_usuario{
+    width:100%;
+    height:auto;
+    margin-bottom:43px;
+    padding-bottom:40px;
+    border-bottom:1px solid #979797;
+    overflow:hidden;
+}
+.foto_usuario_comentario{
+    float:left;
+    width:68px;
+    height:68px;
+    border-radius:100px;
+    overflow:hidden;
+    margin-right:20px;
+}
+.foto_usuario_comentario img{
+    height: 100%;
+}
+.datos_usuario_comentario{
+    float:left;
+}
+.puntuacion_usuario_visible{
+    padding:0 !important;
+}
+.nombre_usuario_comentario{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.4px;
+    margin-top:7px;
+}
+.fecha_comentario{
+    font-family:'Lato';    
+    font-size:13px;
+}
+.comentario_realizado_usuario{
+        font-family: 'Lato';
+    font-size: 14px;
+    line-height: 22px;
+    /* max-width: 749px; */
+    width: 77%;
+    float: right;
+    margin-top: 33px;
+}
+.content_comentario_usuario:last-child{
+    border-bottom:0;
+}
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_valida{
+    background:black;
+    color:white;
+}

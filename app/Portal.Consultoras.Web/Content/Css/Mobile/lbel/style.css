@@ -10901,7 +10901,7 @@ span.icon-advertencia{
 	text-align: center;
 }
 
-.content_room_product_sheet .other_consultants  .slider_item{
+.slider_item{
 	width: 155px;margin-left:15px;
     margin-right:15px;
     text-align:center;
@@ -10950,14 +10950,15 @@ span.icon-advertencia{
 	font-size: 13px;
 }
 
-.content_room_product_sheet .share_social_nertwoks{
+.share_social_nertwoks{
 	padding: 30px 0 76px 0;
 }
 
-.content_room_product_sheet .share_social_nertwoks .title{
+.share_social_nertwoks .title{
 	font-size: 13px;
 	text-align: center;
 	padding-bottom: 5px;
+    font-family: 'LAto';
 }
 
 .content_room_product_sheet .share_social_nertwoks .links{
@@ -11766,8 +11767,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 /*SPRINT 14*/
 .content_mas_vendidos{
-    background:white;
-   padding:30px 14px 30px 14px;
+    background:#f0f0f0;
+   padding:30px 14px 20px 14px;
    font-family:'Lato';
 }
 .titulo_mas_vendido{
@@ -11775,8 +11776,11 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     font-size:19px;
     letter-spacing:1.7px;
     text-align:center;
-    font-weight:700;
-    margin-bottom:20px;
+    font-weight:300;
+    margin-bottom:7px;
+    display: inline-block;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 .content_carrusel_mas_vendidos{
     width:80%;
@@ -11798,7 +11802,365 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 .content_carrusel_mas_vendidos .producto_precio{
     margin-bottom:5px;
 }
+
 #content-filters{
     margin-left:14px;
     margin-right:14px;
+}
+
+/*SPRINT 15*/
+.content_fondo_bestSeller{
+    height:192px;
+    width:100%;
+    background:#eeeeee;
+    text-align:center;
+    padding-top:30px;
+}
+.content_fondo_bestSeller img{
+    width:auto;
+    height:248px;
+}
+.content_imagen_best{
+    overflow:hidden;
+    height: 286px;
+}
+.marca_best{
+    font-family:'Lato';
+    font-size:12px;
+    letter-spacing:0.8px;
+    line-height:20px;
+}
+.content_puntuacion_detalle{
+    margin-bottom:14px;
+    margin-top:5px;
+}
+.rateyo-readonly-widg{
+    padding:0 !important;
+}
+.comentarios_detalle_best{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    display:inline-block;
+    vertical-align:top;
+    padding-left:10px;
+    text-decoration:underline;
+}
+.comentarios_best_seller_ficha {
+    height: auto;
+    width: 100%;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 400;
+    font-style: italic;
+    line-height:20px;    
+}
+.content_carrusel_bestSeller{
+    background:#eeeeee;
+    padding-top:30px;
+    padding-bottom:40px;
+}
+.titulo_carrusel_best {
+    letter-spacing: 0.2px;
+    font-family: 'Lato';
+    font-size: 14px;
+    color: black;   
+    text-align: center;
+    margin-bottom: 30px;
+}
+.imagen_carrusel_best{
+    width:auto;
+    height:160px;
+    margin-bottom:7px;
+}
+.marca_carrusel_best{
+     font-family: 'Lato';
+    font-size: 11px;
+    font-weight:300;
+    letter-spacing:0.2px;
+    line-height:16px;
+}
+.content_carrusel_bestSeller .orden_listado_numero{
+    background:#eeeeee;
+}
+.section_comentarios{
+    padding-top:30px;
+}
+.titulo_principal_comentarios {
+    font-family: 'Lato';
+    font-size: 20px;
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    line-height: 22px;
+    letter-spacing: 1.2px;
+    margin-bottom: 15px;
+}
+.subtexto_comentario {
+    font-family: 'Lato';
+    font-size: 16px;
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 23px;
+}
+.content_filtros_bestSeller {
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.texto_filtros_bestSeller {
+    font-family: 'Lato';
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    float: left;    
+    margin-top: 12px;
+    width:118px;
+}
+.select_bestSeller {
+    display: block;
+    float: right;
+    width: 60%;
+    border: 1px solid #979797;
+    height: 44px;
+    line-height: 44px;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-left: 9px;
+    color: black;
+}
+.contentAgregarComentarios {
+    padding: 20px 20px 20px 20px;
+    width: 100%;
+    background: #f6f6f6;
+    border: 1px dashed #979797;
+    margin-bottom: 35px;
+}
+.texto_agregarComentarios {
+    width: 220px;
+    margin: 0 auto;
+    font-family: 'Lato';
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    padding-top: 1px;
+    padding-left: 25px;
+    cursor: pointer;
+    background: url(../../../Images/PL20/icono_agregar.png) no-repeat;
+}
+.ContentcomentariosVisibles{
+    width:auto;
+    height:auto;
+    overflow:hidden;
+    border-bottom:1px solid #9b9b9b;
+    padding-bottom:22px;
+    margin-bottom:20px;
+}
+.ContentcomentariosVisibles:last-child{
+    border-bottom: 0;
+    margin-bottom: 10px;
+    /* padding-bottom: 0; */
+}
+.foto_usuario_comentario{
+    float:left;
+    width:68px;
+    height:68px;
+    border-radius:100px;
+    overflow:hidden;
+    margin-right:20px;
+}
+.foto_usuario_comentario img{
+    width:auto;
+    height:68px;
+}
+.nombre_usuario_comentario{
+    font-family: 'Lato';
+    font-size: 15px;
+    font-weight: 700;
+    line-height:22px;
+    margin-top:5px;
+}
+.fecha_comentario{
+    font-family: 'Lato';
+    font-size: 13px;
+    line-height:22px;
+}
+.datos_usuario_comentario{
+    float:left;
+}
+.comentario_realizado_usuario{
+    font-family: 'Lato';
+    font-size: 14px;
+    line-height:22px;
+    margin-top:15px;
+    
+}
+
+.mostrar_total_comentario{
+    font-weight:700;
+    text-decoration:underline;
+    display:block;
+    
+}
+.contentValoracion{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.4px;
+}
+.titulo_principal_valoracion{
+    font-size:16px;
+    font-weight:700;
+    line-height:26px;
+    letter-spacing:0.5px;
+    text-align:center;
+    margin-bottom:5px;
+}
+.subtitulo_comentarios{
+    padding:0 20px 0 20px;
+    text-align:center;
+}
+.content_detalle_puntuación{
+    margin-top:10px;
+    font-weight:700;
+    /*padding:0 14px 0 14px;*/
+}
+.rateyo-puntuacion-seccion-comentario{
+    padding:0 !important;
+    margin-top: 6px;
+    margin-bottom: 10px;
+    display: block !important;
+}
+.respuesta_pregunta{
+    float:left;
+    width:77px;
+    margin-right:12px;
+    height:29px;
+    line-height:28px;
+    border:1px solid #979797;
+    text-align:center;
+    display:block;
+    color:#979797;
+    font-weight:400;
+    margin-top:13px;
+}
+.texto_comentario_usuario{
+    width:100%;
+    background:white;
+    color:black;
+    border:1px solid #979797;
+    margin-top:15px;
+    padding:10px;   
+    height:160px; 
+}
+.enviar_comentario_Seller{
+    width:100%;
+    background:#979797;
+    color:white;
+    text-align:center;
+    line-height:44px;
+    height:44px;
+    display:block;
+    margin-top:7px;
+}
+.cancelar_comentario{
+    display:block;
+    text-align:center;
+    margin-top:15px;
+    text-decoration:underline;
+    font-size:13px;
+}
+.icono_check_comentario{
+    width:44px;
+    height:44px;
+    margin:0 auto;
+    margin-top:20px;
+    margin-bottom:10px;
+    background: url("../../../Images/mobile/Esika/icono_check_esika.svg") no-repeat;
+    background-size:100%;
+}
+.extra_titulo{
+    letter-spacing:0.6px;
+    font-size:16px;
+    margin-bottom: 10px;
+}
+.btn_cerrar_comentario{
+    display:block;
+    text-align:center;
+    width:100%;
+    height:44px;
+    line-height:44px;
+    background:black;
+    color:white;
+    margin-bottom: 10px;
+}
+.content_tono_bestSeller {
+    border-top: 1px solid black;
+    border-bottom:1px solid black;
+    padding-top:20px;
+    padding-bottom:20px;
+    overflow:hidden;
+    font-family:'LAto';
+    font-size:13px;
+    margin-top:20px;
+}
+.item_tono_best{
+    overflow:hidden;
+    padding-bottom:18px;
+    border-bottom:1px solid #bababa;
+    margin-bottom:13px;
+}
+.item_tono_best:last-child{
+    border-bottom:0;
+    margin-bottom:0;
+    padding-bottom:0;
+}
+.cantidad_item_tono{
+    width:30px;
+    float:left
+}
+.nombre_producto_item_best{
+    float:left;
+    margin-bottom:10px;
+}
+.color_tono_item{
+    width:26px;
+    height:26px;
+    float:left;
+    margin-left:30px;
+    background:black;
+    overflow:hidden;
+}
+.color_tono_item img{
+    width:100%;
+}
+.color_texto_item{
+    float:left;
+    margin-left:10px;
+    padding-top: 3px;
+}
+.respuesta_valida{
+    background:black;
+    color:white;
+}
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_pregunta:last-child{    
+    margin-right:0;
+}
+.content_detalle_comentarios{
+    /*float:right;*/
+    width:100%;
+}
+.titulo_estrellas{
+    vertical-align: top;   
+   /*padding-top: 6px !important;*/
+   margin-bottom:15px;
+}
+.content_mas_vendidos .slick-slide{
+        padding-bottom: 12px;
+}
+.content_detalle_s{
+    margin-top:-26px;
 }

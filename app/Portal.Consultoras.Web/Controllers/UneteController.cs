@@ -1683,7 +1683,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var PaisesParaRevisarEstadoCrediticioAutomatico = new List<string>()
                 {
-                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile
+                   Pais.Colombia, Pais.CostaRica, Pais.Peru, Pais.Chile, Pais.Dominicana
                 };
 
                 if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() &&
@@ -2186,6 +2186,40 @@ namespace Portal.Consultoras.Web.Controllers
             rechazoModel.NombreCompleto = nombre;
             return PartialView("_RechazarPostulante", rechazoModel);
         }
+
+
+        public ActionResult DevolverSolicitud(int id)
+        {
+            ViewBag.Id = id;
+            return PartialView("_DevolverSolicitud");
+        }
+
+        [HttpPost]
+        public ActionResult DevolverSolicitud(int id, string observacion)
+        {
+            var response = false;
+
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    var solicitudPostulante = sv.ObtenerSolicitudPostulante(CodigoISO, id);
+                    solicitudPostulante.EstadoPostulante = Enumeradores.EstadoPostulante.EnAprobacionFFVV.ToInt();
+
+                    sv.DevolverSolicitudSAC(CodigoISO, solicitudPostulante, observacion);
+                    response = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                
+            }
+
+            return Json(response, JsonRequestBehavior.AllowGet);
+        }
+
 
         public ActionResult VerHistorialPostulante(int id, string nombre, string FechaRegistro)
         {
@@ -3816,9 +3850,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.CodigoConsultoraRecomienda != null)
                     {
+                    //    var ConsultoraRecomienda = String.Concat("0000000", model.CodigoConsultoraRecomienda);
+
                         solicitudPostulante.CodigoConsultoraRecomienda =
-                                         String.Concat("0000000", model.CodigoConsultoraRecomienda).Substring(model.CodigoConsultoraRecomienda.Length);
-                        //model.CodigoConsultoraRecomienda.PadLeft(7, '0');
+                                       model.CodigoConsultoraRecomienda.PadLeft(9,'0');
                     }
  
 
@@ -5601,5 +5636,117 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
         }
+
+
+        [HttpPost]
+        public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFunnel(CampaniaInicio, CampaniaFin);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteFunnel()
+        {       
+            return View();
+        }
+
+        public List<ReporteFunnel> GetReporteFunnel(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFunnel>();
+            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFunnel(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
+        }
+
+        public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin)
+        {
+            var solicitudes = GetReporteFunnel(CampaniaInicio, CampaniaFin); 
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                 {"Campaña", "Campania"},
+                { "Registro Completo", "RegistroCompleto"},
+                 {"Registro Completo %", "RegistroCompletoPer"},
+                  {"Registro Validado", "RegistroValidado"},
+                   {"Registro Validado %", "RegistroValidadoPer"},
+                    {"Codigo Creado", "CodigoCreado"},
+                     {"Codigo Creado %", "CodigoCreadoPer"},
+                      {"Ingreso Total", "IngresoTotal"},
+                       {"Ingresos X", "IngresoX"},
+                        {"Ingresos X+1", "IngresoX1"},
+                         {"TC (Ingresos/RV)", "TCIngresoRV"},
+                          {"TC (IngresosX/RV)", "TCIngresoXRV"},
+                           {"TC (IngresosX+1/RV)", "TCIngresoX1RV"},
+                            {"Dias en Espera", "DiasEnEspera"} 
+            }; 
+            Util.ExportToExcel("ReporteFunnel", solicitudes, dic);
+            return View();
+        }
+
+
+        ////////////////////////////////////////////////////////////////77
+
+
+        [HttpPost]
+        public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteFuenteIngreso()
+        {
+            return View();
+        }
+
+        public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFuenteIngreso>();
+            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
+        }
+
+        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin)
+        {
+            var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+
+            Dictionary<string, string> dic = new Dictionary<string, string>
+            {
+                 {"Campaña", "Campania"},
+                { "UB", "UB"},
+                 { "Portal GZ", "PortalGZ"},
+                  { "Call Center", "CallCenter"},
+                   { "App SE", "AppSE"}, 
+
+            };
+            Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
+            return View();
+        }
+
     }
 }
