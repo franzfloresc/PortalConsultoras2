@@ -1,13 +1,13 @@
 ﻿jQuery(document).ready(function () {
-    IniDialog();
+    IniDialogs();
 
-    $("#btnNuevo").click(function () {
+    $("#btnModificar").click(function () {
         //validacion de los campos 
         $.ajax({
-            url: 'AdministrarPalanca/Get',
-            type: 'POST',
-            dataType: 'json',
-            data: { idConfiguracionPais: '1'}, //cambiar por el id correcto
+            url: 'AdministrarPalanca/GetPalanca',
+            type: 'GET',
+            dataType: 'html',
+            data: { idConfiguracionPais: $("#ddlConfiguracionPais").val()}, //cambiar por el id correcto
             contentType: "application/json; charset=utf-8",
             success: function (result) {
                 $("#dialog-content-palanca").empty();
@@ -15,10 +15,9 @@
                 showDialog("DialogMantenimientoPalanca");
             },
             error: function (request, status, error) {
-                //Do something
+                alert(request);
             }
         });
-        showDialog("DialogMantenimientoPalanca");
     });
 
   
@@ -34,7 +33,7 @@ function IniDialogs() {
         resizable: false,
         modal: true,
         closeOnEscape: true,
-        width: 530,
+        width: 830,
         close: function () {},
         draggable: false,
         title: "Modificar Palanca",
@@ -43,7 +42,7 @@ function IniDialogs() {
         {
             "Guardar": function () {
                 //valores para el carrusel de la estrategia de lanzamiento
-                var configuracionPaisID = $("#").val();
+                var configuracionPaisID = $("#ddlConfiguracionPais").val();
                 var codigo = $("#").val();
                 var excluyente = $("#").val();
                 var descripcion = $("#").val();

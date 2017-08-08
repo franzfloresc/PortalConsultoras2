@@ -36,6 +36,21 @@ BEGIN
 	ADD HTipoEstrategia VARCHAR(255);
 END
 GO
+-- Agregar Tipo de presentacion en la Tabla logica datos
+
+INSERT INTO TablaLogica (TablaLogicaID, Descripcion) 
+VALUES (120, 'Tipo Presentacion Carrusel')
+
+INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
+VALUES (12001, 120, 1, 'Carrusel Simple')
+INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
+VALUES (12002, 120, 2, 'Carrusel Con Previsuales')
+INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
+VALUES (12003, 120, 3, 'Seccion Simple')
+INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
+VALUES (12004, 120, 4, 'Banners')
+
+GO
 
 -- Agregar campo del menu para configuracion del perfil de la estrategia
 
@@ -72,22 +87,24 @@ BEGIN
            , 0
            , 0
            , 0
-           , 0 )
-		--DROP COLUMN TienePerfil 
+           , null )
+
+	INSERT INTO RolPermiso (RolID, PermisoID, Activo, Mostrar)
+	VALUES (4, 141, 1, 1)
 END
 GO
 
 --- STORES NECESARIO 
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisList]
-	@TienePerfil int
+	@TienePerfil BIT
 AS
 BEGIN
 	SET NOCOUNT ON;
 	SELECT * FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
-
+GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisGet] 
 	@ConfiguracionPaisID int
@@ -97,7 +114,7 @@ BEGIN
 	SELECT * FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
-
+GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
 	@ConfiguracionPaisID int,

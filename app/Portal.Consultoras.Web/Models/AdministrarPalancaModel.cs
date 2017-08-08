@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -19,6 +21,8 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
         public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
+        public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+
         public int PaisID { get; set; }
         public int DesdeCampania { get; set; }
         public string TipoEstrategia { get; set; }
