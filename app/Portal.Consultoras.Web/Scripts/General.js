@@ -1,5 +1,6 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
+var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
