@@ -458,27 +458,29 @@ namespace Portal.Consultoras.BizLogic
                     clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
 
                     if (clienteDB.ClienteIDSB == 0)
-                    {
                         clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
-                        if (clienteDB.Notas != null)
-                        {
-                            foreach (var nota in clienteDB.Notas)
-                            {
-                                var notaId = NotaInsertar(paisID, new BENota
-                                {
-                                    ClienteId = (short)clienteDB.ClienteIDSB,
-                                    ConsultoraId = clienteDB.ConsultoraID,
-                                    Descripcion = nota.Descripcion,
-                                    Fecha = nota.Fecha
-                                });
-
-                                clienteDB.Notas.Concat(new[] { new BENota { ClienteNotaId = notaId } });
-                            }
-                        }
-                    }
                     else
-                    {
                         daCliente.UpdCliente(clienteSB);
+
+                    if (clienteDB.Notas != null)
+                    {
+                        var clienteNotas = clienteDB.Notas;
+                        var clienteNotasRespuesta = new List<BENota>();
+
+                        foreach (var nota in clienteNotas)
+                        {
+                            nota.ClienteId = (short)clienteDB.ClienteIDSB;
+                            nota.ConsultoraId = clienteDB.ConsultoraID;
+
+                            if (nota.ClienteNotaId == 0)
+                                nota.ClienteNotaId = NotaInsertar(paisID, nota);
+                            else
+                                NotaActualizar(paisID, nota);
+
+                            clienteNotasRespuesta.Add(nota);
+                        }
+
+                        clienteDB.Notas = clienteNotasRespuesta;
                     }
                 }
                 else
