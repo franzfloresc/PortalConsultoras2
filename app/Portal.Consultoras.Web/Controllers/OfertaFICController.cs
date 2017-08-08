@@ -75,10 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                string paisISO = UserData().CodigoISO;
-                string CodigoUsuario = UserData().CodigoUsuario;
-                List<BEOfertaFIC> ofertaFIC = new List<BEOfertaFIC>();
-
                 string[] productosAValidar = codigos[0].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
                 productosAValidar = productosAValidar.Select(p => p.Trim()).ToArray<string>();
 
@@ -123,29 +119,24 @@ namespace Portal.Consultoras.Web.Controllers
                 postedFile.SaveAs(path);
 
                 // Req. 1664 - Gestion de contenido S3
-                var carpetaPais = Globals.UrlOfertasFic + "/" + UserData().CodigoISO;
+                var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
                 ConfigS3.SetFileS3(path, carpetaPais, fileName);
 
-                foreach (ServiceODS.BEProductoDescripcion producto in productosValidos)
-                {
-                    ofertaFIC.Add(new BEOfertaFIC() { CampaniaID = model.CampaniaID, CUV = producto.CUV, ImagenUrl = fileName, PaisISO = paisISO, UsuarioRegistro = CodigoUsuario, NombreImagen = uplArchivo.FileName });
-                }
-
+                var ofertaFIC = productosValidos.Select(p => new BEOfertaFIC() { CampaniaID = model.CampaniaID, CUV = p.CUV, ImagenUrl = fileName, PaisISO = userData.CodigoISO, UsuarioRegistro = userData.CodigoUsuario, NombreImagen = uplArchivo.FileName }).ToArray();
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     sv.InsOfertaFIC(model.PaisID, ofertaFIC.ToArray());
                 }
-
                 return "El registro ha sido ingresado satisfactoriamente.";
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Hubo un problema con el servicio, intente nuevamente.";
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return "Hubo un problema con el servicio, intente nuevamente.";
             }
         }
@@ -191,12 +182,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson("Ocurrió un error al cargar los datos de la grilla");
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson("Ocurrió un error al cargar los datos de la grilla");
             }
         }
@@ -217,12 +208,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson("Hubo un problema con el servicio, intente nuevamente");
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson("Hubo un problema con el servicio, intente nuevamente");
             }
         }
