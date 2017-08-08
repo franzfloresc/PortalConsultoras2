@@ -478,6 +478,11 @@ function EstrategiaAgregar(event, popup, limite) {
                 $(divAgregado).show();
             }
             var cuv = estrategia.CUV2;
+
+            if (isMobile()) {
+                ActualizarGanancia(data.DataBarra);
+            }
+
             if (tipoOrigenEstrategia == 1) {
                 MostrarBarra(data, '1');
                 ActualizarGanancia(data.DataBarra);
@@ -506,7 +511,6 @@ function EstrategiaAgregar(event, popup, limite) {
                 CargarResumenCampaniaHeader(true);
             }
             else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
-                ActualizarGanancia(data.DataBarra);
                 if (tipoOrigenEstrategia == 262) {
                     origenRetorno = $.trim(origenRetorno);
                     if (origenRetorno != "") {
