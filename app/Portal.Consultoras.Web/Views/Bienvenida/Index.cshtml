@@ -8,6 +8,7 @@
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
 
     <style>
         .contenedorCuponInfo .contenedor-texto-agregar {
@@ -169,7 +170,8 @@
         {
             <a role="link" region="Cuerpo" parent="Mi estado de cuenta" 
                title="Pago en Línea" class="btn_paga_online btn_100_paga" 
-               href="javascript:;" onclick="onclickObtenerLugaresPagoVZ();" 
+               @*href="javascript:;" onclick="onclickObtenerLugaresPagoVZ();"*@ 
+               href="@Url.Action("Index", "MisPagos")" 
                style="@clasePagoOnlineVZ"> PAGA EN L&Iacute;NEA</a>
 
         }
@@ -246,12 +248,12 @@
 
 @if (Model.TieneMasVendidos == 1)
 {
-    //Html.RenderPartial("MasVendidos");
+    Html.RenderPartial("MasVendidos");
 }
-
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" style="display:none;">
     <div id="contenedor_template_estrategia_cabecera" class="fondo_gris"></div>
+    
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
 
@@ -2521,37 +2523,19 @@
 </script>
 <!--EPD-1204 FIN-->
 @section scripts{
-    @*<script>
-            var nav = $('#bc_content_ofertas .bc_container .items-producto');
-            pos = nav.offset();
-
-            // Esperamos al DOM
-            $(window).scroll(function () {
-                // Anclamos el menú si el scroll es
-                // mayor a la posición superior del tag
-                if (($(this).scrollTop() >= pos.top)) {
-                    alert("d");
-                } else if (($(this).scrollTop() <= pos.top)) {
-                }
-            });
-    </script>*@
-
+   
     <script type="text/javascript">
         $(document).ready(function () {
-
             $(".termino_condiciones_intriga").click(function () {
                 $(this).toggleClass('check_intriga');
-
-            });
+            });           
         });
-
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.easy-pie-chart.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>
-
     <script type="text/javascript">
         var viewBagInscritaFlexipago = '@Model.InscritaFlexipago';
         var viewBagPrimeraVezSession = '@Model.PrimeraVezSession';

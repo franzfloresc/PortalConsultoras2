@@ -1,9 +1,10 @@
-﻿<script id="mas-vendidos-template" type="text/x-handlebars-template">
+﻿
+<script id="mas-vendidos-template" type="text/x-handlebars-template">
 {{#each this.Lista as |item|}}
     <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
          class="{{#iff (Trim ../CodigoEstrategia) '==' '101'}}{{../ClassEstrategia}}{{/iff}}">
         <div class="content_item_carrusel" {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} data-estrategia="{{JSON2string item}}" style="cursor:pointer;" {{/iff}}>
-            <div {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }} onclick="javascript:CargarEstrategiasEspeciales('', event);" {{/iff}}>
+            <div onclick="javascript:masVendidosModule.estrategiaVerDetalle({{EstrategiaID}});">
                 <div class="producto_img_home">
                     <img src="{{FotoProducto01}}" class="imagen_producto">
                     {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[5,3,2]' }}
@@ -12,31 +13,27 @@
                 </div>
                 <div class="producto_nombre_descripcion">
                     <h6>{{DescripcionMarca}}</h6>
-                    {{#iff DescripcionResumen '!=' ''}}
+                    {{#IsNullOrEmpty DescripcionResumen '!='}}
                     <p class="nombre_producto">
                         <b>{{DescripcionResumen}}</b>
                     </p>
-                    {{/iff}}
-                    {{#iff DescripcionCortada '!=' ''}}
+                    {{/IsNullOrEmpty}}
+                    {{#IsNullOrEmpty DescripcionCortada '!='}}
                     <p class="nombre_producto">
                         <b>{{DescripcionCortada}}</b>
                     </p>
-                    {{/iff}}
+                    {{/IsNullOrEmpty}}
 
                     <div class="producto_precio">
-                        {{#iff TipoEstrategiaImagenMostrar 'ContainsArray' '[3,5]'}}
-                        {{#if_eq EtiquetaID '1'}}
-                        {{#iff Precio '>' 0}}
-                        <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
-                        {{/iff}}
-                        {{/if_eq}}
-                        {{/iff}}
+                        <div style="height:15px">
+                            <div id="precio-tachado-{{EstrategiaID}}"><s class="price_offer">{{Simbolo}} {{PrecioTachado}}</s></div>
+                        </div>                        
                         <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioString}}</b></span>
                     </div>
                 </div>
                 <div class="content_puntuacion">
-                    <div class="rateyo-readonly-widg"></div>
-                    <div class="cantidad_puntuacion">(326)</div>
+                    <div class="rateyo-readonly-widg" id="star-{{EstrategiaID}}"></div>
+                    <div class="cantidad_puntuacion" id="recommedation-{{EstrategiaID}}">(326)</div>
                 </div>
             </div>
             <div class="producto_nombre_descripcion">
@@ -61,7 +58,7 @@
                 {{/iff}}
 
                 <div class="clear"></div>
-                <div style="padding-top:9px; height: 20px;">
+                <div style="padding-top:9px; height: 27px;">
                     <div class="agregado product-add" style="text-align:right;display:{{#if IsAgregado }}block;{{else}}none;{{/if}}">
                         AGREGADO
                         <div class="icono"></div>

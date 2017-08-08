@@ -263,6 +263,12 @@
     <div class="linea_separadora_mobile"></div>
     <!--FIN COMPARTIR CATÁLOGOS-->
 </div>
+
+@if (Model.TieneMasVendidos == 1)
+{
+    Html.RenderPartial("MasVendidos");
+}
+
 <!--INICIO CARRUSEL-->
 <div id="divListaEstrategias" style="display: none;">
     <div id="contenedor_template_estrategia_cabecera"></div>
@@ -330,12 +336,7 @@
         <!--FIN APP CATÁLOGOS-->
     </div>
 }
-
 <!--LOS MAS VENDIDOS-->
-@if (Model.TieneMasVendidos == 1)
-{
-    Html.RenderPartial("MasVendidos");
-}
 
 <div class="wrapper_resumen_mobile">
     <div id="div-linea-OPT" class="linea_separadora_mobile" style="display: none;"></div> <!--SI TIENE OFERTAS PARA TI NO DEBERIA ESTAR ESTA LINEA-->
@@ -938,8 +939,16 @@
                 }).on("rateyo.change", function (e, data) {
 
                     //console.log(data.rating);
+                $('.titulo_estrellas').rateYo({
+                    rating    : "100%",
+                    spacing   : "10px",
+                    numStars: 5,                
+                    starWidth: "14px",
+                    readOnly: true,
+                    ratedFill: "#cca11e"
                 });
             });
+            
         </script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
@@ -986,8 +995,9 @@
             var viewBagAmbiente = '@ViewBag.Ambiente';
             var correo = '@Model.EMail';
             var celular = '@Model.Celular';
+                var tipoOrigenPantalla = 2;
         </script>
-
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>

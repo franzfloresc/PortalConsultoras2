@@ -72,7 +72,8 @@
         PaisISO: '',
         UrlS3: 'https://s3.amazonaws.com',
         Ambiente: '',
-        TieneCupon: false
+        TieneCupon: false,
+        CumpleMostrarContenedorCupon: false
     };
 
     var userModel = {
@@ -284,6 +285,34 @@
             } else {
                 $(elements.ContenedorPadreCupon).hide();
             }
+        }
+    }
+
+    var revisarMostrarContenedorCupon = function () {
+        if (CumpleMostrarContenedorCupon) {
+            $(elements.ContenedorCuponInfo).each(function (index) {
+                var existeContenedorTextoDesktop = $(this).find('div.texto_cupon_monto').length > 0;
+                var existeContenedorTextoMobile = $(this).find('div.texto_cupon').length > 0;
+
+                if (existeContenedorTextoDesktop) {
+                    $(this).find('div.texto_cupon_monto').empty();
+                    $(this).find('div.texto_cupon_monto').append(mensaje);
+                    $(this).show();
+                }
+                else if (existeContenedorTextoMobile) {
+                    //if (existeContenedorTextoMobile) {
+                    $(this).find('div.texto_cupon').empty();
+                    $(this).find('div.texto_cupon').append(mensaje);
+                    $(this).show();
+                    //}
+                } else {
+                    $(this).empty();
+                    $(this).append(mensaje);
+                    $(this).show();
+                }
+                if (response.tieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
+                else { cambiarGifPorImagen($(this)); }
+            });
         }
     }
 
@@ -519,6 +548,7 @@
 
         ofertasPlan20Promise.then(function (response) {
             if (response.success) {
+                setting.CumpleMostrarContenedorCupon = true;
                 if (response.tieneOfertasPlan20) {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
@@ -544,11 +574,11 @@
                         $(this).show();
                     }
                     else if (existeContenedorTextoMobile) {
-                        if (existeContenedorTextoMobile) {
+                        //if (existeContenedorTextoMobile) {
                             $(this).find('div.texto_cupon').empty();
                             $(this).find('div.texto_cupon').append(mensaje);
                             $(this).show();
-                        }
+                        //}
                     } else {
                         $(this).empty();
                         $(this).append(mensaje);
@@ -559,6 +589,7 @@
                 });
 
                 $(elements.ContenedorCuponConocelo).hide();
+                finishLoadCuponContenedorInfo = true;
             }
         }, function (xhr, status, error) { });
     }
@@ -667,6 +698,9 @@
             return setting.Cupon;
         },
         actualizarContenedorCupon: function () {
+            mostrarContenedorCuponPorPagina();
+        },
+        revisarMostrarContenedorCupon: function () {
             mostrarContenedorCuponPorPagina();
         },
         mostrarPopupGanaste: mostrarPopupGanasteAlConfirmarCorreo,
