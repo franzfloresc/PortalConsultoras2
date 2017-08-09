@@ -11,8 +11,9 @@
 
 <div class="catalogoPersonalizadoBloque">
     <div class="content_belcorp">
-        <div class="content_slider_ept" id="divCarruselLan"  data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
-            @*@Html.Partial("~/Views/RevistaDigital/template-lan.cshtml", Model)*@
+        <div class="content_slider_ept" id="divCarruselLan"  
+             data-content-item="@Model.CampaniaID" 
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
         </div>
     </div>
 </div>
@@ -78,9 +79,9 @@
                 </div>
             }
         <hr class="clear" />
-        <div id="RDListado">
+        <div id="RDListado" data-content-item="@Model.CampaniaID">
             <hr class="clear" />
-            <div id="divOfertaProductos" data-content-item="@Model.CampaniaID" style="text-align: center;"></div>
+            <div id="divOfertaProductos"  style="text-align: center;"></div>
             <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
@@ -88,7 +89,7 @@
                     <div class="content_belcorp">
                         <div class="block_inscribete_predio">
                             <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
-                            <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA INSCRITAS DESDE C-@ViewBag.CampaniaMasDos</span>
+                            <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
                         </div>
                         @*@if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
                         {

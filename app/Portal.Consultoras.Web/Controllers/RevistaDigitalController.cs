@@ -25,20 +25,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
-        public ActionResult Revista2017()
-        {
-            try
-            {
-                return IndexModel(1);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return RedirectToAction("Index", "Bienvenida");
-        }
-
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {

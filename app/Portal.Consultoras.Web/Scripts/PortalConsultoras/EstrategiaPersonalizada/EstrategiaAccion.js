@@ -107,7 +107,7 @@ function VerDetalleEstrategia(e) {
 
     estrategia.ContentItem = $(e.target).parents("[data-content-item]").attr("data-content-item");
 
-    if (estrategia.TipoEstrategiaImagenMostrar == '2' && isMobile()) {
+    if (estrategia.TipoEstrategiaImagenMostrar == '2') {
 
         EstrategiaVerDetallePackNueva(estrategia);
 
@@ -116,7 +116,6 @@ function VerDetalleEstrategia(e) {
         EstrategiaVerDetalleGeneral(estrategia);
 
     };
-
 
     CerrarLoad();
 
@@ -175,7 +174,7 @@ function EstrategiaVerDetalleMobile(id, origen) {
     //window.location = url;
 }
 
-function EstrategiaVerDetallePackNueva() {
+function EstrategiaVerDetallePackNueva(estrategia) {
     SetHandlebars("#pack-nuevas-template", estrategia, '#popupDetalleCarousel_packNuevas');
     $('#popupDetalleCarousel_packNuevas').show();
     TrackingJetloreView(estrategia.CUV2, $("#hdCampaniaCodigo").val());
@@ -478,6 +477,11 @@ function EstrategiaAgregar(event, popup, limite) {
                 $(divAgregado).show();
             }
             var cuv = estrategia.CUV2;
+
+            if (isMobile()) {
+                ActualizarGanancia(data.DataBarra);
+            }
+
             if (tipoOrigenEstrategia == 1) {
                 MostrarBarra(data, '1');
                 ActualizarGanancia(data.DataBarra);
@@ -506,7 +510,6 @@ function EstrategiaAgregar(event, popup, limite) {
                 CargarResumenCampaniaHeader(true);
             }
             else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
-                ActualizarGanancia(data.DataBarra);
                 if (tipoOrigenEstrategia == 262) {
                     origenRetorno = $.trim(origenRetorno);
                     if (origenRetorno != "") {
@@ -563,6 +566,12 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
         var cuvClone = $.trim(itemClone.attr("data-clone-item"));
         if (cuvClone != "") {
             itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length === 0 && cuvClone != "") {
+            itemClone = $("body").find("[data-item='" + cuvClone + "']");
+        }
+        if (itemClone.length > 1) {
+            itemClone = $(itemClone.get(0));
         }
         if (itemClone.length > 0) {
             divMensaje.find("[data-item-html]").html(itemClone.html());

@@ -243,6 +243,11 @@ header {
     max-height: 100%;
 }
 
+.sub_menu_home1 .new_menu {
+    margin-top: 0;
+    height: 35px;
+}
+
 .new_menu {
     margin-top: 21px;
     margin-left: 4%;
