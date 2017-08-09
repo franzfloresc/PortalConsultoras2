@@ -364,5 +364,7 @@ namespace Portal.Consultoras.Web.Models
         public List<MenuMobileModel> MenuMobile { get; internal set; }
 
         public string CodigosConcursos { get; set; }
+
+        public string ClaseLogoSB { get; set; }
     }
 }

@@ -10,13 +10,16 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class EstrategiaPersonalizadaController : BaseRevistaDigitalController
+    public class EstrategiaPersonalizadaController : BaseController
     {
         public ActionResult Index()
         {
             try
             {
-                return IndexModel();
+                var listaSeccion = ObtenerConfiguracion();
+                var modelo = new EstrategiaPersonalizadaModel { ListaSeccion = listaSeccion };
+
+                return View(modelo);
             }
             catch (Exception ex)
             {
@@ -26,5 +29,26 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
         
+        private List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
+        {
+            var modelo = new List<ConfiguracionSeccionHomeModel>();
+
+            //var entidad = new ConfiguracionSeccionHomeModel();
+            //using (PedidoServiceClient sv = new PedidoServiceClient())
+            //{
+            //    var lista = sv.GetEstrategiasPedido(entidad).ToList();
+            //    modelo = AutoMapper.Mapper.Map<>(lista);
+            //}
+
+            if (!modelo.Any())
+            {
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "carrusel-previsuales", CantidadMostrar = 0, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = ""});
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "seccion-simple-centrado", CantidadMostrar = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
+            }
+
+            return modelo;
+
+        }
+
     }
 }

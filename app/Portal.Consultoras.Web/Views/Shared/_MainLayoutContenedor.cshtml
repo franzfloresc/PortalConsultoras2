@@ -345,17 +345,22 @@
                 </ul>
             </div>   
         </div>
-        <div>
-            <div class="SubHeader">
-                <div class="ubicacion_web @(controllerAction == "bienvenidaindex"
+        <div style="margin: 0 0 0 16.5%;">
+            @if (!(controllerAction == "bienvenidaindex"
                             || controllerAction == "showroomindex"
                             || controllerAction == "showroomintriga"
                             || controllerAction == "revistadigitalindex"
                             || controllerAction == "revistadigitaldetalle"
-                            || controllerAction == "revistadigitalinscripcion" ? "oculto" : "")">
-                    <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+                            || controllerAction == "revistadigitalinscripcion") 
+                && (@ViewBag.Title != "" && @ViewBag.Title != null))
+            {
+                <div class="SubHeader">
+                    <div class="ubicacion_web">
+                        <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
+                    </div>
                 </div>
-            </div>
+            }
+            
             @RenderBody()
             @if (ViewBag.TerminoMostrar == 1)
             {
