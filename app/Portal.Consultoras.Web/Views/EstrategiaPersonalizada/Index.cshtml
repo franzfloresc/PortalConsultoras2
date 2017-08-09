@@ -1,18 +1,47 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
 
-@model Portal.Consultoras.Web.Models.RevistaDigitalModel
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
 }
-<div class="bc_contenido" data-tag-html="201712">
-    <div class="bc_venta_exclusiva" style="background:none; background-color:white;">
+<style>
+    .catalogoPersonalizadoBloque {
+    background: #f6f6f6;
+    width: 800px;
+    margin: auto;
+}
+    .imagen_fondo {
+    background: white;
+}
+    .content_slider_ept {
+    background: white;
+}
+    .imagen_fondo {
+    min-height: 380px;
+}
+    .content_item_ept {
+    min-height: 400px;
+}
+</style>
+<div class="bc_contenido">
+    @foreach (var seccion in Model.ListaSeccion)
+    {
+        <div>@seccion.Titulo</div>
+        @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-"+ seccion.TipoPresentacion + ".cshtml", seccion)
+        <div class="bc_vineta_baja" style="margin-bottom:15px;">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+        </div>
+    }
+</div>
+<div class="bc_contenido" data-tag-html="201712" style="display:none;">
+    <div class="bc_venta_exclusiva" style="background:none; background-color:white;height: 480px;">
         <div class="catalogoPersonalizadoBloque">
             <div class="content_belcorp">
                 <div class="content_slider_ept" id="divCarruselLan"
@@ -80,15 +109,10 @@
 @section scripts{
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
-        var tipoOrigenPantalla = 1;
-        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
-        var tipoOrigenEstrategia = 17;
-        var CantidadFilas = 3;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@

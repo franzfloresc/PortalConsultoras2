@@ -45,7 +45,7 @@
 <div class="div-3">
     <div class="titG">Tipo Estrategia:</div>
     <div class="selectMulti borde_redondeado">
-        @Html.DropDownListFor(model => model.TipoEstrategiaSeleccionado, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlEstrategia", multiple = "multiple" })
+        @Html.ListBoxFor(model => model.TipoEstrategiaSeleccionado, new MultiSelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlEstrategia", multiple = "multiple" })
     </div>
 </div>
 
@@ -60,7 +60,7 @@
     <div class="div-3" style="display: inline-block; text-align: left; margin-top: 15px;">
         <div class="titG">Imagen de fondo:</div>
         <div style="display: inline-block;">
-            <input type="hidden" id="nombre-img-home-desktop" />
+            @Html.HiddenFor(m => m.HImagenFondo)
             <div id="img-home-desktop" style="display: inline-block;vertical-align: middle;"></div>
             <div class="pdr_modal2 borde_redondeado alignrigth">
                 <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-home-desktop" class="img-matriz-preview2" data-id="">
@@ -70,7 +70,7 @@
     <div class="div-3">
         <div class="titG">Tipo Presentacion:</div>
         <div class="selectP2 borde_redondeado">
-            @Html.DropDownListFor(model => model.HTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "TablaLogicaDatosID", "Descripcion"), "-- Seleccionar --", new { id = "ddlPresentacion" }) 
+            @Html.DropDownListFor(model => model.HTipoPresentacion, new MultiSelectList(Model.ListaTipoPresentacion, "TablaLogicaDatosID", "Descripcion"), "-- Seleccionar --", new { id = "ddlPresentacion" }) 
         </div>
     </div>
     <div class="div-3">
@@ -82,7 +82,9 @@
     <div class="div-3">
         <div class="titG">Tipo Estrategia:</div>
         <div class="selectMulti borde_redondeado">
-            @Html.DropDownListFor(model => model.HTipoEstrategiaSeleccionado, new SelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion"), new { id = "ddlHEstrategia", multiple = "multiple" })
+            @Html.ListBoxFor(model => model.HTipoEstrategiaSeleccionado, 
+                new MultiSelectList(Model.ListaTipoEstrategia, "Codigo", "Descripcion", Model.HTipoEstrategiaSeleccionado), 
+                new { @class = "chzn-select", id = "ddlHEstrategia", multiple = "multiple" })
         </div>
     </div>
 </div>

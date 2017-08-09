@@ -53,6 +53,43 @@ namespace Portal.Consultoras.Web.Controllers
             return PartialView("Partials/ManatenimientoPalanca", model);
         }
 
+        public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
+        {
+            try
+            {
+               var list = ListarConfiguracionPais();
+
+                var data = new
+                {
+                    //total = pag.PageCount,
+                    //page = pag.CurrentPage,
+                    //records = pag.RecordCount,
+                    rows = from a in list
+                    select new
+                    {
+                        id = a.ConfiguracionPaisID,
+                        cell = new string[]
+                        {
+                            a.ConfiguracionPaisID.ToString(),
+                            a.Orden.ToString(),
+                            a.Codigo.ToString(),
+                            a.Descripcion.ToString(),
+                            a.Estado.ToString()
+                        }
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new
+                {
+                    success = false,
+                    message = e.StackTrace,
+                });
+            }
+        }
         [HttpPost]
         public JsonResult Update(AdministrarPalancaModel model)
         {
@@ -78,7 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
                     message = e.StackTrace,
                 });
             }
-           
         }
 
         private IEnumerable<PaisModel> ListarPaises()
