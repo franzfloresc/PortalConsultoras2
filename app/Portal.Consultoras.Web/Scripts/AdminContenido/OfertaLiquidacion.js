@@ -12,7 +12,7 @@ var OfertaLiquidacion = function (config) {
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
         imagenProductoElementId: config.imagenProductoElementId || '',
         habilitarNemotecnico: false,
-        expValidacionNemotecnico: config.expValidacionNemotecnico
+        expValidacionNemotecnico: $.trim(config.expValidacionNemotecnico)
     };
 
     var _paginadorClick = function (page) {

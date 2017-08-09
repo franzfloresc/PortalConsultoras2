@@ -11,7 +11,7 @@ var ProductoSugerido = function (config) {
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,
         habilitarNemotecnico: false,
         getImagesByNemotecnico: config.getImagesByNemotecnico,
-        expValidacionNemotecnico: config.expValidacionNemotecnico
+        expValidacionNemotecnico: $.trim(config.expValidacionNemotecnico)
     };
 
     var _paginadorClick = function (page) {
