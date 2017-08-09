@@ -2048,6 +2048,11 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialNemotecnico(entity);
         }
 
+        public int UpdMatrizComercialDescripcionComercial(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialDescripcionComercial(entity);
+        }
+
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             return new BLPedidoWeb().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);

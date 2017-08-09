@@ -919,7 +919,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
                 Foto = urlS3 + p.Foto,
-                NemoTecnico = p.NemoTecnico
+                NemoTecnico = p.NemoTecnico,
+                DescripcionComercial = p.DescripcionComercial
             }).ToList();
 
             return data;

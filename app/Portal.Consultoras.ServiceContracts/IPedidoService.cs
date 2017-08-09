@@ -203,6 +203,9 @@ namespace Portal.Consultoras.ServiceContracts
         int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity);
 
         [OperationContract]
+        int UpdMatrizComercialDescripcionComercial(BEMatrizComercialImagen entity);
+
+        [OperationContract]
         IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP);
 
         [OperationContract]

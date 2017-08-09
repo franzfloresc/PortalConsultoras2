@@ -3,6 +3,7 @@ var OfertaLiquidacion = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction,
+        actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction,
         getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction,
         getImagesByNemotecnico: config.getImagesByNemotecnico || '',
         paisID: config.paisID || 0,
@@ -25,6 +26,7 @@ var OfertaLiquidacion = function (config) {
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -112,6 +114,8 @@ var OfertaLiquidacion = function (config) {
 
     var _actualizarPais = function (pais) {
         _config.paisID = pais;
+        _nemotecnico.actualizarPais(pais);
+        _descripcionComercial.actualizarPais(pais);
     };
 
     var _actualizarParNemotecnico = function (val) {
@@ -141,6 +145,10 @@ var OfertaLiquidacion = function (config) {
         _obtenerImagenesByNemotecnico(codigoSap, 1, true);
     };
 
+    var _editarDescripcionComercial = function editarDescripcionComercial(idImagen) {
+        _descripcionComercial.editarDescripcionComercial(idImagen);
+    }
+
     return {
         crearObjetoUpload: _crearObjetoUpload,
         mostrarListaImagenes: _mostrarListaImagenes,
@@ -150,6 +158,7 @@ var OfertaLiquidacion = function (config) {
         actualizarParNemotecnico: _actualizarParNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,
         limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
-        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico,
+        editarDescripcionComercial: _editarDescripcionComercial
     }
 };
