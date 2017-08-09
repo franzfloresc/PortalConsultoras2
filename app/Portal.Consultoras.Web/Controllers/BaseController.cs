@@ -426,6 +426,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.Menu != null)
             {
+                ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
                 lista1 = userData.Menu;
                 return SepararItemsMenu(lista1);
             }
@@ -539,7 +540,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                         {
-                            ViewBag.ClaseLogoSB = "negro";
+                            userData.ClaseLogoSB = "negro";
                             if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
                                 if (userData.RevistaDigital.TieneRDS)
                                     if (userData.RevistaDigital.NoVolverMostrar)
@@ -552,13 +553,13 @@ namespace Portal.Consultoras.Web.Controllers
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                         {
                                             permiso.ClaseMenuItem = "oculto";
-                                            ViewBag.ClaseLogoSB = "";
+                                            userData.ClaseLogoSB = "";
                                         }
                                     }
                                     else
                                     {
                                         permiso.ClaseMenuItem = "oculto";
-                                        ViewBag.ClaseLogoSB = "";
+                                        userData.ClaseLogoSB = "";
                                     }
                         }
 
@@ -615,6 +616,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             // Separar los datos obtenidos y para generar el 
             userData.Menu = lstModel;
+
+            ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
             return SepararItemsMenu(lstModel);
         }
