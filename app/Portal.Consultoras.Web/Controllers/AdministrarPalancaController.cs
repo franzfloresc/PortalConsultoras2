@@ -46,10 +46,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = Mapper.Map<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ObtenerCampaniasDesdeServicio(userData.PaisID);
-            model.ListaTipoEstrategia = DropDowListTipoEstrategia();
             model.ListaTipoPresentacion = ListTipoPresentacion();
-            model.TipoEstrategiaSeleccionado = new[] {"002", "005"};
-            model.HTipoEstrategiaSeleccionado = new[] { "002", "005" };
             return PartialView("Partials/ManatenimientoPalanca", model);
         }
 

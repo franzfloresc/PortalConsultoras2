@@ -4,30 +4,37 @@
 
     $("#btnModificar").click(function () {
         //validacion de los campos 
-        $.ajax({
-            url: 'AdministrarPalanca/GetPalanca',
-            type: 'GET',
-            dataType: 'html',
-            data: { idConfiguracionPais: $("#ddlConfiguracionPais").val()}, //cambiar por el id correcto
-            contentType: "application/json; charset=utf-8",
-            success: function (result) {
-                $("#dialog-content-palanca").empty();
-                $("#dialog-content-palanca").html(result);
-                showDialog("DialogMantenimientoPalanca");
-            },
-            error: function (request, status, error) {
-                alert(request);
-            }
-        });
+       
     });
 
   
     $("#ddlTipoEstrategia").change(function () {
       
     });
+
+    $.jgrid.extend({
+        Editar: Modificar,
+        //Eliminar: estrategiaObj.eliminar
+    });
 });
 
-
+function Modificar(idConfiguracionPais, event) {
+    $.ajax({
+        url: 'AdministrarPalanca/GetPalanca',
+        type: 'GET',
+        dataType: 'html',
+        data: { idConfiguracionPais: idConfiguracionPais }, //cambiar por el id correcto
+        contentType: "application/json; charset=utf-8",
+        success: function (result) {
+            $("#dialog-content-palanca").empty();
+            $("#dialog-content-palanca").html(result);
+            showDialog("DialogMantenimientoPalanca");
+        },
+        error: function (request, status, error) {
+            alert(request);
+        }
+    });
+}
 function IniDialogs() {
     $('#DialogMantenimientoPalanca').dialog({
         autoOpen: false,
