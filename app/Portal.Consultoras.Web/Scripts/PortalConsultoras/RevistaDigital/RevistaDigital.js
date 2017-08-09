@@ -500,9 +500,7 @@ function RDPageInformativa() {
     CerrarPopup("#divMensajeBloqueada");
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-
-    Cerra
-
+    
     isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
     if (isDetalle) {
         window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
