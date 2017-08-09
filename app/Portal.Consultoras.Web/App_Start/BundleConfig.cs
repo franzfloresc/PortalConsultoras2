@@ -182,8 +182,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
-                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js"
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -196,6 +196,18 @@ namespace Portal.Consultoras.Web
                 ));
 
             #endregion
+
+            bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModule.min").Include(
+                "~/Scripts/fileuploader.js",
+                "~/Scripts/jquery.form.js",
+                "~/Scripts/handlebars.js",
+                "~/Scripts/jquery.paging.min.js",
+                "~/Scripts/AdminContenido/ToastHelper.js",
+                "~/Scripts/AdminContenido/Paginador.js",
+                "~/Scripts/AdminContenido/Nemotecnico.js",
+                "~/Scripts/AdminContenido/MatrizComercialFileUpload.js",
+                "~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCampaniaModule.js"
+                ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;
