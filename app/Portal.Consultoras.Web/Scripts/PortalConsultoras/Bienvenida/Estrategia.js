@@ -220,11 +220,6 @@ function PintarPrecioTachado(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarPrecioTachado(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarPrecioTachado(item);
-    });
-    */
 }
 
 function _pintarPrecioTachado(item) {
@@ -241,11 +236,6 @@ function PintarRecomendaciones(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarRecomendaciones(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarRecomendaciones(item);
-    });
-    */
 }
 
 function _pintarRecomendaciones(item) {
@@ -259,11 +249,6 @@ function PintarEstrellas(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarEstrellas(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarEstrellas(item);
-    });
-    */
 }
 
 function _pintarEstrellas(item) {
