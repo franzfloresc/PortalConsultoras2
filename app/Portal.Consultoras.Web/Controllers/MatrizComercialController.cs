@@ -394,7 +394,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ActualizarDescripcionComercialAction(MatrizComercialModel model)
+        public JsonResult ActualizarDescripcionComercial(MatrizComercialModel model)
         {
             var entity = new BEMatrizComercialImagen
             {
@@ -413,7 +413,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 entity = model,
                 success = true,
-                message = "Se actualizó el nemotécnico satisfactoriamente."
+                message = "Se actualizó la descripción comercial satisfactoriamente."
             });
         }    
 

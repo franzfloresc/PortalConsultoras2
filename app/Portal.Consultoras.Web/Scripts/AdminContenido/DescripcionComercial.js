@@ -71,12 +71,27 @@ var DescripcionComercial = function (config) {
         }
     };
 
-    var _grabarDescripcionComercial= function (id, valor) {
+    var _grabarDescripcionComercial = function (id, valor) {
+        if (_validarTamañoMaximoCaracteres(valor)) {
+            _toastHelper.error('Ha sobrepasado el tamaño de 800 caracteres.');
+            return false;
+        }
+        else if(_validarCampoObligatorio(valor)){
+            _toastHelper.error('El campo Descripción Comercial es obligatorio.');
+            return false;
+        } else {
+            waitingDialog({});
+            var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor };
+            $.post(_config.actualizarDescripcionComercialAction, params).done(_actualizarDescripcionComercialActionSuccess);
+        } 
+    };
 
-       waitingDialog({});
-       var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor };
-       $.post(_config.actualizarDescripcionComercialAction, params).done(_actualizarDescripcionComercialActionSuccess);
+    var _validarTamañoMaximoCaracteres = function (valor) {
+        return (valor.length > 800);
+    };
 
+    var _validarCampoObligatorio = function (valor) {
+        return (valor.length <= 0);
     };
 
     var _actualizarDescripcionComercialActionSuccess = function (response) {
