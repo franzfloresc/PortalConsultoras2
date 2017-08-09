@@ -509,6 +509,7 @@ namespace Portal.Consultoras.Web.Controllers
                 prodModel.DescripcionCompleta = estrategia.DescripcionCUV2.Split('|')[0];
                 prodModel.Simbolo = userData.Simbolo;
                 prodModel.Precio = estrategia.Precio;
+                prodModel.Precio2 = estrategia.Precio2;
                 prodModel.PrecioTachado = estrategia.PrecioTachado;
                 prodModel.PrecioVenta = estrategia.PrecioString;
                 prodModel.ClaseBloqueada = tipo == 1 || (estrategia.CampaniaID > 0 && estrategia.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";

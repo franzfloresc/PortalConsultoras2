@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
@@ -31,6 +30,7 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionCompleta { get; set; }
         public string Simbolo { get; set; }
         public decimal Precio { get; set; }
+        public decimal Precio2 { get; set; }
         public string PrecioTachado { get; set; }
         public string PrecioVenta { get; set; } // cambiar por PrecioVenta
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
