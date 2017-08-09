@@ -31,6 +31,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new MatrizCampaniaModel();
             model.listaPaises = ObtenerPaises();
             model.DropDownListCampania = ObtenerCampanias();
+            ViewBag.HabilitarRegalo = userData.CodigoISO == Constantes.CodigosISOPais.Chile;
 
             return View(model);
         }
@@ -98,22 +99,41 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult InsertarProductoDescripcion(MatrizCampaniaModel model)
+        public JsonResult ConsultarDescripcion(string CUV, string IDCampania, string paisID)
         {
             try
             {
-                Mapper.CreateMap<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>();
-
-                ServiceSAC.BEProductoDescripcion entidad = Mapper.Map<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>(model);
-
+                var productos = (List<ServiceSAC.BEProductoDescripcion>)null;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    sv.UpdProductoDescripcion(entidad, UserData().CodigoUsuario);
+                    productos = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
+
                 }
+
+                if (!productos.Any())
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "El CUV ingresado no se encuentra registrado para la campaña seleccionada, verifique.",
+                        extra = ""
+                    });
+                }
+
+
+                if (productos.Count == 2 && !string.IsNullOrEmpty(productos.LastOrDefault().RegaloImagenUrl))
+                {
+                    string carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+                    productos.LastOrDefault().RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais,
+                        productos.LastOrDefault().RegaloImagenUrl,
+                        carpetaPais);
+                }
+
                 return Json(new
                 {
                     success = true,
-                    message = "El producto se actualizó satisfactoriamente.",
+                    lstProducto = productos,
+                    message = "",
                     extra = ""
                 });
             }
@@ -140,32 +160,22 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult ConsultarDescripcion(string CUV, string IDCampania, string paisID)
+        public JsonResult InsertarProductoDescripcion(MatrizCampaniaModel model)
         {
             try
             {
-                var productos = (List<ServiceSAC.BEProductoDescripcion>)null;
+                Mapper.CreateMap<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>();
+
+                ServiceSAC.BEProductoDescripcion entidad = Mapper.Map<MatrizCampaniaModel, ServiceSAC.BEProductoDescripcion>(model);
+
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    productos = sv.GetProductoDescripcionByCUVandCampania(Convert.ToInt32(paisID), Convert.ToInt32(IDCampania), CUV).ToList();
-                    
+                    sv.UpdProductoDescripcion(entidad, UserData().CodigoUsuario);
                 }
-
-                if (!productos.Any())
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "El CUV ingresado no se encuentra registrado para la campaña seleccionada, verifique.",
-                        extra = ""
-                    });
-                }
-
                 return Json(new
                 {
                     success = true,
-                    lstProducto = productos,
-                    message = "",
+                    message = "El producto se actualizó satisfactoriamente.",
                     extra = ""
                 });
             }

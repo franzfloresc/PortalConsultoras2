@@ -1,6 +1,7 @@
 ﻿@model Portal.Consultoras.Web.Models.MatrizCampaniaModel
 @{
     ViewBag.Title = "Actualización – Matriz Campaña";
+    var imagenVacia = "prod_grilla_vacio.png";
 }
 
 <div class="wrap_cab">
@@ -38,6 +39,7 @@
                     <input id="btnBuscar" type="button" value="Buscar" />
                 </div>
             </div>
+
             <div class="div-3">
                 <div class="titI alignright">
                     <h3>Original:</h3>
@@ -46,6 +48,9 @@
             <div class="div-3">
                 <div class="titI">Descripción:</div>
                 <div class="selectA borde_redondeado">
+                    <input id="hdnSap" type="hidden" />
+                    <input id="hdnIdMatrizComercial" type="hidden" />
+                    <input id="hdnIdMatrizComercialImagen" type="hidden" />
                     <input id="txtDescripcion" type="text" maxlength="250" readonly="readonly" />
                 </div>
                 <div class="titC">Precio:</div>
@@ -59,6 +64,7 @@
                     <input id="txtFactorRepeticion" type="text" maxlength="3" readonly="readonly" /><img alt="Buscar Cod. Venta" src="" id="" style="display: none" />
                 </div>
             </div>
+
             <div class="div-3">
                 <div class="titI alignright">
                     <h3>Nuevo:</h3>
@@ -80,23 +86,71 @@
                     <input id="txtFactorRepeticionNuevo" type="text" maxlength="3" /><img alt="Buscar Cod. Venta" src="" id="" style="display: none" />
                 </div>
             </div>
+
+            @if (ViewBag.HabilitarRegalo)
+            {
+            <div class="div-3">
+                <div class="titI">Descripción Regalo:</div>
+                <div class="selectA borde_redondeado" >
+                    <textarea id="txtRegaloDescripcion" maxlength="500" cols="29"></textarea>
+                </div>
+                <div class="titC">
+                    <span>Imagen Seleccionada:</span>
+                </div>
+                <div class="pdr_modal borde_redondeado">
+                    <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="imgSeleccionada" class="img-matriz-preview" data-id="">
+                </div>
+            </div>
+            <div class="div-3" id="matriz-comercial" style="display:none">
+                <div class="titI" style="visibility:hidden">Descripción Regalo:</div>
+                <div class="Content_modal" style="margin-left: 10px; padding-top: 10px; padding-bottom: 0; width:545px">
+                    <div id="matriz-comercial-header">
+                        <div id="matriz-imagenes-paginacion"></div>
+                    </div>
+                    <div class="actions">
+                        <div class="file-upload" id="file-upload"></div>
+                    </div>
+                    <div class="div-3">
+                        <div id="matriz-comercial-images" class="matsriz-comercial-list matriz-campania">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+
             <div class="div-3">
                 <div class="titI"></div>
                 <div class="input_search">
                     <input id="btnGrabar" type="submit" value="Grabar" />
                 </div>
             </div>
-        </div>
     </section>
 </div>
 
 <div id="loadingScreen"></div>
 
+@Html.Partial("~/Views/Shared/MatrizComercial/_divVistaPrevia.cshtml")
+@Html.Partial("~/Views/Shared/MatrizComercial/_matrizComercialItemTemplate.cshtml")
+
 @section scripts{
-    <script src="~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCampaniaModule.min.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/ActualizarMatrizCampaniaModule.min")
+    <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
+        var imagenVacia = '@imagenVacia';
+        var rutaImagenVacia = '@Url.Content("~/Content/Images/" + imagenVacia)';
+        var rutaTemporal = '@Url.Content("~/Content/Temporales/")';
+        var imagen = '';
         $(document).ready(function () {
-            actualizarMatrizCampaniaModule.ini();
+            var settings = {
+                habilitarRegalo: '@ViewBag.HabilitarRegalo' == 'True',
+                consultarDescripcionUrl: '@Url.Action("ConsultarDescripcion", "MatrizCampania")',
+                cargarCampaniaUrl: '@Url.Action("CargarCampania", "MatrizCampania")',
+                insertarProductoDescripcionUrl: '@Url.Action("InsertarProductoDescripcion", "MatrizCampania")',
+                habilitarNemotecnico: false,
+                actualizarMatrizComercialUrl: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
+                getImagesByCodigoSapUrl: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
+            };
+            actualizarMatrizCampaniaModule.ini(settings);
         });
     </script>
 }
