@@ -3064,7 +3064,7 @@
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\LocalStorage.js" />
-    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\EstrategiaPersonalizada\EstrategiaAccion.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Facebook.js" />
     <Content Include="Scripts\PortalConsultoras\LoginChatbot\Normal.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\Cupon.js" />
@@ -4108,6 +4108,8 @@
     <Content Include="Views\RevistaDigital\MisOfertas2017.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
     <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-presentacion-carrusel-previsuales.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-presentacion-seccion-simple-centrado.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
