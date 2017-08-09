@@ -1920,21 +1920,34 @@ ul.tabs {
         border: 0;
     }
 
+    .div-3 .selectA input[type="text"] {
+        float: left;
+        width: 248px;
+        height: auto;
+        padding: 0px 0px 1px 0px;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+    }
+
+    .div-3 .selectA textarea {
+        float: left;
+        width: 98%;
+        height: auto;
+        padding: 0px 0px 1px 0px;
+        background: #fff;
+        color: #702789;
+        font-size: 14px;
+        margin: 0;
+        border: 0;
+        font-family: Arial;
+    }
+
 /* 1747 */
 .full-spectrum .sp-palette {
     max-width: 200px;
-}
-
-.div-3 .selectA input[type="text"] {
-    float: left;
-    width: 248px;
-    height: auto;
-    padding: 0px 0px 1px 0px;
-    background: #fff;
-    color: #702789;
-    font-size: 14px;
-    margin: 0;
-    border: 0;
 }
 
 .div-3 .selectE {
@@ -13106,9 +13119,13 @@ label.checkpop {
     width: 570px;
 }
 
+.matriz-campania .div-img-matriz-comercial {
+    padding:7px
+}
+
 #matriz-imagenes-paginacion {
     padding: 10px 0px 5px 12px;
-    text-align:center;
+    text-align: center;
 }
 
 #matriz-imagenes-paginacion .item {
