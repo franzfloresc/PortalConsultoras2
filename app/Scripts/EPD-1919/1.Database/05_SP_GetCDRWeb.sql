@@ -28,8 +28,7 @@ BEGIN
 		isnull(
 			(SELECT TOP 1 ConsultoraSaldo 
 			FROM [interfaces].[LogCDRWeb] 
-			WHERE CDRWebId = C.CDRWebId 
-			AND Estado = 2 AND EstadoCDR = 3
+			WHERE CDRWebId = C.CDRWebId AND Estado = 2
 			ORDER BY FechaRegistro DESC)
 		,0) AS ConsultoraSaldo,
 		@TieneCDRExpress as TieneCDRExpress, --EPD-1919

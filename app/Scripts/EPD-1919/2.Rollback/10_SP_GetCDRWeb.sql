@@ -1,9 +1,9 @@
 GO
-alter procedure [dbo].[GetCDRWeb]
-@ConsultoraID BIGINT
-,@PedidoID INT = 0
-,@CampaniaID INT = 0
-,@CDRWebID INT = 0
+ALTER PROCEDURE dbo.GetCDRWeb
+	@ConsultoraID BIGINT
+	,@PedidoID INT = 0
+	,@CampaniaID INT = 0
+	,@CDRWebID INT = 0
 as
 /*
 GetCDRWeb 2
@@ -26,8 +26,7 @@ BEGIN
 		,ISNULL(
 			(SELECT TOP 1 ConsultoraSaldo 
 			FROM [interfaces].[LogCDRWeb] 
-			WHERE CDRWebId = C.CDRWebId 
-			AND Estado = 2 AND EstadoCDR = 3
+			WHERE CDRWebId = C.CDRWebId AND Estado = 2
 			ORDER BY FechaRegistro DESC)
 		,0) AS ConsultoraSaldo
 	FROM CDRWeb C
