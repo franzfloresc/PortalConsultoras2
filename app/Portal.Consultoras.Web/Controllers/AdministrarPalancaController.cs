@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.ListaPaises = ListarPaises();
                 model.ListaConfiguracionPais = ListarConfiguracionPais();
+                ViewBag.UrlS3 = GetUrlS3();
                 return View(model);
             }
             catch (FaultException ex)
@@ -46,10 +47,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model = Mapper.Map<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ObtenerCampaniasDesdeServicio(userData.PaisID);
-            model.ListaTipoEstrategia = DropDowListTipoEstrategia();
             model.ListaTipoPresentacion = ListTipoPresentacion();
-            model.TipoEstrategiaSeleccionado = new[] {"002", "005"};
-            model.HTipoEstrategiaSeleccionado = new[] { "002", "005" };
             return PartialView("Partials/ManatenimientoPalanca", model);
         }
 
@@ -95,6 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.PaisID = userData.PaisID;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>(model);
@@ -209,5 +208,11 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BETablaLogicaDatos>, IEnumerable<TablaLogicaDatosModel>>(tabla);
         }
 
+        private string GetUrlS3()
+        {
+            string paisISO = Util.GetPaisISO(userData.PaisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            return ConfigS3.GetUrlS3(carpetaPais);
+        }
     }
 }

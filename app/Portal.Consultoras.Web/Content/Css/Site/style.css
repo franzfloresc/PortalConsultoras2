@@ -13395,7 +13395,23 @@ label.checkpop {
     color: #702789;
     font-size: 14px;
 }
-
+.sideLeft {
+    display: inline-block;
+    width: 48%;
+    text-align: left;
+    padding: 8px;
+    margin-right: -3px;
+    border-right: 1px #D0D0D0 solid;
+}
+.sideRight {
+    display: inline-block;
+    width: 47%;
+    text-align: left;
+    padding: 8px;
+    margin-right: -3px;
+    vert-align: top;
+    position: absolute
+}
 .inforRdText {
    position: relative; margin-top: -16px; font-size: 11px; 
 }

@@ -23,25 +23,28 @@ namespace Portal.Consultoras.Entities
         public bool Validado { get; set; }
         [DataMember]
         public bool TienePerfil { get; set; }
-        //[DataMember]
-        //public int PaisID { get; set; }
+        [DataMember]
+        public string MobileTituloMenu { get; set; }
+        [DataMember]
+        public string DesktopTituloMenu { get; set; }
+        [DataMember]
+        public string Logo { get; set; }
+        [DataMember]
+        public int Orden { get; set; }
         [DataMember]
         public int DesdeCampania { get; set; }
         [DataMember]
-        public string TipoEstrategia { get; set; }
+        public int PaisID { get; set; }
         [DataMember]
-        public bool MostrarCampaniaSiguiente { get; set; }
+        public string DesktopTituloBanner { get; set; }
         [DataMember]
-        public bool MostrarPagInformativa { get; set; }
+        public string MobileTituloBanner { get; set; }
         [DataMember]
-
-        public string HImagenFondo { get; set; }
+        public string DesktopSubTituloBanner { get; set; }
         [DataMember]
-        public int HTipoPresentacion { get; set; }
+        public string MobileSubTituloBanner { get; set; }
         [DataMember]
-        public int HMaxProductos { get; set; }
-        [DataMember]
-        public string HTipoEstrategia { get; set; }
+        public string Color { get; set; }
 
         [DataMember]
         public BEConfiguracionPaisDetalle Detalle  { get; set; }
@@ -59,13 +62,15 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Estado")) Estado = Convert.ToBoolean(row["Estado"]);
             if (row.HasColumn("TienePerfil")) TienePerfil = Convert.ToBoolean(row["TienePerfil"]);
             if (row.HasColumn("DesdeCampania")) DesdeCampania = Convert.ToInt32(row["DesdeCampania"]);
-            if (row.HasColumn("TipoEstrategia")) TipoEstrategia = Convert.ToString(row["TipoEstrategia"]);
-            if (row.HasColumn("MostrarCampaniaSiguiente")) MostrarCampaniaSiguiente = Convert.ToBoolean(row["MostrarCampaniaSiguiente"]);
-            if (row.HasColumn("MostrarPagInformativa")) MostrarPagInformativa = Convert.ToBoolean(row["MostrarPagInformativa"]);
-            if (row.HasColumn("HImagenFondo")) HImagenFondo = Convert.ToString(row["HImagenFondo"]);
-            if (row.HasColumn("HTipoPresentacion")) HTipoPresentacion = Convert.ToInt32(row["HTipoPresentacion"]);
-            if (row.HasColumn("HMaxProductos")) HMaxProductos = Convert.ToInt32(row["HMaxProductos"]);
-            if (row.HasColumn("HTipoEstrategia")) HTipoEstrategia = Convert.ToString(row["HTipoEstrategia"]);
+            if (row.HasColumn("MobileTituloMenu")) MobileTituloMenu = Convert.ToString(row["MobileTituloMenu"]);
+            if (row.HasColumn("DesktopTituloMenu")) DesktopTituloMenu = Convert.ToString(row["DesktopTituloMenu"]);
+            if (row.HasColumn("Logo")) Logo = Convert.ToString(row["Logo"]);
+            if (row.HasColumn("Orden")) Orden = Convert.ToInt32(row["Orden"]);
+            if (row.HasColumn("DesktopTituloBanner")) DesktopTituloBanner = Convert.ToString(row["DesktopTituloBanner"]);
+            if (row.HasColumn("MobileTituloBanner")) MobileTituloBanner = Convert.ToString(row["MobileTituloBanner"]);
+            if (row.HasColumn("DesktopSubTituloBanner")) DesktopSubTituloBanner = Convert.ToString(row["DesktopSubTituloBanner"]);
+            if (row.HasColumn("MobileSubTituloBanner")) MobileSubTituloBanner = Convert.ToString(row["MobileSubTituloBanner"]);
+            if (row.HasColumn("Color")) Color = Convert.ToString(row["Color"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }
