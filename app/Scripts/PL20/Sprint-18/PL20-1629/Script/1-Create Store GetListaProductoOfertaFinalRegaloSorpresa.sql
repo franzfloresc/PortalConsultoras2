@@ -4,6 +4,7 @@ go
 if exists(select 1 from sysobjects where name = 'GetListaProductoOfertaFinalRegaloSorpresa' and xtype = 'p')
 drop procedure GetListaProductoOfertaFinalRegaloSorpresa
 go
+
 CREATE PROCEDURE [dbo].[GetListaProductoOfertaFinalRegaloSorpresa]
 (
 	@Table1 dbo.ListaOfertaFinalType READONLY
@@ -31,57 +32,39 @@ BEGIN
 	FROM @Table1
 
 	-- PASO 2 (validar si cumple la parametria)
-	DECLARE @CumpleParametria BIT = 0, @MontoFaltante DECIMAL(18,2), @PrecioMinimo DECIMAL(18,2), 
-		@TipoMeta CHAR(2)
+	Declare @CumpleParametria Bit, @MontoFaltante DECIMAL(18,2), @PrecioMinimo DECIMAL(18,2), 
+		@TipoMeta CHAR(2), @MontoMeta decimal(18,2)
+
+	Set @CumpleParametria = 0
 
 	IF (@MontoTotal >= @MontoMinPedido)
-	Begin
+	Begin		
 		Print 'RANGO' 
-		Set @TipoMeta = 'RG'
-		Set @PrecioMinimo = 0
-		Declare @GapAgregar decimal(18,2),@MontoMeta decimal(18,2),@RangoId int,@GapMinimo decimal(18,2),@GapMaximo decimal(18,2)
-		Select
-			@RangoId = OfertaFinalParametriaID,
-			@GapAgregar = isnull(PrecioMinimo,0),
-			@GapMinimo = isnull(GapMinimo,0),
-			@GapMaximo = isnull(GapMaximo,0),
-			@CumpleParametria = 1
-		From dbo.OfertaFinalParametria
-		Where Tipo = 'RG' And @MontoTotal >= GapMinimo And @MontoTotal <= GapMaximo And Algoritmo = @Algoritmo			
-		
-		Declare @ConsultoraId int		
-		Set @ConsultoraId = (Select ConsultoraId From ods.Consultora with (nolock) Where Codigo = @CodigoConsultora)
-				
-		if Not Exists(Select 1 From OfertaFinalMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)
-		Begin
-			/*Monto Meta y Regalo*/
-			Declare @Cuv varchar(100)		
-			Set @Cuv = (Select Cuv From OfertaFinalRegaloXCampania with (nolock) Where CampaniaId = @CampaniaId And RangoId = @RangoId)
-			Set @MontoMeta = @MontoTotal + @GapAgregar			
-			insert into OfertaFinalMontoMeta(CampaniaId,ConsultoraId,MontoPedido,GapMinimo,GapMaximo,GapAgregar,MontoMeta,Cuv)
-			select 
-				CampaniaId = @CampaniaId,
-				ConsultoraId = @ConsultoraId,
-				MontoPedido = @MontoTotal,
-				GapMinimo = @GapMinimo,
-				GapMaximo = @GapMaximo,
-				GapAgregar = @GapAgregar,
-				MontoMeta = @MontoMeta,
-				Cuv = @Cuv									
-		End
-		Else
-		Begin
-			Set @MontoMeta = (Select MontoMeta From OfertaFinalMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)
-		End	
-				
-		if (@MontoTotal >= @MontoMeta)
+
+		if exists(Select 1 From OfertaFinalParametria with (nolock) 
+			Where Tipo = 'RG' And @MontoTotal >= GapMinimo And @MontoTotal <= GapMaximo And Algoritmo = @Algoritmo)
 		begin
-			Set @TipoMeta = 'GM'
-			if exists(Select 1 From OfertaFinalParametria with (nolock) Where Tipo = 'GM' And Algoritmo = @Algoritmo)
-				Set @CumpleParametria = 1
-			else
-				Set @CumpleParametria = 0
-		End													
+			Set @TipoMeta = 'RG'
+			Set @PrecioMinimo = 0
+			Set @CumpleParametria = 1
+
+			Declare @ConsultoraId int
+			Set @ConsultoraId = (Select ConsultoraId From ods.Consultora with (nolock) Where Codigo = @CodigoConsultora)
+			Set @MontoMeta = (Select MontoMeta From OfertaFinalMontoMeta with (nolock) Where CampaniaId = @CampaniaId And ConsultoraId = @ConsultoraId)	
+
+			if (isnull(@MontoMeta,0) = 0)
+				Execute InsertarOfertaFinalRegaloSorpresa @CampaniaID,@ConsultoraId,@MontoTotal,@Algoritmo,@MontoMeta output
+
+			if (@MontoTotal >= @MontoMeta and @MontoMeta != 0)
+			begin
+				Set @TipoMeta = 'GM'
+				set @PrecioMinimo = (select top 1 PrecioMinimo From OfertaFinalParametria with (nolock) Where Tipo = 'GM' And Algoritmo = @Algoritmo)
+				if (isnull(@PrecioMinimo,0) >= 0)
+					Set @CumpleParametria = 1
+				else
+					Set @CumpleParametria = 0
+			End		
+		end												
 	End
 	Else
 	Begin
@@ -119,7 +102,8 @@ BEGIN
 			AND (RTRIM(fa.CodigoZona) = @CodigoZona OR fa.CodigoZona IS NULL)
 
 		-- 3.2
-		DECLARE @tablaCuvPedido TABLE (
+		DECLARE @tablaCuvPedido TABLE 
+		(
 			CUV VARCHAR(6),
 			CodigoSap VARCHAR(30)
 		)
@@ -156,8 +140,8 @@ BEGIN
 			AND op.CodConsultora = @CodigoConsultora
 			AND op.TipoPersonalizacion = 'OF'
 		WHERE pc.AnoCampania = @CampaniaID
-			AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
-			AND pc.CodigoProducto NOT IN ( SELECT CodigoSap FROM @tablaCuvPedido )
+		AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
+		AND pc.CodigoProducto NOT IN ( SELECT CodigoSap FROM @tablaCuvPedido )
 		
 		-- en caso no hay registro de la consultora
 		-- poner la consultora XXX XXX XXX
@@ -167,7 +151,6 @@ BEGIN
 
 		if	@cantXXX = 0
 		begin
-			
 			select @codigoXXX = Codigo
 			from TablaLogicaDatos where TablaLogicaDatosID = 10001
 			
@@ -175,25 +158,22 @@ BEGIN
 
 			if @codigoXXX <> ''
 			begin
-
-					INSERT INTO @tablaCodigosCuv
-					SELECT 
-						pc.CUV, 
-						pc.CodigoProducto, 
-						pc.CampaniaID,
-						op.Orden
-					FROM ods.ProductoComercial pc WITH(NOLOCK)
-					INNER JOIN ods.ofertaspersonalizadas op WITH(NOLOCK) ON pc.CUV = op.CUV 
-						AND pc.AnoCampania = op.AnioCampanaVenta 
-						AND op.CodConsultora = @codigoXXX
-						AND op.TipoPersonalizacion = 'OF'
-					WHERE pc.AnoCampania = @CampaniaID
-						AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
-						--AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
-						AND pc.CodigoProducto NOT IN ( SELECT CodigoSap FROM @tablaCuvPedido )
-
+				INSERT INTO @tablaCodigosCuv
+				SELECT 
+					pc.CUV, 
+					pc.CodigoProducto, 
+					pc.CampaniaID,
+					op.Orden
+				FROM ods.ProductoComercial pc WITH(NOLOCK)
+				INNER JOIN ods.ofertaspersonalizadas op WITH(NOLOCK) ON pc.CUV = op.CUV 
+					AND pc.AnoCampania = op.AnioCampanaVenta 
+					AND op.CodConsultora = @codigoXXX
+					AND op.TipoPersonalizacion = 'OF'
+				WHERE pc.AnoCampania = @CampaniaID
+				AND pc.CUV NOT IN ( SELECT CUV FROM @tablaCuvFaltante )
+				--AND pc.CUV NOT IN (	SELECT CUV FROM @tablaCuvPedido )
+				AND pc.CodigoProducto NOT IN ( SELECT CodigoSap FROM @tablaCuvPedido )
 			end
-
 		end
 		-- FIN XXX XXX XXX
 
@@ -268,5 +248,6 @@ BEGIN
 
 	END
 END
+
 GO
 go
