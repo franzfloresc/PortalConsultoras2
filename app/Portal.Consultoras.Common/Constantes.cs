@@ -718,6 +718,7 @@ namespace Portal.Consultoras.Common
             public const string ExpressPrincipal = "Express1";
             public const string ExpressFlete = "Express2";
             public const string ExpressAdicional = "Express3";
+            public const string ExpressFleteCero = "Express4";
             public const string Nuevas = "Nuevas1";
         }
 

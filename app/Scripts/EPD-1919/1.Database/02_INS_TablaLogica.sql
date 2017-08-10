@@ -40,7 +40,13 @@ begin
 	if not exists(select 1 from TablaLogicaDatos where TablaLogicaID = 104 and Codigo = 'Nuevas1')
 	begin
 		insert into TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion)
-		values(10406,104,'Nuevas1',' Gratuito en tu ciclo de nuevas (6/6).');
+		values(10406,104,'Nuevas1',' Gratuito en tu ciclo de nuevas.');
+	end
+
+	if not exists(select 1 from TablaLogicaDatos where TablaLogicaID = 104 and Codigo = 'Express4')
+	begin
+		insert into TablaLogicaDatos(TablaLogicaDatosID,TablaLogicaID,Codigo,Descripcion)
+		values(10407,104,'Express4',' - Tiene un costo de envío.');
 	end
 end
 GO

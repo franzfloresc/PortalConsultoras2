@@ -91,11 +91,10 @@ namespace Portal.Consultoras.Web.Controllers
                 RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
                 RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
                 ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
-                ExpressFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete),
                 ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
                 Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas)
             };
-            model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.MensajesExpress.ExpressFlete, model.FleteDespacho);
+            model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho);
 
             if (userData.PaisID == 9)
             {
@@ -1809,9 +1808,11 @@ namespace Portal.Consultoras.Web.Controllers
             }            return costoFlete;
         }
 
-        private string SetMensajeFleteExpress(string mensaje, decimal flete)
-        {            if (flete <= 0) return string.Empty;
-            return string.Format(mensaje, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
+        private string SetMensajeFleteExpress(decimal flete)
+        {            if (flete <= 0) return GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFleteCero);
+
+            var textoFlete = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressFlete);
+            return string.Format(textoFlete, userData.Simbolo, Util.DecimalToStringFormat(flete, userData.CodigoISO));
         }
         //EDP-1919 FIN
     }
