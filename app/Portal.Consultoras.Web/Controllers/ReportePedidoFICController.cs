@@ -191,18 +191,18 @@ namespace Portal.Consultoras.Web.Controllers
                                {
                                    bepais.Nombre,
                                    vCampania,
-                                   a.FechaRegistro == null ? "" : Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),                                  
-                                  a.FechaModificacion == null ? "" : Convert.ToDateTime(a.FechaModificacion.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),
-                                   a.ZONA,
-                                   a.CUENTA,
-                                   a.COD_ESTR,
-                                   a.VAL_I18N,
-                                   a.NUM_OFER,
-                                   a.CUV,
-                                   a.PRODUCTO,
-                                   a.TIPO_OFETA,
-                                   a.UNIDADES,
-                                   Convert.ToDecimal(a.VENTA_NETA).ToString("0.#0")
+                                    a.FechaRegistro == null ? "" : Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),                                  
+                                    a.FechaModificacion == null ? "" : Convert.ToDateTime(a.FechaModificacion.ToString()).ToShortDateString() + " "+ Convert.ToDateTime(a.FechaRegistro.ToString()).ToShortTimeString(),
+                                    a.ZONA,
+                                    a.CUENTA,
+                                    a.COD_ESTR,
+                                    a.VAL_I18N,
+                                    a.NUM_OFER,
+                                    a.CUV,
+                                    a.PRODUCTO,
+                                    a.TIPO_OFETA,
+                                    a.UNIDADES,
+                                    Convert.ToDecimal(a.VENTA_NETA).ToString("0.#0")
                                 }
                            }
                 };

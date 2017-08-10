@@ -5,7 +5,6 @@
 <script type="text/javascript" src="~/Scripts/jquery.form.js"></script>
 <script type="text/javascript">
     $(function () {
-
         fnForm();
 
         $('#ddlPais').change(function () {
@@ -268,12 +267,10 @@
         fnGrilla();
     });
     function Guardar() {
-
         var registros = document.getElementById("list").rows.length;
         if (registros > 1) {
             alert("La campaña ya tiene asignada un Oferta FIC");
             return false;
-
         }
 
         var paisID = $("#ddlPais").val();
@@ -375,9 +372,7 @@
     function fnForm() {
         closeWaitingDialog();
         $('#frmProcesarMasivo').ajaxForm({
-
-            beforeSubmit: function () {
-            },
+            beforeSubmit: function () {},
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();

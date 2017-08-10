@@ -211,6 +211,9 @@ namespace Portal.Consultoras.Common
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+
+            //FIC
+            public const string PedidoFIC = "PedidoFIC";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado

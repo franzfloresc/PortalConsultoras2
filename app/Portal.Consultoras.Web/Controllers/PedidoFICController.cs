@@ -24,27 +24,27 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "PedidoFIC/Index")) return RedirectToAction("Index", "Bienvenida");
 
-                Session["PedidoFIC"] = null;
+                Session[Constantes.ConstSession.PedidoFIC] = null;
                 ViewBag.ClaseTabla = "tabla2";
-                ViewBag.Pais_ISO = UserData().CodigoISO.ToString();
+                ViewBag.Pais_ISO = userData.CodigoISO.ToString();
                 ViewBag.PROL = "Guardar";
                 ViewBag.PROLDes = "Guarda los productos que haz ingresado";
                 ViewBag.ModPedido = "display:none;";
-                ViewBag.NombreConsultora = UserData().NombreConsultora;
-                ViewBag.PedidoFIC = "C" + (CampaniaSiguiente(UserData().CampaniaID).ToString()).Substring(4, 2);
-                ViewBag.MensajeFIC ="antes del " + UserData().FechaFinFIC.Day + " de "+ NombreMes(UserData().FechaFinFIC.Month);//1501
+                ViewBag.NombreConsultora = userData.NombreConsultora;
+                ViewBag.PedidoFIC = "C" + AddCampaniaAndNumero(userData.CampaniaID, 1);
+                ViewBag.MensajeFIC ="antes del " + userData.FechaFinFIC.Day + " de "+ NombreMes(userData.FechaFinFIC.Month);//1501
 
                 List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();
                 olstPedidoFICDetalle = ObtenerPedidoFICDetalle();
 
                 PedidoFICDetalleModel PedidoModelo = new PedidoFICDetalleModel();
-                PedidoModelo.PaisID = UserData().PaisID;
+                PedidoModelo.PaisID = userData.PaisID;
                 PedidoModelo.ListaDetalle = olstPedidoFICDetalle;
-                PedidoModelo.Simbolo = UserData().Simbolo;
+                PedidoModelo.Simbolo = userData.Simbolo;
                 PedidoModelo.Total = string.Format("{0:N2}", olstPedidoFICDetalle.Sum(p => p.ImporteTotal));
                 ViewBag.Simbolo = PedidoModelo.Simbolo;
                 ViewBag.Total = PedidoModelo.Total;
-                ViewBag.IndicadorOfertaFIC = UserData().IndicadorOfertaFIC; //SSAP CGI(Id Solicitud=1402)
+                ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC; //SSAP CGI(Id Solicitud=1402)
 
                 // Req. 1664 - Gestion de contenido S3
                 var carpetaPais = Globals.UrlOfertasFic + "/" + UserData().CodigoISO;
@@ -162,7 +162,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             BEPedidoFICDetalle oBEPedidoFICDetalle = new BEPedidoFICDetalle();
             oBEPedidoFICDetalle.IPUsuario = UserData().IPUsuario;
-            oBEPedidoFICDetalle.CampaniaID = CampaniaSiguiente(UserData().CampaniaID);
+            oBEPedidoFICDetalle.CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1);
             oBEPedidoFICDetalle.ConsultoraID = UserData().ConsultoraID;
             oBEPedidoFICDetalle.PaisID = UserData().PaisID;
             oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
@@ -317,7 +317,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(UserData().PaisID, CampaniaSiguiente(UserData().CampaniaID), UserData().PedidoID);
+                    EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(UserData().PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), UserData().PedidoID);
                 }
                 if (!EliminacionMasiva)
                 {
@@ -404,7 +404,7 @@ namespace Portal.Consultoras.Web.Controllers
                 UsuarioModel oUsuarioModel = UserData();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -450,7 +450,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count != 0)
@@ -498,7 +498,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, CampaniaSiguiente(oUsuarioModel.CampaniaID), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -539,21 +539,17 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Funciones Privadas
         
-        public List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
+        private List<BEPedidoFICDetalle> ObtenerPedidoFICDetalle()
         {
-            List<BEPedidoFICDetalle> olstPedidoFICDetalle = new List<BEPedidoFICDetalle>();
-            if (Session["PedidoFIC"] == null)
-            {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    olstPedidoFICDetalle = sv.SelectFICByCampania(UserData().PaisID, CampaniaSiguiente(UserData().CampaniaID), UserData().ConsultoraID, UserData().NombreConsultora).ToList();
-                }
-            }
-            else
-                olstPedidoFICDetalle = (List<BEPedidoFICDetalle>)Session["PedidoFIC"];
+            if (Session[Constantes.ConstSession.PedidoFIC] != null) return (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
 
-            Session["PedidoFIC"] = olstPedidoFICDetalle;
-            return olstPedidoFICDetalle;
+            var list = new List<BEPedidoFICDetalle>();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                list = sv.SelectFICByCampania(UserData().PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), UserData().ConsultoraID, UserData().NombreConsultora).ToList();
+            }
+            Session[Constantes.ConstSession.PedidoFIC] = list;
+            return list;
         }
 
         private List<BEPedidoFICDetalle> AdministradorPedido(BEPedidoFICDetalle oBEPedidoFICDetalle, string TipoAdm, bool Reservado, out bool ErrorServer)
@@ -563,16 +559,15 @@ namespace Portal.Consultoras.Web.Controllers
             BEPedidoFICDetalle obe = null;
             try
             {
-                if (Session["PedidoFIC"] == null)
+                if (Session[Constantes.ConstSession.PedidoFIC] == null)
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         olstTempListado = sv.SelectFICByCampania(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().NombreConsultora).ToList();
                     }
-                    Session["PedidoFIC"] = olstTempListado;
+                    Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
                 }
-                else
-                    olstTempListado = (List<BEPedidoFICDetalle>)Session["PedidoFIC"];
+                else olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
 
                 if (TipoAdm == "I")
                 {
@@ -695,14 +690,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 olstTempListado = olstTempListado.OrderByDescending(p => p.PedidoDetalleID).ToList();
-                Session["PedidoFIC"] = olstTempListado;
+                Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
 
                 ErrorServer = false;
             }
-            catch(Exception ex)
+            catch
             {
-                if (Session["PedidoFIC"] != null)
-                    olstTempListado = (List<BEPedidoFICDetalle>)Session["PedidoFIC"];
+                if (Session[Constantes.ConstSession.PedidoFIC] != null) olstTempListado = (List<BEPedidoFICDetalle>)Session[Constantes.ConstSession.PedidoFIC];
                 ErrorServer = true;
             }
 
@@ -764,13 +758,5 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #endregion
-
-        public int CampaniaSiguiente(int CampaniaActual)
-        {
-            if (CampaniaActual.ToString().Substring(4,2) != "18")
-                return CampaniaActual + 1;
-            else
-                return CampaniaActual + 83;
-        }
     }
 }
