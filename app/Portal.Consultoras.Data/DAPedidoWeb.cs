@@ -579,6 +579,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetResumenPedidoWebByCampaniaConsultora(int campaniaID, long consultoraID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetResumenPedidoWebByCampaniaConsultora_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPedidoConsolidado(int CampaniaID, string CodigoConsultora, string ZonaCodigo, int PedidoPROL, string Origen, int IndicadorPedido, int IdEstadoActividad, int IndicadorSaldo, string SeccionCodigo, string NombreConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosConsolidadoWS");
