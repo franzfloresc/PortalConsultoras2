@@ -447,9 +447,11 @@
             }
             else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
                 flagOD = auxOD;
-            } else if (!isNuevo) {
+            }
+            else if (!isNuevo) {
                 flagOD = '99';
-            }else{
+            }
+            else {
                 flagOD = '0';
             }
 
