@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var listaSeccion = ObtenerConfiguracion();
                 var modelo = new EstrategiaPersonalizadaModel { ListaSeccion = listaSeccion };
 
-                //return View(modelo);
+                return View(modelo);
             }
             catch (Exception ex)
             {
