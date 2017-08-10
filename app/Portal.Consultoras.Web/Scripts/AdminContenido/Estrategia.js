@@ -8,7 +8,7 @@
         getImagesByCodigoSAPAction: config.getImagesByCodigoSAPAction || '',
         habilitarNemotecnico: config.habilitarNemotecnico || false,
         getImagesByNemotecnico: config.getImagesByNemotecnico,
-        expValidacionNemotecnico: $.trim(config.expValidacionNemotecnico),
+        expValidacionNemotecnico: config.expValidacionNemotecnico,
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction
     };
 
