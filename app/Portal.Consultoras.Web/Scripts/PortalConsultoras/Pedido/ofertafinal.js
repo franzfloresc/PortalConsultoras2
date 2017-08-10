@@ -267,7 +267,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         ofertaFinalRegalo = cumpleOferta.regaloOF;
     }
 
-    debugger;
+    //debugger;
     if (objOf.TipoMeta != 'MM') {
         if (ofertaFinalRegalo != null) {
             MostrarOfertaFinalRegalo(objOf.TotalPedido);
@@ -428,7 +428,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         mostrarMensajeRegaloPN(tipoMeta, data.total, montoMeta, simbolo, 2)
     }
 
-    debugger;
+    //debugger;
     if (tipoMeta == "MM") {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
         //var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
@@ -453,7 +453,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             agregoOfertaFinal = 1;
             $("#btnNoGraciasOfertaFinal").show();
 
-            debugger;
+            //debugger;
             if (ofertaFinalRegalo != null) {
                 GanoOfertaFinalRegalo(data.total);
             }
