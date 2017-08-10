@@ -8,7 +8,7 @@ var MatrizComercial = function (config) {
         actualizarNemotecnicoAction: config.actualizarNemotecnicoAction || '',
         numeroImagenesPorPagina: config.numeroImagenesPorPagina || 10,      
         habilitarNemotecnico: false,
-        expValidacionNemotecnico: $.trim(config.expValidacionNemotecnico),
+        expValidacionNemotecnico: config.expValidacionNemotecnico,
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction
     };
 
