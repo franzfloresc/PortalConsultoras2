@@ -3024,9 +3024,9 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
     var streventoNombre = "";
     if (tipo == "1") {
-        streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Compra Ya';
     } else {
-        streventoNombre = eventoNombre + ' ' + tema + ' Entérate Primero';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Entérate';
     }
     
     dataLayer.push({
