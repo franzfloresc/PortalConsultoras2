@@ -435,6 +435,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 //model.TieneOfertaLog = userData.TieneOfertaLog;
+                ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
+                ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
             }
             catch (FaultException ex)
             {
@@ -3664,6 +3666,59 @@ namespace Portal.Consultoras.Web.Controllers
                     message = ex.Message,
                     data = "",
                     limiteJetlore = 0
+                });
+            }
+        }
+
+        public JsonResult ObtenerOfertaFinalRegalo()
+        {
+            try
+            {
+                RegaloOfertaFinal regalo = null;
+                using (ProductoServiceClient ps = new ProductoServiceClient())
+                {
+                    regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = regalo
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                });
+            }
+        }
+
+        public JsonResult InsertarOfertaFinalRegalo()
+        {
+            try
+            {
+                using (ProductoServiceClient ps = new ProductoServiceClient())
+                {
+                    double montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, userData.OfertaFinalModel.Algoritmo);
+                }
+
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
                 });
             }
         }
