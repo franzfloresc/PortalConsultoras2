@@ -1,5 +1,5 @@
 GO
-use BelcorpChile_Plan20
+use BelcorpChile
 go
 if exists(select 1 from sysobjects where name = 'GetListaProductoOfertaFinalRegaloSorpresa' and xtype = 'p')
 drop procedure GetListaProductoOfertaFinalRegaloSorpresa

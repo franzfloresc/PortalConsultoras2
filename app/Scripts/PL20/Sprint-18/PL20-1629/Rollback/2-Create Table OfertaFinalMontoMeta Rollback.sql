@@ -1,4 +1,4 @@
-Use BelcorpChile_Plan20
+Use BelcorpChile
 go
 if exists(select 1 from sysobjects where name = 'OfertaFinalMontoMeta' and xtype = 'u')
 begin
