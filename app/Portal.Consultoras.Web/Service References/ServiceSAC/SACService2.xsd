@@ -84,20 +84,23 @@
       <xs:extension base="tns:BaseEntidad">
         <xs:sequence>
           <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Color" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="ConfiguracionPaisID" type="xs:int" />
           <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesdeCampania" type="xs:int" />
+          <xs:element minOccurs="0" name="DesktopSubTituloBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesktopTituloBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DesktopTituloMenu" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Detalle" nillable="true" type="tns:BEConfiguracionPaisDetalle" />
           <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
           <xs:element minOccurs="0" name="Excluyente" type="xs:boolean" />
-          <xs:element minOccurs="0" name="HImagenFondo" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="HMaxProductos" type="xs:int" />
-          <xs:element minOccurs="0" name="HTipoEstrategia" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="HTipoPresentacion" type="xs:int" />
-          <xs:element minOccurs="0" name="MostrarCampaniaSiguiente" type="xs:boolean" />
-          <xs:element minOccurs="0" name="MostrarPagInformativa" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Logo" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileSubTituloBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileTituloBanner" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MobileTituloMenu" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Orden" type="xs:int" />
+          <xs:element minOccurs="0" name="PaisID" type="xs:int" />
           <xs:element minOccurs="0" name="TienePerfil" type="xs:boolean" />
-          <xs:element minOccurs="0" name="TipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Validado" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>

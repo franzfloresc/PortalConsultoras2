@@ -15,25 +15,31 @@ BEGIN
 	ADD DesdeCampania int NOT NULL DEFAULT(0);
 
 	ALTER TABLE ConfiguracionPais
-	ADD TipoEstrategia VARCHAR(255);
+	ADD MobileTituloMenu VARCHAR(255);
 
 	ALTER TABLE ConfiguracionPais
-	ADD MostrarCampaniaSiguiente BIT default 'FALSE';
+	ADD DesktopTituloMenu VARCHAR(255);
 
 	ALTER TABLE ConfiguracionPais
-	ADD MostrarPagInformativa BIT default 'FALSE';
+	ADD Logo VARCHAR(255);
 
 	ALTER TABLE ConfiguracionPais
-	ADD HImagenFondo VARCHAR(255);
+	ADD Orden int NOT NULL DEFAULT(0);
 
 	ALTER TABLE ConfiguracionPais
-	ADD HTipoPresentacion int NOT NULL DEFAULT(0);
+	ADD DesktopTituloBanner VARCHAR(255);
 
 	ALTER TABLE ConfiguracionPais
-	ADD HMaxProductos int NOT NULL DEFAULT(0);
+	ADD MobileTituloBanner VARCHAR(255);
 
 	ALTER TABLE ConfiguracionPais
-	ADD HTipoEstrategia VARCHAR(255);
+	ADD DesktopSubTituloBanner VARCHAR(255);
+
+	ALTER TABLE ConfiguracionPais
+	ADD MobileSubTituloBanner VARCHAR(255);
+
+	ALTER TABLE ConfiguracionPais
+	ADD Color VARCHAR(255);
 END
 GO
 -- Agregar Tipo de presentacion en la Tabla logica datos
@@ -118,49 +124,49 @@ GO
 
 ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
 	@ConfiguracionPaisID int,
-	@Codigo int,
-	@Excluyente int,
-	@Descripcion int,
-	@Estado varchar(250),
-	@TienePerfil varchar(250),
-	@DesdeCampania varchar(250),
-	@TipoEstrategia varchar(250),
-	@MostrarCampaniaSiguiente varchar(250),
-	@MostrarPagInformativa varchar(250),
-	@HImagenFondo varchar(250),
-	@HTipoPresentacion date,
-	@HMaxProductos date,
-	@HTipoEstrategia varchar(250)
+	@Excluyente bit,
+	@Descripcion varchar(250),
+	@Estado bit,
+	@DesdeCampania int,
+	@MobileTituloMenu varchar(250),
+	@DesktopTituloMenu varchar(250),
+	@Logo varchar(250),
+	@Color varchar(250),
+	@Orden int,
+	@DesktopTituloBanner varchar(250),
+	@MobileTituloBanner varchar(250),
+	@DesktopSubTituloBanner varchar(250),
+	@MobileSubTituloBanner varchar(250)
 AS 
 BEGIN
-SET NOCOUNT ON;
-DECLARE @insertedId = 0;
+SET NOCOUNT ON
+DECLARE @InsertedId int = 0;
 IF(@ConfiguracionPaisID = 0)
 	BEGIN
-		INSERT INTO ConfiguracionPais (Codigo, Excluyente, Descripcion, Estado, TienePerfil,
-						DesdeCampania, TipoEstrategia, MostrarCampaniaSiguiente, MostrarPagInformativa, HImagenFondo, HTipoPresentacion, HMaxProductos, HTipoEstrategia)
-		VALUES (@Codigo, @Excluyente, @Descripcion, @Estado, @TienePerfil,
-					@DesdeCampania, @TipoEstrategia, @MostrarCampaniaSiguiente, @MostrarPagInformativa, @HImagenFondo, @HTipoPresentacion, @HMaxProductos, @HTipoEstrategia);
+		INSERT INTO ConfiguracionPais (Excluyente, Descripcion, Estado, DesdeCampania, MobileTituloMenu, DesktopTituloMenu, Logo, Color, Orden, 
+								DesktopTituloBanner, MobileTituloBanner, DesktopSubTituloBanner, MobileSubTituloBanner)
+		VALUES (@Excluyente, @Descripcion, @Estado, @DesdeCampania, @MobileTituloMenu, @DesktopTituloMenu, @Logo, @Color, @Orden, 
+								@DesktopTituloBanner, @MobileTituloBanner, @DesktopSubTituloBanner, @MobileSubTituloBanner);
 		set @insertedId = scope_identity();
 	END
 ELSE 
 	BEGIN
-		UPDATE Plant SET
-			Codigo = @Codigo, 
+		UPDATE ConfiguracionPais SET
 			Excluyente = @Excluyente, 
 			Descripcion = @Descripcion, 
-			Estado = @Estado, 
-			TienePerfil = @TienePerfil,
+			Estado = @Estado,
 			DesdeCampania = @DesdeCampania, 
-			TipoEstrategia = @TipoEstrategia, 
-			MostrarCampaniaSiguiente = @MostrarCampaniaSiguiente, 
-			MostrarPagInformativa = @MostrarPagInformativa, 
-			HImagenFondo = @HImagenFondo, 
-			HTipoPresentacion = @HTipoPresentacion, 
-			HMaxProductos = @HMaxProductos, 
-			HTipoEstrategia =@HTipoEstrategia
+			MobileTituloMenu = @MobileTituloMenu, 
+			DesktopTituloMenu = @DesktopTituloMenu,
+			Logo = @Logo, 
+			Color = @Color, 
+			Orden = @Orden, 
+			DesktopTituloBanner = @DesktopTituloBanner, 
+			MobileTituloBanner = @MobileTituloBanner,
+			DesktopSubTituloBanner = @DesktopSubTituloBanner, 
+			MobileSubTituloBanner = @MobileSubTituloBanner
 		WHERE ConfiguracionPaisID = @ConfiguracionPaisID;
-		set @insertedId = @IdPlant;
+		set @insertedId = @ConfiguracionPaisID;
 	END
 END
 
