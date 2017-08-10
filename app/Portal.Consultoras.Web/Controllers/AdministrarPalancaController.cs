@@ -28,6 +28,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 model.ListaPaises = ListarPaises();
                 model.ListaConfiguracionPais = ListarConfiguracionPais();
+                ViewBag.UrlS3 = GetUrlS3();
                 return View(model);
             }
             catch (FaultException ex)
@@ -206,5 +207,11 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BETablaLogicaDatos>, IEnumerable<TablaLogicaDatosModel>>(tabla);
         }
 
+        private string GetUrlS3()
+        {
+            string paisISO = Util.GetPaisISO(userData.PaisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + paisISO;
+            return ConfigS3.GetUrlS3(carpetaPais);
+        }
     }
 }

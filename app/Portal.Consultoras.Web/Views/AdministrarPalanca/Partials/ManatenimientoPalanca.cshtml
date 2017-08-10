@@ -43,10 +43,10 @@
 <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
     <div class="titG">Icono Menu:</div>
     <div style="display: inline-block;">
-        @Html.HiddenFor(m => m.Logo)
-        <div id="img-home-desktop" style="display: inline-block;vertical-align: middle;"></div>
+        @Html.HiddenFor(m => m.Logo, new { id = "nombre-icono" })
+        <div id="img-icono" style="display: inline-block;vertical-align: middle;"></div>
         <div class="pdr_modal2 borde_redondeado alignrigth">
-            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-home-desktop" class="img-matriz-preview2" data-id=class="titG borde_redondeado""">
+            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-icono" class="img-matriz-preview2" data-id="">
         </div>
     </div>
 </div>

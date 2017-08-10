@@ -19,6 +19,7 @@
 });
 
 function Modificar(idConfiguracionPais, event) {
+
     $.ajax({
         url: 'AdministrarPalanca/GetPalanca',
         type: 'GET',
@@ -27,8 +28,12 @@ function Modificar(idConfiguracionPais, event) {
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-palanca").empty();
-            $("#dialog-content-palanca").html(result);
+            $("#dialog-content-palanca").html(result).ready(
+                UploadFilePalanca()
+            );
             showDialog("DialogMantenimientoPalanca");
+            UploadFilePalanca();
+
         },
         error: function (request, status, error) {
             alert(request);
@@ -53,18 +58,21 @@ function IniDialogs() {
                 var configuracionPaisID = $("#ddlConfiguracionPais").val();
                 var codigo = $("#ddlConfiguracionPais").val();
                 var excluyente = $("input[name='Excluyente']:checked").val();
-                //var descripcion = $("#").val();
+                var descripcion = $("#Descripcion").val();
                 var estado = $("#Estado").val();
                 //var tienePerfil = $("#").val();
+                var logo = $("#nombre-icono").val();
+                var orden = $("#Orden").val();
                 var desdeCampania = $("#ddlCampania").val();
-                var tipoEstrategia = $("#ddlEstrategia").val().join(',');;
-                var mostrarCampaniaSiguiente = $("#MostrarCampaniaSiguiente").val();
-                var mostrarPagInformativa = $("#MostrarPagInformativa").val();
-                var hImagenFondo = $("#HImagenFondo").val();
-                var hTipoPresentacion = $("#ddlPresentacion").val();
-                var hMaxProductos = $("#HMaxProductos").val();
-                var hTipoEstrategia = $("#ddlHEstrategia").val().join(',');
-
+                //var tipoEstrategia = $("#ddlEstrategia").val().join(',');;
+              
+                var desktopTituloMenu = $("#DesktopTituloMenu").val();
+                var desktopTituloBanner = $("#DesktopTituloBanner").val();
+                var desktopSubTituloBanner = $("#DesktopSubTituloBanner").val();
+                var mobileTituloMenu = $("#MobileTituloMenu").val();
+                var mobileTituloBanner = $("#MobileTituloBanner").val();
+                var mobileSubTituloBanner = $("#MobileSubTituloBanner").val();
+                var color = $("#Color").val();
                 var params = {
                     ConfiguracionPaisID: configuracionPaisID,
                     Codigo: codigo,
@@ -73,13 +81,16 @@ function IniDialogs() {
                     Estado: estado,
                     //TienePerfil: tienePerfil,
                     DesdeCampania: desdeCampania,
-                    TipoEstrategia: tipoEstrategia,
-                    MostrarCampaniaSiguiente: mostrarCampaniaSiguiente,
-                    MostrarPagInformativa: mostrarPagInformativa,
-                    HImagenFondo: hImagenFondo,
-                    HTipoPresentacion: hTipoPresentacion,
-                    HMaxProductos: hMaxProductos,
-                    HTipoEstrategia: hTipoEstrategia
+                    Descripcion: descripcion,
+                    Logo: logo,
+                    Orden: orden,
+                    DesktopTituloMenu: desktopTituloMenu,
+                    DesktopTituloBanner: desktopTituloBanner,
+                    DesktopSubTituloBanner: desktopSubTituloBanner,
+                    MobileTituloMenu: mobileTituloMenu,
+                    MobileTituloBanner: mobileTituloBanner,
+                    MobileSubTituloBanner: mobileSubTituloBanner,
+                    Color: color
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -194,3 +205,29 @@ function ShowActions(cellvalue, options, rowObject) {
     }
     return des;
 }   
+
+function UploadFilePalanca() {
+
+    var uploader = new qq.FileUploader({
+        allowedExtensions: ['jpg', 'png', 'jpeg'],
+        element: document.getElementById("img-icono"),
+        action: rutaFileUpload,
+        onComplete: function (id, fileName, responseJSON) {
+            if (checkTimeout(responseJSON)) {
+                if (responseJSON.success) {
+                    $("#nombre-icono").val(responseJSON.name);
+                    $("#src-icono").attr('src', rutaTemporal + responseJSON.name);
+                } else alert(responseJSON.message);
+            }
+            return false;
+        },
+        onSubmit: function (id, fileName) { $(".qq-upload-list").remove(); },
+        onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
+        onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
+    });
+    if ($("#nombre-icono").val() !== "") {
+        $("#src-icono").attr('src', urlS3 + $("#nombre-icono").val());
+    }
+
+    return false;
+}
