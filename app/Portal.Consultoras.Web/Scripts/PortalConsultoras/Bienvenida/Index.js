@@ -3024,9 +3024,9 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
     var streventoNombre = "";
     if (tipo == "1") {
-        streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Compra Ya';
     } else {
-        streventoNombre = eventoNombre + ' ' + tema + ' Entérate Primero';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Entérate';
     }
     
     dataLayer.push({
@@ -3072,15 +3072,16 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     var id = "";
     var name = "";  
 
-    if (tipo == 1)
-    {
-        name = $("#spnShowRoomEvento").html() + ' Compra Ya';
-        id = $("#hdEventoIDShowRoomVenta").val();        
+    if (tipo == 1) {
+        name = $("#spnShowRoomEvento").html() + ' - Compra Ya';
+        id = $("#hdEventoIDShowRoomVenta").val();
     }
-    else
-    {
-        name = $("#spnShowRoomEventoHoy").html() + ' Entérate Primero';
-        id = $("#hdEventoIDShowRoom").val();        
+
+    if (tipo == 2) {
+        var nombre = $("#spnShowRoomEvento").val();
+        var tema = $("#spnShowRoomEventoDescripcion").val();
+        name = nombre + ' ' + tema + ' - Entérate';
+        id = $("#hdEventoIDShowRoom").val();
     }
     
     dataLayer.push({
@@ -3447,7 +3448,7 @@ function VerShowRoomVenta() {
 
 function CerrarPopShowroomIntriga()
 {
-    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' Entérate Primero';
+    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' - Entérate';
     
     dataLayer.push({
         'event': 'virtualEvent',
@@ -3484,7 +3485,7 @@ function SRPopupCerrar(tipo) {
 
 function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()
 {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
+    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate';
 
     dataLayer.push({
         'event': 'virtualEvent',
@@ -3502,25 +3503,3 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
         'action': action, 'label': 'Cerrar Popup'
     });
 }
-
-/*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
-function click_zona_oscura_PopShowroomVenta() {
-    var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
-}
-
-function click_zona_oscura_PopShowroomIntriga() {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
-}
-*/

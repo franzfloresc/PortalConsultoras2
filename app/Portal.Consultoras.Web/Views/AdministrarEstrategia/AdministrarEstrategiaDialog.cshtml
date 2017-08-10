@@ -314,19 +314,7 @@
     </div>
 </div>
 
-<script id="matriz-comercial-item-template" type="text/x-handlebars-template">   
-    {{#each imagenes}}
-    <div class="titG2 div-img-matriz-comercial">
-        <div class="pdr_modal borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
-        </div>
-        <div class="pdr_modal_check aligncenter">
-            <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
-        </div>
-       
-    </div>
-    {{/each}}
-</script>
+@Html.Partial("~/Views/Shared/MatrizComercial/_matrizComercialItemTemplate.cshtml")
 
 <script type="text/javascript">
      $("#linkTallaColor").click(function () {

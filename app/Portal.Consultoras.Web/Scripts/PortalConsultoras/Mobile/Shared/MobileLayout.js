@@ -178,7 +178,7 @@
     $(".bannersi").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -201,7 +201,7 @@
     $(".bannersc").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -225,7 +225,7 @@
     $(".wsventa").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -248,7 +248,7 @@
     $(".wsintriga").on("click", function () {
 
         var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
 
         dataLayer.push({
             'event': 'promotionClick',

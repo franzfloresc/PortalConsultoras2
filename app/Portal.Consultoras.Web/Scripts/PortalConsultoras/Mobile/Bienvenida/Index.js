@@ -639,7 +639,10 @@ function VerShowRoomIntriga()
     var id = "";
     var name = "";
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
+    var nombre = $("#hdNombreEventoShowRoom").val();
+    var tema = $("#hdTemaEventoShowRoom").val();
+
+    name = nombre + ' ' + tema + ' - ' + 'Ent\u00e9rate';
     id = $("#hdEventoIDShowRoom").val();
 
     dataLayer.push({
@@ -665,7 +668,7 @@ function VerShowRoomVenta()
     var id = "";
     var name = "";
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - Compra Ya';
+    name = $("#hdTemaEventoShowRoom").val() + ' - Compra Ya';
     id = $("#hdEventoIDShowRoom").val();
 
     dataLayer.push({
