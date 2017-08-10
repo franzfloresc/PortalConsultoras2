@@ -718,6 +718,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionPaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -725,6 +728,15 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DesdeCampaniaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesktopSubTituloBannerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesktopTituloBannerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DesktopTituloMenuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDetalle DetalleField;
@@ -736,28 +748,25 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private bool ExcluyenteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string HImagenFondoField;
+        private string LogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HMaxProductosField;
+        private string MobileSubTituloBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string HTipoEstrategiaField;
+        private string MobileTituloBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HTipoPresentacionField;
+        private string MobileTituloMenuField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool MostrarCampaniaSiguienteField;
+        private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool MostrarPagInformativaField;
+        private int PaisID1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TienePerfilField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string TipoEstrategiaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidadoField;
@@ -771,6 +780,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
                     this.CodigoField = value;
                     this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Color {
+            get {
+                return this.ColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorField, value) != true)) {
+                    this.ColorField = value;
+                    this.RaisePropertyChanged("Color");
                 }
             }
         }
@@ -815,6 +837,45 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesktopSubTituloBanner {
+            get {
+                return this.DesktopSubTituloBannerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesktopSubTituloBannerField, value) != true)) {
+                    this.DesktopSubTituloBannerField = value;
+                    this.RaisePropertyChanged("DesktopSubTituloBanner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesktopTituloBanner {
+            get {
+                return this.DesktopTituloBannerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesktopTituloBannerField, value) != true)) {
+                    this.DesktopTituloBannerField = value;
+                    this.RaisePropertyChanged("DesktopTituloBanner");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DesktopTituloMenu {
+            get {
+                return this.DesktopTituloMenuField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DesktopTituloMenuField, value) != true)) {
+                    this.DesktopTituloMenuField = value;
+                    this.RaisePropertyChanged("DesktopTituloMenu");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionPaisDetalle Detalle {
             get {
                 return this.DetalleField;
@@ -854,79 +915,79 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string HImagenFondo {
+        public string Logo {
             get {
-                return this.HImagenFondoField;
+                return this.LogoField;
             }
             set {
-                if ((object.ReferenceEquals(this.HImagenFondoField, value) != true)) {
-                    this.HImagenFondoField = value;
-                    this.RaisePropertyChanged("HImagenFondo");
+                if ((object.ReferenceEquals(this.LogoField, value) != true)) {
+                    this.LogoField = value;
+                    this.RaisePropertyChanged("Logo");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HMaxProductos {
+        public string MobileSubTituloBanner {
             get {
-                return this.HMaxProductosField;
+                return this.MobileSubTituloBannerField;
             }
             set {
-                if ((this.HMaxProductosField.Equals(value) != true)) {
-                    this.HMaxProductosField = value;
-                    this.RaisePropertyChanged("HMaxProductos");
+                if ((object.ReferenceEquals(this.MobileSubTituloBannerField, value) != true)) {
+                    this.MobileSubTituloBannerField = value;
+                    this.RaisePropertyChanged("MobileSubTituloBanner");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string HTipoEstrategia {
+        public string MobileTituloBanner {
             get {
-                return this.HTipoEstrategiaField;
+                return this.MobileTituloBannerField;
             }
             set {
-                if ((object.ReferenceEquals(this.HTipoEstrategiaField, value) != true)) {
-                    this.HTipoEstrategiaField = value;
-                    this.RaisePropertyChanged("HTipoEstrategia");
+                if ((object.ReferenceEquals(this.MobileTituloBannerField, value) != true)) {
+                    this.MobileTituloBannerField = value;
+                    this.RaisePropertyChanged("MobileTituloBanner");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HTipoPresentacion {
+        public string MobileTituloMenu {
             get {
-                return this.HTipoPresentacionField;
+                return this.MobileTituloMenuField;
             }
             set {
-                if ((this.HTipoPresentacionField.Equals(value) != true)) {
-                    this.HTipoPresentacionField = value;
-                    this.RaisePropertyChanged("HTipoPresentacion");
+                if ((object.ReferenceEquals(this.MobileTituloMenuField, value) != true)) {
+                    this.MobileTituloMenuField = value;
+                    this.RaisePropertyChanged("MobileTituloMenu");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool MostrarCampaniaSiguiente {
+        public int Orden {
             get {
-                return this.MostrarCampaniaSiguienteField;
+                return this.OrdenField;
             }
             set {
-                if ((this.MostrarCampaniaSiguienteField.Equals(value) != true)) {
-                    this.MostrarCampaniaSiguienteField = value;
-                    this.RaisePropertyChanged("MostrarCampaniaSiguiente");
+                if ((this.OrdenField.Equals(value) != true)) {
+                    this.OrdenField = value;
+                    this.RaisePropertyChanged("Orden");
                 }
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool MostrarPagInformativa {
+        [System.Runtime.Serialization.DataMemberAttribute(Name="PaisID")]
+        public int PaisID1 {
             get {
-                return this.MostrarPagInformativaField;
+                return this.PaisID1Field;
             }
             set {
-                if ((this.MostrarPagInformativaField.Equals(value) != true)) {
-                    this.MostrarPagInformativaField = value;
-                    this.RaisePropertyChanged("MostrarPagInformativa");
+                if ((this.PaisID1Field.Equals(value) != true)) {
+                    this.PaisID1Field = value;
+                    this.RaisePropertyChanged("PaisID1");
                 }
             }
         }
@@ -940,19 +1001,6 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.TienePerfilField.Equals(value) != true)) {
                     this.TienePerfilField = value;
                     this.RaisePropertyChanged("TienePerfil");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string TipoEstrategia {
-            get {
-                return this.TipoEstrategiaField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.TipoEstrategiaField, value) != true)) {
-                    this.TipoEstrategiaField = value;
-                    this.RaisePropertyChanged("TipoEstrategia");
                 }
             }
         }

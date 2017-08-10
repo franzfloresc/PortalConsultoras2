@@ -93,6 +93,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                model.PaisID = userData.PaisID;
                 using (SACServiceClient sv = new SACServiceClient())
                 {
                     var entidad = Mapper.Map<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>(model);
