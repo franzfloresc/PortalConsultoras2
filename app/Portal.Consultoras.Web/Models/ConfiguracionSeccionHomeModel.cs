@@ -10,6 +10,7 @@ namespace Portal.Consultoras.Web.Models
         {
         }
 
+        public string Codigo { get; set; }
         public int CampaniaID { get; set; }
         public string TipoPresentacion { get; set; }
         public int CantidadMostrar { get; set; }
