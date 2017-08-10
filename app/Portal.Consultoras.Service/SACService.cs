@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
 using System.Data;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Service
         private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
         private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
         private BLPopupPais BLPopupPais; //SB20-1095
+        private BLApp _blApp;
 
         public SACService()
         {
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Service
             BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
             BLPopupPais = new BLPopupPais();
+            _blApp = new BLApp();
         }
 
         #region Cronograma Anticipado
@@ -1395,13 +1397,19 @@ namespace Portal.Consultoras.Service
 
         }
 
+        #region Mobile
+        public IList<BEApp> ListarApps(int paisID)
+        {
+            return _blApp.ObtenerApps(paisID);
+        }
+        #endregion
+        
         #region ConfiguracionPais
         public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
         {
             var bl = new BLConfiguracionPais();
             return bl.GetList(paisId, tienePerfil);
         }
-
         public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
         {
             var bl = new BLConfiguracionPais();
