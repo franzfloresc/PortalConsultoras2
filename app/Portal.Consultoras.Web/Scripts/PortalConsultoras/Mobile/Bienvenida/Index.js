@@ -78,7 +78,8 @@ $(document).ready(function () {
             }
         });
     });
-         
+   
+    ObtenerComunicadosPopup();
 });
 
 function CrearPopShow() {
@@ -680,6 +681,88 @@ function VerShowRoomVenta()
                         'creative': 'Banner'
                     }
                 ]
+            }
+        }
+    });
+}
+
+function ObtenerComunicadosPopup() {
+    //if (primeraVezSession == 0) return;
+
+    $(".contenedor_popup_comunicado").click(function (e) {
+        grabarComunicadoPopup();
+    });
+
+    $(".popup_comunicado .btn_cerrar a").click(function (e) {
+        e.stopPropagation();
+        grabarComunicadoPopup();
+        $(".contenedor_popup_comunicado").modal("hide");
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado a").click(function (e) {
+        if (userAgent.indexOf("iphone") > -1) {
+            e.preventDefault();
+            alert("La aplicación no se encuentra disponible para este dispositivo");
+        }
+    });
+
+    ShowLoading();
+
+    $.ajax({
+        type: "GET",
+        url: baseUrl + 'Mobile/Bienvenida/ObtenerComunicadosPopUps',
+        contentType: 'application/json',
+        success: function (response) {
+            CloseLoading();
+
+            if (checkTimeout(response)) {
+                armarComunicadosPopup(response)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) CloseLoading();
+        }
+    });
+}
+
+function armarComunicadosPopup(response){
+    if (response == null) return;
+
+    $(".popup_comunicado .detalle_popup_comunicado img").attr("src", response.UrlImagen);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .detalle_popup_comunicado a").attr("href", response.DescripcionAccion);
+
+    $(".contenedor_popup_comunicado").modal("show");
+}
+
+function grabarComunicadoPopup() {
+    var checked = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").is(':checked');
+    if (!checked) return;
+
+    var comunicadoID = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val();
+    var params = { ComunicadoID: comunicadoID };
+
+    ShowLoading();
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if(!data.success) alert(data.message)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error al aceptar el comunicado.");
             }
         }
     });
