@@ -28,27 +28,25 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-        
-        private List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
+
+        [HttpPost]
+        public JsonResult ObtenerSeccion(string codigo, int campaniaId)
         {
-            var modelo = new List<ConfiguracionSeccionHomeModel>();
-
-            //var entidad = new ConfiguracionSeccionHomeModel();
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    var lista = sv.GetEstrategiasPedido(entidad).ToList();
-            //    modelo = AutoMapper.Mapper.Map<>(lista);
-            //}
-
-            if (!modelo.Any())
+            try
             {
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "carrusel-previsuales", CantidadMostrar = 0, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = ""});
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "seccion-simple-centrado", CantidadMostrar = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
+                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
+
+                return Json(new
+                {
+                    seccion = seccion
+                }, JsonRequestBehavior.AllowGet);
             }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
 
-            return modelo;
-
+                return Json(new ConfiguracionSeccionHomeModel());
+            }
         }
-
     }
 }
