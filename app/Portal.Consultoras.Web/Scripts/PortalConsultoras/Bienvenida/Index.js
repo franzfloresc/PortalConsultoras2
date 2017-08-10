@@ -3072,15 +3072,16 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     var id = "";
     var name = "";  
 
-    if (tipo == 1)
-    {
+    if (tipo == 1) {
         name = $("#spnShowRoomEvento").html() + ' - Compra Ya';
-        id = $("#hdEventoIDShowRoomVenta").val();        
+        id = $("#hdEventoIDShowRoomVenta").val();
     }
-    else
-    {
-        name = $("#spnShowRoomEventoHoy").html() + ' - Entérate';
-        id = $("#hdEventoIDShowRoom").val();        
+
+    if (tipo == 2) {
+        var nombre = $("#spnShowRoomEvento").val();
+        var tema = $("#spnShowRoomEventoDescripcion").val();
+        name = nombre + ' ' + tema + ' - Entérate';
+        id = $("#hdEventoIDShowRoom").val();
     }
     
     dataLayer.push({
