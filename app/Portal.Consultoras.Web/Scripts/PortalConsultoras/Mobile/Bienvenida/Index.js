@@ -639,7 +639,10 @@ function VerShowRoomIntriga()
     var id = "";
     var name = "";
 
-    name = $("#hdTemaEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
+    var nombre = $("#hdNombreEventoShowRoom").val();
+    var tema = $("#hdTemaEventoShowRoom").val();
+
+    name = nombre + ' ' + tema + ' - ' + 'Ent\u00e9rate';
     id = $("#hdEventoIDShowRoom").val();
 
     dataLayer.push({
