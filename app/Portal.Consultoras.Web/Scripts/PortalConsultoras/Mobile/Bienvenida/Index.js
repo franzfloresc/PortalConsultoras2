@@ -687,7 +687,7 @@ function VerShowRoomVenta()
 }
 
 function ObtenerComunicadosPopup() {
-    //if (primeraVezSession == 0) return;
+    if (primeraVezSession == 0) return;
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
@@ -707,6 +707,27 @@ function ObtenerComunicadosPopup() {
         if (userAgent.indexOf("iphone") > -1) {
             e.preventDefault();
             alert("La aplicación no se encuentra disponible para este dispositivo");
+        }
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado img").on('load', function () {
+        $(".contenedor_popup_comunicado").modal("show");
+        $(".popup_comunicado").css({ "width": $(this).width() });
+        $(".popup_comunicado").css({ "height": $(this).height() });
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
+        e.stopPropagation();
+
+        var chk = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']");
+
+        if (chk.is(':checked')) {
+            $(this).html("");
+            chk.prop('checked', false);
+        }
+        else {
+            $(this).html("X");
+            chk.prop('checked', true);
         }
     });
 
@@ -734,9 +755,8 @@ function armarComunicadosPopup(response){
 
     $(".popup_comunicado .detalle_popup_comunicado img").attr("src", response.UrlImagen);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
     $(".popup_comunicado .detalle_popup_comunicado a").attr("href", response.DescripcionAccion);
-
-    $(".contenedor_popup_comunicado").modal("show");
 }
 
 function grabarComunicadoPopup() {
