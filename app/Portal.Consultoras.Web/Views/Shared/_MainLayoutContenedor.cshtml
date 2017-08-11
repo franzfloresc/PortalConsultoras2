@@ -349,7 +349,7 @@
                             <img src="@Url.Content("~/Content/Images/Esika/corazon-menu.png")" alt="" class="icono">
                             <p>REVISAR C-15</p>
                         </a>
-                        <ul class="sbmenu_estrategia">
+                        <ul class="sbmenu_estrategia" style="display:none;">
                             <li>
                                 <a href="">
                                     <p>DÍA DEL AMOR Y LA AMISTAD</p>
@@ -375,7 +375,7 @@
                             <img src="@Url.Content("~/Content/Images/Esika/signo-menu.png")" alt="" class="icono">
                             <p>SABER MÁS</p>
                         </a>
-                        <ul class="sbmenu_estrategia">
+                        <ul class="sbmenu_estrategia" style="display:none;">
                             <li>
                                 <a href="">
                                     <p>MIS OFERTAS</p>
@@ -399,7 +399,7 @@
                 </ul>
             </div>  
         </div>
-        <div style="margin: 0 0 0 16.5%;">
+        <div>
             @if (!(controllerAction == "bienvenidaindex"
                             || controllerAction == "showroomindex"
                             || controllerAction == "showroomintriga"
@@ -980,7 +980,7 @@
                 $(this).find('p').css('color', 'white');
                 $('ul.sbmenu_estrategia li a p').css('color', '#333');
             }, function(e) {
-                $(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')
+                /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
             });
 
             $('ul.menu_estrategia li').hover(function(e) {
