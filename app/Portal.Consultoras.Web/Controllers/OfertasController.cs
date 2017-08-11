@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class EstrategiaPersonalizadaController : BaseController
+    public class OfertasController : BaseController
     {
         public ActionResult Index()
         {

@@ -6,7 +6,7 @@ var sElementos = {
 };
 
 var sProps = {
-    UrlObtenerSeccion: baseUrl + 'EstrategiaPersonalizada/ObtenerSeccion'
+    UrlObtenerSeccion: baseUrl + 'Ofertas/ObtenerSeccion'
 };
 
 $(document).ready(function () {

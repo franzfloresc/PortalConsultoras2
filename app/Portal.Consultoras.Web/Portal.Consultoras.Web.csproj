@@ -263,7 +263,7 @@
     <Compile Include="Controllers\BaseShowRoomController.cs" />
     <Compile Include="Controllers\CampaniaController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
-    <Compile Include="Controllers\EstrategiaPersonalizadaController.cs" />
+    <Compile Include="Controllers\OfertasController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
     <Compile Include="Controllers\CuponController.cs" />
     <Compile Include="Controllers\IncentivosSMSController.cs" />
@@ -4108,7 +4108,7 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\Index.cshtml" />
+    <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
     <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
