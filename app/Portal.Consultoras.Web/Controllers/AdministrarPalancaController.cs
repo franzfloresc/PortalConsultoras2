@@ -26,8 +26,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarCupon/Index"))
                     return RedirectToAction("Index", "Bienvenida");
 
-                model.ListaPaises = ListarPaises();
-                model.ListaConfiguracionPais = ListarConfiguracionPais();
+                //model.ListaPaises = ListarPaises();
+                //model.ListaConfiguracionPais = ListarConfiguracionPais();
+
                 ViewBag.UrlS3 = GetUrlS3();
                 return View(model);
             }
@@ -88,6 +89,42 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+
+        public JsonResult ListOfertasHome(string sidx, string sord, int page, int rows)
+        {
+            try
+            {
+                var list = ListarConfiguracionPais();
+
+                var data = new
+                {
+                    rows = from a in list
+                    select new
+                    {
+                        id = a.ConfiguracionPaisID,
+                        cell = new string[]
+                        {
+                            a.ConfiguracionPaisID.ToString(),
+                            a.Orden.ToString(),
+                            a.Codigo.ToString(),
+                            a.Descripcion.ToString(),
+                            a.Estado.ToString()
+                        }
+                    }
+                };
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new
+                {
+                    success = false,
+                    message = e.StackTrace,
+                });
+            }
+        }
+
         [HttpPost]
         public JsonResult Update(AdministrarPalancaModel model)
         {
@@ -143,6 +180,17 @@ namespace Portal.Consultoras.Web.Controllers
             using (SACServiceClient sv = new SACServiceClient())
             {
                 lst =  sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
+            }
+            return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
+        }
+
+
+        private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionOfertasHome()
+        {
+            List<ServiceSAC.BEConfiguracionPais> lst;
+            using (SACServiceClient sv = new SACServiceClient())
+            {
+                lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
             }
             return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
         }

@@ -42,8 +42,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!modelo.Any())
             {
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "carrusel-previsuales", CantidadMostrar = 0, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = ""});
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, TipoPresentacion = "seccion-simple-centrado", CantidadMostrar = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, DesktopTipoPresentacion = 1, DesktopCantidadProductos = 0, DesktopTipoEstrategia = "LAN", DesktopTitulo = "LANZAMIENTO", DesktopSubTitulo = ""});
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, DesktopTipoPresentacion = 1, DesktopCantidadProductos = 0, DesktopTipoEstrategia = "OPM", DesktopTitulo = "RECOMENDADAS PARA TI", DesktopSubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
             }
 
             return modelo;
