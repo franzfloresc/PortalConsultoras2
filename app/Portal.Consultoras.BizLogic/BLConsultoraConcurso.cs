@@ -98,6 +98,7 @@ namespace Portal.Consultoras.BizLogic
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {
+            	DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
@@ -122,6 +123,7 @@ namespace Portal.Consultoras.BizLogic
             DAConcurso DAConcurso = new DAConcurso(paisID);
             try
             {
+            	DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampaniaActual);
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampaniaActual, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);

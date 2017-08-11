@@ -17,6 +17,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PuntosFaltantes { get; set; }
         [DataMember]
+        public bool IndicadorPremiacionPedido { get; set; }
+        [DataMember]
+        public decimal MontoPremiacionPedido { get; set; }
+        [DataMember]
+        public bool IndicadorBelCenter { get; set; }
+        [DataMember]
+        public DateTime? FechaVentaRetail { get; set; }
+        [DataMember]
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
@@ -34,6 +42,18 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PuntosFaltantes"))
                 PuntosFaltantes = Convert.ToInt32(row["PuntosFaltantes"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorPremiacionPedido"))
+                IndicadorPremiacionPedido = Convert.ToBoolean(row["IndicadorPremiacionPedido"]);
+
+            if (DataRecord.HasColumn(row, "MontoPremiacionPedido"))
+                MontoPremiacionPedido = Convert.ToDecimal(row["MontoPremiacionPedido"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorBelCenter"))
+                IndicadorBelCenter = Convert.ToBoolean(row["IndicadorBelCenter"]);
+
+            if (DataRecord.HasColumn(row, "FechaVentaRetail") && row["FechaVentaRetail"] != DBNull.Value)
+                FechaVentaRetail = Convert.ToDateTime(row["FechaVentaRetail"]);
         }
     }
 }

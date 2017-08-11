@@ -268,7 +268,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-
             List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
             var rtpa = new List<ObjMontosProl>();
             if (listProducto.Any())
@@ -282,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
+                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
                 }
             }
             else

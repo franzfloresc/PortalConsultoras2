@@ -22,6 +22,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PuntosAcumulados { get; set; }
         [DataMember]
+        public bool IndicadorPremioAcumulativo { get; set; }
+        [DataMember]
         public List<BEIncentivoNivel> Niveles { get; set; }
 
         public BEIncentivoConcurso(IDataRecord row)
@@ -43,6 +45,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PuntosAcumulados"))
                 PuntosAcumulados = Convert.ToInt32(row["PuntosAcumulados"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorPremioAcumulativo"))
+                IndicadorPremioAcumulativo = Convert.ToBoolean(row["IndicadorPremioAcumulativo"]);
         }
     }
 }
