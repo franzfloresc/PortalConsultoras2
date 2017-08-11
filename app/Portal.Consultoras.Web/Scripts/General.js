@@ -320,7 +320,7 @@ jQuery(document).ready(function () {
 
     }
     SetHandlebars = function (idTemplate, data, idHtml) {
-        console.log(idTemplate, data, idHtml);
+
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
