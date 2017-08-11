@@ -35625,6 +35625,9 @@ h1#penmostreo .campana {
     font-weight:700;
     color:black;
     margin-bottom:15px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:16px;
 }
 .content_imagen_sorpresa{
     height:178px;
@@ -35639,6 +35642,8 @@ h1#penmostreo .campana {
     font-size: 10px;
     color: black;
     line-height: 12px;
+    padding-left:10px;
+    padding-right:10px;
 }
 .descripcion_regalo a{
     display:block;
