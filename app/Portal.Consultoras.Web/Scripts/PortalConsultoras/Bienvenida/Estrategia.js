@@ -104,21 +104,53 @@ function CargarCarouselEstrategias(cuv) {
     });
 };
 
-function CargarCarouselMasVendidos(origen) {
-    $.ajax({
+var CargarCarouselMasVendidos = function (origen) {
+    var model = obtenerModelMasVendidos();
+    if (model != null) {
+        $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
+        ArmarCarouselMasVendidos(model);
+        inicializarDivMasVendidos(origen);
+        _validarDivTituloMasVendidos();
+    }    
+}
+
+var obtenerModelMasVendidos = function () {
+    var model = get_local_storage("data_mas_vendidos");
+    if (typeof model === 'undefined' || model === null) {
+        var promesa = _obtenerModelMasVendidosPromise();
+        $.when(promesa)
+            .then(function (response) {
+                if (checkTimeout(response)) {
+                    if (response.success) {
+                        model = response.data;
+                        set_local_storage(model, "data_mas_vendidos");
+                    }
+                    else {
+                        console.log(response.message);
+                    }
+                }
+            });
+    }    
+    return model;
+}
+
+var _obtenerModelMasVendidosPromise = function () {
+    var d = $.Deferred();
+    var promise = $.ajax({
         type: 'GET',
-        url: baseUrl + 'OfertasMasVendidos/ObtenerOfertas',
+        url: baseUrl + "OfertasMasVendidos/ObtenerOfertas",
+        data: "",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        success: function (data) {
-            $('#divCarrouselMasVendidos.slick-initialized').slick('unslick');
-            ArmarCarouselMasVendidos(data);
-            inicializarDivMasVendidos(origen);
-        },
-        error: function (error) {
-            $('#divCarrouselMasVendidos').html('<div style="text-align: center;">Ocurrio un error al cargar los productos.</div>');
-        }
+        async: false
     });
+
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
 };
 
 function inicializarDivMasVendidos(origen) {
@@ -130,23 +162,21 @@ function inicializarDivMasVendidos(origen) {
           , next: '<a class="previous_ofertas_mobile" href="javascript:void(0);" style="margin-right:-12%; text-align:right; right:0"><img src="' + baseUrl + 'Content/Images/mobile/Esika/next.png")" alt="" /></a>'
         },
         'desktop': {
-            prev: '<a class="previous_ofertas"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
-          , next: '<a class="previous_ofertas" style="right: 0;display: block;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+            prev: '<a class="previous_ofertas" style="left:-5%; text-align:left;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>'
+          , next: '<a class="previous_ofertas" style="display: block; right:-5%; text-align:right;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
         }
     };
    
     $('#divCarrouselMasVendidos').not('.slick-initialized').slick({
         infinite: true,
-        dots: false,
         vertical: false,
+        centerMode: false,
+        centerPadding: '0px',
         slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
-        arrows: true,
-        centerMode: true,
-        variableWidth: false,
-        centerPadding: '0px',
-        speed: 300,
+        speed: 270,
+        pantallaPedido: false,
         prevArrow: slickArrows[origen].prev,
         nextArrow: slickArrows[origen].next,
         responsive: [
@@ -164,31 +194,98 @@ function inicializarDivMasVendidos(origen) {
                 }
         ]
     });
-
-    //var rating = 1.6;
-    //$(".rateyo-readonly-widg").rateYo({
-    //    rating: rating,
-    //    numStars: 5,
-    //    precision: 2,
-    //    minValue: 1,
-    //    maxValue: 5,
-    //    starWidth: "17px"
-    //}).on("rateyo.change", function (e, data) {
-    //    //console.log(data.rating);
-    //});
 }
 
 function ArmarCarouselMasVendidos(data) {
-    if (typeof data.Lista !== 'undefined' && data.Lista.length > 0) {
-        data.Lista = EstructurarDataCarousel(data.Lista);
-        $("#divCarrouselMasVendidos").empty();
-        SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
-        $('div.content_mas_vendidos').show();
+    data.Lista = EstructurarDataCarousel(data.Lista);
+    $("#divCarrouselMasVendidos").empty();
+
+    var promesa = _actualizarModelMasVendidosPromise(data);
+    $.when(promesa)
+        .then(function (response) {
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    data = response.data;
+                    SetHandlebars("#mas-vendidos-template", data, '#divCarrouselMasVendidos');
+                    if (data.Lista == null) data.Lista = [];
+                    PintarEstrellas(data.Lista);
+                    PintarRecomendaciones(data.Lista);
+                    PintarPrecioTachado(data.Lista);
+                } else {
+                    console.log(response.menssage);
+                }
+            }
+        });
+}
+
+function PintarPrecioTachado(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarPrecioTachado(listaMasVendidos[i]);
+    }
+    /*
+    listaMasVendidos.forEach(item => {
+        _pintarPrecioTachado(item);
+    });
+    */
+}
+
+function _pintarPrecioTachado(item) {
+    var xdiv = "#precio-tachado-" + item.EstrategiaID.toString();    
+    if (item.Ganancia > 0) {
+        $(xdiv).show();
+    }
+    else {
+        $(xdiv).hide();
     }
 }
 
-function ArmarCarouselEstrategias(data) {
+function PintarRecomendaciones(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarRecomendaciones(listaMasVendidos[i]);
+    }
+    /*
+    listaMasVendidos.forEach(item => {
+        _pintarRecomendaciones(item);
+    });
+    */
+}
 
+function _pintarRecomendaciones(item) {
+    var xdiv = "#recommedation-" + item.EstrategiaID.toString();
+    var recommendation = '(' + item.CantComenAprob.toString() + ')';
+    $(xdiv).html(recommendation);
+    $(xdiv).show();
+}
+
+function PintarEstrellas(listaMasVendidos) {
+    for (var i = 0; i < listaMasVendidos.length; i++) {
+        _pintarEstrellas(listaMasVendidos[i]);
+    }
+    /*
+    listaMasVendidos.forEach(item => {
+        _pintarEstrellas(item);
+    });
+    */
+}
+
+function _pintarEstrellas(item) {
+    var xdiv = "#star-" + item.EstrategiaID.toString();
+    var rating = '';
+    rating = item.PromValorizado.toString() + '%';
+    $(xdiv).rateYo({
+        rating: rating,
+        numStars: 5,
+        precision: 2,
+        minValue: 1,
+        maxValue: 5,
+        starWidth: "17px",
+        readOnly: true
+    });
+    $(xdiv).show();
+}
+
+function ArmarCarouselEstrategias(data) {
+    
     $('#divListaEstrategias').hide();
     $('.js-slick-prev').remove();
     $('.js-slick-next').remove();
@@ -240,6 +337,8 @@ function ArmarCarouselEstrategias(data) {
     if ($.trim($('#divListadoEstrategia').html()).length == 0) {
         return false;
     }
+
+    RevisarMostrarContenedorCupon();
 
     if (tipoOrigenEstrategia == 1) {
         var cantProCarrusel = $("#divListadoEstrategia2").length > 0 ?  1 : 4;
@@ -716,7 +815,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
        
         return false;
     }
-
     var attrClass = $.trim($(objInput).attr("class"));
     if ((" " + attrClass + " ").indexOf(" btn_desactivado_general ") >= 0) {
         $(objInput).parents("[data-item]").find("[data-tono-select='']").find("[data-tono-change='1']").parent().addClass("tono_no_seleccionado");
@@ -778,8 +876,6 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
         data: JSON.stringify(params),
         async: true,
         success: function (datos) {
-            //EstrategiaTallaColor(datos);
-            //CerrarLoad();
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
@@ -984,7 +1080,7 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
         return false;
     }
     if (parseInt(cantidad) > parseInt(cantidadLimite)) {
-        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad limite ( " + cantidadLimite + " ).");
+        AbrirMensajeEstrategia("La cantidad no debe ser mayor que la cantidad límite ( " + cantidadLimite + " ).");
         CerrarLoad();
         return false;
     }
@@ -1043,8 +1139,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
                             CargarCarouselEstrategias(cuv);
-                            if (tieneMasVendidos === 1) {
-                                CargarCarouselMasVendidos('desktop');
+                            if (_validartieneMasVendidos() === 1) {
+                                //CargarCarouselMasVendidos('desktop');
                             }
                             
                             CargarResumenCampaniaHeader(true);
@@ -1077,8 +1173,8 @@ function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
                             else if (tipoOrigenEstrategia != 272) {
                                 CargarCarouselEstrategias(cuv);
 
-                                if (tieneMasVendidos === 1) {
-                                    CargarCarouselMasVendidos('mobile');
+                                if (_validartieneMasVendidos() === 1) {
+                                    //CargarCarouselMasVendidos('mobile');
                                 }
                             }
                         }
@@ -1156,13 +1252,41 @@ function AbrirMensajeEstrategia(txt) {
 }
 
 function ProcesarActualizacionMostrarContenedorCupon() {
-    if (typeof paginaOrigenCupon == "undefined") {
-        return false;
-    }
-
-    if (paginaOrigenCupon) {
+    if (typeof paginaOrigenCupon !== 'undefined' && paginaOrigenCupon) {
         if (cuponModule) {
             cuponModule.actualizarContenedorCupon();
+        }
+    }
+}
+
+function RevisarMostrarContenedorCupon() {
+    if (typeof finishLoadCuponContenedorInfo !== 'undefined' && finishLoadCuponContenedorInfo) {
+        if (cuponModule) {
+            cuponModule.revisarMostrarContenedorCupon();
+        }
+    }
+}
+
+function _validarDivTituloMasVendidos() {
+    var tieneMasVendidosFlag = _validartieneMasVendidos();
+    var xmodel = get_local_storage("data_mas_vendidos");
+    var xlista = [];
+
+    if (xmodel !== 'undefined' && xmodel !== null) {
+        xlista = xmodel.Lista;
+    }
+
+    if (tieneMasVendidosFlag === 0) {
+        $(".content_mas_vendidos").hide();
+        return;
+    }    
+
+    if (tieneMasVendidosFlag === 1) {
+        if (xlista.length === 0) {
+            $(".content_mas_vendidos").hide();
+        }
+        else {
+            $(".content_mas_vendidos").show();
         }
     }
 }

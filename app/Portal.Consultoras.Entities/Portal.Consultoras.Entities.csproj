@@ -76,6 +76,9 @@
     <Compile Include="BEAsistenciaCompartamos.cs" />
     <Compile Include="BEConsultoraRegaloProgramaNuevas.cs" />
     <Compile Include="BEOfertaFinalConsultoraLog.cs" />
+    <Compile Include="BEProductoComentario.cs" />
+    <Compile Include="BEProductoComentarioDetalleFilter.cs" />
+    <Compile Include="BEProductoComentarioDetalle.cs" />
     <Compile Include="BEClienteContactoDB.cs" />
     <Compile Include="BEClienteDB.cs" />
     <Compile Include="BEClienteResponse.cs" />
@@ -92,6 +95,7 @@
     <Compile Include="BEUsuarioExternoPais.cs" />
     <Compile Include="BEUsuarioPostulante.cs" />
     <Compile Include="BEMenuApp.cs" />
+    <Compile Include="Mobile\BEApp.cs" />
     <Compile Include="ReservaProl\BEPedidoObservacion.cs" />
     <Compile Include="ReservaProl\BEInputReservaProl.cs" />
     <Compile Include="BEPedidoWebDetalleInvariant.cs" />

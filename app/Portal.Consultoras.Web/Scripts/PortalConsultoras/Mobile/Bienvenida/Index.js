@@ -44,6 +44,20 @@ $(document).ready(function () {
     CargarCarouselEstrategias("");
 
     if (tieneMasVendidos === 1) {
+        masVendidosModule.readVariables({
+            baseUrl: baseUrl,
+            urlDetalleProducto: baseUrl + 'Mobile/EstrategiaProducto/DetalleProducto'
+        });
+        var rating = 1.6;
+        $(".rateyo-readonly-widg").rateYo({
+            rating: rating,
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "17px"
+        }).on("rateyo.change", function (e, data) {
+        });
         CargarCarouselMasVendidos('mobile');
     }
 

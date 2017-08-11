@@ -608,27 +608,27 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
         {
-            int resultado = 0;
+            //int resultado = 0;
             int OrdenEstrategia = (!string.IsNullOrEmpty(model.Orden) ? Convert.ToInt32(model.Orden) : 0);     /* SB20-312 */
             string _nroPedido = string.Empty;
 
             try
             {
                 //Fixed: hacking..
-                 if (!string.IsNullOrEmpty(model.NumeroPedido) && model.NumeroPedido.Contains(","))
-                 {
-                     _nroPedido = model.NumeroPedido;
-                     model.NumeroPedido = "0";
-                 }
-                 //Mapping..
+                if (!string.IsNullOrEmpty(model.NumeroPedido) && model.NumeroPedido.Contains(","))
+                {
+                    _nroPedido = model.NumeroPedido;
+                    model.NumeroPedido = "0";
+                }
+                //Mapping..
                 BEEstrategia entidad = Mapper.Map<RegistrarEstrategiaModel, BEEstrategia>(model);
 
                 //Fixed revert: Para que realize el mapping correctamente, se devuelve el valor del modelo para que realize la iteracion posteriormente.
-                 if (!string.IsNullOrEmpty(_nroPedido))
-                 {
-                     model.NumeroPedido = _nroPedido;
-                     //_nroPedido = string.Empty;
-                 }
+                if (!string.IsNullOrEmpty(_nroPedido))
+                {
+                    model.NumeroPedido = _nroPedido;
+                    //_nroPedido = string.Empty;
+                }
 
                 entidad.PaisID = UserData().PaisID;
                 entidad.Orden = OrdenEstrategia;
@@ -637,11 +637,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var respuestaServiceCdr = new List<RptProductoEstrategia>();
 
-                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null && 
+                if (entidad.Activo == 1 && entidad.CodigoTipoEstrategia != null &&
                     (model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertaParaTi ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento ||
                     model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.PackAltoDesembolso ||
-                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi))
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.OfertasParaMi ||
+                    model.CodigoTipoEstrategia == Constantes.TipoEstrategiaCodigo.LosMasVendidos))
                 {
                     try
                     {
@@ -701,7 +702,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.NumeroPedido = "0";
 
                 List<int> NumeroPedidosAsociados = model.NumeroPedido.Split(',').Select(Int32.Parse).ToList();
-                BEEstrategiaDetalle estrategiaDetalle =  new BEEstrategiaDetalle();
+                BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
                 foreach (int item in NumeroPedidosAsociados) /*R20160301*/
                 {
                     entidad.NumeroPedido = item;
@@ -720,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                         entidad.EstrategiaID = sv.InsertarEstrategia(entidad);
-                        
+
                     }
                 }
 

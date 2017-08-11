@@ -177,6 +177,7 @@ namespace Portal.Consultoras.Common
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "020";
 
         }
 
@@ -880,16 +881,16 @@ namespace Portal.Consultoras.Common
 
         public class Incentivo
         {
-            public const string TeFaltan = "Te faltan {0} puntos";
+            public const string TeFaltan = "Te faltan {0}* puntos";
             public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
-            public const string VasXPuntos = "VAS {0} PUNTOS.";
+            public const string VasXPuntos = "VAS {0}* PUNTOS.";
             public const string GANASTE = "¡GANASTE!";
             public const string TEFALTA = "¡TE FALTA!";
-            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
-            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
-            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";            
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
 
