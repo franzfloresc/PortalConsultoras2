@@ -208,6 +208,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
 
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
+
+            Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
         }
     }
 }

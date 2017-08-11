@@ -2279,7 +2279,7 @@ else
 </script>
 
 <script id="ofertaFinal-template" type="text/x-handlebars-template">
-    <div class="content_regalo_sorpresa" style="display:none">
+    
     <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none;" data-popup-body="">
         <div class="icono_regalo_sorpresa"></div>
         <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR DÍA DE LA MADRE!</div>
@@ -2337,7 +2337,7 @@ else
                         <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
                         {{/iff}}
                         {{else if_eq TipoMeta 'RG'}}
-                        <span>APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREIBLES</b></span>
+                        <span>@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREIBLES</b></span>
                         {{else}}    <!--se espera escala de dscto-->
                         <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                         {{/if_eq}}

@@ -536,6 +536,7 @@
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
+    <Compile Include="Models\RegaloOfertaFinalModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
@@ -1188,6 +1189,8 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
+    <Content Include="Content\Images\gif-regalo-blanco.png" />
+    <Content Include="Content\Images\gif-regalo-gano.gif" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />

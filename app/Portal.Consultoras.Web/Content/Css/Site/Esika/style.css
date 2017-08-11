@@ -35820,12 +35820,12 @@ h1#penmostreo .campana {
     margin: 0 auto;
     min-height: 40px;
 }
-.icono_regalo_sorpresa{
-    width:85px;
-    height:55px;
-    background:url(https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png);
+.icono_regalo_sorpresa {
+    width: 85px;
+    height: 55px;
+    background: url("/Content/Images/gif-regalo-blanco.png");
     margin: 0 auto;
-    margin-top:26px;
+    margin-top: 26px;
 }
 .titulo_regalo_2{
     font-family: 'Lato';
