@@ -118,7 +118,7 @@ function SeccionMostrarProductos(data) {
     
     SetHandlebars(data.Seccion.Template, data, divListadoProductos);
 
-    if (data.seccion.TipoPresentacion == "carrusel-previsuales") {
+    if (data.Seccion.TipoPresentacion == "carrusel-previsuales") {
         RenderCarruselPrevisuales(htmlSeccion);
     }
 }
@@ -174,4 +174,14 @@ function RenderCarruselPrevisuales(divProd) {
             slick.$nextArrow.find("img[data-prev]").show();
         }
     });
+}
+
+function GetArrowNamePrev() {
+    if (isMobile()) return "previous_mob.png";
+    else return "previous.png";
+}
+
+function GetArrowNameNext() {
+    if (isMobile()) return "next_mob.png";
+    else return "next.png";
 }

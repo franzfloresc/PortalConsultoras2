@@ -63,13 +63,11 @@
 
 	ul.sbmenu_estrategia{
 		background: black;
-	    /* width: auto; */
 	    position: fixed;
 	    margin: 0;
     	padding: 0;
     	background: #f5f4f4;
 	    height: 100%;
-	    top: 61px;
     	margin-left: 6%;
     	width: 9%;
     	list-style-type: none;
