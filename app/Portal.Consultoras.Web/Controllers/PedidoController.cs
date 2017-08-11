@@ -3678,6 +3678,8 @@ namespace Portal.Consultoras.Web.Controllers
                 using (ProductoServiceClient ps = new ProductoServiceClient())
                 {
                     regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    regalo.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetapais, regalo.RegaloImagenUrl, carpetapais);
                 }
 
                 return Json(new
