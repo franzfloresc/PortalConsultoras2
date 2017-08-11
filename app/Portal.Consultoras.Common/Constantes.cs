@@ -214,6 +214,9 @@ namespace Portal.Consultoras.Common
 
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
+
+            // Configuracion Seccion Home Contenedor de Palancas
+            public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado

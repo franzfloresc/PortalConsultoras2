@@ -1,0 +1,346 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@{
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="bc_estrategia_contenido">
+    @foreach (var seccion in Model.ListaSeccion)
+    {
+        <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+            <div data-seccion-content="">
+                @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TipoPresentacion + ".cshtml", seccion)
+            </div>
+            <div data-seccion-load=""></div>
+            <div class="bc_vineta_baja">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+            </div>
+        </div>
+    }
+</div>
+
+<div class="bc_estrategia_contenido">
+    <div class="bc_slider">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, minima doloribus aliquid earum! Similique placeat quasi distinctio repellendus debitis quidem, ullam dolore numquam voluptatibus perferendis suscipit laudantium neque, minima ipsa!
+    </div>
+    <div class="bc_vineta_baja">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));">
+        <div class="titulo">
+            <h2>VENTA EXCLUSIVA WEB</h2> HASTA 65% DE DSCTO EN SETS EXCLUSIVOS ONLINE
+        </div>
+        <div class="contenido">
+            <div data-item="10327" data-item-cuv="97391" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide10">
+                <input type="hidden" class="PosicionEstrategia" value="1" tabindex="0">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:10327,&quot;CUV2&quot;:&quot;97391&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:1,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200088114201788246_yevyujuemg.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Ésika&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack 1 Merci + 1 Inspira&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack 1 Merci + 1 Inspira&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:83.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;83.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:true,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:2,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200088114201788246_yevyujuemg.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="0">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Ésika</h6>
+                            <p class="nombre_producto"><b>Pack 1 Merci + 1 Inspira</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 83.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="0">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:block;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-item="8596" data-item-cuv="95727" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide11">
+                <input type="hidden" class="PosicionEstrategia" value="2" tabindex="-1">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:8596,&quot;CUV2&quot;:&quot;95727&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:2,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000639852017846841_ajirttvclp.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Cyzone&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack Prints x4&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack Prints x4&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:55.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;55.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:true,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;2001&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:3,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000639852017846841_ajirttvclp.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="-1">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Cyzone</h6>
+                            <p class="nombre_producto"><b>Pack Prints x4</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 55.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="-1">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="-1">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:block;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-item="10262" data-item-cuv="97442" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide12">
+                <input type="hidden" class="PosicionEstrategia" value="3" tabindex="-1">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:10262,&quot;CUV2&quot;:&quot;97442&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:3,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2100471122017858204_njghfxnmms.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Ésika&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack 1 Delineador Ojos Negro + 1 Delinea...&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack 1 Delineador Ojos Negro + 1 Delineador Cejas Negro&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:21.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;21.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:false,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:2,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2100471122017858204_njghfxnmms.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="-1">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Ésika</h6>
+                            <p class="nombre_producto"><b>Pack 1 Delineador Ojos Negro + 1 Delinea...</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 21.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="-1">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="-1">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:none;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="boton-ir">
+            <a href="">VER MÁS OFERTAS</a>
+        </div>
+    </div>
+    <div class="bc_vineta_baja">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas2.png"));">
+        <div class="titulo">
+            <h2>VENTA EXCLUSIVA WEB</h2> HASTA 65% DE DSCTO EN SETS EXCLUSIVOS ONLINE
+        </div>
+        <div class="contenido">
+            <div data-item="10327" data-item-cuv="97391" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide10">
+                <input type="hidden" class="PosicionEstrategia" value="1" tabindex="0">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:10327,&quot;CUV2&quot;:&quot;97391&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:1,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200088114201788246_yevyujuemg.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Ésika&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack 1 Merci + 1 Inspira&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack 1 Merci + 1 Inspira&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:83.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;83.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:true,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:2,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_200088114201788246_yevyujuemg.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="0">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Ésika</h6>
+                            <p class="nombre_producto"><b>Pack 1 Merci + 1 Inspira</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 83.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="0">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="0"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="0">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:block;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-item="8596" data-item-cuv="95727" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide11">
+                <input type="hidden" class="PosicionEstrategia" value="2" tabindex="-1">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:8596,&quot;CUV2&quot;:&quot;95727&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:2,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000639852017846841_ajirttvclp.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Cyzone&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack Prints x4&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack Prints x4&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:55.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;55.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:true,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;2001&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:3,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2000639852017846841_ajirttvclp.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="-1">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Cyzone</h6>
+                            <p class="nombre_producto"><b>Pack Prints x4</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 55.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="-1">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="-1">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:block;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div data-item="10262" data-item-cuv="97442" data-tipoestrategiaimagenmostrar="3" class="revistadigital-landing slick-slide" data-slick-index="2" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide12">
+                <input type="hidden" class="PosicionEstrategia" value="3" tabindex="-1">
+                <div data-item-tag="body" class="content_item_carrusel" style="cursor:pointer;">
+                    <div style="display:none;"><div data-estrategia="{&quot;CampaniaID&quot;:201712,&quot;EstrategiaID&quot;:10262,&quot;CUV2&quot;:&quot;97442&quot;,&quot;TipoEstrategiaImagenMostrar&quot;:3,&quot;ClaseEstrategia&quot;:&quot;revistadigital-landing&quot;,&quot;Posicion&quot;:3,&quot;TieneVerDetalle&quot;:true,&quot;TienePaginaProducto&quot;:false,&quot;TienePaginaProductoMob&quot;:false,&quot;FotoProducto01&quot;:&quot;https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2100471122017858204_njghfxnmms.png&quot;,&quot;ImagenURL&quot;:&quot;&quot;,&quot;DescripcionMarca&quot;:&quot;Ésika&quot;,&quot;DescripcionResumen&quot;:&quot;&quot;,&quot;DescripcionCortada&quot;:&quot;Pack 1 Delineador Ojos Negro + 1 Delinea...&quot;,&quot;DescripcionDetalle&quot;:&quot;&quot;,&quot;DescripcionCompleta&quot;:&quot;Pack 1 Delineador Ojos Negro + 1 Delineador Cejas Negro&quot;,&quot;Simbolo&quot;:&quot;S/.&quot;,&quot;Precio&quot;:0,&quot;Precio2&quot;:21.9,&quot;PrecioTachado&quot;:&quot;0.00&quot;,&quot;PrecioVenta&quot;:&quot;21.90&quot;,&quot;TipoAccionAgregar&quot;:2,&quot;ClaseBloqueada&quot;:&quot;&quot;,&quot;ProductoPerdio&quot;:false,&quot;TipoEstrategiaID&quot;:3017,&quot;FlagNueva&quot;:0,&quot;IsAgregado&quot;:false,&quot;CodigoEstrategia&quot;:&quot;007&quot;,&quot;CodigoVariante&quot;:&quot;&quot;,&quot;ArrayContenidoSet&quot;:[],&quot;ListaDescripcionDetalle&quot;:[],&quot;TextoLibre&quot;:&quot;Limitado a 5 unidades por consultora&quot;,&quot;MarcaID&quot;:2,&quot;UrlCompartir&quot;:&quot;http://localhost:35848//Pdto.aspx?id=PE_[valor]&quot;,&quot;TipoEstrategiaDetalle&quot;:{&quot;ImgFondoDesktop&quot;:null,&quot;ImgPrevDesktop&quot;:null,&quot;ImgFichaDesktop&quot;:null,&quot;UrlVideoDesktop&quot;:null,&quot;ImgFichaFondoDesktop&quot;:null,&quot;ImgFondoMobile&quot;:null,&quot;ImgFichaMobile&quot;:null,&quot;UrlVideoMobile&quot;:null,&quot;ImgFichaFondoMobile&quot;:null,&quot;ImgHomeDesktop&quot;:null,&quot;ImgHomeMobile&quot;:null},&quot;Hermanos&quot;:null}"></div></div>
+                    <div data-item-tag="contenido" onclick="javascript: VerDetalleEstrategia(event);">
+                        <div class="producto_img_home" data-item-tag="foto">
+                            <img src="https://S3.amazonaws.com/consultorasQAS/SomosBelcorp/Matriz/PE/PE_2100471122017858204_njghfxnmms.png" class="imagen_producto" style="max-width: 100% !important;">
+                            <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle" tabindex="-1">VER DETALLE</a>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="descripcion">
+                            <h6>Ésika</h6>
+                            <p class="nombre_producto"><b>Pack 1 Delineador Ojos Negro + 1 Delinea...</b></p>
+                        </div>
+                        <div class="producto_nombre_descripcion" data-item-tag="precio">
+                            <div>
+                                <span class="producto_precio_oferta"><b>S/. 21.90</b></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="producto_nombre_descripcion" data-item-tag="agregar">
+                        <div>
+                            <div class="texto_elige_tono"></div>
+                            <div class="clear"></div>
+                            <div class="liquidacion_rango_home js-no-popup">
+                                <input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup " data-input="cantidad" tabindex="-1">
+                                <div class="liquidacion_rango_right_pedido js-no-popup">
+                                    <a href="javascript:;" class="mas js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/mas.png" alt=""></a>
+                                    <a href="javascript:;" class="menos js-no-popup" data-bloqueada="" tabindex="-1"><img class="js-no-popup" src="/Content/Images/Esika/menos.png" alt=""></a>
+                                </div>
+                            </div>
+                            <a href="javascript:;" class="boton_Agregalo_home js-no-popup " data-bloqueada="" onclick="javascript:EstrategiaAgregar(event); " tabindex="-1">
+                                AGRÉGALO
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 25px;">
+                            <div class="agregado product-add" style="text-align:right;display:none;">
+                                AGREGADO
+                                <div class="icono"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="boton-ir">
+            <a href="">VER MÁS OFERTAS</a>
+        </div>
+    </div>
+</div>
+<div class="bc_clearfix"></div>
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+}

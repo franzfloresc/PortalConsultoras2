@@ -316,36 +316,90 @@
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
         <div>
-            <div class="bc_barra_opciones">
-                <ul class="bc_opciones">
+            <div class="bc_menu_estrategia">
+                <ul class="menu_estrategia">
                     <li>
-                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/carrito.png")" class="icono-menu" alt="">COMPRAR <br><span class="bc_campana">C - 14</span></a>
-                        <ul class="default">
-                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
-                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        <a href="javascript:;">
+                            <img src="@Url.Content("~/Content/Images/Esika/carrito-menu.png")" alt="" class="icono">
+                            <p>COMPRAR C-14</p>
+                        </a>
+                        <ul class="sbmenu_estrategia default">
+                            <li>
+                                <a href="">
+                                    <p>INICIO</p>
+                                    <span>Lanzamientos y Novedades</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
+                                    <span>Ofertas hasta 65% de Dscto.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>MIS OFERTAS</p>
+                                    <span>Ofertas creadas para tí.</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/corazon.png")" class="icono-menu" alt="">REVISAR <br><span class="bc_campana">C - 15</span></a>
-                        <ul>
-                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
-                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        <a href="javascript:;">
+                            <img src="@Url.Content("~/Content/Images/Esika/corazon-menu.png")" alt="" class="icono">
+                            <p>REVISAR C-15</p>
+                        </a>
+                        <ul class="sbmenu_estrategia" style="display:none;">
+                            <li>
+                                <a href="">
+                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
+                                    <span>Ofertas hasta 65% de Dscto.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>INICIO</p>
+                                    <span>Lanzamientos y Novedades</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>MIS OFERTAS</p>
+                                    <span>Ofertas creadas para tí.</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:;"><img src="@Url.Content("~/Content/Images/RevistaDigital/interrogacion.png")" class="icono-menu" alt="">SABER <br>MÁS</a>
-                        <ul>
-                            <li><a href="javascript:;"><p>DIA DEL AMOR Y LA AMISTAD</p><div class="separa-titulo"></div><span>Lanzamientos y novedades</span></a></li>
-                            <li><a href="javascript:;"><p>MIS OFERTAS</p><div class="separa-titulo"></div><span>Ofertas hasta 65% de Dscto.</span></a></li>
-                            <li><a href="javascript:;"><p>Inicio</p><div class="separa-titulo"></div><span>Ofertas creadas para tí.</span></a></li>
+                        <a href="javascript:;">
+                            <img src="@Url.Content("~/Content/Images/Esika/signo-menu.png")" alt="" class="icono">
+                            <p>SABER MÁS</p>
+                        </a>
+                        <ul class="sbmenu_estrategia" style="display:none;">
+                            <li>
+                                <a href="">
+                                    <p>MIS OFERTAS</p>
+                                    <span>Ofertas creadas para tí.</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>INICIO</p>
+                                    <span>Lanzamientos y Novedades</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
+                                    <span>Ofertas hasta 65% de Dscto.</span>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
-            </div>   
+            </div>  
         </div>
-        <div style="margin: 0 0 0 16.5%;">
+        <div>
             @if (!(controllerAction == "bienvenidaindex"
                             || controllerAction == "showroomindex"
                             || controllerAction == "showroomintriga"
@@ -915,13 +969,21 @@
 
         $(document).ready(function () {
 
-            $('ul.bc_opciones li ul li a').hover(function(e) {
+            $('ul.menu_estrategia li ul li a').hover(function(e) {
                 $(this).find('p').css('font-weight', 'bolder')
             }, function(e) {
                 $(this).find('p').css('font-weight', 'normal')
             });
 
-            $('ul.bc_opciones li').hover(function(e) {
+            $('ul.menu_estrategia li').hover(function(e) {
+                $(this).addClass('ul.menu_estrategia li.seleccionado');
+                $(this).find('p').css('color', 'white');
+                $('ul.sbmenu_estrategia li a p').css('color', '#333');
+            }, function(e) {
+                /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
+            });
+
+            $('ul.menu_estrategia li').hover(function(e) {
                 $(this).find('ul').css({
                     display: "block"
                 });
@@ -929,7 +991,7 @@
                 $(this).find('ul').css({
                     display: "none"
                 });
-                $("ul.bc_opciones li ul.default").css({
+                $("ul.menu_estrategia li ul.default").css({
                     display: "block"
                 });
             });

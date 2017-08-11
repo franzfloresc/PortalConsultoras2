@@ -16,6 +16,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int ConfiguracionPaisID { get; set; }
         [DataMember]
+        public int CampaniaID { get; set; }
+        [DataMember]
         public int DesktopOrden { get; set; }
         [DataMember]
         public int MobileOrden { get; set; }
@@ -40,9 +42,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string MobileTipoEstrategia { get; set; }
         [DataMember]
-        public string DesktopMaxProductos { get; set; }
+        public int DesktopCantidadProductos { get; set; }
         [DataMember]
-        public string MobileMaxProductos { get; set; }
+        public int MobileCantidadProductos { get; set; }
         [DataMember]
         public bool DesktopActivo { get; set; }
         [DataMember]
@@ -64,8 +66,8 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileTipoPresentacion")) MobileTipoPresentacion = Convert.ToInt32(row["MobileTipoPresentacion"]);
             if (row.HasColumn("DesktopTipoEstrategia")) DesktopTipoEstrategia = Convert.ToString(row["DesktopTipoEstrategia"]);
             if (row.HasColumn("MobileTipoEstrategia")) MobileTipoEstrategia = Convert.ToString(row["MobileTipoEstrategia"]);
-            if (row.HasColumn("DesktopMaxProductos")) DesktopMaxProductos = Convert.ToString(row["DesktopMaxProductos"]);
-            if (row.HasColumn("MobileMaxProductos")) MobileMaxProductos = Convert.ToString(row["MobileMaxProductos"]);
+            if (row.HasColumn("DesktopCantidadProductos")) DesktopCantidadProductos = Convert.ToInt32(row["DesktopCantidadProductos"]);
+            if (row.HasColumn("MobileCantidadProductos")) MobileCantidadProductos = Convert.ToInt32(row["MobileCantidadProductos"]);
             if (row.HasColumn("DesktopActivo")) DesktopActivo = Convert.ToBoolean(row["DesktopActivo"]);
             if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
         }

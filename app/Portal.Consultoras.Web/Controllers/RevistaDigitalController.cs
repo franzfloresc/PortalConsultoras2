@@ -151,7 +151,93 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+        
+        [HttpPost]
+        public JsonResult RDObtenerProductosSeccionHome(string codigo, int campaniaId)
+        {
+            try
+            {
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
 
+                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
+
+                var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var listaFinal1 = ConsultarEstrategiasModel("", 0, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                var cantidadProd = seccion.CantidadProductos > 0 ? seccion.CantidadProductos : listaFinal1.Count();
+                listModel = listModel.Skip(0).Take(cantidadProd).ToList();
+                
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos"
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RDObtenerProductosSeccionLanzamiento(string codigo, int campaniaId)
+        {
+            try
+            {
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
+
+                var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                var cantidadProd = seccion.CantidadProductos > 0 ? seccion.CantidadProductos : listaFinal1.Count();
+                listModel = listModel.Skip(0).Take(cantidadProd).ToList();
+                
+                return Json(new
+                {
+                    success = true,
+                    listaLan = listModel
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos"
+                });
+            }
+        }
+        
         [HttpPost]
         public JsonResult GetProductoDetalle(int id, int campaniaId)
         {
