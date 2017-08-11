@@ -969,7 +969,12 @@ function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
-    dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Click enlace',
+        'label': 'Términos y Condiciones'
+    });
 };
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {

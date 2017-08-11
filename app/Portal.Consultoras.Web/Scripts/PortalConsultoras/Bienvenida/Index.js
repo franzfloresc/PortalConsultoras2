@@ -3451,7 +3451,9 @@ function VerShowRoomVenta() {
 
 function CerrarPopShowroomIntriga()
 {
-    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' - Entérate';
+    var nombre = $("#spnShowRoomEvento").val();
+    var tema = $("#spnShowRoomEventoDescripcion").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' - Entérate';
     
     dataLayer.push({
         'event': 'virtualEvent',
@@ -3460,12 +3462,31 @@ function CerrarPopShowroomIntriga()
         'label': 'Cerrar Popup'
     });
 
-    CerrarPopup("#PopShowroomVenta");
     CerrarPopup("#PopShowroomIntriga");
 }
 
+function CerrarPopShowroomVenta() {
+    var nombre = $("#spnShowRoomEventoVenta").val();
+    var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' -  Compra Ya';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action,
+        'label': 'Cerrar Popup'
+    });
+
+    CerrarPopup("#PopShowroomVenta");
+}
+
 function SRPopupCerrar(tipo) {
-    CerrarPopShowroomIntriga();
+    if (tipo == 'I')
+        CerrarPopShowroomIntriga();
+
+    if (tipo == 'V')
+        CerrarPopShowroomVenta();
+
     AbrirLoad();
     $.ajax({
         type: 'POST',
@@ -3493,7 +3514,8 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
 
@@ -3503,6 +3525,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
