@@ -3025,7 +3025,8 @@ function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, t
     var streventoNombre = "";
     if (tipo == "1") {
         streventoNombre = eventoNombre + ' ' + tema + ' - Compra Ya';
-    } else {
+    }
+    if (tipo == "2") {
         streventoNombre = eventoNombre + ' ' + tema + ' - Entérate';
     }
     
@@ -3073,7 +3074,9 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     var name = "";  
 
     if (tipo == 1) {
-        name = $("#spnShowRoomEvento").html() + ' - Compra Ya';
+        var nombre = $("#spnShowRoomEventoVenta").val();
+        var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+        name = nombre + ' ' + tema +  ' - Compra Ya';
         id = $("#hdEventoIDShowRoomVenta").val();
     }
 
