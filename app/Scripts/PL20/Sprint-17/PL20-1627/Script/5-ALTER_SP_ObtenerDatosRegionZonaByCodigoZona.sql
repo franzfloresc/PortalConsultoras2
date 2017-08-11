@@ -7,14 +7,9 @@ as
 dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
-
-declare @EsOfertaFinalZonaValida int
-set @EsOfertaFinalZonaValida = 0;
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-set @EsOfertaFinalZonaValida = 1;
 	
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -39,13 +34,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '1508'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-set @EsOfertaFinalZonaValida = 1;
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -70,13 +60,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '1508'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-set @EsOfertaFinalZonaValida = 1;
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -100,13 +85,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -132,13 +112,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -165,13 +140,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -198,13 +168,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -231,13 +196,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -264,13 +224,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -297,13 +252,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -330,13 +280,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -363,13 +308,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
@@ -396,13 +336,8 @@ dbo.ObtenerDatosRegionZonaByCodigoZona '7413'
 */
 begin
 
-declare @EsOfertaFinalZonaValida int = 0
-
-if exists(select 1 from dbo.fnConfiguracionPais_GetAll('','',@CodigoZona,'','') where Codigo in ('OFT','OFC') and Estado = 1)
-	set @EsOfertaFinalZonaValida = 1
-
 select 
-	@EsOfertaFinalZonaValida as EsOfertaFinalZonaValida, 
+	0 as EsOfertaFinalZonaValida, 
 	z.ZonaID, 
 	z.Codigo as CodigoZona, 
 	r.RegionID, 
