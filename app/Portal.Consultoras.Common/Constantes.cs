@@ -943,7 +943,7 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";

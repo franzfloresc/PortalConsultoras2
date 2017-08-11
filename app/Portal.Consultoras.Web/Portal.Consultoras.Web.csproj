@@ -368,6 +368,7 @@
     <Compile Include="CustomHelpers\UploadHelper.cs" />
     <Compile Include="GestionPasos\AsignacionFactory.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaBolivia.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
@@ -3317,7 +3318,6 @@
     <Content Include="Areas\Mobile\Views\Catalogo\MiRevista.cshtml" />
     <Content Include="Areas\Mobile\Views\CatalogoPersonalizado\Producto.cshtml" />
     <Content Include="Areas\Mobile\Views\Notificaciones\DetalleObservacionesStock.cshtml" />
-    
     <Content Include="Content\ArchivoNivelRiesgo\09c7704a-8f6e-435e-80b8-bfabc1aee123.xlsx" />
     <Content Include="Content\ArchivoNivelRiesgo\0ddd711e-3e27-4742-8cd9-1605a67ac0a5.xlsx" />
     <Content Include="Content\ArchivoNivelRiesgo\6c6c9b46-a0ce-41e1-bff2-677306222d68.xlsx" />
@@ -3379,6 +3379,15 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService.disco" />
+    <None Include="Service References\ServiceCliente\ClienteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">
@@ -3428,6 +3437,7 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3551,6 +3561,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
