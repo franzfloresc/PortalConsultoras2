@@ -429,7 +429,7 @@
         $("#src-" + nombreCampo).attr("src", urlS3 + valor);
     };
 
-    var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado) {
+    var _mostrarInformacionCUV = function mostrarInformacionCUV(cuvIngresado, isNuevo) {
         $("#hdnCodigoSAP").val("");
         $("#hdnEnMatrizComercial").val("");
         if (cuvIngresado.length == 5) {
@@ -447,6 +447,8 @@
             }
             else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
                 flagOD = auxOD;
+            } else if (!isNuevo) {
+                flagOD = '99';
             } else {
                 flagOD = '0';
             }
@@ -478,16 +480,13 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            $("#txtPrecio2")[0].disabled = true;
                         }
                         else if (data.wsprecio == 0) {
                             if (data.precio == 0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
                             }
                             else {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
                             }
                         }
                         else if (data.wsprecio == -1) {
@@ -599,9 +598,9 @@
 
             return false;
         },
-        mostrarInformacionCUV: function (cuv2) {
+        mostrarInformacionCUV: function (cuv2, isNuevo) {
 
-            _mostrarInformacionCUV(cuv2);
+            _mostrarInformacionCUV(cuv2, isNuevo);
             return false;
         },
         eliminar: function (id, event) {
