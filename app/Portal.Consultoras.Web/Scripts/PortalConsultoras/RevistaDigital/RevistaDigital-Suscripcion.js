@@ -114,10 +114,6 @@ function RDDesuscripcion(accion) {
                 $("[data-estadoregistro1]").hide();
                 $("[data-estadoregistro2]").show();
             }
-
-            //$('html, body').animate({
-            //    scrollTop: $(window).scrollTop() - 200
-            //}, 1000, 'swing');
         },
         error: function (data, error) {
             CerrarLoad();
@@ -152,7 +148,6 @@ function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
     window.location = url;
-    window.location.reload();
 }
 
 function RDRedireccionarDesuscripcion() {
@@ -160,12 +155,13 @@ function RDRedireccionarDesuscripcion() {
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital"); //urlRevistaDigital;
     var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
-    window.location.reload();
 }
 
-function RDRedireccionarDetalle(cuv, campaniaId) {
+function RDRedireccionarDetalle(event) {
+    var obj = EstrategiaObtenerObj(event);
+    EstrategiaGuardarTemporal(obj);
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
-    window.location = url + "?cuv=" + cuv + "&campaniaId=" + campaniaId;
+    window.location = url + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
 }
 
 function MostrarTerminos() {
@@ -175,7 +171,6 @@ function MostrarTerminos() {
         win.focus();
     } else {
         //Browser has blocked it
-        //alert('Please allow popups for this website');
         console.log("Habilitar mostrar popup");
     }
 }

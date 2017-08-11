@@ -694,5 +694,16 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
+
+        #region ConfiguracionPais
+        [OperationContract]
+        List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil);
+
+        [OperationContract]
+        BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId);
+
+        [OperationContract]
+        void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
+        #endregion
     }
 }

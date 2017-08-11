@@ -868,10 +868,11 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             model.RevistaDigital.NoVolverMostrar = true;
+                            if(model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
-                            var config = new BEConfiguracionPais
+                            var config = new ServiceUsuario.BEConfiguracionPais
                             {
-                                Detalle = new BEConfiguracionPaisDetalle
+                                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
                                 {
                                     PaisID = model.PaisID,
                                     CodigoConsultora = model.CodigoConsultora,
@@ -885,7 +886,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
                                 var listaConfigPais = sv.GetConfiguracionPais(config);
-                                model.ConfiguracionPais = Mapper.Map<IList<BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+                                model.ConfiguracionPais = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
                             }
 
                             if (model.ConfiguracionPais.Any())
