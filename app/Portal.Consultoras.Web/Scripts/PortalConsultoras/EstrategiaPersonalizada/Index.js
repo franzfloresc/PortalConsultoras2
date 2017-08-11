@@ -10,10 +10,10 @@ var sProps = {
 };
 
 $(document).ready(function () {
-    SeccionCargarProductos();
+    SeccionRender();
 });
 
-function SeccionCargarProductos() {
+function SeccionRender() {
     var listaSecciones = $(sElementos.seccion);
     if (listaSecciones.length === 0)
         return false;
@@ -21,6 +21,7 @@ function SeccionCargarProductos() {
     $.each(listaSecciones, function (ind, seccion) {
         $(seccion).find(sElementos.load).show();
         var objSeccion = SeccionObtenerSeccion(seccion);
+        objSeccion.Codigo = $.trim(objSeccion.Codigo);
         if (objSeccion.Codigo !== "") {
             SeccionCargarProductos(objSeccion);
         }
@@ -44,19 +45,19 @@ function SeccionObtenerSeccion(seccion) {
     });
 
     var param = {
-        Codigo: codigo,
-        CampaniaId: campania
+        codigo: codigo,
+        campaniaId: campania
     }
 
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: sProps.UrlObtenerSeccion,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
         async: false,
         success: function (data) {
-            detalle = data || {};
+            detalle = data.seccion || {};
         },
         error: function (error, x) {
             console.log(error, x);
@@ -69,20 +70,26 @@ function SeccionObtenerSeccion(seccion) {
 function SeccionCargarProductos(objConsulta) {
     
     objConsulta = objConsulta || {};
-    if (typeof objConsulta.urlObtenerProductos === "undefined")
+    if (typeof objConsulta.UrlObtenerProductos === "undefined")
         return false;
+
+    var param = {
+        codigo: objConsulta.Codigo,
+        campaniaId: objConsulta.CampaniaID
+    }
 
     $.ajaxSetup({
         cache: false
     });
 
     $.ajax({
-        type: 'GET',
-        url: objConsulta.urlObtenerProductos,
+        type: 'POST',
+        url: objConsulta.UrlObtenerProductos,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: true,
         success: function (data) {
+            console.log(data);
             data.Seccion = objConsulta;
             SeccionMostrarProductos(data);
         },
@@ -101,7 +108,7 @@ function SeccionMostrarProductos(data) {
     if (divListadoProductos.length !== 1) 
         return false
     
-    SetHandlebars(data.template, data.lista, divListadoProductos);
+    SetHandlebars(data.Seccion.Template, data.lista, divListadoProductos);
 
     if (data.seccion.Tipo) {
         // Carrusel

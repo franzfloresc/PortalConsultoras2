@@ -2470,7 +2470,66 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
+        
+        #region Configuracion Seccion Palanca
+        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
+        {
+            if (Session[Constantes.ConstSession.ListadoSeccionPalanca] != null)
+            {
+                return (List<ConfiguracionSeccionHomeModel>)Session[Constantes.ConstSession.ListadoSeccionPalanca];
+            }
 
+            var modelo = new List<ConfiguracionSeccionHomeModel>();
+
+            // string Codigo, string CampaniaId, parametros en caso traer con ese filtro
+            //var entidad = new ConfiguracionSeccionHomeModel();
+            //using (PedidoServiceClient sv = new PedidoServiceClient())
+            //{
+            //    var lista = sv.GetEstrategiasPedido(entidad).ToList();
+            //    modelo = AutoMapper.Mapper.Map<>(lista);
+            //}
+
+            if (!modelo.Any())
+            {
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "001", TipoPresentacion = "carrusel-previsuales", CantidadMostrar = 3, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = "" });
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "002", TipoPresentacion = "seccion-simple-centrado", CantidadMostrar = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
+            }
+
+            foreach (var seccion in modelo)
+            {
+                seccion.Codigo = Util.Trim(seccion.Codigo);
+
+                switch (seccion.Codigo)
+                {
+                    case "001":
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosHome";
+                        seccion.Template = "#lanzamiento-carrusel-template";
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            Session[Constantes.ConstSession.ListadoSeccionPalanca] = modelo;
+
+            return modelo;
+
+        }
+
+        public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
+        {
+            var seccion = new ConfiguracionSeccionHomeModel();
+            var modelo = ObtenerConfiguracion();
+            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
+            if (campaniaId > -1)
+            {
+                var modeloX = modelo.Where(m => m.CampaniaID <= campaniaId).OrderByDescending(m => m.CampaniaID).ToList();
+                seccion = new ConfiguracionSeccionHomeModel();
+                if (modeloX.Any()) seccion = modeloX[0];
+            }
+            return seccion;
+        }
+        #endregion
     }
 }
 

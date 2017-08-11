@@ -151,6 +151,111 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
+        
+        [HttpPost]
+        public JsonResult RDObtenerProductosSeccionHome(string codigo, int campaniaId)
+        {
+            try
+            {
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
+
+                var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, palanca);
+                var cantidadProd = seccion.CantidadMostrar > 0 ? seccion.CantidadMostrar : listaFinal1.Count();
+                listaFinal1 = listaFinal1.Skip(0).Take(cantidadProd).ToList();
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+
+                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                int cantidadTotal = listModel.Count;
+                
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel,
+                    listaLan = listModelLan,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidadTotal,
+                    campaniaId = campaniaId
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult RDObtenerProductosSeccionLanzamiento(string codigo, int campaniaId)
+        {
+            try
+            {
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(campaniaId))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "",
+                        lista = new List<ShowRoomOfertaModel>(),
+                        cantidadTotal = 0,
+                        cantidad = 0
+                    });
+                }
+
+                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
+
+                var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, palanca);
+                var cantidadProd = seccion.CantidadMostrar > 0 ? seccion.CantidadMostrar : listaFinal1.Count();
+                listaFinal1 = listaFinal1.Skip(0).Take(cantidadProd).ToList();
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+
+                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
+                int cantidadTotal = listModel.Count;
+
+                return Json(new
+                {
+                    success = true,
+                    lista = listModel,
+                    listaLan = listModelLan,
+                    cantidadTotal = cantidadTotal,
+                    cantidad = cantidadTotal,
+                    campaniaId = campaniaId
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al cargar los productos",
+                    data = ""
+                });
+            }
+        }
+
 
         [HttpPost]
         public JsonResult GetProductoDetalle(int id, int campaniaId)
