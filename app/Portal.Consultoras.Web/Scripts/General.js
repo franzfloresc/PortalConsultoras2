@@ -922,12 +922,8 @@ function LayoutHeader() {
 
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
-    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
     $("[data-content]").css("margin-top", (wtop) + "px");
-}
-function LayoutHeaderFin() {
-    var wtop = $("header").innerHeight();
-    $("[data-content]").css("margin-top", (wtop) + "px");
+    $("[data-content] ul.sbmenu_estrategia").css("top", (wtop) + "px");
 }
 function LayoutMenu() {
     LayoutMenuFin();
