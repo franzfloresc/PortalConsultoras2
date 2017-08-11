@@ -82,11 +82,19 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
+    console.log(objConsulta);
+
+    var param = {
+        codigo: objConsulta.Codigo,
+        campaniaId: objConsulta.CampaniaID
+    }
+
     $.ajax({
         type: 'POST',
-        url: objConsulta.UrlObtenerProductos,
+        url: baseUrl + objConsulta.UrlObtenerProductos,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
         async: true,
         success: function (data) {
             console.log(data);
@@ -108,9 +116,62 @@ function SeccionMostrarProductos(data) {
     if (divListadoProductos.length !== 1) 
         return false
     
-    SetHandlebars(data.Seccion.Template, data.lista, divListadoProductos);
+    SetHandlebars(data.Seccion.Template, data, divListadoProductos);
 
-    if (data.seccion.Tipo) {
-        // Carrusel
+    if (data.seccion.TipoPresentacion == "carrusel-previsuales") {
+        RenderCarruselPrevisuales(htmlSeccion);
     }
+}
+
+function RenderCarruselPrevisuales(divProd) {
+    if (typeof divProd == "undefined") {
+        return false;
+    }
+    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
+    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        vertical: false,
+        dots: false,
+        infinite: true,
+        speed: 300,
+        slidesToShow: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
+    }).on('afterChange', function (event, slick, currentSlide) {
+
+        var slides = (slick || new Object()).$slides || new Array();
+        if (slides.length == 0) {
+            return false;
+        }
+
+        var prev = -1, next = slides.length;
+        $.each(slides, function (ind, item) {
+            var itemSel = $(item);
+            if ($(itemSel).hasClass("slick-active")) {
+                prev = prev < 0 ? ind : prev;
+                next = prev < 0 ? next : ind;
+            }
+        });
+
+        prev = prev == 0 ? slides.length - 1 : (prev - 1);
+        next = next == slides.length - 1 ? 0 : (next + 1);
+
+        var imgPrevia = $.trim($(slides[prev]).attr("data-ImgPrevia"));
+        slick.$prevArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$prevArrow.find("img[data-prev]").hide();
+        }
+        else {
+            slick.$prevArrow.find("img[data-prev]").show();
+        }
+        imgPrevia = $.trim($(slides[next]).attr("data-ImgPrevia"));
+        slick.$nextArrow.find("img[data-prev]").attr("src", imgPrevia);
+        if (imgPrevia == "") {
+            slick.$nextArrow.find("img[data-prev]").hide();
+        }
+        else {
+            slick.$nextArrow.find("img[data-prev]").show();
+        }
+    });
 }

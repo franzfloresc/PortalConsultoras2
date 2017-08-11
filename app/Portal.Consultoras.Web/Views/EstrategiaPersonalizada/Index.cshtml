@@ -11,42 +11,21 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
 }
-<style>
-   /* .catalogoPersonalizadoBloque {
-    background: #f6f6f6;
-    width: 800px;
-    margin: auto;
-}
-    .imagen_fondo {
-    background: white;
-}
-    .content_slider_ept {
-    background: white;
-}
-    .imagen_fondo {
-    min-height: 380px;
-}
-    .content_item_ept {
-    min-height: 400px;
-}*/
-</style>
-@*<div class="bc_contenido">
+
+<div class="bc_estrategia_contenido">
     @foreach (var seccion in Model.ListaSeccion)
     {
         <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
-            <div>@seccion.Titulo</div>
             <div data-seccion-content="">
                 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TipoPresentacion + ".cshtml", seccion)
             </div>
-            <div data-seccion-load="">
-                Load :) :)
-            </div>
-            <div class="bc_vineta_baja" style="margin-bottom:15px;">
+            <div data-seccion-load=""></div>
+            <div class="bc_vineta_baja">
                 <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
             </div>
         </div>
     }
-</div>*@
+</div>
 
 <div class="bc_estrategia_contenido">
     <div class="bc_slider">

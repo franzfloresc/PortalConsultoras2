@@ -2457,6 +2457,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
         }
+
         public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
         {
             var valor = "";
@@ -2491,8 +2492,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (!modelo.Any())
             {
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "001", TipoPresentacion = "carrusel-previsuales", CantidadMostrar = 3, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = "" });
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "002", TipoPresentacion = "seccion-simple-centrado", CantidadMostrar = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
+                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "001", TipoPresentacion = "carrusel-previsuales", CantidadProductos = 3, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = "" });
+                //modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "002", TipoPresentacion = "seccion-simple-centrado", CantidadProductos = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
             }
 
             foreach (var seccion in modelo)
@@ -2502,8 +2503,12 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (seccion.Codigo)
                 {
                     case "001":
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosHome";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
                         seccion.Template = "#lanzamiento-carrusel-template";
+                        break;
+                    case "002":
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
+                        seccion.Template = "#producto-landing-template";
                         break;
                     default:
                         break;
@@ -2520,7 +2525,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var seccion = new ConfiguracionSeccionHomeModel();
             var modelo = ObtenerConfiguracion();
-            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
+            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo && m.IsMobile == IsMobile()).ToList();
             if (campaniaId > -1)
             {
                 var modeloX = modelo.Where(m => m.CampaniaID <= campaniaId).OrderByDescending(m => m.CampaniaID).ToList();

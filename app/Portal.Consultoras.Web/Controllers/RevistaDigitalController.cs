@@ -172,24 +172,16 @@ namespace Portal.Consultoras.Web.Controllers
                 var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
 
                 var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
-                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, palanca);
-                var cantidadProd = seccion.CantidadMostrar > 0 ? seccion.CantidadMostrar : listaFinal1.Count();
-                listaFinal1 = listaFinal1.Skip(0).Take(cantidadProd).ToList();
+                var listaFinal1 = ConsultarEstrategiasModel("", 0, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
-
-                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-                int cantidadTotal = listModel.Count;
+                var cantidadProd = seccion.CantidadProductos > 0 ? seccion.CantidadProductos : listaFinal1.Count();
+                listModel = listModel.Skip(0).Take(cantidadProd).ToList();
                 
                 return Json(new
                 {
                     success = true,
-                    lista = listModel,
-                    listaLan = listModelLan,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = campaniaId
+                    lista = listModel
                 });
             }
             catch (Exception ex)
@@ -198,8 +190,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
+                    message = "Error al cargar los productos"
                 });
             }
         }
@@ -225,23 +216,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = Constantes.TipoEstrategiaCodigo.RevistaDigital;
                 var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, palanca);
-                var cantidadProd = seccion.CantidadMostrar > 0 ? seccion.CantidadMostrar : listaFinal1.Count();
-                listaFinal1 = listaFinal1.Skip(0).Take(cantidadProd).ToList();
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
-
-                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-                int cantidadTotal = listModel.Count;
-
+                listModel = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                var cantidadProd = seccion.CantidadProductos > 0 ? seccion.CantidadProductos : listaFinal1.Count();
+                listModel = listModel.Skip(0).Take(cantidadProd).ToList();
+                
                 return Json(new
                 {
                     success = true,
-                    lista = listModel,
-                    listaLan = listModelLan,
-                    cantidadTotal = cantidadTotal,
-                    cantidad = cantidadTotal,
-                    campaniaId = campaniaId
+                    listaLan = listModel
                 });
             }
             catch (Exception ex)
@@ -250,13 +233,11 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "Error al cargar los productos",
-                    data = ""
+                    message = "Error al cargar los productos"
                 });
             }
         }
-
-
+        
         [HttpPost]
         public JsonResult GetProductoDetalle(int id, int campaniaId)
         {

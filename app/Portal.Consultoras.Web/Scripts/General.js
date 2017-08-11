@@ -320,18 +320,19 @@ jQuery(document).ready(function () {
 
     }
     SetHandlebars = function (idTemplate, data, idHtml) {
+        console.log(idTemplate, data, idHtml);
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
-        if ($(idTemplate).length == 0) {
-            return false;
-        }
+        if ($(idTemplate).length == 0) return false;
+        if (typeof data === "undefined") return false;
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
-        idHtml = $.trim(idHtml);
+        idHtml = typeof idHtml == "string" ? $.trim(idHtml) : idHtml;
         if (idHtml == "") return htmlDiv;
+        if ($(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
