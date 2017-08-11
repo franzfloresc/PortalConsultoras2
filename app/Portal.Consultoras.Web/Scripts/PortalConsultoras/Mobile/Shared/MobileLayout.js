@@ -190,7 +190,7 @@
                         {
                             'id': eventId,
                             'name': eventName,
-                            'position': 'Home pop-up - 1',
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
@@ -215,7 +215,7 @@
                         {
                             'id': eventId,
                             'name': eventName,
-                            'position': 'Home pop-up - 1',
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
