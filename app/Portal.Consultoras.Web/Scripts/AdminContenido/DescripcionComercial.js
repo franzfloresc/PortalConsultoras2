@@ -91,7 +91,7 @@ var DescripcionComercial = function (config) {
     };
 
     var _validarCampoObligatorio = function (valor) {
-        return (valor.length <= 0);
+        return (valor.trim().length === 0);
     };
 
     var _actualizarDescripcionComercialActionSuccess = function (response) {
