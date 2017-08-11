@@ -13,6 +13,7 @@
     };
 
     var _editData = {};
+    var _idImagen;
 
     var _paginadorClick = function (page) {
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
@@ -482,16 +483,13 @@
 
                         if (data.wsprecio > 0) {
                             $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            //$("#txtPrecio2")[0].disabled = true;
                         }
                         else if (data.wsprecio == 0) {
                             if (data.precio == 0) {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                //$("#txtPrecio2")[0].disabled = true;
                             }
                             else {
                                 $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                //$("#txtPrecio2")[0].disabled = true;
                             }
                         }
                         else if (data.wsprecio == -1) {
@@ -512,6 +510,11 @@
                         _editData.IdMatrizComercial = data.idMatrizComercial;
                         _editData.imagenes = [];
                         _editData.imagen = null;
+
+                        if (_idImagen != 0) {
+                            var imagen = jQuery("#list").jqGrid('getCell', _idImagen, 'ImagenURL') || "";
+                            _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+                        };
 
                         _limpiarFiltrosNemotecnico();
 
@@ -597,7 +600,7 @@
                     CampaniaID: $("#ddlCampania").val()
                 };
 
-
+                _idImagen = id;
                 _editar(params, id);
             }
 

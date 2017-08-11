@@ -5,9 +5,8 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
-
 
 
 USE BelcorpChile
@@ -17,7 +16,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpColombia
@@ -27,7 +26,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpCostaRica
@@ -37,7 +36,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpDominicana
@@ -47,7 +46,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpEcuador
@@ -57,7 +56,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpGuatemala
@@ -67,7 +66,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpMexico
@@ -77,7 +76,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpPanama
@@ -87,7 +86,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpPeru
@@ -97,7 +96,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpPuertoRico
@@ -107,7 +106,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpSalvador
@@ -117,7 +116,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 USE BelcorpVenezuela
@@ -127,7 +126,7 @@ IF EXISTS(SELECT 1 FROM sys.columns
           WHERE Name = N'DescripcionComercial'
           AND Object_ID = Object_ID(N'MatrizComercialImagen'))
 BEGIN
-    ALTER TABLE MatrizComercialImagen DROP DescripcionComercial;
+    ALTER TABLE MatrizComercialImagen DROP COLUMN DescripcionComercial;
 END
 
 
