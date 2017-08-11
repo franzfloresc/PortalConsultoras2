@@ -20926,7 +20926,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     margin:0 auto;
-    margin-top: 45px !important;
+    /*margin-top: 45px !important;*/
     font-weight:700;
 }
 .boton_ultimos_movimientos:hover{
@@ -22033,18 +22033,19 @@ body{
     margin-top:10px;
 }
 .logos_bancos{
-    width:25%;
-    float:left;
-    margin-top:70px;
-    
+    width: 25%;
+    /* float: left; */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 70px;
+    margin-left: -2px;    
 }
 .logos_bancos:hover{
     filter: alpha(opacity=50);
     -moz-opacity: 0.50;
     opacity: 0.50;
-    -khtml-opacity: 0.50;   
-
-    }
+    -khtml-opacity: 0.50;
+}
 .tutoriales_svg{
     background: url(../../../Images/Esika/tutorial.png) no-repeat;
     background-position: 2px 3px;
@@ -31068,18 +31069,6 @@ h1#penmostreo .campana {
     background:#d1d1d1;
 }*/
 
-.content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
-}
-
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -33574,15 +33563,15 @@ h1#penmostreo .campana {
 }
 
 .content_pasos_linea {
-        position: relative;
-        width: 99%;
-        height: 2px;      
-        z-index: 3;
+    position: relative;
+    width: 99%;
+    height: 2px;      
+    z-index: 3;
     left: 0;
     width: 310px;
     margin: 0 auto;
     margin-top: -18px;
-        background: #d1d1d1;
+    background: #d1d1d1;
 }
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante{
