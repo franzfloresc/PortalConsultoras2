@@ -9,20 +9,6 @@ update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 3012
 
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
-, IdPadre = 1003
-, OrdenItem = 13
-where PermisoId = 1006
-
-go
-
 declare @maxPermiso int = 0, @codigoMenu varchar(100) = 'RevistaDigitalShowRoom'
 select top 1 @maxPermiso = PermisoID + 1 from Permiso order by PermisoID desc
 
@@ -53,18 +39,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 2004
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
 use [BelcorpChile]
 
 go 
@@ -72,18 +46,6 @@ go
 update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 2004
-
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
 
 go
 
@@ -95,18 +57,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 1005
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
 
 use [BelcorpCostaRica]
 
@@ -114,18 +64,6 @@ go
 update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 1008
-
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
 
 go
 
@@ -138,18 +76,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 2004
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
 
 use [BelcorpEcuador]
 
@@ -157,19 +83,6 @@ go
 update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 2
-
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
 
 go
 
@@ -181,18 +94,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 6
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
 
 use [BelcorpMexico]
 
@@ -202,18 +103,6 @@ use [BelcorpMexico]
 --where TipoEstrategiaID = 2
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
 
 use [BelcorpPanama]
 
@@ -221,19 +110,6 @@ go
 update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 8
-
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
 
 go
 
@@ -246,19 +122,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 4
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-
-go
-
 
 use [BelcorpSalvador]
 
@@ -268,17 +131,6 @@ set Codigo = '002'
 where TipoEstrategiaID = 5
 
 go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
-go
 
 use [BelcorpVenezuela]
 
@@ -287,15 +139,4 @@ update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 2
 
-go
-update Permiso
-set Codigo = 'Megocio'
-where PermisoId = 1003
-
-go
-update Permiso
-set Codigo = 'AsesorBelleza'
---, IdPadre = 1003
---, OrdenItem = 13
-where PermisoId = 1006
 go

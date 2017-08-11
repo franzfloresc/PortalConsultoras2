@@ -450,7 +450,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             lista1 = Mapper.Map<List<PermisoModel>>(lst);
             
-
             List<PermisoModel> lstModel = new List<PermisoModel>();
 
             foreach (var permiso in lista1)
