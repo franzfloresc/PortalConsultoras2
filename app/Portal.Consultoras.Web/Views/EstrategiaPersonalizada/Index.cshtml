@@ -30,13 +30,20 @@
     min-height: 400px;
 }
 </style>
-<div class="bc_contenido" data-tag-html="201712">
+<div class="bc_contenido">
     @foreach (var seccion in Model.ListaSeccion)
     {
-        <div>@seccion.Titulo</div>
-        @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-"+ seccion.TipoPresentacion + ".cshtml", seccion)
-        <div class="bc_vineta_baja" style="margin-bottom:15px;">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+        <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+            <div>@seccion.Titulo</div>
+            <div data-seccion-content="">
+                @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TipoPresentacion + ".cshtml", seccion)
+            </div>
+            <div data-seccion-load="">
+                Load :) :)
+            </div>
+            <div class="bc_vineta_baja" style="margin-bottom:15px;">
+                <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+            </div>
         </div>
     }
 </div>
@@ -112,11 +119,7 @@
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
-    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }
