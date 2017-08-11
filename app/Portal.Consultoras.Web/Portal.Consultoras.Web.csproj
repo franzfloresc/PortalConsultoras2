@@ -368,6 +368,7 @@
     <Compile Include="CustomHelpers\UploadHelper.cs" />
     <Compile Include="GestionPasos\AsignacionFactory.cs" />
     <Compile Include="GestionPasos\CorreoHelper.cs" />
+    <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaBolivia.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaCam.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaChile.cs" />
     <Compile Include="GestionPasos\EvaluacionCrediticia\EvaluacionCrediticiaColombia.cs" />
@@ -1187,6 +1188,7 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
+    <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
@@ -2987,9 +2989,11 @@
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
     <Content Include="Content\Temporales\FolderContent.txt" />
+    <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
     <Content Include="Key\KeyPrivadaEnvioCadena.xml" />
     <Content Include="Key\KeyPublicaEnvioCadena.xml" />
+    <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
@@ -4106,6 +4110,8 @@
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
+    <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
