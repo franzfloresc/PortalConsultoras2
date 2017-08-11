@@ -177,8 +177,10 @@
 
     $(".bannersi").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -186,8 +188,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Home pop-up - 1',
                             'creative': 'Banner'
                         }
@@ -200,8 +202,10 @@
 
     $(".bannersc").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -209,8 +213,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Home pop-up - 1',
                             'creative': 'Banner'
                         }
@@ -221,11 +225,12 @@
 
     });
 
-
     $(".wsventa").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -233,8 +238,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -247,8 +252,10 @@
 
     $(".wsintriga").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -256,8 +263,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -267,6 +274,7 @@
         });
 
     });
+
     odd_mobile_google_analytics_promotion_impresion();
 });
 
