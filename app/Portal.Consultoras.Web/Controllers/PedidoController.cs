@@ -2880,7 +2880,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var mensaje = "";
                 if (!(oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal
-                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal))
+                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal
+                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppOfertaFinalSinPopup))
                 {
                     var noPasa = ReservadoEnHorarioRestringido(out mensaje);
                     if (noPasa)
@@ -2967,6 +2968,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
                 //EPD-2248
+                oBEPedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(oBEPedidoWebDetalle.OrigenPedidoWeb);
 
                 switch (TipoAdm)
                 {

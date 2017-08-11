@@ -268,7 +268,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
-               
             List<BEPedidoWebDetalle> listProducto = ObtenerPedidoWebDetalle();
             var rtpa = new List<ObjMontosProl>();
             if (listProducto.Any())
@@ -282,7 +281,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (var sv = new ServicesCalculoPrecioNiveles())
                 {
                     sv.Url = ConfigurationManager.AppSettings[keyWeb]; // Se envían los codigos de concurso.
-                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora.ToString(), userData.CodigoZona.ToString(), ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
+                    rtpa = sv.CalculoMontosProlxIncentivos(userData.CodigoISO, userData.CampaniaID.ToString(), userData.CodigoConsultora, userData.CodigoZona, ListaCUVS, ListaCantidades, userData.CodigosConcursos).ToList();
                 }
             }
             else
@@ -326,7 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         protected void UpdPedidoWebMontosPROL()
-        {   
+        {
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
             ObjMontosProl oRespuestaProl = null;
             string Puntajes = string.Empty;
@@ -373,8 +372,8 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
                 // Insertar/Actualizar los puntos de la consultora.
-                if(!string.IsNullOrEmpty(userData.CodigosConcursos))
-                 sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes, PuntajesExigidos);
+                if (!string.IsNullOrEmpty(userData.CodigosConcursos))
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes, PuntajesExigidos);
             }
 
             // poner en Session
@@ -1857,7 +1856,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
@@ -2449,6 +2448,35 @@ namespace Portal.Consultoras.Web.Controllers
             return valor;
         }
 
+        public MobileAppConfiguracionModel MobileAppConfiguracion
+        {
+            get
+            {
+                return Session["MobileAppConfiguracion"] == null
+                    ? new MobileAppConfiguracionModel()
+                    : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            }
+        }
+
+        /// <summary>
+        /// Genera un codigo equivalente(inicial 4) para pedidos mobile generados desde el app
+        /// </summary>
+        /// <param name="origenActual">Pedido origen actual</param>
+        /// <returns>Codigo de origen referente al app mobile</returns>
+        protected int ProcesarOrigenPedido(int origenActual)
+        {
+            if (!MobileAppConfiguracion.EsAppMobile) return origenActual;
+            if (origenActual.ToString().StartsWith("2") || origenActual.ToString().StartsWith("0"))
+            {
+                var nuevoOrigen = origenActual.ToString()
+                .Remove(0, 1)
+                .Insert(0, "4");
+
+                origenActual = int.Parse(nuevoOrigen);
+            };
+
+            return origenActual;
+        }
     }
 }
 

@@ -401,47 +401,10 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
 
-                    //if (clienteDB.ClienteID == 0)
-                    //{
-                    //    //INSERTAR CLIENTE
-                    //    clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
-                    //    if (clienteDB.ClienteID == 0)
-                    //    {
-                    //        lstResponse.Add(new BEClienteResponse()
-                    //        {
-                    //            ClienteID = clienteDB.ClienteID,
-                    //            ConsultoraID = clienteDB.ConsultoraID,
-                    //            ClienteIDSB = clienteDB.ClienteIDSB,
-                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO,
-                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO]
-                    //        });
-                    //        continue;
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    //ACTUALIZAR CLIENTE
-                    //    var resUpdateCliente = daClienteDB.UpdateCliente(clienteDB);
-
-                    //    if (!resUpdateCliente)
-                    //    {
-                    //        lstResponse.Add(new BEClienteResponse()
-                    //        {
-                    //            ClienteID = clienteDB.ClienteID,
-                    //            ConsultoraID = clienteDB.ConsultoraID,
-                    //            ClienteIDSB = clienteDB.ClienteIDSB,
-                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO,
-                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO]
-                    //        });
-                    //        continue;
-                    //    }
-                    //}
-
                     clienteSB = new BECliente()
                     {
                         ConsultoraID = clienteDB.ConsultoraID,
                         ClienteID = clienteDB.ClienteIDSB,
-                        //Nombre = clienteDB.Nombres,
                         Nombre = clienteDB.NombreCompleto,
                         NombreCliente = clienteDB.Nombres,
                         ApellidoCliente = clienteDB.Apellidos,

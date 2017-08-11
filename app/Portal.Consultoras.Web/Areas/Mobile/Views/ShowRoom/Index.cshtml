@@ -182,10 +182,13 @@
 <!--FIN-->
 
 <div class="titulo_showroom_mobile">
-    <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
-        T&eacute;rminos y condiciones de la @Model.Nombre<br />
-        @Model.Tema
-    </a>
+    @if (mobileConfiguracion.MostrarHipervinculo)
+    {
+        <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
+            T&eacute;rminos y condiciones de la @Model.Nombre<br/>
+            @Model.Tema
+        </a>
+    }
 </div>
 
 @if (Model.TieneCompraXcompra)

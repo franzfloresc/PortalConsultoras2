@@ -12,6 +12,7 @@
       <xs:element minOccurs="0" name="ListPedidoObservacion" nillable="true" type="tns:ArrayOfBEPedidoObservacion" />
       <xs:element minOccurs="0" name="ListaConcursosCodigos" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ListaConcursosPuntaje" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ListaConcursosPuntajeExigido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MontoAhorroCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoAhorroRevista" type="xs:decimal" />
       <xs:element minOccurs="0" name="MontoDescuento" type="xs:decimal" />
@@ -69,6 +70,7 @@
       <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProlV2" type="xs:boolean" />
+      <xs:element minOccurs="0" name="SegmentoInternoID" type="xs:int" />
       <xs:element minOccurs="0" name="Simbolo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Sobrenombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />

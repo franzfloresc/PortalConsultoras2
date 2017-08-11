@@ -1484,6 +1484,45 @@ namespace Portal.Consultoras.Service
             catch (Exception ex) { return new BEResultadoSolicitud(resultado, ex.Message); }
         }
 
+        #region AppCatalogo
+
+        /*      EPD-2035        */
+        public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania)
+        {
+            Boolean error = true;
+            try
+            {
+                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código ISO de País.");
+                if (prefijoISO.Length > 2) return new BEResultadoMisPedidosAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
+                if (tipoUsuario == 1 && (dispositivoID == null || dispositivoID == string.Empty)) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código del dispositivo.");
+                if (tipoUsuario == 2 && consultoraID == 0) return new BEResultadoMisPedidosAppCatalogo(error, "Debe ingresar el código de consultora.");
+
+                int paisID = GetPaisID(prefijoISO);
+                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
+                return blSolicitudCliente.GetPedidosAppCatalogo(paisID, consultoraID, dispositivoID, tipoUsuario, campania);
+            }
+            catch (Exception ex) { return new BEResultadoMisPedidosAppCatalogo(error, ex.Message);}
+        }
+
+        public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID)
+        {
+            Boolean error = true;
+            try
+            {
+                if (prefijoISO == null || prefijoISO == string.Empty) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código ISO de País.");
+                if (prefijoISO.Length > 2) return new BEResultadoPedidoDetalleAppCatalogo(error, "El código ISO de País no puede exceder los 2 caracteres.");
+                if ( pedidoID == 0) return new BEResultadoPedidoDetalleAppCatalogo(error, "Debe ingresar el código del Pedido.");
+
+                int paisID = GetPaisID(prefijoISO);
+                BLSolicitudCliente blSolicitudCliente = new BLSolicitudCliente();
+                return blSolicitudCliente.GetPedidoDetalle(paisID, pedidoID);
+            }
+            catch (Exception ex) { return new BEResultadoPedidoDetalleAppCatalogo(error, ex.Message); }
+        }
+
+        /*      FIN EPD-2035        */
+        #endregion
+
         #region ShowRoom
 
         public BEShowRoomEvento GetShowRoomEventoByCampaniaID(int paisID, int campaniaID)
@@ -2140,7 +2179,7 @@ namespace Portal.Consultoras.Service
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
         }
-
+        
         public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
@@ -2149,6 +2188,40 @@ namespace Portal.Consultoras.Service
         public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
             return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+        }
+
+        #endregion
+
+        #region Producto Comentario
+
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
+        }
+
+        public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);
+        }
+
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            return blEstrategia.GetUltimoProductoComentarioByCodigoSap(paisID, codigoSap);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleResumen(paisID, filter);
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            return blEstrategia.GetListaProductoComentarioDetalleAprobar(paisID, filter);
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
 
         #endregion
