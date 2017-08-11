@@ -184,7 +184,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
             Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
-            Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceUsuario.BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
+            Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()

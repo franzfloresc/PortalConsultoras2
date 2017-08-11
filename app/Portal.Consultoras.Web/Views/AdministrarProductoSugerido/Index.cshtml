@@ -198,7 +198,7 @@
             getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
-            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
+            expValidacionNemotecnico: $.trim(@Html.Raw(Model.ExpValidacionNemotecnico))
         });
         CargarDialog();
         CargarEventos();

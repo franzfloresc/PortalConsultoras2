@@ -366,5 +366,7 @@ namespace Portal.Consultoras.Web.Models
 
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
+
+        public string ClaseLogoSB { get; set; }
     }
 }
