@@ -25,7 +25,7 @@
 }
 <div class="fondo_pestana">
     <div class="titulo_mobile">
-         <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
         &nbsp;&nbsp;LOS MÁS VENDIDOS
     </div>
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -233,7 +233,7 @@
 
     <script id="template-detalle-producto-lista" type="text/x-handlebars-template">        
         <div class="content_carrusel_bestSeller" id="divCarrouselMasVendidosLista">
-            <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+            <div class="titulo_carrusel_best"><b>LOS MÁS VENDIDOS</b></div>
             <div id="Carrusel" class="variable-width">
                 {{#each this.Lista as |item|}}
                 <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"

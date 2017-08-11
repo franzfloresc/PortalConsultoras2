@@ -3674,18 +3674,24 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                RegaloOfertaFinal regalo = null;
+                RegaloOfertaFinalModel model = null;
                 using (ProductoServiceClient ps = new ProductoServiceClient())
                 {
-                    regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
-                    string carpetapais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                    regalo.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetapais, regalo.RegaloImagenUrl, carpetapais);
+                    RegaloOfertaFinal regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                    if (regalo != null)
+                    {
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(regalo);
+                        model.CodigoISO = userData.CodigoISO;
+                        string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, regalo.RegaloImagenUrl, carpetaPais);
+                    }
                 }
 
                 return Json(new
                 {
                     success = true,
-                    data = regalo
+                    data = model
                 });
             }
             catch (Exception ex)
