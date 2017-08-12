@@ -12167,6 +12167,8 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 
 /* CDR MOBILE */
 
+/* INICIO VISTA LISTA DE SOLICITUDES CDR */
+
 .mensaje_vista_cdr, .btn_registrar_solicitud_cdr{
     display:block;
     font-family:'Lato';
@@ -12174,13 +12176,19 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
 }
 
 .mensaje_vista_cdr{
-    font-size:13px;
-    color:#000;
+    font-size: 13px;
+    color: #000;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .mensaje_vista_cdr:first-child{
     margin-top:15px;
     margin-bottom:15px;
+}
+
+.tipografia_lato{
+    font-family:'Lato';
 }
 
 .tipografia_lato_light{
@@ -12311,5 +12319,191 @@ box-shadow: 0px 4px 7px 2px rgba(0,0,0,0.08);
     width:100%;
     height:auto;
 }
+
+/* FIN VISTA LISTA DE SOLICITUDES CDR */
+
+/* INICIO VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
+
+.contenedor_proceso_registro_cdr, .pasos_proceso_registro{
+    display:block;
+    text-align:center;
+}
+
+.pasos_proceso_registro{
+    display: flex;
+    width: 158px;
+    justify-content: space-between;
+    margin: 27px auto 17.2px auto;
+    position:relative;
+}
+
+.icono_paso{
+    vertical-align:middle;
+    width:28.7px;
+    height:28.7px;
+    border-radius:100%;
+    background:#FFF;
+    border:1px solid #000;
+    position:relative;
+    z-index:2;
+}
+
+.icono_paso img{
+    position: relative;
+    top: -1px;
+    left: -1.4px;
+}
+
+.icono_paso_activo{
+    background:#642f80;
+    border:1px solid #642f80;
+}
+
+.linea_conexion_pasos{
+    width: 100%;
+    height: 2px;
+    background: #d1d1d1;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+}
+
+.pregunta_inconveniente_producto{
+    font-size:16px;
+    color:#000;
+    font-family:'Lato';
+    line-height:19px;
+    margin-bottom:36px;
+    padding:0 10px;
+}
+
+.campos_registro_solicitud_cdr{
+    font-family:'Lato';
+}
+
+.formulario_inscripcion{
+    display:block;
+    font-size:15px;
+}
+
+.formulario_inscripcion select, .formulario_inscripcion input[type="text"] {
+    display:block;
+    margin:0 auto;
+    width: 276px;
+    height: 45px;
+    border: solid 1px #b5b5b5;
+    color: #888;
+    padding-left: 15px;
+    margin-bottom:28px;
+    -webkit-appearance:none;
+}
+
+.formulario_inscripcion select{
+    background: url(/Content/Images/mobile/dropdown-arrow.png);
+    background-repeat: no-repeat;
+    background-position: 95.5% center;
+}
+
+.texto_cantidad_productos{
+    display:block;
+    color:#888;
+    margin-bottom:7px;
+}
+
+.contenedor_campo_cantidad_productos{
+    width: 281px;
+    margin: 0 auto 70px auto;
+}
+
+.enlace_solicitudes_anteriores{
+    display:block;
+    text-decoration:none;
+    font-size:13px;
+    margin-bottom:30px;
+}
+
+.enlace_solicitudes_anteriores span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_arrow_left {
+    margin-top: -1px;
+    margin-right: 4px;
+}
+
+.producto_cdr{
+    display:block;
+    width:274px;
+    margin: 0 auto 24px auto;
+}
+
+.enlace_cambiar_producto{
+    display:block;
+    font-size:12px;
+    text-decoration:underline;
+    margin-top:8px;
+}
+
+.lista_opciones_motivo_cdr {
+    display: block;
+    width: 95%;
+    max-width: 650px;
+    margin: 0 auto 47px auto;
+}
+
+.motivo_cdr{
+    display:block;
+    text-align: left;
+    border-bottom: solid 1px #d1d1d1;
+    height: auto;
+    padding: 7px 0 7px 15px;
+    margin-bottom:2px;
+}
+
+.motivo_cdr input[type="radio"]{
+    display:none;
+}
+
+.motivo_cdr input[type="radio"] + label span{
+    width:16px;
+    height:16px;
+    background:#e4e4e4;
+    border-radius:100%;
+    margin-top: -2px;
+    margin-right:25px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.motivo_cdr input[type="radio"]:checked + label span{
+    background:#642f80;
+}
+
+.motivo_cdr input[type="radio"] + label span, .motivo_cdr label{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.motivo_cdr label{
+    font-size: 13px;
+}
+
+.btn_siguiente_paso_cdr{
+    display:block;
+    position:fixed;
+    bottom:0;
+    width:100%;
+    height:54px;
+    background:#642f80;
+    color:#FFF;
+    z-index:1000;
+    letter-spacing:0.4px;
+}
+
+/* FIN VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
 
 /* FIN CDR MOBILE */

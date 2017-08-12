@@ -2501,6 +2501,13 @@
     <Content Include="Content\Images\mobile\app-ios.jpg" />
     <Content Include="Content\Images\mobile\bg_la_01.jpg" />
     <Content Include="Content\Images\mobile\bg_la_02.png" />
+    <Content Include="Content\Images\mobile\cdr_paso1.png" />
+    <Content Include="Content\Images\mobile\cdr_paso1_activo.png" />
+    <Content Include="Content\Images\mobile\cdr_paso2.png" />
+    <Content Include="Content\Images\mobile\cdr_paso2_activo.png" />
+    <Content Include="Content\Images\mobile\cdr_paso3.png" />
+    <Content Include="Content\Images\mobile\cdr_paso3_activo.png" />
+    <Content Include="Content\Images\mobile\dropdown-arrow.png" />
     <Content Include="Content\Images\mobile\Esika\app.png" />
     <Content Include="Content\Images\mobile\Esika\bandera.png" />
     <Content Include="Content\Images\mobile\Esika\banner1.png" />
@@ -2557,6 +2564,8 @@
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
+    <Content Include="Content\Images\mobile\icono-acepto-politica-cdr.png" />
+    <Content Include="Content\Images\mobile\icono-eliminar-cdr.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -2688,6 +2697,7 @@
     <Content Include="Content\Images\mobile\Lbel\menos_footer.png" />
     <Content Include="Content\Images\mobile\Lbel\pestana_lbel.png" />
     <Content Include="Content\Images\mobile\Lbel\video.png" />
+    <Content Include="Content\Images\mobile\left-arrow.png" />
     <Content Include="Content\Images\mobile\LogoBelcorp.png" />
     <Content Include="Content\Images\mobile\LogoFooter.png" />
     <Content Include="Content\Images\mobile\LogoHeader.png" />
@@ -3025,6 +3035,7 @@
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
     <Content Include="Areas\Mobile\Views\MisReclamos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\Reclamo.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
