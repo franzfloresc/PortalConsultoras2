@@ -573,7 +573,14 @@ function EstrategiaVerDetalle(id, origen) {
         if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
-            var obj = GetProductoStorage(cuv, campania);
+            var obj = {};
+            if (typeof cuv == "undefined" || typeof campania == "undefined") {
+                obj = JSON.parse($("[data-item=" + id + "]").attr("data-estrategia"));
+            }
+            if (obj.length == 0) {
+                obj = GetProductoStorage(cuv, campania);
+            }
+
             obj.CUV2 = $.trim(obj.CUV2);
             if (obj.CUV2 != "") {
                 if (GuardarProductoTemporal(obj))

@@ -446,9 +446,6 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                lst = lst.Where(x => x.PermisoID != 1019).ToList();
-
             lista1 = Mapper.Map<List<PermisoModel>>(lst);
             
             List<PermisoModel> lstModel = new List<PermisoModel>();
@@ -576,7 +573,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 var urlSplit = permiso.UrlItem.Split('/');
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
                             }
                         }
                     }
