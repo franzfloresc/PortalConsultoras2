@@ -53,6 +53,7 @@ var OfertaLiquidacion = function (config) {
                         idImagenMatriz: 0,
                         paisID: _config.paisID,
                         codigoSAP: response.codigoSap,
+                        descripcionOriginal: jQuery("#list").jqGrid('getCell', _config.fileUploadElementId, 'Descripcion'),
                         onComplete: _uploadComplete
                     };
                     _matrizFileUploader.crearFileUpload(params);
