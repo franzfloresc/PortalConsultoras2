@@ -13,7 +13,7 @@
     };
 
     var _editData = {};
-    var _idImagen;
+    var _idImagen = 0;
 
     var _paginadorClick = function (page) {
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
