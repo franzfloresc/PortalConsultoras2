@@ -184,7 +184,10 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEShowRoomOfertaDetalle, ShowRoomOfertaDetalleModel>();
 
             Mapper.CreateMap<BEPedidoObservacion, ObservacionModel>();
-            Mapper.CreateMap<BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceUsuario.BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, ConfiguracionPaisModel>();
+            Mapper.CreateMap<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>();
+            Mapper.CreateMap<BETablaLogicaDatos, TablaLogicaDatosModel>();
             Mapper.CreateMap<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>();
 
             Mapper.CreateMap<BEConsultoraRegaloProgramaNuevas, ConsultoraRegaloProgramaNuevasModel>()
@@ -208,6 +211,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
 
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
+
+            Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
+                   .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
+                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                   .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                   .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
+                   .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
+                   .ForMember(t => t.TextoPago, f => f.MapFrom(c => c.TextoPago))
+                   .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
+                   .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
         }
     }
 }

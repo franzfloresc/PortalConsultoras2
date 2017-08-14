@@ -1,0 +1,122 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@{
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
+}
+<style>
+    .catalogoPersonalizadoBloque {
+    background: #f6f6f6;
+    width: 800px;
+    margin: auto;
+}
+    .imagen_fondo {
+    background: white;
+}
+    .content_slider_ept {
+    background: white;
+}
+    .imagen_fondo {
+    min-height: 380px;
+}
+    .content_item_ept {
+    min-height: 400px;
+}
+</style>
+<div class="bc_contenido" data-tag-html="201712">
+    @foreach (var seccion in Model.ListaSeccion)
+    {
+        <div>@seccion.Titulo</div>
+        @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-"+ seccion.TipoPresentacion + ".cshtml", seccion)
+        <div class="bc_vineta_baja" style="margin-bottom:15px;">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+        </div>
+    }
+</div>
+<div class="bc_contenido" data-tag-html="201712" style="display:none;">
+    <div class="bc_venta_exclusiva" style="background:none; background-color:white;height: 480px;">
+        <div class="catalogoPersonalizadoBloque">
+            <div class="content_belcorp">
+                <div class="content_slider_ept" id="divCarruselLan"
+                     data-content-item="201712"
+                     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bc_vineta_baja" style="margin-bottom:15px;">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_venta_exclusiva">
+        <div class="bc_contenedor_showroom">
+            <p class="bc_showroom">
+                <span class="txt1" style="color:white; border-bottom:1px solid white; border-top:1px solid white;">
+                    VENTA EXCLUSIVA WEB
+                </span>
+                <span class="txt2" style="color:white; font-weight:normal;">
+                    HASTA <b>65% DE DSCTO</b> EN SETS EXCLUSIVOS ONLINE
+                </span>
+            </p>
+        </div>
+        <div style="height: 350px; overflow: hidden; width: 1020px; margin: 55px auto auto;" >
+            <div id="divOfertaProductos" data-content-item="201712" style="text-align: center;"></div>
+        </div>
+        <div class="bc_contenedor_showroom" style="padding-top: 0;margin-top: -25px;">
+            <a href="" class="btn-comprar">!COMPRA YA!</a>
+        </div>
+    </div>
+    <div class="bc_vineta_baja" style="margin-bottom:10px;">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
+    </div>
+    <div class="bc_venta_exclusiva_recomendado" style="background:url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas.png")); 
+         background-size: contain !important;
+         background-repeat: no-repeat !important; 
+         background-position: right top;">
+
+        <div class="bc_contenedor_showroom" style=" padding-top 74px;">
+            <p class="bc_showroom2">
+                <span class="txt1">
+                    RECOMENDADAS PARA TÍ
+                </span>
+                <span class="txt2">
+                    OFERTAS PERSONALIZADAS PARA TU NEGOCIO
+                </span>
+            </p>
+        </div>
+        @*<div style="display: none; height: 370px; overflow: hidden; width: 1020px;  margin: auto; margin-top: 20px;" data-tag-html="201712">
+            <div id="divOfertaProductos" data-content-item="201712" style="text-align: center;"></div>
+        </div>*@
+        <div class="bc_contenedor_showroom" style="padding-top: 0;margin-top: -25px;">
+            <a href="" class="btn-comprar">VER TODAS MIS OFERTAS</a>
+        </div>
+    </div>
+    <div class="bc_vineta_baja">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/VectoruP.png")" alt="">
+    </div>
+</div>
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>*@
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+}

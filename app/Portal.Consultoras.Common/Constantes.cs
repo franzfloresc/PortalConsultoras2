@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
-            public const string PackNuevas = "002";
+            public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
@@ -211,6 +211,9 @@ namespace Portal.Consultoras.Common
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+
+
+            public const string TipoPopUpMostrar = "TipoPopUpMostrar";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -409,6 +412,7 @@ namespace Portal.Consultoras.Common
 
         public class TipoPopUp
         {
+            public const int Ninguno = 0;
             public const int VideoIntroductorio = 1;
             public const int GPR = 2;
             public const int DemandaAnticipada = 3;
@@ -561,6 +565,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
+            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
         }
 
         public class IngresoExternoPagina
@@ -644,6 +649,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string OfertaFinalTradicional = "OFT";
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class TooltipLoginUsuario

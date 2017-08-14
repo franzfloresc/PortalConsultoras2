@@ -226,12 +226,23 @@ header {
         color: black;
         border-bottom: 2px solid white;
         letter-spacing: 0.75pt;
+        height: 90%;
     }
 
-        .new_menu_a:hover {
-            /*border-bottom: 2px solid #623989;*/
-            text-decoration:underline;
-        }
+.new_menu_a:hover {
+    /*border-bottom: 2px solid #623989;*/
+    text-decoration:underline;
+}
+        
+.new_menu_a img{
+    max-height: 100%;
+}
+
+.sub_menu_home1 .new_menu {
+    margin-top: 0;
+    height: 35px;
+}
+
 .new_menu {
     margin-top: 21px;
     margin-left: 4%;
@@ -260,7 +271,7 @@ header {
 .nav_principal li:hover > ul {
     display:block;
 }
-.nav_principal li:hover .pestana_esika{
+.nav_principal li:hover > a > .pestana_esika{
     display:block;
 }
 .sub_menu_home1{
@@ -279,7 +290,7 @@ header {
 }
 .sub_menu_home2{
     position:absolute;
-    left: -365px;
+    left: -150px;
     display:none;
     top: 39px;
     width:615px;
@@ -3418,10 +3429,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:hidden;
     position:relative;
     margin:0 auto!important;
-    padding:31px 0 23px 0;
+    /*padding:31px 0 0 0;*/
     width:240px;
     /*height:auto;*/
-    height:425px;
+    height:370px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;
@@ -3452,7 +3463,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
-    z-index:400;
+    z-index: 10;
 }
 
 .producto_img img {
@@ -21923,10 +21934,12 @@ body{
 
 }
 .logos_bancos{
-    width:25%;
-    float:left;
-    margin-top:70px;
-    
+    width: 25%;
+    /* float: left; */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 70px;
+    margin-left: -2px;    
 }
 
 body{
@@ -22303,7 +22316,7 @@ body{
     }
     .sub_menu_home2 {
       width: 560px;
-        left: -310px;
+        left: -150px;
     }
     .info_cam {
       margin-left: -265px;
@@ -31050,15 +31063,15 @@ h1#penmostreo .campana {
 }*/
 
 .content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
+    position: relative;
+    width: 99%;
+    height: 2px;
+    z-index: 3;
+    left:0;
+    width:310px;
+    margin:0 auto;
+    margin-top:-18px;
+    background: #d1d1d1;
 }
 .paso_reclamo{
     width:36px;
@@ -33170,10 +33183,6 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-.btn_desactivado_general{
-    background:#d6d6d6 !important;
-    border: none;
-}
 .ficha_btn_agregar{
     width: 358px;
     background: black;
@@ -33183,6 +33192,12 @@ h1#penmostreo .campana {
     border: none;
     line-height:47px;
    
+}
+
+.btn_desactivado_general{
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 
 .tooltip_tono {
@@ -33228,18 +33243,6 @@ h1#penmostreo .campana {
     font-size: 13.9px;
     font-weight: 700;
     height: 14px;
-}
-.content_pasos_linea {
-    position: relative;
-    width: 99%;
-    height: 2px;      
-    /*z-index: 3;*/
-    z-index:4;
-    left: 0;
-    width: 310px;
-    margin: 0 auto;
-    margin-top: -18px;
-    background: #d1d1d1;
 }
 
 
@@ -34039,7 +34042,7 @@ h1#penmostreo .campana {
 .menu_socia_empresaria > .new_menu > .new_menu_a{
     font-size:10.5px;
     letter-spacing:0.5px;
-    height: 18px;
+    height: 36px;
 }
 @media screen and (max-width: 1104px) {
 
