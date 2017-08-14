@@ -4,6 +4,14 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 
+<style type="text/css">
+
+    .footer-page{
+        padding-bottom:70px;
+    }
+
+</style>
+
 <div class="titulo_mobile">
     @{
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];

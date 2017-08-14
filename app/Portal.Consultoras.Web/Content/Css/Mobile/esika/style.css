@@ -13185,7 +13185,7 @@ a{
     top:-11px;
     right:-14px;
     background:#FFF;
-    z-index:2000;
+    z-index:999;
 }
 
 .num_solicitudes{
@@ -13351,7 +13351,7 @@ a{
     height:54px;
     background:#e81c36;
     color:#FFF;
-    z-index:1000;
+    z-index:998;
     letter-spacing:0.4px;
     border:none;
 }
