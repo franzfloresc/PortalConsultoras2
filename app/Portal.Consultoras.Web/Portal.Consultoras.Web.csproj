@@ -2732,6 +2732,7 @@
     <Content Include="Content\Images\mobile\m_logo_somos_belcorp_bienvenido.png" />
     <Content Include="Content\Images\mobile\m_logo_somos_belcorp_white.png" />
     <Content Include="Content\Images\mobile\pattern.png" />
+    <Content Include="Content\Images\mobile\pestania_ver_solicitud.svg" />
     <Content Include="Content\Images\mobile\tags.png" />
     <Content Include="Content\Images\mobile\Tarjeta_AmericanExpress.png" />
     <Content Include="Content\Images\mobile\Tarjeta_MasterCard.png" />
@@ -3036,6 +3037,7 @@
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
     <Content Include="Areas\Mobile\Views\MisReclamos\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\MisReclamos\Reclamo.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisReclamos\Detalle.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
@@ -3079,6 +3081,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\Mobile\MisReclamos\Reclamo.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />

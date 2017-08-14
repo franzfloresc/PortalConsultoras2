@@ -13172,6 +13172,50 @@ a{
     line-height:19px;
     margin-bottom:36px;
     padding:0 16px;
+    position:relative;
+}
+
+.mi_solicitud_cdr{
+    position:absolute;
+    width:35px;
+    height:35px;
+    border: 1px solid #979797;
+    border-right-color: #FFF;
+    line-height:32px;
+    top:-11px;
+    right:-14px;
+    background:#FFF;
+    z-index:2000;
+}
+
+.num_solicitudes{
+    display:block;
+    position:relative;
+    top:2px;
+    margin-left:5px;
+}
+
+.pestania_ver_mi_solicitud{
+    position: absolute;
+    top: -1px;
+    left: -2px;
+    width: 15px;
+    height: 13px;
+    background: #FFF;
+    z-index:2500;
+}
+
+.crece {
+    width: 17px;
+    height: 15px;
+}
+
+.pestania_ver_mi_solicitud img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 1px;
 }
 
 .campos_registro_solicitud_cdr{
@@ -13220,7 +13264,7 @@ a{
 
 .enlace_solicitudes_anteriores{
     text-decoration:none;
-    margin-bottom:30px;
+    margin-bottom:44px;
 }
 
 .enlace_solicitudes_anteriores span{
@@ -13299,7 +13343,7 @@ a{
     font-size: 13px;
 }
 
-.btn_siguiente_paso_cdr{
+.btn_cta_cdr{
     display:block;
     position:fixed;
     bottom:0;
@@ -13309,6 +13353,7 @@ a{
     color:#FFF;
     z-index:1000;
     letter-spacing:0.4px;
+    border:none;
 }
 
 .listado_soluciones_cdr, .solucion_cdr{
@@ -13560,6 +13605,349 @@ a{
     color:#000;
 }
 
+.tooltip_btn_reportar_inconveniente{
+    display:block;
+    width:100%;
+    margin:0 auto;
+    max-width:278px;
+    background:#FFF;
+    height:70px;
+    padding: 18px 4px 16px 4px;
+    border-radius:7px;
+    box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -moz-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -o-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -ms-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
+}
+
+.tooltip_btn_reportar_inconveniente:after {
+    top: 91%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-top-color: #FFF;
+    border-width: 21px;
+    margin-left: -19px;
+}
+
+.icono_alerta, .texto_tooltip_reportar_inconveniente{
+    display:inline-block;
+    vertical-align:top;
+}
+
+.icono_alerta_cdr {
+    width: 18px;
+    height: 18px;
+    margin-top:2px;
+    margin-right: 8px;
+}
+
+.texto_tooltip_reportar_inconveniente {
+    width: 214px;
+    font-size: 14px;
+    color: #000;
+    text-align: left;
+}
+
+.btn_reportar_inconveniente{
+    display:block;
+    width:100%;
+    max-width:276px;
+    border:1px solid #000;
+    margin:30px auto 49px auto;
+    height:45px;
+    line-height:43px;
+    background:#FFF;
+    font-size:13px;
+}
+
 /* FIN VISTA PROCESO DE REGISTRO DE SOLICITUD CDR */
+
+/* INICIO VISTA SOLICITUD ENVIADA */
+
+.content_mensaje_solicitud_enviada, .icono_solicitud_enviada, .titulo_solicitud_enviada, .mensaje_solicitud_enviada{
+    display:block;
+    margin:0 auto;
+    text-align:center;
+}
+
+.content_mensaje_solicitud_enviada{
+    margin-top:35px;
+    margin-bottom:25px;
+}
+
+.icono_solicitud_enviada{
+    width:50px;
+    height:50px;
+}
+
+.icono_solicitud_enviada img{
+    width:100%;
+    height:auto;
+}
+
+.icono_solicitud_enviada, .titulo_solicitud_enviada{
+    margin-bottom:20px;
+}
+
+.titulo_solicitud_enviada, .titulo_solicitud_enviada span{
+    font-size:23px;
+}
+
+.mensaje_solicitud_enviada{
+    font-size:14px;
+    line-height:19px;
+}
+
+/* INICIO VISTA DETALLE SOLICITUD CDR */
+
+.detalle_solicitud_cdr,
+.titulo_detalle_solicitud_cdr,
+.info_detalle_cdr,
+.detalle_solicitud_listado,
+.detalle_tipo_solicitud,
+.detalle_producto_cdr,
+.detalle_cdr_solucion,
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_precio_producto,
+.detalle_cdr_solucion_titulo,
+.detalle_cdr_monto_devolucion
+{
+    display:block;
+}
+
+.detalle_solicitud_cdr{
+    width:100%;
+    height:auto;
+    margin-bottom:48px;
+    padding: 22px 13px 0 13px;
+    box-shadow:0 0 4px 0 rgba(155, 155, 155, 0.5);
+}
+
+.titulo_detalle_solicitud_cdr{
+    width:100%;
+    text-align:center;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.info_detalle_cdr{
+    text-align:center;
+    margin-bottom:13px;
+}
+
+.info_fecha_solicitud, .info_num_solicitud, .info_campania_solicitud{
+    display:inline-block;
+    font-size:13px;
+    padding:0 6px 0 4px;
+    margin-bottom:3px;
+}
+
+.info_fecha_solicitud{
+    border-right:1px solid #000;
+}
+
+.color_marca{
+    color:#e81c36;
+}
+
+.detalle_solicitud_listado{
+    font-size:15px;
+}
+
+.detalle_tipo_solicitud_titulo{
+    padding:13px 0 16px 0;
+    border-top:1px solid #979797;
+    border-bottom:1px solid #979797;
+    position:relative;
+}
+
+.detalle_tipo_solicitud_titulo > div{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.detalle_tipo_solicitud_titulo > div:first-child{
+    width:70%;
+}
+
+.detalle_tipo_solicitud_titulo > div:last-child{
+    width:29%;
+}
+
+.estado_solic_cdr{
+    font-size:13px;
+    text-align:right;
+}
+
+.detalle_tipo_solicitud {
+    padding: 15px 0 21px 0;
+}
+
+.detalle_tipo_solicitud:last-child {
+    margin-bottom: 21px;
+}
+
+.detalle_producto_cdr,
+.detalle_cdr_solucion{
+    position:relative;
+}
+
+.detalle_cdr_solucion_titulo,
+.detalle_cod_producto,
+.detalle_nom_producto,
+.detalle_cantidad_producto,
+.detalle_cdr_monto_devolucion{
+    margin-bottom:2px;
+    width:75%;
+}
+
+.detalle_precio_producto{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.datos_solicitud_cdr_consulta, .datos_solicitud_cdr_titulo, .estado_productos_cdr{
+    display:block;
+    text-align:center;
+}
+
+.datos_solicitud_cdr_consulta{
+    background:#f7f7f7;
+    position:relative;
+    top:-11px;
+    padding: 22px 0 18px 0;
+    margin-bottom:20px;
+}
+
+.datos_solicitud_cdr_titulo{
+    font-size:17px;
+    margin-bottom:12px;
+}
+
+.dato_fecha_solicitud_cdr, .dato_num_solicitud_cdr, .dato_campania_solicitud_cdr{
+    display:inline-block;
+    margin-bottom:10px;
+}
+
+.dato_fecha_solicitud_cdr span, .dato_num_solicitud_cdr span, .dato_campania_solicitud_cdr span{
+    display:block;
+    padding:0 10px;
+}
+
+.dato_fecha_solicitud_cdr span:last-child, .dato_num_solicitud_cdr span:last-child{
+    border-right:1px solid #000;
+}
+
+.dato_fecha_solicitud_cdr, .dato_num_solicitud_cdr, .dato_campania_solicitud_cdr, .estado_productos_cdr{
+    font-size:14px;
+}
+
+.datos_solicitud_opened,
+.titulo_solicitud_opened,
+.cant_prod_solicitud_opened,
+.listado_productos_agregados{
+    display:block;
+}
+
+.datos_solicitud_opened {
+    display:none;
+    position: relative;
+    padding: 16px 24px;
+    height:auto;
+}
+
+.titulo_solicitud_opened{
+    font-size:18px;
+}
+
+.cant_prod_solicitud_opened{
+    font-size:13px;
+    margin-bottom:4px;
+}
+
+.titulo_solicitud_opened, .cant_prod_solicitud_opened{
+    text-align:left;
+    line-height:21px;
+}
+
+.icono_flecha_mi_solicitud{
+    width: 14px;
+    height: 27px;
+    position: absolute;
+    top: 11px;
+    right: 21px;
+    transform: scaleX(-1);
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -ms-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+}
+
+.listado_productos_agregados, .producto_agregado, .cod_producto_agregado, .nom_producto_agregado, .cant_producto_agregado, .icono_eliminar_producto_agregado{
+    display:block;
+}
+
+.listado_productos_agregados {
+    height: 189px;
+    overflow: auto;
+}
+
+.producto_agregado{
+    border-top:1px solid #d8d8d8;
+    font-size:13px;
+    text-align:left;
+    padding:10px 2px;
+    line-height:18px;
+    position:relative;
+}
+
+.producto_agregado:last-child{
+    border-bottom:1px solid #d8d8d8;
+    margin-bottom:2px;
+}
+
+.cod_producto_agregado, .nom_producto_agregado, .cant_producto_agregado {
+    width: 75%;
+}
+
+.icono_eliminar_producto_agregado{
+    position: absolute;
+    width: 17px;
+    height: 20px;
+    top: 15px;
+    right: 2px;
+}
+
+.enlace_ir_al_final {
+    display:block;
+    text-align: left;
+    position: relative;
+    width:100%;
+    max-width:100px;
+}
+
+.enlace_ir_al_final .icono_flecha_mi_solicitud {
+    left: -5px;
+    top: 1px;
+}
+
+.enlace_ir_al_final a {
+    display: block;
+    padding-left: 16px;
+    color: #000;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+/* FIN VISTA DETALLE SOLICITUD CDR */
 
 /* FIN CDR MOBILE */
