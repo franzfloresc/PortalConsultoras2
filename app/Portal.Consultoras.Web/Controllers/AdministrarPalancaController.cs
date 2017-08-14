@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
-using BEConfiguracionPaisDetalle = Portal.Consultoras.Entities.BEConfiguracionPaisDetalle;
 
 namespace Portal.Consultoras.Web.Controllers
 {
