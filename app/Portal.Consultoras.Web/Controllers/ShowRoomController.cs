@@ -2896,63 +2896,29 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var correoAnterior = Util.Trim(userData.EMail);
-                var correoNuevo = model.EMail;
-                //
-                var celularAnterior = Util.Trim(userData.Celular);
-                var celularNuevo = model.Celular;
+                userData.EMail = Util.Trim(userData.EMail);
+                userData.Celular = Util.Trim(userData.EMail);
 
-                if (correoNuevo != correoAnterior ||
-                    celularNuevo != celularAnterior )
+                if (model.EMail != Util.Trim(userData.EMail) ||
+                    model.Celular != Util.Trim(userData.Celular))
                 {
-                    var usuario = ActualizarCorreoUsuario(model, correoAnterior);
+                    var usuario = ActualizarCorreoUsuario(model, userData.EMail);
                     ActualizarUserData(usuario);
                 }
 
-                if ((correoAnterior != correoNuevo) || 
-                    (correoAnterior == correoNuevo && !userData.EMailActivo))
+                if ((userData.EMail != model.EMail) ||
+                    (userData.EMail == model.EMail && !userData.EMailActivo))
                 {
-                    string[] parametros = new string[] {
-                        userData.CodigoUsuario,
-                        userData.PaisID.ToString(),
-                        userData.CodigoISO,
-                        correoNuevo,
-                        "UrlReturn,sr"
-                    };
-                    string param_querystring = Util.Encrypt(string.Join(";", parametros));
-                    HttpRequestBase request = this.HttpContext.Request;
-
-                    bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
-
-                    var cadena = MailUtilities.CuerpoMensajePersonalizado(
-                        Util.GetUrlHost(this.HttpContext.Request).ToString(), 
-                        userData.Sobrenombre, 
-                        param_querystring, 
-                        tipopais);
-
-                    if (model.EnviarParametrosUTMs)
-                        cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
-
-                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
+                    EnviarConfirmacionCorreoShowRoom(model);
                 }
 
-                // registrar en la tabla show room
-
-                userData.BeShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-                userData.BeShowRoomConsultora.Suscripcion = true;
-                userData.BeShowRoomConsultora.CorreoEnvioAviso = correoNuevo;
-                userData.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
-                userData.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
-
-                using (PedidoServiceClient sac = new PedidoServiceClient())
-                {
-                    sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
-                }
+                ProgramarAvisoShowRoom(model);
 
                 return Json(new
                 {
                     success = true,
-                    message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                    message =   "- Sus datos se actualizaron correctamente.\n "  + 
+                                "- Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
                     emailValidado = userData.EMailActivo
                 });
             }
@@ -3019,6 +2985,47 @@ namespace Portal.Consultoras.Web.Controllers
             userData.Celular = usuario.Celular;
             SetUserData(userData);
         }
+
+        private void EnviarConfirmacionCorreoShowRoom(MisDatosModel model)
+        {
+            var parametros = new string[] {
+                        userData.CodigoUsuario,
+                        userData.PaisID.ToString(),
+                        userData.CodigoISO,
+                        model.EMail,
+                        "UrlReturn,sr"
+                    };
+            var param_querystring = Util.Encrypt(string.Join(";", parametros));
+            var request = HttpContext.Request;
+
+            var esPaisEsika = WebConfig.PaisesEsika.Contains(userData.CodigoISO);
+
+            var cadena = MailUtilities.CuerpoMensajePersonalizado(
+                Util.GetUrlHost(HttpContext.Request).ToString(),
+                userData.Sobrenombre,
+                param_querystring,
+                esPaisEsika);
+
+            if (model.EnviarParametrosUTMs)
+                cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
+
+            Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.EMail, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
+        }
+
+        private void ProgramarAvisoShowRoom(MisDatosModel model)
+        {
+            userData.BeShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+            userData.BeShowRoomConsultora.Suscripcion = true;
+            userData.BeShowRoomConsultora.CorreoEnvioAviso = model.EMail;
+            userData.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
+            userData.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
+
+            using (PedidoServiceClient sac = new PedidoServiceClient())
+            {
+                sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
+            }
+        }
+
 
         public ActionResult ConsultarTiposOferta(string sidx, string sord, int page, int rows)
         {
