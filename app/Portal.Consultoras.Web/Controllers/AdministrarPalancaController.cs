@@ -12,6 +12,7 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Common;
+using BEConfiguracionPaisDetalle = Portal.Consultoras.Entities.BEConfiguracionPaisDetalle;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -25,10 +26,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarCupon/Index"))
                     return RedirectToAction("Index", "Bienvenida");
-
-                //model.ListaPaises = ListarPaises();
-                //model.ListaConfiguracionPais = ListarConfiguracionPais();
-
                 ViewBag.UrlS3 = GetUrlS3();
                 return View(model);
             }
@@ -49,9 +46,26 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaCampanias = ObtenerCampaniasDesdeServicio(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
-            return PartialView("Partials/ManatenimientoPalanca", model);
+            return PartialView("Partials/MantenimientoPalanca", model);
         }
 
+        public ActionResult GetOfertasHome(int idOfertasHome)
+        {
+            AdministrarOfertasHomeModel model = new AdministrarOfertasHomeModel();
+            if (idOfertasHome > 0)
+            {
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    BEConfiguracionOfertasHome beConfiguracionOfertas = sv.GetConfiguracionOfertasHome(UserData().PaisID, idOfertasHome);
+                    model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
+                }
+            }
+            model.ListaCampanias = ObtenerCampaniasDesdeServicio(userData.PaisID);
+            model.ListaTipoPresentacion = ListTipoPresentacion();
+            model.ListaConfiguracionPais = ListarConfiguracionPais();
+            model.ListaTipoEstrategia = ListTipoEstrategia();
+            return PartialView("Partials/MantenimientoOfertasHome", model);
+        }
         public JsonResult ListPalanca(string sidx, string sord, int page, int rows)
         {
             try
@@ -94,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var list = ListarConfiguracionPais();
+                var list = ListarConfiguracionOfertasHome();
 
                 var data = new
                 {
@@ -104,11 +118,11 @@ namespace Portal.Consultoras.Web.Controllers
                         id = a.ConfiguracionPaisID,
                         cell = new string[]
                         {
+                            a.ConfiguracionOfertasHomeID.ToString(),
+                            a.CampaniaID.ToString(),
                             a.ConfiguracionPaisID.ToString(),
-                            a.Orden.ToString(),
-                            a.Codigo.ToString(),
-                            a.Descripcion.ToString(),
-                            a.Estado.ToString()
+                            a.DesktopOrden.ToString(),
+                            a.DesktopTitulo
                         }
                     }
                 };
@@ -135,6 +149,34 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var entidad = Mapper.Map<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>(model);
                     sv.UpdateConfiguracionPais(entidad);
+                }
+                return Json(new
+                {
+                    success = true,
+                    message = "Se grabó con éxito.",
+                });
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return Json(new
+                {
+                    success = false,
+                    message = e.StackTrace,
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult UpdateOfertasHome(AdministrarOfertasHomeModel model)
+        {
+            try
+            {
+                model.PaisID = userData.PaisID;
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    var entidad = Mapper.Map<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>(model);
+                    sv.UpdateConfiguracionOfertasHome(entidad);
                 }
                 return Json(new
                 {
@@ -185,14 +227,14 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private IEnumerable<ConfiguracionPaisModel> ListarConfiguracionOfertasHome()
+        private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome()
         {
-            List<ServiceSAC.BEConfiguracionPais> lst;
+            List<BEConfiguracionOfertasHome> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.ListConfiguracionPais(UserData().PaisID, true).ToList();
+                lst = sv.ListConfiguracionOfertasHome(UserData().PaisID).ToList();
             }
-            return Mapper.Map<IList<ServiceSAC.BEConfiguracionPais>, IEnumerable<ConfiguracionPaisModel>>(lst);
+            return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
 
         private IEnumerable<CampaniaModel> ObtenerCampaniasDesdeServicio(int PaisID)
@@ -213,7 +255,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
         }
 
-        private IEnumerable<TipoEstrategiaModel> DropDowListTipoEstrategia()
+        private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
             List<BETipoEstrategia> lst;
             var entidad = new BETipoEstrategia();

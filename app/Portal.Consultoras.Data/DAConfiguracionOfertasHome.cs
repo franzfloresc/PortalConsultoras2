@@ -13,55 +13,31 @@ namespace Portal.Consultoras.Data
     public class DAConfiguracionOfertasHome : DataAccess
     {
 
-        public DAConfiguracionOfertasHome(int paisID)
-            : base(paisID, EDbSource.Portal)
+        public DAConfiguracionOfertasHome(int OfertasHomeID)
+            : base(OfertasHomeID, EDbSource.Portal)
         {
 
         }
 
-        public IDataReader GetList(BEConfiguracionPais entity)
+        public IDataReader GetList()
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPais_GetAll");
-            Context.Database.AddInParameter(command, "Codigo", DbType.String, entity.Codigo);
-            Context.Database.AddInParameter(command, "CodigoRegion", DbType.String, entity.Detalle.CodigoRegion);
-            Context.Database.AddInParameter(command, "CodigoZona", DbType.String, entity.Detalle.CodigoZona);
-            Context.Database.AddInParameter(command, "CodigoSeccion", DbType.String, entity.Detalle.CodigoSeccion);
-            Context.Database.AddInParameter(command, "CodigoConsultora", DbType.String, entity.Detalle.CodigoConsultora);
-
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeList");
+            //Context.Database.AddInParameter(command, "TienePerfil", DbType.Boolean, tienePerfil);
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader GetList(bool tienePerfil)
+        public IDataReader Get(int configuracionOfertasHomeId)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisList");
-            Context.Database.AddInParameter(command, "TienePerfil", DbType.Boolean, tienePerfil);
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeGet");
+            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, configuracionOfertasHomeId);
             return Context.ExecuteReader(command);
         }
 
-        public IDataReader Get(int configuracionPaisId)
+        public IDataReader Update(BEConfiguracionOfertasHome entity)
         {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisGet");
-            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, configuracionPaisId);
-            return Context.ExecuteReader(command);
-        }
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
+            Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
 
-        public IDataReader Update(BEConfiguracionPais entity)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisUpdate");
-            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
-            Context.Database.AddInParameter(command, "Excluyente", DbType.Boolean, entity.Excluyente);
-            Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
-            Context.Database.AddInParameter(command, "Estado", DbType.Boolean, entity.Estado);
-            Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
-            Context.Database.AddInParameter(command, "MobileTituloMenu", DbType.String, entity.MobileTituloMenu);
-            Context.Database.AddInParameter(command, "DesktopTituloMenu", DbType.String, entity.DesktopTituloMenu);
-            Context.Database.AddInParameter(command, "Logo", DbType.String, entity.Logo);
-            Context.Database.AddInParameter(command, "Color", DbType.String, entity.Color);
-            Context.Database.AddInParameter(command, "Orden", DbType.Int32, entity.Orden);
-            Context.Database.AddInParameter(command, "DesktopTituloBanner", DbType.String, entity.DesktopTituloBanner);
-            Context.Database.AddInParameter(command, "MobileTituloBanner", DbType.String, entity.MobileTituloBanner);
-            Context.Database.AddInParameter(command, "DesktopSubTituloBanner", DbType.String, entity.DesktopSubTituloBanner);
-            Context.Database.AddInParameter(command, "MobileSubTituloBanner", DbType.String, entity.MobileSubTituloBanner);
             return Context.ExecuteReader(command);
         }
     }

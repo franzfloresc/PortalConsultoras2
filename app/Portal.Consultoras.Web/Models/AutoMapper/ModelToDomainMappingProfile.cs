@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
+using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
@@ -79,6 +80,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
 
             Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais > ();
+
+            Mapper.CreateMap<AdministrarOfertasHomeModel, BEConfiguracionOfertasHome>();
 
         }
     }

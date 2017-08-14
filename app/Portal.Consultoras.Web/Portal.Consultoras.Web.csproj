@@ -381,6 +381,7 @@
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
+    <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
     <Compile Include="Models\AdministrarPalancaModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
@@ -4112,12 +4113,13 @@
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
     <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
-    <Content Include="Views\AdministrarPalanca\Partials\ManatenimientoPalanca.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\RevistaDigital\MisOfertas2017.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
     <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4454,6 +4456,10 @@
     <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
       <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
       <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Portal.Consultoras.Entities\Portal.Consultoras.Entities.csproj">
+      <Project>{2A3B50DF-C243-4D7D-B8C0-E4E6C9C6C8D9}</Project>
+      <Name>Portal.Consultoras.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

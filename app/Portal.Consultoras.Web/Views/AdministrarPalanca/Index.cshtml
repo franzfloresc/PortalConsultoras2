@@ -42,12 +42,13 @@
 
             <div class="container clearfix">
                 <div class="border-wrapper">
-                    <table id="list2"></table>
-                    <div id="pager2"></div>
+                    <table id="listOfertas"></table>
+                    <div id="pagerOfertas"></div>
                 </div>
             </div>
         </div>
     </div>
+    <input type="button" onclick="javaScript: NuevoOfertaHome();" value="Nuevo"/>
 </div>
 
 <div id="DialogMantenimientoPalanca" style="display: none;">
@@ -55,6 +56,10 @@
     </div>
 </div>
 
+<div id="DialogMantenimientoOfertasHome" style="display: none;">
+    <div class="Content_modal" id="dialog-content-ofertas-home">
+    </div>
+</div>
 
 <script type="text/javascript">
     var urlListarCampanias = '@Url.Action("ListarCampanias", "Campania")';
