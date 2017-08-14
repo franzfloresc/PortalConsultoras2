@@ -12,6 +12,7 @@
     };
 
     var _editData = {};
+    var _idImagen = 0;
 
     var _paginadorClick = function (page) {
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
@@ -507,6 +508,11 @@
                         _editData.imagenes = [];
                         _editData.imagen = null;
 
+                        if (_idImagen != 0) {
+                            var imagen = jQuery("#list").jqGrid('getCell', _idImagen, 'ImagenURL') || "";
+                            _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
+                        };
+
                         _limpiarFiltrosNemotecnico();
 
                         _crearFileUploadAdd(_editData);
@@ -588,7 +594,7 @@
                     CampaniaID: $("#ddlCampania").val()
                 };
 
-
+                _idImagen = id;
                 _editar(params, id);
             }
 
