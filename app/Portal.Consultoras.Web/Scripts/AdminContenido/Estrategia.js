@@ -46,6 +46,7 @@
             idMatrizComercial: editData.IdMatrizComercial,
             idImagenMatriz: itemData.idImagenMatriz,
             paisID: $("#ddlPais").val(),
+            descripcionOriginal: editData.descripcionOriginal,
             codigoSAP: editData.CodigoSAP,
             onComplete: _uploadComplete
         }
@@ -57,7 +58,7 @@
             _limpiarFiltrosNemotecnico();
             if (response.success) {
                 _editData.IdMatrizComercial = response.idMatrizComercial;
-
+                _editData.CodigoSAP = response.codigoSap;
                 $("#matriz-imagenes-paginacion").empty();
                 //actualiza para la carga de imagenes actualizada
                 _obtenerImagenesByCodigoSAP(_editData, 1, true).done(function () {
@@ -71,6 +72,7 @@
     };
 
     var _editar = function (data, id) {
+
         _editData = {
             EstrategiaID: data.EstrategiaID,
             CUV2: data.CUV2,
@@ -80,7 +82,8 @@
             IdMatrizComercial: 0,
             paisID: $("#ddlPais").val(),
             imagenes: [],
-            imagen: null
+            imagen: _obtenerImagenGrilla(id),
+            descripcionOriginal: jQuery("#list").jqGrid('getCell', _idImagen, 'DescripcionCUV2')
         };
 
         _obtenerFiltrarEstrategia(_editData, id).done(function (data) {
@@ -247,11 +250,8 @@
             }
 
             $('#file-upload').show();
-
-            if (id != 0) {
-                var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
-                _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
-            };
+          
+            _editData.imagen = _obtenerImagenGrilla(id);
 
             if (data.FlagEstrella == "1") $("#chkOfertaUltimoMinuto").attr("checked", true);
             else $("#chkEstrella").attr("checked", false);
@@ -264,8 +264,8 @@
             _agregarCamposLanzamiento('img-ficha-mobile', data.ImgFichaMobile);
             _agregarCamposLanzamiento('img-ficha-fondo-desktop', data.ImgFichaFondoDesktop);
             _agregarCamposLanzamiento('img-ficha-fondo-mobile', data.ImgFichaFondoMobile);
-        _agregarCamposLanzamiento('img-home-desktop', data.ImgHomeDesktop);
-        _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
+            _agregarCamposLanzamiento('img-home-desktop', data.ImgHomeDesktop);
+            _agregarCamposLanzamiento('img-home-mobile', data.ImgHomeMobile);
             $("#url-video-desktop").val(data.UrlVideoDesktop);
             $("#url-video-mobile").val(data.UrlVideoMobile);
 
@@ -273,6 +273,12 @@
 
             return data;
         };
+    };
+
+    var _obtenerImagenGrilla = function (id) {
+        if (id == 0) return "";
+        var imagen = jQuery("#list").jqGrid('getCell', id, 'ImagenURL') || "";
+        return (imagen == rutaImagenVacia) ? "" : $.trim(imagen);
     };
 
     var _obtenerImagenes = function (data, pagina, recargarPaginacion) {
@@ -297,7 +303,7 @@
             }
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
-            marcarCheckRegistro(_editData.imagen);
+            marcarCheckRegistro(_obtenerImagenGrilla(_idImagen));
 
             closeWaitingDialog();
             return data;
@@ -326,7 +332,7 @@
 
             _mostrarPaginacion(data.totalRegistros);
             _mostrarListaImagenes(_editData);
-            marcarCheckRegistro(_editData.imagen);
+            marcarCheckRegistro(_obtenerImagenGrilla(_idImagen));
             closeWaitingDialog();
         };
     };
@@ -507,12 +513,7 @@
                         _editData.CodigoSAP = data.codigoSAP;
                         _editData.IdMatrizComercial = data.idMatrizComercial;
                         _editData.imagenes = [];
-                        _editData.imagen = null;
-
-                        if (_idImagen != 0) {
-                            var imagen = jQuery("#list").jqGrid('getCell', _idImagen, 'ImagenURL') || "";
-                            _editData.imagen = imagen == rutaImagenVacia ? "" : $.trim(imagen);
-                        };
+                        _editData.imagen = _obtenerImagenGrilla(_idImagen);
 
                         _limpiarFiltrosNemotecnico();
 

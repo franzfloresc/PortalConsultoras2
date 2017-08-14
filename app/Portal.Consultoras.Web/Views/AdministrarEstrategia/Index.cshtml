@@ -1885,7 +1885,8 @@
             {
                 "Cerrar": function () {
                     if(isVistaPreviaOpened){
-                        var params = { paisID: $("#ddlPais").val(), EstrategiaID: $("#hdEstrategiaID").val(), CampaniaID: $("#ddlCampania").val(), TipoEstrategiaID: $("#ddlTipoEstrategia").val() };
+                        var params = { paisID: $("#ddlPais").val(), EstrategiaID: $("#hdEstrategiaID").val(), CampaniaID: $("#ddlCampania").val(), TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                            CUV2 : $("#txtCUV2").val()};
                         estrategiaObj.obtenerImagenes(params, 1, true).done(function () {
                             showDialog("matriz-comercial-dialog");
                             closeWaitingDialog();
