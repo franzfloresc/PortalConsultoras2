@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;//AOB
+using Portal.Consultoras.Entities.Mobile;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -686,6 +684,15 @@ namespace Portal.Consultoras.ServiceContracts
         bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva);
 
         [OperationContract]
+        List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora);
+
+        [OperationContract]
+        int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID);
+
+        [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
+        
+        [OperationContract]
+        IList<BEApp> ListarApps(int paisID);
     }
 }

@@ -293,7 +293,7 @@ namespace Portal.Consultoras.Data.ServicePROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidarPedidoAutomatico", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransferirDatos wsValidarPedidoAutomatico(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+        public TransferirDatos wsValidarPedidoAutomatico(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
             object[] results = this.Invoke("wsValidarPedidoAutomatico", new object[] {
                         dtsPedido,
                         montoMin,
@@ -301,17 +301,18 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax});
+                        MontoMax,
+                        Listconcursos});
             return ((TransferirDatos)(results[0]));
         }
         
         /// <remarks/>
-        public void wsValidarPedidoAutomaticoAsync(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
-            this.wsValidarPedidoAutomaticoAsync(dtsPedido, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, null);
+        public void wsValidarPedidoAutomaticoAsync(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
+            this.wsValidarPedidoAutomaticoAsync(dtsPedido, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, null);
         }
         
         /// <remarks/>
-        public void wsValidarPedidoAutomaticoAsync(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, object userState) {
+        public void wsValidarPedidoAutomaticoAsync(System.Data.DataSet dtsPedido, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, object userState) {
             if ((this.wsValidarPedidoAutomaticoOperationCompleted == null)) {
                 this.wsValidarPedidoAutomaticoOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidarPedidoAutomaticoOperationCompleted);
             }
@@ -322,7 +323,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax}, this.wsValidarPedidoAutomaticoOperationCompleted, userState);
+                        MontoMax,
+                        Listconcursos}, this.wsValidarPedidoAutomaticoOperationCompleted, userState);
         }
         
         private void OnwsValidarPedidoAutomaticoOperationCompleted(object arg) {
@@ -503,7 +505,7 @@ namespace Portal.Consultoras.Data.ServicePROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidacionInteractiva", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RespuestaProl wsValidacionInteractiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+        public RespuestaProl wsValidacionInteractiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
             object[] results = this.Invoke("wsValidacionInteractiva", new object[] {
                         ListProductos,
                         ListCantidades,
@@ -514,17 +516,18 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax});
+                        MontoMax,
+                        Listconcursos});
             return ((RespuestaProl)(results[0]));
         }
         
         /// <remarks/>
-        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
-            this.wsValidacionInteractivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, null);
+        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
+            this.wsValidacionInteractivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, null);
         }
         
         /// <remarks/>
-        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, object userState) {
+        public void wsValidacionInteractivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, object userState) {
             if ((this.wsValidacionInteractivaOperationCompleted == null)) {
                 this.wsValidacionInteractivaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidacionInteractivaOperationCompleted);
             }
@@ -538,7 +541,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax}, this.wsValidacionInteractivaOperationCompleted, userState);
+                        MontoMax,
+                        Listconcursos}, this.wsValidacionInteractivaOperationCompleted, userState);
         }
         
         private void OnwsValidacionInteractivaOperationCompleted(object arg) {
@@ -550,7 +554,7 @@ namespace Portal.Consultoras.Data.ServicePROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidacionEstrategia", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RespuestaProl wsValidacionEstrategia(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+        public RespuestaProl wsValidacionEstrategia(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
             object[] results = this.Invoke("wsValidacionEstrategia", new object[] {
                         ListProductos,
                         ListCantidades,
@@ -561,17 +565,18 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax});
+                        MontoMax,
+                        Listconcursos});
             return ((RespuestaProl)(results[0]));
         }
         
         /// <remarks/>
-        public void wsValidacionEstrategiaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
-            this.wsValidacionEstrategiaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, null);
+        public void wsValidacionEstrategiaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
+            this.wsValidacionEstrategiaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, null);
         }
         
         /// <remarks/>
-        public void wsValidacionEstrategiaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, object userState) {
+        public void wsValidacionEstrategiaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, object userState) {
             if ((this.wsValidacionEstrategiaOperationCompleted == null)) {
                 this.wsValidacionEstrategiaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidacionEstrategiaOperationCompleted);
             }
@@ -585,7 +590,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax}, this.wsValidacionEstrategiaOperationCompleted, userState);
+                        MontoMax,
+                        Listconcursos}, this.wsValidacionEstrategiaOperationCompleted, userState);
         }
         
         private void OnwsValidacionEstrategiaOperationCompleted(object arg) {
@@ -597,7 +603,7 @@ namespace Portal.Consultoras.Data.ServicePROL {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/wsValidacionMasiva", RequestNamespace="http://tempuri.org/", ResponseNamespace="http://tempuri.org/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public RespuestaProl wsValidacionMasiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
+        public RespuestaProl wsValidacionMasiva(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
             object[] results = this.Invoke("wsValidacionMasiva", new object[] {
                         ListProductos,
                         ListCantidades,
@@ -608,17 +614,18 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax});
+                        MontoMax,
+                        Listconcursos});
             return ((RespuestaProl)(results[0]));
         }
         
         /// <remarks/>
-        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax) {
-            this.wsValidacionMasivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, null);
+        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos) {
+            this.wsValidacionMasivaAsync(ListProductos, ListCantidades, Listrecuperacion, codigoconsultora, montoMin, Zona, pais, campa, estadoconsultora, MontoMax, Listconcursos, null);
         }
         
         /// <remarks/>
-        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, object userState) {
+        public void wsValidacionMasivaAsync(string ListProductos, string ListCantidades, string Listrecuperacion, string codigoconsultora, decimal montoMin, string Zona, string pais, string campa, int estadoconsultora, decimal MontoMax, string Listconcursos, object userState) {
             if ((this.wsValidacionMasivaOperationCompleted == null)) {
                 this.wsValidacionMasivaOperationCompleted = new System.Threading.SendOrPostCallback(this.OnwsValidacionMasivaOperationCompleted);
             }
@@ -632,7 +639,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
                         pais,
                         campa,
                         estadoconsultora,
-                        MontoMax}, this.wsValidacionMasivaOperationCompleted, userState);
+                        MontoMax,
+                        Listconcursos}, this.wsValidacionMasivaOperationCompleted, userState);
         }
         
         private void OnwsValidacionMasivaOperationCompleted(object arg) {
@@ -680,6 +688,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
         private string montoAhorroCatalogoField;
         
         private string montoAhorroRevistaField;
+        
+        private ConcursoIncentivos[] listaConcursoIncentivosField;
         
         private System.Data.DataSet dataField;
         
@@ -744,12 +754,55 @@ namespace Portal.Consultoras.Data.ServicePROL {
         }
         
         /// <remarks/>
+        public ConcursoIncentivos[] ListaConcursoIncentivos {
+            get {
+                return this.listaConcursoIncentivosField;
+            }
+            set {
+                this.listaConcursoIncentivosField = value;
+            }
+        }
+        
+        /// <remarks/>
         public System.Data.DataSet data {
             get {
                 return this.dataField;
             }
             set {
                 this.dataField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConcursoIncentivos {
+        
+        private string codigoconcursoField;
+        
+        private string puntajeconcursoField;
+        
+        /// <remarks/>
+        public string codigoconcurso {
+            get {
+                return this.codigoconcursoField;
+            }
+            set {
+                this.codigoconcursoField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string puntajeconcurso {
+            get {
+                return this.puntajeconcursoField;
+            }
+            set {
+                this.puntajeconcursoField = value;
             }
         }
     }
@@ -833,6 +886,8 @@ namespace Portal.Consultoras.Data.ServicePROL {
         
         private ObservacionProl[] listaObservacionesField;
         
+        private ConcursoIncentivos[] listaConcursoIncentivosField;
+        
         /// <remarks/>
         public string codigoMensaje {
             get {
@@ -900,6 +955,16 @@ namespace Portal.Consultoras.Data.ServicePROL {
             }
             set {
                 this.listaObservacionesField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public ConcursoIncentivos[] ListaConcursoIncentivos {
+            get {
+                return this.listaConcursoIncentivosField;
+            }
+            set {
+                this.listaConcursoIncentivosField = value;
             }
         }
     }

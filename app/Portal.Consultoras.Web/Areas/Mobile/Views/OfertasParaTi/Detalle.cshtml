@@ -2,33 +2,42 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles
 {
     <style>
-    footer {
-         display: none;
-    }
+        footer {
+            display: none;
+        }
     </style>
-<link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="titulo_mobile" style="">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
+        } }
     @if (Model.Codigo == Constantes.MenuCodigo.RevistaDigital)
     {
         <div class="revistadigital-detalle-titulo">
-            <div class="logo_EPT_content"><span>VOLVER</span></div>
+            <div class="logo_EPT_content">
+                @if (mobileConfiguracion.MostrarBotonAtras)
+                {
+                    <span>VOLVER</span>
+                }                
+            </div>
             <div class="texto_usuario_ept">ÉSIKA PARA MÍ</div>
         </div>
     }
     else
     {
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
-    }    
+    }
 </div>
 @if (Model.Codigo != Constantes.MenuCodigo.RevistaDigital)
 {
@@ -37,7 +46,7 @@
         <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     </div>
 }
-@{ 
+@{
     var btnDesabled = 0;
     var btnDesabledClass = "";
 }
@@ -55,8 +64,7 @@
             {
 
                 <div class="precio_bpt">
-                    @if (Model.Precio > 0)
-                {
+                    @if (Model.Precio > 0){
                         <span class="precio_tachado_bpt">@Model.Simbolo @Model.PrecioTachado</span>
                     }
                     <b>@Model.Simbolo @Model.PrecioString</b>
@@ -190,8 +198,9 @@
                     }
                 </div>
             }
-
             <!--REDES-->
+            @if (mobileConfiguracion.MostrarHipervinculo)
+            {
             <div>
                 <div class="content_redes_ficha">
                     <div class="texto_redes">Comparte este producto con tus clientes:</div>
@@ -200,6 +209,7 @@
                 </div>
                 <hr class="clear">
             </div>
+            }
             <!--FIN REDES-->
 
             @if (Model.TextoLibre != "")
@@ -252,4 +262,5 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+
 }

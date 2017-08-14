@@ -11,20 +11,26 @@
         body {
             background: #FFF !important;
         }
+
         .justificar {
-            padding:7px; 
-            text-align:justify;
+            padding: 7px;
+            text-align: justify;
         }
+
         .justificarTexto {
-            padding:7px; 
-            text-align:justify;
-            margin-top:-26px;
+            padding: 7px;
+            text-align: justify;
+            margin-top: -26px;
         }
     </style>
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;APP DE CATÁLOGOS
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -32,7 +38,7 @@
 
 
 <div style="overflow:hidden;">
-    <br/>
+    <br />
     @if (!Model.Afiliado && !Model.EmailActivo && Model.Email != null && !Model.Email.Equals(""))
     {
         <div class="col-xs-12">

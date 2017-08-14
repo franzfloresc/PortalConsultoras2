@@ -15,7 +15,14 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = EstrategiaGetDetalleCuv(cuv);
             return Json(modelo.Hermanos, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpGet]
+        public JsonResult ConsultarEstrategiaCuv(string cuv)
+        {
+            var modelo = EstrategiaGetDetalleCuv(cuv);
+            return Json(modelo, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpGet]
         public JsonResult JsonConsultarEstrategias(string cuv, string tipoOrigenEstrategia = "") 
         {
@@ -28,7 +35,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listModel = ConsultarEstrategiasFiltrarSegunTipo(cuv, codAgrupa);
 
             var model = new EstrategiaOutModel();
-            model.Lista = listModel;
+            model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList(); ;
             model.CodigoEstrategia = GetCodigoEstrategia();
             model.Consultora = userData.Sobrenombre;
             model.Titulo = userData.Sobrenombre + " LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
@@ -50,7 +57,8 @@ namespace Portal.Consultoras.Web.Controllers
                     : tipoOrigenEstrategia == "2" ? Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi
                     : tipoOrigenEstrategia == "22" ? Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi : 0;
             }
-
+            model.ListaLan = listModel.Where(l => l.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+            model.Lista = listModel.Where(l => l.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
             return Json(model, JsonRequestBehavior.AllowGet);
         }
 

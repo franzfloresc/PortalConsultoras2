@@ -5,7 +5,11 @@
     bool EsLebel = ViewBag.EsLebel;
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;FAVORITOS DE TUS CLIENTES
 </div>
 
@@ -110,7 +114,7 @@ else
                             <div>
                                 @foreach (var item in Model.Hermanos)
                                 {
-                                    <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick=" cambiarinfofichaproductofav(1, '@item.CUV' , 2) ">
+                                    <div id="fav_tono_@item.CUV" class="content_tono_detalle" onclick=" cambiarInfoFichaProductoFAV(1, '@item.CUV' , 2) ">
                                         <img src=" @item.ImagenBulk " alt=" @item.NombreBulk " />
                                 </div>
 

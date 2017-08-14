@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Collections.Generic;
 
 using Portal.Consultoras.Entities;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {

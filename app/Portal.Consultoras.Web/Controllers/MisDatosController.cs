@@ -217,6 +217,76 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult AceptarContrato(MisDatosModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<MisDatosModel, BEUsuario>()
+                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+
+                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                string CorreoAnterior = model.CorreoAnterior;
+
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.ZonaID = UserData().ZonaID;
+                entidad.RegionID = UserData().RegionID;
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
+
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    string resultado = svr.AceptarContrato(entidad);
+                    string[] lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
+                    {
+                        return Json(new
+                        {
+                            Cantidad = lst[3],
+                            success = false,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            Cantidad = 0,
+                            success = true,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
+
         #endregion
 
     }

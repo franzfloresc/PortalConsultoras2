@@ -14,53 +14,57 @@
     </style>
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;PRODUCTOS AGOTADOS
 </div>
 
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
-  <br/> 
+<br />
 
-    <div class="col-xs-12">
-        @if (Model.ListaProductoFaltante.Count == 0)
-        {
-            <div class="alert-top-icon text-success">
-                <i class="icon-exclamation-circle"></i>
-                <div>Hasta el momento no existen productos agotados.</div>
-            </div>
-        }
-        else
-        {
-            <div class="table-responsive-invalid">
-                <div id="divProductosAgotados">
-                    <table class="table table-no-border">
-                        <thead class="upper">
+<div class="col-xs-12">
+    @if (Model.ListaProductoFaltante.Count == 0)
+    {
+        <div class="alert-top-icon text-success">
+            <i class="icon-exclamation-circle"></i>
+            <div>Hasta el momento no existen productos agotados.</div>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive-invalid">
+            <div id="divProductosAgotados">
+                <table class="table table-no-border">
+                    <thead class="upper">
+                        <tr>
+                            <th>Código</th>
+                            <th>Producto</th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-size-14">
+                        @foreach (var item in Model.ListaProductoFaltante)
+                        {
                             <tr>
-                                <th>Código</th>
-                                <th>Producto</th>
+                                <td class="padding-tb-11 bold">@item.CUV</td>
+                                <td class="padding-tb-11">@item.Descripcion</td>
                             </tr>
-                        </thead>
-                        <tbody class="font-size-14">
-                            @foreach (var item in Model.ListaProductoFaltante)
-                            {
-                                <tr>
-                                    <td class="padding-tb-11 bold">@item.CUV</td>
-                                    <td class="padding-tb-11">@item.Descripcion</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
+                        }
+                    </tbody>
+                </table>
             </div>
-            if (Model.ListaProductoFaltante.Count == 10)
-            {
-                <div class="row">
-                    <a href="javascript:;" class="btn_editar_pedido btnMostrar"><i class="icon-angle-down"></i> &nbsp;&nbsp;Ver más</a>
-                </div>
-            }
+        </div>
+        if (Model.ListaProductoFaltante.Count == 10)
+        {
+            <div class="row">
+                <a href="javascript:;" class="btn_editar_pedido btnMostrar"><i class="icon-angle-down"></i> &nbsp;&nbsp;Ver más</a>
+            </div>
         }
-    </div>
+    }
+</div>
 
 
 @section scripts

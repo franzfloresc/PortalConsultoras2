@@ -25,11 +25,40 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private bool blnRecibido = false;
         #endregion
 
+        //TODO: en desarrollo
+        public ActionResult Procesar()
+        {
+            var esShowRoom = false;
+
+            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
+            //model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
+            model.BEShowRoom = userData.BeShowRoom;
+
+            if (model.BEShowRoom == null)
+            {
+                model.BEShowRoom = new BEShowRoomEvento();
+                //model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+            }
+            //else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
+
+            //model.EstaActivoLateral = true;
+            var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+            if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
+                fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
+            {
+                //model.MostrarShowRoomProductos = true;
+                esShowRoom = true && OfertaShowRoom() != null;
+            }
+
+            return RedirectToAction(esShowRoom ? "Index" : "Intriga");
+        }
+
         public ActionResult Index(string query)
         {
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
-            
+
             if (query != null)
             {
                 string param = Util.Decrypt(query);
@@ -67,7 +96,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             return showRoomEventoModel == null
-                ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
+                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                 : View(showRoomEventoModel);
         }
 
@@ -104,18 +133,18 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CodigoISO = userData.CodigoISO;
 
                 ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
-                
+
                 if (showRoomBannerLateral.DiasFaltantes > 1)
                 {
                     showRoomBannerLateral.LetrasDias = "FALTAN " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍAS";
                 }
                 else { showRoomBannerLateral.LetrasDias = "FALTA " + Convert.ToInt32(showRoomBannerLateral.DiasFaltantes).ToString() + " DÍA"; }
-                
+
                 ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
 
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
-                
+
                 var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
                 model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
@@ -124,7 +153,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.Suscripcion = eventoConsultora.Suscripcion;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
                 var pedidoDetalle = ObtenerPedidoWebDetalle();
-                model.Agregado = pedidoDetalle.Any(d=>d.CUV == model.CUV) ? "block" : "none";
+                model.Agregado = pedidoDetalle.Any(d => d.CUV == model.CUV) ? "block" : "none";
 
                 return View(model);
             }
@@ -140,30 +169,30 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var showRoomEventoModel = OfertaShowRoom();
             if (showRoomEventoModel != null)
-                showRoomEventoModel.PosicionCarrusel = id;            
+                showRoomEventoModel.PosicionCarrusel = id;
 
             return showRoomEventoModel == null
-                ? (ActionResult) RedirectToAction("Index", "Bienvenida", new {area = "Mobile"})
+                ? (ActionResult)RedirectToAction("Index", "Bienvenida", new { area = "Mobile" })
                 : View("ListadoProductoShowRoom", showRoomEventoModel);
         }
-        
+
         private ShowRoomEventoModel OfertaShowRoom()
         {
             Session[keyFechaGetCantidadProductos] = null;
             Session[keyCantidadGetCantidadProductos] = null;
-            
+
             if (!ValidarIngresoShowRoom(false))
             {
                 return null;
             }
 
             try
-            {      
+            {
                 var showRoomEventoModel = CargarValoresModel();
                 showRoomEventoModel.ListaShowRoomOferta = showRoomEventoModel.ListaShowRoomOferta ?? new List<ShowRoomOfertaModel>();
                 if (!showRoomEventoModel.ListaShowRoomOferta.Any())
                     return null;
-                
+
                 var terminosCondiciones = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(
                         p => p.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.UrlTerminosCondiciones);
                 showRoomEventoModel.UrlTerminosCondiciones = terminosCondiciones == null
@@ -181,7 +210,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.PrecioMax = xlistaShowRoom.Max(p => p.PrecioOferta);
                 ViewBag.BannerImagenVenta = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
 
-                return showRoomEventoModel;                
+                return showRoomEventoModel;
             }
             catch (FaultException ex)
             {
@@ -190,7 +219,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return null;
         }
-        
+
         public ActionResult DetalleOfertaCUV(string query)
         {
             if (query != null)

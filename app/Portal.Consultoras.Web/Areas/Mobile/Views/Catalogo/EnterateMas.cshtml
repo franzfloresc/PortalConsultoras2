@@ -9,7 +9,11 @@
 
 <div class="wrapper_resumen_mobile sin_padding">
     <div class="encabezado_liquidacion">
-        <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
+        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            if (mobileConfiguracion.MostrarBotonAtras)
+            {
+                <a href="@Request.UrlReferrer" class="enlace_regresar" title="Regresar"></a>
+            } }
         <span style="font-size:16px;">DESCARGA EL APP</span>
     </div>
     <div class="pestana_lbel mobileLiquidaciones"></div><!--PESTAÑA PARA DARLE ESTILO CON LBEL-->

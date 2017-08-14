@@ -5,12 +5,18 @@
 
 @section styles{
     <style type="text/css">
-        body { background: #FFF !important; }
+        body {
+            background: #FFF !important;
+        }
     </style>
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -32,7 +38,7 @@
 
 <div class="col-xs-12 notificaciones_detalle_mobile">
     <p class="consultora_saludo_noti" style="margin-bottom:5px;"><b>Hola @Model.NombreConsultora</b></p>
-    
+
     <span id="sMensajeFacturacion" style="margin-bottom:10px; display:block">Te informamos lo siguiente:</span>
     @foreach (var item in Model.ListaNotificacionesDetallePedido)
     {

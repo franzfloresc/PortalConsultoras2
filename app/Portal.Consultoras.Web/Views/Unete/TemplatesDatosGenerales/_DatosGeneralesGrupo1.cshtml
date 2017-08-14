@@ -4,7 +4,7 @@
 @* Template de datos Generales para: México *@
 
 <div @*class="elements border_modal" style="padding-top: 15px !important"*@>
- 
+
     <div class="div-3 estilo2">
         <div class="filterEdit">
             <div class="selectP2 seleccion_pagina textboxSBEdit2">
@@ -24,21 +24,21 @@
         </div>
     </div>
 
-    <div class="div-3 div_3_fix">
-        <div class="validation_clear"></div>
+    <div class="div-3 div_3_fix estilo2">
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.PrimerNombre)
         </div>
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.ApellidoPaterno)
         </div>
-        <div class="validation_clear"></div>
-        <div class="validation">
+        <div class="validation_clear2"></div>
+        <div class="validation" style="float: right;">
             @Html.ValidationMessageFor(m => m.Sexo)
         </div>
     </div>
-   
+
 
     <div class="div-3 estilo2">
         <div class="filterEdit">
@@ -53,26 +53,27 @@
         </div>
         <div class="filterEdit">
             <div class="selectP2 seleccion_pagina textboxSBEdit2 fechaDetalleSolicitud">
-                @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "texto rfcSearch DatePickerSB", @placeholder = "Fecha Nacimiento" })
+                @Html.TextBoxFor(m => m.FechaNacimiento, new { @class = "rfcSearch DatePickerSB", @placeholder = "Fecha Nacimiento" })
             </div>
         </div>
     </div>
 
+
     <div class="div-3 div_3_fix">
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.SegundoNombre)
         </div>
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.ApellidoMaterno)
         </div>
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.FechaNacimiento)
         </div>
     </div>
-   
+
     <div class="div-3 estilo2">
         <div class="filterEdit">
             <div class="selectP2 seleccion_pagina textboxSBEdit2">
@@ -91,21 +92,22 @@
         </div>
 
     </div>
+
     <div class="div-3 div_3_fix">
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.Telefono)
         </div>
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.Celular)
         </div>
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.CorreoElectronico)
         </div>
     </div>
-    
+
     <div class="div-3 estilo2">
         <div class="filterEdit">
             <div class="selectP2 seleccion_pagina textboxSBEdit2">
@@ -114,9 +116,21 @@
         </div>
     </div>
     <div class="div-3 div_3_fix">
-        <div class="validation_clear"></div>
+        <div class="validation_clear2"></div>
         <div class="validation">
             @Html.ValidationMessageFor(m => m.NumeroDocumento)
         </div>
     </div>
 </div>
+<style>
+    .validation_clear2 {
+        float: left;
+        width: 70px !important;
+        height: 1px !important;
+        padding: 0 9px !important;
+    }
+
+    .estilo2 {
+        margin-bottom: 5px !important;
+    }
+</style>

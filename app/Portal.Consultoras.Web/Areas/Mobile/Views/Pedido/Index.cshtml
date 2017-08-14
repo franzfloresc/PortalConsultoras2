@@ -3,27 +3,51 @@
 
 @model PedidoMobileModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-}
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    ViewBag.SourcePage = 2;
 
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+}
 @section styles
 {
     <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
     <style>
         #divAgregarCliente {
             display:none
         }
     </style>
-<link href="~/Content/Css/Mobile/esika/revistaDigital.css" rel="stylesheet" />
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
     <div class="banner_ingresoPedido">
-        <div class="content_320 ingresoPedido">
-            <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar"></a>
+        <div class="content_320 ingresoPedido">            
+            @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                if (mobileConfiguracion.MostrarBotonAtras)
+                {
+                    <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" style="display:normal" title="Regresar"></a>
+                }
+            }
             <h1>INGRESA TU PEDIDO C@(Model.CampaniaNro)</h1>
             <form>
-                <input type="tel" name="codigoProducto" value="" placeholder="Ingresa el código del producto" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                @Html.Hidden("txtClienteId", Model.ClienteId)
+                @if (ViewBag.MobileApp && Model.ClienteId > 0)
+                { 
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" disabled value="@Model.Nombre" />
+                }
+                else
+                {
+                    <input type="text" id="txtClienteNombre" placeholder="Cliente" class="PedidoClienteNombre" />
+                }
+                @*@if (string.IsNullOrEmpty(Model.Nombre))
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @class="PedidoClienteCombo",  @disabled = "disabled" })
+                }*@
+                <input type="tel" name="codigoProducto" value="" placeholder="Código" id="txtCodigoProducto" oninput="maxLengthCheck(this, 5)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
             </form>
         </div>
     </div>
@@ -82,12 +106,23 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div class="contenedor_seleccionCliente">
-                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
+                    @*<div class="contenedor_seleccionCliente">*@
+                        @*@if (string.IsNullOrEmpty(Model.Nombre))
+                        {
+                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
+                            <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
+                                AGREGAR CLIENTE <span>+</span>
+                            </a>
+                        }
+                        else
+                        {
+                            @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required", @disabled = "disabled" })
+                        }*@
+                        @*@Html.DropDownListFor(model => model.Nombre, new SelectList(Model.ListaClientes, "ClienteID", "Nombre"), new { id = "ddlClientes", @required = "required" })
                         <a href="javascript:;" class="btn_agregarCliente" id="linkAgregarCliente">
                             AGREGAR CLIENTE <span>+</span>
-                        </a>
-                    </div>
+                        </a>*@
+                    @*</div>*@
                 </div>
             </div>
             <!-- FIN CONTENIDO INGRESO DE PEDIDO -->
@@ -680,7 +715,15 @@
         var mensajeCUVAgotado = "Lo sentimos, este producto está agotado.";
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaMobile';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelMobile';
-        var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+        var mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de Liquidación Web.";
+
+        @if (mobileConfiguracion.MostrarHipervinculo)
+        {
+            <text>
+                mensajeCUVLiquidacion = "Este producto solo lo puedes agregar a tu pedido desde la página de <a href=" + '@(Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile"}))' + ">Liquidación Web.</a>";
+            </text>
+        }
+
         var mensajeCUVCantidadMaxima = "Ya ingresaste la cantidad máxima permitida de este producto (#)";
 
         var cantProductosLoad = 'Model.ListaEstrategias.Count';
@@ -716,14 +759,17 @@
         var productoSugerido = false
         var productoAgotado = false;
 
-    var tipoOrigenEstrategia = 21;
-    var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
+        var tipoOrigenEstrategia = 21;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi;
 
-    var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
-    var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes));
+        var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
+        var lstClientes = @Html.Raw(@Json.Encode(Model.ListaClientes))
+        var urlImagenListaCliente = '@Url.Content("~/Content/Images/arrow.png")';
+
         var tieneCupon = '@Model.TieneCupon';
         //var tieneOfertaLog = '@Model.TieneOfertaLog';
-        var paginaOrigenCupon  = 21;
+        var paginaOrigenCupon = 21;
+        var tieneMasVendidos = @Model.TieneMasVendidos;
         var esEmailActivo = '@Model.EmailActivo';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var viewBagCampaniaActual = '@Model.CampaniaActual';

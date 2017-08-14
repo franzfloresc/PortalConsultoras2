@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
 using System.Data;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Service
         private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
         private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
         private BLPopupPais BLPopupPais; //SB20-1095
+        private BLApp _blApp;
 
         public SACService()
         {
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Service
             BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
             BLPopupPais = new BLPopupPais();
+            _blApp = new BLApp();
         }
 
         #region Cronograma Anticipado
@@ -1380,9 +1382,27 @@ namespace Portal.Consultoras.Service
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
 
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
+        {
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            return BLPedidoFacturado.UpdateClientePedidoFacturado(paisID, codigoPedido, ClienteID);
+        }
         public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
         {
             return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
+
         }
+
+        #region Mobile
+        public IList<BEApp> ListarApps(int paisID)
+        {
+            return _blApp.ObtenerApps(paisID);
+        }
+        #endregion
+
     }
 }

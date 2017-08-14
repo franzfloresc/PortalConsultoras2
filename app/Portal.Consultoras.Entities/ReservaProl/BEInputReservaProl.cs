@@ -58,8 +58,10 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public bool EnviarCorreo { get; set; }
         [DataMember]
         public string Sobrenombre { get; set; }
-
+        [DataMember]
+        public string CodigosConcursos { get; set; }
         public bool ZonaProlActiva { get { return ZonaValida && ValidacionInteractiva; } }
         public int PedidoID { get; set; }
+
     }
 }

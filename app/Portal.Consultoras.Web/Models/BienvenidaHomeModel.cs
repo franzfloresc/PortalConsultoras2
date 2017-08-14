@@ -118,6 +118,7 @@ namespace Portal.Consultoras.Web.Models
 
         #region Propiedades para PopUp MIS DATOS
         // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
+        // HOLA
         public string TextoSobrenombre { get; set; }
         public string TextoCorreoElectronico { get; set; }
         public string TextoTelefono { get; set; }
@@ -134,8 +135,8 @@ namespace Portal.Consultoras.Web.Models
         public BienvenidaHomeModel()
         {
             // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos
-            TextoSobrenombre = "¿Qué nombre te gustara que te digamos?:";
-            TextoCorreoElectronico = "* Tu Correo Electrónico:";
+            TextoSobrenombre = "¿Qué nombre te gustaría que te digamos?:";
+            TextoCorreoElectronico = "Tu Correo Electrónico:";
             TextoTelefono = "Tu Teléfono:";
             TextoCelular = "Tu Celular:";
             TextoBoton = "Actualizar";
