@@ -28,7 +28,7 @@ $(document).ready(function () {
     });
 
     $("#btnIntrigaConfirmarCorreo").click(function (e) {
-        IntrigaConfirmarCorreo();
+        IntrigaConfirmarCorreo(true);
     });
 
     $("[data-email-cambiar]").click(function (e) {
@@ -42,11 +42,11 @@ $(document).ready(function () {
     $("[data-email-reenviar]").click(function (e) {
         $(".termino_condiciones_intriga").addClass('check_intriga');
         intrigaAceptoTerminos = true;
-        IntrigaConfirmarCorreo();
+        IntrigaConfirmarCorreo(false);
     });
 });
 
-function IntrigaConfirmarCorreo() {
+function IntrigaConfirmarCorreo(sendAnalytics) {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
 
     if (emailNuevo == "") {
@@ -63,10 +63,10 @@ function IntrigaConfirmarCorreo() {
         return false;
     }
 
-    IntrigaActualizarDatos();
+    IntrigaActualizarDatos(sendAnalytics);
 }
 
-function IntrigaActualizarDatos() {
+function IntrigaActualizarDatos(sendAnalytics) {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
 
     AbrirLoad();
@@ -94,7 +94,8 @@ function IntrigaActualizarDatos() {
                     return false;
                 }
 
-                click_completar_registro_form_intriga();
+                if (sendAnalytics != undefined && sendAnalytics == true)
+                    click_completar_registro_form_intriga();
 
                 emailActivo = $.trim(data.emailValidado).toLowerCase();
                 $("[data-email-registrado]").html(emailNuevo);
@@ -120,9 +121,6 @@ function IntrigaActualizarDatos() {
             }
         }
     });
-
-
-   
 }
 
 function click_terminos_y_condiciones_form_intriga()
