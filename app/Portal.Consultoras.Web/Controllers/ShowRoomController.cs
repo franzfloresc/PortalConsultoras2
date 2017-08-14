@@ -2874,34 +2874,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var entidad = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
+                model.EMail = Util.Trim(model.EMail);
+                model.Celular = Util.Trim(model.Celular);
 
-                entidad.EMail = Util.Trim(entidad.EMail);
-
-                if (entidad.EMail != "")
-                {
-                    using (UsuarioServiceClient svr = new UsuarioServiceClient())
-                    {
-                        int cantidad = svr.ValidarEmailConsultora(userData.PaisID, entidad.EMail, userData.CodigoUsuario);
-
-                        if (cantidad > 0)
-                        {
-                            return Json(new
-                            {
-                                Cantidad = cantidad,
-                                success = false,
-                                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                extra = ""
-                            });
-                        }
-                    }
-                }
-
-                string CorreoAnterior = Util.Trim(userData.EMail);
-                string CorreoNuevo = entidad.EMail;
-                bool emailActivo = userData.EMailActivo;
-
-                if (CorreoNuevo == "")
+                if (string.IsNullOrEmpty(model.EMail))
                 {
                     return Json(new
                     {
@@ -2910,53 +2886,61 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                entidad.Celular = Util.Trim(entidad.Celular);
-                if (entidad.Celular != Util.Trim(userData.Celular) || CorreoNuevo != CorreoAnterior)
+                if (CorreoPerteneceAOtraConsultora(model))
                 {
-                    entidad.CodigoUsuario = userData.CodigoUsuario;
-                    entidad.Telefono = userData.Telefono;
-                    entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
-                    entidad.Sobrenombre = userData.Sobrenombre;
-                    entidad.ZonaID = userData.ZonaID;
-                    entidad.RegionID = userData.RegionID;
-                    entidad.ConsultoraID = userData.ConsultoraID;
-                    entidad.PaisID = userData.PaisID;
-
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    return Json(new
                     {
-                        sv.UpdateDatos(entidad, CorreoAnterior);
-                    }
-
-                    userData.EMail = entidad.EMail;
-                    userData.Celular = entidad.Celular;
-                    userData.EMailActivo = CorreoNuevo == CorreoAnterior ? userData.EMailActivo : false;
-                    SetUserData(userData);
+                        success = false,
+                        message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
+                        extra = ""
+                    });
                 }
 
-                var emailValidado = userData.EMailActivo;
+                var correoAnterior = Util.Trim(userData.EMail);
+                var correoNuevo = model.EMail;
+                //
+                var celularAnterior = Util.Trim(userData.Celular);
+                var celularNuevo = model.Celular;
 
-                if ((CorreoAnterior != CorreoNuevo) || (CorreoAnterior == CorreoNuevo && !userData.EMailActivo))
+                if (correoNuevo != correoAnterior ||
+                    celularNuevo != celularAnterior )
                 {
-                    string[] parametros = new string[] { userData.CodigoUsuario, userData.PaisID.ToString(), userData.CodigoISO, CorreoNuevo, "UrlReturn,sr" };
-                    //string param_querystring = Util.EncriptarQueryString(parametros);
+                    var usuario = ActualizarCorreoUsuario(model, correoAnterior);
+                    ActualizarUserData(usuario);
+                }
+
+                if ((correoAnterior != correoNuevo) || 
+                    (correoAnterior == correoNuevo && !userData.EMailActivo))
+                {
+                    string[] parametros = new string[] {
+                        userData.CodigoUsuario,
+                        userData.PaisID.ToString(),
+                        userData.CodigoISO,
+                        correoNuevo,
+                        "UrlReturn,sr"
+                    };
                     string param_querystring = Util.Encrypt(string.Join(";", parametros));
                     HttpRequestBase request = this.HttpContext.Request;
 
                     bool tipopais = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO);
 
-                    var cadena = MailUtilities.CuerpoMensajePersonalizado(Util.GetUrlHost(this.HttpContext.Request).ToString(), userData.Sobrenombre, param_querystring, tipopais);
+                    var cadena = MailUtilities.CuerpoMensajePersonalizado(
+                        Util.GetUrlHost(this.HttpContext.Request).ToString(), 
+                        userData.Sobrenombre, 
+                        param_querystring, 
+                        tipopais);
 
                     if (model.EnviarParametrosUTMs)
                         cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
 
-                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", CorreoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
+                    Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", correoNuevo, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
                 }
 
                 // registrar en la tabla show room
 
                 userData.BeShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 userData.BeShowRoomConsultora.Suscripcion = true;
-                userData.BeShowRoomConsultora.CorreoEnvioAviso = CorreoNuevo;
+                userData.BeShowRoomConsultora.CorreoEnvioAviso = correoNuevo;
                 userData.BeShowRoomConsultora.CampaniaID = userData.CampaniaID;
                 userData.BeShowRoomConsultora.CodigoConsultora = userData.CodigoConsultora;
 
@@ -2969,7 +2953,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
-                    emailValidado = emailValidado
+                    emailValidado = userData.EMailActivo
                 });
             }
             catch (FaultException ex)
@@ -2994,6 +2978,46 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
+        }
+
+        private bool CorreoPerteneceAOtraConsultora(MisDatosModel model)
+        {
+            var cantidad = 0;
+            using (UsuarioServiceClient svr = new UsuarioServiceClient())
+            {
+                cantidad = svr.ValidarEmailConsultora(userData.PaisID, model.EMail, userData.CodigoUsuario);
+            }
+            var correoRegistrado = cantidad > 0;
+            return correoRegistrado;
+        }
+
+        private ServiceUsuario.BEUsuario ActualizarCorreoUsuario(MisDatosModel model, string correoAnterior)
+        {
+            var entidad = Mapper.Map<MisDatosModel, ServiceUsuario.BEUsuario>(model);
+            //
+            entidad.CodigoUsuario = userData.CodigoUsuario;
+            entidad.Telefono = userData.Telefono;
+            entidad.TelefonoTrabajo = userData.TelefonoTrabajo;
+            entidad.Sobrenombre = userData.Sobrenombre;
+            entidad.ZonaID = userData.ZonaID;
+            entidad.RegionID = userData.RegionID;
+            entidad.ConsultoraID = userData.ConsultoraID;
+            entidad.PaisID = userData.PaisID;
+
+            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+            {
+                sv.UpdateDatos(entidad, correoAnterior);
+            }
+
+            return entidad;
+        }
+
+        private void ActualizarUserData(ServiceUsuario.BEUsuario usuario)
+        {
+            userData.EMailActivo = usuario.EMail == userData.EMail ? userData.EMailActivo : false;
+            userData.EMail = usuario.EMail;
+            userData.Celular = usuario.Celular;
+            SetUserData(userData);
         }
 
         public ActionResult ConsultarTiposOferta(string sidx, string sord, int page, int rows)
