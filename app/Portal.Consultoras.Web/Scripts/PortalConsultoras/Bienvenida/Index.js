@@ -465,8 +465,6 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
-
-    call_something_undefined();
 });
 
 
