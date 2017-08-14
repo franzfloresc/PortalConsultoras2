@@ -25,6 +25,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime? FechaVentaRetail { get; set; }
         [DataMember]
+        public bool IndicadorNivelElectivo { get; set; }
+        [DataMember]
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
@@ -54,6 +56,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FechaVentaRetail") && row["FechaVentaRetail"] != DBNull.Value)
                 FechaVentaRetail = Convert.ToDateTime(row["FechaVentaRetail"]);
+
+            if (DataRecord.HasColumn(row, "IndicadorNivelElectivo"))
+                IndicadorNivelElectivo = Convert.ToBoolean(row["IndicadorNivelElectivo"]);
         }
     }
 }
