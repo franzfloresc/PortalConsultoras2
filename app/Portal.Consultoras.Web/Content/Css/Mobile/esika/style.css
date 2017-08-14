@@ -12973,7 +12973,7 @@ a{
 }
 
 .mensaje_vista_cdr{
-    font-size: 13px;
+    font-size: 14px;
     color: #000;
     max-width: 300px;
     margin: 0 auto;
@@ -13064,7 +13064,7 @@ a{
     font-family:'Lato';
     font-size:11px;
     text-align:center;
-    line-height:20px;
+    line-height:21px;
     text-transform:uppercase;
 }
 
@@ -13612,8 +13612,9 @@ a{
     max-width:278px;
     background:#FFF;
     height:70px;
-    padding: 18px 4px 16px 4px;
+    padding: 15px 4px 16px 4px;
     border-radius:7px;
+    position:relative;
     box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
     -moz-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
     -o-box-shadow: 3px 6px 18px 0px rgba(0,0,0,0.3);
