@@ -4118,6 +4118,7 @@
     <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-producto.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
