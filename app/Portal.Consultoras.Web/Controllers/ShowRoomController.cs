@@ -35,53 +35,83 @@ namespace Portal.Consultoras.Web.Controllers
                 return RedirectToAction("Index", "Bienvenida");
             }
 
-            var listaShowRoomOferta = new List<BEShowRoomOferta>();
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var ofertasShowRoom = ObtenerOfertasShowRoom();
+
+            if (!ofertasShowRoom.Any())
+            {
+                return RedirectToAction("Index", "Bienvenida");
+            }
+
+            ActualizarUrlImagenes(ofertasShowRoom);
+
+            var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
+            model.Simbolo = userData.Simbolo;
+            model.CodigoISO = userData.CodigoISO;
+            model.Suscripcion = (userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora()).Suscripcion;
+            model.EMail = userData.EMail;
+            model.EMailActivo = userData.EMailActivo;
+            model.Celular = userData.Celular;
+            model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+            model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
+
+            InicializarViewbag();
+
+            return View(model);
+        }
+
+
+        private List<BEShowRoomOferta> ObtenerOfertasShowRoom()
+        {
+            var listaShowRoomOferta = (List<BEShowRoomOferta>)null;
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
             }
 
-            if (!listaShowRoomOferta.Any())
-            {
-                return RedirectToAction("Index", "Bienvenida");
-            }
+            return listaShowRoomOferta;
+        }
 
+        private void ActualizarUrlImagenes(List<BEShowRoomOferta> listaShowRoomOferta)
+        {
             listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                            ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais()));
             listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais()));
+        }
 
-            var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-            listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-            var model = listaShowRoomOfertaModel.FirstOrDefault();
-            model.Simbolo = userData.Simbolo;
+        private string ObtenerCarpetaPais()
+        {
+            return Globals.UrlMatriz + "/" + userData.CodigoISO;
+        }
 
-            model.CodigoISO = userData.CodigoISO;
-            userData.ListaShowRoomPersonalizacionConsultora = userData.ListaShowRoomPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
-            var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+        private void InicializarViewbag()
+        {
             ViewBag.urlImagenPopupIntriga = string.Empty;
             ViewBag.urlTerminosyCondiciones = string.Empty;
-
-            foreach (var item in lstPersonalizacion)
+            //
+            userData.ListaShowRoomPersonalizacionConsultora = userData.ListaShowRoomPersonalizacionConsultora ?? new List<ShowRoomPersonalizacionModel>();
+            var personalizacionesDesktop = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+            foreach (var item in personalizacionesDesktop)
             {
                 if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.BannerImagenIntriga)
                     ViewBag.urlImagenPopupIntriga = item.Valor;
+
                 if (item.Atributo == Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones)
                     ViewBag.urlTerminosyCondiciones = item.Valor;
             }
-
-            var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-            model.Suscripcion = eventoConsultora.Suscripcion;
-            model.EMail = userData.EMail;
-            model.EMailActivo = userData.EMailActivo;
-            model.Celular = userData.Celular;
-            model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
-            var pedidoDetalle = ObtenerPedidoWebDetalle();
-            model.Agregado = pedidoDetalle.Any(d => d.CUV == model.CUV) ? "block" : "none";
-            return View(model);
         }
+
+        private ShowRoomOfertaModel ObtenerPrimeraOfertaShowRoom(List<BEShowRoomOferta> ofertasShowRoom)
+        {
+            var ofertasShowRoomModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(ofertasShowRoom);
+            ofertasShowRoomModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
+
+            var model = ofertasShowRoomModel.FirstOrDefault();
+            return model;
+        }
+
+
 
         public ActionResult Index(string query)
         {
@@ -1344,7 +1374,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
 
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            var carpetaPais = ObtenerCarpetaPais();
             lstFinal.Add(new BEMatrizComercial
             {
                 IdMatrizComercial = lst[0].IdMatrizComercial,
