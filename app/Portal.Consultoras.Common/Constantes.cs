@@ -950,5 +950,12 @@ namespace Portal.Consultoras.Common
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
 
         }
+
+        public class ComunicadoTipoDispositivo
+        {
+            public const short Todos = 0;
+            public const short Desktop = 1;
+            public const short Mobile = 2;
+        }
     }
 }
