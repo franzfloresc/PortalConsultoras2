@@ -758,6 +758,10 @@ namespace Portal.Consultoras.Service
         {
             return BLTablaLogicaDatos.GetTablaLogicaDatos(paisID, TablaLogicaID);
         }
+        public List<BETablaLogicaDatos> GetTablaLogicaDatosPais(Int16 TablaLogicaID)
+        {
+            return BLTablaLogicaDatos.GetTablaLogicaDatosPais(TablaLogicaID);
+        }
         #endregion
 
         #region Fe de Erratas
