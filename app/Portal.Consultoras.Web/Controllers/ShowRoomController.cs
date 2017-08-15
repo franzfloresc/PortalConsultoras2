@@ -59,31 +59,7 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-
-        private List<BEShowRoomOferta> ObtenerOfertasShowRoom()
-        {
-            var listaShowRoomOferta = (List<BEShowRoomOferta>)null;
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
-            }
-
-            return listaShowRoomOferta;
-        }
-
-        private void ActualizarUrlImagenes(List<BEShowRoomOferta> listaShowRoomOferta)
-        {
-            listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                            ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais()));
-            listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais()));
-        }
-
-        private string ObtenerCarpetaPais()
-        {
-            return Globals.UrlMatriz + "/" + userData.CodigoISO;
-        }
+        
 
         private void InicializarViewbag()
         {
@@ -102,14 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private ShowRoomOfertaModel ObtenerPrimeraOfertaShowRoom(List<BEShowRoomOferta> ofertasShowRoom)
-        {
-            var ofertasShowRoomModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(ofertasShowRoom);
-            ofertasShowRoomModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-
-            var model = ofertasShowRoomModel.FirstOrDefault();
-            return model;
-        }
+        
 
 
 
@@ -2988,6 +2957,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private void EnviarConfirmacionCorreoShowRoom(MisDatosModel model)
         {
+            const string UTM_NOMBRE_EVENTO = "{{NOMBRE_EVENTO}}";
             var parametros = new string[] {
                         userData.CodigoUsuario,
                         userData.PaisID.ToString(),
@@ -3007,7 +2977,13 @@ namespace Portal.Consultoras.Web.Controllers
                 esPaisEsika);
 
             if (model.EnviarParametrosUTMs)
-                cadena = cadena.Replace(".aspx?", ".aspx?" + model.CadenaParametrosUTMs + "&");
+            {
+                var nombreEvento = (userData.BeShowRoom != null && userData.BeShowRoom.Nombre != null) ?
+                    userData.BeShowRoom.Nombre.Replace(" ", "") :
+                    string.Empty;
+                var utms = model.CadenaParametrosUTMs.Replace(UTM_NOMBRE_EVENTO, nombreEvento) ;
+                cadena = cadena.Replace(".aspx?", ".aspx?" + utms + "&");
+            }
 
             Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", model.EMail, "Confirmación de Correo", cadena, true, userData.NombreConsultora);
         }
