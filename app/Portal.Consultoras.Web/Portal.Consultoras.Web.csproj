@@ -402,6 +402,7 @@
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
+    <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
@@ -2998,6 +2999,9 @@
     <Content Include="Content\layer-flx-co\img\boton_inscribete_03.png" />
     <Content Include="Content\layer-flx-co\img\fondo_banner_CO_flexipago.jpg" />
     <Content Include="Content\Ofertas\FolderContent.txt" />
+    <Content Include="Content\Template\mailing_mensaje_express.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Temporales\FolderContent.txt" />
     <Content Include="EsikaConmigo.html" />
     <Content Include="Global.asax" />
@@ -3664,15 +3668,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceUsuario\UsuarioService.disco" />
-    <Content Include="Service References\ServiceUsuario\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\configuration.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\Reference.svcmap">
+    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
+    <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
+    <None Include="Service References\ServiceUsuario\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
-    <Content Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
+    <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">
       <SubType>Designer</SubType>
     </None>
