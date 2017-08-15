@@ -1,9 +1,11 @@
 ﻿
+@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.AdministrarOfertasHomeModel
 @{
     string imagenVacia = "prod_grilla_vacio.png";
 }
 
+@Html.HiddenFor(model => model.ConfiguracionOfertasHomeID)
 <div class="div-3">
     <div class="titG">Desde Campaña:</div>
     <div class="selectP2 borde_redondeado">
@@ -13,7 +15,7 @@
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="selectP2 borde_redondeado">
-        @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
+        @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
     </div>
 </div>
 <div class="div-3">
@@ -40,21 +42,18 @@
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            <div class="div-3">
+            
+            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">Imagen Fondo:</div>
-                <div class="titG borde_redondeado">
-                    <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
-                        <div class="titG">Icono Menu:</div>
-                        <div style="display: inline-block;">
-                            @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-icono" })
-                            <div id="img-icono" style="display: inline-block;vertical-align: middle;"></div>
-                            <div class="pdr_modal2 borde_redondeado alignrigth">
-                                <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-icono" class="img-matriz-preview2" data-id="">
-                            </div>
-                        </div>
+                <div style="display: inline-block;">
+                    @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-fondo-desktop" })
+                    <div id="img-fondo-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-desktop" class="img-matriz-preview2" data-id="">
                     </div>
                 </div>
             </div>
+            
             <div class="div-3">
                 <div class="titG">Titulo:</div>
                 <div class="titG borde_redondeado">
@@ -82,16 +81,29 @@
             
             <div class="div-3">
                 <div class="titG">Tipo Presentacion:</div>
-                <div class="titG borde_redondeado">
-                   @foreach (var estrategia in Model.ListaTipoEstrategia)
-                   {
-                       @Html.CheckBox(estrategia.Descripcion, false)<br>
-                   }
+              
+            </div>
+            <div class="div-3">
+                <div class="borde_redondeado">
+                    @foreach (var estrategia in Model.ListaTipoEstrategia)
+                    {
+                        @Html.CheckBox(estrategia.Codigo.IsNullOrEmptyTrim() ? "0" : estrategia.Codigo, false)@estrategia.Descripcion
+                    }
                 </div>
             </div>
         </div>
         <div class="sideRight">
-           <div class="div-3">
+            <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+                <div class="titG">Imagen Fondo:</div>
+                <div style="display: inline-block;">
+                    @Html.HiddenFor(m => m.DesktopImagenFondo, new { id = "nombre-fondo-mobile" })
+                    <div id="img-fondo-mobile" style="display: inline-block;vertical-align: middle;"></div>
+                    <div class="pdr_modal2 borde_redondeado alignrigth">
+                        <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-fondo-mobile" class="img-matriz-preview2" data-id="">
+                    </div>
+                </div>
+            </div>
+            <div class="div-3">
                 <div class="titG">Titulo:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileTitulo)
@@ -112,7 +124,19 @@
             <div class="div-3">
                 <div class="titG">Tipo Presentacion:</div>
                 <div class="titG borde_redondeado">
-                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlTipoPresentacionOfertas" })
+                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new {id = "ddlTipoPresentacionOfertas"})
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG">Tipo Presentacion:</div>
+
+            </div>
+            <div class="div-3">
+                <div class="borde_redondeado">
+                    @foreach (var estrategia in Model.ListaTipoEstrategia)
+                    {
+                        @Html.CheckBox(estrategia.Codigo.IsNullOrEmptyTrim() ? "0" : estrategia.Codigo, false)@estrategia.Descripcion
+                    }
                 </div>
             </div>
         </div>

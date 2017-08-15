@@ -35,16 +35,11 @@ namespace Portal.Consultoras.Web.Models
         public string DesktopSubTituloBanner { get; set; }
         public string MobileSubTituloBanner { get; set; }
         public string Color { get; set; }
-        //public string TipoEstrategia { get; set; }
-        //public bool MostrarCampaniaSiguiente { get; set; }
-        //public bool MostrarPagInformativa { get; set; }
 
-
-        // valores del HOME  no son necesario en este model
-        //public string HImagenFondo { get; set; }
-        //public int HTipoPresentacion { get; set; }
-        //public int HMaxProductos { get; set; }
-        //public string HTipoEstrategia { get; set; }
+        public string DesktopFondoBanner { get; set; }
+        public string MobileFondoBanner { get; set; }
+        public string DesktopLogoBanner { get; set; }
+        public string MobileLogoBanner { get; set; }
 
     }
 }

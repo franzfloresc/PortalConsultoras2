@@ -9,7 +9,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
-    public class BEConfiguracionOfertasHome
+    public class BEConfiguracionOfertasHome : BaseEntidad
     {
         [DataMember]
         public int ConfiguracionOfertasHomeID { get; set; }
@@ -67,9 +67,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public bool MobileActivo { get; set; }
-
-        [DataMember]
-        public int PaisID { get; set; }
 
         public BEConfiguracionOfertasHome(IDataRecord row)
         {
