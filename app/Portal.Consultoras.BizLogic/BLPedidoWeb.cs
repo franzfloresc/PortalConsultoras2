@@ -809,7 +809,7 @@ namespace Portal.Consultoras.BizLogic
                         {
                             foreach (DataRow row in dtPedidosWeb.Rows)
                             {
-                                streamWriter.WriteLine(DetailLine(detailTemplate, row, codigoPaisProd, lote));
+                                streamWriter.WriteLine(DetailLine_FIC(detailTemplate, row, codigoPaisProd, lote));
                             }
                         }
                     }
@@ -1027,6 +1027,28 @@ namespace Portal.Consultoras.BizLogic
                     case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
                     case "LOTE": item = lote; break;
                     case "ORIGENPEDIDOWEB": item = row["OrigenPedidoWeb"].ToString(); break;
+                    default: item = string.Empty; break;
+                }
+                line += item.PadRight(field.Size);
+            }
+            return line;
+        }
+        private string DetailLine_FIC(TemplateField[] template, DataRow row, string codigoPais, string lote)
+        {
+            string line = string.Empty;
+            foreach (TemplateField field in template)
+            {
+                string item;
+                switch (field.FieldName)
+                {
+                    case "PAIS": item = codigoPais; break;
+                    case "CAMPANIA": item = row["CampaniaID"].ToString(); break;
+                    case "CONSULTORA": item = row["CodigoConsultora"].ToString(); break;
+                    case "PREIMPRESO": item = row["PedidoID"].ToString(); break;
+                    case "CODIGOVENTA": item = row["CodigoVenta"].ToString(); break;
+                    case "CANTIDAD": item = row["Cantidad"].ToString(); break;
+                    case "CODIGOPRODUCTO": item = row["CodigoProducto"].ToString(); break;
+                    case "LOTE": item = lote; break;
                     default: item = string.Empty; break;
                 }
                 line += item.PadRight(field.Size);

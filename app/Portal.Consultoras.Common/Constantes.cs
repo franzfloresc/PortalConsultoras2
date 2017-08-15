@@ -564,6 +564,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
+            public const string PedidoFIC = "PedidoFIC";
         }
 
         public class IngresoExternoPagina

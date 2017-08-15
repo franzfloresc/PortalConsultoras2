@@ -596,6 +596,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                     model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                     model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
+                    model.PedidoFICActivo = oBEUsuario.PedidoFICActivo;
                     model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;

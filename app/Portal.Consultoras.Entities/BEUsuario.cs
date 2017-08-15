@@ -242,6 +242,7 @@ namespace Portal.Consultoras.Entities
                 IndicadorFlexiPago = Convert.ToInt32(row["IndicadorFlexiPago"]);
             if (DataRecord.HasColumn(row, "IndicadorPermisoFIC") && row["IndicadorPermisoFIC"] != DBNull.Value)
                 IndicadorPermisoFIC = Convert.ToInt32(row["IndicadorPermisoFIC"]);
+            if (DataRecord.HasColumn(row, "PedidoFICActivo")) PedidoFICActivo = Convert.ToBoolean(row["PedidoFICActivo"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
                 MostrarAyudaWebTraking = Convert.ToBoolean(row["MostrarAyudaWebTraking"]);
             if (DataRecord.HasColumn(row, "RolDescripcion") && row["RolDescripcion"] != DBNull.Value)
@@ -1245,5 +1246,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int MensajePedidoMobile { get; set; }
+
+        [DataMember]
+        public bool PedidoFICActivo { get; set; }
     }
 }
