@@ -58,16 +58,22 @@
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
         <div class="actions" style="text-align:center">
-            {{#if ../habilitarNemotecnico}}
-            <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
-                <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+            {{#if ../habilitarNemotecnico}}          
+            <div class="div-3">
+                <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
+                    <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
+                    <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+                </div>
             </div>
-            <div class="nemotecnico-wrapper" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
-                <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+            <div class="div-3">                          
+                <div class="nemotecnico-wrapper" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>   
+                    <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">                
+                    <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+                </div>
             </div>
-            {{/if}}
-            <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
-        </div>
+                {{/if}}
+             <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
+           </div>
     </div>
     {{/each}}
 </script>
