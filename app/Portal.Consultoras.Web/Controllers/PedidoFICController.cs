@@ -1,18 +1,15 @@
-﻿using System;
+﻿using AutoMapper;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceCliente;
+using Portal.Consultoras.Web.ServiceODS;
+using Portal.Consultoras.Web.ServicePedido;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using AutoMapper;
-using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.ServiceODS;
-using Portal.Consultoras.Web.ServicePedido;
-using Portal.Consultoras.Web.ServiceSAC;
-using Portal.Consultoras.Web.ServiceUsuario;
-using Portal.Consultoras.Common;
 using System.ServiceModel;
-using Portal.Consultoras.Web.ServiceCliente;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -47,19 +44,18 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.IndicadorOfertaFIC = userData.IndicadorOfertaFIC; //SSAP CGI(Id Solicitud=1402)
 
                 // Req. 1664 - Gestion de contenido S3
-                var carpetaPais = Globals.UrlOfertasFic + "/" + UserData().CodigoISO;
-                var url = ConfigS3.GetUrlFileS3(carpetaPais, UserData().ImagenURLOfertaFIC, "");
+                var carpetaPais = Globals.UrlOfertasFic + "/" + userData.CodigoISO;
+                var url = ConfigS3.GetUrlFileS3(carpetaPais, userData.ImagenURLOfertaFIC, "");
 
                 ViewBag.ImagenUrlOfertaFIC = url; //SSAP CGI(Id Solicitud=1402)
-                ViewBag.PaisID = UserData().PaisID; //1501
+                ViewBag.PaisID = userData.PaisID; //1501
 
                 if (olstPedidoFICDetalle.Count != 0)
                 {
-                    if (UserData().PedidoID == 0)
+                    if (userData.PedidoID == 0)
                     {
-                        UsuarioModel usuario = UserData();
-                        usuario.PedidoID = olstPedidoFICDetalle[0].PedidoID;
-                        SetUserData(usuario);
+                        userData.PedidoID = olstPedidoFICDetalle[0].PedidoID;
+                        SetUserData(userData);
                     }
                 }
 
@@ -67,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             return View(new PedidoFICDetalleModel());
         }
@@ -150,25 +146,24 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Insert(PedidoDetalleModel model)
         {
-            UserData().PedidoID = 0;
+            userData.PedidoID = 0;
             List<BEPedidoFICDetalle> olstPedidoFICDetal = new List<BEPedidoFICDetalle>();
             olstPedidoFICDetal = ObtenerPedidoFICDetalle();
             if (olstPedidoFICDetal.Count != 0)
             {
-                UsuarioModel usuario = UserData();
-                usuario.PedidoID = olstPedidoFICDetal[0].PedidoID;
-                SetUserData(usuario);
+                userData.PedidoID = olstPedidoFICDetal[0].PedidoID;
+                SetUserData(userData);
             }
 
             BEPedidoFICDetalle oBEPedidoFICDetalle = new BEPedidoFICDetalle();
-            oBEPedidoFICDetalle.IPUsuario = UserData().IPUsuario;
+            oBEPedidoFICDetalle.IPUsuario = userData.IPUsuario;
             oBEPedidoFICDetalle.CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1);
-            oBEPedidoFICDetalle.ConsultoraID = UserData().ConsultoraID;
-            oBEPedidoFICDetalle.PaisID = UserData().PaisID;
+            oBEPedidoFICDetalle.ConsultoraID = userData.ConsultoraID;
+            oBEPedidoFICDetalle.PaisID = userData.PaisID;
             oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
             oBEPedidoFICDetalle.ConfiguracionOfertaID = model.ConfiguracionOfertaID;
             oBEPedidoFICDetalle.ClienteID = string.IsNullOrEmpty(model.ClienteID) ? (short)0 : Convert.ToInt16(model.ClienteID);
-            oBEPedidoFICDetalle.PedidoID = UserData().PedidoID;
+            oBEPedidoFICDetalle.PedidoID = userData.PedidoID;
             oBEPedidoFICDetalle.OfertaWeb = false;
             oBEPedidoFICDetalle.IndicadorMontoMinimo = Convert.ToInt32(model.IndicadorMontoMinimo);
             //oBEPedidoFICDetalle.TipoOfertaSisID = model.TipoOfertaSisID;
@@ -189,7 +184,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             oBEPedidoFICDetalle.DescripcionProd = model.DescripcionProd;
             oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? UserData().NombreConsultora : model.ClienteDescripcion;
+            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
 
             bool ErrorServer;
             AdministradorPedido(oBEPedidoFICDetalle, "I", false, out ErrorServer);
@@ -215,7 +210,7 @@ namespace Portal.Consultoras.Web.Controllers
             string message = string.Empty;
 
             BEPedidoFICDetalle oBEPedidoFICDetalle = new BEPedidoFICDetalle();
-            oBEPedidoFICDetalle.PaisID = UserData().PaisID;
+            oBEPedidoFICDetalle.PaisID = userData.PaisID;
             oBEPedidoFICDetalle.CampaniaID = model.CampaniaID;
             oBEPedidoFICDetalle.PedidoID = model.PedidoID;
             oBEPedidoFICDetalle.PedidoDetalleID = model.PedidoDetalleID;
@@ -231,7 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             oBEPedidoFICDetalle.DescripcionProd = model.DescripcionProd;
             oBEPedidoFICDetalle.ImporteTotal = oBEPedidoFICDetalle.Cantidad * oBEPedidoFICDetalle.PrecioUnidad;
-            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? UserData().NombreConsultora : model.ClienteDescripcion;
+            oBEPedidoFICDetalle.Nombre = oBEPedidoFICDetalle.ClienteID == 0 ? userData.NombreConsultora : model.ClienteDescripcion;
             bool ErrorServer;
             var olstPedidoWebDetalle = AdministradorPedido(oBEPedidoFICDetalle, "U", false, out ErrorServer);
 
@@ -268,7 +263,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult Delete(int CampaniaID, int PedidoID, short PedidoDetalleID, int TipoOfertaSisID, string CUV, int Cantidad)
         {
             BEPedidoFICDetalle obe = new BEPedidoFICDetalle();
-            obe.PaisID = UserData().PaisID;
+            obe.PaisID = userData.PaisID;
             obe.CampaniaID = CampaniaID;
             obe.PedidoID = PedidoID;
             obe.PedidoDetalleID = PedidoDetalleID;
@@ -317,7 +312,7 @@ namespace Portal.Consultoras.Web.Controllers
                 List<BEPedidoFICDetalle> olstTempListado = new List<BEPedidoFICDetalle>();
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(UserData().PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), UserData().PedidoID);
+                    EliminacionMasiva = sv.DelPedidoFICDetalleMasivo(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.PedidoID);
                 }
                 if (!EliminacionMasiva)
                 {
@@ -349,11 +344,11 @@ namespace Portal.Consultoras.Web.Controllers
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     Portal.Consultoras.Web.ServicePedido.BEPedidoWeb oBEPedidoWeb = new Portal.Consultoras.Web.ServicePedido.BEPedidoWeb();
-                    oBEPedidoWeb.CampaniaID = UserData().CampaniaID;
-                    oBEPedidoWeb.ConsultoraID = UserData().ConsultoraID;
-                    oBEPedidoWeb.PaisID = UserData().PaisID;
-                    oBEPedidoWeb.IPUsuario = UserData().IPUsuario;
-                    oBEPedidoWeb.CodigoUsuarioCreacion = UserData().CodigoUsuario;
+                    oBEPedidoWeb.CampaniaID = userData.CampaniaID;
+                    oBEPedidoWeb.ConsultoraID = userData.ConsultoraID;
+                    oBEPedidoWeb.PaisID = userData.PaisID;
+                    oBEPedidoWeb.IPUsuario = userData.IPUsuario;
+                    oBEPedidoWeb.CodigoUsuarioCreacion = userData.CodigoUsuario;
                     IsInsert = sv.GetOfertaFICToInsert(oBEPedidoWeb);
                 }
 
@@ -371,7 +366,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -381,7 +376,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
@@ -401,10 +396,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                UsuarioModel oUsuarioModel = UserData();
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -446,11 +440,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                UsuarioModel oUsuarioModel = UserData();
-
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 1, 1, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), model.CUV, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 1, 1, true).ToList();
                 }
 
                 if (olstProducto.Count != 0)
@@ -479,7 +471,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 olstProductoModel.Add(new ProductoModel() { MarcaID = 0, CUV = "Ha ocurrido un Error. Vuelva a intentarlo." });
             }
 
@@ -494,11 +486,9 @@ namespace Portal.Consultoras.Web.Controllers
             List<ProductoModel> olstProductoModel = new List<ProductoModel>();
             try
             {
-                UsuarioModel oUsuarioModel = UserData();
-
                 using (ODSServiceClient sv = new ODSServiceClient())
                 {
-                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(oUsuarioModel.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, oUsuarioModel.RegionID, oUsuarioModel.ZonaID, oUsuarioModel.CodigorRegion, oUsuarioModel.CodigoZona, 2, 5, true).ToList();
+                    olstProducto = sv.SelectProductoByCodigoDescripcionSearchRegionZona(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), term, userData.RegionID, userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, 2, 5, true).ToList();
                 }
 
                 foreach (var item in olstProducto)
@@ -528,7 +518,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 olstProductoModel.Add(new ProductoModel() { CUV = "0", Descripcion = "Ha ocurrido un Error. Vuelva a intentarlo." });
             }
 
@@ -546,7 +536,7 @@ namespace Portal.Consultoras.Web.Controllers
             var list = new List<BEPedidoFICDetalle>();
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                list = sv.SelectFICByCampania(UserData().PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), UserData().ConsultoraID, UserData().NombreConsultora).ToList();
+                list = sv.SelectFICByCampania(userData.PaisID, AddCampaniaAndNumero(userData.CampaniaID, 1), userData.ConsultoraID, userData.NombreConsultora).ToList();
             }
             Session[Constantes.ConstSession.PedidoFIC] = list;
             return list;
@@ -563,7 +553,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
-                        olstTempListado = sv.SelectFICByCampania(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().NombreConsultora).ToList();
+                        olstTempListado = sv.SelectFICByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
                     }
                     Session[Constantes.ConstSession.PedidoFIC] = olstTempListado;
                 }
@@ -621,11 +611,10 @@ namespace Portal.Consultoras.Web.Controllers
                         obe.DescripcionProd = oBEPedidoFICDetalle.DescripcionProd;
                         obe.Nombre = oBEPedidoFICDetalle.Nombre;
 
-                        if (UserData().PedidoID == 0)
+                        if (userData.PedidoID == 0)
                         {
-                            UsuarioModel usuario = UserData();
-                            usuario.PedidoID = obe.PedidoID;
-                            SetUserData(usuario);
+                            userData.PedidoID = obe.PedidoID;
+                            SetUserData(userData);
                         }
 
                         olstTempListado.Add(obe);

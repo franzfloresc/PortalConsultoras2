@@ -1003,8 +1003,6 @@ namespace Portal.Consultoras.BizLogic
                     case "LOTE": item = lote; break;
                     case "ORIGEN": item = origen; break;
                     case "VALIDADO": item = row["Validado"].ToString(); break;
-                    case "COMPARTAMOS": item = (row["bitAsistenciaCompartamos"] == DBNull.Value ? string.Empty : row["bitAsistenciaCompartamos"].ToString()); break;
-                    case "METODOENVIO": item = (row["chrShippingMethod"] == DBNull.Value ? string.Empty : row["chrShippingMethod"].ToString()); break;
                     default: item = string.Empty; break;
                 }
 

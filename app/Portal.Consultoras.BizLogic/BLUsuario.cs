@@ -228,6 +228,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
                         usuario.NroCampanias = configuracion.NroCampanias;
                         usuario.FechaFinFIC = configuracion.FechaFinFIC;
+                        usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
+                        usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
                         usuario.PROLSinStock = configuracion.PROLSinStock; //1510
                         usuario.NuevoPROL = configuracion.NuevoPROL; //RQ_NP - R2133
                         usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL; //RQ_NP - R2133
