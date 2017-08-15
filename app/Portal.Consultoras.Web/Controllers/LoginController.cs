@@ -75,6 +75,13 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         ViewBag.ReturnURL = returnUrl;
                     }
+
+                    int sessionExists = 0;
+                    if (SessionExists(sessionExists) == 0)
+                    {
+                        if (!returnUrl.Equals("sesionExpirada"))
+                            return RedirectToAction("SesionExpirada", "Login");
+                    }
                 }
                 catch (FaultException ex)
                 {
@@ -195,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     var mensaje = "";
 
-                    if(validaLogin != null)
+                    if (validaLogin != null)
                     {
                         mensaje = validaLogin.Mensaje;
                     }
@@ -347,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Session["PrimeraVezSession"] = 0;
                         }
-                        
+
                         if (Request.IsAjaxRequest())
                         {
                             string urlx = (Url.IsLocalUrl(decodedUrl)) ? decodedUrl : Url.Action("Index", "Bienvenida");
@@ -412,7 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
-            
+
             try
             {
                 pasoLog = "sv.SelectPaises()";
@@ -491,7 +498,7 @@ namespace Portal.Consultoras.Web.Controllers
             FormsAuthentication.SignOut();
 
             string URLSignOut = "/Login";
-            
+
             if (tipoUsuario == Constantes.TipoUsuario.Admin)
                 URLSignOut = "/Login/Admin";
 
@@ -824,7 +831,7 @@ namespace Portal.Consultoras.Web.Controllers
                             //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
                         }
                         #endregion
- 
+
                         #region ODD
                         if (oBEUsuario.OfertaDelDia && oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
@@ -924,7 +931,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     {
                                         if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))
                                             continue;
-                                        
+
                                         model.RevistaDigital.TieneRDS = true;
                                         //obtiene datos de Revista digital suscripcion.
                                         var rds = new BERevistaDigitalSuscripcion
@@ -1287,7 +1294,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
             }
@@ -1310,7 +1317,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
             }
@@ -1525,22 +1532,28 @@ namespace Portal.Consultoras.Web.Controllers
             // If session exists
             if (HttpContext.Session != null)
             {
-                //if cookie exists and sessionid index is greater than zero
-                var sessionCookie = HttpContext.Request.Headers["Cookie"];
-                if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                {
-                    // if exists UserData in Session
-                    if (HttpContext.Session["UserData"] != null)
-                    {
-                        res = 1;
-                    }
-                }
+                res = SessionExists(res);
             }
 
             return Json(new
             {
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int SessionExists(int res)
+        {
+            //if cookie exists and sessionid index is greater than zero
+            var sessionCookie = HttpContext.Request.Headers["Cookie"];
+            if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+            {
+                // if exists UserData in Session
+                if (HttpContext.Session["UserData"] != null)
+                {
+                    res = 1;
+                }
+            }
+            return res;
         }
 
         [AllowAnonymous]
@@ -1861,7 +1874,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                if(model != null)
+                if (model != null)
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoUsuario, model.Pais, token);
                 }
@@ -1899,7 +1912,7 @@ namespace Portal.Consultoras.Web.Controllers
                             listaProdCatalogo = svc.ObtenerProductosPorCampaniasBySap(model.CodigoISO, model.CampaniaID, entidad.CodigoSap, 3).ToList();
                         }
                     }
-                    
+
                     if (listaProdCatalogo.Any())
                     {
                         var prodCatalogo = listaProdCatalogo.FirstOrDefault();
@@ -1926,7 +1939,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
-                                
+
         private JsonResult ErrorJson(string message, bool allowGet = false)
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
