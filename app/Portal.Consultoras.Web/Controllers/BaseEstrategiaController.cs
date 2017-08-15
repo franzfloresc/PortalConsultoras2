@@ -496,6 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                         && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                    || tipo == 1
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;
