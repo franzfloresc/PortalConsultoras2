@@ -90,6 +90,22 @@ function EstrategiaObtenerObj(e) {
     return estrategia;
 }
 
+function EstrategiaObtenerObjHtmlLanding(objInput) {
+    var itemClone = $(objInput).parents("[data-item]");
+    var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+    if (cuvClone != "") {
+        itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+    }
+    if (itemClone.length === 0 && cuvClone != "") {
+        itemClone = $("body").find("[data-item='" + cuvClone + "']");
+    }
+    if (itemClone.length > 1) {
+        itemClone = $(itemClone.get(0));
+    }
+
+    return itemClone;
+}
+
 function VerDetalleEstrategia(e) {
 
     AbrirLoad();
@@ -407,8 +423,9 @@ function EstrategiaAgregar(event, popup, limite) {
     }
 
     AbrirLoad();
-    
-    divAgregado = $(objInput).parents("[data-item]").find(".agregado.product-add");
+
+    var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+    divAgregado = $(itemClone).find(".agregado.product-add");
 
     var cuvs = "";
     var CodigoVariante = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategia.CodigoVariante;
@@ -562,17 +579,7 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 
     var divMensaje = $("#divMensajeBloqueada");
     if (divMensaje.length > 0) {
-        var itemClone = $(objInput).parents("[data-item]");
-        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-        if (cuvClone != "") {
-            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length === 0 && cuvClone != "") {
-            itemClone = $("body").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length > 1) {
-            itemClone = $(itemClone.get(0));
-        }
+        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
         if (itemClone.length > 0) {
             divMensaje.find("[data-item-html]").html(itemClone.html());
             divMensaje = divMensaje.find("[data-item-html]");

@@ -4135,12 +4135,9 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
-    <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\ManatenimientoPalanca.cshtml" />
-    <Content Include="Views\RevistaDigital\MisOfertas2017.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
-    <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
