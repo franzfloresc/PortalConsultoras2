@@ -27,7 +27,7 @@ body{
     right: 0;
     bottom: 0;
     left: 0;
-    background: rgba(240, 240, 240, 0.3);
+    background: rgba(147, 148, 151, 0.5);
     z-index: 99999;
     display: none;
 }
