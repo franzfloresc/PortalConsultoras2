@@ -147,7 +147,7 @@ function RDInformacion() {
 function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/");
+    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
     window.location = url;
     if (urlLocal.indexOf("/revistadigital/") > 0) {
         window.location.reload();
@@ -157,7 +157,7 @@ function RDSuscripcionRedireccionar(accion) {
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#divCambiosEstadoRegistro");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/");
+    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
     window.location = url;
     if (urlLocal.indexOf("/revistadigital/") > 0) {
         window.location.reload();
