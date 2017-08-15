@@ -286,7 +286,7 @@ header {
     top: 39px;
     margin-left: -90px;
     width: 937px;
-    height: 220px;
+    height: auto;
     padding-left: 65px;
     padding-right: 60px;
     display: none;

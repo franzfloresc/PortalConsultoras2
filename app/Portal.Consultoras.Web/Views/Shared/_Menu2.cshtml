@@ -42,6 +42,7 @@
                                 var contador = 0;
                                 var contadorRe = 0;
                                 var totolSubMenu = menuPadre.SubMenus.Count() + 1;
+                                var cantPorFilaHijo = 6;
                                 var divHtmlF = "";
                                 var addImgen = false;
                                 var subMenu2 = false;
@@ -89,7 +90,7 @@
                                     else
                                     {
                                         addImgen = true;
-                                        if (contadorRe % 5 == 0)
+                                        if (contadorRe % cantPorFilaHijo == 0)
                                         {
                                             @Html.Raw("<div class='content_left_menu'>")
                                             divHtmlF = "</div>";
@@ -118,7 +119,7 @@
                                         }
 
                                         contadorRe++;
-                                        if (contadorRe > 0 && (contadorRe % 5 == 0 || contadorRe == totolSubMenu))
+                                        if (contadorRe > 0 && (contadorRe % cantPorFilaHijo == 0 || contadorRe == totolSubMenu))
                                         {
                                             @Html.Raw(divHtmlF)
                                             divHtmlF = "";
@@ -138,7 +139,7 @@
                                     contadorRe++;
                                 }
 
-                                if (contadorRe > 0 && (contadorRe % 5 == 0 || contadorRe == totolSubMenu) && divHtmlF != "")
+                                if (contadorRe > 0 && (contadorRe % cantPorFilaHijo == 0 || contadorRe == totolSubMenu) && divHtmlF != "")
                                 {
                                     @Html.Raw(divHtmlF)
                                     divHtmlF = "";
