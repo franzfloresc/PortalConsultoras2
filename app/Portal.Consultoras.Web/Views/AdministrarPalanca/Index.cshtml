@@ -39,16 +39,21 @@
             <div class="div-2">
                 <h1><span>Configuracion Ofertas Home</span></h1>
             </div>
-
+            <div class="div-3">
+                <div class="input_horizontal">
+                    <input type="button" name="btnNuevo" id="btnNuevo" value="Nuevo" onclick="javaScript: NuevoOfertaHome();" />
+                </div>
+            </div>
             <div class="container clearfix">
                 <div class="border-wrapper">
                     <table id="listOfertas"></table>
                     <div id="pagerOfertas"></div>
                 </div>
+
             </div>
+            
         </div>
     </div>
-    <input type="button" onclick="javaScript: NuevoOfertaHome();" value="Nuevo"/>
 </div>
 
 <div id="DialogMantenimientoPalanca" style="display: none;">
@@ -67,7 +72,7 @@
     var rutaImagenDelete = '@Url.Content("~/Content/Images/Delete.png")';
     var rutaFileUpload = '@Url.Action("ImageLanzamientoUpload", "FileUpload")';
     var rutaTemporal = '@Url.Content("~/Content/Temporales/")';
-    var urlS3 = ViewBag.UrlS3;
+    var urlS3 = '@ViewBag.UrlS3';
 </script>
 
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>

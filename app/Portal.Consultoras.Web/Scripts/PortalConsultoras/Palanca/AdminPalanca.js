@@ -3,7 +3,6 @@
     IniDialogs();
 
     $("#btnModificar").click(function () {
-        //validacion de los campos 
        
     });
 
@@ -29,11 +28,10 @@ function Modificar(idConfiguracionPais, event) {
         success: function (result) {
             $("#dialog-content-palanca").empty();
             $("#dialog-content-palanca").html(result).ready(
-                UploadFilePalanca()
+                UploadFilePalanca("icono"), UploadFilePalanca("desktop-fondo-banner"), UploadFilePalanca("desktop-logo-banner"),
+                UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
             showDialog("DialogMantenimientoPalanca");
-            UploadFilePalanca();
-
         },
         error: function (request, status, error) {
             alert(request);
@@ -54,11 +52,9 @@ function ModificarOfertas(idOfertasHome) {
         success: function (result) {
             $("#dialog-content-ofertas-home").empty();
             $("#dialog-content-ofertas-home").html(result).ready(
-                UploadFilePalanca()
+                UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
-            showDialog("DialogMantenimientoPalanca");
-            UploadFilePalanca();
-
+            showDialog("DialogMantenimientoOfertasHome");
         },
         error: function (request, status, error) {
             alert(request);
@@ -79,43 +75,26 @@ function IniDialogs() {
         buttons:
         {
             "Guardar": function () {
-                //valores para el carrusel de la estrategia de lanzamiento
-                var configuracionPaisID = $("#ddlConfiguracionPais").val();
-                var codigo = $("#ddlConfiguracionPais").val();
-                var excluyente = $("input[name='Excluyente']:checked").val();
-                var descripcion = $("#Descripcion").val();
-                var estado = $("#Estado").val();
-                //var tienePerfil = $("#").val();
-                var logo = $("#nombre-icono").val();
-                var orden = $("#Orden").val();
-                var desdeCampania = $("#ddlCampania").val();
-                //var tipoEstrategia = $("#ddlEstrategia").val().join(',');;
-              
-                var desktopTituloMenu = $("#DesktopTituloMenu").val();
-                var desktopTituloBanner = $("#DesktopTituloBanner").val();
-                var desktopSubTituloBanner = $("#DesktopSubTituloBanner").val();
-                var mobileTituloMenu = $("#MobileTituloMenu").val();
-                var mobileTituloBanner = $("#MobileTituloBanner").val();
-                var mobileSubTituloBanner = $("#MobileSubTituloBanner").val();
-                var color = $("#Color").val();
+                //valores para enviar al actualizar la palanca
                 var params = {
-                    ConfiguracionPaisID: configuracionPaisID,
-                    Codigo: codigo,
-                    Excluyente: excluyente,
-                    //Descripcion: descripcion,
-                    Estado: estado,
-                    //TienePerfil: tienePerfil,
-                    DesdeCampania: desdeCampania,
-                    Descripcion: descripcion,
-                    Logo: logo,
-                    Orden: orden,
-                    DesktopTituloMenu: desktopTituloMenu,
-                    DesktopTituloBanner: desktopTituloBanner,
-                    DesktopSubTituloBanner: desktopSubTituloBanner,
-                    MobileTituloMenu: mobileTituloMenu,
-                    MobileTituloBanner: mobileTituloBanner,
-                    MobileSubTituloBanner: mobileSubTituloBanner,
-                    Color: color
+                    ConfiguracionPaisID: $("#ddlConfiguracionPais").val(),
+                    Codigo : $("#ddlConfiguracionPais").val(),
+                    Excluyente : $("input[name:'Excluyente']:checked").val(),
+                    Descripcion : $("#Descripcion").val(),
+                    Estado : $("#Estado").val(),
+                    Logo : $("#nombre-icono").val(),
+                    Orden : $("#Orden").val(),
+                    DesdeCampania : $("#ddlCampania").val(),
+                    DesktopTituloMenu : $("#DesktopTituloMenu").val(),
+                    MobileTituloMenu : $("#MobileTituloMenu").val(),
+                    DesktopTituloBanner : $("#DesktopTituloBanner").val(),
+                    DesktopSubTituloBanner : $("#DesktopSubTituloBanner").val(),
+                    MobileTituloBanner : $("#MobileTituloBanner").val(),
+                    MobileSubTituloBanner : $("#MobileSubTituloBanner").val(),
+                    CesktopFondoBanner : $("#nombre-desktop-fondo-banner").val(),
+                    DesktopLogoBanner : $("#nombre-desktop-logo-banner").val(),
+                    MobileFondoBanner : $("#nombre-mobile-fondo-banner").val(),
+                    MobileLogoBanner : $("#nombre-mobile-logo-banner").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -157,43 +136,27 @@ function IniDialogs() {
         buttons:
         {
             "Guardar": function () {
-                //valores para el carrusel de la estrategia de lanzamiento
-                var configuracionPaisID = $("#ddlConfiguracionPais").val();
-                var codigo = $("#ddlConfiguracionPais").val();
-                var excluyente = $("input[name='Excluyente']:checked").val();
-                var descripcion = $("#Descripcion").val();
-                var estado = $("#Estado").val();
-                //var tienePerfil = $("#").val();
-                var logo = $("#nombre-icono").val();
-                var orden = $("#Orden").val();
-                var desdeCampania = $("#ddlCampania").val();
-                //var tipoEstrategia = $("#ddlEstrategia").val().join(',');;
-
-                var desktopTituloMenu = $("#DesktopTituloMenu").val();
-                var desktopTituloBanner = $("#DesktopTituloBanner").val();
-                var desktopSubTituloBanner = $("#DesktopSubTituloBanner").val();
-                var mobileTituloMenu = $("#MobileTituloMenu").val();
-                var mobileTituloBanner = $("#MobileTituloBanner").val();
-                var mobileSubTituloBanner = $("#MobileSubTituloBanner").val();
-                var color = $("#Color").val();
+                //valores para seccion de home del contenedor de ofertas
                 var params = {
-                    ConfiguracionPaisID: configuracionPaisID,
-                    Codigo: codigo,
-                    Excluyente: excluyente,
-                    //Descripcion: descripcion,
-                    Estado: estado,
-                    //TienePerfil: tienePerfil,
-                    DesdeCampania: desdeCampania,
-                    Descripcion: descripcion,
-                    Logo: logo,
-                    Orden: orden,
-                    DesktopTituloMenu: desktopTituloMenu,
-                    DesktopTituloBanner: desktopTituloBanner,
-                    DesktopSubTituloBanner: desktopSubTituloBanner,
-                    MobileTituloMenu: mobileTituloMenu,
-                    MobileTituloBanner: mobileTituloBanner,
-                    MobileSubTituloBanner: mobileSubTituloBanner,
-                    Color: color
+                    ConfiguracionOfertasHomeID: $("#").val(),
+                    ConfiguracionPaisID: $("#").val(),
+                    CampaniaID: $("#").val(),
+                    DesktopOrden: $("#").val(),
+                    MobileOrden: $("#").val(),
+                    DesktopImagenFondo: $("#").val(),
+                    MobileImagenFondo: $("#").val(),
+                    DesktopTitulo: $("#").val(),
+                    MobileTitulo: $("#").val(),
+                    DesktopSubTitulo: $("#").val(),
+                    MobileSubTitulo: $("#").val(),
+                    DesktopTipoPresentacion: $("#").val(),
+                    MobileTipoPresentacion: $("#").val(),
+                    DesktopTipoEstrategia: $("#").val(),
+                    MobileTipoEstrategia: $("#").val(),
+                    DesktopCantidadProductos: $("#").val(),
+                    MobileCantidadProductos: $("#").val(),
+                    DesktopActivo: $("#").val(),
+                    MobileActivo: $("#").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -309,7 +272,7 @@ function fnGrilla() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ['ConfiguracionOfertasHomeID', 'CampaniaID', 'ConfiguracionPaisID', 'DesktopOrden', 'DesktopTitulo', 'Accion'],
+        colNames: ['ConfiguracionOfertasHomeID', 'Campania', 'ConfiguracionPais', 'Orden', 'Titulo', 'Accion'],
         colModel: [
             {
                 name: 'ConfiguracionOfertasHomeID',
@@ -321,16 +284,16 @@ function fnGrilla() {
             },
             {
                 name: 'CampaniaID',
-                index: 'CampaniaID',
+                index: 'Campania',
                 width: 40,
                 editable: true,
                 resizable: false,
                 hidden: false,
                 sortable: false
             },
-            { name: 'ConfiguracionPaisID', index: 'ConfiguracionPaisID', width: 40, editable: true, hidden: false, sortable: false },
-            { name: 'DesktopOrden', index: 'DesktopOrden', width: 280, editable: true, hidden: false, sortable: false },
-            { name: 'DesktopTitulo', index: 'DesktopTitulo', width: 280, editable: true, hidden: false, sortable: false },
+            { name: 'ConfiguracionPaisID', index: 'ConfiguracionPais', width: 40, editable: true, hidden: false, sortable: false },
+            { name: 'DesktopOrden', index: 'Orden', width: 40, editable: true, hidden: false, sortable: false },
+            { name: 'DesktopTitulo', index: 'Titulo', width: 250, editable: true, hidden: false, sortable: false },
             {
                 name: 'Activo',
                 index: 'Activo',
@@ -391,17 +354,17 @@ function ShowActionsOfertas(cellvalue, options, rowObject) {
     }
     return des;
 }  
-function UploadFilePalanca() {
+function UploadFilePalanca(tag) {
 
     var uploader = new qq.FileUploader({
         allowedExtensions: ['jpg', 'png', 'jpeg'],
-        element: document.getElementById("img-icono"),
+        element: document.getElementById("img-" + tag),
         action: rutaFileUpload,
         onComplete: function (id, fileName, responseJSON) {
             if (checkTimeout(responseJSON)) {
                 if (responseJSON.success) {
-                    $("#nombre-icono").val(responseJSON.name);
-                    $("#src-icono").attr('src', rutaTemporal + responseJSON.name);
+                    $("#nombre-" + tag).val(responseJSON.name);
+                    $("#src-" + tag).attr('src', rutaTemporal + responseJSON.name);
                 } else alert(responseJSON.message);
             }
             return false;
@@ -410,8 +373,8 @@ function UploadFilePalanca() {
         onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").remove(); },
         onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
     });
-    if ($("#nombre-icono").val() !== "") {
-        $("#src-icono").attr('src', urlS3 + $("#nombre-icono").val());
+    if ($("#nombre-" + tag).val() !== "") {
+        $("#src-" + tag).attr('src', urlS3 + $("#nombre-icono").val());
     }
 
     return false;
