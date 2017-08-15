@@ -644,6 +644,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string CDRMontoMaximo = "CDR";
         }
 
         public class TooltipLoginUsuario

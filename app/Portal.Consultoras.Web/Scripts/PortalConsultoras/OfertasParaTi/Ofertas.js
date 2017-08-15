@@ -325,7 +325,12 @@ function OfertaAgregar(article) {
     $.ajaxSetup({
         cache: false
     });
-    $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+    $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: cantidad, PrecioUnidad: PrecioUnidad }, function (data) {
+        if (data.message != "") { /*Validación Pedido Máximo*/
+            closeWaitingDialog();
+            AbrirMensaje(data.message);
+            return false;
+        } 
         if (parseInt(data.Saldo) < parseInt(cantidad)) {
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;

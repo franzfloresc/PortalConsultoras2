@@ -1297,9 +1297,15 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = Convert.ToInt32(TipoOferta);
 
-                using (PedidoServiceClient svc = new PedidoServiceClient())
-                {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
+                //EPD-2337
+                mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                //FIN EPD-2337
+
+                if (mensaje == "") {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        mensaje = svc.ValidarStockEstrategia(entidad);
+                    }
                 }
             }
             catch (FaultException ex)
@@ -1316,7 +1322,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     result = true,
-                    message = ""
+                    message = mensaje
                 });
             }
             else
