@@ -11,7 +11,7 @@ using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLOfertaProducto   
+    public class BLOfertaProducto
     {
         public IList<BEConfiguracionOferta> GetTipoOfertasAdministracion(int paisID, int TipoOfertaSisID)
         {
@@ -135,10 +135,28 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.InsMatrizComercial(entity);
         }
 
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.InsMatrizComercialImagen(entity);
+        }
+
         public int UpdMatrizComercial(BEMatrizComercial entity)
         {
             var dataAccess = new DAOfertaProducto(entity.PaisID);
             return dataAccess.UpdMatrizComercial(entity);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.UpdMatrizComercialImagen(entity);
+        }
+
+        public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.UpdMatrizComercialNemotecnico(entity);
         }
 
         public IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP)
@@ -155,6 +173,34 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
+        public IList<BEMatrizComercialImagen> GetMatrizComercialImagenByIdMatrizImagen(int paisID, int idMatrizComercial, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByIdMatrizImagen(idMatrizComercial, numeroPagina, registros))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenesByCodigoSAP(int paisID, string codigoSAP, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetMatrizComercialImagenByCodigoSap(codigoSAP, numeroPagina, registros))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
         public IList<BEMatrizComercial> GetImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             var lst = new List<BEMatrizComercial>();
@@ -164,6 +210,20 @@ namespace Portal.Consultoras.BizLogic
                 while (reader.Read())
                 {
                     var entity = new BEMatrizComercial(reader);
+                    lst.Add(entity);
+                }
+            return lst;
+        }
+
+        public IList<BEMatrizComercialImagen> GetImagenByNemotecnico(int paisID, int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            var lst = new List<BEMatrizComercialImagen>();
+            var dataAccess = new DAOfertaProducto(paisID);
+
+            using (IDataReader reader = dataAccess.GetImagenByNemotecnico(idMatrizImagen, cuv2, codigoSAP, estrategiaID, campaniaID, tipoEstrategiaID, nemotecnico, tipoBusqueda, numeroPagina, registros))
+                while (reader.Read())
+                {
+                    var entity = new BEMatrizComercialImagen(reader);
                     lst.Add(entity);
                 }
             return lst;
@@ -243,7 +303,7 @@ namespace Portal.Consultoras.BizLogic
                     /* 2108 - Fin */
                     if (pedidowebdetalle.TipoOfertaSisID == Constantes.ConfiguracionOferta.ShowRoom)
                     {
-                        int rslt = new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
+                        //int rslt = new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
                     }
 
                     oTransactionScope.Complete();

@@ -86,7 +86,24 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    rslt = sv.ValidateUserCredentialsActiveDirectory(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, OldPassword.ToUpper(), NewPassword.ToUpper());
+                    //rslt = sv.ValidateUserCredentialsActiveDirectory(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, OldPassword.ToUpper(), NewPassword.ToUpper());
+                    int resultExiste;
+                    bool result;
+
+                    resultExiste = sv.ExisteUsuario(userData.PaisID, userData.CodigoUsuario, OldPassword);
+
+                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
+                    {
+                        result = sv.CambiarClaveUsuario(userData.PaisID, userData.CodigoISO, userData.CodigoUsuario,
+                            NewPassword, "", userData.CodigoUsuario, EAplicacionOrigen.MisDatosConsultora);
+
+                        rslt = result ? 2 : 1;
+                    }
+                    else
+                    {
+                        if (resultExiste == Constantes.ValidacionExisteUsuario.ExisteDiferenteClave)
+                            rslt = 0;
+                    }
                 }
 
                 return Json(new
@@ -135,8 +152,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
                 string CorreoAnterior = model.CorreoAnterior;
-                string cadena = "";
-                string resultado = "";
 
                 entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
                 entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
@@ -144,85 +159,25 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
                 entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
                 entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
-                entidad.ZonaID = UserData().ZonaID;             /*20150907*/
-                entidad.RegionID = UserData().RegionID;         /*20150907*/
-                entidad.ConsultoraID = UserData().ConsultoraID; /*20150907*/
+                entidad.ZonaID = UserData().ZonaID;           
+                entidad.RegionID = UserData().RegionID;       
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
 
-                if (entidad.EMail != string.Empty)
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    int cantidad = 0;
-                    using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                    string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);
+                    string[] lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
                     {
-                        cantidad = svr.ValidarEmailConsultora(userData.PaisID, entidad.EMail, userData.CodigoUsuario);
-
-                        if (cantidad > 0)
-                        {
-                            return Json(new
-                            {
-                                Cantidad = cantidad,
-                                success = false,
-                                message = "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.",
-                                extra = ""
-                            });
-                        }
-                    }
-                }
-
-                //try
-                //{
-                //    using (UsuarioServiceClient svr = new UsuarioServiceClient())
-                //    {
-                //        resultado = Convert.ToString(svr.UpdActualizarDatos(UserData().PaisID, UserData().CodigoConsultora, entidad.EMail, entidad.Celular, entidad.Telefono));
-                //    }
-                //}
-                //catch (Exception ex)
-                //{
-                //    LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                //    resultado = "0";
-                //}
-                resultado = "1";
-
-                if (resultado == "1")
-                {
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        entidad.PaisID = UserData().PaisID;
-                        sv.UpdateDatos(entidad, CorreoAnterior);
-                    }
-
-                    UsuarioModel UsuarioModelSession = userData;
-                    UsuarioModelSession.Celular = entidad.Celular;
-                    UsuarioModelSession.Telefono = entidad.Telefono;
-                    UsuarioModelSession.TelefonoTrabajo = entidad.TelefonoTrabajo;
-                    if (!string.IsNullOrEmpty(entidad.Sobrenombre)) UsuarioModelSession.Sobrenombre = entidad.Sobrenombre.ToUpper();
-                    else UsuarioModelSession.Sobrenombre = UsuarioModelSession.SobrenombreOriginal;
-                    SetUserData(UsuarioModelSession);
-
-                    /*R20150907*/
-                    string[] parametros = new string[] { entidad.CodigoUsuario, entidad.PaisID.ToString(), userData.CodigoISO, entidad.EMail };
-                    string param_querystring = Util.EncriptarQueryString(parametros);
-                    //Mejora - Correo
-                    //string nomPais = Util.ObtenerNombrePaisPorISO(UserData().CodigoISO);
-                    HttpRequestBase request = this.HttpContext.Request;
-
-                    if (model.CorreoAnterior == null) model.CorreoAnterior = "";
-
-                    if (entidad.EMail.Trim() != model.CorreoAnterior.Trim())
-                    {
-
-                        UsuarioModelSession.EMail = entidad.EMail;
-                        SetUserData(UsuarioModelSession);
-
-                        cadena = cadena + "<br /><br /> Estimada consultora " + entidad.Nombre + " Para confirmar la dirección de correo electrónico ingresada haga click " +
-                                      "<br /> <a href='" + Util.GetUrlHost(request) + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'>aquí</a><br/><br/>Belcorp";//2442
-                        Util.EnviarMailMasivoColas("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
-                        //Util.EnviarMail("no-responder@somosbelcorp.com", entidad.EMail, "(" + userData.CodigoISO + ") Confimacion de Correo", cadena, true, entidad.Nombre);
-
                         return Json(new
                         {
-                            Cantidad = 0,
-                            success = true,
-                            message = "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.",
+                            Cantidad = lst[3],
+                            success = false,
+                            message = lst[2],
                             extra = ""
                         });
                     }
@@ -232,22 +187,81 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             Cantidad = 0,
                             success = true,
-                            message = "- Sus datos se actualizaron correctamente.",
+                            message = lst[2],
                             extra = ""
                         });
                     }
                 }
-                else
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        Cantidad = 0,
-                        success = true,
-                        message = "- El servicio de actualización de datos no se encuentra disponible en estos momentos. Por favor, inténtelo más tarde.",
-                        extra = ""
-                    });
-                }
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                return Json(new
+                {
+                    Cantidad = 0,
+                    success = false,
+                    message = "Ocurrió un error al acceder al servicio, intente nuevamente.",
+                    extra = ""
+                });
+            }
+        }
 
+        [HttpPost]
+        public JsonResult AceptarContrato(MisDatosModel model)
+        {
+            try
+            {
+                Mapper.CreateMap<MisDatosModel, BEUsuario>()
+                    .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
+
+                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
+                string CorreoAnterior = model.CorreoAnterior;
+
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.ZonaID = UserData().ZonaID;
+                entidad.RegionID = UserData().RegionID;
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
+
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    string resultado = svr.AceptarContrato(entidad);
+                    string[] lst = resultado.Split('|');
+
+                    if (lst[0] == "0")
+                    {
+                        return Json(new
+                        {
+                            Cantidad = lst[3],
+                            success = false,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
+                    else
+                    {
+                        return Json(new
+                        {
+                            Cantidad = 0,
+                            success = true,
+                            message = lst[2],
+                            extra = ""
+                        });
+                    }
+                }
             }
             catch (FaultException ex)
             {

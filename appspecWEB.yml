@@ -2,7 +2,7 @@ version: 0.0
 os: windows
 files:
   - source: /Publish
-    destination: C:\inetpub\wwwroot\SB2
+    destination: C:\inetpub\wwwroot\SBBPTQA
 hooks:
   BeforeInstall:
     - location: /scripts/stoppool_web.bat

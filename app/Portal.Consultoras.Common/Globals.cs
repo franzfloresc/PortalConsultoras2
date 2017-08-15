@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Common
         private static string _emailCatalogos;
         private static string _rutaFileLoadTemporal;
         private static int _sizeLimitImageRevista;
+        private static string _urlMatriz;
         #endregion
 
         #region Propiedades
@@ -25,7 +26,21 @@ namespace Portal.Consultoras.Common
         public static string UrlFileConsultoras { get; set; } // 1664
         public static string UrlIncentivos { get; set; } // 1664
         public static string UrlLugaresPago { get; set; } // 1664
-        public static string UrlMatriz { get; set; } // 1664
+
+        public static string UrlMatriz
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_urlMatriz))
+                {
+                    _urlMatriz = ConfigurationManager.AppSettings["Matriz"];
+                }
+
+                return _urlMatriz;
+            }
+            set { _urlMatriz = value; }
+        } // 1664
+
         public static string UrlOfertasNuevas { get; set; } // 1664
         public static string UrlRevistaGana { get; set; } // 1664
         public static string UrlEscalaDescuentos { get; set; } // 1664

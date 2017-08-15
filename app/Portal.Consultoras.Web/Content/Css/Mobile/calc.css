@@ -1,0 +1,6 @@
+
+.content_descripcion_set{
+    width: -moz-calc(100% - 60px);
+    width: calc(100% - 60px);
+    width: -webkit-calc(100% - 60px);
+}

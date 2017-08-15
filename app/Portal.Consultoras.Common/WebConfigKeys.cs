@@ -25,6 +25,11 @@ namespace Portal.Consultoras.Common
         public const string DocumentosContratoStorage = "UrlContenedoraComprobantesContrato";
         public const string DocumentosPagareStorage = "UrlContenedoraComprobantesPagare";
         public const string DocumentosAvalStorage = "UrlContenedoraComprobantesAval";
+
+        public const string ContenedoraReciboOtraMarca = "UrlContenedoraReciboOtraMarca";
+        public const string ContenedoraReciboPagoAval = "UrlContenedoraReciboPagoAval";
+        public const string ContenedoraCreditoAval = "UrlContenedoraCreditoAval";
+        public const string ContenedoraConstanciaLaboralAval = "UrlContenedoraConstanciaLaboralAval";
     }
 
     public class ConnectionStringNames

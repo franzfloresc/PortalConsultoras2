@@ -10,17 +10,19 @@ namespace Portal.Consultoras.Data
         public DALogGPRValidacion(int paisID)
             : base(paisID, EDbSource.Portal) { }
 
-        public BELogGPRValidacion GetByLogGPRValidacionId(long logGPRValidacionId)
+        public List<BELogGPRValidacion> GetByLogGPRValidacionId(long logGPRValidacionId, long ConsultoraID)
         {
-            BELogGPRValidacion entity = null;
+            List<BELogGPRValidacion> list = new List<BELogGPRValidacion>();
             DbCommand command = Context.Database.GetStoredProcCommand("GPR.GetLogGPRValidacionByLogGPRValidacionId");
-            Context.Database.AddInParameter(command, "@LogGPRValidacionId", DbType.Int64, logGPRValidacionId);
+            Context.Database.AddInParameter(command, "@ProcesoValidacionPedidoRechazadoID", DbType.Int64, logGPRValidacionId);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+
 
             using (IDataReader reader = Context.ExecuteReader(command))
             {
-                if (reader.Read()) entity = new BELogGPRValidacion(reader);
+                while (reader.Read()) list.Add(new BELogGPRValidacion(reader));
             }
-            return entity;
+            return list;
         }
     }
 }

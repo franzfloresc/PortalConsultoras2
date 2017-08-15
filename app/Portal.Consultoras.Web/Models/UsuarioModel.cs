@@ -1,4 +1,6 @@
-﻿using Portal.Consultoras.Web.ServicePedido;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Web.Areas.Mobile.Models;
+using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using System;
 using System.Collections.Generic;
@@ -7,6 +9,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class UsuarioModel
     {
         public UsuarioModel()
@@ -65,7 +68,12 @@ namespace Portal.Consultoras.Web.Models
             this.EsquemaDAConsultora = false;
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
-           
+            this.SegmentoAbreviatura = string.Empty;
+            this.EsLebel = false;
+            this.RevistaDigital = new RevistaDigitalModel();
+            this.MensajePedidoDesktop = 0;
+            this.MensajePedidoMobile = 0;
+            this.OfertaFinalModel = new OfertaFinalModel();
         }
 
         public string Celular { get; set; }
@@ -78,6 +86,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoFuente { get; set; }
         public string ClaveSecreta { get; set; }
         public int PaisID { get; set; }
+        public int HdePaisID { get; set; }
         public string CodigoISO { get; set; }
         public int RolID { get; set; }
         public int RegionID { get; set; }
@@ -87,7 +96,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoConsultora { get; set; }
         public string CodigoUsuario { get; set; }
         public int CampaniaID { get; set; }
-        
+
         public string CampaniaAnio
         {
             get
@@ -140,7 +149,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoTerritorio { get; set; }
         public string Simbolo { get; set; }
         public decimal MontoMinimo { get; set; }
-        public List<BEProductoFaltante> ListaProductoFaltante { get; set; }
         public string UrlAyuda { get; set; }
         public string UrlCapedevi { get; set; }
         public string UrlTerminos { get; set; }
@@ -153,6 +161,7 @@ namespace Portal.Consultoras.Web.Models
         public decimal MontoMaximo { get; set; }
         public string Segmento { get; set; }
         public string Sobrenombre { get; set; }
+        public string UsuarioNombre { get; set; }
         public string SobrenombreOriginal { get; set; }
         public int IndicadorDupla { get; set; }
         public int DiasAntes { get; set; }
@@ -218,6 +227,8 @@ namespace Portal.Consultoras.Web.Models
         public string TipoCasoPromesa { get; set; }
         public int DiasCasoPromesa { get; set; }
 
+        public string SegmentoAbreviatura { get; set; }
+
         /*Inicio Cambios_Landing_Comunidad*/
         public static bool HasAcces(List<PermisoModel> lista, string Action)
         {
@@ -270,7 +281,15 @@ namespace Portal.Consultoras.Web.Models
 
         public bool CargoEntidadesShowRoom { get; set; } // GR-1776
         public BEShowRoomEventoConsultora BeShowRoomConsultora { get; set; } // GR-1776
-        public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776
+        public BEShowRoomEvento BeShowRoom { get; set; } // GR-1776    
+
+        public List<BEShowRoomNivel> ListaShowRoomNivel { get; set; }
+
+        public List<BEShowRoomPersonalizacion> ListaShowRoomPersonalizacion { get; set; }
+
+        public List<ShowRoomPersonalizacionModel> ListaShowRoomPersonalizacionConsultora { get; set; }
+
+        public int ShowRoomNivelId { get; set; }
 
         public int OfertaFinal { get; set; }
 
@@ -292,27 +311,62 @@ namespace Portal.Consultoras.Web.Models
         public int EsCDRWebZonaValida { get; set; }
         public int EstadoPedido { get; set; }
         public int TieneCDR { get; set; }
+        public int TieneCupon { get; set; }
+        public int TieneMasVendidos { get; set; }
+        public int TieneOfertaLog { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
-        public string MotivoRechazo { get; set; }
+        public string GPRBannerTitulo { get; set; }
+        public string GPRBannerMensaje { get; set; }
+        public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool MostrarBannerPostulante { get; set; }
 
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
-
+        public int CerrarBannerPostulante { get; set; }
         public string NombreGerenteZonal { get; set; }  // SB20-907
         public decimal MontoDeuda { get; set; }
         public string MontoMinimoFlexipago { get; set; }
+
+        public IEnumerable<PaisModel> listaPaises { get; set; }
+
+        public List<PermisoModel> Menu { get; internal set; }
+        public List<ServicioCampaniaModel> MenuService { get; internal set; }
 
         /*PL20-1226*/
         public int EsOfertaDelDia { get; set; }
         public bool TieneOfertaDelDia { get; set; }
         public OfertaDelDiaModel OfertaDelDia { get; set; }
+        public List<OfertaDelDiaModel> OfertasDelDia { get; set; }
         public bool CloseOfertaDelDia { get; set; }
         public bool CloseBannerPL20 { get; set; }
         public bool EsDiasFacturacion { get; set; }
         /*PL20-1226*/
+
+        //MC-EPD1837
+        public bool HizoLoginExterno { get; set; }
+        public bool TieneLoginExterno { get; set; }
+        public List<UsuarioExternoModel> ListaLoginExterno { get; set; }
+
+        public bool CloseBannerCompraPorCompra { get; set; }
+
+        public RevistaDigitalModel RevistaDigital { get; set; }
+        public List<ConfiguracionPaisModel> ConfiguracionPais { get; set; }
+        
+        public bool EsLebel { get; set; }
+        public int AceptacionConsultoraDA { get; set; }
+        public int MensajePedidoDesktop { get; set; }
+        public int MensajePedidoMobile { get; set; }
+
+        public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
+        public List<MenuMobileModel> MenuMobile { get; internal set; }
+
+        public OfertaFinalModel OfertaFinalModel { get; set; }
+        public string CodigosConcursos { get; set; }
+
+        public string ClaseLogoSB { get; set; }
     }
 }

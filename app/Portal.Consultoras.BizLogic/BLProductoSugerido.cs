@@ -25,18 +25,17 @@ namespace Portal.Consultoras.BizLogic
             return lst;
         }
 
-        public IList<BEMatrizComercial> GetImagenesByCUV(int paisID, int campaniaID, string cuv)
+        public BEMatrizComercial GetMatrizComercialByCampaniaAndCUV(int paisID, int campaniaID, string cuv)
         {
-            var lst = new List<BEMatrizComercial>();
-            var dataAccess = new DAProductoSugerido(paisID);
+            BEMatrizComercial entity = null;
+            var dataAccess = new DAOfertaProducto(paisID);
 
-            using (IDataReader reader = dataAccess.GetImagenesByCUV(campaniaID, cuv))
+            using (IDataReader reader = dataAccess.GetMatrizComercialByCampaniaAndCUV(campaniaID, cuv))
                 while (reader.Read())
                 {
-                    var entity = new BEMatrizComercial(reader);
-                    lst.Add(entity);
+                    entity = new BEMatrizComercial(reader);
                 }
-            return lst;
+            return entity;
         }
 
         public string InsProductoSugerido(int paisID, BEProductoSugerido entidad)

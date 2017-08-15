@@ -1,33 +1,30 @@
-﻿@*//R2442 - JICM - INI - Se renombró el Modelo por lo tanto se debe actualizar el nombre de la referencia*@
+﻿
 @model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel
-@*//R2442 - JICM - FIN - *@
 @{
-    //R2319 - JLCS
-    //R2442 - JICM - Se actualiza el titulo de la página
     ViewBag.Title = "Cliente Contacta Consultora";
 }
-@*R2442 INI - JICM . estilos*@
+
 <style>
     .colorboton .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
     {
-        background: #e570e7; /* Old browsers */
-        background: -moz-linear-gradient(top, #e570e7 0%, #c85ec7 30%, #a849a3 51%); /* FF3.6+ */
-        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e570e7), color-stop(30%,#c85ec7), color-stop(51%,#a849a3)); /* Chrome,Safari4+ */
-        background: -webkit-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* Chrome10+,Safari5.1+ */
-        background: -o-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* Opera 11.10+ */
-        background: -ms-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* IE10+ */
-        background: linear-gradient(to bottom, #e570e7 0%,#c85ec7 30%,#a849a3 51%); /* W3C */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 ); /* IE6-9 */
+        background: #e570e7;
+        background: -moz-linear-gradient(top, #e570e7 0%, #c85ec7 30%, #a849a3 51%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e570e7), color-stop(30%,#c85ec7), color-stop(51%,#a849a3));
+        background: -webkit-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%);
+        background: -o-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%);
+        background: -ms-linear-gradient(top, #e570e7 0%,#c85ec7 30%,#a849a3 51%);
+        background: linear-gradient(to bottom, #e570e7 0%,#c85ec7 30%,#a849a3 51%); 
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e570e7', endColorstr='#a849a3',GradientType=0 );
         border: 1px solid #d3d3d3;
         color: white;
     }
-     @*CO550 INI - CS . estilos*@
+
     .noclose .ui-dialog-titlebar-close
      {
              display:none;
      }
 </style>
-@*R2442 FIN - JICM . estilos*@
+
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -68,16 +65,13 @@
             
         });
 
-       
-
-        /*R2442 -JICM - Javascript*/
         $('#divActualizarDatos').dialog({
             autoOpen: false,
             resizable: false,
             modal: true,
             closeOnEscape: true,
             width: 600,
-            height: 480,//CGI(CSR) - R2611 Modificacion de Tamaño del Popup de la ventana Actualizar Datos
+            height: 480,
             draggable: true,
             title: "Actualizar Datos",
             buttons:
@@ -96,7 +90,7 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 550,//ME R20150702 Modificacion de Tamaño del Popup de la ventana ConfirmaCorreoAfiliado
+            width: 550,
             close: function (event, ui) {
                 $('#divConfirmaCorreoAfiliado').dialog('close');
 
@@ -109,14 +103,11 @@
             resizable: false,
             modal: true,
             closeOnEscape: true,
-            width: 550,//ME R20150702 Modificacion de Tamaño del Popup de la ventana Felicitaciones
-            /* CO550 - CS */
+            width: 550,
             closeOnEscape: false,
             beforeClose: function (event, ui) { return false; },
             dialogClass: "noclose"      
         });
-
-        //R2442 - JICM - FIN JAVASCRIPT
 
         $("#chk-pri-terminos-y-condiciones-sup").click(function(){
 
@@ -128,22 +119,12 @@
             $("#chk-pri-terminos-y-condiciones-sup").prop("checked", $("#chk-pri-terminos-y-condiciones-bottom").prop("checked"));
         });
     });
-    //R2442 - JICM - INI JAVASCRIPT
-
 
     function ActualizarDatos() {
         var Result = false;
         var CorreoElectronico = $('#txtEmail').val();
         var ConfirmarCorreo = $('#txtEmailConfirmacion').val();
-
-     
-
-
-
-        //INI Validaciones
-
-      
-       
+               
         var m_telefonoCasa='';
         var m_telefonoCelular='';
         if ($('#txtTelefono').val()!='' && $('#txtTelefono').val() != $('#txtTelefono').attr('placeholder')) {
@@ -152,11 +133,7 @@
         if ($('#txtCelular').val() != '' && $('#txtCelular').val() != $('#txtCelular').attr('placeholder')) {
             m_telefonoCelular = $('#txtCelular').val();
         }
-           
-         
-    
-
-
+          
         var m_email = $('#txtEmail').val();
         if (typeof (m_email) == "undefined")
             m_email = ''
@@ -166,20 +143,12 @@
 
         $('.requerido').each(function (i, elem) {
             if ($(elem).val() == '' || typeof ($(elem).val()) == 'undefined') {
-                //R2442 - Telefono no estará dentro de las validaciones
-                if (elem.id != 'txtTelefono')
-                
+                if (elem.id != 'txtTelefono')                
                 {
                 
                 
                     $(elem).css({ 'border': '1px solid red' });
                     m_error++;
-                    //R2442 - Corrección
-                    //R2442 - JICM Teléfono no es campo obligatorio por ahora
-                    //if (elem.id == 'txtTelefono') {                 
-                   
-                    //    m_mensaje +="Debe ingresar teléfono. <br />";
-                    //}
                     if (elem.id == 'txtCelular') {
                    
                         m_mensaje +="Debe ingresar teléfono celular. <br />";
@@ -193,13 +162,6 @@
 
             } else {
                 if (elem.id == 'txtTelefono') {
-                    //R2442 - JICM - Por lo pronto teléfono no será un campo obligatorio
-                    //$(elem).css({ 'border': '1px solid red' });
-                    //if (m_telefonoCasa == '') {
-                    //    m_error++;
-                    //    m_mensaje += "Debe ingresar teléfono de casa. <br />";
-                    //}else
-                        //$(elem).css({ 'border': '' });
                       
                 } else {
                     if (elem.id == 'txtCelular') {
@@ -207,7 +169,6 @@
                         if (m_telefonoCelular == '') {
                             m_mensaje +="Debe ingresar teléfono celular. <br />";
                            
-                            //m_error++;
                         }
                         else
                             $(elem).css({ 'border': '' });
@@ -230,7 +191,6 @@
             if (validarEmail(m_email) == false) {
                 $('#txtEmail').css({ 'border': '1px solid red' });
                 m_mensaje+="Formato  de Email No Válido. <br />";
-                //m_mensaje += '<font color=red>* Formato  de Email No Válido</font><br />';
                 m_error++;
             }
             else {
@@ -239,7 +199,6 @@
 
         }
 
-        //R2442 - Valida correo
         if (CorreoElectronico != ConfirmarCorreo) {     
             m_error++;
             m_mensaje+="Las correos ingresados no coinciden. <br />";
@@ -252,10 +211,6 @@
           
         }
         else {
-
-            //FIN Validaciones
-
-
 
             var item = {
                 Telefono: jQuery('#txtTelefono').val(),
@@ -315,7 +270,6 @@
     function cerrarDialogo(divDialogo) {
         $('#'+divDialogo).dialog('close');
 
-        //RE2535 - CS
         if(divDialogo == 'divFelicitaciones')
         {
             window.location.href =  '@Url.Action("Index", "Bienvenida")';//R2640 CSR
@@ -332,9 +286,6 @@
         }
     }
 
-
-
-    /*CGI(RSA) - REQ 2588 INICIO*/
     function marcacionAfiliacion(){
         var posicion = $("#hdnPosicion").val();
 
@@ -346,16 +297,14 @@
         });
 
     }
-    /*CGI(RSA) - REQ 2588 FIN*/
-
-    //R2442 Javascript Solo Números
+    
     function soloNumeros(e){
         var CharCode = (e.which) ? e.which : event.keyCode;
         if (CharCode > 31 && (CharCode < 48 || CharCode > 57))
             return false;
         return true;
     }
-    //R2442 - JICM - FIN JAVASCRIPT
+
     function DownloadAttachPDF() {
 
         var iframe_ = document.createElement("iframe");
@@ -395,7 +344,6 @@
 
 </script>
 
-@*R2442 - JICM - INI  - Se procede a actualizar el diseño completamente de acuerdo al CC*@
 <div class="wrap_cab">
     <div class="filtros">
         <div class="elements">
@@ -417,8 +365,7 @@
 
                             }
                             <p>@ViewBag.MensajeCierreCampania</p>
-                            <!-- R2161 -->
-                            //R20151104
+
                             if (ViewBag.TieneFechaPromesa == 1)
                             {
                                 <p>@ViewBag.MensajeFechaPromesa</p>
@@ -432,18 +379,9 @@
                     <div class="box-b"></div>
                 </div>
                 <div class="welcome" id="MensajeWelcome">
-                    <!-- R2161 -->
+
                     @if (ViewBag.Lider == 1 && ViewBag.PortalLideres == true)
                     {
-                        <!-- <div style="font-family: Arial; font-weight: bold; color: #6c207f; font-size: 14px; width: 150px;">@ViewBag.Usuario</div>
-                        <a href='@Url.Action("Index", "Lider")' rel="lider" title="link-pedido-lider" style="color:#6c207f; cursor:pointer;text-decoration:underline;width:150px;" target="_self">
-                            <div style="font-family: Arial; font-weight: lighter; color: #6c207f; font-size: 14px; height: 36px; width: 150px;">
-                                Ingresa a Tu Portal de                                                                                                
-                            </div>
-                            <div style="margin-left: 140px; margin-top: -58px; width: 90px;">
-                                <img src='@Url.Content("~/Content/Images/" + @ViewBag.LogoLideres)' style="height:60px;" />
-                            </div>
-                        </a>     -->
                         <input id="hdnLider" type="hidden" value="1" />                                       
                     }
                     else
@@ -501,7 +439,7 @@
           
     <div class="wrap noPadd" id="paLand">
         <div class="container">
-            @*INI - Diseño Afiliación Principal*@
+
             <div id="paBann" class="clearfix">
                 <div id="paMod">
 
@@ -510,16 +448,10 @@
                 <div id="paCap">
                     <div>
                         <br><br><br>
-                        <!--<span class="paCapSmll">Estimada Consultora,<br>
-                        </span>-->
-                        @*R2442 - Se modificó el texto*@
                         <span class="paCapLg">¡Te damos la oportunidad de ganar<br>
                             <b>nuevos clientes y más pedidos!
                             </b>
                         </span>
-                        @*<span class="paCapSmll">¿Quieres saber cómo funciona?<br>
-                            &nbsp;&nbsp;Sigue leyendo
-                        </span>*@
                         <div id="paPar">
                             <p>
                                 Te acercamos a los clientes que ya tienen pedidos de las páginas web de <br>
@@ -527,7 +459,6 @@
 								te elijan como su Consultora. 
                             </p>
                     </div>
-                        @*INI - BOTONES*@
                         <div id="paForm">
                             <div>
                                 <p>
@@ -574,31 +505,19 @@
 
 
             </div>
-                        @*FIN - BOTONES*@
-
             </div>
                 </div>
             </div>
             <div id="paParClientes" style="display: none">
             </div>
-            @*FIN - Diseño Afiliación Principal*@
 
-
-            @*INI - Diseño para sección ¿Como funciona una vez que me afilio?*@
             <div id="DivEnterateMas">
 
                 <div id="TituloEnterateMas" class="clearfix">
-                    @*<span id="tituloFunziona">¿Cómo funciona una vez que me aﬁlio?</span>*@
                     ¿Cómo funciona una vez que me aﬁlio?
                 </div>
 
                 <div id="ImagenesEnterateMas" style="padding: 0 50px;">
-                    @*<div id="ImgEnterate1">&nbsp </div>
-                    <div id="ImgEnterate2">&nbsp </div>
-                    <div id="ImgEnterate3">&nbsp</div>
-                    <div id="ImgEnterate4">&nbsp</div>
-                    <div id="ImgEnterate5">&nbsp</div>
-                    <div id="ImgEnterate6">&nbsp</div>*@
                     <div id="ImgEnterate">
                         <img src='@Url.Content("~/Content/Images/afiliacion/esquema.png")'alt="" style="width: 100%">
                         
@@ -642,20 +561,10 @@
 
                 <div id="letrasPequenasEnterateMas">
 			<br><br><br>
-                    <!--&nbsp;&nbsp;&nbsp; * Revisa constantemente tu Somos Belcorp por si te llegan nuevas notiﬁcaciones. Recuerda que tienes
-                                 24 horas para responder.<br><br><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Para tener la opción de ser contactada 
-                                por nuevos clientes, debes leer y aceptar los términos y  condiciones.-->
-
-
-
                 </div>
 
             </div>
-
-
-            @*FIN - Diseño para sección ¿Como funciona una vez que me afilio?*@
-
+            
         </div>
     </div>
                 
@@ -670,11 +579,8 @@ else
         <div class="container clearfix">
 
             <div>
-               @* <input type="checkbox" id="cbxTerminosCondiciones" />
-                 <a style="color: #0094ff;">Deseo desafiliarme de este beneficio</a>*@
             </div>
             <br />
-            <!--R2543 - CS -->
             <div class="div-3">
                 <div style="width: 400px; float: left">&nbsp;</div>
                 <div class="input_modifica_horizontal">
@@ -729,26 +635,15 @@ else
                 @Html.TextBoxFor(model => model.EmailConfirmacion, new { id = "txtEmailConfirmacion", maxlength = "50" , Class = "requerido"})
             </div>
         </div>
-        @* CGI(CSR) - REQ 2611 INICIO *@
         <div class="div-3">
             <div class="cssMensaje">*Verifica que ambos correos coincidan en el mismo formato</div>            
     </div>
-        @*CGI(CSR) - REQ 2611 FIN*@
     </div>
      <label id="aviso"></label>
     <div id="loadingScreen"></div>
     @Html.Hidden("hdn_Correo", (string)Model.Email)
-    @*CGI(RSA) - REQ 2588 INICIO*@
     <input id="hdnPosicion" type="hidden" value="" />
-    @*CGI(RSA) - REQ 2588 FIN*@
 </div>
-
-<!--R2116 FIN-->
-
-
-
-@*R2442 - JICM - FIN  - Se procede a actualizar el diseño completamente de acuerdo al CC*@
-
 
 <div id="DialogMensajes" style="display: none;">
     <div class="Content_modal">
@@ -863,17 +758,9 @@ else
        
 
         if ($("#chk-pri-terminos-y-condiciones-sup").prop("checked")) {
-            
-            //R2442 - JICM - Se quita mensaje de confirmación
-            
-            //confirm_msg('¿Está seguro que desea afiliarse?',Afiliar);
-
-            /*CGI(RSA) - REQ 2588 INICIO*/
             Afiliar("Superior");
-            /*CGI(RSA) - REQ 2588 FIN*/
         } 
         else {
-            /*R2442 - JICM  - Se cambia el mensaje de validación*/
             alert_msg('Debes dar check en "He leído y acepto los Términos y Condiciones" para poder afiliarte');
         }
          
@@ -882,10 +769,7 @@ else
 
     function AceptarAfiliacion0(){
         if ($("#chk-pri-terminos-y-condiciones-bottom").prop("checked")) {
-
-            /*CGI(RSA) - REQ 2588 INICIO*/
             Afiliar("Inferior");
-            /*CGI(RSA) - REQ 2588 FIN*/
         } 
         else {
             alert_msg('Debes dar check en "He leído y acepto los Términos y Condiciones" para poder afiliarte');
@@ -894,10 +778,8 @@ else
 
     function Afiliar(tipoBoton)
     {
-        /*CGI(RSA) - REQ 2588 INICIO*/
         $("#hdnPosicion").val(tipoBoton);
-        /*CGI(RSA) - REQ 2588 FIN*/
-
+        
         waitingDialog({});
             
         var params = {
@@ -909,18 +791,14 @@ else
                     
         $.ajax({
             type: "POST",
-            url: baseUrl + "ClienteContactaConsultora/AfiliarConsultora", //R2442 - JICM Se actualiza url
+            url: baseUrl + "ClienteContactaConsultora/AfiliarConsultora",
             contentType: 'application/json',
             data: JSON.stringify(params),
             success: function (data) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     if (data.success == true) {
-                        
-                        /*CGI(RSA) - REQ 2588 INICIO*/
                         marcacionAfiliacion();
-                        /*CGI(RSA) - REQ 2588 FIN*/
-
                         $("#divFelicitaciones").dialog('open');
                        
                     }
@@ -954,13 +832,13 @@ else
 
         var params = {
   
-            ConsultoraID : @Model.ConsultoraID
+            ConsultoraID : '@Model.ConsultoraID'
 
             };
 
         $.ajax({
             type: "POST",
-            url: baseUrl + "ClienteContactaConsultora/DesafiliarConsultora", //R2442 - JICM - se actualiza url 
+            url: baseUrl + "ClienteContactaConsultora/DesafiliarConsultora",
             contentType: 'application/json',
             data: JSON.stringify(params),
             success: function (data) {
@@ -968,13 +846,7 @@ else
                     closeWaitingDialog();
                         
                     if (data.success == true) {
-                        //alert(data.message);
-                        //location.reload();
-
-                        /*CGI(RSA) - REQ 2588 INICIO*/
                         marcacionDesafiliacion();
-                        /*CGI(RSA) - REQ 2588 FIN*/
-
                         location.href= baseUrl + "Bienvenida/Index";
                     }
                     else {
@@ -993,19 +865,9 @@ else
     }
 
     function AceptarDesafiliacion() {
-        //r2543 - cs 
-        ////if ($("#cbxTerminosCondiciones").prop("checked") == true) {
-
             confirm_msg('¿Estás segura de querer desafiliarte de este beneficio?',Desafiliar);
-
-            
-        //}
-        //else {
-        //    alert_msg("Debes marcar la casilla para poder desafiliarte");
-        //}
     }
 
-    /*CGI(RSA) - REQ 2588 INICIO*/
     function marcacionDesafiliacion(){
         var posicion = $("#hdnPosicion").val();
 
@@ -1017,21 +879,11 @@ else
         });
 
     }
-    /*CGI(RSA) - REQ 2588 FIN*/
 
-    //R2442 - JICM - Método para mostrar el diseño EnterateMas
     function EnterateMas(){
-        //document.getElementById('paBann').style.display = '';
-        //document.getElementById('paParClientes').style.display = '';
-        document.getElementById('DivEnterateMas').style.display = 'block';
-        //document.getElementById('btnEnterateMas').style.display = '';
-        //document.getElementById('paForm').style.textAlign = 'center'
-        //document.getElementById('btnAgregar').style.marginLeft = '80px'
-
+        document.getElementById('DivEnterateMas').style.display = 'block';        
         $('html, body').animate({
             scrollTop: $("#DivEnterateMas").offset().top
         }, 500);
     }
-
-    //
 </script>

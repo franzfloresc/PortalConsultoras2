@@ -281,5 +281,17 @@ namespace Portal.Consultoras.Web.Models
         public string AccionBoton { get; set; }
         
         public int OrigenPedidoWeb { get; set; }
+
+        public int IndicadorGPRSB { get; set; }
+        
+        public string Celular { get; set; }
+        public string EMail { get; set; }
+        public bool EmailActivo { get; set; }
+        public int TieneCupon { get; set; }
+
+        public int CampaniaActual { get; set; }
+
+        public int TieneMasVendidos { get; set; }
+        public int TieneOfertaLog { get; set; }
     }
 }

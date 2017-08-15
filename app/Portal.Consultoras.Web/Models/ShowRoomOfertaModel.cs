@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Autofac;
 
 namespace Portal.Consultoras.Web.Models
 {
-    public class ShowRoomOfertaModel
+    [Serializable]
+    public class ShowRoomOfertaModel: CompartirRedesSocialesModel
     {
         public int OfertaShowRoomID { get; set; }
 
@@ -22,7 +21,7 @@ namespace Portal.Consultoras.Web.Models
 
         public decimal PrecioOferta { get; set; }
 
-        public decimal PrecioCatalogo { get; set; }
+        public decimal PrecioValorizado { get; set; }
 
         public int Stock { get; set; }
 
@@ -74,10 +73,63 @@ namespace Portal.Consultoras.Web.Models
 
         public IList<ShowRoomOfertaDetalleModel> ListaDetalleOfertaShowRoom { get; set; }
 
-        public string Subtitulo { get; set; }
+        public IList<ShowRoomOfertaModel> ListaOfertaShowRoom { get; set; }
 
+        public IList<ShowRoomOfertaModel> ListaShowRoomCompraPorCompra { get; set; }
+
+        public string Subtitulo { get; set; }
         public int Incrementa { get; set; }
         public int CantidadIncrementa { get; set; }
         public int Agotado { get; set; }
+        public string CodigoCategoria { get; set; }
+        public string TipNegocio { get; set; }
+        public string CodigoISO { get; set; }
+        public string Simbolo { get; set; }
+        public string Agregado { get; set; }
+        public bool TieneCompraXcompra { get; set; }
+        public string DescripcionCategoria { get; set; }
+        public string TextoCondicionCompraCpc { get; set; }
+        public string TextoDescripcionLegalCpc { get; set; }
+        public decimal Gana {
+            set
+            {
+                this.Gana = value;
+            }
+            get
+            {
+                return Math.Abs(PrecioValorizado - PrecioOferta);
+            }
+        }
+        public string FormatoPrecioValorizado
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioValorizado, CodigoISO);
+            }
+        }
+        public string FormatoPrecioOferta
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(PrecioOferta, CodigoISO);
+            }
+        }
+        public string FormatoGana
+        {
+            get
+            {
+                return Util.DecimalToStringFormat(Gana, CodigoISO);
+            }
+        }
+        public bool EMailActivo { get; set; }
+        public string EMail { get; set; }
+        public string Celular { get; set; }
+        public bool Suscripcion { get; set; }
+        public string UrlTerminosCondiciones { get; set; }
+
+        public bool EsSubCampania { get; set; }
+        //public int Orden { get; set; }
+        public string UrlCompartir { get; set; }
+        public int UnidadesPermitidasRestantes { get; set; }
     }
 }

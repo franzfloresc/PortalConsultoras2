@@ -388,12 +388,12 @@
                     if (paisConSolicitudCredito)
                     {
                         daSolicitud.UpdSolicitudNumeroLote(numeroLote);
-                        daSolicitud.UpdSolicitudDescarga(numeroLote, 2, "Terminado Ok.", fileSolCredito, fileSolActualizacion, Environment.MachineName);
+                        daSolicitud.UpdSolicitudDescarga(numeroLote, 2, "Terminado Ok.", string.Empty, fileSolCredito, fileSolActualizacion, Environment.MachineName);
                     }
                     if (paisConFlexipago)
                     {
                         daSolicitud.UpdFlexipagoNumeroLote(numeroLoteConsuFlex);
-                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 2, "Terminado Ok.", fileConsuFlex, Environment.MachineName);
+                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 2, "Terminado Ok.", string.Empty, fileConsuFlex, Environment.MachineName);
                     }
                     transaction.Complete();
                 }
@@ -404,8 +404,10 @@
                 {
                     if (numeroLote > 0)
                     {
-                        var message = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        daSolicitud.UpdSolicitudDescarga(numeroLote, 99, message, string.Empty, string.Empty, string.Empty);
+                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        daSolicitud.UpdSolicitudDescarga(numeroLote, 99, error, errorExcepcion, string.Empty, string.Empty, string.Empty);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
                 }
 
@@ -413,8 +415,10 @@
                 {
                     if (numeroLoteConsuFlex > 0)
                     {
-                        var message = ex is BizLogicException ? ex.Message : "Error desconocido.";
-                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, message, string.Empty, string.Empty);
+                        string error = ex is BizLogicException ? ex.Message : "Error desconocido.";
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        daSolicitud.UpdFlexipagoDescarga(numeroLoteConsuFlex, 99, error, errorExcepcion, string.Empty, string.Empty);
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
                 }
                 throw;
@@ -433,8 +437,11 @@
                     }
                     catch (Exception ex)
                     {
-                        try { daSolicitud.UpdSolicitudCreditoDescargaGuardoS3(numeroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
+                        string error = "Terminado OK; pero con error al guardar backups en S3.";
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        try { daSolicitud.UpdSolicitudCreditoDescargaGuardoS3(numeroLote, false, error, errorExcepcion); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, codigoUsuario, codigoPais); }
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Solicitud de Crédito", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
                 }
 
@@ -447,8 +454,11 @@
                     }
                     catch (Exception ex)
                     {
-                        try { daSolicitud.UpdFlexipagoInsDesDescargaGuardoS3(numeroLote, false, "Terminado OK; pero con error al guardar backups en S3", ex.Message + "(" + ex.StackTrace + ")"); }
+                        string error = "Terminado OK; pero con error al guardar backups en S3.";
+                        string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                        try { daSolicitud.UpdFlexipagoInsDesDescargaGuardoS3(numeroLote, false, error, errorExcepcion); }
                         catch (Exception ex2) { LogManager.SaveLog(ex2, codigoUsuario, codigoPais); }
+                        MailUtilities.EnviarMailProcesoDescargaExcepcion("Flexipago", codigoPais, fechaProceso, "Único", error, errorExcepcion);
                     }
                 }
             }

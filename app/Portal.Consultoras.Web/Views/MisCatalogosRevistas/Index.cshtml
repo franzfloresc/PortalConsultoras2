@@ -1,16 +1,15 @@
-﻿@model Portal.Consultoras.Web.Models.ClienteModel
+﻿@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
 @{
     ViewBag.Title = "Catálogos y Revistas";
 }
 
-<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
 <input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
-
-<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
-<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
-<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
 <div class="fondo_f9f9f9">
     <div class="content_belcorp">
@@ -38,7 +37,7 @@
         </div>
         
         <div id="xHtmlItemCatalogo" style="display: none;">
-            <div class="tipoClase" data-codigozona="@Model.CodigoZona" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
+            <div class="tipoClase" data-cam="{campania}" data-cat="{tipoCatalogo}" data-estado="{estado}" style="display: none;">
                 <div class="item1_catalogo" data-tipo="content">
                     <a class="revista" data-tipo="img" target="_blank" href="">
                         <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
@@ -54,36 +53,116 @@
     <!-- FIN CATALOGO -->
 
     <div class="expoferta_revista">
+       
+        @if (ViewBag.TieneRDC)
+        {
+            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                <!-- INSCRITAS C-11 -->
+                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                    <div class="home_block_rd home_rd1 rd_catalogos">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                        </div>
+                        <div class="hblock_text">
+                            <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                            </div>
+                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN INSCRITAS C-11 -->
+            }
+            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            {
+                <!-- INSCRITAS C-12 -->
+                <div class="home_block_rd home_rd1" style="background-color: transparent; text-align: left;">
+                    <div class="content_belcorp" style="background-color: black;">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
+                        </div>
+                        <div class="hblock_text" style="padding-top: 34px;">
+                            <div class="hblock_tit" style="font-size: 14px;"> @ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                            <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
+                            <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                                          <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div style="height: 35px; background: #fff;"></div>
+                <!-- FIN INSCRITAS C-12 -->
+            }
+            else
+            {
+                @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+                <div class="revista_content" id="contentRevistaDigital" style="position: relative;">
+                    <div class="home_block_rd home_rd1 rd_catalogos">
+                        <div class="rd_logo">
+                            <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="45">
+                        </div>
+                        <div class="hblock_text">
+                            <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
+                            <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
+                            </div>
+                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                                    <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else if (ViewBag.TieneRDR)
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+            <!-- Agregar revista -->
+            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
+                <div>
+                    <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
+                        <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height: 100%; float: left;"/>
+                    </div>
+                    <div>
+                        <span style="display: block; font-size: 18px; font-weight: bold; padding-left: 0px;">TU REVISTA ONLINE PERSONALIZADA</span>
+                        <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                    </div>
+                    <div class="revistadigital revistaDigital_catalogosRevistas">
+                        <div class="boxoffer" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
+                            <div class="fondo_boton"></div>
+                            <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
+        }
 
-        <!-- REVISTA -->
-        <div class="revista_content" id="contentRevista" style="@(ViewBag.EsConsultoraNueva ? "margin-right: 0px;" : "")">
-            <div class="titulo_central" data-titulo='revista'></div>
-            <span class="arrow_revista" data-accion="a"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow.png")" onclick="RevistaMostrar(-1, this)" /></span>
-            <a class="revista_carrusel" id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
-                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" id="imgPortadaGana" />
-            </a>
-            <span class="arrow_revista" data-accion="d"><img src="@Url.Content("~/Content/Images/Esika/catalogos_arrow2.png")" onclick="RevistaMostrar(1, this)" /></span>
-        </div>
-        <!-- FIN REVISTA -->
-
-        <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
-        <div class="titulo_central" id="numero_campania" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID" hidden="hidden">@Model.CampaniaActual</div>
+        <span id="spNroCampania" style="display: none;">@Model.CampaniaActual</span>
+        <div class="titulo_central" id="numero_campania" hidden="hidden">@Model.CampaniaActual</div>
 
         @if (!ViewBag.EsConsultoraNueva)
         {
-            <div class="revista_content" id="contenedorExpofertaMCR" style="display:none;">
-                <div style="text-align: center;
-                        font-family: 'lato';
-                        font-size: 16pt;
-                        color: black;
-                        letter-spacing: 0.25px;
-                        font-weight: 700;
-                        margin-top: 48px;
-                        margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
-                        <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")" /></div>
+            <div class="revista_content" id="contenedorExpofertaMCR" style="display: none;">
+                <div style="text-align: center; font-family: 'lato'; font-size: 16pt; color: black; letter-spacing: 0.25px; font-weight: 700; margin-top: 48px; margin-bottom: 28px;">EXPOFERTA C-@(Model.CampaniaActual.Substring(4, 2))</div>
+                <div id="catalogoExpoferta" class="revista_carrusel"><img src="@Url.Content("~/Content/Images/Esika/expoferta_c13.png")"/>
+                </div>
             </div>
         }
-
+        <hr class="clear"/>
     </div>
 </div>
 
@@ -105,8 +184,6 @@
         </div>
         <div class="Label_compartir">Mensaje (Editable):</div>
         <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">
-            Hola,
-            Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
         </textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
@@ -171,24 +248,16 @@
     <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
 }
 </div>
-<!--FIN-->
-@*<!--POP UP ENVIO SATISFACTORIO-->
-    <div id="EnvioSatisfatorio">
-        <div class="contentEnvio">
-
-        </div>
-    </div>
-    <!--FIN-->*@
 @section styles{
 
     <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 @section scripts{
-    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
 
     <script type="text/javascript" id="js-ready-Catalogo">
-
         var tagLbel = "Lbel";
         var tagEsika = "Esika";
         var tagCyzone = "Cyzone";
@@ -205,7 +274,6 @@
         var cantCam = 3;
         var cont = 0;
 
-        var urlISSUU = "http://issuu.com/somosbelcorp/docs/";
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         imgIssuu = imgIssuu.startsWith("https") ? imgIssuu.replace("https://", "http://") : imgIssuu;
@@ -218,6 +286,14 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var defaultImageRevista = '@Url.Content("~/Content/Images/revista_no_disponible.jpg")';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
+        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        }
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
+        var _Pagina = 1;
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>

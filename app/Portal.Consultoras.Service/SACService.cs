@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
 using System.Data;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Service
         private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
         private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
         private BLPopupPais BLPopupPais; //SB20-1095
+        private BLApp _blApp;
 
         public SACService()
         {
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Service
             BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
             BLPopupPais = new BLPopupPais();
+            _blApp = new BLApp();
         }
 
         #region Cronograma Anticipado
@@ -176,9 +178,9 @@ namespace Portal.Consultoras.Service
             return BLproductofaltante.GetProductoFaltanteByEntity(paisID, productofaltante, ColumnaOrden, Ordenamiento, PaginaActual, FlagPaginacion, RegistrosPorPagina);
         }
 
-        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID)
+        public IList<BEProductoFaltante> GetProductoFaltanteByCampaniaAndZonaID(int paisID, int CampaniaID, int ZonaID, string cuv, string descripcion)
         {
-            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID);
+            return BLproductofaltante.GetProductoFaltanteByCampaniaAndZonaID(paisID, CampaniaID, ZonaID, cuv, descripcion);
         }
 
         public string InsProductoFaltanteMasivo(int paisID, string paisISO, string CodigoUsuario, int campaniaID, IList<BEProductoFaltante> productosFaltantes, bool FaltanteUltimoMinuto)
@@ -281,9 +283,9 @@ namespace Portal.Consultoras.Service
             BLConsultoraFicticia.DelConsultoraFicticia(paisID, CodigoConsultora);
         }
 
-        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID)
+        public void UpdConsultoraFicticia(string CodigoUsuario, string CodigoConsultora, int paisID, Int64 ConsultoraID, string Clave)
         {
-            BLConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID);
+            BLConsultoraFicticia.UpdConsultoraFicticia(CodigoUsuario, CodigoConsultora, paisID, ConsultoraID, Clave);
         }
 
         public string GetCodigoConsultoraAsociada(int paisID, string CodigoUsuario)
@@ -585,28 +587,32 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public void InsertLugarPago(BELugarPago entidad)
+        public int InsertLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
-        public void UpdateLugarPago(BELugarPago entidad)
+        public int UpdateLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)
@@ -1372,8 +1378,54 @@ namespace Portal.Consultoras.Service
         {
             return BLProveedorDespachoCobranza.GetProveedorDespachoCobranzaBYiD(paisID, entity);
         }
-
         //fR20151202
+        
+        public bool EnviarProactivaChatbot(string paisISO, string urlRelativa, List<BEChatbotProactivaMensaje> listMensajeProactiva)
+        {
 
+            return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
+        }
+
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
+        {
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            return BLPedidoFacturado.UpdateClientePedidoFacturado(paisID, codigoPedido, ClienteID);
+        }
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
+        {
+            return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
+
+        }
+
+        #region Mobile
+        public IList<BEApp> ListarApps(int paisID)
+        {
+            return _blApp.ObtenerApps(paisID);
+        }
+        #endregion
+        
+        #region ConfiguracionPais
+        public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(paisId, tienePerfil);
+        }
+
+        public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, configuracionPaisId);
+        }
+
+        public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
+        {
+            var bl = new BLConfiguracionPais();
+            bl.Update(configuracionPais);
+        }
+        #endregion
     }
 }

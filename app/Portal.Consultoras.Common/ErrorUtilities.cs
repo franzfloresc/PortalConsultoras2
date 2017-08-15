@@ -89,6 +89,18 @@ namespace Portal.Consultoras.Common
             sw.WriteLine(Environment.NewLine);
             sw.Close();
         }
+        
+        public static string GetExceptionMessage(Exception exception)
+        {
+            string message = string.Empty, separadorExcepciones = string.Empty;
+            while (exception != null)
+            {
+                message += separadorExcepciones + exception.Message + "(" + exception.StackTrace + ").";
+                separadorExcepciones = Environment.NewLine + Environment.NewLine;
+                exception = exception.InnerException;
+            }
+            return message;
+        }
     }
 
     public class Log

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class PedidoWebClienteMobilModel
     {
         public PedidoWebClienteMobilModel()
@@ -33,6 +34,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public decimal ImportePagar { get; set; }
 
         public decimal ImporteDescuento { get; set; }
+
+        public int PedidoID {get; set;}
 
         public List<PedidoWebDetalleMobilModel> ListaPedidoWebDetalleProductos { get; set; }
 

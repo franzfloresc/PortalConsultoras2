@@ -27,10 +27,10 @@
             var vZonaID = jQuery.trim($("#ddlZona").val());
             var vOrigen = jQuery.trim($("#ddlOrigen").val());
             var vEstadoValidacion = jQuery.trim($("#ddlEnviadosValidacion").val());
-            var vEsRechazado = jQuery.trim($("#chkEsRechazado").val());
+            var vEsRechazado = jQuery.trim($("#ddlEsRechazado option:selected").val());
 
             setTimeout(function () {
-                DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion)
+                DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado)
             }, 0);
         });
 
@@ -172,8 +172,9 @@
             }
         });
         // SB20-871
-        $("#chkEsRechazado").change(function () {
-            if ($(this).is(":checked")) {
+        $("#ddlEsRechazado").change(function () {
+            var value = this.value;
+            if (value == "1") {
                 $("#ddlOrigen").val(2).change();
                 $("#ddlEnviadosValidacion").val(0).change();
             }
@@ -181,13 +182,13 @@
 
         $("#ddlOrigen").change(function () {
             if ($(this).val() == 1) {
-                $("#chkEsRechazado").attr('checked', false);
+                //$("#chkEsRechazado").attr('checked', false);
             }
         });
 
         fnGrilla();
     });
-    function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion) {
+    function DownloadAttachExcel(vPaisID, vCampania, vConsultora, vRegionID, vZonaID, vOrigen, vEstadoValidacion, vEsRechazado) {
         // TODO: probar la repercusion de este if
         if (checkTimeout()) {
             var isPedido = "ExportarExcelCabecera";
@@ -201,7 +202,8 @@
                                 "&vRegionID=" + vRegionID +
                                 "&vZonaID=" + vZonaID +
                                 "&vOrigen=" + vOrigen +
-                                "&vEstadoValidacion=" + vEstadoValidacion;
+                                "&vEstadoValidacion=" + vEstadoValidacion +
+                                "&vEsRechazado=" + vEsRechazado;
 
             var iframe_ = document.createElement("iframe");
             iframe_.style.display = "none";
@@ -297,23 +299,23 @@
                 vZonaID: function () { return jQuery.trim($("#ddlZona").val()); },
                 vOrigen: function () { return jQuery.trim($("#ddlOrigen").val()); },
                 vEstadoValidacion: function () { return jQuery.trim($("#ddlEnviadosValidacion").val()); },
-                vEsRechazado: function () { return $("#chkEsRechazado").is(":checked") ? 1 : 0; }
+                vEsRechazado: function () { return $("#ddlEsRechazado option:selected").val(); }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Sección', 'Región', 'Zona', 'Cod. Consultora', 'Nombre Consultora', 'Campaña de 1er Pedido', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
+            colNames: ['PaisISO', 'N° Registro', 'Fecha Ingreso', 'Fecha/Hora Validación', 'Año / Campaña', 'Región', 'Zona', 'Sección', 'Cod. Consultora', 'Nombre Consultora', 'Documento Identidad', 'Monto Total Pedido', 'Monto Total Pedido con Descuento', 'Saldo', 'Origen', 'Validado', 'Estado', 'Tipo Proceso', 'Motivo de Rechazo', 'Detalle'],
             colModel: [
                 { name: 'paisISO', index: 'paisISO', width: 0, editable: false, align: 'center', hidden: true },
                 { name: 'NroRegistro', index: 'NroRegistro', width: 6, editable: true, resizable: false },
                 { name: 'FechaRegistro', index: 'FechaRegistro', width: 10, editable: true, resizable: false },
                 { name: 'FechaReserva', index: 'FechaReserva', width: 10, editable: true, resizable: false },
-                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },
-                { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
+                { name: 'CampaniaCodigo', index: 'CampaniaCodigo', width: 8, editable: true, resizable: false },                
                 { name: 'Region', index: 'Region', width: 6, editable: true, resizable: false },
                 { name: 'Zona', index: 'Zona', width: 6, editable: true, resizable: false },
+                { name: 'Seccion', index: 'Seccion', width: 6, editable: true, resizable: false },
                 { name: 'ConsultoraCodigo', index: 'ConsultoraCodigo', width: 10, editable: true, resizable: false },
                 { name: 'ConsultoraNombre', index: 'ConsultoraNombre', width: 15, editable: true, resizable: false },
-                { name: 'PrimeraCampaniaCodigo', index: 'PrimeraCampaniaCodigo', width: 8, editable: true, resizable: false },
+                { name: 'DocumentoIdentidad', index: 'DocumentoIdentidad', width: 15, editable: true, resizable: false },
                 { name: 'ImporteTotal', index: 'ImporteTotal', width: 8, editable: true, resizable: false },
                 { name: 'ImporteTotalConDescuento', index: 'ImporteTotalConDescuento', width: 8, editable: true, resizable: false },
                 { name: 'ConsultoraSaldo', index: 'ConsultoraSaldo', width: 8, editable: true, resizable: false },
@@ -322,8 +324,12 @@
                 { name: 'IndicadorEnviado', index: 'IndicadorEnviado', width: 6, editable: true, resizable: false },
                 { name: 'TipoProceso', index: 'TipoProceso', width: 0, editable: false, align: 'center', hidden: true },
                 {
-                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 10, editable: true, resizable: false, cellattr: function (rowId, tv, rawObject, cm, rdata) {
+                    name: 'MotivoRechazo', index: 'MotivoRechazo', width: 12, editable: true, resizable: false,
+                    cellattr: function (rowId, tv, rawObject, cm, rdata) {
                         return 'style="white-space:normal !important;word-break: break-all;"'
+                    },
+                    formatter: function (cellValue, options, rowObject) {
+                        return cellValue.replace(',', '<br/>');
                     }
                 },
                 { name: 'Detalle', index: 'Detalle', width: 6, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
@@ -348,10 +354,9 @@
             rowList: [10, 20, 30, 40, 50],
             sortname: 'CampaniaCodigo',
             sortorder: 'asc',
-            viewrecords: true,
             multiselect: false,
             height: 'auto',
-            width: 930,
+            width: 1200,
             pgtext: 'Pág: {0} de {1}',
             altRows: true,
             altclass: 'jQGridAltRowClass',
@@ -392,7 +397,7 @@
             ImporteConDescuento: importeConDescuento,
             Usuario: $("#hdnUsuario").val(),
             TipoProceso: tipoProceso,
-            MotivoRechazo: motivoRechazo
+            MotivoRechazo: motivoRechazo == 'null' ? '' : motivoRechazo
         }
         data.value = JSON.stringify(d);
         form1.appendChild(data);
@@ -470,11 +475,13 @@
                 <div class="selectP2 borde_redondeado">
                     <input id="txtCodConsultora" type="text" />
                 </div>
-                <div class="titAuto">
-                    <label>
-                        <input type="checkbox" name="chkEsRechazado" id="chkEsRechazado" />
-                        Rechazado?
-                    </label>
+                <div class="titC">Rechazado?:</div>
+                <div class="selectP2 borde_redondeado">
+                    <select id="ddlEsRechazado">
+                        <option value="2">-- Todos --</option>
+                        <option value="1">SI</option>
+                        <option value="0">NO</option>
+                    </select>
                 </div>
                 <div class="input_search">
                     <input type="submit" name="" id="btnBuscar" value="Buscar" />
@@ -493,9 +500,8 @@
 
 
 <div class="wrap">
-    <div class="container clearfix">
+    <div class="containerReporte clearfix">
         <div class="border-wrapper">
-
             <table id="gvwPedidosCampana"></table>
             <div id="pager"></div>
 

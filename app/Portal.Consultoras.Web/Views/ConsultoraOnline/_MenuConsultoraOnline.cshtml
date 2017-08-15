@@ -1,29 +1,14 @@
-﻿@*model Portal.Consultoras.Web.Models.ClienteContactaConsultoraModel*@
-@using Portal.Consultoras.Web.CustomHelpers;
+﻿@using Portal.Consultoras.Web.CustomHelpers;
 @System.Web.Optimization.Styles.Render("~/bundles/CSSFuzemodal")
-<!--[if IE]>
-
-<script type="text/javascript">
-$(function() {
-  $("label img").on("click", function() {
-    $("#" + $(this).parents("label").attr("for")).click();
-  });
-});
-</script>
-<![endif]-->
 
 <nav class="menu_consultora">
     <ul>
-        <li class="@Html.IsSelected(actions: "Index", controllers: "ConsultoraOnline")">@Html.ActionLink("CONSULTORA ONLINE", "Index", "ConsultoraOnline")</li>
-        @*<li class="@Html.IsSelected(actions: "MisPedidos", controllers: "ConsultoraOnline")">@Html.ActionLink("MIS PEDIDOS", "MisPedidos", "ConsultoraOnline",null,null)</li>*@
+        <li class="@Html.IsSelected(actions: "Index", controllers: "ConsultoraOnline")">@Html.ActionLink("CONSULTORA ONLINE", "Index", "ConsultoraOnline")</li>       
     </ul>
     <div class="field100_co">
         <button id="btnDesactivar" type="button" class="boton_linea_morado float_rigth">DESACTIVAR</button></div>
 </nav>
 
-
-<!-------------------------------------------MODALS----------------------------------------------------------->
-<!------------------------------------------------------------------------------------------------------------>
 <div id="modal_desactivar_consultora" class="fuzemodal tsm ie8" style="display:none">
     <div class="fuzemodal_title">
         <span>¿DESACTIVAR CONSULTORA ONLINE?</span>

@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Data.ServicePROLConsultas;
+using Portal.Consultoras.Entities;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Transactions;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -22,12 +24,26 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
-                        listaEstrategias.Add(new BEEstrategia(reader));
+                        listaEstrategias.Add(new BEEstrategia(reader, 1));
                     }
                 }
                 return listaEstrategias;
             }
             catch (Exception) { throw; }
+        }
+
+        public BEEstrategiaDetalle GetEstrategiaDetalle(int paisID, int estrategiaID)
+        {
+            BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle();
+            var DAEstrategia = new DAEstrategia(paisID);
+            using (IDataReader reader = DAEstrategia.GetEstrategiaDetalle(estrategiaID))
+            {
+                if (reader.Read())
+                {
+                    estrategiaDetalle = new BEEstrategiaDetalle(reader);
+                }
+            }
+            return estrategiaDetalle;
         }
 
         public List<BEEstrategia> FiltrarEstrategia(BEEstrategia entidad)
@@ -41,13 +57,48 @@ namespace Portal.Consultoras.BizLogic
                 {
                     while (reader.Read())
                     {
+
                         listaEstrategias.Add(new BEEstrategia(reader));
                     }
+                }
+                foreach (var estrategia in listaEstrategias)
+                {
+                    var estrategiaDetalle = GetEstrategiaDetalle(entidad.PaisID, estrategia.EstrategiaID);
+                    estrategia.ImgFondoDesktop = estrategiaDetalle.ImgFondoDesktop;
+                    estrategia.ImgPrevDesktop = estrategiaDetalle.ImgPrevDesktop;
+                    estrategia.ImgFichaDesktop = estrategiaDetalle.ImgFichaDesktop;
+                    estrategia.UrlVideoDesktop = estrategiaDetalle.UrlVideoDesktop;
+                    estrategia.ImgFondoMobile = estrategiaDetalle.ImgFondoMobile;
+                    estrategia.ImgFichaMobile = estrategiaDetalle.ImgFichaMobile;
+                    estrategia.UrlVideoMobile = estrategiaDetalle.UrlVideoMobile;
+                    estrategia.ImgFichaFondoDesktop = estrategiaDetalle.ImgFichaFondoDesktop;
+                    estrategia.ImgFichaFondoMobile = estrategiaDetalle.ImgFichaFondoMobile;
+                    estrategia.ImgHomeDesktop = estrategiaDetalle.ImgHomeDesktop;
+                    estrategia.ImgHomeMobile = estrategiaDetalle.ImgHomeMobile;
                 }
                 return listaEstrategias;
             }
             catch (Exception) { throw; }
         }
+
+        public List<BEMatrizComercialImagen> GetImagenesByEstrategiaMatrizComercialImagen(BEEstrategia entidad, int pagina, int registros)
+        {
+            try
+            {
+                List<BEMatrizComercialImagen> listaImagenes = new List<BEMatrizComercialImagen>();
+
+                var DAEstrategia = new DAEstrategia(entidad.PaisID);
+                using (IDataReader reader = DAEstrategia.GetImagenesByEstrategiaMatrizComercialImagen(entidad, pagina, registros))
+                {
+                    while (reader.Read())
+                    {
+                        listaImagenes.Add(new BEMatrizComercialImagen(reader));
+                    }
+                }
+                return listaImagenes;
+            }
+            catch (Exception) { throw; }
+        } 
 
         public List<BETallaColor> GetTallaColor(BETallaColor entidad)
         {
@@ -103,9 +154,19 @@ namespace Portal.Consultoras.BizLogic
             {
                 var DAEstrategia = new DAEstrategia(entidad.PaisID);
                 int result = DAEstrategia.InsertEstrategia(entidad);
+                // Solo para estrategia de lanzamiento se agrega el detalle de estrategia.
+                if (entidad.CodigoTipoEstrategia != null && entidad.CodigoTipoEstrategia.Equals(Constantes.TipoEstrategiaCodigo.Lanzamiento))
+                {
+                    BEEstrategiaDetalle estrategiaDetalle = new BEEstrategiaDetalle(entidad);
+                    estrategiaDetalle.EstrategiaID = result;
+                    DAEstrategia.InsertEstrategiaDetalle(estrategiaDetalle);
+                }
                 return result;
             }
-            catch (Exception) { throw; }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         public int DeshabilitarEstrategia(BEEstrategia entidad)
@@ -143,21 +204,157 @@ namespace Portal.Consultoras.BizLogic
 
         public List<BEEstrategia> GetEstrategiasPedido(BEEstrategia entidad)
         {
-            try
-            {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
+            var estrategiasResult = new List<BEEstrategia>();
+            var estrategias = new List<BEEstrategia>();
+            var codigoIso = Util.GetPaisISO(entidad.PaisID);
 
-                var DAEstrategia = new DAEstrategia(entidad.PaisID);
-                using (IDataReader reader = DAEstrategia.GetEstrategiaPedido(entidad))
+            var daEstrategia = new DAEstrategia(entidad.PaisID);
+            using (var reader = daEstrategia.GetEstrategiaPedido(entidad))
+            {
+                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+            }
+
+            var esFacturacion = false;
+            if (entidad.ValidarPeriodoFacturacion)
+            {
+                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
+                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
+            }
+
+            if (esFacturacion)
+            {
+                /*Obtener si tiene stock de PROL por CodigoSAP*/
+                var listaTieneStock = new List<Lista>();
+                try
                 {
-                    while (reader.Read())
+                    var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
+                    if (!string.IsNullOrEmpty(codigoSap))
                     {
-                        listaEstrategias.Add(new BEEstrategia(reader));
+                        using (var sv = new wsConsulta())
+                        {
+                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
+                        }
                     }
                 }
-                return listaEstrategias;
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
+                    listaTieneStock = new List<Lista>();
+                }
+
+                estrategias.ForEach(estrategia =>
+                {
+                    if (estrategia.Precio2 > 0)
+                    {
+                        var add = true;
+                        if (estrategia.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                        add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+                        }
+                        if (!add) return;
+
+                        if (estrategia.Precio >= estrategia.Precio2)
+                            estrategia.Precio = Convert.ToDecimal(0.0);
+
+                        estrategiasResult.Add(estrategia);
+                    }
+                });
             }
-            catch (Exception) { throw; }
+            else estrategiasResult.AddRange(estrategias);
+
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            estrategiasResult.ForEach(estrategia =>
+            {
+                estrategia.CampaniaID = entidad.CampaniaID;
+                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.Simbolo = entidad.Simbolo;
+                estrategia.TieneStockProl = true;
+                estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
+                estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
+                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
+            });
+            return estrategiasResult;
+        }
+
+        public List<BEEstrategia> GetMasVendidos(BEEstrategia entidad)
+        {
+            var estrategiasResult = new List<BEEstrategia>();
+            var estrategias = new List<BEEstrategia>();
+            var codigoIso = Util.GetPaisISO(entidad.PaisID);
+
+            var daEstrategia = new DAEstrategia(entidad.PaisID);
+            using (var reader = daEstrategia.GetMasVendidos(entidad))
+            {
+                while (reader.Read()) estrategias.Add(new BEEstrategia(reader));
+            }
+
+            var esFacturacion = false;
+            if (entidad.ValidarPeriodoFacturacion)
+            {
+                var fechaHoy = DateTime.Now.AddHours(entidad.ZonaHoraria).Date;
+                esFacturacion = fechaHoy >= entidad.FechaInicioFacturacion.Date;
+            }
+
+            if (esFacturacion)
+            {
+                /*Obtener si tiene stock de PROL por CodigoSAP*/
+                var listaTieneStock = new List<Lista>();
+                try
+                {
+                    var codigoSap = string.Join("|", estrategias.Where(e => !string.IsNullOrEmpty(e.CodigoProducto)).Select(e => e.CodigoProducto));
+                    if (!string.IsNullOrEmpty(codigoSap))
+                    {
+                        using (var sv = new wsConsulta())
+                        {
+                            sv.Url = ConfigurationManager.AppSettings["RutaServicePROLConsultas"];
+                            listaTieneStock = sv.ConsultaStock(codigoSap, codigoIso).ToList();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.SaveLog(ex, entidad.ConsultoraID, entidad.PaisID.ToString());
+                    listaTieneStock = new List<Lista>();
+                }
+
+                estrategias.ForEach(estrategia =>
+                {
+                    if (estrategia.Precio2 > 0)
+                    {
+                        var add = true;
+                        if (estrategia.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            add = listaTieneStock.Any(p => p.Codsap.ToString() == estrategia.CodigoProducto && p.estado == 1);
+                        }
+                        if (!add) return;
+
+                        if (estrategia.Precio >= estrategia.Precio2)
+                            estrategia.Precio = Convert.ToDecimal(0.0);
+
+                        estrategiasResult.Add(estrategia);
+                    }
+                });
+            }
+            else estrategiasResult.AddRange(estrategias);
+
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
+            estrategiasResult.ForEach(estrategia =>
+            {
+                estrategia.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.ImagenURL, carpetaPais);
+                estrategia.Simbolo = entidad.Simbolo;
+                estrategia.TieneStockProl = true;
+                estrategia.PrecioString = Util.DecimalToStringFormat(estrategia.Precio2, codigoIso);
+                estrategia.PrecioTachado = Util.DecimalToStringFormat(estrategia.Precio, codigoIso);
+                estrategia.FotoProducto01 = string.IsNullOrEmpty(estrategia.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, estrategia.FotoProducto01, carpetaPais);
+                estrategia.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                estrategia.CodigoEstrategia = Util.Trim(estrategia.CodigoEstrategia);
+            });
+            return estrategiasResult;
         }
 
         public List<BEEstrategia> FiltrarEstrategiaPedido(BEEstrategia entidad)
@@ -199,7 +396,11 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-        // 1747 - Fin
+
+        public string GetCodeEstrategiaByCUV(int paisID, string cuv, int campaniaID)
+        {
+            return new DAEstrategia(paisID).GetCodeEstrategiaByCUV(cuv, campaniaID);
+        }
 
         public string GetImagenOfertaPersonalizadaOF(int paisID, int campaniaID, string cuv)
         {
@@ -209,29 +410,29 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.GetImagenOfertaPersonalizadaOF(campaniaID, cuv);
         }
 
-        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado)
+        public int GetCantidadOfertasParaTi(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
         {
             try
             {
                 var DAEstrategia = new DAEstrategia(paisId);
-                int result = DAEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado);
+                int result = DAEstrategia.GetCantidadOfertasParaTi(campaniaId, tipoConfigurado, estrategiaId);
                 return result;
             }
             catch (Exception) { throw; }
         }
 
-        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado)
+        public List<BEEstrategia> GetOfertasParaTiByTipoConfigurado(int paisId, int campaniaId, int tipoConfigurado, int estrategiaId)
         {
             try
             {
                 List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
 
                 var DAEstrategia = new DAEstrategia(paisId);
-                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado))
+                using (IDataReader reader = DAEstrategia.GetOfertasParaTiByTipoConfigurado(campaniaId, tipoConfigurado, estrategiaId))
                 {
                     while (reader.Read())
                     {
-                        listaEstrategias.Add(new BEEstrategia(reader));
+                        listaEstrategias.Add(new BEEstrategia(reader,  true));
                     }
                 }
                 return listaEstrategias;
@@ -286,30 +487,36 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
         }
 
-        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario)
+        public int InsertEstrategiaOfertaParaTi(int paisId, List<BEEstrategia> lista, int campaniaId, string codigoUsuario, int estrategiaId)
         {
             var DAEstrategia = new DAEstrategia(paisId);
-            return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario);
+            return DAEstrategia.InsertEstrategiaOfertaParaTi(lista, campaniaId, codigoUsuario, estrategiaId);
         }
 
         /*PL20-1226*/
         public List<BEEstrategia> GetEstrategiaODD(int paisID, int codCampania, string codConsultora, DateTime fechaInicioFact)
         {
-            try
-            {
-                List<BEEstrategia> listaEstrategias = new List<BEEstrategia>();
-                var DAEstrategia = new DAEstrategia(paisID);
+            var listaEstrategias = new List<BEEstrategia>();
+            var daEstrategia = new DAEstrategia(paisID);
 
-                using (IDataReader reader = DAEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            using (var reader = daEstrategia.GetEstrategiaODD(codCampania, codConsultora, fechaInicioFact))
+            {
+                while (reader.Read())
                 {
-                    while (reader.Read())
-                    {
-                        listaEstrategias.Add(new BEEstrategia(reader));
-                    }
+                    listaEstrategias.Add(new BEEstrategia(reader));
                 }
-                return listaEstrategias;
             }
-            catch (Exception) { throw; }
+
+            var codigoIso = Util.GetPaisISO(paisID);
+            var carpetaPais = Globals.UrlMatriz + "/" + codigoIso;
+
+            listaEstrategias.ForEach(item =>
+            {
+                item.FotoProducto01 = string.IsNullOrEmpty(item.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, item.FotoProducto01, carpetaPais);
+                item.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+            });
+
+            return listaEstrategias;
         }
 
         public int ActivarDesactivarEstrategias(int paisID, String UsuarioModificacion, String EstrategiasActivas, String EstrategiasDesactivas)
@@ -318,5 +525,123 @@ namespace Portal.Consultoras.BizLogic
             return DAEstrategia.ActivarDesactivarEstrategias(UsuarioModificacion, EstrategiasActivas, EstrategiasDesactivas);
         }
 
+        #region Producto Comentario
+
+        public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var daEstrategia = new DAEstrategia(paisID);
+            var oTransactionOptions = new TransactionOptions();
+            oTransactionOptions.IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted;
+
+            try
+            {
+                using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
+                {
+                    if (entidad.ProdComentarioId == 0)
+                    {
+                        BEProductoComentario oProdComentario = new BEProductoComentario();
+                        oProdComentario.CodigoSap = entidad.CodigoSap;
+                        oProdComentario.CodigoGenerico = entidad.CodigoGenerico;
+                        entidad.ProdComentarioId = daEstrategia.InsertarProductoComentario(oProdComentario);
+                    }
+
+                    result = daEstrategia.InsertarProductoComentarioDetalle(entidad);
+
+                    oTransactionScope.Complete();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        public BEProductoComentario GetProductoComentarioByCodSap(int paisID, string codigoSap)
+        {
+            BEProductoComentario entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetProductoComentarioByCodSap(codigoSap))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentario(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap)
+        {
+            BEProductoComentarioDetalle entidad = null;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetUltimoProductoComentarioByCodigoSap(codigoSap))
+            {
+                if (reader.Read())
+                {
+                    entidad = new BEProductoComentarioDetalle(reader);
+                }
+            }
+
+            return entidad;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleaResumen(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter)
+        {
+            var listaDetalle = new List<BEProductoComentarioDetalle>();
+            var daEstrategia = new DAEstrategia(paisID);
+
+            using (var reader = daEstrategia.GetListaProductoComentarioDetalleAprobar(filter))
+            {
+                while (reader.Read())
+                {
+                    listaDetalle.Add(new BEProductoComentarioDetalle(reader));
+                }
+            }
+
+            return listaDetalle;
+        }
+
+        public int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
+        {
+            int result;
+            var daEstrategia = new DAEstrategia(paisID);
+
+            try
+            {
+                result = daEstrategia.AprobarProductoComentarioDetalle(entidad.ProdComentarioId, entidad.ProdComentarioDetalleId, entidad.Estado);
+            }
+
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

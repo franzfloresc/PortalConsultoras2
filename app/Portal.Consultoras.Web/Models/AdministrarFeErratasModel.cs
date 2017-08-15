@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class AdministrarFeErratasModel
     {
         public int FeErratasID { get; set; }

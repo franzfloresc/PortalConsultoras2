@@ -35,10 +35,9 @@
             @{ var posicion = 1; }
             @foreach (var item in Model.ListaShowRoomOferta)
             {
-                //var ganaHasta = Convert.ToInt32(item.PrecioOferta) - Convert.ToInt32(item.PrecioCatalogo);
-                var ganaHasta = Convert.ToDecimal(item.PrecioOferta) - Convert.ToDecimal(item.PrecioCatalogo);
+                var ganaHasta = Convert.ToDecimal(item.PrecioValorizado) - Convert.ToDecimal(item.PrecioOferta);
                 var formatoGanaHasta = Util.DecimalToStringFormat(ganaHasta, Model.CodigoIso);
-                var formatoPrecioCatalogo = Util.DecimalToStringFormat(item.PrecioCatalogo, Model.CodigoIso);
+                var formatoPrecioOferta = Util.DecimalToStringFormat(item.PrecioOferta, Model.CodigoIso);
                 
                 var inhabilitar = item.Stock == 0;
 
@@ -48,7 +47,7 @@
                     <input type="hidden" id="hdOfertaShowRoomID" value="@item.OfertaShowRoomID" />
                     <input type="hidden" class="valorCuv" value="@item.CUV" />
                     <input type="hidden" class="claseMarcaID" value="@item.MarcaID" />
-                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioCatalogo" />
+                    <input type="hidden" class="clasePrecioUnidad" value="@item.PrecioOferta" />
                     <input type="hidden" class="claseConfiguracionOfertaID" value="@item.ConfiguracionOfertaID" />
                     <input type="hidden" class="DescripcionProd" value="@item.Descripcion" />
                     <input type="hidden" class="DescripcionMarca" value="@item.DescripcionMarca" />
@@ -112,7 +111,7 @@
                         <div class="precio_content content_centrado">
                             <div class="set_precio_m">
                                 SET A SOLO<br>
-                                <span>@Model.Simbolo @formatoPrecioCatalogo</span>
+                                <span>@Model.Simbolo @formatoPrecioOferta</span>
                             </div>
                             <div class="set_precio_gana_m">
                                 GANA HASTA
@@ -348,7 +347,6 @@
                                             }
 
                                             AgregarTagManagerProductoAgregado(CUV, nombreProducto, PrecioUnidad, cantidad, descripcionMarca);
-                                            //ActualizarCantidadTotalPedido();
                                             CargarCantidadProductosPedidos();
                                             TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                         }
@@ -420,7 +418,6 @@
             var cuv = $(article).find(".valorCuv").val();
             var precio = $(article).find(".clasePrecioUnidad").val();
             var marca = $(article).find(".DescripcionMarca").val();
-            //var posicion = $(article).find(".posicionEstrategia").val();
             var list = 'Ofertas Showroom popUp';
             
             dataLayer.push({

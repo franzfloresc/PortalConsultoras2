@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Http;
-using Portal.Consultoras.Common;
-using System.Configuration;
-using System.Text;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System.Configuration;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -16,22 +9,30 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            string[] parametros; string strCodigoUsuario;
-            if (userData.ConsultoraAsociada.ToString().Trim().Length > 0)
+            string strCodigoUsuario;
+
+            if (!string.IsNullOrEmpty(userData.ConsultoraAsociada) && userData.ConsultoraAsociada.Trim().Length > 0)
             {
-                UsuarioServiceClient sv = new UsuarioServiceClient();
-                strCodigoUsuario = sv.GetUsuarioAsociado(userData.PaisID, userData.ConsultoraAsociada);
+                using (var sv = new UsuarioServiceClient())
+                {
+                    strCodigoUsuario = sv.GetUsuarioAsociado(userData.PaisID, userData.ConsultoraAsociada);
+                }
             }
             else
             {
-                strCodigoUsuario = userData.CodigoUsuario.ToString();
+                strCodigoUsuario = userData.CodigoUsuario;
             }
-            parametros = new string[]
-			    {
-				    userData.PaisID.ToString() + "|" + strCodigoUsuario
-			    };
+
+            string[] parametros = new string[] { userData.PaisID.ToString() + "|" + strCodigoUsuario };
             string str = Util.EncriptarQueryString(parametros);
-            string url = ConfigurationManager.AppSettings["URL_LIDER"].ToString() + "?p=" + str.ToString();
+            string url = ConfigurationManager.AppSettings.Get("URL_LIDER") + "?p=" + str;
+
+            if (Session[Constantes.ConstSession.IngresoPortalLideres] == null)
+            {
+                RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalLideres, Constantes.LogDynamoDB.RolSociaEmpresaria, "HOME", "INGRESAR");
+                Session[Constantes.ConstSession.IngresoPortalLideres] = true;
+            }
+
             return Redirect(url);
         }
 

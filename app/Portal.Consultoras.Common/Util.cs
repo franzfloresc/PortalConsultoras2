@@ -23,7 +23,14 @@ using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Drawing.Imaging;
 using System.Drawing;
-
+using Belcorp.Security.Federation.Connections;
+using MaxMind.Util;
+using MaxMind.Db;
+using Microsoft.IdentityModel.Protocols.WSIdentity;
+using Microsoft.IdentityModel.Protocols.WSTrust;
+using System.ServiceModel;
+using System.ServiceModel.Security;
+using System.Web.Routing;
 
 namespace Portal.Consultoras.Common
 {
@@ -460,9 +467,9 @@ namespace Portal.Consultoras.Common
             AlternateView avHtml = AlternateView.CreateAlternateViewFromString(strMensaje, null, MediaTypeNames.Text.Html);
 
             //Embebemos el logo de Belcorp 
-            LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
-            Logo.ContentId = "Logo";
-            avHtml.LinkedResources.Add(Logo);
+            //LinkedResource Logo = new LinkedResource(HttpContext.Current.Request.MapPath("../Content/Images/Logo.gif"), MediaTypeNames.Image.Gif);
+            //Logo.ContentId = "Logo";
+            //avHtml.LinkedResources.Add(Logo);
 
             //Atributos del objeto MailMessage
             if (ParseString(ConfigurationManager.AppSettings["flagCorreo"]) == "0")
@@ -1163,10 +1170,10 @@ namespace Portal.Consultoras.Common
             int RecordCount = lst.Count;
             item.PageSize = item.PageSize <= 0 ? 1 : item.PageSize;
 
-            int PageCount = RecordCount/item.PageSize;
+            int PageCount = RecordCount / item.PageSize;
             PageCount = PageCount < 1 ? 1 : PageCount;
-            PageCount += RecordCount > (PageCount*item.PageSize) ? 1 : 0;
-            
+            PageCount += RecordCount > (PageCount * item.PageSize) ? 1 : 0;
+
             pag.RecordCount = RecordCount;
             pag.PageCount = PageCount;
 
@@ -1419,6 +1426,110 @@ namespace Portal.Consultoras.Common
                     row++;
                 }
                 ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");
+                //ws.Row(1).Style.Font.Bold = true;
+                //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
+
+                var titlesStyle = wb.Style;
+                titlesStyle.Font.Bold = true;
+                titlesStyle.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+                titlesStyle.Fill.BackgroundColor = XLColor.FromHtml("#669966");
+
+                wb.NamedRanges.NamedRange("Titles").Ranges.Style = titlesStyle;
+                //ws.Columns().AdjustToContents();
+
+                var stream = new MemoryStream();
+                wb.SaveAs(stream);
+
+                HttpContext.Current.Response.ClearHeaders();
+                HttpContext.Current.Response.Clear();
+                //HttpContext.Current.Response.SetCookie("Cache-Control", "private");
+                HttpContext.Current.Response.Buffer = false;
+                HttpContext.Current.Response.AddHeader("Content-disposition", "attachment; filename=" + originalFileName);
+                HttpContext.Current.Response.Charset = "UTF-8";
+                HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.Private);
+                //HttpContext.Current.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                HttpContext.Current.Response.ContentType = "application/octet-stream";
+                HttpContext.Current.Response.BinaryWrite(stream.ToArray());
+                HttpContext.Current.Response.Flush();
+                HttpContext.Current.Response.End();
+                stream = null;
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Metodo que exporta una lista a documento Excel.
+        /// </summary>
+        /// <typeparam name="V">Tipo de entidad</typeparam>
+        /// <param name="filename">nombre del archivo sin la extension</param>
+        /// <param name="Source">Lista de Entidades cuyos registros van a ser exportados a excel</param>
+        /// <param name="columnDefinition">Diccionario que contiene: Nombre de las columnas a mostrar[Key], Propiedad asociada a la entidad[value]</param>
+        /// <returns></returns>
+        public static bool ExportToExcelManySheets<V>(string filename, List<List<V>> Sources, List<Dictionary<string, string>> columnDefinitions, List<string> nombresHojas, int sizeColumn)
+        {
+            try
+            {
+                string extension = ".xlsx";
+                string originalFileName = Path.GetFileNameWithoutExtension(filename) + extension;
+
+                var wb = new XLWorkbook();
+                for (int i = 0; i < Sources.Count; i++)
+                {
+                    var ws = wb.Worksheets.Add(nombresHojas[i]);
+                    List<string> Columns = new List<string>();
+                    int index = 1;
+
+                    foreach (KeyValuePair<string, string> keyvalue in columnDefinitions[i])
+                    {
+                        //Establece las columnas
+                        ws.Cell(1, index).Value = keyvalue.Key;
+                        index++;
+                        Columns.Add(keyvalue.Value);
+                    }
+                    int row = 2;
+                    int col = 0;
+                    foreach (var dataItem in (System.Collections.IEnumerable)Sources[i])
+                    {
+                        col = 1;
+                        foreach (string column in Columns)
+                        {
+                            //Establece el valor para esa columna
+                            foreach (PropertyInfo property in dataItem.GetType().GetProperties())
+                            {
+                                if (column == property.Name)
+                                {
+                                    if (property.PropertyType == typeof(Nullable<bool>) || property.PropertyType == typeof(bool))
+                                    {
+                                        string value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+                                        ws.Cell(row, col).Value = (string.IsNullOrEmpty(value) ? "" : (value == "True" ? "Si" : "No"));
+                                    }
+                                    else
+                                    {
+                                        if (property.PropertyType == typeof(Nullable<DateTime>) || property.PropertyType == typeof(DateTime))
+                                            ws.Cell(row, col).Style.DateFormat.Format = "dd/MM/yyyy";
+                                        else
+                                            ws.Cell(row, col).Style.NumberFormat.Format = "@";
+                                        ws.Cell(row, col).Value = System.Web.UI.DataBinder.GetPropertyValue(dataItem, property.Name, null);
+
+                                    }
+                                    ws.Column(col).Width = sizeColumn;
+                                    break;
+                                }
+                            }
+                            col++;
+
+                        }
+                        row++;
+                    }
+                    ws.Range(1, 1, 1, index - 1).AddToNamed("Titles");                    
+                }
+
                 //ws.Row(1).Style.Font.Bold = true;
                 //ws.Row(1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
                 //ws.Row(1).Style.Fill.BackgroundColor = XLColor.Aquamarine;
@@ -1899,21 +2010,22 @@ namespace Portal.Consultoras.Common
 
         public static string EncriptarQueryString(params string[] Parametros)
         {
-            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
-
+            TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
+            QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
             for (int i = 0; i < Parametros.Length; i++)
             {
-                QueryString[i.ToString()] = Parametros[i];
+                QueryString[i.ToString()] = Parametros[i].Trim();
             }
 
             return HttpUtility.UrlEncode(QueryString.ToString());
-
         }
 
         public static string DesencriptarQueryString(string ParametroQueryString)
         {
             StringBuilder oStringBuilder = new StringBuilder();
-            TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString);
+
+            TSHAK.Components.SecureQueryString QueryString = default(TSHAK.Components.SecureQueryString);
+            QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 }, ParametroQueryString.Replace(" ", "+"));
             for (int i = 0; i < QueryString.Count; i++)
             {
                 oStringBuilder.Append(QueryString[i]);
@@ -1933,6 +2045,52 @@ namespace Portal.Consultoras.Common
             }
             return stringBuilder.ToString();
         }
+
+        public static string Encrypt(string clearText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+
+        public static string Decrypt(string cipherText)
+        {
+            string EncryptionKey = "MAKV2SPBNI99212";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
+
         public static string EncriptarCookie(string Parametros)
         {
             TSHAK.Components.SecureQueryString QueryString = new TSHAK.Components.SecureQueryString(new Byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 4, 5, 8 });
@@ -1983,7 +2141,7 @@ namespace Portal.Consultoras.Common
             string output = System.Text.Encoding.UTF8.GetString(outputbytes);
             return output;
         }
-        
+
         public static RSACryptoServiceProvider CargarLlave(string xmlKeysPath, RSACryptoServiceProvider rsa)
         {
             FileStream fs = new FileStream(xmlKeysPath, FileMode.Open, FileAccess.Read, FileShare.Read);
@@ -1993,7 +2151,7 @@ namespace Portal.Consultoras.Common
             rsa.FromXmlString(llave);
             return rsa;
         }
-        
+
         public static string enletras(string num)
         {
             string res, dec = "";
@@ -2218,14 +2376,14 @@ namespace Portal.Consultoras.Common
 
         public static Uri GetUrlHost(HttpRequestBase request)
         {
-            //string hostHeader = request.Headers["host"];
             string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
-            //return new Uri(string.Format("{0}://{1}",
-            //   request.Url.Scheme,
-            //   hostHeader
-            //   ));
             return new Uri(baseUrl);
+        }
 
+        public static Uri GetUrlHost(HttpRequest request)
+        {
+            string baseUrl = request.Url.Scheme + "://" + request.Url.Authority + (request.ApplicationPath.ToString().Equals("/") ? "/" : (request.ApplicationPath + "/"));
+            return new Uri(baseUrl);
         }
 
         public static string CreateRandomPassword(int PasswordLength)
@@ -2390,68 +2548,56 @@ namespace Portal.Consultoras.Common
 
         public static int GetPaisID(string ISO)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            ISO = ISO.ToUpper();
+
+            var listaPaises = new Dictionary<string, int>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {"AR", 1},
+                {"BO", 2},
+                {"CL", 3},
+                {"CO", 4},
+                {"CR", 5},
+                {"EC", 6},
+                {"SV", 7},
+                {"GT", 8},
+                {"MX", 9},
+                {"PA", 10},
+                {"PE", 11},
+                {"PR", 12},
+                {"DO", 13},
+                {"VE", 14},
             };
-            string paisID = "0";
-            try
-            {
-                paisID = (from c in listaPaises
-                          where c.Value == ISO.ToUpper()
-                          select c.Key).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return int.Parse((paisID == null ? "0" : paisID));
+
+            if (!listaPaises.ContainsKey(ISO))
+                return 0;
+
+            return listaPaises[ISO];
         }
 
         public static string GetPaisISO(int paisID)
         {
-            List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()
+            var listaPaises = new Dictionary<int, string>()
             {
-                new KeyValuePair<string, string>("1", "AR"),
-                new KeyValuePair<string, string>("2", "BO"),
-                new KeyValuePair<string, string>("3", "CL"),
-                new KeyValuePair<string, string>("4", "CO"),
-                new KeyValuePair<string, string>("5", "CR"),
-                new KeyValuePair<string, string>("6", "EC"),
-                new KeyValuePair<string, string>("7", "SV"),
-                new KeyValuePair<string, string>("8", "GT"),
-                new KeyValuePair<string, string>("9", "MX"),
-                new KeyValuePair<string, string>("10", "PA"),
-                new KeyValuePair<string, string>("11", "PE"),
-                new KeyValuePair<string, string>("12", "PR"),
-                new KeyValuePair<string, string>("13", "DO"),
-                new KeyValuePair<string, string>("14", "VE"),
+                {1, "AR" },
+                {2, "BO"},
+                {3, "CL"},
+                {4, "CO"},
+                {5, "CR"},
+                {6, "EC"},
+                {7, "SV"},
+                {8, "GT"},
+                {9, "MX"},
+                {10, "PA" },
+                {11, "PE"},
+                {12, "PR"},
+                {13, "DO"},
+                {14, "VE"}
             };
-            string ISO = string.Empty;
-            try
-            {
-                ISO = (from c in listaPaises
-                       where c.Key == paisID.ToString()
-                       select c.Value).SingleOrDefault();
-            }
-            catch (Exception)
-            {
-                throw new Exception("Hubo un error en obtener el País");
-            }
-            return (ISO == null ? string.Empty : ISO);
+
+            if (!listaPaises.ContainsKey(paisID))
+                return string.Empty;
+
+            return listaPaises[paisID];
         }
 
         public static string GetPaisNombre(int paisID)
@@ -2710,13 +2856,20 @@ namespace Portal.Consultoras.Common
             return stringBuilder.ToString().Normalize(NormalizationForm.FormC);
         }
 
+        public static string Trim(string cadena)
+        {
+            cadena = cadena ?? "";
+            cadena = cadena.Trim();
+            return cadena;
+        }
+
         public static string SubStr(string cadena, int inicio, int cant = -100)
         {
             cadena = cadena ?? "";
             cadena = cadena.Trim();
             if (cadena == "")
                 return "";
-            
+
             inicio = inicio < 0 ? 0 : inicio;
             cant = cant < 0 ? cadena.Length : cant;
 
@@ -2731,7 +2884,7 @@ namespace Portal.Consultoras.Common
             {
                 cant = len - inicio;
             }
-            if (inicio + cant + 1> len)
+            if (inicio + cant + 1 > len)
             {
                 cant = len - inicio;
             }
@@ -2787,7 +2940,7 @@ namespace Portal.Consultoras.Common
             var montoval = string.IsNullOrEmpty(monto) ? "" : monto.Trim();
             if (montoval != "")
             {
-                if (montoval == "0" || montoval == "0.00"  || montoval == "0,00"
+                if (montoval == "0" || montoval == "0.00" || montoval == "0,00"
                     || montoval == "99999999" || montoval == "99999999.00" || montoval == "99999999,00"
                     || montoval == "99,999,999.00" || montoval == "99.999.999"
                     || montoval == "999,999,999.00" || montoval == "999.999.999"
@@ -2803,6 +2956,7 @@ namespace Portal.Consultoras.Common
         {
             var str = SubStr(cadena, 0, cant);
             str = str == cadena && cadena != "" ? str + strFin : (str + "...");
+            str = str == "..." ? "" : str;
             return str;
         }
 
@@ -2868,8 +3022,193 @@ namespace Portal.Consultoras.Common
 
             return resultado;
         }
+
+        public static string GetISObyIPAddress(string ip)
+        {
+            string ISO = "00";
+            using (var reader = new DatabaseReader(HttpContext.Current.Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb", FileAccessMode.MemoryMapped))
+            {
+                CountryResponse CountryResp = reader.Country(ip);
+                if (CountryResp != null)
+                {
+                    ISO = CountryResp.Country.IsoCode;
+                }
+            }
+            return ISO;
+        }
+
+        public static string ValidarUsuarioADFS(string usuario, string clave)
+        {
+            string resultado = "";
+            string codigoMensaje = "";
+            string mensaje = "";
+            string paisIso = "";
+
+            try
+            {
+                // 1. definir la DTO con datos de configuración de conexión
+                var dto = new WSTrustDTO
+                {
+                    Username = string.Format("Galileo\\{0}", usuario), // dominio + usuario
+                    Password = clave, // contraseña del usuario
+                    WSTrustEndpointAddress = ConfigurationManager.AppSettings["WSTrustEndpointUrl"]
+                    // endpoint de pruebas (modificar en producción)
+                };
+
+                // 2. Configuración para el acceso del relying party
+                var rst = new RequestSecurityToken
+                {
+                    RequestType = WSTrust13Constants.RequestTypes.Issue,
+                    AppliesTo = new EndpointAddress(ConfigurationManager.AppSettings["RequestSecurityTokenUrl"]),
+                    // <- no cambiar, configuración actual del relying party para consultoras
+                    KeyType = WSTrust13Constants.KeyTypes.Bearer,
+                    RequestDisplayToken = true
+                };
+
+                // 3. Obteniendo los claims
+                var ws = new WSTrustConnection(dto);
+                DisplayClaimCollection respuestaADFS = ws.GetDisplayClaims(rst);
+
+                // 4. Verificar datos del usuario
+                if (respuestaADFS.Count < 2)
+                {
+                    // Usuario no encontrado
+                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    mensaje = "Autenticación invalida, Usuario no encontrado.";
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(respuestaADFS[0].DisplayValue))
+                    {
+                        // País deshabilitado
+                        codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                        mensaje = "Autenticación invalida, País deshabilitado.";
+                    }
+                    else
+                    {
+                        codigoMensaje = "000";  //CodigosMensajesError.CodigoOk;
+                        mensaje = "Ok";
+                        paisIso = respuestaADFS[0].DisplayValue;
+                    }
+                }
+            }
+            catch (MessageSecurityException securityException)
+            {
+                var innerException = securityException.InnerException as FaultException;
+                if (innerException != null && innerException.Code != null && innerException.Code.IsSenderFault &&
+                    innerException.Code.Name == "Sender")
+                {
+                    codigoMensaje = "003";  //CodigosMensajesError.CodigoAutenticacionInvalida;
+                    mensaje = "Autenticación inválida: asegúrese que los datos ingresados sean los correctos.";
+                }
+                else
+                {
+                    codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                    mensaje = "Ocurrió un error durante la validación ADFS.";
+                }
+            }
+            catch (Exception ex)
+            {
+                codigoMensaje = "001";  //CodigosMensajesError.CodigoExcepcion;
+                mensaje = "Ocurrió un error durante la validación ADFS.";
+            }
+
+            resultado = codigoMensaje + "|" + mensaje + "|" + paisIso;
+
+            return resultado;
+        }
+
+        public static RouteValueDictionary QueryStringToRouteValueDictionary(string queryString)
+        {
+            var parsed = HttpUtility.ParseQueryString(queryString);
+            var queryStringDic = parsed.AllKeys.ToDictionary(k => k, k => (object)parsed[k]);
+            return new RouteValueDictionary(queryStringDic);
+        }
+
+        public static Uri GetUrlRecuperarContrasenia(string urlportal, int paisId, string correo, string paisiso, string codigousuario, string fechasolicitud, string nombre)
+        {
+            string url_paisId = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisId.ToString().Trim()));
+            string url_correo = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(correo.Trim()));
+            string url_paisiso = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(paisiso.Trim()));
+            string url_codigousuario = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(codigousuario.Trim()));
+            string url_fechasolicitud = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(fechasolicitud.Trim()));
+            string url_nombre = HttpUtility.UrlEncode(Portal.Consultoras.Common.Crypto.EncryptLogin(nombre.Trim()));
+
+            var uri = new Uri(urlportal + "/WebPages/RestablecerContrasena.aspx?xyzab=param1&abxyz=param2&yzabx=param3&bxyza=param4&zabxy=param5");
+            var qs = HttpUtility.ParseQueryString(uri.Query);
+            qs.Set("xyzab", url_paisId);
+            qs.Set("abxyz", url_correo);
+            qs.Set("yzabx", url_paisiso);
+            qs.Set("bxyza", url_codigousuario);
+            qs.Set("zabxy", url_fechasolicitud);
+            qs.Set("xbaby", url_nombre);
+
+            var uriBuilder = new UriBuilder(uri)
+            {
+                Query = qs.ToString()
+            };
+
+            return uriBuilder.Uri;
+        }
+
+        public static String GetUrlCompartirFB(string codigoISO, int id = 0)
+        {
+            if (string.IsNullOrEmpty(ConfigurationManager.AppSettings["CONTEXTO_BASE"]))
+            {
+                LogManager.SaveLog(new Exception("Key no encontrada: CONTEXTO_BASE"), "", codigoISO);
+                return string.Empty;
+            }
+
+            var partialUrl = "Pdto.aspx?id=" + codigoISO + "_" + (id > 0 ? id.ToString() : "[valor]");
+            return ConfigurationManager.AppSettings["CONTEXTO_BASE"] + "/" + partialUrl;
+        }
+
+        public static string NombreMes(int Mes)
+        {
+            string Result = string.Empty;
+            switch (Mes)
+            {
+                case 1:
+                    Result = "Ene";
+                    break;
+                case 2:
+                    Result = "Feb";
+                    break;
+                case 3:
+                    Result = "Mar";
+                    break;
+                case 4:
+                    Result = "Abr";
+                    break;
+                case 5:
+                    Result = "May";
+                    break;
+                case 6:
+                    Result = "Jun";
+                    break;
+                case 7:
+                    Result = "Jul";
+                    break;
+                case 8:
+                    Result = "Ago";
+                    break;
+                case 9:
+                    Result = "Sep";
+                    break;
+                case 10:
+                    Result = "Oct";
+                    break;
+                case 11:
+                    Result = "Nov";
+                    break;
+                case 12:
+                    Result = "Dic";
+                    break;
+            }
+            return Result;
+        }
     }
-    
+
     public static class DataRecord
     {
         public static bool HasColumn(this IDataRecord r, string columnName)
@@ -2904,16 +3243,16 @@ namespace Portal.Consultoras.Common
             }
             return result;
         }
-        
-        public static dynamic GetColumn<T>(T type, IDataRecord lector, string name)  where T : new()
+
+        public static dynamic GetColumn<T>(IDataRecord lector, string name, T tipoDato)
         {
             try
             {
                 name = name ?? "";
                 name = name.Trim();
-                if(HasColumn(lector, name))
+                if (HasColumn(lector, name))
                     return (T)lector.GetValue(lector.GetOrdinal(name));
-                
+
                 return default(T);
             }
             catch (Exception)
@@ -2922,6 +3261,31 @@ namespace Portal.Consultoras.Common
             }
         }
 
+        /// <summary>
+        /// Obtiene el valor de la fila convirtiendo a un tipo, verificar primero si existe con HasColumn
+        /// </summary>
+        /// <typeparam name="T">Data Row</typeparam>
+        /// <param name="row">Fila</param>
+        /// <param name="name">Nombre de la columna</param>
+        /// <exception cref="ArgumentNullException">ArgumentNullException cuando name es enviado vacio o nulo</exception>
+        /// <returns>Valor convertido</returns>
+        public static T GetValue<T>(this IDataRecord row, string name)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(name))
+                {
+                    throw new ArgumentNullException("nombre enviado es nulo o vacio");
+                }
+
+                return (T)row.GetValue(row.GetOrdinal(name));
+            }
+            catch (Exception ex)
+            {
+                var value = row.GetValue(row.GetOrdinal(name));
+                throw new InvalidCastException("campo: " + name + " no se puede convertir de " + value.GetType() + " a " + typeof(T), ex);
+            }
+        }
     }
 
     public static class LinqExtensions

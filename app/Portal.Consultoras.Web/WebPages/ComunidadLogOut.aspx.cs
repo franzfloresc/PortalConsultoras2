@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IdentityModel.Services;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using LithiumSSOClient;
+﻿using LithiumSSOClient;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceComunidad;
+using System;
+using System.Configuration;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -40,24 +35,15 @@ namespace Portal.Consultoras.Web.WebPages
                     Session["UserData"] = null;
                     Session.Clear();
                     Session.Abandon();
-
-                    FederatedAuthentication.WSFederationAuthenticationModule.SignOut(false);
-                    FederatedAuthentication.SessionAuthenticationModule.SignOut();
-                    FederatedAuthentication.SessionAuthenticationModule.CookieHandler.Delete();
-                    FederatedAuthentication.SessionAuthenticationModule.DeleteSessionTokenCookie();
-
                     FormsAuthentication.SignOut();
-                    Response.Redirect(ConfigurationManager.AppSettings.Get("URLSignOut"));
+
+                    Uri urlPortal = Util.GetUrlHost(Request);
+                    urlPortal = new Uri(urlPortal, "Login");
+                    Response.Redirect(urlPortal.AbsoluteUri);
                 }
-                else
-                {
-                    Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
-                }
+                else Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
             }
-            else
-            {
-                Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
-            }
+            else Response.Redirect(ConfigurationManager.AppSettings["URL_COM"]);
         }
     }
 }

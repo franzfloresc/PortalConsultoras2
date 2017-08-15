@@ -851,14 +851,8 @@ namespace Portal.Consultoras.Web.Controllers
                                 else if (pedidoVal.CUVRevista.Length != 0 && revistaGana == 0)
                                 {
                                     item.EstaEnRevista = 1;
-                                    if (isEsika)
-                                    {
-                                        item.MensajeValidacion = "Producto en la Guía de Negocio Ésika con oferta especial.";
-                                    }
-                                    else
-                                    {
-                                        item.MensajeValidacion = "Producto en la revista Somos Belcorp con oferta especial.";
-                                    }
+                                    if (isEsika) item.MensajeValidacion = Constantes.MensajeEstaEnRevista.EsikaWeb;
+                                    else item.MensajeValidacion = Constantes.MensajeEstaEnRevista.LbelWeb;
                                 }
                             }
                             else
@@ -1522,6 +1516,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 oBEPedidoWebDetalle.CodigoUsuarioCreacion = userData.CodigoUsuario;
                 oBEPedidoWebDetalle.CodigoUsuarioModificacion = userData.CodigoUsuario;
+
+                //EPD-2248
+                BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                indPedidoAutentico.PedidoID = oBEPedidoWebDetalle.PedidoID;
+                indPedidoAutentico.CampaniaID = oBEPedidoWebDetalle.CampaniaID;
+                indPedidoAutentico.PedidoDetalleID = oBEPedidoWebDetalle.PedidoDetalleID;
+                indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : "";
+
+                oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
+                //EPD-2248
 
                 switch (TipoAdm)
                 {

@@ -20,15 +20,14 @@ $(document).ready(function () {
 
         $(this).parents('.Content_modal_ZE').find('.CUV').attr("value", $("option:selected", this).attr("value"));
         $(this).parents('.Content_modal_ZE').find('.pedidos_datos_info').html($("option:selected", this).attr("desc-talla"));
-        $(this).parents('.Content_modal_ZE').find('.liquidacion_precio').html('<span>' + $("option:selected", this).attr("desc-precio") + '</span>'); //2024
-        $(this).parents('.Content_modal_ZE').find(".DescripcionProd").attr("value", $("option:selected", this).attr("desc-talla")); //2024
-        $(this).parents('.Content_modal_ZE').find(".PrecioOferta").attr("value", $("option:selected", this).attr("precio-real")); //2024
+        $(this).parents('.Content_modal_ZE').find('.liquidacion_precio').html('<span>' + $("option:selected", this).attr("desc-precio") + '</span>');
+        $(this).parents('.Content_modal_ZE').find(".DescripcionProd").attr("value", $("option:selected", this).attr("desc-talla"));
+        $(this).parents('.Content_modal_ZE').find(".PrecioOferta").attr("value", $("option:selected", this).attr("precio-real"));
 
         var spanStock = $(this).parents('.Content_modal_ZE').find('.span_stock');
         var HiddenStock = $(this).parents('.Content_modal_ZE').find(".Stock");
         var CUV = $(this).parents('.Content_modal_ZE').find(".CUV").attr("value");
-        //r20160216
-        //var Orden = $(this).parent().parent().parent().parent().find(".Oden").attr("value"); ???
+
         $.ajaxSetup({
             cache: false
         });
@@ -124,7 +123,7 @@ $(document).ready(function () {
         var imagenProducto = $(contenedor).find(".Content_modal_ZE img").attr("src");
 
         if (Cantidad == "" || Cantidad == 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             return false;
         } else {
@@ -149,12 +148,12 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (Saldo == UnidadesPermitidas)
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
                         else {
                             if (Saldo == "0")
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                             else
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                         }
                         closeWaitingDialog();
                         return false;
@@ -167,7 +166,7 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (parseInt(data.Stock) < parseInt(Cantidad)) {
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                             closeWaitingDialog();
                             return false;
                         }
@@ -193,11 +192,10 @@ $(document).ready(function () {
                                     }
 
                                     $(this).attr('disabled', true);
-                                    //$(this).parent().parent().parent().parent().find(".ddlTallaColor").attr('disabled', true);
+
                                     $(this).parent().parent().parent().parent().find(".ValidaNumeralOferta").attr('disabled', true);
                                     $(div).css('display', 'block');
-                                    //$("#hdFlagOferta").val("1");
-                                    //$("#hdFlagOfertaLiquidacion").val("1");
+
                                     $(lblStock).text(parseInt(Stock - Cantidad));
                                     $(HiddenStock).val(parseInt(Stock - Cantidad));
                                     $(txtCantidad).val(1);
@@ -211,7 +209,7 @@ $(document).ready(function () {
                                 error: function (data, error) {
                                     closeWaitingDialog();
                                     if (checkTimeout(data)) {
-                                        alert_msg(data.message);
+                                        AbrirMensaje(data.message);
                                     }
                                 }
                             });
@@ -248,7 +246,7 @@ $(document).ready(function () {
         var posicion = parseInt($(this).parents('.liquidacion_item').attr('data-idposicion'));
 
         if (Cantidad == "" || Cantidad == 0) {
-            alert_msg("La cantidad ingresada debe ser mayor que 0, verifique.");
+            AbrirMensaje("La cantidad ingresada debe ser mayor que 0, verifique.", "LO SENTIMOS");
             $('.liquidacion_rango_cantidad_pedido').val(1);
             return false;
         }
@@ -275,12 +273,12 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (Saldo == UnidadesPermitidas)
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa las Unidades Permitidas de Venta (" + UnidadesPermitidas + ") del producto.", "LO SENTIMOS");
                         else {
                             if (Saldo == "0")
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted ya no puede adicionar más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                             else
-                                alert_msg("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.");
+                                AbrirMensaje("Las Unidades Permitidas de Venta son solo (" + UnidadesPermitidas + "), pero Usted solo puede adicionar (" + Saldo + ") más, debido a que ya agregó este producto a su pedido, verifique.", "LO SENTIMOS");
                         }
                         closeWaitingDialog();
                         return false;
@@ -293,7 +291,7 @@ $(document).ready(function () {
                         $(Stock).text(data.Stock);
                         $(Stock).val(data.Stock);
                         if (parseInt(data.Stock) < parseInt(Cantidad)) {
-                            alert_msg("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.");
+                            AbrirMensaje("Lamentablemente, la cantidad solicitada sobrepasa el stock actual (" + data.Stock + ") del producto, verifique.", "LO SENTIMOS");
                             closeWaitingDialog();
                             return false;
                         }
@@ -324,7 +322,7 @@ $(document).ready(function () {
                                     $(lblStock).text(parseInt(Stock - Cantidad));
                                     $(HiddenStock).val(parseInt(Stock - Cantidad));
                                     $(txtCantidad).val(1);
-                                    InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
+                                        InfoCommerceGoogle(parseFloat(Cantidad * PrecioUnidad).toFixed(2), CUV, DescripcionProd, DescripcionCategoria, PrecioUnidad, Cantidad, DescripcionMarca, DescripcionEstrategia, posicion);
                                     CargarResumenCampaniaHeader(true);
                                     TrackingJetloreAdd(Cantidad, $("#hdCampaniaCodigo").val(), CUV);
                                     ActualizarGanancia(data.DataBarra);
@@ -334,7 +332,7 @@ $(document).ready(function () {
                                 error: function (data, error) {
                                     closeWaitingDialog();
                                     if (checkTimeout(data)) {
-                                        alert_msg(data.message);
+                                        AbrirMensaje(data.message);
                                     }
                                 }
                             });
@@ -370,7 +368,9 @@ function ValidarCargaOfertasLiquidacion() {
     cargandoRegistros = true;
 
     waitingDialog();
-    ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    /*** EPD-1682 La consultora podra visualizar las liquidaciones cuando su pedido este reservado***/
+    //ReservadoOEnHorarioRestringidoAsync(true, UnlinkCargarOfertasToScroll, CargarOfertasLiquidacion);
+    CargarOfertasLiquidacion();
 }
 function CargarOfertasLiquidacion() {
     $.ajax({
@@ -380,12 +380,16 @@ function CargarOfertasLiquidacion() {
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
+            if (checkTimeout(data)) {
             if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
             if (!data.verMas) UnlinkCargarOfertasToScroll();
             offsetRegistros += cantidadRegistros;
+            }
         },
         error: function (data, error) {
+            if (checkTimeout(data)) {
             console.log(error);
+            }
         },
         complete: function (data) {
             closeWaitingDialog();
@@ -413,12 +417,15 @@ function ArmarCarouselLiquidaciones(data) {
         arrayOfertas.push(itemOferta);
     });
 
+    /* 
+    EPD-1871
     dataLayer.push({
         'event': 'productImpression',
         'ecommerce': {
             'impressions': arrayOfertas
         }
     })
+    */
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
@@ -473,7 +480,6 @@ function cargarProductoPopup(objProducto, objHidden) {
     $(divVistaPrevia).find('.liquidacion_precio').html('<span>' + objProducto.precio + '</span>');
     $(divVistaPrevia).find('.span_stock').html(objHidden.Stock);
 
-    //Seteo valores de inputs hidden
     $(divVistaPrevia).find('.TipoOfertaSisID').val(objHidden.TipoOfertaSisID);
     $(divVistaPrevia).find('.OfertaProductoID').val(objHidden.OfertaProductoID);
     $(divVistaPrevia).find('.ConfiguracionOfertaID').val(objHidden.ConfiguracionOfertaID);
@@ -506,21 +512,6 @@ function cargarProductoPopup(objProducto, objHidden) {
     });
 };
 function IniDialog() {
-    $('#DialogMensajes').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: true,
-        width: 400,
-        draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-
     $('#DialogMensajeProducto').dialog({
         autoOpen: false,
         resizable: false,
@@ -546,23 +537,6 @@ function IniDialog() {
         }
     });
 
-    $('#DialogMensajeHorario').dialog({
-        autoOpen: false,
-        resizable: false,
-        modal: true,
-        closeOnEscape: false,
-        width: 400,
-        draggable: true,
-        title: ":: Mensaje ::",
-        open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-        buttons:
-        {
-            "Aceptar": function () {
-                location.href = baseUrl + 'Bienvenida/Index';
-            }
-        }
-    });
-
     $('#divVistaPrevia').dialog({
         autoOpen: false,
         resizable: false,
@@ -575,14 +549,7 @@ function IniDialog() {
         }
     });
 };
-function alert_msg(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-}
-function alert_msgHorario(message) {
-    $('#DialogMensajeHorario .message_text').html(message);
-    $('#DialogMensajeHorario').dialog('open');
-};
+
 function InfoCommerceGoogle(ItemTotal, CUV, DescripcionProd, Categoria, Precio, Cantidad, Marca, variant, posicion) {
     if (ItemTotal >= 0 && Precio >= 0 && Cantidad > 0) {
         if (variant == null || variant == "") { variant = "Estándar"; }
@@ -638,16 +605,18 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    alert_msg_pedido(data.message);
+                    AbrirPopupPedidoReservado(data.message, "1");
+                    //AbrirMensaje(data.message, "LO SENTIMOS");
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+                AbrirMensaje(data.message, "LO SENTIMOS");
         },
-        error: function (error) {
-            console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+        }
         }
     });
     return restringido;
@@ -661,6 +630,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
     jQuery.ajax({
         type: 'GET',
         url: baseUrl + "Pedido/ReservadoOEnHorarioRestringido",
+        data: { tipoAccion: '2' },
         dataType: 'json',
         async: true,
         contentType: 'application/json; charset=utf-8',
@@ -683,22 +653,19 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
             }
             fnRestringido();
         },
-        error: function (error) {
-            console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
+        }
         }
     });
 }
-function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-};
-// Funcion de animación al agregar productos al carrito
+
 function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
-    var carrito = $('.campana');
+    var carrito = $('.campana.cart_compras');
 
     $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -708,19 +675,15 @@ function agregarProductoAlCarrito(o) {
         'top': imagenProducto.offset().top,
         'left': imagenProducto.offset().left,
     }).animate({
-        'top': carrito.offset().top - 60,
-        'left': carrito.offset().left + 100,
+        'top': carrito.offset().top,
+        'left': carrito.offset().left,
         'height': carrito.css("height"),
         'width': carrito.css("width"),
         'opacity': 0.5
     }, 450, 'swing', function () {
         $(this).animate({
             'top': carrito.offset().top,
-            'opacity': 0,
-            //}, 100, 'swing', function () {
-            //    $(".campana .info_cam").fadeIn(200);
-            //    $(".campana .info_cam").delay(2500);
-            //    $(".campana .info_cam").fadeOut(200);
+            'opacity': 0
         }, 150, 'swing', function () {
             $(this).remove();
         });

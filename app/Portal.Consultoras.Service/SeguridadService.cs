@@ -1,11 +1,7 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 
 namespace Portal.Consultoras.Service
@@ -15,6 +11,7 @@ namespace Portal.Consultoras.Service
         private BLRol BLRol;
         private BLPermiso BLPermiso;
         private BLMenuMobile BLMenuMobile;//20150903
+        //private BLMenuApp BLMenuApp;
 
         public SeguridadService()
         {
@@ -137,5 +134,13 @@ namespace Portal.Consultoras.Service
 
         #endregion
 
+        #region Menus App
+
+        public IList<BEMenuApp> GetMenuApp(int paisiD)
+        {
+            return (new BLMenuApp()).GetMenuApp(paisiD);
+        }
+
+        #endregion
     }
 }

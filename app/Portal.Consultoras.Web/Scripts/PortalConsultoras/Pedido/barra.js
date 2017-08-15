@@ -8,7 +8,6 @@ function GetWidthTotalBase() {
 
 function MostrarBarra(datax, destino) {
     $("#divBarra").hide();
-    //return false;
     destino = destino || "2"; // 1: bienvenido  2: pedido
     $("#divBarra #divLimite").html("");
     datax = datax || new Object();
@@ -62,7 +61,7 @@ function MostrarBarra(datax, destino) {
     var wPrimer = 0;
     var vLogro = 0;
     var wMsgFin = 0;
-    var wmin = 45; //parseInt(parseInt(widthTotal, 10) / 20, 10);
+    var wmin = 45;
 
     if (!(mn == "0,00" || mn == "0.00" || mn == "0")) {
         wPrimer = wmin;
@@ -167,14 +166,12 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-    // validar si hay algun limite
     listaLimite = listaLimite || new Array();
     if (listaLimite.length == 0)
         return false;
 
     var indPuntoLimite = 0;
-    // obtener el punto limite actual
-    //console.log(listaLimite);
+
     listaLimite = listaLimite || new Array();
     $.each(listaLimite, function (ind, limite) {
         if (ind > 0 ) {
@@ -198,7 +195,6 @@ function MostrarBarra(datax, destino) {
     $("#divBarra #divBarraPosicion").css("width", wTotal);
     $("#divBarra").css("width", wTotal);
 
-    // colocar los puntos limites
     var styleMin = 'style="margin-left: 6px;"';
     var htmlPunto = '<div id="punto_{punto}" data-punto="{select}">'
                 + '<div class="monto_minimo_barra" style="width:{wText}px">'
@@ -263,13 +259,13 @@ function MostrarBarra(datax, destino) {
                     txtDetalle = "DSCTO";
                 }
                 else {
-                    txtDscto = "DSCTO"; //indPuntoLimite - 1 != ind ? "DSCTO" : "";
+                    txtDscto = "DSCTO";
                     txtDetalle = indPuntoLimite - 1 != ind ? "" :
                     (vbSimbolo + "" + limite.MontoDesdeStr + " a " + vbSimbolo + "" + limite.MontoHastaStr);
                 }
             }
             else {
-                txtDscto = "DSCTO"; //indPuntoLimite != ind ? "DSCTO" : "";
+                txtDscto = "DSCTO";
                 txtDetalle = indPuntoLimite != ind ? "" :
                 (vbSimbolo + "" + limite.MontoDesdeStr + " a más");
                 if (mx > 0 && destino == "1") {
@@ -322,7 +318,6 @@ function MostrarBarra(datax, destino) {
         $("#divBarraLimite [data-punto='1']").find("[data-texto]").css("font-weight", "bold");
     }
 
-    // remover cuando supera el area total
     if (wTotalPunto > wTotal) {
         var indAux = indPuntoLimite;
         while (indAux > 1) {
@@ -352,7 +347,6 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-    // asignar espacio para el progreso
     var wAreaMover = widthTotal - wTotalPunto;
     if (destino == "1" && indPuntoLimite == 0) {
         wAreaMover = 0;
@@ -398,10 +392,10 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-    var wLimite = wAreaMover + wPuntosAnterior; // hasta el borde inicial  del texto del limite
+    var wLimite = wAreaMover + wPuntosAnterior;
     var wLimiteAnterior = wPuntosAnterior;
     if (indPuntoLimite > 0) {
-        if (vLogro >= vLimite) { // supero el ultimo limite
+        if (vLogro >= vLimite) {
             wLimite = widthTotal;
             wLimiteAnterior -= parseInt($("#punto_" + (indPuntoLimite) + " >  div").width() / 2, 10);
         }
@@ -424,7 +418,6 @@ function MostrarBarra(datax, destino) {
     wLimiteAnterior = wLimiteAnterior < 0 ? 0 : wLimiteAnterior;
     wAreaMover = wLimite - wLimiteAnterior;
 
-    // por si se logro eliminar algun punto
     listaLimite = listaLimite || new Array();
     $.each(listaLimite, function (ind, limite) {
         if (ind > 0) {
@@ -441,7 +434,6 @@ function MostrarBarra(datax, destino) {
         }
     });
 
-    // ancho de logrado
     var vLimiteAnterior = indPuntoLimite > 0 ? listaLimite[indPuntoLimite - 1].valor : 0;
     var vMover = vLogro - vLimiteAnterior;
     var vDiferencia = listaLimite[indPuntoLimite].valor - vLimiteAnterior;
@@ -471,17 +463,13 @@ function MostrarBarra(datax, destino) {
         }
     }
 
-    //wLogro = wLimite == widthTotal ? vLogro > vLimite ? widthTotal - 20 : wLimite : wLogro;
     $("#divBarra #divBarraEspacioLimite").css("width", wLimite);
     $("#divBarra #divBarraEspacioLogrado").css("width", wLogro);
-
-    //console.log(widthTotal, wTotalPunto, wAreaMover, wLimite, indPuntoLimite, vLogro, vLimite, wLimiteAnterior);
 
     if (destino == "1") {
         return true;
     }
 
-    // mensaje
     if (mn == 0 && vLogro == 0) {
         $("#divBarra #divBarraMensajeLogrado").hide();
         return false;
@@ -502,7 +490,7 @@ function MostrarBarra(datax, destino) {
     }
     var valPor = listaLimite[indPuntoLimite].valPor || "";
     var valorMonto = vbSimbolo + " " + DecimalToStringFormat(parseFloat(vLimite - vLogro));
-    var valorMontoEsacalaDescuento = vbSimbolo + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me)); //EPD-1099
+    var valorMontoEsacalaDescuento = vbSimbolo + " " + DecimalToStringFormat(parseFloat(listaLimite[indPuntoLimite].valor - me));
     $("#divBarra #divBarraMensajeLogrado").show();
     $("#divBarra #divBarraMensajeLogrado .mensaje_barra").html(objMsg.Titulo.replace("#porcentaje", valPor).replace("#valor", valorMonto));
     $("#divBarra #divBarraMensajeLogrado .agrega_barra").html(objMsg.Mensaje.replace("#porcentaje", valPor).replace("#valor", (mt < mn ? valorMonto : valorMontoEsacalaDescuento)));

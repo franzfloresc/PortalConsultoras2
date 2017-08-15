@@ -92,22 +92,12 @@
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                 }
-                /*
-                closeWaitingDialog();
-                if (data.success == true) {
-                    alert(data.message);
-                }
-                else {
-                    alert(data.message);
-                }*/
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     alert(data.message);
                 }
-                //closeWaitingDialog();
-                //alert(data.message);
             }
         });
 

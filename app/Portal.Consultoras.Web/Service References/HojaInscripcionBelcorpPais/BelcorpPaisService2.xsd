@@ -20,6 +20,7 @@
   <xs:element name="ParametroUneteBE" nillable="true" type="tns:ParametroUneteBE" />
   <xs:complexType name="ConsultoraBE">
     <xs:sequence>
+      <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
@@ -65,4 +66,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfParametroUneteBE" nillable="true" type="tns:ArrayOfParametroUneteBE" />
+  <xs:complexType name="CampaniaBE">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CampaniaBE" nillable="true" type="tns:CampaniaBE" />
 </xs:schema>

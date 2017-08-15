@@ -22,7 +22,7 @@ namespace Portal.Consultoras.Data
         public int UpdatePedidoRechazadoVisualizado(long logGPRValidacionId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("GPR.UpdLogGPRValidacionVisualizado");
-            Context.Database.AddInParameter(command, "@LogGPRValidacionId", DbType.Int64, logGPRValidacionId);
+            Context.Database.AddInParameter(command, "@ProcesoValidacionPedidoRechazadoID", DbType.Int64, logGPRValidacionId);
             return Context.ExecuteNonQuery(command);
         }
     }

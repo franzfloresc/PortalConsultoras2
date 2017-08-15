@@ -2,7 +2,8 @@
 @using System.Globalization
 @model NotificacionesMobileModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @section styles{
@@ -14,7 +15,11 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -101,22 +106,6 @@
 
                 <div class="importe_reservado">@ViewBag.Simbolo @string.Format("{0:N2}", item.ImporteTotal)</div>
             </div>
-            @*@if (!string.IsNullOrEmpty(item.ObservacionPROL))
-                {
-                    <div>
-                        @{string[] obser = item.ObservacionPROL.Split('|');}
-                        @if (obser != null)
-                        {
-                            foreach (string ob in obser)
-                            {
-                                if (!string.IsNullOrEmpty(ob))
-                                {
-                                    <span>@ob</span>
-                                }
-                            }
-                        }
-                    </div>
-                }*@
         </div>
     }
 
@@ -192,6 +181,6 @@
             Result = "el día de hoy";
             return Result;
         }
-        
+
     </script>
 }

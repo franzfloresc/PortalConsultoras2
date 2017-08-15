@@ -70,6 +70,9 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BEResumenCampania> GetPedidoWebAcumulado(int paisID, int CampaniaID, int ConsultoraID);
 
         [OperationContract]
+        decimal GetMontoDeuda(int paisID, int campaniaID, long consultoraID, string codigoUsuario, bool revisarHana);
+
+        [OperationContract]
         IList<BEResumenCampania> GetSaldoPendiente(int paisID, int CampaniaID, int ConsultoraID);
 
         [OperationContract]

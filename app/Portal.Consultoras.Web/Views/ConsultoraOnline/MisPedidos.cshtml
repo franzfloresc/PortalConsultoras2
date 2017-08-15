@@ -31,9 +31,6 @@
     </div>
 </div>
 
-<!-------------------------------------------MODALS----------------------------------------------------------->
-<!------------------------------------------------------------------------------------------------------------>
-
 <div id="modal_aceptar_pedido" class="fuzemodal tsm" style="display: none">
     <div class="fuzemodal_title">
 
@@ -243,7 +240,6 @@
 
         $(document).ready(function () {
 
-            //*************************************MODALS*******************************//
             $("#modal_aceptar_pedido").fuzemodal({ buttonIdOrClass: '.btnAcepta', speed: 450 });
             $("#modal_rechazar_pedido").fuzemodal({ buttonIdOrClass: '.btnRechaza', speed: 450 });
             $("#modal_cancelar_pedido").fuzemodal({ buttonIdOrClass: '.btnCancela', speed: 450 });
@@ -252,7 +248,6 @@
 
         });
 
-        /**/
         function desa()
         {
             var opc = $('input[name=checkbox]:checked', '#frmDesafiliacion').val();
@@ -285,9 +280,7 @@
                 }
             });        
         }
-        /**/
 
-        /**Logica _ListaPedidos*/
         $('#PedidosPendientes').html('@ViewBag.CantidadPedidos');
 
         $(function () {
@@ -343,7 +336,6 @@
 
         });
 
-        //EPD-713 - Inicio
         $(".btn_correo_direc").click(function () {
 
             $('.cont_correo_direc').addClass('ocultarHide');
@@ -362,15 +354,12 @@
             }
         });
 
-        //EPD-713 - Inicio
-
         $(".ic_pregunta").click(function () {
             $(this).parent().find(".cont_info").animate({
                 display: "block",
                 opacity: 1,
                 height: "toggle"
             }, 100, function () {
-                // Animation complete.
             });
         });
 

@@ -16,7 +16,11 @@
     <div class="col-xs-12">
         <ol class="breadcrumb-next upper">
             <li>
-                <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+                @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+                    if (mobileConfiguracion.MostrarBotonAtras)
+                    {
+                        <a href="@Request.UrlReferrer"><i class="icon-angle-left"></i> Volver </a>
+                    } }
             </li>
             <li>|</li>
             <li>
@@ -487,7 +491,7 @@
 
         Date.prototype.yyyymmdd = function () {
             var yyyy = this.getFullYear();
-            var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1); // getMonth() is zero-based
+            var mm = this.getMonth() < 9 ? "0" + (this.getMonth() + 1) : (this.getMonth() + 1);
             var dd = this.getDate() < 10 ? "0" + this.getDate() : this.getDate();
             return "".concat(dd).concat("/").concat(mm).concat("/").concat(yyyy);
         };

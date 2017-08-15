@@ -3,7 +3,6 @@
     ViewBag.Title = "Gestion Faltante";
 }
 
-
 <style type="text/css">
     #SelectedRowList {
         margin-top: 5px;
@@ -40,7 +39,7 @@
                 for (i2 = i; i2 < this.length - 1; i2++) {
                     this[i2] = this[i2 + 1];
                 }
-                this.length = this.length - 1;//R1957 – ECM - Se adiciono punto y coma (;)
+                this.length = this.length - 1;
                 return;
             }
         }
@@ -51,12 +50,10 @@
             this.pop();
         }
     };
-///fin
+
     if (!Array.prototype.filter) {
         Array.prototype.filter = function (fun) {
             "use strict";
-
-            //Probando Filter in IE8
 
             if (this == null)
                 throw new TypeError();
@@ -70,7 +67,7 @@
             var thisp = arguments[1];
             for (var i = 0; i < len; i++) {
                 if (i in t) {
-                    var val = t[i]; // in case fun mutates this
+                    var val = t[i]; 
                     if (fun.call(thisp, val, i, t))
                         res.push(val);
                 }
@@ -259,9 +256,9 @@
         });
 
         fnGrilla();
-        //Se activa columna de FaltanteUltimoMinuto
+
         if ('@ViewBag.FaltanteUltimoMinuto' == 0) {
-            var colPos = 6;//5
+            var colPos = 6;
             var myGrid = $('#list');
             myGrid.jqGrid('hideCol', myGrid.getGridParam("colModel")[colPos].name);
             myGrid.jqGrid('setColProp', myGrid.getGridParam("colModel")[colPos].name, { width: 0 });
@@ -269,28 +266,18 @@
             $("#divFaltanteUltimoMin").css("visibility", "hidden");
             $("#divFaltanteUltimoMinMasivo").css("visibility", "hidden");
         }
-@*        if ('@ViewBag.PaisID' != 5 && '@ViewBag.PaisID' != 7 && '@ViewBag.PaisID' != 8 && '@ViewBag.PaisID' != 10) {
-            jQuery("#list").jqGrid('hideCol', ["cb","FechaRegistro", "Estado"]);
+        jQuery("#list").jqGrid('hideCol', ["vOpcion"]);
 
-        }
-        else {*@
-            jQuery("#list").jqGrid('hideCol', ["vOpcion"]);
-        //}
+        $(".contenido_tab").hide();
+        $("ul.tabs li:first").addClass("activa").show(); 
+        $(".contenido_tab:first").show(); 
 
-
-
-        // Establece los efectos para cada uno de los Tabs
-        $(".contenido_tab").hide(); //Ocultar capas
-        $("ul.tabs li:first").addClass("activa").show(); //Activar primera pestaña
-        $(".contenido_tab:first").show(); //Mostrar contenido primera pestaña
-
-        // Sucesos al hacer click en una pestaña
         $("ul.tabs li").click(function () {
-            $("ul.tabs li").removeClass("activa"); //Borrar todas las clases "activa"
-            $(this).addClass("activa"); //Añadir clase "activa" a la pestaña seleccionada
-            $(".contenido_tab").hide(); //Ocultar todo el contenido de la pestaña
-            var activatab = $(this).find("a").attr("href"); //Leer el valor de href para identificar la pestaña activa 
-            $(activatab).fadeIn(); //Visibilidad con efecto fade del contenido activo
+            $("ul.tabs li").removeClass("activa"); 
+            $(this).addClass("activa"); 
+            $(".contenido_tab").hide();
+            var activatab = $(this).find("a").attr("href");
+            $(activatab).fadeIn();
 
             return false;
         });
@@ -334,10 +321,10 @@
             }
         });
 
-        $("#ddlCampania").change(function() {
-            //R1957 – ECM - Se adiciono línea de código - Inicio
+        $("#ddlCampania").change(function () {
+
             Buscar();
-            //R1957 – ECM - Se adiciono línea de código - Fin
+
             if (this.selectedIndex == 0)
                 this.options[0].value = "0";
             $("#lblmensaje").html("");
@@ -351,9 +338,7 @@
             buttonImage: '@Url.Content("~/Content/Images/calendar.png")',
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy'
-            //onClose: function (selectedDate) {
-            //    $("#txtFechaReFacturacion").datepicker("option", "minDate", selectedDate)
-            //}
+
         }).mask('99/99/9999');
 
         $("#txtZona")
@@ -409,7 +394,7 @@
                         url: baseUrl + "GestionFaltantes/SelectZonaByCodigo", type: "GET", dataType: "json",
                         data: {
                             paisID: $('#ddlPais').val(),
-                            codigo: last,//request.term,
+                            codigo: last,
                             rowCount: 10
                         },
                         success: function (data) {
@@ -447,7 +432,7 @@
                         range.select();
                     }
                     var posicion = getSelectionStart(document.getElementById('txtZona'));
-                    // Si se escribió al inicio del textbox
+
                     if (currval.length === 0) {
                         text_ = split(this.value);
                         text_.unshift(ui.item.label);
@@ -457,7 +442,7 @@
                         };
                         arr.items.push(jsonb);
                     }
-                    else if (currval.length === posicion) { // Si se escribió al final del textbox
+                    else if (currval.length === posicion) {
                         text_ = split(this.value);
                         arr = jQuery.parseJSON($("#ZonaID").val()) || { items: [] };
                         if (text_[text_.length - 1] !== "" && arr.items[text_.length - 1])
@@ -529,7 +514,6 @@
                 multiple: true,
                 multipleSeparator: ","
             }).blur(function () {
-                // reemplaza los caracteres extraños
                 var currv = this.value.replace(/([%&¿#"=¡!<>_\-¨:;´.*+?\/^$|(){}\[\]])/mg, "");
                 arr = split(currv);
                 index = arr.length;
@@ -606,7 +590,6 @@
                         range.select();
                     }
                     var posicion = getSelectionStart(document.getElementById('txtCodigo'));
-                    //var posicion = $("#txtCodigo").prop('selectionStart');
                     var part = split(request.term.substring(0, posicion));
                     var last = part[part.length - 1] || "";
                     last = jQuery.trim(last.substring(last.lastIndexOf(' ')));
@@ -615,7 +598,7 @@
                         data: {
                             campaniaID: $("#ddlCampania").val(),
                             paisID: $('#ddlPais').val(),
-                            codigo: last,//request.term,
+                            codigo: last,
                             rowCount: 10
                         },
                         success: function (data) {
@@ -630,7 +613,7 @@
                                             label: item.CUV,
                                             value: jQuery.trim(item.Descripcion),
                                             data: item
-                                        }; // end return
+                                        };
                                     }
                                 }));
                             }
@@ -653,8 +636,6 @@
                         range.select();
                     }
                     var posicion = getSelectionStart(document.getElementById('txtCodigo'));
-                    //var posicion = $(this).prop('selectionStart');
-                    // Si se escribió al inicio del textbox
                     if (currval.length === 0) {
                         text_ = split(this.value);
                         text_.unshift(ui.item.label);
@@ -664,7 +645,7 @@
                         };
                         arr.items.push(jsonb);
                     }
-                    else if (currval.length === posicion) { // Si se escribió al final del textbox
+                    else if (currval.length === posicion) {
                         text_ = split(this.value);
                         arr = jQuery.parseJSON($("#VentaID").val()) || { items: [] };
                         if (text_[text_.length - 1] !== "" && arr.items[text_.length - 1])
@@ -714,7 +695,6 @@
 
                         text_ = ext.concat(ext2);
                         jsond2 = jQuery.parseJSON($("#VentaID").val()) || { items: [] };
-                        //json_ = {};
                         for (var i = 0; i < text_.length; i++) {
                             for (var p in jsond2.items) {
                                 if (!jsond2.items.hasOwnProperty(p)) break;
@@ -742,7 +722,6 @@
                 multiple: true,
                 multipleSeparator: ","
             }).blur(function () {
-                // reemplaza los caracteres extraños
                 var currv = this.value.replace(/([%&¿#"=¡!<>_\-¨:;´.*+?\/^$|(){}\[\]])/mg, "");
                 arr = split(currv);
                 index = arr.length;
@@ -817,7 +796,7 @@
                 { name: 'vOpcion', index: 'vOpcion', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions }
             ],
             multiselect: true,
-            //multiboxonly: true,
+
             beforeSelectRow: function (id, e) {
 
                     var $self = $(this),
@@ -848,30 +827,6 @@
                 });
                 flagSelectAll = select;
 
-
-                //  if ($('#cb_list').is(':checked') == true) {
-                //        selectTotal = true;
-
-
-                //      if (arrayCheckDelete.indexOf(this.id) != -1) {
-                //          arrayCheckDelete.removeItem(this.id);
-                //      }
-
-                //      $('.cbox').each(function() {
-                //          if (status) {
-                //              $(this).attr("checked", true);
-                //              arrayCheckDelete.push(this.id);
-                //          } else {
-                //              $(this).attr("checked", false);
-                //              arrayCheckDelete.removeItem(this.id);
-                //          }
-                //      });
-                //    } else {
-                //        selectTotal = false;
-                //        $(".cbox").attr("checked", false);
-                //        arrayCheckDelete= [];
-                //    }
-
             },
 
             jsonReader:
@@ -901,36 +856,7 @@
             altRows: true,
             altclass: 'jQGridAltRowClass',
             loadComplete: function (data) {
-      
-                
-                //    //$("#cb_list").jqGrid('remapColumns', [0,2,1], true, false);
 
-                //        if (selectTotal == true) {
-                //            $("#cb_list").attr("checked", true);
-                //            $(".cbox").attr("checked", true);
-                //            $('.cbox').each(function() {
-                //                if (arrayCheckNotDelete.indexOf(this.id) != -1) {
-                //                    $(this).attr("checked", false);
-                //                }
-                //            });
-                //        }
-
-                //        if (selectTotal == false) {
-                //            $('.cbox').each(function() {
-                //                if (arrayCheckDelete.indexOf(this.id) != -1) {
-                //                    $(this).attr("checked", true);
-                //                }
-                //});
-                //        }
-
-                //        $('.cbox').each(function() {
-                //            //varGlobal = jQuery('#list').jqGrid('getCell', this.id, 'Estado');
-                //            //console.log(varGlobal);
-                //            if (arrayCheckDisabled.indexOf(this.id) != -1) {
-                //                $(this).attr("checked", false);
-                //                $(this).attr("disabled", true);
-                //            }
-                //        });
             },
             gridComplete: function () {
                 var arrayCheck = $('.cbox');
@@ -938,7 +864,7 @@
                     rowCheck = arrayCheck[ii];
                     $.each(arrayDataDelete, function (i, rowDataDelete) {
                         if ('jqg_list_' + rowDataDelete.id == rowCheck.id) {
-                            //$(rowCheck).attr("checked", (rowDataDelete.eliminar || false));
+
                             if (rowDataDelete.eliminar || false) {
                                 $('#list').jqGrid('setSelection', rowDataDelete.id);
                             } else {
@@ -998,7 +924,7 @@
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
 
        function checkBox(e) {
-            e = e || event; /* get IE event ( not passed ) */
+            e = e || event;
             e.stopPropagation ? e.stopPropagation() : e.cancelBubble = true;
         }
 
@@ -1008,10 +934,6 @@
             var Del = "&nbsp;<a href='javascript:;' onclick=\"return jQuery('#list').Eliminar('" + rowObject[1] + "','" + rowObject[3] + "','" + rowObject[0] + "','" + rowObject[2] + "','" + rowObject[5] + "','" + rowObject[6] + "');\" >" + "<img src='@Url.Content("~/Content/Images/Delete.png")' alt='Eliminar Registro' title='Eliminar Registro' border='0' /></a>"; //R1957 – ECM - Se modifico la comilla por apostrofe
             return Del;
         }
-
-        ;
-
-        //R1957  05-08-2014
 
         function ShowActions2(cellvalue, options, rowObject) {
             var Id = options.rowId;
@@ -1030,8 +952,6 @@
             return rowObject[7];
         }
 
-        ; //
-
         function LoadCheckState(val, options) {
             var name = options.colModel.name;
             var Page = $(".ui-pg-input").val();
@@ -1039,8 +959,6 @@
             var Id = name + options.rowId;
             return "<input id=\"" + Id + "\" " + (val == 'SI' ? "checked=\"checked\"" : "") + " type=\"checkbox\" disabled='disabled' offval=\"no\" />";
         }
-
-        ;
 
         function objToString(obj) {
             var str = '';
@@ -1052,7 +970,6 @@
             return str;
         }
 
-        // R1957 - ECM - Se modificará toda la función - Inicio
         $("#btnEliminar").click(function() {
             if (arrayDataDelete.length == 0) {
                 alert("No se ha seleccionado registro para eliminar.");
@@ -1061,7 +978,6 @@
                 objetos = { Items: [] };
                 console.log($('#txtFiltro02').val());
 
-                //R1957 – ECM - Cambio en lógica de funcionalidad - Incio
                 flag = 1;
                 totalRegistros = arrayDataDelete.length;
                 for (var i = 0; i < arrayDataDelete.length; i++) {
@@ -1079,7 +995,7 @@
                     }
                 }
                 $('#list').Eliminar2(objetos, flag, E_pais, E_campania, E_zona, E_cuv, E_producto, E_fecha);
-                //R1957 – ECM - Cambio en lógica de funcionalidad - Fin
+
             }
 
         });
@@ -1092,7 +1008,7 @@
                 waitingDialog({});
 
                 if ($("#cb_list").attr("checked")) {
-                    // 1957 - Inicio
+
                     var campaniaID = $("#ddlCampania").val();
                     var zona = $("#txtFiltro01").val();
                     var cuv = $("#txtFiltro02").val();
@@ -1120,7 +1036,7 @@
                                 if (data.success == true) {
                                     alert(data.message);
                                     jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                                    //limpiar(false); //R1957 – ECM - Se comento esta línea de código
+
                                     Buscar();
                                     return true;
                                 } else
@@ -1137,7 +1053,7 @@
                             }
                         }
                     });
-                    // 1957 - Fin
+
                 } else {
                     jQuery.ajax({
                         type: 'POST',
@@ -1152,7 +1068,7 @@
                                 if (data.success == true) {
                                     alert(data.message);
                                     jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                                    //limpiar(false); //R1957 – ECM - Se comento esta línea de código
+
                                     Buscar();
                                     return true;
                                 } else
@@ -1221,7 +1137,7 @@
     }
 
     function split(val) {
-        return val.split(/^[,\s]*|\s*,\s*|[,\s]+$|^$/);//val.split(/,\s*|\s*,\s*|^$/);
+        return val.split(/^[,\s]*|\s*,\s*|[,\s]+$|^$/);
     }
 
     Array.prototype.unique = function (a) {
@@ -1255,7 +1171,7 @@
     }
 
     function Buscar() {
-        //R1957 – ECM - Se adiciono línea de código - Inicio
+
         E_pais = $('#ddlPais').val() != "" ? parseInt($('#ddlPais').val()) : 0;
         E_campania = $('#ddlCampania').val() != "" ? parseInt($('#ddlCampania').val()) : 0;
         E_zona = $('#txtFiltro01').val() != "" ? parseInt($('#txtFiltro01').val()) : 0;
@@ -1263,7 +1179,7 @@
         E_producto = $('#txtFiltro03').val() != "" ? $('#txtFiltro03').val() : "0";
         E_fecha = $('#txtFechaRegistro').val() != "" ? $('#txtFechaRegistro').val() : "01/01/1900";
         clearDataGlobal();
-        //R1957 – ECM - Se adiciono línea de código - Fin
+
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
 
@@ -1301,47 +1217,7 @@
             alert("Debe ingresar al menos un Código de venta.");
             return;
         }
-        //var msg = "";
-        //if (isChecked && txtZona != "") {
-        //    // valida que todas las zonas ingresadas sean válidas
-        //    var Zona_ = split(txtZona);
-        //    var ZonaID = jQuery.parseJSON($("#ZonaID").val()) || { items: [] };
-        //    var i = Zona_.length;
 
-        //    for (var z = 0; z < Zona_.length; z++) {
-        //        if (Zona_[z] != "") {
-        //            for (var p in ZonaID.items) {
-        //                if (!ZonaID.items.hasOwnProperty(p)) continue;
-        //                if (ZonaID.items[+p] && (ZonaID.items[+p].codigo == Zona_[z].toLowerCase())) {
-        //                    i--; break;
-        //                }
-        //            }
-        //        }
-        //        else i--;
-        //    }
-        //    if (i != 0)
-        //        msg = "Debe ingresar valores correctos en el campo Zona.\n";
-        //}
-        //// valida que todos los codigos ingresados sean correctos
-        //var Codigo_ = split(txtCodigo);
-        //var VentaID = jQuery.parseJSON($("#VentaID").val()) || { items: [] };
-        //i = Codigo_.length;
-        //for (var c = 0; c < Codigo_.length; c++) {
-        //    if (Codigo_[c] != "") {
-        //        for (var p in VentaID.items) {
-        //            if (!VentaID.items.hasOwnProperty(p)) continue;
-        //            if (VentaID.items[+p] && (VentaID.items[+p].codigo == Codigo_[c].toLowerCase())) {
-        //                i--; break;
-        //            }
-        //        }
-        //    }
-        //    else i--;
-        //}
-        //if (i != 0)
-        //    msg = msg + "Debe ingresar valores correctos en el campo Código(s) de Venta.";
-        //if (msg != "") {
-        //    alert(msg); return false;
-        //}
         var msg;
         if (isChecked && txtZona != "")
             msg = confirm("¿Está seguro que desea agregar a la lista los Códigos y/o Zonas?");
@@ -1349,20 +1225,19 @@
             msg = confirm("No se ha especificado ninguna Zona. Se registrarán todas las Zonas existentes para el País seleccionado\n¿Está seguro que desea continuar?");
         if (msg) {
             waitingDialog({});
-            //var params = { paisID: '', campaniaID: '0', productos: [] };
+
             var params = { paisID: '', campaniaID: '0', faltanteUltimoMin: '0', codigos: [] };
             if (isChecked && txtZona != "") {
-                for (var p in ZonaID.items) { // itera todas las zonas
+                for (var p in ZonaID.items) { 
                     if (!ZonaID.items.hasOwnProperty(p)) continue;
                     if (ZonaID.items[+p]) {
-                        for (var m in VentaID.items) { // itera todos los productos
+                        for (var m in VentaID.items) {
                             if (!VentaID.items.hasOwnProperty(m)) continue;
                             if (VentaID.items[+m]) {
                                 params.productos.push({
                                     CampaniaID: campaniaID,
                                     CUV: VentaID.items[+m].codigo,
-                                    ZonaID: ZonaID.items[+p].id//,
-                                    //Descripcion: VentaID.items[+m].descripcion
+                                    ZonaID: ZonaID.items[+p].id
                                 });
                             }
                         }
@@ -1370,7 +1245,7 @@
                 }
             }
             else {
-                for (var m in VentaID.items) { // itera todos los productos
+                for (var m in VentaID.items) { 
                     if (!VentaID.items.hasOwnProperty(m)) continue;
                     if (VentaID.items[+m]) {
                         params.productos.push({
@@ -1379,7 +1254,6 @@
                         });
                     }
                 }
-                //params.campaniaID = campaniaID;
             }
             params.paisID = paisID;
             params.campaniaID = campaniaID;
@@ -1436,31 +1310,6 @@
         }
 
         waitingDialog({});
-        //jQuery.ajax({
-        //    type: 'POST',
-        //    url: baseUrl + 'GestionFaltantes/ProcesarMasivo',
-        //    dataType: 'json',
-        //    contentType: 'application/json; charset=utf-8',
-        //    data: JSON.stringify({
-        //        path: uplArchivo,
-        //        paisID: paisID,
-        //        campaniaID: campaniaID
-        //    }),
-        //    async: true,
-        //    success: function (data) {
-        //        closeWaitingDialog();
-        //        if (data.success == true) {
-        //            alert(data.message);
-        //            limpiarM();
-        //        }
-        //        else
-        //            alert(data.message);
-        //    },
-        //    error: function (data, error) {
-        //        closeWaitingDialog();
-        //        alert("Ocurrrió un error inesperado al procesar la carga masiva de Faltantes. Consulte con su administrador del sistema para obtener mayor información");
-        //    }
-        //});
         $("#frmProcesarMasivo").submit();
     }
 
@@ -1592,7 +1441,7 @@
                         @Html.TextArea("txtDescripcion", new
                     {
                         @readonly = "readonly",
-                        maxlength = 500, // or other value 
+                        maxlength = 500,
                         style = "width: 700px; height: 150px"
                     })
                     </div>
@@ -1638,9 +1487,7 @@
                                 <input type="button" onclick="Buscar();" name="" id="btnBuscar" value="Buscar" />
                             </div>
                         </div>
-@*                        @if (ViewBag.PaisID == 5 || ViewBag.PaisID==7 || ViewBag.PaisID==8||ViewBag.PaisID==10 )
-                                {  
-                        *@<div class="div-3">
+                        <div class="div-3">
                             <div class="titJ" style="text-align: left; width: 70px; padding: 0px; margin-left: 12px">Fecha de Registro:</div>
                             <div class="calendar borde_redondeado">
                                 <input type="text" id="txtFechaRegistro">
@@ -1649,7 +1496,6 @@
                                 <input type="button" style="float: right; margin-right: 14px;" onclick="" name="" id="btnEliminar"  value="Eliminar" />
                         </div>
                         </div>
-                @*        }*@
                     </div>
                     <div class="grid_tab" style="padding: 0; margin: 0 15px 15px 15px; overflow: hidden">
                         <div id="temp" hidden="hidden"></div>

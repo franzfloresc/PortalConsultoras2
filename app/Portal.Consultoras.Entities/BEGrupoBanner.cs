@@ -25,7 +25,10 @@ namespace Portal.Consultoras.Entities
         private int miAnchoEsika;
         private int miAltoEsika;
 
-        public BEGrupoBanner() { }
+        public BEGrupoBanner()
+        {
+            moConsultoras = new BEGrupoConsultora[0];
+        }
         public BEGrupoBanner(IDataRecord row)
         {
             miCampaniaID = DbConvert.ToInt32(row["CampaniaID"]);
@@ -41,6 +44,8 @@ namespace Portal.Consultoras.Entities
                 miAnchoEsika = DbConvert.ToInt32(row["AnchoEsika"]);
             if (DataRecord.HasColumn(row, "DimensionEsika"))
                 miAltoEsika = DbConvert.ToInt32(row["AltoEsika"]);
+
+            moConsultoras = new BEGrupoConsultora[0];
         }
 
         [DataMember]

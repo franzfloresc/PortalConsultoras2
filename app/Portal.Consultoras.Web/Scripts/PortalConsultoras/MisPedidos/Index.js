@@ -52,7 +52,6 @@ $(document).ready(function () {
 
         $('#verIngresado').Visible(canal == "web" || canal == "mixto");
 
-        //$('#verIngresado').Visible(canal == "web");
     });
 
     $('#verIngresado').click(function () {
@@ -113,7 +112,6 @@ $(document).ready(function () {
         var display = contenido.css("display");
         PopupDetalleClienteCerrarTodos();
 
-        // var cliente = $(obj).attr("data-cliente");
         $("#pedidoPorCliente [data-cliente] .paginador_pedidos").hide();
 
         if (display == "none") {
@@ -161,14 +159,11 @@ $(document).ready(function () {
         
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat, pedidoFormat);
-        //if ($(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").length == 1) {
-        //    $(".content_mis_pedidos").find("[data-campformat='" + campFormat + "']").parent().find('[data-accion="detalle"]').click();
-        //}
     });
     
     $("body").on("change", "select[data-cliente]", function (e) {
         e.preventDefault();
-        var obj = $(this);//.find("[value='" + $(this).val() + "']");
+        var obj = $(this);
         var campFormat = obj.attr("data-camp") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
@@ -185,7 +180,6 @@ $(document).ready(function () {
 function CargarEventosTabs() {
     $('ul[data-tab="tab"]>li>a[data-tag]').on('click',function (e) {
         e.preventDefault();
-        // mostrar el tab correcto
         $("[data-tag-html]").hide();
         var tag = $(this).attr("data-tag") || "";
         var obj = $("[data-tag-html='" + tag + "']");
@@ -193,7 +187,6 @@ function CargarEventosTabs() {
             $(objTag).fadeIn(300).show();
         });
 
-        //mantener seleccionado
         $('ul[data-tab="tab"]>li>a').find("div.marcador_tab").addClass("oculto");
         $(this).find("div.marcador_tab").removeClass("oculto");
     })
@@ -211,8 +204,6 @@ function CargarFramePedido(campania)
 }
 
 function WidthWindow() {
-    //$("#cuerpo").css("width", window.innerWidth * 3 + "px");
-    //$("[data-div]").css("width", window.innerWidth + "px");
 }
 
 function CambioPagina(obj) {
@@ -231,22 +222,11 @@ function CambioPagina(obj) {
 
     CargarDetalleFacturado(camp, rpt.page, rpt.rows, estado, pedidoId);
 
-    //var estado = par.attr("data-estado") || "";
-    //estado = estado.toLowerCase();
-    //estado = estado[0];
-    //if (estado == 'f') {
-    //    CargarDetalleFacturado(camp, rpt.page, rpt.rows);
-    //}
-    //else if (estado == 'i') {
-    //    CargarDetalleIngresadoCliente(par, camp, rpt.page, rpt.rows);
-    //}
 }
 
 function PopupCerrarTodos() {
     $("html").css({ "overflow": "auto" });
-    //$('[data-popup]').hide("slide", { direction: slidedireccion }, slidetime);
     $('[data-popup]').hide();
-    //$('[data-popup]').slideUp(slidetime);
     DetalleVisible(true, false);
 }
 
@@ -257,7 +237,6 @@ function PopupMostrar(popup, campFormat, pedidoId) {
     popup = popup.toLowerCase();
     popup = popup[0];
     $("html").css({ "overflow": "hidden" });
-    //$("#divGrilla").find("select[data-cliente]").val(-1);
     if (popup == "f") {
         $('[data-popup="facturado"]').show();
     }
@@ -396,9 +375,6 @@ function CargarDetalleIngresado(camp, page, rows) {
             if (primer) {
                 $(primer).click();
             }
-
-            //$("[data-popup='ingresado']").find("[data-selectcamp]").val(camp.substr(0, 4) + "-" + camp.substr(4, 6));
-
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -455,8 +431,6 @@ function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
                 $("#pedidoPorCliente [data-cliente='" + cliente + "'] .paginador_pedidos [data-paginacion='rows']").val(data.PageSize);
                 $("#pedidoPorCliente [data-cliente='" + cliente + "'] .paginador_pedidos").show();
             }
-            //$("#pedidoPorCliente").find('[data-paginacion="rows"]').val(data.PageSize);
-
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
@@ -575,31 +549,11 @@ function Imprimir() {
 
 function Percepcion() {
 
-    //jquery.ajax({
-    //    type: 'post',
-    //    url: baseurl + 'mispedidos/listarpercepciones',
-    //    datatype: 'json',
-    //    contenttype: 'application/json; charset=utf-8',
-    //    data: json.stringify(item),
-    //    async: true,
-    //    success: function (data) {
-    //        if (checktimeout(data)) {
-    //        }
-    //    },
-    //    error: function (data, error) {
-    //        if (checktimeout(data)) {
-    //            //alert_msg(data.message);
-    //        }
-    //    }
-    //});
-
     $(".popup_Percepcion").slideDown(slidetime);
-    //$(".fondo_f9f9f9").animate({ "margin-top": "-141px" }, 500);
 
     $(".btn_cerrar_popupPercepcion").click(function () {
 
         $(".popup_Percepcion").slideUp(slidetime);
-        //$(".fondo_f9f9f9").animate({ "margin-top": "0px" }, 500);
 
     });
 

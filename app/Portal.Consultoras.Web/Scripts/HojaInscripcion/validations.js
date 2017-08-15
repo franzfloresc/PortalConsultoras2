@@ -30,18 +30,6 @@
         }
 
         return true;
-
-        //var existeEnArray = $.inArray($("#" + params.otherproperty).val(), listaValores) !== -1;
-
-        //if (existeEnArray) {
-        //    var regex = new RegExp(expresion);
-        //    var resultado = regex.test(value);
-
-        //    if ((!resultado && regexnotmatch == 0) || (resultado && regexnotmatch == 1))
-        //        return false;
-        //}
-
-        //return true;
     };
 
     jQuery.validator.unobtrusive.adapters.add('requiredif',

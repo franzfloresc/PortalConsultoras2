@@ -28,5 +28,10 @@ namespace Portal.Consultoras.Web.Models
         public string TotalString { get; set; }
         public Converter<decimal, string> DecimalToString { get; set; }
         public string MotivoRechazo { get; set; }
+
+        /*EPD-1912*/
+        public string CuerpoMensaje1 { get; set; }
+        public List<string> CuerpoDetalles { get; set; }
+        public string CuerpoMensaje2 { get; set; }
     }
 }

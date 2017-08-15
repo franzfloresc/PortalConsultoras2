@@ -1,13 +1,12 @@
-﻿using System;
+﻿using OpenSource.Library.DataAccess;
+using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
 using System.Data.SqlClient;
-using OpenSource.Library.DataAccess;
+using System.Text;
 
 namespace Portal.Consultoras.Data
 {
@@ -216,19 +215,20 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, entity.CodigoSAP);
             Context.Database.AddInParameter(command, "@DescripcionOriginal", DbType.AnsiString, entity.DescripcionOriginal);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@FotoProducto01", DbType.AnsiString, entity.FotoProducto01);
-            Context.Database.AddInParameter(command, "@FotoProducto02", DbType.AnsiString, entity.FotoProducto02);
-            Context.Database.AddInParameter(command, "@FotoProducto03", DbType.AnsiString, entity.FotoProducto03);
-            Context.Database.AddInParameter(command, "@FotoProducto04", DbType.AnsiString, entity.FotoProducto04);
-            Context.Database.AddInParameter(command, "@FotoProducto05", DbType.AnsiString, entity.FotoProducto05);
-            Context.Database.AddInParameter(command, "@FotoProducto06", DbType.AnsiString, entity.FotoProducto06);
-            Context.Database.AddInParameter(command, "@FotoProducto07", DbType.AnsiString, entity.FotoProducto07);
-            Context.Database.AddInParameter(command, "@FotoProducto08", DbType.AnsiString, entity.FotoProducto08);
-            Context.Database.AddInParameter(command, "@FotoProducto09", DbType.AnsiString, entity.FotoProducto09);
-            Context.Database.AddInParameter(command, "@FotoProducto10", DbType.AnsiString, entity.FotoProducto10);
             Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
+            
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
 
-            return Context.ExecuteNonQuery(command);
+        public int InsMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsMatrizComercialImagen");
+            Context.Database.AddInParameter(command, "@IdMatrizComercial", DbType.AnsiString, entity.IdMatrizComercial);
+            Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
+            Context.Database.AddInParameter(command, "@UsuarioRegistro", DbType.AnsiString, entity.UsuarioRegistro);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
         }
 
         public int UpdMatrizComercial(BEMatrizComercial entity)
@@ -236,17 +236,28 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercial");
             Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, entity.CodigoSAP);
             Context.Database.AddInParameter(command, "@Descripcion", DbType.AnsiString, entity.Descripcion);
-            Context.Database.AddInParameter(command, "@FotoProducto01", DbType.AnsiString, entity.FotoProducto01);
-            Context.Database.AddInParameter(command, "@FotoProducto02", DbType.AnsiString, entity.FotoProducto02);
-            Context.Database.AddInParameter(command, "@FotoProducto03", DbType.AnsiString, entity.FotoProducto03);
-            Context.Database.AddInParameter(command, "@FotoProducto04", DbType.AnsiString, entity.FotoProducto04);
-            Context.Database.AddInParameter(command, "@FotoProducto05", DbType.AnsiString, entity.FotoProducto05);
-            Context.Database.AddInParameter(command, "@FotoProducto06", DbType.AnsiString, entity.FotoProducto06);
-            Context.Database.AddInParameter(command, "@FotoProducto07", DbType.AnsiString, entity.FotoProducto07);
-            Context.Database.AddInParameter(command, "@FotoProducto08", DbType.AnsiString, entity.FotoProducto08);
-            Context.Database.AddInParameter(command, "@FotoProducto09", DbType.AnsiString, entity.FotoProducto09);
-            Context.Database.AddInParameter(command, "@FotoProducto10", DbType.AnsiString, entity.FotoProducto10);
             Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdMatrizComercialImagen(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialImagen");
+            Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
+            Context.Database.AddInParameter(command, "@Foto", DbType.AnsiString, entity.Foto);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
+
+            return Context.ExecuteNonQuery(command);
+        }
+
+        public int UpdMatrizComercialNemotecnico(BEMatrizComercialImagen entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdMatrizComercialNemotecnico");
+            Context.Database.AddInParameter(command, "@IdMatrizComercialImagen", DbType.AnsiString, entity.IdMatrizComercialImagen);
+            Context.Database.AddInParameter(command, "@UsuarioModificacion", DbType.AnsiString, entity.UsuarioModificacion);
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, entity.NemoTecnico);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -259,10 +270,97 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetMatrizComercialImagenByIdMatrizImagen(int idMatrizImagen, int numeroPagina, int registros)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByIdMatrizImagen");
+            Context.Database.AddInParameter(command, "@IdMatrizComercial", DbType.AnsiString, idMatrizImagen);
+            Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
+            Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetMatrizComercialImagenByCodigoSap(string codigoSap, int numeroPagina, int registros)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMatrizImagenesByCodigoSap");
+            Context.Database.AddInParameter(command, "@CodigoSap", DbType.AnsiString, codigoSap);
+            Context.Database.AddInParameter(command, "@NumeroPagina", DbType.Int32, numeroPagina);
+            Context.Database.AddInParameter(command, "@Registros", DbType.Int32, registros);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetMatrizComercialByCampaniaAndCUV(int campania, string cuv)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetMatrizComercialByCampaniaAndCUV");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campania);
+            Context.Database.AddInParameter(command, "@CUV", DbType.AnsiString, cuv);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetImagenesByCodigoSAP(string codigoSAP)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByCodigoSAP");
             Context.Database.AddInParameter(command, "@CodigoSAP", DbType.AnsiString, codigoSAP);
+
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetImagenByNemotecnico(int idMatrizImagen, string cuv2, string codigoSAP, int estrategiaID, int campaniaID, int tipoEstrategiaID, string nemotecnico, int tipoBusqueda, int numeroPagina, int registros)
+        {
+            StringBuilder query = new StringBuilder();
+
+            query.Append("SELECT *,COUNT(*) OVER() AS TotalRegistros FROM (");
+
+            if (!String.IsNullOrEmpty(cuv2))
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen,0) IdMatrizComercialImagen, ");
+                query.Append("mci.IdMatrizComercial, isnull(mci.Foto, '''') Foto, mci.NemoTecnico, mci.FechaRegistro ");
+                query.Append("FROM dbo.Estrategia e ");
+                query.Append("INNER JOIN ods.productocomercial pc on e.cuv2 = pc.cuv ");
+                query.Append("INNER JOIN MatrizComercial mc ON mc.CodigoSAP = pc.CodigoProducto ");
+                query.Append("INNER JOIN ods.Campania c ON c.CampaniaID = pc.CampaniaID AND c.codigo = e.campaniaID ");
+                query.Append("INNER JOIN MatrizComercialImagen mci on mci.IdMatrizComercial = mc.IdMatrizComercial ");
+                query.Append(String.Format(" WHERE (({0} = 0) OR (e.EstrategiaID = {0} )) ", estrategiaID));
+                query.Append(String.Format(" AND (({0} = '')  OR (e.CUV2 = {0})) ", cuv2));
+                query.Append(String.Format(" AND (({0} = 0) OR (e.CampaniaID = {0})) ", campaniaID));
+                query.Append(String.Format(" AND (({0} = 0) OR (e.TipoEstrategiaID = {0})) ", tipoEstrategiaID));
+
+            }
+            else if (!String.IsNullOrEmpty(codigoSAP))
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen,0)IdMatrizComercialImagen, ");
+                query.Append("mc.IdMatrizComercial, isnull(Foto,'''') Foto, mci.NemoTecnico, mci.FechaRegistro FROM MatrizComercial mc ");
+                query.Append("left join MatrizComercialImagen mci on mci.idMatrizComercial=mc.idMatrizComercial ");
+                //query.Append("inner join ODS.ProductoComercial pc ON pc.CodigoProducto = mc.CodigoSAP ");
+                query.Append(String.Format("where mc.CodigoSAP = '{0}'", codigoSAP));
+            }
+            else
+            {
+                query.Append("SELECT isnull(IdMatrizComercialImagen, 0) IdMatrizComercialImagen,");
+                query.Append(" IdMatrizComercial, isnull(Foto, '''') Foto, NemoTecnico, FechaRegistro FROM MatrizComercialImagen ");
+                query.Append(String.Format(" WHERE (({0} = 0) OR idMatrizComercial = {0}) ", idMatrizImagen));
+            }
+
+            String[] nemotecnicoItems = nemotecnico.Split('&');
+
+            foreach (String nemotecnicoItem in nemotecnicoItems)
+            {
+                query.Append(String.Format(" AND Nemotecnico like '%{0}%' ", nemotecnicoItem));
+            }
+
+            if (tipoBusqueda.Equals(Constantes.TipoBusqueda.Exacta))
+            {
+                query.Append(String.Format("AND LEN(Nemotecnico) ={0}", nemotecnico.Length));
+            }
+
+            query.Append(" ) as T order by FechaRegistro desc");
+            query.Append(String.Format(" OFFSET({0} - 1) * {1} ROWS", numeroPagina, registros));
+            query.Append(String.Format(" FETCH NEXT {0} ROWS ONLY; ", registros));
+
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetImagenesByNemotecnico");
+            Context.Database.AddInParameter(command, "@NemoTecnico", DbType.AnsiString, query.ToString());
 
             return Context.ExecuteReader(command);
         }
@@ -347,6 +445,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidowebdetalle.CodigoUsuarioCreacion);
 
             Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
+            Context.Database.AddInParameter(command, "@EsCompraPorCompra", DbType.Boolean, pedidowebdetalle.EsCompraPorCompra);
 
             return Context.ExecuteNonQuery(command);
         }

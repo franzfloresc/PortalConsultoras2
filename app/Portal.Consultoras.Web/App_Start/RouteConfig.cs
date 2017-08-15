@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace Portal.Consultoras.Web
@@ -13,14 +8,7 @@ namespace Portal.Consultoras.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-                name: "Set",
-                url: "Set/{parameter}",
-                defaults: new { controller = "Set", action = "Index", parameter = UrlParameter.Optional },
-                namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
-                );
-
+            
             routes.MapRoute(
                 name: "ConsultoraOnlinePaginaPedido",
                 url: "ConsultoraOnline/MisPedidos/Page/{Pagina}",
@@ -41,12 +29,6 @@ namespace Portal.Consultoras.Web
                 defaults: new { controller = "Servicios", action = "Index", ServicioId = UrlParameter.Optional, Url = UrlParameter.Optional },
                 namespaces: new[] { "Portal.Consultoras.Web.Controllers" }
             );
-
-            //routes.MapRoute(
-            //    name: "Custom",
-            //    url: "{controller}/{action}/{id}/{Name}",
-            //    defaults: new { controller = "Cliente", action = "PedidosWeb", id = UrlParameter.Optional }
-            //);            
         }
     }
 }

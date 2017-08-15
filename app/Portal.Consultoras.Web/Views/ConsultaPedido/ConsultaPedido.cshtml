@@ -1025,10 +1025,6 @@
                 <div class="selectP2 borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                @*                <div class="titG">Region:</div>
-                    <div class="styectH borde_redondeado">
-                        @Html.DropDownListFor(model => model.Nombre, new SelectList(Model.listaRegiones, "RegionID", "Codigo"), new { id = "ddlRegion" })
-                    </div>*@
                 <select id="ddlRegion" style="display: none">
                     <option value="0">
                         -- Seleccionar --
@@ -1044,12 +1040,6 @@
                 </div>
             </div>
             <div class="div-3">
-                @*<div class="titG">Fecha:</div>
-                    <div class="selectP2 borde_redondeado">
-                        <select id="ddlFechas">
-                            <option value="0">-- Todos --</option>
-                        </select>
-                    </div>*@
                 <div class="titG">Territorio:</div>
                 <div class="selectP2 borde_redondeado">
                     <input id="txtTerritorio" type="text" maxlength="6" />

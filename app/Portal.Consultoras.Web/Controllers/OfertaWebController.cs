@@ -169,6 +169,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                     UpdPedidoWebMontosPROL();
 
+                    //EPD-2248
+                    if (entidad != null)
+                    {
+                        BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                        indPedidoAutentico.PedidoID = entidad.PedidoID;
+                        indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                        indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                        indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                        indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                        indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+
+                        InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                    }
+                    //EPD-2248
+
                     JSONdata = new
                     {
                         success = true,
@@ -356,28 +371,37 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
         {
             List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
+			// 1664
+            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+            List<BEMatrizComercial> lstFinal = new List<BEMatrizComercial>();
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
                 lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
             }
-			// 1664
-            var carpetaPais = Globals.UrlMatriz + "/" + UserData().CodigoISO;
+
+            lstFinal.Add(new BEMatrizComercial
+            {
+                IdMatrizComercial = lst[0].IdMatrizComercial,
+                CodigoSAP = lst[0].CodigoSAP,
+                Descripcion = lst[0].Descripcion,
+                PaisID = lst[0].PaisID
+            });
+
             if (lst != null && lst.Count > 0)
             {
-                if (lst[0].FotoProducto01 != "")
-                    lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
+                if (lst[0].FotoProducto != "")
+                    lstFinal[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto02 != "")
-                    lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
+                if (lst[1].FotoProducto != "")
+                    lstFinal[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[1].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
 
-                if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + UserData().CodigoISO);
+                if (lst[2].FotoProducto != "")
+                    lstFinal[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[2].FotoProducto, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
             }
-
             return Json(new
             {
-                lista = lst
+                lista = lstFinal
             }, JsonRequestBehavior.AllowGet);
         }
 

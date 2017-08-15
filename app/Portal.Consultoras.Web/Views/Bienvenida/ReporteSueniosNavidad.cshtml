@@ -67,11 +67,11 @@
 
             fnGrilla();
         });
-        /* 2287 - Inicio */
+
         $("#btnExcel").click(function () {
             ExportExcel();
-    });
-        /* 2287 - Fin */
+        });
+
     });
 
     function LimpiarDependencias(Id) {
@@ -165,10 +165,8 @@
         jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
-    /* 2287 - Inicio */
-    function DownloadAttachExcel(vCampaniaID, vCodigoConsultora) {
 
-        // TODO: evaluar la repercusion de este if
+    function DownloadAttachExcel(vCampaniaID, vCodigoConsultora) {
         var content = baseUrl + "Bienvenida/ExportarExcelSueniosNavidad?" +
             "campaniaID=" + vCampaniaID +
             "&codigoConsultora=" + vCodigoConsultora;
@@ -228,7 +226,7 @@
             }, 0);
         }
     }
-    /* 2287 - Fin */
+
 </script>
 <input type="hidden" id="hdTipoConsulta" value="0" />
 <div class="wrap_cab">
@@ -264,7 +262,6 @@
             <table id="list"></table>
             <div id="pager"></div>
         </div>
-        <!-- 2287 - Inicio -->
         <div class="div-3">
             <div class="titAuto">
                 <div class="input_horizontal">
@@ -272,7 +269,6 @@
                 </div>
             </div>
         </div>
-        <!-- 2287 - Fin -->
     </div>
 </div>
 

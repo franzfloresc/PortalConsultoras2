@@ -1,0 +1,18 @@
+
+.boton_Agregalo_home {
+    width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);
+}
+
+.btn_aregar_set {
+    width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);
+}
+
+.content_item_carrusel_ODD .btn_pop_agregalo_oferta{
+    width: -moz-calc(100% - 80px);
+    width: calc(100% - 80px);
+    width: -webkit-calc(100% - 80px);
+}

@@ -8,6 +8,120 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2Response" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLogin" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPais" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarClaveUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarClaveUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_CambiarClaveUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarClaveUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ExisteUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExisteUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ExisteUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExisteUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarConfiguracionPaisDetalle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarConfiguracionPaisDetalle" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ValidarConfiguracionPaisDetalle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarConfiguracionPaisDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarUsuarioPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarUsuarioPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RegistrarUsuarioPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegistrarUsuarioPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RecuperarContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_RecuperarContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecuperarContraseniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarMisDatos_InputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMisDatos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ActualizarMisDatos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarMisDatosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EliminarUsuarioPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarUsuarioPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_EliminarUsuarioPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarUsuarioPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPostulante_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPostulante" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPostulante_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPostulanteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertUsuarioExterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUsuarioExterno" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertUsuarioExterno_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertUsuarioExternoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByCodigoUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByCodigoUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByCodigoUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByCodigoUsuarioResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByProveedorAndIdApp" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioExternoByProveedorAndIdAppResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListaLoginExterno_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaLoginExterno" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetListaLoginExterno_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaLoginExternoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdatePosutlanteMensajes_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePosutlanteMensajes" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_UpdatePosutlanteMensajes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdatePosutlanteMensajesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerUsuarioConfiguracion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUsuarioConfiguracion" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerUsuarioConfiguracionResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
   </wsdl:message>
@@ -194,6 +308,12 @@
   <wsdl:message name="IUsuarioService_GetUsuarioAsociado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuarioAsociadoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPermisos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPermisos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPermisos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPermisosResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetValidarConsultoraNueva_InputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarConsultoraNueva" />
   </wsdl:message>
@@ -241,6 +361,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_InsLogIngresoPortal_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsLogIngresoPortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_AceptarContrato_InputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarContrato" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_AceptarContrato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarContratoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_AceptarContratoAceptacion_InputMessage">
     <wsdl:part name="parameters" element="tns:AceptarContratoAceptacion" />
@@ -507,6 +633,82 @@
     <wsdl:part name="parameters" element="tns:UpdateUsuarioEmailTelefonoResponse" />
   </wsdl:message>
   <wsdl:portType name="IUsuarioService">
+    <wsdl:operation name="GetValidarLoginSB2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" message="tns:IUsuarioService_GetValidarLoginSB2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response" message="tns:IUsuarioService_GetValidarLoginSB2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarAutoLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" message="tns:IUsuarioService_GetValidarAutoLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse" message="tns:IUsuarioService_GetValidarAutoLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" message="tns:IUsuarioService_InsUsuarioExternoPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse" message="tns:IUsuarioService_InsUsuarioExternoPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CambiarClaveUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExisteUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuario" message="tns:IUsuarioService_ExisteUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ExisteUsuarioResponse" message="tns:IUsuarioService_ExisteUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarUsuario" message="tns:IUsuarioService_ValidarUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarUsuarioResponse" message="tns:IUsuarioService_ValidarUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPais" message="tns:IUsuarioService_GetConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetConfiguracionPaisResponse" message="tns:IUsuarioService_GetConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarConfiguracionPaisDetalle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle" message="tns:IUsuarioService_ValidarConfiguracionPaisDetalle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalleResponse" message="tns:IUsuarioService_ValidarConfiguracionPaisDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarUsuarioPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" message="tns:IUsuarioService_RegistrarUsuarioPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulanteResponse" message="tns:IUsuarioService_RegistrarUsuarioPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContrasenia" message="tns:IUsuarioService_RecuperarContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/RecuperarContraseniaResponse" message="tns:IUsuarioService_RecuperarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMisDatos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatos" message="tns:IUsuarioService_ActualizarMisDatos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ActualizarMisDatosResponse" message="tns:IUsuarioService_ActualizarMisDatos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarUsuarioPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante" message="tns:IUsuarioService_EliminarUsuarioPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulanteResponse" message="tns:IUsuarioService_EliminarUsuarioPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioPostulante">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPostulante" message="tns:IUsuarioService_GetUsuarioPostulante_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPostulanteResponse" message="tns:IUsuarioService_GetUsuarioPostulante_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertUsuarioExterno">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertUsuarioExterno" message="tns:IUsuarioService_InsertUsuarioExterno_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertUsuarioExternoResponse" message="tns:IUsuarioService_InsertUsuarioExterno_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioExternoByCodigoUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario" message="tns:IUsuarioService_GetUsuarioExternoByCodigoUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuarioResponse" message="tns:IUsuarioService_GetUsuarioExternoByCodigoUsuario_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioExternoByProveedorAndIdApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp" message="tns:IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse" message="tns:IUsuarioService_GetUsuarioExternoByProveedorAndIdApp_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetListaLoginExterno">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno" message="tns:IUsuarioService_GetListaLoginExterno_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse" message="tns:IUsuarioService_GetListaLoginExterno_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePosutlanteMensajes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajes" message="tns:IUsuarioService_UpdatePosutlanteMensajes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajesResponse" message="tns:IUsuarioService_UpdatePosutlanteMensajes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUsuarioConfiguracion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracionResponse" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectResponse" message="tns:IUsuarioService_Select_OutputMessage" />
@@ -631,6 +833,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioAsociado" message="tns:IUsuarioService_GetUsuarioAsociado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioAsociadoResponse" message="tns:IUsuarioService_GetUsuarioAsociado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioPermisos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisos" message="tns:IUsuarioService_GetUsuarioPermisos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisosResponse" message="tns:IUsuarioService_GetUsuarioPermisos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetValidarConsultoraNueva">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" message="tns:IUsuarioService_GetValidarConsultoraNueva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse" message="tns:IUsuarioService_GetValidarConsultoraNueva_OutputMessage" />
@@ -662,6 +868,10 @@
     <wsdl:operation name="InsLogIngresoPortal">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortal" message="tns:IUsuarioService_InsLogIngresoPortal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortalResponse" message="tns:IUsuarioService_InsLogIngresoPortal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AceptarContrato">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContrato" message="tns:IUsuarioService_AceptarContrato_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoResponse" message="tns:IUsuarioService_AceptarContrato_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AceptarContratoAceptacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacion" message="tns:IUsuarioService_AceptarContratoAceptacion_InputMessage" />
@@ -842,6 +1052,177 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetValidarLoginSB2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarAutoLogin">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarClaveUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExisteUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ExisteUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarConfiguracionPaisDetalle">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidarConfiguracionPaisDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarUsuarioPostulante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RegistrarUsuarioPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecuperarContrasenia">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/RecuperarContrasenia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarMisDatos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ActualizarMisDatos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarUsuarioPostulante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/EliminarUsuarioPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioPostulante">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioPostulante" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertUsuarioExterno">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertUsuarioExterno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioExternoByCodigoUsuario">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByCodigoUsuario" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsuarioExternoByProveedorAndIdApp">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetListaLoginExterno">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetListaLoginExterno" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePosutlanteMensajes">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdatePosutlanteMensajes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerUsuarioConfiguracion">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/Select" style="document" />
       <wsdl:input>
@@ -1121,6 +1502,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioPermisos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioPermisos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetValidarConsultoraNueva">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
       <wsdl:input>
@@ -1186,6 +1576,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsLogIngresoPortal">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsLogIngresoPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarContrato">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/AceptarContrato" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

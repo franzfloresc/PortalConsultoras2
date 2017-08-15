@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Common
+﻿namespace Portal.Consultoras.Common
 {
     public class Enumeradores
     {
@@ -91,7 +85,9 @@ namespace Portal.Consultoras.Common
             Reactivada = 6,
             //PendienteDobleOptin = 7
             GenerandoCodigo = 7,
-            EnAprobacionSAC = 8
+            EnAprobacionSAC = 8,
+            YaConCodigoOCR = 9, //Se agregó 30-03-2017
+            PendienteConfirmarCorreo = 10 //Se agregó 30-03-2017
         }
 
         public enum TipoParametro
@@ -182,6 +178,19 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public enum TiposRechazoPortalGZ
+        {
+            PosibleFraude = 1,
+            InconsistenciaEnLaInformación = 2,
+            MalaZonificación_CorrespondeAotraZona = 3,
+            DeudaEnDomicilio = 4,
+            NoCuentaConResidenciaDefinitiva = 5,
+            NoLeInteresaVender_SeArrepintió = 6,
+            Otros = 7,
+            NoEsPostibleContactarla = 8,
+            ValidacionCrediticia = 9
+        }
+
         public enum TipoSubEstadoPostulanteGenerandoCodigo
         {
             PorSE = 1,
@@ -204,5 +213,76 @@ namespace Portal.Consultoras.Common
             IngresadoPedido = 1,
             YaTengo = 2
         }
+
+        public enum RechazoBannerUrl
+        {
+            Ninguna = 0,
+            Deuda = 1,
+            ModificaPedido = 2
+        }
+
+        public enum IndicadorGPR
+        {
+            SinAccion = 0,
+            Descargado = 1,
+            Rechazado = 2
+        }
+
+        public enum TipoDescargaPedidos
+        {
+            Regular = 1,
+            DemandaAnticipada = 2,
+            DemandaAnticipadaPRD = 3,
+            FIC = 4,
+            GenerarLideres = 5,
+            DigitacionDistribuidaParcial = 6
+        }
+
+        public enum TamanioImagenIssu
+        {
+            ThumbSmall = 1,
+            ThumbMedium = 2,
+            ThumbLarge = 3,
+            Normal = 4
+        }
+
+        public enum MotivoPedidoLock
+        {
+            Ninguno = 0,
+            GPR = 2,
+            Reservado = 3,
+            HorarioRestringido = 4
+        }
+
+        public enum TipoLogin
+        {
+            Normal = 1,
+            Facebook = 2
+        }
+
+        public enum ResultadoReserva
+        {
+            Ninguno = 0,
+            Reservado = 1,
+            ReservadoObservaciones = 2,
+            NoReservadoObservaciones = 3,
+            NoReservadoMontoMinimo = 4,
+            NoReservadoMontoMaximo = 5,
+            ReservaNoDisponible = 6
+        }
+
+        public enum TipoProductoComentario
+        {
+            SAP = 1,
+            CUV = 2
+        }
+
+        public enum EstadoProductoComentario
+        {
+            Ingresado = 1,
+            Aprobado = 2,
+            Rechazado = 3
+        }
+
     }
 }

@@ -219,14 +219,6 @@ namespace Portal.Consultoras.Web.Controllers
                     bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
                 }
 
-                bool result_ad;
-
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    result_ad = sv.IsUserExist(bepais.CodigoISO + entidad.CodigoUsuario);
-                    //result_ad = true;
-                }
-
                 if (result == 3)
                 {
                     return Json(new
@@ -247,28 +239,13 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    bool Result_User = false;
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        if (result_ad)
-                        {
-                            //Actualizar Clave en el AD
-                            Result_User = sv.ChangePasswordUser(bepais.PaisID, UserData().CodigoUsuario, bepais.CodigoISO + entidad.CodigoUsuario, entidad.ActualizarClave, string.Empty, EAplicacionOrigen.ConsultoraFicticia);
-                            //Result_User = true;
-                        }
-                        else
-                        {
-                            //Crear usuario en el AD
-                            Result_User = sv.CreateActiveDirectoryUser(bepais.CodigoISO + entidad.CodigoUsuario, bepais.CodigoISO + entidad.CodigoUsuario, bepais.CodigoISO + entidad.CodigoUsuario, bepais.CodigoISO + entidad.CodigoUsuario, bepais.CodigoISO, entidad.ActualizarClave);
-                            //Result_User = true;
-                        }
+
                         return Json(new
                         {
                             success = true,
                             message = "Usuario de prueba ha sido creado correctamente.",
                             extra = ""
                         });
-                    }
                 }
             }
             catch (FaultException ex)
@@ -311,23 +288,7 @@ namespace Portal.Consultoras.Web.Controllers
                 using (SACServiceClient sv = new SACServiceClient())
                 {
 
-                    sv.UpdConsultoraFicticia(entidad.CodigoUsuario, entidad.CodigoConsultora, entidad.PaisID, entidad.ConsultoraID);
-                }
-
-                if (entidad.ActualizarClave != "")
-                {
-                    BEPais bepais = new BEPais();
-                    bool Result_User = false;
-
-                    using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                    {
-                        bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                    }
-
-                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                    {
-                        Result_User = sv.ChangePasswordUser(bepais.PaisID, UserData().CodigoUsuario, bepais.CodigoISO + entidad.CodigoUsuario, entidad.ActualizarClave, string.Empty, EAplicacionOrigen.ConsultoraFicticia);
-                    }
+                    sv.UpdConsultoraFicticia(entidad.CodigoUsuario, entidad.CodigoConsultora, entidad.PaisID, entidad.ConsultoraID, entidad.ActualizarClave);
                 }
 
                 return Json(new

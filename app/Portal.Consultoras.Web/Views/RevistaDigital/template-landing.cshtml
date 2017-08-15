@@ -1,0 +1,113 @@
+﻿
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
+
+@{
+    var idBorrar = "borrar" + Model.CampaniaID;
+}
+@if (Model.Success)
+{
+
+<div class="catalogoPersonalizadoBloque">
+    <div class="content_belcorp">
+        <div class="content_slider_ept" id="divCarruselLan"  
+             data-content-item="@Model.CampaniaID" 
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+        </div>
+    </div>
+</div>
+<hr class="clear" />
+<div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
+    <div class="content_belcorp" data-listado-content="" style="display: none;">
+        
+            @if (ViewBag.TieneProductosPerdio)
+            {
+                <div class="rd-busqueda-filtros">
+                    <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
+                    <hr class="clear" />
+                    <div class="hblock_title_perdio" style="">
+                        @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div id="orderby-filter">
+                    <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
+                        <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
+                        <hr class="clear" />
+                        <div class="rd-seccion2">
+                            <div id="divFiltros" class="rd-filtros">
+                                @if (Model.FiltersByBrand.Any())
+                                {
+                                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                                        @foreach (var item in Model.FiltersByBrand)
+                                        {
+                                            <option value="@item.Codigo">@item.Descripcion</option>
+                                        }
+                                    </select>
+                                }
+                                @if (Model.FiltersBySorting.Any())
+                                {
+                                    <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden">
+                                        @foreach (var item1 in Model.FiltersBySorting)
+                                        {
+                                            <option value="@item1.Codigo">@item1.Descripcion</option>
+                                        }
+                                    </select>
+                                }
+
+                            </div>
+                            <hr class="clear" />
+                            <div id="divCantProductos" class="cantidad_productos_fav">
+                                <div class="rd-cantidad">
+                                    Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
+                                </div>
+                                <div class="rd-filtro-limpiar">
+                                    <div id="div-delete-filters" style="display: none; margin-right: 0px;">
+                                        <a href="javascript:;" class="link-ffc_landing" data-filtro-tipo="@idBorrar" style="text-decoration: underline;">Borrar Filtros</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="content_buscador_landing">
+                                <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
+                                <a class="buscar_landing_ept">BUSCAR</a>
+                            </div>*@
+                    </div>
+                </div>
+            }
+        <hr class="clear" />
+        <div id="RDListado" data-content-item="@Model.CampaniaID">
+            <hr class="clear" />
+            <div id="divOfertaProductos"  style="text-align: center; overflow: hidden;"></div>
+            <hr class="clear" />
+            @if (ViewBag.TieneProductosPerdio)
+            {
+                <div id="block_inscribete">
+                    <div class="content_belcorp">
+                        <div class="block_inscribete_predio">
+                            <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
+                            <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
+                        </div>
+                        @*@if (ViewBag.EstadoSuscripcion != Constantes.EstadoRDSuscripcion.Activo)
+                        {
+                            <div class="btn_diagonal rd_btn_rojo_right" data-estadoregistro0="">
+                                <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
+                            </div>
+                        }*@
+                    </div>
+                </div>
+                <hr class="clear" />
+                <div id="divOfertaProductosPerdio" data-content-perdido="@Model.CampaniaID" style="text-align: center;"></div>
+                <hr class="clear" />
+            }
+        </div>
+    </div>
+    <hr class="clear" />
+    <div id="divOfertaProductosLoad" style="display: none;">Cargando Productos<br></div>
+    <hr class="clear" />
+</div>
+
+}

@@ -1,4 +1,4 @@
-﻿@* R2319 - AAHA 03022015 - Parte 6 - Inicio *@
+﻿
 @model Portal.Consultoras.Web.Models.SolicitudClienteModel
 @{
     ViewBag.Title = "Solicitudes de pedidos de nuevos clientes";
@@ -201,7 +201,6 @@
 <div class="wrap">
     <div class="container clearfix">
         <div class="border-wrapper_reg">
-            @*CO587 - Validar nulos Inicio *@
             <div class="div-2">
                 <div class="columna_titulo_ubigeo label1">@ViewBag.UnidadGeografica1</div>
                 <div class="columna_descripcion_ubigeo label2">@Html.Encode(Model.UnidadGeografica1 != null ? Model.UnidadGeografica1.ToUpper() : string.Empty)</div>
@@ -226,7 +225,6 @@
                 <div class="columna_titulo label1">Teléfono del cliente:</div>
                 <div class="columna_descripcion label2">@Html.Encode(Model.TelefonoCliente != null ? Model.TelefonoCliente.ToUpper() : string.Empty)</div>
             </div>
-            @*CO587 - Validar nulos Fin *@
             <div class="div-2">
                 <div class="columna_titulo label1">Mensaje del cliente:</div>
                 <div class="columna_descripcion label2">
@@ -311,4 +309,3 @@
 </div>
 <div id="loadingScreen"></div>
 @Html.HiddenFor(p => p.SolicitudClienteId);
-@* R2319 - AAHA 03022015 - Parte 6 - Fin *@

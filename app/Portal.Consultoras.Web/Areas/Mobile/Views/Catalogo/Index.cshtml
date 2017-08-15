@@ -1,5 +1,5 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@model ClienteMobileModel
+﻿@using Portal.Consultoras.Web.Models
+@model MisCatalogosRevistasModel
 
 @{
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -9,14 +9,14 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 
-<input type="hidden" id="hdPaisId" value="@Model.PaisID" />
+<input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
 <input type="hidden" id="hdCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
+<input type="hidden" id="hdrCampaniaAnterior" value="@Model.CampaniaAnterior" />
+<input type="hidden" id="hdrCampaniaActual" value="@Model.CampaniaActual" />
+<input type="hidden" id="hdrCampaniaSiguiente" value="@Model.CampaniaSiguiente" />
 
-<input id="hdrCampaniaAnterior" type="hidden" value="@Model.CampaniaAnterior" />
-<input id="hdrCampaniaActual" type="hidden" value="@Model.CampaniaActual" />
-<input id="hdrCampaniaSiguiente" type="hidden" value="@Model.CampaniaSiguiente" />
 <span id="spNroCampania" style="display:none;">@Model.CampaniaActual</span>
 
 @{
@@ -36,7 +36,11 @@
     }
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS CATÁLOGOS Y REVISTAS
 </div>
 <div class="fondo_f2f2f2">
@@ -44,18 +48,18 @@
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
     <ul class="tabs_pagos" data-tab="tab" style="margin-bottom:0">
         <li class="one">
-            <a href="#" data-tag="Catalogos">
+            <a href="javascript:;" data-tag="Catalogos">
                 CATÁLOGOS
                 <div class="marcador_tab"></div>
             </a>
         </li>
         <li class="two">
-            <a href="#" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
+            <a href="javascript:;" data-tag="Revistas" onclick="TagManagerPaginasVirtuales()">
                 REVISTAS
                 <div class="marcador_tab oculto"></div>
             </a>
         </li>
-        
+
         <hr id="barCursor">
     </ul>
     <hr class="clear" />
@@ -65,26 +69,123 @@
     <div id="tab_catalogos_mobile" data-tag-html="Catalogos">
         <div class="texto_catalogos_mobile">Revisa y comparte los catálogos con tus clientes</div>
         <div class="titulo_catalogo">CATÁLOGOS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
-        <div class="content_carrusel_catalogo" id="divCatalogo" data-codigozona="@Model.CodigoZona" data-paisid="@Model.PaisID">
-            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)"/></a>
-            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)"/></a>
+        <div class="content_carrusel_catalogo" id="divCatalogo">
+            <a class="previous_carrusel_catalogo" style="left:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="CatalogoMostrar(-1, this)" /></a>
+            <a class="next_carrusel_catalogo" style="right:0"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="CatalogoMostrar(1, this)" /></a>
         </div>
-       
+
     </div>
     <!--FIN-->
     <!--TAB REVISTA-->
     <div id="tab_revistas_mobile" data-tag-html="Revistas" style="display:none;">
-        <div class="titulo_catalogo">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
-        <div class="content_revistas_mobile">
-            <a class="previous_revistas_mobile" style="left:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/previous_ofertas_home.png")" alt="-" onclick="RevistaMostrar(-1, this)"/></a>
-            <a class="next_revistas_mobile" style="right:-30px"><img src="@Url.Content("~/Content/Images/mobile/Esika/next.png")" alt="-" onclick="RevistaMostrar(1, this)"/></a>
-            <a id="lbPortadaGana" href="#" onclick="MostrarMiRevista();">
-                <img src="@Url.Content("~/Content/Images/revista_no_disponible.jpg")" alt="-" id="imgPortadaGana" />
-            </a>
+        <div class="titulo_catalogo" data-titulo="">REVISTAS C-@Portal.Consultoras.Common.Util.SubStr(Model.CampaniaActual.ToString(), 4, 2)</div>
+        <div class="content_revistas_mob">
+        @if (@ViewBag.TieneRDC == true)
+        {
+            if (ViewBag.EstadoSucripcionRDAnterior2 != 1 && ViewBag.EstadoSucripcionRDAnterior1 == 1)
+            {
+                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+                <hr class="clear" />
+                <!-- CATÁLOGOS INSCRITAS C-11-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ?</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-11-->
+            }
+            else if (ViewBag.EstadoSucripcionRDAnterior2 == 1)
+            {
+                <!-- CATÁLOGOS INSCRITAS C-12-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ?</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+            }
+            else
+            {
+                @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+                <!-- CATÁLOGOS INSCRITAS C-12-->
+                <div class="wrapper_resumen_mobile">
+                    <div class="banner_pedido_rd">
+                        <div class="cabecera_pedido_rd">
+                            <div class="rd_logo">
+                                <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="40">
+                            </div>
+                            <div class="cabecera_pedido_text">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        </div>
+                        <div class="banner_pedido_masofertas">
+                            <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b>
+                            </div>
+                            <div class="btn_red">
+                                <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN CATÁLOGOS INSCRITAS C-12-->
+            }
+        }
+        else if (@ViewBag.TieneRDR == true)
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+            <hr class="clear" />
+
+            <!-- INICIO SECCION REVISTA REDUCIDA -->
+            <div id="tab_revistasdigital_mobile">
+                <div class="contenedor_seccionRevistaDigital">
+                    <div class="seccionRevistaDigital_logo_marca">
+                        <img src="/Content/Images/esika-para-mi-img.svg" alt="Ésika para mí" />
+                    </div>
+                    <div class="contenido_seccionRevistaDigital">
+                        <span>TU REVISTA ONLINE PERSONALIZADA</span>
+                        <span>Conoce ahora tus ofertas y aumenta tus ganancias</span>
+                    </div>
+                    <div class="revistadigital contenedor_botonVerMasOfertas">
+                        <div class="boxoffer" style="cursor: pointer; position: relative !important;" onclick="javascript: window.location.href = '/Mobile/RevistaDigital'">
+                            <div class="fondo_boton"></div>
+                            <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+            <!-- FIN SECCION REVISTA REDUCIDA-->
+        }
+        else
+        {
+            @Html.Partial("~/Areas/Mobile/Views/Catalogo/template-carrusel-issue.cshtml")
+        }
+           
         </div>
     </div>
     <!--FIN TAB REVISTA-->
-    
 </div>
 
 <!--POP UP COMPARTIR CATALOGO-->
@@ -108,8 +209,7 @@
         <div class="Label_compartir">Mensaje (Editable):</div>
         <hr class="clear" />
 
-        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500">Hola, Revisa los catálogos de esta campaña y comunícate conmigo si estás interesada en algunos de los productos.
-        </textarea>
+        <textarea name="comentarios" class="text_compartir" id="comentarios" maxlength="500"></textarea>
         <div class="Label_compartir">Catálogos a enviar:</div>
         <hr class="clear" />
         <div id="divCheckbox">
@@ -172,10 +272,13 @@
     </div>
 
 </div>
-<!--FIN--> 
+<!--FIN-->
+
+
+
 
 <div style="display: none;">
-    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank"}))
+    @using (Html.BeginForm("MiRevista", "Catalogo", FormMethod.Post, new { id = "frmMiRevista", target = "_blank" }))
     {
         <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
     }
@@ -184,32 +287,35 @@
 <script id="catalogo-template" type="text/x-handlebars-template">
     <div class="content_item_catalogo" data-cam="{{campania}}" data-cat="{{tipoCatalogo}}" data-estado="{{estado}}" style="display: none;">
         <div data-tipo="content">
-            <a class="content_catalogo" data-tipo="img" target="_blank" href="">
+            <a class="content_catalogo" data-tipo="img" target="_blank" href="javascript:;">
                 <img src="@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")" />
             </a>
             <input id="txtUrl{{tipoCatalogo}}" type="hidden" value="" />
             <div style="max-width:440px; margin:0 auto;">
-                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws.png")" alt="-" /></a>
-                <a class="btn_facebook" href="" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
+                <a class="btn_ws" onclick="TagManagerWS('{{comp}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_ws2.png")" alt="-" /></a><!--colocar ws2-->
+                <a class="btn_facebook" href="javascript:;" data-accion="face" onclick="CompartirFacebook('{{comp}}','{{campania}}', this); return false;"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_facebook.png")" alt="-" /></a>
                 <a class="btn_mensaje" onclick="javascript: AbrirCompartirCorreo('{{tipoCatalogo}}','{{campania}}');"><img src="@Url.Content("~/Content/Images/mobile/Esika/catalogo_mensaje.png")" alt="-" /></a>
             </div>
+
         </div>
     </div>
 </script>
 
 @section styles{
 
-    <link href="~/Content/Css/Mobile/jquery.tag-editor.css" rel="stylesheet" />
-<style type="text/css">
-    body {
-        overflow-x: hidden;
-    }
-</style>
+    <link href="@Url.Content("~/Content/Css/Mobile/jquery.tag-editor.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Mobile/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+
+
+    <style type="text/css">
+        body {
+            overflow-x: hidden;
+        }
+    </style>
 
 }
 @section scripts{
     <script type="text/javascript">
-
         var imgNoDisponible = '@Url.Content("~/Content/Images/catalogo_no_disponible.jpg")';
         var imgIssuu = '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart01' + '{img}' + '@Portal.Consultoras.Common.Constantes.CatalogoUrlParameters.UrlPart02Alternativo'
         var codigoIso = '@ViewBag.CodigoISO';
@@ -217,10 +323,15 @@
         var urlObtenerPortadaRevista = '@Url.Action("ObtenerPortadaRevista", "Catalogo", new { area = "Mobile" })';
         var urlIconoClienteAutoCompletar = '@Url.Content("~/Content/Images/Esika/user.jpg")';
         var urlBienvenidaMobile = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
-        var urlEnviarMail = '@Url.Action("EnviarEmail", "Catalogo", new { area = "Mobile" })'
-
+        var urlEnviarMail = '@Url.Action("EnviarEmail", "MisCatalogosRevistas", new { area = "" })';
+        var valContenidoCorreoDefecto = '@Html.Raw(ViewBag.TextoMensajeSaludoCorreo)';
+        var RevistaCodigoIssuu = {
+            '@Model.CampaniaAnterior': '@Model.CodigoRevistaAnterior',
+            '@Model.CampaniaActual': '@Model.CodigoRevistaActual',
+            '@Model.CampaniaSiguiente': '@Model.CodigoRevistaSiguiente'
+        };
+        var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
     </script>
-    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.tag-editor.js")"></script>
     <script src="@Url.Content("~/Scripts/Tag/jquery.caret.min.js")"></script>

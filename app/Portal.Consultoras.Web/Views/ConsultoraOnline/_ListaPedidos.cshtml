@@ -1,6 +1,6 @@
 ﻿@model Portal.Consultoras.Web.Models.MisPedidosModel
 <img class="position_relative margin_right_10" src="/Content/Images/ConsultoraOnline/ic_pedido.png" width="36" height="34" alt="" />
-<p class="font_size_24">Tienes <strong id="PedidosPendientes" class="text_color_morado font_size_24">@ViewBag.CantidadPedidos</strong> pedidos de Consultora Online</p>
+<p class="font_size_24">Tienes <strong id="PedidosPendientes" class="text_color_morado font_size_24">@ViewBag.CantidadPedidos</strong> pedidos del App de Catálogos</p>
 
 <p>
     Recuerda que antes de Aceptar o Rechazar un pedido debes llamar a tu cliente y confirmar el pedido.
@@ -141,7 +141,7 @@ Así como el precio, la fecha y dirección de entrega.
                         else if (item.Estado.Trim().Equals("R"))
                         {
                             <div class="text_gris_azul">RECHAZADO</div>
-                            <p class="font_size_11">El día @String.Format("{0:dd/MM}", item.FechaModificacion) @*item.FechaModificacion.ToString("dd/MM") *@ a las  @String.Format("{0:hh:mm tt}", item.FechaModificacion)</p>
+                            <p class="font_size_11">El día @String.Format("{0:dd/MM}", item.FechaModificacion) a las  @String.Format("{0:hh:mm tt}", item.FechaModificacion)</p>
                         }
                         else if (item.Estado.Trim().Equals("C"))
                         {

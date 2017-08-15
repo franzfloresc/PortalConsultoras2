@@ -217,5 +217,7 @@ namespace Portal.Consultoras.Entities
             /*R2469 - JICM - FIN*/
 
         }
+        public BEOfertaProducto()
+        { }
     }
 }

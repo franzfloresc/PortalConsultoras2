@@ -210,4 +210,36 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerIdCampaniaActivaPorZona">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerIdCampaniaActivaPorZonaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ObtenerIdCampaniaActivaPorZonaResult" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerCampaniasAnterioresDesdeActual">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="codigoISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="campaniaActual" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="numeroCampanias" type="xs:int" />
+        <xs:element minOccurs="0" name="codigoZona" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerCampaniasAnterioresDesdeActualResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.SI.ServiceContract.Collections" minOccurs="0" name="ObtenerCampaniasAnterioresDesdeActualResult" nillable="true" type="q13:CampaniaCollection" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

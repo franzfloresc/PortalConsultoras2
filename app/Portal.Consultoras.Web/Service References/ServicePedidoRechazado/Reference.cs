@@ -481,12 +481,12 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
             "cionId", ReplyAction="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
             "cionIdResponse")]
-        Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId);
+        Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion[] GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
             "cionId", ReplyAction="http://tempuri.org/IPedidoRechazadoService/GetBELogGPRValidacionByGetLogGPRValida" +
             "cionIdResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(int paisID, long logGPRValidacionId);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion[]> GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(int paisID, long logGPRValidacionId, long ConsultoraID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoRechazadoService/GetListBELogGPRValidacionDetalleBELogG" +
             "PRValidacionByLogGPRValidacionId", ReplyAction="http://tempuri.org/IPedidoRechazadoService/GetListBELogGPRValidacionDetalleBELogG" +
@@ -534,12 +534,12 @@ namespace Portal.Consultoras.Web.ServicePedidoRechazado {
             return base.Channel.SetPedidoRechazadoAsync(PaisISO, lista);
         }
         
-        public Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId) {
-            return base.Channel.GetBELogGPRValidacionByGetLogGPRValidacionId(paisID, logGPRValidacionId);
+        public Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion[] GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID) {
+            return base.Channel.GetBELogGPRValidacionByGetLogGPRValidacionId(paisID, logGPRValidacionId, ConsultoraID);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(int paisID, long logGPRValidacionId) {
-            return base.Channel.GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(paisID, logGPRValidacionId);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacion[]> GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(int paisID, long logGPRValidacionId, long ConsultoraID) {
+            return base.Channel.GetBELogGPRValidacionByGetLogGPRValidacionIdAsync(paisID, logGPRValidacionId, ConsultoraID);
         }
         
         public Portal.Consultoras.Web.ServicePedidoRechazado.BELogGPRValidacionDetalle[] GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId) {

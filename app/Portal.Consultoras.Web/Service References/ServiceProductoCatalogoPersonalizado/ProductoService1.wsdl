@@ -25,6 +25,12 @@
   <wsdl:message name="IProductoService_ObtenerProductosByCodigoSap_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerProductosByCodigoSapResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductoService_ObtenerProductosPorCampaniasBySap_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerProductosPorCampaniasBySap" />
+  </wsdl:message>
+  <wsdl:message name="IProductoService_ObtenerProductosPorCampaniasBySap_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerProductosPorCampaniasBySapResponse" />
+  </wsdl:message>
   <wsdl:message name="IProductoService_ObtenerProductosAppCatalogoByListaCUV_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerProductosAppCatalogoByListaCUV" />
   </wsdl:message>
@@ -43,6 +49,10 @@
     <wsdl:operation name="ObtenerProductosByCodigoSap">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSap" message="tns:IProductoService_ObtenerProductosByCodigoSap_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSapResponse" message="tns:IProductoService_ObtenerProductosByCodigoSap_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerProductosPorCampaniasBySap">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductosPorCampaniasBySap" message="tns:IProductoService_ObtenerProductosPorCampaniasBySap_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductosPorCampaniasBySapResponse" message="tns:IProductoService_ObtenerProductosPorCampaniasBySap_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerProductosAppCatalogoByListaCUV">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductoService/ObtenerProductosAppCatalogoByListaCUV" message="tns:IProductoService_ObtenerProductosAppCatalogoByListaCUV_InputMessage" />
@@ -71,6 +81,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerProductosByCodigoSap">
       <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerProductosByCodigoSap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerProductosPorCampaniasBySap">
+      <soap:operation soapAction="http://tempuri.org/IProductoService/ObtenerProductosPorCampaniasBySap" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

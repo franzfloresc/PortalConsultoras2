@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -213,7 +214,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
                     .ForMember(t => t.OrigenPedidoWeb, f => f.MapFrom(c => c.OrigenPedidoWeb));
 
-
                 BEPedidoWebDetalle entidad = Mapper.Map<PedidoDetalleModel, BEPedidoWebDetalle>(model);
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
@@ -233,6 +233,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 UpdPedidoWebMontosPROL();
+
+                //EPD-2248
+                if (entidad != null)
+                {
+                    BEIndicadorPedidoAutentico indPedidoAutentico = new BEIndicadorPedidoAutentico();
+                    indPedidoAutentico.PedidoID = entidad.PedidoID;
+                    indPedidoAutentico.CampaniaID = entidad.CampaniaID;
+                    indPedidoAutentico.PedidoDetalleID = entidad.PedidoDetalleID;
+                    indPedidoAutentico.IndicadorIPUsuario = GetIPCliente();
+                    indPedidoAutentico.IndicadorFingerprint = (Session["Fingerprint"] != null) ? Session["Fingerprint"].ToString() : "";
+                    indPedidoAutentico.IndicadorToken = (Session["TokenPedidoAutentico"] != null) ? Session["TokenPedidoAutentico"].ToString() : ""; ;
+                    
+                    InsIndicadorPedidoAutentico(indPedidoAutentico, entidad.CUV);
+                }
+                //EPD-2248
 
                 return Json(new
                 {
@@ -444,7 +459,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(cronogramaModel);
         }
@@ -523,38 +539,13 @@ namespace Portal.Consultoras.Web.Controllers
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+
             return Json(new
             {
                 lista = lst,
-                lstConfig = lstConfig
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ObtenerImagenesByCodigoSAP(int paisID, string codigoSAP)
-        {
-            List<BEMatrizComercial> lst = new List<BEMatrizComercial>();
-
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetImagenesByCodigoSAP(paisID, codigoSAP).ToList();
-            }
-
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            if (lst != null && lst.Count > 0)
-            {
-                if (lst[0].FotoProducto01 != "")
-                    lst[0].FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto01, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-
-                if (lst[0].FotoProducto02 != "")
-                    lst[0].FotoProducto02 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto02, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-
-                if (lst[0].FotoProducto03 != "")
-                    lst[0].FotoProducto03 = ConfigS3.GetUrlFileS3(carpetaPais, lst[0].FotoProducto03, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-            }
-            return Json(new
-            {
-                lista = lst
+                lstConfig = lstConfig,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -715,7 +706,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.NroOrden,
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.TipoOferta.ToString(),
                                    a.CodigoProducto.ToString(),

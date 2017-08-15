@@ -18,13 +18,19 @@
     <div class="linea_separadora"></div>
     <div class="saludo_cdr">¡Hola @Model.NombreConsultora!</div>
     <div class="titulo_cdr">ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS <br/>Y DEVOLUCIONES</div>
-    @*<div class="respuesta_cdr">En estos momentos la estamos evaluando y en XX horas te daremos una respuesta</div>*@
     <div style="text-align:center">
         <div class="texto_fila_cdr">Fecha: @formatoFechaAtencion</div>
         <div class="texto_fila_cdr">Solicitud: Nº @Model.CDRWebID</div>
         <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
     </div>
     <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
+    @if (Model.Estado == Constantes.EstadoCDRWeb.Aceptado)
+    {
+        <div class="saldo_aprobado_cdr">
+            Tu saldo actualizado es de: <b>@Model.Simbolo @Model.ConsultoraSaldo</b>
+            @*&nbsp;&nbsp;<a href="#">ver estado de cuenta</a>*@
+        </div>
+    }
     <div class="subtitulo_cdr">DETALLE DE LA SOLICITUD</div>
     @foreach (var item in Model.ListaDetalle)
     {

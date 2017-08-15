@@ -27,12 +27,6 @@ function ConfirmarModificarPedido() {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.success == true) {
-                    //dataLayer.push({
-                    //    'event': 'virtualEvent',
-                    //    'category': 'Ecommerce',
-                    //    'action': 'Modificar pedido',
-                    //    'label': '(not available)'
-                    //});
                     location.href = urlIngresarPedido;
                 } else {
                     CloseLoading();
@@ -49,14 +43,7 @@ function ConfirmarModificarPedido() {
     });
 }
 
-
 function MostrarDetalleGanancia() {
-
-    //$('#tituloGanancia').text($('#hdeCabezaEscala').val());
-    //$('#lbl1DetaGanancia').text($('#hdeLbl1DetaGanancia').val());
-    //$('#lbl2DetaGanancia').text($('#hdeLbl2DetaGanancia').val());
-    //$('#pieGanancia').text($('#hdePieEscala').val());
-
     var div = $('#detalleGanancia');
     div[0].children[0].innerHTML = $('#hdeCabezaEscala').val();
     div[0].children[1].children[0].innerHTML = $('#hdeLbl1Ganancia').val();

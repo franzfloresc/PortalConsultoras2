@@ -14,5 +14,6 @@
         public string UrlChileEncriptada { get; set; }
         public string RutaChile { get; set; }
         public string MostrarFE { get; set; }
+        public string PestanhaInicial { get; set; }
     }
 }

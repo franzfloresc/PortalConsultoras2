@@ -237,12 +237,13 @@
             return numeroLote;
         }
 
-        public void UpdSolicitudDescarga(int numeroLote, int estado, string mensaje, string nombreArchivoIns, string nombreArchivoUpd, string nombreServidor)
+        public void UpdSolicitudDescarga(int numeroLote, int estado, string mensaje, string mensajeExcepcion, string nombreArchivoIns, string nombreArchivoUpd, string nombreServidor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdSolicitudCreditoDescarga");
             Context.Database.AddInParameter(command, "@NumeroLote", DbType.Int32, numeroLote);
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivoIns", DbType.String, nombreArchivoIns);
             Context.Database.AddInParameter(command, "@NombreArchivoUpd", DbType.String, nombreArchivoUpd);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, nombreServidor);
@@ -305,12 +306,13 @@
             Context.ExecuteNonQuery(command);
         }
 
-        public void UpdFlexipagoDescarga(int numeroLoteConsuFlex, int estado, string mensaje, string nombreArchivoConsuFlex, string nombreServidor)
+        public void UpdFlexipagoDescarga(int numeroLoteConsuFlex, int estado, string mensaje, string mensajeExcepcion, string nombreArchivoConsuFlex, string nombreServidor)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdFlexipagoDescarga");
             Context.Database.AddInParameter(command, "@NumeroLote", DbType.Int32, numeroLoteConsuFlex);
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivoConsuFlex", DbType.String, nombreArchivoConsuFlex);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, nombreServidor);
 

@@ -10,6 +10,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Models
 {
+    [Serializable()]
     public class EstadoCuentaModel
     {
         public string MontoPagar { set; get; }

@@ -9,6 +9,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.Initialize(x =>
             {
                 x.AddProfile<DomainToModelMappingProfile>();
+                x.AddProfile<ModelToDomainMappingProfile>();
             });
         }
     }

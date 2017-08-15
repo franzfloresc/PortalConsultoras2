@@ -114,5 +114,29 @@ namespace Portal.Consultoras.BizLogic.CDR
                 return 0;
             }
         }
+
+        public IList<BECDRWebDetalleReporte> GetCDRWebDetalleReporte(int PaisID, BECDRWeb entity)
+        {
+            var listaEntity = new List<BECDRWebDetalleReporte>();
+
+            try
+            {
+                var DACDRWeb = new DACDRWeb(PaisID);
+                using (IDataReader reader = DACDRWeb.GetCDRWebDetalleReporte(entity))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BECDRWebDetalleReporte(reader);
+                        listaEntity.Add(entidad);
+                    }
+                }
+                return listaEntity;
+
+            }
+            catch (Exception)
+            {
+                return listaEntity;
+            }
+        }
     }
 }

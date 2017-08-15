@@ -13,10 +13,10 @@ namespace Portal.Consultoras.Service
             return BLPedidoRechazado.InsertarPedidoRechazadoXML(PaisISO,lista);
         }
 
-        public BELogGPRValidacion GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId)
+        public List<BELogGPRValidacion> GetBELogGPRValidacionByGetLogGPRValidacionId(int paisID, long logGPRValidacionId, long ConsultoraID)
         {
             var BLPedidoRechazado = new BLPedidoRechazado();
-            return BLPedidoRechazado.GetBELogGPRValidacionByGetLogGPRValidacionId(paisID, logGPRValidacionId);
+            return BLPedidoRechazado.GetBELogGPRValidacionByGetLogGPRValidacionId(paisID, logGPRValidacionId, ConsultoraID);
         }
 
         public List<BELogGPRValidacionDetalle> GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(int paisID, long logGPRValidacionId)

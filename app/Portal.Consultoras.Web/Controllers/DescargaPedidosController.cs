@@ -121,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                         if (ContadorCarga == 0)
                         {
                             string usuario = UserData().NombreConsultora;
-                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3 ? true : false), usuario);
+                            file = pedidoService.DescargaPedidosWeb(model.PaisID, model.FechaFacturacion, model.TipoCronogramaID == 3 ? 2 : model.TipoCronogramaID, model.TipoCronogramaID == 1 ? true : (model.TipoCronogramaID == 3 ? true : false), usuario, ((Enumeradores.TipoDescargaPedidos)model.TipoCronogramaID).ToString());
                         }
                         else
                         {
@@ -426,5 +426,24 @@ namespace Portal.Consultoras.Web.Controllers
                   });
         }
         /*EPD-1025*/
+        /*EPD1973*/
+        public ActionResult ObtenerUltimaDescargaExitosa()
+        {
+            BEPedidoDescarga UltimaDescarga = new BEPedidoDescarga();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                UltimaDescarga = sv.ObtenerUltimaDescargaExitosa(userData.PaisID);
+            }
+
+            return Json(new
+            {
+                success = true,
+                descarga = new
+                    {
+                        FechaEnvio = UltimaDescarga.FechaEnvio.ToString(),
+                        FechaProceso = UltimaDescarga.FechaProceso.ToString()
+                    }
+            });
+        }
     }
 }

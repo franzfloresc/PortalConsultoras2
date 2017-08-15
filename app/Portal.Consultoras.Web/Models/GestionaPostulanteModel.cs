@@ -29,5 +29,17 @@ namespace Portal.Consultoras.Web.Models
         public int rows { get; set; }
 
         public string CodigoZona { get; set; }
+        public string CodigoRegion { get; set; }
+        public string FuenteIngreso { get; set; }
+        public List<FuenteIngresoModel> FuenteIngresoListAvailable { get; set; }
+    }
+
+    public class FuenteIngresoModel
+    {
+        public string ID { get; set; }
+        public string Descripcion { get; set; }
+
+        public bool IsSelected { get; set; }
+        public string Titulo { get; set; }
     }
 }

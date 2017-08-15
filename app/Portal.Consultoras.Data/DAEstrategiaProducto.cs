@@ -1,0 +1,51 @@
+﻿using Portal.Consultoras.Entities;
+using System;
+using System.Data;
+using System.Data.Common;
+
+namespace Portal.Consultoras.Data
+{
+    public class DAEstrategiaProducto : DataAccess
+    {
+        public DAEstrategiaProducto(int paisID)
+            : base(paisID, EDbSource.Portal)
+        {
+        }
+
+        public int InsertEstrategiaProducto(BEEstrategiaProducto entidad)
+        {
+            int result;
+            using (DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertEstrategiaProducto"))
+            {
+                Context.Database.AddOutParameter(command, "@Retorno", DbType.Int32, entidad.EstrategiaProductoID);
+                Context.Database.AddInParameter(command, "@EstrategiaProductoID", DbType.Int32, entidad.EstrategiaProductoID);
+                Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+                Context.Database.AddInParameter(command, "@Campania", DbType.Int32, entidad.Campania);
+                Context.Database.AddInParameter(command, "@CodigoEstrategia", DbType.Int32, entidad.CodigoEstrategia);
+                Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+                Context.Database.AddInParameter(command, "@Grupo", DbType.String, entidad.Grupo);
+                Context.Database.AddInParameter(command, "@Orden", DbType.Int32, entidad.Orden);
+                Context.Database.AddInParameter(command, "@CUV2", DbType.String, entidad.CUV2);
+                Context.Database.AddInParameter(command, "@SAP", DbType.String, entidad.SAP);
+                Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, entidad.Cantidad);
+                Context.Database.AddInParameter(command, "@Precio", DbType.Decimal, entidad.Precio);
+                Context.Database.AddInParameter(command, "@PrecioValorizado", DbType.Decimal, entidad.PrecioValorizado);
+                Context.Database.AddInParameter(command, "@Digitable", DbType.Int32, entidad.Digitable);
+                Context.Database.AddInParameter(command, "@CodigoError", DbType.Int32, entidad.CodigoError);
+                Context.Database.AddInParameter(command, "@CodigoErrorObs", DbType.Int32, entidad.CodigoErrorObs);
+                Context.ExecuteNonQuery(command);
+
+                result = Convert.ToInt32(command.Parameters["@Retorno"].Value);
+            }
+            return result;
+        }
+
+        public IDataReader GetEstrategiaProducto(BEEstrategia entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEstrategiaProducto");
+            Context.Database.AddInParameter(command, "@EstrategiaID", DbType.Int32, entidad.EstrategiaID);
+
+            return Context.ExecuteReader(command);
+        }
+    }
+}

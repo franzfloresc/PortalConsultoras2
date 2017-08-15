@@ -48,7 +48,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PaisID", DbType.Byte, pedidoweb.PaisID);
             Context.Database.AddInParameter(command, "@IPUsuario", DbType.AnsiString, pedidoweb.IPUsuario);
             Context.Database.AddOutParameter(command, "@PedidoID", DbType.Int32, pedidoweb.PedidoID);
-            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);
+            Context.Database.AddInParameter(command, "@CodigoUsuarioCreacion", DbType.String, pedidoweb.CodigoUsuarioCreacion);         
 
             Context.ExecuteNonQuery(command);
             return Convert.ToInt32(command.Parameters["@PedidoID"].Value);
@@ -196,6 +196,7 @@ namespace Portal.Consultoras.Data
         public DataSet GetPedidoWebByFechaFacturacion(DateTime FechaFacturacion, int TipoCronograma, int NroLote)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByFechaFacturacion_SB2");
+            command.CommandTimeout = 400;
             Context.Database.AddInParameter(command, "@FechaFacturacion", DbType.Date, FechaFacturacion);
             Context.Database.AddInParameter(command, "@TipoCronograma", DbType.Int32, TipoCronograma);
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
@@ -203,13 +204,14 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteDataSet(command);
         }
 
-        public int UpdPedidoWebIndicadorEnviado(int NroLote, bool FirmarPedido, byte Estado, string Mensaje, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
+        public int UpdPedidoWebIndicadorEnviado(int NroLote, bool FirmarPedido, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivoCabecera, string NombreArchivoDetalle, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdPedidoWebIndicadorEnviado");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
             Context.Database.AddInParameter(command, "@FirmarPedido", DbType.Boolean, FirmarPedido);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivoCabecera", DbType.String, NombreArchivoCabecera);
             Context.Database.AddInParameter(command, "@NombreArchivoDetalle", DbType.String, NombreArchivoDetalle);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
@@ -379,7 +381,7 @@ namespace Portal.Consultoras.Data
         }
 
         public IDataReader GetPedidosPortalExtendido(int CampaniaID, string CodigoConsultora, string RegionCodigo, string ZonaCodigo, int PedidoPROL,
-    int IndicadorPedido, string SeccionCodigo, int IdEstadoActividad, int IndicadorSaldo, string NombreConsultora)
+        int IndicadorPedido, string SeccionCodigo, int IdEstadoActividad, int IndicadorSaldo, string NombreConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosWebServiceExtendido");
 
@@ -524,12 +526,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteDataSet(command);
         }
 
-        public int UpdDatosConsultoraIndicadorEnviado(int NroLote, byte Estado, string Mensaje, string NombreArchivo, string NombreServer)
+        public int UpdDatosConsultoraIndicadorEnviado(int NroLote, byte Estado, string Mensaje, string mensajeExcepcion, string NombreArchivo, string NombreServer)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdDatosConsultoraIndicadorEnviado");
             Context.Database.AddInParameter(command, "@NroLote", DbType.Int32, NroLote);
             Context.Database.AddInParameter(command, "@Estado", DbType.Byte, Estado);
             Context.Database.AddInParameter(command, "@Mensaje", DbType.String, Mensaje);
+            Context.Database.AddInParameter(command, "@MensajeExcepcion", DbType.String, mensajeExcepcion);
             Context.Database.AddInParameter(command, "@NombreArchivo", DbType.String, NombreArchivo);
             Context.Database.AddInParameter(command, "@NombreServer", DbType.String, NombreServer);
 
@@ -571,6 +574,14 @@ namespace Portal.Consultoras.Data
         public IDataReader GetPedidoWebByCampaniaConsultora(int campaniaID, long consultoraID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebByCampaniaConsultora_SB2");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            return Context.ExecuteReader(command);
+        }
+
+        public IDataReader GetResumenPedidoWebByCampaniaConsultora(int campaniaID, long consultoraID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetResumenPedidoWebByCampaniaConsultora_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
             return Context.ExecuteReader(command);
@@ -653,6 +664,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPedidosIngresadoFacturadoWebMobile(int consultoraID, int campaniaID, int clienteID, int top)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresadoFacturado");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int32, consultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int32, clienteID);
+            Context.Database.AddInParameter(command, "@top", DbType.Int32, top);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPedidosIngresado(int consultoraID, int campaniaID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidosIngresado_SB2");
@@ -662,16 +684,17 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
-        public void InsLogOfertaFinal(int CampaniaID, string CodigoConsultora, string CUV, int cantidad, string tipoOfertaFinal, decimal GAP, int tipoRegistro)
+        public void InsLogOfertaFinal(BEOfertaFinalConsultoraLog entidad)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.registrarLogOfertaFinal_SB2");
-            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
-            Context.Database.AddInParameter(command, "@CUV", DbType.String, CUV);
-            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, cantidad);
-            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, tipoOfertaFinal);
-            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, GAP);
-            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, tipoRegistro);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, entidad.CUV);
+            Context.Database.AddInParameter(command, "@Cantidad", DbType.Int32, entidad.Cantidad);
+            Context.Database.AddInParameter(command, "@TipoOfertaFinal", DbType.String, entidad.TipoOfertaFinal);
+            Context.Database.AddInParameter(command, "@GAP", DbType.Decimal, entidad.GAP);
+            Context.Database.AddInParameter(command, "@TipoRegistro", DbType.Int32, entidad.TipoRegistro);
+            Context.Database.AddInParameter(command, "@DesTipoRegistro", DbType.String, entidad.DesTipoRegistro);
 
             Context.ExecuteNonQuery(command);
         }
@@ -720,5 +743,77 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
         /*EPD-1025*/
+        public IDataReader ObtenerUltimaDescargaExitosa() {
+            DbCommand Command = Context.Database.GetStoredProcCommand("dbo.ObtenerUltimaDescargaExitosa");
+            return Context.ExecuteReader(Command);
+        }
+
+
+        /*EPD-2248*/
+        public int InsIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+            Context.Database.AddInParameter(command, "@IndicadorIPUsuario", DbType.AnsiString, entidad.IndicadorIPUsuario);
+            Context.Database.AddInParameter(command, "@IndicadorFingerprint", DbType.AnsiString, entidad.IndicadorFingerprint);
+            Context.Database.AddInParameter(command, "@IndicadorToken", DbType.AnsiString, entidad.IndicadorToken);
+
+            return Convert.ToInt32(Context.ExecuteScalar(command));
+        }
+
+        public int UpdIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+            Context.Database.AddInParameter(command, "@IndicadorIPUsuario", DbType.AnsiString, entidad.IndicadorIPUsuario);
+            Context.Database.AddInParameter(command, "@IndicadorFingerprint", DbType.AnsiString, entidad.IndicadorFingerprint);
+            Context.Database.AddInParameter(command, "@IndicadorToken", DbType.AnsiString, entidad.IndicadorToken);
+
+            return Convert.ToInt32(Context.ExecuteNonQuery(command));
+        }
+
+        public void DelIndicadorPedidoAutentico(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.Database.AddInParameter(command, "@PedidoDetalleID", DbType.Int32, entidad.PedidoDetalleID);
+
+            Context.ExecuteScalar(command);
+        }
+
+        public string GetTokenIndicadorPedidoAutentico(string paisISO, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTokenIndicadorPedidoAutentico");
+            Context.Database.AddInParameter(command, "@ISOPais", DbType.AnsiString, paisISO);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+
+            return Convert.ToString(Context.ExecuteScalar(command));
+        }
+        /*EPD-2248*/
+
+        public IDataReader GetResumenPorCampania(int consultoraId, int codigoCampania)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraPedidoResumen");
+            Context.Database.AddInParameter(command, "@consultoraId", DbType.Int32, consultoraId);
+            Context.Database.AddInParameter(command, "@codigoCampania", DbType.Int32, codigoCampania);
+
+            return Context.ExecuteReader(command);
+        }
+        public IDataReader GetConsultoraRegaloProgramaNuevas(int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetConsultoraRegaloProgramaNuevas");
+            Context.Database.AddInParameter(command, "@CampaniaId", DbType.Int32, campaniaId);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, codigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoRegion", DbType.AnsiString, codigoRegion);
+            Context.Database.AddInParameter(command, "@CodigoZona", DbType.AnsiString, codigoZona);
+            return Context.ExecuteReader(command);
+        }        
+        
     }
 }

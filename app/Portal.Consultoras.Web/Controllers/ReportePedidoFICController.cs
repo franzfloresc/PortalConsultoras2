@@ -1,50 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Portal.Consultoras.Web.ServiceCliente;
+﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
-using Portal.Consultoras.Web.ServiceZonificacion;
 using Portal.Consultoras.Web.ServicePedido;
-using System.Threading.Tasks;
-using Portal.Consultoras.Web.WsFuncionesSoap2; //253
-using Portal.Consultoras.Web.WsFuncionesSoap; //129
-using System.Web.Services.Protocols;
-using System.ServiceModel;
+using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.ServiceModel;
+using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
     public class ReportePedidoFICController : BaseController
     {
-        //
-        // GET: /ReportePedidoFIC/
-
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
+            var reportePedidoCampaniaModel = new ReportePedidoFICModel();
             try
             {
-                //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "ReportePedidoCampania/Index"))
-                //    return RedirectToAction("Index", "Bienvenida");
-                ViewBag.Pais = UserData().PaisID;//1501
+                ViewBag.Pais = userData.PaisID;
+
+                var listaCampanias = DropDowListCampanias(11);
+
+                reportePedidoCampaniaModel = new ReportePedidoFICModel()
+                {
+                    listaCampanias = new List<CampaniaModel>(),
+                    listaPaises = DropDowListPaises(),
+                    listaRegiones = new List<RegionModel>(),
+                    listaZonas = new List<ZonaModel>()
+                };
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            
-            //await Task.Run(() => LoadConsultorasCache(11));
-            var listaCampanias = DropDowListCampanias(11);
-            var reportePedidoCampaniaModel = new ReportePedidoFICModel()
-            {
-                listaCampanias = new List<CampaniaModel>(),
-                listaPaises = DropDowListPaises(),
-                listaRegiones = new List<RegionModel>(),
-                listaZonas = new List<ZonaModel>()
-            };           
             return View(reportePedidoCampaniaModel);
         }
 
@@ -229,21 +219,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
-        {
-            var listaZonas = DropDowListZonas(PaisID);
-            List<ZonaModel> lstActivos = new List<ZonaModel>();
-
-            if (RegionID > -1)
-                listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
-
-            return Json(new
-            {
-                success = true,
-                listaZonas = listaZonas
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         private IEnumerable<PaisModel> DropDowListPaises()
         {
             List<BEPais> lst;
@@ -278,38 +253,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
 
             return Mapper.Map<IList<BECampania>, IEnumerable<CampaniaModel>>(lst);
-        }
-
-        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
-        {
-            //PaisID = 11;
-            IList<BERegion> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(PaisID);
-            }
-            Mapper.CreateMap<BERegion, RegionModel>()
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst);
-        }
-
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEZona> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllZonas(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEZona, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lst);
         }
 
         public JsonResult GetConsultorasIds(int RegionID, int ZonaID, int rowCount, string vBusqueda)
@@ -450,8 +393,8 @@ namespace Portal.Consultoras.Web.Controllers
             else
             {
                 lst = DropDowListCampanias(PaisID);
-                lstRegiones = DropDowListRegiones(PaisID);
-                lstZonas = DropDowListZonas(PaisID);
+                lstRegiones = DropDownListRegiones(PaisID);
+                lstZonas = DropDownListZonas(PaisID);
 
                 return Json(new
                 {

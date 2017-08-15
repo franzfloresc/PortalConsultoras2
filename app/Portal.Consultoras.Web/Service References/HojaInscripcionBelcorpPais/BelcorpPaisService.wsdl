@@ -93,6 +93,18 @@
   <wsdl:message name="IBelcorpPaisService_ObtenerParametrosUnetePorNombre_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerParametrosUnetePorNombreResponse" />
   </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerIdCampaniaActivaPorZona_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerIdCampaniaActivaPorZona" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerIdCampaniaActivaPorZona_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerIdCampaniaActivaPorZonaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCampaniasAnterioresDesdeActual" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerCampaniasAnterioresDesdeActualResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBelcorpPaisService">
     <wsdl:operation name="ObtenerIdCampaniaActiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage" />
@@ -149,6 +161,14 @@
     <wsdl:operation name="ObtenerParametrosUnetePorNombre">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombre" message="tns:IBelcorpPaisService_ObtenerParametrosUnetePorNombre_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombreResponse" message="tns:IBelcorpPaisService_ObtenerParametrosUnetePorNombre_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerIdCampaniaActivaPorZona">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZona" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActivaPorZona_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZonaResponse" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActivaPorZona_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCampaniasAnterioresDesdeActual">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual" message="tns:IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActualResponse" message="tns:IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBelcorpPaisService" type="tns:IBelcorpPaisService">
@@ -272,6 +292,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerParametrosUnetePorNombre">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerParametrosUnetePorNombre" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerIdCampaniaActivaPorZona">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActivaPorZona" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerCampaniasAnterioresDesdeActual">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

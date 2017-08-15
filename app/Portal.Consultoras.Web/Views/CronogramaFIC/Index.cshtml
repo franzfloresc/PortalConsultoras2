@@ -655,25 +655,6 @@
     }
 </script>
 <input id="hdFlag" value="0" type="hidden" />
-@*<div class="wrap_cab">
-
-    <div class="filtros2">
-        <div class="elements">
-            <div class="div-2">
-                <h1> Activación de <span>Cronograma FIC</span></h1>
-            </div>
-            <div class="div-3">
-                <div class="titJ">País:</div>
-                <div class="selectP borde_redondeado">
-                    @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --")
-                </div>
-                <div class="titD"></div>
-
-            </div>
-        </div>
-    </div>
-
-</div>*@
 
 <div class="wrap_cab">
     <div class="filtros">
@@ -684,8 +665,6 @@
         </div>
     </div>
 </div>
-<!--/ .wrap-->
-
 
 <div class="wrap">
     <div class="container clearfix">
@@ -716,7 +695,6 @@
                             </div>
                             <div class="zona4">
                                 <input type="text" id="lbHasFilter" onkeyup="javascript:Filter('lbHas',this.value);" style="display: none" />
-                                @*<select id="lbHas" multiple="multiple" style="height: 300px; width: 300px;"></select>*@
                                 @Html.ListBoxFor(s => s.listaZonas, new MultiSelectList(Model.listaZonas, "ZonaID", "Codigo"), new
                                 {
                                     id = "lbHas",
@@ -731,18 +709,7 @@
                             </div>
                             <div class="zona6">
                                 <input type="text" id="lbHasNotFilter" onkeyup="javascript:Filter('divactivas',this.value);" style="display: none" />
-                                @*<select id="lbHasNot" multiple="multiple" style="height: 300px; width: 300px;"></select>*@
-                                @*@Html.ListBoxFor(s => s.listaZonasActivas, new MultiSelectList(Model.listaZonasActivas, "ZonaID", "ZonaID"), new
-                                {
-                               id = "lbHasNot",
-                               style = "height: 200px;width:100%;"
-                                })*@
-                                <div id="lbHasNot" class="list_content">
-                                    @*@foreach (var mp in zonasac)
-                                {
-                                <label><input type="checkbox" name="option[]" value="@mp.ZonaID" />@mp.Codigo</label>
-                                }*@
-                                </div>
+                                <div id="lbHasNot" class="list_content"></div>
                             </div>
                         </div>
                     </div>

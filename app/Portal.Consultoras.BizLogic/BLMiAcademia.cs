@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -20,7 +21,6 @@ namespace Portal.Consultoras.BizLogic
             DAMiAcademia DAMiAcademia = null;
 
             string headerFile = null, NombreCabecera = null;
-
             try
             {
                 var section = (DataAccessConfiguration)ConfigurationManager.GetSection("Belcorp.Configuration");
@@ -28,10 +28,8 @@ namespace Portal.Consultoras.BizLogic
 
                 string OrderTemplate = element.LetCursoTemplate;
                 TemplateField[] headerTemplate = ParseTemplate(ConfigurationManager.AppSettings[OrderTemplate]);
-
-
+                
                 DAMiAcademia = new DAMiAcademia(PaisId);
-
                 DataSet dsCursoLider;
                 DataTable dtCursoLider;
 
@@ -48,7 +46,6 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 FtpConfigurationElement ftpElement = null;
-
                 Guid fileGuid = Guid.NewGuid();
                 string key = PaisISO + "-LET";
                 var ftpSection = (FtpConfigurationSection)ConfigurationManager.GetSection("Belcorp.FtpConfiguration");
@@ -98,7 +95,11 @@ namespace Portal.Consultoras.BizLogic
             {
                 if (nroLote > 0)
                 {
-                    DAMiAcademia.UpdLetCursoDescarga(nroLote, 99, "Error desconocido: " + ex.Message, string.Empty, string.Empty, string.Empty);
+                    string error = "Error desconocido: " + ex.Message;
+                    string errorExcepcion = ErrorUtilities.GetExceptionMessage(ex);
+                    try { DAMiAcademia.UpdLetCursoDescarga(nroLote, 99, error, errorExcepcion, string.Empty, string.Empty); }
+                    catch (Exception ex2) { LogManager.SaveLog(ex2, Usuario, PaisISO); }
+                    MailUtilities.EnviarMailProcesoDescargaExcepcion("Descarga de pedidos", PaisISO, FechaProceso, Enumeradores.TipoDescargaPedidos.GenerarLideres.ToString(), error, errorExcepcion);
                 }
                 throw;
             }

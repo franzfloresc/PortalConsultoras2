@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {
@@ -82,6 +79,11 @@ namespace Portal.Consultoras.Service
         public IList<BEPais> GetAllPaises()
         {
             return BLZonificacion.SelectPaises();
+        }
+
+        public int GetPaisNumeroCampaniasByPaisID(int paisID)
+        {
+            return BLZonificacion.GetPaisNumeroCampaniasByPaisID(paisID);
         }
 
         public IList<BEZona> SelectZonasActivasFIC(int paisID, int CampaniaID)

@@ -2,7 +2,31 @@
 
 USE BelcorpBolivia
 GO
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -60,7 +84,32 @@ GO
 
 USE BelcorpChile
 GO
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -124,7 +173,30 @@ GO
 USE BelcorpColombia
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -188,7 +260,31 @@ GO
 USE BelcorpCostaRica
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -266,7 +362,30 @@ GO
 USE BelcorpDominicana
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -353,7 +472,31 @@ GO
 USE BelcorpEcuador
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -456,7 +599,30 @@ GO
 USE BelcorpGuatemala
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -571,7 +737,30 @@ GO
 USE BelcorpMexico
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -662,7 +851,30 @@ GO
 USE BelcorpPanama
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -767,7 +979,31 @@ GO
 USE BelcorpPeru
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -876,7 +1112,30 @@ GO
 USE BelcorpPuertoRico
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -952,7 +1211,30 @@ GO
 USE BelcorpSalvador
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)
@@ -1050,7 +1332,30 @@ GO
 USE BelcorpVenezuela
 GO
 
-ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle DROP Posicion
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL
+)
+GO
+
+CREATE procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
 @UsuarioCreacion varchar(50)

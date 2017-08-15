@@ -152,12 +152,19 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
+                    int resultExiste;
                     bool result;
-                    result = sv.IsUserExist(bepais.CodigoISO + model.CodigoConsultora);
+                    //result = sv.IsUserExist(bepais.CodigoISO + model.CodigoConsultora);
 
-                    if (result)
+                    //el valor de CodigoConsultora es en realidad el codigo de usuario.
+                    resultExiste = sv.ExisteUsuario(model.PaisID, model.CodigoConsultora, "");
+
+                    if (resultExiste == Constantes.ValidacionExisteUsuario.Existe)
                     {
-                        result = sv.ChangePasswordUser(bepais.PaisID, UserData().CodigoUsuario, bepais.CodigoISO + model.CodigoConsultora, model.Clave.ToUpper(), string.Empty, EAplicacionOrigen.ActualizarClaveSAC);
+                        //result = sv.ChangePasswordUser(bepais.PaisID, UserData().CodigoUsuario, bepais.CodigoISO + model.CodigoConsultora, model.Clave.ToUpper(), string.Empty, EAplicacionOrigen.ActualizarClaveSAC);
+                        result = sv.CambiarClaveUsuario(model.PaisID, bepais.CodigoISO, model.CodigoConsultora,
+                            model.Clave, "", userData.CodigoUsuario, EAplicacionOrigen.ActualizarClaveSAC);
+
                         if (result)
                         {
                             return Json(new

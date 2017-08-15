@@ -3,15 +3,16 @@
 USE BelcorpBolivia
 GO
 
+DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
+DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
+DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
+DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
 DELETE FROM TablaLogica WHERE TablaLogicaID = 94
 DELETE FROM TablaLogica WHERE TablaLogicaID = 95
 DELETE FROM TablaLogica WHERE TablaLogicaID = 96
 DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
-DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
-DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
-DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
-DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -19,15 +20,15 @@ GO
 USE BelcorpChile
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -35,15 +36,15 @@ GO
 USE BelcorpColombia
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -51,15 +52,15 @@ GO
 USE BelcorpCostaRica
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -67,15 +68,15 @@ GO
 USE BelcorpDominicana
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -83,15 +84,15 @@ GO
 USE BelcorpEcuador
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -99,16 +100,15 @@ GO
 USE BelcorpGuatemala
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -116,15 +116,15 @@ GO
 USE BelcorpMexico
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 977
 
 GO
 /*end*/
@@ -132,15 +132,15 @@ GO
 USE BelcorpPanama
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -148,15 +148,15 @@ GO
 USE BelcorpPeru
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -164,15 +164,15 @@ GO
 USE BelcorpPuertoRico
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -180,15 +180,15 @@ GO
 USE BelcorpSalvador
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 /*end*/
@@ -196,15 +196,15 @@ GO
 USE BelcorpVenezuela
 GO
 
-DELETE FROM TablaLogica WHERE TablaLogicaID = 94
-DELETE FROM TablaLogica WHERE TablaLogicaID = 95
-DELETE FROM TablaLogica WHERE TablaLogicaID = 96
-DELETE FROM TablaLogica WHERE TablaLogicaID = 97
-
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 94
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 95
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 96
 DELETE FROM TablaLogicaDatos WHERE TablaLogicaID = 97
+
+DELETE FROM TablaLogica WHERE TablaLogicaID = 94
+DELETE FROM TablaLogica WHERE TablaLogicaID = 95
+DELETE FROM TablaLogica WHERE TablaLogicaID = 96
+DELETE FROM TablaLogica WHERE TablaLogicaID = 97
 
 GO
 

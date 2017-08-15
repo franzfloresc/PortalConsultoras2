@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Service
@@ -141,6 +142,12 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
+        }
+
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
         }
 
         public bool IsUserExist(string CodigoUsuario)
@@ -583,11 +590,178 @@ namespace Portal.Consultoras.Service
             var bLLogCDRWebCulminado = new BLLogCDRWebCulminado();
             bLLogCDRWebCulminado.UpdateVisualizado(paisID, procesoId);
         }
-
+        
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.UpdateUsuarioEmailTelefono(paisID, ConsultoraID, Email, Telefono);
         }
+
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarLoginSB2(paisID, codigoUsuario, contrasenia);
+        }
+        /*EPD-1012*/
+
+        /*EPD-2340*/
+        public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetValidarAutoLogin(paisID, codigoUsuario, proveedor);
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.InsUsuarioExternoPais(paisID, entidad);
+        }
+        /*EPD-2340*/
+
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.CambiarClaveUsuario(paisId, paisIso, codigoUsuario, nuevacontrasena, correo, codigoUsuarioAutenticado, origen);
+        }
+
+        ///<summary>
+        ///Verifica si existe el usuario con/sin el ingreso de la clave  
+        ///</summary>
+        ///<param name="paisId">
+        /// Id del Pais del Usuario
+        /// </param>
+        /// <param name="codigoUsuario">
+        /// Codigo de Usuario
+        /// </param>
+        /// <param name="clave">
+        /// Clave del Usuario a validar (sin encriptar) o valor vacio (no valida con la clave)
+        /// </param> 
+        /// <returns>
+        /// 0: no existe; 1: existe pero la clave es diferente; 2: existe con/sin validacion de clave
+        /// </returns>
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ExisteUsuario(paisId, codigoUsuario, clave);
+        }
+
+        ///<summary>
+        ///Verifica si el usuario existe con la clave correcta.       
+        ///</summary>
+        ///<param name="paisIso">
+        /// Prefijo del Pais del Usuario
+        /// </param>
+        /// <param name="codigoUsuario">
+        /// Codigo de Usuario o Email
+        /// </param>
+        /// <param name="clave">
+        /// Clave del Usuario a validar (sin encriptar)
+        /// </param>      
+        public bool ValidarUsuario(string paisIso, string codigoUsuario, string clave)
+        {
+            int paisId = Util.GetPaisID(paisIso);
+
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ValidarUsuario(paisId, codigoUsuario, clave);
+        }
+
+        public List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(entidad);
+        }
+
+        public bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad)
+        {
+            var bl = new BLConfiguracionPaisDetalle();
+            return bl.Validar(entidad);
+        }
+        
+        //EPD-1836
+        public int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad)
+        {
+            int paisID = GetPaisID(paisISO);
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.InsUsuarioPostulante(paisID, paisISO, entidad);
+        }
+        
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.RecuperarContrasenia(paisId, correo);
+        }
+
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.ActualizarMisDatos(usuario, CorreoAnterior);
+        }
+
+        public string AceptarContrato(BEUsuario usuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.AceptarContratoColombia(usuario);
+        }
+
+        public int EliminarUsuarioPostulante(string paisISO, string numeroDocumento)
+        {
+            int paisID = GetPaisID(paisISO);
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.DelUsuarioPostulante(paisID, numeroDocumento);
+        }
+
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioPostulante(paisID, numeroDocumento);
+        }
+
+        /*EPD-1837*/
+        public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.InsertUsuarioExterno(paisID, usuarioExterno);
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioExternoByCodigoUsuario(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion);
+        }
+
+        public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetListaLoginExterno(paisID, codigoUsuario);
+        }
+
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba,
+            int aceptacionConsultoraDA)
+        {
+            return new BLUsuario().ObtenerUsuarioConfiguracion(paisID, consultoraID, campania, usuarioPrueba,
+                aceptacionConsultoraDA);
+        }
+
+        /*
+        public bool GetExisteEmailActivo(int paisID, string email)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetExisteEmailActivo(paisID, email);
+        }
+         * */
+        /*EPD-1837*/
+        public void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo)
+        {
+            var BLUsuario = new BLUsuario();
+            BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
+        }
+
     }
 }

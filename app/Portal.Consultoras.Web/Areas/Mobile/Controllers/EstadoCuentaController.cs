@@ -19,73 +19,41 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var model = new EstadoCuentaMobilModel();
             try
             {
-                model.PaisID = userData.PaisID;
-                model.CodigoISO = userData.CodigoISO;
                 model.Simbolo = userData.Simbolo;
                 model.CorreoConsultora = userData.EMail;
-                model.ListaEstadoCuenta = new List<EstadoCuentaMobilModel>();
+                model.ListaEstadoCuentaDetalle = new List<EstadoCuentaDetalleMobilModel>();
 
                 var lstEstadoCuenta = EstadodeCuenta();
-                if (lstEstadoCuenta.Count > 0)
-                {
-                    lstEstadoCuenta.RemoveAt(lstEstadoCuenta.Count - 1);
-                }
-
-                lstEstadoCuenta.ForEach(l =>
-                {
-                    if (l.Cargo > 0)
-                    {
-                        l.TipoMovimiento = 1;
-                    }
-                    if (l.Abono > 0)
-                    {
-                        l.TipoMovimiento = 2;
-                    }
-                });
-
+                if (lstEstadoCuenta.Count > 0) lstEstadoCuenta.RemoveAt(lstEstadoCuenta.Count - 1);
                 foreach (var item in lstEstadoCuenta)
                 {
-                    model.ListaEstadoCuenta.Add(
-                        new EstadoCuentaMobilModel
+                    model.ListaEstadoCuentaDetalle.Add(
+                        new EstadoCuentaDetalleMobilModel
                         {
-                            MontoPagar = item.MontoPagar,
-                            Simbolo = item.Simbolo,
-                            FechaVencimiento = item.FechaVencimiento,
-                            CorreoConsultora = item.CorreoConsultora,
-                            Abono = item.Abono,
-                            Cargo = item.Cargo,
                             Glosa = item.Glosa,
-                            FechaConvertida = item.Fecha.ToString("dd/MM/yyyy"),
-                            TipoMovimiento = item.TipoMovimiento,
+                            FechaVencimiento = item.Fecha.ToString("dd/MM/yyyy"),
+                            TipoMovimiento = item.Abono > 0 ? Constantes.EstadoCuentaTipoMovimiento.Abono :
+                                item.Cargo > 0 ? Constantes.EstadoCuentaTipoMovimiento.Cargo : 0,
+                            MontoStr = Util.DecimalToStringFormat(item.Abono > 0 ? item.Abono : item.Cargo, userData.CodigoISO), 
                             Fecha = item.Fecha
                         });
                 }
 
-                if (model.ListaEstadoCuenta.Count == 0)
+                if (model.ListaEstadoCuentaDetalle.Count == 0)
                 {
-                    model.FechaVencimiento = "";
-
-                    if (model.CodigoISO == Constantes.CodigosISOPais.Colombia)
-                    {
-                        model.MontoPagar = "0";
-                    }
-                    else
-                    {
-                        model.MontoPagar = "0.0";
-                    }
+                    model.MontoStr = Util.DecimalToStringFormat(0, userData.CodigoISO);
+                    model.MontoPagarStr = Util.DecimalToStringFormat(0, userData.CodigoISO);
                 }
                 else
                 {
-                    model.ListaEstadoCuenta = model.ListaEstadoCuenta.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
+                    model.ListaEstadoCuentaDetalle = model.ListaEstadoCuentaDetalle.OrderByDescending(x => x.Fecha).ThenByDescending(x => x.TipoMovimiento).ToList();
+                    var ultimoMovimiento = model.ListaEstadoCuentaDetalle.FirstOrDefault();
 
-                    var ultimoMovimiento = model.ListaEstadoCuenta.FirstOrDefault();
-
-                    model.FechaVencimiento = ultimoMovimiento.FechaConvertida;
+                    model.FechaUltimoMovimiento = ultimoMovimiento.FechaVencimiento;
                     model.Glosa = ultimoMovimiento.Glosa.ToString();
-                    model.MontoPagar = ultimoMovimiento.MontoPagar;
-                    model.Abono = ultimoMovimiento.Abono;
-                    model.Cargo = ultimoMovimiento.Cargo;
-                    model.MontoPagar = userData.MontoDeuda.ToString();
+                    model.MontoStr = ultimoMovimiento.MontoStr;
+                    model.FechaVencimiento = userData.FechaLimPago.ToString("dd/MM/yyyy");
+                    model.MontoPagarStr = Util.DecimalToStringFormat(userData.MontoDeuda, userData.CodigoISO);
                 }
             }
             catch (FaultException ex)
@@ -162,9 +130,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         private List<EstadoCuentaModel> EstadodeCuenta()
         {
-            List<EstadoCuentaModel> lst = ObtenerEstadoCuenta();
+            var listSession = ObtenerEstadoCuenta();
+            var list = new List<EstadoCuentaModel>();
 
-            return lst;
+            listSession.ForEach((item) =>
+            {
+                list.Add(new EstadoCuentaModel
+                {
+                    Abono = item.Abono,
+                    Cargo = item.Cargo,
+                    CorreoConsultora = item.CorreoConsultora,
+                    Fecha = item.Fecha,
+                    FechaVencimiento = item.FechaVencimiento,
+                    Glosa = item.Glosa,
+                    MontoPagar = item.MontoPagar,
+                    Simbolo = item.Simbolo,
+                    TipoMovimiento = item.TipoMovimiento
+                });
+            });
+            return list;
         }
 
         private string ConstruirContenidoCorreo(List<EstadoCuentaModel> lst)

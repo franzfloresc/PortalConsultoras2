@@ -202,7 +202,7 @@ namespace Portal.Consultoras.Web.Controllers
             //PaisID = 11;
             IEnumerable<CampaniaModel> lstcampania = DropDownCampanias(PaisID);
             IEnumerable<ZonaModel> lstzona = DropDownZonas(PaisID);
-            IEnumerable<RegionModel> lstregion = DropDownRegiones(PaisID);
+            IEnumerable<RegionModel> lstregion = DropDownListRegiones(PaisID);
 
             return Json(new
             {
@@ -246,22 +246,6 @@ namespace Portal.Consultoras.Web.Controllers
                .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID));
 
             return Mapper.Map<IList<BEZona>, IEnumerable<ZonaModel>>(lista);
-        }
-
-        public IEnumerable<RegionModel> DropDownRegiones(int PaisID)
-        {
-            IList<BERegion> lista;
-            using (ZonificacionServiceClient servicezona = new ZonificacionServiceClient())
-            {
-                lista = servicezona.SelectAllRegiones(PaisID);
-            }
-            Mapper.CreateMap<BERegion, RegionModel>()
-                .ForMember(x => x.RegionID, t => t.MapFrom(c => c.RegionID))
-                .ForMember(x => x.Nombre, t => t.MapFrom(c => c.Nombre))
-                .ForMember(x => x.PaisID, t => t.MapFrom(c => c.PaisID))
-                .ForMember(x => x.Codigo, t => t.MapFrom(c => c.Codigo));
-
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lista);
         }
 
         public JsonResult SelectTerritorioByCodigo(string codigo, int rowCount, int paisID)

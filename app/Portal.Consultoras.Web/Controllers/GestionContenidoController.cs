@@ -181,9 +181,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        public BEUsuario GetUserData(int PaisID, string Codigo)
+        public ServiceUsuario.BEUsuario GetUserData(int PaisID, string Codigo)
         {
-            BEUsuario oBEUsuario = null;
+            ServiceUsuario.BEUsuario oBEUsuario = null;
             using (UsuarioServiceClient sv = new UsuarioServiceClient())
             {
                 oBEUsuario = sv.GetSesionUsuario(PaisID, Codigo);

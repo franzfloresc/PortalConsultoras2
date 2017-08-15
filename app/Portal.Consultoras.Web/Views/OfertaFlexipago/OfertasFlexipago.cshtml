@@ -56,8 +56,6 @@
 
         ReservadoOEnHorarioRestringido();
 
-        @*if (HorarioRestringido())
-            setTimeout(function () { location.href = '@Url.Action("Index", "Bienvenida")'; }, 2500);*@
     });
 
     function HorarioRestringido() {
@@ -71,8 +69,7 @@
             success: function (data) {
                 if (checkTimeout(data)) {
                     if (data.success == true) {
-                        alert_msgHorario(data.message);
-                        //$("#DialogMensajeHorario").siblings(".ui-dialog-titlebar").hide();
+                        AbrirMensaje(data.message);
                         horarioRestringido = true;
                     }
                 }
@@ -111,42 +108,7 @@
                 }
             }
         });
-
-        $('#DialogMensajeHorario').dialog({
-            autoOpen: false,
-            resizable: false,
-            modal: true,
-            closeOnEscape: false,
-            width: 400,
-            draggable: true,
-            title: ":: Mensaje ::",
-            open: function (event, ui) { $(".ui-dialog-titlebar-close").hide(); },
-            buttons:
-            {
-                "Aceptar": function () {
-                    location.href = '@Url.Action("Index", "Bienvenida")';
-                    }
-                }
-            });
-        }
-
-        //function alert_msg(message) {
-        //    $('#DialogMensajesBanner .message_text').html(message);
-        //    $('#DialogMensajesBanner').dialog('open');
-        //}
-
-        function alert_msg(message, fnClose) {
-            $('#DialogMensajesBanner .message_text').html(message);
-            if ($.isFunction(fnClose)) $('#DialogMensajesBanner').dialog({ close: fnClose });
-            else $('#DialogMensajesBanner').dialog({ close: null });
-
-            $('#DialogMensajesBanner').dialog('open');
-        }
-
-        function alert_msgHorario(message) {
-            $('#DialogMensajeHorario .message_text').html(message);
-            $('#DialogMensajeHorario').dialog('open');
-        }
+    }
 </script>
 <div class="wrap_cab">
     <div class="filtros">

@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System;
 using System.Collections.Generic;
@@ -105,6 +106,28 @@ namespace Portal.Consultoras.BizLogic
                 }
 
             return productos;
+        }
+
+        public decimal GetMontoDeuda(int paisID, int campaniaID, int consultoraID, string codigoUsuario, bool revisarHana)
+        {
+            try
+            {
+                if (revisarHana && new BLPais().EsPaisHana(paisID))
+                {
+                    var datosConsultoraHana = new BLUsuario().GetDatosConsultoraHana(paisID, codigoUsuario, campaniaID);
+                    if (datosConsultoraHana != null) return datosConsultoraHana.MontoDeuda;
+                    return 0;
+                }
+                
+                string paisISO = Util.GetPaisISO(paisID);
+                bool esPaisDeudaTotal = new List<string> { Constantes.CodigosISOPais.Colombia, Constantes.CodigosISOPais.Peru }.Contains(paisISO);
+                List<BEResumenCampania> infoDeuda = esPaisDeudaTotal ? GetDeudaTotal(paisID, consultoraID).ToList() :
+                    GetSaldoPendiente(paisID, campaniaID, consultoraID).ToList();
+
+                if (infoDeuda != null && infoDeuda.Count > 0) return infoDeuda[0].SaldoPendiente;
+                return 0;
+            }
+            catch { return 0; }
         }
     }
 }

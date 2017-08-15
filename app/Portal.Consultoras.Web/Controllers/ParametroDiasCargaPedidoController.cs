@@ -63,28 +63,13 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult ObtenerRegionesPorPais(int PaisID)
         {
             //PaisID = 11;
-            IEnumerable<RegionModel> lstRegiones = DropDowListRegiones(PaisID);
-            IEnumerable<ZonaModel> lstZonas = DropDowListZonas(PaisID);
+            IEnumerable<RegionModel> lstRegiones = DropDownListRegiones(PaisID);
+            IEnumerable<ZonaModel> lstZonas = DropDownListZonas(PaisID);
 
             return Json(new
             {
                 lstRegiones = lstRegiones.OrderBy(x => x.Codigo)
                 //listaZonas = lstZonas.OrderBy(x => x.Codigo)
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult ObtenerZonasByRegion(int PaisID, int RegionID)
-        {
-            var listaZonas = DropDowListZonas(PaisID);
-            List<ZonaModel> lstActivos = new List<ZonaModel>();
-
-            if (RegionID > -1)
-                listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
-
-            return Json(new
-            {
-                success = true,
-                listaZonas = listaZonas
             }, JsonRequestBehavior.AllowGet);
         }
 
@@ -107,37 +92,6 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.NombreCorto, f => f.MapFrom(c => c.NombreCorto));
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
-        }
-
-        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEGetRegionByPaisParametroCarga> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.GetRegionByPaisParametroCarga(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEGetRegionByPaisParametroCarga, RegionModel>()
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo));
-
-            return Mapper.Map<IList<BEGetRegionByPaisParametroCarga>, IEnumerable<RegionModel>>(lst);
-        }
-
-        private IEnumerable<ZonaModel> DropDowListZonas(int PaisID)
-        {
-            //PaisID = 11;
-            List<BEGetZonaByPaisParametroCarga> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.GetZonaByPaisParametroCarga(PaisID).ToList();
-            }
-            Mapper.CreateMap<BEGetZonaByPaisParametroCarga, ZonaModel>()
-                    .ForMember(t => t.ZonaID, f => f.MapFrom(c => c.ZonaID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID));
-
-            return Mapper.Map<IList<BEGetZonaByPaisParametroCarga>, IEnumerable<ZonaModel>>(lst);
         }
 
         public JsonResult TraerRegiones(int pais)

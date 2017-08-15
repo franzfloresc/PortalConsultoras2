@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
+    [Serializable()]
     public class PedidoWebMobilModel
     {
         public PedidoWebMobilModel()
@@ -10,6 +12,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         }
 
         public int PedidoId { get; set; }
+
+        public int PaisID { get; set; }
 
         public string CodigoISO { get; set; }
 
@@ -39,5 +43,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CodigoUsuarioCreacion { get; set; }
 
         public List<PedidoWebClienteMobilModel> ListaPedidoWebDetalle { get; set; }
+
+        public List<ServiceCliente.BECliente> ListaClientes { get; set; }
     }
 }

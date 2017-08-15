@@ -39,6 +39,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetPaisActivo()
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaisActivo");
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetPaisNumeroCampaniasByPaisID(int PaisID)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPaisNumeroCampaniasByPaisID");

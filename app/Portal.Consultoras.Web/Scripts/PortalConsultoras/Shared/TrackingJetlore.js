@@ -1,7 +1,6 @@
 ﻿
 var esPaisTrackingJetlore = esPaisTrackingJetlore || "";
 
-/* Tracking Jetlore */
 function TrackingJetloreAdd(cantidad, campania, cuv) {
     var esJetlore;
 
@@ -65,5 +64,3 @@ function TrackingJetloreSearch(cuv, campania) {
         });
     }
 }
-
-/* Fin Tracking Jetlore */

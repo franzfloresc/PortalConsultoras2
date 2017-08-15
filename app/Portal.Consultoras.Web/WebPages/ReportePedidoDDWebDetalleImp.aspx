@@ -68,19 +68,23 @@
                     <div class="top_head">
                         <div class="top_head1" id="userWelcome">
                             <asp:Label ID="Usuario" runat="server" Text=""></asp:Label></div>
+                        </div>
                         <div class="top_head2">
                         </div>
                         <div class="top_head3">
                             <div class="top_head3_input">
-                                <input type="text" name="search" id="search" /></div>
+                                <input type="text" name="search" id="search" />
+                            </div>
                             <div class="top_head3_btn">
-                                <input type="submit" class="btn_search" id="submit" value="" /></div>
+                                <input type="submit" class="btn_search" id="submit" value="" />
+                            </div>
                         </div>
                         <div class="top_head4">
                             <div class="pais">
                                 <asp:Image ID="imgBandera" runat="server" />
                                 <p>
-                                    <asp:Label ID="lblNombrePais" runat="server"></asp:Label></p>
+                                    <asp:Label ID="lblNombrePais" runat="server"></asp:Label>
+                                </p>
 
                             </div>
                         </div>
@@ -113,7 +117,8 @@
                                 </div>
                                 <div class="module_1">
                                     <div class="label2">
-                                        <asp:Label ID="lblCampaniaCod" runat="server" Text=""></asp:Label></div>
+                                        <asp:Label ID="lblCampaniaCod" runat="server" Text=""></asp:Label>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -165,7 +170,7 @@
                         <tr>
                             <td>
                                 <div class="module_2">
-                                    <div class="label1">Motivo rechazo: </div>
+                                    <div class="label1">Motivo rechazo:</div>
                                 </div>
                                 <div class="module_2">
                                     <div class="label2">
@@ -191,10 +196,12 @@
 
         <div class="wrap">
             <div class="container clearfix" style="text-align: center">
-                <div class="total_global">Total Pedido con Descuento*:
+                <div class="total_global">
+                    Total Pedido con Descuento*:
                     <asp:Label ID="lblImporteConDescuento" runat="server" Text=""></asp:Label>
                 </div>
-                <div class="total_global">Total Pedido:
+                <div class="total_global">
+                    Total Pedido:
                     <asp:Label ID="lblImporte" runat="server" Text=""></asp:Label>
                 </div>
                 <div class="input_global">
@@ -235,11 +242,13 @@
                     <div class="foot_social">
                         <label>Síguenos</label>
                         <p>
-                            <img src="../Content/Images/ico_facebook.png" /></p>
+                            <img src="../Content/Images/ico_facebook.png" />
+                        </p>
                     </div>
                     <div class="foot_belcorp">
                         <p>
-                            <img src="../Content/Images/logo_foot.png"></p>
+                            <img src="../Content/Images/logo_foot.png">
+                        </p>
                         <p>Copyright Belcorp 2012. All rights reserved</p>
                     </div>
                 </div>

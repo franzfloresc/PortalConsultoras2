@@ -7,6 +7,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
@@ -31,7 +32,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 beConfiguracionCampania = sv.GetEstadoPedido(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.ZonaID, userData.RegionID);
             }
-
+            
             if (beConfiguracionCampania == null)
                 return RedirectToAction("CampaniaZonaNoConfigurada", "Pedido", new { area = "Mobile" });
 
@@ -106,13 +107,52 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.ListaClientes = sv.SelectByConsultora(userData.PaisID, userData.ConsultoraID).ToList();
             }
             model.ListaClientes.Insert(0, new BECliente { ClienteID = 0, Nombre = userData.NombreConsultora });
+            model.ListaClientes.Insert(0, new BECliente { ClienteID = -1, Nombre = "NUEVO CLIENTE +" });
 
-            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);           
+            //model.ListaClientes.ForEach(x => x.Nombre = x.Nombre.ToUpper());
+
+            //Session["ListaClientes"] = model.ListaClientes;
+
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
+
+            ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
+
+            ViewBag.MobileApp = (Session["MobileAppConfiguracion"] == null ? false : true);
+            var mobileConfiguracion = (Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"]);
+            //var clienteSeleccionado = model.ListaClientes.Where(x => x.CodigoCliente == mobileConfiguracion.ClienteID).FirstOrDefault();
+            //model.Nombre = (clienteSeleccionado == null ? string.Empty : (clienteSeleccionado.ClienteID == 0 ? string.Empty : clienteSeleccionado.ClienteID.ToString()));
+            model.ClienteId = mobileConfiguracion.ClienteID;
+
+            if (ViewBag.MobileApp)
+            {
+                var clienteSeleccionado = model.ListaClientes.Where(x => x.ClienteID == mobileConfiguracion.ClienteID).FirstOrDefault();
+                model.Nombre = (clienteSeleccionado == null ? string.Empty : clienteSeleccionado.Nombre);
+            }
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+            model.TieneMasVendidos = userData.TieneMasVendidos;
+            //model.TieneOfertaLog = userData.TieneOfertaLog;
+
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+            ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+            ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+            ViewBag.NumeroCampania = userData.CampaniaID % 100;
+            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
             return View(model);
         }
         
-        public ActionResult Detalle()
+        public ActionResult Detalle(bool autoReservar = false)
         {
             Session["ObservacionesPROL"] = null;
             Session["PedidoWebDetalle"] = null;
@@ -133,8 +173,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 && !beConfiguracionCampania.ModificaPedidoReservado
                 && !beConfiguracionCampania.ValidacionAbierta)
                 return RedirectToAction("Validado", "Pedido", new { area = "Mobile" });
-
             var model = new PedidoDetalleMobileModel();
+            model.AutoReservar = autoReservar;
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.CampaniaActual = userData.CampaniaID.ToString();
@@ -261,12 +301,26 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.EsConsultoraNueva = VerificarConsultoraNueva();
             model.MontoMinimo = userData.MontoMinimo;
             model.MontoMaximo = userData.MontoMaximo;
-
+            model.Total = pedidoWeb.ImporteTotal;
             //var dataBarra = GetDataBarra(true, true);
             //AutoMapper.Mapper.CreateMap<BarraConsultoraModel, BarraConsultoraMobileModel>();
             //var dataBarraMobile = AutoMapper.Mapper.Map<BarraConsultoraModel, BarraConsultoraMobileModel>(dataBarra);
             model.DataBarra = GetDataBarra(true, true);
             /* SB20-565 - FIN */
+
+            ViewBag.CUVOfertaProl = TempData["CUVOfertaProl"];
+            model.TieneCupon = userData.TieneCupon;
+            model.EmailActivo = userData.EMailActivo;
+            model.Simbolo = userData.Simbolo;
+            model.CampaniaActual = userData.CampaniaID.ToString();
+            model.EMail = userData.EMail;
+            model.Celular = userData.Celular;
+            ViewBag.paisISO = userData.CodigoISO;
+            ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
+
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                model.Prol = "GUARDA TU PEDIDO";
                       
             return View(model);
         }
@@ -276,7 +330,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.MensajeCampaniaZona = userData.CampaniaID == 0 ? "Campaña" : "Zona";
             return View();
         }
-        
+
+        [HttpGet]
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")] 
         public ActionResult Validado()
         {
             BEConfiguracionCampania beConfiguracionCampania;
@@ -289,6 +345,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (beConfiguracionCampania.CampaniaID > userData.CampaniaID)
                     return RedirectToAction("Index");
             }
+            
+            if (beConfiguracionCampania.EstadoPedido == Constantes.EstadoPedido.Procesado
+                && (beConfiguracionCampania.ModificaPedidoReservado
+                || beConfiguracionCampania.ValidacionAbierta))
+            {
+                return RedirectToAction("Index", new { area = "Mobile" });
+            }
 
             List<BEPedidoWebDetalle> lstPedidoWebDetalle;
             using (var sv = new PedidoServiceClient())
@@ -297,6 +360,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             BEPedidoWeb bePedidoWebByCampania = ObtenerPedidoWeb();
+
             var model = new PedidoDetalleMobileModel();
             model.CodigoISO = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
@@ -364,7 +428,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 if (userData.NuevoPROL && userData.ZonaNuevoPROL)   // PROL 2
                 {
                     model.Prol = "MODIFICA TU PEDIDO";
-                    model.ProlTooltip = "Haz click aquí para modificar tu pedido";
+                    model.ProlTooltip = "Modifica tu pedido sin perder lo que ya reservaste."; //EPD-2561
 
                     if (diaActual <= userData.FechaInicioCampania)
                     {
@@ -372,14 +436,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     }
                     else
                     {
-                        if (userData.CodigoISO == "BO")
-                        {
-                            model.ProlTooltip += "|No olvides reservar tu pedido el dia de hoy para que sea enviado a facturar";
-                        }
-                        else
-                        {
-                            model.ProlTooltip += string.Format("|Tienes hasta hoy a las {0}", diaActual.ToString("hh:mm tt"));
-                        }
+                        model.ProlTooltip += string.Format("|Hazlo antes de las {0} para facturarlo.", diaActual.ToString("hh:mm tt")); //EPD-2561
                     }
                 }
                 else // PROL 1
@@ -463,6 +520,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //model.HoraCierre = new DateTime(sp.Ticks).ToString("hh:mm tt");
             model.HoraCierre = FormatearHora(sp);
             model.ModificacionPedidoProl = userData.NuevoPROL && userData.ZonaNuevoPROL ? 0 : 1;
+
+            if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                model.Prol = "GUARDA TU PEDIDO";
 
             return View(model);
         }
@@ -638,7 +698,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID,userData.OfertaFinalModel.Algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
             catch (Exception)

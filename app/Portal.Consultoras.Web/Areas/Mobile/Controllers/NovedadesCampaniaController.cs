@@ -28,21 +28,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 {
                     SegmentoID = (userData.SegmentoInternoID == null) ? userData.SegmentoID : (int)userData.SegmentoInternoID;
                 }
-
-                var esConsultoraNueva = userData.ConsultoraNueva == 2 ? true : false;
-
+                
                 BEBannerInfo[] lstBannerInfoTemp;
 
                 using (var service = new ContenidoServiceClient())
                 {
-                    lstBannerInfoTemp = service.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, esConsultoraNueva);
+                    lstBannerInfoTemp = service.SelectBannerByConsultoraBienvenida(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, userData.ConsultoraNueva == 2);
                 }
 
                 var lstBannerInfoPorZona = lstBannerInfoTemp.Where(p => p.ConfiguracionZona == string.Empty || p.ConfiguracionZona.Contains(userData.ZonaID.ToString()));
 
                 var lstBannerInfo = lstBannerInfoPorZona.Where(p => p.Segmento == -1 || p.Segmento == SegmentoID);
 
-                if (lstBannerInfo.Count() > 0)
+                if (lstBannerInfo.Any())
                 {
                     model.AddRange(lstBannerInfo.Where(x => x.GrupoBannerID == 150).OrderBy(x => x.Orden));
                     model.Update(x => x.Archivo = ConfigS3.GetUrlFileS3(Globals.UrlBanner, x.Archivo, Globals.RutaImagenesBanners));

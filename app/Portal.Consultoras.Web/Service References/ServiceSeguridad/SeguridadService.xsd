@@ -36,6 +36,7 @@
   <xs:element name="ArrayOfBEPermiso" nillable="true" type="tns:ArrayOfBEPermiso" />
   <xs:complexType name="BEPermiso">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionPadre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionPaginaNueva" nillable="true" type="xs:string" />
@@ -63,6 +64,7 @@
   <xs:element name="ArrayOfBEMenuMobile" nillable="true" type="tns:ArrayOfBEMenuMobile" />
   <xs:complexType name="BEMenuMobile">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="MenuMobileID" type="xs:int" />
       <xs:element minOccurs="0" name="MenuPadreID" type="xs:int" />

@@ -1,15 +1,28 @@
 ﻿
 var showDisplayODD = 0;
+var ventanaChat = null;
 
 $(document).ready(function () {
+    LayoutHeader();
+    LayoutMenu();
 
-    /*PL20-1226*/
-    if (tieneOfertaDelDia == "True") {
-        loadOfertaDelDia();
+    window.onresize = function (event) {
+        LayoutMenu();
+    };
+
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();
+    }
+    else {
+        MensajeEstadoPedido();
     }
 
+    if (tieneOfertaDelDia == "True") {
+        window.OfertaDelDia.CargarODD();
+    }
+    
     $(document).keyup(function (e) {
-        if (e.keyCode == 27) { // esc keycode
+        if (e.keyCode == 27) {
             if ($('#PopOfertaDia').is(':visible')) {
                 $('#PopOfertaDia').slideUp();
                 $('.circulo_hoy span').html('+');
@@ -17,11 +30,31 @@ $(document).ready(function () {
             }
 
             if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+                CerrarPopup('#PopFichaProductoNueva');
             }
 
             if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+                CerrarPopup('#popupDetalleCarousel_lanzamiento');
+            }
+
+            if ($('[data-popup-main]').is(':visible')) {
+                var functionHide = $.trim($('[data-popup-main]').attr("data-popup-function-hide"));
+                FuncionEjecutar(functionHide);
+                CerrarPopup('[data-popup-main]');
+            }
+
+            if ($('#dialog_PedidoReservado').is(':visible')) {
+                $('#dialog_PedidoReservado').hide();
+                window.location.href = "Login";
+            }
+        }
+    });
+  
+    $('.contenedor_popup_agregarUnidades').click(function (e) {
+        if (!$(e.target).closest('.popup_agregarUnidades').length) {
+            if ($('#dialog_SesionMainLayout').is(':visible')) {
+                $('#dialog_SesionMainLayout').hide();
+                window.location.href = "Login";
             }
         }
     });
@@ -38,30 +71,57 @@ $(document).ready(function () {
         }
     });
 
-    /*PL20-1226*/
-
-    $('.Content_general_pop_up').click(function (e) {
-        if (!$(e.target).closest('.content_ficha_producto_nueva').length) {
-            if ($('#PopFichaProductoNueva').is(':visible')) {
-                $('#PopFichaProductoNueva').hide();
+    $('.contenedor_popup_detalleCarousel, .Content_general_pop_up').click(function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+            if ($(e.target).parent().attr("id") == "contentmain") {
+                if ($(e.target).is(':visible')) {
+                    var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                    FuncionEjecutar(functionHide);
+                    CerrarPopup(e.target);
+                }
             }
         }
     });
 
-    $('.contenedor_popup_detalleCarousel').click(function (e) {
-        if (!$(e.target).closest('.popup_detalleCarousel').length) {
-            if ($('#popupDetalleCarousel_lanzamiento').is(':visible')) {
-                $('#popupDetalleCarousel_lanzamiento').hide();
+    $("body").on("click", "[data-popup-main]", function (e) {
+        if (!$(e.target).closest('[data-popup-body]').length) {
+
+            if ($(e.target).is(':visible')) {
+
+                var functionHide = $.trim($(this).attr("data-popup-function-hide"));
+                FuncionEjecutar(functionHide);
+
+                CerrarPopup(e.target);
             }
         }
     });
 
-    waitingDialog();
+    $("body").on("click", "[data-popup-close]", function (e) {
+        var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
-    MensajeEstadoPedido();
+        var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
+        FuncionEjecutar(functionHide);
 
-    closeWaitingDialog();
+        CerrarPopup(popupClose);
+    });
 
+    $('[data-oferta]').click(function (e) {
+        if (!$(e.target).closest('.cuerpo-mod').length) {
+            if ($('[data-oferta]').is(':visible')) {
+                $('[data-oferta]').hide();
+            }
+        }
+    });
+    
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();        
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+   
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
@@ -79,14 +139,9 @@ $(document).ready(function () {
         closeOnEscape: true,
         width: 400,
         draggable: true,
-        buttons:
-        {
-            "Aceptar": function () {
-                $(this).dialog('close');
-            }
-        }
+        buttons: { "Aceptar": function () { $(this).dialog('close'); } }
     });
-
+    
     $('#ModalFeDeErratas').dialog({
         autoOpen: false,
         resizable: false,
@@ -181,20 +236,20 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
-
         $(this).parent().prev().val(cantidad);
     });
 
     $("body").on("click", ".mas", function () {
-        var cantidad = parseInt($(this).parent().prev().val());
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
+        var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
-
         $(this).parent().prev().val(cantidad);
     });
 
@@ -207,99 +262,62 @@ $(document).ready(function () {
             alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
         }
     });
-    
-    $("#belcorpChat").click(function () {
-        var FechaChatPais = BelcorpFechaChat_Pais;
-        var PaisISO = IsoPais
-        var fechaActual = FechaActual;
-        var paisesBelcorpEMTELCO = PaisesChatEMTELCO;
 
-        if (paisesBelcorpEMTELCO.indexOf(PaisISO) > -1) {
-
-            if (fechaActual >= FechaChatPais)
-            {
-                var url = UrlChat.replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('amp;', '').replace('&#250;', 'ú').replace('&#233;', 'é').replace('&#225;', 'á');
-                var res = encodeURI(url);
-                open(res, '', 'top=0,left=0,width=400,height=500');
+    $("body").on('click', '.belcorpChat', function (e) {
+        e.preventDefault();
+        var URL = location.protocol + "//" + location.host + "/Bienvenida/ChatBelcorp";
+        var PopUpChatOpened = localStorage.getItem('PopUpChatOpened');
+        if (typeof PopUpChatOpened == 'undefined' ||
+            PopUpChatOpened == null ||
+            PopUpChatOpened == 'false') {
+            localStorage.setItem('PopUpChatOpened', 'true');
+            ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+            ventanaChat.focus();
+        } else {
+            ventanaChat = open('', 'ventanaChat');
+            if (ventanaChat.location == "about:blank") {
+                ventanaChat.close();
+                //ventanaChat = open(URL, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+                //ventanaChat.focus();
             }
-            else {
-
-                if (PaisISO == "PA")
-                {
-                    var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                    var urlPA_ = encodeURI(urlPA);
-                    open(urlPA_, '', 'top=0,left=0,width=400,height=500');
-                }
-                else if (PaisISO == "CR")
-                {
-                    var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                    var urlCR_ = encodeURI(urlCR);
-                    open(urlCR_, '', 'top=0,left=0,width=400,height=500');
-                }
-                else if (PaisISO == "SV")
-                {
-                    var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                    var urlSV_ = encodeURI(urlSV);
-                    open(urlSV_, '', 'top=0,left=0,width=400,height=500');
-                }
-                else if (PaisISO == "GT") {
-                    var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                    var urlGT_ = encodeURI(urlGT);
-                    open(urlGT_, '', 'top=0,left=0,width=400,height=500');
-                }
-                else {
-                    var res2 = encodeURI(UrlChatAnterior);
-                    open(res2, '', 'top=0,left=0,width=400,height=500');
-                }
-            }
+            ventanaChat.focus();
         }
-        else {
-
-            if (PaisISO == "PA") {
-                var urlPA = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatPanama?token=3CE1BADDC9B55D2ED542C7FE9DCF9FF7';
-                var urlPA_ = encodeURI(urlPA);
-                open(urlPA_, '', 'top=0,left=0,width=400,height=500');
-            }
-            else if (PaisISO == "CR") {
-                var urlCR = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatCostaRica?token=BAF8696BC16A348C115E38D9C8055FC9';
-                var urlCR_ = encodeURI(urlCR);
-                open(urlCR_, '', 'top=0,left=0,width=400,height=500');
-            }
-            else if (PaisISO == "SV") {
-                var urlSV = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatElSalvador?token=556569C007FE003C83FB57EAE6DB2C49';
-                var urlSV_ = encodeURI(urlSV);
-                open(urlSV_, '', 'top=0,left=0,width=400,height=500');
-            }
-            else if (PaisISO == "GT") {
-                var urlGT = 'https://chat1-cls1-cgn-bct.i6.inconcertcc.com/inconcert/apps/webdesigner/BelcorpChatGuatemala?token=B7FC02F2A29AFAFBA695971203901170';
-                var urlGT_ = encodeURI(urlGT);
-                open(urlGT_, '', 'top=0,left=0,width=400,height=500');
-            }
-            else {
-                var res2 = encodeURI(UrlChatAnterior);
-                open(res2, '', 'top=0,left=0,width=400,height=500');
-            }
-        }
+        //cerrar Popup
+        $(".ui-button-text").trigger("click");
+        return false;
     });
 
     Scrolling();
-    MostrarShowRoomBannerLateral();        
-
-    /*PL20-1226*/
     setInterval(animacionFlechaScroll, 1000);
 
 });
 
-function alert_msg(message, titulo) {
-    titulo = titulo || "MENSAJE";
-    $('#alertDialogMensajes .terminos_title_2').html(titulo);
-    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
-    $('#alertDialogMensajes').dialog('open');
+
+function AbrirVentanaBelcorpChat(url) {
+    var res = encodeURI(url);  
+    ventanaChat = open(res, 'ventanaChat', 'top=0,left=0,width=400,height=500');
+    ventanaChat.focus();
 }
 
-function messageInfoError(message, titulo) {
-    $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
-    $('#dialog_ErrorMainLayout').show();
+function messageInfoError(message, titulo, fnAceptar) {
+    message = $.trim(message);
+    if (message != "") {
+        $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
+        $('#dialog_ErrorMainLayout').show();
+
+        $('#dialog_ErrorMainLayout .btn_ok').off('click');
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+    }
 }
 
 function microefectoPedidoGuardado() {
@@ -318,11 +336,11 @@ function CargarResumenCampaniaHeader(showPopup) {
         success: function (data) {
             if (checkTimeout(data)) {
                 if (data.result) {
-                    
+
                     data.montoWebAcumulado = DecimalToStringFormat(data.montoWebAcumulado);
 
                     $("#pCantidadProductosPedido").html(data.cantidadProductos > 0 ? data.cantidadProductos : 0);
-                    
+
                     $('#spanPedidoIngresado').text(data.Simbolo + " " + data.montoWebConDescuentoStr);
 
                     $.each(data.ultimosTresPedidos, function (index, item) {
@@ -337,25 +355,11 @@ function CargarResumenCampaniaHeader(showPopup) {
                         $('#SinProductos').hide();
 
                         SetHandlebars("#resumenCampania-template", data, "#carrito_items");
-
-                        //$("#carrito_items").html('');
-                        //var source = $("#resumenCampania-template").html();
-                        //var template = Handlebars.compile(source);
-                        //var context = data;
-                        //var html = template(context);
-                        //$("#carrito_items").append(html);
                     }
 
                     if (showPopup == true) {
-                        //$('.info_cam').fadeIn(200);
-                        //setTimeout(function () {
-                        //    $('.info_cam').fadeOut(200);
-                        //    setTimeout(function () {
-                        //        $('.info_cam').removeAttr("style");
-                        //    }, 300);
-                        //}, 5000);
                         microefectoPedidoGuardado();
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $(".contenedor_circulos").fadeOut();
                         }, 2700);
                     }
@@ -367,7 +371,7 @@ function CargarResumenCampaniaHeader(showPopup) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -402,13 +406,12 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
 };
 function Scrolling() {
-    //ToDown & ToUp
     var y = $(window).scrollTop();
     $('#toUp').hide();
     $('#toUp').attr("style", "top: 580px !important");
@@ -429,7 +432,6 @@ function Scrolling() {
             $('.logo_esika_tam').attr('src', baseUrl + 'Content/Images/Esika/logo_esika.png');
         }
 
-        //ToDown & ToUp
         if ($(window).scrollTop() + $(window).height() === $(document).height()) {
             $('#toDown').hide("slow");
             $('#toUp').show("slow");
@@ -442,7 +444,6 @@ function Scrolling() {
 function AbrirModalFeErratas() {
     waitingDialog({});
 
-    // llamada para cargar banners y llenar su template
     $.ajax({
         type: 'GET',
         url: baseUrl + 'FeErratas/Index',
@@ -478,8 +479,6 @@ function AbrirModalFeErratas() {
     return false;
 };
 function SeparadorMiles(pnumero) {
-    // Función que colocará el caracter "." como separador de miles.
-
     var resultado = "";
     var numero = pnumero.replace(/\,/g, '');
     var nuevoNumero = "";
@@ -497,7 +496,6 @@ function SeparadorMiles(pnumero) {
     else return resultado;
 };
 
-/*Inicio Cambios_Landing_Comunidad*/
 function ValidarCorreoComunidad(tipo) {
     $.ajaxSetup({
         cache: false
@@ -649,11 +647,24 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+
+function alert_msg(message, titulo) {
+    titulo = titulo || "MENSAJE";
+    $('#alertDialogMensajes .terminos_title_2').html(titulo);
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
+}
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
 };
 function AbrirModalRegistroComunidad() {
+   
+    if (gTipoUsuario == '2') {
+        URL = 'http://comunidad.somosbelcorp.com/';
+        window.open(URL, '_blank');
+        return false;
+    }
     $.ajaxSetup({
         cache: false
     });
@@ -728,14 +739,14 @@ function ValidarCorreoIngresado(correo) {
         }
     });
 };
-function ValidarCorreo(correo) {   
+function ValidarCorreo(correo) {
     var expr = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+[a-zA-Z0-9]{2,4}$/;
     return expr.test(correo);
 };
-/*Fin Cambios_Landing_Comunidad*/
 
-/*Inicio ShowRoom*/
 function MostrarShowRoomBannerLateral() {
+
+
     $("#lnkConoceMasShowRoomBannerLateral").click(function () {
         AgregarTagManagerShowRoomBannerLateralConocesMas(false);
     });
@@ -800,21 +811,16 @@ function MostrarShowRoomBannerLateral() {
                                 if (response.mostrarShowRoomProductos) {
                                     $("#lnkConoceMasShowRoomBannerLateralHoy").attr("href", response.rutaShowRoomBannerLateral);
 
-                                    //Carga de Imagenes
                                     $("#imgVentaTagLateralHoy").attr("src", evento.ImagenVentaTagLateral);
                                     $("#imgPestaniaShowRoomLateralHoy").attr("src", evento.ImagenPestaniaShowRoom);
 
-                                    //$("#ctras").hide();
                                     $("#ctrasHoy").show();
-
-                                    //animacion parea mostrar                                    
+                                 
                                     $('.caja-traslado').animate({
                                         'right': '0'
                                     }, 800);
 
                                     setTimeout(function () {
-                                        //fanimacion para ocultar
-
                                         $('.caja-traslado').animate({
                                             'right': '-181px'
                                         }, 800);
@@ -824,20 +830,15 @@ function MostrarShowRoomBannerLateral() {
                                     $("#lnkConoceMasShowRoomBannerLateral").attr("href", response.rutaShowRoomBannerLateral);
                                     AgregarTimerShowRoom(response.diasFaltantes, response.mesFaltante, response.anioFaltante);
 
-                                    //Carga de Imagenes
                                     $("#imgPestaniaShowRoomLateral").attr("src", evento.ImagenPestaniaShowRoom);
 
-                                    //$("#ctrasHoy").hide();
                                     $("#ctras").show();
-
-                                    //animacion parea mostrar                                    
+                                 
                                     $('.caja-traslado').animate({
                                         'right': '0'
                                     }, 800);
 
                                     setTimeout(function () {
-                                        //fanimacion para ocultar
-
                                         $('.caja-traslado').animate({
                                             'right': '-181px'
                                         }, 800);
@@ -852,7 +853,6 @@ function MostrarShowRoomBannerLateral() {
                 if (checkTimeout(response)) {
                     closeWaitingDialog();
                     console.log("Ocurrió un error en ShowRoom");
-                    //alert("Ocurrió un error en ShowRoom");
                 }
             }
         });
@@ -862,7 +862,6 @@ function MostrarShowRoomBannerLateral() {
 
 function AgregarTimerShowRoom(dia, mes, anio) {
     var calcNewYear = setInterval(function () {
-        //date_future = new Date(new Date().getFullYear() + 1, 0, 1);
         date_future = new Date(anio, mes - 1, dia);
         date_now = new Date();
 
@@ -875,7 +874,6 @@ function AgregarTimerShowRoom(dia, mes, anio) {
         minutes = minutes - (days * 24 * 60) - (hours * 60);
         seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
 
-        //$("#time").text("Time until new year:\nDays: " + days + " Hours: " + hours + " Minutes: " + minutes + " Seconds: " + seconds);
         $("#spnDiasFaltantes").html(days);
         $("#spnHorasFaltantes").html(hours);
         $("#spnMinutosFaltantes").html(minutes);
@@ -945,13 +943,27 @@ function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
         }
     });
 }
-/* Fin ShowRoom */
 
-/* Inicio Marcaciones */
 function RedirectIngresaTuPedido() {
     location.href = baseUrl + 'Pedido/Index';
 };
-function CerrarSesion() {
+function CerrarSesion()
+{  
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
+
     location.href = baseUrl + 'Login/LogOut';
 };
 function Notificaciones() {
@@ -960,267 +972,11 @@ function Notificaciones() {
 function SetMarcaGoogleAnalyticsTermino() {
     dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
 };
-/* Fin Marcaciones */
-
-/* Tracking Jetlore */
-// Se creo un JS => TrackingJetlore.js
-/* Fin Tracking Jetlore */
-
-
-/*PL20-1226*/
-function loadOfertaDelDia() {
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/GetOfertaDelDia',
-        //data: '{}',
-        cache: false,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            if (response.success) {
-                var _data = response.data;
-                SetHandlebars("#ofertadeldia-template", _data, '#OfertaDelDia');
-                var tq = _data.TeQuedan;
-
-                if (tq.TotalSeconds > 0) {
-                    // config ODD
-                    $('#OfertaDelDia').css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
-                    $('#banner-odd').css('background-color', _data.ColorFondo1);
-                    $('#img-banner-odd').attr('src', _data.ImagenBanner);
-                    $('#img-solohoy-odd').attr('src', _data.ImagenSoloHoy);
-                    $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
-                    $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-                    $('#img-display-odd').attr('src', _data.ImagenDisplay);
-
-                    var obj1 = $('#OfertaDelDia').find('.descripcion_set_ofertaDia');
-                    obj1.html(obj1.text());
-
-                    $('#OfertaDelDia').show();
-
-                    $('.content_slider_home').css('margin-top', '160px');
-                    $('.ubicacion_web ').css('margin-top', '185px');
-
-                    var int1odd = setInterval(function () {
-                        if ($('#OfertaDelDia:visible').length > 0) {
-                            $('.ubicacion_web ').css('margin-top', '185px');
-                            clearInterval(int1odd);
-                        }
-                    }, 300);
-
-                    var clock = $('.clock').FlipClock(tq.TotalSeconds, {
-                        clockFace: 'HourlyCounter',
-                        countdown: true
-                    });
-
-                    //var cambio = 0;
-                    $('.btn_detalle_hoy').on('click', function () {
-                        if (showDisplayODD == 0) {
-                            $('#PopOfertaDia').slideDown();
-                            $('.circulo_hoy span').html('-');
-                            //cambio = 1;
-                            showDisplayODD = 1;
-                        }
-                        else {
-                            $('#PopOfertaDia').slideUp();
-                            $('.circulo_hoy span').html('+');
-                            //cambio = 0;
-                            showDisplayODD = 0;
-                        }
-                    });
-                }
-                else {
-                    $('#OfertaDelDia').hide();
-                }
-            }
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-};
-
-function closeOfertaDelDia() {
-    $.ajax({
-        type: 'GET',
-        url: baseUrl + 'Pedido/CloseOfertaDelDia',
-        //data: {},
-        cache: false,
-        //dataType: 'json',
-        //contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            if (response.success) {
-                $('#OfertaDelDia').hide();
-
-                $('.content_slider_home ').css('margin-top', '60px');
-                $('.ubicacion_web ').css('margin-top', '83px');
-            }
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-};
-
-function addOfertaDelDiaPedido(tipo) {
-    //debugger;
-    var tipoEstrategiaID = $('#tipoestrategia-id-odd').val();
-    var estrategiaID = $('#estrategia-id-odd').val();
-    var marcaID = $('#marca-id-odd').val();
-    var cuv2 = $('#cuv2-odd').val();
-    var limiteVenta = parseInt($('#limite-venta-odd').val());
-    var flagNueva = $('#flagnueva-odd').val();
-    var precio = $('#precio-odd').val();
-    var descripcion = $('#nombre-odd').val();
-    var indMontoMinimo = $('#indmonto-min-odd').val();
-    var teImagenMostrar = $('#teimagenmostrar-odd').val();
-    var cantidad = (tipo == 1) ? 1 : parseInt($('#txtcantidad-odd').val());
-    var origenPedidoWeb = 0;
-    var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
-
-    if (tipo == 2 && cantidad <= 0) {
-        alert_msg_pedido("Ingrese la cantidad a solicitar");
-        return;
-    }
-
-    if (tipo == 1) {    // banner    
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1991; // general
-        else if (origenPagina == 1) origenPedidoWeb = 1191; // home
-        else if (origenPagina == 2) origenPedidoWeb = 1291; // pedido
-    }
-    else {      // display
-        if (typeof origenPagina == 'undefined') origenPedidoWeb = 1992; // general
-        else if (origenPagina == 1) origenPedidoWeb = 1192; // home
-        else if (origenPagina == 2) origenPedidoWeb = 1292; // pedido
-
-        if (cantidad > limiteVenta) {
-            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-            $('#dialog_ErrorMainLayout').show();
-            return;
-        }
-    }
-
-    // validar si la oferta aun esta activa
-    if (!checkCountdownODD()) {
-        alert_msg_pedido('La Oferta del Día se termino');
-        return false;
-    }
-
-    // validar cantidad a agregar (nuevas unidades o ya existentes)
-    var cqty = getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID);
-    if (cqty > 0) {
-        var tqty = cqty + cantidad;
-        if (tqty > limiteVenta) {
-            $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
-            $('#dialog_ErrorMainLayout').show();
-            return;
-        }
-    }
-
-    // validar horario restringido y pedido reservado
-    if (ReservadoOEnHorarioRestringido())
-        return false;
-
-    // microefecto
-    var objImg = (tipo == 1) ? $('#img-banner-odd') : $('#img-display-odd');
-    //agregarProductoAlCarrito(objImg);
-
-    var obj = ({
-        MarcaID: marcaID,
-        CUV: cuv2,
-        PrecioUnidad: precio,
-        Descripcion: descripcion,
-        Cantidad: cantidad,
-        IndicadorMontoMinimo: indMontoMinimo,
-        TipoOferta: tipoEstrategiaID,
-        ClienteID_: '-1',
-        tipoEstrategiaImagen: teImagenMostrar || 0,
-        OrigenPedidoWeb: origenPedidoWeb
-    });
-
-    waitingDialog({});
-
-    //console.log(obj);
-
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/ValidarStockEstrategia',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(obj),
-        async: true,
-        success: function (datos) {
-            if (!datos.result) {
-                alert_msg_pedido(datos.message);
-                closeWaitingDialog();
-            } else {
-                jQuery.ajax({
-                    type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProductoZE',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(obj),
-                    async: true,
-                    success: function (data) {
-                        if (!checkTimeout(data)) {
-                            closeWaitingDialog();
-                            return false;
-                        }
-
-                        if (!data.success) {
-                            messageInfoError(data.message);
-                            closeWaitingDialog();
-                            return false;
-                        }
-
-                        waitingDialog({});
-                        if (typeof origenPagina !== 'undefined') {
-                            MostrarBarra(data, '1');
-                            ActualizarGanancia(data.DataBarra);
-                            TagManagerClickAgregarProducto();
-                        }
-                        
-                        //CargarCarouselEstrategias(cuv);
-                        CargarResumenCampaniaHeader(true);
-                        TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv2);
-                        closeWaitingDialog();
-                        //if (popup) {
-                        //    HidePopupEstrategiasEspeciales();
-                        //}
-
-                        if (tipo == 2) {
-                            // ocultar display
-                            $('#PopOfertaDia').slideUp();
-                            $('.circulo_hoy span').html('+');
-                            $('#txtcantidad-odd').val('1');
-                        }
-
-                        // si es pagina de pedido, recargar el detalle
-                        if (typeof origenPagina !== 'undefined') {
-                            if (origenPagina == 2) {    // pedido
-                                CargarDetallePedido();
-                            }
-                        }
-                    },
-                    error: function (data, error) {
-                        if (checkTimeout(data)) {
-                            closeWaitingDialog();
-                        }
-                    }
-                });
-            }
-        },
-        error: function (data, error) {
-            if (checkTimeout(data)) {
-                closeWaitingDialog();
-            }
-        }
-    });
-};
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
     mostrarAlerta = typeof mostrarAlerta !== 'undefined' ? mostrarAlerta : true;
     var restringido = true;
-
+    
     $.ajaxSetup({ cache: false });
     jQuery.ajax({
         type: 'GET',
@@ -1241,31 +997,29 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
             if (data.pedidoReservado) {
                 var fnRedireccionar = function () {
                     waitingDialog({});
-                    location.href = location.href = baseUrl + 'Pedido/PedidoValidado'
+                    location.href = baseUrl + 'Pedido/PedidoValidado'
                 }
                 if (mostrarAlerta == true) {
                     closeWaitingDialog();
-                    alert_msg_pedido(data.message);
+                    AbrirMensaje(data.message);
                 }
                 else fnRedireccionar();
             }
             else if (mostrarAlerta == true)
-                alert_msg_pedido(data.message);
+                AbrirMensaje(data.message);
         },
-        error: function (error) {
-            //console.log(error);
-            alert_msg_pedido('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
+        error: function (data, error) {
+            AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
         }
     });
     return restringido;
 }
 
 function alert_msg_pedido(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
+    $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    $('#alertDialogMensajes').dialog('open');
 };
 
-// MICROEFECTO FLECHA HOME
 function animacionFlechaScroll() {
     $(".flecha_scroll").animate({
         'top': '87%'
@@ -1280,9 +1034,17 @@ function agregarProductoAlCarrito(o) {
     var btnClickeado = $(o);
     var contenedorItem = btnClickeado.parent().parent();
     var imagenProducto = $('.imagen_producto', contenedorItem);
-
+    if (imagenProducto.length == 0) {
+        imagenProducto = $('.imagen_producto', $(o).parents("[data-item]"));
+    }
     if (imagenProducto.length > 0) {
-        var carrito = $('.campana');
+        var carrito = $('.campana.cart_compras');
+
+        $.each(carrito, function (indC, car) {
+            if ($(car).offset().left > 0) {
+                carrito = $(car);
+            }
+        });
 
         $("body").prepend('<img src="' + imagenProducto.attr("src") + '" class="transicion">');
 
@@ -1292,19 +1054,15 @@ function agregarProductoAlCarrito(o) {
             'top': imagenProducto.offset().top,
             'left': imagenProducto.offset().left,
         }).animate({
-            'top': carrito.offset().top - 60,
-            'left': carrito.offset().left + 100,
+            'top': carrito.offset().top,
+            'left': carrito.offset().left,
             'height': carrito.css("height"),
             'width': carrito.css("width"),
             'opacity': 0.5
         }, 450, 'swing', function () {
             $(this).animate({
                 'top': carrito.offset().top,
-                'opacity': 0,
-                //}, 100, 'swing', function () {
-                //    $(".campana .info_cam").fadeIn(200);
-                //    $(".campana .info_cam").delay(2500);
-                //    $(".campana .info_cam").fadeOut(200);
+                'opacity': 0
             }, 150, 'swing', function () {
                 $(this).remove();
             });
@@ -1317,7 +1075,6 @@ function checkCountdownODD() {
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/GetOfertaDelDia',
-        //data: '{}',
         async: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -1361,7 +1118,6 @@ function getQtyPedidoDetalleByCuvODD(cuv2, tipoEstrategiaID) {
 
     return qty;
 };
-/*PL20-1226*/
 
 function messageConfirmacion(title, message, fnAceptar) {
     title = $.trim(title);
@@ -1380,4 +1136,34 @@ function messageConfirmacion(title, message, fnAceptar) {
         $('#divMensajeConfirmacion .btnMensajeAceptar').off('click');
         $('#divMensajeConfirmacion .btnMensajeAceptar').on('click', fnAceptar);
     }
+}
+         
+function closeOfertaDelDia() {    
+    $.ajax({
+        type: 'GET',
+        url: baseUrl + 'Pedido/CloseOfertaDelDia',
+        //async: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success)
+            {
+                $('#OfertaDelDia').hide();
+                LayoutHeader();
+                odd_desktop_google_analytics_cerrar_banner();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+function odd_desktop_google_analytics_cerrar_banner() {
+    dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Oferta del día',
+            'action': 'Cerrar Banner',
+            'label': 'OfertaDelDia'
+        });
 }

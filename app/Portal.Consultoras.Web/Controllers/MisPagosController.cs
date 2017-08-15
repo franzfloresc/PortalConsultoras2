@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Controllers
     {
         #region Acciones
 
-        public ActionResult Index()
+        public ActionResult Index(string pestanhaInicial)
         {
             Session["ListadoEstadoCuenta"] = null;
 
@@ -44,6 +44,14 @@ namespace Portal.Consultoras.Web.Controllers
             model.CorreoConsultora = userData.EMail;
             model.FechaVencimiento = fechaVencimiento;
             model.MontoPagar = montoPagar;
+            model.PestanhaInicial = pestanhaInicial ?? "";
+
+            List<string> pestanhaMisPagosAll = new List<string> {
+                Constantes.PestanhasMisPagos.EstadoCuenta,
+                Constantes.PestanhasMisPagos.LugaresPago,
+                Constantes.PestanhasMisPagos.MisPercepciones
+            };
+            if (!pestanhaMisPagosAll.Contains(model.PestanhaInicial)) model.PestanhaInicial = Constantes.PestanhasMisPagos.EstadoCuenta;
 
             return View(model);
         }
@@ -646,7 +654,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList();
+                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x=>x.Posicion).ToList();
             }
 
             foreach (var item in lst)

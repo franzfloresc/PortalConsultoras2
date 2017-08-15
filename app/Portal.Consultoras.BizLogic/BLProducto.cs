@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using Portal.Consultoras.Entities;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
+using Portal.Consultoras.Entities;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -114,6 +113,76 @@ namespace Portal.Consultoras.BizLogic
             return (from producto in productos
                     orderby (criterio == 1 ? producto.CUV : producto.Descripcion)
                     select producto).ToList();
+        }
+
+        public IList<BEProducto> SearchListProductoChatbotByCampaniaRegionZona(string paisISO, int campaniaID,
+            int regionID, int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int criterio, int rowCount)
+        {
+            IList<BEProducto> productos = new List<BEProducto>();
+            BEProducto producto = null;
+            var dAProducto = new DAProducto(Util.GetPaisID(paisISO));
+            var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
+
+            using (IDataReader reader = dAProducto.SearchListProductoChatbotByCampaniaRegionZona(campaniaID,
+                regionID, zonaID, codigoRegion, codigoZona, textoBusqueda, criterio, rowCount))
+            {
+                while (reader.Read())
+                {
+                    producto = new BEProducto(reader);
+                    if((producto.CUVRevista ?? "").Trim() != "")
+                    {
+                        producto.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
+                        producto.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
+                    }
+                    productos.Add(producto);
+                }
+            }
+            return productos.OrderBy(p => criterio == 1 ? p.CUV : p.Descripcion).ToList();
+        }
+
+        public IList<BEProducto> SearchSmartListProductoByCampaniaRegionZonaDescripcion(string paisISO, int campaniaID,
+            int zonaID, string codigoRegion, string codigoZona, string textoBusqueda, int rowCount)
+        {
+            IList<BEProducto> listProducto = new List<BEProducto>();
+            var bLProductoPalabra = new BLProductoPalabra();            
+            var listTextoCandidato = bLProductoPalabra.GetListCandidatoFromTexto(paisISO, campaniaID, textoBusqueda, 2, 1);
+            if (listTextoCandidato.Count == 0) return listProducto;
+            
+            var paisID = Util.GetPaisID(paisISO);
+            var dAProducto = new DAProducto(paisID);
+            var esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(paisISO);
+            var listPalabra = bLProductoPalabra.GetListPalabraFromTexto(listTextoCandidato[0]).Select(p => p.ToLower()).ToList();
+
+            listProducto = CacheManager<BEProducto>.GetData(paisID, ECacheItem.Producto, campaniaID.ToString());
+            if (listProducto != null && listProducto.Count > 0)
+            {
+                listProducto = listProducto.Select(producto => new {
+                    Producto = producto,
+                    Repeticion = listPalabra.Count(palabra => producto.TextoBusqueda.ToLower().Contains(palabra))
+                })
+                    .Where(pp => pp.Repeticion > 0).OrderByDescending(pp => pp.Repeticion).ThenBy(pp => pp.Producto.CUV)
+                    .Select(pp => pp.Producto).Take(rowCount).ToList();
+
+                dAProducto.SetTieneStockByCampaniaAndZonaAndProductos(campaniaID, zonaID, codigoRegion, codigoZona, listProducto.ToList());
+            }
+            else
+            {
+                listProducto = new List<BEProducto>();
+                using (IDataReader reader = dAProducto.GetByCampaniaAndZonaAndPalabras(campaniaID, zonaID, codigoRegion, codigoZona, rowCount, listPalabra))
+                {
+                    while (reader.Read()) listProducto.Add(new BEProducto(reader));
+                }
+            }
+
+            listProducto.ToList().ForEach(p =>
+            {
+                if ((p.CUVRevista ?? "").Trim() != "")
+                {
+                    p.MensajeEstaEnRevista1 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaWeb : Constantes.MensajeEstaEnRevista.LbelWeb;
+                    p.MensajeEstaEnRevista2 = esEsika ? Constantes.MensajeEstaEnRevista.EsikaMobile : Constantes.MensajeEstaEnRevista.LbelMobile;
+                }
+            });
+            return listProducto;
         }
 
         public IList<BEProducto> SelectProductoByListaCuvSearchRegionZona(int paisID, int campaniaID, string listaCuv, int regionID, int zonaID, string codigoRegion, string codigoZona, bool validarOpt)

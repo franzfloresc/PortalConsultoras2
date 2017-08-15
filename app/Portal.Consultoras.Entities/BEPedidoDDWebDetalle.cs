@@ -41,6 +41,10 @@ namespace Portal.Consultoras.Entities
         //SB20-871
         [DataMember]
         public string MotivoRechazo { get; set; }
+
+        [DataMember]
+        public short ClienteID { get; set; }
+
         public BEPedidoDDWebDetalle()
         { }
 
@@ -74,7 +78,10 @@ namespace Portal.Consultoras.Entities
                 FechaEnvio = Convert.ToDateTime(row["FechaEnvio"]);  // R20151003 - Fin
             // SB20-871
             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+                MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+
+            if (row.HasColumn("ClienteID"))
+                ClienteID = row.GetValue<short>("ClienteID");
         }
     }
 }

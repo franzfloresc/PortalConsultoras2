@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.ServiceCliente;
+using System;
 using System.Collections.Generic;
 using SP = Portal.Consultoras.Web.ServicePedido;
 
@@ -21,6 +22,7 @@ namespace Portal.Consultoras.Web.Models
         public List<MisPedidosMotivoRechazoModel> MotivosRechazo { get; set; }
     }
 
+    [Serializable()]
     public class MisPedidosMotivoRechazoModel
     {
         public int MotivoSolicitudID { get; set; }

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Portal.Consultoras.Web
 {
@@ -13,14 +6,15 @@ namespace Portal.Consultoras.Web
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //ITG - 1869 Empaquetado y minificacion de archivos css y js - Inicio
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssLogin").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
                 "~/Content/Css/Site/style.css"));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsLogin").Include(
-                "~/Scripts/General.js",
-                "~/Scripts/JsonSupport.js"));
+            bundles.Add(new ScriptBundle("~/bundles/JsLogin2").Include(
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery-ui-1.9.2.custom.js",
+                "~/Scripts/jquery.custom-scrollbar.js",
+                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
@@ -28,7 +22,6 @@ namespace Portal.Consultoras.Web
                 "~/Content/Css/Site/style-tismart.css", //Cambios_Landing_Comunidad
                 "~/Content/Css/ui.jqgrid/ui.jqgrid.css"
                 ));
-            //ITG - 1869 Empaquetado y minificacion de archivos css y js - Fin
 
             bundles.Add(new ScriptBundle("~/bundles/JQueryJs").Include(
                "~/Scripts/jquery-{version}.js",
@@ -38,7 +31,8 @@ namespace Portal.Consultoras.Web
                "~/Scripts/jquery.unobtrusive-ajax.js",
                "~/Scripts/jquery-ui-1.9.2.custom.js",
                "~/Scripts/HojaInscripcion/validations.js",
-               "~/Scripts/donetyping.js"
+               "~/Scripts/donetyping.js",
+               "~/Scripts/fingerprint2.js"
                ));
 
             bundles.Add(new ScriptBundle("~/bundles/JQGridJs").Include(
@@ -76,7 +70,8 @@ namespace Portal.Consultoras.Web
                            "~/Scripts/jquery.touchSwipe.min.js",
                            "~/Scripts/jquery.cycle.all.min.js",
                            "~/Scripts/respond.min.js",
-                           "~/Scripts/trans-banner.js"));
+                           "~/Scripts/trans-banner.js",
+                            "~/Scripts/jquery.tmpl.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/JsPluginsFooterSAC").Include(
                "~/Scripts/custom.js",
@@ -84,9 +79,6 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new ScriptBundle("~/bundles/JSTree").Include(
                "~/Scripts/jquery.jstree.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/Templates").Include(
-              "~/Scripts/jquery.tmpl.min.js"));
 
             #region Bundles para Web Mobile
 
@@ -98,7 +90,13 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/bootstrap.js",
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
-                "~/Scripts/General.js"));
+                "~/Scripts/fingerprint2.js",
+                "~/Scripts/General.js"
+            ));
+
+            bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
+                "~/Scripts/PortalConsultoras/Mobile/Shared/MobileLayout.js"
+            ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/Site").Include(
                 "~/Content/Css/Mobile/theme*",
@@ -170,21 +168,38 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/General.js",
                 "~/Scripts/JsonSupport.js",
                 "~/Scripts/handlebars.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
                 "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(
+                "~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js"                
+                "~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
+                "~/Scripts/PortalConsultoras/TagManager/Liquidacion.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
-                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js"
+                "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js"
                 ));
 
             #endregion

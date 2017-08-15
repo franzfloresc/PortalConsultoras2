@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
-
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceODS;
 using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.ServiceSAC;
+using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -16,6 +16,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     {
         public ActionResult Index()
         {
+            if (!ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado))
+            {
+                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+            }
+
             var model = new CatalogoPersonalizadoModel(); //PL20-1273
 
             if (!userData.EsCatalogoPersonalizadoZonaValida)
@@ -38,9 +43,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             //PL20-1273
 
             //PL20-1284
-            var url1 = ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile");
-            ViewBag.UrlImagenFAVMobile = string.Format(url1, userData.CodigoISO);
-
+            ViewBag.UrlImagenFAVMobile = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVMobile"), userData.CodigoISO);
+            ViewBag.EsLebel = userData.EsLebel;
             return View(model);
         }
 
@@ -95,12 +99,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                                                 CUV = item.Cuv,
                                                 CodigoProducto = item.CodigoSap,
                                                 Descripcion = item.NombreComercial,
-                                                DescripcionComercial = item.DescripcionComercial,
-                                                NombreBulk = item.NombreBulk,
+                                                DescripcionComercial = item.Descripcion,
                                                 ImagenProductoSugerido = item.Imagen,
+                                                NombreBulk = item.NombreBulk,
                                                 ImagenBulk = item.ImagenBulk
                                             });
                                         }
+
+                                        var ListaTonos = productoModel.Hermanos.OrderBy(e => e.NombreBulk).ToList();
+                                        productoModel.Tonos = ListaTonos;
                                     }
                                     else
                                     {
@@ -122,7 +129,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
 
             ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
-
+            productoModel.FBRuta = GetUrlCompartirFB();
+            ViewBag.EsLebel = userData.EsLebel;
             return View(productoModel);
         }
     }

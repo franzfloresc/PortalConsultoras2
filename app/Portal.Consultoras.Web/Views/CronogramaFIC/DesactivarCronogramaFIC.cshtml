@@ -33,7 +33,7 @@
 
     // se refresca el arbol con el pais, region y zona seleccionadas
     function CargarArbol(pais, campania, zona) {
-        //debugger;
+        
         waitingDialog({});
         $.jstree._reference($("#arbolRegionZona")).refresh(-1);
     }
@@ -43,12 +43,12 @@
         var CronogramaFICModel = {
             Lista: []
         };
-        //debugger;
+        
         // se capturan todas las consultoras seleccionadas
         var objLista;
 
         $("#arbolRegionZona ul li").each(function () {
-            //debugger;
+            
             if (this.className == "jstree-leaf jstree-checked" ||this.className == "jstree-last jstree-leaf jstree-checked") {
                 var Zona = this.attributes.codigozona.value;
                 var Campania = this.attributes.codigocampania.value;
@@ -62,7 +62,7 @@
             }
         });
         //$.jstree._reference($("#arbolRegionZona")).get_checked(null, true).each(function () {
-        //    //debugger;
+        //    
         //    // solo para nodos de tipo hoja (leaf)
         //    if (this.className.toLowerCase().indexOf("jstree-leaf") == -1) {
         //        return true;
@@ -89,7 +89,7 @@
             url: baseUrl + 'CronogramaFIC/DeshabilitarConsultoras',
             data: JSON.stringify({ lista: CronogramaFICModel.Lista }),
             success: function (data) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     alert(data.message);
                     $('#chkSeleccionar').attr('checked', false);
@@ -98,7 +98,7 @@
                 }
             },
             error: function (data, error) {
-                //debugger;
+                
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     alert("Se produjo un error al realizar la modificación de cronograma");
@@ -156,7 +156,7 @@
     }
 
     function MostrarDialogo() {
-        //debugger;
+        
         fnGrilla();
         showDialog("DialogVerLog");
     }
@@ -193,18 +193,18 @@
                     url: baseUrl + "CronogramaFIC/CargarArbolRegionesZonas",
                     //async: true,
                     data: function (n) {
-                        //debugger;
+                        
                         return { PaisID: $("#ddlPais").val(), Codigocampaña: $("#ddlCampania").val(), ZonaID: $("#ddlZona").val() };
                     },
                     type: "GET",
                     error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        //debugger;
+                        
                     },
                     success: function (data, textStatus, jqXHR) {
-                        //debugger;
+                        
                     },
                     complete: function () {
-                        //debugger;
+                        
                         $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
                         closeWaitingDialog();
                     }
@@ -247,7 +247,7 @@
         });
 
         $("#chkSeleccionar").click(function () {
-            //debugger;
+            
             //alert(this.checked);
             //$.jstree._reference($("#arbolRegionZona")).check_all();
             if (this.checked)

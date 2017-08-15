@@ -33,6 +33,19 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public List<BECDRWebDetalle> CDRWebDetalle { get; set; }
 
+        [DataMember]
+        public int RegionID { get; set; }
+
+        [DataMember]
+        public int ZonaID { get; set; }
+
+        [DataMember]
+        public string ConsultoraCodigo { get; set; }
+
+        //EPD-1665
+        [DataMember]
+        public decimal ConsultoraSaldo { get; set; }
+
         public BECDRWeb()
         { }
 
@@ -49,6 +62,7 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("FechaAtencion")) FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
             if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
             if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
+            if (row.HasColumn("ConsultoraSaldo")) ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }

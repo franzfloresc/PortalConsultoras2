@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Web.Controllers
             var model = new AdministrarApeZonaModel();
             try
             {
-                model.Regiones = DropDowListRegiones(UserData().PaisID);
+                model.Regiones = DropDownListRegiones(UserData().PaisID);
             }
             catch (FaultException ex)
             {
@@ -162,21 +162,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        private IEnumerable<RegionModel> DropDowListRegiones(int PaisID)
-        {
-            IList<BERegion> lst;
-            using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-            {
-                lst = sv.SelectAllRegiones(PaisID);
-            }
-            Mapper.CreateMap<BERegion, RegionModel>()
-                    .ForMember(t => t.RegionID, f => f.MapFrom(c => c.RegionID))
-                    .ForMember(t => t.Codigo, f => f.MapFrom(c => c.Codigo))
-                    .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre));
-
-            return Mapper.Map<IList<BERegion>, IEnumerable<RegionModel>>(lst);
         }
     }
 }

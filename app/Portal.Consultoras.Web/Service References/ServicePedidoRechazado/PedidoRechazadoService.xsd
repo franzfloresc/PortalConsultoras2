@@ -21,13 +21,14 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="paisID" type="xs:int" />
         <xs:element minOccurs="0" name="logGPRValidacionId" type="xs:long" />
+        <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetBELogGPRValidacionByGetLogGPRValidacionIdResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetBELogGPRValidacionByGetLogGPRValidacionIdResult" nillable="true" type="q2:BELogGPRValidacion" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetBELogGPRValidacionByGetLogGPRValidacionIdResult" nillable="true" type="q2:ArrayOfBELogGPRValidacion" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

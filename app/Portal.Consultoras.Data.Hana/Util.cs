@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Portal.Consultoras.Data.Hana
+﻿namespace Portal.Consultoras.Data.Hana
 {
     public class Util
     {
-        public const string RutaHana = "http://pents412:8089/Service.svc/";
-
         public static string GetCodigoIsoHana(int paisId)
         {
             switch (paisId)

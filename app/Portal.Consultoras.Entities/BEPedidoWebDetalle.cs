@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string DescripcionProd { get; set; }
         [DataMember]
+        public string DescripcionCortadaProd { get; set; }
+        [DataMember]
         public int PaisID { get; set; }
         [DataMember]
         public string Nombre { get; set; }
@@ -137,6 +139,13 @@ namespace Portal.Consultoras.Entities
         public bool EsBackOrder { get; set; }
         [DataMember]
         public bool AceptoBackOrder { get; set; }
+        [DataMember]
+        public bool EsCompraPorCompra { get; set; }
+
+        [DataMember]
+        public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
+        [DataMember]
+        public int CodigoCatalago { get; set; }
 
         public BEPedidoWebDetalle()
         { }
@@ -239,6 +248,10 @@ namespace Portal.Consultoras.Entities
                 this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
             if (DataRecord.HasColumn(row, "AceptoBackOrder"))
                 this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "EsCompraPorCompra"))
+                EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);
+            if (DataRecord.HasColumn(row, "CodigoCatalago"))
+                CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
         }
 
         public BEPedidoWebDetalle(IDataRecord row, string Consultora)
@@ -267,6 +280,8 @@ namespace Portal.Consultoras.Entities
                 DescripcionProd = Convert.ToString(row["DescripcionProd"]);
             if (DataRecord.HasColumn(row, "Nombre"))
                 Nombre = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
+            if (DataRecord.HasColumn(row, "Nombre"))
+                NombreCliente = row["Nombre"] == DBNull.Value ? Consultora : Convert.ToString(row["Nombre"]);
             if (DataRecord.HasColumn(row, "eMail"))
                 eMail = Convert.ToString(row["eMail"]);
             if (DataRecord.HasColumn(row, "OfertaWeb"))
@@ -351,6 +366,11 @@ namespace Portal.Consultoras.Entities
                 this.EsBackOrder = row["EsBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["EsBackOrder"]);
             if (DataRecord.HasColumn(row, "AceptoBackOrder"))
                 this.AceptoBackOrder = row["AceptoBackOrder"] == DBNull.Value ? false : Convert.ToBoolean(row["AceptoBackOrder"]);
+            if (DataRecord.HasColumn(row, "EsCompraPorCompra"))
+                EsCompraPorCompra = row["EsCompraPorCompra"] == DBNull.Value ? false : Convert.ToBoolean(row["EsCompraPorCompra"]);
+            if (DataRecord.HasColumn(row, "CodigoCatalago"))
+                CodigoCatalago = row["CodigoCatalago"] == DBNull.Value ? 0 : Convert.ToInt32(row["CodigoCatalago"]);
         }
     }
+    
 }

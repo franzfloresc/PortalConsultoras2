@@ -11,81 +11,43 @@
         IniDialogRegistroLugaresPago();
 
         $("#ddlPais").change(function () {
-            //debugger;
             var Id = $(this).val();
             if (Id != "") {
                 waitingDialog({});
                 $.ajaxSetup({ cache: false });
-                //$.getJSON(baseUrl + 'AdministrarLugaresPago/ObtenterDropDownPorPais', { PaisID: Id == "" ? 0 : Id }, function (data) {
-                //    if (checkTimeout(data)) {
-                //        var ddlCampania = $("#ddlCampania");
-
-                //        if (Id != "") {
-                //            if (data.lstCampania.length > 0) {
-                //                for (var item in data.lstCampania) {
-                //                    if (data.lstCampania.hasOwnProperty(item)) {
-                //                        ddlCampania.append($('<option/>', {
-                //                            value: data.lstCampania[item].CampaniaID,
-                //                            text: data.lstCampania[item].Codigo
-                //                        }));
-                //                    }
-                //                }
-                //            }
-                //        }
-                //        closeWaitingDialog();
-                //    }
-                //});
                 $.getJSON(baseUrl + 'OfertaNueva/ObtenerISOPais', { paisID: Id }, function (data) {
-                    //debugger;
                     isoPAIS = data.ISO;
                     closeWaitingDialog();
                 });
                 jQuery("#gvwLugaresPago").jqGrid("clearGridData");
             } else {
-                //var ddlCampania = $("#ddlCampania");
-                //ddlCampania.empty();
-                //ddlCampania.append($('<option/>', {
-                //    value: "",
-                //    text: "-- Seleccionar --"
-                //}));
                 jQuery("#gvwLugaresPago").jqGrid("clearGridData");
             }
         });
 
         $("#btnBuscar").click(function () {
-            //debugger;
+
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar un País, verifique");
                 return false;
             }
-
-            //if ($("#ddlCampania").val() == "") {
-            //    alert("Debe seleccionar una Campaña, verifique");
-            //    return false;
-            //}
 
             fnGrilla();
         });
 
         $('#frmLugarPago').ajaxForm({
             beforeSubmit: function () {
-                //debugger;
+
                 var message = '';
 
                 if (jQuery.trim($('#ddlPaisDialogo').val()) == "")
                     message += "- Debe seleccionar un País.\n";
-
-                //if (jQuery.trim($('#ddlCampaniaDialogo').val()) == "")
-                //    message += "- Debe seleccionar una Campaña.\n";
 
                 if (jQuery.trim($('#Nombre').val()) == "")
                     message += "- Debe ingresar el Nombre.\n";
 
                 if (jQuery.trim($('#UrlSitio').val()) == "")
                     message += "- Debe ingresar el Site.\n";
-
-                //if (jQuery.trim($('#ArchivoInstructivo').val()) == "")
-                //    message += "- Debe ingresar el Instructivo.\n";
 
                 if (jQuery.trim($('#ArchivoLogo').val()) == "")
                     message += "- Debe adjuntar una imagen de Logo.\n";
@@ -108,13 +70,20 @@
         });
 
         function fnRespuestaLugarPago(responseText, statusText, xhr, $form) {
-            //debugger;
+
             if (checkTimeout(responseText)) {
                 $("#gvwLugaresPago").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-                if (responseText && typeof responseText === "string") {                    
+
+    if(responseText.posicion==-1)
+    {
+    alert('La posición ingresada ya existe, ingrese una diferente');
+    return false;
+    }
+
+               else if (responseText && typeof responseText === "string") {
                     alert($.parseJSON(responseText).message);
-                } else {                    
-                    alert(responseText.message);                    
+                } else {
+                    alert(responseText.message);
                 }
                 $('#DialogRegistroLugaresPago').dialog('close');
             }
@@ -133,7 +102,6 @@
             buttons:
             {
                 "Guardar": function () {
-                    //debugger;
                     var vMessage = "";
                     $('#frmLugarPago').submit();
 
@@ -150,32 +118,36 @@
     }
 
     function fnGrilla() {
-        //debugger;
+
         jQuery("#gvwLugaresPago").jqGrid({
             url: baseUrl + "AdministrarLugaresPago/Consultar",
             hidegrid: false,
             datatype: 'json',
             postData: ({
-                vpaisID: function () { return $("#ddlPais").val() }//,
-                //vCampaniaID: function () { return $("#ddlCampania").val() }
+                vpaisID: function () { return $("#ddlPais").val() }
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['LugarPagoID', 'PaisID', 'ArchivoLogo', 'Lugar', 'Url del Site', 'Logo', 'Url del Instructivo', 'Opcion', 'UrlSitioOculto', 'ArchivoInstructivoOculto'],
-            colModel: [
-                { name: 'LugarPagoID', index: 'LugarPagoID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'CampaniaID', index: 'CampaniaID', width: 0, editable: true, resizable: false, hidden: true },
-                { name: 'ArchivoLogo', index: 'ArchivoLogo', width: 0, editable: true, resizable: false, hidden: true },
-                //{ name: 'CodigoCampania', index: 'CodigoCampania', width: 8, editable: true, resizable: false },
-                //{ name: 'PaisNombre', index: 'PaisNombre', width: 10, editable: true, resizable: false },
-                { name: 'Lugar', index: 'Lugar', width: 20, editable: true, resizable: false },
-                { name: 'UrlSitio', index: 'UrlSitio', width: 25, editable: true, resizable: false, formatter: ShowUrl },
-                { name: 'Imagen', index: 'Imagen', width: 22, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
-                { name: 'ArchivoInstructivo', index: 'ArchivoInstructivo', width: 30, editable: true, resizable: false, formatter: ShowFile },
-                { name: 'Activo', index: 'Activo', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
-                { name: 'UrlSitioOculto', index: 'UrlSitioOculto', width: 25, editable: true, resizable: false, hidden: true },
-                { name: 'ArchivoInstructivoOculto', index: 'ArchivoInstructivoOculto', width: 30, editable: true, resizable: false, hidden: true }
+colNames: ['LugarPagoID', 'PaisID', 'ArchivoLogo', 'Lugar', 'Url del Site', 'Logo', 'Url del Instructivo','UrlSitioOculto', 'ArchivoInstructivoOculto','Texto Pago','Posición', 'Opcion'],
+colModel: [
+{ name: 'LugarPagoID', index: 'LugarPagoID', width: 0, editable: true, resizable: false, hidden: true },
+{ name: 'PaisID', index: 'PaisID', width: 0, editable: true, resizable: false, hidden: true },
+{ name: 'ArchivoLogo', index: 'ArchivoLogo', width: 0, editable: true, resizable: false, hidden: true },
+
+{ name: 'Lugar', index: 'Lugar', width: 20, editable: true, resizable: false },
+{ name: 'UrlSitio', index: 'UrlSitio', width: 25, editable: true, resizable: false, formatter: ShowUrl },
+{ name: 'Imagen', index: 'Imagen', width: 22, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowImage },
+{ name: 'ArchivoInstructivo', index: 'ArchivoInstructivo', width: 30, editable: true, resizable: false, formatter: ShowFile },
+{ name: 'UrlSitioOculto', index: 'UrlSitioOculto', width: 25, editable: true, resizable: false, hidden: true },
+{ name: 'ArchivoInstructivoOculto', index: 'ArchivoInstructivoOculto', width: 30, editable: true, resizable: false, hidden: true },
+{ name: 'TextoPago', index: 'TextoPago', width: 30, editable: true, resizable: false  },
+{ name: 'Posicion', index: 'Posicion', width: 10, editable: true, resizable: false  },
+{ name: 'Activo', index: 'Activo', width: 10, editable: true, sortable: false, align: 'center', resizable: false, formatter: ShowActions },
+
+
+
+
+
             ],
             jsonReader:
                 {
@@ -194,7 +166,7 @@
             emptyrecords: 'No hay resultados',
             rowNum: 10,
             scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
+            rowList: [10, 20, 30, 40, 50,60],
             sortname: 'Lugar',
             sortorder: 'asc',
             viewrecords: true,
@@ -219,11 +191,9 @@
         };
 
         function ShowImage(cellvalue, options, rowObject) {
-            //debugger;
+
             var image = "";
             if (rowObject[2] !== "")
-                // image = '<img src="' + '@Url.Content("~/Content/LugaresPago/")' + isoPAIS + "/" + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
-                // 1664
                 image = '<img src="' + rowObject[2] + '" alt="" width="160px" height="60px" title="" border="0" />';
             else
                 image = '<img src="@Url.Content("~/Content/Images/prod_grilla_vacio.png")" alt="" width="60px" height="60px" title="" border="0" />';
@@ -231,7 +201,7 @@
         };
 
         function ShowUrl(cellvalue, options, rowObject) {
-            //debugger;
+
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 15);
             if (cellvalue.length > 15) {
@@ -241,7 +211,7 @@
         };
 
         function ShowFile(cellvalue, options, rowObject) {
-            //debugger;
+
             var contenido = cellvalue;
             var valorParcial = cellvalue.substring(0, 20);
             if (cellvalue.length > 20) {
@@ -253,37 +223,37 @@
 
     $.jgrid.extend({
         Editar: function (Id) {
-            //debugger;
+
             if (Id) {
                 $('#LugarPagoID').val(Id);
                 $('#PaisID').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
                 $('#ddlPaisDialogo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'PaisID'));
-                //$('#ddlCampaniaDialogo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'CampaniaID'));
                 $('#Nombre').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'Lugar'));
-                $('#UrlSitio').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'UrlSitioOculto'));
+
+    $('#UrlSitio').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'UrlSitioOculto'));
                 $('#ArchivoLogo').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
                 $('#ArchivoLogoAnterior').val($("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoLogo'));
 
                 if ($.trim($("#ArchivoLogo").val()) != "") {
-                    // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/LugaresPago/")' + isoPAIS + "/" + $("#ArchivoLogo").val());
-                    // 1664
                     $('#imgPreviaLogo').attr('src', $("#ArchivoLogo").val());
 
-                    // 1664
                     var img01 = $('#ArchivoLogo').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
                         $('#ArchivoLogo').val(img01);
                     }
 
-                    // 1664
                     img01 = $('#ArchivoLogoAnterior').val().replace(/^.*[\\\/]/, '');
                     if (img01.lastIndexOf("?") >= 0) {
                         img01 = img01.substring(0, img01.lastIndexOf("?"));
                         $('#ArchivoLogoAnterior').val(img01);
                     }
                 }
+    $('#TextoPago').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'TextoPago'));
+     $('#Posicion').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'Posicion'));
                 $('#ArchivoInstructivo').val(jQuery("#gvwLugaresPago").jqGrid('getCell', Id, 'ArchivoInstructivoOculto'));
+
+
                 $('#ddlPaisDialogo').prop('disabled', 'disabled');
                 showDialog("DialogRegistroLugaresPago");
             } else {
@@ -327,14 +297,14 @@
     });
 
     function VerMas(object, ValorCompleto, ValorParcial) {
-        //debugger;
+
         var td = object.parentElement;
         td.innerHTML = ValorCompleto + "&nbsp;<a href='javascript:;' onclick=\"VerMenos(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver menos" + "</a>";
         return false;
     }
 
     function VerMenos(object, ValorCompleto, ValorParcial) {
-        //debugger;
+
         var td = object.parentElement;
         td.innerHTML = ValorParcial + "&nbsp;<a href='javascript:;' onclick=\"VerMas(this,'" + ValorCompleto + "','" + ValorParcial + "');\" > ...Ver mas" + "</a>";
         return false;
@@ -352,21 +322,31 @@
     }
 
     function limpiarPopup() {
-        //debugger;
+
         $('#PaisID').val("");
-        //$('#ddlPaisDialogo').val("0");
         $('#ddlPaisDialogo').prop('disabled', false);
         $('#ddlPaisDialogo')[0].selectedIndex = 0;
-        //$('#ddlCampaniaDialogo')[0].selectedIndex = 0;;
         $('#Nombre').val("");
+        $('#TextoPago').val("");
+        $('#Posicion').val("");
         $('#UrlSitio').val("");
         $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Images/prod_grilla_vacio.png")');
         $('#ArchivoLogo').val("");
         $('#ArchivoInstructivo').val("");
-        //$('#flArchivoInstructivo').val("");
-        $('#ArchivoInstructivo').val("");
         $('#LugarPagoID').val("0");
     }
+
+ 
+
+     $(function () {
+        $('#Posicion').keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                return false;
+            }
+        });
+    });
+
+
 </script>
 
 <div class="wrap_cab">
@@ -380,13 +360,6 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPais" })
                 </div>
-                @*<div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    <select id="ddlCampania">
-                        <option value="">-- Seleccionar --
-                        </option>
-                    </select>
-                </div>*@
                 <div class="input_search">
                     <input type="button" value="Buscar" id="btnBuscar" name="btnBuscar">
                 </div>
@@ -423,10 +396,6 @@
                 <div class="selectA borde_redondeado">
                     @Html.DropDownListFor(model => model.PaisID, new SelectList(Model.listaPaises, "PaisID", "Nombre"), "-- Seleccionar --", new { id = "ddlPaisDialogo" })
                 </div>
-                @*<div class="titB">Campaña:</div>
-                <div class="selectA borde_redondeado">
-                    @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.listaCampania, "CampaniaID", "Codigo"), "-- Seleccionar --", new { id = "ddlCampaniaDialogo" })
-                </div>*@
                 <div class="titG">Lugar:</div>
                 <div class="selectA borde_redondeado">
                     @Html.TextBox("Nombre", null, new { maxlength = 80 })
@@ -449,9 +418,20 @@
                         <div class="titG">Url Instructivo:</div>
                         <div class="selectA borde_redondeado">
                             @Html.TextBox("ArchivoInstructivo", null, new { maxlength = 3000 })
-                            @*<input type="file" id="flArchivoInstructivo" name="flArchivoInstructivo" />*@
                         </div>
                     </div>
+                    <div class="div-3">
+                        <div class="titG">TextoPago:</div>
+                        <div class="selectA borde_redondeado">
+                            @Html.TextBox("TextoPago", null, new { maxlength = 100 })
+                        </div>
+                    </div> 
+                    <div class="div-3">
+                        <div class="titG">Posición:</div>
+                        <div class="selectA borde_redondeado">
+                            @Html.TextBox("Posicion", null, new { maxlength = 2 })
+                        </div>
+                    </div> 
                 </div>
             </div>
             <div class="div-3">
@@ -471,8 +451,6 @@
                                         $(".qq-upload-list").css("display", "none");
                                         if (responseJSON.success) {
                                             $("#ArchivoLogo").val(responseJSON.name);
-                                            // $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/TemporalesLugaresPago/")' + responseJSON.name);
-                                            // 1664
                                             $('#imgPreviaLogo').attr('src', '@Url.Content("~/Content/Temporales/")' + responseJSON.name);
                                         }
                                         else {

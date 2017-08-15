@@ -1,8 +1,21 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
+var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
+
+    $("body").on("click", "[data-compartir]", function (e) {
+        CompartirRedesSociales(e);
+    });
+
+    $("header").resize(function () {
+        LayoutMenu();
+    });
+
+    if (typeof (fingerprintOk) !== 'undefined' && typeof (tokenPedidoAutenticoOk) !== 'undefined') {
+        GuardarIndicadorPedidoAutentico();
+    }
 });
 (function ($) {
     $.fn.Readonly = function (val) {
@@ -72,6 +85,14 @@ jQuery(document).ready(function () {
         return newStr;
     };
 
+    String.prototype.SubStrToMax = function (max, removeStrFinLength, strFin) {
+        if (this.length <= max) return this;
+
+        strFin = IfNull(strFin, '') == '' ? '...' : strFin;
+        removeLength = IfNull(removeStrFinLength, false) ? strFin.length : 0;
+        return this.substr(0, max - removeLength) + strFin;
+    };
+
     String.prototype.CodificarHtmlToAnsi = function () {
         var newStr = this;
         var ansi = new Array('Á', 'á', 'É', 'é', 'Í', 'í', 'Ó', 'ó', 'Ú', 'ú', '<', '>', "'");
@@ -104,6 +125,19 @@ jQuery(document).ready(function () {
 
     Array.prototype.Find = function (campo, valor) {
         var array = new Array();
+        var campoVal = $.trim(campo);
+        if (campoVal == "") {
+            $.each(this, function (index, item) {
+                if (item == valor) {
+                    try {
+                        array.push(Clone(item));
+                    } catch (e) {
+                        array.push(item);
+                    }
+                }
+            });
+            return array;
+        }
         $.each(this, function (index, item) {
             if (typeof (campo) == "string") {
                 if (item[campo] == valor) {
@@ -127,6 +161,7 @@ jQuery(document).ready(function () {
         });
         return array;
     };
+
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
 
@@ -140,6 +175,21 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
+                var ret = false;
+                
+                switch (b) {
+                    case undefined:
+                    case null:
+                        ret = typeof a == "boolean";
+                        bool = ret ? a : false;
+                        break;
+                    default:  break;
+                }
+
+                if (ret)
+                    return bool ? operator.fn(this) : operator.inverse(this);
+                
+
                 switch (operator) {
                     case '==':
                         bool = a == b;
@@ -158,7 +208,7 @@ jQuery(document).ready(function () {
                         break;
                     case 'ContainsArray':
                         var array = (JSON.parse(b) instanceof Array) ? JSON.parse(b) : [b];
-                        bool = array.indexOf(a) > -1;
+                        bool = array.Find(null, a).length > 0;
                         break;
                     default:
                         throw "Unknown operator " + operator;
@@ -169,7 +219,7 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('IsNullOrEmpty', function (a, operator, opts) {
                 var bool = false;
-                var optsx = opts == undefined ? operator : opts; // caso #IsNullOrEmpty campo
+                var optsx = opts == undefined ? operator : opts;
                 operator = opts == undefined ? '==' : (operator || '==');
                 opts = optsx;
                 switch (operator) {
@@ -203,6 +253,11 @@ jQuery(document).ready(function () {
                 return new Handlebars.SafeString("");
             });
 
+            Handlebars.registerHelper('Trim', function (cadena) {
+                cadena = $.trim(cadena);
+                return new Handlebars.SafeString(cadena);
+            });
+
             Handlebars.registerHelper('JSON2string', function (context) {
                 return JSON.stringify(context);
             });
@@ -215,7 +270,7 @@ jQuery(document).ready(function () {
                 return DecimalToStringFormat(context);
             });
 
-            Handlebars.registerHelper('DateTimeToStringFormat', function(context) {
+            Handlebars.registerHelper('DateTimeToStringFormat', function (context) {
                 if (context != null && context != '') {
                     var dateString = context.substr(6);
                     var currentTime = new Date(parseInt(dateString));
@@ -231,6 +286,40 @@ jQuery(document).ready(function () {
         }
     }
 
+    SetHandlebarsHtml = function (urlTemplate, modelo, idHtml) {
+        if (!Handlebars.helpers.iff)
+            HandlebarsRegisterHelper();
+
+        if ($.trim(urlTemplate) == "" || $.trim(idHtml) == "") {
+            return false;
+        }
+
+        //$(idHtml).load(urlTemplate, function (dataTemplate, status, xhr) {
+        jQuery.get(urlTemplate, function (dataTemplate) {
+            dataTemplate = $.trim(dataTemplate);
+            //console.log(dataTemplate);
+            if (dataTemplate == "") {
+                return false;
+            }
+
+            if (dataTemplate.substr(0, 2) == "/*") {
+                dataTemplate = dataTemplate.substr(2, dataTemplate.length - 2);
+            }
+
+            if (dataTemplate.substr(dataTemplate.length - 2, 2) == "*/") {
+                dataTemplate = dataTemplate.substr(0, dataTemplate.length - 2);
+            }
+
+            var template = Handlebars.compile(dataTemplate);
+            var htmlDiv = template(modelo);
+            idHtml = $.trim(idHtml);
+            if (idHtml == "") return htmlDiv;
+            $(idHtml).html(htmlDiv);
+        });
+
+        return "";
+
+    }
     SetHandlebars = function (idTemplate, data, idHtml) {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
@@ -292,7 +381,6 @@ jQuery(document).ready(function () {
         pDecimal = pDecimal.length > 1 ? pDecimal.substring(2) : "";
         pDecimal = decimalCantidad > 0 ? (decimal + pDecimal) : "";
 
-        // recorremos la parte entera para poner el separador
         var pEnteraFinal = "";
         do {
             var x = pEntera.length;
@@ -334,7 +422,7 @@ jQuery(document).ready(function () {
 
         return newLista;
     };
-
+    
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -365,35 +453,29 @@ function CreateLoading() {
         minHeight: 50,
         modal: true,
         buttons: {},
-        resizable: false,
-        //create: function (event, ui) {
-        //    $("html").css({ overflow: 'hidden' })
-        //},
-        //beforeClose: function (event, ui) {
-        //    $("html").css({ overflow: 'auto' })
-        //}
+        resizable: false
     });
     $("#loadingScreen").parent().find(".ui-dialog-titlebar").hide();
 }
 
 function waitingDialog(waiting) {
-    if (!$("#loadingScreen")) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-    else if ($("#loadingScreen").length == 0) {
-        $(document.body).append('<div id="loadingScreen"></div>');
-    }
-
-    if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
-        if ($("#loadingScreen").attr("data-dialog") != "1") {
-            CreateLoading();
-            $("#loadingScreen").attr("data-dialog", "1");
-        }
-    }
-    waiting = waiting || {};
-    $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
-    $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
     try {
+        if (!$("#loadingScreen")) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+        else if ($("#loadingScreen").length == 0) {
+            $(document.body).append('<div id="loadingScreen"></div>');
+        }
+
+        if (!$("#loadingScreen").hasClass('ui-dialog-content')) {
+            if ($("#loadingScreen").attr("data-dialog") != "1") {
+                CreateLoading();
+                $("#loadingScreen").attr("data-dialog", "1");
+            }
+        }
+        waiting = waiting || {};
+        $("#loadingScreen").find(".loadingScreen-titulo").html(waiting.title && '' != waiting.title ? waiting.title : 'Cargando');
+        $("#loadingScreen").find(".loadingScreen-mensaje").html(waiting.message && '' != waiting.message ? waiting.message : 'Espere, por favor...');
         $("#loadingScreen").dialog("open");
     }
     catch (err) {
@@ -405,6 +487,90 @@ function closeWaitingDialog() {
     catch (err) {
     }
 
+}
+
+function AbrirLoad(opcion) {
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            ShowLoading(opcion);
+        }
+        else {
+            waitingDialog(opcion);
+        }
+    } catch (e) {
+
+    }
+}
+
+function CerrarLoad(opcion) {
+    try {
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("mobile") > 0;
+        if (isUrlMobile > 0) {
+            CloseLoading(opcion);
+        }
+        else {
+            closeWaitingDialog(opcion);
+        }
+    } catch (e) {
+
+    }
+}
+
+function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
+    try {
+        mensaje = $.trim(mensaje);
+        if (mensaje == "") {
+            CerrarLoad();
+            return false;
+        }
+        titulo = titulo || "MENSAJE";
+        var CONS_TIPO_ICONO = { ALERTA: 1, CHECK: 2 };
+        var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+        if (isUrlMobile > 0) {
+            $('.icono_alerta').hide();
+            if (tipoIcono ==  CONS_TIPO_ICONO.ALERTA) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
+            if (tipoIcono == CONS_TIPO_ICONO.CHECK) {
+                $('.icono_alerta.check_icono_mobile').show();
+            }
+            if (tipoIcono == undefined || tipoIcono == null) {
+                $('.icono_alerta.exclamacion_icono_mobile').show();
+            }
+            $('#mensajeInformacionvalidado').html(mensaje);
+            $('#popupInformacionValidado').show();
+            $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            
+            if ($.isFunction(fnAceptar)) {
+                $('#popupInformacionValidado .btn_ok_mobile').off('click');
+                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+            }
+        }
+        else {
+            $('#alertDialogMensajes .terminos_title_2').html(titulo);
+            $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
+            $('#alertDialogMensajes').dialog('open');
+
+            $('.ui-dialog .ui-button').off('click');
+            $('.ui-dialog .ui-icon-closethick').off('click');
+
+            $('.ui-dialog .ui-button').on('click', function () {
+                $('#alertDialogMensajes').dialog('close');
+                if($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+                $('#alertDialogMensajes').dialog('close');
+                if($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('.ui-dialog .ui-button').focus();
+        }
+        CerrarLoad();
+    } catch (e) {
+
+    }
 }
 
 function compare_dates(fecha, fecha2) {
@@ -449,51 +615,70 @@ function IsValidUrl(value) {
         return false;
 }
 
+function isMobile() {
+    var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
+    return isUrlMobile;
+}
+function isHome() {
+    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    return isUrl;
+}
+
 function isInt(n) {
     var patron = /^[0-9]+$/;
     var isn = patron.test(n);
     return isn;
-    //return +n === n && !(n % 1);
 }
 
-// valida si ha ocurrido un timeout durante una llamada ajax
 function checkTimeout(data) {
-    //debugger;
     var thereIsStillTime = true;
 
     if (data) {
-        if (data.responseText) {
-            if ((data.responseText.indexOf("<title>Login</title>") > -1) || (data.responseText.indexOf("<title>Object moved</title>") > -1) || (data.responseText === '"_Logon_"'))
-                thereIsStillTime = false;
-        }
-        else {
-            if (data == "_Logon_")
+        var eval = data.responseText ? data.responseText : data;
+        if (jQuery.type(eval) === "string") {
+            if ((eval.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) || (eval.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1) || (eval == '"_Logon_"'))
                 thereIsStillTime = false;
         }
 
         if (!thereIsStillTime) {
-            //window.location.href = "/Login/Timeout";
-            //window.location.href = "https://stsqa.somosbelcorp.com/adfs/ls/?wa=wsignout1.0";
-            window.location.href = "/SesionExpirada.html";
+            //window.location.href = "/Login/SesionExpirada";
+
+            var message = "Tu sesión ha finalizado por inactividad. Por favor, ingresa nuevamente.";
+            if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
+                $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
+                $('#dialog_SesionMainLayout').show();
+        }
+            else {
+                $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
+                $('#popupInformacionSB2SesionFinalizada').show();
+    }
         }
     }
     else {
-        //debugger;
-        $.ajax({
-            url: "/Dummy/",
-            type: 'POST',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            async: false,
-            complete: function (result) {
-                thereIsStillTime = checkTimeout(result);
-            }
-        });
+        checkUserSession();
     }
     return thereIsStillTime;
 }
 
-// paginacion
+function checkUserSession() {
+    var res = -1;
+    
+    $.ajax({
+        url: '/Login/CheckUserSession',
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            res = data.Exists;
+        }
+    });
+
+    if (res == 0) {
+        window.location.href = '/Login/SesionExpirada';
+    }
+}
+
 function paginadorAccionGenerico(obj) {
     var accion = obj.attr("data-paginacion");
     var padre = obj.parents('[data-paginacion="block"]');
@@ -532,13 +717,6 @@ function paginadorAccionGenerico(obj) {
         }
     }
     else if (accion === "rows") {
-        //if (paginaActual === 1) {
-        //    var rowsInicial =padre.find("[data-paginacion='rows']").attr("data-val") || 0;
-        //    if (recordCount <= rowsInicial && rowsInicial < rows) {
-        //        padre.find("[data-paginacion='rows']").attr("data-val", rows);
-        //        return rpt;
-        //    }
-        //}
         paginaActual = 1;
     }
 
@@ -550,14 +728,12 @@ function paginadorAccionGenerico(obj) {
     rpt.page = paginaActual;
     return rpt;
 }
-//R2116-INICIO
 
 function ActualizarGanancia(data) {
     data = data || new Object();
     data.CantidadProductos = data.CantidadProductos || "";
     data.TotalPedidoStr = data.TotalPedidoStr || "";
 
-    // Los Montos resumen de pedido
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
@@ -653,17 +829,16 @@ FuncionesGenerales = {
         return obj;
     }
 };
-//R2116-FIN
 
 function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
     data = {
-        'Fecha': '',
-        'Aplicacion': 'PORTALCONSULTORAS',
+        'Fecha': new Date().getTime(),
+        'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Region': userData.region,
         'Zona': userData.zona,
         'Seccion': userData.seccion,
-        'Rol': 'CO',
+        'Rol': userData.rol,
         'Campania': userData.campana,
         'Usuario': userData.codigoConsultora,
         'PantallaOpcion': pantallaOpcion,
@@ -673,17 +848,18 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
         'Version': '2.0',
         'Extra': extra
     }
-
-    jQuery.ajax({
-        type: "POST",
-        async: true,
-        crossDomain: true,
-        url: urlLogDynamo,
-        dataType: "json",
-        data: data,
-        success: function (result) { console.log(result); },
-        error: function (x, xh, xhr) { console.log(x); }
-    });
+    if (urlLogDynamo != "") {
+        jQuery.ajax({
+            type: "POST",
+            async: true,
+            crossDomain: true,
+            url: urlLogDynamo,
+            dataType: "json",
+            data: data,
+            success: function (result) { console.log(result); },
+            error: function (x, xh, xhr) { console.log(x); }
+        });
+    }
 }
 
 function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, position) {
@@ -712,79 +888,127 @@ function InfoCommerceGoogleDestacadoProductClick(name, id, category, variant, po
     });
 };
 
-// Pedido Rechazado
 function MensajeEstadoPedido() {
-
     xMensajeEstadoPedido(false);
-    if (cerrarRechazado == '1')
-        return false;
+    if (mostrarBannerRechazo != 'True' || cerrarRechazado == '1') return false;
 
-    if (estaRechazado == 0)
-        return false;
-
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").html("");
-    $("#bloquemensajesPedido").find(".mensaje_horarioIngresoPedido").append((motivoRechazo || "").CodificarHtmlToAnsi());
-    if (mostrarBannerRechazo == 'True') { //estaRechazado == 2 && motivoRechazo != "") {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("TU PEDIDO HA SIDO RECHAZADO");
-    }
-    else if (estaRechazado == 1) {
-        $("#bloquemensajesPedido").find(".mensaje_estadoActualPedido").html("NOS ENCONTRAMOS FACTURANDO TU PEDIDO C" + $.trim($("#hdCampaniaCodigo").val()).substring(4, 6));
-    }
-    else {
-        return false;
-    }
     xMensajeEstadoPedido(true);
     MostrarMensajePedidoRechazado();
-
     return true;
 }
 
 function xMensajeEstadoPedido(estado) {
-    var url = location.href.toLowerCase();
-    var identi = url.indexOf("/mobile/") > 0;
-    var wheight = $(window).innerHeight();
     if (estado) {
-        $("#bloquemensajesPedido").show();//.slideDown("slow", function () { });
+        $("#bloquemensajesPedido").show();
         ResizeMensajeEstadoPedido();
-        var wtop = $("#bloquemensajesPedido").height();
-
-        if (identi) {
-            $("[data-content]").animate({ "top": wtop + "px" });
-            $(".footer-page").animate({ "top": wtop + "px" });
-        }
-        else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-                $(".oscurecer_animacion").css({ "top": wtop + "px", "height": wheight + "px" });
-                //$("[data-content]").animate({ "top": wtop + "px" });
-            }
-            else {
-                $("#bloquemensajesPedido").slideDown("slow", function () { });
-                wtop = $("header").height();
-                $(".ubicacion_web").animate({ "margin-top": (wtop + 22) + "px" });
-            }
-        }
     }
     else {
-        $("#bloquemensajesPedido").slideUp();
-        if (identi) {
-            $("[data-content]").animate({ "top": "0px" });
-            $(".footer-page").animate({ "top": "0px" });
-        }
-        else {
-            identi = url.indexOf("/bienvenida") > 0;
-            if (identi) {
-                $("[data-content]").animate({ "top": "0px" });
-            }
-            else {
-                $(".ubicacion_web").animate({ "margin-top": "83px" });
-            }
-        }
+        //$("#bloquemensajesPedido").slideUp();
+        $("#bloquemensajesPedido").hide();
+    }
+    LayoutHeader();
+}
+
+function LayoutHeader() {
+    LayoutHeaderFin();
+    $(document).ajaxStop(function () {
+        LayoutHeaderFin();
+    });
+    //setTimeout(function () {
+    //    var wtop = $("header").innerHeight();
+    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    //}, 350);
+}
+
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    $("[data-content]").css("margin-top", (wtop) + "px");
+}
+function LayoutMenu() {
+    LayoutMenuFin();
+    $(document).ajaxStop(function () {
+        LayoutMenuFin();
+    });
+}
+function LayoutMenuFin() {
+    // validar si sale en dos lineas
+    var idMenus = "#ulNavPrincipal-0 > li";
+
+    if ($(idMenus).length == 0) {
+        return false;
     }
 
+    $(".wrapper_header").css("max-width", "");
+    $(".wrapper_header").css("width", "");
+    $(".logo_esika").css("width", "");
+    $(".menu_esika_b").css("width", "");
+    $(idMenus).css("margin-left", "0px");
+    $(".menu_new_esika").css("width", "");
+
+    var wt = $(".wrapper_header").width();
+    var wl = $(".logo_esika").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth() + 1;
+    $(".wrapper_header").css("max-width", wt + "px");
+    $(".wrapper_header").css("width", wt + "px");
+
+    wl = Math.min(wl, 100);
+    $(".logo_esika").css("width", wl + "px");
+    $(".menu_esika_b").css("width", wr + "px");
+
+    wt = wt - wl - wr;
+    $(".menu_new_esika").css("width", wt + "px");
+
+    var h = $(".wrapper_header").height();
+
+    if (h > 61) {
+        $(idMenus + " a").css("font-size", "9px");
+    }
+
+    wr = 0;
+    $.each($(idMenus), function (ind, menupadre) {
+        wr += $(menupadre).innerWidth();
+    });
+
+    if (wt == wr) {
+        $(idMenus + " a").css("font-size", "9px");
+        wr = 0;
+        $.each($(idMenus), function (ind, menupadre) {
+            wr += $(menupadre).innerWidth();
+        });
+    }
+
+    if (wt < wr) {
+        $(idMenus + " a").css("font-size", "10.5px");
+    }
+    else if (wt > wr) {
+        wr = (wt - wr) / $(idMenus).length;
+        wr = parseInt(wr * 10) / 10;
+        wr = Math.min(wr, 20);
+
+        $.each($(idMenus), function (ind, menupadre) {
+            if (ind > 0 && ind + 1 < $(idMenus).length) {
+                $(menupadre).css("margin-left", wr + "px");
+            }
+        });
+    }
+
+    // caso no entre en el menu
+    // poner en dos renglones
+
+    if ($(".wrapper_header").height() > 61) {
+        console.log("menu en mas de una linea");
+    }
+
+    LayoutHeader();
 }
 
 function ResizeMensajeEstadoPedido() {
+
     $("#bloquemensajesPedido").css("height", "");
     $("#bloquemensajesPedido > div").css("height", "");
     $("#bloquemensajesPedido .mensajes_estadoPedido").css("width", "");
@@ -807,6 +1031,12 @@ function ResizeMensajeEstadoPedido() {
         $("#bloquemensajesPedido").css("height", (ht + 22) + "px");
         $("#bloquemensajesPedido > div").css("height", (ht + 22) + "px");
     }
+
+    if (htx == 38) {
+
+        $("#bloquemensajesPedido .mensajes_estadoPedido").css("padding-top", (9) + "px");
+        $("#bloquemensajesPedido .icono_estadoPedido").css("padding-top", (5) + "px");
+    }
 }
 
 function cerrarMensajeEstadoPedido() {
@@ -827,21 +1057,645 @@ function cerrarMensajeEstadoPedido() {
     });
 }
 
+function cerrarMensajePostulante() {
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + 'Bienvenida/CerrarMensajePostulante',
+        //data: '',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            if (response.success) {
+                $('#bloquemensajesPostulante').hide();
+                LayoutHeader();
+            }
+        },
+        error: function (response) {
+            console.log(response);
+        }
+    });
+}
+
 function MostrarMensajePedidoRechazado() {
     if (location.pathname.toLowerCase().indexOf("/bienvenida") >= 0) {
-        //setTimeout(function () {
-        //    $(".oscurecer_animacion").fadeOut(1500);
-        //    var elem = $(".oscurecer_animacion");
-        //    $(elem).remove();
-        //}, 3000);
-
         $(".oscurecer_animacion").delay(3000).fadeOut(1500);
     }
     else {
-        // $(".oscurecer_animacion").hide();
         $("[data-content]").removeClass("oscurecer_animacion");
     }
 }
 
-// FIN Pedido Rechazado
+function CompartirRedesSociales(e) {
+    var obj = $(e.target);
+    var tipoRedes = $.trim($(obj).parents("[data-compartir]").attr("data-compartir"));
+    if (tipoRedes == "") tipoRedes = $.trim($(obj).attr("data-compartir"));
+    if (tipoRedes == "") return false;
 
+    var padre = obj.parents("[data-item]");
+    var article = $(padre).find("[data-compartir-campos]").eq(0);
+
+    var label = $(article).find(".rs" + tipoRedes + "Mensaje").val();
+    var ruta = $(article).find(".rs" + tipoRedes + "Ruta").val();
+
+    if (label != "") {
+        dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Ofertas Showroom',
+            'action': 'Compartir ' + tipoRedes,
+            'label': label,
+            'value': 0
+        });
+    }
+
+    if (ruta == "") return false;
+
+    CompartirRedesSocialesInsertar(article, tipoRedes, ruta);
+}
+
+function CompartirRedesSocialesTexto(texto) {
+    texto = texto.ReplaceAll("/", '%2F');
+    texto = texto.ReplaceAll(":", "%3A");
+    texto = texto.ReplaceAll("?", "%3F");
+    texto = texto.ReplaceAll("=", "%3D");
+    texto = texto.ReplaceAll(" ", "%32");
+    texto = texto.ReplaceAll("+", "%43");
+
+    texto = texto.ReplaceAll("&", "y");
+
+    return "whatsapp://send?text=" + texto;
+}
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+    id = $.trim(id);
+    if (id == "0" || id == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta ID");
+        return false;
+    }
+    ruta = $.trim(ruta);
+    if (ruta == "") {
+        console.log("CompartirRedesSocialesAbrirVentana Falta Ruta");
+        return false;
+    }
+
+    ruta = ruta.replace('[valor]', id);
+
+    if (tipoRedes == "FB") {
+        var popWwidth = 570;
+        var popHeight = 420;
+        var left = (screen.width / 2) - (popWwidth / 2);
+        var top = (screen.height / 2) - (popHeight / 2);
+        var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
+        //google marca analytics        
+
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Facebook',
+            'action': 'Compartir',
+            'target': ruta
+        });
+        
+        //****************************
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    } else if (tipoRedes == "WA") {
+
+        if (texto != "")
+            texto = texto + " - ";
+
+        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
+        //return "whatsapp://send?text=" + texto + ruta;
+        //google marca analytics        
+
+        dataLayer.push({
+            'event': 'socialEvent',
+            'network': 'Whatsapp',
+            'action': 'Compartir',
+            'target': ruta
+        });
+
+        //****************************
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
+        $("#HiddenRedesSocialesWA")[0].click();
+        //document.getElementById('HiddenRedesSocialesWA').click();
+    }
+}
+
+function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
+    //AbrirLoad();
+
+    var _rutaImagen = $.trim($(article).find(".rs" + tipoRedes + "RutaImagen").val());
+    var _mensaje = $.trim($(article).find(".rs" + tipoRedes + "Mensaje").val());
+    var _nombre = $.trim($(article).find(".Nombre").val());
+    var _marcaID = $.trim($(article).find(".MarcaID").val());
+    var _marcaDesc = $.trim($(article).find(".MarcaNombre").val());
+    var _descProd = $.trim($(article).find(".ProductoDescripcion").val());
+    var _vol = $.trim($(article).find(".Volumen").val());
+    var _palanca = $.trim($(article).find(".Palanca").val());
+
+    var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
+    if (_palanca == "FAV") {
+        pcDetalle += "|" + _vol + "|" + _descProd;
+    }
+
+    var Item = {
+        mCUV: $(article).find(".CUV").val(),
+        mPalanca: _palanca,
+        mDetalle: pcDetalle,
+        mApplicacion: tipoRedes
+    };
+
+    jQuery.ajax({
+        type: 'POST',
+        url: "/CatalogoPersonalizado/InsertarProductoCompartido",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(Item),
+        success: function (response) {
+            //CloseLoading();
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
+                } else {
+                    AbrirMensaje(response.message);
+                }
+            }
+            //CerrarLoad();
+        },
+        error: function (response, error) {
+            //CloseLoading();
+            if (checkTimeout(response)) {
+                console.log(response);
+            }
+        }
+    });
+}
+
+function AbrirPopup(ident) {
+    $(ident).show();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopup(ident) {
+    $(ident).hide();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
+
+function ModificarPedido2(pTipo) {
+    if (pTipo == '2') {
+        if (_ModificacionPedidoProl == "0") ConfirmarModificarPedido();
+        else $("#divConfirmModificarPedido").modal("show");
+    }
+    else {
+        if (_ModificacionPedidoProl === "0")
+            ConfirmarModificar2('');
+        else
+            showDialog("divConfirmValidarPROL");
+        return false;
+    }
+}
+
+function ConfirmarModificar2() {
+    waitingDialog({});
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/PedidoValidadoDeshacerReserva?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    dataLayer.push({
+                        'event': 'virtualEvent',
+                        'category': 'Ecommerce',
+                        'action': 'Modificar Pedido',
+                        'label': '(not available)'
+                    });
+                    closeWaitingDialog();
+                    $('#dialog_PedidoReservado').hide();
+                }
+                else {
+                    closeWaitingDialog();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            closeWaitingDialog();
+            if (checkTimeout(data)) {
+                alert("Ocurrió un error al ejecutar la acción. Por favor inténtelo de nuevo.");
+            }
+        }
+    });
+    return false;
+}
+
+function ConfirmarModificarPedido() {
+    ShowLoading();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlDeshacerReservaPedidoReservado2 + '?Tipo=PV',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: true,
+        success: function (data) {
+            if (checkTimeout(data)) {
+                if (data.success == true) {
+                    //location.href = urlIngresarPedido;
+                    CloseLoading();
+                    $('#popupInformacion2').hide();
+                } else {
+                    CloseLoading();
+                    messageInfoError(data.message);
+                }
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                messageInfo("Ocurrió un problema de conectividad. Por favor inténtelo mas tarde.");
+            }
+        }
+    });
+}
+
+/*** EPD-1682 ***/
+function AbrirPopupPedidoReservado(pMensaje, pTipoOrigen) {
+    if (pTipoOrigen == '2' || pTipoOrigen == '21') { //mobile | 21 -> Showroom
+        if (ViewIndicadorGPRSB == '0') {
+            $('#popupInformacion2 #mensajeInformacion2').html(pMensaje);
+            $('#popupInformacion2').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+    else {
+        if (ViewIndicadorGPRSB == '0') {
+            $('#dialog_PedidoReservado #mensajePedidoReservado_Error').html(pMensaje);
+            $('#dialog_PedidoReservado').show();
+        } else {
+            messageInfoError(pMensaje);
+        }
+    }
+}
+
+function OcultarMenu(codigo) {
+    MostrarMenu(codigo, 0);
+}
+
+function MostrarMenu(codigo, accion) {
+    codigo = $.trim(codigo);
+    if (codigo == "") {
+        return false;
+    }
+    var idMenus = "#ulNavPrincipal-0";
+    var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
+
+    if (menu.length == 0) {
+        // puede implementarse para los iconos de la parte derecha
+        return false;
+    }
+    if (accion == 0) {
+        $(menu).addClass("oculto");
+    }
+    else {
+        $(menu).removeClass("oculto");
+    }
+
+    LayoutMenu();
+    
+}
+
+function FuncionEjecutar(functionHide) {
+    functionHide = $.trim(functionHide);
+    if (functionHide != "") {
+        if (functionHide[functionHide.length - 1] != ")") {
+            functionHide = functionHide + "()";
+        }
+        setTimeout(functionHide, 100);
+    }
+}
+
+function IfNull(input, replaceNull) {
+    return input == null ? replaceNull : input;
+}
+
+function odd_desktop_google_analytics_promotion_click() {
+    if ($('#divOddCarruselDetalle').length > 0) {
+
+        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
+        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val()
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+
+        odd_desktop_google_analytics_product_impresion();
+    }
+}
+
+function odd_desktop_google_analytics_product_impresion() {
+    var carrusel = $("[data-odd-tipoventana='carrusel']");
+    var detalle = $("[data-odd-tipoventana='detalle']");
+    var impresions = new Array();
+    if (carrusel.length > 0) {        
+        var divs = new Array();
+        var div1 = $(carrusel).find("[data-item-position = 0]");
+        var div2 = $(carrusel).find("[data-item-position = 1]");
+        var div3 = $(carrusel).find("[data-item-position = 2]");
+
+        if (div1 != null) { divs.push(div1); }
+        if (div2 != null) { divs.push(div2); }
+        if (div3 != null) { divs.push(div3); }
+
+        $(divs).each(function (index, div) {
+            impresions.push({
+                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+                'category': 'No disponible',
+                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+                'list': 'Oferta del día',
+                'position': index + 1
+            });
+        });
+    }
+    if (detalle.length > 0) {
+        var div1 = $(detalle).find("[data-item-position = 0]");
+        if (div1 != null) { divs.push(div1); }
+        $(divs).each(function (index, div) {
+            impresions.push({
+                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+                'category': 'No disponible',
+                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+                'list': 'Oferta del día',
+                'position': index + 1
+            });
+        });
+    }
+    if (impresions.length > 0) {
+        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
+    }
+}
+
+function odd_desktop_google_analytics_addtocart(tipo,element) {
+    var id, name, price, marca, variant, quantity, dimension16;
+    if (tipo == "banner") {        
+        id = $('#banner-odd').find(".cuv2-odd").val();
+        name = $('#banner-odd').find(".nombre-odd").val();
+        price = $('#banner-odd').find(".precio-odd").val();
+        marca = $('#banner-odd').find(".marca-descripcion-odd").val();
+        variant = $('#banner-odd').find(".tipoestrategia-descripcion-odd").val();
+        quantity = 1;        
+        dimension16 = "Oferta del día - Banner";
+    }
+    if (tipo == "list") {
+        id = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+    if (tipo == "detail") {
+        id = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+
+    if (variant == "") { variant = "Estándar"; }
+    dataLayer.push({
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Oferta del día' },
+                'products': [{
+                    'name': name,
+                    'price': price,
+                    'brand': marca,
+                    'id': id,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'quantity': quantity, 'dimension15': '100',
+                    'dimension16': dimension16
+                }]
+            }
+        }
+    });
+}
+
+function odd_desktop_google_analytics_product_click(name, id, price, brand, variant, position) {
+    position++;
+    if (variant == null || variant == "")
+        variant = "Estándar";
+    dataLayer.push
+	({
+	    'event': 'productClick',
+	    'ecommerce':
+		{
+		    'click':
+			{
+			    'actionField': { 'list': 'Oferta del día' },
+			    'products':
+				[{
+				    'name': name,
+				    'id': id,
+				    'price': price,
+				    'brand': brand,
+				    'category': 'No disponible',
+				    'variant': variant,
+				    'position': position
+				}]
+			}
+		}
+	});
+}
+function GuardarIndicadorPedidoAutentico() {
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data2),
+                    success: function (response) {
+                        if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
+                            localStorage.setItem('SBTokenPedido', response.message);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
+
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        }
+    }
+}
+
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/
+
+
+function AbrirPopupFade(ident) {
+    $(ident).fadeIn();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopupFade(ident) {
+    $(ident).fadeOut();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
+
+function set_local_storage(data, key) {
+    var value = JSON.stringify(data);
+    localStorage.setItem(key, value);
+}
+
+function get_local_storage(key) {
+    var value = localStorage.getItem(key);
+    value = JSON.parse(value);
+    return value;
+}
+
+function limpiar_local_storage() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+ 
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
+};
+
+function _validartieneMasVendidos() {
+    if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
+        set_local_storage(tieneMasVendidos, "tieneMasVendidos");
+        return tieneMasVendidos;
+    }
+    else {
+        var xvalor = get_local_storage("tieneMasVendidos");
+        return xvalor;
+    }
+}
+
+var _actualizarModelMasVendidosPromise = function (model) {
+    var d = $.Deferred();
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/OfertasMasVendidos/ActualizarModel',
+        data: JSON.stringify(model),
+        dataType: 'json',        
+        contentType: 'application/json; charset=utf-8',
+        async: false
+    });
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
+}

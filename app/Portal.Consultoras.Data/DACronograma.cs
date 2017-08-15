@@ -97,5 +97,12 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public string GetCampaniaActualAndSiguientePais(string codigoIso)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCampaniaActualAndSiguientePais");
+            Context.Database.AddInParameter(command, "@CodigoIso", DbType.AnsiString, codigoIso);
+            var result = Context.ExecuteScalar(command) == null ? "" : Convert.ToString(Context.ExecuteScalar(command));
+            return result;
+        }
     }
 }

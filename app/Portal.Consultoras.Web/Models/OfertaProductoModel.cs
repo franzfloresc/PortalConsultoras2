@@ -42,5 +42,6 @@ namespace Portal.Consultoras.Web.Models
         public IEnumerable<ConfiguracionOfertaModel> lstConfiguracionOferta { get; set; }
         public IEnumerable<PaisModel> lstPais { get; set; }
         public IEnumerable<CampaniaModel> lstCampania { get; set; }
+        public string ExpValidacionNemotecnico { get; set; }
     }
 }

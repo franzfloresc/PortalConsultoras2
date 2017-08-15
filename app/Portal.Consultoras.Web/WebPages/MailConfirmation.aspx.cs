@@ -7,6 +7,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.ServiceUsuario;
+using System.Security.Cryptography;
+using System.IO;
+using System.Configuration;
 
 namespace Portal.Consultoras.Web.WebPages
 {
@@ -20,10 +23,25 @@ namespace Portal.Consultoras.Web.WebPages
                 {
                     string result = string.Empty;
                     bool HasSuccess = false;
+
+                    var esEsika = false;
+
+                    string urlportal = ConfigurationManager.AppSettings["UrlSiteSE"];
+
                     if (Request.QueryString["data"] != null)
                     {
+                        string parametros = Request.QueryString["data"];
+                        var parametrosDesencriptados = Util.Decrypt(parametros);// Util.DesencriptarQueryString(parametros);
+                        string[] query = parametrosDesencriptados.Split(';');
+                        string paisid = query[1];
+                        //032610099;11;PE;leonarddgl@gmail.com;31/12/9999 23:59:59
+
+                        if (paisid == "11" || paisid == "2" || paisid == "3" || paisid == "8" || paisid == "7" || paisid == "4")
+                            esEsika = true;
+
+                        txtmarca.Text = esEsika ? "esika" : "lbel";
                         //Formato que envia la url: CodigoUsuario;IdPais
-                        string[] query = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
+                        //string[] query1 = Util.DesencriptarQueryString(Request.QueryString["data"].ToString()).Split(';');
 
                         using (UsuarioServiceClient srv = new UsuarioServiceClient())
                         {
@@ -33,29 +51,44 @@ namespace Portal.Consultoras.Web.WebPages
                             result = "Su dirección de correo electrónico ha sido activada correctamente.";
                         else
                             result = "Esta dirección de correo electrónico ya ha sido activada.";
+
+                        var opcional = query.Length > 4 ? query[4].Trim() : "";
+                        if (opcional != "")
+                        {
+                            var opcionalLista = opcional.Split(',');
+                            if (opcionalLista.Length > 1)
+                            {
+                                if (opcionalLista[0].ToLower() == "urlreturn")
+                                {
+                                    urlportal = urlportal + "/" + "Bienvenida/MailConfirmacion?tipo=" + opcionalLista[1].ToLower();
+                                }
+                            }
+                        }
                     }
                     else
                         result = "Ha ocurrido un error con la activación de su correo electrónico.";
                     lblConfirmacion.Text = result;
-
-                    if (Request.QueryString["tipo"] != null)
-                    {
-                        if (!Request.QueryString["tipo"].Equals("ccc"))
-                            lnkClienteCC.Visible = false;
-                    }
-                    else
-                    {
-                        lnkClienteCC.Visible = false;
-                    }
+                    linkregresarasomosbelcorp.NavigateUrl = urlportal;
+                    //if (Request.QueryString["tipo"] != null)
+                    //{
+                    //    if (!Request.QueryString["tipo"].Equals("ccc"))
+                    //        lnkClienteCC.Visible = false;
+                    //}
+                    //else
+                    //{
+                    //    lnkClienteCC.Visible = false;
+                    //}
                 }
                 //else
                 //    lblConfirmacion.Text = "Para activar la dirección E-mail, debe hacer clic en el enlace enviado a su correo electrónico.";
             }
             catch (Exception ex)
             {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "MailConfirmation Page_Load", "", "Encrypt Data=" + (Request.QueryString["data"] != null ? Request.QueryString["data"] : ""));
                 //lblConfirmacion.Text = ex.Message;
                 lblConfirmacion.Text = "Ha ocurrido un error con la activación de su correo electrónico.";
             }
         }
+
     }
 }

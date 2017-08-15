@@ -107,6 +107,9 @@ namespace Portal.Consultoras.ServiceContracts
         string GetUsuarioAsociado(int paisID, string CodigoConsultora);
 
         [OperationContract]
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+
+        [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
 
         [OperationContract]
@@ -129,6 +132,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsLogIngresoPortal(int paisID, string CodigoConsultora, string IPOrigen, byte Tipo, string DetalleError);
+
+        [OperationContract]
+        String AceptarContrato(BEUsuario usuario);
 
         [OperationContract]
         int AceptarContratoAceptacion(int paisID, long consultoraid, string codigoConsultora);
@@ -260,11 +266,85 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdNotificacionSolicitudCdrVisualizacion(int paisID, long procesoId);
-
+        
         [OperationContract]
         void UpdNotificacionCdrCulminadoVisualizacion(int paisID, long procesoId);
 
         [OperationContract]
         int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono);
+
+        /*EPD-1012*/
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia);
+        /*EPD-1012*/
+
+        /*EPD-2340*/
+        [OperationContract]
+        BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor);
+
+        [OperationContract]
+        int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad);
+        /*EPD-2340*/
+
+        [OperationContract]
+        bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo,
+            string codigoUsuarioAutenticado, EAplicacionOrigen origen);
+
+        
+        [OperationContract]
+        int ExisteUsuario(int paisId, string codigoUsuario, string clave);
+          
+        [OperationContract]
+        bool ValidarUsuario(string paisIso, string codigoUsuario, string clave);
+
+        [OperationContract]
+        List<BEConfiguracionPais> GetConfiguracionPais(BEConfiguracionPais entidad);
+        
+        [OperationContract]
+        bool ValidarConfiguracionPaisDetalle(BEConfiguracionPaisDetalle entidad);
+        
+        //EPD-1836
+        [OperationContract]
+        int RegistrarUsuarioPostulante(string paisISO, BEUsuarioPostulante entidad);
+        
+        [OperationContract]
+        string RecuperarContrasenia(int paisId, string correo);
+
+        [OperationContract]
+        string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior);
+
+        [OperationContract]
+        int EliminarUsuarioPostulante(string paisISO, string numeroDocumento);
+
+        //EPD-2058
+        [OperationContract]
+        BEUsuarioPostulante GetUsuarioPostulante(int paisId, string numeroDocumento);
+        
+        /*EPD-1837*/
+        [OperationContract]
+        int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno);
+
+        [OperationContract]
+        BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario);
+
+        [OperationContract]
+        BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+
+        [OperationContract]
+        List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario);
+
+        /*
+        [OperationContract]
+        bool GetExisteEmailActivo(int paisID, string email);
+         * */
+       
+        /*EPD-1837*/
+
+        [OperationContract]
+        void UpdatePosutlanteMensajes(int paisID, string codigoUsuario, int tipo);
+        
+        [OperationContract]
+        BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
+            bool usuarioPrueba, int aceptacionConsultoraDA);
     }
 }

@@ -25,6 +25,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigoIso { get; set; }
 
         public string Simbolo { get; set; }
+        public decimal ConsultoraSaldo { get; set; }    //EPD-1665
 
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
@@ -34,7 +35,7 @@ namespace Portal.Consultoras.Web.Models
                 return Estado == Constantes.EstadoCDRWeb.Pendiente
                     ? "PENDIENTE"
                     : Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "ENVIADO"
+                        ? "EN EVALUACIÓN"
                         : Estado == Constantes.EstadoCDRWeb.Observado
                         ? "OBSERVADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
@@ -58,5 +59,14 @@ namespace Portal.Consultoras.Web.Models
                             : "";
             }
         }
+
+        public int ZonaID { get; set; }
+        public int PaisID { get; set; }
+        public int RegionID { get; set; }
+
+        public IEnumerable<CampaniaModel> lista { get; set; }
+        public IEnumerable<PaisModel> listaPaises { get; set; }
+        public IEnumerable<ZonaModel> listaZonas { get; set; }
+        public IEnumerable<RegionModel> listaRegiones { get; set; }
     }
 }

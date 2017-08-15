@@ -33,6 +33,10 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public byte EstadoCDR { get; set; }
 
+        //EPD-1665
+        [DataMember]
+        public decimal ConsultoraSaldo { get; set; }
+
         public BELogCDRWeb(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "LogCDRWebId") && row["LogCDRWebId"] != DBNull.Value) this.LogCDRWebId = Convert.ToInt64(row["LogCDRWebId"]);
@@ -47,6 +51,7 @@ namespace Portal.Consultoras.Entities.CDR
             if (DataRecord.HasColumn(row, "FechaAtencion") && row["FechaAtencion"] != DBNull.Value) this.FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
             if (DataRecord.HasColumn(row, "ImporteCDR") && row["ImporteCDR"] != DBNull.Value) this.ImporteCDR = Convert.ToDecimal(row["ImporteCDR"]);
             if (DataRecord.HasColumn(row, "EstadoCDR") && row["EstadoCDR"] != DBNull.Value) this.EstadoCDR = Convert.ToByte(row["EstadoCDR"]);
+            if (DataRecord.HasColumn(row, "ConsultoraSaldo") && row["ConsultoraSaldo"] != DBNull.Value) this.ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
         }
     }
 }

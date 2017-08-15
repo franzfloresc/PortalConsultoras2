@@ -15,12 +15,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class NotificacionesController : BaseController
     {
-        //
-        // GET: /Notificaciones/
-
         public ActionResult Index()
         {
-            SessionKeys.ClearSessionCantidadNotificaciones();
+            Session["fechaGetNotificacionesSinLeer"] = null;
+            Session["cantidadGetNotificacionesSinLeer"] = null;
 
             List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
             NotificacionesModel model = new NotificacionesModel();
@@ -75,7 +73,10 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (TipoOrigen == 8) sv.UpdNotificacionCdrCulminadoVisualizacion(paisId, ProcesoId);
                     else sv.UpdNotificacionesConsultoraVisualizacion(paisId, ProcesoId, TipoOrigen);
                 }
-                SessionKeys.ClearSessionCantidadNotificaciones();
+
+                Session["fechaGetNotificacionesSinLeer"] = null;
+                Session["cantidadGetNotificacionesSinLeer"] = null;
+
                 return Json(new { success = true }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -303,10 +304,11 @@ namespace Portal.Consultoras.Web.Controllers
                 if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
                 else
                 {
-                    if (item.StockDisponible == 1) item.ObservacionPROL = "Nos ingresó 1 unidad";
-                    else item.ObservacionPROL = "Nos ingresaron " + item.StockDisponible + " unidades";
+                    string unidades;
+                    if (item.StockDisponible == 1) unidades = "1 unidad";
+                    else unidades = item.StockDisponible + " unidades";
 
-                    item.ObservacionPROL += string.Format(" del producto {0} - {1}. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
+                    item.ObservacionPROL = string.Format("Ya contamos con stock de {0} del producto {1} - {2}, para que lo puedas agregar nuevamente a tu pedido.", unidades, item.CUV, item.Descripcion);
                 }
             }
 
@@ -316,51 +318,25 @@ namespace Portal.Consultoras.Web.Controllers
             model.Origen = 3;
             return PartialView("ListadoObservaciones", model);
         }
+        
         public ActionResult ListarDetallePedidoRechazado(long ProcesoId)
         {
             NotificacionesModel model = new NotificacionesModel();
-            BELogGPRValidacion logGPRValidacion;
-            List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
+            List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>();
+            //List<BELogGPRValidacionDetalle> lstLogGPRValidacionDetalle = new List<BELogGPRValidacionDetalle>();
 
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                logGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId);
-                lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
-            }
-            model = Mapper.Map<NotificacionesModel>(logGPRValidacion);
-
-            switch (logGPRValidacion.MotivoRechazo)
-            {
-                case Constantes.GPRMotivoRechazo.ActualizacionDeuda:
-                    model.DescripcionRechazo = string.Format("Tienes una deuda de {0} que debes regularizar.", logGPRValidacion.Valor);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.MontoMinino:
-                    model.DescripcionRechazo = string.Format("No llegaste al monto mínimo de {0}. {1} ", userData.Simbolo, userData.MontoMinimo);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.MontoMaximo:
-                    model.DescripcionRechazo = string.Format("Superaste tu línea de crédito de {0}. {1}.", userData.Simbolo, userData.MontoMaximo);
-                    break;
-
-                case Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock:
-                    model.DescripcionRechazo = string.Format("No llegaste al mínimo de {0}. ", logGPRValidacion.Valor);
-                    break;
+                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
+                // lstLogGPRValidacionDetalle = sv.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(userData.PaisID, ProcesoId).ToList();
             }
 
-            model.NombreConsultora = userData.NombreConsultora;
+            CargarMensajesNotificacionesGPR(model, LogsGPRValidacion);
+            model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             model.Total = model.SubTotal + model.Descuento;
             model.SubTotalString = Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
             model.DescuentoString = Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
             model.TotalString = Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-            model.TieneDescuentoCuv = logGPRValidacion.EstadoSimplificacionCUV && lstLogGPRValidacionDetalle.Any(p => p.IndicadorOferta);
-
-            model.ListaNotificacionesDetallePedido = Mapper.Map<List<NotificacionesModelDetallePedido>>(lstLogGPRValidacionDetalle);
-            model.ListaNotificacionesDetallePedido.Update(detalle =>
-            {
-                detalle.PrecioUnidadString = Util.DecimalToStringFormat(detalle.PrecioUnidad, userData.CodigoISO);
-                detalle.ImporteTotalString = Util.DecimalToStringFormat(detalle.ImporteTotal, userData.CodigoISO);
-            });
 
             return PartialView("ListadoDetallePedidoRechazado", model);
         }
@@ -373,8 +349,8 @@ namespace Portal.Consultoras.Web.Controllers
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
             {
-                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);         
-                       
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+
                 listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
@@ -393,6 +369,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = listaCdrWebDetalle;
+            model.ConsultoraSaldo = logCdrWeb.ConsultoraSaldo;
 
             return PartialView("ListaDetalleCdr", model);
         }
@@ -477,9 +454,9 @@ namespace Portal.Consultoras.Web.Controllers
             var mensaje = string.Empty;
             try
             {
-                if (SessionKeys.CheckDataSessionCantidadNotificaciones())
+                if (CheckDataSessionCantidadNotificaciones())
                 {
-                    cantidadNotificaciones = SessionKeys.GetDataSessionCantidadNotificaciones();
+                    cantidadNotificaciones = Convert.ToInt32(Session["cantidadGetNotificacionesSinLeer"]);
                 }
                 else
                 {
@@ -487,7 +464,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                     cantidadNotificaciones = listaNotificaciones.Count(p => p.Visualizado == false);
 
-                    SessionKeys.SetDataSessionCantidadNotificaciones(cantidadNotificaciones);
+                    Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
+                    Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
                 }
             }
             catch (Exception ex)
@@ -506,6 +484,20 @@ namespace Portal.Consultoras.Web.Controllers
                 list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
             return list;
+        }
+
+        public bool CheckDataSessionCantidadNotificaciones()
+        {
+            if (Session["fechaGetNotificacionesSinLeer"] != null &&
+                Session["cantidadGetNotificacionesSinLeer"] != null)
+            {
+                var fecha = Convert.ToDateTime(Session["fechaGetNotificacionesSinLeer"]);
+                var diferencia = DateTime.Now - fecha;
+                if (diferencia.TotalMinutes > 30)
+                    return false;
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -146,5 +146,11 @@ namespace Portal.Consultoras.BizLogic
 
             return paisCampania;
         }
+
+        public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
+        {
+            var daCronograma = new DACronograma(paisID);
+            return daCronograma.GetCampaniaActualAndSiguientePais(codigoIso);
+        }
     }
 }

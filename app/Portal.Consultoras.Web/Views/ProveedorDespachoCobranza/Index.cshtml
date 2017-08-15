@@ -140,7 +140,6 @@
 
         $('#frmProveedorDespachoCobranza').ajaxForm({
             beforeSubmit: function () {
-                //debugger;
                 var vMessage = '';
 
                 if (jQuery.trim($('#NombreComercial').val()) == "")
@@ -185,7 +184,6 @@
         });
 
         function fnRespuestaProveedorDespachoCobranza(responseText, statusText, xhr, $form) {
-            //debugger;
             if (checkTimeout(responseText)) {
                 $("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
                 if (responseText && typeof responseText === "string") {
@@ -531,7 +529,6 @@
         $.jgrid.extend({
             Elim: function (ProveedorDespachoCobranzaID) {
                 var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado ?');
-                //debugger;
                 if (!elimina)
                     return false;
                 waitingDialog({});
@@ -546,7 +543,6 @@
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
-                            //debugger;
                             closeWaitingDialog();
                             if (data.success == true) {
                                 alert(data.message);
@@ -595,7 +591,6 @@
         }
 
         function NuevoCampo() {
-            //debugger;
             LimpiarCampo();
             $('#hdAccion').val("1");
             ShowDialog('DialoCampo');
@@ -685,7 +680,6 @@
         $.jgrid.extend({
             Eliminar: function (ProveedorDespachoCobranzaID, CampoId, Valor) {
                 var elimina = confirm('¿ Está seguro que desea eliminar el registro seleccionado ?');
-                //debugger;
                 if (!elimina)
                     return false;
                 waitingDialog({});
@@ -703,7 +697,6 @@
                     async: true,
                     success: function (data) {
                         if (checkTimeout(data)) {
-                            //debugger;
                             closeWaitingDialog();
                             if (data.success == true) {
                                 alert(data.message);
@@ -723,10 +716,8 @@
                 return false;
             },
             Editar: function (ProveedorDespachoCobranzaID, CampoId, Valor) {
-                //debugger;
                 if (ProveedorDespachoCobranzaID) {
                     var tmpValor = Valor;
-                    //debugger;
                     LimpiarCampo();
                     $('#hdCampoProveedorDespachoCobranzaID').val(jQuery("#list").jqGrid('getCell', ProveedorDespachoCobranzaID, 'ProveedorDespachoCobranzaID'));
 

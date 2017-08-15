@@ -13,12 +13,10 @@
         $(this).find("div.marcador_tab").removeClass("oculto");
     });
 
-    $('ul[data-tab="tab"]').mouseover(function () {
-        $("#barCursor").css("opacity", "1");
-    }).mouseout(function () {
-        $("#barCursor").css("opacity", "0");
-    });
-    $('ul[data-tab="tab"] li a')[0].click();
+    $('ul[data-tab="tab"]').mouseover(function () { $("#barCursor").css("opacity", "1"); })
+        .mouseout(function () { $("#barCursor").css("opacity", "0"); });
+
+    $('ul[data-tab="tab"] li a[data-tag="' + pestanhaInicial + '"]').click();
 
     $("#lblCorreoEnviar").click(function () {
         fnEnviarCorreo();
@@ -83,8 +81,6 @@ function Percepcion() {
     });
 }
 
-/** Estado Cuenta **/
-
 function fnGrilla() {
     var obj = {
         sidx: "", sord: "", page: 1, rows: 20, vCampania: ""
@@ -99,17 +95,19 @@ function fnGrilla() {
         async: true,
         cache: false,
         success: function (data) {
-            if (data.Rows.length > 0) {
-                RenderGrilla(data);
-            }
-            else {
-                $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+            if (checkTimeout(data)) {
+                if (data.Rows.length > 0) {
+                    RenderGrilla(data);
+                }
+                else {
+                    $("#dellateContenido").html("<div style='text-align: center;'><br />No hay datos para mostrar.<br/><br/></div>");
+                }
             }
         },
         error: function (data, error) {
             $("#dellateContenido").html("");
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
@@ -161,15 +159,10 @@ function fnEnviarCorreo() {
     return false
 }
 
-function alert_msg(message) {
-    $('#DialogMensajes .pop_pedido_mensaje').html(message);
-    $('#DialogMensajes').dialog('open');
-}
-
 function validarExportar() {
     var montoPagarEstadoCuenta = $("#hdn_MontoPagar").val();
     if (montoPagarEstadoCuenta == "0") {
-        alert_msg("No hay datos para poder generar el archivo.");
+        AbrirMensaje("No hay datos para poder generar el archivo.");
         return false;
     }
 
@@ -222,9 +215,6 @@ function DownloadAttachExcelEC() {
 
 }
 
-/** FIN Estado Cuenta **/
-
-/** Lugar Pago **/
 function getLugarPago() {
     jQuery.ajax({
         type: 'POST',
@@ -235,14 +225,15 @@ function getLugarPago() {
         async: true,
         cache: false,
         success: function (data) {
-            SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            if (checkTimeout(data)) {
+                SetHandlebars("#js-LugaresPago", data, "#divContenidoLugarPago");
+            }
         },
         error: function (data, error) {
             $("#divContenidoLugarPago").html("");
             if (checkTimeout(data)) {
-                alert_msg(data.message);
+                AbrirMensaje(data.message);
             }
         }
     });
 }
-/** FIN Lugar Pago **/

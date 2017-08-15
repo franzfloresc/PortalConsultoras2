@@ -18,13 +18,21 @@ namespace Portal.Consultoras.Common
         //MEJORA S3
         public static string URL_S3 = System.Configuration.ConfigurationManager.AppSettings["URL_S3"];
 
-        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior)
+        public static string GetUrlFileS3(string carpetaPais, string fileName, string carpetaAnterior = "")
         {
-            if (fileName.Trim() == "") return fileName;
+            fileName = fileName ?? "";
+            if (fileName.StartsWith(URL_S3))
+                return fileName;
 
-                var url = ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-                return url;
-            }
+            carpetaPais = carpetaPais ?? "";
+            if (fileName.Trim() == "") return fileName;
+            return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
+        }
+
+        public static string GetUrlS3(string carpetaPais)
+        {
+            return ConfigS3.URL_S3 + "/" + ConfigS3.BUCKET_NAME + "/" + ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "");
+        }
 
         public static void DeleteFileS3(string carpetaPais, string fileName)
         {

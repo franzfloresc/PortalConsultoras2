@@ -1,4 +1,5 @@
-﻿using Portal.Consultoras.Data;
+﻿using Portal.Consultoras.Common;
+using Portal.Consultoras.Data;
 using Portal.Consultoras.Data.Hana;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.PublicService.Cryptography;
@@ -8,11 +9,12 @@ using System.Configuration;
 using System.Data;
 using System.DirectoryServices;
 using System.DirectoryServices.AccountManagement;
+using System.IO;
 using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLUsuario
+    public partial class BLUsuario
     {
         public BEUsuario Select(int paisID, string codigoUsuario)
         {
@@ -113,6 +115,12 @@ namespace Portal.Consultoras.BizLogic
             DAUsuario.UpdUsuarioDatos(usuario, CorreoAnterior);
         }
 
+        public void AceptarContrato(BEUsuario usuario)
+        {
+            var DAUsuario = new DAUsuario(usuario.PaisID);
+            DAUsuario.AceptarContrato(usuario);
+        }
+
         public int UpdateDatosPrimeraVez(int paisID, string codigoUsuario, string email, string telefono, string telefonoTrabajo, string celular, string correoAnterior, bool aceptoContrato)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -182,17 +190,23 @@ namespace Portal.Consultoras.BizLogic
             BEConfiguracionCampania configuracion = null;
             var DAUsuario = new DAUsuario(paisID);
             var DAConfiguracionCampania = new DAConfiguracionCampania(paisID);
+
             using (IDataReader reader = DAUsuario.GetSesionUsuario(codigoUsuario))
+            {
                 if (reader.Read())
                     usuario = new BEUsuario(reader, true);
-
+            }
+                
             if (usuario != null)
             {
                 if (usuario.ConsultoraID != 0)
                 {
                     using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampania(paisID, usuario.ZonaID, usuario.RegionID, usuario.ConsultoraID))
+                    {
                         if (reader.Read())
                             configuracion = new BEConfiguracionCampania(reader);
+                    }
+                        
                     if (configuracion != null)
                     {
                         usuario.CampaniaID = configuracion.CampaniaID;
@@ -226,6 +240,72 @@ namespace Portal.Consultoras.BizLogic
                         usuario.FechaActualPais = configuracion.FechaActualPais;
                         usuario.EstadoPedido = configuracion.EstadoPedido;
                         usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                        usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
+                    }
+                }
+
+                // EPD-2058
+                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+                {
+                    BEUsuarioPostulante postulante = null;
+
+                    using (IDataReader reader = DAUsuario.GetUsuarioPostulante(usuario.CodigoUsuario))
+                    {
+                        if (reader.Read())
+                            postulante = new BEUsuarioPostulante(reader);
+                    }
+
+                    if (postulante != null)
+                    {
+                        usuario.ZonaID = postulante.ZonaID;
+                        usuario.RegionID = postulante.RegionID;
+                        usuario.ConsultoraID = postulante.ConsultoraID;
+
+                        //EPD-2311 (Mostrar mensaje al ingresar al pase de pedido)
+                        usuario.MensajePedidoDesktop = postulante.MensajeDesktop;
+                        usuario.MensajePedidoMobile = postulante.MensajeMobile;
+
+                        using (IDataReader reader = DAConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(paisID, usuario.ZonaID, usuario.RegionID))
+                        {
+                            if (reader.Read())
+                                configuracion = new BEConfiguracionCampania(reader);
+                        }
+                            
+                        if (configuracion != null)
+                        {
+                            usuario.CampaniaID = configuracion.CampaniaID;
+                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
+                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
+                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
+                            usuario.HoraInicio = configuracion.HoraInicio;
+                            usuario.HoraFin = configuracion.HoraFin;
+                            usuario.ZonaValida = configuracion.ZonaValida;
+                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
+                            usuario.HoraCierreNoFacturable = configuracion.HoraCierreNoFacturable;
+                            usuario.DiasAntes = configuracion.DiasAntes;
+                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
+                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
+                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
+                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
+                            usuario.DiasDuracionCronograma = configuracion.DiasDuracionCronograma;
+                            usuario.HabilitarRestriccionHoraria = configuracion.HabilitarRestriccionHoraria;
+                            usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
+                            usuario.NroCampanias = configuracion.NroCampanias;
+                            usuario.FechaFinFIC = configuracion.FechaFinFIC;
+                            usuario.PROLSinStock = configuracion.PROLSinStock;
+                            usuario.NuevoPROL = configuracion.NuevoPROL;
+                            usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                            usuario.EstadoSimplificacionCUV = configuracion.EstadoSimplificacionCUV;
+                            usuario.EsquemaDAConsultora = configuracion.EsquemaDAConsultora;
+                            usuario.HoraCierreZonaDemAntiCierre = configuracion.HoraCierreZonaDemAntiCierre;
+                            usuario.ValidacionInteractiva = configuracion.ValidacionInteractiva;
+                            usuario.MensajeValidacionInteractiva = configuracion.MensajeValidacionInteractiva;
+                            usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                            usuario.FechaActualPais = configuracion.FechaActualPais;
+                            usuario.EstadoPedido = configuracion.EstadoPedido;
+                            usuario.ValidacionAbierta = configuracion.ValidacionAbierta;
+                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
+                        }
                     }
                 }
             }
@@ -237,6 +317,12 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetUsuarioAsociado(codigoConsultora);
+        }
+
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
         }
 
         public bool IsUserExist(string CodigoUsuario)
@@ -385,6 +471,70 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.GetNroDocumentoConsultora(CodigoConsultora);
         }
+
+        /*EPD-1012*/
+        public BEValidaLoginSB2 GetValidarLoginSB2(int paisID, string codigoUsuario, string contrasenia)
+        {
+            BEValidaLoginSB2 validaLogin = null;
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
+
+            try
+            {
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarLoginSB2(codigoUsuario, contrasenia))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
+            }
+
+            return validaLogin;
+        }
+         
+        /*EPD-1012*/
+
+        /*EPD-2340*/
+        public BEValidaLoginSB2 GetValidarAutoLogin(int paisID, string codigoUsuario, string proveedor)
+        {
+            BEValidaLoginSB2 validaLogin = null;
+            string pasoLog = string.Empty;
+            string paisISO = string.Empty;
+
+            try
+            {
+                paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisID);
+                paisISO = (!string.IsNullOrEmpty(paisISO)) ? paisISO : paisID.ToString();
+                var DAUsuario = new DAUsuario(paisID);
+
+                using (IDataReader reader = DAUsuario.GetValidarAutoLogin(codigoUsuario, proveedor))
+                {
+                    if (reader.Read())
+                        validaLogin = new BEValidaLoginSB2(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, codigoUsuario, paisISO);
+            }
+
+            return validaLogin;
+        }
+
+        public int InsUsuarioExternoPais(int paisID, BEUsuarioExternoPais entidad)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+
+            return DAUsuario.InsUsuarioExternoPais(entidad);
+        }
+        /*EPD-2340*/
 
         public int GetInfoPreLogin(int paisID, string CodigoUsuario)
         {
@@ -589,7 +739,7 @@ namespace Portal.Consultoras.BizLogic
                                     BETablaLogicaDatos Restriccion_Egresada = tabla_Egresada.Find(p => Convert.ToInt32(p.Codigo.Trim()) == IdEstadoActividad);
                                     if (Restriccion_Egresada != null)
                                     {
-										//if (paisID == 6)  R2133
+                                        //if (paisID == 6)  R2133
                                         //    return 2;
                                         //else
                                         //{
@@ -1089,11 +1239,530 @@ namespace Portal.Consultoras.BizLogic
 
             return consultora;
         }
-
+        
         public int UpdateUsuarioEmailTelefono(int paisID, long ConsultoraID, string Email, string Telefono)
         {
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.UpdateUsuarioEmailTelefono(ConsultoraID, Email, Telefono);
+        }
+
+        public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, EAplicacionOrigen origen)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                DAUsuario.CambiarClaveUsuario(codigoUsuario, nuevacontrasena, correo);
+                DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, paisIso + codigoUsuario, nuevacontrasena,
+                    correo, Enum.GetName(typeof (EAplicacionOrigen), origen));
+                resultado = true;
+            }
+            catch (Exception ex)
+            {
+                resultado = false;
+            }
+            
+            return resultado;
+        }
+
+        public int ExisteUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            int resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ExisteUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = 0;
+            }
+
+            return resultado;
+        }
+
+        public bool ValidarUsuario(int paisId, string codigoUsuario, string clave)
+        {
+            bool resultado;
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisId);
+                resultado = DAUsuario.ValidarUsuario(codigoUsuario, clave);
+            }
+            catch (Exception)
+            {
+                resultado = false;
+            }
+
+            return resultado;
+        }
+
+        public string RecuperarContrasenia(int paisId, string correo)
+        {
+            var resultado = string.Empty;
+            var paso = "1";
+
+            try
+            {
+                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+
+                List<BEUsuarioCorreo> lst = SelectByEmail(correo, paisId).ToList();
+                paso = "2";
+
+                if (paisId.ToString().Trim() == "4")
+                {
+                    if (lst.Count == 0)
+                    {
+                        resultado = "0" + "|" + "1";
+                        return resultado;
+                    }
+                    else
+                    {
+                        correo = lst[0].Descripcion;// contiene el correo del destinatario
+                        if (correo.Trim() == "")
+                        {
+                            resultado = "0" + "|" + "2";
+                            return resultado;
+                        }
+                    }
+                }
+
+                if (lst[0].Cantidad == 0)
+                {
+                    resultado = "0" + "|" + "3";
+                    return resultado;
+                }
+                else
+                {
+                    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                    DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                    string paisiso = lst[0].CodigoISO;
+                    string codigousuario = lst[0].CodigoUsuario;
+                    string nombre = lst[0].Nombre.Trim().Split(' ').First();
+
+                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, correo, paisiso, codigousuario, fechasolicitud, nombre);
+
+                    paso = "3";
+
+                    string emailFrom = "no-responder@somosbelcorp.com";
+                    string emailTo = correo;
+                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
+                    string fondo = (esEsika ? "e81c36" : "642f80");
+                    string displayname = "Somos Belcorp";
+
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
+
+                    resultado = "1" + "|" + "4" + "|" + correo;
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                if (usuario.EMail != string.Empty)
+                {
+                    int cantidad = this.ValidarEmailConsultora(usuario.PaisID, usuario.EMail, usuario.CodigoUsuario);
+
+                    if (cantidad > 0) 
+                    {
+                        resultado = string.Format("{0}|{1}|{2}|{3}", "0", "1", "La dirección de correo electrónico ingresada ya pertenece a otra Consultora.", cantidad);
+                    }
+                    else
+                    {
+                        this.UpdateDatos(usuario, CorreoAnterior);
+
+                        if(usuario.EMail != CorreoAnterior)
+                        {
+                            string emailFrom = "no-responder@somosbelcorp.com"; 
+                            string emailTo = usuario.EMail;
+                            string titulo = "Confirmación de Correo";
+                            string displayname = usuario.Nombre;
+                            string url = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                            string nomconsultora = (string.IsNullOrEmpty(usuario.Sobrenombre) ? usuario.PrimerNombre : usuario.Sobrenombre);
+
+                            string[] parametros = new string[] { usuario.CodigoUsuario, usuario.PaisID.ToString(), usuario.CodigoISO, usuario.EMail };
+                            string param_querystring = Common.Util.Encrypt(string.Join(";", parametros)); // Common.Util.EncriptarQueryString(parametros);
+                            //este Log para hacer verificar error al DesencriptarQueryString
+                            LogManager.SaveLog(new Exception(), usuario.CodigoUsuario + " | data=" + param_querystring, string.Join("|", parametros));
+                            bool esEsika = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(usuario.CodigoISO);
+                            string logo = (esEsika ? "http://www.genesis-peru.com/mailing-belcorp/logo.png" : "https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/jG6i4d6VUyIaUwi/logod.png");
+                            string fondo = (esEsika ? "e81c36" : "642f80");
+
+                            MailUtilities.EnviarMailProcesoActualizaMisDatos(emailFrom, emailTo, titulo, displayname, logo, nomconsultora, url, fondo, param_querystring);
+
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "2", "- Sus datos se actualizaron correctamente.\n - Se ha enviado un correo electrónico de verificación a la dirección ingresada.");
+                        }
+                        else
+                        {
+                            resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        public string AceptarContratoColombia(BEUsuario usuario)
+        {
+            string resultado = string.Empty;
+
+            try
+            {
+                        this.AceptarContrato(usuario);
+                        resultado = string.Format("{0}|{1}|{2}|0", "1", "3", "- Sus datos se actualizaron correctamente");
+            }
+            catch (Exception ex)
+            {
+                resultado = string.Format("{0}|{1}|{2}|0", "0", "4", "Ocurrió un error al acceder al servicio, intente nuevamente.");
+                LogManager.SaveLog(ex, usuario.CodigoUsuario, string.Empty);
+            }
+
+            return resultado;
+        }
+
+        //EPD-1836
+        public int InsUsuarioPostulante(int paisID, string paisISO, BEUsuarioPostulante entidad)
+        {
+            int r = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(entidad.NumeroDocumento) && 
+                    !string.IsNullOrEmpty(entidad.NombreCompleto) && 
+                    !string.IsNullOrEmpty(entidad.Zona) &&
+                    !string.IsNullOrEmpty(entidad.Seccion))
+                {
+                    var DAUsuario = new DAUsuario(paisID);
+
+                    BEUsuario usuario = new BEUsuario();
+                    usuario.CodigoUsuario = entidad.NumeroDocumento;
+                    usuario.PaisID = paisID;
+                    usuario.CodigoConsultora = entidad.NumeroDocumento;
+                    usuario.Nombre = entidad.NombreCompleto;
+                    usuario.ClaveSecreta = entidad.NumeroDocumento;
+                    usuario.EMail = entidad.Correo;
+                    usuario.Activo = true;
+                    usuario.TipoUsuario = 2;
+                    usuario.DocumentoIdentidad = entidad.NumeroDocumento;
+
+                    // insertar usuario
+                    int r1 = DAUsuario.InsUsuario(usuario);
+                    if (r1 > 0)
+                    {
+                        // encriptar clave
+                        DAUsuario.UpdUsuarioClaveSecreta(usuario.CodigoUsuario, usuario.ClaveSecreta, false);
+
+                        BEUsuarioRol usuarioRol = new BEUsuarioRol();
+                        usuarioRol.CodigoUsuario = entidad.NumeroDocumento;
+                        usuarioRol.RolID = 1;
+                        usuarioRol.Activo = true;
+
+                        var DARol = new DARol(paisID);
+                        int r2 = DARol.InsUsuarioRol(usuarioRol);
+
+                        if (r2 > 0)
+                        {
+                            entidad.CodigoUsuario = entidad.NumeroDocumento;
+                            // insertar usuario postulante
+                            int r3 = DAUsuario.InsUsuarioPostulante(entidad);
+                            r = (r3 > 0) ? 1 : 0;
+
+                            if (!string.IsNullOrEmpty(entidad.Correo))
+                            {
+                                BEConsultoraEmail consultoraEmail = null;
+                                using (IDataReader reader = DAUsuario.GetUsuarioPostulanteEmail(entidad.NumeroDocumento))
+                                {
+                                    if (reader.Read())
+                                        consultoraEmail = new BEConsultoraEmail(reader);
+                                }
+
+                                if (consultoraEmail != null)
+                                {
+                                    string asuntoEmail = consultoraEmail.EsPostulante ? "Creacion de cuenta de Somos Belcorp" : "Mensaje de bienvenida";
+                                    string[] PaisesLbel = { "MX", "CR", "PA", "PR" };
+
+                                    bool eslbel = false;
+                                    if (PaisesLbel.Contains(paisISO)) {
+                                        eslbel = true;
+                                    }
+
+                                    string pathTemplate = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\esika_email_consultora.html";
+                                    if (eslbel) {
+                                        pathTemplate = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\lbel_email_consultora.html";
+                                    }
+
+                                    string htmlTemplate;
+                                    using (StreamReader reader = new StreamReader(pathTemplate))
+                                    {
+                                        htmlTemplate = reader.ReadToEnd();
+                                    }
+
+                                    if (!string.IsNullOrEmpty(htmlTemplate))
+                                    {
+                                        //string[] configuracionCorreo = ConfiguracionCorreo(PaisISO);
+                                        //string UrlValidacion = Settings.Default.UrlValidacion;
+                                        //string UrlPortal = Settings.Default.UrlPortal;
+
+                                        //string telefono1 = configuracionCorreo[1];
+                                        //string msgbox_nombre = Consultora.GerenteZonaNombre.Length > 0 ? Consultora.GerenteZonaNombre : "";
+                                        //string msgbox_email = Consultora.GerenteZonaEmail.Length > 0 ? Consultora.GerenteZonaEmail : "";
+                                        //string param_querystring = login.Substring(2) + "," + ObtenerPaisIDByISO(PaisISO) + "," + PaisISO + "," + email;
+                                        //param_querystring = encriptar(param_querystring).Replace("+", "ABCDE");
+
+                                        string gznombre = consultoraEmail.GerenteZonaNombre.Length > 0 ? consultoraEmail.GerenteZonaNombre : "";
+                                        string gzemail = consultoraEmail.GerenteZonaEmail.Length > 0 ? consultoraEmail.GerenteZonaEmail : "";
+                                        string telefono1 = ConfigurationManager.AppSettings.Get("TelefonoCentroAtencion").ToString();
+                                        //string codusuario = consultoraEmail.Codigo.Substring(2);
+                                        string codusuario = consultoraEmail.Codigo;
+
+                                        if (eslbel)
+                                        {
+                                            if (paisISO == "MX" || paisISO == "CR") {
+                                                htmlTemplate.Replace("#DISPLAY1#", "");
+                                            }
+                                            else {
+                                                htmlTemplate.Replace("#DISPLAY1#", "nomostrar");
+                                            }
+                                        }
+
+                                        htmlTemplate = htmlTemplate.Replace("#TELEFONO1#", telefono1);
+                                        htmlTemplate = htmlTemplate.Replace("#TELEFONO2#", "");
+                                        //htmlTemplate = htmlTemplate.Replace("#CODIGO_USUARIO#", codusuario);
+                                        //htmlTemplate = htmlTemplate.Replace("#PASSWORD#", consultoraEmail.Clave);
+                                        htmlTemplate = htmlTemplate.Replace("#PRIMER_NOMBRE#", consultoraEmail.NombreCompleto);
+                                        htmlTemplate = htmlTemplate.Replace("#NOMBRE_CONTACTO#", gznombre);
+                                        htmlTemplate = htmlTemplate.Replace("#EMAIL_CONTACTO#", gzemail);
+
+                                        //EnviarMail("no-responder@somosbelcorp.com", email, asuntoEmail, mensaje, true, "", PaisISO);
+                                        Common.Util.EnviarMail("no-responder@somosbelcorp.com", entidad.Correo, asuntoEmail, htmlTemplate, true, null);
+
+                                        //InsLogEnvioEmailBienvenida(PaisISO, Consultora, EsConsultoraReactivada);
+                                        DAUsuario.InsLogEnvioEmailConsultora(consultoraEmail);
+                                        //Actualizando flag envio de correo
+                                        DAUsuario.UpdFlagEnvioCorreo(codusuario);
+                                    }
+                                    else
+                                    {
+                                        throw new Exception("No se encontro la ruta del template: " + pathTemplate);
+                                    }
+                                }// consultoraEmail
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.SaveLog(ex, "", paisISO);
+            }
+
+            return r;
+        }
+
+        public int DelUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            int r = 0;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(numeroDocumento))
+                {
+                    var DAUsuario = new DAUsuario(paisID);
+                    int r1 = DAUsuario.DelUsuarioPostulante(numeroDocumento);
+                    r = (r1 > 0) ? 1 : 0;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return r;
+        }
+
+        public BEUsuarioPostulante GetUsuarioPostulante(int paisID, string numeroDocumento)
+        {
+            var postulante = new BEUsuarioPostulante();
+
+            try
+            {
+                var DAUsuario = new DAUsuario(paisID);
+                using (IDataReader reader = DAUsuario.GetUsuarioPostulante(numeroDocumento))
+                {
+                    if (reader.Read())
+                        postulante = new BEUsuarioPostulante(reader);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+
+            return postulante;
+        }
+        
+        /*EPD-1837*/
+        public int InsertUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.InsUsuarioExterno(usuarioExterno);
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByCodigoUsuario(int paisID, string codigoUsuario)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            BEUsuarioExterno entidad = null;
+
+            using (IDataReader reader = DAUsuario.GetUsuarioExternoByCodigoUsuario(codigoUsuario))
+            {
+                if (reader.Read())
+                    entidad = new BEUsuarioExterno(reader);
+            }
+
+            return entidad;
+        }
+
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        {
+            var DAUsuario1 = new DAUsuario(11);
+            BEUsuarioExternoPais entidad1 = null;
+            BEUsuarioExterno entidad2 = null;
+
+            using (IDataReader reader = DAUsuario1.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
+            {
+                if (reader.Read())
+                    entidad1 = new BEUsuarioExternoPais(reader);
+            }
+
+            if (entidad1 != null)
+            {
+                var DAUsuario2 = new DAUsuario(entidad1.PaisID);
+                using (IDataReader reader = DAUsuario2.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                {
+                    if (reader.Read())
+                        entidad2 = new BEUsuarioExterno(reader);
+                }
+
+                entidad2.PaisID = entidad1.PaisID;
+                entidad2.CodigoISO = entidad1.CodigoISO;
+            }
+
+            return entidad2;
+        }
+
+        public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, String codigoUsuario)
+        {
+            List<BEUsuarioExterno> lista = new List<BEUsuarioExterno>();
+            var DAUsuario = new DAUsuario(paisID);
+
+            using (IDataReader reader = DAUsuario.GetListaLoginExterno(codigoUsuario))
+            {
+                if (reader.Read())
+                    lista.Add(new BEUsuarioExterno(reader));
+            }
+
+            return lista;
+        }
+
+        /*
+        public bool GetExisteEmailActivo(int paisID, string email)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            return DAUsuario.GetExisteEmailActivo(email);
+        }
+         * */
+
+        /*EPD-1837*/
+
+        public void UpdatePostulantesMensajes(int paisID, string CodigoUsuario, int tipo)
+        {
+            var DAUsuario = new DAUsuario(paisID);
+            DAUsuario.UpdatePostulanteMensajes(CodigoUsuario, tipo);
+        }
+
+
+        public BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA)
+        {
+            BEUsuario usuario = null;
+            using (var reader = (new DAConfiguracionCampania(paisID)).GetConfiguracionByUsuarioAndCampania(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA))
+            {
+                if (reader.Read()) usuario = new BEUsuario(reader, true);
+            }
+
+            if (usuario == null)
+                return null;
+
+            var usuarioConfiguracion = new BEUsuarioConfiguracion()
+            {
+                PaisID = usuario.PaisID,
+                CodigoISO = usuario.CodigoISO,
+                TieneHana = usuario.TieneHana,
+                Simbolo = usuario.Simbolo,
+                EstadoSimplificacionCUV = usuario.EstadoSimplificacionCUV,
+                ZonaHoraria = usuario.ZonaHoraria,
+                PROLSinStock = usuario.PROLSinStock,
+                NuevoPROL = usuario.NuevoPROL,
+                ZonaNuevoPROL = usuario.ZonaNuevoPROL,
+                ZonaValida = usuario.ZonaValida,
+                DiasAntes = usuario.DiasAntes,
+                HoraInicio = usuario.HoraInicio,
+                HoraFin = usuario.HoraFin,
+                HoraInicioNoFacturable = usuario.HoraInicioNoFacturable,
+                HoraCierreNoFacturable = usuario.HoraCierreNoFacturable,
+                ValidacionInteractiva = usuario.ValidacionInteractiva,
+                HabilitarRestriccionHoraria = usuario.HabilitarRestriccionHoraria,
+                HorasDuracionRestriccion = usuario.HorasDuracionRestriccion,
+                CampaniaID = usuario.CampaniaID,
+                ConsultoraID = usuario.ConsultoraID,
+                PrimerNombre = usuario.PrimerNombre,
+                MontoMinimoPedido = usuario.MontoMinimoPedido,
+                MontoMaximoPedido = usuario.MontoMaximoPedido,
+                ConsultoraNueva = usuario.ConsultoraNueva,
+                CodigoConsultora = usuario.CodigoConsultora,
+                CodigoUsuario = usuario.CodigoUsuario,
+                NombreCompleto = usuario.Nombre,
+                Email = usuario.EMail,
+                UsuarioPrueba = usuario.UsuarioPrueba,
+                RegionID = usuario.RegionID,
+                CodigorRegion = usuario.CodigorRegion,
+                ZonaID = usuario.ZonaID,
+                CodigoZona = usuario.CodigoZona,
+                ConsultoraAsociadoID = usuario.ConsultoraAsociadaID,
+                ConsultoraAsociada = usuario.ConsultoraAsociada,
+                FechaInicioFacturacion = usuario.FechaInicioFacturacion,
+                FechaFinFacturacion = usuario.FechaFinFacturacion,
+                HoraCierreZonaNormal = usuario.HoraCierreZonaNormal,
+                HoraCierreZonaDemAnti = usuario.HoraCierreZonaDemAnti,
+                EsZonaDemAnti = usuario.EsZonaDemAnti,
+                TipoUsuario = usuario.TipoUsuario,
+                TieneOfertaDelDia = usuario.OfertaDelDia
+            };
+
+            return usuarioConfiguracion;
         }
     }
 }

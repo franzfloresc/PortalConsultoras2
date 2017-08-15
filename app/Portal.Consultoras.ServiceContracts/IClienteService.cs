@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ServiceModel;
+﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cliente;
+using System;
+using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -25,6 +24,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BECliente> SelectByConsultora(int paisID, long consultoraID);
+
+        [OperationContract]
+        BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente);
 
         [OperationContract]
         BECliente SelectById(int paisID, long consultoraID, int clienteID);
@@ -59,6 +61,12 @@ namespace Portal.Consultoras.ServiceContracts
         IList<BECatalogoConfiguracion> GetCatalogoConfiguracion(int paisID);
 
         [OperationContract]
+        IList<BECatalogoRevista> GetListCatalogoRevistaPublicado(string paisISO, string codigoZona, int campania, Enumeradores.TamanioImagenIssu tamanioImagenIssu);
+
+        [OperationContract]
+        IList<BECatalogoRevista> GetListCatalogoRevistaPublicadoWithTitulo(string paisISO, string codigoZona, int campania);
+
+        [OperationContract]
         IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID);
 
         [OperationContract]
@@ -66,6 +74,51 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
+
+        [OperationContract]
+        List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
+
+        [OperationContract]
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID);
+
+        [OperationContract]
+        BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
+
+        [OperationContract]
+        int MovimientoInsertar(int paisId, BEMovimiento movimiento);
+
+        [OperationContract]
+        IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId);
+
+        [OperationContract]
+        Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
+
+        [OperationContract]
+        int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId);
+
+        [OperationContract]
+        bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio);
+
+        [OperationContract]
+        bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId);
+
+        [OperationContract]
+        IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
+
+        [OperationContract]
+        long NotaInsertar(int paisId, BENota nota);
+
+        [OperationContract]
+        IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId);
+
+        [OperationContract]
+        bool NotaActualizar(int paisId, BENota nota);
+
+        [OperationContract]
+        bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
 
     }
 }

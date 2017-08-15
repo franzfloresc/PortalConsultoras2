@@ -2,6 +2,31 @@
 
 USE BelcorpBolivia
 GO
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -38,9 +63,9 @@ where
 	o.CampaniaID = @CampaniaID	
 
 insert into ShowRoom.OfertaShowRoomDetalle
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 select 
-	@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+	@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion, Posicion
 	from @OfertaShowRoomDetalle
 	where NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
 		and o.CUV = CUV)
@@ -67,6 +92,31 @@ GO
 
 USE BelcorpChile
 GO
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -105,9 +155,9 @@ where
 	o.CampaniaID = @CampaniaID	
 
 insert into ShowRoom.OfertaShowRoomDetalle
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 select 
-	@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+	@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
 		and o.CUV = CUV)
@@ -136,6 +186,30 @@ GO
 /*end*/
 
 USE BelcorpColombia
+GO
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
 GO
 
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
@@ -177,8 +251,8 @@ where
 	o.CampaniaID = @CampaniaID	
 
 insert into ShowRoom.OfertaShowRoomDetalle
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where 
 	NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
@@ -207,6 +281,30 @@ GO
 /*end*/
 
 USE BelcorpCostaRica
+GO
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
 GO
 
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
@@ -257,9 +355,9 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
 
@@ -293,6 +391,30 @@ GO
 USE BelcorpDominicana
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -338,8 +460,8 @@ where
 
 
 insert into ShowRoom.OfertaShowRoomDetalle
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
 		and o.CUV = CUV)
@@ -387,6 +509,30 @@ GO
 USE BelcorpEcuador
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -440,11 +586,11 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
 select 
 
-@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
@@ -494,6 +640,30 @@ GO
 /*end*/
 
 USE BelcorpGuatemala
+GO
+
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
 GO
 
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
@@ -551,11 +721,11 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
 select 
 
-@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
@@ -608,6 +778,30 @@ GO
 USE BelcorpMexico
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -659,9 +853,9 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where 
 	NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
@@ -705,6 +899,30 @@ GO
 USE BelcorpPanama
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -761,11 +979,11 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
 select 
 
-@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
@@ -814,6 +1032,30 @@ GO
 USE BelcorpPeru
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -870,11 +1112,11 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
 select 
 
-@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
@@ -927,6 +1169,30 @@ GO
 USE BelcorpPuertoRico
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -974,8 +1240,8 @@ where
 	o.CampaniaID = @CampaniaID	
 
 insert into ShowRoom.OfertaShowRoomDetalle
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 from @OfertaShowRoomDetalle
 where 
 	NombreProducto not in (select NombreProducto from ShowRoom.OfertaShowRoomDetalle o where o.CampaniaID = @CampaniaID
@@ -1009,6 +1275,30 @@ GO
 USE BelcorpSalvador
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -1059,9 +1349,9 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
-select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+select @CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
@@ -1113,6 +1403,30 @@ GO
 USE BelcorpVenezuela
 GO
 
+DROP PROCEDURE ShowRoom.InsertCargaMasivaOfertaDetalle
+DROP TYPE ShowRoom.OfertaShowRoomDetalleType
+
+IF NOT EXISTS (
+		SELECT *
+		FROM INFORMATION_SCHEMA.COLUMNS
+		WHERE COLUMN_NAME = 'Posicion' AND TABLE_SCHEMA = 'ShowRoom' AND TABLE_NAME = 'OfertaShowRoomDetalle'
+		)
+		BEGIN
+		  ALTER TABLE ShowRoom.OfertaShowRoomDetalle ADD Posicion INT NULL
+		END
+
+/****** Object:  UserDefinedTableType [ShowRoom].[OfertaShowRoomDetalleType]    Script Date: 25/01/2017 06:27:28 p.m. ******/
+CREATE TYPE [ShowRoom].[OfertaShowRoomDetalleType] AS TABLE(
+	CUV varchar(20) NULL,
+	NombreSet varchar(250) NULL,
+	NombreProducto varchar(150) NULL,
+	Descripcion1 varchar(150) NULL,
+	Descripcion2 varchar(150) NULL,
+	Descripcion3 varchar(150) NULL,
+	Posicion int NULL
+)
+GO
+
 ALTER procedure ShowRoom.InsertCargaMasivaOfertaDetalle
 @OfertaShowRoomDetalle ShowRoom.OfertaShowRoomDetalleType readonly,
 @CampaniaID int,
@@ -1126,7 +1440,6 @@ declare @tablaSets table (CUV varchar(20), NombreSet varchar(250))
 insert into @tablaSets
 
 select distinct CUV, NombreSet from @OfertaShowRoomDetalle
-
 
 
 DECLARE @FechaGeneral DATETIME        
@@ -1165,11 +1478,11 @@ where
 
 insert into ShowRoom.OfertaShowRoomDetalle
 
-(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion)
+(CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,FechaCreacion,UsuarioCreacion,FechaModificacion,UsuarioModificacion,Posicion)
 
 select 
 
-@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion
+@CampaniaID,CUV,NombreProducto,Descripcion1,Descripcion2,Descripcion3,getdate(),@UsuarioCreacion,getdate(),@UsuarioCreacion,Posicion
 
 from @OfertaShowRoomDetalle
 
