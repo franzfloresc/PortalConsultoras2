@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
 using System.Configuration;
@@ -10,7 +11,7 @@ using System.Web.Routing;
 
 namespace Portal.Consultoras.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -378,64 +379,19 @@ namespace Portal.Consultoras.Web
         //    e.FederationConfiguration.IdentityConfiguration.SecurityTokenHandlers.AddOrReplace(sessionHandler); 
         //}
 
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    var httpContext = ((MvcApplication)sender).Context;
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+            var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
 
-        //    var currentRouteData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(httpContext));
-        //    var currentController = " ";
-        //    var currentAction = " ";
-
-        //    // obtiene de routing la controladora y accion donde ocurrio el error
-        //    if (currentRouteData != null)
-        //    {
-        //        if (currentRouteData.Values["controller"] != null && !String.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
-        //        {
-        //            currentController = currentRouteData.Values["controller"].ToString();
-        //        }
-
-        //        if (currentRouteData.Values["action"] != null && !String.IsNullOrEmpty(currentRouteData.Values["action"].ToString()))
-        //        {
-        //            currentAction = currentRouteData.Values["action"].ToString();
-        //        }
-        //    }
-
-        //    var ex = Server.GetLastError();
-
-        //    // crea la controladora dinamicamente
-        //    var controller = new ErrorController();
-        //    var routeData = new RouteData();
-        //    var action = "Index";
-
-        //    if (ex is HttpException)
-        //    {
-        //        var httpEx = ex as HttpException;
-
-        //        switch (httpEx.GetHttpCode())
-        //        {
-        //            case 404:
-        //                action = "NotFound";
-        //                break;
-
-        //            // otros errores Http
-
-        //            default:
-        //                action = "Index";
-        //                break;
-        //        }
-        //    }
-
-        //    // se deriva a la controladora de errores Http y las Views correspondientes
-        //    httpContext.ClearError();
-        //    httpContext.Response.Clear();
-        //    httpContext.Response.StatusCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
-        //    httpContext.Response.TrySkipIisCustomErrors = true;
-        //    routeData.Values["controller"] = "Error";
-        //    routeData.Values["action"] = action;
-
-        //    controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
-        //    ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
-        //} 
-
+            if (userData == null)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
+            }
+            else
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
+            }
+        }
     }
 }

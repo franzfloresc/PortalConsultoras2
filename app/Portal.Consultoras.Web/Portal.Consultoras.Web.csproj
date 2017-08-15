@@ -359,7 +359,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
-    <Compile Include="CustomAttributes\CustomHandleErrorAttribute.cs" />
+    <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />

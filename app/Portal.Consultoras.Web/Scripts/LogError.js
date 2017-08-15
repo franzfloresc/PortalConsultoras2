@@ -72,8 +72,8 @@ function registrarLogError(objError) {
 
     var extra = [
         { 'key': 'Url', 'value': objError.Url },
-        { 'key': 'TipoTrace', 'value': objError.TipoTrace },
-        { 'key': 'Browser', 'value': navigator.appVersion }
+        { 'key': 'Browser', 'value': navigator.appVersion },
+        { 'key': 'TipoTrace', 'value': objError.TipoTrace }
     ];
 
     data = {
