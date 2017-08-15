@@ -1,7 +1,9 @@
 ﻿$(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
+    var odd_desktop_google_analytics_promotion_impresion_fech;
     
+
     var self = window.OfertaDelDia;
 
     var CONS_TIPO_ORIGEN = {
@@ -47,7 +49,6 @@
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
             self.CargarODDEscritorio();
         }
-
     }
 
     function CargarODDMobile() {
@@ -178,6 +179,7 @@
                 if (odd_desktop_google_analytics_promotion_impresion_flag) {
                     odd_desktop_google_analytics_promotion_impresion();
                     odd_desktop_google_analytics_promotion_impresion_flag = false;
+                    odd_desktop_google_analytics_promotion_impresion_fech = new date();
                 }                    
             },
             error: function (err) {
