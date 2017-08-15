@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Common
         }
 
         //1774
-        public static string CuerpoMensajePersonalizado(string url, string nombreconsultora, string param_querystring, bool tipopais)
+        public static string CuerpoMensajePersonalizado(string url, string nombreConsultora, string param_querystring, bool esPaisBelcorp)
         {
             string s_html = string.Empty;
 
@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Common
             s_html += "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"background:#FFF;\">";
             s_html += "<thead>";
             s_html += "<tr>";
-            if (tipopais)
+            if (esPaisBelcorp)
             {
                 s_html += "<th colspan=\"3\" style=\"width:100%; height:50px; border-bottom:1px solid #000; padding:12px 0px; text-align:center;\"><img src=\"http://www.genesis-peru.com/mailing-belcorp/logo.png\" alt=\"Logo Esika\" /></th>";
             }
@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Common
             s_html += "<table align=\"center\"  border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"width:100%; text-align:center; padding-bottom:20px;\">";
             s_html += "<tbody>";
             s_html += "<tr>";
-            s_html += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola " + nombreconsultora + "!</td>";
+            s_html += "<td style=\"font-family:'Calibri'; font-size:17px; text-align:center; font-weight:500; color:#000; padding:0 0 20px 0;\">¡Hola " + nombreConsultora + "!</td>";
             s_html += "</tr>";
             s_html += "<tr>";
             s_html += "<td style=\"text-align:center; font-family:'Calibri'; font-size:20px; color:#000; padding-bottom:15px;\">Confírmanos tu dirección de correo para tener tu información actualizada y que puedas acceder a todos nuestros beneficios</td>";
@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Common
             s_html += "<table align=\"center\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" style=\"width:50%;\">";
             s_html += "<tbody>";
             s_html += "<tr>";
-            if (tipopais)
+            if (esPaisBelcorp)
             {
                 s_html += "<td style=\"font-family:'Calibri'; width:100%; text-align:center; background:#e81c36; padding-top:10px; padding-bottom:10px; color:white; font-weight:700;\"><a href='" + url + "WebPages/MailConfirmation.aspx?data=" + param_querystring + "'  style=\"text-decoration:none; font-family:'Calibri'; color:white; font-weight:700; font-size:15px;\">CONFIRMAR CORREO</a></td>";
             }

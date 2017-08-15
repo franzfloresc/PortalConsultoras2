@@ -204,6 +204,7 @@ $(document).ready(function () {
         $(".footer_e").css("margin-bottom", "0px");
     } else {
         $("#divBannerCompraPorCompra").show();
+        compraxcompra_promotion_impression();
         $(".footer_e").css("margin-bottom", "73px");
     }
     
@@ -245,6 +246,7 @@ $(document).ready(function () {
     else if (ver_compraxcompra == true) {
         $('.banner_especial_showroom').hide();
         $("#divBannerCompraPorCompra").show();
+        compraxcompra_promotion_impression();
         if ($("#divBannerCompraPorCompra").length > 0) {
             $(".footer_e").css("margin-bottom", "73px");
         }
@@ -308,8 +310,7 @@ function CargarFiltroRangoPrecio() {
             });
         }
     });
-//$('.range-slider').jRange('setValue', '0,100');
-    //$('.range-slider').jRange('updateRange', '0,100');
+
     $('.slider-container').css('width', '');
 }
 
@@ -407,7 +408,6 @@ function filterShowRoomDesktop() {
     };
 
     return busquedaModel;
-    //CargarProductosShowRoom(busquedaModel);
 }
 
 function closeCompraPorCompra() {
@@ -415,8 +415,6 @@ function closeCompraPorCompra() {
         type: 'POST',
         url: baseUrl + 'ShowRoom/CerrarBannerCompraPorCompra',
         dataType: 'json',
-        //contentType: 'application/json; charset=utf-8',
-        //data: JSON.stringify(busquedaModel),
         async: true,
         success: function (response) {            
             if (response.success == true) {
@@ -530,6 +528,25 @@ function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, 
                     'category': 'NO DISPONIBLE',
                     'quantity': cantidad
                 }]
+            }
+        }
+    });
+}
+
+function compraxcompra_promotion_impression() {
+    var id = $("#divBannerCompraPorCompra").data("cuv");
+    var name = 'Showroom – ' + $("#divBannerCompraPorCompra").data("descripcion");
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Showroom Footer',
+                        'creative': 'Promocion Showroom'
+                    }]
             }
         }
     });

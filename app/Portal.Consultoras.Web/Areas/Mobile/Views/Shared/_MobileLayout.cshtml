@@ -351,43 +351,36 @@
                             <ul class="slides">
                                 @if (ViewBag.MostrarShowRoomBannerLateral == true)
                                 {
-                                    if (showRoomBannerLateral.MostrarShowRoomProductos)
-                                    {
-                                        <li>
-                                            <div id="divShowRoomHoy" class="divShowRoom">
-                                                <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                                <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                    <li>
+                                        <div id="divShowRoomHoy" class="divShowRoom">
+                                            <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
+                                            <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Nombre" />
+                                            <input type="hidden" id="hdTemaEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                            @if (showRoomBannerLateral.MostrarShowRoomProductos)
+                                            {
                                                 <input type="hidden" id="hdtiposw" value="1" />
                                                 <div class="fondo_m">
-                                                    <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new {area = "Mobile"})">
+                                                    <a class="bannersc" href="@Url.Action("Index", "ShowRoom", new { area = "Mobile" })">
                                                         <div class="content_banner_new_showroom">
-                                                            @*<div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>*@
-                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" onclick="VerShowRoomVenta()" />
+                                                            <img style="width:100%;height:100%;" src="@ViewBag.ImagenPopupShowroomVenta" alt="-" />
                                                         </div>
                                                     </a>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    }
-                                    else if (showRoomBannerLateral.MostrarShowRoomProductos == false)
-                                    {
-                                        <li>
-                                            <div id="divShowRoom" class="divShowRoom">
-                                                <input type="hidden" id="hdEventoIDShowRoom" value="@showRoomBannerLateral.BEShowRoom.EventoID" />
-                                                <input type="hidden" id="hdNombreEventoShowRoom" value="@showRoomBannerLateral.BEShowRoom.Tema" />
+                                            }
+                                            else if (showRoomBannerLateral.MostrarShowRoomProductos == false)
+                                            {
                                                 <input type="hidden" id="hdtiposw" value="2" />
                                                 <div class="fondo_m">
-
-                                                    <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new {area = "Mobile"})">
+                                                    <a class="bannersi" href="@Url.Action("Intriga", "ShowRoom", new { area = "Mobile" })">
                                                         <div class="content_banner_new_showroom">
                                                             <div class="dias_faltantes"><span id="spnDiasFaltantes">@ViewBag.DiasFaltantesLetras </span> </div>
-                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" onclick="VerShowRoomIntriga()"/>
+                                                            <img style="width:100%;" src="@ViewBag.ImagenPopupShowroomIntriga" alt="-" />
                                                         </div>
                                                     </a>
                                                 </div>
-                                            </div>
-                                        </li>
-                                    }
+                                            }
+                                        </div>
+                                    </li>
                                 }
 
                                 @if (ViewBag.MostrarOfertaDelDia == true)
@@ -850,14 +843,16 @@
                 function AgregarTagManagerShowRoomAnalytics() {
                     var EventoIdentificador = $("#hdEventoIDShowRoom").val();
                     var EventoShowRoomNombre = $("#hdNombreEventoShowRoom").val();
+                    var EventoShowRoomTema = $("#hdTemaEventoShowRoom").val();
+
                     if (mostrarShowRoomProductos == 'True') {
                         dataLayer.push({
                             'event': 'promotionView',
                             'ecommerce': {
                                 'promoView': [{
                                     'id': EventoIdentificador,
-                                    'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Compra Ya',
-                                    'position': 'Home Slider – 1',
+                                    'name': EventoShowRoomNombre + ' ' + EventoShowRoomTema + ' - Compra Ya',
+                                    'position': 'Home Slider - 1',
                                     'creative': 'Banner'
                                 }]
                             }
@@ -868,8 +863,8 @@
                             'ecommerce': {
                                 'promoView': [{
                                     'id': EventoIdentificador,
-                                    'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
-                                    'position': 'Home Slider – 1',
+                                    'name': EventoShowRoomNombre + ' ' + EventoShowRoomTema + ' - Entérate',
+                                    'position': 'Home Slider - 1',
                                     'creative': 'Banner'
                                 }]
                             }
@@ -894,7 +889,7 @@
                                 'ecommerce': {
                                     'promoView': [{
                                         'id': EventoIdentificador,
-                                        'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate Primero',
+                                        'name': 'Venta Exclusiva Web ' + EventoShowRoomNombre + ' - Entérate',
                                         'position': 'Home superior - 1',
                                         'creative': 'Banner'
                                     }]
@@ -941,7 +936,7 @@
                 }
 
                 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-                    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+                    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
                     if (esHoy) name += " - fase 2";
 
                     dataLayer.push({
@@ -961,7 +956,7 @@
                 }
 
                 function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-                    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+                    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
                     if (esHoy) name += " - fase 2";
 
                     dataLayer.push({

@@ -804,7 +804,7 @@ function MostrarShowRoomBannerLateral() {
 
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (response.estaActivoLateral) {
-                                $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                $("#hdTemaEventoShowRoom").val(evento.Tema);
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
 
                                 if (response.mostrarShowRoomProductos) {
@@ -900,7 +900,7 @@ function AgregarTimerShowRoom(dia, mes, anio) {
 }
 
 function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
 
     if (esHoy)
         name += " - fase 2";
@@ -922,7 +922,7 @@ function AgregarTagManagerShowRoomBannerLateral(esHoy) {
 }
 
 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
 
     if (esHoy)
         name += " - fase 2";
@@ -969,7 +969,12 @@ function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
-    dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Click enlace',
+        'label': 'Términos y Condiciones'
+    });
 };
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {

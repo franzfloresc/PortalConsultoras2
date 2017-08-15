@@ -172,7 +172,7 @@
         function AgregarOfertaShowRoomIntriga(cantidad) {
             var CUV = @Model.CUV;
             var MarcaID =@Model.MarcaID;
-            var PrecioUnidad = @Model.PrecioOferta;
+            var PrecioUnidad = '@Model.PrecioOferta';
             var ConfiguracionOfertaID = @Model.ConfiguracionOfertaID;
             var nombreProducto = $("#hdProductoNombre").val();
             var posicion = 1;
@@ -243,14 +243,15 @@
                 'event': 'addToCart',
                 'ecommerce': {
                     'add': {
+                        'actionField': { 'list': 'Ofertas Showroom' },
                         'products': [{
                             'name': nombreProducto,
                             'id': CUV,
-                            'price': PrecioUnidad,
+                            'price': PrecioUnidad.toString(),
                             'brand': descripcionMarca,
                             'variant': 'Ofertas Showroom',
                             'category': 'NO DISPONIBLE',
-                            'quantity': cantidad
+                            'quantity': cantidad.toString()
                         }]
                     }
                 }

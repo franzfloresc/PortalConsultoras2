@@ -581,7 +581,7 @@ $("#content_oferta_dia_mobile").click(function () {
 function odd_mobile_google_analytics_promotion_click() {
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del d�a - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
         var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
         dataLayer.push({
             'event': 'promotionClick',
@@ -634,53 +634,4 @@ function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
-function VerShowRoomIntriga()
-{    
-    var id = "";
-    var name = "";
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
-    id = $("#hdEventoIDShowRoom").val();
-
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
-            }
-        }
-    });
-
-}
-
-function VerShowRoomVenta()
-{    
-    var id = "";
-    var name = "";
-
-    name = $("#hdNombreEventoShowRoom").val() + ' - Compra Ya';
-    id = $("#hdEventoIDShowRoom").val();
-
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
-            }
-        }
-    });
-}
