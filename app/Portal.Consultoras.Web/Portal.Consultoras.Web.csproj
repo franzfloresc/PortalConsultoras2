@@ -1185,6 +1185,7 @@
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
+    <Content Include="Content\Images\Esika\bg_regalo_mobile.png" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
     <Content Include="Content\Images\dislike.png" />
@@ -2563,6 +2564,8 @@
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
+    <Content Include="Content\Images\mobile\icono_regalo.png" />
+    <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />

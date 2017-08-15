@@ -8,6 +8,7 @@ var oRegaloPN = null;
 var ofertaFinalRegalo = null;
 
 $(document).ready(function () {
+   
     $("body").on("click", ".agregarOfertaFinal", function () {
         if (tipoOrigen == "1") {
             AbrirSplash();
@@ -216,6 +217,7 @@ $(document).ready(function () {
     if (cuvOfertaProl != "") {
         EjecutarPROL(cuvOfertaProl);
     }
+   
 });
 
 function PopupOfertaFinalCerrar() {
@@ -261,7 +263,21 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
-
+    //POP UP REGALO MOBLE
+    $("#linkRegaloSorpresa").click(function () {
+        // Set the effect type
+        var effect = 'slide';
+        var options = { direction: 'right' };
+        var duration = 500;
+        $('#ContentSorpresaMobile').toggle(effect, options, duration);
+    });
+    $("#btnRegresoOF").click(function () {
+        // Set the effect type
+        var effect = 'slide';
+        var options = { direction: 'right' };
+        var duration = 500;
+        $('#ContentSorpresaMobile').toggle(effect, options, duration);
+    });
     // Regalo OF
     if (cumpleOferta.regaloOF != null) {
         ofertaFinalRegalo = cumpleOferta.regaloOF;
@@ -292,8 +308,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             centerMode: false,
             centerPadding: '0',
             tipo: 'p',
-            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: -4%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
-            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right:-4%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
+            prevArrow: '<a class="previous_ofertas_mobile js-slick-prev-h" style="left: 0%; top: 7%;"><img src="/Content/Images/mobile/Esika/previous_ofertas_home.png"/></a>',
+            nextArrow: '<a class="previous_ofertas_mobile js-slick-next-h" style="right:0%; top: 7%;"><img src="/Content/Images/mobile/Esika/next.png"/></a>'
         }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
             of_google_analytics_producto_impresion_arrows(event, slick, currentSlide, nextSlide, tipoOrigen, objOf.TipoMeta, objOf.Detalle);
         });
