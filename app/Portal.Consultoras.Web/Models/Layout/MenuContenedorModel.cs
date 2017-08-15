@@ -6,6 +6,7 @@
         public bool IsBloqueada { get; set; }
         public string Logo { get; set; }
         public string TituloMenu { get; set; }
+        public string SubTituloMenu { get; set; }
         public int Orden { get; set; }
 
         public string LogoBanner { get; set; }

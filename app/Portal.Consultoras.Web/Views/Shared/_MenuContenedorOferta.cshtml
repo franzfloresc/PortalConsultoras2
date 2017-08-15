@@ -1,0 +1,37 @@
+﻿
+@{
+    var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor;
+    var listaNegra = permisoList.Where(p => p.IsBloqueada);
+    var listaPloma = permisoList.Where(p => p.IsBloqueada === false);
+}
+
+<div class="bc_menu_estrategia">
+    @if (listaNegra.Any())
+    {
+        <ul class="menu_estrategia">
+            @foreach (var menu in listaNegra)
+            {
+                <li>
+                    <a href="javascript:;">
+                        <img src="@menu.Logo" alt="" class="icono">
+                        <p>@menu.TituloMenu</p>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+    @if (listaPloma.Any())
+    {
+        <ul class="sbmenu_estrategia">
+            @foreach (var menu in listaPloma)
+            {
+                <li>
+                    <a href="javascript:;">
+                        <p>@menu.TituloMenu</p>
+                        <span>@menu.SubTituloMenu</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div> 
