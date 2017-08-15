@@ -9,6 +9,7 @@ using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using System;
 
 namespace Portal.Consultoras.Web.Models.AutoMapper
 {
@@ -127,19 +128,13 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Cuv, f => f.MapFrom(c => c.CUV))
                 .ForMember(t => t.NombreMarca, f => f.MapFrom(c => c.DescripcionMarca));
 
-            Mapper.CreateMap<BECDRWeb, CDRWebModel>()
-                .ForMember(t => t.CDRWebID, f => f.MapFrom(c => c.CDRWebID))
-                .ForMember(t => t.PedidoID, f => f.MapFrom(c => c.PedidoID))
-                .ForMember(t => t.PedidoNumero, f => f.MapFrom(c => c.PedidoNumero))
-                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                .ForMember(t => t.ConsultoraID, f => f.MapFrom(c => c.ConsultoraID))
-                .ForMember(t => t.FechaRegistro, f => f.MapFrom(c => c.FechaRegistro))
-                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado))
-                .ForMember(t => t.FechaCulminado, f => f.MapFrom(c => c.FechaCulminado))
-                .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
-                .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
-                .ForMember(t => t.ConsultoraSaldo, f => f.MapFrom(c => c.ConsultoraSaldo))
-                .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
+            Mapper.CreateMap<BECDRWeb, CDRWebModel>();
+
+            Mapper.CreateMap<BELogCDRWeb, CDRWebModel>()
+                .ForMember(t => t.PedidoNumero, f => f.MapFrom(c => c.PedidoFacturadoId))
+                .ForMember(t => t.CampaniaID, f => f.MapFrom(c => string.IsNullOrEmpty(c.CampaniaId) ? 0 : Convert.ToInt32(c.CampaniaId)))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.EstadoCDR))
+                .ForMember(t => t.Importe, f => f.MapFrom(c => c.ImporteCDR));
 
             Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))

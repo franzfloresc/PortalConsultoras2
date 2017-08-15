@@ -343,8 +343,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult ListarDetalleCdr(long solicitudId)
         {
-            var model = new CDRWebModel();
-
             var logCdrWeb = new BELogCDRWeb();
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
@@ -355,29 +353,17 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
-
-            model.CDRWebID = logCdrWeb.CDRWebID;
-            model.PedidoID = logCdrWeb.PedidoId;
-            model.PedidoNumero = logCdrWeb.PedidoFacturadoId;
-            model.CampaniaID = string.IsNullOrEmpty(logCdrWeb.CampaniaId) ? 0 : Convert.ToInt32(logCdrWeb.CampaniaId);
-            model.FechaRegistro = logCdrWeb.FechaRegistro;
-            model.Estado = logCdrWeb.EstadoCDR;
-            model.FechaCulminado = logCdrWeb.FechaCulminado;
-            model.FechaAtencion = logCdrWeb.FechaAtencion;
-            model.Importe = logCdrWeb.ImporteCDR;
+            
+            var model = Mapper.Map<CDRWebModel>(logCdrWeb);
             model.NombreConsultora = userData.NombreConsultora;
             model.CodigoIso = userData.CodigoISO;
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = listaCdrWebDetalle;
-            model.ConsultoraSaldo = logCdrWeb.ConsultoraSaldo;
-
             return PartialView("ListaDetalleCdr", model);
         }
 
         public ActionResult ListarDetalleCdrCulminado(long solicitudId)
         {
-            var model = new CDRWebModel();
-
             var cdrWeb = new BECDRWeb();
             var listaCdrWebDetalle = new List<BECDRWebDetalle>();
             using (CDRServiceClient sv = new CDRServiceClient())
@@ -388,18 +374,12 @@ namespace Portal.Consultoras.Web.Controllers
                 listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
                 listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
             }
-
-            model.CDRWebID = cdrWeb.CDRWebID;
-            model.PedidoID = cdrWeb.PedidoID;
-            model.PedidoNumero = cdrWeb.PedidoNumero;
-            model.CampaniaID = cdrWeb.CampaniaID;
-            model.FechaRegistro = cdrWeb.FechaRegistro;
-            model.FechaCulminado = cdrWeb.FechaCulminado;
-            model.NombreConsultora = userData.NombreConsultora;
+            
+            var model = Mapper.Map<CDRWebModel>(cdrWeb);
             model.CodigoIso = userData.CodigoISO;
+            model.NombreConsultora = userData.NombreConsultora;
             model.Simbolo = userData.Simbolo;
             model.ListaDetalle = listaCdrWebDetalle;
-
             return PartialView("ListaDetalleCdrCulminado", model);
         }
 

@@ -768,6 +768,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
                     //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
+                    model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919 
+                    model.EsConsecutivoNueva = oBEUsuario.EsConsecutivoNueva; //EPD-1919
+
                     #endregion
 
                     if (model.RolID == Constantes.Rol.Consultora)
