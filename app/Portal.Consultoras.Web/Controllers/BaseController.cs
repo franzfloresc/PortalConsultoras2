@@ -2481,7 +2481,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            string url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            string url = "";
+            if (HttpContext.Request.UrlReferrer != null)
+            {
+                url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            }
+            else
+            {
+                url = Util.Trim(HttpContext.Request.FilePath).ToLower();
+            }
+
             if (url.Contains("/mobile/")) return true;
             else return false;
         }

@@ -1,8 +1,8 @@
 ﻿
 @{
-    var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor;
+    var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var listaNegra = permisoList.Where(p => p.IsBloqueada);
-    var listaPloma = permisoList.Where(p => p.IsBloqueada === false);
+    var listaPloma = permisoList.Where(p => p.IsBloqueada == false);
 }
 
 <div class="bc_menu_estrategia">
