@@ -881,7 +881,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TituloBanner = isMobile ? confiRd.MobileTituloBanner : confiRd.DesktopTituloBanner,
                     SubTituloBanner = isMobile ? confiRd.MobileSubTituloBanner : confiRd.DesktopSubTituloBanner,
                     Orden = 1,
-                    IsBloqueada = true
+                    IsMenuCampania = true
                 });
             }
 
