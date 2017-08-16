@@ -20,6 +20,33 @@ namespace Portal.Consultoras.Entities
         public bool Estado { get; set; }
 
         [DataMember]
+        public bool Validado { get; set; }
+        [DataMember]
+        public bool TienePerfil { get; set; }
+        [DataMember]
+        public string MobileTituloMenu { get; set; }
+        [DataMember]
+        public string DesktopTituloMenu { get; set; }
+        [DataMember]
+        public string Logo { get; set; }
+        [DataMember]
+        public int Orden { get; set; }
+        [DataMember]
+        public int DesdeCampania { get; set; }
+        [DataMember]
+        public int PaisID { get; set; }
+        [DataMember]
+        public string DesktopTituloBanner { get; set; }
+        [DataMember]
+        public string MobileTituloBanner { get; set; }
+        [DataMember]
+        public string DesktopSubTituloBanner { get; set; }
+        [DataMember]
+        public string MobileSubTituloBanner { get; set; }
+        [DataMember]
+        public string Color { get; set; }
+
+        [DataMember]
         public BEConfiguracionPaisDetalle Detalle  { get; set; }
 
         public BEConfiguracionPais() {
@@ -33,6 +60,17 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("Excluyente")) Excluyente = Convert.ToBoolean(row["Excluyente"]);
             if (row.HasColumn("Descripcion")) Descripcion = Convert.ToString(row["Descripcion"]);
             if (row.HasColumn("Estado")) Estado = Convert.ToBoolean(row["Estado"]);
+            if (row.HasColumn("TienePerfil")) TienePerfil = Convert.ToBoolean(row["TienePerfil"]);
+            if (row.HasColumn("DesdeCampania")) DesdeCampania = Convert.ToInt32(row["DesdeCampania"]);
+            if (row.HasColumn("MobileTituloMenu")) MobileTituloMenu = Convert.ToString(row["MobileTituloMenu"]);
+            if (row.HasColumn("DesktopTituloMenu")) DesktopTituloMenu = Convert.ToString(row["DesktopTituloMenu"]);
+            if (row.HasColumn("Logo")) Logo = Convert.ToString(row["Logo"]);
+            if (row.HasColumn("Orden")) Orden = Convert.ToInt32(row["Orden"]);
+            if (row.HasColumn("DesktopTituloBanner")) DesktopTituloBanner = Convert.ToString(row["DesktopTituloBanner"]);
+            if (row.HasColumn("MobileTituloBanner")) MobileTituloBanner = Convert.ToString(row["MobileTituloBanner"]);
+            if (row.HasColumn("DesktopSubTituloBanner")) DesktopSubTituloBanner = Convert.ToString(row["DesktopSubTituloBanner"]);
+            if (row.HasColumn("MobileSubTituloBanner")) MobileSubTituloBanner = Convert.ToString(row["MobileSubTituloBanner"]);
+            if (row.HasColumn("Color")) Color = Convert.ToString(row["Color"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }

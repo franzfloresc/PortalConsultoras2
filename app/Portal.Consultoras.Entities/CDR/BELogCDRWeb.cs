@@ -33,25 +33,37 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public byte EstadoCDR { get; set; }
 
+        //EPD-1919 INICIO
+        [DataMember]
+        public bool? TipoDespacho { get; set; }
+        [DataMember]
+        public decimal FleteDespacho { get; set; }
+        [DataMember]
+        public string MensajeDespacho { get; set; }
+        //EPD-1919 FIN
+
         //EPD-1665
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
 
         public BELogCDRWeb(IDataRecord row)
         {
-            if (DataRecord.HasColumn(row, "LogCDRWebId") && row["LogCDRWebId"] != DBNull.Value) this.LogCDRWebId = Convert.ToInt64(row["LogCDRWebId"]);
-            if (DataRecord.HasColumn(row, "CDRWebID") && row["CDRWebID"] != DBNull.Value) this.CDRWebID = Convert.ToInt32(row["CDRWebID"]);
-            if (DataRecord.HasColumn(row, "CampaniaId") && row["CampaniaId"] != DBNull.Value) this.CampaniaId = Convert.ToString(row["CampaniaId"]);
-            if (DataRecord.HasColumn(row, "PedidoId") && row["PedidoId"] != DBNull.Value) this.PedidoId = Convert.ToInt32(row["PedidoId"]);
-            if (DataRecord.HasColumn(row, "PedidoFacturadoId") && row["PedidoFacturadoId"] != DBNull.Value) this.PedidoFacturadoId = Convert.ToInt32(row["PedidoFacturadoId"]);
-            if (DataRecord.HasColumn(row, "ConsultoraId") && row["ConsultoraId"] != DBNull.Value) this.ConsultoraId = Convert.ToInt64(row["ConsultoraId"]);
-            if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value) this.CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
-            if (DataRecord.HasColumn(row, "FechaRegistro") && row["FechaRegistro"] != DBNull.Value) this.FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
-            if (DataRecord.HasColumn(row, "FechaCulminado") && row["FechaCulminado"] != DBNull.Value) this.FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
-            if (DataRecord.HasColumn(row, "FechaAtencion") && row["FechaAtencion"] != DBNull.Value) this.FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
-            if (DataRecord.HasColumn(row, "ImporteCDR") && row["ImporteCDR"] != DBNull.Value) this.ImporteCDR = Convert.ToDecimal(row["ImporteCDR"]);
-            if (DataRecord.HasColumn(row, "EstadoCDR") && row["EstadoCDR"] != DBNull.Value) this.EstadoCDR = Convert.ToByte(row["EstadoCDR"]);
-            if (DataRecord.HasColumn(row, "ConsultoraSaldo") && row["ConsultoraSaldo"] != DBNull.Value) this.ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
+            if (DataRecord.HasColumn(row, "LogCDRWebId")) this.LogCDRWebId = Convert.ToInt64(row["LogCDRWebId"]);
+            if (DataRecord.HasColumn(row, "CDRWebID")) this.CDRWebID = Convert.ToInt32(row["CDRWebID"]);
+            if (DataRecord.HasColumn(row, "CampaniaId")) this.CampaniaId = Convert.ToString(row["CampaniaId"]);
+            if (DataRecord.HasColumn(row, "PedidoId")) this.PedidoId = Convert.ToInt32(row["PedidoId"]);
+            if (DataRecord.HasColumn(row, "PedidoFacturadoId")) this.PedidoFacturadoId = Convert.ToInt32(row["PedidoFacturadoId"]);
+            if (DataRecord.HasColumn(row, "ConsultoraId")) this.ConsultoraId = Convert.ToInt64(row["ConsultoraId"]);
+            if (DataRecord.HasColumn(row, "CodigoConsultora")) this.CodigoConsultora = Convert.ToString(row["CodigoConsultora"]);
+            if (DataRecord.HasColumn(row, "FechaRegistro")) this.FechaRegistro = Convert.ToDateTime(row["FechaRegistro"]);
+            if (DataRecord.HasColumn(row, "FechaCulminado")) this.FechaCulminado = Convert.ToDateTime(row["FechaCulminado"]);
+            if (DataRecord.HasColumn(row, "FechaAtencion")) this.FechaAtencion = Convert.ToDateTime(row["FechaAtencion"]);
+            if (DataRecord.HasColumn(row, "ImporteCDR")) this.ImporteCDR = Convert.ToDecimal(row["ImporteCDR"]);
+            if (DataRecord.HasColumn(row, "EstadoCDR")) this.EstadoCDR = Convert.ToByte(row["EstadoCDR"]);
+            if (DataRecord.HasColumn(row, "ConsultoraSaldo")) this.ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
+            if (DataRecord.HasColumn(row, "TipoDespacho")) this.TipoDespacho = Convert.ToBoolean(row["TipoDespacho"]);
+            if (DataRecord.HasColumn(row, "FleteDespacho")) this.FleteDespacho = Convert.ToDecimal(row["FleteDespacho"]);
+            if (DataRecord.HasColumn(row, "MensajeDespacho")) this.MensajeDespacho = Convert.ToString(row["MensajeDespacho"]);
         }
     }
 }
