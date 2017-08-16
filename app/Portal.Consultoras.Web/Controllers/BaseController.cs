@@ -858,7 +858,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 listaMenu.Add(new MenuContenedorModel {
                     CampaniaID = userData.CampaniaID,
-                    Logo = confi.Logo,
                     TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
                     LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
                     FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
@@ -872,6 +871,18 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var menuCampania = BuildMenuCampaniaContenedor();
                 listaMenu.AddRange(menuCampania);
+
+                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
+                listaMenu.Add(new MenuContenedorModel
+                {
+                    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                    Orden = confi.Orden
+                });
             }
 
             return listaMenu;
@@ -889,7 +900,8 @@ namespace Portal.Consultoras.Web.Controllers
                 TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "COMPRAR",
                 SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
                 Orden = 1,
-                IsMenuCampania = true
+                IsMenuCampania = true,
+                Activa = true
             });
 
             listaMenu.Add(new MenuContenedorModel

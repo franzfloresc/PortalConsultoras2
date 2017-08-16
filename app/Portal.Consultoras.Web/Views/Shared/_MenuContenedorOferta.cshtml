@@ -11,7 +11,7 @@
         <ul class="menu_estrategia">
             @foreach (var menu in listaNegra)
             {
-                <li data-campania="@menu.CampaniaID">
+                <li data-campania="@menu.CampaniaID" data-activo="@menu.Activa">
                     <a href="javascript:;">
                         <img src="@menu.Logo" alt="" class="icono">
                         <p>@menu.TituloMenu</p>
@@ -25,7 +25,8 @@
         <ul class="sbmenu_estrategia">
             @foreach (var menu in listaPloma)
             {
-                <li data-campania="@menu.CampaniaID">
+                var mostrar = menu.Activa ? "block" : "none";
+                <li data-campania="@menu.CampaniaID" style="display:@mostrar;">
                     <a href="javascript:;">
                         <p>@menu.TituloMenu</p>
                         <span>@menu.SubTituloMenu</span>

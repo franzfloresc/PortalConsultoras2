@@ -14,6 +14,6 @@
         public string SubTituloBanner { get; set; }
 
         public bool IsMenuCampania { get; set; }
-        public bool IsActiva { get; set; }
+        public bool Activa { get; set; }
     }
 }
