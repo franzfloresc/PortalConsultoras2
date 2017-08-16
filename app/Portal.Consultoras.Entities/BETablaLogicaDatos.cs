@@ -12,6 +12,8 @@ namespace Portal.Consultoras.Entities
     public class BETablaLogicaDatos
     {
         [DataMember]
+        public int PaisID { get; set; }
+        [DataMember]
         public Int16 TablaLogicaDatosID { get; set; }
         [DataMember]
         public Int16 TablaLogicaID { get; set; }
@@ -26,6 +28,15 @@ namespace Portal.Consultoras.Entities
             TablaLogicaID = Convert.ToInt16(row["TablaLogicaID"]);
             Codigo = Convert.ToString(row["Codigo"]);
             Descripcion = Convert.ToString(row["Descripcion"]);
+        }
+
+        public BETablaLogicaDatos(IDataRecord row, int PaisID)
+        {
+            TablaLogicaDatosID = Convert.ToInt16(row["TablaLogicaDatosID"]);
+            TablaLogicaID = Convert.ToInt16(row["TablaLogicaID"]);
+            Codigo = Convert.ToString(row["Codigo"]);
+            Descripcion = Convert.ToString(row["Descripcion"]);
+            this.PaisID = PaisID;
         }
     }
 }
