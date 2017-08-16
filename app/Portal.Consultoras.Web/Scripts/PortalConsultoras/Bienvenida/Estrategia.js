@@ -871,7 +871,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
-            var estrategiaCarrusel = popup ? new Object() : EstrategiaObtenerObj(objInput);//JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
+            var estrategiaCarrusel = popup ? new Object() : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {
@@ -1042,6 +1042,7 @@ function EstrategiaTallaColor(datos) {
 
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
+    debugger;
     var marcaID = datosEst.MarcaID; // $("#txtCantidadZE").attr("est-marcaID");
     var cuv = datosEst.CUV2; // $("#txtCantidadZE").attr("est-cuv2");
     var precio = datosEst.Precio2;// $("#txtCantidadZE").attr("est-precio2");
