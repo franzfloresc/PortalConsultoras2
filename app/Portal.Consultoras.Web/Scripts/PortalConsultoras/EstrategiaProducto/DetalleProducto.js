@@ -48,7 +48,7 @@
                     $("#divCarrouselMasVendidosLista").find("[data-posicion-set]").find(".orden_listado_numero").find("[data-posicion-current]").html(1);
                 }, 500);
             }).slick({
-                dots: true,
+                dots: false,
                 infinite: true,
                 speed: 300,
                 slidesToShow: 1,
