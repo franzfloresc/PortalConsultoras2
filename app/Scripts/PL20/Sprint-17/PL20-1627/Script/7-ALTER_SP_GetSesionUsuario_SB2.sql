@@ -1,4 +1,4 @@
-use BelcorpPeru
+ï»¿use BelcorpPeru
 go
 Alter PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoConsultora varchar(25)
@@ -96,7 +96,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -433,7 +433,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -771,7 +771,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -1108,7 +1108,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -1451,7 +1451,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -1793,7 +1793,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -2135,7 +2135,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -2477,7 +2477,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -2819,7 +2819,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -3161,7 +3161,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -3503,7 +3503,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -3845,7 +3845,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
@@ -4187,7 +4187,7 @@ BEGIN
 				and	CO.ZonaID=@ZonaID
 		order by PedidoID desc
 
-		/* Se toma en cuenta la Fecha de Vencimiento sobre la última campaña facturada */
+		/* Se toma en cuenta la Fecha de Vencimiento sobre la Ãºltima campaÃ±a facturada */
 		SET @FechaLimitePago = (
 			SELECT FechaLimitePago
 			FROM ODS.Cronograma
