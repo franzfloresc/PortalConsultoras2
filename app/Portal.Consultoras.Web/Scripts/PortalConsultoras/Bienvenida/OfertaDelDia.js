@@ -179,7 +179,7 @@
                 if (odd_desktop_google_analytics_promotion_impresion_flag) {
                     odd_desktop_google_analytics_promotion_impresion();
                     odd_desktop_google_analytics_promotion_impresion_flag = false;
-                    odd_desktop_google_analytics_promotion_impresion_fech = new date();
+                    odd_desktop_google_analytics_promotion_impresion_fech = new Date();
                 }                    
             },
             error: function (err) {
