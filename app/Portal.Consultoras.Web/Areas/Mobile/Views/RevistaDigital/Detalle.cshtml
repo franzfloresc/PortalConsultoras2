@@ -3,9 +3,9 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
-
 }
 
 @section styles{
@@ -14,7 +14,7 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage">
+<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -31,7 +31,13 @@
         <input type="hidden" class="Palanca" value="LAN" />
     </div>
     <div class="content_detalle_set_bpt">
-        <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
+        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            if (mobileConfiguracion.MostrarBotonAtras)
+            {
+                <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
+            }
+        }
+        
         @if (Model.EstrategiaDetalle.ImgFichaFondoMobile != "")
         {
             <img src="@Model.EstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;"/>
@@ -60,17 +66,21 @@
             </div>
         }
     </div>
-    <div class="share_social_nertwoks" data-posicion="0" data-item="165">       
-        <div class="title-compartir">Comparte este producto con tus clientes:</div>
-        <div class="content_redes_ficha">
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
-                <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
-            </a>
-            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
-                <img src="/Content/Images/Mobile/Esika/facebook.png">
-            </a>
+    @if (mobileConfiguracion.MostrarHipervinculo)
+    {
+        <div class="share_social_nertwoks" data-posicion="0" data-item="165">
+            <div class="title-compartir">Comparte este producto con tus clientes:</div>
+            <div class="content_redes_ficha">
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
+                    <img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt="">
+                </a>
+                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB">
+                    <img src="/Content/Images/Mobile/Esika/facebook.png">
+                </a>
+            </div>
         </div>
-    </div>
+    }
+    
     @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
     {
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
@@ -102,7 +112,7 @@
     var tipoOrigenEstrategia = 272;
 </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
 }

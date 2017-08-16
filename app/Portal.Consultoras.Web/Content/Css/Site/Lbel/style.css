@@ -214,7 +214,7 @@ header {
     float: left;
     margin-top: 18px;
     height: 23px;
-    margin-right: 13px;
+    margin-right: 12px;
     margin-left: 12px;
 }
 .new_menu_a {
@@ -5220,8 +5220,8 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 .monto_ganancia_producto{
     display:inline-block;
     background:#000;
-    width:139px;
-    height:18px;
+    width:136px;
+    height:100%;
     color:#FFF;
     text-align:center;
     line-height:18px;
@@ -6439,6 +6439,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 .boton_cerrar_s {
     overflow: hidden;
+    float: left;
 }
 
 /****************************************************************
@@ -21096,7 +21097,7 @@ label.checkpop.c_on {
     float: left;
     width: 248px;
     margin-right:25px;
-    min-height: 372px;
+    min-height: 330px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -33039,8 +33040,8 @@ h1#penmostreo .campana {
 /*FICHA PRODUCTO FAV DESKTOP*/
 .content_left_ficha {
     float: left;
-    width: 40%;
-    margin-right: 5%;
+    width: 43%;
+    margin-right: 2%;
 }
 
 .content_ficha_producto {
@@ -33521,9 +33522,9 @@ h1#penmostreo .campana {
     margin-top:5px;
 }
 .correo_showroon {
-    position:relative;
-    width:100%;
-    margin-top:20px;
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
     background: url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/LUlPmmzPLc7VpSr/page-1.png)no-repeat left bottom;
     padding-left: 12%;
 }
@@ -33551,10 +33552,10 @@ h1#penmostreo .campana {
     color:#494949;
     text-align: left;
 }
+
 .termino_condiciones_cupon {
     position: relative;
     padding-left: 18px;
-    
 }
 .termino_condiciones_intriga:before, .termino_condiciones_cupon:before {
     position: absolute;
@@ -34858,7 +34859,7 @@ h1#penmostreo .campana {
     font-weight: 700;
     text-decoration:underline;
 }
-.content_cupon_pedido{
+.content_cupon_pedido {
     width: 94%;
     height: 44px;
     background: black url(../../../Images/PL20/icono_cupon.png) no-repeat;
@@ -34866,12 +34867,12 @@ h1#penmostreo .campana {
     background-position: 19px 6px;
     position: relative;
     font-family: 'Lato';
-    font-size:12px;
+    font-size: 12px;
     float: left;
     color: white;
     margin-right: 2.1%;
-    position:relative;
-    z-index:100;
+    position: relative;
+    z-index: 100;
     padding-left: 26%;
     padding-top: 5px;
     line-height: 15px;
@@ -34897,8 +34898,8 @@ h1#penmostreo .campana {
     float: right;*/
 
 }
-.icono_cupon_monto{
-     display: block !important;
+.icono_cupon_monto {
+    display: block !important;
     float: left;
     width: 85px;
     height: 40px;
@@ -34910,8 +34911,8 @@ h1#penmostreo .campana {
     padding-right: 13px;
     padding-top: 5px;
 }
-.icono_cupon_monto img{
-    width:87%;
+.icono_cupon_monto img {
+    width: 87%;
 }
 .icono_cupon_monto::before{
     content:'';
@@ -34934,13 +34935,13 @@ h1#penmostreo .campana {
     margin-left: 38px;
     line-height: 13px;
 }
-.content_cupon{
-    width:664px;
-    height:280px;
-    position:relative;
-    top:50%;
-    margin:-140px auto auto auto;
-    background:url(../../../Images/PL20/fondo_cupon_desktop_lbel.png) no-repeat;
+.content_cupon {
+    width: 664px;
+    height: 280px;
+    position: relative;
+    top: 50%;
+    margin: -140px auto auto auto;
+    background: url(../../../Images/PL20/fondo_cupon_desktop_lbel.png) no-repeat;
 }
 .content_monto_cupon{
         float: left;
@@ -35034,10 +35035,10 @@ h1#penmostreo .campana {
     line-height: 19px;
     color: black;
 }
-.cupon2{
-    text-align:center;
-    padding-top:50px;
-    background:url(../../../Images/PL20/fondo_cupon_lbel_gano.png) no-repeat;
+.cupon2 {
+    text-align: center;
+    padding-top: 50px;
+    background: url(../../../Images/PL20/fondo_cupon_lbel_gano.png) no-repeat;
 }
 .titulo_cupon2{
     font-family:'LAto';
@@ -35066,23 +35067,23 @@ h1#penmostreo .campana {
     text-decoration: underline;
     color:#333333;
 }
-.icono_cupon2{
-    width:59px;
-    height:41px;
-    margin:0 auto;
-    background:url(../../../Images/PL20/mail_lbel.png) no-repeat;
+.icono_cupon2 {
+    width: 59px;
+    height: 41px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/mail_lbel.png) no-repeat;
     margin-bottom: 5px;
 }
-.cupon3{
-    text-align:center;
-    padding-top:30px;
-    background:url(../../../Images/PL20/fondo_cupon_recuerda_lbel.png) no-repeat;
+.cupon3 {
+    text-align: center;
+    padding-top: 30px;
+    background: url(../../../Images/PL20/fondo_cupon_recuerda_lbel.png) no-repeat;
 }
-.icono_cupon3{
-    width:120px;
-    height:45px;
-    margin:0 auto;
-    background:url(../../../Images/PL20/cupon_gif_morado.gif) no-repeat;
+.icono_cupon3 {
+    width: 120px;
+    height: 45px;
+    margin: 0 auto;
+    background: url(../../../Images/PL20/cupon_gif_morado.gif) no-repeat;
     margin-bottom: 3px;
 }
 .texto_cupon3{
@@ -35190,9 +35191,27 @@ h1#penmostreo .campana {
     display:inline-block;
 }
 
-/*SPRINT 14*/.titulo_mas_vendido{    background: white;    display: inline-block;    text-align: center;    letter-spacing: 2.1px;    font-size: 25px;    font-weight: 700;    margin-top: 31px;    margin-bottom: 37px;    font-family: 'lato';    PADDING-LEFT: 30px;    padding-right: 30px}.content_mas_vendidos{    padding-top:15px;    padding-bottom:40px;    overflow:hidden;}.content_carrusel_mas_vendidos{    width: 90%;    margin: 0 auto;    height: auto;}.content_carrusel_mas_vendidos .producto_nombre_descripcion{    margin-bottom:0;}.content_carrusel_mas_vendidos .producto_precio{    margin-bottom:0;}.content_carrusel_mas_vendidos .content_item_carrusel{    border:0;    box-shadow:none;}.content_puntuacion{    padding-left:16px;    padding-right:16px;    overflow:hidden;    padding-bottom:7px;    padding-top:8px;    text-align:center;}.cantidad_puntuacion{    font-family:'Lato';    font-size:13px;    font-weight:700;    padding-left: 2px;    padding-right: 5px;    display: inline-block;    vertical-align: top;}
-/*CUPON LBEL*/
-.contenedor_termino_condiciones_cupon{
+/*SPRINT 14*/
+
+.titulo_mas_vendido{
+
+    background: #f0f0f0;
+    display: inline-block;
+    text-align: center;
+    letter-spacing: 2.1px;
+    font-size: 25px;
+    /*font-weight: 700;*/
+    margin-top: 31px;
+    margin-bottom: 7px;
+    font-family: 'lato';
+    PADDING-LEFT: 15px;
+    padding-right: 15px;
+    position: relative;
+    font-weight: 300;
+    z-index:10;
+}
+
+.contenedor_termino_condiciones_cupon {
     margin: 0 auto;
     margin-top: 22px;
     font-family: 'Lato';
@@ -35202,6 +35221,9 @@ h1#penmostreo .campana {
     text-align: left;
     position: relative;
 }
+
+
+
 
 
 .mensaje_alerta_cupon1 {
@@ -35214,6 +35236,7 @@ h1#penmostreo .campana {
     width: 88%;
     padding-top: 2px;
 }
+
 .icono_alerta_cupon {
     width: 17px;
     height: 17px;
@@ -35223,19 +35246,401 @@ h1#penmostreo .campana {
     right: 0;
     top: 0;
 }
+
 .borde_seleccion_alerta:before {
     border: 1px solid #613c87;
 }
-.icono_recuerda_cupon{
-    padding-top:10px;
-    width:34px;
-    height:42px;
-    margin:0 auto;
+
+.icono_recuerda_cupon {
+    padding-top: 10px;
+    width: 34px;
+    height: 42px;
+    margin: 0 auto;
     background: url(../../../Images/PL20/calendario_lbel.jpg) no-repeat center bottom;
 }
-.recuerda_icono2{
+
+.recuerda_icono2 {
     background: url(../../../Images/PL20/maquillaje_lbel.jpg) no-repeat center bottom;
 }
-.recuerda_icono3{
+
+.recuerda_icono3 {
     background: url(../../../Images/PL20/agenda_lbel.jpg) no-repeat center bottom;
+}
+
+.content_mas_vendidos{
+    padding-top:15px;
+    padding-bottom:40px;
+    overflow:hidden;
+    margin-top:30px;
+}
+
+.content_carrusel_mas_vendidos{
+    width: 90%;
+    margin: 0 auto;
+    height: auto;
+}
+
+.content_carrusel_mas_vendidos .producto_nombre_descripcion{
+    margin-bottom:0;
+}
+
+.content_carrusel_mas_vendidos .producto_precio{
+    margin-bottom:0;
+}
+
+.content_carrusel_mas_vendidos .content_item_carrusel{
+    border:0;
+    box-shadow:none;
+}
+
+.content_puntuacion{
+    padding-left:16px;
+    padding-right:16px;
+    overflow:hidden;
+    padding-bottom:7px;
+    padding-top:8px;
+    text-align:center;
+}
+
+.cantidad_puntuacion{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    padding-left: 2px;
+    padding-right: 5px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+/*SPRINT 15*/
+.fondo_set_best_seller{
+    width:100%;
+    background:#eeeeee;
+    height:400px;
+    padding-top: 60px;
+}
+.content_producto_set_best_seller{
+    float: left;
+    width: 35%;
+    height: auto;
+    /* margin-top: 60px; */
+    text-align: center;
+}
+.imagen_producto_best_seller{
+    height:400px;
+    width:auto;
+}
+.fondo_set_best_seller .content_detalle_set{
+    width:53%;
+    min-height:500px;
+}
+.producto_best_detalle{
+    font-family:'Lato';
+    font-size:12px;
+    color:black;
+    /*text-transform:uppercase;*/ 
+    letter-spacing:0.8px;
+    line-height:22px;
+}
+.titulo_set{
+    letter-spacing:0.8px;
+}
+.comentarios_best_seller_ficha{
+    min-height:150px;
+    width:100%;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight: 400;
+    font-style: italic;
+}
+.content_puntuacion_detalle{
+    margin-bottom: 34px;
+    margin-top: 7px;
+}
+.content_puntuacion_detalle .rateyo-readonly-widg{
+    padding:0;
+}
+.texto_puntuacion_detalle{
+    display:inline-block;
+    padding-left:10px;
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    vertical-align:top;
+    text-decoration:underline;
+}
+.fondo_set_best_seller .ganancia_showroom{
+    margin-top:3px;
+}
+.content_carrusel_bestSeller{
+    margin-top: 40px;
+    width: 100%;
+    /* margin: 0 auto; */
+    background: #eeeeee;
+    overflow: hidden;
+    padding-bottom: 41px;
+}
+.titulo_carrusel_best{
+    letter-spacing:0.9px;
+    font-family:'Lato';
+    font-size:17px;
+    color:black;
+    margin-top:42px;
+    text-align:center;
+    margin-bottom:20px;
+}
+.content_carrusel_bestSeller .content_item_carrusel{
+    border:0;
+    background:none;
+}
+.content_carrusel_best{
+    width:90%;
+    margin:0 auto;
+}
+.content_carrusel_bestSeller .producto_nombre_descripcion{
+    margin-bottom:0;
+}
+.content_carrusel_bestSeller .producto_precio{
+    margin-bottom:0;
+}
+.content_carrusel_bestSeller .content_item_carrusel{
+    border:0;
+    box-shadow:none;
+}
+.section_comentarios{
+    margin-top:35px;
+}
+.titulo_principal_comentarios{
+    font-family:'Lato';
+    font-size:20px;
+    color:black;
+    font-weight:700;
+    text-align:center;
+    line-height:22px;
+    letter-spacing:1.2px;
+    margin-bottom:15px;
+}
+.subtexto_comentario{
+    font-family:'Lato';
+    font-size:16px;
+    color:black;
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:25px;
+}
+.content_filtros_bestSeller{
+    overflow:hidden;
+    margin-bottom:20px;
+}
+.select_bestSeller{
+    display:block;
+    float:right;
+    width:188px;
+    border:1px solid #979797;
+    height:44px;
+    line-height:44px;
+    font-family:'Lato';
+    font-size:13px;
+    padding-left:9px;
+    color:black;
+}
+.texto_filtros_bestSeller{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    float:right;
+    margin-right:20px;
+    margin-top: 12px;
+}
+.contentAgregarComentarios{
+    padding:35px 90px 35px 90px;
+    width:100%;
+    background:#f6f6f6;
+    border:1px dashed #979797;
+    margin-bottom:45px;
+    
+}
+.texto_agregarComentarios{
+    width:220px;
+    margin: 0 auto;
+    font-family:'Lato';
+    font-size:14px;
+    font-weight:700;
+    letter-spacing:0.4px;
+    padding-left:25px;
+    
+    cursor:pointer;
+    background:url(../../../Images/PL20/icono_agregar.png) no-repeat;
+}
+.contentValoracion{
+    display:none;
+}
+.subtitulo_comentarios{
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+    margin-bottom:25px;
+    text-align:center;
+    margin-top: -5px;
+}
+.content_detalle_puntuación{
+    float:left;
+    width:20%;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+}
+.content_detalle_comentarios{
+    float:right;
+    width:75%;
+
+}
+.texto_comentario_usuario{
+    display:block;
+    width:100%;
+    height:156px;
+    background:white;
+    border:1px solid #979797;
+    padding:10px;
+    color:black;
+    font-family:'Lato';
+    font-size:13px;
+    line-height:22px;
+    letter-spacing:0.4px;
+}
+.rateyo-readonly-puntuacion{
+   padding: 0 !important;
+   margin-top: 4px;
+   margin-bottom: 40px;
+   display: block !important;
+}
+.respuesta_pregunta{
+    width: 42%;
+    max-width: 70px;
+    float:left;
+    margin-right:13px;
+    border:1px solid #979797;
+    height:30px;
+    line-height:30px;
+    font-family:'Lato';
+    font-size:14px;
+    color:#979797;
+    text-align:center;
+    margin-top:15px;
+}
+.respuesta_pregunta:last-child{    
+    margin-right:0;
+}
+.enviar_comentario_Seller{
+    display:block;
+    width:215px;
+    height:44px;
+    background:#ababab;
+    font-family:'Lato';
+    font-size:13px;
+    color:#979797;
+    letter-spacing:0.4px;
+    color:white;
+    text-align:center;
+    float:right;
+    line-height:44px;
+    margin-top:17px;
+}
+.cancelar_comentario{
+    display:block;
+    float:right;
+    margin-right:26px;
+    margin-top:30px;
+    font-family:'Lato';
+    font-size:13px;
+    color:black;
+    letter-spacing:0.4px;
+    text-decoration:underline;
+}
+.content_confirmacion_comentario{
+    display:none;
+}
+.icono_check_comentario{    
+    width:60px;
+    height:60px;
+    margin:0 auto;
+    background:url(../../../Images/Esika/icono_check_esika.png) no-repeat;
+    background-size:cover;
+    margin-top:30px;
+}
+.extra_titulo{
+    margin-top:20px;
+    letter-spacing:0.6px;
+}
+.btn_cerrar_comentario{
+    font-family:'Lato';
+    font-size:13px;
+    letter-spacing:0.4px;
+    margin: 0 auto;
+    width:215px;
+    height:45px;
+    line-height:45px;
+    background:black;
+    color:white;
+    text-align:center;
+    MARGIN-BOTTOM: 30px;
+}
+.content_comentario_usuario{
+    width:100%;
+    height:auto;
+    margin-bottom:43px;
+    padding-bottom:40px;
+    border-bottom:1px solid #979797;
+    overflow:hidden;
+}
+.foto_usuario_comentario{
+    float:left;
+    width:68px;
+    height:68px;
+    border-radius:100px;
+    overflow:hidden;
+    margin-right:20px;
+}
+.foto_usuario_comentario img{
+    height: 100%;
+}
+.datos_usuario_comentario{
+    float:left;
+}
+.puntuacion_usuario_visible{
+    padding:0 !important;
+}
+.nombre_usuario_comentario{
+    font-family:'Lato';
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.4px;
+    margin-top:7px;
+}
+.fecha_comentario{
+    font-family:'Lato';    
+    font-size:13px;
+}
+.comentario_realizado_usuario{
+        font-family: 'Lato';
+    font-size: 14px;
+    line-height: 22px;
+    /* max-width: 749px; */
+    width: 77%;
+    float: right;
+    margin-top: 33px;
+}
+.content_comentario_usuario:last-child{
+    border-bottom:0;
+}
+.respuesta_pregunta:hover{
+    background:black;
+    color:white;
+}
+.respuesta_valida{
+    background:black;
+    color:white;
 }

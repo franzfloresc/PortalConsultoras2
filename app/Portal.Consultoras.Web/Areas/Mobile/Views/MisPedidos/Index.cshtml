@@ -1,0 +1,157 @@
+﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+
+@model Portal.Consultoras.Web.Areas.Mobile.Models.PedidoWebClientePrincipalMobilModel
+@{
+    //Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+}
+<div class="titulo_mobile">
+    @{  
+        var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        }
+    }
+    MIS PEDIDOS
+</div>
+@if (Model.ListaPedidoCliente.Count == 0)
+{
+    <div class="">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <div class="col-xs-12">
+            <div class="icono_alerta exclamacion_icono_mobile"></div>
+            <div class="mensaje_alerta">Hasta el momento no tienes ningún pedido facturado.</div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="fondo_f2f2f2">
+        <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+        <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+        <div class="tabs-link tab-primary upper">
+            @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
+            {
+                var pedidoCliente = Model.ListaPedidoCliente[i];
+
+                <a href="javascript:;" class="mytab @( i == 0 ? "active" : "")" data-campania="@pedidoCliente.CampaniaID" data-idpedido="@pedidoCliente.PedidoId" data-estadopedido="@(Model.ListaPedidoCliente[i].EstadoPedidoDesc == "INGRESADO" ? "1" : "2")" style="width: @(100.00 / Model.ListaPedidoCliente.Count)%">
+                    @pedidoCliente.EstadoPedidoDesc<br />
+                    <small>Campaña</small>
+                    <br />
+                    <b>@pedidoCliente.CampaniaID.ToString().Substring(4)</b>
+                    @pedidoCliente.CampaniaID.ToString().Substring(0, 4)
+                </a>
+            }
+        </div>
+        @for (int i = 0; i < Model.ListaPedidoCliente.Count; i++)
+        {
+            <div class="col-xs-12">
+                <div id="divListaPedidoDetalle_@Model.ListaPedidoCliente[i].CampaniaID" style="@( i > 0 ? "display:none;" : "" )">
+                </div>
+            </div>
+        }
+    </div>
+}
+@section scripts{
+    <script type="text/javascript">
+    var primerEnvio = 0;
+    var campaniaActual = "";
+    var campaniasCargadas = new Array();
+
+    $(document).ready(function () {
+
+        $(".mytab").click(function () {
+
+            $('.mytab.active').removeClass("active");
+            $(this).addClass("active");
+
+            var campaniaSeleccionada = $(this).attr("data-campania");
+            var pedidoId = $(this).attr("data-idpedido");
+            var estadoPedido = $(this).attr("data-estadopedido");
+
+            if (campaniaActual != campaniaSeleccionada) {
+                $("#divListaPedidoDetalle_" + campaniaActual).hide();
+                //$("#divListaPedidoDetalle_" + campaniaSeleccionada).show();
+                $("#divListaPedidoDetalle_" + campaniaSeleccionada).fadeIn();
+
+                if (campaniasCargadas.indexOf(campaniaSeleccionada) > -1) {
+                    campaniaActual = campaniaSeleccionada;
+
+                    if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Registrado")
+                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaSeleccionada, 'pageName': 'Pedidos Ingresados - ' + campaniaSeleccionada });
+                    else if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Facturado")
+                        dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaSeleccionada, 'pageName': 'Pedidos Facturados - ' + campaniaSeleccionada });
+                } else {
+                    if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Registrado")
+                        cargarDetallePedidoIngresado(campaniaSeleccionada, pedidoId);
+                    else if (estadoPedido == "@Portal.Consultoras.Common.Constantes.EstadoPedido.Facturado")
+                        cargarDetallePedidoFacturado(campaniaSeleccionada, pedidoId);
+                }
+            }
+        });
+
+        $('.mytab.active').trigger("click");
+    });
+
+    function cargarDetallePedidoIngresado(campaniaID, pedidoId) {
+        ShowLoading();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
+            async: true,
+            success: function (html) {
+                $("#divListaPedidoDetalle_" + campaniaID).html(html);
+                campaniaActual = campaniaID;
+                if (primerEnvio != 0) {
+                    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("IngresadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaActual, 'pageName': 'Pedidos Ingresados - ' + campaniaActual });
+                }
+                primerEnvio++;
+                campaniasCargadas.push(campaniaID);
+                CloseLoading();
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    CloseLoading();
+                    console.log(data);
+                }
+            }
+        });
+    }
+
+    function cargarDetallePedidoFacturado(campaniaID, pedidoId) {
+        ShowLoading();
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })',
+            dataType: 'html',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
+            async: true,
+            success: function (html) {
+                $("#divListaPedidoDetalle_" + campaniaID).html(html);
+                campaniaActual = campaniaID;
+                if (primerEnvio != 0) {
+                    dataLayer.push({ 'event': 'virtualPage', 'pageUrl': '@Url.Action("FacturadoDetalle", "MisPedidos", new { area = "Mobile" })' + '/' + campaniaActual, 'pageName': 'Pedidos Facturados - ' + campaniaActual });
+                }
+                primerEnvio++;
+                campaniasCargadas.push(campaniaID);
+                CloseLoading();
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    CloseLoading();
+                    console.log(data);
+                }
+            }
+        });
+    }
+</script>
+}

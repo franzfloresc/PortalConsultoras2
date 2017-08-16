@@ -36,6 +36,7 @@ function RDPopupCerrar(tipo) {
 }
 
 function RDSuscripcion(accion) {
+   
     AbrirLoad();
     InscripcionRDAnalytics();
     $.ajax({
@@ -48,39 +49,41 @@ function RDSuscripcion(accion) {
             if (!checkTimeout(data))
                 return false;
 
-            if (data.success == true) {
-
-                accion = accion || 0;
-                if (accion == 2) {
-                    $("[data-estadoregistro]").attr("data-estadoregistro", "1");
-                    $("[data-estadoregistro0]").hide();
-                    $("[data-estadoregistro1]").show();
-                    SuscripcionExistosaRDAnalytics();
-                    return true;
-                }
-
-                $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
-                //$("#PopRDInscrita [data-campania]").html($.trim(campaniaCodigo));
-
-                if (accion == 0) {
-                    CerrarPopup("#PopRDSuscripcion");
-                    MostrarMenu(data.CodigoMenu);
-                    if (!isMobile()) {
-                        CargarBanners();
-                    }
-                }
-                else if (accion == 1) {
-                    CerrarPopup("#divMensajeBloqueada");
-                }
-                AbrirPopupFade("#PopRDInscrita");
-                SuscripcionExistosaRDAnalytics();
-            }
-            else
+            if (data.success != true) {
+                CerrarPopup("#PopRDSuscripcion");
+                CerrarPopup("#divMensajeBloqueada");
                 AbrirMensaje(data.message);
+                return false;
+            }
+
+            accion = accion || 0;
+            if (accion == 2) {
+                $("[data-estadoregistro]").attr("data-estadoregistro", "1");
+                $("[data-estadoregistro0]").hide();
+                $("[data-estadoregistro2]").hide();
+                $("[data-estadoregistro1]").show();
+                SuscripcionExistosaRDAnalytics();
+                return true;
+            }
+
+            $("#PopRDInscrita [data-usuario]").html($.trim(usuarioNombre).toUpperCase());
+
+            if (accion == 0) {
+                
+                MostrarMenu(data.CodigoMenu);
+                if (!isMobile()) {
+                    CargarBanners();
+                }
+            }
+            else if (accion == 1) {
+                CerrarPopup("#divMensajeBloqueada");
+            }
+            AbrirPopupFade("#PopRDInscrita");
+            SuscripcionExistosaRDAnalytics();
         },
         error: function (data, error) {
             CerrarLoad();
-            CerrarPopup("#PopRDSuscripcion");
+            
         }
     });
 }
@@ -98,25 +101,23 @@ function RDDesuscripcion(accion) {
             if (!checkTimeout(data))
                 return false;
 
-            if (data.success == true) {
-
-                accion = accion || 0;
-                if (accion == 2) {
-                    $("[data-estadoregistro]").attr("data-estadoregistro", "2");
-                    $("[data-estadoregistro1]").hide();
-                    $("[data-estadoregistro0]").show();
-                    return true;
-                }
-
-                //location.href = "/";
-                $('#divAnularSuscripcion').hide();
-                $('#divMensajeAnularSuscripcion').show();
-                $('html, body').animate({
-                    scrollTop: $(window).scrollTop() - 200
-                }, 1000, 'swing');
-            }
-            else
+            if (data.success != true) {
                 AbrirMensaje(data.message);
+                return false;
+            }
+
+            accion = accion || 0;
+            if (accion == 2) {
+                $("[data-estadoregistro]").attr("data-estadoregistro", "2");
+                $("[data-estadoregistro0]").show();
+                $("#divCambiosEstadoRegistro [data-estadoregistro0]").hide();
+                $("[data-estadoregistro1]").hide();
+                $("[data-estadoregistro2]").show();
+            }
+
+            //$('html, body').animate({
+            //    scrollTop: $(window).scrollTop() - 200
+            //}, 1000, 'swing');
         },
         error: function (data, error) {
             CerrarLoad();
@@ -151,6 +152,7 @@ function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
     var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
     window.location = url;
+    window.location.reload();
 }
 
 function RDRedireccionarDesuscripcion() {
@@ -159,6 +161,11 @@ function RDRedireccionarDesuscripcion() {
     var divPosition = '#divCambiosEstadoRegistro';
     window.location = url + divPosition;
     window.location.reload();
+}
+
+function RDRedireccionarDetalle(cuv, campaniaId) {
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital/Detalle");
+    window.location = url + "?cuv=" + cuv + "&campaniaId=" + campaniaId;
 }
 
 function MostrarTerminos() {

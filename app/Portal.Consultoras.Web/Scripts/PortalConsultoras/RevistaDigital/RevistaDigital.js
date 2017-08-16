@@ -11,8 +11,11 @@ $(document).ready(function () {
     isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
-    estador = estador == 1 ? estador : 0;
-    $("[data-estadoregistro" + estador + "]").show();
+    var rdaccion = estador == 1 ? estador : 0;
+    $("[data-estadoregistro" + rdaccion + "]").show();
+    if (estador == 2) {
+        $("[data-estadoregistro2]").show();
+    }
 
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         $("#barCursor").css("opacity", "0");
@@ -24,7 +27,7 @@ $(document).ready(function () {
         $.each(obj, function (ind, objTag) {
             $(objTag).fadeIn(300).show();
             if (tag == 0 && !isMobile()) {
-                $(objTag).css('padding-top', '105px');
+                $(objTag).css('padding-top', '50px');
             }
         });        
 
@@ -100,7 +103,7 @@ $(document).ready(function () {
             scrollTop: $('#divTopFiltros').position().top - 60
         }, 1000, 'swing');
     });
-   
+
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
         //debugger;
@@ -150,10 +153,16 @@ $(document).ready(function () {
    
 });
 
+function FlechaScrollDown(idCamapania) {
+    $('html, body').animate({
+        scrollTop: $('#divTopFiltros' + idCamapania).position().top - 60
+    }, 1000, 'swing');
+}
+
 function RDMostrarPosicion() {
     if ($('[data-tag-html]').length == 1) {
         $('[data-tag-html]').show();
-        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0
+        campaniaId = $('[data-tag-html]').attr("data-tag-html") || 0;
         campaniaId = parseInt(campaniaId);
     }
     else {
@@ -168,7 +177,9 @@ function RDMostrarPosicion() {
             }
             else {
                 $('ul[data-tab="tab"] li a[data-tag="0"]').click();
-                // poner el scroll en el div
+                setTimeout(function () {
+                    $(window).scrollTop($(window).scrollTop() + $(document).height());
+                }, 1000);
             }
 
         }
@@ -205,26 +216,32 @@ function OfertaArmarEstrategias(response) {
 
     response.CodigoEstrategia = $("#hdCodigoEstrategia").val() || "";
     response.ClassEstrategia = 'revistadigital-landing';
-    response.Consultora = usuarioNombre.toUpperCase()
+    response.Consultora = usuarioNombre.toUpperCase();
     //response.CodigoEstrategia = "101";
 
     // Listado Carrusel
 
     response.Mobile = isMobile();
     var cantProdFiltros = response.cantidadTotal;
-    OfertaObtenerDataLocal(response.CampaniaID)
+    OfertaObtenerDataLocal(response.CampaniaID);
     if (filtroCampania[indCampania] != undefined) {
 
         if (response.Completo == 0) {
             var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
             response.listaLan = response.listaLan || new Array();
+            //response.listaLan = EstructurarDataCarousel(response.listaLan);
             if (response.listaLan.length > 0) {
                 $.each(response.listaLan, function (ind, tem) {
-                    tem.PuedeAgregar = response.Mobile ? 0 : 1;
+                    //tem.PuedeAgregar = response.Mobile ? 0 : 1;
                     tem.EstrategiaDetalle = tem.EstrategiaDetalle || new Object();
                     tem.EstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.EstrategiaDetalle.ImgPrevDesktop;
                     tem.EstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.EstrategiaDetalle.ImgFichaMobile : tem.EstrategiaDetalle.ImgFichaDesktop;
                     tem.EstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.EstrategiaDetalle.ImgFondoDesktop;
+                    tem.DescripcionCUV2 = $.trim(tem.DescripcionCUV2);
+                    tem.DescripcionCompleta = tem.DescripcionCUV2.split('|')[0];
+                    tem.Posicion = ind + 1;
+                    tem.TextoLibre = $.trim(tem.TextoLibre);
+                    tem.MostrarTextoLibre = tem.TextoLibre.length > 0;
                 });
                 
                 var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
@@ -270,7 +287,6 @@ function OfertaArmarEstrategias(response) {
         $.each(modeloTemp.Lista, function (ind, tem) {
             tem.PuedeAgregar = 0;
         });
-
     }
     var htmlDiv = SetHandlebars("#estrategia-template", modeloTemp);
     divProd.find('#divOfertaProductos').append(htmlDiv);
@@ -402,7 +418,7 @@ function RDDetalleObtener() {
     
     var prod = GetProductoStorage(cuv, campania);
     var mobile = isMobile();
-    if (prod == undefined) {
+    if (prod == null || prod == undefined) {
         window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
     }
     if (prod.CUV2 == undefined) {
@@ -413,15 +429,16 @@ function RDDetalleObtener() {
     obj.CampaniaID = prod.CampaniaID;
     obj.Lista = new Array();
     obj.Lista.push(prod);
-    if (mobile) {
+    //if (mobile) {
         $.each(obj.Lista, function (ind, tem) {
             tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
             tem.PuedeAgregar = 1;
+            tem.Posicion = ind + 1;
             if (tem.ClaseBloqueada != "") {
                 tem.PuedeAgregar = 0;
             }
         });
-    }
+    //}
 
     SetHandlebars("#estrategia-template", obj, "#divOfertaProductos");
     $("#divOfertaProductos").find('[data-item-accion="verdetalle"]').removeAttr("onclick");
@@ -435,8 +452,10 @@ function RDDetalleObtener() {
 
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
-    if (sl == undefined) {
-        return undefined;
+    if (sl == null || sl == undefined) {
+        var model = CargarEstrategiaCuv(cuv);
+        if (model != null) return model;
+        else return null;
     }
 
     sl = JSON.parse(sl);
@@ -446,7 +465,7 @@ function GetProductoStorage(cuv, campania) {
     }
     if (listaProd.length > 0) {
         listaProd[0].Posicion = 0;
-        return listaProd[0]
+        return listaProd[0];
     }
 
     return new Object();

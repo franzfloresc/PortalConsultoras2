@@ -196,7 +196,23 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ImgHomeMobile { get; set; }
         [DataMember]
+        public string CodigoGenerico { get; set; }
+        
+        [DataMember]
         public string CodigoTipoEstrategia { get; set; }
+
+        [DataMember]
+        public int ProdComentarioId { get; set; }
+
+        [DataMember]
+        public int CantComenAprob { get; set; }
+
+        [DataMember]
+        public int CantComenRecom { get; set; }
+
+        [DataMember]
+        public int PromValorizado { get; set; }
+
         
         public BEEstrategia(IDataRecord row, bool partial)
         {
@@ -387,6 +403,21 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "FotoProducto01") && row["FotoProducto01"] != DBNull.Value)
                 FotoProducto01 = row["FotoProducto01"].ToString();
+
+            if (DataRecord.HasColumn(row, "CodigoGenerico"))
+                CodigoGenerico = Convert.ToString(row["CodigoGenerico"]);
+
+            if (DataRecord.HasColumn(row, "ProdComentarioId"))
+                ProdComentarioId = Convert.ToInt32(row["ProdComentarioId"]);
+
+            if (DataRecord.HasColumn(row, "CantComenAprob"))
+                CantComenAprob = Convert.ToInt32(row["CantComenAprob"]);
+
+            if (DataRecord.HasColumn(row, "CantComenRecom"))
+                CantComenRecom = Convert.ToInt32(row["CantComenRecom"]);
+
+            if (DataRecord.HasColumn(row, "PromValorizado"))
+                PromValorizado = Convert.ToInt32(row["PromValorizado"]);
 
             EstrategiaDetalle = new BEEstrategiaDetalle(row);
             TipoEstrategia = new BETipoEstrategia(row);

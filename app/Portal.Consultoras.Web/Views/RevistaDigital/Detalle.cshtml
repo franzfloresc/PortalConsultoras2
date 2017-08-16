@@ -13,7 +13,7 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
 }
 
-<div class="revista_ficha" style='background: url(@Model.EstrategiaDetalle.ImgFichaFondoDesktop);'>
+<div class="revista_ficha" style='background: url(@Model.EstrategiaDetalle.ImgFichaFondoDesktop);' data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="revista_fondo_ficha"></div>
     <div class="content_belcorp">       
         <div class="rd_volver">
@@ -79,14 +79,14 @@
         <div class="lanzamiento-view-detalle">
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage"></div>
         </div>
-        @*@if ((Model.EstrategiaDetalle.UrlVideoDesktop ?? "") != "")
-        {*@
+        @if ((Model.EstrategiaDetalle.UrlVideoDesktop ?? "") != "")
+        {
             <div class="revista_producto_video" style="width: 60%">
                 @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
                 <iframe width="100%" height="415" frameborder="0" allowfullscreen
                         src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
             </div>
-        @* } *@
+         } 
     </div>
 </div>
 @Html.Action("MensajeBloqueado", "RevistaDigital")
@@ -98,11 +98,12 @@
 
 @Html.Partial("~/Views/Bienvenida/template-carrusel-opt.cshtml")
 @section scripts{
-<script type="text/javascript">
-    var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
-    var tipoOrigenEstrategia = 172;
-</script>
+    <script type="text/javascript">
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage';
+        var tipoOrigenEstrategia = 172;
+    </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

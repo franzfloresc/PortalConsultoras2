@@ -335,7 +335,7 @@ namespace Portal.Consultoras.Web.Controllers
                            {
                                idCampania = a.CampaniaID.ToString(),
                                idPedido = a.PedidoID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    //a.CampaniaID.ToString(),
                                    //a.PedidoID.ToString(),
@@ -343,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.NroRegistro.ToString(),
                                    a.FechaRegistro.ToString(),
                                    a.FechaReserva.HasValue ? a.FechaReserva.Value.ToString() : "",
-                                   a.CampaniaCodigo.ToString(),                                   
+                                   a.CampaniaCodigo.ToString(),
                                    a.Region,
                                    a.Zona,
                                    a.Seccion.ToString(),
@@ -354,7 +354,7 @@ namespace Portal.Consultoras.Web.Controllers
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ImporteTotalConDescuento.ToString("#,##0").Replace(',','.') : a.ImporteTotalConDescuento.ToString("0.00")), // GR-846
                                    UserData().Simbolo + " " + ((UserData().PaisID == 4)? a.ConsultoraSaldo.ToString("#,##0").Replace(',','.') : a.ConsultoraSaldo.ToString("0.00")), // Validación país colombia req. 1478
                                    a.OrigenNombre.ToString(),
-                                   a.EstadoValidacionNombre.ToString(),               
+                                   a.EstadoValidacionNombre.ToString(),
                                    a.IndicadorEnviado,
                                    a.TipoProceso,
                                    FomatearMontoDecimalGPR(a.MotivoRechazo)
@@ -365,18 +365,24 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return RedirectToAction("Index", "Bienvenida");
         }
-
         private string FomatearMontoDecimalGPR(string MotivoRechazo)
         {
-            string TextoDecimal = MotivoRechazo;
-            if (MotivoRechazo.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
-            {
-                decimal MontoDecimal = Convert.ToDecimal(MotivoRechazo.Substring(MotivoRechazo.IndexOf(':') + 1).Replace(" ", string.Empty));
+            string TextoDecimal = string.Empty;
+            string[] Motivos = MotivoRechazo.Split(',');
+            string MotivoItem = string.Empty;
 
-                MotivoRechazo = MotivoRechazo.Remove(MotivoRechazo.IndexOf(':'));
-                TextoDecimal = string.Format("{0}: {1}", MotivoRechazo, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+            foreach (string item in Motivos)
+            {
+                MotivoItem = item;
+                if (MotivoItem.Contains(':') && userData.CodigoISO.Equals(Constantes.CodigosISOPais.Colombia))
+                {
+                    decimal MontoDecimal = Convert.ToDecimal(MotivoItem.Substring(MotivoItem.IndexOf(':') + 1).Replace(" ", string.Empty));
+
+                    MotivoItem = MotivoItem.Remove(MotivoItem.IndexOf(':'));
+                    TextoDecimal += string.Format("{0}: {1}", MotivoItem, (userData.PaisID == 4) ? MontoDecimal.ToString("#,##0").Replace(',', '.') : MontoDecimal.ToString("0.00"));
+                }
             }
-            return TextoDecimal;
+            return string.IsNullOrEmpty(TextoDecimal) ? MotivoRechazo : TextoDecimal;
         }
 
         public ActionResult ConsultarPedidosDDWebDetalle(string sidx, string sord, int page, int rows, string vPaisISO, string vCampania, string vConsultoraCodigo, string vTipoProceso)
@@ -413,13 +419,13 @@ namespace Portal.Consultoras.Web.Controllers
                         lst = (from c in lista
                                where string.IsNullOrEmpty(c.descripcion.Trim()) == false
                                select new BEPedidoDDWebDetalle
-                                    {
-                                        CUV = c.cuv,
-                                        Descripcion = c.descripcion,
-                                        Cantidad = c.cantidad,
-                                        PrecioUnitario = Convert.ToDecimal(c.precioUnidad),
-                                        PrecioTotal = Convert.ToDecimal(c.importeTotal)
-                                    }).ToList();
+                               {
+                                   CUV = c.cuv,
+                                   Descripcion = c.descripcion,
+                                   Cantidad = c.cantidad,
+                                   PrecioUnitario = Convert.ToDecimal(c.precioUnidad),
+                                   PrecioTotal = Convert.ToDecimal(c.importeTotal)
+                               }).ToList();
 
                         //foreach (var pedidoWebAnteriorDetalleBean in lista)
                         //{
@@ -529,7 +535,7 @@ namespace Portal.Consultoras.Web.Controllers
                     rows = from a in items
                            select new
                            {
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.CUV.ToString(),
                                    a.Descripcion.ToString(),

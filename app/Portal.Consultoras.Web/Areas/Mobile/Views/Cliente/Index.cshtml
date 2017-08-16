@@ -3,108 +3,117 @@
 
 @model List<ClienteMobileModel>
 
-@{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
-}
+    @{
+        Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    }
 
-@section styles{
-    <style type="text/css">
-        body {
-            background: #FFF !important;
-        }
-        .posr .cli-ac-delete
-        {
-            top:30px
-        }
-        .divTabla {
-            display:table;
-            width:100%
-        }
-        .divTabla .divIcono {
-            display:table-cell;
-            width:32px
-        }
-        .divTabla .divCelda {
-            display:table-cell;
-        }
-        .clienteMensaje
-        {
-            color:#df3d3d;
-            font-weight:bold;
-            display:table
-        }
-        .clienteMensaje span{
-            vertical-align: middle;
-            display: table-cell;
-            padding-right:5px
-        }
-        #divAgregarCliente {
-            display:none
-        }
-    </style>
-}
-<div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;LISTADO DE CLIENTES
-</div>
+    @section styles{
+        <style type="text/css">
+            body {
+                background: #FFF !important;
+            }
+
+            .posr .cli-ac-delete {
+                top: 30px;
+            }
+
+            .divTabla {
+                display: table;
+                width: 100%;
+            }
+
+                .divTabla .divIcono {
+                    display: table-cell;
+                    width: 32px;
+                }
+
+                .divTabla .divCelda {
+                    display: table-cell;
+                }
+
+            .clienteMensaje {
+                color: #df3d3d;
+                font-weight: bold;
+                display: table;
+            }
+
+                .clienteMensaje span {
+                    vertical-align: middle;
+                    display: table-cell;
+                    padding-right: 5px;
+                }
+
+            #divAgregarCliente {
+                display: none;
+            }
+        </style>
+    }
+    <div class="titulo_mobile">
+        @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            if (mobileConfiguracion.MostrarBotonAtras)
+            {
+                <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+            } }
+        &nbsp;&nbsp;&nbsp;&nbsp;LISTADO DE CLIENTES
+    </div>
 
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-    
-    
-        <div class="col-xs-12">
-            @{
-                String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
-                DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
 
-                if (DateTime.Now.Date <= FechaCliente)
-                {
-                    <div class="clienteMensaje">
-                        <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-                        <span>Tienes hasta el @FechaClienteSalida para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-                    </div>
-                }
+
+    <div class="col-xs-12">
+        @{
+            String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
+            DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
+
+            if (DateTime.Now.Date <= FechaCliente)
+            {
+                <div class="clienteMensaje">
+                    <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+                    <span>Tienes hasta el @FechaClienteSalida para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+                </div>
             }
-            <div class="text-center">
-                <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
-            </div>
-            <div class="list-table-new">
-                <ul class="list-table-title upper">
-                    <li>Cliente</li>
-                </ul>
-                <ul class="list-table-body list-body-clientes">
-                    @foreach (var cliente in Model)
-                    {
-                        <li>
-                            <div class="posr">
-                                <div class="divTabla">
-                                    <div class="divIcono">
-                                        @{
-                                            if (cliente.TieneTelefono == 0)
-                                            {
-                                                    <img src="/Content/Images/icons/icoWarning.png" height="24" />
-                                            }
+        }
+        <div class="text-center">
+            <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
+        </div>
+        <div class="list-table-new">
+            <ul class="list-table-title upper">
+                <li>Cliente</li>
+            </ul>
+            <ul class="list-table-body list-body-clientes">
+                @foreach (var cliente in Model)
+                {
+                    <li>
+                        <div class="posr">
+                            <div class="divTabla">
+                                <div class="divIcono">
+                                    @{
+                                        if (cliente.TieneTelefono == 0)
+                                        {
+                                            <img src="/Content/Images/icons/icoWarning.png" height="24" />
                                         }
-                                    </div>
-                                    <div class="divCelda">
-                                        <div class="table-width">
-                                            <div>
-                                                <strong class="upper clienteNombre">@cliente.Nombre</strong>
-                                            </div>
-                                            <div class="mt-10">Teléfono Fijo: <span class="clienteTelefono">@cliente.Telefono</span></div>
-                                            <div class="mt-10">Celular: <span class="clienteCelular">@cliente.Celular</span></div>
-                                            <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
-                                            <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
-                                            <input type="hidden" class="clienteCodigo" value="@cliente.CodigoCliente" />
-                                        </div>
-                                        <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
-                                        <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>
-                                    </div>
+                                    }
                                 </div>
+                                <div class="divCelda">
+                                    <div class="table-width">
+                                        <div>
+                                            <strong class="upper clienteNombre">@cliente.Nombre</strong>
+                                        </div>
+                                        <div class="mt-10">Teléfono Fijo: <span class="clienteTelefono">@cliente.Telefono</span></div>
+                                        <div class="mt-10">Celular: <span class="clienteCelular">@cliente.Celular</span></div>
+                                        <div class="mt-10">Correo: <span class="clienteEmail">@cliente.Email</span></div>
+                                        <input type="hidden" class="clienteId" value="@cliente.ClienteID" />
+                                        <input type="hidden" class="clienteCodigo" value="@cliente.CodigoCliente" />
+                                    </div>
+                                    <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
+                                    <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>
+                                </div>
+                            </div>
 
-                                @*<div class="table-width" style="margin-left:40px">
+                            @*<div class="table-width" style="margin-left:40px">
                                     <div>
                                         <strong class="upper clienteNombre">@cliente.Nombre</strong>
                                     </div>
@@ -113,16 +122,16 @@
                                 </div>
                                 <a href='javascript:;' class="cli-ac-edit text-primary actualizarCliente">EDITAR</a>
                                 <a href='javascript:;' class="cli-ac-delete text-primary" onclick="return EliminarCliente(@cliente.ClienteID);"><i class="icon-delete icon-lg"></i></a>*@
-                            </div>
-                        </li>
-                    }
-                </ul>
-            </div>
-            <div class="text-center mt-20">
-                <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
-            </div><br>
+                        </div>
+                    </li>
+                                        }
+            </ul>
         </div>
-    
+        <div class="text-center mt-20">
+            <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
+        </div><br>
+    </div>
+
 
     <!-- modal popup -->
     <div class="modal fade" id="modal-id">
@@ -141,16 +150,15 @@
         </div>
     </div>
     <!-- end modal -->
-
     @*<div id="agregarCliente" class="modal fade">
-        <div class="modal-dialog modal-alert ">
-            <div class="modal-content">
-                <div class="modal-body">
-                    @Html.Partial("AgregarCliente", new ClienteMobileModel())
+            <div class="modal-dialog modal-alert ">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        @Html.Partial("AgregarCliente", new ClienteMobileModel())
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 
     <div class="contenedor_popup_clientes modal" id="divAgregarCliente">
         <div class="popup_agregarCliente">
@@ -158,13 +166,13 @@
         </div>
     </div>
 
-@section scripts
+    @section scripts
 {
         <script type="text/javascript">
-    var esAgregarCliente = true;
-    var posicionClienteActual = 0;
-    var fnEliminarCliente = null;
-    var urlEliminarCliente = '@Url.Action("Eliminar", "Cliente", new {area = "Mobile"})';
+            var esAgregarCliente = true;
+            var posicionClienteActual = 0;
+            var fnEliminarCliente = null;
+            var urlEliminarCliente = '@Url.Action("Eliminar", "Cliente", new {area = "Mobile"})';
 
             $(document).ready(function () {
                 $("body").on("click", ".agregarCliente", function (event) {
@@ -236,7 +244,7 @@
                     var correo = $(divInfo).find(".clienteEmail").html();
                     var telefono = $(divInfo).find(".clienteTelefono").html();
                     var celular = $(divInfo).find(".clienteCelular").html();
-                    
+
                     cliente.ClienteID = id;
                     cliente.CodigoCliente = codigo;
                     cliente.Nombre = nombre;

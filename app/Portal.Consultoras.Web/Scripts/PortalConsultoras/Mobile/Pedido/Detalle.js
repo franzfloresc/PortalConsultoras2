@@ -55,6 +55,7 @@ function CargarPedido(firstLoad) {
         clienteId: -1,
         mobil: true
     };
+    ShowLoading();
 
     jQuery.ajax({
         type: 'POST',
@@ -86,6 +87,8 @@ function CargarPedido(firstLoad) {
                 messageInfo('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.');
             }
         }
+    }).always(function () {
+        CloseLoading();
     });
 }
 
@@ -877,12 +880,14 @@ function EjecutarServicioPROL() {
                 //console.error(data);
             }
         }
+    })
+    .always(function () {
+        CloseLoading();
     });
 }
 
 function EjecutarServicioPROLSinOfertaFinal() {
     ShowLoading();
-
     jQuery.ajax({
         type: 'POST',
         url: urlEjecutarServicioPROL,
@@ -892,8 +897,9 @@ function EjecutarServicioPROLSinOfertaFinal() {
         cache: false,
         success: function (response) {
             if (checkTimeout(response)) {
-                if (response.flagCorreo == "1")
+                if (response.flagCorreo == "1") {
                     EnviarCorreoPedidoReservado(); //EPD-2378
+                }   
                 RespuestaEjecutarServicioPROL(response, false);
             }
         },
@@ -918,7 +924,7 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
     var montoEscala = model.MontoEscala;
     var montoPedido = model.Total - model.MontoDescuento;
 
-    CloseLoading();
+    //CloseLoading();
 
     if (!model.ValidacionInteractiva) {
         messageInfoMalo('<h3 class="">' + model.MensajeValidacionInteractiva + '</h3>');
@@ -983,7 +989,8 @@ function RespuestaEjecutarServicioPROL(response, inicio) {
                 AnalyticsGuardarValidar(response);
                 AnalyticsPedidoValidado(response);
                 setTimeout(function () {
-                    location.href = urlPedidoValidado;
+                    ShowLoading();
+                    document.location = urlPedidoValidado;
                 }, 2000);
 
             }
@@ -1131,7 +1138,7 @@ function AceptarObsInformativas() {
                         messageInfoBueno('<h3>Tu pedido se guardó con éxito</h3>');
                         CargarPedido();
                     } else
-                        location.href = urlPedidoValidado;
+                        document.location = urlPedidoValidado;
                 } else {
                     messageInfoMalo(data.message);
                 }
@@ -1334,7 +1341,7 @@ function MostrarMensajeProl(data) {
 
             messageInfoBueno('<h3>Tu pedido fue reservado con éxito.</h3>'); //EPD-2278
             setTimeout(function () {
-                location.href = urlPedidoValidado;
+                document.location = urlPedidoValidado;
             }, 2000);
             return true;
         }

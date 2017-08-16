@@ -503,6 +503,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
+
+        [OperationContract]
         void AnularPedido(int paisID, int campaniaID, int pedidoID);
 
         #region Pedidos DD
@@ -796,6 +799,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEResultadoSolicitud InsertarSolicitudClienteAppCatalogo(string prefijoISO, BESolicitudClienteAppCatalogo entidadSolicitud);
 
+        [OperationContract]
+        BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania);
+
+        [OperationContract]
+        BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID);
+
         #region ShowRoom
 
         [OperationContract]
@@ -852,7 +861,7 @@ namespace Portal.Consultoras.ServiceContracts
         int DelOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
-        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);        
+        int RemoverOfertaShowRoom(int paisID, BEShowRoomOferta entity);
 
         [OperationContract]
         int GetUnidadesPermitidasByCuvShowRoom(int paisID, int CampaniaID, string CUV);
@@ -990,6 +999,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEPedidoWeb> GetPedidosIngresadoFacturado(int paisID, int consultoraID, int campaniaID, string codigoConsultora);
 
         [OperationContract]
+        List<BEPedidoWeb> GetPedidosIngresadoFacturadoWebMobile(int paisID, int consultoraID, int campaniaID, int clienteID, int top, string codigoConsultora);
+
+        [OperationContract]
         BEConsultorasProgramaNuevas GetConsultorasProgramaNuevas(int paisID, BEConsultorasProgramaNuevas entidad);
 
         [OperationContract]
@@ -1052,7 +1064,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEEstrategiaProducto> GetEstrategiaProducto(BEEstrategia entidad);
- 
+
         [OperationContract]
         int UpdEventoConsultoraPopup(int paisID, BEShowRoomEventoConsultora entity, string tipo);
 
@@ -1104,9 +1116,27 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string CargarSesionAndDeshacerPedidoValidado(string paisISO, int campania, long consultoraID, bool usuarioPrueba, int aceptacionConsultoraDA, string tipo);
-            
+
         [OperationContract]
         string DeshacerPedidoValidado(BEUsuario usuario, string tipo);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
+
+        [OperationContract]
+        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
+
+        [OperationContract]
+        BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
        
         #region Cupon
         
@@ -1126,6 +1156,9 @@ namespace Portal.Consultoras.ServiceContracts
         void ActualizarCupon(int paisId, BECupon cupon);
 
         [OperationContract]
+        List<BEReporteValidacionSRCampania> GetReporteShowRoomCampania(int paisID, int campaniaID);
+        
+        [OperationContract]
         List<BECupon> ListarCuponesPorCampania(int paisId, int campaniaId);
 
         #endregion
@@ -1133,18 +1166,48 @@ namespace Portal.Consultoras.ServiceContracts
         #region Cupon Consultora
 
         [OperationContract]
+        List<BEReporteValidacionSRPersonalizacion> GetReporteShowRoomPersonalizacion(int paisID, int campaniaID);
+        
+        [OperationContract]
         void CrearCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
         [OperationContract]
+        List<BEReporteValidacionSROferta> GetReporteShowRoomOferta(int paisID, int campaniaID);
+        
+        [OperationContract]
         void ActualizarCuponConsultora(int paisId, BECuponConsultora cuponConsultora);
 
+        [OperationContract]
+        List<BEReporteValidacionSRComponentes> GetReporteShowRoomComponentes(int paisID, int campaniaID);
+        
         [OperationContract]
         List<BECuponConsultora> ListarCuponConsultorasPorCupon(int paisId, int cuponId);
 
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
-        #endregion
         
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);        
+        #endregion
 
+        #region Producto Comentario
+        [OperationContract]
+        int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+
+        [OperationContract]
+        BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+        #endregion
     }
 }

@@ -44,6 +44,10 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public Enumeradores.ResultadoReserva ResultadoReservaEnum { get; set; }
         [DataMember]
         public List<BEPedidoObservacion> ListPedidoObservacion { get; set; }
+        [DataMember]
+        public string ListaConcursosCodigos { get; set; }
+        [DataMember]
+        public string ListaConcursosPuntaje { get; set; }
 
         #region Atributos Cargar Session
         [DataMember]
@@ -61,7 +65,7 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public BEResultadoReservaProl()
         {
             CodigoMensaje = "";
-            ListPedidoObservacion = new List<BEPedidoObservacion>();
+            ListPedidoObservacion = new List<BEPedidoObservacion>();           
         }
     }
 }

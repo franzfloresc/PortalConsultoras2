@@ -414,6 +414,7 @@ $(document).ready(function () {
 
             var flagNueva = $.trim($("#hdFlagNueva").val());
             if (flagNueva == "0" || flagNueva == "") {
+                form.data.TipoOfertaSisID = $("#hdTipoEstrategiaID").val();
                 InsertarProducto(form);
             } else {
                 AgregarProductoZonaEstrategia(flagNueva == "1" ? 2 : flagNueva);
@@ -1169,6 +1170,8 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
         if (NombreCliente.length > 0) cliente.Nombre = NombreCliente;
     }
 
+    flagClienteDetalle = true;
+
     AbrirSplash();
 
     $.ajax({
@@ -1203,13 +1206,13 @@ function showClienteDetalle(cliente, pClienteDetalleOK, pClienteDetalleCANCEL) {
                 };
             }
 
+            ClienteDetalleCANCEL = null;
             if ($.isFunction(pClienteDetalleCANCEL)) ClienteDetalleCANCEL = pClienteDetalleCANCEL;
-
-            flagClienteDetalle = true;
         },
         error: function (xhr, ajaxOptions, error) {
             CerrarSplash();
             alert('Error: ' + xhr.status + " - " + xhr.responseText);
+            flagClienteDetalle = false;
         }
     });
 }
@@ -2062,7 +2065,8 @@ function CargarAutocomplete() {
                             //    'label': 'Satisfactorio'
                             //});
                         }, function () {
-                            if (currentInputEdit != null) currentInputEdit.focus();
+                            //if (currentInputEdit != null) currentInputEdit.focus();
+                            CargarDetallePedido();
                         });
                     }
                 }
@@ -2437,8 +2441,8 @@ function EjecutarServicioPROLSinOfertaFinal() {
             if (checkTimeout(response)) {
                 if (response.flagCorreo == "1")
                     EnviarCorreoPedidoReservado(); //EPD-2378
-            RespuestaEjecutarServicioPROL(response, false);
-            MostrarMensajeProl(response);
+                RespuestaEjecutarServicioPROL(response, false);
+                MostrarMensajeProl(response);
             }
         },
         error: function (data, error) {
@@ -3037,8 +3041,10 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
             CargarResumenCampaniaHeader();
             if (data.modificoBackOrder) {
                 showDialog('divBackOrderModificado');
-                CargarDetallePedido();
+                //CargarDetallePedido();
             }
+
+            CargarDetallePedido();
 
             var diferenciaCantidades = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (diferenciaCantidades > 0)
@@ -3476,6 +3482,8 @@ function BlurF(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
     var cliAnt = $("#hdfLPCliIni" + PedidoDetalleID).val();
     var cliNue = $("#hdfLPCli" + PedidoDetalleID).val();
+
+    if ($("#txtLPCli" + PedidoDetalleID).val() == "" && cliAnt > 0) cliNue = 0;
 
     if (cliAnt == cliNue) {
         $("#txtLPCli" + PedidoDetalleID).val($("#hdfLPCliDes" + PedidoDetalleID).val());
