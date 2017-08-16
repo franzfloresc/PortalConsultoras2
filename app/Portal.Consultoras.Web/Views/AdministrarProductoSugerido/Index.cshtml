@@ -591,6 +591,7 @@
             CUVSugerido: jQuery('#txtCUVSugeridoModal').val(),
             Orden: jQuery('#txtOrdenModal').val(),
             Estado: $("#chkHabilitar").attr('checked') ? 1 : 0,
+            DescripcionComercial: $('#txtDescripcionProductoComercial').val(),
             ImagenProducto: imagen,
             PaisID: paisID
         };
@@ -760,6 +761,7 @@
 </div>
 <script id="descripcion-comercial-template" type="text/x-handlebars-template">
     <div style="text-align:center; color:black;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+        <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
         <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
     </div>
 </script>

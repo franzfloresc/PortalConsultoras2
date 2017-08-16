@@ -401,7 +401,7 @@ namespace Portal.Consultoras.Web.Controllers
                 IdMatrizComercialImagen = model.IdMatrizComercialImagen,
                 PaisID = model.PaisID,
                 UsuarioModificacion = userData.CodigoConsultora,
-                DescripcionComercial = model.DescripcionComercial
+                DescripcionComercial = model.DescripcionComercial,
             };
 
             using (var sv = new PedidoServiceClient())

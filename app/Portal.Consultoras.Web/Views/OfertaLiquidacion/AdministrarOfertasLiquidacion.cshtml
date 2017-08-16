@@ -54,7 +54,7 @@
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
             imagenProductoElementId: 'ImagenProducto',
-            expValidacionNemotecnico: $.trim(@Html.Raw(Model.ExpValidacionNemotecnico)),
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
             actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
             });
 
@@ -685,7 +685,8 @@
                     idMatrizComercial: data.idMatrizComercial,
                     idImagenMatriz: 0,
                     paisID: paisID,
-                    codigoSAP: CodigoSAP
+                    codigoSAP: CodigoSAP,
+                    descripcionOriginal: jQuery("#list").jqGrid('getCell', ID, 'Descripcion'),
                 };
                 ofertaLiquidacionObj.crearObjetoUpload(params);
                 closeWaitingDialog();
