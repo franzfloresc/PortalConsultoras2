@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
@@ -65,6 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    ViewBag.MenuContenedor = BuildMenuContenedor();
                     ViewBag.MenuMobile = BuildMenuMobile(userData);
                     ViewBag.Permiso = BuildMenu();
                     ViewBag.ProgramasBelcorpMenu = BuildMenuService();
@@ -843,6 +845,47 @@ namespace Portal.Consultoras.Web.Controllers
             userData.MenuMobile = lstModel;
             
             return lstModel;
+        }
+
+        public List<MenuContenedorModel> BuildMenuContenedor()
+        {
+            var listaMenu = new List<MenuContenedorModel>();
+            var lista = userData.ConfiguracionPais;
+            if (lista == null || !lista.Any()) return listaMenu;
+
+            var isMobile = IsMobile();
+            foreach (var confi in lista)
+            {
+                listaMenu.Add(new MenuContenedorModel {
+                    CampaniaID = userData.CampaniaID,
+                    Logo = confi.Logo,
+                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                    Orden = confi.Orden
+                });
+            }
+
+            if (userData.RevistaDigital.TieneRDC)
+            {
+                var confiRd = lista.FirstOrDefault(c=>c.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
+                listaMenu.Add(new MenuContenedorModel
+                {
+                    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                    Logo = confiRd.Logo,
+                    TituloMenu = isMobile ? confiRd.MobileTituloMenu : confiRd.DesktopTituloMenu,
+                    LogoBanner = isMobile ? confiRd.MobileLogoBanner : confiRd.DesktopLogoBanner,
+                    FondoBanner = isMobile ? confiRd.MobileFondoBanner : confiRd.DesktopFondoBanner,
+                    TituloBanner = isMobile ? confiRd.MobileTituloBanner : confiRd.DesktopTituloBanner,
+                    SubTituloBanner = isMobile ? confiRd.MobileSubTituloBanner : confiRd.DesktopSubTituloBanner,
+                    Orden = 1,
+                    IsBloqueada = true
+                });
+            }
+
+            return listaMenu;
         }
 
         private int MostrarMenuCDR()
@@ -2438,7 +2481,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            string url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            string url = "";
+            if (HttpContext.Request.UrlReferrer != null)
+            {
+                url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            }
+            else
+            {
+                url = Util.Trim(HttpContext.Request.FilePath).ToLower();
+            }
+
             if (url.Contains("/mobile/")) return true;
             else return false;
         }

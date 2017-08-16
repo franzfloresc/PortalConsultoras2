@@ -34,8 +34,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int DesdeCampania { get; set; }
         [DataMember]
-        public int PaisID { get; set; }
-        [DataMember]
         public string DesktopTituloBanner { get; set; }
         [DataMember]
         public string MobileTituloBanner { get; set; }
@@ -43,8 +41,15 @@ namespace Portal.Consultoras.Entities
         public string DesktopSubTituloBanner { get; set; }
         [DataMember]
         public string MobileSubTituloBanner { get; set; }
+
         [DataMember]
-        public string Color { get; set; }
+        public string DesktopFondoBanner { get; set; }
+        [DataMember]
+        public string MobileFondoBanner { get; set; }
+        [DataMember]
+        public string DesktopLogoBanner { get; set; }
+        [DataMember]
+        public string MobileLogoBanner { get; set; }
 
         [DataMember]
         public BEConfiguracionPaisDetalle Detalle  { get; set; }
@@ -70,7 +75,10 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileTituloBanner")) MobileTituloBanner = Convert.ToString(row["MobileTituloBanner"]);
             if (row.HasColumn("DesktopSubTituloBanner")) DesktopSubTituloBanner = Convert.ToString(row["DesktopSubTituloBanner"]);
             if (row.HasColumn("MobileSubTituloBanner")) MobileSubTituloBanner = Convert.ToString(row["MobileSubTituloBanner"]);
-            if (row.HasColumn("Color")) Color = Convert.ToString(row["Color"]);
+            if (row.HasColumn("DesktopFondoBanner")) DesktopFondoBanner = Convert.ToString(row["DesktopFondoBanner"]);
+            if (row.HasColumn("MobileFondoBanner")) MobileFondoBanner = Convert.ToString(row["MobileFondoBanner"]);
+            if (row.HasColumn("DesktopLogoBanner")) DesktopLogoBanner = Convert.ToString(row["DesktopLogoBanner"]);
+            if (row.HasColumn("MobileLogoBanner")) MobileLogoBanner = Convert.ToString(row["MobileLogoBanner"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }

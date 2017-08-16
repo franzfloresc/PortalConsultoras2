@@ -382,6 +382,7 @@
     </Compile>
     <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Models\AdmCuponModel.cs" />
+    <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
     <Compile Include="Models\AdministrarPalancaModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
@@ -417,6 +418,7 @@
     <Compile Include="Models\FilterCupon.cs" />
     <Compile Include="Models\HistorialPostulanteModel.cs" />
     <Compile Include="Models\IngresoExternoModel.cs" />
+    <Compile Include="Models\Layout\MenuContenedorModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginFacebookChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginNormalChatbotModel.cs" />
     <Compile Include="Models\LoginChatbot\LoginChatbotModel.cs" />
@@ -3662,15 +3664,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-    <Content Include="Service References\ServiceUsuario\UsuarioService.disco" />
-    <Content Include="Service References\ServiceUsuario\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\configuration.svcinfo" />
-    <Content Include="Service References\ServiceUsuario\Reference.svcmap">
+    <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
+    <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
+    <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
+    <None Include="Service References\ServiceUsuario\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <Content Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
-    <Content Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
+    <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -4130,13 +4132,15 @@
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
     <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
-    <Content Include="Views\AdministrarPalanca\Partials\ManatenimientoPalanca.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\RevistaDigital\MisOfertas2017.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
     <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-producto.cshtml" />
+    <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
+    <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

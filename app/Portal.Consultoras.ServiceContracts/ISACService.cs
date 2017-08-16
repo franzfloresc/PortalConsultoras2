@@ -704,5 +704,16 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
+
+        #region ConfiguracionOfertasHome
+        [OperationContract]
+        List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId);
+
+        [OperationContract]
+        BEConfiguracionOfertasHome GetConfiguracionOfertasHome(int paisId, int configuracionOfertasHomeId);
+
+        [OperationContract]
+        void UpdateConfiguracionOfertasHome(BEConfiguracionOfertasHome configuracionOfertasHome);
+        #endregion
     }
 }
