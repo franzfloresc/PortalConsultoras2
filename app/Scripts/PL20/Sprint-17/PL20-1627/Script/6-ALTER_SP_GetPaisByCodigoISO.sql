@@ -1,4 +1,4 @@
-use BelcorpPeru 
+﻿use BelcorpPeru 
 go
 alter procedure dbo.GetPaisByCodigoISO
 @CodigoISO char(2)
