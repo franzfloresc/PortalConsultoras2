@@ -53,7 +53,7 @@
 	    transition:.3s;
 	}
 
-    ul.menu_estrategia li ul.default{
+    ul.sbmenu_estrategia li.default{
         display:block;
     }
 

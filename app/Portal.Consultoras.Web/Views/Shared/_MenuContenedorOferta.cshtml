@@ -1,8 +1,8 @@
 ﻿
 @{
     var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaNegra = permisoList.Where(p => p.IsBloqueada);
-    var listaPloma = permisoList.Where(p => p.IsBloqueada == false);
+    var listaNegra = permisoList.Where(p => p.IsMenuCampania);
+    var listaPloma = permisoList.Where(p => p.IsMenuCampania == false);
 }
 
 <div class="bc_menu_estrategia">
@@ -11,7 +11,7 @@
         <ul class="menu_estrategia">
             @foreach (var menu in listaNegra)
             {
-                <li>
+                <li data-campania="@menu.CampaniaID" data-activo="@menu.Activa">
                     <a href="javascript:;">
                         <img src="@menu.Logo" alt="" class="icono">
                         <p>@menu.TituloMenu</p>
@@ -25,7 +25,8 @@
         <ul class="sbmenu_estrategia">
             @foreach (var menu in listaPloma)
             {
-                <li>
+                var mostrar = menu.Activa ? "block" : "none";
+                <li data-campania="@menu.CampaniaID" style="display:@mostrar;">
                     <a href="javascript:;">
                         <p>@menu.TituloMenu</p>
                         <span>@menu.SubTituloMenu</span>
