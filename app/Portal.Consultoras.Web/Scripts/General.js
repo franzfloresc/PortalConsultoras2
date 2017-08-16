@@ -1471,7 +1471,10 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
     }
 
     if (variant == "") { variant = "Estándar"; }
-    dataLayer.push({
+
+    quantity = parseInt(quantity);
+
+    var data = {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
@@ -1483,12 +1486,15 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
                     'id': id,
                     'category': 'No disponible',
                     'variant': variant,
-                    'quantity': quantity, 'dimension15': '100',
+                    'quantity': quantity,
+                    'dimension15': '100',
                     'dimension16': dimension16
                 }]
             }
         }
-    });
+    }
+
+    dataLayer.push(data);
 }
 
 function odd_desktop_google_analytics_product_click(name, id, price, brand, variant, position) {
