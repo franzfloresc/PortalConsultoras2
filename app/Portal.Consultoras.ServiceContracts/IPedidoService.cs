@@ -1124,7 +1124,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConsultoraConcurso> ObtenerConcursosXConsultora(int PaisID, string CodigoCampania, string CodigoConsultora, string CodigoRegion, string CodigoZona);
 
         [OperationContract]
-        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos);
+        void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso);
 
         [OperationContract]
         List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
@@ -1185,10 +1185,13 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
+        #endregion
+
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
         
         [OperationContract]
-        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);        
-        #endregion
+        List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania);
 
         #region Producto Comentario
         [OperationContract]
@@ -1209,5 +1212,6 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
+
     }
 }

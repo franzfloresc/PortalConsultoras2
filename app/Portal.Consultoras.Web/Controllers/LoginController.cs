@@ -21,6 +21,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1825,10 +1826,16 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile
+                    MostrarHipervinculo = !model.EsAppMobile,
+                    EsAppMobile = model.EsAppMobile
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
+
+                if (!string.IsNullOrEmpty(model.Identifier))
+                {
+                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                }
 
                 switch (model.Pagina.ToUpper())
                 {

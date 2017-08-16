@@ -1187,7 +1187,6 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
-    <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
@@ -3380,6 +3379,15 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService.disco" />
+    <None Include="Service References\ServiceCliente\ClienteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">
@@ -3429,6 +3437,7 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3552,6 +3561,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSAC\SACService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
@@ -4106,8 +4118,6 @@
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
-    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
-    <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

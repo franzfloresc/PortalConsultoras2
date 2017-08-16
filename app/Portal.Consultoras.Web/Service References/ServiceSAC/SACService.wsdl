@@ -31,8 +31,9 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISACService_GetProveedorDespachoCobranza_InputMessage">
@@ -100,6 +101,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarApps_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarApps" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarApps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarAppsResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
@@ -1166,6 +1173,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" message="tns:ISACService_GetCampaniaActualAndSiguientePais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse" message="tns:ISACService_GetCampaniaActualAndSiguientePais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarApps" message="tns:ISACService_ListarApps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarAppsResponse" message="tns:ISACService_ListarApps_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -1941,6 +1952,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarApps" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3574,6 +3594,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarApps" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

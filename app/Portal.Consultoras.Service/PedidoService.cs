@@ -2155,9 +2155,9 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
         }
 
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)
         {
-            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
+            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
         }
 
         public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
@@ -2183,6 +2183,11 @@ namespace Portal.Consultoras.Service
         public List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia)
         {
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
+        }
+
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
         }
 
         #endregion
