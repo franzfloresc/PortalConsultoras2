@@ -184,9 +184,9 @@
 	    width: 50px;
 	}
 	.bc_vineta_baja{
-    margin: 20px 0px;
+       margin: 0px 0px;
     display: block;
-    margin-top: 70px;
+    margin-top: 40px;
 	}
 	.bc_slider{
 		max-width: 980px;
