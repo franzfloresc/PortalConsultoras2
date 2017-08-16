@@ -3,8 +3,15 @@ var DescripcionComercial = function (config) {
     var _config = {
         prefixControlDescripcionComercial: config.prefixControlNemotecnico || 'label-descripcioncomercial-',
         actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction || '',
+        isEstrategiaDescripcionComercial: config.isEstrategiaDescripcionComercial || 0,
+        isLiquidacionDescripcionComercial: config.isLiquidacionDescripcionComercial || 0,
+        isSugeridosDescripcionComercial: config.isSugeridosDescripcionComercial || 0,
         paisID: config.paisID || 0,
     };
+
+    var _actualizarConfig = function (config) {
+        _config = config;
+    }
 
     var _toastHelper = ToastHelper();
 
@@ -81,7 +88,7 @@ var DescripcionComercial = function (config) {
             return false;
         } else {
             waitingDialog({});
-            var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor };
+            var params = { PaisID: _config.paisID, IdMatrizComercialImagen: id, DescripcionComercial: valor};
             $.post(_config.actualizarDescripcionComercialAction, params).done(_actualizarDescripcionComercialActionSuccess);
         } 
     };
@@ -100,6 +107,14 @@ var DescripcionComercial = function (config) {
         label.prop('title', entity.DescripcionComercial).text(entity.DescripcionComercial);
         closeWaitingDialog();
         //alert(response.message);
+
+        if (_config.isEstrategiaDescripcionComercial)
+            $("#txtDescripcion").val(entity.DescripcionComercial);
+        if (_config.isLiquidacionDescripcionComercial)
+            $("#txtDescripcionModal").val(entity.DescripcionComercial);
+        if (_config.isSugeridosDescripcionComercial)
+            $("#txtDescripcionProductoComercial").val(entity.DescripcionComercial);
+
         _toastHelper.success(response.message);
     };
 
@@ -116,6 +131,7 @@ var DescripcionComercial = function (config) {
     return {
         editarDescripcionComercial: _editarDescripcionComercial,
         editarDescripcionComercialParaEstrategia: _editarDescripcionComercialParaEstrategia,
-        actualizarPais: _actualizarPais
+        actualizarPais: _actualizarPais,
+        actualizarConfig: _actualizarConfig
     }
 };

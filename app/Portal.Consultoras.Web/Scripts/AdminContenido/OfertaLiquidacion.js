@@ -26,7 +26,9 @@ var OfertaLiquidacion = function (config) {
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
-    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
+    var _descripcionComercial = DescripcionComercial({
+        prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction, isLiquidacionDescripcionComercial: true
+    });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');

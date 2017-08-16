@@ -13,7 +13,7 @@
     };
 
     var _editData = {};
-    var _idImagen;
+    var _idImagen = 0;
 
     var _paginadorClick = function (page) {
         var valNemotecnico = $('#txtBusquedaNemotecnico').val();
@@ -24,7 +24,7 @@
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
-    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction });
+    var _descripcionComercial = DescripcionComercial({ prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction, isEstrategiaDescripcionComercial: true });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -150,7 +150,9 @@
             $("#hdTipoEstrategiaID").val(data.TipoEstrategiaID);
             $("#ddlTipoEstrategia").val(data.TipoEstrategiaID);
             $("#hdnCodigoSAP").val(data.CodigoSAP);
+
             _editData.CodigoSAP = data.CodigoSAP;
+
             SeleccionarTipoOferta();
 
             $("#txtAlcance").val($("#ddlPais option:selected").html());
