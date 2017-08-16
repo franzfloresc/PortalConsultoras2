@@ -1042,7 +1042,6 @@ function EstrategiaTallaColor(datos) {
 
 function EstrategiaAgregarProducto(datosEst, popup, tipoEstrategiaImagen) {
     AbrirLoad();
-    debugger;
     var marcaID = datosEst.MarcaID; // $("#txtCantidadZE").attr("est-marcaID");
     var cuv = datosEst.CUV2; // $("#txtCantidadZE").attr("est-cuv2");
     var precio = datosEst.Precio2;// $("#txtCantidadZE").attr("est-precio2");
