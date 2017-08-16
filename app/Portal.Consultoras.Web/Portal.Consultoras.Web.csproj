@@ -198,6 +198,7 @@
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
@@ -1152,6 +1153,7 @@
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
+    <Content Include="Content\Css\Mobile\esika\ofertas.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
@@ -2807,8 +2809,14 @@
     <Content Include="Content\Images\regalo_microefecto_lbel.png" />
     <Content Include="Content\Images\remove.png" />
     <Content Include="Content\Images\RevistaDigital\barra-mis-ofertas.png" />
+    <Content Include="Content\Images\RevistaDigital\bc_barra_top.png" />
+    <Content Include="Content\Images\RevistaDigital\bc_logo.svg" />
     <Content Include="Content\Images\RevistaDigital\bc_ofertas_personalizadas2.png" />
     <Content Include="Content\Images\RevistaDigital\bg_detalle.png" />
+    <Content Include="Content\Images\RevistaDigital\bg_esika.png" />
+    <Content Include="Content\Images\RevistaDigital\bg_esika_mobil.png" />
+    <Content Include="Content\Images\RevistaDigital\bg_estrellas.png" />
+    <Content Include="Content\Images\RevistaDigital\bg_mini_bloque.png" />
     <Content Include="Content\Images\RevistaDigital\bg_popups.png" />
     <Content Include="Content\Images\RevistaDigital\bg_showroom.png" />
     <Content Include="Content\Images\RevistaDigital\cerrar_04_blanco.png" />
@@ -2817,6 +2825,7 @@
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco.svg" />
     <Content Include="Content\Images\RevistaDigital\esika-para-mi-blanco2.svg" />
     <Content Include="Content\Images\RevistaDigital\exclamacion_blanco.png" />
+    <Content Include="Content\Images\RevistaDigital\fill-1.svg" />
     <Content Include="Content\Images\RevistaDigital\fondo.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_popup.jpg" />
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
@@ -2835,6 +2844,12 @@
     <Content Include="Content\Images\RevistaDigital\next.png" />
     <Content Include="Content\Images\RevistaDigital\next_mob.png" />
     <Content Include="Content\Images\RevistaDigital\nuevo.png" />
+    <Content Include="Content\Images\RevistaDigital\ojos.svg" />
+    <Content Include="Content\Images\RevistaDigital\ojos_BLANCO.svg" />
+    <Content Include="Content\Images\RevistaDigital\ojos_negro.svg" />
+    <Content Include="Content\Images\RevistaDigital\plantilla1.jpg" />
+    <Content Include="Content\Images\RevistaDigital\plantilla1.png" />
+    <Content Include="Content\Images\RevistaDigital\plantilla2.png" />
     <Content Include="Content\Images\RevistaDigital\Polygon.png" />
     <Content Include="Content\Images\RevistaDigital\previous.png" />
     <Content Include="Content\Images\RevistaDigital\previous_mob.png" />
@@ -2844,6 +2859,7 @@
     <Content Include="Content\Images\RevistaDigital\prod3.png" />
     <Content Include="Content\Images\RevistaDigital\prod0.png" />
     <Content Include="Content\Images\RevistaDigital\prod4.png" />
+    <Content Include="Content\Images\RevistaDigital\producto.png" />
     <Content Include="Content\Images\RevistaDigital\rd_arrowdown.svg" />
     <Content Include="Content\Images\RevistaDigital\rd_arrowright.png" />
     <Content Include="Content\Images\RevistaDigital\rd_arrowright_blanco.png" />
@@ -2852,6 +2868,7 @@
     <Content Include="Content\Images\RevistaDigital\producto_kadia.png" />
     <Content Include="Content\Images\RevistaDigital\rd_lanzamiento.jpg" />
     <Content Include="Content\Images\RevistaDigital\revista_izquierda.png" />
+    <Content Include="Content\Images\RevistaDigital\shoppingcard_blanco.svg" />
     <Content Include="Content\Images\revista_no_disponible.jpg" />
     <Content Include="Content\Images\sac.png" />
     <Content Include="Content\Images\scotiabank.png" />
@@ -3376,6 +3393,7 @@
     <Content Include="Areas\Mobile\Views\Catalogo\template-carrusel-issue.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Areas\Mobile\Views\Ofertas\Index.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />

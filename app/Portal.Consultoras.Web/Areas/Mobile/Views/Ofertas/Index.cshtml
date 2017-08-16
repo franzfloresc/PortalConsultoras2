@@ -1,0 +1,115 @@
+﻿@using System.Configuration
+@using Portal.Consultoras.Common
+
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
+@{
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+@section styles{
+<link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/Css/Mobile/esika/ofertas.css")" rel="stylesheet" />
+}
+<div class="bc_para_ti" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_estrellas.png"));">
+    <div class="bc_para_ti-logo">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/bg_esika.png")" alt="">
+    </div>
+    <div class="bc_para_ti-texto">
+        <div class="bc_para_ti-texto-contenido">
+            <p><b>CARMEN</b>, ¡VIVE LAS OFERTAS DE NAVIDAD ES NOVEDAD!</p>
+        </div>
+    </div>
+    <div class="bc_para_ti-clear"></div>
+    <div class="bc_para_ti-menu">
+        <ul>
+            <li>
+                <a href="">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/fill-1.svg")" alt="" class="hover">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/shoppingcard_blanco.svg")" alt="" class="default">C-16
+                </a>
+                <ul>
+                    <!-- aquí menú -->
+                </ul>
+            </li><li>
+                <a href="">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/ojos.svg")" alt="" class="default">
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/ojos_negro.svg")" alt="" class="hover">C-17
+                </a>
+                <ul>
+                    Boli
+                </ul>
+            </li><li>
+                <a href="">SABER MÁS</a>
+                <ul>
+                    Camaron con coli
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="bc_mobil_contenido">
+    <div class="bc_mobil_contenido-plantilla1">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/plantilla1.png")" alt="">
+    </div>
+    <div class="bc_mobil_contenido-plantilla2" style="
+         background:url(@Url.Content("~/Content/Images/RevistaDigital/plantilla2.png"));">
+    <div class="bc_mobil_contenido-plantilla2-contenido">
+        <p class="titulo">¡SOLO HOY!</p>
+        <p class="countdown">05:11:30</p>
+        <div class="bc_bloque_img_responsive">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
+        </div>
+        <div class="bc_bloque_txt">
+            SET ILUMINA A SOLO <b>$31.90</b>
+            <a href="" class="agregalo">¡AGRÉGALO YA!</a>
+            <a href="" class="ver-mas">+ VER MÁS DETALLE</a>
+        </div>
+        <div class="bc_bloque_img">
+            <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
+        </div>
+    </div>
+</div>
+<div class="bc_mobil_contenido-plantilla3">
+    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
+        <div class="contenido">
+            <p>Lanzamientos</p>
+            <span>Prueba este producto</span>
+        </div>
+    </div>
+    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
+        <div class="contenido">
+            <p>Lanzamientos</p>
+            <span>Prueba este producto</span>
+        </div>
+    </div>
+    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
+        <div class="contenido">
+            <p>Lanzamientos</p>
+            <span>Prueba este producto</span>
+        </div>
+    </div>
+    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
+        <div class="contenido">
+            <p>Lanzamientos</p>
+            <span>Prueba este producto</span>
+        </div>
+    </div>
+</div>
+
+	</div>
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-producto.cshtml")
+
+
+@section scripts{
+<script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+</script>
+<script type="text/javascript" src="@Url.Content(" ~/Scripts/jquery.flexslider.js")"></script>
+<script type="text/javascript" src="@Url.Content(" ~/Scripts/slick.min.js")"></script>
+<script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+<script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+}

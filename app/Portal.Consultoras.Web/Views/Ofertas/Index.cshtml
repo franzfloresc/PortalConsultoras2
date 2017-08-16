@@ -28,7 +28,10 @@
     }
     .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img {
     max-height: 450px !important;
-}
+    }
+    .content_slider_ept {
+    padding-top: 30px;
+    }
 </style>
 <div class="bc_estrategia_contenido">
     @foreach (var seccion in Model.ListaSeccion)
@@ -191,7 +194,7 @@
             <a href="">VER MÁS OFERTAS</a>
         </div>
     </div>
-    <div class="bc_vineta_baja" style="margin-top: 80px;">
+    <div class="bc_vineta_baja">
         <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
     </div>
     <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bc_ofertas_personalizadas2.png"));">
