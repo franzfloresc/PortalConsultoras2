@@ -377,7 +377,7 @@
         }
 
         if (!checkCountdownODD()) {
-            alert_msg_pedido('La Oferta del Día se termino');
+            alert_msg_pedido('La Oferta del Día se terminó');
             closeWaitingDialog();
             return false;
         }
@@ -393,7 +393,7 @@
         }
 
         var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
-        var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
+        var msg1 = 'Sólo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
         if (cantidad > limiteVenta) {
             $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
             $('#dialog_ErrorMainLayout').show();
@@ -483,7 +483,7 @@
                         if (typeof origenPagina !== 'undefined') {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
-                            TagManagerClickAgregarProducto();
+                            //TagManagerClickAgregarProducto();
                         }
 
                         CargarResumenCampaniaHeader(true);
