@@ -126,11 +126,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
                 return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-
-            //todo: shoul be checked at controller
-            if (Constantes.MovimientoTipo.CargoBelcorp == movimiento.TipoMovimiento)
-                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-
+            
             movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
                 ? (-1) * Math.Abs(movimiento.Monto)
                 : Math.Abs(movimiento.Monto);
@@ -180,7 +176,6 @@ namespace Portal.Consultoras.BizLogic
             return movimientos;
         }
 
-
         public ResponseType<BEMovimiento> MovimientoActualizar(int paisId, BEMovimiento movimiento)
         {
             if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
@@ -188,10 +183,49 @@ namespace Portal.Consultoras.BizLogic
                 return ResponseType<BEMovimiento>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
             }
 
+            movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
+                ? (-1) * Math.Abs(movimiento.Monto)
+                : Math.Abs(movimiento.Monto);
+
             var daCliente = new DACliente(paisId);
             var result = daCliente.MovimientoActualizar(movimiento);
 
             return ResponseType<BEMovimiento>.Build(result, string.Empty);
+        }
+
+        private ResponseType<List<BEMovimiento>> MovimientoProcesar(int paisId, IEnumerable<BEMovimiento> movimientos)
+        {
+            var movimientosResponse = ResponseType<List<BEMovimiento>>.Build(data: new List<BEMovimiento>());
+
+            foreach (var movimiento in movimientos)
+            {
+                if (movimiento.ClienteMovimientoId == 0)
+                {
+                    var resultInsertar = MovimientoInsertar(paisId, movimiento);
+                    if (!resultInsertar.Success)
+                    {
+                        movimientosResponse.Success = resultInsertar.Success;
+                        movimientosResponse.Message += ", " + resultInsertar.Message;
+                        continue;
+                    }
+
+                    movimiento.ClienteMovimientoId = resultInsertar.Data;
+                }
+                else
+                {
+                    var resultActualizar = MovimientoActualizar(paisId, movimiento);
+                    if (!resultActualizar.Success)
+                    {
+                        movimientosResponse.Success = resultActualizar.Success;
+                        movimientosResponse.Message += ", " + resultActualizar.Message;
+                        continue;
+                    }
+                }
+
+                movimientosResponse.Data.Add(movimiento);
+            }
+
+            return movimientosResponse;
         }
         #endregion
 
@@ -277,6 +311,7 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var clienteDB in clientes)
             {
+                var movimientosResponse = ResponseType<List<BEMovimiento>>.Build();
                 clienteDB.PaisID = paisID;
 
                 //VALIDAR CLIENTE
@@ -378,7 +413,7 @@ namespace Portal.Consultoras.BizLogic
 
                     //VERIFICAR POR CODIGO Y PAIS
                     var existeClientePais = daClienteDB.GetClienteByClienteID(clienteDB.ClienteID.ToString(), paisID);
-                    if(existeClientePais.Count == 0)
+                    if (existeClientePais.Count == 0)
                     {
                         //INSERTAR CLIENTE
                         clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
@@ -458,6 +493,11 @@ namespace Portal.Consultoras.BizLogic
 
                         clienteDB.Notas = clienteNotasRespuesta;
                     }
+
+                    if (clienteDB.Movimientos != null)
+                    {
+                        movimientosResponse = MovimientoProcesar(paisID, clienteDB.Movimientos);
+                    }
                 }
                 else
                 {
@@ -488,7 +528,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                lstResponse.Add(new BEClienteResponse()
+                var clienteResponse = new BEClienteResponse()
                 {
                     ClienteID = clienteDB.ClienteID,
                     ConsultoraID = clienteDB.ConsultoraID,
@@ -496,7 +536,16 @@ namespace Portal.Consultoras.BizLogic
                     Notas = clienteDB.Notas,
                     CodigoRespuesta = Constantes.ClienteValidacion.Code.SUCCESS,
                     MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS]
-                });
+                };
+
+                if (!movimientosResponse.Success)
+                {
+                    clienteResponse.CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_MOVIMIENTOINVALIDO;
+                    clienteResponse.MensajeRespuesta = movimientosResponse.Message;
+                }
+
+                clienteResponse.Movimientos = movimientosResponse.Data;
+                lstResponse.Add(clienteResponse);
             }
 
 
@@ -517,7 +566,7 @@ namespace Portal.Consultoras.BizLogic
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
             var lstCliente = daClienteDB.GetClienteByClienteID(strclientes, paisID);
-            
+
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
                         join tblCliente in lstCliente

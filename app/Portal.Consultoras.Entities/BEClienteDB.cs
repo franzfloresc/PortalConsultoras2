@@ -84,5 +84,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public IEnumerable<BENota> Notas { get; set; }
+
+        [DataMember]
+        public IEnumerable<BEMovimiento> Movimientos { get; set; }
     }
 }

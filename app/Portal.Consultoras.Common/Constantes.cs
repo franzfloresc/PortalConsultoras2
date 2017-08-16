@@ -857,6 +857,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
                 public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
                 public const string ERROR_TIPOCONTACTOREPETIDO = "14";
+                public const string ERROR_NOTAINVALIDA = "15";
+                public const string ERROR_MOVIMIENTOINVALIDO = "16";
             }
 
             public static Dictionary<string, string> Message
@@ -880,6 +882,8 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
                         {Code.ERROR_TIPOCONTACTOREPETIDO, "El tipo de contacto {0} se encuentra repetido para el cliente."},
+                        {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
                     });
                 }
             }
