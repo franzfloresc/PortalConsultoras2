@@ -924,9 +924,9 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
-            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID);
+            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
         #region Pedidos DD
@@ -2188,12 +2188,11 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Producto Comentario
-
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-
+        
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);

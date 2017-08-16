@@ -4992,7 +4992,7 @@ table > thead > tr > th {
 .previous_ofertas_mobile {
     display: block;
     top: 0;
-    padding-top: 150px;
+    padding: 50% 0;
     position: absolute;
     z-index: 899;
     cursor: pointer;
@@ -5014,7 +5014,6 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 8%;
     padding-right: 8%;
-    margin-bottom: 16px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: .2px;
@@ -9908,20 +9907,6 @@ a{
     width: 38%;
 }
 
-.btn3-ffc {
-    font-family: 'lato';
-    background: white;
-    color: black;
-    font-weight: 700;
-    height: 45px;
-    border: 1px solid #ccc;
-    float: left;
-    /* line-height: 32px; */
-    text-align-last: center;
-    /* border-radius: 0; */
-    display: inline-block;
-    width: 48%;
-}
 .select-ffc {
    font-family: 'lato';
     font-size: 13px;
@@ -10313,8 +10298,9 @@ a{
     float:left;
 }
 .btn_desactivado_general{
-    background:#d6d6d6 !important;
-    border:none;
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 .btn_agregar_ficha_producto{
     width:50%;
@@ -12960,4 +12946,8 @@ a{
 }
 .content_detalle_s{
     margin-top:-11px;
+}
+
+.fondo_pestana{
+    background:#eeeeee;
 }

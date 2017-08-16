@@ -42,10 +42,8 @@ namespace Portal.Consultoras.Data.Hana
                     decimal montoMaximo;
                     bool esMontoMaximo = decimal.TryParse(informacionOnlineConsultoraHana.MontoMaximoPedido, out montoMaximo);
                     beUsuario.MontoMaximoPedido = esMontoMaximo ? montoMaximo : 0;
-
-                    decimal montoDeuda;
-                    bool esMontoDeuda = decimal.TryParse(informacionOnlineConsultoraHana.SALDOTOTAL, out montoDeuda);
-                    beUsuario.MontoDeuda = esMontoDeuda ? montoDeuda : 0;
+                                       
+                    beUsuario.MontoDeuda = informacionOnlineConsultoraHana.SALDOTOTALCAM;// esMontoDeuda ? montoDeuda : 0;
 
                     beUsuario.IndicadorFlexiPago = informacionOnlineConsultoraHana.Indicador_Activa;
 
@@ -63,8 +61,8 @@ namespace Portal.Consultoras.Data.Hana
                      * SALDOTOTALCAM            no se usa
                     */
 
-                    break;                    
-                }                
+                    break;
+                }
             }
             catch (Exception ex)
             {
