@@ -420,6 +420,7 @@ function GanoOfertaFinalRegalo(totalPedido) {
             $("#msjOfertaFinal span").html("");
 
             $(container).find('#of-regalo-msg1').hide();
+            $(container).find('#of-regalo-msg3').hide();
             $(container).find('#of-regalo-montos').hide();
             $(container).find('#of-regalo-msg2').show();
         }
@@ -474,6 +475,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             $("#btnNoGraciasOfertaFinal").show();
 
             if (ofertaFinalRegalo != null) {
+                MostrarOfertaFinalRegalo(data.total);
                 GanoOfertaFinalRegalo(data.total);
             }
             else {

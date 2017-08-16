@@ -581,7 +581,7 @@ $("#content_oferta_dia_mobile").click(function () {
 function odd_mobile_google_analytics_promotion_click() {
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del d�a - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
         var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
         dataLayer.push({
             'event': 'promotionClick',
