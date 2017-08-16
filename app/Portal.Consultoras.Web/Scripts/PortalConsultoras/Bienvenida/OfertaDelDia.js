@@ -483,7 +483,9 @@
                         if (typeof origenPagina !== 'undefined') {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
-                            //TagManagerClickAgregarProducto();
+                            var tipo = $(btn).attr('data-odd-accion-type');
+                            var indiceElemeto = $(btn).attr('data-odd-accion-element');
+                            odd_desktop_google_analytics_addtocart(tipo, indiceElemeto);
                         }
 
                         CargarResumenCampaniaHeader(true);
