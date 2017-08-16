@@ -103,7 +103,8 @@ namespace Portal.Consultoras.Web.Models
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caractéres")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        //[Required(ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "CL,PE,CO,MX,EC,SV,PA,GT,CR,DO,PR", ErrorMessage = "Este campo es obligatorio")]
         public string CorreoElectronico { get; set; }
 
         public string CodigoZona { get; set; }
