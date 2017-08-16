@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Text.RegularExpressions;
-
+using Portal.Consultoras.BizLogic.Framework;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
@@ -122,10 +122,23 @@ namespace Portal.Consultoras.BizLogic
         }
 
         #region Movimiento
-        public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        public ResponseType<int> MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
+            if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
+                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
+
+            //todo: shoul be checked at controller
+            if (Constantes.MovimientoTipo.CargoBelcorp == movimiento.TipoMovimiento)
+                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
+
+            movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
+                ? (-1) * Math.Abs(movimiento.Monto)
+                : Math.Abs(movimiento.Monto);
+
             var daCliente = new DACliente(paisId);
-            return daCliente.MovimientoInsertar(movimiento);
+            var movimientoInsertado = daCliente.MovimientoInsertar(movimiento);
+
+            return ResponseType<int>.Build(data: movimientoInsertado);
         }
 
         public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId)
@@ -168,17 +181,17 @@ namespace Portal.Consultoras.BizLogic
         }
 
 
-        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        public ResponseType<BEMovimiento> MovimientoActualizar(int paisId, BEMovimiento movimiento)
         {
             if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
             {
-                return new Tuple<bool, string>(false, "Tipo de movimiento no permitido, Solo A, C, CB"); //todo: a recursos
+                return ResponseType<BEMovimiento>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
             }
 
             var daCliente = new DACliente(paisId);
             var result = daCliente.MovimientoActualizar(movimiento);
 
-            return new Tuple<bool, string>(result, string.Empty);
+            return ResponseType<BEMovimiento>.Build(result, string.Empty);
         }
         #endregion
 
@@ -286,7 +299,7 @@ namespace Portal.Consultoras.BizLogic
                                         {
                                             TipoContactoID = grp.Key,
                                             Cantidad = grp.Count()
-                                        }).Where(x => x.Cantidad > 1).OrderBy(x=>x.TipoContactoID).FirstOrDefault();
+                                        }).Where(x => x.Cantidad > 1).OrderBy(x => x.TipoContactoID).FirstOrDefault();
 
                 if (contactoRepetido != null)
                 {
@@ -296,7 +309,7 @@ namespace Portal.Consultoras.BizLogic
                         ConsultoraID = clienteDB.ConsultoraID,
                         ClienteIDSB = clienteDB.ClienteIDSB,
                         CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOREPETIDO,
-                        MensajeRespuesta = string.Format(Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOREPETIDO],contactoRepetido.TipoContactoID)
+                        MensajeRespuesta = string.Format(Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_TIPOCONTACTOREPETIDO], contactoRepetido.TipoContactoID)
                     });
                     continue;
                 }
@@ -493,7 +506,7 @@ namespace Portal.Consultoras.BizLogic
             //2. OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
             var lstCliente = daClienteDB.GetClienteByClienteID(strclientes);
-            
+
             //3. CRUZAR 1 Y 2
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
                         join tblCliente in lstCliente
