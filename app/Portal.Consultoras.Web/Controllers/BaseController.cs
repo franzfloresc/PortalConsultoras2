@@ -863,7 +863,8 @@ namespace Portal.Consultoras.Web.Controllers
                     FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
                     TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                     SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
-                    Orden = confi.Orden
+                    Orden = confi.Orden,
+                    Activa = true
                 });
             }
 

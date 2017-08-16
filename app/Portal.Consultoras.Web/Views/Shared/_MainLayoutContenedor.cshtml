@@ -888,8 +888,13 @@
 
         $(document).ready(function () {
 
+            $("ul.menu_estrategia li[data-activo='True']").addClass("seleccionado");
+            $($("ul.sbmenu_estrategia li[data-activo='True']").get(0)).addClass("seleccionado");
+            $("ul.sbmenu_estrategia li").hide();
+            var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
+            $("ul.sbmenu_estrategia li[data-campania='"+campania+"']").show();
+
             $('ul.menu_estrategia li').hover(function(e) {
-                $(this).addClass('ul.menu_estrategia li.seleccionado');
                 $(this).find('p').css('color', 'white');
                 $('ul.sbmenu_estrategia li a p').css('color', '#333');
             }, function(e) {
@@ -908,11 +913,11 @@
             });
             
             $('ul.sbmenu_estrategia li a').hover(function(e) {
-                $(this).find('p').css('font-weight', 'bolder')
+                $(this).find('p').css('font-weight', 'bolder');
             }, function(e) {
-                $(this).find('p').css('font-weight', 'normal')
+                $(this).find('p').css('font-weight', 'normal');
+               $("ul.sbmenu_estrategia li.seleccionado a p").css('font-weight', 'bolder');
             });
-
         });
 
 

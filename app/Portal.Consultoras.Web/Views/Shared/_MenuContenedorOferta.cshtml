@@ -25,8 +25,7 @@
         <ul class="sbmenu_estrategia">
             @foreach (var menu in listaPloma)
             {
-                var mostrar = menu.Activa ? "block" : "none";
-                <li data-campania="@menu.CampaniaID" style="display:@mostrar;">
+                <li data-campania="@menu.CampaniaID" data-activo="@menu.Activa" style="display:none;">
                     <a href="javascript:;">
                         <p>@menu.TituloMenu</p>
                         <span>@menu.SubTituloMenu</span>
