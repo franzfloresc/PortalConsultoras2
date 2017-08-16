@@ -13050,7 +13050,7 @@ a{
     background:white;
     width:90%;
     max-width:280px;
-    min-height:333px;
+    min-height:308px;
     margin:0 auto;
     padding:22px 14px 5px 14px;
 }
@@ -13065,12 +13065,12 @@ a{
     margin-bottom: 10px;
 }
 .content_imagen_sorpresa{
-    height:218px;
+    height:172px;
     width:218px;
     margin:0 auto;
 }
 .content_imagen_sorpresa img{
-    height:218px;
+    height:172px;
     width:auto;
 }
 .descripcion_regalo{

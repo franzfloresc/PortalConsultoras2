@@ -263,6 +263,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
+
     //POP UP REGALO MOBLE
     $("#linkRegaloSorpresa").click(function () {
         // Set the effect type
@@ -271,6 +272,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var duration = 500;
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
     });
+
     $("#btnRegresoOF").click(function () {
         // Set the effect type
         var effect = 'slide';
@@ -278,6 +280,8 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var duration = 500;
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
     });
+
+    debugger;
     // Regalo OF
     if (cumpleOferta.regaloOF != null) {
         ofertaFinalRegalo = cumpleOferta.regaloOF;
@@ -381,19 +385,30 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 }
 
 function MostrarOfertaFinalRegalo(totalPedido) {
-    var container = $('#container-of-regalo');
+    debugger;
+    var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
+        if (tipoOrigen == '2') $('#linkRegaloSorpresa').show();
         var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);
         $(container).find('#of-regalo-descripcion').text(ofertaFinalRegalo.Descripcion);
         $(container).find('#of-regalo-imagen').attr('src',ofertaFinalRegalo.RegaloImagenUrl);
         $(container).find('#of-regalo-descripcion-larga').text(ofertaFinalRegalo.RegaloDescripcion);
 
         if (gano) {
-            $('div.icono_regalo_sorpresa').css("background", "url(/Content/Images/gif-regalo-gano.gif)");
             $(container).find('#of-regalo-msg1').hide();
             $(container).find('#of-regalo-msg2').hide();
             $(container).find('#of-regalo-montos').hide();
-            $(container).find('#of-regalo-msg3').show();
+
+            if (tipoOrigen == '1') {
+                $('div.icono_regalo_sorpresa').css("background", "url(/Content/Images/gif-regalo-gano.gif)");
+                //$(container).find('#of-regalo-msg1').hide();
+                //$(container).find('#of-regalo-msg2').hide();
+                //$(container).find('#of-regalo-montos').hide();
+                $(container).find('#of-regalo-msg3').show();
+            }
+            else if (tipoOrigen == '2') {
+                 $('#linkRegaloSorpresa').text('MIRA AQUI TU PREMIO');
+            }
         }
         else {
             var saldo = (ofertaFinalRegalo.MontoMeta - totalPedido).toFixed(2);
@@ -405,42 +420,54 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $(container).find('#of-regalo-montos').show();
             $(container).find('#of-regalo-msg1').show();
         }
-        $(container).show();
-        $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        if (tipoOrigen == '1') {
+            $(container).show();
+            $('div.popup_ofertaFinal').addClass('fondo_gris_OF');
+        }
     }
 }
 
 function GanoOfertaFinalRegalo(totalPedido) {
-    var container = $('#container-of-regalo');
+    debugger;
+    var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
         var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);
         if (gano) {
-            $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
-            $("#spnTituloOfertaFinal span").html("SIGUE APROVECHANDO <b>LAS MEJORES OFERTAS</b><br />QUE TENEMOS PARA TI Y GANA MÁS");
-            $("#msjOfertaFinal span").html("");
-
             $(container).find('#of-regalo-msg1').hide();
-            $(container).find('#of-regalo-msg3').hide();
             $(container).find('#of-regalo-montos').hide();
             $(container).find('#of-regalo-msg2').show();
+            if (tipoOrigen == '1') {
+                $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
+                $("#spnTituloOfertaFinal span").html("SIGUE APROVECHANDO <b>LAS MEJORES OFERTAS</b><br />QUE TENEMOS PARA TI Y GANA MÁS");
+                $("#msjOfertaFinal span").html("");
+
+                //$(container).find('#of-regalo-msg1').hide();
+                $(container).find('#of-regalo-msg3').hide();
+                //$(container).find('#of-regalo-montos').hide();
+                //$(container).find('#of-regalo-msg2').show();
+            }
+            else if (tipoOrigen == '2') {
+                $('#linkRegaloSorpresa').text('MIRA AQUI TU PREMIO');
+            }
         }
         else {
             var saldo = (ofertaFinalRegalo.MontoMeta - totalPedido).toFixed(2);
             var simbolo = $("#hdSimbolo").val();
             var montoSaldo = simbolo + ' ' + DecimalToStringFormat(saldo);
-
             $(container).find('#of-regalo-montosaldo').text(montoSaldo);
             $(container).find('#of-regalo-montos').show();
             $(container).find('#of-regalo-msg1').show();
         }
-        $(container).show();
+        if (tipoOrigen == '1') (container).show();
     } 
 }
 
 function ActulizarValoresPopupOfertaFinal(data, popup) {
+    debugger;
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
 
+    // Regalo Program Nuevas
     if (consultoraRegaloPN == 'True') {
         var mm = $("#msjOfertaFinal").attr("data-meta-monto");
         //var bb = $("#divOfertaFinal > div").attr("data-meta-total");
@@ -474,6 +501,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
             agregoOfertaFinal = 1;
             $("#btnNoGraciasOfertaFinal").show();
 
+            // Regalo OF
             if (ofertaFinalRegalo != null) {
                 MostrarOfertaFinalRegalo(data.total);
                 GanoOfertaFinalRegalo(data.total);
