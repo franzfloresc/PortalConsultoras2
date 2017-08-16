@@ -180,7 +180,7 @@
                 if (odd_desktop_google_analytics_promotion_impresion_flag) {
                     odd_desktop_google_analytics_promotion_impresion();
                     odd_desktop_google_analytics_promotion_impresion_flag = false;
-                    odd_desktop_google_analytics_promotion_impresion_fech = new date();
+                    odd_desktop_google_analytics_promotion_impresion_fech = new Date();
                 }   
             },
             error: function (err) {
@@ -766,6 +766,8 @@
             if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
                 $('div [data-odd-tipoventana="detalle"]').show();
             }
+
+            odd_desktop_google_analytics_product_impresion();
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
 

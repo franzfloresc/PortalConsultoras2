@@ -1396,15 +1396,15 @@ function odd_desktop_google_analytics_product_impresion() {
     var carrusel = $("[data-odd-tipoventana='carrusel']");
     var detalle = $("[data-odd-tipoventana='detalle']");
     var impresions = new Array();
-    if (carrusel.length > 0) {        
+    if (carrusel.length > 0 && carrusel.is(":visible")) {        
         var divs = new Array();
-        var div1 = $(carrusel).find("[data-item-position = 0]");
-        var div2 = $(carrusel).find("[data-item-position = 1]");
-        var div3 = $(carrusel).find("[data-item-position = 2]");
+        var div1 = $(carrusel).find("[data-item-position = 0]")[0];
+        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
+        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
 
-        if (div1 != null) { divs.push(div1); }
-        if (div2 != null) { divs.push(div2); }
-        if (div3 != null) { divs.push(div3); }
+        if (div1 != undefined) { divs.push(div1); }
+        if (div2 != undefined) { divs.push(div2); }
+        if (div3 != undefined) { divs.push(div3); }
 
         $(divs).each(function (index, div) {
             impresions.push({
@@ -1419,7 +1419,7 @@ function odd_desktop_google_analytics_product_impresion() {
             });
         });
     }
-    if (detalle.length > 0) {
+    if (detalle.length > 0 && detalle.is(":visible")) {
         var div1 = $(detalle).find("[data-item-position = 0]");
         if (div1 != null) { divs.push(div1); }
         $(divs).each(function (index, div) {
