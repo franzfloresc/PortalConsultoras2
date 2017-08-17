@@ -3,9 +3,10 @@
     var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var listaNegra = permisoList.Where(p => p.IsMenuCampania);
     var listaPloma = permisoList.Where(p => p.IsMenuCampania == false);
+    var clase = listaNegra.Any() ? "sbmenu-contenedor" : "";
 }
 
-<div class="bc_menu_estrategia">
+<div class="bc_menu_estrategia @clase">
     @if (listaNegra.Any())
     {
         <ul class="menu_estrategia">
@@ -16,22 +17,28 @@
                         <img src="@menu.Logo" alt="" class="icono">
                         <p>@menu.TituloMenu</p>
                     </a>
+                    @if (listaPloma.Any())
+                    {
+                        <ul class="sbmenu_estrategia">
+                            @foreach (var menuhijo in listaPloma)
+                            {
+                                if (menuhijo.CampaniaID != menu.CampaniaID)
+                                {
+                                    continue;
+                                }
+
+                                <li data-campania="@menu.CampaniaID" data-activo="@menuhijo.Activa" style="display:none;">
+                                    <a href="javascript:;">
+                                        <p>@menuhijo.TituloMenu</p>
+                                        <span>@menuhijo.SubTituloMenu</span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
                 </li>
             }
         </ul>
     }
-    @if (listaPloma.Any())
-    {
-        <ul class="sbmenu_estrategia">
-            @foreach (var menu in listaPloma)
-            {
-                <li data-campania="@menu.CampaniaID" data-activo="@menu.Activa" style="display:none;">
-                    <a href="javascript:;">
-                        <p>@menu.TituloMenu</p>
-                        <span>@menu.SubTituloMenu</span>
-                    </a>
-                </li>
-            }
-        </ul>
-    }
+   
 </div> 

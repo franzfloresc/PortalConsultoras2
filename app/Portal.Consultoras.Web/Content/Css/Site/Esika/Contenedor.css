@@ -3,13 +3,13 @@
     }
     .bc_menu_estrategia{
 		float: left;
-		width:16%;
+		max-width:16%;
 	}
 	ul.menu_estrategia{
 		background: black;
 	    /* width: auto; */
 	    position: fixed;
-	        margin: 0;
+	    margin: 0;
     	padding: 0;
 	    height: 100%;
 	    width: 6%;
@@ -53,13 +53,14 @@
 	    transition:.3s;
 	}
 
-    ul.sbmenu_estrategia li.default{
-        display:block;
-    }
 
 	ul.menu_estrategia li a p:hover{
 		color:white;
 	}
+
+    .sbmenu-contenedor ul.sbmenu_estrategia{
+    	margin-left: 6%;
+    }
 
 	ul.sbmenu_estrategia{
 		background: black;
@@ -68,12 +69,16 @@
     	padding: 0;
     	background: #f5f4f4;
 	    height: 100%;
-    	margin-left: 6%;
     	width: 9%;
     	list-style-type: none;
     	border-right: 1px solid rgba(0, 0, 0, 0.04);
     	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.15);
 	}
+
+    ul.sbmenu_estrategia li.default{
+        display:block;
+    }
+
     ul.sbmenu_estrategia li.seleccionado{
 		border-bottom: 0;
 		box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.28);
@@ -123,17 +128,6 @@
 		border-bottom: 0;
 		box-shadow: -4px 0px 10px 0px rgba(0, 0, 0, 0.28);
 	}
-
-	/**/
-
-	.bc_estrategia_contenido{
-		float:left;
-        background: white;
-		width:85%;
-		margin-left: 15%;
-	}
-	
-	/**/
 
 	.bc_plantilla_estrategia_personalizada{
 		
@@ -200,37 +194,6 @@
 	    margin: auto;
 	    margin-top: 50px;
 	}
-	/*Fix tamaños hasta pc estandar*/
-	
-	@media (max-width: 1200px) {
-		ul.menu_estrategia{
-			width:7%;
-		}
-		ul.sbmenu_estrategia{
-			margin-left: 7%;
-			width:10%;
-		}
-		.bc_estrategia_contenido {
-		    float: left;
-		    margin-left: 17%;
-    		width: 83%;
-		}
-	}
-
-	@media (max-width: 1100px) {
-		ul.menu_estrategia{
-			width:8%;
-		}
-		ul.sbmenu_estrategia{
-			margin-left: 8%;
-		}
-		.bc_estrategia_contenido{
-			margin-left:18%;
-			width:82%;
-		}
-	}
-
-	/**/
 
 	.bc_crearfix{
 		clear:both;

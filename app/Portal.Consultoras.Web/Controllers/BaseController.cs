@@ -853,6 +853,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
+            listaMenu.Add(BuildMenuContenedorInicio());
+
             var isMobile = IsMobile();
             foreach (var confi in lista)
             {
@@ -870,8 +872,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.RevistaDigital.TieneRDC)
             {
-                var menuCampania = BuildMenuCampaniaContenedor();
+                var menuCampania = BuildMenuContenedorCampania();
                 listaMenu.AddRange(menuCampania);
+
+                listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
 
                 var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
                 listaMenu.Add(new MenuContenedorModel
@@ -886,10 +890,12 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
+            listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
+
             return listaMenu;
         }
 
-        public List<MenuContenedorModel> BuildMenuCampaniaContenedor()
+        public List<MenuContenedorModel> BuildMenuContenedorCampania()
         {
             var listaMenu = new List<MenuContenedorModel>();
 
@@ -926,6 +932,20 @@ namespace Portal.Consultoras.Web.Controllers
             });
 
             return listaMenu;
+        }
+
+        public MenuContenedorModel BuildMenuContenedorInicio(int campania = 0)
+        {
+            var menu = new MenuContenedorModel
+            {
+                CampaniaID = campania == 0 ? userData.CampaniaID : campania,
+                TituloMenu = "INICIO",
+                SubTituloMenu = "",
+                Orden = 0,
+                Activa = true
+            };
+
+            return menu;
         }
 
         private int MostrarMenuCDR()
