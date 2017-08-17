@@ -54,11 +54,11 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileTituloBanner", DbType.String, entity.MobileTituloBanner);
             Context.Database.AddInParameter(command, "DesktopSubTituloBanner", DbType.String, entity.DesktopSubTituloBanner);
             Context.Database.AddInParameter(command, "MobileSubTituloBanner", DbType.String, entity.MobileSubTituloBanner);
-
             Context.Database.AddInParameter(command, "DesktopFondoBanner", DbType.String, entity.DesktopFondoBanner);
             Context.Database.AddInParameter(command, "MobileFondoBanner", DbType.String, entity.MobileFondoBanner);
             Context.Database.AddInParameter(command, "DesktopLogoBanner", DbType.String, entity.DesktopLogoBanner);
             Context.Database.AddInParameter(command, "MobileLogoBanner", DbType.String, entity.MobileLogoBanner);
+            Context.Database.AddInParameter(command, "UrlMenu", DbType.String, entity.UrlMenu);
             return Context.ExecuteReader(command);
         }
     }

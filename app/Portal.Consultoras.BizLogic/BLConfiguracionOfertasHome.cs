@@ -32,18 +32,20 @@ namespace Portal.Consultoras.BizLogic
             return configuracionOfertasHome;
         }
 
-        public List<BEConfiguracionOfertasHome> GetList(int paisId)
+        public List<BEConfiguracionOfertasHome> GetList(int paisId, int campaniaId)
         {
             var lista = new List<BEConfiguracionOfertasHome>();
-
+            var blConfiguracionPais = new BLConfiguracionPais();
             try
             {
                 var da = new DAConfiguracionOfertasHome(paisId);
-                using (IDataReader reader = da.GetList())
+                using (IDataReader reader = da.GetList(campaniaId))
                 {
                     while (reader.Read())
                     {
-                        lista.Add(new BEConfiguracionOfertasHome(reader));
+                        var ofertaHome = new BEConfiguracionOfertasHome(reader);
+                        ofertaHome.ConfiguracionPais = blConfiguracionPais.Get(paisId, ofertaHome.ConfiguracionPaisID);
+                        lista.Add(ofertaHome);
                     }
                 }
             }

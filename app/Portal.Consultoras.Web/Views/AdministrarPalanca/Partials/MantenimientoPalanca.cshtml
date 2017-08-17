@@ -4,6 +4,7 @@
     string imagenVacia = "prod_grilla_vacio.png";
 }
 
+@Html.HiddenFor(m => m.ConfiguracionPaisID)
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="titG borde_redondeado">
@@ -32,14 +33,12 @@
         @Html.DropDownListFor(model => model.DesdeCampania, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampania" })
     </div>
 </div>
-
 <div class="div-3">
     <div class="titG">Orden:</div>
     <div class="titG borde_redondeado">
         @Html.TextBoxFor(m => m.Orden, true)
     </div>
 </div>
-
 <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
     <div class="titG">Icono Menu:</div>
     <div style="display: inline-block;">
@@ -50,8 +49,12 @@
         </div>
     </div>
 </div>
-
-
+<div class="div-3">
+    <div class="titG">URL Menu:</div>
+    <div class="titG borde_redondeado">
+        @Html.TextBoxFor(m => m.UrlMenu, false)
+    </div>
+</div>
 
 <div class="div-3" style="display: none">
     <div class="titG">Color Menu:</div>

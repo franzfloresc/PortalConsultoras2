@@ -1416,10 +1416,10 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region ConfiguracionOfertasHome
-        public List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId)
+        public List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId)
         {
             var bl = new BLConfiguracionOfertasHome();
-            return bl.GetList(paisId);
+            return bl.GetList(paisId, campaniaId);
         }
 
         public BEConfiguracionOfertasHome GetConfiguracionOfertasHome(int paisId, int configuracionOfertasHomeId)

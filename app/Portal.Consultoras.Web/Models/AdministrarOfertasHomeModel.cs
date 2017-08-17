@@ -28,12 +28,20 @@ namespace Portal.Consultoras.Web.Models
         public int MobileCantidadProductos { get; set; }
         public bool DesktopActivo { get; set; }
         public bool MobileActivo { get; set; }
+        public string UrlSeccion { get; set; }
 
         public int PaisID { get; set; }
+        public ConfiguracionPaisModel ConfiguracionPais { get; set; }
         public IEnumerable<PaisModel> ListaPaises { set; get; }
         public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
         public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
         public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
         public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+
+        public AdministrarOfertasHomeModel()
+        {
+            DesktopTipoEstrategia = "";
+            MobileTipoEstrategia = "";
+        }
     }
 }

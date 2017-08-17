@@ -19,10 +19,10 @@ namespace Portal.Consultoras.Data
 
         }
 
-        public IDataReader GetList()
+        public IDataReader GetList(int campaniaId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeList");
-            //Context.Database.AddInParameter(command, "TienePerfil", DbType.Boolean, tienePerfil);
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
             return Context.ExecuteReader(command);
         }
 
@@ -37,7 +37,25 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionOfertasHomeID", DbType.Int32, entity.ConfiguracionOfertasHomeID);
-
+            Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "DesktopOrden", DbType.Int32, entity.DesktopOrden);
+            Context.Database.AddInParameter(command, "MobileOrden", DbType.Int32, entity.MobileOrden);
+            Context.Database.AddInParameter(command, "DesktopImagenFondo", DbType.String, entity.DesktopImagenFondo);
+            Context.Database.AddInParameter(command, "MobileImagenFondo", DbType.String, entity.MobileImagenFondo);
+            Context.Database.AddInParameter(command, "DesktopTitulo", DbType.String, entity.DesktopTitulo);
+            Context.Database.AddInParameter(command, "MobileTitulo", DbType.String, entity.MobileTitulo);
+            Context.Database.AddInParameter(command, "DesktopSubTitulo", DbType.String, entity.DesktopSubTitulo);
+            Context.Database.AddInParameter(command, "MobileSubTitulo", DbType.String, entity.MobileSubTitulo);
+            Context.Database.AddInParameter(command, "DesktopTipoPresentacion", DbType.Int32, entity.DesktopTipoPresentacion);
+            Context.Database.AddInParameter(command, "MobileTipoPresentacion", DbType.Int32, entity.MobileTipoPresentacion);
+            Context.Database.AddInParameter(command, "DesktopTipoEstrategia", DbType.String, entity.DesktopTipoEstrategia);
+            Context.Database.AddInParameter(command, "MobileTipoEstrategia", DbType.String, entity.MobileTipoEstrategia);
+            Context.Database.AddInParameter(command, "DesktopCantidadProductos", DbType.Int32, entity.DesktopCantidadProductos);
+            Context.Database.AddInParameter(command, "MobileCantidadProductos", DbType.Int32, entity.MobileCantidadProductos);
+            Context.Database.AddInParameter(command, "DesktopActivo", DbType.Boolean, entity.DesktopActivo);
+            Context.Database.AddInParameter(command, "MobileActivo", DbType.Boolean, entity.MobileActivo);
+            Context.Database.AddInParameter(command, "UrlSeccion", DbType.Boolean, entity.UrlSeccion);
             return Context.ExecuteReader(command);
         }
     }

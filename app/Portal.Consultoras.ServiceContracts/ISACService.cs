@@ -707,7 +707,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region ConfiguracionOfertasHome
         [OperationContract]
-        List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId);
+        List<BEConfiguracionOfertasHome> ListConfiguracionOfertasHome(int paisId, int campaniaId);
 
         [OperationContract]
         BEConfiguracionOfertasHome GetConfiguracionOfertasHome(int paisId, int configuracionOfertasHomeId);

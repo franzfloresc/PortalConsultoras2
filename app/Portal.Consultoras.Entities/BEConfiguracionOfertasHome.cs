@@ -68,12 +68,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool MobileActivo { get; set; }
 
+        [DataMember]
+        public string UrlSeccion { get; set; }
+
+        [DataMember]
+        public BEConfiguracionPais ConfiguracionPais { get; set; }
+
         public BEConfiguracionOfertasHome(IDataRecord row)
         {
-            if (row.HasColumn("ConfiguracionOfertasHomeID"))
-                ConfiguracionOfertasHomeID = Convert.ToInt32(row["ConfiguracionOfertasHomeID"]);
+            if (row.HasColumn("ConfiguracionOfertasHomeID")) ConfiguracionOfertasHomeID = Convert.ToInt32(row["ConfiguracionOfertasHomeID"]);
             if (row.HasColumn("ConfiguracionPaisID")) ConfiguracionPaisID = Convert.ToInt32(row["ConfiguracionPaisID"]);
             if (row.HasColumn("DesktopOrden")) DesktopOrden = Convert.ToInt32(row["DesktopOrden"]);
+            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
             if (row.HasColumn("DesktopImagenFondo")) DesktopImagenFondo = Convert.ToString(row["DesktopImagenFondo"]);
             if (row.HasColumn("MobileImagenFondo")) MobileImagenFondo = Convert.ToString(row["MobileImagenFondo"]);
@@ -81,20 +87,15 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileTitulo")) MobileTitulo = Convert.ToString(row["MobileTitulo"]);
             if (row.HasColumn("DesktopSubTitulo")) DesktopSubTitulo = Convert.ToString(row["DesktopSubTitulo"]);
             if (row.HasColumn("MobileSubTitulo")) MobileSubTitulo = Convert.ToString(row["MobileSubTitulo"]);
-            if (row.HasColumn("DesktopTipoPresentacion"))
-                DesktopTipoPresentacion = Convert.ToInt32(row["DesktopTipoPresentacion"]);
-            if (row.HasColumn("MobileTipoPresentacion"))
-                MobileTipoPresentacion = Convert.ToInt32(row["MobileTipoPresentacion"]);
-            if (row.HasColumn("DesktopTipoEstrategia"))
-                DesktopTipoEstrategia = Convert.ToString(row["DesktopTipoEstrategia"]);
-            if (row.HasColumn("MobileTipoEstrategia"))
-                MobileTipoEstrategia = Convert.ToString(row["MobileTipoEstrategia"]);
-            if (row.HasColumn("DesktopCantidadProductos"))
-                DesktopCantidadProductos = Convert.ToInt32(row["DesktopCantidadProductos"]);
-            if (row.HasColumn("MobileCantidadProductos"))
-                MobileCantidadProductos = Convert.ToInt32(row["MobileCantidadProductos"]);
+            if (row.HasColumn("DesktopTipoPresentacion")) DesktopTipoPresentacion = Convert.ToInt32(row["DesktopTipoPresentacion"]);
+            if (row.HasColumn("MobileTipoPresentacion")) MobileTipoPresentacion = Convert.ToInt32(row["MobileTipoPresentacion"]);
+            if (row.HasColumn("DesktopTipoEstrategia")) DesktopTipoEstrategia = Convert.ToString(row["DesktopTipoEstrategia"]);
+            if (row.HasColumn("MobileTipoEstrategia")) MobileTipoEstrategia = Convert.ToString(row["MobileTipoEstrategia"]);
+            if (row.HasColumn("DesktopCantidadProductos")) DesktopCantidadProductos = Convert.ToInt32(row["DesktopCantidadProductos"]);
+            if (row.HasColumn("MobileCantidadProductos")) MobileCantidadProductos = Convert.ToInt32(row["MobileCantidadProductos"]);
             if (row.HasColumn("DesktopActivo")) DesktopActivo = Convert.ToBoolean(row["DesktopActivo"]);
             if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
+            if (row.HasColumn("UrlSeccion")) UrlSeccion = Convert.ToString(row["UrlSeccion"]);
         }
 
         public BEConfiguracionOfertasHome()

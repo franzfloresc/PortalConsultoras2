@@ -1,9 +1,10 @@
 ﻿jQuery(document).ready(function () {
-    fnGrilla();
+    UpdateGrillaOfertas();
+    UpdateGrillaPalanca();
     IniDialogs();
 
-    $("#btnModificar").click(function () {
-       
+    $("#btnBuscar").click(function () {
+        UpdateGrillaOfertas();
     });
 
   
@@ -20,7 +21,7 @@
 
 function Modificar(idConfiguracionPais, event) {
     $.ajax({
-        url: 'AdministrarPalanca/GetPalanca',
+        url: baseUrl + 'AdministrarPalanca/GetPalanca',
         type: 'GET',
         dataType: 'html',
         data: { idConfiguracionPais: idConfiguracionPais }, //cambiar por el id correcto
@@ -44,7 +45,7 @@ function NuevoOfertaHome() {
 }
 function ModificarOfertas(idOfertasHome) {
     $.ajax({
-        url: 'AdministrarPalanca/GetOfertasHome',
+        url: baseUrl + 'AdministrarPalanca/GetOfertasHome',
         type: 'GET',
         dataType: 'html',
         data: { idOfertasHome: idOfertasHome }, //cambiar por el id correcto
@@ -77,11 +78,11 @@ function IniDialogs() {
             "Guardar": function () {
                 //valores para enviar al actualizar la palanca
                 var params = {
-                    ConfiguracionPaisID: $("#ddlConfiguracionPais").val(),
+                    ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo : $("#ddlConfiguracionPais").val(),
-                    Excluyente : $("input[name:'Excluyente']:checked").val(),
+                    Excluyente : $("input[name='Excluyente']:checked").val(),
                     Descripcion : $("#Descripcion").val(),
-                    Estado : $("#Estado").val(),
+                    Estado: $("#Estado").is(':checked'),
                     Logo : $("#nombre-icono").val(),
                     Orden : $("#Orden").val(),
                     DesdeCampania : $("#ddlCampania").val(),
@@ -91,10 +92,11 @@ function IniDialogs() {
                     DesktopSubTituloBanner : $("#DesktopSubTituloBanner").val(),
                     MobileTituloBanner : $("#MobileTituloBanner").val(),
                     MobileSubTituloBanner : $("#MobileSubTituloBanner").val(),
-                    CesktopFondoBanner : $("#nombre-desktop-fondo-banner").val(),
+                    DesktopFondoBanner : $("#nombre-desktop-fondo-banner").val(),
                     DesktopLogoBanner : $("#nombre-desktop-logo-banner").val(),
                     MobileFondoBanner : $("#nombre-mobile-fondo-banner").val(),
-                    MobileLogoBanner : $("#nombre-mobile-logo-banner").val()
+                    MobileLogoBanner: $("#nombre-mobile-logo-banner").val(),
+                    UrlMenu: $("#UrlMenu").val()
                 };
                 jQuery.ajax({
                     type: 'POST',
@@ -138,36 +140,38 @@ function IniDialogs() {
             "Guardar": function () {
                 //valores para seccion de home del contenedor de ofertas
                 var params = {
-                    ConfiguracionOfertasHomeID: $("#").val(),
-                    ConfiguracionPaisID: $("#").val(),
-                    CampaniaID: $("#").val(),
-                    DesktopOrden: $("#").val(),
-                    MobileOrden: $("#").val(),
-                    DesktopImagenFondo: $("#").val(),
-                    MobileImagenFondo: $("#").val(),
-                    DesktopTitulo: $("#").val(),
-                    MobileTitulo: $("#").val(),
-                    DesktopSubTitulo: $("#").val(),
-                    MobileSubTitulo: $("#").val(),
-                    DesktopTipoPresentacion: $("#").val(),
-                    MobileTipoPresentacion: $("#").val(),
-                    DesktopTipoEstrategia: $("#").val(),
-                    MobileTipoEstrategia: $("#").val(),
-                    DesktopCantidadProductos: $("#").val(),
-                    MobileCantidadProductos: $("#").val(),
-                    DesktopActivo: $("#").val(),
-                    MobileActivo: $("#").val()
+                    ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
+                    ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
+                    CampaniaID: $("#ddlCampaniaOfertas").val(),
+                    DesktopOrden: $("#DesktopOrden").val(),
+                    //MobileOrden: $("#").val(),
+                    DesktopImagenFondo: $("#nombre-fondo-desktop").val(),
+                    MobileImagenFondo: $("#nombre-fondo-mobile").val(),
+                    DesktopTitulo: $("#DesktopTitulo").val(),
+                    MobileTitulo: $("#MobileTitulo").val(),
+                    DesktopSubTitulo: $("#DesktopSubTitulo").val(),
+                    MobileSubTitulo: $("#MobileSubTitulo").val(),
+                    DesktopTipoPresentacion: $("#ddlDesktopTipoPresentacionOfertas").val(),
+                    MobileTipoPresentacion: $("#ddlMobileTipoPresentacionOfertas").val(),
+                    DesktopTipoEstrategia: GetStringEstrategia("desktop-tipo-estrategia"),
+                    MobileTipoEstrategia: GetStringEstrategia("mobile-tipo-estrategia"),
+                    DesktopCantidadProductos: $("#DesktopCantidadProductos").val(),
+                    MobileCantidadProductos: $("#MobileCantidadProductos").val(),
+                    DesktopActivo: $("#DesktopActivo").is(':checked'),
+                    MobileActivo: $("#MobileActivo").is(':checked'),
+                    UrlSeccion: $('#UrlSeccion').val()
                 };
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'AdministrarPalanca/Update',
+                    url: baseUrl + 'AdministrarPalanca/UpdateOfertasHome',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
                         if (data.success) {
-                            HideDialog("DialogMantenimientoPalanca");
+                            HideDialog("DialogMantenimientoOfertasHome");
+                            UpdateGrillaOfertas();
                         } else {
                             alert(data.message);
                         }
@@ -186,7 +190,7 @@ function IniDialogs() {
 }
 
 
-function fnGrilla() {
+function UpdateGrillaPalanca() {
     $("#list").jqGrid("GridUnload");
 
     jQuery("#list").jqGrid({
@@ -259,20 +263,23 @@ function fnGrilla() {
         pginput: false
     });
     jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
+}
 
+function UpdateGrillaOfertas() {
     // seccion ofertas home
-
     $("#listOfertas").jqGrid("GridUnload");
 
     jQuery("#listOfertas").jqGrid({
         url: baseUrl + "AdministrarPalanca/ListOfertasHome",
         hidegrid: false,
         datatype: 'json',
-        //postData: ({}),
+        postData: ({
+            campaniaID: $("#CampaniaBuscar").val()
+        }),
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ['ConfiguracionOfertasHomeID', 'Campania', 'ConfiguracionPais', 'Orden', 'Titulo', 'Accion'],
+        colNames: ['ConfiguracionOfertasHomeID', 'Orden', 'Campania', 'ConfiguracionPais', 'Titulo', 'Accion'],
         colModel: [
             {
                 name: 'ConfiguracionOfertasHomeID',
@@ -282,18 +289,18 @@ function fnGrilla() {
                 resizable: false,
                 hidden: true
             },
+            { name: 'DesktopOrden', index: 'Orden', width: 20, editable: true, hidden: false, sortable: false },
             {
                 name: 'CampaniaID',
                 index: 'Campania',
-                width: 40,
+                width: 30,
                 editable: true,
                 resizable: false,
                 hidden: false,
                 sortable: false
             },
-            { name: 'ConfiguracionPaisID', index: 'ConfiguracionPais', width: 40, editable: true, hidden: false, sortable: false },
-            { name: 'DesktopOrden', index: 'Orden', width: 40, editable: true, hidden: false, sortable: false },
-            { name: 'DesktopTitulo', index: 'Titulo', width: 250, editable: true, hidden: false, sortable: false },
+            { name: 'ConfiguracionPaisID', index: 'ConfiguracionPais', width: 80, editable: true, hidden: false, sortable: false },
+            { name: 'DesktopTitulo', index: 'Titulo', width: 200, editable: true, hidden: false, sortable: false },
             {
                 name: 'Activo',
                 index: 'Activo',
@@ -305,34 +312,31 @@ function fnGrilla() {
                 formatter: ShowActionsOfertas
             }
         ],
-        //jsonReader:
-        //{
-        //    root: "rows",
-        //    page: "page",
-        //    total: "total",
-        //    records: "records",
-        //    repeatitems: true,
-        //    cell: "cell",
-        //    id: "id"
-        //},
-        pager: false,
+        jsonReader:
+        {
+            root: "rows",
+            page: "page",
+            total: "total",
+            records: "records",
+            repeatitems: true,
+            cell: "cell",
+            id: "id"
+        },
+        pager: jQuery('#pager'),
         loadtext: 'Cargando datos...',
         recordtext: "{0} - {1} de {2} Registros",
         emptyrecords: 'No hay resultadost',
-        rowNum: 100,
+        rowNum: 10,
         scrollOffset: 0,
-        //rowList: [10, 20, 30, 40, 50],
+        rowList: [10, 20, 30, 40, 50],
         sortname: 'Orden',
         sortorder: 'asc',
+        viewrecords: true,
         height: 'auto',
         width: 930,
-        //pgtext: 'Pág: {0} de {1}',
+        pgtext: 'Pág: {0} de {1}',
         altRows: true,
         altclass: 'jQGridAltRowClass',
-        pgbuttons: false,
-        viewrecords: false,
-        pgtext: "",
-        pginput: false
     });
     jQuery("#listOfertas").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
 }
@@ -374,8 +378,17 @@ function UploadFilePalanca(tag) {
         onCancel: function (id, fileName) { $(".qq-upload-list").remove(); }
     });
     if ($("#nombre-" + tag).val() !== "") {
-        $("#src-" + tag).attr('src', urlS3 + $("#nombre-icono").val());
+        $("#src-" + tag).attr('src', urlS3 + $("#nombre-" + tag).val());
     }
 
     return false;
+}
+
+function GetStringEstrategia(nameCheckBox) {
+    var estrategias = "";
+    $("input[name='" + nameCheckBox + "']:checked").each(function () {
+        estrategias += $(this).attr("value");
+        estrategias += ",";
+    });
+    return estrategias.slice(0, -1);
 }

@@ -7,7 +7,7 @@
 
 @Html.HiddenFor(model => model.ConfiguracionOfertasHomeID)
 <div class="div-3">
-    <div class="titG">Desde Campaña:</div>
+    <div class="titG">Campaña:</div>
     <div class="selectP2 borde_redondeado">
         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaOfertas" })
     </div>
@@ -15,7 +15,7 @@
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="selectP2 borde_redondeado">
-        @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
+        @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
     </div>
 </div>
 <div class="div-3">
@@ -24,7 +24,12 @@
         @Html.TextBoxFor(m => m.DesktopOrden)
     </div>
 </div>
-
+<div class="div-3">
+    <div class="titG">URL Seccion:</div>
+    <div class="selectP2 borde_redondeado">
+        @Html.TextBoxFor(m => m.UrlSeccion)
+    </div>
+</div>
 <div id="div-revista-digital" class="div-3 Content_modal" style="margin-left: 12px; width: 94%; padding-top: 10px; padding-bottom: 0; margin-bottom: 10px;">
     <div style="color: white;">
         <div style="display: inline-block; width:97%; text-align: center; padding: 8px; background: #00A2E8; border-top-left-radius: 10px; border-top-right-radius: 10px">
@@ -42,7 +47,12 @@
     <div class="clear-fix"></div>
     <div class="fontColorAdm">
         <div class="sideLeft">
-            
+            <div class="div-3" >
+                <div class="titG">¿Activar?</div>
+                <div class="titG">
+                    @Html.CheckBoxFor(m => m.DesktopActivo)
+                </div>
+            </div>
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">Imagen Fondo:</div>
                 <div style="display: inline-block;">
@@ -75,7 +85,7 @@
             <div class="div-3">
                 <div class="titG">Tipo Presentacion:</div>
                 <div class="titG borde_redondeado">
-                    @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlTipoPresentacionOfertas" })
+                    @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
                 </div>
             </div>
             
@@ -84,15 +94,26 @@
               
             </div>
             <div class="div-3">
-                <div class="borde_redondeado">
+                <div class="borde_redondeado checkBox">
                     @foreach (var estrategia in Model.ListaTipoEstrategia)
                     {
-                        @Html.CheckBox(estrategia.Codigo.IsNullOrEmptyTrim() ? "0" : estrategia.Codigo, false)@estrategia.Descripcion
+                        if(!string.IsNullOrEmpty(estrategia.Codigo))
+                        {
+                            bool checked1 = Model.DesktopTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                            <input name="desktop-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                            <label>@estrategia.Descripcion</label><br/>
+                        }
                     }
                 </div>
             </div>
         </div>
         <div class="sideRight">
+            <div class="div-3">
+                <div class="titG">¿Activar?</div>
+                <div class="titG borde_redondeado">
+                    @Html.CheckBoxFor(m => m.MobileActivo)
+                </div>
+            </div>
             <div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
                 <div class="titG">Imagen Fondo:</div>
                 <div style="display: inline-block;">
@@ -124,7 +145,7 @@
             <div class="div-3">
                 <div class="titG">Tipo Presentacion:</div>
                 <div class="titG borde_redondeado">
-                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new {id = "ddlTipoPresentacionOfertas"})
+                    @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new {id = "ddlMobileTipoPresentacionOfertas"})
                 </div>
             </div>
             <div class="div-3">
@@ -135,7 +156,12 @@
                 <div class="borde_redondeado">
                     @foreach (var estrategia in Model.ListaTipoEstrategia)
                     {
-                        @Html.CheckBox(estrategia.Codigo.IsNullOrEmptyTrim() ? "0" : estrategia.Codigo, false)@estrategia.Descripcion
+                        if (!string.IsNullOrEmpty(estrategia.Codigo))
+                        {
+                            bool checked1 = Model.MobileTipoEstrategia.Trim().Contains(estrategia.Codigo);
+                            <input name="mobile-tipo-estrategia" type="checkbox" value="@estrategia.Codigo" checked="@checked1" style="display: inline-block !important;height: 13px !important;">
+                            <label>@estrategia.Descripcion</label> <br/>
+                        }
                     }
                 </div>
             </div>

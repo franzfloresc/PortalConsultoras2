@@ -50,6 +50,8 @@ namespace Portal.Consultoras.Entities
         public string DesktopLogoBanner { get; set; }
         [DataMember]
         public string MobileLogoBanner { get; set; }
+        [DataMember]
+        public string UrlMenu { get; set; }
 
         [DataMember]
         public BEConfiguracionPaisDetalle Detalle  { get; set; }
@@ -79,6 +81,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileFondoBanner")) MobileFondoBanner = Convert.ToString(row["MobileFondoBanner"]);
             if (row.HasColumn("DesktopLogoBanner")) DesktopLogoBanner = Convert.ToString(row["DesktopLogoBanner"]);
             if (row.HasColumn("MobileLogoBanner")) MobileLogoBanner = Convert.ToString(row["MobileLogoBanner"]);
+            if (row.HasColumn("UrlMenu")) UrlMenu = Convert.ToString(row["UrlMenu"]);
             Detalle = new BEConfiguracionPaisDetalle();
         }
     }
