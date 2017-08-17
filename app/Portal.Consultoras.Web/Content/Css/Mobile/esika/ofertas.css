@@ -250,6 +250,9 @@
 		.bc_mobil_contenido-plantilla2-contenido > div {
 		    padding: 30px 20px;
 		}
+        .bc_para_ti-texto-contenido p {
+            font-size: 10px;
+        }
 	}
 
 	@media (max-width: 600px) {
