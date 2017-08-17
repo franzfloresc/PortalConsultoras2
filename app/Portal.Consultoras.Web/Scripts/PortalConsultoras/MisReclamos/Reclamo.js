@@ -5,6 +5,7 @@ var pasoActual = 1;
 var paso2Actual = 1;
 var listaPedidos = new Array();
 var codigoSsic = "";
+var tipoDespacho = false;
 
 $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
@@ -159,7 +160,7 @@ $(document).ready(function () {
             $(this).addClass(claseBotonActivado);
             botonExpress.removeClass(claseBotonActivado);
             botonExpress.addClass(claseBotonDesactivado);
-            $("#hdTipoDespacho").val(false);
+            tipoDespacho = false;
         }
     });    
     $("#btnDespachoExpress").on("click", function () {
@@ -171,7 +172,7 @@ $(document).ready(function () {
             $(this).addClass(claseBotonActivado);
             botonNormal.removeClass(claseBotonActivado);
             botonNormal.addClass(claseBotonDesactivado);
-            $("#hdTipoDespacho").val(true);
+            tipoDespacho = true;
         }
     });
     //EPD-1919 FIN
@@ -1123,14 +1124,14 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         PedidoID: $("#txtPedidoID").val() || 0,
         Email: $("#txtEmail").val(),
         Telefono: $("#txtTelefono").val(),
-        TipoDespacho: 0,
+        TipoDespacho: false,
         FleteDespacho: 0,
         MensajeDespacho: ''
     };
     if ($("#hdTieneCDRExpress").val() == '1') {
-        item.TipoDespacho = $("#hdTipoDespacho").val();
-        item.FleteDespacho = !item.TipoDespacho ? 0 : $("#hdFleteDespacho").val();
-        item.MensajeDespacho = $(!item.TipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+        item.TipoDespacho = tipoDespacho;
+        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+        item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
     }
 
     waitingDialog();
