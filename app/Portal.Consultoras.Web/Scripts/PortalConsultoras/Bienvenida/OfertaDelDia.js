@@ -192,10 +192,11 @@ $(document).ready(function () {
     }
 
     function odd_desktop_google_analytics_promotion_impresion() {
+debugger
         if ($('#banner-odd').length > 0) {
             var id = $('#banner-odd').find(".estrategia-id-odd").val();
             var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
-            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val()
+            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
             dataLayer.push({
                 'event': 'promotionView',
                 'ecommerce': {

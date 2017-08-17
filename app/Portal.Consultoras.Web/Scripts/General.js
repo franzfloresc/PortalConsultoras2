@@ -1368,10 +1368,34 @@ function IfNull(input, replaceNull) {
 
 function odd_desktop_google_analytics_promotion_click() {
     if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
-
         var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val()
+        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+
+        odd_desktop_google_analytics_product_impresion();
+    }
+}
+
+function odd_desktop_google_analytics_promotion_click_verofertas() {
+    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+        var id = $('#banner-odd').find(".estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
+        var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -1474,8 +1498,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 
     quantity = parseInt(quantity);
 
-    var fechaAddToCart = Date.now();
-    debugger;
+    var fechaAddToCart = Date.now();    
     var dimension15 = fechaAddToCart - fechaMostrarBanner;
     if (dimension15 != 0)
         dimension15 = (dimension15 / 1000);
