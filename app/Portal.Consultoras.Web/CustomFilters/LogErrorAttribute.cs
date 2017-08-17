@@ -10,9 +10,16 @@ namespace Portal.Consultoras.Web.CustomFilters
         {
             if (filterContext.Exception != null)
             {
-                var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
+                if (HttpContext.Current != null && HttpContext.Current.Session != null)
+                {
+                    var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
 
-                LogManager.LogManager.LogErrorWebServicesBus(filterContext.Exception, userData.CodigoUsuario, userData.CodigoISO);
+                    LogManager.LogManager.LogErrorWebServicesBus(filterContext.Exception, userData.CodigoUsuario, userData.CodigoISO);
+                }
+                else
+                {
+                    LogManager.LogManager.LogErrorWebServicesBus(filterContext.Exception, "", "");
+                }
             }
 
             base.OnException(filterContext);

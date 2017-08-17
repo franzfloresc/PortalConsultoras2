@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -12,19 +13,39 @@ namespace Portal.Consultoras.Common
 {
     public static class LogManager
     {
-        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO, string titulo = "", string adicional = "", string pathFile = "")
+        public static void SaveLog(Exception exception, string codigoUsuario, string paisISO)
+        {
+            SaveLog(new LogError
+            {
+                Exception = exception,
+                CodigoUsuario = codigoUsuario,
+                IsoPais = paisISO,
+                Origen = "Servidor",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            });
+        }
+
+        public static void SaveLog(LogError logError, string pathFile = "")
         {
             try
             {
-                if (exception == null) return;
+                if (logError == null || logError.Exception == null) return;
 
-                RegistrarArchivoTexto(exception, codigoUsuario, paisISO, titulo, adicional, pathFile);
-                RegistrarDynamoDB(exception, paisISO, codigoUsuario);
+                if (Util.isNumeric(logError.IsoPais))
+                {
+                    logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
+                }
+
+                RegistrarArchivoTexto(logError, pathFile);
+                RegistrarDynamoDB(logError);
             }
-            catch { }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+            }
         }
 
-        private static void RegistrarArchivoTexto(Exception exception, string pais, string usuario, string titulo = "", string adicional = "", string pathFile = "")
+        private static void RegistrarArchivoTexto(LogError logError, string pathFile = "")
         {
             if (string.IsNullOrEmpty(pathFile))
             {
@@ -38,14 +59,14 @@ namespace Portal.Consultoras.Common
 
             using (StreamWriter stream = new StreamWriter(path, true))
             {
-                stream.WriteLine(":::::::::::::: " + titulo + " ::::::::::::::");
-                stream.WriteLine(DateTime.Now + " ==> País: " + pais + " - Usuario: " + usuario);
-                stream.WriteLine("Error message: " + exception.Message);
-                stream.WriteLine("StackTrace: " + exception.StackTrace);
-                if (string.IsNullOrEmpty(adicional)) stream.WriteLine("Adicional: " + adicional);
+                stream.WriteLine(":::::::::::::: " + logError.Titulo + " ::::::::::::::");
+                stream.WriteLine(DateTime.Now + " ==> País: " + logError.IsoPais + " - Usuario: " + logError.CodigoUsuario);
+                stream.WriteLine("Error message: " + logError.Exception.Message);
+                stream.WriteLine("StackTrace: " + logError.Exception.StackTrace);
+                if (string.IsNullOrEmpty(logError.InformacionAdicional)) stream.WriteLine("Adicional: " + logError.InformacionAdicional);
                 stream.WriteLine(string.Empty);
 
-                Exception innerException = exception.InnerException;
+                Exception innerException = logError.Exception.InnerException;
                 while (innerException != null)
                 {
                     stream.WriteLine("InnerException: " + innerException.Message);
@@ -54,16 +75,11 @@ namespace Portal.Consultoras.Common
             }
         }
 
-        private static void RegistrarDynamoDB(Exception exception, string pais, string usuario)
+        private static void RegistrarDynamoDB(LogError logError)
         {
             var dataString = string.Empty;
             try
             {
-                if (Util.isNumeric(pais))
-                {
-                    pais = Util.GetPaisISO(int.Parse(pais));
-                }
-
                 var urlRequest = string.Empty;
                 var browserRequest = string.Empty;
 
@@ -76,11 +92,12 @@ namespace Portal.Consultoras.Common
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
-                    Pais = pais,
-                    Usuario = usuario,
-                    Mensaje = exception.Message,
-                    StackTrace = exception.StackTrace,
+                    Pais = logError.IsoPais,
+                    Usuario = logError.CodigoUsuario,
+                    Mensaje = logError.Exception.Message,
+                    StackTrace = logError.Exception.StackTrace,
                     Extra = new Dictionary<string, string>() {
+                        { "Origen", logError.Origen },
                         { "Url", urlRequest },
                         { "Browser", browserRequest },
                         { "TipoTrace", "LogManager" }
@@ -108,7 +125,11 @@ namespace Portal.Consultoras.Common
             }
             catch (Exception ex)
             {
-                RegistrarArchivoTexto(ex, pais, usuario, "Seguimiento de Errores DynamoDB", dataString);
+                logError.Exception = ex;
+                logError.InformacionAdicional = dataString;
+                logError.Titulo = "Seguimiento de Errores DynamoDB";
+
+                RegistrarArchivoTexto(logError);
             }
         }
     }

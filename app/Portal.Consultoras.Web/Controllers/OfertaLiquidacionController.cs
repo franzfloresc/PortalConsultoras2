@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
                 lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
             }
-            throw new Exception("demo!!");
+            
             return Json(new
             {
                 lista = lst,             

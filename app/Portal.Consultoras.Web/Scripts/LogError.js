@@ -23,15 +23,13 @@ window.onerror = function (msg, url, line, col, error) {
     //}
     //console.log(message, "from", stack);
 
-    // Ver la información en el log del navegador:
-    //console.log("Error: " + msg + "\nurl: " + url + "\stackTrace: " + stackTrace);
-
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
     // de qué páginas tienen problemas JS
     var objError = {
         Mensaje: msg,
         StackTrace: stackTrace,
         Url: url,
+        Origen: 'Cliente',
         TipoTrace: 'ScriptError'
     };
     registrarLogError(objError);
@@ -53,24 +51,27 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     // HTTP Status Messages 
     // https://www.w3schools.com/tags/ref_httpmessages.asp
 
-    // Ver la información en el log del navegador:
-    //console.log("Error: " + jqxhr.status + ' - ' + jqxhr.statusText + "\nurl: " + settings.url + "\nstackTrace: " + jqxhr.responseText);
-
     // TODO: Reportar el error a través de ajax para que pueda realizar un seguimiento
     // de qué invocaciones AJAX tienen problemas
     var objError = {
         Mensaje: jqxhr.status + ' - ' + jqxhr.statusText,
         StackTrace: jqxhr.responseText,
         Url: settings.url,
+        Origen: 'Cliente',
         TipoTrace: 'AjaxError'
     };
     registrarLogError(objError);
 });
 
 function registrarLogError(objError) {
-    var urlLogError = "https://apiqa.somosbelcorp.com/api/LogError";
+    if (!urlLogDynamo) {
+        return;
+    }
 
+    var urlLogError = urlLogDynamo + "Api/LogError";
+    
     var extra = [
+        { 'key': 'Origen', 'value': objError.Origen },
         { 'key': 'Url', 'value': objError.Url },
         { 'key': 'Browser', 'value': navigator.appVersion },
         { 'key': 'TipoTrace', 'value': objError.TipoTrace }

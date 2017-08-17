@@ -12,12 +12,27 @@ namespace Portal.Consultoras.Web.LogManager
 
         public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
         {
-            Common.LogManager.SaveLog(exception, usuario, pais, "Seguimiento de Errores Servicio Portal", string.Empty, pathFile);
+            Common.LogManager.SaveLog(new Common.LogError
+            {
+                Exception = exception,
+                CodigoUsuario = usuario,
+                IsoPais = pais,
+                Origen = "ServidorWeb",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            }, pathFile);
         }
 
         public static void LogErrorWebServicesBus(Exception exception, string usuario, string pais, string adicional = "")
         {
-            Common.LogManager.SaveLog(exception, usuario, pais, "Seguimiento de Errores Web Portal", adicional, pathFile);
+            Common.LogManager.SaveLog(new Common.LogError
+            {
+                Exception = exception,
+                CodigoUsuario = usuario,
+                IsoPais = pais,
+                InformacionAdicional = adicional,
+                Origen = "ServidorWeb",
+                Titulo = "Seguimiento de Errores Web Portal"
+            }, pathFile);
         }
 
         public static void LogActions(ErrorsLog model)

@@ -16,12 +16,12 @@ namespace Portal.Consultoras.Web
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-           
-            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales"); 
+
+            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales");
             Globals.RutaImagenesTemp = HttpContext.Current.Server.MapPath("~/Content/Images/temp");
             Globals.RutaImagenesTempOfertas = HttpContext.Current.Server.MapPath("~/Content/TemporalesOfertas");
             Globals.RutaImagenesFondoLogin = HttpContext.Current.Server.MapPath("~/Content/Images/login");
@@ -29,15 +29,15 @@ namespace Portal.Consultoras.Web
             Globals.RutaImagenesLogoPortal = HttpContext.Current.Server.MapPath("~/Content/Images/logo");
             Globals.RutaImagenesOfertasWeb = HttpContext.Current.Server.MapPath("~/Content/Ofertas");
             Globals.RutaImagenesOfertasLiquidacion = HttpContext.Current.Server.MapPath("~/Content/OfertasLiquidacion");
-            Globals.RutaImagenesMatriz = "/Content/Matriz"; 
+            Globals.RutaImagenesMatriz = "/Content/Matriz";
             Globals.RutaImagenesTempMatriz = HttpContext.Current.Server.MapPath("~/Content/TemporalesMatriz");
             Globals.RutaImagenesBanners = HttpContext.Current.Server.MapPath("~/Content/Banners");
             Globals.RutaImagenesTempBanners = HttpContext.Current.Server.MapPath("~/Content/TemporalesBanners");
-            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago"); 
-            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago"; 
+            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago");
+            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago";
             Globals.RutaImagenesTempIncentivos = HttpContext.Current.Server.MapPath("~/Content/TemporalesIncentivos");
-            Globals.RutaImagenesIncentivos = "/Content/Incentivos"; 
-            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas"; 
+            Globals.RutaImagenesIncentivos = "/Content/Incentivos";
+            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas";
 
             Globals.UrlBanner = ConfigurationManager.AppSettings["Banners"];
             Globals.UrlFileConsultoras = ConfigurationManager.AppSettings["FileConsultoras"];
@@ -49,18 +49,6 @@ namespace Portal.Consultoras.Web
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
-
-            // configuración del Dynamic Global Action Filter de Log
-            //LogActionFilterProvider providerLog = new LogActionFilterProvider();
-            //providerLog.Add("Bienvenida", "Index");
-            //providerLog.Add("Login", "Index");
-            //providerLog.Add("Catalogo", "Index");
-            //providerLog.Add("Cliente", "Index");
-            //providerLog.Add("Cliente", "Mantener");
-            //providerLog.Add("Bienvenida", "ConsultarFaltantesAnunciados");
-            //providerLog.Add("EstadoCuenta", "Index");
-
-            //FilterProviders.Providers.Add(providerLog);
 
             // configuración del Dynamic Global Action Filter de Expiración de Sesión
             SessionExpiredActionFilterProvider providerSession = new SessionExpiredActionFilterProvider();
@@ -89,7 +77,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Cliente", "DeshacerCambios");
             providerSession.Add("Cliente", "Update");
             providerSession.Add("Cliente", "Insert");
-            
+
             providerSession.Add("ConfiguracionValidacion", "Index");
             providerSession.Add("ConfiguracionValidacion", "ObtenerConfiguracionPedidosPorPais");
             providerSession.Add("ConfiguracionValidacion", "Mantener");
@@ -131,7 +119,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("DescargaPedidos", "RealizarDescarga");
 
             providerSession.Add("DuplaSAC", "Index");
-            
+
             providerSession.Add("FacturaElectronica", "Index");
 
             providerSession.Add("FileUpload", "ImageUpload");
@@ -316,7 +304,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Notificaciones", "DetalleSolicitudCliente", "Mobile");
             providerSession.Add("Notificaciones", "ListarObservaciones", "Mobile");
             providerSession.Add("Notificaciones", "ListarObservacionesStock", "Mobile");
-			providerSession.Add("Notificaciones", "DetalleSolicitudClienteCatalogo", "Mobile");
+            providerSession.Add("Notificaciones", "DetalleSolicitudClienteCatalogo", "Mobile");
             providerSession.Add("OfertaLiquidacion", "Index", "Mobile");
             providerSession.Add("PedidoCliente", "Index", "Mobile");
             providerSession.Add("Pedido", "Index", "Mobile");
@@ -329,7 +317,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Revista", "Index", "Mobile");
             providerSession.Add("SeguimientoPedido", "Index", "Mobile");
             providerSession.Add("Cliente", "Index", "Mobile");
-			providerSession.Add("Paypal", "Index", "Mobile");
+            providerSession.Add("Paypal", "Index", "Mobile");
             providerSession.Add("ConsultoraOnline", "Index", "Mobile");
             providerSession.Add("ConsultoraOnline", "Informacion", "Mobile");
             providerSession.Add("ConsultoraOnline", "Inscripcion", "Mobile");
@@ -345,52 +333,26 @@ namespace Portal.Consultoras.Web
             AutoMapperConfiguration.Configure();
         }
 
-
-        protected void Application_EndRequest()
-        {
-            //var context = new HttpContextWrapper(Context);
-
-            //if (Context.Response.StatusCode == 302 && context.Request.IsAjaxRequest())
-            //{
-            //    Context.Response.Clear();
-            //    Context.Response.StatusCode = 401;
-            //}
-        }
-
-        protected void Session_Start(object sender, EventArgs e)
-        {
-
-        }
-
         private void Application_BeginRequest(object sender, EventArgs e)
         {
             if (String.Compare(Request.Path, Request.ApplicationPath, StringComparison.InvariantCultureIgnoreCase) == 0
                 && !(Request.Path.EndsWith("/")))
-                Response.Redirect(Request.Path + "/");
+                Response.Redirect(string.Format("{0}/", Request.Path));
         }
-
-        //void OnServiceConfigurationCreated(object sender, FederationConfigurationCreatedEventArgs e) 
-        //{ 
-        //    var sessionTransforms = new List<CookieTransform>(
-        //        new CookieTransform[] { new DeflateCookieTransform(), 
-        //            new RsaEncryptionCookieTransform(e.FederationConfiguration.ServiceCertificate), 
-        //            new RsaSignatureCookieTransform(e.FederationConfiguration.ServiceCertificate) }); 
-        //    var sessionHandler = new SessionSecurityTokenHandler(sessionTransforms.AsReadOnly()); 
-        //    e.FederationConfiguration.IdentityConfiguration.SecurityTokenHandlers.AddOrReplace(sessionHandler); 
-        //}
 
         protected void Application_Error(object sender, EventArgs e)
         {
             var exception = Server.GetLastError();
-            var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
 
-            if (userData == null)
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
+                var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
+
+                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
             }
             else
             {
-                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
             }
         }
     }
