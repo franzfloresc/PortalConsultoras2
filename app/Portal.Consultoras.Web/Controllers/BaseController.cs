@@ -453,30 +453,27 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.Menu != null)
             {
+                ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
                 lista1 = userData.Menu;
+                return SepararItemsMenu(lista1);
             }
-            else
-            {
+
                 IList<BEPermiso> lst = new List<BEPermiso>();
 
                 using (SeguridadServiceClient sv = new SeguridadServiceClient())
-                {
-                    lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
-                }
-
-                string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-                string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-                bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-                if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
-                if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
-                if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
-
-                if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                    lst = lst.Where(x => x.PermisoID != 1019).ToList();
-
-                lista1 = Mapper.Map<List<PermisoModel>>(lst);
+            {
+                lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
             }
 
+            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+            if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
+            if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
+
+            lista1 = Mapper.Map<List<PermisoModel>>(lst);
+            
             List<PermisoModel> lstModel = new List<PermisoModel>();
 
             foreach (var permiso in lista1)
@@ -487,8 +484,9 @@ namespace Portal.Consultoras.Web.Controllers
                 permiso.UrlImagen = Util.Trim(permiso.UrlImagen);
                 permiso.DescripcionFormateada = Util.RemoveDiacritics(permiso.DescripcionFormateada.ToLower()).Replace(" ", "-");
 
-                if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
-                {
+                //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
+                    {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         permiso.UrlItem = AccionControlador("sr");
                     else
@@ -565,9 +563,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                         if (permiso.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower())
                         {
-                            ViewBag.ClaseLogoSB = "negro";
-                            if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
-                                if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))
+                            userData.ClaseLogoSB = "negro";
+                            if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                                if (userData.RevistaDigital.TieneRDS)
                                     if (userData.RevistaDigital.NoVolverMostrar)
                                     {
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.NoPopUp
@@ -578,17 +576,32 @@ namespace Portal.Consultoras.Web.Controllers
                                         if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.SinRegistroDB)
                                         {
                                             permiso.ClaseMenuItem = "oculto";
-                                            ViewBag.ClaseLogoSB = "";
+                                            userData.ClaseLogoSB = "";
                                         }
                                     }
                                     else
                                     {
                                         permiso.ClaseMenuItem = "oculto";
-                                        ViewBag.ClaseLogoSB = "";
+                                        userData.ClaseLogoSB = "";
                                     }
                         }
 
                         permiso.UrlImagen = permiso.EsSoloImagen ? permiso.UrlImagen : "";
+                    }
+                    else
+                    {
+                        if (permiso.UrlItem != "")
+                        {
+                            if (permiso.EsDireccionExterior)
+                            {
+                                permiso.OnClickFunt = "RedirectMenu('" + permiso.UrlItem + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                            }
+                            else
+                            {
+                                var urlSplit = permiso.UrlItem.Split('/');
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                            }
+                        }
                     }
 
                     lstModel.Add(permiso);
@@ -600,19 +613,21 @@ namespace Portal.Consultoras.Web.Controllers
                 lstModel.Add(permiso);
             }
 
+            lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
+                      
             if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
                 var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
                 lstModel.ForEach(m =>
-                m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower()
-                    ? m.UrlImagen
-                    : menuRd.ClaseMenuItem == "oculto"
-                        ? m.UrlImagen : ""
+                m.UrlImagen = m.Codigo != Constantes.MenuCodigo.RevistaShowRoom.ToLower() || menuRd.ClaseMenuItem == "oculto"
+                    ? m.UrlImagen : ""
                 );
             }
 
             // Separar los datos obtenidos y para generar el 
             userData.Menu = lstModel;
+
+            ViewBag.ClaseLogoSB = userData.ClaseLogoSB;
 
             return SepararItemsMenu(lstModel);
         }
@@ -662,6 +677,11 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
 
+                if (menu.MenuMobileID == 1039)
+                {
+                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~","") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+                }
+
                 if (menu.Posicion.ToLower() != "menu")
                 {
                     listadoMenuFinal.Add(menu);
@@ -681,7 +701,7 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
                 menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
 
-                if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
+                if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                     {
@@ -748,6 +768,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
 
+            lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
+                       
             if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
                 var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
@@ -1928,26 +1950,17 @@ namespace Portal.Consultoras.Web.Controllers
             if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
-            return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
-        }
-
-        protected string GetRevistaCodigoIssuu(string campania, bool flagRevistaDigital)
-        {
-            string codigo = null;
-
-            string zonas = ConfigurationManager.AppSettings["RevistaPiloto_Zonas_" + userData.CodigoISO + campania] ?? "";
-            bool esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-            if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
-            if (!string.IsNullOrEmpty(codigo)) return codigo;
-
-            if (flagRevistaDigital)
+            if (userData.RevistaDigital.TieneRDR)
             {
-                //piloto_rev1017pe
+                zonas = ConfigurationManager.AppSettings["RevistaPiloto_RDRIssuu_Zona_" + userData.CodigoISO + campania] ?? "";
+                esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+                if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"];
+                if (!string.IsNullOrEmpty(codigo)) return codigo;
+
                 codigo = ConfigurationManager.AppSettings["CodigoRevistaDigitalIssuu"].ToString();
                 return string.Format(codigo, campania.Substring(4, 2), campania.Substring(2, 2), userData.CodigoISO.ToLower()); ;
             }
-            //sbconsultorarevista.{0}.c{1}.{2}
+
             codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
             return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));
         }

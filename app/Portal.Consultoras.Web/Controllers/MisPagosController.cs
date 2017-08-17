@@ -654,7 +654,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList();
+                lst = (sv.SelectLugarPago(paisID) ?? new BELugarPago[0]).ToList().OrderBy(x=>x.Posicion).ToList();
             }
 
             foreach (var item in lst)

@@ -17,6 +17,7 @@ using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -782,6 +783,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
                     //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
+                    model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919 
+                    model.EsConsecutivoNueva = oBEUsuario.EsConsecutivoNueva; //EPD-1919
+
                     #endregion
 
                     if (model.RolID == Constantes.Rol.Consultora)
@@ -883,10 +887,11 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             model.RevistaDigital.NoVolverMostrar = true;
+                            if(model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
-                            var config = new BEConfiguracionPais
+                            var config = new ServiceUsuario.BEConfiguracionPais
                             {
-                                Detalle = new BEConfiguracionPaisDetalle
+                                Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
                                 {
                                     PaisID = model.PaisID,
                                     CodigoConsultora = model.CodigoConsultora,
@@ -900,7 +905,7 @@ namespace Portal.Consultoras.Web.Controllers
                             {
                                 //verificar si se tiene registrado RD o RDS en la tabla ConfiguracionPais
                                 var listaConfigPais = sv.GetConfiguracionPais(config);
-                                model.ConfiguracionPais = Mapper.Map<IList<BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
+                                model.ConfiguracionPais = Mapper.Map<IList<ServiceUsuario.BEConfiguracionPais>, List<ConfiguracionPaisModel>>(listaConfigPais);
                             }
 
                             if (model.ConfiguracionPais.Any())
@@ -974,6 +979,27 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
                                     {
                                         model.RevistaDigital.TieneRDR = true;
+                                        continue;
+                                    }
+
+                                    if (c.Codigo == Constantes.ConfiguracionPais.OfertaFinalTradicional ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa)
+                                    {                                        
+                                        model.OfertaFinalModel.Algoritmo = c.Codigo;
+                                        model.OfertaFinalModel.Estado = c.Estado;
+                                        if (c.Estado)
+                                        {
+                                            model.OfertaFinal = 1;
+                                            model.EsOfertaFinalZonaValida = true;
+                                        }                                            
+                                        continue;
+                                    }
+
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
+                                    {
+                                        if (c.Estado)
+                                            model.OfertaFinalGanaMas = 1;
                                         continue;
                                     }
                                 }
@@ -1617,6 +1643,11 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
+
+                if (!string.IsNullOrEmpty(model.Identifier))
+                {
+                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                }
 
                 switch (model.Pagina.ToUpper())
                 {
