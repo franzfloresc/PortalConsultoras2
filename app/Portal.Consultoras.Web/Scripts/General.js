@@ -1474,6 +1474,14 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 
     quantity = parseInt(quantity);
 
+    var fechaAddToCart = Date.now();
+    debugger;
+    var dimension15 = fechaAddToCart - fechaMostrarBanner;
+    if (dimension15 != 0)
+        dimension15 = (dimension15 / 1000);
+
+    dimension15 = parseInt(dimension15);
+
     var data = {
         'event': 'addToCart',
         'ecommerce': {
@@ -1487,7 +1495,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
                     'category': 'No disponible',
                     'variant': variant,
                     'quantity': quantity,
-                    'dimension15': '100',
+                    'dimension15': dimension15,
                     'dimension16': dimension16
                 }]
             }

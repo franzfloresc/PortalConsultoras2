@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var fechaMostrarBanner = Date.now();
+$(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
     var odd_desktop_google_analytics_promotion_impresion_fech;
@@ -103,6 +104,7 @@
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
                 var idOdd = '#OfertaDelDia';
                 _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
+                fechaMostrarBanner = Date.now();
                 SetHandlebars("#ofertadeldia-template", _data, idOdd);               
 
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
@@ -241,6 +243,7 @@
             _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
             _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
             _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
+            fechaMostrarBanner = Date.now();
             SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
         }
     }
