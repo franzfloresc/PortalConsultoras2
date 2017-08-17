@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Web.Models
                     : Estado == Constantes.EstadoCDRWeb.Enviado
                         ? "EN EVALUACIÓN"
                         : Estado == Constantes.EstadoCDRWeb.Observado
-                        ? "OBSERVADO"
+                        ? "RECHAZADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
                             ? "APROBADO"
                             : "";
