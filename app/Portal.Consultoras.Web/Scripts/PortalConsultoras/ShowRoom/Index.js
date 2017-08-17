@@ -533,7 +533,6 @@ function AgregarTagManagerProductoAgregadoSW(CUV, nombreProducto, PrecioUnidad, 
 }
 
 function compraxcompra_promotion_impression() {
-    debugger;
     var id = $("#divBannerCompraPorCompra").data("cuv");
     var name = 'Showroom – ' + $("#divBannerCompraPorCompra").data("descripcion");
     dataLayer.push({

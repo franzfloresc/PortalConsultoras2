@@ -1163,6 +1163,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return this.GetProductosFaltantes("", "");
         }
+
         protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
         {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
@@ -1172,6 +1173,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
+
         private List<TipoLinkModel> GetLinksPorPais(int PaisID)
         {
             List<ServiceContenido.BETipoLink> listModel = new List<ServiceContenido.BETipoLink>();
@@ -2283,6 +2285,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
+
         protected JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -2421,6 +2424,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return ObtenerValorTablaLogica(ObtenerParametrosTablaLogica(paisID, tablaLogicaId), idTablaLogicaDatos);
         }
+
         public string ObtenerValorTablaLogica(List<BETablaLogicaDatos> datos, short idTablaLogicaDatos)
         {
             var valor = "";
