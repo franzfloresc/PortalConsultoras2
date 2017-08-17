@@ -22,15 +22,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
 		public ActionResult Index()
 		{
-			var mostrarRevistaDigital = ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalReducida);
 			var clienteModel = new MisCatalogosRevistasModel();
 			clienteModel.PaisNombre = getPaisNombreByISO(userData.CodigoISO);
 			clienteModel.CampaniaActual = userData.CampaniaID.ToString();
 			clienteModel.CampaniaAnterior = CalcularCampaniaAnterior(clienteModel.CampaniaActual);
 			clienteModel.CampaniaSiguiente = CalcularCampaniaSiguiente(clienteModel.CampaniaActual);
-			clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual, mostrarRevistaDigital);
-			clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, mostrarRevistaDigital);
-			clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, mostrarRevistaDigital);
+			clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
+			clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
+			clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
 			ViewBag.CodigoISO = userData.CodigoISO;
 			ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
@@ -40,6 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 			ViewBag.ActivacionAppCatalogoWhastUp = PaisesCatalogoWhatsUp.Contains(userData.CodigoISO) ? 1 : 0;
 			ViewBag.TextoMensajeSaludoCorreo = TextoMensajeSaludoCorreo;
 
+            clienteModel.MostrarRevistaDigital = userData.RevistaDigital.TieneRDR;
 		    ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
 		    ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
 		    ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
@@ -49,7 +49,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 		    ViewBag.NumeroCampania = userData.CampaniaID % 100;
 		    ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 		    ViewBag.NombreConsultora = userData.Sobrenombre;
-            clienteModel.MostrarRevistaDigital = mostrarRevistaDigital;
 
 			return View(clienteModel);
 		}

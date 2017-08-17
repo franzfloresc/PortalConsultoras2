@@ -23,6 +23,14 @@
     <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
    
 }
+<div class="fondo_pestana">
+    <div class="titulo_mobile">
+        <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
+        &nbsp;&nbsp;LOS MÁS VENDIDOS
+    </div>
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+</div>
 <!--DETALLE FICHA PRODUCTO-->
     <div id="contenedor-detalle-producto"></div>    
 <!--FIN-->
@@ -127,7 +135,7 @@
 
     <script id="template-detalle-producto-agregar" type="text/x-handlebars-template">
         <div class="content_btn_agregar" data-item="" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
-            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTiPopUp" />
+            <input type="hidden" class="OrigenPedidoWeb" value="@Constantes.OrigenPedidoWeb.MobileMasVendidosProductPageFicha" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
                 <input type="hidden" class="rsFBMensaje" value="" />
@@ -225,7 +233,7 @@
 
     <script id="template-detalle-producto-lista" type="text/x-handlebars-template">        
         <div class="content_carrusel_bestSeller" id="divCarrouselMasVendidosLista">
-            <div class="titulo_carrusel_best">LOS PRODUCTOS <b>MÁS VENDIDOS</b></div>
+            <div class="titulo_carrusel_best"><b>LOS MÁS VENDIDOS</b></div>
             <div id="Carrusel" class="variable-width">
                 {{#each this.Lista as |item|}}
                 <div data-item="{{EstrategiaID}}" data-tipoestrategiaimagenmostrar="{{#if_eq FlagMostrarImg '1'}}{{TipoEstrategiaImagenMostrar}}{{/if_eq}}"
@@ -312,5 +320,6 @@
         </script>
         <script src="~/Scripts/PortalConsultoras/BestSeller/BestSellerCommentModule.js"></script>
         <script src="~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js"></script>
+        <script src="~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"></script>
         <script src="~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js"></script>
     }
