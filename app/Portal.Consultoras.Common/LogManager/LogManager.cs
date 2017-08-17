@@ -63,7 +63,8 @@ namespace Portal.Consultoras.Common
                 stream.WriteLine(DateTime.Now + " ==> País: " + logError.IsoPais + " - Usuario: " + logError.CodigoUsuario);
                 stream.WriteLine("Error message: " + logError.Exception.Message);
                 stream.WriteLine("StackTrace: " + logError.Exception.StackTrace);
-                if (string.IsNullOrEmpty(logError.InformacionAdicional)) stream.WriteLine("Adicional: " + logError.InformacionAdicional);
+                if (!string.IsNullOrEmpty(logError.InformacionAdicional))
+                    stream.WriteLine("Adicional: " + logError.InformacionAdicional);
                 stream.WriteLine(string.Empty);
 
                 Exception innerException = logError.Exception.InnerException;

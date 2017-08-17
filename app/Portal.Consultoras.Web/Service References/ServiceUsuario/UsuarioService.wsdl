@@ -33,24 +33,6 @@
       <xsd:import schemaLocation="http://localhost:41615/UsuarioService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2Response" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarAutoLogin" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPais" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPaisResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_CambiarClaveUsuario_InputMessage">
     <wsdl:part name="parameters" element="tns:CambiarClaveUsuario" />
   </wsdl:message>
@@ -273,23 +255,11 @@
   <wsdl:message name="IUsuarioService_IsUserExist_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsUserExistResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUserUPN_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserUPN" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUserUPN_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserUPNResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_ChangePasswordUser_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangePasswordUser" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ChangePasswordUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangePasswordUserResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidateUserCredentialsActiveDirectory_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateUserCredentialsActiveDirectory" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidateUserCredentialsActiveDirectory_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateUserCredentialsActiveDirectoryResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdUsuarioDatosPrimeraVezEstado_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdUsuarioDatosPrimeraVezEstado" />
@@ -344,12 +314,6 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetValidarConsultoraNueva_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarConsultoraNuevaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CreateActiveDirectoryUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:CreateActiveDirectoryUser" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CreateActiveDirectoryUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CreateActiveDirectoryUserResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ValidarUsuarioPrueba_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUsuarioPrueba" />
@@ -657,19 +621,25 @@
   <wsdl:message name="IUsuarioService_UpdateUsuarioEmailTelefono_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateUsuarioEmailTelefonoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarLoginSB2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarLoginSB2Response" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLogin" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetValidarAutoLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetValidarAutoLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPais" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsUsuarioExternoPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsUsuarioExternoPaisResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUsuarioService">
-    <wsdl:operation name="GetValidarLoginSB2">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" message="tns:IUsuarioService_GetValidarLoginSB2_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response" message="tns:IUsuarioService_GetValidarLoginSB2_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetValidarAutoLogin">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" message="tns:IUsuarioService_GetValidarAutoLogin_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse" message="tns:IUsuarioService_GetValidarAutoLogin_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="InsUsuarioExternoPais">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" message="tns:IUsuarioService_InsUsuarioExternoPais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse" message="tns:IUsuarioService_InsUsuarioExternoPais_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" message="tns:IUsuarioService_CambiarClaveUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse" message="tns:IUsuarioService_CambiarClaveUsuario_OutputMessage" />
@@ -818,17 +788,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/IsUserExist" message="tns:IUsuarioService_IsUserExist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/IsUserExistResponse" message="tns:IUsuarioService_IsUserExist_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUserUPN" message="tns:IUsuarioService_GetUserUPN_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUserUPNResponse" message="tns:IUsuarioService_GetUserUPN_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ChangePasswordUser" message="tns:IUsuarioService_ChangePasswordUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ChangePasswordUserResponse" message="tns:IUsuarioService_ChangePasswordUser_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" message="tns:IUsuarioService_ValidateUserCredentialsActiveDirectory_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectoryResponse" message="tns:IUsuarioService_ValidateUserCredentialsActiveDirectory_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdUsuarioDatosPrimeraVezEstado">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioDatosPrimeraVezEstado" message="tns:IUsuarioService_UpdUsuarioDatosPrimeraVezEstado_InputMessage" />
@@ -865,10 +827,6 @@
     <wsdl:operation name="GetValidarConsultoraNueva">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" message="tns:IUsuarioService_GetValidarConsultoraNueva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse" message="tns:IUsuarioService_GetValidarConsultoraNueva_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" message="tns:IUsuarioService_CreateActiveDirectoryUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUserResponse" message="tns:IUsuarioService_CreateActiveDirectoryUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarUsuarioPrueba">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarUsuarioPrueba" message="tns:IUsuarioService_ValidarUsuarioPrueba_InputMessage" />
@@ -1074,36 +1032,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" message="tns:IUsuarioService_UpdateUsuarioEmailTelefono_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefonoResponse" message="tns:IUsuarioService_UpdateUsuarioEmailTelefono_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginSB2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" message="tns:IUsuarioService_GetValidarLoginSB2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarLoginSB2Response" message="tns:IUsuarioService_GetValidarLoginSB2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarAutoLogin">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" message="tns:IUsuarioService_GetValidarAutoLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse" message="tns:IUsuarioService_GetValidarAutoLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" message="tns:IUsuarioService_InsUsuarioExternoPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse" message="tns:IUsuarioService_InsUsuarioExternoPais_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IUsuarioService" type="tns:IUsuarioService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetValidarLoginSB2">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetValidarAutoLogin">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsUsuarioExternoPais">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
       <wsdl:input>
@@ -1437,26 +1380,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUserUPN" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ChangePasswordUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1538,15 +1463,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetValidarConsultoraNueva">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2006,6 +1922,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginSB2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarAutoLogin">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2017,33 +1960,6 @@
   <wsdl:binding name="BasicHttpsBinding_IUsuarioService" type="tns:IUsuarioService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IUsuarioService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="GetValidarLoginSB2">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetValidarAutoLogin">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="InsUsuarioExternoPais">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="CambiarClaveUsuario">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuario" style="document" />
       <wsdl:input>
@@ -2377,26 +2293,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUserUPN" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ChangePasswordUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2478,15 +2376,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetValidarConsultoraNueva">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2946,6 +2835,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateUsuarioEmailTelefono">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/UpdateUsuarioEmailTelefono" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarLoginSB2">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarLoginSB2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetValidarAutoLogin">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarAutoLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsUsuarioExternoPais">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
