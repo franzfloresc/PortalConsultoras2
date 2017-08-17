@@ -2189,7 +2189,6 @@ namespace Portal.Consultoras.Service
         {
             return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
         }
-
         #endregion
 
         #region Producto Comentario

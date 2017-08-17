@@ -27,6 +27,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool IndicadorNivelElectivo { get; set; }
         [DataMember]
+        public int PuntosExigidos { get; set; }
+        [DataMember]
+        public int PuntosExigidosFaltantes { get; set; }
+        [DataMember]
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
@@ -59,6 +63,12 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "IndicadorNivelElectivo"))
                 IndicadorNivelElectivo = Convert.ToBoolean(row["IndicadorNivelElectivo"]);
+
+            if (DataRecord.HasColumn(row, "PuntosExigidos"))
+                PuntosExigidos = Convert.ToInt32(row["PuntosExigidos"]);
+
+            if (DataRecord.HasColumn(row, "PuntosExigidosFaltantes"))
+                PuntosExigidosFaltantes = Convert.ToInt32(row["PuntosExigidosFaltantes"]);
         }
     }
 }
