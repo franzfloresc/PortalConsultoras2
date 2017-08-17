@@ -157,6 +157,7 @@ namespace Portal.Consultoras.BizLogic
             List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
             List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
             List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
+
             DAConcurso DAConcurso = new DAConcurso(paisID);
 
             DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
