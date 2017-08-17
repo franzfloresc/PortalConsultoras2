@@ -243,7 +243,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<BEConfiguracionOfertasHome> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.ListConfiguracionOfertasHome(UserData().PaisID).ToList();
+                lst = sv.ListConfiguracionOfertasHome(userData.PaisID, userData.CampaniaID).ToList();
             }
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }
