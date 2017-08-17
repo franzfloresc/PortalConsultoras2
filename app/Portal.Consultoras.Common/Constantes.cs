@@ -127,7 +127,7 @@ namespace Portal.Consultoras.Common
             public const int BusquedaNemotecnicoProductoSugerido = 9853;
             public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
-        
+
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
@@ -140,7 +140,7 @@ namespace Portal.Consultoras.Common
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-        
+
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -369,7 +369,6 @@ namespace Portal.Consultoras.Common
             public const int Observado = 4;
         }
 
-
         public class TipoMensajeCDR
         {
             public const string Motivo = "Motivo";
@@ -394,6 +393,7 @@ namespace Portal.Consultoras.Common
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
         }
+
         public class CdrWebMensajes
         {
             public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
@@ -443,9 +443,9 @@ namespace Portal.Consultoras.Common
             public const int NoExiste = 0;
             public const int ExisteDiferenteClave = 1;
             public const int Existe = 2;
-            
+
         }
-        
+
         public class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
@@ -454,7 +454,6 @@ namespace Portal.Consultoras.Common
             public const string RolConsultora = "CO";
             public const string RolSociaEmpresaria = "SE";
         }
-        
 
         public class MensajeEstaEnRevista
         {
@@ -613,7 +612,7 @@ namespace Portal.Consultoras.Common
             public const string Esika = "Guía de Negocio Ésika";
             public const string Lbel = "Mi Negocio L’Bel";
         }
-        
+
         public class EstadoCupon
         {
             public const int Reservado = 1;
@@ -639,7 +638,7 @@ namespace Portal.Consultoras.Common
             public const string Monto = "Monto";
             public const string Porcentaje = "Porcentaje";
         }
-	
+
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
@@ -651,6 +650,18 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string Lanzamiento = "LAN";
+        }
+
+        public class ConfiguracionSeccion
+        {
+            public class TipoPresentacion
+            {
+                public const int CarruselSimple = 1;
+                public const int CarruselPrevisuales = 2;
+                public const int SimpleCentrado = 3;
+                public const int Banners = 4;
+            }
         }
 
         public class TooltipLoginUsuario
@@ -696,13 +707,13 @@ namespace Portal.Consultoras.Common
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
-	    public class SessionNames
+        public class SessionNames
         {
-                // Lista de estrategias en session para OPT y BPT 
-                public const string ListaEstrategia = "ListadoEstrategiaPedido";
-                public const string ProductoTemporal = "ProductoTemporal";
+            // Lista de estrategias en session para OPT y BPT 
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+            public const string ProductoTemporal = "ProductoTemporal";
         }
-	
+
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;
@@ -890,9 +901,9 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio  ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
-            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";            
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
 

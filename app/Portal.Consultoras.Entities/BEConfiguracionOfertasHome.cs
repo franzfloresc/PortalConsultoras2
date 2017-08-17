@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Portal.Consultoras.Common;
+using System;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -96,6 +92,8 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("DesktopActivo")) DesktopActivo = Convert.ToBoolean(row["DesktopActivo"]);
             if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
             if (row.HasColumn("UrlSeccion")) UrlSeccion = Convert.ToString(row["UrlSeccion"]);
+            ConfiguracionPais = new BEConfiguracionPais();
+            ConfiguracionPais.Codigo = row.HasColumn("Codigo") ? "" : Convert.ToString(row["Codigo"]);
         }
 
         public BEConfiguracionOfertasHome()

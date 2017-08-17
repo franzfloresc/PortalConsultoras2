@@ -853,6 +853,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
+            lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
+
             listaMenu.Add(BuildMenuContenedorInicio());
 
             var isMobile = IsMobile();
@@ -2587,48 +2589,80 @@ namespace Portal.Consultoras.Web.Controllers
         #region Configuracion Seccion Palanca
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
         {
+            var listaEntidad = new List<BEConfiguracionOfertasHome>();
             if (Session[Constantes.ConstSession.ListadoSeccionPalanca] != null)
             {
-                return (List<ConfiguracionSeccionHomeModel>)Session[Constantes.ConstSession.ListadoSeccionPalanca];
+                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[Constantes.ConstSession.ListadoSeccionPalanca];
+            }
+            else
+            {
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, userData.CampaniaID).ToList();
+                }
+                Session[Constantes.ConstSession.ListadoSeccionPalanca] = listaEntidad;
             }
 
             var modelo = new List<ConfiguracionSeccionHomeModel>();
-
-            // string Codigo, string CampaniaId, parametros en caso traer con ese filtro
-            //var entidad = new ConfiguracionSeccionHomeModel();
-            //using (PedidoServiceClient sv = new PedidoServiceClient())
-            //{
-            //    var lista = sv.GetEstrategiasPedido(entidad).ToList();
-            //    modelo = AutoMapper.Mapper.Map<>(lista);
-            //}
-
-            if (!modelo.Any())
+            
+            var isMobile = IsMobile();
+            foreach (var entConf in listaEntidad)
             {
-                modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "001", TipoPresentacion = "carrusel-previsuales", CantidadProductos = 3, TipoEstrategia = "LAN", Titulo = "LANZAMIENTO", SubTitulo = "" });
-                //modelo.Add(new ConfiguracionSeccionHomeModel { CampaniaID = userData.CampaniaID, Codigo = "002", TipoPresentacion = "seccion-simple-centrado", CantidadProductos = 0, TipoEstrategia = "OPM", Titulo = "RECOMENDADAS PARA TI", SubTitulo = "OFERTAS PERSONALIZADAS PARA TU NEGOCIO" });
-            }
 
-            foreach (var seccion in modelo)
-            {
-                seccion.Codigo = Util.Trim(seccion.Codigo);
-
-                switch (seccion.Codigo)
+                entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
+                // validacion para ver si se muestra
+                if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
                 {
-                    case "001":
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
-                        seccion.Template = "#lanzamiento-carrusel-template";
+                    continue;
+                }
+
+                var seccion = new ConfiguracionSeccionHomeModel {
+                    CampaniaID = userData.CampaniaID,
+                    Codigo = entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+                    IsMobile = isMobile,
+                    Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
+                    ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
+                    Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
+                    SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
+                    TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
+                    TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
+                    CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos
+                };
+
+                switch (seccion.TipoPresentacion)
+                {
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
+                        seccion.TemplateProducto = "#producto-landing-template";
                         break;
-                    case "002":
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
-                        seccion.Template = "#producto-landing-template";
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+                        seccion.TemplateProducto = "#lanzamiento-carrusel-template";
+                        break;
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
+                        seccion.TemplateProducto = "#producto-landing-template";
+                        break;
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         break;
                     default:
                         break;
                 }
+                
+                switch (entConf.ConfiguracionPais.Codigo)
+                {
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        seccion.TemplatePresentacion = "carrusel-previsuales";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
+                        break;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
+                        break;
+                    default:
+                        break;
+                }
+
+                modelo.Add(seccion);
             }
-
-            Session[Constantes.ConstSession.ListadoSeccionPalanca] = modelo;
-
+            
             return modelo;
 
         }

@@ -58,5 +58,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "UrlSeccion", DbType.Boolean, entity.UrlSeccion);
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetListarSeccion(int campaniaId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionOfertasHomeListarSecciones");
+            Context.Database.AddInParameter(command, "CampaniaId", DbType.Int32, campaniaId);
+            return Context.ExecuteReader(command);
+        }
     }
 }

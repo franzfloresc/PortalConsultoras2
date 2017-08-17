@@ -4138,7 +4138,7 @@
     <Content Include="Views\RevistaDigital\ShowRoom2017.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-producto.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
