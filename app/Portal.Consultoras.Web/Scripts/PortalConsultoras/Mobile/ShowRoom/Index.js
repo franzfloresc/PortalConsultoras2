@@ -412,4 +412,19 @@ function odd_mobile_promotion_impression(id, name) {
             }
         }
     });
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                {
+                    'id': id,
+                    'name': name,
+                    'position': 'Showroom Footer',
+                    'creative': 'Promocion Showroom'
+                }]
+            }
+        }
+    });
 }

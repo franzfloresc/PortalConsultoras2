@@ -142,7 +142,15 @@
 
                 <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;" data-cuv="@Model.ListaShowRoomCompraPorCompra[0].CUV" data-descripcion="@Model.ListaShowRoomCompraPorCompra[0].Descripcion">
                     <div class="titulo_promocion">PROMOCIÓN</div>
-                    <div class="content_interno_banner" onclick="compraxcompra_promotion_click('@Model.ListaShowRoomCompraPorCompra[0].CUV','@Model.ListaShowRoomCompraPorCompra[0].Descripcion')">
+                    @{
+                        var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                        if (_descripcion != null && _descripcion.Length > 41)
+                        {
+                            _descripcion = _descripcion.Substring(0, 40) + " ...";
+                        }
+                        _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta;
+                    }
+                    <div class="content_interno_banner" onclick="compraxcompra_promotion_click('@Model.ListaShowRoomCompraPorCompra[0].CUV','@_descripcion')">
                         <div style="width: 65%; margin: 0 auto;">
                             <div class="content_imagen_banner_compra">
                                 <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
