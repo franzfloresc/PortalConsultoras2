@@ -758,6 +758,10 @@ namespace Portal.Consultoras.Service
         {
             return BLTablaLogicaDatos.GetTablaLogicaDatos(paisID, TablaLogicaID);
         }
+        public List<BETablaLogicaDatos> GetTablaLogicaDatosPais(Int16 TablaLogicaID)
+        {
+            return BLTablaLogicaDatos.GetTablaLogicaDatosPais(TablaLogicaID);
+        }
         #endregion
 
         #region Fe de Erratas
@@ -1110,9 +1114,9 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
         {
-            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
+            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)

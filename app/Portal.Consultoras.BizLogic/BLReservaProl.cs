@@ -128,7 +128,8 @@ namespace Portal.Consultoras.BizLogic
                     ValidacionInteractiva = usuario.ValidacionInteractiva,
                     ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
                     FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
-                    EnviarCorreo = enviarCorreo
+                    EnviarCorreo = enviarCorreo,
+                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID))
                 };
 
                 if (usuario.TieneHana == 1)
@@ -340,6 +341,14 @@ namespace Portal.Consultoras.BizLogic
 
                 EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, false, montoTotalPROL, descuentoPROL);
             }
+
+            if (datos.ListaConcursoIncentivos != null)
+            {
+                resultado.ListaConcursosCodigos = string.Join("|", datos.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
+                resultado.ListaConcursosPuntaje = string.Join("|", datos.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
+                resultado.ListaConcursosPuntajeExigido = string.Join("|", datos.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+            }
+
             return resultado;
         }
 
@@ -357,7 +366,7 @@ namespace Portal.Consultoras.BizLogic
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
+                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
                 else RespuestaPROL = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
             if (RespuestaPROL == null) return resultado;
@@ -427,11 +436,12 @@ namespace Portal.Consultoras.BizLogic
                 EjecutarReservaPortal(input, listPedidoReserva, olstPedidoWebDetalle, true, montoTotalPROL, descuentoPROL);
             }
 
-            resultado.ListaConcursosCodigos = RespuestaPROL.ListaConcursoIncentivos != null ?
-                string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray()) : string.Empty;
-
-            resultado.ListaConcursosPuntaje = RespuestaPROL.ListaConcursoIncentivos != null ?
-                string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.puntajeconcurso).ToArray()) : string.Empty;
+            if (RespuestaPROL.ListaConcursoIncentivos != null)
+            {
+                resultado.ListaConcursosCodigos = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.codigoconcurso).ToArray());
+                resultado.ListaConcursosPuntaje = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => i.puntajeconcurso.Split('|')[0]).ToArray());
+                resultado.ListaConcursosPuntajeExigido = string.Join("|", RespuestaPROL.ListaConcursoIncentivos.Select(i => (i.puntajeconcurso.IndexOf('|') > -1 ? i.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+            }
 
             return resultado;
         }

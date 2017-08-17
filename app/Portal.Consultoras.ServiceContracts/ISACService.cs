@@ -318,6 +318,8 @@ namespace Portal.Consultoras.ServiceContracts
         #region Tabla Logica Datos
         [OperationContract]
         List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID);
+        [OperationContract]
+        List<BETablaLogicaDatos> GetTablaLogicaDatosPais(Int16 TablaLogicaID);
         #endregion
 
         #region "Fe de Erratas"
@@ -428,7 +430,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         //GR-1209
         [OperationContract]
-        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora);
+        List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo);
 
         [OperationContract]
         List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID);

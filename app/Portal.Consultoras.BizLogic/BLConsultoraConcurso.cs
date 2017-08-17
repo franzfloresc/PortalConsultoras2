@@ -43,10 +43,10 @@ namespace Portal.Consultoras.BizLogic
         /// <param name="CodigoConsultora"></param>
         /// <param name="CodigoCampania"></param>
         /// <param name="Puntos"></param>
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcurso, string PuntosExigidosConcurso)
         {
             DAConcurso DAConcurso = new DAConcurso(PaisID);
-            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso);
+            DAConcurso.ActualizarInsertarPuntosConcurso(CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcurso, PuntosExigidosConcurso);
         }
 
         /// <summary>
@@ -61,9 +61,11 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
             DAConcurso DAConcurso = new DAConcurso(paisID);
+
             try
             {
                 DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania);
+
                 using (IDataReader reader = DAConcurso.ObtenerPuntosXConsultoraConcurso(codigoCampania, codigoConsultora))
                 {
                     puntosXConcurso = GetConcursos(reader);
@@ -103,7 +105,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception ex) { LogManager.SaveLog(ex, codigoConsultora, paisID.ToString()); }
-            
+
             return puntosXConcurso.Where(c => EsCampaniaVisible(c)).ToList();
         }
 
@@ -143,50 +145,58 @@ namespace Portal.Consultoras.BizLogic
             return puntosXConcurso;
         }
 
-        /// <summary>
-        /// Obtener la informacion de concursos, niveles y premios por consultora.
-        /// </summary>
-        /// <param name="PaisID"></param>
-        /// <param name="CodigoCampania"></param>
-        /// <param name="CodigoConsultora"></param>
-        /// <returns></returns>
+        /// <summary>
+        /// Obtener la informacion de concursos, niveles y premios por consultora.
+        /// </summary>
+        /// <param name="PaisID"></param>
+        /// <param name="CodigoCampania"></param>
+        /// <param name="CodigoConsultora"></param>
+        /// <returns></returns>
         public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
         {
             List<BEIncentivoConcurso> incentivosConcursos = new List<BEIncentivoConcurso>();
             List<BEIncentivoNivel> incentivosNivel = new List<BEIncentivoNivel>();
-            List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
-            DAConcurso DAConcurso = new DAConcurso(paisID);
-            DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
+            List<BEIncentivoPremio> incentivosPremios = new List<BEIncentivoPremio>();
+
+            DAConcurso DAConcurso = new DAConcurso(paisID);
+
+            DAConcurso.GenerarConcursoVigente(codigoConsultora, codigoCampania.ToString());
+
             using (IDataReader reader = DAConcurso.ObtenerIncentivosConsultora(codigoConsultora, codigoCampania))
             {
                 while (reader.Read())
                 {
                     incentivosConcursos.Add(new BEIncentivoConcurso(reader));
-                }
+                }
+
                 if (reader.NextResult())
                 {
                     while (reader.Read())
                     {
                         incentivosNivel.Add(new BEIncentivoNivel(reader));
-                    }
+                    }
+
                     if (reader.NextResult())
                     {
                         while (reader.Read())
                         {
                             incentivosPremios.Add(new BEIncentivoPremio(reader));
                         }
-                    }
+                    }
+
                     foreach (var item in incentivosNivel)
                     {
-                        item.CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x => x.CodigoPremio));
-                        item.DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x => x.DescripcionPremio));
+                        item.CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.CodigoPremio));
+                        item.DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.DescripcionPremio));
                     }
-                }
+                }
+
                 foreach (var item in incentivosConcursos)
                 {
                     item.Niveles = incentivosNivel.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
-            }
+            }
+
             return incentivosConcursos;
         }
 
@@ -194,20 +204,23 @@ namespace Portal.Consultoras.BizLogic
         {
             List<BEConsultoraConcurso> puntosXConcurso = new List<BEConsultoraConcurso>();
             List<BEPremio> premios = new List<BEPremio>();
-            
+
             while (reader.Read()) puntosXConcurso.Add(new BEConsultoraConcurso(reader));
             if (loadPremios)
             {
                 if (puntosXConcurso.Any() && reader.NextResult())
                 {
-                    while (reader.Read()) premios.Add(new BEPremio(reader));
+                    while (reader.Read())
+                    {
+                        premios.Add(new BEPremio(reader));
+                    }
                 }
                 foreach (var item in puntosXConcurso)
                 {
                     item.Premios = premios.Where(p => p.CodigoConcurso == item.CodigoConcurso).ToList();
                 }
             }
-            puntosXConcurso.Update(c => c.TipoConcurso = "X"); //Fix mientras el SP retorna tipoConcurso = NULL.
+
             return puntosXConcurso;
         }
 
@@ -241,6 +254,7 @@ namespace Portal.Consultoras.BizLogic
                 concurso.Premios = new List<BEPremio>{
                     new BEPremio
                     {
+                        Codigo = concurso.Premios.FirstOrDefault() != null ? concurso.Premios.FirstOrDefault().Codigo : default(string),
                         CodigoConcurso = concurso.CodigoConcurso,
                         Importante = 1,
                         Descripcion = string.Join(", ", concurso.Premios.Select(p => p.Descripcion).ToArray()),
@@ -273,9 +287,9 @@ namespace Portal.Consultoras.BizLogic
             foreach (BEPremio Premio in concurso.Premios)
             {
                 Premio.Importante = 0;
-                if (concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= concurso.FechaVentaRetail)
+                if (concurso.FechaVentaRetail.HasValue && concurso.PuntajeTotal < Premio.PuntajeMinimo && DateTime.Today <= concurso.FechaVentaRetail)
                 {
-                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Day, Util.NombreMes(concurso.FechaVentaRetail.Month));
+                    Premio.Mensaje = string.Format(Incentivos.CompraENBelcenter, concurso.FechaVentaRetail.Value.Day, Util.NombreMes(concurso.FechaVentaRetail.Value.Month));
                     Premio.Importante = 2;
                 }
                 else if (concurso.PuntajeTotal >= Premio.PuntajeMinimo)
@@ -291,6 +305,8 @@ namespace Portal.Consultoras.BizLogic
             if (concurso.NivelAlcanzado == 0) concurso.NivelSiguiente = 1;
             concurso.Premios.RemoveAll(p => p.NumeroNivel > concurso.NivelSiguiente && concurso.NivelSiguiente != 0);
             if (concurso.FechaVentaRetail <= DateTime.Today) concurso.Premios.RemoveAll(p => p.PuntajeMinimo > concurso.PuntajeTotal);
+
+            concurso.IndicadorPremiacionPedido = concurso.Premios.Any();
         }
 
         private bool EsCampaniaVisible(BEConsultoraConcurso concurso)

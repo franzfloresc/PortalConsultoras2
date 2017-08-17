@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Models
 {
@@ -19,6 +15,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         /// Determina si se muestra o no un hipervinculo
         /// </summary>
         public bool MostrarHipervinculo { get; set; }
+
+        /// <summary>
+        /// Determina si es app mobile o no
+        /// </summary>
+        public bool EsAppMobile { get; set; }
 
         public MobileAppConfiguracionModel()
         {

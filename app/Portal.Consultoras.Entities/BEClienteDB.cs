@@ -15,6 +15,8 @@ namespace Portal.Consultoras.Entities
         }
 
         [DataMember]
+        public int PaisID { get; set; }
+        [DataMember]
         public long ConsultoraID { get; set; }
         [DataMember]
         public long ClienteID { get; set; }
@@ -25,6 +27,17 @@ namespace Portal.Consultoras.Entities
         public string Apellidos { get; set; }
         [DataMember]
         public string Nombres { get; set; }
+        [DataMember]
+        public string NombreCompleto {
+            get
+            {
+                return string.Format("{0} {1}", (Nombres == null ? string.Empty : Nombres), (Apellidos == null ? string.Empty : Apellidos)).Trim();
+            }
+            set
+            {
+
+            }
+        }
         [DataMember]
         public string Alias { get; set; }
         [DataMember]
