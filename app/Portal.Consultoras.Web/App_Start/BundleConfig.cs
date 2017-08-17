@@ -139,7 +139,8 @@ namespace Portal.Consultoras.Web
             bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/CssSB2").Include(
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
-               "~/Content/Css/ui.jquery/Esika/jquery-ui.css"
+               "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
+               "~/Content/Css/Site/asesora-online.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/Lbel/CssSB2").Include(
