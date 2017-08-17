@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -74,17 +71,11 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
-        bool IsUserExist(string CodigoUsuario);
-
-        [OperationContract]
-        string GetUserUPN(string Email);
+        bool IsUserExist(int paisID, string CodigoUsuario);
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
-
-        [OperationContract]
-        int ValidateUserCredentialsActiveDirectory(int paisID, string codigoUsuarioAutenticado, string codigoUsuarioModificado, string OldPassword, string NewPassword);
-
+        
         [OperationContract]
         int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario);
 
@@ -111,10 +102,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
-
-        [OperationContract]
-        bool CreateActiveDirectoryUser(string login, string alias, string firstname, string lastname, string PaisISO, string Clave);
-
+        
         [OperationContract]
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
 

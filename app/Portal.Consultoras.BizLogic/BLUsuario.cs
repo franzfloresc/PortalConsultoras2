@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.DirectoryServices;
-using System.DirectoryServices.AccountManagement;
 using System.IO;
 using System.Linq;
 
@@ -143,26 +141,6 @@ namespace Portal.Consultoras.BizLogic
         {
             var DAUsuario = new DAUsuario(paisID);
             bool Activado = DAUsuario.ActiveEmail(codigoUsuario);
-
-            try
-            {
-                DirectoryEntry entry = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"], AuthenticationTypes.Secure | AuthenticationTypes.Sealing | AuthenticationTypes.ServerBind);
-                DirectorySearcher search = new DirectorySearcher(entry);
-                search.Filter = "(samaccountname= " + iso + codigoUsuario + ")";
-                SearchResult resEnt = search.FindOne();
-                if (resEnt != null)
-                {
-                    DirectoryEntry dey = resEnt.GetDirectoryEntry();
-                    dey.Properties["mail"].Value = email;
-                    dey.CommitChanges();
-                    dey.Close();
-                }
-                entry.Close();
-            }
-            catch (Exception)
-            {
-                Activado = false;
-            }
             return Activado;
         }
 
@@ -325,116 +303,28 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
         }
 
-        public bool IsUserExist(string CodigoUsuario)
+        public bool IsUserExist(int paisID, string CodigoUsuario)
         {
-            bool _Existe = false;
-            DirectoryEntry entry = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"]);
-            DirectorySearcher search = new DirectorySearcher(entry);
-            search.Filter = "(samaccountname= " + CodigoUsuario + ")";
-            search.PropertiesToLoad.Add("mail");
-            search.PropertiesToLoad.Add("samaccountname");
-            search.PropertiesToLoad.Add("givenname");
-            search.PropertiesToLoad.Add("sn");
-            SearchResult resEnt = search.FindOne();
+            var DAUsuario = new DAUsuario(paisID);
+            var existe = false;
 
-            if (resEnt != null)
-                _Existe = true;
-            return _Existe;
-        }
+            using (IDataReader reader = DAUsuario.GetUsuario(CodigoUsuario))
+            {
+                if (reader.Read())
+                    existe = true;
+            }
 
-        public string GetUserUPN(string Email)
-        {
-            string UserUPN = string.Empty;
-
-            DirectoryEntry entry = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"]);
-            DirectorySearcher search = new DirectorySearcher(entry);
-            search.Filter = "(mail= " + Email + ")";
-            search.PropertiesToLoad.Add("mail");
-            search.PropertiesToLoad.Add("samaccountname");
-            search.PropertiesToLoad.Add("givenname");
-            search.PropertiesToLoad.Add("sn");
-            SearchResult resEnt = search.FindOne();
-
-            if (resEnt != null)
-                UserUPN = (string)resEnt.Properties["samaccountname"][0];
-
-            return UserUPN;
+            return existe;
         }
 
         public bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen)
         {
-            bool isChanged = false;
-
-            DirectoryEntry userEntry = GetUserEntry(emailCodigoUsuarioModificado);
-
-            if (userEntry != null)
-            {
-                userEntry.UsePropertyCache = true;
-
-                userEntry.Invoke("SetPassword", new object[] { password });
-                userEntry.CommitChanges();
-                userEntry.Close();
-
-                var DAUsuario = new DAUsuario(paisID);
-                DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, Enum.GetName(typeof(EAplicacionOrigen), origen));
-
-                isChanged = true;
-            }
-            return isChanged;
+            var DAUsuario = new DAUsuario(paisID);
+            DAUsuario.InsLogCambioContrasenia(codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, Enum.GetName(typeof(EAplicacionOrigen), origen));
+            
+            return true;
         }
-
-        public DirectoryEntry GetUserEntry(string CodigoEmail)
-        {
-            bool isEmail = CodigoEmail.Contains('@');
-            DirectoryEntry directoryEntry = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"], AuthenticationTypes.Secure | AuthenticationTypes.Sealing | AuthenticationTypes.ServerBind);
-            DirectorySearcher search = new DirectorySearcher(directoryEntry);
-
-            if (isEmail)
-                search.Filter = "(mail= " + CodigoEmail + ")";
-            else
-                search.Filter = "(samaccountname=" + CodigoEmail + ")";
-
-            SearchResult resEnt = search.FindOne();
-
-            if (resEnt != null)
-            {
-                DirectoryEntry userEntry = resEnt.GetDirectoryEntry();
-                return userEntry;
-            }
-            else
-                return null;
-        }
-
-        public int ValidateUserCredentialsActiveDirectory(int paisID, string codigoUsuarioAutenticado, string codigoUsuarioModificado, string OldPassword, string NewPassword)
-        {
-            /*
-                0 ==> Password Incorrecto
-             *  1 ==> Cambio de Password Falló 
-             */
-            int isValid = 0;
-            try
-            {
-                using (PrincipalContext pc = new PrincipalContext(ContextType.Domain, ConfigurationManager.AppSettings["ServerAD"], ConfigurationManager.AppSettings["ContainerAD"], ConfigurationManager.AppSettings["UserAdmin"], ConfigurationManager.AppSettings["UserPass"]))
-                {
-                    isValid = Convert.ToInt32(pc.ValidateCredentials(codigoUsuarioModificado, OldPassword));
-                }
-                if (Convert.ToBoolean(isValid))
-                {
-                    bool rslt = ChangePasswordUser(paisID, codigoUsuarioAutenticado, codigoUsuarioModificado, NewPassword, string.Empty, EAplicacionOrigen.MisDatosConsultora);
-                    if (!rslt)
-                        isValid = 1;
-                    else
-                        isValid = 2;
-                }
-            }
-
-            catch (Exception)
-            {
-                isValid = 0;
-            }
-            return isValid;
-        }
-
+        
         public int ValidarEmailConsultora(int PaisID, string Email, string CodigoUsuario)
         {
             var DAUsuario = new DAUsuario(PaisID);
@@ -910,96 +800,6 @@ namespace Portal.Consultoras.BizLogic
             var DAUsuario = new DAUsuario(paisID);
             return DAUsuario.ValidarEnvioCatalogo(CodigoConsultora, CampaniaActual, Cantidad);
         }
-
-        #region Funciones AD
-        public bool CreateActiveDirectoryUser(string login, string alias, string firstname, string lastname, string PaisISO, string Clave)
-        {
-            bool _result = false;
-
-            try
-            {
-                DirectoryEntry de = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"], AuthenticationTypes.Secure | AuthenticationTypes.Sealing | AuthenticationTypes.ServerBind);
-                DirectoryEntries users = de.Children;
-                DirectoryEntry newuser = users.Add("CN=" + alias, "User");
-                SetProperty(newuser, "givenname", firstname.Trim());
-                SetProperty(newuser, "sn", lastname.Trim());
-                SetProperty(newuser, "SAMAccountName", login);
-                SetProperty(newuser, "userPrincipalName", alias);
-                newuser.CommitChanges();
-                newuser.RefreshCache();
-                DirectoryEntry dr = GetUserBySamaccountname(login);
-
-
-                if (dr != null)
-                {
-                    SetPassword(dr, Clave);
-                    EnableAccount(dr);
-                    newuser.CommitChanges();
-                    newuser.RefreshCache();
-                    newuser.Close();
-                    de.RefreshCache();
-                    de.Close();
-                    _result = true;
-                }
-            }
-            catch (DirectoryServicesCOMException)
-            {
-                _result = false;
-            }
-            return _result;
-        }
-        private void SetProperty(DirectoryEntry de, string PropertyName, string PropertyValue)
-        {
-            if (PropertyValue != null)
-            {
-                if (de.Properties.Contains(PropertyName))
-                {
-                    de.Properties[PropertyName][0] = PropertyValue;
-                }
-                else
-                {
-                    de.Properties[PropertyName].Add(PropertyValue);
-                }
-            }
-        }
-        private DirectoryEntry GetUserBySamaccountname(string samaccountname)
-        {
-            DirectoryEntry directoryEntry = new DirectoryEntry(ConfigurationManager.AppSettings["cnxActiveDirectoryUser"], ConfigurationManager.AppSettings["UserAD"], ConfigurationManager.AppSettings["PassAD"], AuthenticationTypes.Secure | AuthenticationTypes.Sealing | AuthenticationTypes.ServerBind);
-
-            DirectorySearcher search = new DirectorySearcher(directoryEntry);
-            search.Filter = "(samaccountname=" + samaccountname + ")";
-            SearchResult resEnt = search.FindOne();
-
-            if (resEnt != null)
-            {
-                DirectoryEntry userEntry = resEnt.GetDirectoryEntry();
-                return userEntry;
-            }
-            else
-            {
-                return null;
-            }
-        }
-        private void SetPassword(DirectoryEntry usr, string pass)
-        {
-            usr.UsePropertyCache = true;
-            usr.Invoke("SetPassword", new object[] { pass });
-            usr.CommitChanges();
-            usr.RefreshCache();
-            usr.Close();
-        }
-        private void EnableAccount(DirectoryEntry de)
-        {
-            int exp = (int)de.Properties["userAccountControl"].Value;
-            de.Properties["userAccountControl"].Value = exp | 0x0001;
-            de.CommitChanges();
-            de.RefreshCache();
-            int val = (int)de.Properties["userAccountControl"].Value;
-            de.Properties["userAccountControl"].Value = val & ~0x0002;
-            de.CommitChanges();
-            de.RefreshCache();
-        }
-        #endregion
 
         public int GetValidarColaboradorZona(int paisID, string CodigoZona)
         {
@@ -1687,16 +1487,6 @@ namespace Portal.Consultoras.BizLogic
 
             return lista;
         }
-
-        /*
-        public bool GetExisteEmailActivo(int paisID, string email)
-        {
-            var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetExisteEmailActivo(email);
-        }
-         * */
-
-        /*EPD-1837*/
 
         public void UpdatePostulantesMensajes(int paisID, string CodigoUsuario, int tipo)
         {
