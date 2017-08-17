@@ -780,7 +780,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
+                            <div class="content_item_carrusel_ODD" onclick = "odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />

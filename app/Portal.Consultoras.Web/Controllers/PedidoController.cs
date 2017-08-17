@@ -3859,12 +3859,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var oddModel = this.GetOfertaDelDiaModel();
                 oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
+                short position = 0;
                 foreach (var item in oddModel.ListaOfertas)
                 {
                     item.TipoEstrategiaDescripcion = string.Empty;
                     var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
                     if (tipo_estrategia != null)
                         item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
+                    item.Position = position++;
                 }
                 return Json(new
                 {

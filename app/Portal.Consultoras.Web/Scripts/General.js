@@ -1528,8 +1528,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
     dataLayer.push(data);
 }
 
-function odd_desktop_google_analytics_product_click(name, id, price, brand, variant, position) {
-    position++;
+function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push
