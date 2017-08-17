@@ -13456,7 +13456,7 @@ label.checkpop {
 
             .contentCatalogo .box .revista img {
                 height: 240px;
-                webkit-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
+                -webkit-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
                 -moz-box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
                 box-shadow: 6px 7px 5px 0px rgba(212,205,212,1);
             }
@@ -13487,3 +13487,12 @@ label.checkpop {
             opacity: 0.7;
         }
 /*EPD2031 -->*/
+
+.checkBox input{
+    display: inline-block !important;
+}
+
+.checkBox label {
+    display: inline-block !important;
+}
+

@@ -915,12 +915,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                                         continue;
                                     }
-
-                                    // model.FechaFinCampania; fecha de fin de  la campaña
-                                    // model.ConsultoraNueva; referencia de la columna idestadoactividad 
-                                    // Validacion de la fecha de cierre de campaña y  del idestadoactividad
+                                    
                                     // metodo GetDiasFaltantesFacturacion => model.FechaActualPais.Date >= model.FechaInicioCampania.Date
-                                    //&& model.ConsultoraNueva == Constantes.EstadoActividadConsultora.Constante_Normal
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion)
                                     {
                                         if (DateTime.Now.AddHours(model.ZonaHoraria).Date >= model.FechaInicioCampania.Date.AddDays(model.RevistaDigital.DiasAntesFacturaHoy))

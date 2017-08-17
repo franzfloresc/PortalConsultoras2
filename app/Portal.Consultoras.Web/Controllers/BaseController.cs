@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
@@ -65,6 +66,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
+                    ViewBag.MenuContenedor = BuildMenuContenedor();
                     ViewBag.MenuMobile = BuildMenuMobile(userData);
                     ViewBag.Permiso = BuildMenu();
                     ViewBag.ProgramasBelcorpMenu = BuildMenuService();
@@ -843,6 +845,107 @@ namespace Portal.Consultoras.Web.Controllers
             userData.MenuMobile = lstModel;
             
             return lstModel;
+        }
+
+        public List<MenuContenedorModel> BuildMenuContenedor()
+        {
+            var listaMenu = new List<MenuContenedorModel>();
+            var lista = userData.ConfiguracionPais;
+            if (lista == null || !lista.Any()) return listaMenu;
+
+            listaMenu.Add(BuildMenuContenedorInicio());
+
+            var isMobile = IsMobile();
+            foreach (var confi in lista)
+            {
+                listaMenu.Add(new MenuContenedorModel {
+                    CampaniaID = userData.CampaniaID,
+                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                    Orden = confi.Orden,
+                    Activa = true
+                });
+            }
+
+            if (userData.RevistaDigital.TieneRDC)
+            {
+                var menuCampania = BuildMenuContenedorCampania();
+                listaMenu.AddRange(menuCampania);
+
+                listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
+
+                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
+                listaMenu.Add(new MenuContenedorModel
+                {
+                    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                    Orden = confi.Orden
+                });
+            }
+
+            listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
+
+            return listaMenu;
+        }
+
+        public List<MenuContenedorModel> BuildMenuContenedorCampania()
+        {
+            var listaMenu = new List<MenuContenedorModel>();
+
+            var isMobile = IsMobile();
+            listaMenu.Add(new MenuContenedorModel
+            {
+                CampaniaID = userData.CampaniaID,
+                Logo = "/Content/Images/Esika/menu-icono-compra.png",
+                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "COMPRAR",
+                SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
+                Orden = 1,
+                IsMenuCampania = true,
+                Activa = true
+            });
+
+            listaMenu.Add(new MenuContenedorModel
+            {
+                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                Logo = "/Content/Images/Esika/menu-icono-revisar.png",
+                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
+                SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
+                Orden = 2,
+                IsMenuCampania = true
+            });
+
+            listaMenu.Add(new MenuContenedorModel
+            {
+                CampaniaID = 0,
+                Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
+                TituloMenu = isMobile ? "SABER MÁS" : "SABER",
+                SubTituloMenu = isMobile ? "" : "MÁS",
+                Orden = 3,
+                IsMenuCampania = true
+            });
+
+            return listaMenu;
+        }
+
+        public MenuContenedorModel BuildMenuContenedorInicio(int campania = 0)
+        {
+            var menu = new MenuContenedorModel
+            {
+                CampaniaID = campania == 0 ? userData.CampaniaID : campania,
+                TituloMenu = "INICIO",
+                SubTituloMenu = "",
+                Orden = 0,
+                Activa = true
+            };
+
+            return menu;
         }
 
         private int MostrarMenuCDR()
@@ -2438,7 +2541,16 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            string url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            string url = "";
+            if (HttpContext.Request.UrlReferrer != null)
+            {
+                url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
+            }
+            else
+            {
+                url = Util.Trim(HttpContext.Request.FilePath).ToLower();
+            }
+
             if (url.Contains("/mobile/")) return true;
             else return false;
         }

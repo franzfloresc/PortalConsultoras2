@@ -119,6 +119,24 @@
   <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionOfertasHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHome" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionOfertasHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionOfertasHomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionOfertasHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertasHome" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionOfertasHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionOfertasHomeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionOfertasHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionOfertasHome" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionOfertasHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionOfertasHomeResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1196,6 +1214,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionOfertasHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" message="tns:ISACService_ListConfiguracionOfertasHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionOfertasHomeResponse" message="tns:ISACService_ListConfiguracionOfertasHome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertasHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionOfertasHome" message="tns:ISACService_GetConfiguracionOfertasHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionOfertasHomeResponse" message="tns:ISACService_GetConfiguracionOfertasHome_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionOfertasHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome" message="tns:ISACService_UpdateConfiguracionOfertasHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHomeResponse" message="tns:ISACService_UpdateConfiguracionOfertasHome_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -1998,6 +2028,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3658,6 +3715,33 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

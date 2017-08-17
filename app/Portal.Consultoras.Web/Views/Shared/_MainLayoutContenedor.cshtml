@@ -315,91 +315,10 @@
 
     <!-- contenedor -->
     <div id="contentmain" class="content" data-content="" style="margin-top: 61px;">
-        <div>
-            <div class="bc_menu_estrategia">
-                <ul class="menu_estrategia">
-                    <li>
-                        <a href="javascript:;">
-                            <img src="@Url.Content("~/Content/Images/Esika/carrito-menu.png")" alt="" class="icono">
-                            <p>COMPRAR C-14</p>
-                        </a>
-                        <ul class="sbmenu_estrategia default">
-                            <li>
-                                <a href="">
-                                    <p>INICIO</p>
-                                    <span>C - Lanzamientos y Novedades</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
-                                    <span>C - Ofertas hasta 65% de Dscto.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>MIS OFERTAS</p>
-                                    <span>C - Ofertas creadas para tí.</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="@Url.Content("~/Content/Images/Esika/corazon-menu.png")" alt="" class="icono">
-                            <p>REVISAR C-15</p>
-                        </a>
-                        <ul class="sbmenu_estrategia" style="display:none;">
-                            <li>
-                                <a href="">
-                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
-                                    <span>R - Ofertas hasta 65% de Dscto.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>INICIO</p>
-                                    <span>R - Lanzamientos y Novedades</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>MIS OFERTAS</p>
-                                    <span>R - Ofertas creadas para tí.</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="javascript:;">
-                            <img src="@Url.Content("~/Content/Images/Esika/signo-menu.png")" alt="" class="icono">
-                            <p>SABER MÁS</p>
-                        </a>
-                        <ul class="sbmenu_estrategia" style="display:none;">
-                            <li>
-                                <a href="">
-                                    <p>MIS OFERTAS</p>
-                                    <span>S - Ofertas creadas para tí.</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>INICIO</p>
-                                    <span>S - Lanzamientos y Novedades</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="">
-                                    <p>DÍA DEL AMOR Y LA AMISTAD</p>
-                                    <span>S - Ofertas hasta 65% de Dscto.</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>  
+        <div data-layout-menu2="">
+            @Html.Partial("~/Views/Shared/_MenuContenedorOferta.cshtml")  
         </div>
-        <div>
+        <div data-layout-body="">
             @if (!(controllerAction == "bienvenidaindex"
                             || controllerAction == "showroomindex"
                             || controllerAction == "showroomintriga"
@@ -966,37 +885,6 @@
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
-
-        $(document).ready(function () {
-
-            $('ul.menu_estrategia li ul li a').hover(function(e) {
-                $(this).find('p').css('font-weight', 'bolder')
-            }, function(e) {
-                $(this).find('p').css('font-weight', 'normal')
-            });
-
-            $('ul.menu_estrategia li').hover(function(e) {
-                $(this).addClass('ul.menu_estrategia li.seleccionado');
-                $(this).find('p').css('color', 'white');
-                $('ul.sbmenu_estrategia li a p').css('color', '#333');
-            }, function(e) {
-                /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
-            });
-
-            $('ul.menu_estrategia li').hover(function(e) {
-                $(this).find('ul').css({
-                    display: "block"
-                });
-            }, function(e) {
-                $(this).find('ul').css({
-                    display: "none"
-                });
-                $("ul.menu_estrategia li ul.default").css({
-                    display: "block"
-                });
-            });
-        });
-
 
      </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")

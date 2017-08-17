@@ -9,52 +9,77 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
-    public class BEConfiguracionOfertasHome
+    public class BEConfiguracionOfertasHome : BaseEntidad
     {
         [DataMember]
-        public int ConfiguracionOfertaHomeID { get; set; }
+        public int ConfiguracionOfertasHomeID { get; set; }
+
         [DataMember]
         public int ConfiguracionPaisID { get; set; }
+
         [DataMember]
         public int CampaniaID { get; set; }
+
         [DataMember]
         public int DesktopOrden { get; set; }
+
         [DataMember]
         public int MobileOrden { get; set; }
+
         [DataMember]
         public string DesktopImagenFondo { get; set; }
+
         [DataMember]
         public string MobileImagenFondo { get; set; }
+
         [DataMember]
         public string DesktopTitulo { get; set; }
+
         [DataMember]
         public string MobileTitulo { get; set; }
+
         [DataMember]
         public string DesktopSubTitulo { get; set; }
+
         [DataMember]
         public string MobileSubTitulo { get; set; }
+
         [DataMember]
         public int DesktopTipoPresentacion { get; set; }
+
         [DataMember]
         public int MobileTipoPresentacion { get; set; }
+
         [DataMember]
         public string DesktopTipoEstrategia { get; set; }
+
         [DataMember]
         public string MobileTipoEstrategia { get; set; }
+
         [DataMember]
         public int DesktopCantidadProductos { get; set; }
+
         [DataMember]
         public int MobileCantidadProductos { get; set; }
+
         [DataMember]
         public bool DesktopActivo { get; set; }
+
         [DataMember]
         public bool MobileActivo { get; set; }
 
+        [DataMember]
+        public string UrlSeccion { get; set; }
+
+        [DataMember]
+        public BEConfiguracionPais ConfiguracionPais { get; set; }
+
         public BEConfiguracionOfertasHome(IDataRecord row)
         {
-            if (row.HasColumn("ConfiguracionOfertaHomeID")) ConfiguracionOfertaHomeID = Convert.ToInt32(row["ConfiguracionOfertaHomeID"]);
+            if (row.HasColumn("ConfiguracionOfertasHomeID")) ConfiguracionOfertasHomeID = Convert.ToInt32(row["ConfiguracionOfertasHomeID"]);
             if (row.HasColumn("ConfiguracionPaisID")) ConfiguracionPaisID = Convert.ToInt32(row["ConfiguracionPaisID"]);
             if (row.HasColumn("DesktopOrden")) DesktopOrden = Convert.ToInt32(row["DesktopOrden"]);
+            if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
             if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
             if (row.HasColumn("DesktopImagenFondo")) DesktopImagenFondo = Convert.ToString(row["DesktopImagenFondo"]);
             if (row.HasColumn("MobileImagenFondo")) MobileImagenFondo = Convert.ToString(row["MobileImagenFondo"]);
@@ -70,6 +95,11 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileCantidadProductos")) MobileCantidadProductos = Convert.ToInt32(row["MobileCantidadProductos"]);
             if (row.HasColumn("DesktopActivo")) DesktopActivo = Convert.ToBoolean(row["DesktopActivo"]);
             if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
+            if (row.HasColumn("UrlSeccion")) UrlSeccion = Convert.ToString(row["UrlSeccion"]);
+        }
+
+        public BEConfiguracionOfertasHome()
+        {
         }
     }
 }

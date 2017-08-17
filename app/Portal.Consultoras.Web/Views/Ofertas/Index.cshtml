@@ -11,7 +11,24 @@
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
 }
-
+<style>
+    .previsualizales-ofertas {
+        max-width: 800px;
+        margin: auto;
+        max-height: 550px;
+    }
+    .imagen_fondo {
+    min-height: 532px;
+    max-width: 96% !important;
+    margin: auto;
+    }
+    .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img {
+    max-height: 450px !important;
+    }
+    .content_slider_ept {
+    padding-top: 30px;
+    }
+</style>
 <div class="bc_estrategia_contenido">
     @foreach (var seccion in Model.ListaSeccion)
     {
@@ -28,12 +45,6 @@
 </div>
 
 <div class="bc_estrategia_contenido">
-    <div class="bc_slider">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, minima doloribus aliquid earum! Similique placeat quasi distinctio repellendus debitis quidem, ullam dolore numquam voluptatibus perferendis suscipit laudantium neque, minima ipsa!
-    </div>
-    <div class="bc_vineta_baja">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
-    </div>
     <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));">
         <div class="titulo">
             <h2>VENTA EXCLUSIVA WEB</h2> HASTA 65% DE DSCTO EN SETS EXCLUSIVOS ONLINE
@@ -331,7 +342,7 @@
 <div class="bc_clearfix"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
-@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-producto.cshtml")
 
 
 @section scripts{

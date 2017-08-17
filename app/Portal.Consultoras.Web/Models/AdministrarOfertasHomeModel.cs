@@ -1,25 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace Portal.Consultoras.Web.Models
 {
-    [Serializable]
-    public class ConfiguracionSeccionHomeModel
+    public class AdministrarOfertasHomeModel
     {
         public int ConfiguracionOfertasHomeID { get; set; }
         public int ConfiguracionPaisID { get; set; }
         public string Codigo { get; set; }
         public int CampaniaID { get; set; }
-        
-        public bool IsMobile { get; set; } // Desktop - Mobile
-        public int Orden { get; set; }
-        public string ImagenFondo { get; set; }
-        public string Titulo { get; set; }
-        public string SubTitulo { get; set; }
-        public string TipoPresentacion { get; set; }
-        public string TipoEstrategia { get; set; }
-        public int CantidadProductos { get; set; }
-        public string UrlObtenerProductos { get; set; }
-        public string Template { get; set; }
 
         public int DesktopOrden { get; set; }
         public int MobileOrden { get; set; }
@@ -37,6 +28,20 @@ namespace Portal.Consultoras.Web.Models
         public int MobileCantidadProductos { get; set; }
         public bool DesktopActivo { get; set; }
         public bool MobileActivo { get; set; }
+        public string UrlSeccion { get; set; }
 
+        public int PaisID { get; set; }
+        public ConfiguracionPaisModel ConfiguracionPais { get; set; }
+        public IEnumerable<PaisModel> ListaPaises { set; get; }
+        public IEnumerable<CampaniaModel> ListaCampanias { set; get; }
+        public IEnumerable<TipoEstrategiaModel> ListaTipoEstrategia { get; set; }
+        public IEnumerable<ConfiguracionPaisModel> ListaConfiguracionPais { get; set; }
+        public IEnumerable<TablaLogicaDatosModel> ListaTipoPresentacion { get; set; }
+
+        public AdministrarOfertasHomeModel()
+        {
+            DesktopTipoEstrategia = "";
+            MobileTipoEstrategia = "";
+        }
     }
 }

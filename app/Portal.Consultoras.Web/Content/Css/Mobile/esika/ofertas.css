@@ -1,0 +1,369 @@
+﻿/* barra esika */
+
+		.bc_para_ti{
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: right center !important;
+		}
+		.bc_para_ti-logo{
+    /*background: url(img/bg_esika.png);*/
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 75px;
+    float: left;
+		}
+		.bc_para_ti-logo img {
+
+   height: 75px;
+    /* margin: auto; */
+    display: block;
+}
+.bc_para_ti-logo::after{
+	content: '';
+    /* width: 128px; */
+    display: block;
+    height: 75px;
+}
+.bc_para_ti-texto{
+	display: table;
+	height: 75px;
+	    float:left;
+}
+.bc_para_ti-texto-contenido{
+	display: table-cell;
+	color:white;
+	vertical-align: middle;
+	}
+.bc_para_ti-texto-contenido p{
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-bottom: 0;
+}
+.bc_para_ti-texto-contenido span{
+	font-weight: lighter;
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+	.bc_para_ti-clear{
+		clear: both;
+	}
+
+	/**/
+
+	.bc_para_ti-menu ul{
+		padding:0;
+		margin:0;
+		list-style: none;
+	}
+	.bc_para_ti-menu ul li{
+		    width: 33.3%;
+    display: inline-block;
+	}
+	.bc_para_ti-menu ul li:nth-child(2) {
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+	}
+	.bc_para_ti-menu ul li a {
+		display: block;
+		    background: rgba(255, 255, 255, 0.50);
+		  padding:10px;
+		  font-weight: bolder;
+		  color:white;
+		  font-size: 12px;
+		  text-decoration: none;
+		  letter-spacing: 1px;
+		  text-align: center;
+		  transition:.3s;
+	}
+	.bc_para_ti-menu ul li a:hover{
+		background:white;
+		color:black;
+	}
+	.bc_para_ti-menu ul li a.active{
+		background:white;
+		color:black;
+	}
+	.bc_para_ti-menu ul li a img{
+		    width: 13px;
+    margin-right: 7px;
+    position: relative;
+	}
+	.bc_para_ti-menu ul li a img.hover{
+		display: none;
+	}
+	.bc_para_ti-menu ul li a img.default{
+
+	}
+	.bc_para_ti-menu ul li ul{
+		display: none;
+		    width: 100%;
+		    left: 0;
+    	position: absolute;
+	}
+
+	/**/
+	
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla1{
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla1 img{
+		width: 100%;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla2{
+		margin-top: 15px;
+		margin-bottom: 15px;
+		background-size: cover !important;
+		background-repeat: no-repeat !important;
+		background-position: right bottom !important;
+		    height: auto;
+		display: table;
+		width: 100%;
+		    padding-top: 30px;
+	}
+	.bc_mobil_contenido-plantilla2-contenido{
+		vertical-align: middle;
+		display: table-cell;
+	}
+	.bc_mobil_contenido-plantilla2-contenido p.titulo{
+		color: white;
+	    font-weight: bolder;
+	    display: block;
+	    text-align: center;
+	    font-size: 40px;
+	    letter-spacing: 1px;
+	    margin-bottom: 2px;
+	}
+	.bc_mobil_contenido-plantilla2-contenido p.countdown{
+		    display: block;
+	    text-align: center;
+	    font-weight: bolder;
+	    color: black;
+	    letter-spacing: 1px;
+	    font-size: 30px;
+	}
+	.bc_mobil_contenido-plantilla2-contenido > div{
+		        width: 50%;
+    float: left;
+    color: white;
+    word-wrap: break-word;
+    font-size: 33px;
+    letter-spacing: 1px;
+    padding: 30px 60px;
+	}
+	.bc_mobil_contenido-plantilla2-contenido img{
+		width: 100%;
+	}
+	.bc_mobil_contenido-plantilla2-contenido a.agregalo{
+		       display: block;
+    width: 210px;
+    border: 2px solid white;
+    padding: 25px 10px;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 15px;
+    font-weight: bolder;
+    transition: .3s;
+	}
+	.bc_mobil_contenido-plantilla2-contenido a.agregalo:hover{
+		background: black;
+    color: white;
+    border: none;
+    text-decoration: none;
+	}
+	.bc_mobil_contenido-plantilla2-contenido a.ver-mas{
+		      display: block;
+    width: 211px;
+    border-bottom: 1px solid white;
+    padding: 10px;
+    color: white;
+    font-size: 16px;
+    text-align: left;
+    margin-top: 15px;
+	}
+	.bc_bloque_img_responsive{
+		display: none;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3{
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div{
+		background-size: cover !important;
+		  background-repeat: no-repeat !important;
+   		 background-position: right top !important;
+		height: 250px;
+	    width: 50%;
+	    float: left;
+	    display: table;
+	    margin-bottom: 15px;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div:nth-child(odd) {
+   		 border-right: 7.5px solid white;
+	}
+
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div:nth-child(even) {
+		border-left: 7.5px solid white;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div .contenido{
+		display: table-cell;
+		vertical-align: bottom;
+
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div .contenido p{
+		margin: -2px 0px;
+	    display: block;
+	    text-transform: uppercase;
+	    font-weight: bolder;
+	    color: white;
+	    word-wrap: break-word;
+	    padding: 0px 10px;
+	}
+	.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div .contenido span{
+		    display: block;
+	    text-transform: uppercase;
+	    font-size: 11px;
+	    padding: 0px 10px;
+	    color: white;
+	    margin: 3px 0px;
+	    letter-spacing: 1px;
+	    word-wrap: break-word;
+	    margin-bottom: 5px;
+	}
+
+	/**/
+
+	@media (max-width: 767px) {
+		.bc_para_ti-logo{
+			width:25%;
+		}
+		.bc_para_ti-texto{
+			width: 75%;
+		}
+		.bc_bloque_txt{
+			width:40% !important;
+		}
+		.bc_bloque_img{
+			width: 60% !important;
+		}
+		.bc_mobil_contenido-plantilla2-contenido > div {
+		    padding: 30px 20px;
+		}
+        .bc_para_ti-texto-contenido p {
+            font-size: 10px;
+        }
+	}
+
+	@media (max-width: 600px) {
+		.bc_para_ti-logo{
+			width:30%;
+		}
+		.bc_para_ti-texto{
+			width: 70%;
+		}
+		.bc_mobil_contenido-plantilla2-contenido > div{
+			font-size: 18px;
+		}
+		.bc_mobil_contenido-plantilla2-contenido a.agregalo {
+		    display: block;
+		    width: 166px;
+		    border: 2px solid white;
+		    padding: 14px 10px;
+		    color: white;
+		    font-size: 15px;
+		    text-align: center;
+		    margin-top: 15px;
+		    font-weight: bolder;
+		}
+		.bc_mobil_contenido-plantilla2-contenido a.ver-mas {
+		    display: block;
+		    width: 168px;
+		    border-bottom: 1px solid white;
+		    padding: 10px;
+		    color: white;
+		    font-size: 13px;
+		    text-align: left;
+		    margin-top: 15px;
+		}
+		.bc_mobil_contenido-plantilla2-contenido p.titulo {
+		    font-size: 25px;
+		}
+		.bc_mobil_contenido-plantilla2-contenido p.countdown{
+			font-size: 20px;
+		}
+		.bc_bloque_txt{
+			width:50% !important;
+		}
+		.bc_bloque_img{
+			width: 50% !important;
+		}
+	}
+	@media (max-width: 520px) {
+		.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div{
+			height: 200px;
+		}
+	}
+	@media (max-width: 500px) {
+		.bc_para_ti-logo img {
+		    height: 60px;
+		}
+		.bc_para_ti-logo{
+			width:30%;
+			height: 60px;
+		}
+		.bc_para_ti-texto{
+			width: 70%;
+			height: 60px;
+		}
+
+	}
+
+	@media (max-width: 400px) {
+        .bc_para_ti-menu ul li a{
+            font-size:10px;
+        }
+		.bc_mobil_contenido-plantilla2-contenido > div {
+		    padding: 15px 20px;
+		}
+		.bc_mobil_contenido-plantilla2-contenido > div{
+			width: 100%;
+			    text-align: center;
+		}
+		.bc_mobil_contenido-plantilla2-contenido a.agregalo{
+			margin:auto;
+		}
+		.bc_para_ti-logo{
+			width:38%;
+		}
+		.bc_para_ti-texto{
+			width: 62%;
+		}
+		.bc_bloque_txt{
+			width:100% !important;
+		}
+		.bc_bloque_txt b{
+			margin-bottom: 8px;
+		    display: block;
+		    letter-spacing: 2px;
+		    font-size: 25px;
+		}
+		.bc_bloque_img{
+			
+			display: none;
+		}
+		.bc_bloque_img_responsive{
+		display: block;
+		}
+		.bc_mobil_contenido-plantilla2-contenido a.ver-mas::before{
+			content:'';
+			display: block;
+			margin-top: 10px;
+		}
+		.bc_mobil_contenido-plantilla2-contenido a.ver-mas{
+			margin:auto;
+		}
+		.bc_mobil_contenido .bc_mobil_contenido-plantilla3 > div{
+			height: 150px;
+		}
+	}

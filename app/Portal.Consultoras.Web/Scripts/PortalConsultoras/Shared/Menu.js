@@ -1,4 +1,40 @@
-﻿
+﻿$(document).ready(function () {
+
+    $("ul.menu_estrategia li[data-activo='True']").addClass("seleccionado");
+    $($("ul.sbmenu_estrategia li[data-activo='True']").get(0)).addClass("seleccionado");
+    $("ul.sbmenu_estrategia li").hide();
+    var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
+    $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
+
+    if ($("ul.menu_estrategia li[data-activo='True']").length == 0) {
+        $("ul.sbmenu_estrategia li").show();
+    }
+
+    $('ul.menu_estrategia li').hover(function (e) {
+        $(this).find('p').css('color', 'white');
+        $('ul.sbmenu_estrategia li a p').css('color', '#333');
+    }, function (e) {
+        /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
+    });
+
+    $('ul.menu_estrategia li').hover(function (e) {
+        $('ul.sbmenu_estrategia li').hide();
+        $('ul.sbmenu_estrategia').find("li[data-campania='" + $(this).data("campania") + "']").css({
+            display: "block"
+        });
+    }, function (e) {
+        var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
+        $("ul.sbmenu_estrategia li").hide();
+        $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
+    });
+
+    $('ul.sbmenu_estrategia li a').hover(function (e) {
+        $(this).find('p').css('font-weight', 'bolder');
+    }, function (e) {
+        $(this).find('p').css('font-weight', 'normal');
+        $("ul.sbmenu_estrategia li.seleccionado a p").css('font-weight', 'bolder');
+    });
+});
 
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
