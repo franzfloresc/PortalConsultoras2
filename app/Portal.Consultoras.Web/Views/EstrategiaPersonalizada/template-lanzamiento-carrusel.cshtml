@@ -1,26 +1,26 @@
 ﻿
-
 <script id="lanzamiento-carrusel-template" type="text/x-handlebars-template">
     {{#each this.listaLan as |lan|}}
-        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.EstrategiaDetalle.ImgPrev}}" data-estrategia="{{JSON2string lan}}">
+        <div class="content_item_ept" data-item="{{lan.EstrategiaID}}" data-item-cuv="{{CUV2}}" data-ImgPrevia="{{lan.TipoEstrategiaDetalle.ImgPrev}}">
             <div data-item-tag="body" class="lan_content_body">
+                <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
                 <div class="detalle_set_banner" data-item-tag="contenido">
-                    {{#iff lan.EstrategiaDetalle.ImgEtiqueta '!=' ''}}
+                    {{#iff lan.TipoEstrategiaDetalle.ImgEtiqueta '!=' ''}}
                     <div>
                         <div class="etiqueta_nuevo_ept">
-                            <img src="{{lan.EstrategiaDetalle.ImgEtiqueta}}" alt="" style="max-height:50px;" />
+                            <img src="{{lan.TipoEstrategiaDetalle.ImgEtiqueta}}" alt="" style="max-height:50px;" />
                         </div>
                     </div>
                     {{/iff}}
                     
                     {{#if ../Mobile}} 
                     <div class="content_set_imagen_banner" data-item-tag="foto"
-                        onclick="javascript:EstrategiaVerDetalle({{lan.EstrategiaID}});">
+                        onclick="javascript: VerDetalleEstrategia(event);">
                         <img src="{{lan.FotoProducto01}}" alt="" />
                     </div>
                     {{else}}
                     <div class="content_set_imagen_banner producto_img_home" data-item-tag="foto" style="cursor:pointer"
-                        onclick="javascript:CargarEstrategiasEspeciales('', event);">
+                        onclick="javascript: VerDetalleEstrategia(event);">
                         <img src="{{lan.FotoProducto01}}" alt="" />
                         <a href="javascript:;" class="ver_detalle_carrusel" data-item-tag="verdetalle">VER DETALLE</a>
                     </div>
@@ -39,11 +39,11 @@
                             {{#iff lan.Precio '>' 0}}
                                 <span class="precio-oferta-normal">{{lan.Simbolo}} {{lan.PrecioTachado}}</span>
                             {{/iff}}
-                            <span class="precio-oferta-venta"><b>{{lan.Simbolo}} {{lan.PrecioString}}</b></span>
+                            <span class="precio-oferta-venta"><b>{{lan.Simbolo}} {{lan.PrecioVenta}}</b></span>
                         </div>
                     </div>
                     <div class="producto_nombre_descripcion" data-item-tag="agregar">
-                        {{#iff PuedeAgregar '!=' '0'}}
+                        
                         {{#if ../Mobile}}
                             <div class="liquidacion_rango_home">
                                 <a class="cantidad_menos_home" tabindex="0" data-bloqueada="{{lan.ClaseBloqueada}}"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
@@ -61,24 +61,24 @@
                             </div>
                         {{/if}}
                         <a class="boton_Agregalo_home {{lan.ClaseBloqueada}}" data-bloqueada="{{lan.ClaseBloqueada}}" href="javascript:;" data-campaniaid="{{lan.CampaniaID}}"
-                           onclick="javascript:CargarProductoDestacado({ EstrategiaID: '{{lan.EstrategiaID}}', TipoEstrategiaID: '{{lan.TipoEstrategiaID}}', Posicion: {{lan.Orden}}, FlagNueva: '{{lan.FlagNueva}}' }, this); ">
+                            onclick="javascript:EstrategiaAgregar(event); ">
                             AGRÉGALO
-                        </a>
-                        {{/iff}}
+                        </a>                    
+
                         {{#if ../Mobile}}
                         {{else}}
-                        <div class="clear"></div>
-                        <div style="padding-top: 9px; height: 15px;">
-                            <div class="agregado product-add" style="text-align: right; display: {{#if lan.IsAgregado }}block;{{else}}none;{{/if}}">
-                                AGREGADO
-                                <div class="icono"></div>
+                            <div class="clear"></div>
+                            <div style="padding-top: 9px; height: 15px;">
+                                <div class="agregado product-add" style="text-align: right; display: {{#if lan.IsAgregado }}block;{{else}}none;{{/if}}">
+                                    AGREGADO
+                                    <div class="icono"></div>
+                                </div>
                             </div>
-                        </div>
                         {{/if}}
                     </div>
 
                     {{#if ../Mobile}}
-                        {{#if lan.PuedeVerDetalleMob}}
+                        {{#if lan.TienePaginaProductoMob}}
                         <div class="btn_negro" style="text-align: center;">
                             <a data-item-accion="verdetalle" href="javascript:;">
                                 VER MÁS
@@ -87,7 +87,7 @@
                         </div>
                         {{/if}}
                     {{else}}
-                        {{#if lan.PuedeVerDetalle}}
+                        {{#if lan.TienePaginaProducto}}
                             <a class="btn_mas_info_set rd_ver_mas" data-item-accion="verdetalle" href="javascript:;">
                                 ver más de este producto
                             </a>
@@ -95,9 +95,9 @@
                     {{/if}}
                 </div>
             </div>
-            {{#iff lan.EstrategiaDetalle.ImgFondo '!=' ''}}
+            {{#iff lan.TipoEstrategiaDetalle.ImgFondo '!=' ''}}
                 <div class="imagen_fondo" data-item-tag="fotofondo">
-                    <img src="{{lan.EstrategiaDetalle.ImgFondo}}" alt="" />
+                    <img src="{{lan.TipoEstrategiaDetalle.ImgFondo}}" alt="" />
                 </div>
             {{/iff}}
         </div>

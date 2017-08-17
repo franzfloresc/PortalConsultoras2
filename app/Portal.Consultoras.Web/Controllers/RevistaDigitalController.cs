@@ -26,30 +26,35 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPedidoModel modelo)
+        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
+            if (modelo != null)
+            {
+                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
+                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
+                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
+                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
+                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
+                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
+                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
+                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
+                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
+            }
+
             Session[Constantes.SessionNames.ProductoTemporal] = modelo;
 
             return Json(new
             {
                 success = true
             }, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
-
-                if (modelo == null || modelo.ID == 0)
-                {
-                    List <BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
-
-                }
-                return DetalleModel(modelo);
+                return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
             {
@@ -86,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProductos(BusquedaProductoModel model)
+        public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
             try
             {
@@ -106,26 +111,29 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
-                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-
-                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
                 
+                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+
                 int cantidadTotal = listModel.Count;
-
-                //var cantMostrar = 10;
-                //listModel = listModel.Skip(model.CantMostrados).Take(cantMostrar).ToList();
-
-                listModel.ForEach(p =>
+                
+                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
+                if (TieneProductosPerdio(model.CampaniaID))
                 {
-                    p.PuedeAgregar = IsMobile() ? 0 : 1;
-                    p.IsMobile = IsMobile() ? 1 : 0;
-                });
-
+                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+                    
+                    listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                }
                 return Json(new
                 {
                     success = true,
                     lista = listModel,
+                    listaPerdio = listPerdio,
                     listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
                     cantidad = cantidadTotal,
@@ -159,10 +167,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listaFinal = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                var listaFinal = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPersonalizadaProductoModel();
 
-                producto.PuedeAgregar = 1;
+                //producto.PuedeAgregar = 1;
                 producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
 
                 return Json(new
@@ -231,12 +240,16 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EstadoEnvio = 0;
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
-
+                if (entidad.CodigoConsultora == "")
+                    throw new Exception("El codigo de la consultora no puede ser nulo.");
+               
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-
+                
+                
+                
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
@@ -385,6 +398,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                 SetUserData(userData);
 
                 return Json(new

@@ -99,11 +99,11 @@ $(document).ready(function () {
         $("#txtCUVPrecio2").val("");
         $("#spnImporteTotal2").html("");
         $("#hdImporteTotal2").val(0);
-        $("#txtCUVDescripcion2").val(""); 
+        $("#txtCUVDescripcion2").val("");
         $("#txtCantidad2").val("1");
         CambioPaso(-100);
         BuscarMotivo();
-        
+
         $("#divUltimasSolicitudes").show();
         $("#ddlCampania").attr("disabled", "disabled");
     });
@@ -148,6 +148,33 @@ $(document).ready(function () {
         $("#hdImporteTotal2").val(importeTotal);
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
     });
+
+    //EPD-1919 INICIO
+    $("#btnDespachoNormal").on("click", function () {
+        var claseBotonActivado = "cdr_tipo_despacho_icono_active";
+        var claseBotonDesactivado = "cdr_tipo_despacho_icono";
+        var botonExpress = $("#btnDespachoExpress");
+
+        if (!$(this).hasClass(claseBotonActivado)) {
+            $(this).addClass(claseBotonActivado);
+            botonExpress.removeClass(claseBotonActivado);
+            botonExpress.addClass(claseBotonDesactivado);
+            $("#hdTipoDespacho").val(false);
+        }
+    });    
+    $("#btnDespachoExpress").on("click", function () {
+        var claseBotonActivado = "cdr_tipo_despacho_icono_active";
+        var claseBotonDesactivado = "cdr_tipo_despacho_icono";
+        var botonNormal = $("#btnDespachoNormal");
+
+        if (!$(this).hasClass(claseBotonActivado)) {
+            $(this).addClass(claseBotonActivado);
+            botonNormal.removeClass(claseBotonActivado);
+            botonNormal.addClass(claseBotonDesactivado);
+            $("#hdTipoDespacho").val(true);
+        }
+    });
+    //EPD-1919 FIN
 
     $(".modificarPrecioMenos").on("click", function () {
         var precio = $("#hdCuvPrecio2").val();
@@ -307,8 +334,7 @@ function BuscarCUV(CUV) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {
-        }
+            checkTimeout(data);
         }
     });
 }
@@ -966,6 +992,12 @@ function DetalleCargar() {
 
             SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
             SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
+
+            //EPD-1919 INICIO
+            if (data.esCDRExpress) $("#TipoDespacho").show();
+            else $("#TipoDespacho").hide();
+            //EPD-1919 FIN
+
         },
         error: function(data, error) {
             closeWaitingDialog();
@@ -1040,48 +1072,95 @@ function ControlSetError(inputId, spanId, message) {
 	}
 }
 
-function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
-	var ok = true;
-	var correo = $.trim($("#txtEmail").val());
-	var celular = $.trim($("#txtTelefono").val());
-	ControlSetError('#txtEmail', '#spnEmailError', null);
-	ControlSetError('#txtTelefono', '#spnTelefonoError', null);
-	
-	if (IfNull(validarCorreoVacio, true) && correo == "") {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
-		ok = false;
-	}
-	if (IfNull(validarCelularVacio, true) && celular == "") {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
-		ok = false;
-	}
-	if (!ok) {
-		alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
-		return false;
-	}
+function SolicitudEnviar() {
+    var ok = true;
 
-	if (correo != "" && !validateEmail(correo)) {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+    var correo = $.trim($("#txtEmail").val());
+    var celular = $.trim($("#txtTelefono").val());
+
+    if (correo == "" || celular == "") {
+        alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
+
+        if (correo == "") {
+            $("#spnEmailError").css("display", "");
+            $("#spnEmailError").html("*Correo Electrónico incorrecto");
+            $("#txtEmail").css("border-color", "red");
+        }        
+
+        if (celular == "") {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Celular incorrecto");
+            $("#txtTelefono").css("border-color", "red");
+        }
+
+        return false;
+    }
+    else {
+        $("#spnEmailError").css("display", "none");
+        $("#txtEmail").css("border-color", "#b5b5b5");
+
+        $("#spnTelefonoError").css("display", "none");
+        $("#txtTelefono").css("border-color", "#b5b5b5");
+    }
+
+    if (!validateEmail(correo)) {
+        $("#spnEmailError").css("display", "");
+        $("#spnEmailError").html("*Correo Electrónico incorrecto");
+        $("#txtEmail").css("border-color", "red");
         ok = false;
     }
-	if (celular != "" && celular.length < 6) {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+    else {
+        $("#spnEmailError").css("display", "none");
+        $("#txtEmail").css("border-color", "#b5b5b5");
+    }
+
+    if (celular.length < 6) {
+        $("#spnTelefonoError").css("display", "");
+        $("#spnTelefonoError").html("*Celular incorrecto");
+        $("#txtTelefono").css("border-color", "red");
         ok = false;
-	}
-	if (!ok) return false;
-	
-	if (celular != "" && !ValidarTelefono(celular)) {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-		return false;
-	}
+    }
+    else {
+        $("#spnTelefonoError").css("display", "none");
+        $("#txtTelefono").css("border-color", "#b5b5b5");
+    }
+
+    if (ok) {
+        var esTelefonoValido = ValidarTelefono(celular);
+        if (!esTelefonoValido) {
+            $("#spnTelefonoError").css("display", "");
+            $("#spnTelefonoError").html("*Este número de celular ya está siendo utilizado. Intenta con otro.");
+            $("#txtTelefono").css("border-color", "red");
+            ok = false;
+        }
+        else {
+            $("#spnTelefonoError").css("display", "none");
+            $("#txtTelefono").css("border-color", "#b5b5b5");
+        }
+    }
+
+    if (!ok) return false;
 
     var correoActual = $.trim($("#hdEmail").val());
-	if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
-		return false;
+    if (correoActual != correo) {
+        var esCorreoValido = ValidarCorreoDuplicado(correo);
+
+        if (!esCorreoValido) {
+            $("#spnEmailError").css("display", "");
+            $("#spnEmailError").html("*Este correo ya está siendo utilizado. Intenta con otro");
+            $("#txtEmail").css("border-color", "red");
+            ok = false;
+        }
+        else {
+            $("#spnTelefonoError").css("display", "none");
+            $("#txtTelefono").css("border-color", "#b5b5b5");
+        }
     }
-	
-	if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
+
+    if (!ok) return false;
+
+    ok = $("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active");
+    if (!ok) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
     }
@@ -1091,9 +1170,17 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         PedidoID: $("#txtPedidoID").val() || 0,
         Email: $("#txtEmail").val(),
         Telefono: $("#txtTelefono").val(),
+        TipoDespacho: 0,
+        FleteDespacho: 0,
+        MensajeDespacho: ''
     };
-    waitingDialog();
+    if ($("#hdTieneCDRExpress").val() == '1') {
+        item.TipoDespacho = $("#hdTipoDespacho").val();
+        item.FleteDespacho = !item.TipoDespacho ? 0 : $("#hdFleteDespacho").val();
+        item.MensajeDespacho = $(!item.TipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+    }
 
+    waitingDialog();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/SolicitudEnviar',
@@ -1113,6 +1200,7 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
             var formatoFechaCulminado = "";
             var numeroSolicitud = 0;
             var formatoCampania = "";
+            var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho,'');
             if (data.cdrWeb.CDRWebID > 0) {
                 if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
                     var dateString = data.cdrWeb.FechaCulminado.substr(6);
@@ -1130,12 +1218,14 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
                 }
             }
 
-                $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
-                $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
-                $("#spnSolicitudCampania").html(formatoCampania);
-                $("#divProcesoReclamo").hide();
-                $("#divUltimasSolicitudes").hide();
-                $("#TituloReclamo").hide();
+            $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+            $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+            $("#spnSolicitudCampania").html(formatoCampania);
+            if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+            else $("#spnTipoDespacho").show().html(mensajeDespacho);
+            $("#divProcesoReclamo").hide();
+            $("#divUltimasSolicitudes").hide();
+            $("#TituloReclamo").hide();
             $("#SolicitudEnviada").show();
            
             if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
