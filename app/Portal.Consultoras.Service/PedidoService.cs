@@ -2185,6 +2185,10 @@ namespace Portal.Consultoras.Service
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
         }
 
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+        }
         #endregion
 
         #region Producto Comentario
