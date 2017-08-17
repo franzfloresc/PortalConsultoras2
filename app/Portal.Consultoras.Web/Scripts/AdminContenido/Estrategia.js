@@ -458,7 +458,7 @@
                 flagOD = auxOD;
             } else if (!isNuevo) {
                 flagOD = '99';
-            } else {
+            }else{
                 flagOD = '0';
             }
 

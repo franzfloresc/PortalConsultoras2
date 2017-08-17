@@ -79,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> GetEscalaDescuento(int PaisID);
 
         [OperationContract]
-        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID);
+        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo);
 
         [OperationContract]
         IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID);
