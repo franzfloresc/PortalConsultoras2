@@ -1441,6 +1441,11 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionOfertasHome();
             bl.Update(configuracionOfertasHome);
         }
+        public List<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId)
+        {
+            var bl = new BLConfiguracionOfertasHome();
+            return bl.GetListarSeccion(paisId, campaniaId);
+        }
         #endregion
     }
 }

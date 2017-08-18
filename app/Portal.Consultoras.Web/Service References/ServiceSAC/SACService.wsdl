@@ -119,6 +119,12 @@
   <wsdl:message name="ISACService_UpdateConfiguracionOfertasHome_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateConfiguracionOfertasHomeResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasHome_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasHome" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarSeccionConfiguracionOfertasHomeResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_UpdateBelcorpNoticia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateBelcorpNoticia" />
   </wsdl:message>
@@ -1212,6 +1218,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome" message="tns:ISACService_UpdateConfiguracionOfertasHome_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHomeResponse" message="tns:ISACService_UpdateConfiguracionOfertasHome_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse" message="tns:ISACService_ListarSeccionConfiguracionOfertasHome_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="UpdateBelcorpNoticia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia" message="tns:ISACService_UpdateBelcorpNoticia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse" message="tns:ISACService_UpdateBelcorpNoticia_OutputMessage" />
@@ -2050,6 +2060,15 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateConfiguracionOfertasHome">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarSeccionConfiguracionOfertasHome">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

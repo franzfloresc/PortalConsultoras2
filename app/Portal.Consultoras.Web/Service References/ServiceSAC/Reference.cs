@@ -11220,6 +11220,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHome", ReplyAction="http://tempuri.org/ISACService/UpdateConfiguracionOfertasHomeResponse")]
         System.Threading.Tasks.Task UpdateConfiguracionOfertasHomeAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome configuracionOfertasHome);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome", ReplyAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse")]
+        Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[] ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHome", ReplyAction="http://tempuri.org/ISACService/ListarSeccionConfiguracionOfertasHomeResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[]> ListarSeccionConfiguracionOfertasHomeAsync(int paisId, int campaniaId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateBelcorpNoticia", ReplyAction="http://tempuri.org/ISACService/UpdateBelcorpNoticiaResponse")]
         void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad);
         
@@ -12412,6 +12418,14 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         public System.Threading.Tasks.Task UpdateConfiguracionOfertasHomeAsync(Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome configuracionOfertasHome) {
             return base.Channel.UpdateConfiguracionOfertasHomeAsync(configuracionOfertasHome);
+        }
+        
+        public Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[] ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId) {
+            return base.Channel.ListarSeccionConfiguracionOfertasHome(paisId, campaniaId);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BEConfiguracionOfertasHome[]> ListarSeccionConfiguracionOfertasHomeAsync(int paisId, int campaniaId) {
+            return base.Channel.ListarSeccionConfiguracionOfertasHomeAsync(paisId, campaniaId);
         }
         
         public void UpdateBelcorpNoticia(Portal.Consultoras.Web.ServiceSAC.BEBelcorpNoticia entidad) {

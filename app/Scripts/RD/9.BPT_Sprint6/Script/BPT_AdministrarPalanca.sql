@@ -247,11 +247,15 @@ ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOf
 
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
+ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
+	@CampaniaId int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome;
+	IF(@CampaniaId = 0)
+		SELECT * FROM ConfiguracionOfertasHome;
+	ELSE 
+		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
 END
 GO
 

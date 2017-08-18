@@ -59,6 +59,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
+            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? "";
+            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? "";
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
@@ -106,7 +108,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var list = ListarConfiguracionOfertasHome();
+                var list = ListarConfiguracionOfertasHome(campaniaID);
                 BEGrid grid = new BEGrid();
                 grid.PageSize = rows;
                 grid.CurrentPage = page;
@@ -238,12 +240,12 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
 
-        private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome()
+        private IEnumerable<AdministrarOfertasHomeModel> ListarConfiguracionOfertasHome(int campaniaId = 0)
         {
             List<BEConfiguracionOfertasHome> lst;
             using (SACServiceClient sv = new SACServiceClient())
             {
-                lst = sv.ListConfiguracionOfertasHome(userData.PaisID, userData.CampaniaID).ToList();
+                lst = sv.ListConfiguracionOfertasHome(UserData().PaisID, campaniaId).ToList();
             }
             return Mapper.Map<IList<BEConfiguracionOfertasHome>, IEnumerable<AdministrarOfertasHomeModel>>(lst);
         }

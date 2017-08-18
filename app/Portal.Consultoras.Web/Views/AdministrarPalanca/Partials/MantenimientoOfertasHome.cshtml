@@ -1,5 +1,4 @@
 ﻿
-@using Portal.Consultoras.Common
 @model Portal.Consultoras.Web.Models.AdministrarOfertasHomeModel
 @{
     string imagenVacia = "prod_grilla_vacio.png";
@@ -25,7 +24,7 @@
     </div>
 </div>
 <div class="div-3">
-    <div class="titG">URL Seccion:</div>
+    <div class="titG">URL Sección:</div>
     <div class="selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlSeccion)
     </div>
@@ -65,13 +64,13 @@
             </div>
             
             <div class="div-3">
-                <div class="titG">Titulo:</div>
+                <div class="titG">Título:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.DesktopTitulo)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Titulo:</div>
+                <div class="titG">Sub Título:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.DesktopSubTitulo)
                 </div>
@@ -83,15 +82,14 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Tipo Presentacion:</div>
+                <div class="titG">Tipo Presentación:</div>
                 <div class="titG borde_redondeado">
                     @Html.DropDownListFor(model => model.DesktopTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new { id = "ddlDesktopTipoPresentacionOfertas" })
                 </div>
             </div>
             
             <div class="div-3">
-                <div class="titG">Tipo Presentacion:</div>
-              
+                <div class="titG">Tipo Estrategia:</div>
             </div>
             <div class="div-3">
                 <div class="borde_redondeado checkBox">
@@ -125,13 +123,13 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Titulo:</div>
+                <div class="titG">Título:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileTitulo)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Titulo:</div>
+                <div class="titG">Sub Título:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileSubTitulo)
                 </div>
@@ -143,13 +141,13 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Tipo Presentacion:</div>
+                <div class="titG">Tipo Presentación:</div>
                 <div class="titG borde_redondeado">
                     @Html.DropDownListFor(model => model.MobileTipoPresentacion, new SelectList(Model.ListaTipoPresentacion, "Codigo", "Descripcion"), "-- Seleccionar --", new {id = "ddlMobileTipoPresentacionOfertas"})
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Tipo Presentacion:</div>
+                <div class="titG">Tipo Estrategia:</div>
 
             </div>
             <div class="div-3">

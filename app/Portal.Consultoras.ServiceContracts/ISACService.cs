@@ -715,6 +715,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void UpdateConfiguracionOfertasHome(BEConfiguracionOfertasHome configuracionOfertasHome);
+
+        [OperationContract]
+        List<BEConfiguracionOfertasHome> ListarSeccionConfiguracionOfertasHome(int paisId, int campaniaId);
         #endregion
     }
 }

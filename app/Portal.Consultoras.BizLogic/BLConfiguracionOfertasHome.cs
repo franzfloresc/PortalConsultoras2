@@ -9,7 +9,6 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLConfiguracionOfertasHome
     {
-       
         public BEConfiguracionOfertasHome Get(int paisId, int configuracionOfertasHomeId)
         {
             var configuracionOfertasHome = new BEConfiguracionOfertasHome();
@@ -62,5 +61,30 @@ namespace Portal.Consultoras.BizLogic
             var dAConfiguracionOfertasHome = new DAConfiguracionOfertasHome(entidad.PaisID);
             dAConfiguracionOfertasHome.Update(entidad);
         }
+        
+        public List<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
+        {
+            var lista = new List<BEConfiguracionOfertasHome>();
+            var blConfiguracionPais = new BLConfiguracionPais();
+            try
+            {
+                var da = new DAConfiguracionOfertasHome(paisId);
+                using (IDataReader reader = da.GetListarSeccion(campaniaId))
+                {
+                    while (reader.Read())
+                    {
+                        var ofertaHome = new BEConfiguracionOfertasHome(reader);
+                        lista.Add(ofertaHome);
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                Console.WriteLine(exc.StackTrace);
+                lista = new List<BEConfiguracionOfertasHome>();
+            }
+            return lista;
+        }
+
     }
 }
