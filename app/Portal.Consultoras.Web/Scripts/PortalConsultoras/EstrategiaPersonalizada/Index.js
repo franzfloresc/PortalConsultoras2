@@ -9,6 +9,13 @@ var sProps = {
     UrlObtenerSeccion: baseUrl + 'Ofertas/ObtenerSeccion'
 };
 
+var CONS_TIPO_PRESENTACION = {
+    CarruselSimple: 1,
+    CarruselPrevisuales: 2,
+    SimpleCentrado: 3,
+    Banners: 4
+};
+
 $(document).ready(function () {
     SeccionRender();
 });
@@ -116,9 +123,10 @@ function SeccionMostrarProductos(data) {
     if (divListadoProductos.length !== 1) 
         return false
     
-    SetHandlebars(data.Seccion.Template, data, divListadoProductos);
+    console.log(data.Seccion.TemplateProducto, data);
+    SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
-    if (data.Seccion.TipoPresentacion == "carrusel-previsuales") {
+    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         RenderCarruselPrevisuales(htmlSeccion);
     }
 }
