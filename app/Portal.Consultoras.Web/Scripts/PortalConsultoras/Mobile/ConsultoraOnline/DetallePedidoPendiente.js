@@ -79,6 +79,7 @@ function RechazarPedido(id) {
 };
 
 function AceptarPedido(id, tipo) {
+    //debugger;
     var isOk = true;
     var detalle = [];
     var ing = 0;
@@ -152,7 +153,7 @@ function AceptarPedido(id, tipo) {
 
                             //showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK, AceptarPedidoRegistraClienteCancel);
                             showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK);
-                            console.log('Popup registrar cliente');
+                           
                         }
                         else {
                             pedido.ClienteId = response.codigo;
@@ -169,7 +170,7 @@ function AceptarPedido(id, tipo) {
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
-    //console.log(obj);
+   
 
     if (obj != null && _pedido !== null) {
         _pedido.ClienteId = obj.ClienteID;
@@ -183,7 +184,8 @@ function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
 function ProcesarAceptarPedido(pedido) {
-    console.log(pedido);
+  
+    //console.log(pedido);
 
     waitingDialog({});
     $.ajax({
