@@ -30,7 +30,7 @@ $(document).ready(function () {
 
                 setTimeout(function () {
                     $('a[href*="//apps.elfsight.com/panel/"]').remove();
-                }, 1500);
+                }, 2000);
 
             },
 
