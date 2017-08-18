@@ -32,15 +32,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 ViewBag.EsMobile = 2;
-                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
-                if (modelo == null || modelo.ID == 0)
-                {
-                    List<BEEstrategia> listaEstrategiaPedidoModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
-                    modelo = ConsultarEstrategiasModelFormato(listaEstrategiaPedidoModel.Where(x => x.CUV2 == cuv).ToList()).FirstOrDefault();
-
-                }
-                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
-                return DetalleModel(modelo);
+                ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
+                return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
             {

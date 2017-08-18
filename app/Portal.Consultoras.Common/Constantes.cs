@@ -172,7 +172,7 @@ namespace Portal.Consultoras.Common
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
-            public const string PackNuevas = "002";
+            public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
@@ -203,6 +203,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+            public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
 
@@ -214,6 +215,8 @@ namespace Portal.Consultoras.Common
 
             //FIC
             public const string PedidoFIC = "PedidoFIC";
+
+            public const string TipoPopUpMostrar = "TipoPopUpMostrar";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -331,6 +334,13 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
             /* FIN Revista Digital */
+
+            // Mas Vendidos
+            public const int DesktopHomeMasVendidosCarrusel = 1151;
+            public const int DesktopMasVendidosProductPageFicha = 1611;
+            public const int DesktopMasVendidosProductPageCarrusel = 1612;
+            public const int MobileHomeMasVendidosCarrusel = 2151;
+            public const int MobileMasVendidosProductPageFicha = 2611;
         }
 
         public class TipoTutorial
@@ -412,6 +422,7 @@ namespace Portal.Consultoras.Common
 
         public class TipoPopUp
         {
+            public const int Ninguno = 0;
             public const int VideoIntroductorio = 1;
             public const int GPR = 2;
             public const int DemandaAnticipada = 3;
@@ -564,6 +575,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
+            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
             public const string PedidoFIC = "PedidoFIC";
         }
 
@@ -648,6 +660,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string OfertaFinalTradicional = "OFT";
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class TooltipLoginUsuario
@@ -711,6 +726,18 @@ namespace Portal.Consultoras.Common
         public struct TablaLogica
         {
             public const int Plan20 = 98;
+            public const int CDRExpress = 104;
+        }
+
+        public struct MensajesCDRExpress
+        {
+            public const string RegularPrincipal = "Regular1";
+            public const string RegularAdicional = "Regular2";
+            public const string ExpressPrincipal = "Express1";
+            public const string ExpressFlete = "Express2";
+            public const string ExpressAdicional = "Express3";
+            public const string ExpressFleteCero = "Express4";
+            public const string Nuevas = "Nuevas1";
         }
 
 

@@ -154,6 +154,12 @@ namespace Portal.Consultoras.Service
             return BLCDRWeb.GetCDRWebDetalleReporte(PaisID, entity);
         }
 
+
+        //EPD-1919
+        public BECDRWeb GetMontoFletePorZonaId(int paisId, BECDRWeb entity)
+        {
+            return BLCDRWeb.GetMontoFletePorZonaId(paisId, entity.ZonaID);
+        }
         //public List<BECDRTipoOperacion> GetCDRWebTipoOperacion(int PaisID)
         //{
         //    return BLCDRWebMotivoOperacion.GetCDRWebTipoOperacion(PaisID);
