@@ -2723,12 +2723,15 @@ ul.tabs {
     height: 37px;
     line-height: 37px;
     padding: 0;
-    background: url(../../Images/btn_desafiliate.png) 0 0 no-repeat;
-    color: #660066;
+    background: url(../../Images/btn_modifica.png) 0 0 no-repeat;
+    color: #FFFFFF;
     font-size: 16px;
     border: 0;
     margin: 0 15px 0 0;
 }
+    .div-3 .input_modifica_horizontal input.button_desafiliate {
+        background: url(../../Images/btn_desafiliate.png) 0 0 no-repeat;
+    }
 
 .div-3 .ganancia {
     float: right;

@@ -38,7 +38,6 @@
         $("#ddlCampania").change(function () {
             if (this.selectedIndex == 0)
                 this.options[0].value = "0";
-            $("#lblmensaje").html("");
             $("#txtCUV").val("");
             $("#VentaID").val("");
             $("#txtDescripcion").text("");
@@ -49,45 +48,44 @@
 
         $("#txtCUV")
             .bind("keypress", function (event) {
-
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 var keyChar = String.fromCharCode(keycode);
                 var re = /[0-9, ]/;
                 return re.test(keyChar);
             })
-            .bind("keyup", function (event) {
-                if ($("#ddlPais").val() == "") {
-                    if (this.value.length == 0) { $("#lblmensaje").html(""); return; }
-                    $("#lblmensaje").html("Debe seleccionar un País."); return;
-                }
-                if ($("#ddlCampania").val() == "") {
-                    if (this.value.length == 0) { $("#lblmensaje").html(""); return; }
-                    $("#lblmensaje").html("Debe seleccionar una campaña"); return;
-                }
+            //.bind("keyup", function (event) {
+            //    if ($("#ddlPais").val() == "") {
+            //        if (this.value.length == 0) { $("#lblmensaje").html(""); return; }
+            //        $("#lblmensaje").html("Debe seleccionar un País."); return;
+            //    }
+            //    if ($("#ddlCampania").val() == "") {
+            //        if (this.value.length == 0) { $("#lblmensaje").html(""); return; }
+            //        $("#lblmensaje").html("Debe seleccionar una campaña"); return;
+            //    }
 
-                var text_ = split(this.value);
-                text_ = text_.unique();
-                var array = jQuery.parseJSON($("#VentaID").val()) || { items: [] };
-                var a = { items: [] };
-                var des = [];
-                for (var i = 0; i < text_.length; i++) {
-                    if (text_[i] != "") {
-                        for (var p in array.items) {
-                            if (!array.items.hasOwnProperty(p)) break;
-                            if (array.items[+p] && (array.items[+p].codigo == text_[i].toLowerCase())) {
-                                a.items.push({ codigo: text_[i].toLowerCase(), descripcion: array.items[+p].descripcion })
-                                break;
-                            }
-                        }
-                    }
-                }
-                $("#VentaID").val(JSON.stringify(a));
-                for (var p in a.items) {
-                    if (a.items.hasOwnProperty(p))
-                        des.push(a.items[+p].descripcion);
-                }
-                $("#txtDescripcion").text(des.join(",\r"));
-            })
+            //    var text_ = split(this.value);
+            //    text_ = text_.unique();
+            //    var array = jQuery.parseJSON($("#VentaID").val()) || { items: [] };
+            //    var a = { items: [] };
+            //    var des = [];
+            //    for (var i = 0; i < text_.length; i++) {
+            //        if (text_[i] != "") {
+            //            for (var p in array.items) {
+            //                if (!array.items.hasOwnProperty(p)) break;
+            //                if (array.items[+p] && (array.items[+p].codigo == text_[i].toLowerCase())) {
+            //                    a.items.push({ codigo: text_[i].toLowerCase(), descripcion: array.items[+p].descripcion })
+            //                    break;
+            //                }
+            //            }
+            //        }
+            //    }
+            //    $("#VentaID").val(JSON.stringify(a));
+            //    for (var p in a.items) {
+            //        if (a.items.hasOwnProperty(p))
+            //            des.push(a.items[+p].descripcion);
+            //    }
+            //    $("#txtDescripcion").text(des.join(",\r"));
+            //})
             .bind("keydown", function (event) {
 
                 if (event.keyCode == 16 || event.keyCode == 17 || event.keyCode == 18 ||
@@ -100,9 +98,9 @@
                     $(this).data("autocomplete").menu.active) {
                     event.preventDefault();
                 }
-            }).autocomplete({
+            })
+            .autocomplete({
                 source: function (request, response) {
-
                     if (document.selection) {
                         document.getElementById('txtCUV').focus();
                         var range = document.selection.createRange();
@@ -116,6 +114,8 @@
                     var part = split(request.term.substring(0, posicion));
                     var last = part[part.length - 1] || "";
                     last = jQuery.trim(last.substring(last.lastIndexOf(' ')));
+
+                    if ($("#ddlPais").val() == "" || $("#ddlCampania").val() == "") return false;
 
                     $.ajax({
                         url: baseUrl + "OfertaFIC/FindByCUVs", type: "GET", dataType: "json",
@@ -144,9 +144,7 @@
                         }
                     })
                 },
-                focus: function () {
-                    return false;
-                },
+                focus: function () { return false; },
                 select: function (event, ui) {
                     var jsonb = {};
                     arr = { items: [] };
@@ -248,20 +246,6 @@
                 minLength: 0,
                 multiple: true,
                 multipleSeparator: ","
-            }).blur(function () {
-                // reemplaza los caracteres extraños
-                var currv = this.value.replace(/([%&¿#"=¡!<>_\-¨:;´.*+?\/^$|(){}\[\]])/mg, "");
-                arr = split(currv);
-                index = arr.length;
-                while (index >= 0) {
-                    if (arr[index] == "") {
-                        arr.splice(index, 1);
-                        index = arr.length
-                    }
-                    else index--;
-                }
-                arr = arr.unique();
-                this.value = arr.join(", ");
             });
 
         fnGrilla();
@@ -312,7 +296,6 @@
         $("#txtCUV").val("");
         $("#VentaID").val("");
         $("#txtDescripcion").text("");
-        $("#lblmensaje").html("");
         $('#divuplArchivo').html($('#divuplArchivo').html());
         //$("#btnAgregar").prop("disabled", false);
         jQuery("#list").jqGrid("clearGridData");
@@ -323,7 +306,6 @@
         $("#txtCUV").val("");
         $("#VentaID").val("");
         $("#txtDescripcion").text("");
-        $("#lblmensaje").html("");
         $('#divuplArchivo').html($('#divuplArchivo').html());
         //$("#btnAgregar").prop("disabled", false);
         jQuery("#list").jqGrid("clearGridData");
@@ -392,14 +374,11 @@
 
     //////////////Carga la Lista de CUV's Automaticos
     function fnGrilla() {
-
-
         jQuery("#list").jqGrid({
             url: baseUrl + "OfertaFIC/Consultar",
             hidegrid: false,
             datatype: 'json',
             postData: ({
-
                 paisID: function () {
                     return $("#ddlPais").val();
                 },
