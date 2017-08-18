@@ -1,16 +1,19 @@
-﻿@{
-    ViewBag.Title = "Asesora Online";
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 
 }
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
 <style type="text/css">
 
-    header, .SubHeader{
+    header{
         display:none;
     }
 
-    #contentmain{
+    #contentmobile{
         margin-top:0!important;
     }
 
@@ -202,4 +205,5 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/AsesoraOnline/Index.js")"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
 }
+
 
