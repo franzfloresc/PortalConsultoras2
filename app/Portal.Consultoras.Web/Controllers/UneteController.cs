@@ -448,64 +448,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                             else
                             {
-                                var param = new
-                                {
-                                    direccion = CodigoISO == Pais.Peru ? direccion[0] + " " + model.DireccionCadena : model.DireccionCadena,
-                                    pais = CodigoISO,
-                                    ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
-                                    area = CodigoISO == Pais.Peru ? direccion[0]
-                                                    : CodigoISO == Pais.Ecuador
-                                                    ? direccion[0]
-                                                      : solicitudPostulante.LugarHijo,
-                                    aplicacion = 1
-                                };
-
-                                var resultadoGEO = ConsultarServicio(param, "ObtenerPuntosPorDireccion");
-
-
-                                bool puntosPorDfault = false;
-
-                                var resGeo = resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
-                                if (resGeo!=null)
-                                { 
-                                        var jsonPuntos =
-                                           resGeo.SelectToken("Resultado")
-                                               .ToObject<JValue>()
-                                               .Value.ToString();
-
-                                    var puntos = JArray.Parse(jsonPuntos);
-                                    if (puntos.HasValues)
-                                    {
-                                        var pts = new List<Tuple<decimal, decimal, string>>();
-                                        foreach (var item in puntos)
-                                        {
-                                          
-
-                                            pts.Add(new Tuple<decimal, decimal, string>
-                                                (
-                                                item.SelectToken("Latitud").ToObject<decimal>(),
-                                                item.SelectToken("Longitud").ToObject<decimal>(),
-                                                item.SelectToken("formatted_address").ToObject<string>()
-                                                )); 
-                                        }
-
-                                        var punto = pts.First();
-
-
-                                        if (
-                                            (resGeo.SelectToken("Resultado").ToObject<string>().Contains("no pudo ser encontrada en google") == true)
-                                            && (punto.Item1 == model.Latitud.Value) 
-                                            && (punto.Item2 == model.Longitud.Value)
-                                            )
-                                        {
-                                            puntosPorDfault = true;
-                                        }
-                                    }
-                                }
-
-
-                                if (puntosPorDfault == false)
-                                {
+                           
 
                                     model.Puntos.Add(new Tuple<decimal, decimal, string>
                                                     (
@@ -530,7 +473,7 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
-                        }
+                        
                         catch (Exception ex)
                         {
                         }
@@ -2080,8 +2023,27 @@ namespace Portal.Consultoras.Web.Controllers
                 var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO,
                     solicitudPostulante);
 
+                ViewBag.MotivoRechazo = string.Empty;
+
                 model.EstadoBuroCrediticioID = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
                 model.Mensaje = evaluacionCrediticaBE.Mensaje;
+
+                if (CodigoISO == Pais.Dominicana)
+                {
+                    if (evaluacionCrediticaBE.EnumEstadoCrediticio == EnumsEstadoBurocrediticio.SinConsultar)
+                    {
+                        if (evaluacionCrediticaBE.RespuestaServicio != null)
+                        {
+                            model.Mensaje = string.Format("{0} - {1}", model.Mensaje, evaluacionCrediticaBE.RespuestaServicio);
+                        }
+
+                    }
+                    else if (evaluacionCrediticaBE.EnumEstadoCrediticio == EnumsEstadoBurocrediticio.NoPuedeSerConsultora)
+                    {
+                        ViewBag.MotivoRechazo = evaluacionCrediticaBE.RespuestaServicio;
+                    }
+                
+                }
 
                 var estadosEvaluacionCrediticia = portalSV.ObtenerParametrosUnete(CodigoISO,
                     EnumsTipoParametro.EstadoBurocrediticio, 0);
@@ -2832,7 +2794,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     foreach (var item in lista)
                     {
-                        if (CodigoISO == Pais.Peru)
+                        if ((CodigoISO == Pais.Peru) || (CodigoISO == Pais.Dominicana) || (CodigoISO == Pais.PuertoRico))
                         {
                             var parametroTodos = new ServiceUnete.ParametroUnete
                             {
@@ -4344,7 +4306,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.LugarPadre = region;
                     solicitudPostulante.LugarHijo = comuna;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana|| CodigoISO== Pais.Bolivia)
                     {
                         try
                         {
@@ -4823,15 +4785,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                         solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
                     }
-                    if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
-                           && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
-                            && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
-                    {
+                    //if (solicitudPostulante.EstadoGEO.Value == Enumeradores.EstadoGEO.OK.ToInt() && PaisesParaRevisarEstadoCrediticioAutomatico.Contains(CodigoISO)
+                    //       && solicitudPostulante.EstadoBurocrediticio != Enumeradores.EstadoBurocrediticio.PuedeSerConsultora.ToInt()
+                    //        && solicitudPostulante.EstadoPostulante == Enumeradores.EstadoPostulante.EnGestionServicioAlCliente.ToInt())
+                    //{
 
-                        var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO, solicitudPostulante);
+                    //    var evaluacionCrediticaBE = GestionPais.EvaluacionCrediticia[CodigoISO].Evaluar(CodigoISO, solicitudPostulante);
 
-                        solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
-                    }
+                    //    solicitudPostulante.EstadoBurocrediticio = Convert.ToInt32(evaluacionCrediticaBE.EnumEstadoCrediticio);
+                    //}
 
                     sv.ActualizarSolicitudPostulanteSAC(CodigoISO, solicitudPostulante);
 
@@ -5420,18 +5382,24 @@ namespace Portal.Consultoras.Web.Controllers
             request.Method = "POST";
             request.ContentType = "application/json";
             request.ContentLength = bytes.Length;
+            request.Proxy = null;
 
             using (var stream = request.GetRequestStream())
             {
                 stream.Write(bytes, 0, bytes.Length);
             }
 
-            var response = request.GetResponse() as HttpWebResponse;
-            var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            //var response = request.GetResponse() as HttpWebResponse;
+            //var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            return JsonConvert.DeserializeObject(result) as JObject;
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                var result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                return JsonConvert.DeserializeObject(result) as JObject;
+            }
+
+            //  return JsonConvert.DeserializeObject(result) as JObject;
         }
-
         #endregion
 
         #region ReenviarCorreo
@@ -5881,6 +5849,74 @@ namespace Portal.Consultoras.Web.Controllers
             Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
             return View();
         }
+
+
+
+
+
+        [HttpPost]
+        public JsonResult ValidarEdad(string fechaNacimiento, string codigoISO)
+        {
+            bool Success = false;
+            int Data = 0;
+            try
+            {
+                var arr = fechaNacimiento.Split('/');
+                if (arr.Length == 3)
+                {
+                    var fecha = new DateTime(int.Parse(arr[2].ToString()), int.Parse(arr[1].ToString()), int.Parse(arr[0].ToString()));
+                    var fechaActual = DateTime.Now;
+                    int anios = fechaActual.Year - fecha.Year;
+
+                    if (fechaActual.Month < fecha.Month || (fechaActual.Month == fecha.Month && fechaActual.Day < fecha.Day))
+                        anios--;
+
+                    if (anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinima)
+                    {
+                        Success = false;
+                        //jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdad;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinima &&
+                            anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaLimite)
+                    {
+                        Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MenorDeEdadLimite;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMinimaRiesgo &&
+                        anios < Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
+                    {
+                        Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorEdadRiesgo;
+                    }
+                    else if (anios >= Dictionaries.RangoEdadesPais[codigoISO].EdadMaxima)
+                    {
+                        Success = false;
+                        // jsonResponse.Data = (int)Enums.TipoMensajeEdad.MayorDeEdad;
+                    }
+                    else
+                    {
+                        Success = true;
+                        Data = 0;
+                    }
+                }
+                else
+                {
+                    Success = false;
+                    Data = 5;
+                }
+            }
+            catch (Exception ex)
+            {
+                Success = false;
+                Data = 5;
+            }
+
+            return Json(new { Data=Data,Success=Success }, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
 
     }
 }
