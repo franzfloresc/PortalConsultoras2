@@ -14,7 +14,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/jquery-{version}.js",
                 "~/Scripts/jquery-ui-1.9.2.custom.js",
                 "~/Scripts/jquery.custom-scrollbar.js",
-                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js"));
+                "~/Scripts/PortalConsultoras/Shared/LoginLayout.js",
+                "~/Scripts/LogError.js"));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssMain").Include(
                 "~/Content/Css/ui.jquery/jquery-ui.css",
@@ -71,7 +72,9 @@ namespace Portal.Consultoras.Web
                            "~/Scripts/jquery.cycle.all.min.js",
                            "~/Scripts/respond.min.js",
                            "~/Scripts/trans-banner.js",
-                            "~/Scripts/jquery.tmpl.js"));
+                            "~/Scripts/jquery.tmpl.js",
+                            "~/Scripts/LogError.js"
+                            ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsPluginsFooterSAC").Include(
                "~/Scripts/custom.js",
@@ -91,7 +94,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/menu.js",
                 "~/Scripts/accordion.js",
                 "~/Scripts/fingerprint2.js",
-                "~/Scripts/General.js"
+                "~/Scripts/General.js",
+                "~/Scripts/LogError.js"
             ));
 
             bundles.Add(new ScriptBundle("~/Scripts/MobileLayout").Include(
@@ -171,7 +175,8 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
                 "~/Scripts/PortalConsultoras/Shared/MainLayout.js",
                 "~/Scripts/PortalConsultoras/Shared/Menu.js",
-                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js"
+                "~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js",
+                "~/Scripts/LogError.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Bienvenida").Include(

@@ -361,7 +361,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
-    <Compile Include="CustomAttributes\CustomHandleErrorAttribute.cs" />
+    <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
@@ -3042,7 +3042,6 @@
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3059,6 +3058,7 @@
     <Content Include="Scripts\jquery.rateyo.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.toast.min.js" />
+    <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
