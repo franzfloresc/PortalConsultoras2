@@ -79,6 +79,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<UsuarioModel, ServicePedido.BEUsuario>()
                 .ForMember(t => t.MontoMinimoFlexipago, f => f.Ignore());
 
+            Mapper.CreateMap<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais > ();
+
         }
     }
 }

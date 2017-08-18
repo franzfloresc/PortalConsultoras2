@@ -1,6 +1,6 @@
 ﻿
 @using Portal.Consultoras.Common
-@model Portal.Consultoras.Web.Models.EstrategiaPedidoModel
+@model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
     var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
@@ -14,7 +14,10 @@
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
-<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" data-estadoregistro="@ViewBag.EstadoSuscripcion">
+<div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" 
+     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" 
+     data-estadoregistro="@ViewBag.EstadoSuscripcion">
+
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
         <input type="hidden" class="rsFBMensaje" value="" />
@@ -38,17 +41,17 @@
             }
         }
         
-        @if (Model.EstrategiaDetalle.ImgFichaFondoMobile != "")
+        @if (Model.TipoEstrategiaDetalle.ImgFichaFondoMobile != "")
         {
-            <img src="@Model.EstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;"/>
+            <img src="@Model.TipoEstrategiaDetalle.ImgFichaFondoMobile" alt="" style="height: 280px;"/>
         }        
     </div>
     
     <div class="wrapper_resumen_mobile">
-        @if (Model.EstrategiaDetalle.ImgFichaMobile != "")
+        @if (Model.TipoEstrategiaDetalle.ImgFichaMobile != "")
         {
             <div class="etiqueta_nuevo_bpt">
-                <img src="@Model.EstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
+                <img src="@Model.TipoEstrategiaDetalle.ImgFichaMobile" alt="" style="max-height:50px;" />
             </div>
         }
         
@@ -81,18 +84,30 @@
         </div>
     }
     
-    @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
+    @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
     {
         <a class="btn_ver_video_bpt" href="#divDiveo">VER VIDEO CON TIPS</a>
     }
 
+    @if (ViewBag.TieneProductosPerdio)
+    {
+        <div id="block_inscribete">
+            <div class="content_belcorp">
+                <div class="block_inscribete_predio">
+                    <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
+                    <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
+                </div>
+            </div>
+        </div>
+    }
+
     <div style="background:#F6F6F6; padding:30px;">
         <div id="divOfertaProductos"></div>
-        @if (Model.EstrategiaDetalle.UrlVideoMobile != "")
+        @if (Model.TipoEstrategiaDetalle.UrlVideoMobile != "")
         {
             <div class="" style="padding-top:30px;" id="divDiveo">
                 <div class="video-responsive-bpt">
-                    <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.EstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
+                    <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.TipoEstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
                 </div>
             </div>
         }
@@ -103,16 +118,18 @@
 {
     @Html.Action("MensajeBloqueado", "RevistaDigital")
 }
-
+@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Areas/Mobile/Views/Bienvenida/template-opt-carrusel-mobile.cshtml")
-@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
+@Html.Partial("~/Areas/Mobile/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDosX)
 @section scripts{
 <script type="text/javascript">
     var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage';
     var tipoOrigenEstrategia = 272;
 </script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/OfertasParaTi/Ofertas.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
 }
