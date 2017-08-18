@@ -79,6 +79,7 @@ function RechazarPedido(id) {
 };
 
 function AceptarPedido(id, tipo) {
+    //debugger;
     var isOk = true;
     var detalle = [];
     var ing = 0;
@@ -169,6 +170,7 @@ function AceptarPedido(id, tipo) {
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
+    //debugger;
     //console.log(obj);
 
     if (obj != null && _pedido !== null) {
@@ -183,7 +185,8 @@ function AceptarPedidoRegistraClienteCancel(obj) {
 }
 
 function ProcesarAceptarPedido(pedido) {
-    console.log(pedido);
+    //debugger;
+    //console.log(pedido);
 
     waitingDialog({});
     $.ajax({

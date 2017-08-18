@@ -346,6 +346,7 @@ function CerrarMensajeRechazado() {
 }
 
 function AceptarPedido(pedidoId, tipo) {
+    //debugger;
     var popup = (tipo == 1) ? $('#divPopupPedidoPend') : $('#divPopup2PedidoPend');
     var container = (tipo == 1) ? $('#divDetPedidoPend') : $('#divDet2PedidoPend');
 
@@ -437,7 +438,8 @@ function AceptarPedido(pedidoId, tipo) {
 }
 
 function AceptarPedidoRegistraClienteOK(obj) {
-    console.log(obj);
+    //debugger;
+    //console.log(obj);
 
     if (obj != null && _pedido !== null) {
         _pedido.ClienteId = obj.ClienteID;
@@ -447,11 +449,12 @@ function AceptarPedidoRegistraClienteOK(obj) {
 }
 
 function AceptarPedidoRegistraClienteCancel(obj) {
-    console.log(obj);
+    //console.log(obj);
 }
 
 function ProcesarAceptarPedido(pedido) {
-    console.log(pedido);
+    //debugger;
+    //console.log(pedido);
 
     waitingDialog({});
     $.ajax({
