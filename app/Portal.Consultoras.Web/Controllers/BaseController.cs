@@ -2628,7 +2628,26 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
                     CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos
                 };
+                seccion.TemplatePresentacion = "";
+                switch (entConf.ConfiguracionPais.Codigo)
+                {
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        seccion.TemplatePresentacion = "carrusel-previsuales";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
+                        break;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
+                        break;
+                    default:
+                        break;
+                }
 
+                if (seccion.TemplatePresentacion == "")
+                {
+                    continue;
+                }
+                seccion.TemplateProducto = "";
                 switch (seccion.TipoPresentacion)
                 {
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
@@ -2645,19 +2664,10 @@ namespace Portal.Consultoras.Web.Controllers
                     default:
                         break;
                 }
-                
-                switch (entConf.ConfiguracionPais.Codigo)
+
+                if (seccion.TemplateProducto == "")
                 {
-                    case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.TemplatePresentacion = "carrusel-previsuales";
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
-                        break;
-                    case Constantes.ConfiguracionPais.RevistaDigital:
-                        seccion.TemplatePresentacion = "seccion-simple-centrado";
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
-                        break;
-                    default:
-                        break;
+                    continue;
                 }
 
                 modelo.Add(seccion);
