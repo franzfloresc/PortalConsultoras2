@@ -834,14 +834,18 @@ namespace Portal.Consultoras.Web.Controllers
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
                             CalcularMotivoRechazo(model);
-
                             if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
                             {
-                                model.MostrarBannerRechazo = true;
-                                if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && !oBEUsuario.ValidacionAbierta && oBEUsuario.EstadoPedido == 202) model.MostrarBannerRechazo = false;
+                                if (model.RechazadoXdeuda == true)
+                                {
+                                    model.MostrarBannerRechazo = true;
+                                }
+                                else if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((oBEUsuario.ValidacionAbierta == false && oBEUsuario.EstadoPedido == 201)|| oBEUsuario.ValidacionAbierta == true && oBEUsuario.EstadoPedido == 202))
+                                {
+                                    model.MostrarBannerRechazo = true;
+                                }
                             }
-                            //if (!string.IsNullOrEmpty(model.GPRBannerMensaje)) model.MostrarBannerRechazo =  oBEUsuario.EstadoPedido == 201 || oBEUsuario.ValidacionAbierta;   
-                        }
+                         }
                         #endregion
 
                         #region ODD
@@ -1121,6 +1125,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string montoDeuda = model.Simbolo + " " + Util.DecimalToStringFormat(pedidoRechazado.Valor, model.CodigoISO);
                 model.GPRBannerMensaje = "Tienes una deuda de " + montoDeuda;
                 model.GPRBannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
+                model.RechazadoXdeuda = true;
             }
 
             string mensajeParcial = null;

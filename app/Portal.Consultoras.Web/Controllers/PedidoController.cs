@@ -1457,7 +1457,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     LogManager.LogManager.LogErrorWebServicesBus(e, userData.CodigoConsultora, userData.CodigoISO);
                 }
-                
+
 
 
                 var listaEstrategias = (List<BEEstrategia>)Session["ListadoEstrategiaPedido"] ?? new List<BEEstrategia>();
@@ -2007,7 +2007,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EjecutarServicioPROL()
         {
             UpdateDiaPROLAndMostrarBotonValidar(userData);
-          
+
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EnviarCorreo = false;
             input.CodigosConcursos = userData.CodigosConcursos;
@@ -2233,8 +2233,8 @@ namespace Portal.Consultoras.Web.Controllers
             // GPR - Si tiene GPR activo: ocultar el banner de rechazados.               
             if (userData.IndicadorGPRSB == 2)
             {
-                userData.MostrarBannerRechazo = false;
-                userData.CerrarRechazado = 1;
+                userData.MostrarBannerRechazo = userData.RechazadoXdeuda ? true : false;
+                userData.CerrarRechazado = userData.RechazadoXdeuda ? 0 : 1;
                 //ObtenerMotivoRechazo(usuario);
                 return true;
             }
@@ -2728,7 +2728,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = respuesta == "",
                     message = respuesta == "" ? "OK" : respuesta,
                     extra = ""
-                }, JsonRequestBehavior.AllowGet);              
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
@@ -2811,8 +2811,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false, message = Constantes.MensajesError.InsertarDesglose }, JsonRequestBehavior.AllowGet);
             }
         }
-        
-               
+
+
         #endregion
 
 
@@ -3607,7 +3607,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 var listaProductoModel = ObtenerListadoProductosOfertaFinal(tipoOfertaFinal);
-                
+
                 return Json(new
                 {
                     success = true,
@@ -3701,8 +3701,8 @@ namespace Portal.Consultoras.Web.Controllers
                         BEOfertaFinalConsultoraLog ofertaFinalLog = new BEOfertaFinalConsultoraLog();
                         ofertaFinalLog.CampaniaID = userData.CampaniaID;
                         ofertaFinalLog.CodigoConsultora = userData.CodigoConsultora;
-                        ofertaFinalLog.CUV = item.CUV; 
-                        ofertaFinalLog.Cantidad = item.Cantidad;                         
+                        ofertaFinalLog.CUV = item.CUV;
+                        ofertaFinalLog.Cantidad = item.Cantidad;
                         ofertaFinalLog.TipoOfertaFinal = item.TipoOfertaFinal;
                         ofertaFinalLog.GAP = item.GAP;
                         ofertaFinalLog.TipoRegistro = item.TipoRegistro;
@@ -3718,7 +3718,7 @@ namespace Portal.Consultoras.Web.Controllers
                     s = true;
                     m = "El log ha sido registrado satisfactoriamente.";
                 }
-                
+
                 return Json(new
                 {
                     success = s,
@@ -3807,7 +3807,7 @@ namespace Portal.Consultoras.Web.Controllers
                     p.TipoCross = TipoCross;
                 });
             }
-    
+
             Session["ProductosOfertaFinal"] = listaProductoModel;
             return listaProductoModel;
         }
