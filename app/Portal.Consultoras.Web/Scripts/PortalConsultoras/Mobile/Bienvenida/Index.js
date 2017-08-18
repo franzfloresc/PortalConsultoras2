@@ -708,13 +708,21 @@ function ObtenerComunicadosPopup() {
             e.preventDefault();
             alert("La aplicación no se encuentra disponible para este dispositivo");
         }
+
+        //CLICK
     });
 
     $(".popup_comunicado .detalle_popup_comunicado img").on('load', function () {
         $(".contenedor_popup_comunicado").modal("show");
         $(".popup_comunicado").css({ "width": $(this).width() });
         $(".popup_comunicado").css({ "height": $(this).height() });
+
+        //ABRIR
     });
+
+    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
+        //CERRAR
+    })
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
         e.stopPropagation();
