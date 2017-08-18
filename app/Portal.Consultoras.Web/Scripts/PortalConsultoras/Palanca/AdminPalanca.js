@@ -71,7 +71,7 @@ function IniDialogs() {
         width: 830,
         close: function () {},
         draggable: false,
-        title: "Modificar Palanca",
+        title: "Configurar Palanca",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
@@ -133,7 +133,7 @@ function IniDialogs() {
         width: 830,
         close: function () { },
         draggable: false,
-        title: "Modificar Palanca",
+        title: "Configurar Ofertas Home",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
@@ -201,7 +201,7 @@ function UpdateGrillaPalanca() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ['ConfiguracionPaisID', 'Orden', 'Codigo', 'Descripcion', 'Accion'],
+        colNames: ['ConfiguracionPaisID', 'Orden', 'Código', 'Descripción', 'Acción'],
         colModel: [
             {
                 name: 'ConfiguracionPaisID',
@@ -279,7 +279,7 @@ function UpdateGrillaOfertas() {
         mtype: 'GET',
         contentType: "application/json; charset=utf-8",
         multiselect: false,
-        colNames: ['ConfiguracionOfertasHomeID', 'Orden', 'Campania', 'ConfiguracionPais', 'Titulo', 'Accion'],
+        colNames: ['ConfiguracionOfertasHomeID', 'Orden', 'Campaña', 'Palanca', 'Título', 'Acción'],
         colModel: [
             {
                 name: 'ConfiguracionOfertasHomeID',
@@ -292,7 +292,7 @@ function UpdateGrillaOfertas() {
             { name: 'DesktopOrden', index: 'Orden', width: 20, editable: true, hidden: false, sortable: false },
             {
                 name: 'CampaniaID',
-                index: 'Campania',
+                index: 'CampaniaID',
                 width: 30,
                 editable: true,
                 resizable: false,
@@ -300,7 +300,7 @@ function UpdateGrillaOfertas() {
                 sortable: false
             },
             { name: 'ConfiguracionPaisID', index: 'ConfiguracionPais', width: 80, editable: true, hidden: false, sortable: false },
-            { name: 'DesktopTitulo', index: 'Titulo', width: 200, editable: true, hidden: false, sortable: false },
+            { name: 'DesktopTitulo', index: 'DesktopTitulo', width: 200, editable: true, hidden: false, sortable: false },
             {
                 name: 'Activo',
                 index: 'Activo',

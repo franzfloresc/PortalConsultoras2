@@ -1,5 +1,4 @@
-﻿
-@model Portal.Consultoras.Web.Models.AdministrarPalancaModel
+﻿@model Portal.Consultoras.Web.Models.AdministrarPalancaModel
 @{
     string imagenVacia = "prod_grilla_vacio.png";
 }
@@ -7,8 +6,8 @@
 @Html.HiddenFor(m => m.ConfiguracionPaisID)
 <div class="div-3">
     <div class="titG">Palanca:</div>
-    <div class="titG borde_redondeado">
-        @Html.TextBoxFor(m => m.Descripcion)
+    <div class="borde_redondeado">
+        @Model.Descripcion
     </div>
 </div>
 <div class="div-3">
@@ -101,19 +100,19 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Titulo Menu:</div>
+                <div class="titG">Título Menu:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.DesktopTituloMenu, false)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Titulo Banner:</div>
+                <div class="titG">Título Banner:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.DesktopTituloBanner, false)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Titulo Banner:</div>
+                <div class="titG">Sub Título Banner:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.DesktopSubTituloBanner, true)
                 </div>
@@ -141,19 +140,19 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Titulo Menu:</div>
+                <div class="titG">Título Menu:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileTituloMenu, true)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Titulo Banner:</div>
+                <div class="titG">Título Banner:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileTituloBanner, false)
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Titulo Banner:</div>
+                <div class="titG">Sub Título Banner:</div>
                 <div class="titG borde_redondeado">
                     @Html.TextBoxFor(m => m.MobileSubTituloBanner, true)
                 </div>

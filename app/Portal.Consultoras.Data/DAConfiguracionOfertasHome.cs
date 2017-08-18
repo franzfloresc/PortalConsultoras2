@@ -55,7 +55,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "MobileCantidadProductos", DbType.Int32, entity.MobileCantidadProductos);
             Context.Database.AddInParameter(command, "DesktopActivo", DbType.Boolean, entity.DesktopActivo);
             Context.Database.AddInParameter(command, "MobileActivo", DbType.Boolean, entity.MobileActivo);
-            Context.Database.AddInParameter(command, "UrlSeccion", DbType.Boolean, entity.UrlSeccion);
+            Context.Database.AddInParameter(command, "UrlSeccion", DbType.String, entity.UrlSeccion);
             return Context.ExecuteReader(command);
         }
     }

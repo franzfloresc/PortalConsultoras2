@@ -59,6 +59,8 @@ namespace Portal.Consultoras.Web.Controllers
                     model = Mapper.Map<BEConfiguracionOfertasHome, AdministrarOfertasHomeModel>(beConfiguracionOfertas);
                 }
             }
+            model.DesktopTipoEstrategia = model.DesktopTipoEstrategia ?? "";
+            model.MobileTipoEstrategia = model.MobileTipoEstrategia ?? "";
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
             model.ListaConfiguracionPais = ListarConfiguracionPais();
