@@ -153,8 +153,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/esika/icomon.css",
                "~/Content/Css/Mobile/esika/menu.css",
                "~/Content/Css/Mobile/esika/style.css",
-               "~/Content/Css/Mobile/esika/theme.css",
-               "~/Content/Css/Site/asesora-online.css"
+               "~/Content/Css/Mobile/esika/theme.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
