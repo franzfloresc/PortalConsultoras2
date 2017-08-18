@@ -629,7 +629,68 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
-
+function odd_mobile_google_analytics_promotion_impresion(list,event,index) {
+    /*
+1. Cuando la página carga se muestran 3 productos, en este momento se debe llamar al script pero solo con los 3 primeros productos que se están mostrando y con su respectiva posición.
+2. Luego al hacer clic en las flechas de navegación se muestra un producto nuevo por cada clic en las flechas, en este caso se debe llamar al script pero solo con el 4to producto que apareció (posición 4).
+3. Si hacemos clic nuevamente en las flechas se muestra el 5to producto, por lo tanto se debería enviar el script pero solo con el 5to producto (posición 5) y este procedimiento se repite con los demás productos.
+4. Cuando el carrusel de una vuelta completa volverá a mostrar el producto en posición 1 en este caso igual que en el punto 2 y 3 se debe enviar solo el producto que está apareciendo (Posición 1), luego, el producto en posición 2 con el siguiente clic en las flechas de navegación y así sucesivamente.    
+    */
+    debugger;
+    var impressions = [];
+    var position = 0;
+    var elements = list.length;
+    var item = null;
+    var impresion = null;
+    if (event === 'page_load') {//Ok
+        //1. Cuando la página carga se muestran 3 productos, en este momento se debe llamar al script pero solo con los 3 primeros productos que se están mostrando y con su respectiva posición.
+        position = 1;
+        for (var i = 0; i <= elements - 1; i++) {
+            item = list[i];
+            item.Posicion = position;
+            if (position <= 3) {
+                impresion = odd_get_item_impresion(item);
+                if (impresion != null)
+                    impressions.push(impresion);
+            }
+            else
+                break;
+            position++;
+        }
+    }
+    if (event === 'arrow_click') {
+        //2. Luego al hacer clic en las flechas de navegación se muestra un producto nuevo por cada clic en las flechas, en este caso se debe llamar al script pero solo con el 4to producto que apareció (posición 4).
+        item = list[index];
+        item.Posicion = index + 1;
+        impresion = odd_get_item_impresion(item);
+        if (impresion != null)
+            impressions.push(impresion);
+    }
+    if (impressions.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': impressions
+            }
+        });
+    }
+}
+function odd_get_item_impresion(item) {
+    var impresion = null;
+    if (item != null) {
+        impresion = {
+            'name': item.NombreOferta,
+            'id': item.CUV2,
+            'price': item.PrecioOferta,
+            'brand': item.DescripcionMarca,
+            'category': 'No disponible',
+            'variant': 'Lanzamiento',
+            'list': 'Oferta del día',
+            'position': item.Posicion
+        }
+    }
+    return impresion;
+}
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
