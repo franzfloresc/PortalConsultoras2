@@ -171,8 +171,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.NombreConsultora = model.NombreConsultora;
 
                 model.PrimeraVezSession = 1;
-                if(Session["PrimeraVezSessionMobile"] != null && (short)Session["PrimeraVezSessionMobile"] == 1) model.PrimeraVezSession = 0;
-                Session["PrimeraVezSessionMobile"] = model.PrimeraVezSession;
+                if(Session["PrimeraVezSessionMobile"] != null) model.PrimeraVezSession = 0;
+                Session["PrimeraVezSessionMobile"] = 1;
             }
             catch (FaultException ex)
             {
