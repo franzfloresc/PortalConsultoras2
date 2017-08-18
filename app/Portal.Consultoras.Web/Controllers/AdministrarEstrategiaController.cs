@@ -1150,7 +1150,7 @@ namespace Portal.Consultoras.Web.Controllers
                     mensaje = svc.ValidarStockEstrategia(BEEstrategia);
                     if (model.FlagNueva == 1)
                     {
-                        List<BEPedidoWebDetalle> DetallePedidos = svc.SelectByCampania(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().NombreConsultora).ToList();
+                        List<BEPedidoWebDetalle> DetallePedidos = svc.SelectByCampania(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().NombreConsultora, EsOpt()).ToList();
                         BEPedidoWebDetalle Pedido = DetallePedidos.FirstOrDefault(p => p.TipoEstrategiaID == 1);
                         if (Pedido != null)
                             svc.DelPedidoWebDetalle(Pedido);

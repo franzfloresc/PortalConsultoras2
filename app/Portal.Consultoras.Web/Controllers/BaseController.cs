@@ -155,6 +155,14 @@ namespace Portal.Consultoras.Web.Controllers
             return bePedidoWeb;
         }
 
+        protected int EsOpt()
+        {
+            var esOpt = userData.RevistaDigital.TieneRDR
+                    || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                    ? 0 : 1;
+            return esOpt;
+        }
+
         protected List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
@@ -163,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora, EsOpt()).ToList();
                 }
             }
             else
