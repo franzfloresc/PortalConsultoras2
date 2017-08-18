@@ -267,10 +267,10 @@ namespace Portal.Consultoras.ServiceContracts
         BELugarPago GetLugarPagoById(int paisID, int lugarPagoID);
 
         [OperationContract]
-        void InsertLugarPago(BELugarPago entidad);
+        int InsertLugarPago(BELugarPago entidad);
 
         [OperationContract]
-        void UpdateLugarPago(BELugarPago entidad);
+        int UpdateLugarPago(BELugarPago entidad);
 
         [OperationContract]
         void DeleteLugarPago(int paisID, int lugarPagoID);
@@ -696,5 +696,16 @@ namespace Portal.Consultoras.ServiceContracts
         
         [OperationContract]
         IList<BEApp> ListarApps(int paisID);
+
+        #region ConfiguracionPais
+        [OperationContract]
+        List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil);
+
+        [OperationContract]
+        BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId);
+
+        [OperationContract]
+        void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
+        #endregion
     }
 }
