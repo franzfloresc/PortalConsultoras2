@@ -285,6 +285,13 @@ namespace Portal.Consultoras.Service
             return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
 
+        //FRZ-12
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        {
+            var BLNotificaciones = new BLNotificaciones();
+            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        }       
+
         //R2073
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
         {
