@@ -1644,7 +1644,6 @@ function CambiarContrasenia() {
     }
 }
 
-
 function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
@@ -1772,7 +1771,6 @@ function ActualizarMD() {
         });
     }
 }
-
 
 function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
@@ -2797,7 +2795,7 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     if (tipo == 1) {
         var nombre = $("#spnShowRoomEventoVenta").val();
         var tema = $("#spnShowRoomEventoDescripcionVenta").val();
-        name = nombre + ' ' + tema +  ' - Compra Ya';
+        name = nombre + ' ' + tema + ' - Compra Ya';
         id = $("#hdEventoIDShowRoomVenta").val();
     }
 

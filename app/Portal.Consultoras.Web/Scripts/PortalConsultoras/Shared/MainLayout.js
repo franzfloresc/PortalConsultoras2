@@ -1143,7 +1143,11 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
          
-function closeOfertaDelDia() {    
+function closeOfertaDelDia(sender) {  
+    var nombreProducto = $(sender)
+        .parent()
+        .find("[data-item-campos]")
+        .find('.nombre-odd').val();
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
@@ -1155,7 +1159,7 @@ function closeOfertaDelDia() {
             {
                 $('#OfertaDelDia').hide();
                 LayoutHeader();
-                odd_desktop_google_analytics_cerrar_banner();
+                odd_desktop_google_analytics_cerrar_banner(nombreProducto);
             }
         },
         error: function (err) {
@@ -1164,11 +1168,11 @@ function closeOfertaDelDia() {
     });
 }
 
-function odd_desktop_google_analytics_cerrar_banner() {
+function odd_desktop_google_analytics_cerrar_banner(nombreProducto) {
     dataLayer.push({
             'event': 'virtualEvent',
             'category': 'Oferta del día',
             'action': 'Cerrar Banner',
-            'label': 'OfertaDelDia'
+            'label': 'nombreProducto'
         });
 }

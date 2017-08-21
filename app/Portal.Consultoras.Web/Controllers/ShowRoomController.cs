@@ -2865,6 +2865,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
+
                 userData.EMail = Util.Trim(userData.EMail);
                 userData.Celular = Util.Trim(userData.EMail);
 
@@ -2981,7 +2982,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreEvento = (userData.BeShowRoom != null && userData.BeShowRoom.Nombre != null) ?
                     userData.BeShowRoom.Nombre.Replace(" ", "") :
                     string.Empty;
-                var utms = model.CadenaParametrosUTMs.Replace(UTM_NOMBRE_EVENTO, nombreEvento) ;
+                var utms = model.CadenaParametrosUTMs.Replace(UTM_NOMBRE_EVENTO, nombreEvento);
                 cadena = cadena.Replace(".aspx?", ".aspx?" + utms + "&");
             }
 
