@@ -943,6 +943,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
                 TituloMenu = "INICIO",
                 SubTituloMenu = "",
+                UrlPantalla = (IsMobile() ? "" : "/Mobile") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };
@@ -2612,9 +2613,10 @@ namespace Portal.Consultoras.Web.Controllers
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
                 // validacion para ver si se muestra
                 if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
-                {
                     continue;
-                }
+
+                if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
+                    continue;
 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,

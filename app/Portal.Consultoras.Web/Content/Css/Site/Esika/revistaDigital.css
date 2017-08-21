@@ -2112,10 +2112,10 @@
     justify-content: center;
 }
 
-.row {
+/*.row {
     width: auto;
     border: 1px solid blue;
-}
+}*/
 
 .flex-item {
     background-color: tomato;
