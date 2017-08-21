@@ -687,7 +687,7 @@ function VerShowRoomVenta()
 }
 
 function ObtenerComunicadosPopup() {
-    //if (primeraVezSession == 0) return;
+    if (primeraVezSession == 0) return;
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
