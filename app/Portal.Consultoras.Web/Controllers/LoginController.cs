@@ -142,7 +142,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (iso == "BR") iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
-            ViewBag.IconoPagina = "https://cdn1-marcas.belcorp.biz/pe/wp-content/themes/esika/img/favicons/favicon.ico";
+            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
             ViewBag.AvisoASP = 1;
