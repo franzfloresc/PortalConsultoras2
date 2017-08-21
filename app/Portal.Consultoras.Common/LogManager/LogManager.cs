@@ -86,7 +86,7 @@ namespace Portal.Consultoras.Common
 
                 if (HttpContext.Current.Request != null)
                 {
-                    urlRequest = HttpContext.Current.Request.Url.AbsolutePath;
+                    urlRequest = HttpContext.Current.Request.Url.ToString();
                     browserRequest = HttpContext.Current.Request.UserAgent;
                 }
 
