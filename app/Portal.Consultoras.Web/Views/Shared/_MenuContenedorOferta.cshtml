@@ -5,6 +5,37 @@
     var listaPloma = permisoList.Where(p => p.IsMenuCampania == false);
     var clase = ""; // listaNegra.Any() ? "sbmenu-contenedor" : "";
 }
+<div class="op_esika-para-mi" style="background: url(@Url.Content("~/Content/Images/Esika/bg_estrellas.png"));">
+    <div class="logo" style="background: url(@Url.Content("~/Content/Images/Esika/bg_esika.png"));">
+        <img src="@Url.Content("~/Content/Images/Esika/bg_esika.png")" alt="">
+    </div>
+    <div class="texto-info">
+        <div class="centrar-horizontal">
+            <p>SOFIA, ESTA NAVIDAD EMPIEZA GANANDO ESTA CAMPAÑA</p>
+            <span>¡GANA MÁS DESDE EL PRIMER DÍA CON TU GUIÍA DE NEGOCIO ONLINE PERSONALIZADA!</span>
+        </div>
+    </div>
+    <div class="op_esika-para-mi-clearfix"></div>
+    <div class="op_menu-horizontal">
+        <ul>
+            <li>
+                <a class="desplegable" attr-modal="#open-menu1">
+                    <img src="@Url.Content("~/Content/Images/Esika/carrito.png")" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover">
+                    COMPRAR C-14
+                </a>
+            </li><li>
+                <a class="desplegable" attr-modal="#open-menu2">
+                    <img src="@Url.Content("~/Content/Images/Esika/ojos.svg")" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
+                    REVISAR C-15
+                </a>
+            </li><li>
+                <a class="desplegable" attr-modal="#open-menu3">
+                    SABER MÁS DE ÉSIKA PARA MÍ
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
 <div data-layout-menu2="">
     <div class="bc_menu_estrategia @clase">
         @*@if (listaNegra.Any())
@@ -23,19 +54,105 @@
     }*@
 
 
-        @if (listaPloma.Any())
-        {
-            <ul class="sbmenu_estrategia">
-                @foreach (var menuhijo in listaPloma)
-                {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" style="display:none;">
-                        <a href="javascript:;">
-                            <p>@menuhijo.TituloMenu</p>
-                            <span>@menuhijo.SubTituloMenu</span>
-                        </a>
-                    </li>
-                }
+        @*@if (listaPloma.Any())
+    {
+        <ul class="sbmenu_estrategia">
+            @foreach (var menuhijo in listaPloma)
+            {
+                <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" style="display:none;">
+                    <a href="javascript:;">
+                        <p>@menuhijo.TituloMenu</p>
+                        <span>@menuhijo.SubTituloMenu</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }*@
+        
+
+        <div class="op_esika-menu" id="op_esika-menu">
+
+            <ul class="subnavegador" id="open-menu1">
+                <li>
+                    <a href="">
+                        <p>INICIO</p>
+                        <span>Muestras renovadas y más</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>ESPECIAL NAVIDAD</p>
+                        <span>Ofertas hasta 65% de Dscto.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>RECOMENDADAS PARA TÍ</p>
+                        <span>Ofertas personalizadas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>GUÍA DE NEGOCIO</p>
+                        <span>Tu guía de siempre ahora online</span>
+                    </a>
+                </li>
             </ul>
-        }
+
+            <ul class="subnavegador" id="open-menu2">
+                <li>
+                    <a href="">
+                        <p>INICIO 2</p>
+                        <span>Muestras renovadas y más</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>ESPECIAL NAVIDAD</p>
+                        <span>Ofertas hasta 65% de Dscto.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>RECOMENDADAS PARA TÍ</p>
+                        <span>Ofertas personalizadas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>GUÍA DE NEGOCIO</p>
+                        <span>Tu guía de siempre ahora online</span>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="subnavegador" id="open-menu3">
+                <li>
+                    <a href="">
+                        <p>INICIO 3</p>
+                        <span>Muestras renovadas y más</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>ESPECIAL NAVIDAD</p>
+                        <span>Ofertas hasta 65% de Dscto.</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>RECOMENDADAS PARA TÍ</p>
+                        <span>Ofertas personalizadas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="">
+                        <p>GUÍA DE NEGOCIO</p>
+                        <span>Tu guía de siempre ahora online</span>
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+        </div>
     </div>
-</div>
