@@ -2104,17 +2104,11 @@
     }
 }
 
-
 .flex-container {
     flex-wrap: wrap;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-}
-
-.row {
-    width: auto;
-    border: 1px solid blue;
 }
 
 .flex-item {
