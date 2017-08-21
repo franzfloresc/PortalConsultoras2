@@ -2617,6 +2617,11 @@ namespace Portal.Consultoras.Web.Controllers
                     continue;
                 }
 
+                if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
+                {
+
+                }
+
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
                     Codigo = entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
