@@ -34024,7 +34024,7 @@ h1#penmostreo .campana {
     line-height:22px;
     color:black;
     font-weight:700;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
 }
 .precio_valorizado_showroom{
     text-align:right;
@@ -35430,8 +35430,9 @@ h1#penmostreo .campana {
     text-align: center;
 }
 .imagen_producto_best_seller{
-    height:400px;
-    width:auto;
+     height: 330px;
+    width: auto;
+    margin-top: 55px;
 }
 .fondo_set_best_seller .content_detalle_set{
     width:53%;
