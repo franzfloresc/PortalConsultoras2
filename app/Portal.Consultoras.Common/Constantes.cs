@@ -203,6 +203,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+            public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
 
@@ -334,6 +335,13 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
             /* FIN Revista Digital */
+
+            // Mas Vendidos
+            public const int DesktopHomeMasVendidosCarrusel = 1151;
+            public const int DesktopMasVendidosProductPageFicha = 1611;
+            public const int DesktopMasVendidosProductPageCarrusel = 1612;
+            public const int MobileHomeMasVendidosCarrusel = 2151;
+            public const int MobileMasVendidosProductPageFicha = 2611;
         }
 
         public class TipoTutorial
@@ -652,6 +660,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
             public const string Lanzamiento = "LAN";
+            public const string OfertaFinalTradicional = "OFT";
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class ConfiguracionSeccion
@@ -726,6 +737,18 @@ namespace Portal.Consultoras.Common
         public struct TablaLogica
         {
             public const int Plan20 = 98;
+            public const int CDRExpress = 104;
+        }
+
+        public struct MensajesCDRExpress
+        {
+            public const string RegularPrincipal = "Regular1";
+            public const string RegularAdicional = "Regular2";
+            public const string ExpressPrincipal = "Express1";
+            public const string ExpressFlete = "Express2";
+            public const string ExpressAdicional = "Express3";
+            public const string ExpressFleteCero = "Express4";
+            public const string Nuevas = "Nuevas1";
         }
 
 

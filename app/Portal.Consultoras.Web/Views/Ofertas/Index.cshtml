@@ -1,6 +1,7 @@
 ﻿@using System.Configuration
 @using Portal.Consultoras.Common
 
+
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
@@ -9,39 +10,11 @@
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
 }
-<style>
-    .previsualizales-ofertas {
-        max-width: 800px;
-        margin: auto;
-        max-height: 550px;
-    }
-    .imagen_fondo {
-    min-height: 532px;
-    max-width: 96% !important;
-    margin: auto;
-    }
-    .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img {
-    max-height: 450px !important;
-    }
-    .content_slider_ept {
-    padding-top: 30px;
-    }
-</style>
-<div class="bc_estrategia_contenido">
-    @foreach (var seccion in Model.ListaSeccion)
-    {
-        <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
-            <div data-seccion-content="">
-                @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
-            </div>
-            <div data-seccion-load=""></div>
-            <div class="bc_vineta_baja">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
-            </div>
-        </div>
-    }
+
+
+<div class="op_esika-para-mi-contenido">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates ullam asperiores dolorum eos deleniti distinctio. Voluptatem consectetur asperiores, commodi aperiam, soluta rerum nulla nam enim harum necessitatibus natus praesentium esse.
 </div>
 <div class="bc_clearfix"></div>
 
@@ -58,4 +31,40 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script>
+           /* $('.op_esika-para-mi .op_menu-horizontal ul li a').hover(function (e) {
+                $(this).find('img.default').css('display', 'none');
+                $(this).find('img.hover').css('display', 'inline');
+                $(this).find('img.hover').css('margin-right', '5px');
+            }, function (e) {
+                $(this).find('img.default').css('display', 'inline');
+                $(this).find('img.default').css('margin-right', '5px');
+                $(this).find('img.hover').css('display', 'none');
+            });*/
+    </script>
+
+    <script>
+            $('.op_esika-menu ul li a').hover(function (e) {
+                $(this).find('p').css('font-weight', 'bolder');
+
+                /*$(this).find('span').css('color', '#333');*/
+            }, function (e) {
+                $(this).find('p').css('font-weight', 'normal');
+
+                /*$(this).find('span').css('color', '#888888');*/
+            });
+    </script>
+
+    <script>
+            $(function () {
+                $('.op_esika-menu ul').hide();
+                $('.op_esika-menu ul:first').show();
+                $('.op_esika-para-mi .op_menu-horizontal ul li').on('click', function () {
+                    $('.op_esika-menu ul').hide();
+                    var activeTab = $(this).find('a').attr('attr-modal');
+                    $(activeTab).show();
+                    return false;
+                });
+            })
+    </script>
 }

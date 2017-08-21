@@ -240,7 +240,7 @@ header {
 
 .sub_menu_home1 .new_menu {
     margin-top: 0;
-    height: 35px;
+    height: 50px;
 }
 
 .new_menu {
@@ -279,7 +279,7 @@ header {
     top: 39px;
     margin-left: -90px;
     width: 937px;
-    height: 220px;
+    height: auto;
     padding-left: 65px;
     padding-right: 60px;
     display: none;
@@ -21934,10 +21934,12 @@ body{
 
 }
 .logos_bancos{
-    width:25%;
-    float:left;
-    margin-top:70px;
-    
+    width: 25%;
+    /* float: left; */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 70px;
+    margin-left: -2px;    
 }
 
 body{
@@ -31061,15 +31063,15 @@ h1#penmostreo .campana {
 }*/
 
 .content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
+    position: relative;
+    width: 99%;
+    height: 2px;
+    z-index: 3;
+    left:0;
+    width:310px;
+    margin:0 auto;
+    margin-top:-18px;
+    background: #d1d1d1;
 }
 .paso_reclamo{
     width:36px;
@@ -33241,18 +33243,6 @@ h1#penmostreo .campana {
     font-size: 13.9px;
     font-weight: 700;
     height: 14px;
-}
-.content_pasos_linea {
-    position: relative;
-    width: 99%;
-    height: 2px;      
-    /*z-index: 3;*/
-    z-index:4;
-    left: 0;
-    width: 310px;
-    margin: 0 auto;
-    margin-top: -18px;
-    background: #d1d1d1;
 }
 
 
@@ -35595,3 +35585,55 @@ h1#penmostreo .campana {
     background:black;
     color:white;
 }
+
+/*EPD-1919 INICIO*/
+.content_tipo_despacho {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: left;
+}
+
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url(../../../Images/Esika/terminos.png) no-repeat;
+    display: inline;
+}
+
+.cdr_tipo_despacho_icono_active {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    display: inline;
+    background: url(../../../Images/Lbel/icono_check_lbel.svg) no-repeat;
+    background-size: 75%;
+}
+
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url(../../../Images/Esika/terminos.png) no-repeat;
+    display: inline;
+}
+
+.cdr_tipo_despacho_contenido {
+    margin-left: 35px;
+    margin-top: -22px;
+    display: block;
+}
+
+.mensaje_informativo_despacho {
+    font-weight: bold;
+    /*color: #205081;*/
+    margin-bottom: 5px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: center;
+    align-content: center;
+    display: block;
+}
+/*EPD-1919 FIN*/

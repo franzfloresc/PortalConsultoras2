@@ -146,15 +146,22 @@ function RDInformacion() {
 
 function RDSuscripcionRedireccionar(accion) {
     SaberMasRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0"); //urlRevistaDigital
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0");
+    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
     window.location = url;
+    if (urlLocal.indexOf("/revistadigital/") > 0) {
+        window.location.reload();
+    }
 }
 
 function RDRedireccionarDesuscripcion() {
     IrCancelarSuscripcionRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital"); //urlRevistaDigital;
-    var divPosition = '#divCambiosEstadoRegistro';
-    window.location = url + divPosition;
+    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#divCambiosEstadoRegistro");
+    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
+    window.location = url;
+    if (urlLocal.indexOf("/revistadigital/") > 0) {
+        window.location.reload();
+    }
 }
 
 function RDRedireccionarDetalle(event) {

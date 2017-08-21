@@ -2712,7 +2712,9 @@
   </xs:element>
   <xs:element name="InsertLugarPagoResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="InsertLugarPagoResult" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="UpdateLugarPago">
@@ -2724,7 +2726,9 @@
   </xs:element>
   <xs:element name="UpdateLugarPagoResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateLugarPagoResult" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="DeleteLugarPago">

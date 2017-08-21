@@ -93,7 +93,7 @@ namespace Portal.Consultoras.Entities
             if (row.HasColumn("MobileActivo")) MobileActivo = Convert.ToBoolean(row["MobileActivo"]);
             if (row.HasColumn("UrlSeccion")) UrlSeccion = Convert.ToString(row["UrlSeccion"]);
             ConfiguracionPais = new BEConfiguracionPais();
-            ConfiguracionPais.Codigo = row.HasColumn("Codigo") ? "" : Convert.ToString(row["Codigo"]);
+            ConfiguracionPais.Codigo = row.HasColumn("Codigo") ? Convert.ToString(row["Codigo"]) : "";
         }
 
         public BEConfiguracionOfertasHome()

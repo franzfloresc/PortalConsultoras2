@@ -21,6 +21,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Portal.Consultoras.PublicService.Cryptography;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -767,6 +768,9 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
                     //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
+                    model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919 
+                    model.EsConsecutivoNueva = oBEUsuario.EsConsecutivoNueva; //EPD-1919
+
                     #endregion
 
                     if (model.RolID == Constantes.Rol.Consultora)
@@ -956,6 +960,27 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (c.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
                                     {
                                         model.RevistaDigital.TieneRDR = true;
+                                        continue;
+                                    }
+
+                                    if (c.Codigo == Constantes.ConfiguracionPais.OfertaFinalTradicional ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling ||
+                                        c.Codigo == Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa)
+                                    {                                        
+                                        model.OfertaFinalModel.Algoritmo = c.Codigo;
+                                        model.OfertaFinalModel.Estado = c.Estado;
+                                        if (c.Estado)
+                                        {
+                                            model.OfertaFinal = 1;
+                                            model.EsOfertaFinalZonaValida = true;
+                                        }                                            
+                                        continue;
+                                    }
+
+                                    if (c.Codigo.EndsWith("GM") && c.Codigo.StartsWith("OF"))
+                                    {
+                                        if (c.Estado)
+                                            model.OfertaFinalGanaMas = 1;
                                         continue;
                                     }
                                 }
@@ -1826,6 +1851,11 @@ namespace Portal.Consultoras.Web.Controllers
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
+
+                if (!string.IsNullOrEmpty(model.Identifier))
+                {
+                    Session.Add("TokenPedidoAutentico", AESAlgorithm.Encrypt(model.Identifier));
+                }
 
                 switch (model.Pagina.ToUpper())
                 {

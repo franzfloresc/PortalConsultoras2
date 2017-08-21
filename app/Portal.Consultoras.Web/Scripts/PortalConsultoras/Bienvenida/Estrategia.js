@@ -222,11 +222,6 @@ function PintarPrecioTachado(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarPrecioTachado(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarPrecioTachado(item);
-    });
-    */
 }
 
 function _pintarPrecioTachado(item) {
@@ -243,11 +238,6 @@ function PintarRecomendaciones(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarRecomendaciones(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarRecomendaciones(item);
-    });
-    */
 }
 
 function _pintarRecomendaciones(item) {
@@ -261,11 +251,6 @@ function PintarEstrellas(listaMasVendidos) {
     for (var i = 0; i < listaMasVendidos.length; i++) {
         _pintarEstrellas(listaMasVendidos[i]);
     }
-    /*
-    listaMasVendidos.forEach(item => {
-        _pintarEstrellas(item);
-    });
-    */
 }
 
 function _pintarEstrellas(item) {
@@ -588,7 +573,14 @@ function EstrategiaVerDetalle(id, origen) {
         if (typeof GuardarProductoTemporal == "function" && typeof GetProductoStorage == "function") {
             var campania = $("[data-item=" + id + "]").parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $("[data-item=" + id + "]").attr("data-item-cuv");
-            var obj = GetProductoStorage(cuv, campania);
+            var obj = {};
+            if (typeof cuv == "undefined" || typeof campania == "undefined") {
+                obj = JSON.parse($("[data-item=" + id + "]").attr("data-estrategia"));
+            }
+            if (obj.length == 0) {
+                obj = GetProductoStorage(cuv, campania);
+            }
+
             obj.CUV2 = $.trim(obj.CUV2);
             if (obj.CUV2 != "") {
                 if (GuardarProductoTemporal(obj))
@@ -879,7 +871,7 @@ function CargarProductoDestacado(objParameter, objInput, popup, limite) {
             datos.data.cantidadIngresada = cantidadIngresada;
             datos.data.posicionItem = posicionItem;
 
-            var estrategiaCarrusel = popup ? new Object() : EstrategiaObtenerObj(objInput);//JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
+            var estrategiaCarrusel = popup ? new Object() : JSON.parse($(objInput).parents("[data-estrategia]").attr("data-estrategia"));
 
             var codigoEstrategia = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategiaCarrusel.CodigoEstrategia;
             if ((codigoEstrategia == "2001" || codigoEstrategia == "2003") && popup) {

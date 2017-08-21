@@ -1,4 +1,4 @@
-
+GO
 ALTER function fnConfiguracionPais_GetAll
 (
 	@Codigo varchar(100) = ''
@@ -126,3 +126,4 @@ begin
 	return 
 end
 
+GO
