@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
     var asesoraOnlineObj = AsesoraOnline({
-        actualizarMatrizComercialAction: baseUrl + 'AsesoraOnline/EnviarFormulario'
+        enviarFormularioUrl: baseUrl + 'AsesoraOnline/EnviarFormulario'
     });
 
     var LandingAsesoraOnline;
@@ -65,6 +65,8 @@ $(document).ready(function () {
             me.Funciones.cambiarTexto();
             me.Funciones.inicializarEventos();
             $(window).resize(me.Funciones.cambiarTexto);
+
+            $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
 
         };
 
