@@ -434,7 +434,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "");
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "", "", pasoLog);
                 lst = new List<BEPais>();
             }
 
