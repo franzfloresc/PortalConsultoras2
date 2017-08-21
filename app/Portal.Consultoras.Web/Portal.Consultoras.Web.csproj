@@ -1202,7 +1202,6 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
-    <Content Include="Content\Images\Esika\signo-menu.png" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
@@ -4167,7 +4166,6 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
-    <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
