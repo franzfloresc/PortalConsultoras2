@@ -574,8 +574,8 @@ namespace Portal.Consultoras.BizLogic
                         select new BEClienteDB
                         {
                             ClienteID = tblConsultoraCliente.ClienteID,
-                            Apellidos = tblCliente.Apellidos,
-                            Nombres = tblCliente.Nombres,
+                            Apellidos = tblConsultoraCliente.ApellidoCliente,
+                            Nombres = tblConsultoraCliente.NombreCliente,
                             Alias = tblCliente.Alias,
                             Foto = tblCliente.Foto,
                             FechaNacimiento = tblCliente.FechaNacimiento,
