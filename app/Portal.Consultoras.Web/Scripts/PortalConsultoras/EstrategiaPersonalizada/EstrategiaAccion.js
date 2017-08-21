@@ -12,75 +12,8 @@ var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
 
-$(document).ready(function () {
-    $('body').on('click', '[data-tono-change]', function (e) {
-        var accion = $(this).attr("data-tono-change");
-
-        var hideSelect = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-        if (hideSelect == "1") {
-            $(this).parents("[data-tono]").find('.content_tonos_select').hide();
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "0");
-            $(this).parents("[data-tono]").find("[data-tono-change='1']").parent().removeClass("tono_por_elegir");
-            if (accion == 1)
-                return true;
-        }
-
-        if (accion == 1) {
-            $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible", "1");
-            $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            $(this).parent().addClass("tono_por_elegir");
-            return true;
-        }
-
-        var cuv = $.trim($(this).attr("data-tono-cuv"));
-        var prod = $(this).parents("[data-tono]");
-        var objSet = prod.find("[data-tono-change='1']");
-        objSet.find("img").attr("src", $(this).find("img").attr("src"));
-        objSet.find(".tono_seleccionado").show();
-        objSet.find(".texto_tono_seleccionado").html($(this).attr("data-tono-nombre"));
-
-        objSet.parent().addClass("tono_escogido");
-        prod.find("[data-tono-select-nombrecomercial]").html($(this).attr("data-tono-descripcion"));
-        prod.attr("data-tono-select", cuv);
-
-        prod.find("[data-tono-div]").find("[data-tono-cuv]").removeClass("borde_seleccion_tono");
-        var estrategia = prod.parents("[data-estrategia='2001']").length;
-        if (estrategia > 0) {
-            prod.find("[data-tono-div]").find("[data-tono-cuv='" + cuv + "']").addClass("borde_seleccion_tono");
-        }
-
-        var objCompartir = prod.find("[data-item]").find("[data-compartir-campos]");
-        objCompartir.find(".CUV").val(cuv);
-        objCompartir.find(".Nombre").val($(this).attr("data-tono-descripcion"));
-
-        var listaDigitables = prod.parents("[data-item]").find("[data-tono-digitable='1']");
-        var btnActivar = true;
-        $.each(listaDigitables, function (i, item) {
-            var cuv = $.trim($(item).attr("data-tono-select"));
-            btnActivar = btnActivar ? !(cuv == "") : btnActivar;
-        });
-
-        if (btnActivar) {
-            prod.parents("[data-item]").find("#tbnAgregarProducto").removeClass("btn_desactivado_general");
-        }
-    });
-
-    var so = isMobile();
-    if (!so) {
-        $(document).on('mousemove', '[data-tono-change]', function (e) {
-            var activo = $(this).parents("[data-tono]").find('.content_tonos_select').attr("data-visible");
-            if (activo == 1) {
-                $(this).parents("[data-tono]").find('.content_tonos_select').show();
-            }
-        });
-
-        $(document).on('mouseleave', '.content_tonos_select', function (e) {
-            $(this).hide();
-            $(this).attr("data-visible", "0");
-        });
-    }
-
-});
+// Copiar el $(document).ready de Estrategia.js, en caso no hacer caso al archivo Estrategia.JS
+//$(document).ready(function () {});
 
 function EstrategiaObtenerObj(e) {
     var objHtmlEvent = $(e.target);
@@ -88,6 +21,22 @@ function EstrategiaObtenerObj(e) {
     var objHtml = objHtmlEvent.parents("[data-item]");
     var estrategia = JSON.parse($(objHtml).find("[data-estrategia]").attr("data-estrategia"));
     return estrategia;
+}
+
+function EstrategiaObtenerObjHtmlLanding(objInput) {
+    var itemClone = $(objInput).parents("[data-item]");
+    var cuvClone = $.trim(itemClone.attr("data-clone-item"));
+    if (cuvClone != "") {
+        itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
+    }
+    if (itemClone.length === 0 && cuvClone != "") {
+        itemClone = $("body").find("[data-item='" + cuvClone + "']");
+    }
+    if (itemClone.length > 1) {
+        itemClone = $(itemClone.get(0));
+    }
+
+    return itemClone;
 }
 
 function VerDetalleEstrategia(e) {
@@ -407,18 +356,19 @@ function EstrategiaAgregar(event, popup, limite) {
     }
 
     AbrirLoad();
-    
-    divAgregado = $(objInput).parents("[data-item]").find(".agregado.product-add");
+
+    var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
+    divAgregado = $(itemClone).find(".agregado.product-add");
 
     var cuvs = "";
-    var CodigoVariante = popup ? $(objInput).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia") : estrategia.CodigoVariante;
+    var CodigoVariante = estrategia.CodigoVariante;
     if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
         var listaCuvs = $(objInput).parents("[data-item]").find("[data-tono][data-tono-select]");
         if (listaCuvs.length > 0) {
             $.each(listaCuvs, function (i, item) {
                 var cuv = $(item).attr("data-tono-select");
                 if (cuv != "") {
-                    cuvs = (cuvs == "" ? "" : "|") + cuv;
+                    cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
                     if (CodigoVariante == "2003") {
                         cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_MarcaID").val();
                         cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_PrecioCatalogo").val();
@@ -562,17 +512,7 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
 
     var divMensaje = $("#divMensajeBloqueada");
     if (divMensaje.length > 0) {
-        var itemClone = $(objInput).parents("[data-item]");
-        var cuvClone = $.trim(itemClone.attr("data-clone-item"));
-        if (cuvClone != "") {
-            itemClone = $("body").find("[data-content-item='" + $.trim(itemClone.attr("data-clone-content")) + "']").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length === 0 && cuvClone != "") {
-            itemClone = $("body").find("[data-item='" + cuvClone + "']");
-        }
-        if (itemClone.length > 1) {
-            itemClone = $(itemClone.get(0));
-        }
+        var itemClone = EstrategiaObtenerObjHtmlLanding(objInput);
         if (itemClone.length > 0) {
             divMensaje.find("[data-item-html]").html(itemClone.html());
             divMensaje = divMensaje.find("[data-item-html]");

@@ -360,7 +360,8 @@ namespace Portal.Consultoras.Web.Controllers
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
                 // Insertar/Actualizar los puntos de la consultora.
-                if (lista[0].ListaConcursoIncentivos != null)
+                //if (lista[0].ListaConcursoIncentivos != null)
+                if(!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
             }
 
@@ -447,12 +448,8 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
-            if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
-                lst = lst.Where(x => x.PermisoID != 1019).ToList();
-
             lista1 = Mapper.Map<List<PermisoModel>>(lst);
             
-
             List<PermisoModel> lstModel = new List<PermisoModel>();
 
             foreach (var permiso in lista1)
@@ -578,7 +575,7 @@ namespace Portal.Consultoras.Web.Controllers
                             else
                             {
                                 var urlSplit = permiso.UrlItem.Split('/');
-                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', '' , " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
+                                permiso.OnClickFunt = "RedirectMenu('" + (urlSplit.Length > 1 ? urlSplit[1] : "") + "', '" + (urlSplit.Length > 0 ? urlSplit[0] : "") + "', " + Convert.ToInt32(permiso.PaginaNueva).ToString() + " , '" + permiso.Descripcion + "')";
                             }
                         }
                     }
@@ -712,6 +709,11 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.Descripcion = Util.Trim(menu.Descripcion);
                 menu.MenuPadreDescripcion = Util.Trim(menu.MenuPadreDescripcion);
                 menu.Posicion = Util.Trim(menu.Posicion);
+
+                if (menu.MenuMobileID == 1039)
+                {
+                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~","") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+                }
 
                 if (menu.Posicion.ToLower() != "menu")
                 {

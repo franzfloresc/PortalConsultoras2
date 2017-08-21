@@ -245,7 +245,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.MontoEscala = pedidoWeb.MontoEscala;
                     model.TotalConDescuento = model.Total - model.MontoDescuento;
 
-                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal();
+                    model.ListaParametriaOfertaFinal = GetParametriaOfertaFinal(userData.OfertaFinalModel.Algoritmo);
                 }
                 else
                 {
@@ -3622,7 +3622,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Parametria Oferta Final
 
-        private List<BEEscalaDescuento> GetParametriaOfertaFinal()
+        private List<BEEscalaDescuento> GetParametriaOfertaFinal(string algoritmo)
         {
             List<BEEscalaDescuento> listaParametriaOfertaFinal = new List<BEEscalaDescuento>();
 
@@ -3630,7 +3630,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID).ToList() ?? new List<BEEscalaDescuento>();
+                    listaParametriaOfertaFinal = sv.GetParametriaOfertaFinal(userData.PaisID, algoritmo).ToList() ?? new List<BEEscalaDescuento>();
                 }
             }
             catch (Exception)
@@ -3807,12 +3807,12 @@ namespace Portal.Consultoras.Web.Controllers
             ObjOfertaFinal.MontoTotal = ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal);
             ObjOfertaFinal.TipoOfertaFinal = tipoOfertaFinal;
             ObjOfertaFinal.TipoProductoMostrar = tipoProductoMostrar;
+            ObjOfertaFinal.Algoritmo = userData.OfertaFinalModel.Algoritmo;
+            ObjOfertaFinal.Estado = userData.OfertaFinalModel.Estado;
 
             using (ProductoServiceClient ps = new ProductoServiceClient())
             {
                 lista = ps.ObtenerProductosOfertaFinal(ObjOfertaFinal).ToList();
-                //lista = ps.ObtenerProductos(userData.OfertaFinal, userData.CodigoISO, userData.CampaniaID, userData.CodigoConsultora,
-                //    userData.ZonaID, userData.CodigorRegion, userData.CodigoZona, tipoProductoMostrar).ToList();
             }
             var listaProductoModel = Mapper.Map<List<Producto>, List<ProductoModel>>(lista);
             if (listaProductoModel.Count(x => x.ID == 0) == listaProductoModel.Count)

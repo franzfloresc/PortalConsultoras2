@@ -19,7 +19,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 origen = origen < 10 ? 11 : origen;
                 var origenPantalla = origen.Substring(1, 1);
 
-                if (modelo.EstrategiaID <= 0)
+                if (modelo == null || modelo.EstrategiaID <= 0)
                 {
                     switch (origenPantalla)
                     {

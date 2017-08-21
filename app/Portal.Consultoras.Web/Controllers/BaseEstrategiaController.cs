@@ -62,9 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         public List<BEEstrategia> ConsultarMasVendidos()
-        {
-            if (Session["ListadoMasVendidos"] != null) return (List<BEEstrategia>)Session["ListadoMasVendidos"];
-          
+        {          
             var entidad = new BEEstrategia
             {
                 PaisID = userData.PaisID,
@@ -90,7 +88,6 @@ namespace Portal.Consultoras.Web.Controllers
                 e.PrecioTachado = Util.DecimalToStringFormat(e.Precio, userData.CodigoISO);
             });
 
-            Session["ListadoMasVendidos"] = listEstrategia;
             return listEstrategia;
         }
 
@@ -499,6 +496,7 @@ namespace Portal.Consultoras.Web.Controllers
                         (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertaParaTi
                         || estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas)
                         && (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR))
+                    || tipo == 1
                     ? "revistadigital-landing" : "";
                 prodModel.FotoProducto01 = estrategia.FotoProducto01;
                 prodModel.ImagenURL = estrategia.ImagenURL;

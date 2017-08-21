@@ -79,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> GetEscalaDescuento(int PaisID);
 
         [OperationContract]
-        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID);
+        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo);
 
         [OperationContract]
         IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID);
@@ -503,6 +503,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
+        BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
+
+        [OperationContract]
         void AnularPedido(int paisID, int campaniaID, int pedidoID);
 
         #region Pedidos DD
@@ -795,6 +798,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEResultadoSolicitud InsertarSolicitudClienteAppCatalogo(string prefijoISO, BESolicitudClienteAppCatalogo entidadSolicitud);
+
+        [OperationContract]
+        BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(string prefijoISO, long consultoraID, string dispositivoID, int tipoUsuario, int campania);
+
+        [OperationContract]
+        BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalleAppCatalogo(string prefijoISO, long pedidoID);
 
         #region ShowRoom
 
@@ -1121,6 +1130,12 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
 
         [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
+
+        [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);
        
         #region Cupon
@@ -1170,10 +1185,29 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         void InsertarCuponConsultorasXML(int paisId, int cuponId, int campaniaId, List<BECuponConsultora> listaCuponConsultoras);
+        
+        [OperationContract]
+        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);        
         #endregion
 
+        #region Producto Comentario
         [OperationContract]
-        List<BEReporteValidacion> GetReporteValidacion(int paisID, int campaniaID, int tipoEstrategia);
+        int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
 
+        [OperationContract]
+        BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        BEProductoComentarioDetalle GetUltimoProductoComentarioByCodigoSap(int paisID, string codigoSap);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleResumen(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        List<BEProductoComentarioDetalle> GetListaProductoComentarioDetalleAprobar(int paisID, BEProductoComentarioFilter filter);
+
+        [OperationContract]
+        int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
+        #endregion
     }
 }

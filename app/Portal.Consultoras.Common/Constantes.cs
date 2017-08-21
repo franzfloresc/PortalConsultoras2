@@ -177,6 +177,7 @@ namespace Portal.Consultoras.Common
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "020";
 
         }
 
@@ -202,6 +203,7 @@ namespace Portal.Consultoras.Common
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+            public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
 
@@ -333,6 +335,13 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
             /* FIN Revista Digital */
+
+            // Mas Vendidos
+            public const int DesktopHomeMasVendidosCarrusel = 1151;
+            public const int DesktopMasVendidosProductPageFicha = 1611;
+            public const int DesktopMasVendidosProductPageCarrusel = 1612;
+            public const int MobileHomeMasVendidosCarrusel = 2151;
+            public const int MobileMasVendidosProductPageFicha = 2611;
         }
 
         public class TipoTutorial
@@ -651,6 +660,9 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
             public const string Lanzamiento = "LAN";
+            public const string OfertaFinalTradicional = "OFT";
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class ConfiguracionSeccion
@@ -725,6 +737,18 @@ namespace Portal.Consultoras.Common
         public struct TablaLogica
         {
             public const int Plan20 = 98;
+            public const int CDRExpress = 104;
+        }
+
+        public struct MensajesCDRExpress
+        {
+            public const string RegularPrincipal = "Regular1";
+            public const string RegularAdicional = "Regular2";
+            public const string ExpressPrincipal = "Express1";
+            public const string ExpressFlete = "Express2";
+            public const string ExpressAdicional = "Express3";
+            public const string ExpressFleteCero = "Express4";
+            public const string Nuevas = "Nuevas1";
         }
 
 
@@ -894,13 +918,13 @@ namespace Portal.Consultoras.Common
 
         public class Incentivo
         {
-            public const string TeFaltan = "Te faltan {0} puntos";
+            public const string TeFaltan = "Te faltan {0}* puntos";
             public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
-            public const string VasXPuntos = "VAS {0} PUNTOS.";
+            public const string VasXPuntos = "VAS {0}* PUNTOS.";
             public const string GANASTE = "¡GANASTE!";
             public const string TEFALTA = "¡TE FALTA!";
-            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0} puntos requeridos!";
-            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0} puntos requeridos del nivel {1}!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
             public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";

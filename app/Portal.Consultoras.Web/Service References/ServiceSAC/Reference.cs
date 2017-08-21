@@ -10530,6 +10530,12 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private string PaisNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PosicionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TextoPagoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UrlSitioField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -10655,6 +10661,32 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((object.ReferenceEquals(this.PaisNombreField, value) != true)) {
                     this.PaisNombreField = value;
                     this.RaisePropertyChanged("PaisNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Posicion {
+            get {
+                return this.PosicionField;
+            }
+            set {
+                if ((this.PosicionField.Equals(value) != true)) {
+                    this.PosicionField = value;
+                    this.RaisePropertyChanged("Posicion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TextoPago {
+            get {
+                return this.TextoPagoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TextoPagoField, value) != true)) {
+                    this.TextoPagoField = value;
+                    this.RaisePropertyChanged("TextoPago");
                 }
             }
         }
@@ -12010,16 +12042,16 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceSAC.BELugarPago> GetLugarPagoByIdAsync(int paisID, int lugarPagoID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
-        void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        int InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/InsertLugarPago", ReplyAction="http://tempuri.org/ISACService/InsertLugarPagoResponse")]
-        System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        System.Threading.Tasks.Task<int> InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
-        void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        int UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/UpdateLugarPago", ReplyAction="http://tempuri.org/ISACService/UpdateLugarPagoResponse")]
-        System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
+        System.Threading.Tasks.Task<int> UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ISACService/DeleteLugarPago", ReplyAction="http://tempuri.org/ISACService/DeleteLugarPagoResponse")]
         void DeleteLugarPago(int paisID, int lugarPagoID);
@@ -13521,19 +13553,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
             return base.Channel.GetLugarPagoByIdAsync(paisID, lugarPagoID);
         }
         
-        public void InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            base.Channel.InsertLugarPago(entidad);
+        public int InsertLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            return base.Channel.InsertLugarPago(entidad);
         }
         
-        public System.Threading.Tasks.Task InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+        public System.Threading.Tasks.Task<int> InsertLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
             return base.Channel.InsertLugarPagoAsync(entidad);
         }
         
-        public void UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
-            base.Channel.UpdateLugarPago(entidad);
+        public int UpdateLugarPago(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+            return base.Channel.UpdateLugarPago(entidad);
         }
         
-        public System.Threading.Tasks.Task UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
+        public System.Threading.Tasks.Task<int> UpdateLugarPagoAsync(Portal.Consultoras.Web.ServiceSAC.BELugarPago entidad) {
             return base.Channel.UpdateLugarPagoAsync(entidad);
         }
         
