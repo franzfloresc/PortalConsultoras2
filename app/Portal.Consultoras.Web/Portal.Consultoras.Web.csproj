@@ -3097,6 +3097,7 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />
     <Content Include="Scripts\PortalConsultoras\BestSeller\BestSellerCommentModule.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />

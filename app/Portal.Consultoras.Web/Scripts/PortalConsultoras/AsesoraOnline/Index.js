@@ -2,6 +2,10 @@
 
 $(document).ready(function () {
 
+    var asesoraOnlineObj = AsesoraOnline({
+        actualizarMatrizComercialAction: baseUrl + 'AsesoraOnline/EnviarFormulario'
+    });
+
     var LandingAsesoraOnline;
 
     LandingAsesoraOnline = function () {

@@ -807,7 +807,6 @@
             }
         });
 
-
         $("#btnNuevoMasivo").click(function () {
             if ($("#ddlPais").val() == "") {
                 alert("Debe seleccionar el País, verifique.");
@@ -1111,8 +1110,6 @@
         jQuery("#listCargaMasiva2").jqGrid('navGrid', "#pagerCargaMasiva2", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
-
-
 
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
