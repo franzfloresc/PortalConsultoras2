@@ -320,13 +320,14 @@ namespace Portal.Consultoras.Web.Controllers
                     isNewImage = true;
                     //subir imagen temporal al S3
                     entity.Foto = this.UploadFoto(nombreArchivo, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
-                    using (var sv = new PedidoServiceClient())
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         model.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
                     }
-                }else
+                }
+                else
                 {
-                    using (var sv = new PedidoServiceClient())
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
                         //crear nueva foto y borrar la anterior en S3
