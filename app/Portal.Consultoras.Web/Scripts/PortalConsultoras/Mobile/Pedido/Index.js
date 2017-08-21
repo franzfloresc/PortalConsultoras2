@@ -53,7 +53,7 @@ $(document).ready(function () {
                     $('#popupInformacionSB2Error').show();
                     return false;
                 }
-
+               
                 showClienteDetalle(null);
 
                 return false;

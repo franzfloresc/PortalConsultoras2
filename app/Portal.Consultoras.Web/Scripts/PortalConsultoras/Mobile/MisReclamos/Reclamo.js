@@ -1,74 +1,107 @@
-﻿$(document).ready(function () {
+﻿
+var misReclamosRegistro
 
-    $(".mi_solicitud_cdr").click(function (e) {
+$(document).ready(function () {
+    var PortalConsultorasReclamoRegistro;
+    PortalConsultorasReclamoRegistro = function () {
+        var me = this;
 
-        e.stopPropagation();
+        me.Variables = {
+            alturaListaMiSolicitud = $(document).height(),
+            datosSolicitudOpened: ".datos_solicitud_opened",
+            miSolicitudCDR: ".mi_solicitud_cdr",
+            numSolicitudes: ".num_solicitudes",
+            pestaniaVerMiSolicitud: ".pestania_ver_mi_solicitud",
+            listadoProductosAgregados: ".listado_productos_agregados"
+        };
 
-        $(".num_solicitudes").fadeOut(150);
+        me.Eventos = {
+            bindEvents: function () {
 
-        $(".pestania_ver_mi_solicitud").addClass("crece");
+                $(me.Variables.miSolicitudCDR).click(function (e) {
 
-        $(".mi_solicitud_cdr").animate({
+                    e.stopPropagation();
 
-            "width": "222px"
+                    $(me.Variables.numSolicitudes).fadeOut(150);
 
-        }, 120, function () {
+                    $(me.Variables.pestaniaVerMiSolicitud).addClass("crece");
 
-            $(".mi_solicitud_cdr").animate({
+                    $(me.Variables.miSolicitudCDR).animate({
 
-                "height": "291px"
+                        "width": "222px"
 
-            }, 220);
+                    }, 120, function () {
 
-        });
+                        $(me.Variables.miSolicitudCDR).animate({
 
-        setTimeout(function () {
+                            "height": "291px"
 
-            $(".datos_solicitud_opened").fadeIn(200);
+                        }, 220);
 
-        }, 220);
+                    });
 
-    });
+                    setTimeout(function () {
 
-    $("body, .ocultar_mi_solicitud").click(function (e) {
+                        $(me.Variables.datosSolicitudOpened).fadeIn(200);
 
-        e.stopPropagation();
+                    }, 220);
 
-        $(".datos_solicitud_opened").fadeOut(200);
+                });
 
-        $(".mi_solicitud_cdr").animate({
+                $("body, .ocultar_mi_solicitud").click(function (e) {
 
-            "height": "35px"
+                    e.stopPropagation();
 
-        }, 220, function () {
+                    $(me.Variables.datosSolicitudOpened).fadeOut(200);
 
-            $(".pestania_ver_mi_solicitud").removeClass("crece");
+                    $(me.Variables.miSolicitudCDR).animate({
 
-            $(".mi_solicitud_cdr").animate({
+                        "height": "35px"
 
-                "width": "35px"
+                    }, 220, function () {
 
-            }, 120);
+                        $(me.Variables.pestaniaVerMiSolicitud).removeClass("crece");
 
-        });
+                        $(me.Variables.miSolicitudCDR).animate({
 
-        setTimeout(function () {
+                            "width": "35px"
 
-            $(".num_solicitudes").fadeIn(200);
+                        }, 120);
 
-        }, 450);
+                    });
 
-    });
+                    setTimeout(function () {
 
-    var alturaListaMiSolicitud = $(document).height();
+                        $(me.Variables.numSolicitudes).fadeIn(200);
 
-    $(".enlace_ir_al_final a").click(function (e) {
+                    }, 450);
 
-        e.preventDefault();
-        $(".listado_productos_agregados").animate({
-            scrollTop: alturaListaMiSolicitud + "px"
-        }, 500);
+                });
 
-    });
+                $(".enlace_ir_al_final a").click(function (e) {
 
+                    e.preventDefault();
+                    $(me.Variables.listadoProductosAgregados).animate({
+                        scrollTop: me.Variables.alturaListaMiSolicitud + "px"
+                    }, 500);
+
+                });
+            }
+        };
+
+        me.Constantes = {
+            //PromocionNoDisponible: "Esta promoción no se encuentra disponible."
+        };
+
+        me.Funciones = {
+            //BuscarPorCUV: function (CUV) { }
+        };
+
+        me.Inicializar = function () {
+            me.Eventos.bindEvents();
+        };
+    };
+
+    misReclamosRegistro = new PortalConsultorasReclamoRegistro();
+    misReclamosRegistro.Inicializar();
 });
