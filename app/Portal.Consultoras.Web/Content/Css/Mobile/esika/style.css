@@ -13065,13 +13065,14 @@ a{
     margin-bottom: 10px;
 }
 .content_imagen_sorpresa{
-    height:172px;
-    width:218px;
-    margin:0 auto;
+    height: auto;
+    width: 218px;
+    margin: 0 auto;
+    text-align: center;
 }
 .content_imagen_sorpresa img{
-    height:172px;
-    width:auto;
+    width: auto;
+    height: 218px;
 }
 .descripcion_regalo{
     font-family: 'Lato';   
