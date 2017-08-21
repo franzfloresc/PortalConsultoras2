@@ -177,8 +177,10 @@
 
     $(".bannersi").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -186,9 +188,9 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
-                            'position': 'Home pop-up - 1',
+                            'id': eventId,
+                            'name': eventName,
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
@@ -200,8 +202,10 @@
 
     $(".bannersc").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -209,9 +213,9 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
-                            'position': 'Home pop-up - 1',
+                            'id': eventId,
+                            'name': eventName,
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
@@ -221,11 +225,12 @@
 
     });
 
-
     $(".wsventa").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -233,8 +238,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -247,8 +252,10 @@
 
     $(".wsintriga").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdTemaEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -256,8 +263,8 @@
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -267,30 +274,7 @@
         });
 
     });
-    odd_mobile_google_analytics_promotion_impresion();
 });
-
-function odd_mobile_google_analytics_promotion_impresion() {
-    if ($('#BloqueMobileOfertaDia').length > 0) {
-        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
-        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
-        dataLayer.push({
-            'event': 'promotionView',
-            'ecommerce': {
-                'promoView': {
-                    'promotions': [
-					{
-					    'id': id,
-					    'name': name,
-					    'position': 'Banner Superior Home - 1',
-					    'creative': creative
-					}]
-                }
-            }
-        });
-    }
-}
 
 function loadBannerLP20() {
     if (typeof CargarShowRoom !== 'undefined' && $.isFunction(CargarShowRoom)) CargarShowRoom();

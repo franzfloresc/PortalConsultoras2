@@ -1,6 +1,9 @@
 ﻿$(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
+    var odd_desktop_google_analytics_promotion_impresion_flag = true;
+    var odd_desktop_google_analytics_promotion_impresion_fech;
     
+
     var self = window.OfertaDelDia;
 
     var CONS_TIPO_ORIGEN = {
@@ -46,7 +49,6 @@
         if (props.TipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_HOME) {
             self.CargarODDEscritorio();
         }
-
     }
 
     function CargarODDMobile() {
@@ -108,12 +110,10 @@
 
                 if (_data.CantidadProductos == 1) {
                     $(idOdd + ' [data-odd-accion="regresar"]').hide();
-                    //$(idOdd + ' [data-odd-texto="cliente"]').hide();
                     $(idOdd + ' [data-odd-tipoventana="detalle"]').show();
                 }
                 else {
                     $(idOdd + ' [data-odd-accion="regresar"]').show();
-                    //$(idOdd + ' [data-odd-texto="cliente"]').show();
                     $(idOdd + ' [data-odd-tipoventana="carrusel"]').show();
                 }
 
@@ -121,7 +121,6 @@
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
-                //$('#PopOfertaDia').css('background-color', "red");
 
                 $('#OfertaDelDia').show();
                 $('#PopOfertaDia').show();
@@ -177,8 +176,11 @@
                     clockFace: 'HourlyCounter',
                     countdown: true
                 });
-
-                odd_desktop_google_analytics_promotion_impresion();
+                if (odd_desktop_google_analytics_promotion_impresion_flag) {
+                    odd_desktop_google_analytics_promotion_impresion();
+                    odd_desktop_google_analytics_promotion_impresion_flag = false;
+                    odd_desktop_google_analytics_promotion_impresion_fech = new Date();
+                }                    
             },
             error: function (err) {
                 console.log(err);
@@ -207,6 +209,7 @@
             });
         }
     }
+
     function AsignarPosicionAListaOfertas(listaOfertas) {
         var posicion = 0;
         var nuevaListaOfertas = [];
@@ -408,7 +411,6 @@
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();
         var teImagenMostrar = itemCampos.find('.teimagenmostrar-odd').val();
-        //var objImg = itemCampos.find('#imagen-odd').val();
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
         if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
         else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;

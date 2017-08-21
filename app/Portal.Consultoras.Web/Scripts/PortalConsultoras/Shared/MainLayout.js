@@ -99,6 +99,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
@@ -969,7 +970,12 @@ function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
-    dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Click enlace',
+        'label': 'Términos y Condiciones'
+    });
 };
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {

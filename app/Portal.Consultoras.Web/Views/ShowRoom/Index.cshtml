@@ -140,9 +140,9 @@
                     descripcion = descripcion.Substring(0, 40) + " ...";
                 }
 
-                <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;">
+                <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;" data-cuv="@Model.ListaShowRoomCompraPorCompra[0].CUV" data-descripcion="@Model.ListaShowRoomCompraPorCompra[0].Descripcion">
                     <div class="titulo_promocion">PROMOCIÓN</div>
-                    <div class="content_interno_banner">
+                    <div class="content_interno_banner" onclick="compraxcompra_promotion_click('@Model.ListaShowRoomCompraPorCompra[0].CUV','@Model.ListaShowRoomCompraPorCompra[0].Descripcion')">                      
                         <div style="width: 65%; margin: 0 auto;">
                             <div class="content_imagen_banner_compra">
                                 <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
@@ -347,14 +347,14 @@
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
 
-        <div class="producto_img_home mini" data-img="">
+        <div class="producto_img_home mini" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
             {{#IsNullOrEmpty ImagenProducto '=='}}
             <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
             {{else}}
             <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
             {{/IsNullOrEmpty}}            
             
-            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">VER DETALLE</a>
+            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
         </div>
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>
