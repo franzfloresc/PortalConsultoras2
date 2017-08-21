@@ -7649,8 +7649,6 @@ input[type="checkbox"]:checked + span:after {
     left:0;
     bottom:0;
     right:0;
-    /*width:100%;
-    height:100%;*/
     background:transparent url(../../../Images/bg_popups.png) repeat left top;
     z-index:1000;
 }
@@ -7660,7 +7658,6 @@ input[type="checkbox"]:checked + span:after {
     top: 14%;
     margin: 0 auto;
     background: #FFF;
-    /*max-width: 370px;*/
     box-sizing: border-box;
     font-family: 'Lato';
     padding: 0px
@@ -7690,18 +7687,16 @@ input[type="checkbox"]:checked + span:after {
     top: -3px;
 }
 
-.popup_comunicado .detalle_popup_comunicado a img{
-    /*height:510px;
-    width:370px*/
+.popup_comunicado .detalle_popup_comunicado{
+    background-repeat:no-repeat;
+    background-position-x:center;
+    background-size:cover;
+    cursor:pointer
 }
 
 .popup_comunicado .pie_popup_comunicado{
-    /*display: block;*/
     width: 100%;
-    /*max-width: 370px;*/
     position: absolute;
-    /*top: 515px;*/
-    /*left: 5px;*/
     color:#fff;
     padding-top:5px;
 }
@@ -7717,8 +7712,6 @@ input[type="checkbox"]:checked + span:after {
     border-radius:3px;
     cursor:pointer;
     text-align:center;
-    /*color:#000;
-    background-color:#fff*/
 }
 
 .popup_comunicado .pie_popup_comunicado .check_text{
