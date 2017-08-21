@@ -197,3 +197,79 @@
 }
 
 /**/
+
+.bc_plantilla_estrategia_personalizada {
+    background-size: 100% 100% !important;
+    height: 560px !important;
+    background-repeat: no-repeat !important;
+    background-position: top center !important;
+}
+
+    .bc_plantilla_estrategia_personalizada .titulo {
+        display: block;
+        max-width: 980px;
+        margin: auto;
+        text-align: center;
+        /* position: absolute; */
+        padding: 76px 0px;
+        padding-bottom: 24px;
+    }
+
+        .bc_plantilla_estrategia_personalizada .titulo h2 {
+            display: inline;
+            font-weight: bolder;
+            letter-spacing: 1px;
+            font-size: 14px;
+            color: black;
+        }
+
+    .bc_plantilla_estrategia_personalizada .contenido {
+        max-width: 1020px;
+        height: 364px;
+        margin: auto;
+        text-align: center;
+        /* background: red; */
+        margin: 25px 0px;
+        margin: auto;
+        margin-top: 14px;
+        overflow-y: hidden;
+    }
+
+    .bc_plantilla_estrategia_personalizada .boton-ir {
+        display: inline-block;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+        .bc_plantilla_estrategia_personalizada .boton-ir a {
+            display: block;
+            width: 200px;
+            background: black;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            padding: 10px;
+            margin: auto;
+        }
+
+.bc_vineta_baja img {
+    display: block;
+    margin: auto;
+    width: 50px;
+}
+
+.bc_vineta_baja {
+    margin: 0px 0px;
+    display: block;
+    margin-top: 40px;
+}
+
+.bc_slider {
+    max-width: 980px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.bc_crearfix {
+    clear: both;
+}
