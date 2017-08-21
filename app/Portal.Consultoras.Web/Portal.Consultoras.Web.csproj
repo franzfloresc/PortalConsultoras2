@@ -3605,6 +3605,9 @@
     <None Include="Service References\ServiceSAC\SACService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">

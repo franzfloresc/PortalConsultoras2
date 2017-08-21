@@ -452,6 +452,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private bool TienePerfilField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UrlMenuField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidadoField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
@@ -710,6 +713,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TienePerfilField.Equals(value) != true)) {
                     this.TienePerfilField = value;
                     this.RaisePropertyChanged("TienePerfil");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UrlMenu {
+            get {
+                return this.UrlMenuField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UrlMenuField, value) != true)) {
+                    this.UrlMenuField = value;
+                    this.RaisePropertyChanged("UrlMenu");
                 }
             }
         }

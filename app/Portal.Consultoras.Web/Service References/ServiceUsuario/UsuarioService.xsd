@@ -83,6 +83,7 @@
           <xs:element minOccurs="0" name="MobileTituloMenu" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Orden" type="xs:int" />
           <xs:element minOccurs="0" name="TienePerfil" type="xs:boolean" />
+          <xs:element minOccurs="0" name="UrlMenu" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Validado" type="xs:boolean" />
         </xs:sequence>
       </xs:extension>
