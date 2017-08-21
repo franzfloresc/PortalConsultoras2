@@ -943,6 +943,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
                 TituloMenu = "INICIO",
                 SubTituloMenu = "",
+                UrlPantalla = (IsMobile() ? "" : "/Mobile") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };
