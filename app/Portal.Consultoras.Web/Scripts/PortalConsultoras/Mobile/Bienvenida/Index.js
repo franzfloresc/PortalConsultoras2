@@ -571,7 +571,7 @@ function VerShowRoomVenta()
 }
 
 function ObtenerComunicadosPopup() {
-    if (primeraVezSession == 0) return;
+    //if (primeraVezSession == 0) return;
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
@@ -587,26 +587,32 @@ function ObtenerComunicadosPopup() {
         e.stopPropagation();
     });
 
-    $(".popup_comunicado .detalle_popup_comunicado a").click(function (e) {
+    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
+        //CERRAR
+    });
+
+    $(window).resize(function (e) {
+        var w_width = $(window).width() - 50;
+        var w_height = $(window).height() - 150;
+
+        $(".popup_comunicado").css("width", w_width);
+        $(".popup_comunicado").css("height", w_height);
+
+        $(".detalle_popup_comunicado").css("width", w_width);
+        $(".detalle_popup_comunicado").css("height", w_height);
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado").click(function (e) {
         if (userAgent.indexOf("iphone") > -1) {
             e.preventDefault();
             alert("La aplicación no se encuentra disponible para este dispositivo");
+            return;
         }
+
+        window.open($(this).attr("urlAccion"));
 
         //CLICK
     });
-
-    $(".popup_comunicado .detalle_popup_comunicado img").on('load', function () {
-        $(".contenedor_popup_comunicado").modal("show");
-        $(".popup_comunicado").css({ "width": $(this).width() });
-        $(".popup_comunicado").css({ "height": $(this).height() });
-
-        //ABRIR
-    });
-
-    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
-        //CERRAR
-    })
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
         e.stopPropagation();
@@ -645,10 +651,16 @@ function ObtenerComunicadosPopup() {
 function armarComunicadosPopup(response){
     if (response == null) return;
 
-    $(".popup_comunicado .detalle_popup_comunicado img").attr("src", response.UrlImagen);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
-    $(".popup_comunicado .detalle_popup_comunicado a").attr("href", response.DescripcionAccion);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".contenedor_popup_comunicado").modal("show");
+
+    $(window).resize();
+
+    //ABRIR
 }
 
 function grabarComunicadoPopup() {
