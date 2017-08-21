@@ -3,6 +3,9 @@ node {
         stage('Start') {
             notify('Job started')
         }
+        stage('Clean') {
+            step([$class: 'WsCleanup'])
+        }
         /*
         stage('Compile') {
             checkout scm
@@ -30,8 +33,9 @@ node {
             checkout scm
             withSonarQubeEnv('Sonar Qube Server') {
                 dir('app') {
+                    bat ".\\.nuget\\Nuget.exe restore"
                     // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
-                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras.2 /n:SomosBelcorp2 /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${env.BRANCH_NAME} /d:sonar.inclusions=**/*.cs"
+                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras.2 /n:PortalConsultoras2 /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${env.BRANCH_NAME} /d:sonar.inclusions=**/*.cs"
                     bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
                     bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
                 }
@@ -51,10 +55,7 @@ node {
             notify('Job finished')
         }
     }
-    catch(err) {
-        sh "echo **************************************"
-        sh "echo ${error}"
-        sh "echo **************************************"
+    catch(error) {
         notify(error)
         currentBuild.result = 'FAILURE'
     }
