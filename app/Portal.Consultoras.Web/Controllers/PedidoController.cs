@@ -1243,9 +1243,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 int iTipoOferta = 0;
                 if (int.TryParse(TipoOferta, out iTipoOferta))
-                    entidad.TipoOferta = iTipoOferta;
+                    entidad.FlagCantidad = iTipoOferta;
                 else
-                    entidad.TipoOferta = 0;
+                    entidad.FlagCantidad = 0;
                 // FIN FREZZER
 
                 entidad.CUV2 = CUV;

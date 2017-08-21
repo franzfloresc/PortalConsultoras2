@@ -232,7 +232,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
                 ));
 
-#if !DEBUG
+#if DEBUG
             BundleTable.EnableOptimizations = false;
 #else
             BundleTable.EnableOptimizations = true;
