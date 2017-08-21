@@ -1151,6 +1151,7 @@
     <Content Include="Content\Css\jstree\apple\throbber.gif" />
     <Content Include="Content\Css\Mobile\calc.css" />
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
+    <Content Include="Content\Css\Mobile\esika\cdr.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
@@ -1165,6 +1166,7 @@
     <Content Include="Content\Css\Mobile\fonts\icomoon.ttf" />
     <Content Include="Content\Css\Mobile\fonts\icomoon.woff" />
     <Content Include="Content\Css\Mobile\jquery.tag-editor.css" />
+    <Content Include="Content\Css\Mobile\lbel\cdr.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
