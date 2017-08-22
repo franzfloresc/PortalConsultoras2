@@ -319,10 +319,10 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetUsuarioAsociado(codigoConsultora);
         }
 
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
 
         public bool IsUserExist(string CodigoUsuario)

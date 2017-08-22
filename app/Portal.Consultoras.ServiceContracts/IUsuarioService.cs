@@ -107,7 +107,7 @@ namespace Portal.Consultoras.ServiceContracts
         string GetUsuarioAsociado(int paisID, string CodigoConsultora);
 
         [OperationContract]
-        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
 
         [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
