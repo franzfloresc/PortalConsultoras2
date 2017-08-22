@@ -65,9 +65,6 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BEMenuMobile> GetItemsMenuMobile(int paisID);
-
-        [OperationContract]
-        IList<BEApp> ObtenerApps(int paisID);
         #endregion
 
         #region Menus App
