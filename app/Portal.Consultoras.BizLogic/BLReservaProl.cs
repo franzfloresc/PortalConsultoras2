@@ -192,7 +192,7 @@ namespace Portal.Consultoras.BizLogic
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -225,7 +225,7 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -254,7 +254,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (datos == null) return -1;
 
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count == 0) return 0;
 
                 var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);

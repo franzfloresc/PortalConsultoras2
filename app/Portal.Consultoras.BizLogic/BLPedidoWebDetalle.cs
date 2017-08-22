@@ -82,13 +82,13 @@ namespace Portal.Consultoras.BizLogic
                         oBEPedidoWeb.CampaniaID = pedidowebdetalle.CampaniaID;
                         oBEPedidoWeb.ConsultoraID = pedidowebdetalle.ConsultoraID;
                         oBEPedidoWeb.PaisID = pedidowebdetalle.PaisID;
-                        oBEPedidoWeb.IPUsuario = pedidowebdetalle.IPUsuario;                       
+                        oBEPedidoWeb.IPUsuario = pedidowebdetalle.IPUsuario;
                         oBEPedidoWeb.CodigoUsuarioCreacion = pedidowebdetalle.CodigoUsuarioCreacion;
                         pedidowebdetalle.PedidoID = DAPedidoWeb.InsPedidoWeb(oBEPedidoWeb);
                     }
                     BEPedidoWebDetalle = DAPedidoWebDetalle.InsPedidoWebDetalle(pedidowebdetalle);
                     DAPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido, pedidowebdetalle.CodigoUsuarioModificacion);
-                    
+
                     if (pedidowebdetalle.TipoOfertaSisID == Common.Constantes.ConfiguracionOferta.ShowRoom)
                         new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockAgregar(Common.Constantes.ConfiguracionOferta.ShowRoom, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Cantidad);
 
@@ -139,9 +139,9 @@ namespace Portal.Consultoras.BizLogic
                 {
                     DAPedidoWebDetalle.UpdPedidoWebDetalle(pedidowebdetalle);
                     DAPedidoWeb.UpdPedidoWebTotales(pedidowebdetalle.CampaniaID, pedidowebdetalle.PedidoID, pedidowebdetalle.Clientes, pedidowebdetalle.ImporteTotalPedido, pedidowebdetalle.CodigoUsuarioModificacion);
-                    
+
                     if (pedidowebdetalle.TipoOfertaSisID == Common.Constantes.ConfiguracionOferta.ShowRoom)
-                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV,pedidowebdetalle.Stock, pedidowebdetalle.Flag);
+                        new DAShowRoomEvento(pedidowebdetalle.PaisID).UpdOfertaShowRoomStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
 
                     if (pedidowebdetalle.TipoOfertaSisID == Portal.Consultoras.Common.Constantes.ConfiguracionOferta.Liquidacion)
                         new DAOfertaProducto(pedidowebdetalle.PaisID).UpdOfertaProductoStockActualizar(pedidowebdetalle.TipoOfertaSisID, pedidowebdetalle.CampaniaID, pedidowebdetalle.CUV, pedidowebdetalle.Stock, pedidowebdetalle.Flag);
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-        }        
+        }
 
         public short UpdPedidoWebDetalleMasivo(List<BEPedidoWebDetalle> pedidowebdetalle)
         {
@@ -263,9 +263,9 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-            }
+        }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = 0)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
@@ -416,7 +416,7 @@ namespace Portal.Consultoras.BizLogic
                 }
             }
             catch (Exception) { throw; }
-            }
+        }
 
         //CCSS_JZ_PROL
         public void InsPedidoWebDetallePROLv2(int PaisID, int CampaniaID, int PedidoID, short EstadoPedido, List<BEPedidoWebDetalle> olstPedidoWebDetalle, bool ValidacionAbierta, string CodigoUsuario, decimal MontoTotalProl, decimal DescuentoProl)

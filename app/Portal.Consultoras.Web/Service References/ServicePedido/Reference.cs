@@ -11604,6 +11604,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EnviarCorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsOptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoSimplificacionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11634,6 +11637,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string PaisISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PrimerNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11653,6 +11659,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private double ZonaHorariaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool ZonaProlActivaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ZonaValidaField;
@@ -11780,6 +11789,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.EnviarCorreoField.Equals(value) != true)) {
                     this.EnviarCorreoField = value;
                     this.RaisePropertyChanged("EnviarCorreo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsOpt {
+            get {
+                return this.EsOptField;
+            }
+            set {
+                if ((this.EsOptField.Equals(value) != true)) {
+                    this.EsOptField = value;
+                    this.RaisePropertyChanged("EsOpt");
                 }
             }
         }
@@ -11915,6 +11937,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoID {
+            get {
+                return this.PedidoIDField;
+            }
+            set {
+                if ((this.PedidoIDField.Equals(value) != true)) {
+                    this.PedidoIDField = value;
+                    this.RaisePropertyChanged("PedidoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string PrimerNombre {
             get {
                 return this.PrimerNombreField;
@@ -12001,6 +12036,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ZonaHorariaField.Equals(value) != true)) {
                     this.ZonaHorariaField = value;
                     this.RaisePropertyChanged("ZonaHoraria");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool ZonaProlActiva {
+            get {
+                return this.ZonaProlActivaField;
+            }
+            set {
+                if ((this.ZonaProlActivaField.Equals(value) != true)) {
+                    this.ZonaProlActivaField = value;
+                    this.RaisePropertyChanged("ZonaProlActiva");
                 }
             }
         }
