@@ -1,8 +1,9 @@
 ﻿
 @{
     var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaNegra = permisoList.Where(p => p.IsMenuCampania);
-    var listaPloma = permisoList.Where(p => p.IsMenuCampania == false);
+    var listaNegra = permisoList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var listaPloma = permisoList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var codigoSeleccionado = ViewBag.MenuCodigoSeleccionado;
 }
 <div class="bc_menu_estrategia" style="background: url(@Url.Content("~/Content/Images/Esika/bg_estrellas.png"));">
     <div class="logo" style="background: url(@Url.Content("~/Content/Images/Esika/bg_esika.png"));"></div>
@@ -13,34 +14,46 @@
         </div>
     </div>
     <div class="clear"></div>
-    <div class="op_menu-horizontal">
+    <div class="op_menu-horizontal" data-layout-menu1="">
         @if (listaNegra.Any())
         {
+            var menuContenedor = listaNegra[0];
             <ul class="menu_estrategia">
+                <li data-campania="@menuContenedor.CampaniaX0">
+                    <a href="javascript:;" class="desplegable">
+                        <img src="img/carrito.png" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover">
+                        COMPRAR C-@(menuContenedor.CampaniaX0 % 100)
+                    </a>
+                </li><li data-campania="@menuContenedor.CampaniaX1">
+                    <a href="javascript:;" class="desplegable">
+                        <img src="img/ojos.svg" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
+                        REVISAR C-@(menuContenedor.CampaniaX1 % 100)
+                    </a>
+                </li><li data-campania="0">
+                    <a href="javascript:;" class="desplegable">
+                        SABER MÁS DE ÉSIKA PARA MÍ
+                    </a>
+                </li>
+            </ul>
+            @*<ul class="menu_estrategia">
                 @foreach (var menu in listaNegra)
                 {<li data-campania="@menu.CampaniaID" data-activo="@menu.Activa">
                         <a href="javascript:;" class="desplegable" attr-modal="#open-menu-@menu.CampaniaID">
                             @menu.TituloMenu
                         </a>
                     </li>}
-                @*<li>
-                    <a class="desplegable" attr-modal="#open-menu1">
-                        <img src="@Url.Content("~/Content/Images/Esika/carrito.png")" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover">
-                        COMPRAR C-14
-                    </a>
-                </li>*@
-            </ul>
+            </ul>*@
         }
     </div>
 </div>
-<div data-layout-menu2="">
+<div data-layout-menu2="" data-menu-seleccionado="@codigoSeleccionado">
     @if (listaPloma.Any())
     {
         <div class="op-menu-vertical">
             <ul class="sbmenu_estrategia">
                 @foreach (var menuhijo in listaPloma)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" style="display:none;">
+                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" data-codigo="@menuhijo.Codigo" style="display:none;">
                         <a href="javascript:;">
                             <p>@menuhijo.TituloMenu</p>
                             <span>@menuhijo.SubTituloMenu</span>

@@ -935,9 +935,16 @@ function LayoutHeaderFin() {
     $("[data-content]").css("margin-top", (wtop) + "px");
     $("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
 
-    wtop = $(document).innerWidth() * 0.12;
-    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
-    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
+    if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
+        wtop = $(document).innerWidth() * 0.12;
+        console.log($(document).innerWidth(), $(document).width());
+        $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
+        $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
+    }
+    else {
+        $("[data-content] div[data-layout-body]").css("width", "100%");
+        $("[data-content] div[data-layout-body]").css("margin-left", "");
+    }
 }
 
 function LayoutMenu() {

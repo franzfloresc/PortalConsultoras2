@@ -110,7 +110,7 @@ display: none;
 /* Menu Palancas - Plomo */
 
 .op-menu-vertical {
-    /*width: 12%;*/
+    width: 100%;
     float: left;
     /*position: fixed;*/
 }
