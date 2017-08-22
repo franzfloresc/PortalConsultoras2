@@ -12,14 +12,13 @@ namespace Portal.Consultoras.Web.Controllers
     public class AsesoraOnlineController : Controller
     {
         // GET: AsesoraOnline
-        public ActionResult Index(string isoPais, string codigoConsultora)
+        public ActionResult Index(string isoPais, string codigoConsultora, string origen)
         {
             TempData["IsoPais"] = isoPais == null ? String.Empty : isoPais;
             TempData["CodigoConsultora"] = codigoConsultora == null ? String.Empty : codigoConsultora;
+            TempData["Origen"] = origen == null ? String.Empty : origen;
             return View();
         }
-
-        //public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
 
         [HttpPost]
         public JsonResult EnviarFormulario(AsesoraOnlineModel model)
@@ -30,6 +29,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 BEAsesoraOnline entidad = new BEAsesoraOnline();
                 entidad.CodigoConsultora = TempData["CodigoConsultora"].ToString();
+                entidad.Origen = TempData["Origen"].ToString();
                 entidad.TipsGestionClientes = Convert.ToInt32(model.TipsGestionClientes);
                 entidad.TipsMasClientes = Convert.ToInt32(model.TipsMasClientes);
                 entidad.TipsVentas = Convert.ToInt32(model.TipsVentas);

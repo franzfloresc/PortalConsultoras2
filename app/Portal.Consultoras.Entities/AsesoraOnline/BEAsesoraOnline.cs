@@ -17,8 +17,6 @@ namespace Portal.Consultoras.Entities.AsesoraOnline
         [DataMember]
         public string FechaCreacion { get; set; }
         [DataMember]
-        public string FechaModificacion { get; set; }
-        [DataMember]
         public string Origen { get; set; }
         [DataMember]
         public int TipsVentas { get; set; }

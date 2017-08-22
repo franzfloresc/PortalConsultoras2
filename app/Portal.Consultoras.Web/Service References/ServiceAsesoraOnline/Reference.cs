@@ -30,9 +30,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string FechaModificacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MasCatalogosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -79,19 +76,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.FechaCreacionField, value) != true)) {
                     this.FechaCreacionField = value;
                     this.RaisePropertyChanged("FechaCreacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FechaModificacion {
-            get {
-                return this.FechaModificacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.FechaModificacionField, value) != true)) {
-                    this.FechaModificacionField = value;
-                    this.RaisePropertyChanged("FechaModificacion");
                 }
             }
         }
