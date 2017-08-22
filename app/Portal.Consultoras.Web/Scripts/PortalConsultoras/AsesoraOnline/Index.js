@@ -38,18 +38,18 @@ $(document).ready(function () {
 
             },
 
-            cambiarTexto: function () {
+            //cambiarTexto: function () {
 
-                if (window.matchMedia("(max-width:767px)").matches) {
+            //    if (window.matchMedia("(max-width:767px)").matches) {
 
-                    $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
+            //        $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
 
-                } else {
+            //    } else {
 
-                    $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más, gestionar tus clientes, comprar ofertas exclusivas y mucho más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
-                }
+            //        $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más, gestionar tus clientes, comprar ofertas exclusivas y mucho más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
+            //    }
 
-            },
+            //},
 
             inicializarEventos: function () {
 
@@ -62,7 +62,7 @@ $(document).ready(function () {
         me.Inicializar = function () {
 
             me.Funciones.removerEnlace();
-            me.Funciones.cambiarTexto();
+            //me.Funciones.cambiarTexto();
             me.Funciones.inicializarEventos();
             $(window).resize(me.Funciones.cambiarTexto);
 
