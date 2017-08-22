@@ -11664,9 +11664,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private double ZonaHorariaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool ZonaProlActivaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ZonaValidaField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -12052,19 +12049,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ZonaHorariaField.Equals(value) != true)) {
                     this.ZonaHorariaField = value;
                     this.RaisePropertyChanged("ZonaHoraria");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool ZonaProlActiva {
-            get {
-                return this.ZonaProlActivaField;
-            }
-            set {
-                if ((this.ZonaProlActivaField.Equals(value) != true)) {
-                    this.ZonaProlActivaField = value;
-                    this.RaisePropertyChanged("ZonaProlActiva");
                 }
             }
         }
