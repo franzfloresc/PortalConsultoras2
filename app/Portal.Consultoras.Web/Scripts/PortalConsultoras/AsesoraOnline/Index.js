@@ -38,18 +38,22 @@ $(document).ready(function () {
 
             },
 
-            //cambiarTexto: function () {
+            cambiarTexto: function () {
 
-            //    if (window.matchMedia("(max-width:767px)").matches) {
+                if (window.matchMedia("(max-width:767px)").matches) {
 
-            //        $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
+                    $(".texto_titulo span").first().html("¿Cuál es tu método de venta preferido con tus clientes?");
+                    $(".textoOpcionDejarCatalogo label").html("<span></span>Dejo el catálogo a mis clientes");
+                    $(".textoOpcionTienda label").html("<span></span>Tengo un negocio");
 
-            //    } else {
+                } else {
 
-            //        $(".descripcion_asesora_online").html("<span>Recibe por correo y mensaje de texto la mejor asesoría para ganar más, gestionar tus clientes, comprar ofertas exclusivas y mucho más.</span><span>¡Sólo debes confirmar tus datos de contacto!</span>");
-            //    }
+                    $(".texto_titulo span").first().html("¿Cuál es tu forma de vender ganadora?");
+                    $(".textoOpcionDejarCatalogo label").html("<span></span>Dejo el catálogo a mis clientes");
+                    $(".textoOpcionTienda label").html("<span></span>Mis clientes vienen a mi tienda");
+                }
 
-            //},
+            },
 
             inicializarEventos: function () {
 
@@ -62,7 +66,7 @@ $(document).ready(function () {
         me.Inicializar = function () {
 
             me.Funciones.removerEnlace();
-            //me.Funciones.cambiarTexto();
+            me.Funciones.cambiarTexto();
             me.Funciones.inicializarEventos();
             $(window).resize(me.Funciones.cambiarTexto);
 
