@@ -11,9 +11,9 @@ namespace Portal.Consultoras.Service
 {
     public class AsesoraOnlineService : IAsesoraOnlineService
     {
-        public int EnviarFormulario(int paisID, BEAsesoraOnline entidad)
+        public int EnviarFormulario(string paisISO, BEAsesoraOnline entidad)
         {
-            return new BLAsesoraOnline().EnviarFormulario(paisID, entidad);
+            return new BLAsesoraOnline().EnviarFormulario(paisISO, entidad);
         }
     }
 }
