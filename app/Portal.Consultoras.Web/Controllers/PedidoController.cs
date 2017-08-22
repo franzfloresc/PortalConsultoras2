@@ -2046,83 +2046,97 @@ namespace Portal.Consultoras.Web.Controllers
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public JsonResult EjecutarServicioPROL()
         {
-            UpdateDiaPROLAndMostrarBotonValidar(userData);
-          
-            var input = Mapper.Map<BEInputReservaProl>(userData);
-            input.EnviarCorreo = false;
-            input.CodigosConcursos = userData.CodigosConcursos;
-            input.EsOpt = EsOpt();
-
-            BEResultadoReservaProl resultado = null;
-            using (var sv = new PedidoServiceClient())
+            try
             {
-                resultado = sv.EjecutarReservaProl(input);
+                UpdateDiaPROLAndMostrarBotonValidar(userData);
 
-                // Insertar/Actualizar los puntos de la consultora.
-                if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
-                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
-            }
-            var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
-                        
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWebDetalle"] = null;
-            if (resultado.RefreshMontosProl)
-            {
-                Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
+                var input = Mapper.Map<BEInputReservaProl>(userData);
+                input.EnviarCorreo = false;
+                input.CodigosConcursos = userData.CodigosConcursos;
+                input.EsOpt = EsOpt();
+
+                BEResultadoReservaProl resultado = null;
+                using (var sv = new PedidoServiceClient())
+                {
+                    resultado = sv.EjecutarReservaProl(input);
+
+                    // Insertar/Actualizar los puntos de la consultora.
+                    if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
+                        sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
+                }
+                var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
+
+                Session["ObservacionesPROL"] = null;
+                Session["PedidoWebDetalle"] = null;
+                if (resultado.RefreshMontosProl)
+                {
+                    Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
                     AhorroCatalogo = resultado.MontoAhorroCatalogo.ToString(),
                     AhorroRevista = resultado.MontoAhorroRevista.ToString(),
                     MontoTotalDescuento = resultado.MontoDescuento.ToString(),
                     MontoEscala = resultado.MontoEscala.ToString()
                 } };
-            }
-            if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
-            {
-                if (resultado.Reserva) CambioBannerGPR(true);
-                Session["ObservacionesPROL"] = listObservacionModel;
-                if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
-            }
-            SetUserData(userData);
+                }
+                if (resultado.ResultadoReservaEnum != Enumeradores.ResultadoReserva.ReservaNoDisponible)
+                {
+                    if (resultado.Reserva) CambioBannerGPR(true);
+                    Session["ObservacionesPROL"] = listObservacionModel;
+                    if (resultado.RefreshPedido) Session["PedidoWeb"] = null;
+                }
+                SetUserData(userData);
 
-            var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
-            var model = new PedidoSb2Model
-            {
-                ListaObservacionesProl = listObservacionModel,
-                ObservacionInformativa = resultado.Informativas,
-                ObservacionRestrictiva = resultado.Restrictivas,
-                ErrorProl = resultado.Error,
-                Reserva = resultado.Reserva,
-                ZonaValida = userData.ZonaValida,
-                ValidacionInteractiva = userData.ValidacionInteractiva,
-                MensajeValidacionInteractiva = userData.MensajeValidacionInteractiva,
-                MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
-                MontoAhorroRevista = resultado.MontoAhorroRevista,
-                MontoDescuento = resultado.MontoDescuento,
-                MontoEscala = resultado.MontoEscala,
-                Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
-                EsDiaProl = userData.DiaPROL,
-                ProlSinStock = userData.PROLSinStock,
-                ZonaNuevoProlM = userData.ZonaNuevoPROL,
-                CodigoIso = userData.CodigoISO,
-                CodigoMensajeProl = resultado.CodigoMensaje
-            };
-            SetMensajesBotonesProl(model, resultado.Reserva);
+                var listPedidoWebDetalle = ObtenerPedidoWebDetalle();
+                var model = new PedidoSb2Model
+                {
+                    ListaObservacionesProl = listObservacionModel,
+                    ObservacionInformativa = resultado.Informativas,
+                    ObservacionRestrictiva = resultado.Restrictivas,
+                    ErrorProl = resultado.Error,
+                    Reserva = resultado.Reserva,
+                    ZonaValida = userData.ZonaValida,
+                    ValidacionInteractiva = userData.ValidacionInteractiva,
+                    MensajeValidacionInteractiva = userData.MensajeValidacionInteractiva,
+                    MontoAhorroCatalogo = resultado.MontoAhorroCatalogo,
+                    MontoAhorroRevista = resultado.MontoAhorroRevista,
+                    MontoDescuento = resultado.MontoDescuento,
+                    MontoEscala = resultado.MontoEscala,
+                    Total = listPedidoWebDetalle.Sum(d => d.ImporteTotal),
+                    EsDiaProl = userData.DiaPROL,
+                    ProlSinStock = userData.PROLSinStock,
+                    ZonaNuevoProlM = userData.ZonaNuevoPROL,
+                    CodigoIso = userData.CodigoISO,
+                    CodigoMensajeProl = resultado.CodigoMensaje
+                };
+                SetMensajesBotonesProl(model, resultado.Reserva);
 
-            return Json(new
+                return Json(new
+                {
+                    data = model,
+                    mensajeAnalytics = ObtenerMensajePROLAnalytics(listObservacionModel),
+                    pedidoDetalle = from item in listPedidoWebDetalle
+                                    select new
+                                    {
+                                        name = item.DescripcionProd,
+                                        id = item.CUV,
+                                        price = item.PrecioUnidad,
+                                        brand = item.DescripcionLarga,
+                                        variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
+                                        quantity = item.Cantidad
+                                    },
+                    flagCorreo = resultado.EnviarCorreo ? "1" : ""
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
             {
-                data = model,
-                mensajeAnalytics = ObtenerMensajePROLAnalytics(listObservacionModel),
-                pedidoDetalle = from item in listPedidoWebDetalle
-                                select new
-                                {
-                                    name = item.DescripcionProd,
-                                    id = item.CUV,
-                                    price = item.PrecioUnidad,
-                                    brand = item.DescripcionLarga,
-                                    variant = !string.IsNullOrEmpty(item.DescripcionOferta) ? item.DescripcionOferta.Replace("]", "").Replace("[", "").Trim() : "",
-                                    quantity = item.Cantidad
-                                },
-                flagCorreo = resultado.EnviarCorreo ? "1" : ""
-            }, JsonRequestBehavior.AllowGet);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    mensajeAnalytics = "",
+                    flagCorreo = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public async Task<JsonResult> EnviarCorreoPedidoReservado()

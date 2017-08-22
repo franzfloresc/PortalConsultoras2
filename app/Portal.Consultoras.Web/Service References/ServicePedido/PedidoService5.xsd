@@ -76,7 +76,6 @@
       <xs:element minOccurs="0" name="ValidacionAbierta" type="xs:boolean" />
       <xs:element minOccurs="0" name="ValidacionInteractiva" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaHoraria" type="xs:double" />
-      <xs:element minOccurs="0" name="ZonaProlActiva" type="xs:boolean" />
       <xs:element minOccurs="0" name="ZonaValida" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
