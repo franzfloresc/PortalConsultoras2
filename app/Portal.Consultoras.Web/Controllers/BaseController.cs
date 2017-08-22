@@ -1465,8 +1465,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
 
             Session["EsShowRoom"] = "0";
-            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-            if (paisesShowRoom.Contains(model.CodigoISO))
+            bool tieneShowRoom = PaisTieneShowRoom(model.CodigoISO);
+            if (tieneShowRoom)
             {
                 try
                 {
@@ -1579,6 +1579,16 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             SetUserData(model);
+        }
+
+        protected bool PaisTieneShowRoom(string codigoIsoPais)
+        {
+            var tieneShowRoom = false;
+            if (string.IsNullOrEmpty(codigoIsoPais)) return tieneShowRoom;
+            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+            tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
+            //
+            return tieneShowRoom;
         }
 
         #endregion
@@ -2066,8 +2076,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
 
-            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-            if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
+            if (!PaisTieneShowRoom(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
             if (!userData.CargoEntidadesShowRoom) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
             model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
