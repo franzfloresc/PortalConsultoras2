@@ -1,162 +1,163 @@
-﻿.op_esika-para-mi {
+﻿
+/* FIN Menu Estrategia  */
+.bc_menu_estrategia {
     
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    background-position: right center !important;
+background-repeat: no-repeat !important;
+background-size: cover !important;
+background-position: right center !important;
 }
 
-    .op_esika-para-mi .logo {
-        width: 11%;
-        float: left;
-        height: 71px;
-        background-size: 100% 100% !important;
-        background-repeat: no-repeat !important;
-    }
-
-        .op_esika-para-mi .logo img {
-            width: 100%;
-            height: 71px;
-            display: none;
-        }
-
-    .op_esika-para-mi .texto-info {
-        width: 89%;
-        float: left;
-        height: 71px;
-        display: table;
-        padding: 0 5%;
-    }
-
-        .op_esika-para-mi .texto-info .centrar-horizontal {
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        .op_esika-para-mi .texto-info p {
-            margin-bottom: 3px;
-            display: block;
-            font-weight: bolder;
-            color: white;
-            letter-spacing: 1px;
-            font-size: 12px;
-        }
-
-        .op_esika-para-mi .texto-info span {
-            margin-bottom: 0;
-            display: block;
-            color: white;
-            font-size: 11px;
-            letter-spacing: 1px;
-        }
-
-    .op_esika-para-mi .op_menu-horizontal {
-    }
-
-        .op_esika-para-mi .op_menu-horizontal ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
-
-            .op_esika-para-mi .op_menu-horizontal ul li {
-                display: inline-block;
-                width: 33.33333%;
-            }
-
-                .op_esika-para-mi .op_menu-horizontal ul li:nth-child(2) {
-                    border-left: 3px solid transparent;
-                    border-right: 3px solid transparent;
-                }
-
-                .op_esika-para-mi .op_menu-horizontal ul li a {
-                    display: block;
-                    background: rgba(255, 255, 255, 0.50);
-                    text-align: center;
-                    color: white;
-                    font-weight: bolder;
-                    font-size: 10px;
-                    letter-spacing: 1px;
-                    height: 36px;
-                    padding: 10px 0px;
-                    cursor: pointer;
-                    transition: .3s;
-                }
-
-                    .op_esika-para-mi .op_menu-horizontal ul li a:hover {
-                        background: white;
-                        color: #333;
-                        text-decoration: none;
-                        border-bottom: 1px solid rgba(0, 0, 0, 0.10);
-                    }
-
-.sin-active-menu1 {
-    color: white !important;
+.bc_menu_estrategia .logo {
+width: 11%;
+float: left;
+height: 71px;
+background-size: 100% 100% !important;
+background-repeat: no-repeat !important;
 }
 
-.sin-active-menu2 {
-    color: #333 !important;
+.bc_menu_estrategia .logo img {
+width: 100%;
+height: 71px;
+display: none;
 }
 
-.active-menu {
-    background: white;
-    color: #333 !important;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+.bc_menu_estrategia .texto-info {
+width: 89%;
+float: left;
+height: 71px;
+display: table;
+padding: 0 5%;
 }
 
-.op_esika-para-mi .op_menu-horizontal ul li a img {
-    display: inline;
-    margin: auto;
-    width: 18px;
-    height: 15px;
-    margin-right: 5px !important;
-    display:none
+.bc_menu_estrategia .texto-info .centrar-horizontal {
+display: table-cell;
+vertical-align: middle;
 }
 
-    .op_esika-para-mi .op_menu-horizontal ul li a img.hover {
-        display: none;
-    }
+.bc_menu_estrategia .texto-info p {
+margin-bottom: 3px;
+display: block;
+font-weight: bolder;
+color: white;
+letter-spacing: 1px;
+font-size: 12px;
+}
 
-.op_esika-menu ul {
+.bc_menu_estrategia .texto-info span {
+margin-bottom: 0;
+display: block;
+color: white;
+font-size: 11px;
+letter-spacing: 1px;
+}
+
+.bc_menu_estrategia .op_menu-horizontal {
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul {
+padding: 0;
+margin: 0;
+list-style: none;
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul li {
+display: inline-block;
+width: 33.33333%;
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2) {
+border-left: 3px solid transparent;
+border-right: 3px solid transparent;
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul li a {
+display: block;
+background: rgba(255, 255, 255, 0.50);
+text-align: center;
+color: white;
+font-weight: bolder;
+font-size: 10px;
+letter-spacing: 1px;
+height: 36px;
+padding: 10px 0px;
+cursor: pointer;
+transition: .3s;
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul li a:hover {
+background: white;
+color: #333;
+text-decoration: none;
+border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+}
+                    
+
+.bc_menu_estrategia .op_menu-horizontal ul li a img {
+display: inline;
+margin: auto;
+width: 18px;
+height: 15px;
+margin-right: 5px !important;
+display:none
+}
+
+.bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
+display: none;
+}
+
+/* FIN Menu Estrategia  */
+
+/* Menu Palancas - Plomo */
+
+.op-menu-vertical {
+    /*width: 12%;*/
+    float: left;
+    /*position: fixed;*/
+}
+
+.op-menu-vertical ul {
     margin: 0;
     padding: 0;
     list-style: none;
     border-right: 1px solid rgba(0, 0, 0, 0.11);
     height: 100%;
+    /*position: fixed;*/
+    width: 100% !important;
+}
+.op-menu-vertical .fixed {
     position: fixed;
-    width: 12% !important;
 }
 
-    .op_esika-menu ul li a {
-        color: #333;
-        padding: 30px 10px;
-        display: block;
-        height: auto;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.11);
-        transition: .3s;
-        cursor: pointer;
-    }
+.op-menu-vertical ul li a {
+    color: #333;
+    padding: 30px 10px;
+    display: block;
+    height: auto;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.11);
+    transition: .3s;
+    cursor: pointer;
+}
 
-        .op_esika-menu ul li a:hover {
-            box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
-            border-left: 5px solid #B11314;
-            text-decoration: none;
-        }
+.op-menu-vertical ul li a:hover {
+    box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
+    border-left: 5px solid #B11314;
+    text-decoration: none;
+}
 
-        .op_esika-menu ul li a p {
-            display: block;
-            text-align: left;
-            margin-bottom: 0;
-            font-weight: normal;
-            font-size: 10px;
-            letter-spacing: 2px;
-        }
+.op-menu-vertical ul li a p {
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
 
 .negrita-p {
     font-weight: bolder;
 }
 
-.op_esika-menu ul li a span {
+.op-menu-vertical ul li a span {
     display: block;
     text-align: left;
     font-weight: normal;
@@ -165,7 +166,7 @@
     letter-spacing: 1px;
 }
 
-.op_esika-menu ul li a p::after {
+.op-menu-vertical ul li a p::after {
     content: '';
     display: block;
     width: 20px;
@@ -174,29 +175,18 @@
     margin-bottom: 7px;
 }
 
-/**/
+/* FIN Menu Palancas - Plomo */
 
-.op_esika-menu {
-    width: 12%;
-    float: left;
-    position: fixed;
-}
-
-.op_esika-para-mi-contenido {
+/*.op_esika-para-mi-contenido {
     width: 88%;
     float: left;
     margin-left: 12%;
     text-align: center;
     padding: 2.5% 2.5%;
-}
+}*/
 
-/**/
 
-.op_esika-para-mi-clearfix {
-    clear: both;
-}
-
-/**/
+/* Plantillas */
 
 .bc_plantilla_estrategia_personalizada {
     background-size: 100% 100% !important;
@@ -273,3 +263,6 @@
 .bc_crearfix {
     clear: both;
 }
+
+
+/* FIN Plantillas */

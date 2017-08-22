@@ -437,6 +437,7 @@ function showDialog(dialogId) {
     $("#ui-datepicker-div").css("z-index", "9999");
     return false;
 }
+
 function HideDialog(dialogId) {
     $("#" + dialogId).dialog("close");
     return false;
@@ -489,6 +490,7 @@ function waitingDialog(waiting) {
 
     }
 }
+
 function closeWaitingDialog() {
     try { $("#loadingScreen").dialog('close'); }
     catch (err) {
@@ -626,6 +628,7 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
     return isUrlMobile;
 }
+
 function isHome() {
     var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
     return isUrl;
@@ -931,17 +934,8 @@ function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
     $("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
-    var ul = $("[data-content] div[data-layout-menu2] ul");
 
-    $.each(ul, function (ind, menus) {
-        $(menus).css("width", "");
-    });
-
-    wtop = 0;
-    $.each(ul, function (ind, menus) {
-        wtop += $(menus).innerWidth();
-        $(menus).css("width", ($(menus).innerWidth()) + "px");
-    });
+    wtop = $(document).innerWidth() * 0.12;
     $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
     $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
 }
@@ -1554,6 +1548,7 @@ function odd_desktop_google_analytics_product_click(name, id, price, brand, vari
 		}
 	});
 }
+
 function GuardarIndicadorPedidoAutentico() {
     if (fingerprintOk == 0) {
         new Fingerprint2().get(function (result, components) {

@@ -855,7 +855,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
-            lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
+            //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
 
@@ -881,17 +881,21 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
 
-                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
-                listaMenu.Add(new MenuContenedorModel
+                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
+                if (confi.ConfiguracionPaisID > 0)
                 {
-                    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
-                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
-                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
-                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
-                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
-                    Orden = confi.Orden
-                });
+                    listaMenu.Add(new MenuContenedorModel
+                    {
+                        CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                        TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                        LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                        FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                        TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                        SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                        Orden = confi.Orden
+                    });
+                }
+                
             }
 
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
