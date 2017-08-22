@@ -2,6 +2,7 @@
 {
     public class MenuContenedorModel
     {
+        public string Codigo { get; set; }
         public int CampaniaID { get; set; }
         public string Logo { get; set; }
         public string TituloMenu { get; set; }
@@ -16,5 +17,9 @@
 
         public bool IsMenuCampania { get; set; }
         public bool Activa { get; set; }
+
+        // Solo para Menu Campaña
+        public int CampaniaX0 { get; set; }
+        public int CampaniaX1 { get; set; }
     }
 }

@@ -1,32 +1,19 @@
 ﻿$(document).ready(function () {
 
-    $("ul.menu_estrategia li[data-activo='True']").addClass("seleccionado");
-    $($("ul.sbmenu_estrategia li[data-activo='True']").get(0)).addClass("seleccionado");
-    $("ul.sbmenu_estrategia li").hide();
-    var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
-    $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
-
-    if ($("ul.menu_estrategia li[data-activo='True']").length == 0) {
-        $("ul.sbmenu_estrategia li").show();
-    }
-
-    $('ul.menu_estrategia li').hover(function (e) {
-        $(this).find('p').css('color', 'white');
-        $('ul.sbmenu_estrategia li a p').css('color', '#333');
-    }, function (e) {
-        /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
+    $("body").on("click", "[data-layout-menu1] ul li", function (e) {
+        $("[data-layout-menu2] ul li").hide();
+        var listaMenus = $('[data-layout-menu2] ul').find("li[data-campania='" + $(this).data("campania") + "']");
+        listaMenus.css({ display: "block" });
+        if (listaMenus.length == 0) {
+            $('[data-layout-menu2]').hide();
+        }
+        else {
+            $('[data-layout-menu2]').show();
+        }
+        LayoutHeaderFin();
     });
 
-    $('ul.menu_estrategia li').hover(function (e) {
-        $('ul.sbmenu_estrategia li').hide();
-        $('ul.sbmenu_estrategia').find("li[data-campania='" + $(this).data("campania") + "']").css({
-            display: "block"
-        });
-    }, function (e) {
-        var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
-        $("ul.sbmenu_estrategia li").hide();
-        $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
-    });
+    MenuContenedor();
 
     $('ul.sbmenu_estrategia li a').hover(function (e) {
         $(this).find('p').css('font-weight', 'bolder');
@@ -35,6 +22,36 @@
         $("ul.sbmenu_estrategia li.seleccionado a p").css('font-weight', 'bolder');
     });
 });
+
+function MenuContenedor() {
+
+    if ($("[data-layout-menu1] ul li").length == 0) {
+        $("[data-layout-menu2] ul li").show();
+    }
+    else {
+        $("[data-layout-menu2] ul li").hide();
+        $("[data-layout-menu1] ul li").removeClass("seleccionado");
+
+        var primerMenu = $("[data-layout-menu1] ul li[data-activo='True']");
+        if (primerMenu.length == 0) {
+            primerMenu = $("[data-layout-menu1] ul li");
+        }
+
+        if (primerMenu.length > 0) {
+            primerMenu = $(primerMenu).get(0);
+
+            $(primerMenu).data("activo", true);
+            $(primerMenu).addClass("seleccionado");
+
+            $(primerMenu).click();
+        }
+
+    }
+
+    var menuSelec = $.trim($("[data-menu-seleccionado]").data("menu-seleccionado"));
+    $("[data-layout-menu2] ul li[data-codigo='" + menuSelec + "']").addClass("seleccionado");
+
+}
 
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {

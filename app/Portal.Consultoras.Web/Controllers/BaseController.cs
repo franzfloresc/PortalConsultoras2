@@ -910,34 +910,36 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             listaMenu.Add(new MenuContenedorModel
             {
-                CampaniaID = userData.CampaniaID,
-                Logo = "/Content/Images/Esika/menu-icono-compra.png",
-                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "COMPRAR",
-                SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
-                Orden = 1,
+                //CampaniaID = userData.CampaniaID,
+                //Logo = "/Content/Images/Esika/menu-icono-compra.png",
+                //TituloMenu = isMobile ? "C" + " - " + (userData.CampaniaID % 100).ToString() : "COMPRAR",
+                //SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
+                //Orden = 1,
+                //Activa = true,
                 IsMenuCampania = true,
-                Activa = true
+                CampaniaX0 = userData.CampaniaID,
+                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1),
             });
 
-            listaMenu.Add(new MenuContenedorModel
-            {
-                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-                Logo = "/Content/Images/Esika/menu-icono-revisar.png",
-                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
-                SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
-                Orden = 2,
-                IsMenuCampania = true
-            });
+            //listaMenu.Add(new MenuContenedorModel
+            //{
+            //    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+            //    Logo = "/Content/Images/Esika/menu-icono-revisar.png",
+            //    TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
+            //    SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
+            //    Orden = 2,
+            //    IsMenuCampania = true
+            //});
 
-            listaMenu.Add(new MenuContenedorModel
-            {
-                CampaniaID = 0,
-                Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
-                TituloMenu = isMobile ? "SABER MÁS" : "SABER",
-                SubTituloMenu = isMobile ? "" : "MÁS",
-                Orden = 3,
-                IsMenuCampania = true
-            });
+            //listaMenu.Add(new MenuContenedorModel
+            //{
+            //    CampaniaID = 0,
+            //    Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
+            //    TituloMenu = isMobile ? "SABER MÁS" : "SABER",
+            //    SubTituloMenu = isMobile ? "" : "MÁS",
+            //    Orden = 3,
+            //    IsMenuCampania = true
+            //});
 
             return listaMenu;
         }
@@ -946,6 +948,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menu = new MenuContenedorModel
             {
+                Codigo = "",
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
                 TituloMenu = "INICIO",
                 SubTituloMenu = "",
