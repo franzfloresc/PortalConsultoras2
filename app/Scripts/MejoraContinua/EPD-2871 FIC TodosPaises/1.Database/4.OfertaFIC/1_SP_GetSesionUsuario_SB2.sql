@@ -1,8 +1,11 @@
 GO
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
-	@CodigoConsultora varchar(25)
+	@CodigoConsultora varchar(25) = null,
+	@CodigoUsuario varchar(25) = null
 AS
 BEGIN
+	set @CodigoUsuario = iif(isnull(@CodigoUsuario, '') <> '', @CodigoUsuario, @CodigoConsultora);
+
 	DECLARE @PasePedidoWeb int
 	DECLARE @TipoOferta2 int
 	DECLARE @CompraOfertaEspecial int
@@ -25,7 +28,7 @@ BEGIN
 		@PaisID = IsNull(PaisID,0),
 		@CodConsultora = CodigoConsultora
 	from usuario with(nolock)
-	where codigousuario = @CodigoConsultora
+	where codigousuario = @CodigoUsuario
 
 	declare @CountCodigoNivel bigint
 
@@ -66,7 +69,7 @@ BEGIN
 	
 	select @CampaniaID = campaniaId from dbo.GetCampaniaPreLogin(@PaisID,@ZonaID,@RegionID,@ConsultoraID)
 
-	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodigoConsultora,@ZonaID,@CampaniaID);
+	declare @IndicadorPermiso int = dbo.GetPermisoFIC(@CodConsultora,@ZonaID,@CampaniaID);
 	declare @TieneCDRExpress bit = isnull((select top 1 Estado from ConfiguracionPais where Codigo = 'CDR-EXP'),0);	--EPD-1919
 
 	IF @UsuarioPrueba = 0
@@ -207,8 +210,7 @@ BEGIN
 			select *
 			from ods.consultora with(nolock)
 			where ConsultoraId = @ConsultoraID
-		) c ON
-			u.CodigoConsultora = c.Codigo
+		) c ON u.CodigoConsultora = c.Codigo
 		--LEFT JOIN [ods].[Consultora] c with(nolock) ON u.CodigoConsultora = c.Codigo
 		LEFT JOIN [dbo].[UsuarioRol] ur with(nolock) ON u.CodigoUsuario = ur.CodigoUsuario
 		LEFT JOIN [dbo].[Rol] ro with(nolock) ON ur.RolID = ro.RolID
@@ -217,17 +219,16 @@ BEGIN
 		LEFT JOIN [ods].[Seccion] se with(nolock) on c.SeccionID=se.SeccionID  --R2469
 		LEFT JOIn [ods].[Region] r with(nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z with(nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t with(nolock) ON c.TerritorioID = t.TerritorioID  
-          AND c.SeccionID = t.SeccionID
-            AND c.ZonaID = t.ZonaID
-            AND c.RegionID = t.RegionID
+		LEFT JOIN [ods].[Territorio] t with(nolock) ON 
+			c.TerritorioID = t.TerritorioID AND
+			c.SeccionID = t.SeccionID AND
+			c.ZonaID = t.ZonaID AND
+			c.RegionID = t.RegionID
 		left join ods.segmento  s with(nolock) ON c.segmentoid = s.segmentoid
 		left join ods.ConsultoraLider cl with(nolock) on c.ConsultoraID=cl.ConsultoraID
 		left join ods.NivelLider nl with(nolock) on cl.CodigoNivelLider = nl.CodigoNivel -- R2469
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = c.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
-		WHERE
-			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 	ELSE
 	BEGIN
@@ -326,18 +327,17 @@ BEGIN
 		INNER JOIN [dbo].[Pais] p (nolock) ON u.PaisID = p.PaisID
 		LEFT JOIn [ods].[Region] r (nolock) ON c.RegionID = r.RegionID
 		LEFT JOIN [ods].[Zona] z (nolock) ON c.ZonaID = z.ZonaID AND c.RegionID = z.RegionID
-		LEFT JOIN [ods].[Territorio] t (nolock) ON c.TerritorioID = t.TerritorioID
-			AND c.SeccionID = t.SeccionID
-			AND c.ZonaID = t.ZonaID
-			AND c.RegionID = t.RegionID
+		LEFT JOIN [ods].[Territorio] t (nolock) ON
+			c.TerritorioID = t.TerritorioID	AND
+			c.SeccionID = t.SeccionID AND
+			c.ZonaID = t.ZonaID AND
+			c.RegionID = t.RegionID
 		left join ods.segmento  s (nolock) ON c.segmentoid = s.segmentoid
 		left join usuarioprueba up (nolock) on u.CodigoUsuario = up.CodigoUsuario
 		left join ods.Consultora cons (nolock) on up.CodigoConsultoraAsociada = cons.Codigo
 		left join ods.ConsultoraLider cl with(nolock) on up.CodigoConsultoraAsociada = cl.CodigoConsultora
 		left join ods.Identificacion I with(nolock) on i.ConsultoraId = cons.ConsultoraId and i.DocumentoPrincipal = 1 --EPD-2993
-	WHERE
-			ro.Sistema = 1
-			and u.CodigoUsuario = @CodigoConsultora
+		WHERE ro.Sistema = 1 and u.CodigoUsuario = @CodigoUsuario
 	END
 END
 GO
