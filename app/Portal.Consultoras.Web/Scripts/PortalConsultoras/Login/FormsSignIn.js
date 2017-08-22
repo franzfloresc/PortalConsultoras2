@@ -572,7 +572,7 @@ function AsignarHojaEstilos() {
         if ($("link[data-id='cssStyle']").prop('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = ' ÉSIKA ';
-            $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
+            $("link[data-id='iconPagina']").attr("href", "https://cdn1-marcas.belcorp.biz/pe/wp-content/themes/esika/img/favicons/favicon-32x32.png");
             $("link[data-id='cssStyle']").prop('disabled', false);
             $("link[data-id='cssStyleLbel']").prop('disabled', true);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
@@ -585,7 +585,7 @@ function AsignarHojaEstilos() {
             if ($("link[data-id='cssStyleLbel']").prop('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
                 document.title = " L'BEL ";
-                $("link[data-id='iconPagina']").attr("href", "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico");
+                $("link[data-id='iconPagina']").attr("href", "https://cdn2-marcas.belcorp.biz/pe/wp-content/themes/lbel/img/favicons/favicon.ico");
                 $("link[data-id='cssStyle']").prop('disabled', true);
                 $("link[data-id='cssStyleLbel']").prop('disabled', false);
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
@@ -596,7 +596,7 @@ function AsignarHojaEstilos() {
             if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
                 $("body").css("visibility", "hidden");
                 document.title = ' ÉSIKA ';
-                $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
+                $("link[data-id='iconPagina']").attr("href", "https://cdn1-marcas.belcorp.biz/pe/wp-content/themes/esika/img/favicons/favicon-32x32.png");
                 $("link[data-id='cssStyle']").prop('disabled', false);
                 $("link[data-id='cssStyleLbel']").prop('disabled', true);
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
