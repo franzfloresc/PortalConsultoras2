@@ -2011,6 +2011,7 @@ namespace Portal.Consultoras.Web.Controllers
             var input = Mapper.Map<BEInputReservaProl>(userData);
             input.EnviarCorreo = false;
             input.CodigosConcursos = userData.CodigosConcursos;
+            input.EsOpt = EsOpt();
 
             BEResultadoReservaProl resultado = null;
             using (var sv = new PedidoServiceClient())
@@ -2090,6 +2091,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 bool envioCorreo = false;
                 var input = Mapper.Map<BEInputReservaProl>(userData);
+                input.EsOpt = EsOpt();
                 using (var sv = new PedidoServiceClient()) { envioCorreo = await sv.EnviarCorreoReservaProlAsync(input); }
                 if (envioCorreo) return SuccessJson("Se envio el correo a la consultora.", true);
             }
@@ -2781,6 +2783,7 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult InsertarDesglose()
         {
             var input = Mapper.Map<BEInputReservaProl>(userData);
+            input.EsOpt = EsOpt();
             int pedidoID = 0;
             using (var sv = new PedidoServiceClient()) { pedidoID = sv.InsertarDesglose(input); }
             if (pedidoID == -1) return Json(new { success = false, message = Constantes.MensajesError.InsertarDesglose }, JsonRequestBehavior.AllowGet);
