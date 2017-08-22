@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Portal.Consultoras.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -7,23 +8,41 @@ using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
 {
-    public class AsesoraOnlineController : BaseController
+    public class AsesoraOnlineController : Controller
     {
         // GET: AsesoraOnline
-        public ActionResult Index()
+        public ActionResult Index(string isoPais, string codigoConsultora)
         {
+            ViewBag["IsoPais"] = isoPais;
+            ViewBag["CodigoConsultora"] = codigoConsultora;
             return View();
         }
 
         //public JsonResult RegistrarEstrategia(RegistrarEstrategiaModel model)
 
         [HttpPost]
-        public JsonResult EnviarFormulario()
+        public JsonResult EnviarFormulario(AsesoraOnlineModel model)
         {
             try
             {
 
+                /*
+                 *     var entidad = new BETallaColor();
+                entidad.ID = 0;
+                entidad.CUV = "0";
+                entidad.Tipo = "0";
+                entidad.CampaniaID = 0;
+                entidad.PaisID = UserData().PaisID;
+                entidad.DescripcionTallaColor = xmlTallaColor;
+                entidad.UsuarioRegistro = UserData().CodigoUsuario;
+                entidad.UsuarioModificacion = UserData().CodigoUsuario;
 
+                using (PedidoServiceClient sv = new PedidoServiceClient())
+                {
+                    resultado = sv.InsertarTallaColorCUV(entidad);
+                }
+
+                 */
                 return Json(new
                 {
                     success = true,
@@ -33,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, "UserData().CodigoConsultora", "UserData().CodigoISO");
                 return Json(new
                 {
                     success = false,
@@ -43,7 +62,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, "UserData().CodigoConsultora", "UserData().CodigoISO");
                 return Json(new
                 {
                     success = false,

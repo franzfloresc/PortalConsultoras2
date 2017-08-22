@@ -19,7 +19,12 @@
                 return false;
             }*/
 
-            var params = [];
+        var params = {
+            TipsVentas: tipsVentas,
+            TipsGestionClientes: tipsGestionClientes,
+            TasCatalogos: masCatalogos,
+            TipsMasClientes: tipsMasClientes
+            };
 
             jQuery.ajax({
                 type: 'POST',
