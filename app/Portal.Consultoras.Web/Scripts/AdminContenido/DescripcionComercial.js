@@ -112,8 +112,8 @@ var DescripcionComercial = function (config) {
             $("#txtDescripcion").val(entity.DescripcionComercial);
         if (_config.isLiquidacionDescripcionComercial)
             $("#txtDescripcionModal").val(entity.DescripcionComercial);
-        if (_config.isSugeridosDescripcionComercial)
-            $("#txtDescripcionProductoComercial").val(entity.DescripcionComercial);
+        //if (_config.isSugeridosDescripcionComercial)
+        //    $("#txtDescripcionProductoComercial").val(entity.DescripcionComercial);
 
         _toastHelper.success(response.message);
     };
