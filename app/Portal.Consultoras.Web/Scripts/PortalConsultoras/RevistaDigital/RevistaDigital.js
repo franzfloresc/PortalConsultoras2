@@ -506,3 +506,9 @@ function RDPageInformativa() {
         window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
     }
 }
+
+function RedirectToLandingRD(origenWeb) {
+    // Save analytics before redirect 
+    AccessRDAnalytics(origenWeb);
+    window.location = urlRevistaDigital;
+}
