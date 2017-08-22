@@ -5,24 +5,19 @@
     };
 
     var _enviarFormulario = function () {
-      
-            /*if ($("#ddlPais").val() == "") {
-                alert("Debe seleccionar el País, verifique.");
-                return false;
-            }
-            if ($("#ddlCampania").val() == "") {
-                alert("Debe seleccionar la Campaña, verifique.");
-                return false;
-            }
-            if ($("#ddlTipoEstrategia").val() == "") {
-                alert("Debe seleccionar el tipo de estrategia, verifique.");
-                return false; 
-            }*/
+
         var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
         var respuesta3 = $("#mis-clientes-vienen:checked").val();
         var respuesta4 = $("#llamar-pedir-productos:checked").val();
+        var TYCchecked = $("#terminos-condiciones").prop('checked')
 
+        if (!TYCchecked) {
+            $("#AcepteTYC").show();
+            setTimeout(function () { $("#AcepteTYC").hide(); }, 3000);
+            return false
+        }
+        
         var params = {
             Respuesta1: typeof respuesta1 === "undefined" ? 0 : respuesta1,
             Respuesta2: typeof respuesta2 === "undefined" ? 0 : respuesta2,
