@@ -20608,12 +20608,13 @@ label.checkpop.c_on {
     margin-top:60px;
     position: relative;
 }
-.content_belcorp{
+.content_belcorp {
     max-width: 1189px;
-    margin:0 auto;
-    height:auto;
-    position:relative;
-    font-family:'Lato';
+    margin: 0 auto;
+    height: auto;
+    position: relative;
+    font-family: 'Lato';
+    padding: 20px 30px;
 }
 .content_datos{
     padding-top:13px;
