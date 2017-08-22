@@ -27,6 +27,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string CodigoConsultoraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ConfirmacionInscripcionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -63,6 +66,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
                 if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
                     this.CodigoConsultoraField = value;
                     this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ConfirmacionInscripcion {
+            get {
+                return this.ConfirmacionInscripcionField;
+            }
+            set {
+                if ((this.ConfirmacionInscripcionField.Equals(value) != true)) {
+                    this.ConfirmacionInscripcionField = value;
+                    this.RaisePropertyChanged("ConfirmacionInscripcion");
                 }
             }
         }

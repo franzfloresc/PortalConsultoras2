@@ -4,6 +4,7 @@ GO
 CREATE PROCEDURE InsertarAsesoraOnline
 (
 	@CodigoConsultora varchar(10),
+	@ConfirmacionInscripcion int,
 	@Respuesta1 int,
 	@Respuesta2 int,
 	@Respuesta3 int,
@@ -13,7 +14,7 @@ CREATE PROCEDURE InsertarAsesoraOnline
 AS
 BEGIN
 	INSERT INTO AsesoraOnline 
-	VALUES (@CodigoConsultora, @Respuesta1, @Respuesta2, @Respuesta3, @Respuesta4, GETDATE(), @Origen);
+	VALUES (@CodigoConsultora, @ConfirmacionInscripcion, @Respuesta1, @Respuesta2, @Respuesta3, @Respuesta4, GETDATE(), @Origen);
 
 	SELECT SCOPE_IDENTITY();
 END

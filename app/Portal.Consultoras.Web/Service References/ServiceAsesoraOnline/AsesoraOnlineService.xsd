@@ -3,6 +3,7 @@
   <xs:complexType name="BEAsesoraOnline">
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmacionInscripcion" type="xs:int" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Respuesta1" type="xs:int" />

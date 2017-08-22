@@ -26,6 +26,8 @@ namespace Portal.Consultoras.Entities.AsesoraOnline
         public int Respuesta3 { get; set; }
         [DataMember]
         public int Respuesta4 { get; set; }
+        [DataMember]
+        public int ConfirmacionInscripcion { get; set; }
 
         public BEAsesoraOnline(IDataRecord row)
         {

@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarAsesoraOnline");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
+            Context.Database.AddInParameter(command, "@ConfirmacionInscripcion", DbType.Int16, entidad.ConfirmacionInscripcion);
             Context.Database.AddInParameter(command, "@Respuesta1", DbType.Int16, entidad.Respuesta1);
             Context.Database.AddInParameter(command, "@Respuesta2", DbType.Int16, entidad.Respuesta2);
             Context.Database.AddInParameter(command, "@Respuesta3", DbType.Int16, entidad.Respuesta3);
