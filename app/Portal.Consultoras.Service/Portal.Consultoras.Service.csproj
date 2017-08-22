@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsesoraOnlineService.cs" />
     <Compile Include="CDRService.cs" />
     <Compile Include="CatalogoService.cs" />
     <Compile Include="ClienteService.cs" />
