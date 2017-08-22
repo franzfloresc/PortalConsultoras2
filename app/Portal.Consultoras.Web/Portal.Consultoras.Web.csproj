@@ -613,6 +613,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ServiceAsesoraOnline\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ServiceCDR\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3419,6 +3424,16 @@
     <Compile Include="Models\TipoProductoComentarioModel.cs" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3584,6 +3599,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.disco" />
+    <None Include="Service References\ServiceAsesoraOnline\configuration91.svcinfo" />
+    <None Include="Service References\ServiceAsesoraOnline\configuration.svcinfo" />
+    <None Include="Service References\ServiceAsesoraOnline\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService5.xsd">
       <SubType>Designer</SubType>
@@ -4621,6 +4643,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HojaInscripcionBelcorpPais\" />
     <WCFMetadataStorage Include="Service References\HojaInscripcionODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceAsesoraOnline\" />
     <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceComunidad\" />

@@ -1,4 +1,5 @@
 ﻿using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace Portal.Consultoras.Web.Controllers
         // GET: AsesoraOnline
         public ActionResult Index(string isoPais, string codigoConsultora)
         {
-            ViewBag["IsoPais"] = isoPais;
-            ViewBag["CodigoConsultora"] = codigoConsultora;
+            TempData["IsoPais"] = isoPais == null ? String.Empty : isoPais;
+            TempData["CodigoConsultora"] = codigoConsultora == null ? String.Empty : codigoConsultora;
             return View();
         }
 
@@ -23,26 +24,22 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult EnviarFormulario(AsesoraOnlineModel model)
         {
+            int resultado = 0;
+            string isoPais = TempData["IsoPais"].ToString();
             try
             {
+                BEAsesoraOnline entidad = new BEAsesoraOnline();
+                entidad.CodigoConsultora = TempData["CodigoConsultora"].ToString();
+                entidad.TipsGestionClientes = Convert.ToInt32(model.TipsGestionClientes);
+                entidad.TipsMasClientes = Convert.ToInt32(model.TipsMasClientes);
+                entidad.TipsVentas = Convert.ToInt32(model.TipsVentas);
+                entidad.MasCatalogos = Convert.ToInt32(model.MasCatalogos);
 
-                /*
-                 *     var entidad = new BETallaColor();
-                entidad.ID = 0;
-                entidad.CUV = "0";
-                entidad.Tipo = "0";
-                entidad.CampaniaID = 0;
-                entidad.PaisID = UserData().PaisID;
-                entidad.DescripcionTallaColor = xmlTallaColor;
-                entidad.UsuarioRegistro = UserData().CodigoUsuario;
-                entidad.UsuarioModificacion = UserData().CodigoUsuario;
-
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
-                    resultado = sv.InsertarTallaColorCUV(entidad);
+                    resultado = sv.EnviarFormulario(isoPais, entidad);
                 }
 
-                 */
                 return Json(new
                 {
                     success = true,
