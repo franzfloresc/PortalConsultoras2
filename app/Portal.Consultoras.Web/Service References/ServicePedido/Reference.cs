@@ -29748,10 +29748,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task DelPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampania", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampania", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectPedidosDDWeb", ReplyAction="http://tempuri.org/IPedidoService/SelectPedidosDDWebResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb[] SelectPedidosDDWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb BEPedidoDDWeb);
@@ -32521,12 +32521,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DelPedidoWebDetalleAsync(pedidowebdetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora) {
-            return base.Channel.SelectByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt) {
+            return base.Channel.SelectByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora) {
-            return base.Channel.SelectByCampaniaAsync(paisID, CampaniaID, ConsultoraID, Consultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt) {
+            return base.Channel.SelectByCampaniaAsync(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb[] SelectPedidosDDWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb BEPedidoDDWeb) {

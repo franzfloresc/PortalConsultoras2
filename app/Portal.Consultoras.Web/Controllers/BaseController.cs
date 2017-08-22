@@ -174,6 +174,14 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pedidoWeb;
         }
+        protected int EsOpt()
+        {
+            var esOpt = userData.RevistaDigital.TieneRDR
+                    || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                    ? 0 : 1;
+            return esOpt;
+        }
+
 
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {

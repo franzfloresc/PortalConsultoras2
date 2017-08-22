@@ -265,12 +265,12 @@ namespace Portal.Consultoras.BizLogic
             catch (Exception) { throw; }
             }
 
-        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
+        public IList<BEPedidoWebDetalle> GetPedidoWebDetalleByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
         {
             var pedidoWebDetalle = new List<BEPedidoWebDetalle>();
             var DAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
 
-            using (IDataReader reader = DAPedidoWebDetalle.GetPedidoWebDetalleByCampania(CampaniaID, ConsultoraID))
+            using (IDataReader reader = DAPedidoWebDetalle.GetPedidoWebDetalleByCampania(CampaniaID, ConsultoraID, esOpt))
                 while (reader.Read())
                 {
                     var entidad = new BEPedidoWebDetalle(reader, Consultora);
