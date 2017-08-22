@@ -4,16 +4,16 @@ GO
 CREATE PROCEDURE InsertarAsesoraOnline
 (
 	@CodigoConsultora varchar(10),
-	@TipsGestionClientes int,
-	@TipsMasClientes int,
-	@TipsVentas int,
-	@MasCatalogos int,
+	@Respuesta1 int,
+	@Respuesta2 int,
+	@Respuesta3 int,
+	@Respuesta4 int,
 	@Origen varchar(100)
 )
 AS
 BEGIN
 	INSERT INTO AsesoraOnline 
-	VALUES (@CodigoConsultora, @TipsGestionClientes, @TipsMasClientes, @TipsVentas, @MasCatalogos, GETDATE(), @Origen);
+	VALUES (@CodigoConsultora, @Respuesta1, @Respuesta2, @Respuesta3, @Respuesta4, GETDATE(), @Origen);
 
 	SELECT SCOPE_IDENTITY();
 END

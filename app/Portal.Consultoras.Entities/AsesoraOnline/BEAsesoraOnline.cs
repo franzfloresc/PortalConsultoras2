@@ -19,30 +19,30 @@ namespace Portal.Consultoras.Entities.AsesoraOnline
         [DataMember]
         public string Origen { get; set; }
         [DataMember]
-        public int TipsVentas { get; set; }
+        public int Respuesta1 { get; set; }
         [DataMember]
-        public int TipsGestionClientes { get; set; }
+        public int Respuesta2 { get; set; }
         [DataMember]
-        public int MasCatalogos { get; set; }
+        public int Respuesta3 { get; set; }
         [DataMember]
-        public int TipsMasClientes { get; set; }
+        public int Respuesta4 { get; set; }
 
         public BEAsesoraOnline(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CodigoConsultora") && row["CodigoConsultora"] != DBNull.Value)
                 CodigoConsultora = row["CodigoConsultora"] == null ? String.Empty : Convert.ToString(row["CodigoConsultora"]);
 
-            if (DataRecord.HasColumn(row, "TipsVentas") && row["TipsVentas"] != DBNull.Value)
-                TipsVentas = row["TipsVentas"] == null ? 0 : Convert.ToInt32(row["TipsVentas"]);
+            if (DataRecord.HasColumn(row, "Respuesta1") && row["Respuesta1"] != DBNull.Value)
+                Respuesta1 = row["Respuesta1"] == null ? 0 : Convert.ToInt32(row["Respuesta1"]);
 
-            if (DataRecord.HasColumn(row, "TipsGestionClientes") && row["TipsGestionClientes"] != DBNull.Value)
-                TipsGestionClientes = row["TipsGestionClientes"] == null ? 0 : Convert.ToInt32(row["TipsGestionClientes"]);
+            if (DataRecord.HasColumn(row, "Respuesta2") && row["Respuesta2"] != DBNull.Value)
+                Respuesta2 = row["Respuesta2"] == null ? 0 : Convert.ToInt32(row["Respuesta2"]);
 
-            if (DataRecord.HasColumn(row, "MasCatalogos") && row["MasCatalogos"] != DBNull.Value)
-                MasCatalogos = row["MasCatalogos"] == null ? 0 : Convert.ToInt32(row["MasCatalogos"]);
+            if (DataRecord.HasColumn(row, "Respuesta3") && row["Respuesta3"] != DBNull.Value)
+                Respuesta3 = row["Respuesta3"] == null ? 0 : Convert.ToInt32(row["Respuesta3"]);
 
-            if (DataRecord.HasColumn(row, "TipsMasClientes") && row["TipsMasClientes"] != DBNull.Value)
-                TipsMasClientes = row["TipsMasClientes"] == null ? 0 : Convert.ToInt32(row["TipsMasClientes"]);
+            if (DataRecord.HasColumn(row, "Respuesta4") && row["Respuesta4"] != DBNull.Value)
+                Respuesta4 = row["Respuesta4"] == null ? 0 : Convert.ToInt32(row["Respuesta4"]);
 
         }
     }

@@ -21,10 +21,10 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertarAsesoraOnline");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, entidad.CodigoConsultora);
-            Context.Database.AddInParameter(command, "@TipsGestionClientes", DbType.Int16, entidad.TipsGestionClientes);
-            Context.Database.AddInParameter(command, "@TipsMasClientes", DbType.Int16, entidad.TipsMasClientes);
-            Context.Database.AddInParameter(command, "@TipsVentas", DbType.Int16, entidad.TipsVentas);
-            Context.Database.AddInParameter(command, "@MasCatalogos", DbType.Int16, entidad.MasCatalogos);
+            Context.Database.AddInParameter(command, "@Respuesta1", DbType.Int16, entidad.Respuesta1);
+            Context.Database.AddInParameter(command, "@Respuesta2", DbType.Int16, entidad.Respuesta2);
+            Context.Database.AddInParameter(command, "@Respuesta3", DbType.Int16, entidad.Respuesta3);
+            Context.Database.AddInParameter(command, "@Respuesta4", DbType.Int16, entidad.Respuesta4);
             Context.Database.AddInParameter(command, "@Origen", DbType.String, entidad.Origen);
 
             return Context.ExecuteNonQuery(command);

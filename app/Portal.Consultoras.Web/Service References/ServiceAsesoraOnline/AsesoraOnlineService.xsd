@@ -4,11 +4,11 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaCreacion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="MasCatalogos" type="xs:int" />
       <xs:element minOccurs="0" name="Origen" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="TipsGestionClientes" type="xs:int" />
-      <xs:element minOccurs="0" name="TipsMasClientes" type="xs:int" />
-      <xs:element minOccurs="0" name="TipsVentas" type="xs:int" />
+      <xs:element minOccurs="0" name="Respuesta1" type="xs:int" />
+      <xs:element minOccurs="0" name="Respuesta2" type="xs:int" />
+      <xs:element minOccurs="0" name="Respuesta3" type="xs:int" />
+      <xs:element minOccurs="0" name="Respuesta4" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEAsesoraOnline" nillable="true" type="tns:BEAsesoraOnline" />

@@ -18,16 +18,16 @@
                 alert("Debe seleccionar el tipo de estrategia, verifique.");
                 return false; 
             }*/
-        var tipsVentas = $("#tips-ventas:checked").val();
-        var tipsGestionClientes = $("#tips-gestion-clientes:checked").val();
-        var masCatalogos = $("#mas-catalogos:checked").val();
-        var tipsMasClientes = $("#tips-mas-clientes:checked").val();
+        var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
+        var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
+        var respuesta3 = $("#mis-clientes-vienen:checked").val();
+        var respuesta4 = $("#llamar-pedir-productos:checked").val();
 
         var params = {
-            TipsVentas: typeof tipsVentas === "undefined" ? 0 : tipsVentas,
-            TipsGestionClientes: typeof tipsGestionClientes === "undefined" ? 0 : tipsGestionClientes,
-            MasCatalogos: typeof masCatalogos === "undefined" ? 0 : masCatalogos,
-            TipsMasClientes: typeof tipsMasClientes === "undefined" ? 0 : tipsMasClientes
+            Respuesta1: typeof respuesta1 === "undefined" ? 0 : respuesta1,
+            Respuesta2: typeof respuesta2 === "undefined" ? 0 : respuesta2,
+            Respuesta3: typeof respuesta3 === "undefined" ? 0 : respuesta3,
+            Respuesta4: typeof respuesta4 === "undefined" ? 0 : respuesta4
             };
 
         jQuery.ajax({

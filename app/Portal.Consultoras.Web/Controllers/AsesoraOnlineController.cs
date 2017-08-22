@@ -30,10 +30,10 @@ namespace Portal.Consultoras.Web.Controllers
                 BEAsesoraOnline entidad = new BEAsesoraOnline();
                 entidad.CodigoConsultora = TempData["CodigoConsultora"].ToString();
                 entidad.Origen = TempData["Origen"].ToString();
-                entidad.TipsGestionClientes = Convert.ToInt32(model.TipsGestionClientes);
-                entidad.TipsMasClientes = Convert.ToInt32(model.TipsMasClientes);
-                entidad.TipsVentas = Convert.ToInt32(model.TipsVentas);
-                entidad.MasCatalogos = Convert.ToInt32(model.MasCatalogos);
+                entidad.Respuesta1 = Convert.ToInt32(model.Respuesta1);
+                entidad.Respuesta2 = Convert.ToInt32(model.Respuesta2);
+                entidad.Respuesta3 = Convert.ToInt32(model.Respuesta3);
+                entidad.Respuesta4 = Convert.ToInt32(model.Respuesta4);
 
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {

@@ -30,19 +30,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private string FechaCreacionField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MasCatalogosField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipsGestionClientesField;
+        private int Respuesta1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipsMasClientesField;
+        private int Respuesta2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipsVentasField;
+        private int Respuesta3Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int Respuesta4Field;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -81,19 +81,6 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MasCatalogos {
-            get {
-                return this.MasCatalogosField;
-            }
-            set {
-                if ((this.MasCatalogosField.Equals(value) != true)) {
-                    this.MasCatalogosField = value;
-                    this.RaisePropertyChanged("MasCatalogos");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Origen {
             get {
                 return this.OrigenField;
@@ -107,40 +94,53 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipsGestionClientes {
+        public int Respuesta1 {
             get {
-                return this.TipsGestionClientesField;
+                return this.Respuesta1Field;
             }
             set {
-                if ((this.TipsGestionClientesField.Equals(value) != true)) {
-                    this.TipsGestionClientesField = value;
-                    this.RaisePropertyChanged("TipsGestionClientes");
+                if ((this.Respuesta1Field.Equals(value) != true)) {
+                    this.Respuesta1Field = value;
+                    this.RaisePropertyChanged("Respuesta1");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipsMasClientes {
+        public int Respuesta2 {
             get {
-                return this.TipsMasClientesField;
+                return this.Respuesta2Field;
             }
             set {
-                if ((this.TipsMasClientesField.Equals(value) != true)) {
-                    this.TipsMasClientesField = value;
-                    this.RaisePropertyChanged("TipsMasClientes");
+                if ((this.Respuesta2Field.Equals(value) != true)) {
+                    this.Respuesta2Field = value;
+                    this.RaisePropertyChanged("Respuesta2");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipsVentas {
+        public int Respuesta3 {
             get {
-                return this.TipsVentasField;
+                return this.Respuesta3Field;
             }
             set {
-                if ((this.TipsVentasField.Equals(value) != true)) {
-                    this.TipsVentasField = value;
-                    this.RaisePropertyChanged("TipsVentas");
+                if ((this.Respuesta3Field.Equals(value) != true)) {
+                    this.Respuesta3Field = value;
+                    this.RaisePropertyChanged("Respuesta3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Respuesta4 {
+            get {
+                return this.Respuesta4Field;
+            }
+            set {
+                if ((this.Respuesta4Field.Equals(value) != true)) {
+                    this.Respuesta4Field = value;
+                    this.RaisePropertyChanged("Respuesta4");
                 }
             }
         }

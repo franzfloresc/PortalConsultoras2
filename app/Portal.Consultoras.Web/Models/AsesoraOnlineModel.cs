@@ -7,9 +7,9 @@ namespace Portal.Consultoras.Web.Models
 {
     public class AsesoraOnlineModel
     {
-        public string TipsVentas { get; set; }
-        public string TipsGestionClientes { get; set; }
-        public string MasCatalogos { get; set; }
-        public string TipsMasClientes { get; set; }
+        public string Respuesta1 { get; set; }
+        public string Respuesta2 { get; set; }
+        public string Respuesta3 { get; set; }
+        public string Respuesta4 { get; set; }
     }
 }
