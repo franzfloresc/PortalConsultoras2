@@ -1221,7 +1221,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
             {
                 ViewBag.TituloPagina = " ÉSIKA ";
-                  ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";                 
+                ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";                 
                 ViewBag.EsPaisEsika = true;
                 ViewBag.EsPaisLbel = false;
                 ViewBag.AvisoASP = 1;
