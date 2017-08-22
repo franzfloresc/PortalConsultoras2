@@ -1221,8 +1221,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ConfigurationManager.AppSettings.Get("paisesEsika").Contains(iso))
             {
                 ViewBag.TituloPagina = " ÉSIKA ";
-                  ViewBag.IconoPagina = $"{"https://cdn1-marcas.belcorp.biz/pe/wp-content/themes/esika/img/favicons/favicon-32x32.png"}?{DateTime.Now.Ticks}";
-                 
+                  ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";                 
                 ViewBag.EsPaisEsika = true;
                 ViewBag.EsPaisLbel = false;
                 ViewBag.AvisoASP = 1;
@@ -1233,7 +1232,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (ConfigurationManager.AppSettings.Get("paisesLBel").Contains(iso))
                 {
                     ViewBag.TituloPagina = " L'BEL ";
-                    ViewBag.IconoPagina = "https://cdn2-marcas.belcorp.biz/pe/wp-content/themes/lbel/img/favicons/favicon.ico";
+                    ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                     ViewBag.EsPaisEsika = false;
                     ViewBag.EsPaisLbel = true;
                     //ViewBag.AvisoASP = 1;
@@ -1247,7 +1246,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.TituloPagina = " ÉSIKA ";
-                     ViewBag.IconoPagina = $"{"https://cdn1-marcas.belcorp.biz/pe/wp-content/themes/esika/img/favicons/favicon-32x32.png"}?{DateTime.Now.Ticks}";                    
+                     ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";                    
                     ViewBag.EsPaisEsika = true;
                     ViewBag.EsPaisLbel = false;
                     ViewBag.AvisoASP = 1;
