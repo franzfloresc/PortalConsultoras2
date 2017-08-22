@@ -198,7 +198,9 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             userData.CampaniaID,
                             userData.ConsultoraID,
-                            userData.NombreConsultora).ToList();
+                            userData.NombreConsultora, 
+                            EsOpt()
+                        ).ToList();
                     }
                 }
 
