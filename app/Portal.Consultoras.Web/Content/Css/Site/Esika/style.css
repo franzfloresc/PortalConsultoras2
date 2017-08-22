@@ -35789,3 +35789,24 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+
+
+.previsualizales-ofertas {
+    max-width: 800px;
+    margin: auto;
+    max-height: 550px;
+}
+
+.imagen_fondo {
+    min-height: 532px;
+    max-width: 96% !important;
+    margin: auto;
+}
+
+.slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img {
+    max-height: 450px !important;
+}
+
+.content_slider_ept {
+    padding-top: 30px;
+}
