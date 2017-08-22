@@ -936,8 +936,7 @@ function LayoutHeaderFin() {
     $("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
 
     if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
-        wtop = $(document).innerWidth() * 0.12;
-        console.log($(document).innerWidth(), $(document).width());
+        wtop = $(window).innerWidth() * 0.12;
         $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
         $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
     }
