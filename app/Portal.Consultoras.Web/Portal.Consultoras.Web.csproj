@@ -1203,10 +1203,12 @@
     <Content Include="Content\Images\fondo_form.png" />
     <Content Include="Content\Images\icono-cerrar-popup-inscripcion.svg" />
     <Content Include="Content\Images\icono-gestion-clientes-asesora-online.png" />
+    <Content Include="Content\Images\icono-mail-popup-felicitaciones.svg" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\icono-notificacion-fechas-importantes-asesora-online.svg" />
     <Content Include="Content\Images\icono-ofertas-asesora-online.png" />
     <Content Include="Content\Images\icono-ofertas-asesora-online.svg" />
+    <Content Include="Content\Images\icono-smartphone-popup-felicitaciones.svg" />
     <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.png" />
     <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.svg" />
     <Content Include="Content\Images\icono-vender-mas-asesora-online.svg" />
@@ -2586,6 +2588,7 @@
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
+    <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
