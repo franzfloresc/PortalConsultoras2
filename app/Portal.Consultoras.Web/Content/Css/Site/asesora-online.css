@@ -147,36 +147,25 @@
 	background:rgba(0,0,0,1);
 	color:#FFF;
 	position:relative;
-	top:0;
-	left:0;
-	right:0;
 	text-align:center;
 	height:40px;
 	line-height:38px;
 	font-size:13px;
 	letter-spacing:1.5px;
-	/*box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
 	transition:all 0.3s ease;
 	-moz-transition:all 0.3s ease;
 	-o-transition:all 0.3s ease;
 	-ms-transition:all 0.3s ease;
-	-webkit-transition:all 0.3s ease;*/
+	-webkit-transition:all 0.3s ease;
 }
 
-/*.cta_inscripcion:hover{
-	width: 298px;
-	top:-2px;
-    left: -15px;
+.cta_inscripcion:hover{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-}*/
+}
 
 .seccion_beneficios_asesora{
 	position: relative;
@@ -916,7 +905,7 @@
 	display:block;
 	width:741px;
 	height:auto;
-	margin:-217px auto 0 auto;
+	margin:-222.5px auto 0 auto;
 	position:relative;
 	top:50%;
 	background: -moz-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
@@ -974,6 +963,7 @@
 .texto_popup{
 	display:block;
 	margin-bottom:28px;
+    line-height:20px;
 }
 
 .lista_beneficios_inscripcion, .icono_beneficio_inscripcion, .descripcion_beneficio_inscripcion{
@@ -981,7 +971,7 @@
 }
 
 .lista_beneficios_inscripcion{
-	margin-bottom:45px;
+	margin-bottom:35px;
 }
 
 .beneficio_inscripcion{
@@ -1019,6 +1009,7 @@
 	-o-transform:skewX(14deg);
 	-ms-transform:skewX(14deg);
 	-webkit-transform:skewX(14deg);
+    line-height:15px;
 }
 
 .beneficio_inscripcion:last-child .descripcion_beneficio_inscripcion{
@@ -1052,7 +1043,7 @@
     max-width: 268px;
     position: relative;
     left: -15px;
-    margin-bottom: 36px;
+    margin-bottom: 31px;
 }
 
 .enlace_ver_mas_informacion, .enlace_no_volver_mostrar_mensaje{
@@ -1225,7 +1216,7 @@
 
 .titulo_popup_felicitaciones_coach_virtual{
 	font-size:22px;
-	margin-top:18px;
+	margin-top:6px;
 	margin-bottom:42px;
 }
 
