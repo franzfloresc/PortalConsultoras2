@@ -10,8 +10,10 @@ namespace Portal.Consultoras.Web.Controllers
     public class AsesoraOnlineController : Controller
     {
         // GET: AsesoraOnline
-        public ActionResult Index()
+        public ActionResult Index(string IsoPais, string CodigoConsultora)
         {
+            ViewBag["IsoPais"] = IsoPais;
+            ViewBag["CodigoConsultora"] = CodigoConsultora;
             return View();
         }
 
