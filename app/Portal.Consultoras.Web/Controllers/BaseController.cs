@@ -178,7 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var esOpt = userData.RevistaDigital.TieneRDR
                     || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
-                    ? 0 : 1;
+                    ? 1 : 2;
             return esOpt;
         }
 

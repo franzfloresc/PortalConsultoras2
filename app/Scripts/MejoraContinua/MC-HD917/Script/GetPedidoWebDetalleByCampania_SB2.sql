@@ -2,11 +2,10 @@ USE BelcorpPeru
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -52,10 +51,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -134,10 +140,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -165,11 +173,10 @@ USE BelcorpMexico
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -215,10 +222,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -297,10 +311,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -328,11 +344,10 @@ USE BelcorpColombia
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -378,10 +393,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -460,10 +482,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -491,11 +515,10 @@ USE BelcorpVenezuela
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -541,10 +564,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -623,10 +653,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -654,11 +686,10 @@ USE BelcorpSalvador
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -704,10 +735,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -786,10 +824,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -817,11 +857,10 @@ USE BelcorpPuertoRico
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -867,10 +906,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -949,10 +995,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -980,11 +1028,10 @@ USE BelcorpPanama
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1030,10 +1077,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1112,10 +1166,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1143,11 +1199,10 @@ USE BelcorpGuatemala
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1193,10 +1248,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1275,10 +1337,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1306,11 +1370,10 @@ USE BelcorpEcuador
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1356,10 +1419,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1438,10 +1508,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1469,11 +1541,10 @@ USE BelcorpDominicana
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1519,10 +1590,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1601,10 +1679,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1632,11 +1712,10 @@ USE BelcorpCostaRica
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1682,10 +1761,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1764,10 +1850,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1795,11 +1883,10 @@ USE BelcorpChile
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -1845,10 +1932,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -1927,10 +2021,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
@@ -1958,11 +2054,10 @@ USE BelcorpBolivia
 GO
 
 GO
-
 ALTER PROCEDURE [dbo].[GetPedidoWebDetalleByCampania_SB2]
 	@CampaniaID		INT,
 	@ConsultoraID	BIGINT,
-  	@EsOpt int = -1
+  	@EsOpt int = 0
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -2008,10 +2103,17 @@ BEGIN
 
 	declare @idTipoEstra int = 0
 	
-	select @idTipoEstra = TEE.TipoEstrategiaID 
-	from TipoEstrategia TEE 
-	where (@EsOpt = 1 and TEE.Codigo = '001') or (@EsOpt = 0 AND TEE.Codigo = '007')
-	
+	if	@EsOpt <> 1 and @EsOpt <> 2
+		set @idTipoEstra = 0
+	else
+	begin
+		select @idTipoEstra = TEE.TipoEstrategiaID 
+		from TipoEstrategia TEE 
+		where (@EsOpt = 1 AND TEE.Codigo = '007') or (@EsOpt = 2 and TEE.Codigo = '001') 
+	end
+		
+	set @idTipoEstra = isnull(@idTipoEstra, 0)
+
 	SELECT	pwd.CampaniaID,
 			pwd.PedidoID,
 			pwd.PedidoDetalleID,
@@ -2090,10 +2192,12 @@ BEGIN
 					AND EST.Activo=1
 					AND EST.Numeropedido = (CASE WHEN @ProgramaNuevoActivado = 0 THEN 0 ELSE @NumeroPedido END)
 					AND (
-						@EsOpt = -1 
+						@EsOpt = 0
 						or 
 						EST.TipoEstrategiaID not in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') )
 						or
+						@idTipoEstra = 0
+						or 
 						(
 							EST.TipoEstrategiaID in (select TEE.TipoEstrategiaID from TipoEstrategia TEE where TEE.Codigo in ('001', '007') ) 
 							and EST.TipoEstrategiaID = @idTipoEstra	
