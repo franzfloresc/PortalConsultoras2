@@ -289,7 +289,7 @@
 .titulo_formulario_inscripcion, .contenedor_formulario{
 	display: inline-block;
     width: 100%;
-	max-width: 625px;
+	max-width: 546px;
 }
 
 .titulo_formulario_inscripcion {
@@ -319,7 +319,7 @@
 }
 
 .seccion_primer_paso {
-    width: 49%;
+    width: 59%;
     margin-right: 21px;
     text-align:left;
 }
@@ -351,7 +351,6 @@
 
 .opcion_crecimiento_negocio, .datos_consultora input {
     margin-bottom: 8px;
-    font-size: 14px;
 }
 
 .opcion_crecimiento_negocio input[type="radio"]{
@@ -384,13 +383,13 @@
 }
 
 .opcion_crecimiento_negocio label, .datos_consultora input {
-    font-size: 14px!important;
+    font-size: 13px!important;
     background: #FFF;
     border: 1px solid #979797;
     width: 100%;
     max-width: 258px;
     height: 31px;
-    line-height: 27px!important;
+    line-height: 28px!important;
     padding: 0 10px!important;
     box-sizing: border-box;
     border-radius: 7px;
@@ -628,7 +627,7 @@
 
 	.fondo_titulo_asesora{
 		left: -1px;
-		max-width: 242px;
+		max-width: 233px;
 		height: 65.5px;
 		padding: 13px 0;
 	}
@@ -650,9 +649,9 @@
 
 	.descripcion_asesora_online {
 	    font-size: 13px;
-	    max-width: 197px;
+	    max-width: 229px;
 	    line-height: 17px;
-	    margin:29px 0 18px 0;
+	    margin:29px 0;
 	}
 
     .descripcion_asesora_online span:first-child {
@@ -684,6 +683,7 @@
 	.conoce_beneficios{
 		font-size:16px;
 		max-width: 232px;
+        line-height:20px;
 	}
 
 	.salto_linea{
@@ -747,7 +747,7 @@
 	    left: 0;
 	    right: 0;
 	    font-size: 20px;
-	    line-height: 25px;
+	    line-height: 23px;
 	}
 
 	.titulo_formulario_inscripcion span{
@@ -764,7 +764,7 @@
 	}
 
 	.seccion_primer_paso {
-	    margin-bottom: 20px;
+	    margin-bottom: 3px;
 	}
 
 	.seccion_primer_paso, .seccion_segundo_paso{
@@ -788,8 +788,17 @@
 		top:0;
 	}
 
+    .texto_titulo span:first-child{
+        font-size:14px;
+    }
+
+    .texto_titulo span:last-child{
+        font-size:12px;
+    }
+
 	.opcion_crecimiento_negocio label, .datos_consultora input{
 		max-width:none;
+        padding:0 11px!important;
 	}
 
 	.opcion_crecimiento_negocio label{
@@ -800,9 +809,13 @@
 		width:100%;
 	}
 
-	.terminos_condiciones_form > div:first-child{
+	/*.terminos_condiciones_form > div:first-child{
 		display:none;
-	}
+	}*/
+
+    .terminos_condiciones_form > div label{
+        font-size:13px;
+    }
 
 	.ocultar_en_mobile{
 		display:none;
@@ -879,9 +892,13 @@
 
 @media screen and (max-width:350px){
 
+    .wrapper_contenido_asesora_online {
+        padding: 25px 15px 0 15px;
+    }
+
 	.seccion_formulario_inscripcion .wrapper_contenido_asesora_online{
-		padding-left: 13px;
-    	padding-right: 13px;
+		padding-left: 10px;
+    	padding-right: 10px;
 	}
 
 	.titulo_formulario_inscripcion{
