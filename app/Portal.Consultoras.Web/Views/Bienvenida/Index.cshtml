@@ -512,10 +512,10 @@
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-    <!-- POPUP INSCRIPCION ASESORA ONLINE -->
-    <div class="popup_inscripcion_asesoria_online tipografia_lato">
+    <!-- POPUP INSCRIPCION COACH VIRTUAL -->
+    <div class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
         <a href="#" class="cerrar_popup_inscripcion" title="Cerrar">
-            <img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">
+            @*<img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">*@
         </a>
         <div class="img_popup_inscripcion_asesoria_online">
             <img src="@Url.Content("~/Content/Images/img_inscripcion_asesoria_online.png")" alt="Inscripción Asesora Online">
@@ -523,12 +523,12 @@
         <div class="contenido_popup">
             <div class="fondo_titulo_asesora">
                 <div class="titulo_principal_asesora_online tipografia_lato_light">
-                    LLEGÓ TU NUEVA HERRAMIENTA<br /><span class="titulo_tu_asesora_online tipografia_lato_bold">ÉSIKA TE ASESORA</span>
+                    SUSCRÍBETE Y GANA MÁS CON<br /><span class="titulo_tu_asesora_online tipografia_lato_bold">ÉSIKA TE ASESORA</span>
                 </div>
             </div>
             <div class="mensaje_popup">
                 <div class="texto_popup">
-                    CONFIRMA TUS DATOS DE CONTACTO Y RECIBE <span class="salto_linea">POR CORREO O SMS</span>
+                    TODO LO QUE NECESITAS PARA GANAR MÁS, <span class="salto_linea">AHORA EN LA PALMA DE TUS MANOS (CORREO Y SMS)</span>
                 </div>
                 <div class="lista_beneficios_inscripcion">
                     <div class="beneficio_inscripcion">
@@ -558,7 +558,7 @@
                 </div>
                 <div class="wrapper_cta_inscripcion">
                     <a href="index.html#formulario-inscripcion" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
-                        CONFIRMAR MIS DATOS
+                        QUIERO TIPS Y OFERTAS
                     </a>
                     <a href="index.html#beneficios-asesora" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
                 </div>
@@ -568,8 +568,48 @@
             No volver a ver este mensaje
         </a>
     </div>
-    <!-- FIN POPUP INSCRIPCION ASESORA ONLINE -->
-    <!-- FIN POPUP INSCRIPCION ASESORA ONLINE -->
+    <!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
+    <!-- POPUP FELICITACIONES CONSULTORA INSCRITA A COACH VIRTUAL -->
+    <div class="popup_felicitaciones_coach_virtual tipografia_lato" style="display:none;">
+        <a href="#" class="cerrar_popup_inscripcion" title="Cerrar">
+            <!-- <img src="img/icono-cerrar-popup-inscripcion.svg" alt="Cerrar"> -->
+        </a>
+        <div class="contenido_popup">
+            <div class="titulo_popup_felicitaciones_coach_virtual">
+                <span class="tipografia_lato_bold">¡FELICITACIONES <span>VALERIA</span>!</span>
+                <span class="tipografia_lato_bold">
+                    A PARTIR DE HOY <span class="color_esika">ÉSIKA TE ASESORA</span>
+                </span>
+            </div>
+            <div class="mensaje_popup_felicitaciones_coach_virtual">
+                <span class="tipografia_lato_regular">Te contactaremos a estos datos</span>
+                <span class="tipografia_lato_bold">Por favor verifica que sean los actuales.</span>
+            </div>
+            <div class="datos_consultora_popup_felicitaciones_coach_virtual">
+                <div class="bloque_izq_datos">
+                    <span class="icono_popup_felicitaciones_coach_virtual icono_mail_coach_virtual">
+                        <img src="@Url.Content("~/Content/Images/icono-mail-popup-felicitaciones.svg")" alt="Correo electrónico">
+                    </span>
+                    <span class="icono_popup_felicitaciones_coach_virtual icono_smartphone_coach_virtual">
+                        <img src="@Url.Content("~/Content/Images/icono-smartphone-popup-felicitaciones.svg")" alt="Correo electrónico">
+                    </span>
+                </div>
+                <div class="bloque_der_datos">
+                    <span class="datos_consultora_inscrita tipografia_lato_bold">
+                        ashimabukuro@belcorp.biz
+                    </span>
+                    <span class="datos_consultora_inscrita tipografia_lato_bold">
+                        9763849392
+                    </span>
+                </div>
+            </div>
+            <div class="btn_modificar_datos">
+                <button class="tipografia_lato tipografia_lato_bold">MODIFICAR MIS DATOS</button>
+                <span class="tipografia_lato_bold">Todos son correctos</span>
+            </div>
+        </div>
+    </div>
+    <!-- POPUP FELICITACIONES CONSULTORA INSCRITA A COACH VIRTUAL -->
     <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">

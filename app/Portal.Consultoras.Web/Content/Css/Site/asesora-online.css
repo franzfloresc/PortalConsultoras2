@@ -128,7 +128,7 @@
     max-width: 368px;
 	color: #FFF;
     font-size: 16px;
-    margin: 32px 0 28px 0;
+    margin: 38px 0 28px 0;
     letter-spacing: 0.8px;
     line-height: 20px;
 }
@@ -138,7 +138,7 @@
 }
 
 .descripcion_asesora_online span:first-child{
-	margin-bottom:20px;
+	margin-bottom:39px;
 }
 
 .cta_inscripcion{
@@ -147,36 +147,25 @@
 	background:rgba(0,0,0,1);
 	color:#FFF;
 	position:relative;
-	top:0;
-	left:0;
-	right:0;
 	text-align:center;
 	height:40px;
 	line-height:38px;
 	font-size:13px;
 	letter-spacing:1.5px;
-	/*box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0);
 	transition:all 0.3s ease;
 	-moz-transition:all 0.3s ease;
 	-o-transition:all 0.3s ease;
 	-ms-transition:all 0.3s ease;
-	-webkit-transition:all 0.3s ease;*/
+	-webkit-transition:all 0.3s ease;
 }
 
-/*.cta_inscripcion:hover{
-	width: 298px;
-	top:-2px;
-    left: -15px;
+.cta_inscripcion:hover{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-}*/
+}
 
 .seccion_beneficios_asesora{
 	position: relative;
@@ -197,11 +186,12 @@
 }
 
 .titulos_beneficios_asesora_online, .lista_beneficios_asesora_online{
-	vertical-align:bottom;
+	vertical-align:middle;
 }
 
 .titulos_beneficios_asesora_online{
 	width:28%;
+    padding-top:3px;
 	margin-right:6%;
 }
 
@@ -284,7 +274,7 @@
 
 .seccion_formulario_inscripcion{
 	background: url(../../../Content/Images/fondo_form.png);
-    height: 564px;
+    height: 554px;
     background-repeat: no-repeat;
     background-position: -30px 20px;
     background-size: cover;
@@ -308,6 +298,7 @@
     font-size: 23px;
     letter-spacing: 1px;
     margin-bottom:12px;
+    line-height:27px;
 }
 
 .contenedor_formulario{
@@ -318,7 +309,8 @@
 
 .formulario_inscripcion{
 	display:block;
-	padding:33px;
+	padding:28px;
+    text-align:center;
 }
 
 .seccion_primer_paso, .seccion_segundo_paso{
@@ -329,6 +321,7 @@
 .seccion_primer_paso {
     width: 49%;
     margin-right: 21px;
+    text-align:left;
 }
 
 .seccion_segundo_paso {
@@ -395,7 +388,7 @@
     background: #FFF;
     border: 1px solid #979797;
     width: 100%;
-    max-width: 226px;
+    max-width: 258px;
     height: 31px;
     line-height: 27px!important;
     padding: 0 10px!important;
@@ -420,12 +413,17 @@
 }
 
 .texto_titulo {
-    width: 87%;
+    width: 100%;
     font-size:13px;
+    margin-bottom:13px;
 }
 
-.texto_titulo span{
-	font-size:14px;
+.texto_titulo span:first-child{
+	font-size:14.5px;
+}
+
+.texto_titulo span:last-child{
+	font-size:13px;
 }
 
 .seccion_enviar_formulario{
@@ -458,7 +456,7 @@
 	height:13px;
 	border:1px solid #000;
 	position:relative;
-	top:3px;
+	top:2px;
 	margin-right:5px;
 }
 
@@ -478,11 +476,11 @@
     background: #e81c36;
     border: none;
     color: #FFF;
-    width: 164px;
+    width: 246px;
     height: 40px;
     text-transform: uppercase;
     font-size: 13px;
-    letter-spacing:3px;
+    letter-spacing:1.5px;
 }
 
 .seccion_instagram {
@@ -916,7 +914,7 @@
 	display:block;
 	width:741px;
 	height:auto;
-	margin:-217px auto 0 auto;
+	margin:-222.5px auto 0 auto;
 	position:relative;
 	top:50%;
 	background: -moz-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
@@ -974,6 +972,7 @@
 .texto_popup{
 	display:block;
 	margin-bottom:28px;
+    line-height:20px;
 }
 
 .lista_beneficios_inscripcion, .icono_beneficio_inscripcion, .descripcion_beneficio_inscripcion{
@@ -981,7 +980,7 @@
 }
 
 .lista_beneficios_inscripcion{
-	margin-bottom:45px;
+	margin-bottom:35px;
 }
 
 .beneficio_inscripcion{
@@ -1019,6 +1018,7 @@
 	-o-transform:skewX(14deg);
 	-ms-transform:skewX(14deg);
 	-webkit-transform:skewX(14deg);
+    line-height:15px;
 }
 
 .beneficio_inscripcion:last-child .descripcion_beneficio_inscripcion{
@@ -1052,7 +1052,7 @@
     max-width: 268px;
     position: relative;
     left: -15px;
-    margin-bottom: 36px;
+    margin-bottom: 31px;
 }
 
 .enlace_ver_mas_informacion, .enlace_no_volver_mostrar_mensaje{
@@ -1090,6 +1090,10 @@
 	display:block;
 	width:30px;
 	height:31px;
+	background:url(../../../Content/Images/icono-cerrar-popup-inscripcion.svg);
+	background-position:center;
+	background-repeat:no-repeat;
+	background-size:100%;
 	position:absolute;
 	top:0;
 	right:-40px;
@@ -1195,3 +1199,214 @@
 }
 
 /* FIN POPUP INSCRIPCIÓN ASESORÍA ONLINE */
+
+/* INICIO POPUP FELICITACIONES INSCRIPCIÓN A COACH VIRTUAL */
+
+.popup_felicitaciones_coach_virtual,
+.titulo_popup_felicitaciones_coach_virtual, 
+.titulo_popup_felicitaciones_coach_virtual > span,
+.mensaje_popup_felicitaciones_coach_virtual,
+.mensaje_popup_felicitaciones_coach_virtual > span,
+.datos_consultora_popup_felicitaciones_coach_virtual,
+.btn_modificar_datos, .btn_modificar_datos span
+{
+	display:block;
+}
+
+.popup_felicitaciones_coach_virtual{
+	margin:-255.5px auto 0 auto;
+	width:100%;
+	max-width:742px;
+	height:511px;
+	background:#FFF;
+	position:relative;
+	top:50%;
+}
+
+.titulo_popup_felicitaciones_coach_virtual{
+	font-size:22px;
+	margin-top:6px;
+	margin-bottom:42px;
+}
+
+.titulo_popup_felicitaciones_coach_virtual, .mensaje_popup_felicitaciones_coach_virtual{
+	text-align:center;
+}
+
+.titulo_popup_felicitaciones_coach_virtual > span:last-child{
+	font-size:24px;
+}
+
+.mensaje_popup_felicitaciones_coach_virtual{
+	font-size:16px;
+	margin-bottom:40px;
+}
+
+.mensaje_popup_felicitaciones_coach_virtual > span:first-child{
+	margin-bottom:3px;
+}
+
+.datos_consultora_popup_felicitaciones_coach_virtual, .btn_modificar_datos{
+	text-align:center;
+}
+
+.datos_consultora_popup_felicitaciones_coach_virtual{
+	margin-bottom:40px;
+}
+
+.bloque_izq_datos, .bloque_der_datos{
+	display:inline-block;
+	vertical-align:top;
+	width:auto;
+}
+
+.icono_popup_felicitaciones_coach_virtual, .datos_consultora_inscrita{
+	display:block;
+	height:40px;
+	line-height:40px;
+}
+
+.icono_mail_coach_virtual, .icono_smartphone_coach_virtual{
+	text-align:right;
+	margin-right:30px;
+	margin-bottom:10px;
+}
+
+.bloque_der_datos > .datos_consultora_inscrita{
+	text-align:left;
+	font-size:18px;
+	letter-spacing: 0.7px;
+}
+
+.bloque_der_datos .datos_consultora_inscrita:last-child{
+	padding-top:8px;
+	box-sizing: border-box;
+}
+
+.icono_mail_coach_virtual{
+	padding-top: 7px;
+    box-sizing: border-box;
+}
+
+.icono_mail_coach_virtual img{
+	width:35px;
+	height:21.98px;
+}
+
+.icono_smartphone_coach_virtual{
+	padding-right: 7px;
+    box-sizing: border-box;
+}
+
+.icono_smartphone_coach_virtual img{
+	width:20.97px;
+	height:35.5px;
+}
+
+.btn_modificar_datos button{
+	margin:0 auto;
+	width:100%;
+	max-width:252px;
+	height:40px;
+	line-height:36px;
+	border:1px solid #000;
+	background:#FFF;
+	margin-bottom:8px;
+	cursor:pointer;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.btn_modificar_datos button:hover{
+	background:#000;
+	color:#FFF;
+}
+
+.btn_modificar_datos button, .btn_modificar_datos span{
+	color:#000;
+	font-size:14px;
+	letter-spacing:1.5px;
+}
+
+@media screen and (max-width:991px){
+
+	.cerrar_popup_inscripcion{
+		background: url(../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg);
+	    background-size: 100%;
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    right: 9px;
+	    top: 10px;
+	    width: 25px;
+	    height: 26px;
+	}
+
+}
+
+@media screen and (max-width:767px){
+
+    .popup_felicitaciones_coach_virtual{
+        width:93%;
+        top:4.5%;
+        margin:0 auto 17px auto;
+    }
+
+}
+
+@media screen and (max-width:480px){
+
+	.titulo_popup_felicitaciones_coach_virtual{
+    	width: 100%;
+    	max-width: 300px;
+    	margin: 18px auto 42px auto;
+	}
+
+	.titulo_popup_felicitaciones_coach_virtual > span:first-child{
+		font-size:18px;
+	}
+
+	.titulo_popup_felicitaciones_coach_virtual > span:last-child{
+		font-size:20px;
+	}
+
+	.mensaje_popup_felicitaciones_coach_virtual{
+		font-size:14px;
+	}
+
+	.bloque_der_datos > .datos_consultora_inscrita{
+		font-size:13px;
+	}
+
+	.bloque_der_datos .datos_consultora_inscrita:last-child{
+		padding-top:4px;
+	}
+
+	.icono_mail_coach_virtual, .icono_smartphone_coach_virtual{
+		margin-right:16px;
+		margin-bottom:3px;
+	}
+
+	.icono_mail_coach_virtual{
+		padding-top:1px;
+	}
+
+	.icono_mail_coach_virtual img {
+	    width: 21px;
+	    height: 12.43px;
+	}
+
+	.icono_smartphone_coach_virtual{
+		padding-right:5px;
+	}
+
+	.icono_smartphone_coach_virtual img {
+	    width: 12.58px;
+	    height: 20.08px;
+	}
+
+}
+
+/* FIN POPUP FELICITACIONES INSCRIPCIÓN A COACH VIRTUAL */
