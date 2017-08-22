@@ -238,8 +238,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         aux = "h";
     }
 
-    cumpleOferta.productosMostrar = cumpleOferta.productosMostrar || new Array();
-
+    cumpleOferta.productosMostrar = cumpleOferta.productosMostrar || new Array();    
     if (cumpleOferta.productosMostrar.length == 0) {
         return false;
     }
@@ -260,7 +259,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     objOf.Cross = objOf.TipoMeta == "GM" ? objOf.Detalle.Find("TipoCross", true).length > 0 ? "1" : "0" : "0";
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
-
+    debugger;
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
 
@@ -280,6 +279,14 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
         var duration = 500;
         $('#ContentSorpresaMobile').toggle(effect, options, duration);
     });
+
+    $("#btn_sigue_comprando_gana").click(function () {
+        // Set the effect type
+        var effect = 'slide';
+        var options = { direction: 'right' };
+        var duration = 500;
+        $('#ContentSorpresaMobile').toggle(effect, options, duration);
+    });    
 
     debugger;
     // Regalo OF
@@ -482,7 +489,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         //var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total")
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
-
+        debugger;
         if (parseFloat(data.total) >= montolimite) {
             var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
             $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>MONTO MÍNIMO!</b>");

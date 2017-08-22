@@ -560,6 +560,8 @@
                     {{else}}
                     <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
                     {{/iff}}
+                    {{else if_eq TipoMeta 'RG'}}
+                    <span>@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREIBLES</b></span>
                     {{else}}    <!--se espera escala de dscto-->
                     <span>ALCANZA EL <b style="font-size:23px;">{{MetaPorcentaje}}%</b> DSCTO AGREGANDO {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span> DE ESTAS OFERTAS</span>
                     {{/if_eq}}
@@ -675,7 +677,7 @@
                 MONTO A ALCANZAR: <span id="of-regalo-montometa">$200.000</span><br />
                 <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
             </div>
-            <div class="btn_sigue_comprando">SIGUE COMPRANDO Y GANA</div>
+            <div class="btn_sigue_comprando" id="btn_sigue_comprando_gana">SIGUE COMPRANDO Y GANA</div>
             <a class="btn_legal_RS">*Descargar términos y condiciones</a>
         </div>
     </div>
