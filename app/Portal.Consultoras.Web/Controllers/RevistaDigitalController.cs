@@ -181,6 +181,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     lista = listModel
                 });
             }
@@ -190,6 +192,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     message = "Error al cargar los productos"
                 });
             }
@@ -224,6 +228,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     listaLan = listModel
                 });
             }
@@ -233,6 +239,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     message = "Error al cargar los productos"
                 });
             }

@@ -2618,9 +2618,8 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             foreach (var entConf in listaEntidad)
             {
-
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                // validacion para ver si se muestra
+                
                 if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
                     continue;
 
@@ -2629,7 +2628,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
-                    Codigo = entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+                    Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     IsMobile = isMobile,
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
@@ -2639,47 +2638,42 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
                     CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos
                 };
-                seccion.TemplatePresentacion = "";
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.TemplatePresentacion = "carrusel-previsuales";
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
-                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
+                        seccion.UrlLandig = "RevistaDigital/Index";
                         break;
                     default:
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "")
-                {
-                    continue;
-                }
-                seccion.TemplateProducto = "";
+                seccion.TemplatePresentacion = "";
                 switch (seccion.TipoPresentacion)
                 {
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+                        seccion.TemplatePresentacion = "carrusel-previsuales";
                         seccion.TemplateProducto = "#lanzamiento-carrusel-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         break;
                     default:
                         break;
                 }
 
-                if (seccion.TemplateProducto == "")
-                {
-                    continue;
-                }
+                if (seccion.TemplatePresentacion == "") continue;
 
                 modelo.Add(seccion);
             }
