@@ -219,9 +219,10 @@ function OfertaArmarEstrategias(response) {
             response.Seccion = listaSeccion["RDR-" + response.CampaniaID];
         }
 
-        LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));
+        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
 
         var cant = response.Seccion.CantidadProductos || 0;
+        cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
         if (cant > 0) {
             var newLista = [];
             var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
@@ -242,7 +243,7 @@ function OfertaArmarEstrategias(response) {
                 response.listaLan = [];
                 response.lista = newLista;
             }
-            console.log(newLista);
+
         }
 
         SeccionMostrarProductos(response);
@@ -333,7 +334,7 @@ function OfertaArmarEstrategias(response) {
     ResizeBoxContnet();
 
     if (!isDetalle) {
-        LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));
+        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
     }
 }
 

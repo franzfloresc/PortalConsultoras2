@@ -859,6 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confi in lista)
             {
                 listaMenu.Add(new MenuContenedorModel {
+                    Codigo = confi.Codigo,
                     CampaniaID = userData.CampaniaID,
                     TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
                     LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
@@ -866,7 +867,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                     SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
                     Orden = confi.Orden,
-                    Activa = true
+                    UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu
                 });
             }
 
@@ -882,13 +883,15 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaMenu.Add(new MenuContenedorModel
                     {
+                        Codigo = confi.Codigo,
                         CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
                         TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
                         LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
                         FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
                         TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                         SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
-                        Orden = confi.Orden
+                        Orden = confi.Orden,
+                        UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu
                     });
                 }
                 
@@ -948,7 +951,7 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
                 TituloMenu = "INICIO",
                 SubTituloMenu = "",
-                UrlPantalla = (IsMobile() ? "" : "/Mobile") + Url.Action("Index", "Ofertas"),
+                UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };

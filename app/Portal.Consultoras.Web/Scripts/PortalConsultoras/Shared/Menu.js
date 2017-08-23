@@ -45,9 +45,14 @@ function MenuContenedor() {
             primerMenu = $(primerMenu).get(0);
         }
 
+        var primerSubMenu = $("[data-layout-menu2] ul li");
+        if (primerSubMenu.length > 0) {
+            primerSubMenu = $(primerSubMenu).get(0);
+        }
+
         menuCheck = {
             campania: $(primerMenu).data("campania"),
-            codigo: $(primerMenu).data("codigo")
+            codigo: $(primerSubMenu).data("codigo")
         };
 
         LocalStorageListado(menuContenedorActivo, menuCheck);
@@ -64,6 +69,9 @@ function MenuContenedor() {
 function MenuContenedorClick(e, url) {
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+    if ($(objHtmlEvent).data("campania") == undefined) {
+        objHtmlEvent = $(objHtmlEvent).parents("[data-campania]");
+    }
 
     var codigoLocal = {
         campania: $(objHtmlEvent).data("campania"),

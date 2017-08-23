@@ -7,14 +7,14 @@ function LocalStorageListado(key, valor, accion) {
 
     if (accion == 0) {
         if (valor != undefined) {
-            localStorage.setItem(key, valor);
+            localStorage.setItem(key, JSON.stringify(valor));
         }
     }
     else if (accion == 1) {
         return localStorage.getItem(key);
     }
 
-    if (accion == 3) {
+    if (accion == 2) {
         localStorage.removeItem(key);
     }
 }

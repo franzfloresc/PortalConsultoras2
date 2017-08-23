@@ -54,7 +54,7 @@
                 @foreach (var menuhijo in listaPloma)
                 {
                     <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" data-codigo="@menuhijo.Codigo"
-                        onclick="MenuContenedorClick(event, @menuhijo.UrlPantalla)" style="display:none;">
+                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')" style="display:none;">
                         <a href="javascript:;">
                             <p>@menuhijo.TituloMenu</p>
                             <span>@menuhijo.SubTituloMenu</span>

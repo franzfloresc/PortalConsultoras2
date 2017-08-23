@@ -13,7 +13,7 @@
         public string FondoBanner { get; set; }
         public string TituloBanner { get; set; }
         public string SubTituloBanner { get; set; }
-        public string UrlPantalla { get; set; }
+        public string UrlMenu { get; set; }
 
         public bool IsMenuCampania { get; set; }
         public bool Activa { get; set; }
