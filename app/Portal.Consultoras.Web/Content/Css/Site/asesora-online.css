@@ -80,7 +80,7 @@
     height: 440px;
     background-image: url(../../../Content/Images/img_cabecera_asesora_online.png);
     background-repeat: no-repeat;
-    background-position: 93% -238px;
+    background-position: 93% -219px;
     background-size: 757px;
     background-attachment: fixed;
     position: absolute;
@@ -426,12 +426,16 @@
 }
 
 .seccion_enviar_formulario{
-	margin-top:15px;
+	margin-top:25px;
 }
 
 .terminos_condiciones_form, .terminos_condiciones_form > div {
     display: block;
     text-align:center;
+}
+
+.terminos_condiciones_form > div{
+    margin-bottom:16px;
 }
 
 .terminos_condiciones_form > div:first-child {
@@ -760,8 +764,12 @@
 	}
 
 	.formulario_inscripcion{
-		padding: 97px 33px 31px 33px;
+		padding: 97px 33px 9px 33px;
 	}
+
+    .seccion_enviar_formulario{
+        margin-top:16px;
+    }
 
 	.seccion_primer_paso {
 	    margin-bottom: 3px;
@@ -910,7 +918,7 @@
 	}
 
 	.formulario_inscripcion {
-	    padding: 97px 24px 31px 24px;
+	    padding: 97px 24px 9px 24px;
 	}
 
 }
