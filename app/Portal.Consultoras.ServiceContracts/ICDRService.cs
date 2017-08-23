@@ -17,6 +17,9 @@ namespace Portal.Consultoras.ServiceContracts
         List<BECDRWeb> GetCDRWeb(int PaisID, BECDRWeb entity);
 
         [OperationContract]
+        List<BECDRWeb> GetCDRWebMobile(int PaisID, BECDRWeb entity);
+
+        [OperationContract]
         int UpdEstadoCDRWeb(int PaisID, BECDRWeb entity);
 
         [OperationContract]

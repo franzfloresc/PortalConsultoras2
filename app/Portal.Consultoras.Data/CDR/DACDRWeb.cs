@@ -53,7 +53,18 @@ namespace Portal.Consultoras.Data.CDR
 
             return Context.ExecuteReader(command);
         }
-        
+
+        public IDataReader GetCDRWebMobile(BECDRWeb entity)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetCDRWebMobile");
+            Context.Database.AddInParameter(command, "ConsultoraID", DbType.Int64, entity.ConsultoraID);
+            Context.Database.AddInParameter(command, "PedidoID", DbType.Int32, entity.PedidoID);
+            Context.Database.AddInParameter(command, "CampaniaID", DbType.Int32, entity.CampaniaID);
+            Context.Database.AddInParameter(command, "CDRWebID", DbType.Int32, entity.CDRWebID);
+
+            return Context.ExecuteReader(command);
+        }
+
         public int UpdEstadoCDRWeb(BECDRWeb entity)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdEstadoCDRWeb");

@@ -8,14 +8,15 @@ $(document).ready(function () {
     PortalConsultorasReclamos = function () {
 
         var me = this;
-
+        
         me.Variables = {
             //BtnAgregar: '#btnAgregar',
-            IrPaso1: '#IrPaso1'
+            IrPaso1: '#IrPaso1',
+            VerDetalleCDR: ".abrir_detallemb"
         };
-
+        
         me.Eventos = {
-
+            
             bindEvents: function () {
 
                 $(document).on('click', me.Variables.IrPaso1, function () {
@@ -29,7 +30,12 @@ $(document).ready(function () {
                     }
                     console.log('Proceder con el registro');
                     window.location.href = urlReclamo;
+                });
 
+                $(document).on("click", me.Variables.VerDetalleCDR, function () {
+                    debugger
+                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                    OrigenCDRMobile = "1";
                 });
             }
         };

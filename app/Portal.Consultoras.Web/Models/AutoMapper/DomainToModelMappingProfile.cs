@@ -139,7 +139,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.Importe, f => f.MapFrom(c => c.Importe))
                 .ForMember(t => t.FechaAtencion, f => f.MapFrom(c => c.FechaAtencion))
                 .ForMember(t => t.ConsultoraSaldo, f => f.MapFrom(c => c.ConsultoraSaldo))
-                .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle));
+                .ForMember(t => t.CantidadDetalle, f => f.MapFrom(c => c.CantidadDetalle))
+                .ForMember(t => t.CantidadAprobados, f => f.MapFrom(c => c.CantidadAprobados))
+                .ForMember(t => t.CantidadRechazados, f => f.MapFrom(c => c.CantidadRechazados));
 
             Mapper.CreateMap<BEUsuarioExterno, UsuarioExternoModel>()
                 .ForMember(t => t.CodigoUsuario, f => f.MapFrom(c => c.CodigoUsuario))

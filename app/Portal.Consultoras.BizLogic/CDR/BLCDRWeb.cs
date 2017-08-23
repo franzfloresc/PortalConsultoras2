@@ -71,14 +71,19 @@ namespace Portal.Consultoras.BizLogic.CDR
             }
         }
 
-        public List<BECDRWeb> GetCDRWeb(int PaisID, BECDRWeb entity)
+        public List<BECDRWeb> GetCDRWeb(int PaisID, BECDRWeb entity, int Esmobile = 0)
         {
-            var listaEntity = new List<BECDRWeb>();
-            
+            var listaEntity = new List<BECDRWeb>();            
             try
             {
                 var DACDRWeb = new DACDRWeb(PaisID);
-                using (IDataReader reader = DACDRWeb.GetCDRWeb(entity))
+                IDataReader reader;
+                if (Esmobile == 1)
+                    reader = DACDRWeb.GetCDRWebMobile(entity);
+                else
+                    reader = DACDRWeb.GetCDRWeb(entity);
+
+                using (reader)
                 {
                     while (reader.Read())
                     {

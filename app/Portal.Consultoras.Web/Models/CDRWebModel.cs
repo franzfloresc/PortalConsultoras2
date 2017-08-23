@@ -27,6 +27,9 @@ namespace Portal.Consultoras.Web.Models
         public string Simbolo { get; set; }
         public decimal ConsultoraSaldo { get; set; }    //EPD-1665
 
+        public int CantidadAprobados { get; set; }
+        public int CantidadRechazados { get; set; }
+
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
         {
@@ -37,7 +40,7 @@ namespace Portal.Consultoras.Web.Models
                     : Estado == Constantes.EstadoCDRWeb.Enviado
                         ? "EN EVALUACIÓN"
                         : Estado == Constantes.EstadoCDRWeb.Observado
-                        ? "OBSERVADO"
+                        ? "RECHAZADO" //"OBSERVADO"
                         : Estado == Constantes.EstadoCDRWeb.Aceptado
                             ? "APROBADO"
                             : "";

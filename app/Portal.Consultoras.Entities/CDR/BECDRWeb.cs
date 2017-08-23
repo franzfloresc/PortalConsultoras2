@@ -46,6 +46,13 @@ namespace Portal.Consultoras.Entities.CDR
         [DataMember]
         public decimal ConsultoraSaldo { get; set; }
 
+        //HD-726
+        [DataMember]
+        public int CantidadAprobados { get; set; }
+
+        [DataMember]
+        public int CantidadRechazados { get; set; }
+
         public BECDRWeb()
         { }
 
@@ -63,6 +70,8 @@ namespace Portal.Consultoras.Entities.CDR
             if (row.HasColumn("Importe")) Importe = Convert.ToDecimal(row["Importe"]);
             if (row.HasColumn("CantidadDetalle")) CantidadDetalle = Convert.ToInt32(row["CantidadDetalle"]);
             if (row.HasColumn("ConsultoraSaldo")) ConsultoraSaldo = Convert.ToDecimal(row["ConsultoraSaldo"]);
+            if (row.HasColumn("CantidadAprobados")) CantidadAprobados = Convert.ToInt32(row["CantidadAprobados"]);
+            if (row.HasColumn("CantidadRechazados")) CantidadRechazados = Convert.ToInt32(row["CantidadRechazados"]);
             CDRWebDetalle = new List<BECDRWebDetalle>();
         }
     }
