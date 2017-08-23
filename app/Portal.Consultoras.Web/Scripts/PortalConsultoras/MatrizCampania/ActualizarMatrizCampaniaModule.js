@@ -343,6 +343,7 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
+                $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
                 $(_elements.matrizImagenesPaginacion).empty();
                 _obtenerImagenesByCodigoSAP(1, true)
             } else {
@@ -458,7 +459,8 @@ var actualizarMatrizCampaniaModule = (function () {
         if (_settings.habilitarRegalo) {
             item.RegaloDescripcion = $(_elements.txtRegaloDescripcion).val();
             var imagen = $(_elements.imgSeleccionada).attr('src');
-            item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
+            if (imagen != '' && imagen.indexOf('prod_grilla_vacio.png') == -1)
+                item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
         }
         $.ajax({
             type: 'POST',
