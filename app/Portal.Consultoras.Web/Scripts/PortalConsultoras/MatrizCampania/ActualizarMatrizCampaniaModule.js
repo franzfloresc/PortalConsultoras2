@@ -343,6 +343,7 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
+                $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
                 $(_elements.matrizImagenesPaginacion).empty();
                 _obtenerImagenesByCodigoSAP(1, true)
             } else {
@@ -441,15 +442,6 @@ var actualizarMatrizCampaniaModule = (function () {
         if ($(_elements.txtFactorRepeticionNuevo).val() == "")
             msj += "- Debe ingresar el Nuevo Factor Repetición del Producto \n";
 
-        if (_settings.habilitarRegalo) {
-            if ($(_elements.txtRegaloDescripcion).val() == "")
-                msj += "- Debe ingresar la nueva Descripción Regalo \n";
-
-            if ($(_elements.imgSeleccionada).attr('src') != '' &&
-                $(_elements.imgSeleccionada).attr('src').indexOf('prod_grilla_vacio.png') != -1)
-                msj += "- Debe ingresar la nueva seleccionar Imagen \n";
-        }
-
         if (msj != "") {
             alert(msj);
             return false;
@@ -467,7 +459,8 @@ var actualizarMatrizCampaniaModule = (function () {
         if (_settings.habilitarRegalo) {
             item.RegaloDescripcion = $(_elements.txtRegaloDescripcion).val();
             var imagen = $(_elements.imgSeleccionada).attr('src');
-            item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
+            if (imagen != '' && imagen.indexOf('prod_grilla_vacio.png') == -1)
+                item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
         }
         $.ajax({
             type: 'POST',
