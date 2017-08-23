@@ -115,6 +115,13 @@ display: none;
     /*position: fixed;*/
 }
 
+.op-menu-vertical .seleccionado {
+    box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
+    border-left: 5px solid #B11314;
+    text-decoration: none;
+}
+
+
 .op-menu-vertical ul {
     margin: 0;
     padding: 0;
@@ -144,19 +151,15 @@ display: none;
     text-decoration: none;
 }
 
-    .op-menu-vertical ul li a p {
-        display: block;
-        text-align: left;
-        margin-bottom: 0;
-        font-weight: normal;
-        font-size: 10px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        font-weight: bolder !important;
-    }
-
-.negrita-p {
-    font-weight: bolder;
+.op-menu-vertical ul li a p {
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: bolder !important;
 }
 
 .op-menu-vertical ul li a span {

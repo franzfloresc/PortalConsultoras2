@@ -29,7 +29,7 @@
                         <img src="img/ojos.svg" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
                         REVISAR C-@(menuContenedor.CampaniaX1 % 100)
                     </a>
-                </li><li data-campania="0">
+                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
                     <a href="javascript:;" class="desplegable">
                         SABER MÁS DE ÉSIKA PARA MÍ
                     </a>
@@ -53,7 +53,8 @@
             <ul class="sbmenu_estrategia">
                 @foreach (var menuhijo in listaPloma)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" data-codigo="@menuhijo.Codigo" style="display:none;">
+                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" data-codigo="@menuhijo.Codigo"
+                        onclick="MenuContenedorClick(event, @menuhijo.UrlPantalla)" style="display:none;">
                         <a href="javascript:;">
                             <p>@menuhijo.TituloMenu</p>
                             <span>@menuhijo.SubTituloMenu</span>

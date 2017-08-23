@@ -1,4 +1,7 @@
-﻿$(document).ready(function () {
+﻿
+var menuContenedorActivo = "MenuContenedorActivo";
+
+$(document).ready(function () {
 
     $("body").on("click", "[data-layout-menu1] ul li", function (e) {
         $("[data-layout-menu2] ul li").hide();
@@ -10,7 +13,14 @@
         else {
             $('[data-layout-menu2]').show();
         }
-        LayoutHeaderFin();
+
+        var urlAccion = $.trim($(this).data("url"));
+        if (urlAccion == "") {
+            LayoutHeaderFin();
+        }
+        else {
+            window.location = "/" + (isMobile() ? "Mobile/" : "") + urlAccion;
+        }
     });
 
     MenuContenedor();
@@ -24,34 +34,46 @@
 
 function MenuContenedor() {
 
-    if ($("[data-layout-menu1] ul li").length == 0) {
-        $("[data-layout-menu2] ul li").show();
-    }
-    else {
-        $("[data-layout-menu2] ul li").hide();
-        $("[data-layout-menu1] ul li").removeClass("seleccionado");
 
-        var primerMenu = $("[data-layout-menu1] ul li[data-activo='True']");
-        if (primerMenu.length == 0) {
-            primerMenu = $("[data-layout-menu1] ul li");
-        }
+    $("[data-layout-menu2] ul li").hide();
+    $("[data-layout-menu1] ul li").removeClass("seleccionado");
 
+    var menuCheck = LocalStorageListado(menuContenedorActivo, "", 1);
+    if (menuCheck == undefined) {
+        var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
-
-            $(primerMenu).data("activo", true);
-            $(primerMenu).addClass("seleccionado");
-
-            $(primerMenu).click();
         }
 
+        menuCheck = {
+            campania: $(primerMenu).data("campania"),
+            codigo: $(primerMenu).data("codigo")
+        };
+
+        LocalStorageListado(menuContenedorActivo, menuCheck);
+    }
+    else {
+        menuCheck = JSON.parse(menuCheck);
     }
 
-    var menuSelec = $.trim($("[data-menu-seleccionado]").data("menu-seleccionado"));
-    $("[data-layout-menu2] ul li[data-codigo='" + menuSelec + "']").addClass("seleccionado");
+    $("[data-layout-menu2] ul li[data-campania='" + menuCheck.campania + "']").show();
+    $("[data-layout-menu2] ul li[data-codigo='" + menuCheck.codigo + "']").addClass("seleccionado");
 
 }
 
+function MenuContenedorClick(e, url) {
+    var objHtmlEvent = $(e.target);
+    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+
+    var codigoLocal = {
+        campania: $(objHtmlEvent).data("campania"),
+        codigo: $(objHtmlEvent).data("codigo")
+    };
+
+    LocalStorageListado(menuContenedorActivo, codigoLocal);
+
+    window.location = url;
+}
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
     if (ControllerName == "ShowRoom") {
