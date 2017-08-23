@@ -434,7 +434,7 @@ function GanoOfertaFinalRegalo(totalPedido) {
 function ActulizarValoresPopupOfertaFinal(data, popup) {
     var tipoMeta = $("#divOfertaFinal div[data-meta]").attr("data-meta") || data.TipoMeta;
     var simbolo = $("#hdSimbolo").val();
-
+    debugger;
     if (consultoraRegaloPN == 'True') {
         var mm = $("#msjOfertaFinal").attr("data-meta-monto");
         var mt = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
@@ -504,6 +504,12 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         $("#divOfertaFinal > div").attr("data-meta-total", data.total);
     }
     else if (tipoMeta == "RG") {
+        if (ValoresOFR != null) {
+            if (ValoresOFR.total >= ValoresOFR.meta
+                    && ValoresOFR.meta > 0
+                    && ValoresOFR.total > 0)
+                $("#spnTituloOfertaFinal span").html("FELICIDADES " + nombreConsultora + "</br><b>!GANASTE EL PREMIO!</b>");
+        }
         if (ofertaFinalRegalo != null) {
             GanoOfertaFinalRegalo(data.total);
         }
