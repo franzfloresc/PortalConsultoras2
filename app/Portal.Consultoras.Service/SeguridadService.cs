@@ -136,11 +136,6 @@ namespace Portal.Consultoras.Service
         {
             return BLMenuMobile.GetItemsByPais(paisID);
         }
-
-        public IList<BEApp> ObtenerApps(int paisID)
-        {
-            return _blApp.ObtenerApps(paisID);
-        }
         #endregion
 
         #region Menus App

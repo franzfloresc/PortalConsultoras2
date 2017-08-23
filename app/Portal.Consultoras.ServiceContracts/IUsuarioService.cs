@@ -347,9 +347,11 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
 
+        #region TerminosCondiciones
         [OperationContract]
-        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
         [OperationContract]
         BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        #endregion
     }
 }
