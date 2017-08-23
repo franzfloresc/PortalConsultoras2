@@ -329,10 +329,12 @@ var actualizarMatrizCampaniaModule = (function () {
     var _crearFileUploadAdd = function () {
         var data = {
             elementId: 'file-upload',
-            idMatrizComercial: $(_elements.hdnIdMatrizComercial).val(),
+            idMatrizComercial: function () { return ($(_elements.hdnIdMatrizComercial).val()); },
             idImagenMatriz: 0,
             paisID: $(_elements.ddlPais).val(),
             codigoSAP: $(_elements.hdnSap).val(),
+            maxConnections: $(_elements.hdnIdMatrizComercial).val() == '0' ? 1 : 3,
+            multiple: $(_elements.hdnIdMatrizComercial).val() == '0' ? false : true,
             onComplete: _uploadComplete
         };
         _matrizFileUploaderComponent.crearFileUpload(data);
@@ -343,7 +345,10 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
+                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val(); 
                 $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
+                if (IdMatrizComercialAnterior == '0')
+                    _crearFileUploadAdd();
                 $(_elements.matrizImagenesPaginacion).empty();
                 _obtenerImagenesByCodigoSAP(1, true)
             } else {
