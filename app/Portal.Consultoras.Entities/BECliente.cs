@@ -201,5 +201,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
+
+        public List<BEClienteContactoDB> Contactos { get; set; }
     }
 }
