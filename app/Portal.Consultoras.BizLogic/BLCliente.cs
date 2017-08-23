@@ -308,9 +308,12 @@ namespace Portal.Consultoras.BizLogic
             var daCliente = new DACliente(paisID);
             var daClienteDB = new BLClienteDB();
             var clienteSB = new BECliente();
+            bool validacionConsultora = true;
 
             foreach (var clienteDB in clientes)
             {
+                validacionConsultora = true;
+
                 var movimientosResponse = ResponseType<List<BEMovimiento>>.Build();
                 clienteDB.PaisID = paisID;
 
@@ -352,51 +355,64 @@ namespace Portal.Consultoras.BizLogic
                 }
 
                 //OBTENER TELEFONO PRINCIPAL
-                var contactoPrincipal = (from tbl in clienteDB.Contactos
+                var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
+
+                var lstContactoPrincipal = (from tbl in clienteDB.Contactos
                                          where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
                                          || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
                                          && tbl.Estado == Constantes.ClienteEstado.Activo
-                                         select tbl).OrderBy(x => x.TipoContactoID).FirstOrDefault();
+                                         select tbl).OrderBy(x => x.TipoContactoID);
 
-                //VALIDAR CLIENTE CONSULTORA
-                validacion = this.ValidateConsultora(paisID, clienteDB, contactoPrincipal);
-                if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
+                foreach(var contactoPrincipal in lstContactoPrincipal)
                 {
-                    lstResponse.Add(new BEClienteResponse()
-                    {
-                        ClienteID = clienteDB.ClienteID,
-                        ConsultoraID = clienteDB.ConsultoraID,
-                        ClienteIDSB = clienteDB.ClienteIDSB,
-                        CodigoRespuesta = validacion,
-                        MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion]
-                    });
-                    continue;
-                }
+                    //VALIDAR CLIENTE CONSULTORA
+                    validacion = this.ValidateConsultora(paisID, clienteDB, contactoPrincipal, lstClienteConsultora);
 
-
-                //OBTENER CLIENTE TELEFONO
-                var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID);
-                resGetCliente = resGetCliente.Where(x => x.ClienteID != clienteDB.ClienteID).ToList();
-
-                if (resGetCliente.Count > 0)
-                {
-                    if (clienteDB.ClienteID == 0)
-                    {
-                        clienteDB.ClienteID = resGetCliente.First().ClienteID;
-                    }
-                    else
+                    if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
                     {
                         lstResponse.Add(new BEClienteResponse()
                         {
                             ClienteID = clienteDB.ClienteID,
                             ConsultoraID = clienteDB.ConsultoraID,
                             ClienteIDSB = clienteDB.ClienteIDSB,
-                            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE,
-                            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE]
+                            CodigoRespuesta = validacion,
+                            MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion]
                         });
-                        continue;
+
+                        validacionConsultora = false;
+                        break;
+                    }
+
+                    //OBTENER CLIENTE POR TELEFONO Y PAIS
+                    var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID)
+                                                        .Where(x => x.ClienteID != clienteDB.ClienteID)
+                                                        .FirstOrDefault();
+
+                    if (resGetCliente != null)
+                    {
+                        if (clienteDB.ClienteID == 0)
+                        {
+                            clienteDB.ClienteID = resGetCliente.ClienteID;
+                            break;
+                        }
+                        else
+                        {
+                            lstResponse.Add(new BEClienteResponse()
+                            {
+                                ClienteID = clienteDB.ClienteID,
+                                ConsultoraID = clienteDB.ConsultoraID,
+                                ClienteIDSB = clienteDB.ClienteIDSB,
+                                CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE,
+                                MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_NUMEROTELEFONOEXISTE]
+                            });
+
+                            validacionConsultora = false;
+                            break;
+                        }
                     }
                 }
+
+                if (!validacionConsultora) continue;
 
                 //GRABAR CLIENTE
                 if (clienteDB.Estado == Constantes.ClienteEstado.Activo)
@@ -408,14 +424,9 @@ namespace Portal.Consultoras.BizLogic
                     var oCelular = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
                     var celular = (oCelular == null ? string.Empty : oCelular.Valor);
 
-                    if (clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
-                        clienteDB.Contactos = null;
-
-                    //VERIFICAR POR CODIGO Y PAIS
-                    var existeClientePais = daClienteDB.GetClienteByClienteID(clienteDB.ClienteID.ToString(), paisID);
-                    if (existeClientePais.Count == 0)
+                    if(clienteDB.ClienteID == 0)
                     {
-                        //INSERTAR CLIENTE
+                        //INSERTAR CLIENTE BD
                         clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
                         if (clienteDB.ClienteID == 0)
                         {
@@ -427,12 +438,13 @@ namespace Portal.Consultoras.BizLogic
                                 CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO,
                                 MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO]
                             });
+
                             continue;
                         }
                     }
                     else
                     {
-                        //ACTUALIZAR CLIENTE
+                        //ACTUALIZAR CLIENTE BD
                         var resUpdateCliente = daClienteDB.UpdateCliente(clienteDB);
 
                         if (!resUpdateCliente)
@@ -445,9 +457,47 @@ namespace Portal.Consultoras.BizLogic
                                 CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO,
                                 MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO]
                             });
+
                             continue;
                         }
                     }
+
+                    //var existeClientePais = daClienteDB.GetClienteByClienteID(clienteDB.ClienteID.ToString(), paisID);
+                    //if (existeClientePais.Count == 0)
+                    //{
+                    //    //INSERTAR CLIENTE
+                    //    clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
+                    //    if (clienteDB.ClienteID == 0)
+                    //    {
+                    //        lstResponse.Add(new BEClienteResponse()
+                    //        {
+                    //            ClienteID = clienteDB.ClienteID,
+                    //            ConsultoraID = clienteDB.ConsultoraID,
+                    //            ClienteIDSB = clienteDB.ClienteIDSB,
+                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO,
+                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO]
+                    //        });
+                    //        continue;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    //ACTUALIZAR CLIENTE
+                    //    var resUpdateCliente = daClienteDB.UpdateCliente(clienteDB);
+
+                    //    if (!resUpdateCliente)
+                    //    {
+                    //        lstResponse.Add(new BEClienteResponse()
+                    //        {
+                    //            ClienteID = clienteDB.ClienteID,
+                    //            ConsultoraID = clienteDB.ConsultoraID,
+                    //            ClienteIDSB = clienteDB.ClienteIDSB,
+                    //            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO,
+                    //            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO]
+                    //        });
+                    //        continue;
+                    //    }
+                    //}
 
                     clienteSB = new BECliente()
                     {
@@ -465,8 +515,8 @@ namespace Portal.Consultoras.BizLogic
                         TipoContactoFavorito = clienteDB.TipoContactoFavorito
                     };
 
-                    var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
-                    clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
+                    //var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
+                    //clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
 
                     if (clienteDB.ClienteIDSB == 0)
                         clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
@@ -475,10 +525,7 @@ namespace Portal.Consultoras.BizLogic
 
                     if (clienteDB.Notas != null)
                     {
-                        var clienteNotas = clienteDB.Notas;
-                        var clienteNotasRespuesta = new List<BENota>();
-
-                        foreach (var nota in clienteNotas)
+                        foreach (var nota in clienteDB.Notas)
                         {
                             nota.ClienteId = (short)clienteDB.ClienteIDSB;
                             nota.ConsultoraId = clienteDB.ConsultoraID;
@@ -486,12 +533,8 @@ namespace Portal.Consultoras.BizLogic
                             if (nota.ClienteNotaId == 0)
                                 nota.ClienteNotaId = NotaInsertar(paisID, nota);
                             else
-                                NotaActualizar(paisID, nota);
-
-                            clienteNotasRespuesta.Add(nota);
+                                NotaActualizar(paisID, nota);;
                         }
-
-                        clienteDB.Notas = clienteNotasRespuesta;
                     }
 
                     if (clienteDB.Movimientos != null)
@@ -501,30 +544,22 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    if (clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.Todos || clienteDB.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
+                    var deleted = false;
+
+                    if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);
+
+                    if (!deleted)
                     {
-                        var deleted = false;
-
-                        if (clienteDB.ClienteIDSB == 0)
+                        lstResponse.Add(new BEClienteResponse()
                         {
-                            var oConsultoraCliente = this.SelectByConsultoraByCodigo(paisID, clienteDB.ConsultoraID, clienteDB.ClienteIDSB, clienteDB.ClienteID);
-                            clienteDB.ClienteIDSB = oConsultoraCliente.ClienteID;
-                        }
+                            ClienteID = clienteDB.ClienteID,
+                            ConsultoraID = clienteDB.ConsultoraID,
+                            ClienteIDSB = clienteDB.ClienteIDSB,
+                            CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO,
+                            MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO]
+                        });
 
-                        if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);
-
-                        if (!deleted)
-                        {
-                            lstResponse.Add(new BEClienteResponse()
-                            {
-                                ClienteID = clienteDB.ClienteID,
-                                ConsultoraID = clienteDB.ConsultoraID,
-                                ClienteIDSB = clienteDB.ClienteIDSB,
-                                CodigoRespuesta = Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO,
-                                MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO]
-                            });
-                            continue;
-                        }
+                        continue;
                     }
                 }
 
@@ -547,7 +582,6 @@ namespace Portal.Consultoras.BizLogic
                 clienteResponse.Movimientos = movimientosResponse.Data;
                 lstResponse.Add(clienteResponse);
             }
-
 
             return lstResponse;
         }
@@ -624,7 +658,8 @@ namespace Portal.Consultoras.BizLogic
                     Nombres = string.Empty
                 };
 
-                var valConsultora = this.ValidateConsultora(paisID, clienteDB, contactoCliente);
+                var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
+                var valConsultora = this.ValidateConsultora(paisID, clienteDB, contactoCliente, lstClienteConsultora);
                 if (valConsultora != Constantes.ClienteValidacion.Code.SUCCESS)
                 {
                     clienteResponse = new BEClienteResponse()
@@ -757,13 +792,8 @@ namespace Portal.Consultoras.BizLogic
             return Constantes.ClienteValidacion.Code.SUCCESS;
         }
 
-        private string ValidateConsultora(int paisID, BEClienteDB cliente, BEClienteContactoDB contactoPrincipal)
+        private string ValidateConsultora(int paisID, BEClienteDB cliente, BEClienteContactoDB contactoPrincipal, List<BECliente> lstCliente)
         {
-            var lstCliente = this.SelectByConsultora(paisID, cliente.ConsultoraID);
-            lstCliente = lstCliente.Where(x => x.CodigoCliente != cliente.ClienteID).ToList();
-            lstCliente = lstCliente.Where(x => x.ClienteID != cliente.ClienteIDSB).ToList();
-
-            //var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.Nombres.ToUpper()).Count();
             var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.NombreCompleto.ToUpper()).Count();
             if (nombreExiste > 0) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORANOMBREEXISTE;
 
@@ -780,6 +810,14 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return Constantes.ClienteValidacion.Code.SUCCESS;
+        }
+
+        private List<BECliente> ObtenerClienteConsultora(int paisID, BEClienteDB cliente)
+        {
+            var lstCliente = this.SelectByConsultora(paisID, cliente.ConsultoraID)
+                .Where(x => x.ClienteID != cliente.ClienteIDSB).ToList();
+
+            return lstCliente;
         }
         #endregion
     }
