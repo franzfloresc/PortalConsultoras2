@@ -15,11 +15,10 @@
 
     MenuContenedor();
 
-    $('ul.sbmenu_estrategia li a').hover(function (e) {
+    $('ul.sbmenu_estrategia ul li a').hover(function (e) {
         $(this).find('p').css('font-weight', 'bolder');
     }, function (e) {
         $(this).find('p').css('font-weight', 'normal');
-        $("ul.sbmenu_estrategia li.seleccionado a p").css('font-weight', 'bolder');
     });
 });
 

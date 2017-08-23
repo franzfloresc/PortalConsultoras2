@@ -88,9 +88,14 @@ transition: .3s;
 background: white;
 color: #333;
 text-decoration: none;
-border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+/*border-bottom: 1px solid rgba(0, 0, 0, 0.10);*/
 }
-                    
+
+.activo-menu-estrategia {
+    background: white !important;
+    color: #333 !important;
+    text-decoration: none !important;
+}
 
 .bc_menu_estrategia .op_menu-horizontal ul li a img {
 display: inline;
@@ -119,7 +124,7 @@ display: none;
     margin: 0;
     padding: 0;
     list-style: none;
-    border-right: 1px solid rgba(0, 0, 0, 0.11);
+    /*border-right: 1px solid rgba(0, 0, 0, 0.11);*/
     height: 100%;
     /*position: fixed;*/
     width: 100% !important;
@@ -144,14 +149,16 @@ display: none;
     text-decoration: none;
 }
 
-.op-menu-vertical ul li a p {
-    display: block;
-    text-align: left;
-    margin-bottom: 0;
-    font-weight: normal;
-    font-size: 10px;
-    letter-spacing: 2px;
-}
+    .op-menu-vertical ul li a p {
+        display: block;
+        text-align: left;
+        margin-bottom: 0;
+        font-weight: normal;
+        font-size: 10px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-weight: bolder !important;
+    }
 
 .negrita-p {
     font-weight: bolder;

@@ -9,6 +9,7 @@ var campaniaId = campaniaId || 0;
 var indCampania = indCampania || 0;
 var lsListaRD = lsListaRD || "ListaRD";
 var filtroCampania = new Array();
+var isScroll = typeof isScroll == "undefined" ? true : isScroll;
 var filtroIni = {
     CampaniaID: 0,
     ListaFiltro: new Array(),
@@ -160,14 +161,15 @@ function OfertaObtenerFiltro(filtro, clear) {
     return listaFiltros;
 }
 
-function OfertaCargarProductos(busquedaModel, clear) {
-
-    if (urlOfertaCargarProductos == '') return false;
+function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
     busquedaModel = busquedaModel || Clone(filtroIni);
-    busquedaModel.CampaniaID = busquedaModel.CampaniaID || campaniaId || 0;
+    objSeccion = objSeccion || {};
+    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaID || campaniaId || 0;
 
     if (busquedaModel.CampaniaID <= 0) return false;
+
+    if (urlOfertaCargarProductos == '') return false;
 
     OfertaObtenerIndLocal(busquedaModel.CampaniaID);
 
@@ -246,9 +248,8 @@ function OfertaCargarProductoRespuesta(response, clear) {
         $("#divOfertaProductosLoad").hide();
     }
 
-    if (response.success !== true) {
-        return false;
-    }
+    if (response.success !== true) return false;
+    
     divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);
     if (clear || false) {
@@ -256,8 +257,8 @@ function OfertaCargarProductoRespuesta(response, clear) {
         filtroCampania[indCampania].CantMostrados = 0;
     }
     filtroCampania[indCampania].response = response;
-    OfertaArmarEstrategias(response);
     filtroCampania[indCampania].IsLoad = false;
+    OfertaArmarEstrategias(response);
     return true;
 }
 
@@ -308,6 +309,12 @@ function AgregarProductoAlCarrito(padre) {
 }
 
 function OfertaCargarScroll() {
+
+    if (isScroll === false) {
+        return false;
+    }
+
+    console.log("OfertaCargarScroll");
 
     if ($(window).scrollTop() + $(window).height() == $(document).height()) {
         $(".flecha_scroll").animate({
