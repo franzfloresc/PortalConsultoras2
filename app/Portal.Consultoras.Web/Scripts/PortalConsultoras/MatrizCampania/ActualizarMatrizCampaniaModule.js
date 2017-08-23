@@ -441,15 +441,6 @@ var actualizarMatrizCampaniaModule = (function () {
         if ($(_elements.txtFactorRepeticionNuevo).val() == "")
             msj += "- Debe ingresar el Nuevo Factor Repetición del Producto \n";
 
-        if (_settings.habilitarRegalo) {
-            if ($(_elements.txtRegaloDescripcion).val() == "")
-                msj += "- Debe ingresar la nueva Descripción Regalo \n";
-
-            if ($(_elements.imgSeleccionada).attr('src') != '' &&
-                $(_elements.imgSeleccionada).attr('src').indexOf('prod_grilla_vacio.png') != -1)
-                msj += "- Debe ingresar la nueva seleccionar Imagen \n";
-        }
-
         if (msj != "") {
             alert(msj);
             return false;
