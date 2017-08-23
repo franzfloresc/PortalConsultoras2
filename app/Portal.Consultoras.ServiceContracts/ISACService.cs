@@ -318,8 +318,6 @@ namespace Portal.Consultoras.ServiceContracts
         #region Tabla Logica Datos
         [OperationContract]
         List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID);
-        [OperationContract]
-        List<BETablaLogicaDatos> GetTablaLogicaDatosPais(Int16 TablaLogicaID);
         #endregion
 
         #region "Fe de Erratas"

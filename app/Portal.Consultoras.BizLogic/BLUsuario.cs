@@ -1765,6 +1765,7 @@ namespace Portal.Consultoras.BizLogic
             return usuarioConfiguracion;
         }
 
+        #region TerminosCondiciones
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
             var daTerminosCondiciones = new DATerminosCondiciones(terminos.PaisID);
@@ -1783,5 +1784,6 @@ namespace Portal.Consultoras.BizLogic
 
             return terminos;
         }
+        #endregion
     }
 }
