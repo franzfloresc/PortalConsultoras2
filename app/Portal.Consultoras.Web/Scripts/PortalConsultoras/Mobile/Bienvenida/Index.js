@@ -592,8 +592,10 @@ function ObtenerComunicadosPopup() {
     });
 
     $(window).resize(function (e) {
-        var w_width = $(window).width() - 50;
-        var w_height = $(window).height() - 150;
+        //var w_width = $(window).width() - 50;
+        //var w_height = $(window).height() - 150;
+        var w_width = 326;
+        var w_height = 418;
 
         $(".popup_comunicado").css("width", w_width);
         $(".popup_comunicado").css("height", w_height);
