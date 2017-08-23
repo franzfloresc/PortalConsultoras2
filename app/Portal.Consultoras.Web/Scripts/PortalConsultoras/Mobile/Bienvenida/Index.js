@@ -2,21 +2,6 @@
 
 $(document).ready(function () {
 
-    /* CERRAR POPUP COACH VIRTUAL */
-
-    $(".cerrar_popup_inscripcion").on("click", cerrarPopupInscripcion);
-
-    function cerrarPopupInscripcion(e) {
-
-        e.preventDefault();
-
-        $(this).parents(".contenedor_fondo_popup").fadeOut();
-        $(this).parent().fadeOut();
-
-    }
-
-    /* CERRAR POPUP COACH VIRTUAL */
-
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });

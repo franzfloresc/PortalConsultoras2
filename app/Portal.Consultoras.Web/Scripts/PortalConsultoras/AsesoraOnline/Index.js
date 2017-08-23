@@ -24,6 +24,15 @@ $(document).ready(function () {
                     scrollTop: $(atributoEnlaceQuieroInscribirme).offset().top
                 }, 650, "easeOutSine");
 
+            },
+
+            cerrarPopupsAsesoraOnline: function (e) {
+
+                e.preventDefault();
+
+                $(this).parents(".contenedor_fondo_popup").fadeOut(400);
+                $(this).parent().fadeOut(400);
+            
             }
 
         };
@@ -58,6 +67,7 @@ $(document).ready(function () {
             inicializarEventos: function () {
 
                 $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
+                $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
 
             }
 
