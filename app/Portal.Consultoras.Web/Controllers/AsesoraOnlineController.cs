@@ -40,33 +40,20 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     resultado = sv.EnviarFormulario(isoPais, entidad);
                 }
-
-                return Json(new
-                {
-                    success = true,
-                    message = "Se grabó con éxito el formulario.",
-                    extra = ""
-                });
+                if(!resultado.Equals(0))
+                    return Json(new{success = true,message = "Se grabó con éxito el formulario.", extra = ""});
+                else
+                    return Json(new { success = false, message = "Ya existe la Consultora.", extra = "" });
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, "UserData().CodigoConsultora", "UserData().CodigoISO");
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, TempData["CodigoConsultora"].ToString(), isoPais);
+                return Json(new{success = false, message = ex.Message,extra = ""});
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, "UserData().CodigoConsultora", "UserData().CodigoISO");
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, TempData["CodigoConsultora"].ToString(), isoPais);
+                return Json(new { success = false, message = ex.Message, extra = "" });
             }
         }
     }

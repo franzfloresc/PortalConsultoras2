@@ -206,9 +206,9 @@
 
 <!-- INICIO POPUP FELICITACIONES CONSULTORA INSCRITA A COACH VIRTUAL -->
 
-<div class="contenedor_fondo_popup" style="display:none;">
+<div id="popup-felicitaciones" class="contenedor_fondo_popup"  style="display:none;">
 
-    <div class="popup_felicitaciones_coach_virtual tipografia_lato" style="display:none;">
+    <div class="popup_felicitaciones_coach_virtual tipografia_lato">
         <a href="#" class="cerrar_popup_inscripcion" title="Cerrar">
             <!-- <img src="img/icono-cerrar-popup-inscripcion.svg" alt="Cerrar"> -->
         </a>
@@ -251,7 +251,7 @@
 </div>
 
 <!-- FIN POPUP FELICITACIONES CONSULTORA INSCRITA A COACH VIRTUAL -->
-
+@System.Web.Optimization.Scripts.Render("~/Scripts/General.js")
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/AsesoraOnline/AsesoraOnline.js")
 @System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/AsesoraOnline/Index.js")
 <script type="text/javascript" src="https://apps.elfsight.com/p/platform.js"></script>
