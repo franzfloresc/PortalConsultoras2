@@ -1772,6 +1772,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                const int SHOWROOM_ESTADO_INACTIVO = 0;
+                const string TIPO_APLICACION_DESKTOP = "Desktop";
+
                 if (!userData.RevistaDigital.NoVolverMostrar)
                 {
                     return Json(new
@@ -1793,8 +1796,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 }
 
-                if (!userData.CargoEntidadesShowRoom) {
-                    //throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+                if (!userData.CargoEntidadesShowRoom)
+                {
                     return Json(new
                     {
                         success = false,
@@ -1803,9 +1806,9 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var beShowRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
 
-                if (beShowRoom.Estado != 1)
+                if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
                 {
                     return Json(new
                     {
@@ -1815,11 +1818,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var beShowRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
-                var beMostrarPopupIntriga = beShowRoomConsultora.MostrarPopup;
-                var beMostrarPopupVenta = beShowRoomConsultora.MostrarPopupVenta;
+                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
+                var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
 
-                if (!beMostrarPopupIntriga && !beMostrarPopupVenta)
+                if (!mostrarPopupIntriga && !mostrarPopupVenta)
                 {
                     return Json(new
                     {
@@ -1827,45 +1830,38 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                bool mostrarShowRoomProductos = false;
-                var rutaShowRoomPopup = "";
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
+                var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null && Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
 
-                int diasAntes = beShowRoom.DiasAntes;
-                int diasDespues = beShowRoom.DiasDespues;
+                mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-                if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date
-                    && fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
+                var rutaShowRoomPopup = string.Empty;
+                if (mostrarShowRoomProductos)
                 {
                     rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                    mostrarShowRoomProductos = true;
                 }
-                if (fechaHoy > userData.FechaInicioCampania.AddDays(diasDespues).Date) beMostrarPopupVenta = false;
 
-                //int df = userData.FechaInicioCampania.AddDays(-diasAntes).Day - fechaHoy.Day;
-                TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-diasAntes) - fechaHoy;
-                int df = DiasFalta.Days;
-
-                var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == "Desktop").ToList();
+                var lstPersonalizacion = userData.ListaShowRoomPersonalizacionConsultora.Where(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP).ToList();
                 
                 return Json(new
                 {
                     success = true,
-                    data = beShowRoomConsultora,
-                    diaInicio = userData.FechaInicioCampania.AddDays(-diasAntes).Day,
+                    data = showRoomConsultora,
+                    diaInicio = userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes).Day,
                     diaFin = userData.FechaInicioCampania.Day,
                     mesFin = NombreMes(userData.FechaInicioCampania.Month),
-                    diasFaltan = df,
+                    diasFaltan = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days,
                     nombre = string.IsNullOrEmpty(userData.Sobrenombre)
                         ? userData.NombreConsultora
                         : userData.Sobrenombre,
                     message = "ShowRoomConsultora encontrada",
-                    evento = beShowRoom,
+                    evento = showRoom,
                     mostrarShowRoomProductos,
                     rutaShowRoomPopup,
                     personalizacion = lstPersonalizacion,
-                    mostrarPopupIntriga = beMostrarPopupIntriga,
-                    mostrarPopupVenta = beMostrarPopupVenta
+                    mostrarPopupIntriga,
+                    mostrarPopupVenta
                 });
             }
             catch (Exception ex)
