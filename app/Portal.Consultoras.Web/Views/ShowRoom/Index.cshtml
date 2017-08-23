@@ -1,4 +1,5 @@
-﻿@using Newtonsoft.Json
+﻿
+@using Newtonsoft.Json
 @using Portal.Consultoras.Common
 @using System.Linq;
 @model Portal.Consultoras.Web.Models.ShowRoomEventoModel
@@ -22,7 +23,7 @@
         <img src="@ViewBag.BannerImagenVenta" alt="" />
     </div>
     <div class="content_belcorp">
-        <div class="content_filtros_left">
+        <div class="content_filtros_left" style="display:none;">
             <span class="titulo_filtro_fav">FILTROS</span>
             <div class="linea_separadora" style="height: 3px;"></div>
             <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
@@ -59,16 +60,47 @@
             <hr class="clear" />
 
         </div>
-        <div class="content-left-item">
-            <div id="divCantProductos" class="cantidad_productos_fav">
+        <div class="content-left-item content_new_showroom">
+            <div class="content_filtro_categoria" id="FiltroCategoria">
+                FILTRAR POR CATEGORÍA
+                <div class="content_detalle_filtro">
+                    @if (Model.TieneCategoria)
+                     {
+                        if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                        {
+                             <div id="div-filter-category">
+                                        @foreach (var itemCategoria in Model.ListaCategoria)
+                                        {
+                                            if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
+                                            {
+                                                <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                                                <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
+                                            }
+                                        }
+                            </div>
+                            
+                        }
+                    }
+                </div>            
+            </div>
+            <div class="content_filtro_categoria" id="FiltroPrecio">
+                FILTRAR POR PRECIO
+                <div class="content_detalle_filtro">
+                    <div class="content_filtro_range_showroom">
+                        <input class="range-slider" value="" style="width: 100%; display: none;" />
+                    </div>
+                </div>
+            </div>
+
+            <div id="divCantProductos" class="cantidad_productos_resultado">
                 Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
             </div>
             @if (Model.FiltersBySorting != null)
             {
-                <div class="filtros_derecha">
-                    ORDENAR POR
+                <div class="filtros_derecha_SHOWROOM">
+                   
 
-                    <select id="filter-sorting" class="select_filtros_fav">
+                    <select id="filter-sorting" class="select_filtros_fav" style="width:250px; margin-left:0;">
                         @foreach (var item in Model.FiltersBySorting)
                         {
                             <option value="@item.Codigo">@item.Descripcion</option>
@@ -105,7 +137,7 @@
                             @Model.TextoInicialOfertaSubCampania
                             <span class="titulo_banner_showroom" style="color: @Model.ColorTextoTituloOfertaSubCampania">@Model.TextoTituloOfertaSubCampania</span>
                         </div>
-                        <div style="left: -150%; width: 150%; height: 73px; background: @Model.ColorFondoTituloOfertaSubCampania; position: absolute; top: 0; z-index: 151;"></div>
+                        @*<div style="left: -150%; width: 150%; height: 73px; background: @Model.ColorFondoTituloOfertaSubCampania; position: absolute; top: 0; z-index: 151;"></div>*@
                     </div>
                     <div class="content_set_especial_header" id="content_set_especial_header">
                         <div class="content_imagen_promocion">
@@ -409,10 +441,10 @@
         var itemsCompraXCompra = '@Model.ListaShowRoomCompraPorCompra.Count';
         var tieneSubCampania = '@Model.TieneSubCampania';
         var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
+
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-}
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>}
