@@ -50,7 +50,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     ip = GetIpCliente();
                     if (!string.IsNullOrWhiteSpace(ip))
-                        iso = Util.GetISObyIPAddress(ip, ObtenerRutaBaseDatosGeoLite());
+                        iso = Util.GetISObyIPAddress(ip);
                 }
 
                 if (string.IsNullOrEmpty(iso))
@@ -127,11 +127,6 @@ namespace Portal.Consultoras.Web.Controllers
             ip = request.ClientIPFromRequest(skipPrivate: true);
 
             return ip;
-        }
-
-        protected virtual string ObtenerRutaBaseDatosGeoLite()
-        {
-            return Request.PhysicalApplicationPath + @"\bin\MaxMind\GeoLite2-Country.mmdb";
         }
 
         private void AsignarViewBagPorIso(string iso)
