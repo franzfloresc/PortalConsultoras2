@@ -1788,14 +1788,7 @@
     margin-top:50px;
     position:relative;
 }
-.content_texto_gana{
-    margin: 0 auto;
-    float: left;
-    width: -moz-calc(100% -765px);
-    width: calc(100% - 765px);
-    width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
-}
+
 .titulo_gana_landing{
     font-family:'Lato';
     font-size:16px;

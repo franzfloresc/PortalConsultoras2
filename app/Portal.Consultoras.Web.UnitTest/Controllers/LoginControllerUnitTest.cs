@@ -34,11 +34,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 {
                     return true;
                 }
-
-                protected override string ObtenerRutaBaseDatosGeoLite()
-                {
-                    return AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"\MaxMind\GeoLite2-Country.mmdb";
-                }
             }
 
             //[TestMethod]
@@ -75,11 +70,6 @@ namespace Portal.Consultoras.Web.UnitTest.Controllers
                 protected override bool EstaActivoBuscarIsoPorIp()
                 {
                     return true;
-                }
-
-                protected override string ObtenerRutaBaseDatosGeoLite()
-                {
-                    return AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"\MaxMind\GeoLite2-Country.mmdb";
                 }
             }
 
