@@ -6906,7 +6906,7 @@ input[type="checkbox"]:checked + span:after {
 
 .popup_comunicado{
     position: relative;
-    top: 14%;
+    top: 80px;
     margin: 0 auto;
     background: #FFF;
     box-sizing: border-box;
