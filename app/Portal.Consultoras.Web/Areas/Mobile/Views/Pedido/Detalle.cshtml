@@ -29,7 +29,7 @@
                     if (mobileConfiguracion.MostrarBotonAtras)
                     {
                         <a href="@Request.UrlReferrer" class="enlace_regresar detalleP" title="Regresar"></a>
-                    } 
+                    }
                  }
                 <h2 class="nombre_campania_pedido">
                     MI PEDIDO
@@ -544,11 +544,18 @@
 
                 <h1 class="ofertaFinal_titulo" id="spnTituloOfertaFinal">
                     {{#if_eq TipoMeta 'MM'}}
-                    <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
+                        <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
                     {{else if_eq TipoMeta 'GM'}}
-                    <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                            @if (@ViewBag.OfertaFinalAlgoritmo == "OFR")
+                            {
+                                <span>FELICIADES @ViewBag.NombreConsultora<br><b><span class="font_700_regalo"> !GANASTE EL PREMIO!</span></b></span>
+                            }
+                            else
+                            {
+                                <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
+                            }                                                  
                     {{else}} <!--se espera escala de dscto-->
-                    <span>¡GUARDASTE TU<b> PEDIDO CON ÉXITO</b>!</span>
+                        <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
                     {{/if_eq}}
                 </h1>
                 <div class="ofertaFinal_descripcion" id="msjOfertaFinal" data-meta-porcentaje="{{MetaPorcentaje}}" data-meta-monto="{{MontoMeta}}">
@@ -556,9 +563,9 @@
                     <span>TE AYUDAMOS A ALCANZARLO CON ESTAS OFERTAS</span>
                     {{else if_eq TipoMeta 'GM'}}
                     {{#iff Cross '==' '1'}}
-                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
+                    <span>APROVECHA ESTAS OFERTAS Y <br><b>GANA MÁS</b> SUMANDO LOS COMPLEMENTOS DE TU PEDIDO</span>
                     {{else}}
-                    <span>APROVECHA ESTAS OFERTAS Y <b>GANA MÁS</b> ESTA CAMPAÑA</span>
+                    <span>APROVECHA ESTAS OFERTAS Y <br><b>GANA MÁS</b> ESTA CAMPAÑA</span>
                     {{/iff}}
                     {{else if_eq TipoMeta 'RG'}}
                     <span>@ViewBag.NombreConsultora APROVECHA ESTAS OFERTAS Y <b>GANA PREMIOS INCREIBLES</b></span>
