@@ -13,9 +13,17 @@ CREATE PROCEDURE InsertarAsesoraOnline
 )
 AS
 BEGIN
-	INSERT INTO AsesoraOnline 
-	VALUES (@CodigoConsultora, @ConfirmacionInscripcion, @Respuesta1, @Respuesta2, @Respuesta3, @Respuesta4, GETDATE(), @Origen);
 
-	SELECT SCOPE_IDENTITY();
+	IF NOT EXISTS ( SELECT TOP 1 * FROM AsesoraOnline WHERE CodigoConsultora IN (@CodigoConsultora))
+	BEGIN
+		INSERT INTO AsesoraOnline 
+		VALUES (@CodigoConsultora, @ConfirmacionInscripcion, @Respuesta1, @Respuesta2, @Respuesta3, @Respuesta4, GETDATE(), @Origen);
+
+		SELECT SCOPE_IDENTITY();
+	END
+	ELSE 
+	BEGIN
+		SELECT 0;
+	END
 END
 GO
