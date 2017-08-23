@@ -91,7 +91,7 @@ text-decoration: none;
 /*border-bottom: 1px solid rgba(0, 0, 0, 0.10);*/
 }
 
-.bc_menu_estrategia .op_menu-horizontal ul li a.activo {
+.activo-menu-estrategia {
     background: white;
     color: #333;
     text-decoration: none;
