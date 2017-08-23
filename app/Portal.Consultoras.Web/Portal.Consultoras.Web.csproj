@@ -2152,6 +2152,7 @@
     <Content Include="Content\Images\img-sinGeo.png" />
     <Content Include="Content\Images\img_cabecera_asesora_online.png" />
     <Content Include="Content\Images\img_cabecera_asesora_online_mobile.png" />
+    <Content Include="Content\Images\img_cabecera_asesora_online_mobile_landscape.png" />
     <Content Include="Content\Images\img_inscripcion_asesoria_online.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
