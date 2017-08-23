@@ -88,9 +88,14 @@ transition: .3s;
 background: white;
 color: #333;
 text-decoration: none;
-border-bottom: 1px solid rgba(0, 0, 0, 0.10);
+/*border-bottom: 1px solid rgba(0, 0, 0, 0.10);*/
 }
-                    
+
+.bc_menu_estrategia .op_menu-horizontal ul li a.activo {
+        background: white;
+        color: #333;
+        text-decoration: none;
+}
 
 .bc_menu_estrategia .op_menu-horizontal ul li a img {
 display: inline;
@@ -119,7 +124,7 @@ display: none;
     margin: 0;
     padding: 0;
     list-style: none;
-    border-right: 1px solid rgba(0, 0, 0, 0.11);
+    /*border-right: 1px solid rgba(0, 0, 0, 0.11);*/
     height: 100%;
     /*position: fixed;*/
     width: 100% !important;
