@@ -319,10 +319,10 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetUsuarioAsociado(codigoConsultora);
         }
 
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
 
         public bool IsUserExist(string CodigoUsuario)
@@ -1764,5 +1764,21 @@ namespace Portal.Consultoras.BizLogic
 
             return usuarioConfiguracion;
         }
+
+        #region TerminosCondiciones
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            var daTerminosCondiciones = new DATerminosCondiciones(terminos.PaisID);
+            return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
+        }
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            var terminos = new BETerminosCondiciones();            var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
+            using (IDataReader reader = daTerminosCondiciones.GetTerminosCondiciones(CodigoConsultora, Tipo))
+            {                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
+            }
+            return terminos;
+        }
+        #endregion
     }
 }
