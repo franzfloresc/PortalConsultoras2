@@ -68,7 +68,6 @@ $(document).ready(function () {
 
                 $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
                 $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
-
             }
 
         };

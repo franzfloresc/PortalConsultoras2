@@ -33,12 +33,14 @@
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                alert(data.message);
+                $("#popup-felicitaciones").show();
             },
             error: function (data, error) {
                 alert(data.message);
             }
         });
+
+        return false;
 
     };
 
