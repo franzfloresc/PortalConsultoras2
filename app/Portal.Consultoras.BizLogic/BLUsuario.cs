@@ -1770,13 +1770,18 @@ namespace Portal.Consultoras.BizLogic
         {
             var daTerminosCondiciones = new DATerminosCondiciones(terminos.PaisID);
             return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
-        }
+        }
+
         public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
-            var terminos = new BETerminosCondiciones();            var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
+            var terminos = new BETerminosCondiciones();
+            var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
+
             using (IDataReader reader = daTerminosCondiciones.GetTerminosCondiciones(CodigoConsultora, Tipo))
-            {                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
-            }
+            {
+                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
+            }
+
             return terminos;
         }
         #endregion
