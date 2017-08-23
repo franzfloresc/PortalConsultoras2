@@ -891,7 +891,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                         SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
                         Orden = confi.Orden,
-                        UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu
+                        UrlMenu = "/" + (isMobile ? "Mobile/" : "") + "RevistaDigital/Revisar"
                     });
                 }
                 

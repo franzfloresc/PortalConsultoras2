@@ -1,10 +1,9 @@
 ﻿
 /* FIN Menu Estrategia  */
 .bc_menu_estrategia {
-    
-background-repeat: no-repeat !important;
-background-size: cover !important;
-background-position: right center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: right center !important;
 }
 
 .bc_menu_estrategia .logo {
@@ -70,6 +69,12 @@ border-left: 3px solid transparent;
 border-right: 3px solid transparent;
 }
 
+.bc_menu_estrategia .op_menu-horizontal ul li.seleccionado a {
+    background: white;
+    color: #333;
+    text-decoration: none;
+}
+
 .bc_menu_estrategia .op_menu-horizontal ul li a {
 display: block;
 background: rgba(255, 255, 255, 0.50);
@@ -89,12 +94,6 @@ background: white;
 color: #333;
 text-decoration: none;
 /*border-bottom: 1px solid rgba(0, 0, 0, 0.10);*/
-}
-
-.activo-menu-estrategia {
-    background: white;
-    color: #333;
-    text-decoration: none;
 }
 
 .bc_menu_estrategia .op_menu-horizontal ul li a img {

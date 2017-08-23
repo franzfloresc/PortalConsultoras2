@@ -318,11 +318,10 @@
         @Html.Partial("~/Views/Shared/_MenuContenedorOferta.cshtml")
         <div data-layout-body="" class="data-layaout-body">
             @if (!(controllerAction == "bienvenidaindex"
-                            || controllerAction == "showroomindex"
-                            || controllerAction == "showroomintriga"
-                            || controllerAction == "revistadigitalindex"
-                            || controllerAction == "revistadigitaldetalle"
-                            || controllerAction == "revistadigitalinscripcion") 
+                    || controllerAction == "showroomindex"
+                    || controllerAction == "showroomintriga"
+                    || ("/" + controllerAction).Contains("revistadigital")
+                ) 
                 && (@ViewBag.Title != "" && @ViewBag.Title != null))
             {
                 <div class="SubHeader">
@@ -330,7 +329,7 @@
                         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
                     </div>
                 </div>
-            }
+            }   
             
             @RenderBody()
             @if (ViewBag.TerminoMostrar == 1)

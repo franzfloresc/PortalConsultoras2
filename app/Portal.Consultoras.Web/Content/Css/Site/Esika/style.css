@@ -952,20 +952,6 @@ header {
     float:right;
     text-align:right;
 }
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
-}
 
 .wrapper_home_content {
     overflow: hidden;
@@ -7796,15 +7782,6 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------------------------------------------------------------------- */
 /*	Clearfix
 	/* ---------------------------------------------------------------------- */
-
-.clear {
-    clear: both;
-    display: block;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-}
 
 .clearfix:after {
     clear: both;
@@ -20134,7 +20111,6 @@ label.checkpop.c_on {
     font-size: 14px;
     font-weight:700;
 }
-.clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
 .divAgregarShowRoom {
     padding: 60px !important;    

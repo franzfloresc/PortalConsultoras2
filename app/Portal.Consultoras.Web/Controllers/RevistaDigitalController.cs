@@ -24,6 +24,48 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
+        
+        public ActionResult Informacion()
+        {
+            try
+            {
+                return IndexModel(0);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
 
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)

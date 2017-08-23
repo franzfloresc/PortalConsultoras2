@@ -9,6 +9,13 @@ $(document).ready(function () {
         listaMenus.css({ display: "block" });
         if (listaMenus.length == 0) {
             $('[data-layout-menu2]').hide();
+
+            var menuCheck = {
+                campania: 0,
+                codigo: ''
+            };
+
+            LocalStorageListado(menuContenedorActivo, menuCheck);
         }
         else {
             $('[data-layout-menu2]').show();
@@ -34,12 +41,17 @@ $(document).ready(function () {
 
 function MenuContenedor() {
 
-
     $("[data-layout-menu2] ul li").hide();
+    $("[data-layout-menu2] ul li").removeClass("seleccionado");
     $("[data-layout-menu1] ul li").removeClass("seleccionado");
 
     var menuCheck = LocalStorageListado(menuContenedorActivo, "", 1);
-    if (menuCheck == undefined) {
+    if (menuCheck != undefined) {
+        menuCheck = JSON.parse(menuCheck);
+    }
+    menuCheck = menuCheck || {};
+
+    if (menuCheck.campania == undefined) {
         var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
@@ -57,13 +69,19 @@ function MenuContenedor() {
 
         LocalStorageListado(menuContenedorActivo, menuCheck);
     }
-    else {
-        menuCheck = JSON.parse(menuCheck);
+
+    $("[data-layout-menu1] ul li[data-campania='" + menuCheck.campania + "']").addClass("seleccionado");
+    var subMenus = $("[data-layout-menu2] ul li[data-campania='" + menuCheck.campania + "']");
+    if (subMenus.length == 0) {
+        $("[data-layout-menu2]").hide();
     }
+    else {
+        subMenus.show();
+        $("[data-layout-menu2] ul li[data-codigo='" + menuCheck.codigo + "']").addClass("seleccionado");
+    }
+    
 
-    $("[data-layout-menu2] ul li[data-campania='" + menuCheck.campania + "']").show();
-    $("[data-layout-menu2] ul li[data-codigo='" + menuCheck.codigo + "']").addClass("seleccionado");
-
+    LayoutHeaderFin();
 }
 
 function MenuContenedorClick(e, url) {

@@ -331,33 +331,31 @@ function OfertaCargarScroll() {
         $(".flecha_scroll a").removeClass("flecha_scroll_arriba");
     }
 
-    var footerH = $(window).scrollTop() + $(window).height() + $("footer").innerHeight();
     if (campaniaId <= 0) return false;
+    var footerH = $(window).scrollTop() + $(window).height() + $("footer").innerHeight();
 
-    var seccFix = $("[data-listado-campania='" + campaniaId + "'] #orderby-filter");
+    //var seccFix = $("[data-listado-campania='" + campaniaId + "'] #orderby-filter");
 
-    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top + $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() + 20) {
-        seccFix.addClass("fix-search");
-        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height()) + "px");
-    } else {
-        seccFix.removeClass("fix-search");
-        $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
-    }
+    //if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top + $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() + 20) {
+    //    seccFix.addClass("fix-search");
+    //    $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height()) + "px");
+    //} else {
+    //    seccFix.removeClass("fix-search");
+    //    $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
+    //}
 
-
-    var seccFixInscribite= $("#block_inscribete");
-
-    if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top +
-        $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() +
-        $("[data-tag-html='" + campaniaId + "']").find("#divOfertaProductos").height() + 20) {
-        seccFixInscribite.addClass("fix-search");
-    } else {
-        seccFixInscribite.removeClass("fix-search");
-    }
+    //var seccFixInscribite= $("#block_inscribete");
+    //if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top +
+    //    $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() +
+    //    $("[data-tag-html='" + campaniaId + "']").find("#divOfertaProductos").height() + 20) {
+    //    seccFixInscribite.addClass("fix-search");
+    //} else {
+    //    seccFixInscribite.removeClass("fix-search");
+    //}
 
     var header = $("header").innerHeight();
 
-    $(".fix-search").css("top", header + 'px');
+    //$(".fix-search").css("top", header + 'px');
 
     if (footerH >= $(document).height()) {
 

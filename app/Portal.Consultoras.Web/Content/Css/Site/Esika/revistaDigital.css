@@ -707,9 +707,9 @@
         margin-top: 15px;
     }
 .titulo_pagina{
-    float:left;
-    width:auto;
-    height:auto;
+    /*float:left;*/
+    display:block;
+    height:40px;
     color:white;
     font-family:'Lato';
     font-size:17px;
@@ -718,7 +718,7 @@
     font-weight:700;
     padding-left:20px;
     padding-right:20px;
-    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
+    background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top left;
 }
 
 .marca_ept{
@@ -1776,8 +1776,8 @@
    /*position: absolute; */
     right: 0;
     width: 465px;
-    /* height: 576px; */
-    margin-top: -95px;
+    /* height: 576px; 
+    margin-top: -95px;*/
     z-index: 105;
     float: right
 }
