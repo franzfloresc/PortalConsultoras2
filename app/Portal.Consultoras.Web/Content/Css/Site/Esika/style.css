@@ -32641,22 +32641,26 @@ h1#penmostreo .campana {
     float:left;
     font-family:'Lato';
     font-size:13px;
-    padding-top:20px;
+    padding-top:6px;
 }
 .filtros_derecha{
     float:right;
     font-family:'Lato';
     font-size:13px;
-    margin-top:20px;
+    /*margin-top:20px;*/
 }
 .select_filtros_fav{
-    width:162px;
-    height:27px;
-    padding:5px;
-    font-size:11px;
-    color:black;
-    margin-left:20px;
-    border:1px solid black;
+    width: 162px;
+    height: 33px;
+    padding: 5px;   
+    text-transform: uppercase;    
+    color: black;
+    margin-left: 20px;
+    border: 1px solid #b8b8b8;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    font-family: 'Lato';
 }
 .texto_fav_filtro{
     margin-top:16px;
@@ -32664,19 +32668,22 @@ h1#penmostreo .campana {
     margin-left:10px;
 }
 .seleccion_filtro_fav{
-    position:relative;
-    margin-left:10px;
-    padding-left:33px;
-    padding-top:3px;
-    margin-bottom:15px;
-    cursor:pointer;
+   position: relative;
+    margin-left: 10px;
+    padding-left: 33px;
+    padding-top: 4px;
+    margin-bottom: 18px;
+    cursor: pointer;
+    margin-top: 18px;
+    line-height: normal;
+    font-weight: normal;
 }
-.seleccion_filtro_fav:first-child{
+/*.seleccion_filtro_fav:first-child{
     margin-top:6px;
 }
 .seleccion_filtro_fav:last-child{
     margin-bottom:30px;
-}
+}*/
 .seleccion_filtro_fav:before{
     position:absolute;
     left:0;
@@ -33943,10 +33950,10 @@ h1#penmostreo .campana {
 /*SHOWROOM*/
 .set-productos-showroom{
     background-color: white;
-    margin-right: 2%;
+    margin-right: 2.6%;
     float: left;
     position: relative;
-    width: 32%;
+    width: 23%;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
@@ -33955,8 +33962,9 @@ h1#penmostreo .campana {
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     margin-bottom: 15px;
     margin-top: 15px;
+    border: 1px solid #e6e3e3;
 }
-.set-productos-showroom:nth-child(3n){
+.set-productos-showroom:nth-child(4n){
       margin-right:0;
 }
 .nombre-producto-set{
@@ -34771,7 +34779,7 @@ h1#penmostreo .campana {
     height:auto;
     bottom:0;
     z-index:150;
-    width: 100%;
+    
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -35809,4 +35817,62 @@ h1#penmostreo .campana {
 
 .content_slider_ept {
     padding-top: 30px;
+}
+/*SPRINT 19*/
+.content_new_showroom{
+    width:100%;
+    padding-left:2%;
+    padding-right:2%;
+}
+.content_filtro_categoria{
+   -webkit-box-shadow: inset 0 0 0 1px #b8b8b8;
+    -moz-box-shadow: inset 0 0 0 1px #b8b8b8;
+    box-shadow: inset 0 0 0 1px #b8b8b8;
+    height: 33px;
+    line-height: 32px;
+    position: relative;
+    float: left;
+    min-width: 250px;
+    padding-left: 15px;
+    padding-right: 30px;
+    font-family: 'LAto';
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    margin-right: 20px;
+    background: white url(../../../Images/arrow.png) no-repeat center;
+    background-size: 15px;
+    background-position-x: 95%;
+}
+.content_detalle_filtro{
+    width: 100%;
+    position: absolute;
+    z-index: 20;
+    top: 33px;
+    border: 1px solid #b8b8b8;    
+    border-top: 0;
+    left: 0;
+    background: white;
+    min-height: 100px;
+    /*display:none;*/
+}
+.content_filtro_range_showroom{
+        /* margin-bottom: 50px; */
+    /* margin-top: 40px; */
+    /* padding-left: 12px; */
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.filtros_derecha_SHOWROOM{
+        float: left;
+    font-family: 'Lato';
+    font-size: 13px;
+    /* margin-top: 20px; */
+}
+.cantidad_productos_resultado{
+    float: right;
+    font-family: 'Lato';
+    font-size: 13px;
+    padding-top: 6px;
 }
