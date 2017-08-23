@@ -584,8 +584,8 @@ function ResolverCargarProductosShowRoomPromiseDesktop(response, aplicarFiltrosS
                 centerMode: true,
                 slidesToScroll: 1,
                 variableWidth: false,
-                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -5%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -5%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
+                prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: -1%; text-align:left; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+                nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: -1%; text-align:right; top:10%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
             });
         }
         
