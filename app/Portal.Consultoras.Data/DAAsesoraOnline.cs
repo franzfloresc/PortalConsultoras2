@@ -1,11 +1,6 @@
 ﻿using Portal.Consultoras.Entities.AsesoraOnline;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Data
 {
@@ -29,6 +24,14 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Origen", DbType.String, entidad.Origen);
 
             return Context.ExecuteNonQuery(command);
+        }
+
+        public IDataReader GetUsuarioByCodigoConsultora(string CodigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioByCodigoConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+
+            return Context.ExecuteReader(command);
         }
     }
 }

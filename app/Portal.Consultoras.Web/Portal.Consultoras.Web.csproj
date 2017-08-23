@@ -3434,6 +3434,9 @@
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -4192,6 +4195,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-simple-centrado.cshtml" />
     <Content Include="Views\AsesoraOnline\Index.cshtml" />
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
+    <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

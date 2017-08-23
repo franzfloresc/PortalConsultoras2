@@ -1,10 +1,6 @@
-﻿using Portal.Consultoras.Entities.AsesoraOnline;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.AsesoraOnline;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -13,5 +9,8 @@ namespace Portal.Consultoras.ServiceContracts
     {
         [OperationContract]
         int EnviarFormulario(string paisISO, BEAsesoraOnline entidad);
+
+        [OperationContract]
+        BEUsuario GetUsuarioByCodigoConsultora(string paisISO, string codigoConsultora);
     }
 }

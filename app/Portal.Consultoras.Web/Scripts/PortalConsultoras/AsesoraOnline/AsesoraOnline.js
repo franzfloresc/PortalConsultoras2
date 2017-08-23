@@ -33,7 +33,11 @@
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                $("#popup-felicitaciones").show();
+                if (data.success) {
+                    $("#popup-felicitaciones").show();
+                    $("#correo_consultora").text(data.usuario.EMail);
+                    $("#telefono_consultora").text(data.usuario.Celular);
+                }
             },
             error: function (data, error) {
                 alert(data.message);

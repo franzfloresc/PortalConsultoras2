@@ -11,12 +11,15 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class AsesoraOnlineController : Controller
     {
+        private static string IsoPais;
+        private static string CodigoConsultora;
+        private static string Origen;
         // GET: AsesoraOnline
         public ActionResult Index(string isoPais, string codigoConsultora, string origen)
         {
-            TempData["IsoPais"] = isoPais == null ? String.Empty : isoPais;
-            TempData["CodigoConsultora"] = codigoConsultora == null ? String.Empty : codigoConsultora;
-            TempData["Origen"] = origen == null ? String.Empty : origen;
+            IsoPais = isoPais == null ? String.Empty : isoPais;
+            CodigoConsultora = codigoConsultora == null ? String.Empty : codigoConsultora;
+            Origen = origen == null ? String.Empty : origen;
             return View();
         }
 
@@ -24,12 +27,12 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult EnviarFormulario(AsesoraOnlineModel model)
         {
             int resultado = 0;
-            string isoPais = TempData["IsoPais"].ToString();
+            BEUsuario usuario = new BEUsuario();
             try
             {
                 BEAsesoraOnline entidad = new BEAsesoraOnline();
-                entidad.CodigoConsultora = TempData["CodigoConsultora"].ToString();
-                entidad.Origen = TempData["Origen"].ToString();
+                entidad.CodigoConsultora = CodigoConsultora;
+                entidad.Origen = Origen;
                 entidad.Respuesta1 = Convert.ToInt32(model.Respuesta1);
                 entidad.Respuesta2 = Convert.ToInt32(model.Respuesta2);
                 entidad.Respuesta3 = Convert.ToInt32(model.Respuesta3);
@@ -38,22 +41,34 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
-                    resultado = sv.EnviarFormulario(isoPais, entidad);
+                    resultado = sv.EnviarFormulario(IsoPais, entidad);
                 }
-                if(!resultado.Equals(0))
-                    return Json(new{success = true,message = "Se grabó con éxito el formulario.", extra = ""});
-                else
+
+                if (resultado.Equals(-1))
                     return Json(new { success = false, message = "Ya existe la Consultora.", extra = "" });
+
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
+                }
+
+                return Json(new { success = true, message = "Se grabó con éxito el formulario.", extra = "", usuario = usuario });
+                   
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, TempData["CodigoConsultora"].ToString(), isoPais);
-                return Json(new{success = false, message = ex.Message,extra = ""});
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, CodigoConsultora, IsoPais);
+                return Json(new { success = false, message = ex.Message, extra = "" });
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, TempData["CodigoConsultora"].ToString(), isoPais);
-                return Json(new { success = false, message = ex.Message, extra = "" });
+                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, IsoPais);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }
