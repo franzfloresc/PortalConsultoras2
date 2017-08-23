@@ -86,7 +86,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    //rslt = sv.ValidateUserCredentialsActiveDirectory(UserData().PaisID, UserData().CodigoUsuario, UserData().CodigoISO + UserData().CodigoUsuario, OldPassword.ToUpper(), NewPassword.ToUpper());
                     int resultExiste;
                     bool result;
 
