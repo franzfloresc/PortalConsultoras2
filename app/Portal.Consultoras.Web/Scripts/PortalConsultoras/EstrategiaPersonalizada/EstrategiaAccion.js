@@ -378,12 +378,14 @@ function EstrategiaAgregar(event, popup, limite) {
         }
     }
 
-    origenPedidoWebEstrategia =
-       $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-      || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-      || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-      || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-      || origenPedidoWebEstrategia;
+    if (!origenPedidoWebEstrategia) {
+        origenPedidoWebEstrategia =
+            $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+            || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+            || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+            || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+            || origenPedidoWebEstrategia;
+    }
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
