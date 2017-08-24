@@ -57,7 +57,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return ViewLanding(1);
+                return ViewLanding(2);
             }
             catch (Exception ex)
             {
