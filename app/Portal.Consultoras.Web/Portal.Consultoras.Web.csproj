@@ -4197,6 +4197,7 @@
     <Content Include="Views\AsesoraOnline\Index.cshtml" />
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
+    <Content Include="Views\Bienvenida\VirtualCoachDialog.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
