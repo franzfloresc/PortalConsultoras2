@@ -31,6 +31,7 @@ BEGIN
 		,C.MobileFondoBanner
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
+		,C.UrlMenu
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,

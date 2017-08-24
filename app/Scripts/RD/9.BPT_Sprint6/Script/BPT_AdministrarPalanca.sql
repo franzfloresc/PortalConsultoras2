@@ -137,7 +137,6 @@ GO
 ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
 	@ConfiguracionPaisID int,
 	@Excluyente bit,
-	@Descripcion varchar(250),
 	@Estado bit,
 	@DesdeCampania int,
 	@MobileTituloMenu varchar(250),
@@ -159,10 +158,10 @@ SET NOCOUNT ON
 DECLARE @InsertedId int = 0;
 IF(@ConfiguracionPaisID = 0)
 	BEGIN
-		INSERT INTO ConfiguracionPais (Excluyente, Descripcion, Estado, DesdeCampania, MobileTituloMenu, DesktopTituloMenu, Logo, Orden, 
+		INSERT INTO ConfiguracionPais (Excluyente, Estado, DesdeCampania, MobileTituloMenu, DesktopTituloMenu, Logo, Orden, 
 								DesktopTituloBanner, MobileTituloBanner, DesktopSubTituloBanner, MobileSubTituloBanner,
 								DesktopFondoBanner, MobileFondoBanner, DesktopLogoBanner, MobileLogoBanner, UrlMenu)
-		VALUES (@Excluyente, @Descripcion, @Estado, @DesdeCampania, @MobileTituloMenu, @DesktopTituloMenu, @Logo, @Orden, 
+		VALUES (@Excluyente, @Estado, @DesdeCampania, @MobileTituloMenu, @DesktopTituloMenu, @Logo, @Orden, 
 								@DesktopTituloBanner, @MobileTituloBanner, @DesktopSubTituloBanner, @MobileSubTituloBanner,
 								@DesktopFondoBanner, @MobileFondoBanner, @DesktopLogoBanner, @MobileLogoBanner, @UrlMenu);
 		set @insertedId = scope_identity();
@@ -171,7 +170,6 @@ ELSE
 	BEGIN
 		UPDATE ConfiguracionPais SET
 			Excluyente = @Excluyente, 
-			Descripcion = @Descripcion, 
 			Estado = @Estado,
 			DesdeCampania = @DesdeCampania, 
 			MobileTituloMenu = @MobileTituloMenu, 

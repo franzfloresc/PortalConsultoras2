@@ -1,41 +1,105 @@
-﻿$(document).ready(function () {
+﻿
+var menuContenedorActivo = "MenuContenedorActivo";
 
-    $("ul.menu_estrategia li[data-activo='True']").addClass("seleccionado");
-    $($("ul.sbmenu_estrategia li[data-activo='True']").get(0)).addClass("seleccionado");
-    $("ul.sbmenu_estrategia li").hide();
-    var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
-    $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
+$(document).ready(function () {
 
-    if ($("ul.menu_estrategia li[data-activo='True']").length == 0) {
-        $("ul.sbmenu_estrategia li").show();
-    }
+    $("body").on("click", "[data-layout-menu1] ul li", function (e) {
+        $("[data-layout-menu2] ul li").hide();
+        var listaMenus = $('[data-layout-menu2] ul').find("li[data-campania='" + $(this).data("campania") + "']");
+        listaMenus.css({ display: "block" });
+        if (listaMenus.length == 0) {
+            $('[data-layout-menu2]').hide();
 
-    $('ul.menu_estrategia li').hover(function (e) {
-        $(this).find('p').css('color', 'white');
-        $('ul.sbmenu_estrategia li a p').css('color', '#333');
-    }, function (e) {
-        /*$(this).find('p').css('color', 'rgba(255, 255, 255, 0.59)')*/
+            var menuCheck = {
+                campania: 0,
+                codigo: ''
+            };
+
+            LocalStorageListado(menuContenedorActivo, menuCheck);
+        }
+        else {
+            $('[data-layout-menu2]').show();
+        }
+
+        var urlAccion = $.trim($(this).data("url"));
+        if (urlAccion == "") {
+            LayoutHeaderFin();
+        }
+        else {
+            window.location = "/" + (isMobile() ? "Mobile/" : "") + urlAccion;
+        }
     });
 
-    $('ul.menu_estrategia li').hover(function (e) {
-        $('ul.sbmenu_estrategia li').hide();
-        $('ul.sbmenu_estrategia').find("li[data-campania='" + $(this).data("campania") + "']").css({
-            display: "block"
-        });
-    }, function (e) {
-        var campania = $("ul.menu_estrategia li[data-activo='True']").data("campania");
-        $("ul.sbmenu_estrategia li").hide();
-        $("ul.sbmenu_estrategia li[data-campania='" + campania + "']").show();
-    });
+    MenuContenedor();
 
-    $('ul.sbmenu_estrategia li a').hover(function (e) {
+    $('ul.sbmenu_estrategia ul li a').hover(function (e) {
         $(this).find('p').css('font-weight', 'bolder');
     }, function (e) {
         $(this).find('p').css('font-weight', 'normal');
-        $("ul.sbmenu_estrategia li.seleccionado a p").css('font-weight', 'bolder');
     });
 });
 
+function MenuContenedor() {
+
+    $("[data-layout-menu2] ul li").hide();
+    $("[data-layout-menu2] ul li").removeClass("seleccionado");
+    $("[data-layout-menu1] ul li").removeClass("seleccionado");
+
+    var menuCheck = LocalStorageListado(menuContenedorActivo, "", 1);
+    if (menuCheck != undefined) {
+        menuCheck = JSON.parse(menuCheck);
+    }
+    menuCheck = menuCheck || {};
+
+    if (menuCheck.campania == undefined) {
+        var primerMenu = $("[data-layout-menu1] ul li");
+        if (primerMenu.length > 0) {
+            primerMenu = $(primerMenu).get(0);
+        }
+
+        var primerSubMenu = $("[data-layout-menu2] ul li");
+        if (primerSubMenu.length > 0) {
+            primerSubMenu = $(primerSubMenu).get(0);
+        }
+
+        menuCheck = {
+            campania: $(primerMenu).data("campania"),
+            codigo: $(primerSubMenu).data("codigo")
+        };
+
+        LocalStorageListado(menuContenedorActivo, menuCheck);
+    }
+
+    $("[data-layout-menu1] ul li[data-campania='" + menuCheck.campania + "']").addClass("seleccionado");
+    var subMenus = $("[data-layout-menu2] ul li[data-campania='" + menuCheck.campania + "']");
+    if (subMenus.length == 0) {
+        $("[data-layout-menu2]").hide();
+    }
+    else {
+        subMenus.show();
+        $("[data-layout-menu2] ul li[data-codigo='" + menuCheck.codigo + "']").addClass("seleccionado");
+    }
+    
+
+    LayoutHeaderFin();
+}
+
+function MenuContenedorClick(e, url) {
+    var objHtmlEvent = $(e.target);
+    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+    if ($(objHtmlEvent).data("campania") == undefined) {
+        objHtmlEvent = $(objHtmlEvent).parents("[data-campania]");
+    }
+
+    var codigoLocal = {
+        campania: $(objHtmlEvent).data("campania"),
+        codigo: $(objHtmlEvent).data("codigo")
+    };
+
+    LocalStorageListado(menuContenedorActivo, codigoLocal);
+
+    window.location = url;
+}
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
     if (ControllerName == "ShowRoom") {

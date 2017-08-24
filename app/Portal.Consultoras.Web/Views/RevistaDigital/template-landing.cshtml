@@ -2,6 +2,16 @@
 @using Portal.Consultoras.Common
 
 @model Portal.Consultoras.Web.Models.RevistaDigitalLandingModel
+@{
+    ViewBag.Title = "ÉSIKA PARA MÍ";
+    Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+}
+
+@section styles{
+    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
 
 @{
     var idBorrar = "borrar" + Model.CampaniaID;
@@ -9,34 +19,34 @@
 @if (Model.Success)
 {
 
-<div class="catalogoPersonalizadoBloque">
-    <div class="content_belcorp">
-        <div class="content_slider_ept" id="divCarruselLan"  
-             data-content-item="@Model.CampaniaID" 
-             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+@*<div class="catalogoPersonalizadoBloque">
+            <div class="content_belcorp">
+                <div class="content_slider_ept" id="divCarruselLan"
+                     data-content-item="@Model.CampaniaID"
+                     data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLandingCarrusel" >
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<hr class="clear" />
+    <hr class="clear" />*@
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
     <div class="content_belcorp" data-listado-content="" style="display: none;">
         
             @if (ViewBag.TieneProductosPerdio)
             {
-                <div class="rd-busqueda-filtros">
+                @*<div class="rd-busqueda-filtros">
                     <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
                     <hr class="clear" />
                     <div class="hblock_title_perdio" style="">
                         @ViewBag.NombreConsultora, PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS
                     </div>
-                </div>
+                </div>*@
             }
             else
             {
                 <div id="orderby-filter">
                     <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                        <div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>
-                        <hr class="clear" />
+                        @*<div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>*@
+                        @*<hr class="clear" />*@
                         <div class="rd-seccion2">
                             <div id="divFiltros" class="rd-filtros">
                                 @if (Model.FiltersByBrand.Any())
@@ -59,7 +69,7 @@
                                 }
 
                             </div>
-                            <hr class="clear" />
+                            @*<hr class="clear" />*@
                             <div id="divCantProductos" class="cantidad_productos_fav">
                                 <div class="rd-cantidad">
                                     Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
@@ -77,12 +87,13 @@
                             </div>*@
                     </div>
                 </div>
+                <hr class="clear">
             }
-        <hr class="clear" />
+        @*<hr class="clear" />*@
         <div id="RDListado" data-content-item="@Model.CampaniaID">
-            <hr class="clear" />
+            @*<hr class="clear" />*@
             <div id="divOfertaProductos"  style="text-align: center; overflow: hidden;"></div>
-            <hr class="clear" />
+            @*<hr class="clear" />*@
             @if (ViewBag.TieneProductosPerdio)
             {
                 <div id="block_inscribete">
@@ -110,4 +121,50 @@
     <hr class="clear" />
 </div>
 
+}
+
+<hr class="clear" />
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-lanzamiento-carrusel.cshtml")
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml")
+
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+        var tipoOrigenPantalla = 1;
+        var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital")';
+        var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var urlTerminosCondicionesRD = '@Model.UrlTerminosCondicionesRD';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding';
+        var tipoOrigenEstrategia = 17;
+        var CantidadFilas = @Model.CantidadFilas;
+        var mayormenor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor';
+        var menormayor = '@Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor';
+        var tieneMasVendidos = 0;
+        var campaniaId = @Model.CampaniaID;
+    </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

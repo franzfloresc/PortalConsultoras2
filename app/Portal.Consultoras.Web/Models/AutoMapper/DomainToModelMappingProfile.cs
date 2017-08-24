@@ -221,6 +221,17 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                    .ForMember(t => t.TextoPago, f => f.MapFrom(c => c.TextoPago))
                    .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
                    .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
+
+            Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
+                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
+                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
+                .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
+                .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
+                .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
+                .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
+                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
+                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
         }
     }
 }

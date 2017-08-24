@@ -16,6 +16,14 @@ var CONS_TIPO_PRESENTACION = {
     Banners: 4
 };
 
+var CONS_CODIGO_SECCION = {
+    LAN: "LAN",
+    RD: "RD",
+    RDR: "RDR"
+};
+
+var listaSeccion = {};
+
 $(document).ready(function () {
     SeccionRender();
 });
@@ -80,6 +88,15 @@ function SeccionCargarProductos(objConsulta) {
     if (typeof objConsulta.UrlObtenerProductos === "undefined")
         return false;
 
+    listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;
+
+    if (objConsulta.Codigo == CONS_CODIGO_SECCION.LAN
+        || objConsulta.Codigo == CONS_CODIGO_SECCION.RDS
+        || objConsulta.Codigo == CONS_CODIGO_SECCION.RD) {
+        OfertaCargarProductos(null, false, objConsulta);
+        return false;
+    }
+
     var param = {
         codigo: objConsulta.Codigo,
         campaniaId: objConsulta.CampaniaID
@@ -89,13 +106,6 @@ function SeccionCargarProductos(objConsulta) {
         cache: false
     });
 
-    console.log(objConsulta);
-
-    var param = {
-        codigo: objConsulta.Codigo,
-        campaniaId: objConsulta.CampaniaID
-    }
-
     $.ajax({
         type: 'POST',
         url: baseUrl + objConsulta.UrlObtenerProductos,
@@ -104,8 +114,7 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            console.log(data);
-            data.Seccion = objConsulta;
+            data.Seccion = listaSeccion[data.Codigo + "-" + data.CampaniaID]; //objConsulta;
             SeccionMostrarProductos(data);
         },
         error: function (error, x) {

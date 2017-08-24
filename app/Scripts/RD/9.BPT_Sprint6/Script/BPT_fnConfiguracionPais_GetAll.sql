@@ -28,6 +28,7 @@ returns @tabla table
 , MobileFondoBanner	varchar(255)
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
+, UrlMenu	varchar(255)
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -90,7 +91,8 @@ begin
 		,DesktopFondoBanner
 		,MobileFondoBanner
 		,DesktopLogoBanner
-		,MobileLogoBanner)
+		,MobileLogoBanner
+		,UrlMenu)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -110,6 +112,7 @@ begin
 		,C.MobileFondoBanner
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
+		,C.UrlMenu
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)

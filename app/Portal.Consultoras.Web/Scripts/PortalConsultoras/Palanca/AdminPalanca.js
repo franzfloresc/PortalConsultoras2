@@ -1,4 +1,7 @@
-﻿jQuery(document).ready(function () {
+﻿
+var _toastHelper = ToastHelper();
+
+jQuery(document).ready(function () {
     UpdateGrillaOfertas();
     UpdateGrillaPalanca();
     IniDialogs();
@@ -77,14 +80,18 @@ function IniDialogs() {
         {
             "Guardar": function () {
                 //valores para enviar al actualizar la palanca
+                if (isNaN($("#Orden").val())) {
+                    _toastHelper.error("El valor del orden tiene que ser numerico.");
+                    return false;
+                }
                 var params = {
                     ConfiguracionPaisID: $("#ConfiguracionPaisID").val(),
                     Codigo : $("#ddlConfiguracionPais").val(),
                     Excluyente : $("input[name='Excluyente']:checked").val(),
-                    Descripcion : $("#Descripcion").val(),
+                    //Descripcion : $("#Descripcion").val(),
                     Estado: $("#Estado").is(':checked'),
                     Logo : $("#nombre-icono").val(),
-                    Orden : $("#Orden").val(),
+                    Orden: $("#Orden").val(),
                     DesdeCampania : $("#ddlCampania").val(),
                     DesktopTituloMenu : $("#DesktopTituloMenu").val(),
                     MobileTituloMenu : $("#MobileTituloMenu").val(),
@@ -108,12 +115,16 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoPalanca");
+                            _toastHelper.success("Solicitud realizada sin problemas.");
+                            UpdateGrillaPalanca();
                         } else {
-                            alert(data.message);
+                            _toastHelper.error("Error al procesar la Solicitud.");
+                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {
-                        alert(data.message);
+                        _toastHelper.error("Error al procesar la Solicitud.");
+                        console.log(data.message);
                     }
                 });
 
@@ -139,6 +150,19 @@ function IniDialogs() {
         {
             "Guardar": function () {
                 //valores para seccion de home del contenedor de ofertas
+               
+                if ($("#ddlConfiguracionIdOfertas").val() == "" || isNaN($("#ddlConfiguracionIdOfertas").val())) {
+                    _toastHelper.error("Selecione una Configuracion Oferta.");
+                    return false;
+                }
+                if ($("#ddlCampaniaOfertas").val() == "" || isNaN($("#ddlCampaniaOfertas").val())) {
+                    _toastHelper.error("Seleccione una campaña.");
+                    return false;
+                }
+                if (isNaN($("#DesktopOrden").val())) {
+                    _toastHelper.error("El valor del orden tiene que ser numerico.");
+                    return false;
+                }
                 var params = {
                     ConfiguracionOfertasHomeID: $("#ConfiguracionOfertasHomeID").val(),
                     ConfiguracionPaisID: $("#ddlConfiguracionIdOfertas").val(),
@@ -171,13 +195,16 @@ function IniDialogs() {
                     success: function (data) {
                         if (data.success) {
                             HideDialog("DialogMantenimientoOfertasHome");
+                            _toastHelper.success("Solicitud realizada sin problemas.");
                             UpdateGrillaOfertas();
                         } else {
-                            alert(data.message);
+                            _toastHelper.error("Error al procesar la Solicitud.");
+                            console.log(data.message);
                         }
                     },
                     error: function (data, error) {
-                        alert(data.message);
+                        _toastHelper.error("Error al procesar la Solicitud.");
+                        console.log(data.message);
                     }
                 });
 

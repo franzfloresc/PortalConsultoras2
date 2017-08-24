@@ -16,3 +16,8 @@
     width: calc(100% - 80px);
     width: -webkit-calc(100% - 80px);
 }
+.banner_especial_showroom{
+    width: -moz-calc(100% - 12%);
+    width: calc(100% - 12%);
+    width: -webkit-calc(100% - 12%);
+}

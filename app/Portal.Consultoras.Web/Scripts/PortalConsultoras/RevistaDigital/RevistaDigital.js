@@ -217,8 +217,51 @@ function GetArrowNameNext() {
 }
 
 function OfertaArmarEstrategias(response) {
+
     response.CampaniaID = response.CampaniaID || response.campaniaId || 0;
     if (response.CampaniaID <= 0) return false;
+
+    var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
+    if (esContenedor) {
+        response.Seccion = listaSeccion["LAN-" + response.CampaniaID];
+        if (response.Seccion == undefined) {
+            response.Seccion = listaSeccion["RD-" + response.CampaniaID];
+        }
+        if (response.Seccion == undefined) {
+            response.Seccion = listaSeccion["RDR-" + response.CampaniaID];
+        }
+
+        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+
+        var cant = response.Seccion.CantidadProductos || 0;
+        cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
+        if (cant > 0) {
+            var newLista = [];
+            var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
+
+            $.each(listaItem, function (ind, item) {
+                if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
+                    if (ind < cant) {
+                        newLista.push(item);
+                    }
+                }
+            });
+
+            if (response.Seccion.Codigo == "LAN") {
+                response.listaLan = newLista;
+                response.lista = [];
+            }
+            else {
+                response.listaLan = [];
+                response.lista = newLista;
+            }
+
+        }
+
+        SeccionMostrarProductos(response);
+
+        return false;
+    }
 
     response.Completo = response.Completo || 0;
     if (response.lista.Posicion != undefined) {
@@ -236,28 +279,26 @@ function OfertaArmarEstrategias(response) {
     OfertaObtenerIndLocal(response.CampaniaID);
     if (filtroCampania[indCampania] != undefined) {
 
-        if (response.Completo == 0) {
-            var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
-            response.listaLan = response.listaLan || new Array();
-            if (response.listaLan.length > 0) {
-                $.each(response.listaLan, function (ind, tem) {
-                    tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
-                    tem.TipoEstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgPrevDesktop;
-                    tem.TipoEstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.TipoEstrategiaDetalle.ImgFichaMobile : tem.TipoEstrategiaDetalle.ImgFichaDesktop;
-                    tem.TipoEstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgFondoDesktop;
-                    tem.Posicion = ind + 1;
-                });
-
-                var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
-                divProdLan.find("#divCarruselLan").html(htmlLan);
-
-                RenderCarrusel(divProdLan);
-                divProdLan.find('#divCarruselLan').slick('slickGoTo', 0);
-            }
-            else {
-                divProdLan.find("#divCarruselLan").remove();
-            }
-        }
+        //if (response.Completo == 0) {
+        //    var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
+        //    response.listaLan = response.listaLan || new Array();
+        //    if (response.listaLan.length > 0) {
+        //        $.each(response.listaLan, function (ind, tem) {
+        //            tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
+        //            tem.TipoEstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgPrevDesktop;
+        //            tem.TipoEstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.TipoEstrategiaDetalle.ImgFichaMobile : tem.TipoEstrategiaDetalle.ImgFichaDesktop;
+        //            tem.TipoEstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgFondoDesktop;
+        //            tem.Posicion = ind + 1;
+        //        });
+        //        var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
+        //        divProdLan.find("#divCarruselLan").html(htmlLan);
+        //        RenderCarrusel(divProdLan);
+        //        divProdLan.find('#divCarruselLan').slick('slickGoTo', 0);
+        //    }
+        //    else {
+        //        divProdLan.find("#divCarruselLan").remove();
+        //    }
+        //}
 
         var cantListados = filtroCampania[indCampania].CantMostrados;
         filtroCampania[indCampania].CantTotal = response.cantidad;
@@ -305,7 +346,7 @@ function OfertaArmarEstrategias(response) {
     ResizeBoxContnet();
 
     if (!isDetalle) {
-        LocalStorageListado(lsListaRD + response.CampaniaID, JSON.stringify(filtroCampania[indCampania]));
+        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
     }
 }
 

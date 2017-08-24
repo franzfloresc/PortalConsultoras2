@@ -24,6 +24,48 @@ namespace Portal.Consultoras.Web.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
+        
+        public ActionResult Informacion()
+        {
+            try
+            {
+                return IndexModel(0);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+        
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
 
         [HttpPost]
         public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
@@ -181,6 +223,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     lista = listModel
                 });
             }
@@ -190,6 +234,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     message = "Error al cargar los productos"
                 });
             }
@@ -224,6 +270,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     listaLan = listModel
                 });
             }
@@ -233,6 +281,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
+                    Codigo = codigo,
+                    CampaniaId = campaniaId,
                     message = "Error al cargar los productos"
                 });
             }

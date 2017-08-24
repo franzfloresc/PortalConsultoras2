@@ -136,24 +136,20 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected BEPedidoWeb ObtenerPedidoWeb()
         {
-            BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
+            var bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
 
-            if (Session["PedidoWeb"] == null)
+            if (bePedidoWeb != null)
+                return bePedidoWeb;
+
+            using (var sv = new PedidoServiceClient())
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
-                }
-                bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
-            }
-            else
-            {
-                bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
+                bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
             }
 
             bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
 
             Session["PedidoWeb"] = bePedidoWeb;
+
             return bePedidoWeb;
         }
 
@@ -855,7 +851,7 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
-            lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
+            //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
 
@@ -863,6 +859,7 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confi in lista)
             {
                 listaMenu.Add(new MenuContenedorModel {
+                    Codigo = confi.Codigo,
                     CampaniaID = userData.CampaniaID,
                     TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
                     LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
@@ -870,7 +867,7 @@ namespace Portal.Consultoras.Web.Controllers
                     TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                     SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
                     Orden = confi.Orden,
-                    Activa = true
+                    UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu
                 });
             }
 
@@ -881,17 +878,23 @@ namespace Portal.Consultoras.Web.Controllers
 
                 listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
 
-                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital);
-                listaMenu.Add(new MenuContenedorModel
+                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
+                if (confi.ConfiguracionPaisID > 0)
                 {
-                    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-                    TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
-                    LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
-                    FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
-                    TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
-                    SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
-                    Orden = confi.Orden
-                });
+                    listaMenu.Add(new MenuContenedorModel
+                    {
+                        Codigo = confi.Codigo,
+                        CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                        TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
+                        LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
+                        FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
+                        TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
+                        SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
+                        Orden = confi.Orden,
+                        UrlMenu = "/" + (isMobile ? "Mobile/" : "") + "RevistaDigital/Revisar"
+                    });
+                }
+                
             }
 
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
@@ -906,34 +909,36 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             listaMenu.Add(new MenuContenedorModel
             {
-                CampaniaID = userData.CampaniaID,
-                Logo = "/Content/Images/Esika/menu-icono-compra.png",
-                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "COMPRAR",
-                SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
-                Orden = 1,
+                //CampaniaID = userData.CampaniaID,
+                //Logo = "/Content/Images/Esika/menu-icono-compra.png",
+                //TituloMenu = isMobile ? "C" + " - " + (userData.CampaniaID % 100).ToString() : "COMPRAR",
+                //SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
+                //Orden = 1,
+                //Activa = true,
                 IsMenuCampania = true,
-                Activa = true
+                CampaniaX0 = userData.CampaniaID,
+                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1),
             });
 
-            listaMenu.Add(new MenuContenedorModel
-            {
-                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-                Logo = "/Content/Images/Esika/menu-icono-revisar.png",
-                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
-                SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
-                Orden = 2,
-                IsMenuCampania = true
-            });
+            //listaMenu.Add(new MenuContenedorModel
+            //{
+            //    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+            //    Logo = "/Content/Images/Esika/menu-icono-revisar.png",
+            //    TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
+            //    SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
+            //    Orden = 2,
+            //    IsMenuCampania = true
+            //});
 
-            listaMenu.Add(new MenuContenedorModel
-            {
-                CampaniaID = 0,
-                Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
-                TituloMenu = isMobile ? "SABER MÁS" : "SABER",
-                SubTituloMenu = isMobile ? "" : "MÁS",
-                Orden = 3,
-                IsMenuCampania = true
-            });
+            //listaMenu.Add(new MenuContenedorModel
+            //{
+            //    CampaniaID = 0,
+            //    Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
+            //    TituloMenu = isMobile ? "SABER MÁS" : "SABER",
+            //    SubTituloMenu = isMobile ? "" : "MÁS",
+            //    Orden = 3,
+            //    IsMenuCampania = true
+            //});
 
             return listaMenu;
         }
@@ -942,10 +947,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menu = new MenuContenedorModel
             {
+                Codigo = "",
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
                 TituloMenu = "INICIO",
                 SubTituloMenu = "",
-                UrlPantalla = (IsMobile() ? "" : "/Mobile") + Url.Action("Index", "Ofertas"),
+                UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };
@@ -1456,169 +1462,175 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
-
+            const int SHOWROOM_ESTADO_ACTIVO = 1;
+            
             Session["EsShowRoom"] = "0";
-            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-            if (paisesShowRoom.Contains(model.CodigoISO))
-            {
+            Session["MostrarShowRoomProductos"] = "0";
+            Session["MostrarShowRoomProductosExpiro"] = "0";
+            //
+            model.BeShowRoomConsultora = null;
+            model.BeShowRoom = null;
+            //
+            model.CargoEntidadesShowRoom = false;
+
+            if (PaisTieneShowRoom(model.CodigoISO))
+            { 
                 try
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
+                    var codigoConsultora = model.UsuarioPrueba == 1
+                        ? model.ConsultoraAsociada
+                        : model.CodigoConsultora;
+                    List<BEShowRoomPersonalizacionNivel> personalizacionesNivel=null;
+
+                    using (var pedidoService = new PedidoServiceClient())
                     {
-                        string codigoConsultora = model.UsuarioPrueba == 1 ? model.ConsultoraAsociada : model.CodigoConsultora;
-                        model.BeShowRoom = sv.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                        var tienePersonalizacion = model.BeShowRoom != null ? model.BeShowRoom.TienePersonalizacion : false;
+                        model.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                        model.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
+                            model.PaisID, 
+                            model.CampaniaID,
+                            codigoConsultora,
+                            model.BeShowRoom != null && model.BeShowRoom.TienePersonalizacion);
 
-                        model.BeShowRoomConsultora = sv.GetShowRoomConsultora(model.PaisID, model.CampaniaID, codigoConsultora, tienePersonalizacion);
+                        model.ListaShowRoomNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
+                        model.ListaShowRoomPersonalizacion = pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                        model.ShowRoomNivelId = ObtenerNivelId(model.ListaShowRoomNivel);
 
-                        model.ListaShowRoomNivel = sv.GetShowRoomNivel(model.PaisID).ToList();
-                        model.ListaShowRoomPersonalizacion = sv.GetShowRoomPersonalizacion(model.PaisID).ToList();
-
-                        //Por ahora es nivel pais
-                        var showRoomNivelId = model.ListaShowRoomNivel.FirstOrDefault(p => p.Codigo == "PAIS") ?? new BEShowRoomNivel();
-
-                        model.ShowRoomNivelId = showRoomNivelId.NivelId;
-
-                        if (model.BeShowRoom != null && model.BeShowRoom.Estado != 0)
+                        if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
                         {
-                            var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-
-                            var listaPersonalizacionNivel = sv.GetShowRoomPersonalizacionNivel(model.PaisID, model.BeShowRoom.EventoID, model.ShowRoomNivelId,
-                                    0).ToList();
-
-                            Mapper.CreateMap<BEShowRoomPersonalizacion, ShowRoomPersonalizacionModel>()
-                                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
-                                .ForMember(t => t.TipoAplicacion, f => f.MapFrom(c => c.TipoAplicacion))
-                                .ForMember(t => t.PersonalizacionId, f => f.MapFrom(c => c.PersonalizacionId))
-                                .ForMember(t => t.Atributo, f => f.MapFrom(c => c.Atributo))
-                                .ForMember(t => t.TextoAyuda, f => f.MapFrom(c => c.TextoAyuda))
-                                .ForMember(t => t.TipoAtributo, f => f.MapFrom(c => c.TipoAtributo))
-                                .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
-                                .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                                .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
-
-                            var listaPersonalizacionModel = Mapper.Map<List<BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(model.ListaShowRoomPersonalizacion);
-
-                            foreach (var item in listaPersonalizacionModel)
-                            {
-                                var personalizacionnivel = listaPersonalizacionNivel.FirstOrDefault(p => p.NivelId == model.ShowRoomNivelId &&
-                                            p.EventoID == model.BeShowRoom.EventoID && p.PersonalizacionId == item.PersonalizacionId);
-
-                                if (personalizacionnivel != null)
-                                {
-                                    item.PersonalizacionNivelId = personalizacionnivel.PersonalizacionNivelId;
-                                    item.Valor = personalizacionnivel.Valor;
-
-                                    if (item.TipoAtributo == "IMAGEN")
-                                    {
-                                        item.Valor = string.IsNullOrEmpty(item.Valor)
-                                            ? "" : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor, Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                                    }
-                                }
-                                else
-                                {
-                                    item.PersonalizacionNivelId = 0;
-                                    item.Valor = "";
-                                }
-                            }
-
-                            model.ListaShowRoomPersonalizacionConsultora = listaPersonalizacionModel;
-                            if (model.BeShowRoomConsultora != null)
-                            {
-                                Session["EsShowRoom"] = "1";
-
-                                /*PL20-1306*/
-                                Session["MostrarShowRoomProductos"] = "0";
-                                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                                if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
-                                    && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
-                                {
-                                    //rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
-                                    //mostrarShowRoomProductos = true;
-                                    Session["MostrarShowRoomProductos"] = "1";
-                                }
-                                //if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date) //beShowRoomConsultora.MostrarPopup = false;
-                                //    Session["MostrarShowRoomProductos"] = false;
-                            }
-                            else
-                            {
-                                Session["EsShowRoom"] = "0";
-                                Session["MostrarShowRoomProductos"] = "0";
-                            }
-
-                            Session["carpetaPais"] = carpetaPais;
+                            personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
+                                model.BeShowRoom.EventoID, model.ShowRoomNivelId,0).ToList();
                         }
-                        else
-                        {
-                            Session["EsShowRoom"] = "0";
-                            Session["MostrarShowRoomProductos"] = "0";
-                        }
-
-                        model.CargoEntidadesShowRoom = true;
                     }
+
+                    if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
+                    {
+                        Session["EsShowRoom"] = "1";
+
+                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
+                            && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                        {
+                            Session["MostrarShowRoomProductos"] = "1";
+                        }
+
+                        if (fechaHoy > model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                            Session["MostrarShowRoomProductosExpiro"] = "1";
+                    }
+
+                    if (personalizacionesNivel != null && personalizacionesNivel.Any())
+                    {
+                        var personalizacionesModel = Mapper.Map<List<BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(model.ListaShowRoomPersonalizacion);
+
+                        var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                        Session["carpetaPais"] = carpetaPais;
+
+                        foreach (var item in personalizacionesModel)
+                        {
+                            var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
+                                p => p.NivelId == model.ShowRoomNivelId &&
+                                     p.EventoID == model.BeShowRoom.EventoID &&
+                                     p.PersonalizacionId == item.PersonalizacionId);
+
+                            if (personalizacionNivel == null)
+                            {
+                                item.PersonalizacionNivelId = 0;
+                                item.Valor = string.Empty;
+                                continue;
+                            }
+
+                            item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
+                            item.Valor = personalizacionNivel.Valor;
+
+                            if (item.TipoAtributo == "IMAGEN")
+                            {
+                                item.Valor = string.IsNullOrEmpty(item.Valor)
+                                    ? string.Empty
+                                    : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
+                                        Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                            }
+                        }
+
+                        model.ListaShowRoomPersonalizacionConsultora = personalizacionesModel;
+                    }
+
+                    model.CargoEntidadesShowRoom = true;
                 }
                 catch (Exception ex)
                 {
-                    Portal.Consultoras.Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
+                    Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
                     model.CargoEntidadesShowRoom = false;
                 }
             }
-            else
-            {
-                model.BeShowRoomConsultora = null;
-                model.BeShowRoom = null;
-                model.CargoEntidadesShowRoom = true;
-            }
+
 
             SetUserData(model);
         }
 
+        protected bool PaisTieneShowRoom(string codigoIsoPais)
+        {
+            var tieneShowRoom = false;
+            if (string.IsNullOrEmpty(codigoIsoPais))
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalse
+                return tieneShowRoom;
+            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
+            tieneShowRoom = paisesShowRoom.Contains(codigoIsoPais);
+            //
+            return tieneShowRoom;
+        }
+
+        protected int ObtenerNivelId(List<BEShowRoomNivel> niveles)
+        {
+            const string CODIGO_PERSONALIZACION_NIVEL_PAIS = "PAIS";
+            var showRoomNivelPais = niveles.FirstOrDefault(p => p.Codigo == CODIGO_PERSONALIZACION_NIVEL_PAIS) ??
+                                    new BEShowRoomNivel();
+            return showRoomNivelPais.NivelId;
+        }
+
         #endregion
 
-        public string NombreMes(int Mes)
+        public string NombreMes(int mes)
         {
-            string Result = string.Empty;
-            switch (Mes)
+            var result = string.Empty;
+            switch (mes)
             {
                 case 1:
-                    Result = "Enero";
+                    result = "Enero";
                     break;
                 case 2:
-                    Result = "Febrero";
+                    result = "Febrero";
                     break;
                 case 3:
-                    Result = "Marzo";
+                    result = "Marzo";
                     break;
                 case 4:
-                    Result = "Abril";
+                    result = "Abril";
                     break;
                 case 5:
-                    Result = "Mayo";
+                    result = "Mayo";
                     break;
                 case 6:
-                    Result = "Junio";
+                    result = "Junio";
                     break;
                 case 7:
-                    Result = "Julio";
+                    result = "Julio";
                     break;
                 case 8:
-                    Result = "Agosto";
+                    result = "Agosto";
                     break;
                 case 9:
-                    Result = "Septiembre";
+                    result = "Septiembre";
                     break;
                 case 10:
-                    Result = "Octubre";
+                    result = "Octubre";
                     break;
                 case 11:
-                    Result = "Noviembre";
+                    result = "Noviembre";
                     break;
                 case 12:
-                    Result = "Diciembre";
+                    result = "Diciembre";
                     break;
             }
-            return Result;
+            return result;
         }
 
         protected string ConfigurarUrlServiceProl()
@@ -2055,41 +2067,30 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ShowRoomBannerLateralModel GetShowRoomBannerLateral()
         {
-            var objuserData = Session["UserData"];
+            var model = new ShowRoomBannerLateralModel();
 
-            ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
+            if (!PaisTieneShowRoom(userData.CodigoISO))
+                return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            var paisesShowRoom = ConfigurationManager.AppSettings["PaisesShowRoom"];
-            if (!paisesShowRoom.Contains(userData.CodigoISO)) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
+            if (!userData.CargoEntidadesShowRoom)
+                return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
 
-            if (!userData.CargoEntidadesShowRoom) return new ShowRoomBannerLateralModel { ConsultoraNoEncontrada = true };
-            model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
-            model.BEShowRoom = userData.BeShowRoom;
+            model.BEShowRoomConsultora = userData.BeShowRoomConsultora?? new BEShowRoomEventoConsultora();
+            model.BEShowRoom = userData.BeShowRoom?? new BEShowRoomEvento(); ;
 
-            if (model.BEShowRoom == null)
-            {
-                model.BEShowRoom = new BEShowRoomEvento();
-                model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
-            }
-            else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
-            if (model.BEShowRoom.Estado != 1) return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
+            if (model.BEShowRoom.Estado != 1)
+                return new ShowRoomBannerLateralModel { EventoNoEncontrado = true };
 
-            //model.RutaShowRoomBannerLateral = "";
             model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
                 Session["MostrarShowRoomProductos"] = "1";
-                //model.RutaShowRoomBannerLateral = Url.Action("Index", "ShowRoom");
             }
-            if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date) model.EstaActivoLateral = false;
-
-            //model.DiasFaltantes = userData.FechaInicioCampania.AddDays(- model.BEShowRoom.DiasAntes).Day; // userData.FechaInicioCampania.Day - model.BEShowRoom.DiasAntes;
-
-            //model.DiasFalta = model.DiasFaltantes - fechaHoy.Day;
+            if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
+                model.EstaActivoLateral = false;
 
             TimeSpan DiasFalta = userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes) - fechaHoy;
             model.DiasFalta = DiasFalta.Days;
@@ -2099,26 +2100,30 @@ namespace Portal.Consultoras.Web.Controllers
             model.AnioFaltante = userData.FechaInicioCampania.Year;
 
 
-            foreach (var Item in userData.ListaShowRoomPersonalizacionConsultora)
+            foreach (var item in userData.ListaShowRoomPersonalizacionConsultora)
             {
-                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenIntriga && 
+                    item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
                 {
-                    model.ImagenPopupShowroomIntriga = Item.Valor;
+                    model.ImagenPopupShowroomIntriga = item.Valor;
                 }
 
-                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenIntriga && 
+                    item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
                 {
-                    model.ImagenBannerShowroomIntriga = Item.Valor;
+                    model.ImagenBannerShowroomIntriga = item.Valor;
                 }
 
-                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenVenta && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.PopupImagenVenta && 
+                    item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
                 {
-                    model.ImagenPopupShowroomVenta = Item.Valor;
+                    model.ImagenPopupShowroomVenta = item.Valor;
                 }
 
-                if (Item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta && Item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
+                if (item.Atributo == Constantes.ShowRoomPersonalizacion.Mobile.BannerImagenVenta && 
+                    item.TipoAplicacion == Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile)
                 {
-                    model.ImagenBannerShowroomVenta = Item.Valor;
+                    model.ImagenBannerShowroomVenta = item.Valor;
                 }
             }
 
@@ -2447,16 +2452,14 @@ namespace Portal.Consultoras.Web.Controllers
 
         public string ObtenerValorPersonalizacionShowRoom(string codigoAtributo, string tipoAplicacion)
         {
-            if (userData.ListaShowRoomPersonalizacionConsultora != null)
-            {
-                var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+            if (userData.ListaShowRoomPersonalizacionConsultora == null)
+                return string.Empty;
 
-                return model == null
-                ? ""
+            var model = userData.ListaShowRoomPersonalizacionConsultora.FirstOrDefault(p => p.Atributo == codigoAtributo && p.TipoAplicacion == tipoAplicacion);
+
+            return model == null
+                ? string.Empty
                 : model.Valor;
-            }
-
-            return "";
         }
 
         public string GetCodigoEstrategia()
@@ -2546,18 +2549,13 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool IsMobile()
         {
-            string url = "";
-            if (HttpContext.Request.UrlReferrer != null)
-            {
-                url = Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower();
-            }
-            else
-            {
-                url = Util.Trim(HttpContext.Request.FilePath).ToLower();
-            }
+            var url = string.Empty;
 
-            if (url.Contains("/mobile/")) return true;
-            else return false;
+            url = HttpContext.Request.UrlReferrer != null ? 
+                Util.Trim(HttpContext.Request.UrlReferrer.LocalPath).ToLower() : 
+                Util.Trim(HttpContext.Request.FilePath).ToLower();
+
+            return url.Contains("/mobile/");
         }
 
         public List<BETablaLogicaDatos> ObtenerParametrosTablaLogica(int paisID, short tablaLogicaId)
@@ -2611,9 +2609,8 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             foreach (var entConf in listaEntidad)
             {
-
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                // validacion para ver si se muestra
+                
                 if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
                     continue;
 
@@ -2622,7 +2619,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
-                    Codigo = entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
+                    Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     IsMobile = isMobile,
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
@@ -2632,47 +2629,43 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
                     CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos
                 };
-                seccion.TemplatePresentacion = "";
+
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.TemplatePresentacion = "carrusel-previsuales";
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
-                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
+                        seccion.UrlLandig = "RevistaDigital/Index";
                         break;
                     default:
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "")
-                {
-                    continue;
-                }
-                seccion.TemplateProducto = "";
+                seccion.TemplatePresentacion = "";
                 switch (seccion.TipoPresentacion)
                 {
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselPrevisuales:
+                        seccion.TemplatePresentacion = "carrusel-previsuales";
                         seccion.TemplateProducto = "#lanzamiento-carrusel-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
+                        seccion.TemplatePresentacion = "seccion-simple-centrado";
                         break;
                     default:
                         break;
                 }
 
-                if (seccion.TemplateProducto == "")
-                {
-                    continue;
-                }
+                if (seccion.TemplatePresentacion == "") continue;
 
                 modelo.Add(seccion);
             }

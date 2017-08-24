@@ -28,5 +28,7 @@ namespace Portal.Consultoras.Web.Models
         public string MobileFondoBanner { get; set; }
         public string DesktopLogoBanner { get; set; }
         public string MobileLogoBanner { get; set; }
+
+        public string UrlMenu { get; set; }
     }
 }
