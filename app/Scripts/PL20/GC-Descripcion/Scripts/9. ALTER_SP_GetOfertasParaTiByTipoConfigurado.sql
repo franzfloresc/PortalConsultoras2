@@ -38,7 +38,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT 
 			t.CUV,
-			COALESCE(e.DescripcionCUV2,pd.Descripcion,p.Descripcion, mci.DescripcionComercial),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, pd.Descripcion, p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -73,7 +73,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT
 			t.CUV,
-			COALESCE(e.DescripcionCUV2,pd.Descripcion,p.Descripcion, mci.DescripcionComercial),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, pd.Descripcion, p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -100,7 +100,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT
 			t.CUV,
-			COALESCE(e.DescripcionCUV2,pd.Descripcion,p.Descripcion),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2,pd.Descripcion,p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -117,6 +117,8 @@ BEGIN
 			and p.CUV = pd.CUV
 		LEFT JOIN MatrizComercial mc on
 			p.CodigoProducto = mc.CodigoSAP
+		LEFT JOIN MatrizComercialImagen mci on 
+			mci.IdMatrizComercial = mc.IdMatrizComercial
 		WHERE 
 			t.CampaniaID = @CampaniaID
 			and e.CUV2 is null
