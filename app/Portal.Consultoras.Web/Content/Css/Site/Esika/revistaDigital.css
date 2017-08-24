@@ -870,7 +870,7 @@
 }
 
 .revistadigital .boxoffer.boxOfferPedido{
-    top:366px;
+    top: 300px;
 }
 
 .revistadigital .revistadigital-content{
@@ -2187,7 +2187,7 @@
 .content_item_home_bpt {
     background: white;
     /*border: 1px solid #e7e1e1;*/
-    border: 1px #000000 solid;
+    /*border: 1px #000000 solid;*/
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);

@@ -100,7 +100,7 @@ namespace Portal.Consultoras.Web
                     "~/Scripts/HojaInscripcion/*.js",
                     "~/Scripts/DatetimePicker/*.js"
                 ));
-
+          
             bundles.Add(new StyleBundle("~/Content/Css/Site/Esika/CssSB2").Include(
                "~/Content/Css/Site/flipclock.css",
                "~/Content/Css/Site/slick.css",
@@ -187,7 +187,7 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
-                "~/Scripts/General.js",
+                //"~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Pedido/Index.js",
                 "~/Scripts/PortalConsultoras/Pedido/barra.js",
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
-               "~/Content/Css/Site/Esika/revistaDigital.css",
+               "~/Content/Css/Mobile/Esika/revistaDigital.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
                 ));
 
@@ -230,7 +230,7 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/ui.jquery/jquery-ui.css",
                "~/Content/Css/Site/jquery.custom-scrollbar.css"
                ));
-
+                     
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/Pedido").Include(
                 "~/Scripts/General.js",
                 "~/Scripts/PortalConsultoras/Mobile/Pedido/index.js",

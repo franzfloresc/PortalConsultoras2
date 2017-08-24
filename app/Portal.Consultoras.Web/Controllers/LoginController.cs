@@ -195,7 +195,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (model.PaisID == 0)
                     model.PaisID = Util.GetPaisID(model.CodigoISO);
-                
+
                 var resultadoInicioSesion = ObtenerResultadoInicioSesion(model);
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
@@ -831,16 +831,22 @@ namespace Portal.Consultoras.Web.Controllers
                             CalcularMotivoRechazo(model);
                             if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
                             {
-                                if (model.RechazadoXdeuda == true)
+                                model.MostrarBannerRechazo = true;
+
+                                if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((oBEUsuario.ValidacionAbierta == false && oBEUsuario.EstadoPedido == 201) || oBEUsuario.ValidacionAbierta == true && oBEUsuario.EstadoPedido == 202))
                                 {
                                     model.MostrarBannerRechazo = true;
                                 }
-                                else if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((oBEUsuario.ValidacionAbierta == false && oBEUsuario.EstadoPedido == 201)|| oBEUsuario.ValidacionAbierta == true && oBEUsuario.EstadoPedido == 202))
+                                else if (model.RechazadoXdeuda == true)
                                 {
                                     model.MostrarBannerRechazo = true;
+                                }
+                                else
+                                {
+                                    model.MostrarBannerRechazo = model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false;
                                 }
                             }
-                         }
+                        }
                         #endregion
 
                         #region ODD
@@ -886,7 +892,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             model.RevistaDigital.NoVolverMostrar = true;
-                            if(model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
+                            if (model.TipoUsuario == Constantes.TipoUsuario.Postulante) throw new Exception("No se asigna configuracion pais para los Postulantes.");
 
                             var config = new ServiceUsuario.BEConfiguracionPais
                             {
@@ -984,14 +990,14 @@ namespace Portal.Consultoras.Web.Controllers
                                     if (c.Codigo == Constantes.ConfiguracionPais.OfertaFinalTradicional ||
                                         c.Codigo == Constantes.ConfiguracionPais.OfertaFinalCrossSelling ||
                                         c.Codigo == Constantes.ConfiguracionPais.OfertaFinalRegaloSorpresa)
-                                    {                                        
+                                    {
                                         model.OfertaFinalModel.Algoritmo = c.Codigo;
                                         model.OfertaFinalModel.Estado = c.Estado;
                                         if (c.Estado)
                                         {
                                             model.OfertaFinal = 1;
                                             model.EsOfertaFinalZonaValida = true;
-                                        }                                            
+                                        }
                                         continue;
                                     }
 
@@ -1176,7 +1182,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return Result;
         }
-        
+
         private int TieneNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
         {
             int Tiene = 0;
@@ -1228,7 +1234,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result == null ? false : true;
         }
-        
+
         private void ActualizarDatosHana(ref UsuarioModel model)
         {
             using (UsuarioServiceClient us = new UsuarioServiceClient())
@@ -1377,7 +1383,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult SesionExpirada()
         {
-            return View();          
+            return View();
         }
 
         [AllowAnonymous]
