@@ -257,7 +257,7 @@
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
 
         var tipoOrigenEstrategia = 262;
-        var origenPedidoWebEstrategia = '@Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle';
+        var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
     </script>
 

@@ -334,6 +334,9 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
+            public const int RevistaDigitalMobileCatalogoSeccion = 2401;
             /* FIN Revista Digital */
 
             // Mas Vendidos
