@@ -40,7 +40,6 @@ $(document).ready(function () {
 });
 
 function MenuContenedor() {
-
     $("[data-layout-menu2] ul li").hide();
     $("[data-layout-menu2] ul li").removeClass("seleccionado");
     $("[data-layout-menu1] ul li").removeClass("seleccionado");
@@ -55,6 +54,12 @@ function MenuContenedor() {
         var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
+        }
+        else {
+            // fix PL20
+            var omenu2 = $("[data-layout-menu2] ul li");
+            if (omenu2.length > 0)
+                primerMenu = $(omenu2).get(0);
         }
 
         var primerSubMenu = $("[data-layout-menu2] ul li");
