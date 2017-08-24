@@ -69,11 +69,12 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-            this.EsLebel = false;
             this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
             this.OfertaFinalModel = new OfertaFinalModel();
+            this.EsLebel = false;
+            this.TieneCDRExpress = false;
         }
 
         public string Celular { get; set; }
@@ -323,6 +324,9 @@ namespace Portal.Consultoras.Web.Models
         public bool MostrarBannerRechazo { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
+        public bool TieneCDRExpress { get; set; } //EPD-1919
+        public string MensajeCDRExpress { get; set; } //EPD-1919
+        public bool EsConsecutivoNueva { get; set; } //EPD-1919
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
@@ -366,5 +370,7 @@ namespace Portal.Consultoras.Web.Models
 
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
+
+        public string ClaseLogoSB { get; set; }
     }
 }

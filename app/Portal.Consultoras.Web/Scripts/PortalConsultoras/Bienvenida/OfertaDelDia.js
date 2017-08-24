@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿var fechaMostrarBanner = Date.now();
+$(document).ready(function () {
     window.OfertaDelDia = window.OfertaDelDia || {};
     var odd_desktop_google_analytics_promotion_impresion_flag = true;
     var odd_desktop_google_analytics_promotion_impresion_fech;
@@ -103,6 +104,7 @@
                 _data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
                 var idOdd = '#OfertaDelDia';
                 _data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(_data.ListaOfertas);
+                fechaMostrarBanner = Date.now();
                 SetHandlebars("#ofertadeldia-template", _data, idOdd);               
 
                 $(idOdd + ' [data-odd-tipoventana="detalle"]').hide();
@@ -176,11 +178,12 @@
                     clockFace: 'HourlyCounter',
                     countdown: true
                 });
+
                 if (odd_desktop_google_analytics_promotion_impresion_flag) {
                     odd_desktop_google_analytics_promotion_impresion();
                     odd_desktop_google_analytics_promotion_impresion_flag = false;
-                    odd_desktop_google_analytics_promotion_impresion_fech = new date();
-                }                    
+                    odd_desktop_google_analytics_promotion_impresion_fech = new Date();
+                }
             },
             error: function (err) {
                 console.log(err);
@@ -192,7 +195,7 @@
         if ($('#banner-odd').length > 0) {
             var id = $('#banner-odd').find(".estrategia-id-odd").val();
             var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
-            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val()
+            var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
             dataLayer.push({
                 'event': 'promotionView',
                 'ecommerce': {
@@ -241,6 +244,8 @@
             _data.TextoVerDetalle = _data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
             _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
             _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
+            fechaMostrarBanner = Date.now();
+            odd_mobile_google_analytics_promotion_impresion(_data.ListaOfertas, "page_load");
             SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
         }
     }
@@ -377,7 +382,7 @@
         }
 
         if (!checkCountdownODD()) {
-            alert_msg_pedido('La Oferta del Día se termino');
+            alert_msg_pedido('La Oferta del Día se terminó');
             closeWaitingDialog();
             return false;
         }
@@ -393,7 +398,7 @@
         }
 
         var limiteVenta = parseInt(itemCampos.find('.limite-venta-odd').val());
-        var msg1 = 'Solo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
+        var msg1 = 'Sólo puede llevar ' + limiteVenta.toString() + ' unidades de este producto.';
         if (cantidad > limiteVenta) {
             $('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(msg1);
             $('#dialog_ErrorMainLayout').show();
@@ -411,6 +416,7 @@
         var descripcion = itemCampos.find('.nombre-odd').val();
         var indMontoMinimo = itemCampos.find('.indmonto-min-odd').val();
         var teImagenMostrar = itemCampos.find('.teimagenmostrar-odd').val();
+        
         var origenPedidoWeb = parseInt(itemCampos.find('.origenPedidoWeb-odd').val());
         if (typeof origenPagina == 'undefined') origenPedidoWeb = 1990 + origenPedidoWeb;
         else if (origenPagina == 1) origenPedidoWeb = 1190 + origenPedidoWeb;
@@ -482,7 +488,9 @@
                         if (typeof origenPagina !== 'undefined') {
                             MostrarBarra(data, '1');
                             ActualizarGanancia(data.DataBarra);
-                            TagManagerClickAgregarProducto();
+                            var tipo = $(btn).attr('data-odd-accion-type');
+                            var indiceElemeto = $(btn).attr('data-odd-accion-element');
+                            odd_desktop_google_analytics_addtocart(tipo, indiceElemeto);
                         }
 
                         CargarResumenCampaniaHeader(true);
@@ -692,8 +700,15 @@
             speed: 260,
             prevArrow: '<a style="width: auto; display: block; left:  0; margin-left:  -13%; top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/left_compra.png")" alt="" /></a>',
             nextArrow: '<a style="width: auto; display: block; right: 0; margin-right: -13%; text-align:right;  top: 24%;"><img src="' + baseUrl + 'Content/Images/Esika/right_compra.png")" alt="" /></a>'
+        }).on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+            var list = array_odd.ListaOfertas;
+            var evento = "arrow_click";
+            var index = odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list)
+            if (index !== -1)
+                odd_mobile_google_analytics_promotion_impresion(list, evento, index)
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
+
     }
     
     function AsignarClaseCssAPalabraGratisMobile(listaOfertas) {
@@ -763,6 +778,8 @@
             if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
                 $('div [data-odd-tipoventana="detalle"]').show();
             }
+
+            odd_desktop_google_analytics_product_impresion();
         }
         else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
 
@@ -844,4 +861,35 @@ function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, n
         });
         dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });        
     }
+}
+
+function odd_mobile_procesar_evento_before_change(event, slick, currentSlide, nextSlide, list) {    
+    if (currentSlide != nextSlide) {
+        var accion = "";
+        var index = 0;
+
+        if (nextSlide == 0 && currentSlide + 1 == list.length) {
+            accion = 'next';
+        } else if (currentSlide == 0 && nextSlide + 1 == list.length) {
+            accion = 'prev';
+        } else if (nextSlide > currentSlide) {
+            accion = 'next';
+        } else {
+            accion = 'prev';
+        };
+
+        if (accion == "prev") {
+            index = nextSlide;
+        }
+        if (accion == "next") {
+            index = nextSlide;
+        }
+        if (index >= list.length) {
+            index = index - list.length;
+        }
+
+        return index;
+    }
+    else
+        return -1;
 }

@@ -682,14 +682,14 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);" onclick="odd_desktop_google_analytics_addtocart('banner',0);">AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);" >AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click();">
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
                     <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
             </div>
-            <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
+            <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
@@ -764,7 +764,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('detail',{{detalle.ID}})">AGRÉGALO</a>
+                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
                             </div>
@@ -780,7 +780,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
+                            <div class="content_item_carrusel_ODD" onclick = "odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -818,7 +818,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('list',{{detalle.ID}})">AGRÉGALO</a>
+                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}" >AGRÉGALO</a>
                                 </div>
                                 <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">

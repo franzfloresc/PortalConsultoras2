@@ -329,10 +329,12 @@ var actualizarMatrizCampaniaModule = (function () {
     var _crearFileUploadAdd = function () {
         var data = {
             elementId: 'file-upload',
-            idMatrizComercial: $(_elements.hdnIdMatrizComercial).val(),
+            idMatrizComercial: function () { return ($(_elements.hdnIdMatrizComercial).val()); },
             idImagenMatriz: 0,
             paisID: $(_elements.ddlPais).val(),
             codigoSAP: $(_elements.hdnSap).val(),
+            maxConnections: $(_elements.hdnIdMatrizComercial).val() == '0' ? 1 : 3,
+            multiple: $(_elements.hdnIdMatrizComercial).val() == '0' ? false : true,
             onComplete: _uploadComplete
         };
         _matrizFileUploaderComponent.crearFileUpload(data);
@@ -343,6 +345,10 @@ var actualizarMatrizCampaniaModule = (function () {
         if (checkTimeout(response)) {
             $(".qq-upload-list").css("display", "none");
             if (response.success) {
+                var IdMatrizComercialAnterior = $(_elements.hdnIdMatrizComercial).val(); 
+                $(_elements.hdnIdMatrizComercial).val(response.idMatrizComercial);
+                if (IdMatrizComercialAnterior == '0')
+                    _crearFileUploadAdd();
                 $(_elements.matrizImagenesPaginacion).empty();
                 _obtenerImagenesByCodigoSAP(1, true)
             } else {
@@ -441,15 +447,6 @@ var actualizarMatrizCampaniaModule = (function () {
         if ($(_elements.txtFactorRepeticionNuevo).val() == "")
             msj += "- Debe ingresar el Nuevo Factor Repetición del Producto \n";
 
-        if (_settings.habilitarRegalo) {
-            if ($(_elements.txtRegaloDescripcion).val() == "")
-                msj += "- Debe ingresar la nueva Descripción Regalo \n";
-
-            if ($(_elements.imgSeleccionada).attr('src') != '' &&
-                $(_elements.imgSeleccionada).attr('src').indexOf('prod_grilla_vacio.png') != -1)
-                msj += "- Debe ingresar la nueva seleccionar Imagen \n";
-        }
-
         if (msj != "") {
             alert(msj);
             return false;
@@ -467,7 +464,8 @@ var actualizarMatrizCampaniaModule = (function () {
         if (_settings.habilitarRegalo) {
             item.RegaloDescripcion = $(_elements.txtRegaloDescripcion).val();
             var imagen = $(_elements.imgSeleccionada).attr('src');
-            item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
+            if (imagen != '' && imagen.indexOf('prod_grilla_vacio.png') == -1)
+                item.RegaloImagenUrl = imagen.substr(imagen.lastIndexOf("/") + 1);
         }
         $.ajax({
             type: 'POST',
