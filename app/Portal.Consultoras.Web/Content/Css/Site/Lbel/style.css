@@ -34442,16 +34442,16 @@ h1#penmostreo .campana {
     /*margin-top: 15px;*/
 }
 .texto_elige_tono {
-    position:absolute;
+    /*position:absolute; 
+    left: 0;
+    top: -19px;*/
     font-family: 'LAto';
     font-size: 10.5px;
     font-weight: 700;
     color: #e81c36;
     text-align: center;
     height: 20px;
-    width:100%;   
-    left: 0;
-    top: -19px;
+    width:100%;  
     letter-spacing:0.2px;
 }
 .btn_elige_tono{
