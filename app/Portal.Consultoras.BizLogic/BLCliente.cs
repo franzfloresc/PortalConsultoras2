@@ -570,7 +570,7 @@ namespace Portal.Consultoras.BizLogic
             //3. ARMAR CONTACTOS POR CONSULTORA
             foreach(var consultoraCliente in lstConsultoraCliente)
             {
-                contactos.Clear();
+                contactos = new List<BEClienteContactoDB>();
 
                 var clienteDB = lstCliente.Where(x => x.ClienteID == consultoraCliente.CodigoCliente).FirstOrDefault();
 
