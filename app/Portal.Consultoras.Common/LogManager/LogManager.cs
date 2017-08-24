@@ -101,7 +101,8 @@ namespace Portal.Consultoras.Common
                         { "Origen", logError.Origen },
                         { "Url", urlRequest },
                         { "Browser", browserRequest },
-                        { "TipoTrace", "LogManager" }
+                        { "TipoTrace", "LogManager" },
+                        { "Server", Environment.MachineName }
                     }
                 };
 
