@@ -28,7 +28,7 @@
         <span class="mensaje_vista_cdr tipografia_lato_regular">
             Si tuviste inconvenientes con algún producto y estás dentro del <a href="#" class="plazo_permitido" title="Detalle de plazo permitido">plazo permitido</a> sigue estos pasos:
         </span>
-        <a href="#" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold">
+        <a href="#" title="Registrar Solicitud" class="btn_registrar_solicitud_cdr tipografia_lato_bold" id="IrPaso1">
             REGISTRAR SOLICITUD
         </a>
         @if (@Model.ListaCDRWeb.Count() > 1)
@@ -39,7 +39,7 @@
         {
             <span class="mensaje_vista_cdr tipografia_lato_regular">Actualmente tienes @Model.ListaCDRWeb.Count() solicitud registrada :</span>
         }
-        
+
     </div>
     <div class="grilla_registros_solicitud_cdr">
         @foreach (var item in Model.ListaCDRWeb)
@@ -94,12 +94,12 @@
                     <div class="resumen_resolucion tipografia_lato_light">
                         @if (item.CantidadAprobados != 0)
                         {
-                            <span class="productos_aprobados">@cantAprobados</span> 
+                            <span class="productos_aprobados">@cantAprobados</span>
                         }
                         @if (item.CantidadRechazados != 0)
                         {
                             <span class="productos_rechazados">@cantRechazados</span>
-                        }                        
+                        }
                     </div>
                 </div>
                 <!-- ESTADO SOLICITUD PENDIENTE -->
@@ -114,86 +114,90 @@
                 </div>
             </div>
             @*<div class="registro_solicitud_cdr">
-                <div class="datos_solicitud_cdr">
-                    <div class="fecha_solicitud tipografia_lato_light">
-                        04/08/2017
+                    <div class="datos_solicitud_cdr">
+                        <div class="fecha_solicitud tipografia_lato_light">
+                            04/08/2017
+                        </div>
+                        <div class="num_campania tipografia_lato_bold">
+                            CAMPAÑA 2017-10
+                        </div>
+                        <div class="num_solicitud tipografia_lato_regular">
+                            SOLICITUD N° - <span>30</span>
+                        </div>
+                        <div class="resumen_resolucion tipografia_lato_light">
+                            <span class="productos_aprobados">2 productos aprobados,</span>
+                            <span class="productos_rechazados">1 rechazado</span>
+                        </div>
                     </div>
-                    <div class="num_campania tipografia_lato_bold">
-                        CAMPAÑA 2017-10
+                    <!-- ESTADO SOLICITUD PENDIENTE -->
+                    <div class="estado_registro_solicitud_cdr estado_observado">
+                        OBSERVADO
                     </div>
-                    <div class="num_solicitud tipografia_lato_regular">
-                        SOLICITUD N° - <span>30</span>
-                    </div>
-                    <div class="resumen_resolucion tipografia_lato_light">
-                        <span class="productos_aprobados">2 productos aprobados,</span>
-                        <span class="productos_rechazados">1 rechazado</span>
-                    </div>
-                </div>
-                <!-- ESTADO SOLICITUD PENDIENTE -->
-                <div class="estado_registro_solicitud_cdr estado_observado">
-                    OBSERVADO
-                </div>
-                <!-- FIN ESTADO SOLICITUD PENDIENTE -->
-                <div class="icono_busqueda">
-                    <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
-                        <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-                    </a>
-                </div>
-            </div>
-            <div class="registro_solicitud_cdr">
-                <div class="datos_solicitud_cdr">
-                    <div class="fecha_solicitud tipografia_lato_light">
-                        04/08/2017
-                    </div>
-                    <div class="num_campania tipografia_lato_bold">
-                        CAMPAÑA 2017-09
-                    </div>
-                    <div class="num_solicitud tipografia_lato_regular">
-                        SOLICITUD N° - <span>33</span>
-                    </div>
-                    <div class="resumen_resolucion tipografia_lato_light">
-                        <span class="productos_rechazados">Todos los productos rechazados.</span>
+                    <!-- FIN ESTADO SOLICITUD PENDIENTE -->
+                    <div class="icono_busqueda">
+                        <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
+                            <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
+                        </a>
                     </div>
                 </div>
-                <!-- ESTADO SOLICITUD PENDIENTE -->
-                <div class="estado_registro_solicitud_cdr estado_rechazado">
-                    RECHAZADO
-                </div>
-                <!-- FIN ESTADO SOLICITUD PENDIENTE -->
-                <div class="icono_busqueda">
-                    <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
-                        <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-                    </a>
-                </div>
-            </div>
-            <div class="registro_solicitud_cdr">
-                <div class="datos_solicitud_cdr">
-                    <div class="fecha_solicitud tipografia_lato_light">
-                        04/08/2017
+                <div class="registro_solicitud_cdr">
+                    <div class="datos_solicitud_cdr">
+                        <div class="fecha_solicitud tipografia_lato_light">
+                            04/08/2017
+                        </div>
+                        <div class="num_campania tipografia_lato_bold">
+                            CAMPAÑA 2017-09
+                        </div>
+                        <div class="num_solicitud tipografia_lato_regular">
+                            SOLICITUD N° - <span>33</span>
+                        </div>
+                        <div class="resumen_resolucion tipografia_lato_light">
+                            <span class="productos_rechazados">Todos los productos rechazados.</span>
+                        </div>
                     </div>
-                    <div class="num_campania tipografia_lato_bold">
-                        CAMPAÑA 2017-09
+                    <!-- ESTADO SOLICITUD PENDIENTE -->
+                    <div class="estado_registro_solicitud_cdr estado_rechazado">
+                        RECHAZADO
                     </div>
-                    <div class="num_solicitud tipografia_lato_regular">
-                        SOLICITUD N° - <span>33</span>
-                    </div>
-                    <div class="resumen_resolucion tipografia_lato_light">
-                        <span class="productos_rechazados">Todos los productos aprobados.</span>
+                    <!-- FIN ESTADO SOLICITUD PENDIENTE -->
+                    <div class="icono_busqueda">
+                        <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
+                            <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
+                        </a>
                     </div>
                 </div>
-                <!-- ESTADO SOLICITUD PENDIENTE -->
-                <div class="estado_registro_solicitud_cdr estado_aprobado">
-                    APROBADO
-                </div>
-                <!-- FIN ESTADO SOLICITUD PENDIENTE -->
-                <div class="icono_busqueda">
-                    <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
-                        <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
-                    </a>
-                </div>
-            </div>*@
+                <div class="registro_solicitud_cdr">
+                    <div class="datos_solicitud_cdr">
+                        <div class="fecha_solicitud tipografia_lato_light">
+                            04/08/2017
+                        </div>
+                        <div class="num_campania tipografia_lato_bold">
+                            CAMPAÑA 2017-09
+                        </div>
+                        <div class="num_solicitud tipografia_lato_regular">
+                            SOLICITUD N° - <span>33</span>
+                        </div>
+                        <div class="resumen_resolucion tipografia_lato_light">
+                            <span class="productos_rechazados">Todos los productos aprobados.</span>
+                        </div>
+                    </div>
+                    <!-- ESTADO SOLICITUD PENDIENTE -->
+                    <div class="estado_registro_solicitud_cdr estado_aprobado">
+                        APROBADO
+                    </div>
+                    <!-- FIN ESTADO SOLICITUD PENDIENTE -->
+                    <div class="icono_busqueda">
+                        <a href="#" title="Ver solicitud" class="enlace_ver_solicitud_cdr">
+                            <img src="~/Content/Images/icono_lupa.png" alt="Ver solicitud" />
+                        </a>
+                    </div>
+                </div>*@
         }
     </div>
 </div>
 @Scripts.Render("~/Scripts/Mobile")
+<script type="text/javascript">
+    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
+</script>
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>

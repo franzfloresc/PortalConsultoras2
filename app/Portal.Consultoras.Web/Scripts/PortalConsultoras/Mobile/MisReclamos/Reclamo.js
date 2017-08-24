@@ -2,12 +2,14 @@
 var misReclamosRegistro
 
 $(document).ready(function () {
+    'use strict';
+
     var PortalConsultorasReclamoRegistro;
     PortalConsultorasReclamoRegistro = function () {
         var me = this;
 
         me.Variables = {
-            alturaListaMiSolicitud = $(document).height(),
+            alturaListaMiSolicitud: $(document).height(),
             datosSolicitudOpened: ".datos_solicitud_opened",
             miSolicitudCDR: ".mi_solicitud_cdr",
             numSolicitudes: ".num_solicitudes",
