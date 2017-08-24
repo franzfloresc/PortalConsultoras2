@@ -322,6 +322,7 @@ namespace Portal.Consultoras.Web.Models
         public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool RechazadoXdeuda { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
         public bool TieneCDRExpress { get; set; } //EPD-1919
@@ -365,8 +366,9 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
+        public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
-        public List<MenuMobileModel> MenuMobile { get; internal set; }
+        public List<MenuMobileModel> MenuMobile { get; set; }
 
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }

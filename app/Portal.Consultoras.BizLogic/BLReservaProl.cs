@@ -128,7 +128,8 @@ namespace Portal.Consultoras.BizLogic
                     ValidacionInteractiva = usuario.ValidacionInteractiva,
                     ValidacionAbierta = configuracion != null && configuracion.ValidacionAbierta,
                     FechaFacturacion = usuario.DiaPROL ? usuario.FechaFinFacturacion : usuario.FechaInicioFacturacion.AddDays(-usuario.DiasAntes),
-                    EnviarCorreo = enviarCorreo
+                    EnviarCorreo = enviarCorreo,
+                    SegmentoInternoID = (usuario.SegmentoInternoID == null ? 0 : Convert.ToInt32(usuario.SegmentoInternoID))
                 };
 
                 if (usuario.TieneHana == 1)
@@ -192,7 +193,7 @@ namespace Portal.Consultoras.BizLogic
             if (!input.ValidacionInteractiva) return new BEResultadoReservaProl { ResultadoReservaEnum = Enumeradores.ResultadoReserva.ReservaNoDisponible };
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -225,7 +226,7 @@ namespace Portal.Consultoras.BizLogic
         {
             try
             {
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count > 0) input.PedidoID = listPedidoWebDetalle[0].PedidoID;
 
                 BECUVAutomatico producto = new BECUVAutomatico { CampaniaID = input.CampaniaID };
@@ -254,7 +255,7 @@ namespace Portal.Consultoras.BizLogic
                 }
                 if (datos == null) return -1;
 
-                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora).ToList();
+                var listPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(input.PaisID, input.CampaniaID, input.ConsultoraID, input.NombreConsultora, input.EsOpt).ToList();
                 if (listPedidoWebDetalle.Count == 0) return 0;
 
                 var listPedidoReserva = GetPedidoReserva(datos.data.Tables[0], listPedidoWebDetalle, input.CodigoUsuario);
@@ -357,7 +358,7 @@ namespace Portal.Consultoras.BizLogic
             using (var sv = new ServiceStockSsic())
             {
                 sv.Url = ConfigurationManager.AppSettings["Prol_" + input.PaisISO];
-                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
+                if (input.FechaHoraReserva) RespuestaPROL = sv.wsValidacionInteractiva(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos, input.SegmentoInternoID.ToString());
                 else RespuestaPROL = sv.wsValidacionEstrategia(listaProductos, listaCantidades, listaRecuperacion, input.CodigoConsultora, montoEnviar, input.CodigoZona, input.PaisISO, input.CampaniaID.ToString(), input.ConsultoraNueva, input.MontoMaximo, input.CodigosConcursos);
             }
             if (RespuestaPROL == null) return resultado;
