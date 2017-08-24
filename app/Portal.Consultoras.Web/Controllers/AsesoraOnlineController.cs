@@ -52,8 +52,9 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
                 }
-
-                MailUtilities.EnviarMailBienvenidaAsesoraOnline("esikateasesora@belcorp.biz", usuario.EMail, String.Empty, String.Empty, usuario.Nombre );
+                //no-responder@somosbelcorp.com
+                //esikateasesora@belcorp.biz
+                MailUtilities.EnviarMailBienvenidaAsesoraOnline("no-responder@somosbelcorp.com", usuario.EMail, "pendiente", "SomosBelcorp", usuario.Nombre );
 
                 return Json(new { success = true, message = "Se grabó con éxito el formulario.", extra = "", usuario = usuario });
                    
