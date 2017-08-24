@@ -20,4 +20,10 @@
     width: -moz-calc(100% - 12%);
     width: calc(100% - 12%);
     width: -webkit-calc(100% - 12%);
+    overflow:hidden;
+}
+.content_banner_compra{
+    width: -moz-calc(100% - 12%);
+    width: calc(100% - 12%);
+    width: -webkit-calc(100% - 12%);
 }
