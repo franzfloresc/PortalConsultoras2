@@ -217,7 +217,7 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
-               "~/Content/Css/Site/Esika/revistaDigital.css",
+               "~/Content/Css/Mobile/Esika/revistaDigital.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
                 ));
 
