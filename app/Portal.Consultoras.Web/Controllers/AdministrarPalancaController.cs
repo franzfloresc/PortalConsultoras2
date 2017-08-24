@@ -21,7 +21,7 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarPalancaModel model = new AdministrarPalancaModel();
             try
             {
-                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarCupon/Index"))
+                if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarPalanca/Index"))
                     return RedirectToAction("Index", "Bienvenida");
                 ViewBag.UrlS3 = GetUrlS3();
                 model.ListaCampanias = ListCampanias(userData.PaisID);
@@ -115,16 +115,19 @@ namespace Portal.Consultoras.Web.Controllers
                 grid.SortColumn = sidx;
                 grid.SortOrder = sord;
 
+
                 BEPager pag = new BEPager();
-                list = list.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+                IEnumerable<AdministrarOfertasHomeModel> items = list;
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
                 pag = Util.PaginadorGenerico(grid, list.ToList());
                 var data = new
                 {
                     total = pag.PageCount,
                     page = pag.CurrentPage,
                     records = pag.RecordCount,
-                    rows = from a in list
-                    select new
+                    rows = from a in items
+                           select new
                     {
                         id = a.ConfiguracionOfertasHomeID,
                         cell = new string[]
