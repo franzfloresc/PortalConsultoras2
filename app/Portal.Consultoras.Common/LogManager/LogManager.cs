@@ -90,13 +90,31 @@ namespace Portal.Consultoras.Common
                     browserRequest = HttpContext.Current.Request.UserAgent;
                 }
 
+                var exceptionMessage = string.Empty;
+                var exceptionStackTrace = string.Empty;
+
+                if (logError.Exception != null)
+                {
+                    exceptionMessage = logError.Exception.Message;
+                    exceptionStackTrace = logError.Exception.StackTrace;
+
+                    var innerException = logError.Exception.InnerException;
+                    while (innerException != null)
+                    {
+                        exceptionStackTrace = logError.Exception.ToString();
+                        exceptionMessage = string.Format("{0}, InnerException: {1}", exceptionMessage, innerException.Message);
+
+                        innerException = innerException.InnerException;
+                    }
+                }
+
                 var data = new
                 {
                     Aplicacion = Constantes.LogDynamoDB.AplicacionPortalConsultoras,
                     Pais = logError.IsoPais,
                     Usuario = logError.CodigoUsuario,
-                    Mensaje = logError.Exception.Message,
-                    StackTrace = logError.Exception.StackTrace,
+                    Mensaje = exceptionMessage,
+                    StackTrace = exceptionStackTrace,
                     Extra = new Dictionary<string, string>() {
                         { "Origen", logError.Origen },
                         { "Url", urlRequest },
