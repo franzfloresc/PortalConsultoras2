@@ -43,7 +43,7 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
             Context.Database.AddInParameter(command, "Excluyente", DbType.Boolean, entity.Excluyente);
-            Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
+            //Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
             Context.Database.AddInParameter(command, "Estado", DbType.Boolean, entity.Estado);
             Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
             Context.Database.AddInParameter(command, "MobileTituloMenu", DbType.String, entity.MobileTituloMenu);
