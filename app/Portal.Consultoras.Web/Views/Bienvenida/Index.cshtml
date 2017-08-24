@@ -510,15 +510,66 @@
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
 
-
- <!-- POPUP INSCRIPCION COACH VIRTUAL -->
-@Html.Partial("~/Views/Bienvenida/VirtualCoachDialog.cshtml")
-<!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
-
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-     <!-- POPUP VIDEO INTRODUCTORIO -->
+    <!-- POPUP INSCRIPCION COACH VIRTUAL -->
+    <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none">
+        <a id="cerrar-virtual-coach-dialog" class="cerrar_popup_inscripcion" title="Cerrar">
+            @*<img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">*@
+        </a>
+        <div class="img_popup_inscripcion_asesoria_online">
+            <img src="@Url.Content("~/Content/Images/img_inscripcion_asesoria_online.png")" alt="Inscripción Asesora Online">
+        </div>
+        <div class="contenido_popup">
+            <div class="fondo_titulo_asesora">
+                <div class="titulo_principal_asesora_online tipografia_lato_light">
+                    SUSCRÍBETE Y GANA MÁS CON<br /><span class="titulo_tu_asesora_online tipografia_lato_bold">ÉSIKA TE ASESORA</span>
+                </div>
+            </div>
+            <div class="mensaje_popup">
+                <div class="texto_popup">
+                    TODO LO QUE NECESITAS PARA GANAR MÁS, <span class="salto_linea">AHORA EN LA PALMA DE TUS MANOS (CORREO Y SMS)</span>
+                </div>
+                <div class="lista_beneficios_inscripcion">
+                    <div class="beneficio_inscripcion">
+                        <div class="icono_beneficio_inscripcion beneficio_vender_mas">
+                            <img src="@Url.Content("~/Content/Images/icono-vender-mas-asesora-online-blanco.png")" alt="LOS MEJORES CONSEJOS PARA VENDER MÁS">
+                        </div>
+                        <div class="descripcion_beneficio_inscripcion">
+                            <div>LOS MEJORES CONSEJOS PARA VENDER MÁS</div>
+                        </div>
+                    </div>
+                    <div class="beneficio_inscripcion">
+                        <div class="icono_beneficio_inscripcion beneficio_ofertas_asesoras">
+                            <img src="@Url.Content("~/Content/Images/icono-ofertas-asesora-online.png")" alt="LAS OFERTAS EXCLUSIVAS SÓLO PARA TI">
+                        </div>
+                        <div class="descripcion_beneficio_inscripcion">
+                            <div>LAS OFERTAS EXCLUSIVAS <span class="salto_linea">SÓLO PARA TI</span></div>
+                        </div>
+                    </div>
+                    <div class="beneficio_inscripcion">
+                        <div class="icono_beneficio_inscripcion beneficio_asesoramiento_gestion_clientes">
+                            <img src="@Url.Content("~/Content/Images//icono-gestion-clientes-asesora-online.png")" alt="ASESORAMIENTO PARA GESTIONAR TUS CLIENTES">
+                        </div>
+                        <div class="descripcion_beneficio_inscripcion">
+                            <div>ASESORAMIENTO PARA GESTIONAR TUS CLIENTES</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wrapper_cta_inscripcion">
+                    <a id="quiero-tips-ofertas" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
+                        QUIERO TIPS Y OFERTAS
+                    </a>
+                    <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="enlace_no_volver_mostrar_mensaje" title="No volver a ver este mensaje">
+            No volver a ver este mensaje
+        </a>
+    </div>
+    <!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
+    <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
             <div id="divPlayer"></div>
@@ -692,7 +743,7 @@
                         <input type="checkbox" name="condiciones" id="chkAceptoContrato" />
                         <label for="chkAceptoContrato" class="texto_terminosCondiciones">
                             @if (Model.PaisID == 4)
-                                {
+                            {
                                 <text>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminos">términos y condiciones</a></span> sobre Protección de Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</text>
                             }
                             else
@@ -703,15 +754,15 @@
                     </div>
                 </div>
                 @if (Model.PaisID == 4)
-                            {
+                {
                     <div class="datos_obligatorios">
                         Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
                     </div>
                     <div class="contenedor_boton_actualizar">
-                             <button type = "button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
-                                 ACEPTAR
-                             </button>
-                     </div>
+                        <button type="button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
+                            ACEPTAR
+                        </button>
+                    </div>
                 }
                 else
                 {
@@ -719,10 +770,10 @@
                         <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                     </div>
                     <div class="contenedor_boton_actualizar">
-                        <button type = "button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
-                                 ACTUALIZAR
+                        <button type="button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
+                            ACTUALIZAR
                         </button>
-                     </div>
+                    </div>
                 }
             </form>
         </div>
@@ -870,169 +921,183 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                         <label>@Model.TextoSobrenombre</label>
-                         @if (Model.PaisID == 4)
-                            {
-                         <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
-                         }
-                         else {
-                         <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
-                            }
-                    </div>
-                    <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico</label>
-                         @if (Model.PaisID == 4)
-                            {
-                             <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                         }
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono</label>
-                         @if (Model.PaisID == 4)
-                            {
-                             <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                         } 
-
-                    </div>
-                    <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular</label>
-                         @if (Model.PaisID == 4)
-                            {
-                             <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                         } 
-
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div>
-                        <label>Otro teléfono:</label>
+                        <label>@Model.TextoSobrenombre</label>
                         @if (Model.PaisID == 4)
-                            {
-                            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
                         }
                         else
                         {
-                            <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
                         }
                     </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div class="checkbox_condiciones">
-                        <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
-                        <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
-                            }
-                            else
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
-                            }
-                        </label>
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <div>
+                        <label>
+                            @if (Model.PaisID != 4)
+                        {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
+                    </label>
                     @if (Model.PaisID == 4)
-                            {
-                        <div class="datos_obligatorios">
-                            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                        </div>
+                    {
+                        <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                    }
+                    else
+                    {
+                        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                    }
+                </div>
+            </div>
+            <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                <div>
+                    <label>
+                        @if (Model.PaisID != 4)
+                    {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
+                </label>
+                @if (Model.PaisID == 4)
+                {
+                    <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                }
+                else
+                {
+                    <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                }
+
+            </div>
+            <div>
+                <label>
+                    @if (Model.PaisID != 4)
+                {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
+            </label>
+            @if (Model.PaisID == 4)
+            {
+                <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+            }
+            else
+            {
+                <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+            }
+
+        </div>
+    </div>
+    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+        <div>
+            <label>Otro teléfono:</label>
+            @if (Model.PaisID == 4)
+            {
+                <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+            }
+            else
+            {
+                <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+            }
+        </div>
+    </div>
+    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+        <div class="checkbox_condiciones">
+            <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
+            <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
+                @if (Model.PaisID == 4)
+                {
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                }
+                else
+                {
+                    <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                }
+            </label>
+        </div>
+    </div>
+    <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+        @if (Model.PaisID == 4)
+        {
+            <div class="datos_obligatorios">
+                Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+            </div>
                         <div class="contenedor_boton_actualizar">
                             <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
                                 ACEPTAR
                             </button>
                         </div>
-                    }
-                    else
-                    {
-                        <div class="datos_obligatorios">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-                        </div>
+        }
+        else
+        {
+            <div class="datos_obligatorios">
+                <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+            </div>
                         <div class="contenedor_boton_actualizar">
                             <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
                                 ACTUALIZAR
                             </button>
                         </div>
-                    }
+        }
 
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div>
-                        <label>Tu contraseña</label>
-                        <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div>
-                        <label>Nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
-                    </div>
-                    <div>
-                        <label>Repite la nueva contraseña</label>
-                        <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
-                    </div>
-                </div>
-                <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
-                    <div class="contenedor_boton_cancelar misDatos">
-                        <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
-                            CANCELAR
-                        </button>
-                    </div>
-                    <div class="contenedor_boton_actualizar misDatos">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
-                            GUARDAR
-                        </button>
-                    </div>
-                </div>
-            </form>
+    </div>
+    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+        <div>
+            <label>Tu contraseña</label>
+            <input type="password" name="txtContraseniaAnterior" id="txtContraseniaAnterior" />
         </div>
     </div>
-    <!-- FIN POPUP MIS DATOS -->
-    <!-- POPUP TUTORIAL HOME-->
-    <div id="popup_tutorial_home" style="display: none;">
-        <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
-            <div id="slide1_container" class="shadow">
-                <div id="slide1_images">
-                    <div class="imagen_tutorial img_slide1"></div>
-                    <div class="imagen_tutorial img_slide2"></div>
-                    <div class="imagen_tutorial img_slide3"></div>
-                    <div class="imagen_tutorial img_slide4"></div>
-                    <div class="imagen_tutorial img_slide5"></div>
-                    <div class="imagen_tutorial img_slide6"></div>
-                    <div class="imagen_tutorial img_slide7"></div>
-                    <div class="imagen_tutorial img_slide8"></div>
-                    <div class="imagen_tutorial img_slide9"></div>
-                </div>
-            </div>
-
-            <div class="btn_cerrar_actualizarMisDatos">
-                <a href="javascript:;" title="Cerrar" class="cerrar_tutorial">
-                    <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                    <span class="texto_btn_cerrar">CERRAR</span>
-                </a>
-            </div>
+    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+        <div>
+            <label>Nueva contraseña</label>
+            <input type="password" name="txtNuevaContrasenia01" id="txtNuevaContrasenia01" />
+        </div>
+        <div>
+            <label>Repite la nueva contraseña</label>
+            <input type="password" name="txtNuevaContrasenia02" id="txtNuevaContrasenia02" />
         </div>
     </div>
-    <!-- FIN POPUP TUTORIAL -->
-    <!-- POPUP COMUNICADOS -->
-    <div id="popupComunicados" style="display:none;"></div>
-    <!-- FIN POPUP COMUNICADOS -->
+    <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
+        <div class="contenedor_boton_cancelar misDatos">
+            <button type="button" name="btn_cancelar" class="btn_cancelar" id="btnCancelarMD">
+                CANCELAR
+            </button>
+        </div>
+        <div class="contenedor_boton_actualizar misDatos">
+            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnCambiarContrasenaMD">
+                GUARDAR
+            </button>
+        </div>
+    </div>
+</form>
 </div>
+</div>
+<!-- FIN POPUP MIS DATOS -->
+<!-- POPUP TUTORIAL HOME-->
+<div id="popup_tutorial_home" style="display: none;">
+    <div class="popup_tutorial_home" style="position: relative; margin: 0 auto; display: block; min-width: 900px !important;">
+        <div id="slide1_container" class="shadow">
+            <div id="slide1_images">
+                <div class="imagen_tutorial img_slide1"></div>
+                <div class="imagen_tutorial img_slide2"></div>
+                <div class="imagen_tutorial img_slide3"></div>
+                <div class="imagen_tutorial img_slide4"></div>
+                <div class="imagen_tutorial img_slide5"></div>
+                <div class="imagen_tutorial img_slide6"></div>
+                <div class="imagen_tutorial img_slide7"></div>
+                <div class="imagen_tutorial img_slide8"></div>
+                <div class="imagen_tutorial img_slide9"></div>
+            </div>
+        </div>
+
+        <div class="btn_cerrar_actualizarMisDatos">
+            <a href="javascript:;" title="Cerrar" class="cerrar_tutorial">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span class="texto_btn_cerrar">CERRAR</span>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- FIN POPUP TUTORIAL -->
+<!-- POPUP COMUNICADOS -->
+<div id="popupComunicados" style="display:none;"></div>
+<!-- FIN POPUP COMUNICADOS -->
+</div>
+
 <!-- FIN POPUP POPUPs HOME -->
+
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+
 <!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
@@ -2527,6 +2592,9 @@
     </div>
     {{/each}}
 </script>
+
+@System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
+
 <!--EPD-1204 FIN-->
 @section scripts{
    
@@ -2659,6 +2727,7 @@
         });
 
         asesoraOnlineObj.asignarEventos();
+        asesoraOnlineObj.mostrar();
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }
