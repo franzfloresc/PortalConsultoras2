@@ -16,5 +16,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLAsesoraOnline().GetUsuarioByCodigoConsultora(paisISO, codigoConsultora);
         }
+
+        public int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().ExisteConsultoraEnAsesoraOnline(paisISO, codigoConsultora);
+        }
     }
 }

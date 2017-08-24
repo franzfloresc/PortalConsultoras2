@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.Common;
 
+//Made by Uchida Virtual Coach
 namespace Portal.Consultoras.Data
 {
     public class DAAsesoraOnline : DataAccess
@@ -26,12 +27,19 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteNonQuery(command);
         }
 
-        public IDataReader GetUsuarioByCodigoConsultora(string CodigoConsultora)
+        public IDataReader GetUsuarioByCodigoConsultora(string codigoConsultora)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioByCodigoConsultora");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
 
             return Context.ExecuteReader(command);
+        }
+
+        public int ExisteConsultoraEnAsesoraOnline(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteConsultoraEnAsesoraOnline");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            return Context.ExecuteNonQuery(command);
         }
     }
 }

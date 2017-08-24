@@ -2651,6 +2651,14 @@
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+
+        var asesoraOnlineObj = AsesoraOnline({
+            asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
+            codigoConsultora: viewBagCodigoConsultora || '',
+            isoPais: paisISO || '',
+        });
+
+        asesoraOnlineObj.asignarEventos();
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

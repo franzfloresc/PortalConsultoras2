@@ -1,5 +1,5 @@
-﻿<div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
-    <div class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
+﻿<div class="contenedor_fondo_popup" id="fondoComunPopUp">
+    <div class="popup_inscripcion_asesoria_online tipografia_lato">
         <a href="#" class="cerrar_popup_inscripcion" title="Cerrar">
             @*<img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">*@
         </a>
@@ -43,10 +43,10 @@
                     </div>
                 </div>
                 <div class="wrapper_cta_inscripcion">
-                    <a href="index.html#formulario-inscripcion" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
+                    <a id="quiero-tips-ofertas" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
                         QUIERO TIPS Y OFERTAS
                     </a>
-                    <a href="index.html#beneficios-asesora" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
+                    <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
                 </div>
             </div>
         </div>
@@ -55,3 +55,5 @@
         </a>
     </div>
 </div>
+
+@System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")

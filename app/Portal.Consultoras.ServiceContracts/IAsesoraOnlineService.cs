@@ -12,5 +12,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEUsuario GetUsuarioByCodigoConsultora(string paisISO, string codigoConsultora);
+
+        [OperationContract]
+        int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora);
     }
 }

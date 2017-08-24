@@ -37,6 +37,7 @@
                     $("#popup-felicitaciones").show();
                     $("#correo_consultora").text(data.usuario.EMail);
                     $("#telefono_consultora").text(data.usuario.Celular);
+                    $("#nombre_consultora").text(data.usuario.Nombre);                   
                 }
             },
             error: function (data, error) {

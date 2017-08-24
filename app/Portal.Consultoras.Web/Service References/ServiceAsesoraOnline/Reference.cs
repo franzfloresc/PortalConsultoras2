@@ -2743,6 +2743,12 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/GetUsuarioByCodigoConsultora", ReplyAction="http://tempuri.org/IAsesoraOnlineService/GetUsuarioByCodigoConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceAsesoraOnline.BEUsuario> GetUsuarioByCodigoConsultoraAsync(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnlineResponse")]
+        int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnlineResponse")]
+        System.Threading.Tasks.Task<int> ExisteConsultoraEnAsesoraOnlineAsync(string paisISO, string codigoConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2786,6 +2792,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceAsesoraOnline.BEUsuario> GetUsuarioByCodigoConsultoraAsync(string paisISO, string codigoConsultora) {
             return base.Channel.GetUsuarioByCodigoConsultoraAsync(paisISO, codigoConsultora);
+        }
+        
+        public int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora) {
+            return base.Channel.ExisteConsultoraEnAsesoraOnline(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<int> ExisteConsultoraEnAsesoraOnlineAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.ExisteConsultoraEnAsesoraOnlineAsync(paisISO, codigoConsultora);
         }
     }
 }

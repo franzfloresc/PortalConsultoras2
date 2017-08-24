@@ -6,6 +6,7 @@ using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Data;
 
+//Made by Uchida Virtual Coach
 namespace Portal.Consultoras.BizLogic
 {
     public class BLAsesoraOnline
@@ -30,6 +31,13 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return entidad;
+        }
+
+        public int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora)
+        {
+            int paisID = GetPaisID(paisISO);
+            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
+            return DAAsesoraOnline.ExisteConsultoraEnAsesoraOnline(codigoConsultora);
         }
 
         public int GetPaisID(string ISO)
