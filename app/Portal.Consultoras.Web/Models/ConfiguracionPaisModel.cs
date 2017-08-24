@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Web.Models
 {
@@ -11,5 +12,6 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
         public bool Estado { get; set; }
         public bool Validado { get; set; }
+        public int Orden { get; set; }
     }
 }

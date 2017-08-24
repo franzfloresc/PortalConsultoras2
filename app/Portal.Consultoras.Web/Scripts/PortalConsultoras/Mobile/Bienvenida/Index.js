@@ -389,10 +389,12 @@ function MostrarDemandaAnticipada() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                if (tipo == 1) {
-                    alert("Ocurrió un error al validar demanda anticipada.");
-                } else {
-                    alert("Ocurrió un error al validar la demanda anticipada.");
+                if (typeof tipo !== "undefined") {
+                    if (tipo == 1) {
+                        alert("Ocurrió un error al validar demanda anticipada.");
+                    } else {
+                        alert("Ocurrió un error al validar la demanda anticipada.");
+                    }
                 }
             }
         }
@@ -436,6 +438,7 @@ function InsertarDemandaAnticipada(tipo) {
         }
     });
 };
+
 function TagManagerCatalogosPersonalizados() {
     if (!!document.getElementById("flagCatalogoPersonalizado")) {
         dataLayer.push({
@@ -453,125 +456,6 @@ function TagManagerCatalogosPersonalizados() {
         });
     }
 };
-
-function TagManagerCarruselInicio(arrayItems) {
-    var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
-
-    var arrayEstrategia = [];
-    for (var i = 0; i < cantidadRecomendados; i++) {
-        var recomendado = arrayItems[i];
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
-            'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti ? Home',
-            'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
-    }
-
-    if (arrayEstrategia.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': arrayEstrategia
-            }
-        });
-    }
-}
-function TagManagerClickAgregarProducto() {
-    dataLayer.push({
-        'event': 'addToCart',
-        'ecommerce': {
-            'add': {
-                'actionField': { 'list': 'Ofertas para ti ? Home' },
-                'products': [
-                    {
-                        'name': $("#txtCantidadZE").attr("est-descripcion"),
-                        'price': $("#txtCantidadZE").attr("est-precio2"),
-                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
-                        'id': $("#txtCantidadZE").attr("est-cuv2"),
-                        'category': 'NO DISPONIBLE',
-                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia"),
-                        'quantity': parseInt($("#txtCantidadZE").val()),
-                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
-                    }
-                ]
-            }
-        }
-    });
-}
-function TagManagerCarruselPrevia() {
-    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
-
-
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': recomendado.Precio2.toString(),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti ? Home',
-        'position': recomendado.Posicion
-    };
-
-    arrayEstrategia.push(impresionRecomendado);
-
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': 'Ofertas para ti',
-        'label': 'Ver anterior'
-    });
-
-}
-function TagManagerCarruselSiguiente() {
-    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
-
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': recomendado.Precio2.toString(),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti ? Home',
-        'position': recomendado.Posicion
-    };
-
-    arrayEstrategia.push(impresionRecomendado);
-
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': 'Ofertas para ti',
-        'label': 'Ver siguiente'
-    });
-
-}
 
 $("#content_oferta_dia_mobile").click(function () {
     $('#PopOfertaDia').slideDown();
@@ -629,7 +513,64 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
+function odd_mobile_google_analytics_promotion_impresion(list,event,index) {
 
+    var impressions = [];
+    var position = 0;
+    var elements = list.length;
+    var item = null;
+    var impresion = null;
+    if (event === 'page_load') {//Ok
+        
+        position = 1;
+        for (var i = 0; i <= elements - 1; i++) {
+            item = list[i];
+            item.Posicion = position;
+            if (position <= 3) {
+                impresion = odd_get_item_impresion(item);
+                if (impresion != null)
+                    impressions.push(impresion);
+            }
+            else
+                break;
+            position++;
+        }
+    }
+    if (event === 'arrow_click') {
+        
+        item = list[index];
+        item.Posicion = index + 1;
+        impresion = odd_get_item_impresion(item);
+        if (impresion != null)
+            impressions.push(impresion);
+    }
+    if (impressions.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': impressions
+            }
+        });
+    }
+}
+function odd_get_item_impresion(item) {
+    var impresion = null;
+    if (item != null) {
+        impresion = {
+            'name': item.NombreOferta,
+            'id': item.CUV2,
+            'price': item.PrecioOferta,
+            'brand': item.DescripcionMarca,
+            'category': 'No disponible',
+            'variant': 'Lanzamiento',
+            'list': 'Oferta del día',
+            'position': item.Posicion
+        }
+    }
+    return impresion;
+}
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
+
+

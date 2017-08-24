@@ -182,7 +182,7 @@
                 $.ajaxSetup({
                     cache: false
                 });
-
+                
                 var Item = {
                     MarcaID: MarcaID,
                     Cantidad: cantidad,
@@ -193,7 +193,7 @@
                 };
 
                 $.ajaxSetup({ cache: false });
-
+                
                 jQuery.ajax({
                     type: 'POST',
                     url: baseUrl + 'ShowRoom/InsertOfertaWebPortal',
@@ -221,11 +221,6 @@
                         }
                     }
                 });
-                //}
-                //});
-                //    }
-
-                //});
             }
         }
 

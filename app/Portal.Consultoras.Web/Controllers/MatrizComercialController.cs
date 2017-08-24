@@ -283,7 +283,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (idMatrizComercial == 0)
                 {
                     isNewRecord = true;
-                    //insertar cabecera
                     BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
 

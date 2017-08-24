@@ -310,6 +310,7 @@ function CargarFiltroRangoPrecio() {
             });
         }
     });
+
     $('.slider-container').css('width', '');
 }
 
@@ -546,6 +547,25 @@ function compraxcompra_promotion_impression() {
                     'position': 'Showroom Footer',
                     'creative': 'Promocion Showroom'
                 }]
+            }
+        }
+    });
+}
+
+function compraxcompra_promotion_impression() {
+    var id = $("#divBannerCompraPorCompra").data("cuv");
+    var name = 'Showroom – ' + $("#divBannerCompraPorCompra").data("descripcion");
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Showroom Footer',
+                        'creative': 'Promocion Showroom'
+                    }]
             }
         }
     });

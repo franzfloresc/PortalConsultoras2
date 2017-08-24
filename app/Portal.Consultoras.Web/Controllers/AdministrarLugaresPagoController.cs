@@ -104,7 +104,7 @@ namespace Portal.Consultoras.Web.Controllers
                     var carpetaPais = Globals.UrlLugaresPago + "/" + UserData().CodigoISO;
                     if (lst.Count > 0) { lst.Update(x => x.ArchivoLogo = ConfigS3.GetUrlFileS3(carpetaPais, x.ArchivoLogo, Globals.RutaImagenesLugaresPago + "/" + UserData().CodigoISO)); }
                 }
-                
+
 
                 // Usamos el modelo para obtener los datos
                 BEGrid grid = new BEGrid();
@@ -167,7 +167,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 #endregion
 
-                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+                items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize).OrderBy(x=>x.Posicion);
                 pag = Util.PaginadorGenerico(grid, lst);
 
                 // Creamos la estructura
@@ -181,7 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
                            select new
                            {
                                id = a.LugarPagoID.ToString(),
-                               cell = new string[] 
+                               cell = new string[]
                                {
                                    a.LugarPagoID.ToString(),
                                    a.PaisID.ToString(),
@@ -192,9 +192,10 @@ namespace Portal.Consultoras.Web.Controllers
                                    a.UrlSitio,
                                    string.Empty,
                                    a.ArchivoInstructivo,
-                                   string.Empty,
                                    a.UrlSitio,
-                                   a.ArchivoInstructivo
+                                   a.ArchivoInstructivo,
+                                   a.TextoPago,
+                                   a.Posicion.ToString()
                                 }
                            }
                 };
@@ -214,21 +215,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Content(JsonConvert.SerializeObject(result.Data), "text/html");
         }
-        
+
         //public JsonResult Insertar(HttpPostedFileBase flArchivoInstructivo, AdministrarLugaresPagoModel model)
         [HttpPost]
         public JsonResult Insertar(AdministrarLugaresPagoModel model)
         {
+            int lintPosicion = 0;
             try
             {
-                Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
-                   .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                   .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
-                   .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
-                   .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
+                //Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
+                //   .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
+                //   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                //   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
+                //   .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
+                //   .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
+                //   .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
+                //   .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
+
 
                 BELugarPago entidad = Mapper.Map<AdministrarLugaresPagoModel, BELugarPago>(model);
 
@@ -281,14 +284,15 @@ namespace Portal.Consultoras.Web.Controllers
                         entidad.ArchivoLogo = string.Empty;
                     }
 
-                    sv.InsertLugarPago(entidad);
+                 lintPosicion=   sv.InsertLugarPago(entidad);
                     // FileManager.DeleteImage(Globals.RutaImagenesTempLugaresPago, tempImage01);
                 }
                 return Json(new
                 {
                     success = true,
                     message = "Se registró con éxito tu lugar de pago.",
-                    extra = ""
+                    extra = "",
+                    posicion = lintPosicion,
                 });
             }
             catch (FaultException ex)
@@ -309,6 +313,7 @@ namespace Portal.Consultoras.Web.Controllers
                     success = false,
                     message = ex.Message,
                     extra = ""
+
                 });
             }
         }
@@ -317,20 +322,10 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult Actualizar(AdministrarLugaresPagoModel model)
         {
+            int lintPosicion = 0;
             try
             {
-                Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
-                   .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
-                   .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                   //.ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                   .ForMember(t => t.Nombre, f => f.MapFrom(c => c.Nombre))
-                   .ForMember(t => t.UrlSitio, f => f.MapFrom(c => c.UrlSitio))
-                   .ForMember(t => t.ArchivoLogo, f => f.MapFrom(c => c.ArchivoLogo))
-                   .ForMember(t => t.ArchivoLogoAnterior, f => f.MapFrom(c => c.ArchivoLogoAnterior))
-                   .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
-
                 BELugarPago entidad = Mapper.Map<AdministrarLugaresPagoModel, BELugarPago>(model);
-
                 //string finalPath = string.Empty;
                 //string fileName = string.Empty;
                 //if (flArchivoInstructivo != null)
@@ -386,14 +381,15 @@ namespace Portal.Consultoras.Web.Controllers
                     else if (string.IsNullOrEmpty(tempImage01))
                         entidad.ArchivoLogo = string.Empty;
                     */
-                    sv.UpdateLugarPago(entidad);
+                    lintPosicion = sv.UpdateLugarPago(entidad);
                     // FileManager.DeleteImage(Globals.RutaImagenesTempLugaresPago, tempImage01);
                 }
                 return Json(new
                 {
                     success = true,
                     message = "Se actualizó con éxito tu lugar de pago.",
-                    extra = ""
+                    extra = "",
+                    posicion = lintPosicion,
                 });
             }
             catch (FaultException ex)

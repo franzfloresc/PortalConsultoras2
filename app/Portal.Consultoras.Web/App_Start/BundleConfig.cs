@@ -183,7 +183,11 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js",
+                "~/Scripts/PortalConsultoras/TagManager/Liquidacion.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -192,7 +196,10 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/Pedido/ofertafinal.js",
                 "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
                 "~/Scripts/PortalConsultoras/Cupon/CuponModule.js",
-                "~/Scripts/PortalConsultoras/Cupon/Cupon.js"
+                "~/Scripts/PortalConsultoras/Cupon/Cupon.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js"
                 ));
 
             #endregion
