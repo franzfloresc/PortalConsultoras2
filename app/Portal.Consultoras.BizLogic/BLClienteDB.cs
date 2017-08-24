@@ -56,10 +56,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
-                if (cliente.TipoRegistro == Constantes.ClienteTipoRegistro.Todos || cliente.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
-                    result = clienteData.UpdateCliente(cliente);
-                else
-                    result = true;
+                result = clienteData.UpdateCliente(cliente);
 
                 if (result && cliente.Contactos != null)
                 {
@@ -74,10 +71,10 @@ namespace Portal.Consultoras.BizLogic
                             if (existe == 0) result = clienteData.InsertContactoCliente(item);
                             else result = clienteData.UpdateContactoCliente(item);
                         }
-                        else
-                        {
-                            clienteData.DeleteContactoCliente(item);
-                        }
+                        //else
+                        //{
+                        //    clienteData.DeleteContactoCliente(item);
+                        //}
 
                         if (!result) break;
                     }
