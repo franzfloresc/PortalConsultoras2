@@ -829,16 +829,21 @@ namespace Portal.Consultoras.Web.Controllers
                         if (oBEUsuario.TipoUsuario == Constantes.TipoUsuario.Consultora)
                         {
                             CalcularMotivoRechazo(model);
-                            if (!string.IsNullOrEmpty(model.GPRBannerMensaje) || model.RechazadoXdeuda == true)
+                            if (!string.IsNullOrEmpty(model.GPRBannerMensaje))
                             {
                                 model.MostrarBannerRechazo = true;
+
                                 if (model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((oBEUsuario.ValidacionAbierta == false && oBEUsuario.EstadoPedido == 201) || oBEUsuario.ValidacionAbierta == true && oBEUsuario.EstadoPedido == 202))
+                                {
+                                    model.MostrarBannerRechazo = true;
+                                }
+                                else if (model.RechazadoXdeuda == true)
                                 {
                                     model.MostrarBannerRechazo = true;
                                 }
                                 else
                                 {
-                                    model.MostrarBannerRechazo = false;
+                                    model.MostrarBannerRechazo = model.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false;
                                 }
                             }
                         }
