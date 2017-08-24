@@ -546,14 +546,7 @@
                     {{#if_eq TipoMeta 'MM'}}
                         <span><b>AÚN TE FALTA {{Simbolo}} <span data-monto="">{{MetaMontoStr}}</span></b> PARA LLEGAR AL MONTO MÍNIMO</span>
                     {{else if_eq TipoMeta 'GM'}}
-                            @if (@ViewBag.OfertaFinalAlgoritmo == "OFR")
-                            {
-                                <span>FELICIADES @ViewBag.NombreConsultora<br><b><span class="font_700_regalo"> !GANASTE EL PREMIO!</span></b></span>
-                            }
-                            else
-                            {
-                                <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
-                            }                                                  
+                        <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
                     {{else}} <!--se espera escala de dscto-->
                         <span>¡GUARDASTE TU<br><b> PEDIDO CON ÉXITO</b>!</span>
                     {{/if_eq}}

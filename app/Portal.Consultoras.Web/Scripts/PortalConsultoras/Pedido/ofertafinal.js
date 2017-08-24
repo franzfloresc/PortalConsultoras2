@@ -255,7 +255,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 
     objOf.Cross = objOf.TipoMeta == "GM" ? objOf.Detalle.Find("TipoCross", true).length > 0 ? "1" : "0" : "0";
     objOf.ofIconoSuperior = objOf.TipoMeta == "MM" ? tipoOrigen == 1 ? "icono_exclamacion" : "exclamacion_icono_mobile" : tipoOrigen == 1 ? "icono_check_alerta" : "check_icono_mobile";
-    debugger;
+    
     SetHandlebars("#ofertaFinal-template", objOf, "#divOfertaFinal");
     $("#btnGuardarPedido").hide();
 
@@ -287,6 +287,7 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
     if (objOf.TipoMeta != 'MM') {
         if (ofertaFinalRegalo != null) {
             MostrarOfertaFinalRegalo(objOf.TotalPedido);
+            GanoOfertaFinalRegalo(objOf.TotalPedido);
         }
     }
 
@@ -417,6 +418,7 @@ function GanoOfertaFinalRegalo(totalPedido) {
             }
             else if (tipoOrigen == '2') {
                 $('#linkRegaloSorpresa').text('MIRA AQUI TU PREMIO');
+                $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
             }
         }
         else {
