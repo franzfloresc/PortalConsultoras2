@@ -836,6 +836,10 @@ namespace Portal.Consultoras.Web.Controllers
                                 {
                                     model.MostrarBannerRechazo = true;
                                 }
+                                else
+                                {
+                                    model.MostrarBannerRechazo = false;
+                                }
                             }
                         }
                         #endregion
