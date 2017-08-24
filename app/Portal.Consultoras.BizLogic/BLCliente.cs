@@ -580,9 +580,9 @@ namespace Portal.Consultoras.BizLogic
 
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ContactoClienteID = Constantes.ClienteTipoContacto.Celular,
+                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
                         ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = (short)(oContacto == null ? 0 : oContacto.TipoContactoID),
+                        TipoContactoID = Constantes.ClienteTipoContacto.Celular,
                         Valor = consultoraCliente.Celular,
                         Estado = 1
                     });
@@ -593,9 +593,9 @@ namespace Portal.Consultoras.BizLogic
 
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ContactoClienteID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
                         ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = (short)(oContacto == null ? 0 : oContacto.TipoContactoID),
+                        TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
                         Valor = consultoraCliente.Telefono,
                         Estado = 1
                     });
@@ -606,15 +606,14 @@ namespace Portal.Consultoras.BizLogic
 
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ContactoClienteID = Constantes.ClienteTipoContacto.Correo,
+                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
                         ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = (short)(oContacto == null ? 0 : oContacto.TipoContactoID),
+                        TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                         Valor = consultoraCliente.eMail,
                         Estado = 1
                     });
                 }
 
-                
                 if (clienteDB != null)
                 {
                     var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion).Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia);
