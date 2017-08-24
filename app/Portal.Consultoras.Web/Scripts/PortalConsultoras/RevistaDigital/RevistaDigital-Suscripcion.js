@@ -63,6 +63,7 @@ function RDSuscripcion(accion) {
                 $("[data-estadoregistro2]").hide();
                 $("[data-estadoregistro1]").show();
                 SuscripcionExistosaRDAnalytics();
+                SuscripcionExistosaRDAnalytics2();
                 return true;
             }
 
@@ -182,3 +183,8 @@ function MostrarTerminos() {
     }
 }
 
+function RedirectToLandingRD(origenWeb) {
+    // Save analytics before redirect 
+    AccessRDAnalytics(origenWeb);
+    window.location = urlRevistaDigital;
+}

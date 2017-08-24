@@ -15,6 +15,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                ViewBag.origenPedidoWebEstrategia = origen.ToString().Contains("7") // Para RD
+                    ? origen
+                    : Constantes.OrigenPedidoWeb.MobileOfertasParaTiDetalle;
+
                 var modelo = EstrategiaGetDetalle(id, "", origen);
                 origen = origen < 10 ? 11 : origen;
                 var origenPantalla = origen.Substring(1, 1);

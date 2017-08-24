@@ -1199,9 +1199,14 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     var _palanca = $.trim($(article).find(".Palanca").val());
 
     var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca == "FAV") {
+    if (_palanca === "FAV") {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
+    try {
+        if (_palanca === "LAN") {
+            CompartirProductoRDAnalytics(tipoRedes, pcDetalle, _nombre);
+        }
+    } catch (e) { console.log(e); }
 
     var Item = {
         mCUV: $(article).find(".CUV").val(),
@@ -1209,6 +1214,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         mDetalle: pcDetalle,
         mApplicacion: tipoRedes
     };
+
 
     jQuery.ajax({
         type: 'POST',
