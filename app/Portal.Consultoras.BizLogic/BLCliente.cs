@@ -580,48 +580,48 @@ namespace Portal.Consultoras.BizLogic
 
                 var clienteDB = lstCliente.Where(x => x.ClienteID == consultoraCliente.CodigoCliente).FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(consultoraCliente.Celular))
-                {
-                    var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
-
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                        ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Celular,
-                        Valor = consultoraCliente.Celular,
-                        Estado = 1
-                    });
-                }
-                if (!string.IsNullOrEmpty(consultoraCliente.Telefono))
-                {
-                    var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo).FirstOrDefault();
-
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                        ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
-                        Valor = consultoraCliente.Telefono,
-                        Estado = 1
-                    });
-                }
-                if (!string.IsNullOrEmpty(consultoraCliente.eMail))
-                {
-                    var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo).FirstOrDefault();
-
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                        ClienteID = consultoraCliente.ClienteID,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Correo,
-                        Valor = consultoraCliente.eMail,
-                        Estado = 1
-                    });
-                }
-
                 if (clienteDB != null)
                 {
+                    if (!string.IsNullOrEmpty(consultoraCliente.Celular))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                            Valor = consultoraCliente.Celular,
+                            Estado = 1
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(consultoraCliente.Telefono))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                            Valor = consultoraCliente.Telefono,
+                            Estado = 1
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(consultoraCliente.eMail))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                            Valor = consultoraCliente.eMail,
+                            Estado = 1
+                        });
+                    }
+
                     var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion).Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia);
                     if(contactoDB.Any()) contactos.AddRange(contactoDB);
                 }
