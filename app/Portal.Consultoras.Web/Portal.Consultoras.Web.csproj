@@ -1218,6 +1218,7 @@
     <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.png" />
     <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.svg" />
     <Content Include="Content\Images\icono-vender-mas-asesora-online.svg" />
+    <Content Include="Content\Images\icono_advertencia_consultora_registrada_coach.png" />
     <Content Include="Content\Images\icono_envelope_inscripcion.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
@@ -4199,6 +4200,7 @@
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\Bienvenida\VirtualCoachDialog.cshtml" />
+    <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
