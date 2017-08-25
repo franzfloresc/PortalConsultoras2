@@ -252,6 +252,10 @@ $(document).ready(function () {
         case popupCuponForzado:
             cuponModule.mostrarPopupGanaste();
             break;
+
+        case popupAsesoraOnline:
+            asesoraOnlineObj.mostrar();
+            break;
     }
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });

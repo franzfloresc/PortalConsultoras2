@@ -398,6 +398,8 @@ namespace Portal.Consultoras.Entities
                 TieneCupon = Convert.ToInt32(row["TieneCupon"]);
             if (DataRecord.HasColumn(row, "TieneMasVendidos") && row["TieneMasVendidos"] != DBNull.Value)
                 TieneMasVendidos = Convert.ToInt32(row["TieneMasVendidos"]);
+            if (DataRecord.HasColumn(row, "TieneAsesoraOnline") && row["TieneAsesoraOnline"] != DBNull.Value)
+                TieneAsesoraOnline = Convert.ToInt32(row["TieneAsesoraOnline"]);
             if (DataRecord.HasColumn(row, "TieneOfertaLog") && row["TieneOfertaLog"] != DBNull.Value)
                 TieneOfertaLog = Convert.ToInt32(row["TieneOfertaLog"]);
 
@@ -1111,6 +1113,8 @@ namespace Portal.Consultoras.Entities
         public int TieneCupon { get; set; }
         [DataMember]
         public int TieneMasVendidos { get; set; }
+        [DataMember]
+        public int TieneAsesoraOnline { get; set; }
         [DataMember]
         public int TieneOfertaLog { get; set; }
         [DataMember]
