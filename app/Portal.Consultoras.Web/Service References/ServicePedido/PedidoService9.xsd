@@ -4684,6 +4684,7 @@
         <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
         <xs:element minOccurs="0" name="ConsultoraID" type="xs:long" />
         <xs:element minOccurs="0" name="Consultora" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="esOpt" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

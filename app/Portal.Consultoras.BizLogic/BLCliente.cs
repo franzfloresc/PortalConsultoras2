@@ -107,6 +107,12 @@ namespace Portal.Consultoras.BizLogic
             return DACliente.CheckClienteByConsultora(ConsultoraID, Nombre);
         }
 
+        public int GetExisteClienteConsultora(int paisID, BECliente entidad)
+        {
+            var DACliente = new DACliente(paisID);
+            return DACliente.GetExisteClienteConsultora(entidad);
+        }
+
         public void UndoCliente(int paisID, long consultoraID, int clienteID)
         {
             var DACliente = new DACliente(paisID);

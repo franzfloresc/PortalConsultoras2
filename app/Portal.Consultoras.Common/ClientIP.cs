@@ -11,41 +11,57 @@ namespace Portal.Consultoras.Common
     {
         public static string ClientIPFromRequest(this HttpRequestBase request, bool skipPrivate)
         {
-            String IP = null;
+            string IP = null;
 
             foreach (var item in s_HeaderItems)
             {
                 var ipString = request.ServerVariables[item.Key];
 
-                if (string.IsNullOrEmpty(ipString)) continue;
-                if (ipString.Trim() == "::1") continue;
+                if (string.IsNullOrWhiteSpace(ipString))
+                    continue;
 
-                if (item.Split)
-                {
-                    foreach (var ip in ipString.Split(','))
-                        if (ValidIP(ip, skipPrivate))
-                        {
-                            IP = ip;
-                            break;
-                        }
-                }
-                else
-                    if (ValidIP(ipString, skipPrivate))
-                        IP = ipString;
+                if (ipString.Trim() == "::1")
+                    continue;
 
-                if (IP != null) break;
+                IP = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
+
+                if (!string.IsNullOrWhiteSpace(IP))
+                    break;
             }
 
-            if (IP == null) IP = request.UserHostAddress;
+            if (string.IsNullOrWhiteSpace(IP) && request.UserHostAddress != "::1")
+            {
+                IP = GetFirstValidIpFromString(request.UserHostAddress,skipPrivate);
+            }
 
-            if (IP != null)
-                if (IP.IndexOf(":") > 0)
-                    IP = IP.Substring(0, IP.IndexOf(":") - 1);
+           
+            if (!string.IsNullOrWhiteSpace(IP) && IP.IndexOf(":") > 0)
+                IP = IP.Substring(0, IP.IndexOf(":") - 1);
 
             return IP;
         }
 
-        private static bool ValidIP(string ip, bool skipPrivate)
+        public static string GetFirstValidIpFromString(string ips, bool skipPrivateIps)
+        {
+            var result = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(ips))
+            {
+                foreach (var ip in ips.Split(','))
+                {
+                    var tmpIp = ip.Trim();
+                    if (ValidIP(tmpIp, skipPrivateIps))
+                    {
+                        result = tmpIp;
+                        break;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public static bool ValidIP(string ip, bool skipPrivate)
         {
             IPAddress ipAddr;
 
