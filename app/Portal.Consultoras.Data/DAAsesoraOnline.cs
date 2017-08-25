@@ -39,6 +39,14 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ExisteConsultoraEnAsesoraOnline");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            return (int) Context.ExecuteScalar(command);
+        }
+
+        public int ActualizarEstadoConfiguracionPaisDetalle(string codigoConsultora, int estado)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ActualizarEstadoConfiguracionPaisDetalle");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            Context.Database.AddInParameter(command, "@Estado", DbType.Int32, estado);
             return Context.ExecuteNonQuery(command);
         }
     }

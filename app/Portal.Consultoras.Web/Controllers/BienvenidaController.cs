@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceSAC;
 using Portal.Consultoras.Web.ServiceUsuario;
@@ -558,13 +559,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.AsesoraOnline)
                 {
-                   /* var cupon = ObtenerCuponDesdeServicio();
-                    bool consultoraTieneCupon = (cupon != null);*/
-                    bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
+                    int existeAsesoraOnlineResult = ExisteConsultoraEnAsesoraOnline(userData.CodigoISO, userData.CodigoConsultora);
 
-                    if (paisConsultoraTieneAsesoraOnline
-                        /*&& consultoraTieneCupon && 
-                        cupon.EstadoCupon == Constantes.EstadoCupon.Reservado*/)
+                    bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
+                    bool existeAsesoraOnline = (existeAsesoraOnlineResult == 1);
+
+                    if (paisConsultoraTieneAsesoraOnline && !existeAsesoraOnline)
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
                         break;
@@ -2249,6 +2249,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var cuponResult = svClient.GetCuponConsultoraByCodigoConsultoraCampaniaId(paisId, cuponBE);
                 return cuponResult;
+            }
+        }
+
+        private int ExisteConsultoraEnAsesoraOnline(string paisISO, string codigoConsultora)
+        {
+            using (AsesoraOnlineServiceClient svClient = new AsesoraOnlineServiceClient())
+            {
+                var result = svClient.ExisteConsultoraEnAsesoraOnline(paisISO, codigoConsultora);
+                return result;
             }
         }
 
