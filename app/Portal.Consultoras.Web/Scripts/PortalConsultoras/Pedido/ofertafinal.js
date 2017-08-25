@@ -365,6 +365,15 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
             }
         }
     }
+
+    if (tipoOrigen === "1") {
+        if($("#id_btn_noGracias_agregarProductos").length > 0){
+            $("#id_btn_noGracias_agregarProductos").css({ 'margen': "auto" });
+            $("#id_btn_noGracias_agregarProductos").hide();
+            $("#id_btn_noGracias_agregarProductos").show();
+        }
+    }
+
     return true;
 }
 
