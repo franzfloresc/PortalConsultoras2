@@ -39,7 +39,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada = "";// MensajeGestionCdrInhabilitadaYChatEnLinea();
+            model.MensajeGestionCdrInhabilitada =  MensajeGestionCdrInhabilitadaYChatEnLinea();
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");

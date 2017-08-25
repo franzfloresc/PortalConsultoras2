@@ -20,9 +20,9 @@ $(document).ready(function () {
             bindEvents: function () {
 
                 $(document).on('click', me.Variables.IrPaso1, function () {
-                    console.log('Mostrar el mensaje');
+                   
                     if (mensajeGestionCdrInhabilitada != '') {
-
+                        console.log('Mostrar el mensaje');
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(mensajeGestionCdrInhabilitada);
                         $('#popupInformacionSB2Error').show();
 
