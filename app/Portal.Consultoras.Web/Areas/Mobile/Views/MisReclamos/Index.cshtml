@@ -79,8 +79,22 @@
                 cantRechazados = item.CantidadRechazados == 1 ? item.CantidadRechazados + " rechazado" : item.CantidadRechazados + " rechazados";
             }
 
+            var formatoFechaCulminado = "--/--/----";
+            if (item.FechaCulminado.HasValue)
+            {
+                formatoFechaCulminado = item.FechaCulminado.Value.Day.ToString().PadLeft(2, '0') + "/" +
+                                        item.FechaCulminado.Value.Month.ToString().PadLeft(2, '0') + "/" + item.FechaCulminado.Value.Year;
+            }
+
             var formatoCampania = item.CampaniaID.ToString().Substring(0, 4) + "-" + item.CampaniaID.ToString().Substring(4, 2);
             <div class="registro_solicitud_cdr">
+                <input type="hidden" class="cdrweb_id" value="@item.CDRWebID" />
+                <input type="hidden" class="cdrweb_pedidoid" value="@item.PedidoID" />
+                <input type="hidden" class="cdrweb_formatoFechaCulminado" value="@formatoFechaCulminado" />
+                <input type="hidden" class="cdrweb_formatocampania" value="@formatoCampania" />
+                <input type="hidden" class="cdrweb_CantidadAprobados" value="@item.CantidadAprobados" />
+                <input type="hidden" class="cdrweb_CantidadRechazados" value="@item.CantidadRechazados" />
+
                 <div class="datos_solicitud_cdr">
                     <div class="fecha_solicitud tipografia_lato_light">
                         @formatoFechaAtencion
@@ -196,8 +210,11 @@
     </div>
 </div>
 @Scripts.Render("~/Scripts/Mobile")
+<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
 <script type="text/javascript">
     var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
     var urlReclamo = '@Url.Action("Reclamo", "MisReclamos", new { area = "Mobile" } )';
+    var urlValidarCargaDetalle = '@Url.Action("ValidarCargaDetalle", "MisReclamos", new { area = "Mobile" })';
 </script>
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
+
+ 
