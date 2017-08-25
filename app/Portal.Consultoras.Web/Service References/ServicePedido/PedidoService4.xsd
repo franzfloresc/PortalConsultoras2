@@ -58,6 +58,7 @@
       <xs:element minOccurs="0" name="ConsultoraNueva" type="xs:int" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EnviarCorreo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="EsOpt" type="xs:int" />
       <xs:element minOccurs="0" name="EstadoSimplificacionCUV" type="xs:boolean" />
       <xs:element minOccurs="0" name="FechaFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaHoraReserva" type="xs:boolean" />
@@ -68,6 +69,7 @@
       <xs:element minOccurs="0" name="PROLSinStock" type="xs:boolean" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PaisISO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PedidoID" type="xs:int" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ProlV2" type="xs:boolean" />
       <xs:element minOccurs="0" name="SegmentoInternoID" type="xs:int" />
