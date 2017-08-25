@@ -7,6 +7,11 @@
 }
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet"/>
+    <style>
+        .SubHeader{
+            display:none;
+        }
+    </style>
 }
 
 @{
@@ -28,7 +33,7 @@
     }
 }
 
-<div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;">
+<div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;height:340px;">
     <div class="content_belcorp">
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display: none;">
@@ -178,7 +183,7 @@
 </div>
 <hr class="clear" />
 <div class="catalogoPersonalizadoBloque" style="margin-top:85px; padding-bottom: 30px; overflow:hidden;">
-   <div class="content_belcorp">
+   <div class="content_belcorp" style="width: 85%">
        <div class="titulo_carrusel_showroom"><b>VER MÁS SETS </b>EXCLUSIVOS PARA TI</div>
        <!--CARRUSEL-->
        <div class="responsive">
