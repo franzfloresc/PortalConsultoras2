@@ -10,13 +10,15 @@
   <xs:element name="ArrayOfBEConsultoraConcurso" nillable="true" type="tns:ArrayOfBEConsultoraConcurso" />
   <xs:complexType name="BEConsultoraConcurso">
     <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaFin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CampaniaInicio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CodigoRegion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="DescripcionConcurso" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EsCampaniaAnterior" type="xs:boolean" />
-      <xs:element minOccurs="0" name="FechaVentaRetail" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Importante" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
       <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
@@ -197,6 +199,52 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEReporteValidacion" nillable="true" type="tns:BEReporteValidacion" />
+  <xs:complexType name="ArrayOfBEIncentivoConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoConcurso" nillable="true" type="tns:ArrayOfBEIncentivoConcurso" />
+  <xs:complexType name="BEIncentivoConcurso">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDInicio" type="xs:int" />
+      <xs:element minOccurs="0" name="CampaniaIDPremiacion" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IndicadorPremioAcumulativo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NivelAlcanzado" type="xs:int" />
+      <xs:element minOccurs="0" name="Niveles" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
+      <xs:element minOccurs="0" name="PuntajeExigido" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosAcumulados" type="xs:int" />
+      <xs:element minOccurs="0" name="TipoConcurso" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoConcurso" nillable="true" type="tns:BEIncentivoConcurso" />
+  <xs:complexType name="ArrayOfBEIncentivoNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEIncentivoNivel" nillable="true" type="tns:ArrayOfBEIncentivoNivel" />
+  <xs:complexType name="BEIncentivoNivel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CodigoConcurso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoNivel" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DescripcionPremio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FechaVentaRetail" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IndicadorBelCenter" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorNivelElectivo" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IndicadorPremiacionPedido" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MontoPremiacionPedido" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PuntosExigidos" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosExigidosFaltantes" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosFaltantes" type="xs:int" />
+      <xs:element minOccurs="0" name="PuntosNivel" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEIncentivoNivel" nillable="true" type="tns:BEIncentivoNivel" />
   <xs:complexType name="BEProductoComentarioDetalle">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:BEPaging">
@@ -862,6 +910,7 @@
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoFICActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="PortalLideres" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
@@ -1613,18 +1662,15 @@
   <xs:element name="ArrayOfBEServicePROLFIC" nillable="true" type="tns:ArrayOfBEServicePROLFIC" />
   <xs:complexType name="BEServicePROLFIC">
     <xs:sequence>
-      <xs:element minOccurs="0" name="COD_ESTR" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUENTA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FechaModificacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRegistro" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="NUM_OFER" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PAIS" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PERIODO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PRODUCTO" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TIPO_OFETA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="UNIDADES" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="VAL_I18N" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="VENTA_NETA" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ZONA" nillable="true" type="xs:string" />
     </xs:sequence>
@@ -1820,7 +1866,9 @@
       <xs:element minOccurs="0" name="HoraInicio" type="ser:duration" />
       <xs:element minOccurs="0" name="HoraInicioNoFacturable" type="ser:duration" />
       <xs:element minOccurs="0" name="HorasDuracionRestriccion" type="xs:int" />
+      <xs:element minOccurs="0" name="ImagenURLOfertaFIC" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IndicadorGPRSB" type="xs:int" />
+      <xs:element minOccurs="0" name="IndicadorOfertaFIC" type="xs:int" />
       <xs:element minOccurs="0" name="MensajeValidacionInteractiva" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ModificaPedidoReservado" type="xs:boolean" />
       <xs:element minOccurs="0" name="NroCampanias" type="xs:int" />
