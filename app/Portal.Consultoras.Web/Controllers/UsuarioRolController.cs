@@ -245,17 +245,11 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID));
 
                 BEUsuario entidad = Mapper.Map<ConsultoraFicticiaModel, BEUsuario>(model);
-                BEPais bepais = new BEPais();
-
-                using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
-                {
-                    bepais = sv.SelectPais(Convert.ToInt32(entidad.PaisID));
-                }
-
+                
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
                     bool result;
-                    result = sv.IsUserExist(bepais.CodigoISO + entidad.CodigoUsuario);
+                    result = sv.IsUserExist(entidad.PaisID, entidad.CodigoUsuario);
 
                     if (result)
                     {
