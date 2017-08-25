@@ -5,9 +5,12 @@ CREATE PROCEDURE [dbo].[ExisteConsultoraEnAsesoraOnline]
 	@CodigoConsultora varchar(20)
 AS
 BEGIN
+	declare @result int;
 	IF EXISTS (select * from dbo.AsesoraOnline where CodigoConsultora = @CodigoConsultora)
-	  return 1;
+	  set @result = 1;
 	ELSE
-	  return 0;
+	  set @result = 0;
+
+	select @result;
 END
 GO
