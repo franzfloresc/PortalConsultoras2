@@ -314,9 +314,52 @@
     </div>
 </div>
 
-@Html.Partial("~/Views/Shared/MatrizComercial/_matrizComercialItemTemplate.cshtml")
+<script id="matriz-comercial-item-template" type="text/x-handlebars-template">   
+    {{#each imagenes}}
+    <div class="titG2 div-img-matriz-comercial">
+        <div class="pdr_modal borde_redondeado aligncenter">
+            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
+        </div>
+        <div class="pdr_modal_check aligncenter">
+            <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="descripcion-comercial-{{@@index}}" value='{{DescripcionComercial}}'>
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="id-matriz-comercial-imagen-{{@@index}}" value='{{IdMatrizComercialImagen}}'>
+        </div>
+       
+    </div>
+    {{/each}}
+</script>
+
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOferta" style="float: right; margin-top: 10px;" src="">
+        </div>
+        <img id="imgZonaEstrategia" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="div-3" style="text-align:center; color:black;">
+        <div id="descripcion-comercial">
+        </div>
+    </div>
+    <div class="zona_estrategia_1"></div>
+    <div>&nbsp;</div>
+    <div class="zona_estrategia_2"></div>
+    <div class="zona_estrategia_3"></div>
+    <div class="zona_estrategia_4"></div>
+</div>
+<script id="descripcion-comercial-template" type="text/x-handlebars-template">
+    <div style="text-align:center; color:black;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+        <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
+        <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+    </div>
+</script>
 
 <script type="text/javascript">
+
      $("#linkTallaColor").click(function () {
             if ($.trim($("#txtCUV2").val()) == "") {
                 alert("Debe ingresar un valor para CUV2");
@@ -436,6 +479,15 @@
 
      var imagenOnClick = function () {
          $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
+         var index = $(this).attr("id").split("-");
+         var descripcionComercial = $("#descripcion-comercial-"+index[2]).attr("value");
+         var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
+         var editData = {
+             IdMatrizComercialImagen: idMatrizComercial,
+             DescripcionComercial: descripcionComercial
+         };
+         SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+         isVistaPreviaOpened = true;
          showDialog('divVistaPrevia');
      };
 
@@ -460,5 +512,6 @@
      $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
 
      $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
+
 
 </script>
