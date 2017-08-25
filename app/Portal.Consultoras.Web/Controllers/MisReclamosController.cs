@@ -131,18 +131,18 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
-        {
-            codigoSsic = Util.SubStr(codigoSsic, 0);
-            //codigoSsic = codigoSsic.ToLower();
-            tipo = Util.SubStr(tipo, 0);
-            //tipo = tipo.ToLower();
-            var listaDescripcion = CargarDescripcion();
-            var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
+        //private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
+        //{
+        //    codigoSsic = Util.SubStr(codigoSsic, 0);
+        //    //codigoSsic = codigoSsic.ToLower();
+        //    tipo = Util.SubStr(tipo, 0);
+        //    //tipo = tipo.ToLower();
+        //    var listaDescripcion = CargarDescripcion();
+        //    var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
 
-            desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
-            return desc;
-        }
+        //    desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
+        //    return desc;
+        //}
 
         private int CumpleRangoCampaniaCDR()
         {
@@ -286,36 +286,36 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private List<BECDRWebDescripcion> CargarDescripcion()
-        {
-            try
-            {
-                if (Session[Constantes.ConstSession.CDRDescripcion] != null)
-                {
-                    var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
-                    if (listaDescripcion.Count > 0)
-                        return listaDescripcion;
-                }
+        //private List<BECDRWebDescripcion> CargarDescripcion()
+        //{
+        //    try
+        //    {
+        //        if (Session[Constantes.ConstSession.CDRDescripcion] != null)
+        //        {
+        //            var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
+        //            if (listaDescripcion.Count > 0)
+        //                return listaDescripcion;
+        //        }
 
-                var lista = new List<BECDRWebDescripcion>();
-                var entidad = new BECDRWebDescripcion();
-                using (CDRServiceClient sv = new CDRServiceClient())
-                {
-                    lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
-                }
+        //        var lista = new List<BECDRWebDescripcion>();
+        //        var entidad = new BECDRWebDescripcion();
+        //        using (CDRServiceClient sv = new CDRServiceClient())
+        //        {
+        //            lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
+        //        }
 
-                lista = lista ?? new List<BECDRWebDescripcion>();
-                //lista.Update(d => d.Tipo = d.Tipo.ToLower());
-                Session[Constantes.ConstSession.CDRDescripcion] = lista;
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRDescripcion] = null;
-                return new List<BECDRWebDescripcion>();
-            }
-        }
+        //        lista = lista ?? new List<BECDRWebDescripcion>();
+        //        //lista.Update(d => d.Tipo = d.Tipo.ToLower());
+        //        Session[Constantes.ConstSession.CDRDescripcion] = lista;
+        //        return lista;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        Session[Constantes.ConstSession.CDRDescripcion] = null;
+        //        return new List<BECDRWebDescripcion>();
+        //    }
+        //}
 
         private List<BEPedidoWeb> CargarPedidoCUV(MisReclamosModel model)
         {
@@ -796,45 +796,45 @@ namespace Portal.Consultoras.Web.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        private List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model)
-        {
+        //private List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model)
+        //{
 
-            try
-            {
-                if (Session[Constantes.ConstSession.CDRWebDetalle] != null)
-                {
-                    return (List<BECDRWebDetalle>)Session[Constantes.ConstSession.CDRWebDetalle];
-                }
+        //    try
+        //    {
+        //        if (Session[Constantes.ConstSession.CDRWebDetalle] != null)
+        //        {
+        //            return (List<BECDRWebDetalle>)Session[Constantes.ConstSession.CDRWebDetalle];
+        //        }
 
-                model = model ?? new MisReclamosModel();
-                //if (model.CDRWebID <= 0)
-                //{
-                //    return new List<BECDRWebDetalle>();
-                //}
+        //        model = model ?? new MisReclamosModel();
+        //        //if (model.CDRWebID <= 0)
+        //        //{
+        //        //    return new List<BECDRWebDetalle>();
+        //        //}
 
-                var lista = new List<BECDRWebDetalle>();
-                var entidad = new BECDRWebDetalle();
-                entidad.CDRWebID = model.CDRWebID;
-                using (CDRServiceClient sv = new CDRServiceClient())
-                {
-                    lista = sv.GetCDRWebDetalle(userData.PaisID, entidad, model.PedidoID).ToList();
-                }
+        //        var lista = new List<BECDRWebDetalle>();
+        //        var entidad = new BECDRWebDetalle();
+        //        entidad.CDRWebID = model.CDRWebID;
+        //        using (CDRServiceClient sv = new CDRServiceClient())
+        //        {
+        //            lista = sv.GetCDRWebDetalle(userData.PaisID, entidad, model.PedidoID).ToList();
+        //        }
 
-                lista = lista ?? new List<BECDRWebDetalle>();
+        //        lista = lista ?? new List<BECDRWebDetalle>();
 
-                lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
-                lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+        //        lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+        //        lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
 
-                Session[Constantes.ConstSession.CDRWebDetalle] = lista;
-                return lista;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                Session[Constantes.ConstSession.CDRWebDetalle] = null;
-                return new List<BECDRWebDetalle>();
-            }
-        }
+        //        Session[Constantes.ConstSession.CDRWebDetalle] = lista;
+        //        return lista;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+        //        Session[Constantes.ConstSession.CDRWebDetalle] = null;
+        //        return new List<BECDRWebDetalle>();
+        //    }
+        //}
 
         private bool ValidarDetalleGuardar(ref MisReclamosModel modelOri)
         {

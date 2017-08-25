@@ -12,7 +12,7 @@ $(document).ready(function () {
         me.Variables = {
             //BtnAgregar: '#btnAgregar',
             IrPaso1: '#IrPaso1',
-            VerDetalleCDR: ".abrir_detallemb"
+            VerDetalleCDR: ".abrir_detallemb",
         };
         
         me.Eventos = {
@@ -33,9 +33,52 @@ $(document).ready(function () {
                 });
 
                 $(document).on("click", me.Variables.VerDetalleCDR, function () {
-                    debugger
-                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
-                    OrigenCDRMobile = "1";
+                    var _OrigenDetalle = "1";
+                    var _CDRWebID = $("#cdrweb_id").val();
+                    var _PedidoID = $("#cdrweb_pedidoid").val();
+                    var _FechaCulminado = $("#cdrweb_formatoFechaCulminado").val();
+                    var _Campania = $("#cdrweb_formatocampania").val();
+                    var _CantidadAprobados = $("#cdrweb_CantidadAprobados").val();
+                    var _CantidadRechazados = $("#cdrweb_CantidadRechazados").val();
+
+                    var obj = {
+                        OrigenCDRDetalle: _OrigenDetalle,
+                        CDRWebID: _CDRWebID,
+                        PedidoID: _PedidoID,
+                        FormatoFechaCulminado: _FechaCulminado,
+                        FormatoCampaniaID: _Campania,
+                        CantidadAprobados: _CantidadAprobados,
+                        CantidadRechazados: _CantidadRechazados
+                    };                        
+
+                    $.ajax({
+                        type: 'Post',
+                        url: urlValidarCargaDetalle,
+                        data: JSON.stringify(obj),
+                        dataType: 'json',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {
+                            if (checkTimeout(data)) {
+                                if (data.success == true)
+                                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                            }
+                        },
+                        error: function (data, error) {
+                            if (checkTimeout(data))
+                                cerrarRechazado = '0';
+                        }
+                    });
+                    
+
+                    //FORMA ANTIGUO
+                    //localStorage.removeItem("CDRWebID");
+                    //localStorage.removeItem("PedidoID");
+                    //localStorage.removeItem('OrigenDetalle');
+
+                    //localStorage.setItem('OrigenDetalle', "1");
+                    //localStorage.setItem('CDRWebID', $("#cdrweb_id").val());
+                    //localStorage.setItem('PedidoID', $("#cdrweb_pedidoid").val());
+                    //window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
                 });
             }
         };
