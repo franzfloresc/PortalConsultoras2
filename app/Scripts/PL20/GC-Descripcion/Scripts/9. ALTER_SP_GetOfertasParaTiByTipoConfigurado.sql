@@ -38,7 +38,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT 
 			t.CUV,
-			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, pd.Descripcion, p.Descripcion),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -50,9 +50,6 @@ BEGIN
 		LEFT JOIN Estrategia e on
 			t.CampaniaID = e.CampaniaID
 			and t.CUV = e.CUV2
-		LEFT JOIN dbo.ProductoDescripcion pd on
-				p.AnoCampania = pd.CampaniaID
-				and p.CUV = pd.CUV
 		LEFT JOIN MatrizComercial mc on
 			p.CodigoProducto = mc.CodigoSAP
 		LEFT JOIN MatrizComercialImagen mci on 
@@ -73,7 +70,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT
 			t.CUV,
-			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, pd.Descripcion, p.Descripcion),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -85,13 +82,10 @@ BEGIN
 		INNER JOIN Estrategia e on
 			t.CampaniaID = e.CampaniaID
 			and t.CUV = e.CUV2
-		LEFT JOIN dbo.ProductoDescripcion pd on
-			p.AnoCampania = pd.CampaniaID
-			and p.CUV = pd.CUV
 		LEFT JOIN MatrizComercial mc on
 			p.CodigoProducto = mc.CodigoSAP
 		LEFT JOIN MatrizComercialImagen mci on 
-			mci.IdMatrizComercial = mc.IdMatrizComercial
+			mci.IdMatrizComercial = mc.IdMatrizComercial and mci.DescripcionComercial != null
 		WHERE e.CampaniaID = @CampaniaID
 	end
 
@@ -100,7 +94,7 @@ BEGIN
 		INSERT INTO @tablaResultado
 		SELECT
 			t.CUV,
-			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2,pd.Descripcion,p.Descripcion),
+			COALESCE(mci.DescripcionComercial, e.DescripcionCUV2, p.Descripcion),
 			COALESCE(e.Precio2,p.PrecioUnitario),
 			p.CodigoProducto,
 			t.OfertaUltimoMinuto,
@@ -112,13 +106,10 @@ BEGIN
 		LEFT JOIN Estrategia e on
 			t.CampaniaID = e.CampaniaID
 			and t.CUV = e.CUV2
-		LEFT JOIN dbo.ProductoDescripcion pd on
-			p.AnoCampania = pd.CampaniaID
-			and p.CUV = pd.CUV
 		LEFT JOIN MatrizComercial mc on
 			p.CodigoProducto = mc.CodigoSAP
 		LEFT JOIN MatrizComercialImagen mci on 
-			mci.IdMatrizComercial = mc.IdMatrizComercial
+			mci.IdMatrizComercial = mc.IdMatrizComercial and mci.DescripcionComercial != null
 		WHERE 
 			t.CampaniaID = @CampaniaID
 			and e.CUV2 is null

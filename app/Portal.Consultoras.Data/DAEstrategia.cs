@@ -333,7 +333,10 @@ namespace Portal.Consultoras.Data
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,             
                 UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.FotoProducto01
+                FotoProducto01 = item.ImagenURL,
+                CodigoEstrategia = item.CodigoEstrategia,
+                TieneVariedad = item.TieneVariedad
+                
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -394,7 +397,9 @@ namespace Portal.Consultoras.Data
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,
                 UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.FotoProducto01
+                FotoProducto01 = item.ImagenURL,
+                TieneVariedad = item.TieneVariedad,
+                CodigoEstrategia = item.CodigoEstrategia
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");
