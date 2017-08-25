@@ -223,9 +223,20 @@
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
         var sesionEsShowRoom = '@Session["EsShowRoom"]';
-       
+
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
     </script>
 
     <script type="text/javascript">
