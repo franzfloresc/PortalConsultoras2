@@ -1,4 +1,4 @@
-using AutoMapper;
+Ôªøusing AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
@@ -397,7 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabÛ con Èxito.",
+                    message = "Se grab√≥ con √©xito.",
                     extra = ""
                 });
             }
@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se eliminÛ con Èxito.",
+                    message = "Se elimin√≥ con √©xito.",
                     extra = ""
                 });
             }
@@ -497,7 +497,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     image.Dispose();
                     System.IO.File.Delete(path);
-                    return Json(new { success = false, message = "El tamaÒo de imagen excede el m·ximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
+                    return Json(new { success = false, message = "El tama√±o de imagen excede el m√°ximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
                 }
                 image.Dispose();
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
@@ -515,7 +515,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // agregar parametros para validar el tipo de recomendaciÛn (CUV o PERFIL)
+                // agregar parametros para validar el tipo de recomendaci√≥n (CUV o PERFIL)
                 List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 var entidad = new BEEstrategia();
@@ -549,8 +549,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (resultado == 0)
                         {
-                            if (FlagRecoProduc == "1") mensaje = "El CUV2 no est· asociado a ning˙n otro.";
-                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no est· asociado a ning˙n perfil.";
+                            if (FlagRecoProduc == "1") mensaje = "El CUV2 no est√° asociado a ning√∫n otro.";
+                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no est√° asociado a ning√∫n perfil.";
                             return Json(new
                             {
                                 success = false,
@@ -767,7 +767,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabÛ con Èxito la estrategia.",
+                    message = "Se grab√≥ con √©xito la estrategia.",
                     extra = ""
                 });
             }
@@ -853,7 +853,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "El CUV2 ingresado no est· configurado en la matriz comercial",
+                        message = "El CUV2 ingresado no est√° configurado en la matriz comercial",
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
@@ -865,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -875,7 +875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -979,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se deshabilitÛ la estrategia correctamente.",
+                    message = "Se deshabilit√≥ la estrategia correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -989,7 +989,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -999,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1029,7 +1029,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de lÌmite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
+                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de l√≠mite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1039,7 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1049,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÛ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurri√≥ un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1096,7 +1096,7 @@ namespace Portal.Consultoras.Web.Controllers
                     result = "L'Bel";
                     break;
                 case 2:
-                    result = "…sika";
+                    result = "√âsika";
                     break;
                 case 3:
                     result = "Cyzone";
@@ -1215,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
                 JSONdata = new
                 {
                     success = true,
-                    message = "Se agregÛ la estrategia satisfactoriamente.",
+                    message = "Se agreg√≥ la estrategia satisfactoriamente.",
                     extra = ""
                 };
 
