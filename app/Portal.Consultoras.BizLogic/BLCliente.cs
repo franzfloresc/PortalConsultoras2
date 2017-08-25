@@ -616,7 +616,15 @@ namespace Portal.Consultoras.BizLogic
                         });
                     }
 
-                    var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion).Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia);
+                    var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion || x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia)
+                                            .Select(x => new BEClienteContactoDB()
+                                            {
+                                                ContactoClienteID = x.ContactoClienteID,
+                                                ClienteID = consultoraCliente.ClienteID,
+                                                TipoContactoID = x.TipoContactoID,
+                                                Valor = x.Valor,
+                                                Estado = x.Estado
+                                            });
                     if(contactoDB.Any()) contactos.AddRange(contactoDB);
                 }
 
