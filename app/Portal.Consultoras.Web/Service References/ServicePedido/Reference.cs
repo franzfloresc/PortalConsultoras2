@@ -11604,6 +11604,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private bool EnviarCorreoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EsOptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoSimplificacionCUVField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -11634,10 +11637,16 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string PaisISOField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PedidoIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PrimerNombreField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ProlV2Field;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int SegmentoInternoIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SimboloField;
@@ -11785,6 +11794,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EsOpt {
+            get {
+                return this.EsOptField;
+            }
+            set {
+                if ((this.EsOptField.Equals(value) != true)) {
+                    this.EsOptField = value;
+                    this.RaisePropertyChanged("EsOpt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool EstadoSimplificacionCUV {
             get {
                 return this.EstadoSimplificacionCUVField;
@@ -11915,6 +11937,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PedidoID {
+            get {
+                return this.PedidoIDField;
+            }
+            set {
+                if ((this.PedidoIDField.Equals(value) != true)) {
+                    this.PedidoIDField = value;
+                    this.RaisePropertyChanged("PedidoID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string PrimerNombre {
             get {
                 return this.PrimerNombreField;
@@ -11936,6 +11971,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.ProlV2Field.Equals(value) != true)) {
                     this.ProlV2Field = value;
                     this.RaisePropertyChanged("ProlV2");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int SegmentoInternoID {
+            get {
+                return this.SegmentoInternoIDField;
+            }
+            set {
+                if ((this.SegmentoInternoIDField.Equals(value) != true)) {
+                    this.SegmentoInternoIDField = value;
+                    this.RaisePropertyChanged("SegmentoInternoID");
                 }
             }
         }
@@ -29732,10 +29780,10 @@ namespace Portal.Consultoras.Web.ServicePedido {
         System.Threading.Tasks.Task DelPedidoWebDetalleAsync(Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle pedidowebdetalle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampania", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaResponse")]
-        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
+        Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectByCampania", ReplyAction="http://tempuri.org/IPedidoService/SelectByCampaniaResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPedidoService/SelectPedidosDDWeb", ReplyAction="http://tempuri.org/IPedidoService/SelectPedidosDDWebResponse")]
         Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb[] SelectPedidosDDWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb BEPedidoDDWeb);
@@ -32505,12 +32553,12 @@ namespace Portal.Consultoras.Web.ServicePedido {
             return base.Channel.DelPedidoWebDetalleAsync(pedidowebdetalle);
         }
         
-        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora) {
-            return base.Channel.SelectByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
+        public Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[] SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt) {
+            return base.Channel.SelectByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora) {
-            return base.Channel.SelectByCampaniaAsync(paisID, CampaniaID, ConsultoraID, Consultora);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle[]> SelectByCampaniaAsync(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt) {
+            return base.Channel.SelectByCampaniaAsync(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
         
         public Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb[] SelectPedidosDDWeb(Portal.Consultoras.Web.ServicePedido.BEPedidoDDWeb BEPedidoDDWeb) {
