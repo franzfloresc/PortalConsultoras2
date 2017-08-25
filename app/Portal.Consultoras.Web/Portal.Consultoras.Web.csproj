@@ -1198,6 +1198,7 @@
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
+    <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\gif-regalo-blanco.png" />
     <Content Include="Content\Images\gif-regalo-gano.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
@@ -2194,6 +2195,7 @@
     <Content Include="Content\Images\Lbel\expofertas.png" />
     <Content Include="Content\Images\Lbel\facebook.png" />
     <Content Include="Content\Images\Lbel\facturacion_electronica.png" />
+    <Content Include="Content\Images\Lbel\favicon.ico" />
     <Content Include="Content\Images\Lbel\flechita.png" />
     <Content Include="Content\Images\Lbel\flechita.svg" />
     <Content Include="Content\Images\Lbel\flechita_info.png" />
