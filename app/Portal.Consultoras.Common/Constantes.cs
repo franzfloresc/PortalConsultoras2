@@ -655,6 +655,7 @@ namespace Portal.Consultoras.Common
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
+            public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
         }
 
         public class ConfiguracionPais
@@ -727,6 +728,7 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class EstadoRDSuscripcion

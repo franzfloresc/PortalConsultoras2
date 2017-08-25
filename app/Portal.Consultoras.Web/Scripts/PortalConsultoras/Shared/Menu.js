@@ -40,7 +40,6 @@ $(document).ready(function () {
 });
 
 function MenuContenedor() {
-
     $("[data-layout-menu2] ul li").hide();
     $("[data-layout-menu2] ul li").removeClass("seleccionado");
     $("[data-layout-menu1] ul li").removeClass("seleccionado");
@@ -55,6 +54,12 @@ function MenuContenedor() {
         var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
+        }
+        else {
+            // fix PL20
+            var omenu2 = $("[data-layout-menu2] ul li");
+            if (omenu2.length > 0)
+                primerMenu = $(omenu2).get(0);
         }
 
         var primerSubMenu = $("[data-layout-menu2] ul li");
@@ -96,9 +101,36 @@ function MenuContenedorClick(e, url) {
         codigo: $(objHtmlEvent).data("codigo")
     };
 
+    MenuContenedorGuardar(codigoLocal);
+
     LocalStorageListado(menuContenedorActivo, codigoLocal);
 
     window.location = url;
+}
+
+function MenuContenedorGuardar(codigoLocal) {
+    $.ajaxSetup({
+        cache: false
+    });
+
+    var detalle;
+
+    $.ajax({
+        type: 'POST',
+        url: "/Ofertas/GuardarMenuContenedor",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(codigoLocal),
+        async: false,
+        success: function (data) {
+            detalle = data.success || false;
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+
+    return detalle;
 }
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {

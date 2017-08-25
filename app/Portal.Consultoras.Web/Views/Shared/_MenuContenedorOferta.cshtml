@@ -1,33 +1,47 @@
 ﻿
 @{
-    var permisoList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaNegra = permisoList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaPloma = permisoList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var codigoSeleccionado = ViewBag.MenuCodigoSeleccionado;
+    var menuList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
+    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style='background: url(" + menuActivo.FondoBanner + ");'" : "";
 }
-<div class="bc_menu_estrategia" style="background: url(@Url.Content("~/Content/Images/Esika/bg_estrellas.png"));">
-    <div class="logo" style="background: url(@Url.Content("~/Content/Images/Esika/bg_esika.png"));"></div>
-    <div class="texto-info">
-        <div class="centrar-horizontal">
-            <p>SOFIA, ESTA NAVIDAD EMPIEZA GANANDO ESTA CAMPAÑA</p>
-            <span>¡GANA MÁS DESDE EL PRIMER DÍA CON TU GUIÍA DE NEGOCIO ONLINE PERSONALIZADA!</span>
-        </div>
+<div class="bc_menu_estrategia" @estiloFondoBanner>
+    <div>
+        @if (menuActivo.LogoBanner != "")
+        {
+            <div class="logo" style="background: url(@menuActivo.LogoBanner);"></div>
+        }
+        @if (menuActivo.TituloBanner != "" || menuActivo.SubTituloBanner != "")
+        {
+            <div class="texto-info">
+                <div class="centrar-horizontal">
+                    @if (menuActivo.TituloBanner != "")
+                    {
+                        <p>@menuActivo.TituloBanner</p>
+                    }
+                    @if (menuActivo.SubTituloBanner != "")
+                    {
+                        <span>@menuActivo.SubTituloBanner</span>
+                    }
+                </div>
+            </div>
+        }
     </div>
     <div class="clear"></div>
     <div class="op_menu-horizontal" data-layout-menu1="">
-        @if (listaNegra.Any())
+        @if (menuActivo.CampaniaX0 > 0)
         {
-            var menuContenedor = listaNegra[0];
             <ul class="menu_estrategia">
-                <li data-campania="@menuContenedor.CampaniaX0">
+                <li data-campania="@menuActivo.CampaniaX0">
                     <a href="javascript:;" class="desplegable">
                         <img src="img/carrito.png" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover">
-                        COMPRAR C-@(menuContenedor.CampaniaX0 % 100)
+                        COMPRAR C-@(menuActivo.CampaniaX0 % 100)
                     </a>
-                </li><li data-campania="@menuContenedor.CampaniaX1">
+                </li><li data-campania="@menuActivo.CampaniaX1">
                     <a href="javascript:;" class="desplegable">
                         <img src="img/ojos.svg" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
-                        REVISAR C-@(menuContenedor.CampaniaX1 % 100)
+                        REVISAR C-@(menuActivo.CampaniaX1 % 100)
                     </a>
                 </li><li data-campania="0" data-url="RevistaDigital/Informacion">
                     <a href="javascript:;" class="desplegable">
@@ -35,26 +49,31 @@
                     </a>
                 </li>
             </ul>
-            @*<ul class="menu_estrategia">
+        }
+        @*@if (listaNegra.Any())
+        {
+            <ul class="menu_estrategia">
                 @foreach (var menu in listaNegra)
                 {<li data-campania="@menu.CampaniaID" data-activo="@menu.Activa">
                         <a href="javascript:;" class="desplegable" attr-modal="#open-menu-@menu.CampaniaID">
                             @menu.TituloMenu
                         </a>
                     </li>}
-            </ul>*@
-        }
+            </ul>
+        }*@
     </div>
 </div>
-<div data-layout-menu2="" data-menu-seleccionado="@codigoSeleccionado">
+<div data-layout-menu2="">
     @if (listaPloma.Any())
     {
         <div class="op-menu-vertical">
             <ul class="sbmenu_estrategia">
                 @foreach (var menuhijo in listaPloma)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" data-codigo="@menuhijo.Codigo"
-                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')" style="display:none;">
+                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" 
+                        data-codigo="@menuhijo.Codigo"
+                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')" 
+                        style="display:block;">
                         <a href="javascript:;">
                             <p>@menuhijo.TituloMenu</p>
                             <span>@menuhijo.SubTituloMenu</span>

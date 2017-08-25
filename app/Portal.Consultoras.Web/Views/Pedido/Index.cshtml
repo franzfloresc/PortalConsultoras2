@@ -6,9 +6,8 @@
 }
 
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/style-pedido.css")" rel="stylesheet" />
-    <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />*@
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
 }
 <span id="img-tooltip" class="img-tooltip" data-toggle="tooltip" data-placement="right" title="dEMO DEMO DEMO DEM O..." data-animation="false" data-trigger="manual"></span>
 <div class="franja_negra"></div>
@@ -558,24 +557,6 @@
     </div>
 </div>
 
-@*<div class="contenedor_popup_agregarCliente" id="divClientes">
-    <div class="popup_agregarCliente">
-        <div class="btn_cerrar_agregarUnidades">
-            <a href="javascript:void(0);" onclick="$('#divClientes').hide();">
-                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
-                <span class="texto_btn_cerrar">CERRAR</span>
-            </a>
-        </div>
-        <h6>AGREGAR <b>CLIENTE</b></h6>
-        <form action="" method="post">
-            <input type="text" name="nombre" id="Nombres" value="" placeholder="Ingrese su nombre" maxlength="50" class="input_search_form ValidaAlfabeto" />
-            <input type="email" name="correoelectronico" value="" placeholder="Correo Electrónico (opcional)" maxlength="80" id="Correo" class="input_search_form ValidarFormatoCorreo" />
-            <input type="button" class="btnCliente_cancelar" name="cancelar" value="CANCELAR" onclick="javascript: $('#divClientes').hide();" />
-            <input type="button" class="btnCliente_agregar" name="agregarCliente" value="AGREGAR" onclick="javascript: ValidarRegistroCliente();" />
-        </form>
-    </div>
-</div>*@
-
 <!-- POPUP MIS GANANCIAS -->
 <div class="contenedor_fondo_popup" id="popupGanancias" style="display:none;">
     <div class="popup_mis_ganancias">
@@ -952,8 +933,7 @@
 <!-- FIN PRODUCTOS SUGERIDOS -->
 <!-- POPUP OFERTA FINAL -->
 <div class="contenedor_popup_ofertaFinal" id="divOfertaFinal" data-popup-main="" data-popup-function-hide="PopupOfertaFinalCerrar">
-
-                    </div>
+</div>
 <!-- FIN POPUP OFERTA FINAL -->
 <!--POP UP ESCALA DE DESCUENTO FICHA-->
         <div class="contenedor_popup_ofertaFinal" id="contenedor_popup_ofertaFinalVerDetalle" style="display: none;">
@@ -1278,18 +1258,18 @@
                             <div class="bloque_datos izq">
                                 <div class="nombre_cliente">
                                     <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente">{{Nombre}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-nombre">{{Nombre}}</span>
                                 </div>
 
                                 <div class="telefono_cliente">
                                     <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente">{{Telefono}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-telefono">{{Telefono}}</span>
                                 </div>
                             </div>
                             <div class="bloque_datos der">
                                 <div class="correo_cliente">
                                     <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente">{{Email}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d1-correo">{{Email}}</span>
                                 </div>
 
                                 <div class="direccion_cliente">
@@ -1363,18 +1343,18 @@
                             <div class="bloque_datos izq">
                                 <div class="nombre_cliente">
                                     <span class="AtribCliente">Nombre:</span>
-                                    <span class="datoPedidoCliente">{{Nombre}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-nombre">{{Nombre}}</span>
                                 </div>
 
                                 <div class="telefono_cliente">
                                     <span class="AtribCliente">Teléfono:</span>
-                                    <span class="datoPedidoCliente">{{Telefono}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-telefono">{{Telefono}}</span>
                                 </div>
                             </div>
                             <div class="bloque_datos der">
                                 <div class="correo_cliente">
                                     <span class="AtribCliente">Correo:</span>
-                                    <span class="datoPedidoCliente">{{Email}}</span>
+                                    <span class="datoPedidoCliente" id="sc-d2-correo">{{Email}}</span>
                                 </div>
 
                                 <div class="direccion_cliente">
@@ -2412,12 +2392,10 @@ else
         var origenPagina = 2;
         var tipoOrigenEstrategia = 11;
         var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-
         var indicadorGPRSB = '@Model.IndicadorGPRSB';
         var viewBagCampaniaActual = '@Model.CampaniaActual';
         var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
         var tieneCupon = '@Model.TieneCupon';
-        //var tieneOfertaLog = '@Model.TieneOfertaLog';
         var paginaOrigenCupon = 11;
         var esEmailActivo = '@Model.EmailActivo';
         var baseUrl = "@Url.Content("~")";
@@ -2425,11 +2403,9 @@ else
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
-
         var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
-        //var tieneMasVendidos = @Model.TieneMasVendidos;
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
 

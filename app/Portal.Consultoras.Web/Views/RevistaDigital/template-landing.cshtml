@@ -43,12 +43,13 @@
             }
             else
             {
+                
                 <div id="orderby-filter">
                     <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
                         @*<div class="titulo_pagina">OFERTAS ÉSIKA PARA MÍ</div>*@
                         @*<hr class="clear" />*@
                         <div class="rd-seccion2">
-                            <div id="divFiltros" class="rd-filtros">
+                            <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
                                 @if (Model.FiltersByBrand.Any())
                                 {
                                     <select class="marca_ept" data-filtro-tipo="fijo" data-filtro-campo="marca">
@@ -70,7 +71,7 @@
 
                             </div>
                             @*<hr class="clear" />*@
-                            <div id="divCantProductos" class="cantidad_productos_fav">
+                            <div id="divCantProductos" class="cantidad_productos_fix cantidad_productos_fav">
                                 <div class="rd-cantidad">
                                     Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0</span> productos
                                 </div>
@@ -80,6 +81,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <div style="clear:both;"></div>
                         </div>
                         @*<div class="content_buscador_landing">
                                 <input type="text" placeholder="ESCRIBE AQUÍ EL PRODUCTO QUE BUSCAS">
@@ -87,7 +89,6 @@
                             </div>*@
                     </div>
                 </div>
-                <hr class="clear">
             }
         @*<hr class="clear" />*@
         <div id="RDListado" data-content-item="@Model.CampaniaID">
