@@ -55,5 +55,6 @@ namespace Portal.Consultoras.Web.Models
         public string Agregado { get; set; }
         public string DescripcionMarca { get; set; }
         public string TipoEstrategiaDescripcion { get; set; }
+        public short Position { get; set; }
     }
 }

@@ -724,3 +724,41 @@ function validarUnidadesPermitidas(listaShowRoomOferta) {
     }
     return lista;
 }
+
+function compraxcompra_promotion_click(cuv,descripcion) {
+    var id = cuv;
+    var name = 'Showroom – ' + descripcion;
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                {
+                    'id': cuv,
+                    'name': name,
+                    'position': 'Showroom Footer',
+                    'creative': 'Promocion Showroom'
+                }]
+            }
+        }
+    });
+}
+
+function compraxcompra_promotion_click(cuv, descripcion) {
+    var id = cuv;
+    var name = 'Showroom – ' + descripcion;
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                    {
+                        'id': cuv,
+                        'name': name,
+                        'position': 'Showroom Footer',
+                        'creative': 'Promocion Showroom'
+                    }]
+            }
+        }
+    });
+}
