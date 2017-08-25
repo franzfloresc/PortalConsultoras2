@@ -99,6 +99,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
@@ -319,16 +320,15 @@ function messageInfoError(message, titulo, fnAceptar) {
     }
 }
 
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-}
+
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
+
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
+        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -358,9 +358,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
                     if (showPopup == true) {
                         microefectoPedidoGuardado();
-                        setTimeout(function () {
-                            $(".contenedor_circulos").fadeOut();
-                        }, 2700);
+                       
                     }
                 }
                 else {
@@ -375,6 +373,14 @@ function CargarResumenCampaniaHeader(showPopup) {
         }
     });
 };
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
+}
+
 function CargarCantidadNotificacionesSinLeer() {
     jQuery.ajax({
         type: 'POST',

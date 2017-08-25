@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
 using Portal.Consultoras.Entities;
 using System.Data;//AOB
+using Portal.Consultoras.Entities.Mobile;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -269,10 +267,10 @@ namespace Portal.Consultoras.ServiceContracts
         BELugarPago GetLugarPagoById(int paisID, int lugarPagoID);
 
         [OperationContract]
-        void InsertLugarPago(BELugarPago entidad);
+        int InsertLugarPago(BELugarPago entidad);
 
         [OperationContract]
-        void UpdateLugarPago(BELugarPago entidad);
+        int UpdateLugarPago(BELugarPago entidad);
 
         [OperationContract]
         void DeleteLugarPago(int paisID, int lugarPagoID);
@@ -693,5 +691,19 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string GetCampaniaActualAndSiguientePais(int paisID, string codigoISO);
+        
+        [OperationContract]
+        IList<BEApp> ListarApps(int paisID);
+
+        #region ConfiguracionPais
+        [OperationContract]
+        List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil);
+
+        [OperationContract]
+        BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId);
+
+        [OperationContract]
+        void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
+        #endregion
     }
 }

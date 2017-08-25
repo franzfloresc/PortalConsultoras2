@@ -42,7 +42,7 @@ namespace Portal.Consultoras.ServiceContracts
         void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle);
 
         [OperationContract]
-        IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora);
+        IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt);
 
         [OperationContract]
         IList<BEPedidoDDWeb> SelectPedidosDDWeb(BEPedidoDDWeb BEPedidoDDWeb);
@@ -79,7 +79,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEEscalaDescuento> GetEscalaDescuento(int PaisID);
 
         [OperationContract]
-        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID);
+        List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo);
 
         [OperationContract]
         IList<BECuvProgramaNueva> GetCuvProgramaNueva(int paisID);
@@ -501,6 +501,9 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         BEPedidoWeb GetPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
+
+        [OperationContract]
+        BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID);
 
         [OperationContract]
         void AnularPedido(int paisID, int campaniaID, int pedidoID);
@@ -1125,6 +1128,12 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConcursoPuntos);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora);
+
+        [OperationContract]
+        List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora);
 
         [OperationContract]
         BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId);

@@ -245,12 +245,13 @@ $(document).ready(function () {
         });
 
     if (typeof errorLogin !== 'undefined') {
-        var errorMessage = "Mensaje: " + errorLogin + " \n|PaisID: " + serverPaisId + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        var errorMessage = "Mensaje: " + errorLogin;
 
         $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
 
-        saveLog(errorMessage, serverCodigoUsuario, serverPaisId);
+        var errorMessageLog = "Mensaje: " + errorLogin + " \n|PaisISO: " + serverPaisISO + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+        saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
 
         //TODO:Call al service de Log usando: errorMessage
     }
@@ -733,12 +734,13 @@ function login2() {
             else {
                 //console.log(response);
                 closeWaitingDialog();
-                var errorMessage = "Mensaje, login2: " + response.message + " |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                var errorMessage = "Mensaje: " + response.message;
                 $('#ErrorTextLabel2').html(errorMessage);
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
 
-                saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
+                var errorMessageLog = "Mensaje: " + response.message + " \n|PaisISO: " + CodigoISO + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+                saveLog(CodigoISO, CodigoUsuario, errorMessageLog);
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
@@ -798,11 +800,11 @@ function resizeNameUserExt() {
     }
 }
 
-function saveLog(message, usuario, iso) {
+function saveLog(ISO, usuario, mensaje) {
     var obj = {
-        message: message,
-        usuario: usuario,
-        iso: iso
+        paisISO: ISO,
+        codigoUsuario: usuario,
+        mensaje: mensaje
     };
 
     jQuery.ajax({
@@ -813,7 +815,9 @@ function saveLog(message, usuario, iso) {
         data: JSON.stringify(obj),
         async: true,
         success: function (response) {
-            console.log(response);
+            if (response.success) {
+                
+            }
         },
         error: function (response) {
             console.log(response);

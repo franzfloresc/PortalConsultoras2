@@ -107,9 +107,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
+        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
         {
-            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
@@ -914,14 +914,19 @@ namespace Portal.Consultoras.Service
             return BLPedidoWeb.GetPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
         }
 
+        public BEPedidoWeb GetResumenPedidoWebByCampaniaConsultora(int paisID, int campaniaID, long consultoraID)
+        {
+            return BLPedidoWeb.GetResumenPedidoWebByCampaniaConsultora(paisID, campaniaID, consultoraID);
+        }
+
         public List<BEEscalaDescuento> GetEscalaDescuento(int paisID)
         {
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
-            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID);
+            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
         #region Pedidos DD
@@ -2160,6 +2165,16 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerPuntosXConsultoraConcurso(PaisID, CodigoCampania, CodigoConsultora);
         }
 
+        public List<BEConsultoraConcurso> ListConcursosVigentes(int paisId, string codigoCampania, string codigoConsultora)
+        {
+            return BLConsultoraConcurso.ListConcursosVigentes(paisId, codigoCampania, codigoConsultora);
+        }
+
+        public List<BEConsultoraConcurso> ListConcursosByCampania(int paisId, string codigoCampaniaActual, string codigoCampania, string tipoConcurso, string codigoConsultora)
+        {
+            return BLConsultoraConcurso.ListConcursosByCampania(paisId, codigoCampania, codigoCampania, tipoConcurso, codigoConsultora);
+        }
+
         public BEConsultoraResumen ObtenerResumen(int paisId, int codigoCampania, long consultoraId)
         {
             return BLPedidoWeb.GetResumen(paisId, (int)consultoraId, codigoCampania);
@@ -2173,12 +2188,11 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Producto Comentario
-
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-
+        
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);

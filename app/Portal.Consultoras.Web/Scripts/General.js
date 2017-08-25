@@ -1,5 +1,6 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
+var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
@@ -55,6 +56,13 @@ jQuery(document).ready(function () {
             $(this).attr('checked', 'checked');
         }
     };
+
+    $.fn.CleanWhitespace = function () {
+        textNodes = this.contents().filter(
+            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
+            .remove();
+        return this;
+    }
 
     Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
@@ -174,6 +182,21 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
+                var ret = false;
+                
+                switch (b) {
+                    case undefined:
+                    case null:
+                        ret = typeof a == "boolean";
+                        bool = ret ? a : false;
+                        break;
+                    default:  break;
+                }
+
+                if (ret)
+                    return bool ? operator.fn(this) : operator.inverse(this);
+                
+
                 switch (operator) {
                     case '==':
                         bool = a == b;
@@ -405,8 +428,7 @@ jQuery(document).ready(function () {
         });
 
         return newLista;
-    };
-    
+    };    
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -602,6 +624,10 @@ function IsValidUrl(value) {
 function isMobile() {
     var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
     return isUrlMobile;
+}
+function isHome() {
+    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    return isUrl;
 }
 
 function isInt(n) {
@@ -833,7 +859,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             type: "POST",
             async: true,
             crossDomain: true,
-            url: urlLogDynamo,
+            url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
             success: function (result) { console.log(result); },
@@ -917,7 +943,7 @@ function LayoutMenu() {
 }
 function LayoutMenuFin() {
     // validar si sale en dos lineas
-    var idMenus = "#ulNavPrincipal > li";
+    var idMenus = "#ulNavPrincipal-0 > li";
 
     if ($(idMenus).length == 0) {
         return false;
@@ -925,7 +951,6 @@ function LayoutMenuFin() {
 
     $(".wrapper_header").css("max-width", "");
     $(".wrapper_header").css("width", "");
-
     $(".logo_esika").css("width", "");
     $(".menu_esika_b").css("width", "");
     $(idMenus).css("margin-left", "0px");
@@ -947,7 +972,7 @@ function LayoutMenuFin() {
     var h = $(".wrapper_header").height();
 
     if (h > 61) {
-        $("#ulNavPrincipal li a").css("font-size", "9px");
+        $(idMenus + " a").css("font-size", "9px");
     }
 
     wr = 0;
@@ -956,7 +981,7 @@ function LayoutMenuFin() {
     });
 
     if (wt == wr) {
-        $("#ulNavPrincipal li a").css("font-size", "9px");
+        $(idMenus + " a").css("font-size", "9px");
         wr = 0;
         $.each($(idMenus), function (ind, menupadre) {
             wr += $(menupadre).innerWidth();
@@ -964,7 +989,7 @@ function LayoutMenuFin() {
     }
 
     if (wt < wr) {
-        $("#ulNavPrincipal li a").css("font-size", "10.5px");
+        $(idMenus + " a").css("font-size", "10.5px");
     }
     else if (wt > wr) {
         wr = (wt - wr) / $(idMenus).length;
@@ -1332,9 +1357,10 @@ function MostrarMenu(codigo, accion) {
     if (codigo == "") {
         return false;
     }
-    var menu = $("#ulNavPrincipal").find("[data-codigo='" + codigo + "']");
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
+    var idMenus = "#ulNavPrincipal-0";
+    var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
 
     if (menu.length == 0) {
         // puede implementarse para los iconos de la parte derecha
@@ -1657,8 +1683,8 @@ function _validartieneMasVendidos() {
         return tieneMasVendidos;
     }
     else {
-        let valor = get_local_storage("tieneMasVendidos");
-        return valor;
+        var xvalor = get_local_storage("tieneMasVendidos");
+        return xvalor;
     }
 }
 

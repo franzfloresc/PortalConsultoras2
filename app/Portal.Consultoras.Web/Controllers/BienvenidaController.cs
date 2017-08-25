@@ -37,6 +37,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.UrlImagenFAVHome = string.Format(ConfigurationManager.AppSettings.Get("UrlImagenFAVHome"), userData.CodigoISO);
 
+                #region Montos
                 //EPD-2058
                 if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                 {
@@ -53,57 +54,11 @@ namespace Portal.Consultoras.Web.Controllers
                         model.MontoPedido = bePedidoWebDetalle.Sum(p => p.ImporteTotal);
                     }
                 }
+                #endregion
 
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 model.MontoDeuda = userData.MontoDeuda;
-
-                //model.VioVideoBienvenidaModel = userData.VioVideoModelo;
-                //model.VioTutorialDesktop = userData.VioTutorialDesktop;
-
-                #region Rangos de Escala de Descuento
-
-                //model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-
-                //var pos = -1;
-                //int nro = 4;
-                //var listaEscala = new List<BEEscalaDescuento>();
-                //var tamano = model.ListaEscalaDescuento.Count;
-                //int montoEscalaDescuento = Convert.ToInt32(bePedidoWeb.MontoEscala);
-
-                //for (int i = 0; i < tamano; i++)
-                //{
-                //    var objEscala = model.ListaEscalaDescuento[i];
-                //    if (userData.MontoMinimo > objEscala.MontoHasta)
-                //    {
-                //        continue;
-                //    }
-
-                //    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
-
-                //    if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
-                //    {
-                //        objEscala.Seleccionado = true;
-                //        pos = i;
-                //    }
-                //    listaEscala.Add(objEscala);
-                //}
-
-                //model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
-                //if (listaEscala.Any())
-                //{
-                //    int posMin, posMax, tamX = listaEscala.Count - 1;
-                //    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                //    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-                //    posMin = pos < 0 ? 0 : posMin;
-                //    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
-                //    for (int i = posMin; i <= posMax; i++)
-                //    {
-                //        model.ListaEscalaDescuento.Add(listaEscala[i]);
-                //    }
-                //}
-
-                #endregion Rangos de Escala de Descuento
 
                 var datDescBoton = new List<BETablaLogicaDatos>();
                 var datUrlBoton = new List<BETablaLogicaDatos>();
@@ -226,6 +181,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.VioVideoBienvenidaModel = userData.VioVideoModelo;
                 model.VioTutorialDesktop = userData.VioTutorialDesktop;
 
+                #region limite Min - Max Telef
                 //EPD-1089
                 if (userData.PaisID == 9)
                 {
@@ -258,6 +214,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.limiteMaximoTelef = 15;
                 }
                 //
+                #endregion
 
                 #region Lógica de Popups
 
@@ -291,11 +248,12 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
+                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
+
                 // validar si se muestra Show Room en Bienvenida
                 model.ShowRoomMostrarLista = ValidarPermiso(Constantes.MenuCodigo.CatalogoPersonalizado) ? 0 : 1;
                 model.ShowRoomBannerUrl = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.BannerLateralBienvenida, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
                 model.TieneCupon = userData.TieneCupon;
-                model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 model.EMail = userData.EMail;
                 model.Celular = userData.Celular;
@@ -347,19 +305,18 @@ namespace Portal.Consultoras.Web.Controllers
                 return TipoPopUpMostrar;
             }
 
-            if (Session["TipoPopUpMostrar"] != null)
+            if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
-                TipoPopUpMostrar = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                return TipoPopUpMostrar;
             }
-            else
-            {
-                listaPopUps = ObtenerListaPopupsDesdeServicio();
 
-                if (listaPopUps.Any())
-                {
-                    TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
-                    Session["TipoPopUpMostrar"] = TipoPopUpMostrar;
-                }
+            listaPopUps = ObtenerListaPopupsDesdeServicio();
+
+            if (listaPopUps.Any())
+            {
+                TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
             }
 
             return TipoPopUpMostrar;
