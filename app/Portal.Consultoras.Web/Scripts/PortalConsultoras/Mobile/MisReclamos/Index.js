@@ -33,13 +33,15 @@ $(document).ready(function () {
                 });
 
                 $(document).on("click", me.Variables.VerDetalleCDR, function () {
+                    var elemento = $(this);
+                    var parent = $(elemento).parents(".registro_solicitud_cdr");
                     var _OrigenDetalle = "1";
-                    var _CDRWebID = $("#cdrweb_id").val();
-                    var _PedidoID = $("#cdrweb_pedidoid").val();
-                    var _FechaCulminado = $("#cdrweb_formatoFechaCulminado").val();
-                    var _Campania = $("#cdrweb_formatocampania").val();
-                    var _CantidadAprobados = $("#cdrweb_CantidadAprobados").val();
-                    var _CantidadRechazados = $("#cdrweb_CantidadRechazados").val();
+                    var _CDRWebID = $(parent).find(".cdrweb_id").val();
+                    var _PedidoID = $(parent).find(".cdrweb_pedidoid").val();
+                    var _FechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
+                    var _Campania = $(parent).find(".cdrweb_formatocampania").val();
+                    var _CantidadAprobados = $(parent).find(".cdrweb_CantidadAprobados").val();
+                    var _CantidadRechazados = $(parent).find(".cdrweb_CantidadRechazados").val();
 
                     var obj = {
                         OrigenCDRDetalle: _OrigenDetalle,
@@ -50,7 +52,7 @@ $(document).ready(function () {
                         CantidadAprobados: _CantidadAprobados,
                         CantidadRechazados: _CantidadRechazados
                     };                        
-
+                    
                     $.ajax({
                         type: 'Post',
                         url: urlValidarCargaDetalle,

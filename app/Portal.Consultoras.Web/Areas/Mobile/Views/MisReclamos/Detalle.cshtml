@@ -208,7 +208,6 @@ else if (ViewBag.Origen == "1")
                                     x @item.Cantidad unidades
                                 </span>
                                 <span class="detalle_precio_producto tipografia_lato_regular">
-                                    @*{{../Simbolo}} {{DecimalToStringFormat item.Precio}}*@
                                     @ViewBag.Simbolo @item.FormatoPrecio1
                                 </span>
                             </div>
@@ -226,7 +225,6 @@ else if (ViewBag.Origen == "1")
                                     x @item.Cantidad2 unidades
                                 </span>
                                 <span class="detalle_precio_producto tipografia_lato_regular">
-                                    @*{{../Simbolo}} {{DecimalToStringFormat item.Precio2}}*@
                                     @ViewBag.Simbolo @item.FormatoPrecio2
                                 </span>
                             </div>
@@ -306,58 +304,3 @@ else if (ViewBag.Origen == "1")
         </div>
     <!-- FIN VISTA DETALLE SOLICITUD CDR -->
 }
-
-@*@Scripts.Render("~/Scripts/Mobile") 
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Index.js")"></script>
-
-<script type="text/javascript">
-    var urlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" })';
-</script>
-<script>
-    $(document).ready(function () {
-        debugger
-        var OrigenCDRMobile = localStorage.getItem("OrigenDetalle");
-
-        if (OrigenCDRMobile == "1")
-        {
-            $(".bloqueCDRRegistro").hide();
-            $(".bloqueCDRDetalle").show();
-
-            var item = {
-                CDRWebID: localStorage.getItem("CDRWebID") || 0,
-                PedidoID: localStorage.getItem("PedidoID") || 0
-            };           
-
-            $.ajax({
-                type: 'Post',
-                url: urlCargarDetalle,
-                data: JSON.stringify(item),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                success: function (data) {
-                    if (checkTimeout(data))
-                    {
-                        $("#spnFechaDetalleCDR").html();
-                        $("#spnIdCampaniaCDR").html();
-                        $("#spnCantAproRechaza").html();
-                        $("#spnCantAproRechaza").html();
-                        SetHandlebars("#MiDetalleCDR-template", data, "#MiDetalleCDR");
-                    }                    
-                },
-                error: function (data, error) {
-                    if (checkTimeout(data))
-                        cerrarRechazado = '0';
-                }
-            });
-
-
-        }
-        else
-        {
-            $(".bloqueCDRRegistro").show();
-            $(".bloqueCDRDetalle").hide();
-        }
-        //localStorage.removeItem("OrigenDetalle"); //Eliminar solo un item de LocalStorage
-    });
-</script>*@
-
