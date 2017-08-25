@@ -555,6 +555,21 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
+
+                if (popup.CodigoPopup == Constantes.TipoPopUp.AsesoraOnline)
+                {
+                   /* var cupon = ObtenerCuponDesdeServicio();
+                    bool consultoraTieneCupon = (cupon != null);*/
+                    bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
+
+                    if (paisConsultoraTieneAsesoraOnline
+                        /*&& consultoraTieneCupon && 
+                        cupon.EstadoCupon == Constantes.EstadoCupon.Reservado*/)
+                    {
+                        TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+                        break;
+                    }
+                }
             }
 
             return TipoPopUpMostrar;

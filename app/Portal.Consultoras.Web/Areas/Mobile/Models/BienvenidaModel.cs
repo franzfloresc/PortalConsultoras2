@@ -50,5 +50,6 @@
         public bool EmailActivo { get; set; }
         public int TieneCupon { get; set; }
         public int TieneMasVendidos { get; set; }
+        public int TieneAsesoraOnline { get; set; }
     }
 }
