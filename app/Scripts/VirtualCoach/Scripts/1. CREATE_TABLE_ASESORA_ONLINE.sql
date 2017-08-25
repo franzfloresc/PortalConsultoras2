@@ -4,10 +4,11 @@ GO
 CREATE TABLE [dbo].[AsesoraOnline](
 	IdAsesoraOnline int IDENTITY(1,1) NOT NULL,
 	CodigoConsultora varchar(10) NULL,
-	TipsGestionClientes int NULL,
-	TipsMasClientes int NULL,
-	TipsVentas int NULL,
-	MasCatalogos int NULL,
+	ConfirmacionInscripcion int NULL,
+	Respuesta1 int NULL,
+	Respuesta2 int NULL,
+	Respuesta3 int NULL,
+	Respuesta4 int NULL,
 	FechaCreacion datetime NULL,
 	Origen varchar(100) NULL,
 PRIMARY KEY CLUSTERED 
