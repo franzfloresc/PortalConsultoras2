@@ -83,6 +83,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -138,7 +139,8 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="LogManager.cs" />
+    <Compile Include="LogManager\LogError.cs" />
+    <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="MailUtilities.cs" />
     <Compile Include="MandrillMail.cs" />
     <Compile Include="MaxMind\MaxMindReader.cs" />

@@ -16,3 +16,13 @@
     width: calc(100% - 80px);
     width: -webkit-calc(100% - 80px);
 }
+
+/*Estilos revistadigital*/
+.content_texto_gana {
+    margin: 0 auto;
+    float: left;
+    width: -moz-calc(100% -765px);
+    width: calc(100% - 765px);
+    width: -webkit-calc(100% - 765px);
+    width: -webkit-calc(~'100% - 765px');
+}

@@ -26,9 +26,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private bool ActivoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ApellidoClienteField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CelularField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -45,9 +42,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaginaField;
@@ -92,19 +86,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ActivoField.Equals(value) != true)) {
                     this.ActivoField = value;
                     this.RaisePropertyChanged("Activo");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ApellidoCliente {
-            get {
-                return this.ApellidoClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ApellidoClienteField, value) != true)) {
-                    this.ApellidoClienteField = value;
-                    this.RaisePropertyChanged("ApellidoCliente");
                 }
             }
         }
@@ -183,19 +164,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.NombreField, value) != true)) {
                     this.NombreField = value;
                     this.RaisePropertyChanged("Nombre");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCliente {
-            get {
-                return this.NombreClienteField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreClienteField, value) != true)) {
-                    this.NombreClienteField = value;
-                    this.RaisePropertyChanged("NombreCliente");
                 }
             }
         }
@@ -2689,9 +2657,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private string FotoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NombreCompletoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2699,9 +2664,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string OrigenField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceCliente.BEClienteRecordatorio[] RecordatoriosField;
@@ -2872,19 +2834,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string NombreCompleto {
-            get {
-                return this.NombreCompletoField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NombreCompletoField, value) != true)) {
-                    this.NombreCompletoField = value;
-                    this.RaisePropertyChanged("NombreCompleto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Nombres {
             get {
                 return this.NombresField;
@@ -2919,19 +2868,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.OrigenField, value) != true)) {
                     this.OrigenField = value;
                     this.RaisePropertyChanged("Origen");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
                 }
             }
         }
@@ -3941,6 +3877,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/CheckClienteByConsultora", ReplyAction="http://tempuri.org/IClienteService/CheckClienteByConsultoraResponse")]
         System.Threading.Tasks.Task<int> CheckClienteByConsultoraAsync(int paisID, long ConsultoraID, string Nombre);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetExisteClienteConsultora", ReplyAction="http://tempuri.org/IClienteService/GetExisteClienteConsultoraResponse")]
+        int GetExisteClienteConsultora(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetExisteClienteConsultora", ReplyAction="http://tempuri.org/IClienteService/GetExisteClienteConsultoraResponse")]
+        System.Threading.Tasks.Task<int> GetExisteClienteConsultoraAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/UndoCliente", ReplyAction="http://tempuri.org/IClienteService/UndoClienteResponse")]
         void UndoCliente(int paisID, long consultoraID, int clienteID);
         
@@ -4203,6 +4145,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<int> CheckClienteByConsultoraAsync(int paisID, long ConsultoraID, string Nombre) {
             return base.Channel.CheckClienteByConsultoraAsync(paisID, ConsultoraID, Nombre);
+        }
+        
+        public int GetExisteClienteConsultora(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad) {
+            return base.Channel.GetExisteClienteConsultora(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetExisteClienteConsultoraAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad) {
+            return base.Channel.GetExisteClienteConsultoraAsync(paisID, entidad);
         }
         
         public void UndoCliente(int paisID, long consultoraID, int clienteID) {
