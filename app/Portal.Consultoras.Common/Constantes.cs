@@ -724,6 +724,7 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class EstadoRDSuscripcion

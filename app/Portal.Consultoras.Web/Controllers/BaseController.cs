@@ -67,6 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     ViewBag.MenuContenedor = BuildMenuContenedor();
+                    ViewBag.MenuContenedorActivo = BuildMenuContenedorActivo();
                     ViewBag.MenuMobile = BuildMenuMobile(userData);
                     ViewBag.Permiso = BuildMenu();
                     ViewBag.ProgramasBelcorpMenu = BuildMenuService();
@@ -856,8 +857,18 @@ namespace Portal.Consultoras.Web.Controllers
             listaMenu.Add(BuildMenuContenedorInicio());
 
             var isMobile = IsMobile();
-            foreach (var confi in lista)
+            foreach (var confiModel in lista)
             {
+                var confi = confiModel;
+                if (confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
+                    || confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    || confi.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
+                {
+                    BuilTituloBannerRD(ref confi);
+                    confi.MobileTituloBanner = confi.DesktopTituloBanner;
+                    confi.MobileSubTituloBanner = confi.DesktopSubTituloBanner;
+                }
+
                 listaMenu.Add(new MenuContenedorModel {
                     Codigo = confi.Codigo,
                     CampaniaID = userData.CampaniaID,
@@ -871,10 +882,11 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
 
+
             if (userData.RevistaDigital.TieneRDC)
             {
-                var menuCampania = BuildMenuContenedorCampania();
-                listaMenu.AddRange(menuCampania);
+                //var menuCampania = BuildMenuContenedorCampania();
+                //listaMenu.AddRange(menuCampania);
 
                 listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
 
@@ -902,6 +914,105 @@ namespace Portal.Consultoras.Web.Controllers
             return listaMenu;
         }
 
+        public void BuilTituloBannerRD(ref ConfiguracionPaisModel confi)
+        {
+            confi.DesktopTituloBanner = userData.UsuarioNombre.ToUpper();
+            confi.DesktopSubTituloBanner = "";
+            
+            if (userData.RevistaDigital.TieneRDC)
+            {
+                if (userData.RevistaDigital.SuscripcionModel.CampaniaID > userData.CampaniaID)
+                    return;
+                
+                if (userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                    return;
+                }
+
+                if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                {
+                    if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                    {
+                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    }
+                    else if (userData.RevistaDigital.SuscripcionModel.CampaniaID == AddCampaniaAndNumero(userData.CampaniaID, -1))
+                    {
+                        confi.DesktopTituloBanner += ", LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES Y LANZAMIENTOS DE LAS 3 MARCAS. RECUERDA QUE PODRÁS AGREGARLOS A PARTIR DE LA PRÓXIMA CAMPAÑA";
+                    }
+                }
+                else
+                {
+                    confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. <br />INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
+                }
+                
+                return;
+            }
+
+            if (userData.RevistaDigital.TieneRDS)
+            {
+                if (!userData.RevistaDigital.TieneRDR)
+                {
+                    if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                    {
+                        confi.DesktopTituloBanner += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
+                    }
+                    else
+                    {
+                        confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+                        confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+                    }
+                    
+                    return;
+                }
+            }
+            else if (!userData.RevistaDigital.TieneRDR)
+            {
+                return;
+            }
+            
+            confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
+            confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
+        }
+
+        public MenuContenedorModel BuildMenuContenedorActivo()
+        {
+            var menu = new MenuContenedorModel();
+            try
+            {
+                menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
+
+                var listaMenus = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
+                if (menu.CampaniaID > 0 && menu.Codigo != "")
+                {
+                    menu = listaMenus.FirstOrDefault(m => m.Codigo == menu.Codigo && m.CampaniaID == menu.CampaniaID) ?? new MenuContenedorModel();
+                }
+
+                if (userData.RevistaDigital.TieneRDC)
+                {
+                    menu.CampaniaX0 = userData.CampaniaID;
+                    menu.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                }
+
+                menu.Codigo = Util.Trim(menu.Codigo);
+                menu.LogoBanner = Util.Trim(menu.LogoBanner);
+                menu.FondoBanner = Util.Trim(menu.FondoBanner);
+                menu.TituloBanner = Util.Trim(menu.TituloBanner);
+                menu.SubTituloBanner = Util.Trim(menu.SubTituloBanner);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return menu;
+        }
+
         public List<MenuContenedorModel> BuildMenuContenedorCampania()
         {
             var listaMenu = new List<MenuContenedorModel>();
@@ -909,36 +1020,34 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             listaMenu.Add(new MenuContenedorModel
             {
-                //CampaniaID = userData.CampaniaID,
-                //Logo = "/Content/Images/Esika/menu-icono-compra.png",
-                //TituloMenu = isMobile ? "C" + " - " + (userData.CampaniaID % 100).ToString() : "COMPRAR",
-                //SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
-                //Orden = 1,
-                //Activa = true,
-                IsMenuCampania = true,
-                CampaniaX0 = userData.CampaniaID,
-                CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                CampaniaID = userData.CampaniaID,
+                Logo = "/Content/Images/Esika/menu-icono-compra.png",
+                TituloMenu = isMobile ? "C" + " - " + (userData.CampaniaID % 100).ToString() : "COMPRAR",
+                SubTituloMenu = isMobile ? "" : ("C" + " - " + (userData.CampaniaID % 2).ToString()),
+                Orden = 1,
+                Activa = true,
+                IsMenuCampania = true
             });
 
-            //listaMenu.Add(new MenuContenedorModel
-            //{
-            //    CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-            //    Logo = "/Content/Images/Esika/menu-icono-revisar.png",
-            //    TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
-            //    SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
-            //    Orden = 2,
-            //    IsMenuCampania = true
-            //});
+            listaMenu.Add(new MenuContenedorModel
+            {
+                CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
+                Logo = "/Content/Images/Esika/menu-icono-revisar.png",
+                TituloMenu = isMobile ? "C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString() : "REVISAR",
+                SubTituloMenu = isMobile ? "" : ("C" + " - " + (AddCampaniaAndNumero(userData.CampaniaID, 1) % 2).ToString()),
+                Orden = 2,
+                IsMenuCampania = true
+            });
 
-            //listaMenu.Add(new MenuContenedorModel
-            //{
-            //    CampaniaID = 0,
-            //    Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
-            //    TituloMenu = isMobile ? "SABER MÁS" : "SABER",
-            //    SubTituloMenu = isMobile ? "" : "MÁS",
-            //    Orden = 3,
-            //    IsMenuCampania = true
-            //});
+            listaMenu.Add(new MenuContenedorModel
+            {
+                CampaniaID = 0,
+                Logo = "/Content/Images/Esika/menu-icono-pregunta.png",
+                TituloMenu = isMobile ? "SABER MÁS" : "SABER",
+                SubTituloMenu = isMobile ? "" : "MÁS",
+                Orden = 3,
+                IsMenuCampania = true
+            });
 
             return listaMenu;
         }

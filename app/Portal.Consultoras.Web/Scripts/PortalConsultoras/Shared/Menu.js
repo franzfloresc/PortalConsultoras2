@@ -101,9 +101,36 @@ function MenuContenedorClick(e, url) {
         codigo: $(objHtmlEvent).data("codigo")
     };
 
+    MenuContenedorGuardar(codigoLocal);
+
     LocalStorageListado(menuContenedorActivo, codigoLocal);
 
     window.location = url;
+}
+
+function MenuContenedorGuardar(codigoLocal) {
+    $.ajaxSetup({
+        cache: false
+    });
+
+    var detalle;
+
+    $.ajax({
+        type: 'POST',
+        url: "/Ofertas/GuardarMenuContenedor",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(codigoLocal),
+        async: false,
+        success: function (data) {
+            detalle = data.success || false;
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+
+    return detalle;
 }
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {

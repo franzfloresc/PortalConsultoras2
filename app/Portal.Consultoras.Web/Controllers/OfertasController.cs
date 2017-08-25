@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
+using Portal.Consultoras.Web.Models.Layout;
 using Portal.Consultoras.Web.ServicePedido;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return Json(new ConfiguracionSeccionHomeModel());
             }
+        }
+
+        [HttpPost]
+        public JsonResult GuardarMenuContenedor(string codigo, int campania)
+        {
+            Session[Constantes.SessionNames.MenuContenedorActivo] = new MenuContenedorModel {
+                CampaniaID = campania,
+                Codigo = codigo
+            };
+
+            return Json(new
+            {
+                success = true
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

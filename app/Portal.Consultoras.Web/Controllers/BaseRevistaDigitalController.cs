@@ -11,10 +11,10 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BaseRevistaDigitalController : BaseEstrategiaController
     {
-        public ActionResult IndexModel(int tipo = -1)
+        public ActionResult IndexModel()
         {
             var model = new RevistaDigitalModel();
-            model.EstadoAccion = -1;
+            //model.EstadoAccion = -1;
             model.IsMobile = IsMobile();
 
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
@@ -26,23 +26,23 @@ namespace Portal.Consultoras.Web.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
             }
             
-            model = ListarTabs(model);
+            //model = ListarTabs(model);
 
-            if (model.EstadoAccion < 0)
-                return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
+            //if (model.EstadoAccion < 0)
+            //    return RedirectToAction("Index", "Bienvenida", new { area = model.IsMobile ? "Mobile" : "" });
 
             model.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             model.CampaniaMasUno = AddCampaniaAndNumero(userData.CampaniaID, 1) % 100;
             model.CampaniaMasDos = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
             
             model.NumeroContacto = Util.Trim(ConfigurationManager.AppSettings["BelcorpRespondeTEL_" + userData.CodigoISO]);
-            model.CantidadFilas = 10;
+            //model.CantidadFilas = 10;
 
-            model.MensajeProductoBloqueado = MensajeProductoBloqueado();
+            //model.MensajeProductoBloqueado = MensajeProductoBloqueado();
 
-            if (tipo == 0) return View("template-informativa", model);
+            return View("template-informativa", model);
 
-            return View("Index", model);
+            //return View("Index", model);
         }
 
         public ActionResult ViewLanding(int tipo)
@@ -52,7 +52,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
 
             model.CampaniaID = id;
-            model.IsMobile = ViewBag.EsMobile == 2;
+            model.IsMobile = IsMobile();
 
             model.FiltersBySorting = new List<BETablaLogicaDatos>();
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
