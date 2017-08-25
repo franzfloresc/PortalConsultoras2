@@ -140,6 +140,11 @@ namespace Portal.Consultoras.Entities
             /*EPD-1068*/
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
+
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
+            //EPD-1919 FIN
         }
 
         public BEUsuario(IDataRecord row, bool Tipo)
@@ -411,6 +416,12 @@ namespace Portal.Consultoras.Entities
             
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
+            
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
+            //EPD-1919 FIN
+
             if (DataRecord.HasColumn(row, "FechaInicioFacturacion") && row["FechaInicioFacturacion"] != DBNull.Value)
                 FechaInicioFacturacion = DbConvert.ToDateTime(row["FechaInicioFacturacion"]);
             if (DataRecord.HasColumn(row, "FechaFinFacturacion") && row["FechaFinFacturacion"] != DBNull.Value)
@@ -1161,6 +1172,10 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "DigitoVerificador") && row["DigitoVerificador"] != DBNull.Value)
                 digitoVerificador = (row["DigitoVerificador"]).ToString();
 
+            //EPD-1919 INICIO
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            //EPD-1919 FIN
+
         }
         /* R2392 - AHAA - LIDERES - FIN */
 
@@ -1243,6 +1258,11 @@ namespace Portal.Consultoras.Entities
                 msRpta4 = Convert.ToString(row["Rpta4"]);
             if (DataRecord.HasColumn(row, "FechaActualPais"))
                 FechaActualPais = Convert.ToDateTime(row["FechaActualPais"]);
+
+            //EPD-1919 INICIO            
+            if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
+            //EPD-1919 FIN
+
         }
         /*R2520 - JICM - LIDERES - FIN*/
 
@@ -1252,5 +1272,12 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int MensajePedidoMobile { get; set; }
+
+        //EPD-1919 INICIO
+        [DataMember]
+        public bool TieneCDRExpress { get; set; }
+        [DataMember]
+        public bool EsConsecutivoNueva { get; set; }
+        //EPD-1919 FIN
     }
 }

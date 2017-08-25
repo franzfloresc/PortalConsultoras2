@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         using (var sv = new PedidoServiceClient())
                         {
                             var result = sv.ValidacionModificarPedidoSelectiva(userData.PaisID, userData.ConsultoraID, userData.CampaniaID, userData.UsuarioPrueba == 1, userData.AceptacionConsultoraDA, false, true, false);
-                            if (result.MotivoPedidoLock == Enumeradores.MotivoPedidoLock.Reservado) mostrarBanner = false;
+                            if (result.MotivoPedidoLock == EnumeradoresMotivoPedidoLock.Reservado) mostrarBanner = false;
                         }
                     }
                 }
