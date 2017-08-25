@@ -4,7 +4,6 @@ using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.Layout;
-using Portal.Consultoras.Web.ServiceContenido;
 using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServicePedidoRechazado;
 using Portal.Consultoras.Web.ServiceSAC;
@@ -12,6 +11,7 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -30,6 +30,8 @@ namespace Portal.Consultoras.Web.Controllers
         #region Variables
 
         protected UsuarioModel userData;
+        protected ISessionManager sessionManager = SessionManager.SessionManager.Instance;
+
         #endregion
 
         #region Constructor
@@ -37,6 +39,12 @@ namespace Portal.Consultoras.Web.Controllers
         public BaseController()
         {
             userData = new UsuarioModel();
+        }
+
+        public BaseController(ISessionManager sessionManager)
+            : this()
+        {
+            this.sessionManager = sessionManager;
         }
 
         #endregion
@@ -66,11 +74,21 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    ViewBag.MenuContenedor = BuildMenuContenedor();
+                    
+                    if (Request.IsAjaxRequest())
+                    {
+                        base.OnActionExecuting(filterContext);
+                        return;
+                    }
+		    
+		    ViewBag.MenuContenedor = BuildMenuContenedor();
                     ViewBag.MenuContenedorActivo = BuildMenuContenedorActivo();
                     ViewBag.MenuMobile = BuildMenuMobile(userData);
+
                     ViewBag.Permiso = BuildMenu();
-                    ViewBag.ProgramasBelcorpMenu = BuildMenuService();
+
+                    ViewBag.ProgramaBelcorpMenu = BuildMenuService();
+
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
                     /*** EPD 2170 ***/
@@ -92,8 +110,9 @@ namespace Portal.Consultoras.Web.Controllers
                     /*** FIN EPD 2170 ***/
 
                     ViewBag.UrlRaizS3 = string.Format("{0}/{1}/{2}/", ConfigurationManager.AppSettings["URL_S3"], ConfigurationManager.AppSettings["BUCKET_NAME"], ConfigurationManager.AppSettings["ROOT_DIRECTORY"]);
-                    ViewBag.ServiceController = ConfigurationManager.AppSettings["ServiceController"].ToString();
-                    ViewBag.ServiceAction = ConfigurationManager.AppSettings["ServiceAction"].ToString();
+
+                    ViewBag.ServiceController = (ConfigurationManager.AppSettings["ServiceController"] == null) ? "" : ConfigurationManager.AppSettings["ServiceController"].ToString();
+                    ViewBag.ServiceAction = (ConfigurationManager.AppSettings["ServiceAction"] == null) ? "" : ConfigurationManager.AppSettings["ServiceAction"].ToString();
 
                     ObtenerPedidoWeb();
                     ObtenerPedidoWebDetalle();
@@ -109,15 +128,8 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    ViewBag.FingerprintOk = 0;
-                    ViewBag.TokenPedidoAutenticoOk = 0;
-
-                    if (Session["Fingerprint"] != null)
-                        ViewBag.FingerprintOk = 1;
-
-                    if (Session["TokenPedidoAutentico"] != null)
-                        ViewBag.TokenPedidoAutenticoOk = 1;
-
+                    ViewBag.FingerprintOk = (Session["Fingerprint"] != null) ? 1 : 0;
+                    ViewBag.TokenPedidoAutenticoOk = (Session["TokenPedidoAutentico"] != null) ? 1 : 0;
                     ViewBag.CodigoEstrategia = GetCodigoEstrategia();
                 }
 
@@ -135,64 +147,95 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region Pedido
 
-        protected BEPedidoWeb ObtenerPedidoWeb()
+        public virtual BEPedidoWeb ObtenerPedidoWeb()
         {
-            var bePedidoWeb = (BEPedidoWeb)Session["PedidoWeb"];
+            var pedidoWeb = (BEPedidoWeb)null;
 
-            if (bePedidoWeb != null)
-                return bePedidoWeb;
-
-            using (var sv = new PedidoServiceClient())
+            try
             {
-                bePedidoWeb = sv.GetPedidoWebByCampaniaConsultora(userData.PaisID, userData.CampaniaID, userData.ConsultoraID);
+                pedidoWeb = sessionManager.GetPedidoWeb();
+
+                if (pedidoWeb == null)
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        pedidoWeb = pedidoServiceClient.GetPedidoWebByCampaniaConsultora(
+                            userData.PaisID,
+                            userData.CampaniaID,
+                            userData.ConsultoraID
+                        );
+                    }
+
+                pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
+                sessionManager.SetPedidoWeb(pedidoWeb);
+            }
+            catch (Exception ex)
+            {
+                pedidoWeb = pedidoWeb ?? new BEPedidoWeb();
+                sessionManager.SetPedidoWeb(pedidoWeb);
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            bePedidoWeb = bePedidoWeb ?? new BEPedidoWeb();
-
-            Session["PedidoWeb"] = bePedidoWeb;
-
-            return bePedidoWeb;
+            return pedidoWeb;
+        }
+        protected int EsOpt()
+        {
+            var esOpt = userData.RevistaDigital.TieneRDR
+                    || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
+                    ? 1 : 2;
+            return esOpt;
         }
 
-        protected List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
+
+        public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
-            List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-
-            if (Session["PedidoWebDetalle"] == null)
+            var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
+            try
             {
-                using (PedidoServiceClient sv = new PedidoServiceClient())
+                detallesPedidoWeb = sessionManager.GetDetallesPedido();
+
+                if (detallesPedidoWeb == null)
                 {
-                    olstPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    using (var pedidoServiceClient = new PedidoServiceClient())
+                    {
+                        detallesPedidoWeb = pedidoServiceClient.SelectByCampania(
+                            userData.PaisID,
+                            userData.CampaniaID,
+                            userData.ConsultoraID,
+                            userData.NombreConsultora, 
+                            EsOpt()
+                        ).ToList();
+                    }
                 }
-            }
-            else
-            {
-                olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-            }
 
-            if (Session["ObservacionesPROL"] != null)
-            {
-                List<ObservacionModel> Observaciones = (List<ObservacionModel>)Session["ObservacionesPROL"];
-                if (Observaciones != null)
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+
+                foreach (var item in detallesPedidoWeb)
                 {
-                    olstPedidoWebDetalle = PedidoConObservaciones(olstPedidoWebDetalle, Observaciones);
+                    item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
+                    item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
                 }
+                var observacionesProl = sessionManager.GetObservacionesProl();
+                if (detallesPedidoWeb.Count > 0 && observacionesProl != null)
+                {
+                    detallesPedidoWeb = PedidoConObservaciones(detallesPedidoWeb, observacionesProl);
+                }
+
+                userData.PedidoID = detallesPedidoWeb.Count > 0 ? detallesPedidoWeb[0].PedidoID : 0;
+
+                SetUserData(userData);
+
+                sessionManager.SetDetallesPedido(detallesPedidoWeb);
             }
-
-            olstPedidoWebDetalle = olstPedidoWebDetalle ?? new List<BEPedidoWebDetalle>();
-
-            foreach (var item in olstPedidoWebDetalle)
+            catch (Exception ex)
             {
-                item.ClienteID = string.IsNullOrEmpty(item.Nombre) ? (short)0 : Convert.ToInt16(item.ClienteID);
-                item.Nombre = string.IsNullOrEmpty(item.Nombre) ? userData.NombreConsultora : item.Nombre;
+                detallesPedidoWeb = detallesPedidoWeb ?? new List<BEPedidoWebDetalle>();
+                sessionManager.SetDetallesPedido(detallesPedidoWeb);
+
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            Session["PedidoWebDetalle"] = olstPedidoWebDetalle;
-
-            userData.PedidoID = olstPedidoWebDetalle.Count > 0 ? olstPedidoWebDetalle[0].PedidoID : 0;
-            SetUserData(userData);
-
-            return olstPedidoWebDetalle;
+            return detallesPedidoWeb;
         }
 
         protected List<BEPedidoWebDetalle> PedidoConObservaciones(List<BEPedidoWebDetalle> Pedido, List<ObservacionModel> Observaciones)
@@ -297,25 +340,23 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session["PedidoWebDetalle"] != null)
-                {
-                    List<BEPedidoWebDetalle> olstPedidoWebDetalle = new List<BEPedidoWebDetalle>();
-                    olstPedidoWebDetalle = (List<BEPedidoWebDetalle>)Session["PedidoWebDetalle"];
-                    if (olstPedidoWebDetalle.Any())
-                    {
-                        BEPedidoWebDetalle bePedidoWebDetalle = olstPedidoWebDetalle.Where(x => x.CUV == cuv).FirstOrDefault();
-                        if (bePedidoWebDetalle != null)
-                        {
-                            indPedidoAutentico.PedidoID = bePedidoWebDetalle.PedidoID;
-                            indPedidoAutentico.PedidoDetalleID = bePedidoWebDetalle.PedidoDetalleID;
+                var detallesPedido = sessionManager.GetDetallesPedido();
 
-                            using (PedidoServiceClient svc = new PedidoServiceClient())
-                            {
-                                svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
-                            }
+                if (detallesPedido != null && detallesPedido.Any())
+                {
+                    var detallePedido = detallesPedido.Where(x => x.CUV == cuv).FirstOrDefault();
+                    if (detallePedido != null)
+                    {
+                        indPedidoAutentico.PedidoID = detallePedido.PedidoID;
+                        indPedidoAutentico.PedidoDetalleID = detallePedido.PedidoDetalleID;
+
+                        using (PedidoServiceClient svc = new PedidoServiceClient())
+                        {
+                            svc.InsIndicadorPedidoAutentico(userData.PaisID, indPedidoAutentico);
                         }
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -358,12 +399,12 @@ namespace Portal.Consultoras.Web.Controllers
 
                 // Insertar/Actualizar los puntos de la consultora.
                 //if (lista[0].ListaConcursoIncentivos != null)
-                if(!string.IsNullOrEmpty(userData.CodigosConcursos))
+                if (!string.IsNullOrEmpty(userData.CodigosConcursos))
                     sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
             }
 
             // poner en Session
-            Session["PedidoWeb"] = null;
+            sessionManager.SetPedidoWeb(null);
             userData.EjecutaProl = true;
             ObtenerPedidoWeb();
         }
@@ -431,9 +472,9 @@ namespace Portal.Consultoras.Web.Controllers
                 return SepararItemsMenu(lista1);
             }
 
-            IList<ServiceSeguridad.BEPermiso> lst = new List<ServiceSeguridad.BEPermiso>();
+            IList<BEPermiso> lst = new List<BEPermiso>();
 
-            using (ServiceSeguridad.SeguridadServiceClient sv = new ServiceSeguridad.SeguridadServiceClient())
+            using (SeguridadServiceClient sv = new SeguridadServiceClient())
             {
                 lst = sv.GetPermisosByRol(userData.PaisID, userData.RolID).ToList();
             }
@@ -446,7 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
             lista1 = Mapper.Map<List<PermisoModel>>(lst);
-            
+
             List<PermisoModel> lstModel = new List<PermisoModel>();
 
             foreach (var permiso in lista1)
@@ -459,7 +500,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
-                    {
+                {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
                         permiso.UrlItem = AccionControlador("sr");
                     else
@@ -588,19 +629,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
 
-            //if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()))
-            //{
-            //    var listaJunto = lstModel.Where(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower());
-            //    if (listaJunto.Count() == 2)
-            //    {
-            //        lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
-            //    }
-            //    else
-            //    {
-            //        lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
-            //    }
-            //}
-            //else 
             if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
                 var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
@@ -620,19 +648,18 @@ namespace Portal.Consultoras.Web.Controllers
 
         public List<MenuMobileModel> BuildMenuMobile(UsuarioModel userData)
         {
-            ViewBag.CantPedidosPendientes = 0;
-
-            var lstModel = new List<MenuMobileModel>();
-
-            if (userData.RolID != Constantes.Rol.Consultora)
-            {
-                return lstModel;
-            }
-
             if (userData.MenuMobile != null)
             {
-                lstModel = userData.MenuMobile;
-                return lstModel;
+                SetConsultoraOnlineViewBag(userData);
+                return userData.MenuMobile;
+            }
+
+            userData.MenuMobile = new List<MenuMobileModel>();
+            userData.ConsultoraOnlineMenuResumen = new ConsultoraOnlineMenuResumenModel();
+            if (userData.RolID != Constantes.Rol.Consultora)
+            {
+                SetConsultoraOnlineViewBag(userData);
+                return userData.MenuMobile;
             }
 
             IList<BEMenuMobile> lst;
@@ -643,50 +670,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida)
                 lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "mobile/catalogopersonalizado/index"));
-
-            var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
-            var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
-            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
-            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
-            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
-
-            if (!mostrarClienteOnline)
-            {
-                lst.Remove(menuConsultoraOnlinePadre);
-                lst.Remove(menuConsultoraOnlineHijo);
-                ViewBag.TipoMenuConsultoraOnline = 0;
-            }
-            else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
-            {
-                int esConsultoraOnline = -1;
-                using (var svc = new UsuarioServiceClient())
-                {
-                    esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
-                    if (esConsultoraOnline >= 0)
-                    {
-                        ViewBag.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                        ViewBag.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
-                    }
-                }
-
-                if (esConsultoraOnline == -1)
-                {
-                    ViewBag.TipoMenuConsultoraOnline = 1;
-                    ViewBag.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
-                    lst.Remove(menuConsultoraOnlinePadre);
-                }
-                else
-                {
-                    ViewBag.TipoMenuConsultoraOnline = 2;
-                    ViewBag.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
-                }
-
-                if (menuConsultoraOnlineHijo != null)
-                {
-                    string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
-                    menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
-                }
-            }
+            ValidateConsultoraOnlineMenu(userData, lst);
 
             var listadoMenu = Mapper.Map<List<MenuMobileModel>>(lst);
             var listadoMenuFinal = new List<MenuMobileModel>();
@@ -709,7 +693,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.MenuMobileID == 1039)
                 {
-                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~","") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
+                    menu.EstiloMenu = "background: url(" + menu.UrlImagen.Replace("~", "") + ") no-repeat; background-position: 7px 16px; background-size: 12px 12px;";
                 }
 
                 if (menu.Posicion.ToLower() != "menu")
@@ -731,7 +715,6 @@ namespace Portal.Consultoras.Web.Controllers
                 menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "mi academia" ? "javascript:;" : menu.UrlItem;
                 menu.UrlItem = ViewBag.TipoUsuario == 2 && menu.Descripcion.ToLower() == "app de catálogos" ? "javascript:;" : menu.UrlItem;
 
-                //if (menu.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
                     if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
@@ -781,11 +764,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             //Agregamos los menú Padre
-            foreach (var item in listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem))
-            {
-                lstModel.Add(item);
-            }
-
+            var lstModel = listadoMenuFinal.Where(item => item.MenuPadreID == 0).OrderBy(item => item.OrdenItem).ToList();
             //Agregamos los items para cada menú Padre
             foreach (var item in lstModel)
             {
@@ -805,19 +784,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
 
-            //if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()))
-            //{
-            //    var listaJunto = lstModel.Where(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower());
-            //    if (listaJunto.Count() == 2)
-            //    {
-            //        lstModel = lstModel.Where(m => !(m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower() || m.Codigo == Constantes.MenuCodigo.RevistaShowRoom.ToLower())).ToList();
-            //    }
-            //    else
-            //    {
-            //        lstModel = lstModel.Where(m => m.Codigo != Constantes.MenuCodigo.RevistaDigitalShowRoom.ToLower()).ToList();
-            //    }
-            //}
-            //else
             if (lstModel.Any(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower()))
             {
                 var menuRd = lstModel.Find(m => m.Codigo == Constantes.MenuCodigo.RevistaDigital.ToLower());
@@ -842,7 +808,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             userData.MenuMobile = lstModel;
-            
+            SetConsultoraOnlineViewBag(userData);
             return lstModel;
         }
 
@@ -1068,17 +1034,6 @@ namespace Portal.Consultoras.Web.Controllers
             return menu;
         }
 
-        private int MostrarMenuCDR()
-        {
-            int resultado = 0;
-            if (Session["UserData"] != null)
-            {
-                var tieneAcceso = userData.IndicadorBloqueoCDR == 0;
-                var tieneAccesoZona = userData.EsCDRWebZonaValida == 1;
-            }
-            return resultado;
-        }
-
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
             // Crear lista resultante
@@ -1118,7 +1073,14 @@ namespace Portal.Consultoras.Web.Controllers
                 IList<ServiceSAC.BEServicioCampania> lstTemp_2 = new List<ServiceSAC.BEServicioCampania>();
                 IList<ServiceSAC.BEServicioCampania> lst = new List<ServiceSAC.BEServicioCampania>();
 
-                using (SACServiceClient sv = new SACServiceClient())
+                SACServiceClient sv = null;
+                try
+                {
+                    sv = new SACServiceClient();
+                }
+                catch (Exception) { }
+
+                if (sv != null)
                 {
                     lstTemp_1 = sv.GetServicioByCampaniaPais(userData.PaisID, userData.CampaniaID).ToList();
                 }
@@ -1157,10 +1119,62 @@ namespace Portal.Consultoras.Web.Controllers
             return userData.MenuService;
         }
 
+        private void SetConsultoraOnlineViewBag(UsuarioModel userData)
+        {
+            userData.ConsultoraOnlineMenuResumen = userData.ConsultoraOnlineMenuResumen ?? new ConsultoraOnlineMenuResumenModel();
+            ViewBag.TipoMenuConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline;
+            ViewBag.CantPedidosPendientes = userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes;
+            ViewBag.TeQuedanConsultoraOnline = userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline;
+            ViewBag.MenuHijoIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline;
+            ViewBag.MenuPadreIDConsultoraOnline = userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline;
+        }
+
+        private void ValidateConsultoraOnlineMenu(UsuarioModel userData, IList<BEMenuMobile> lst)
+        {
+            var menuConsultoraOnlinePadre = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID == 0);
+            var menuConsultoraOnlineHijo = lst.FirstOrDefault(m => m.Descripcion.ToLower().Trim() == "app de catálogos" && m.MenuPadreID != 0);
+            string mostrarPedidosPendientes = ConfigurationManager.AppSettings.Get("MostrarPedidosPendientes");
+            string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
+            bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
+
+            if (!mostrarClienteOnline)
+            {
+                lst.Remove(menuConsultoraOnlinePadre);
+                lst.Remove(menuConsultoraOnlineHijo);
+                userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 0;
+            }
+            else if (menuConsultoraOnlinePadre != null || menuConsultoraOnlineHijo != null)
+            {
+                int esConsultoraOnline = -1;
+                using (var svc = new UsuarioServiceClient())
+                {
+                    esConsultoraOnline = svc.GetCantidadPedidosConsultoraOnline(userData.PaisID, userData.ConsultoraID);
+                    if (esConsultoraOnline >= 0)
+                    {
+                        userData.ConsultoraOnlineMenuResumen.CantPedidosPendientes = svc.GetCantidadSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        userData.ConsultoraOnlineMenuResumen.TeQuedanConsultoraOnline = svc.GetSaldoHorasSolicitudesPedido(userData.PaisID, userData.ConsultoraID, userData.CampaniaID);
+                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 2;
+                        userData.ConsultoraOnlineMenuResumen.MenuPadreIDConsultoraOnline = menuConsultoraOnlinePadre != null ? menuConsultoraOnlinePadre.MenuMobileID : 0;
+                    }
+                    else
+                    {
+                        userData.ConsultoraOnlineMenuResumen.TipoMenuConsultoraOnline = 1;
+                        userData.ConsultoraOnlineMenuResumen.MenuHijoIDConsultoraOnline = menuConsultoraOnlineHijo != null ? menuConsultoraOnlineHijo.MenuMobileID : 0;
+                        lst.Remove(menuConsultoraOnlinePadre);
+                    }
+                }
+
+                if (menuConsultoraOnlineHijo != null)
+                {
+                    string[] arrayUrlConsultoraOnlineHijo = menuConsultoraOnlineHijo.UrlItem.Split(new string[] { "||" }, StringSplitOptions.None);
+                    menuConsultoraOnlineHijo.UrlItem = arrayUrlConsultoraOnlineHijo[esConsultoraOnline == -1 ? 0 : arrayUrlConsultoraOnlineHijo.Length - 1];
+                }
+            }
+        }
+
         #endregion
 
-        #region UserData
-
+        #region UserData        
         protected void SetUserData(UsuarioModel model)
         {
             Session["UserData"] = model;
@@ -1168,8 +1182,27 @@ namespace Portal.Consultoras.Web.Controllers
 
         public UsuarioModel UserData()
         {
-            UsuarioModel model = (UsuarioModel)Session["UserData"];
-            string UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
+            UsuarioModel model = null;
+            string UrlEMTELCO = "";
+
+            try
+            {
+                model = (UsuarioModel)Session["UserData"];
+            }
+            catch (Exception)
+            {
+                model = null;
+            }
+
+            try
+            {
+                UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
+            }
+            catch (Exception)
+            {
+                UrlEMTELCO = "";
+            }
+
             if (model == null)
             {
                 return model;
@@ -1373,8 +1406,11 @@ namespace Portal.Consultoras.Web.Controllers
 
             //GPR
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
-            ViewBag.CerrarRechazado = model.CerrarRechazado;
+            ViewBag.CerrarRechazado = model.CerrarRechazado;  
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+           
+
+
             ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
             ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
             ViewBag.GPRBannerUrl = model.GPRBannerUrl;
@@ -1431,6 +1467,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return this.GetProductosFaltantes("", "");
         }
+
         protected List<BEProductoFaltante> GetProductosFaltantes(string cuv, string descripcion)
         {
             List<BEProductoFaltante> olstProductoFaltante = new List<BEProductoFaltante>();
@@ -1439,36 +1476,6 @@ namespace Portal.Consultoras.Web.Controllers
                 olstProductoFaltante = sv.GetProductoFaltanteByCampaniaAndZonaID(userData.PaisID, userData.CampaniaID, userData.ZonaID, cuv, descripcion).ToList();
             }
             return olstProductoFaltante;
-        }
-        private List<TipoLinkModel> GetLinksPorPais(int PaisID)
-        {
-            List<ServiceContenido.BETipoLink> listModel = new List<ServiceContenido.BETipoLink>();
-            using (ServiceContenido.ContenidoServiceClient sv = new ServiceContenido.ContenidoServiceClient())
-            {
-                listModel = sv.GetLinksPorPais(PaisID).ToList();
-            }
-
-            Mapper.CreateMap<BETipoLink, TipoLinkModel>()
-                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                  .ForMember(t => t.TipoLinkID, f => f.MapFrom(c => c.TipoLinkID))
-                  .ForMember(t => t.Url, f => f.MapFrom(c => c.Url));
-
-            return Mapper.Map<IList<BETipoLink>, List<TipoLinkModel>>(listModel);
-        }
-
-        private bool GetPermisoFlexipago(int PaisID, string PaisISO, string CodigoConsultora, int CampaniaID)
-        {
-            bool Result = false;
-            string hasFlexipago = ConfigurationManager.AppSettings.Get("PaisesFlexipago") ?? string.Empty;
-            if (hasFlexipago.Contains(PaisISO))
-            {
-                using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
-                {
-                    Result = sv.GetPermisoFlexipago(PaisID, CodigoConsultora, CampaniaID);
-                }
-            }
-
-            return Result;
         }
 
         private string NombreCampania(string Campania)
@@ -1526,47 +1533,6 @@ namespace Portal.Consultoras.Web.Controllers
                 System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
             }
             return IP;
-        }
-
-        private bool EsUsuarioComunidad(int PaisId, string CodigoUsuario)
-        {
-            ServiceComunidad.BEUsuarioComunidad result = null;
-            try
-            {
-                using (ServiceComunidad.ComunidadServiceClient sv = new ServiceComunidad.ComunidadServiceClient())
-                {
-                    result = sv.GetUsuarioInformacion(new ServiceComunidad.BEUsuarioComunidad()
-                    {
-                        PaisId = PaisId,
-                        UsuarioId = 0,
-                        CodigoUsuario = CodigoUsuario,
-                        Tipo = 3
-                    });
-                }
-            }
-            catch
-            {
-
-            }
-
-            return result == null ? false : true;
-        }
-
-        private int TieneNotificaciones(ServiceUsuario.BEUsuario oBEUsuario)
-        {
-            int Tiene = 0;
-            List<BENotificaciones> olstNotificaciones = new List<BENotificaciones>();
-            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-            {
-                olstNotificaciones = sv.GetNotificacionesConsultora(oBEUsuario.PaisID, oBEUsuario.ConsultoraID, oBEUsuario.IndicadorBloqueoCDR).ToList();
-            }
-            if (olstNotificaciones.Count != 0)
-            {
-                int Cantidad = olstNotificaciones.Count(p => p.Visualizado == false);
-                if (Cantidad > 0)
-                    Tiene = 1;
-            }
-            return Tiene;
         }
 
         protected void CargarEntidadesShowRoom(UsuarioModel model)
@@ -1801,6 +1767,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return AddCampaniaAndNumero(campania, numero, userData.NroCampanias);
         }
+
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             if (campania <= 0) return 0;
@@ -1808,7 +1775,7 @@ namespace Portal.Consultoras.Web.Controllers
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
 
-            if (nroCampania <= 0) return 0;
+            if (nroCampanias <= 0) return 0;
 
             int sumNroCampania = (nroCampania + numero) - 1;
             int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
@@ -2076,36 +2043,6 @@ namespace Portal.Consultoras.Web.Controllers
             return lst;
         }
 
-        private void ActualizarDatosHana(ref UsuarioModel model)
-        {
-            using (UsuarioServiceClient us = new UsuarioServiceClient())
-            {
-                var datosConsultoraHana = us.GetDatosConsultoraHana(model.PaisID, model.CodigoUsuario, model.CampaniaID);
-
-                if (datosConsultoraHana != null)
-                {
-                    model.FechaLimPago = datosConsultoraHana.FechaLimPago;
-                    model.MontoMinimo = datosConsultoraHana.MontoMinimoPedido;
-                    model.MontoMaximo = datosConsultoraHana.MontoMaximoPedido;
-                    model.MontoDeuda = datosConsultoraHana.MontoDeuda;
-                    model.IndicadorFlexiPago = datosConsultoraHana.IndicadorFlexiPago;
-                    model.MontoMinimoFlexipago = string.Format("{0:#,##0.00}", (datosConsultoraHana.MontoMinimoFlexipago < 0 ? 0M : datosConsultoraHana.MontoMinimoFlexipago));
-                }
-            }
-        }
-
-        private string CalcularNroCampaniaSiguiente(string CampaniaActual, int nroCampanias)
-        {
-            CampaniaActual = CampaniaActual ?? "";
-            CampaniaActual = CampaniaActual.Trim();
-            if (CampaniaActual.Length < 6)
-                return "";
-
-            var campAct = CampaniaActual.Substring(4, 2);
-            if (campAct == nroCampanias.ToString()) return "01";
-            return (Convert.ToInt32(campAct) + 1).ToString().PadLeft(2, '0');
-        }
-
         public String GetFechaPromesaEntrega(int PaisId, int CampaniaId, string CodigoConsultora, DateTime FechaFact)
         {
             string sFecha = Convert.ToDateTime("2000-01-01").ToString();
@@ -2117,7 +2054,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
@@ -2349,6 +2286,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (RegionID > -1) listaZonas = listaZonas.Where(x => x.RegionID == RegionID).ToList();
             return Json(new { success = true, listaZonas = listaZonas }, JsonRequestBehavior.AllowGet);
         }
+
         #endregion
 
         #region LogDynamo
@@ -2400,17 +2338,6 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
             }
-        }
-
-        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
-        {
-            DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
-            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
-        }
-
-        protected JsonResult ErrorJson(string message)
-        {
-            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
@@ -2492,7 +2419,19 @@ namespace Portal.Consultoras.Web.Controllers
                 model.MotivoRechazo = Constantes.GPRMotivoRechazo.ActualizacionDeuda;
             }
         }
+
         #endregion
+
+        protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
+        {
+            DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
+            return fechaHoy >= fechaInicioCampania.Date ? 0 : (fechaInicioCampania.Subtract(DateTime.Now.AddHours(zonaHoraria)).Days + 1);
+        }
+
+        protected JsonResult ErrorJson(string message)
+        {
+            return Json(new { success = false, message = message }, JsonRequestBehavior.AllowGet);
+        }
 
         public String GetUrlCompartirFB()
         {
@@ -2541,6 +2480,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
+
         protected JsonResult SuccessJson(string message, bool allowGet = false)
         {
             return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
@@ -2695,7 +2635,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return valor;
         }
-        
+
+        protected string GetPaisesEsikaFromConfig()
+        {
+            return ConfigurationManager.AppSettings.Get("PaisesEsika") ?? string.Empty;
+        }
+
         #region Configuracion Seccion Palanca
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
         {
@@ -2797,6 +2742,8 @@ namespace Portal.Consultoras.Web.Controllers
             return seccion;
         }
         #endregion
+
+
     }
 }
 

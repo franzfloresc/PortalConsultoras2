@@ -863,7 +863,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             type: "POST",
             async: true,
             crossDomain: true,
-            url: urlLogDynamo,
+            url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
             success: function (result) { console.log(result); },
