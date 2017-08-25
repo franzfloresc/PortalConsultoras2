@@ -1423,10 +1423,10 @@
 
 @media screen and (max-width:767px){
 
-    .popup_felicitaciones_coach_virtual{
+    .popup_felicitaciones_coach_virtual, .altoPopupConsultoraConRegistro{
         width:93%;
         top:4.5%;
-        margin:0 auto 17px auto;
+        margin:0 auto 17px auto!important;
     }
 
 }
@@ -1456,7 +1456,7 @@
 	}
 
 	.bloque_der_datos .datos_consultora_inscrita:last-child{
-		padding-top:4px;
+		padding-top:0;
 	}
 
 	.icono_mail_coach_virtual, .icono_smartphone_coach_virtual{
@@ -1465,7 +1465,7 @@
 	}
 
 	.icono_mail_coach_virtual{
-		padding-top:1px;
+		padding-top:3px;
 	}
 
 	.icono_mail_coach_virtual img {
@@ -1475,6 +1475,7 @@
 
 	.icono_smartphone_coach_virtual{
 		padding-right:5px;
+        padding-top:3px;
 	}
 
 	.icono_smartphone_coach_virtual img {
@@ -1485,3 +1486,84 @@
 }
 
 /* FIN POPUP FELICITACIONES INSCRIPCIÓN A COACH VIRTUAL */
+
+/* INICIO ESTILOS ADICIONALES PARA POPUP CONSULTORA YA REGISTRADA A COACH VIRTUAL */
+
+.altoPopupConsultoraConRegistro{
+    margin: -222.5px auto 0 auto;
+    height:445px;
+}
+
+.info_advertencia_consultora_registrada{
+    display:block;
+    margin-top:11px;
+    margin-bottom:29px;
+}
+
+.mb-12{
+    margin-bottom:12px;
+}
+
+.mb-20{
+    margin-bottom:20px;
+}
+
+.texto_datos_mensajeF{
+    font-size:18px;
+}
+
+.icono_advertencia_datos_registrados, .mensaje_advertencia_datos_registrados{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_advertencia_datos_registrados{
+    width:36px;
+    height:37px;
+    margin-right:10px;
+}
+
+.icono_advertencia_datos_registrados img{
+    width:100%;
+    height:auto;
+}
+
+.mensaje_advertencia_datos_registrados{
+    font-size:20px;
+    letter-spacing:0.5px;
+}
+
+@media screen and (max-width:600px){
+
+    .mensaje_advertencia_datos_registrados{
+        font-size:15px;
+    }
+
+    .texto_datos_mensajeF{
+        font-size:14px;
+    }
+
+    .altoPopupConsultoraConRegistro{
+        height:auto;
+        padding-bottom:50px;
+    }
+
+}
+
+@media screen and (min-width:481px) and (max-width:767px){
+
+    .mensaje_advertencia_datos_registrados{
+        margin-top:0;
+    }
+
+}
+
+@media screen and (max-width:480px){
+
+    .mensaje_advertencia_datos_registrados{
+        margin-top:10px;
+    }
+
+}
+
+/* FIN ESTILOS ADICIONALES PARA POPUP CONSULTORA YA REGISTRADA A COACH VIRTUAL */
