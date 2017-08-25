@@ -280,10 +280,10 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #endregion
 
-                if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
+                if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null)
                 {
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
-                    Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
+                    Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
                 }
                 
                 ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;

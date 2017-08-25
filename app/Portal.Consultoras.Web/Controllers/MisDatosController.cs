@@ -166,6 +166,14 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.PrimerNombre = userData.PrimerNombre;
                 entidad.CodigoISO = UserData().CodigoISO;
 
+                /*MC-HD881*/
+                if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null)
+                {
+                    RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR", entidad);
+                    Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
+                }
+                /*MC-HD881*/
+
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
                     string resultado = svr.ActualizarMisDatos(entidad, CorreoAnterior);

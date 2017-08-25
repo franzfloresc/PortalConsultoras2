@@ -2133,7 +2133,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #region LogDynamo
 
-        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion)
+        protected void RegistrarLogDynamoDB(string aplicacion, string rol, string pantallaOpcion, string opcionAccion, ServiceUsuario.BEUsuario entidad = null)
         {
             var dataString = string.Empty;
             try
@@ -2154,6 +2154,17 @@ namespace Portal.Consultoras.Web.Controllers
                     DispositivoCategoria = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
                     DispositivoID = GetIPCliente(),
                     Version = "2.0",
+
+                    //Apodo = userData.Sobrenombre,
+                    //NuevoApodo = entidad.Sobrenombre,
+                    //Email = userData.EMail,
+                    //NuevoEmail = entidad.EMail,
+                    //Telefono = userData.Telefono,
+                    //NuevoTelefono = entidad.Telefono,
+                    //Celular = userData.Celular,
+                    //NuevoCelular = entidad.Celular,
+                    //TelefonoTrabajo = userData.TelefonoTrabajo,
+                    //NuevoTelefonoTrabajo = entidad.TelefonoTrabajo,
                 };
 
 
