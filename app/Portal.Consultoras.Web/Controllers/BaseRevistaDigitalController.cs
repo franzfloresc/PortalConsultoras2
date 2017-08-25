@@ -1,6 +1,7 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceSAC;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.CantidadFilas = 10;
 
             model.MensajeProductoBloqueado = MensajeProductoBloqueado();
-
+            
             return View("Index", model);
         }
 
@@ -66,12 +67,24 @@ namespace Portal.Consultoras.Web.Controllers
             model.FiltersByBrand.Add(new BETablaLogicaDatos { Codigo = "LBEL", Descripcion = "LBEL" });
             
             model.Success = true;
+            ViewBag.TieneProductosPerdio = TieneProductosPerdio(model.CampaniaID);
+            ViewBag.NombreConsultora = userData.Sobrenombre;
+            var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
+            ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
             return PartialView("template-Landing", model);
         }
 
-        public ActionResult DetalleModel(EstrategiaPedidoModel modelo = null)
+        public ActionResult DetalleModel(string cuv,int campaniaId)
         {
-            modelo = modelo ?? new EstrategiaPedidoModel();
+            //modelo = modelo ?? new EstrategiaPersonalizadaProductoModel();
+            var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
+            if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv  || modelo.CampaniaID != campaniaId)
+            {
+                return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+            }
+
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -80,14 +93,19 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
             }
-            
+
             if (modelo.EstrategiaID > 0)
             {
-                modelo.EstrategiaDetalle = modelo.EstrategiaDetalle ?? new EstrategiaDetalleModelo();
-
-                var lista = new List<EstrategiaPedidoModel>() { modelo };
-                modelo = ConsultarEstrategiasModelFormato(lista)[0];
+                modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+                modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
+                ViewBag.NombreConsultora = userData.Sobrenombre;
+                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
+
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
@@ -120,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 if (!userData.RevistaDigital.TieneRDR)
                 {
-                    if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
+                   if (userData.RevistaDigital.SuscripcionModel.CampaniaID == userData.CampaniaID)
                     {
                         model.Titulo += ", YA ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
                         model.TituloDescripcion = "INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA Y DESCUBRE TODAS LAS OFERTAS QUE TENEMOS ÚNICAMENTE PARA TI";
@@ -197,11 +215,16 @@ namespace Portal.Consultoras.Web.Controllers
                     return model;
                 }
             }
-            else
+            else 
             {
-                model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
-                model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
+                model.Titulo += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA <br />";
+                model.TituloDescripcion = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. <br />INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
             }
+            //else
+            //{
+            //    model.Titulo += ", INSCRÍBETE A TU NUEVA REVISTA ONLINE PERSONALIZADA <br />";
+            //    model.TituloDescripcion = "INCREMENTA EN 20% TU GANANCIA REEMPLAZANDO TU REVISTA IMPRESA POR TU REVISTA ONLINE.";
+            //}
             
             model.EstadoAccion = AddCampaniaAndNumero(userData.CampaniaID, 1);
             model.ListaTabs.Add(new ComunModel { Id = userData.CampaniaID, Descripcion = cadenaActiva + userData.CampaniaID.Substring(4, 2), ValorOpcional = Constantes.TipoEstrategiaCodigo.OfertaParaTi });
@@ -229,8 +252,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.MensajeIconoSuperior = false;
                     model.MensajeTitulo = model.IsMobile 
-                        ? "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />PODRÁS ACCEDER A OFERTAS COMO ESTA"
-                        : "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
+                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
                 }
             }
@@ -248,13 +271,22 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     model.MensajeIconoSuperior = false;
                     model.MensajeTitulo = model.IsMobile
-                        ? "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />PODRÁS ACCEDER A OFERTAS COMO ESTA"
-                        : "INSCRÍBETE EN ÉSIKA PARA MÍ Y EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " PODRÁS ACCEDER A OFERTAS COMO ESTA";
+                        ? "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN C-" + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + "<br />OFERTAS COMO ESTA"
+                        : "INSCRÍBETE HOY EN ÉSIKA PARA MÍ Y NO TE PIERDAS EN CAMPAÑA " + AddCampaniaAndNumero(userData.CampaniaID, 2).Substring(4, 2) + " OFERTAS COMO ESTA";
                     model.BtnInscribirse = true;
                 }
             }
 
             return model;
+        }
+
+        public bool TieneProductosPerdio(int campaniaID)
+        {
+            if (userData.RevistaDigital.TieneRDC &&
+                userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro != Constantes.EstadoRDSuscripcion.Activo &&
+                campaniaID == userData.CampaniaID)
+                return  true;
+            return false;
         }
 
     }
