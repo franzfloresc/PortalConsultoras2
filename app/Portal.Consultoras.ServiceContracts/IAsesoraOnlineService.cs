@@ -18,5 +18,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ActualizarEstadoConfiguracionPaisDetalle(string paisISO, string codigoConsultora, int estado);
+
+        [OperationContract]
+        int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora);
     }
 }

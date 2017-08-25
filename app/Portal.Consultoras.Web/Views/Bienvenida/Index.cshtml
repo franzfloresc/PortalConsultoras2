@@ -564,7 +564,7 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="enlace_no_volver_mostrar_mensaje" title="No volver a ver este mensaje">
+        <a id="no-volver-mostrar-mensaje" class="enlace_no_volver_mostrar_mensaje" title="No volver a ver este mensaje">
             No volver a ver este mensaje
         </a>
     </div>
@@ -2725,9 +2725,10 @@
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
             codigoConsultora: viewBagCodigoConsultora || '',
             isoPais: paisISO || '',
+            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")'
         });
 
-        asesoraOnlineObj.asignarEventos();
+        asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
 
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")

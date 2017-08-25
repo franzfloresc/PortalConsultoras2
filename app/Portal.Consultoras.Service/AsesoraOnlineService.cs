@@ -26,5 +26,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLAsesoraOnline().ActualizarEstadoConfiguracionPaisDetalle(paisISO, codigoConsultora, estado);
         }
+
+        public int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora)
+        {
+            return new BLAsesoraOnline().ValidarAsesoraOnlineConfiguracionPais(paisISO, codigoConsultora);
+        }
     }
 }

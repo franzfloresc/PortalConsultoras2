@@ -2775,6 +2775,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
             "", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" +
             "Response")]
         System.Threading.Tasks.Task<int> ActualizarEstadoConfiguracionPaisDetalleAsync(string paisISO, string codigoConsultora, int estado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPaisRes" +
+            "ponse")]
+        int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPaisRes" +
+            "ponse")]
+        System.Threading.Tasks.Task<int> ValidarAsesoraOnlineConfiguracionPaisAsync(string paisISO, string codigoConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2834,6 +2842,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task<int> ActualizarEstadoConfiguracionPaisDetalleAsync(string paisISO, string codigoConsultora, int estado) {
             return base.Channel.ActualizarEstadoConfiguracionPaisDetalleAsync(paisISO, codigoConsultora, estado);
+        }
+        
+        public int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora) {
+            return base.Channel.ValidarAsesoraOnlineConfiguracionPais(paisISO, codigoConsultora);
+        }
+        
+        public System.Threading.Tasks.Task<int> ValidarAsesoraOnlineConfiguracionPaisAsync(string paisISO, string codigoConsultora) {
+            return base.Channel.ValidarAsesoraOnlineConfiguracionPaisAsync(paisISO, codigoConsultora);
         }
     }
 }

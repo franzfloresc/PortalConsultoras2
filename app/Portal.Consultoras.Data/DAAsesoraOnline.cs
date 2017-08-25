@@ -49,5 +49,12 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Estado", DbType.Int32, estado);
             return Context.ExecuteNonQuery(command);
         }
+
+        public int ValidarAsesoraOnlineConfiguracionPais(string codigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ValidarAsesoraOnlineConfiguracionPais");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.String, codigoConsultora);
+            return (int)Context.ExecuteScalar(command);
+        }
     }
 }

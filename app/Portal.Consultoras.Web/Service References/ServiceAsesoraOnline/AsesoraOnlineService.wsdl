@@ -32,6 +32,12 @@
   <wsdl:message name="IAsesoraOnlineService_ActualizarEstadoConfiguracionPaisDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:ActualizarEstadoConfiguracionPaisDetalleResponse" />
   </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAsesoraOnlineConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarAsesoraOnlineConfiguracionPaisResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAsesoraOnlineService">
     <wsdl:operation name="EnviarFormulario">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarFormulario" message="tns:IAsesoraOnlineService_EnviarFormulario_InputMessage" />
@@ -48,6 +54,10 @@
     <wsdl:operation name="ActualizarEstadoConfiguracionPaisDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" message="tns:IAsesoraOnlineService_ActualizarEstadoConfiguracionPaisDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalleResponse" message="tns:IAsesoraOnlineService_ActualizarEstadoConfiguracionPaisDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAsesoraOnlineConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais" message="tns:IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPaisResponse" message="tns:IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAsesoraOnlineService" type="tns:IAsesoraOnlineService">
@@ -81,6 +91,15 @@
     </wsdl:operation>
     <wsdl:operation name="ActualizarEstadoConfiguracionPaisDetalle">
       <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarAsesoraOnlineConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

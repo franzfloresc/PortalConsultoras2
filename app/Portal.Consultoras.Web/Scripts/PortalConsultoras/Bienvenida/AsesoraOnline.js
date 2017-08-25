@@ -18,17 +18,6 @@
         $("#virtual-coach-dialog").hide();
     };
 
-    var _asignarEventos = function () {
-        $("#quiero-tips-ofertas").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion');
-        $("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
-        $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);        
-    };
-
-    var _mostrar = function () {
-        $("#fondoComunPopUp").show();
-        $("#virtual-coach-dialog").show();
-    };
-
     var _actualizarEstadoConfiguracionPaisDetalle = function (isoPais, codigoConsultora) {
         var params = {
             isoPais: typeof isoPais === "undefined" ? '' : isoPais,
@@ -43,17 +32,32 @@
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                if (data.success) {                    
+                if (data.success) {
+                    _hidePopup();
                 }
             },
             error: function (data, error) {
                 alert(data.message);
+                _hidePopup();
             }
         });
     };
 
+    var _asignarEventos = function (isoPais, codigoConsultora) {
+        $("#quiero-tips-ofertas").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen) + '#formulario-inscripcion');
+        $("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
+        $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);
+        $("#no-volver-mostrar-mensaje").on("click",function(){ _actualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora);});
+        
+    };
+
+    var _mostrar = function () {
+        $("#fondoComunPopUp").show();
+        $("#virtual-coach-dialog").show();
+    };
+
     return {
         asignarEventos: _asignarEventos,
-        mostrar: _mostrar
+        mostrar: _mostrar,
     }
 }

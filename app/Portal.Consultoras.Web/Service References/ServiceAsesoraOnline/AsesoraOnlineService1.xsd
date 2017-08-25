@@ -63,4 +63,19 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ValidarAsesoraOnlineConfiguracionPais">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisISO" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="codigoConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ValidarAsesoraOnlineConfiguracionPaisResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ValidarAsesoraOnlineConfiguracionPaisResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

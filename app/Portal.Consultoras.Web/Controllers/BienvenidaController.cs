@@ -560,11 +560,13 @@ namespace Portal.Consultoras.Web.Controllers
                 if (popup.CodigoPopup == Constantes.TipoPopUp.AsesoraOnline)
                 {
                     int existeAsesoraOnlineResult = ExisteConsultoraEnAsesoraOnline(userData.CodigoISO, userData.CodigoConsultora);
+                    int habilitadoConfiguracionPaisResult =  ValidarAsesoraOnlineConfiguracionPais(userData.CodigoISO, userData.CodigoConsultora);
 
                     bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
                     bool existeAsesoraOnline = (existeAsesoraOnlineResult == 1);
+                    bool habilitadoConfiguracionPais = (habilitadoConfiguracionPaisResult == 1);
 
-                    if (paisConsultoraTieneAsesoraOnline && !existeAsesoraOnline)
+                    if (paisConsultoraTieneAsesoraOnline && !existeAsesoraOnline && habilitadoConfiguracionPais)
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
                         break;
@@ -573,6 +575,29 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return TipoPopUpMostrar;
+        }
+
+        private int ValidarAsesoraOnlineConfiguracionPais(string isoPais, string codigoConsultora)
+        {
+            int resultado = 0;
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    resultado = sv.ValidarAsesoraOnlineConfiguracionPais(isoPais, codigoConsultora);
+                }
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoConsultora, isoPais);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, isoPais);
+            }
+
+            return resultado;
         }
 
         private bool ValidarMostrarShowroomPopUp()
