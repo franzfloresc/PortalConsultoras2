@@ -205,44 +205,23 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool ValidarIngresoShowRoom(bool esIntriga)
         {
-            if (!userData.CargoEntidadesShowRoom) return false; // throw new Exception("Ocurrió un error al intentar traer la información de los evento y consultora de ShowRoom.");
+            if (!userData.CargoEntidadesShowRoom)
+                return false;
 
-            bool resultado = false;
-            var showRoomEvento = new BEShowRoomEvento();
-            var showRoomEventoConsultora = new BEShowRoomEventoConsultora();
+            var resultado = false;
 
-            showRoomEventoConsultora = userData.BeShowRoomConsultora;
-            showRoomEvento = userData.BeShowRoom;
+            var esShowRoom = Session["EsShowRoom"] != null &&Session["EsShowRoom"].ToString() == "1";
+            var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
+            var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null &&Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
 
-            if (showRoomEvento != null && showRoomEvento.Estado == 1 && showRoomEventoConsultora != null)
+            if (esIntriga)
             {
-                int diasAntes = showRoomEvento.DiasAntes;
-                int diasDespues = showRoomEvento.DiasDespues;
+                resultado = esShowRoom && !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+            }
 
-                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                if (esIntriga)
-                {
-                    if (!(fechaHoy >= userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Date
-                    && fechaHoy <= userData.FechaInicioCampania.AddDays(showRoomEvento.DiasDespues).Date))
-                    {
-                        TimeSpan ts = userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes) - fechaHoy;
-
-                        ViewBag.DiasFaltan = ts.Days; //userData.FechaInicioCampania.AddDays(-showRoomEvento.DiasAntes).Day - fechaHoy.Day;
-                        if (ViewBag.DiasFaltan > 0)
-                        {
-                            resultado = true;
-                        }
-                    }
-                }
-                else
-                {
-                    if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-diasAntes).Date &&
-                     fechaHoy <= userData.FechaInicioCampania.AddDays(diasDespues).Date))
-                    {
-                        resultado = true;
-                    }
-                }
+            if(!esIntriga)
+            {
+                resultado = esShowRoom && mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
             }
 
             return resultado;

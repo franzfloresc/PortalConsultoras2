@@ -664,6 +664,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string ShowRoom = "SR";
         }
 
         public class ConfiguracionSeccion
@@ -674,6 +675,7 @@ namespace Portal.Consultoras.Common
                 public const int CarruselPrevisuales = 2;
                 public const int SimpleCentrado = 3;
                 public const int Banners = 4;
+                public const int ShowRoom = 5;
             }
         }
 

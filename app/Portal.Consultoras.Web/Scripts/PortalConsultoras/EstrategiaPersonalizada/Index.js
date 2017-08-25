@@ -13,13 +13,15 @@ var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
     CarruselPrevisuales: 2,
     SimpleCentrado: 3,
-    Banners: 4
+    Banners: 4,
+    ShowRoom: 5
 };
 
 var CONS_CODIGO_SECCION = {
     LAN: "LAN",
     RD: "RD",
-    RDR: "RDR"
+    RDR: "RDR",
+    SR: "SR",
 };
 
 var listaSeccion = {};
@@ -102,6 +104,10 @@ function SeccionCargarProductos(objConsulta) {
         campaniaId: objConsulta.CampaniaID
     }
 
+    if (objConsulta.Codigo == CONS_CODIGO_SECCION.SR) {
+        param.Limite = 3;
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -114,7 +120,7 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            data.Seccion = listaSeccion[data.Codigo + "-" + data.CampaniaID]; //objConsulta;
+            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID];
             SeccionMostrarProductos(data);
         },
         error: function (error, x) {
