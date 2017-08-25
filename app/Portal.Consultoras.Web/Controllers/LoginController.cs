@@ -137,7 +137,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (iso == "BR") iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
-            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+            ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
             ViewBag.AvisoASP = 1;
@@ -149,7 +149,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (GetPaisesLbelFromConfig().Contains(iso))
             {
                 ViewBag.TituloPagina = " L'BEL ";
-                ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
                 if (iso == "MX") ViewBag.AvisoASP = 2;
