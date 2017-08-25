@@ -119,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
             return buscarIsoPorIp == "1";
         }
 
-       	private string GetIPCliente()
+       	protected virtual string GetIpCliente()
         {
             string IP = string.Empty;
             try
