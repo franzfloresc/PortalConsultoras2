@@ -397,7 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabÃ³ con Ã©xito.",
+                    message = "Se grabó con éxito.",
                     extra = ""
                 });
             }
@@ -441,7 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se eliminÃ³ con Ã©xito.",
+                    message = "Se eliminó con éxito.",
                     extra = ""
                 });
             }
@@ -497,7 +497,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     image.Dispose();
                     System.IO.File.Delete(path);
-                    return Json(new { success = false, message = "El tamaÃ±o de imagen excede el mÃ¡ximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
+                    return Json(new { success = false, message = "El tamaño de imagen excede el máximo permitido. (Ancho: 62px - Alto: 62px)." }, "text/html");
                 }
                 image.Dispose();
                 return Json(new { success = true, name = Path.GetFileName(path) }, "text/html");
@@ -515,7 +515,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // agregar parametros para validar el tipo de recomendaciÃ³n (CUV o PERFIL)
+                // agregar parametros para validar el tipo de recomendación (CUV o PERFIL)
                 List<BEEstrategia> lst = new List<BEEstrategia>();
 
                 var entidad = new BEEstrategia();
@@ -549,8 +549,8 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         if (resultado == 0)
                         {
-                            if (FlagRecoProduc == "1") mensaje = "El CUV2 no estÃ¡ asociado a ningÃºn otro.";
-                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no estÃ¡ asociado a ningÃºn perfil.";
+                            if (FlagRecoProduc == "1") mensaje = "El CUV2 no está asociado a ningún otro.";
+                            //if (FlagRecoPerfil == "1") mensaje = "El CUV2 no está asociado a ningún perfil.";
                             return Json(new
                             {
                                 success = false,
@@ -767,7 +767,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se grabÃ³ con Ã©xito la estrategia.",
+                    message = "Se grabó con éxito la estrategia.",
                     extra = ""
                 });
             }
@@ -853,7 +853,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = false,
-                        message = "El CUV2 ingresado no estÃ¡ configurado en la matriz comercial",
+                        message = "El CUV2 ingresado no está configurado en la matriz comercial",
                         extra = ""
                     }, JsonRequestBehavior.AllowGet);
 
@@ -865,7 +865,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -875,7 +875,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -919,7 +919,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
                 Foto = urlS3 + p.Foto,
-                NemoTecnico = p.NemoTecnico
+                NemoTecnico = p.NemoTecnico,
+                DescripcionComercial = p.DescripcionComercial
             }).ToList();
 
             return data;
@@ -978,7 +979,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = "Se deshabilitÃ³ la estrategia correctamente.",
+                    message = "Se deshabilitó la estrategia correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -988,7 +989,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -998,7 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1028,7 +1029,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de lÃ­mite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
+                    message = resultado > 0 ? "No se activaron algunas estrategias por no contar con los requisitos de límite de venta o imagen" : "Se actualizaron las estrategias correctamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1038,7 +1039,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1048,7 +1049,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = false,
-                    message = "OcurriÃ³ un problema al intentar acceder al servicio, intente nuevamente.",
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
                     extra = ""
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -1095,7 +1096,7 @@ namespace Portal.Consultoras.Web.Controllers
                     result = "L'Bel";
                     break;
                 case 2:
-                    result = "Ã‰sika";
+                    result = "Ésika";
                     break;
                 case 3:
                     result = "Cyzone";
@@ -1214,7 +1215,7 @@ namespace Portal.Consultoras.Web.Controllers
                 JSONdata = new
                 {
                     success = true,
-                    message = "Se agregÃ³ la estrategia satisfactoriamente.",
+                    message = "Se agregó la estrategia satisfactoriamente.",
                     extra = ""
                 };
 
@@ -1470,8 +1471,24 @@ namespace Portal.Consultoras.Web.Controllers
                                         string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
                                         nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
                                     }
-                                
+
+                                    if (productoEstrategia.codigo_estrategia == "2001")
+                                    {
+                                        var listaHermanosE = new List<BEProducto>();
+                                        using (ODSServiceClient svc = new ODSServiceClient())
+                                        {
+                                            listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, opt.CUV2).ToList();
+                                        }
+                                        listaHermanosE = listaHermanosE ?? new List<BEProducto>();
+                                        opt.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                                    }
+                                    else if (productoEstrategia.codigo_estrategia == "2003")
+                                    {
+                                        opt.TieneVariedad = 1;
+                                    }
+                                    opt.CodigoEstrategia = productoEstrategia.codigo_estrategia;
                                 }
+
                                 foreach (String nemoTecnico in nemotecnicosLista)
                                 {
                                     if(contadorNemotecnico==0)
