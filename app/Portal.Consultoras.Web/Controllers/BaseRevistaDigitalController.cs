@@ -104,7 +104,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
                 ViewBag.NombreConsultora = userData.Sobrenombre;
-                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
 
                 return View(modelo);
