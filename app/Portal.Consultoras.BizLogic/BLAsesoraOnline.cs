@@ -40,6 +40,13 @@ namespace Portal.Consultoras.BizLogic
             return DAAsesoraOnline.ExisteConsultoraEnAsesoraOnline(codigoConsultora);
         }
 
+        public int ActualizarEstadoConfiguracionPaisDetalle(string paisISO, string codigoConsultora, int estado)
+        {
+            int paisID = GetPaisID(paisISO);
+            var DAAsesoraOnline = new DAAsesoraOnline(paisID);
+            return DAAsesoraOnline.ActualizarEstadoConfiguracionPaisDetalle(codigoConsultora, estado);
+        }
+
         public int GetPaisID(string ISO)
         {
             List<KeyValuePair<string, string>> listaPaises = new List<KeyValuePair<string, string>>()

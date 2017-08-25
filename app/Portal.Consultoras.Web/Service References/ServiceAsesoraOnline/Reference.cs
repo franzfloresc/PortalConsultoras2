@@ -565,6 +565,9 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneAsesoraOnlineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -2329,6 +2332,19 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneAsesoraOnline {
+            get {
+                return this.TieneAsesoraOnlineField;
+            }
+            set {
+                if ((this.TieneAsesoraOnlineField.Equals(value) != true)) {
+                    this.TieneAsesoraOnlineField = value;
+                    this.RaisePropertyChanged("TieneAsesoraOnline");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int TieneCDR {
             get {
                 return this.TieneCDRField;
@@ -2749,6 +2765,16 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ExisteConsultoraEnAsesoraOnlineResponse")]
         System.Threading.Tasks.Task<int> ExisteConsultoraEnAsesoraOnlineAsync(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" +
+            "", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" +
+            "Response")]
+        int ActualizarEstadoConfiguracionPaisDetalle(string paisISO, string codigoConsultora, int estado);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" +
+            "", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ActualizarEstadoConfiguracionPaisDetalle" +
+            "Response")]
+        System.Threading.Tasks.Task<int> ActualizarEstadoConfiguracionPaisDetalleAsync(string paisISO, string codigoConsultora, int estado);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2800,6 +2826,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task<int> ExisteConsultoraEnAsesoraOnlineAsync(string paisISO, string codigoConsultora) {
             return base.Channel.ExisteConsultoraEnAsesoraOnlineAsync(paisISO, codigoConsultora);
+        }
+        
+        public int ActualizarEstadoConfiguracionPaisDetalle(string paisISO, string codigoConsultora, int estado) {
+            return base.Channel.ActualizarEstadoConfiguracionPaisDetalle(paisISO, codigoConsultora, estado);
+        }
+        
+        public System.Threading.Tasks.Task<int> ActualizarEstadoConfiguracionPaisDetalleAsync(string paisISO, string codigoConsultora, int estado) {
+            return base.Channel.ActualizarEstadoConfiguracionPaisDetalleAsync(paisISO, codigoConsultora, estado);
         }
     }
 }

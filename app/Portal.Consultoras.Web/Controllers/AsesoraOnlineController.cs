@@ -75,5 +75,36 @@ namespace Portal.Consultoras.Web.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        [HttpPost]
+        public JsonResult ActualizarEstadoConfiguracionPaisDetalle(string isoPais, string codigoConsultora)
+        {
+            int resultado = 0;
+            try
+            {
+                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
+                {
+                    int desactivado = 0;
+                    resultado = sv.ActualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora, desactivado);
+                }
+                return Json(new { success = true, message = "Se actualizó con éxito.", extra = "" });
+
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoConsultora, isoPais);
+                return Json(new { success = false, message = ex.Message, extra = "" });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, isoPais);
+                return Json(new
+                {
+                    success = false,
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

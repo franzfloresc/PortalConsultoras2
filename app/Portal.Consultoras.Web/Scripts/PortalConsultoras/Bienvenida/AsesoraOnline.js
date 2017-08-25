@@ -4,7 +4,9 @@
         asesoraOnlineUrl: config.asesoraOnlineUrl || '',
         codigoConsultora: config.codigoConsultora || '',
         isoPais: config.isoPais || '',
-        origen: 'SB'
+        origen: 'SB',
+        actualizarEstadoConfiguracionPaisDetalleUrl: config.actualizarEstadoConfiguracionPaisDetalleUrl || ''
+
     };
 
     var _armarAsesoraOnlineUrl = function (isoPais, codigoConsultora, origen) {
@@ -25,6 +27,29 @@
     var _mostrar = function () {
         $("#fondoComunPopUp").show();
         $("#virtual-coach-dialog").show();
+    };
+
+    var _actualizarEstadoConfiguracionPaisDetalle = function (isoPais, codigoConsultora) {
+        var params = {
+            isoPais: typeof isoPais === "undefined" ? '' : isoPais,
+            codigoConsultora: typeof codigoConsultora === "undefined" ? '' : codigoConsultora
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: _config.actualizarEstadoConfiguracionPaisDetalleUrl,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                if (data.success) {                    
+                }
+            },
+            error: function (data, error) {
+                alert(data.message);
+            }
+        });
     };
 
     return {
