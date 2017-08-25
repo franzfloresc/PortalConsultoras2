@@ -424,7 +424,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Longitud = solicitudPostulante.Longitud;
                     model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador|| CodigoISO==Pais.Dominicana|| CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Bolivia)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador|| CodigoISO==Pais.Dominicana|| CodigoISO == Pais.PuertoRico || CodigoISO == Pais.Bolivia || CodigoISO == Pais.Colombia)
                     {
                         try
                         {
@@ -479,87 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    else if (CodigoISO == Pais.Colombia)
-                    {
-
-                        var zonaEncontrada = default(string);
-
-                        try
-                        {
-                            var urlServicioLocalColombia =
-                                ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
-                            //var parametro =
-                            //    new
-                            //    {
-                            //        idRegistro = "2",
-                            //        pais = CodigoISO,
-                            //        ciudad = model.NombreComuna,
-                            //        direccion = model.DireccionCadena
-                            //    };
-
-                            //var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDto>("/ConsultarGeoCo",
-                            //    parametro, urlServicioLocalColombia);
-
-                            //if (!string.IsNullOrWhiteSpace(resultadoGeo.coordenadaX) &&
-                            //    !string.IsNullOrWhiteSpace(resultadoGeo.coordenadaY))
-                            //{
-                            //    model.Puntos.Add(
-                            //        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.coordenadaY),
-                            //            decimal.Parse(resultadoGeo.coordenadaX), resultadoGeo.direccionEstandar));
-
-                            //    zonaEncontrada = resultadoGeo.zona;
-                            //    //model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                            //}
-                            var cityCadena = model.NombreComuna + " (" + model.NombreRegion + ")";
-                            var parametro = new { address = model.DireccionCadena, city = cityCadena, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
-                            var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
-                                parametro, urlServicioLocalColombia);
-                            if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
-                            {
-                                zonaEncontrada = resultadoGeo.data.zona1;
-                                model.Latitud = Convert.ToDecimal(resultadoGeo.data.latitude);
-                                model.Longitud = Convert.ToDecimal(resultadoGeo.data.longitude);
-                                if (!string.IsNullOrWhiteSpace(zonaEncontrada))
-                                {
-                                    model.Puntos.Add(
-                                        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.data.latitude),
-                                            decimal.Parse(resultadoGeo.data.longitude), resultadoGeo.data.dirtrad));
-                                    model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-
-                        if (!string.IsNullOrEmpty(zonaEncontrada))
-                        {
-                            model.Region = zonaEncontrada.Substring(0, 2);
-                            model.Zona = zonaEncontrada.Substring(2, 4);
-                            model.Seccion = zonaEncontrada.Substring(6, 1);
-                            model.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
-
-                            // 2. Buscamos los vertices por territorio
-                            var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
-                            {
-                                codigo = zonaEncontrada,
-                                pais = CodigoISO,
-                                aplicacion = 1
-                            }, "ObtenerVerticesTerritorioPorCodigo")
-                                .SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
-
-                            if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
-                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta")
-                                    .ToObject<string>() == "OK")
-                            {
-                                model.Vertices =
-                                    obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
-                                        .ToObject<JValue>()
-                                        .Value.ToString();
-                                model.Vertices = model.Vertices.Replace("Lat", "lat").Replace("Long", "lng");
-                            }
-                        }
-                    }
+                   
                 }
 
                 #region "Cargar Ubigeo"
@@ -1875,7 +1795,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.Longitud = solicitudPostulante.Longitud;
                     model.FuenteIngreso = solicitudPostulante.FuenteIngreso;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Guatemala || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Colombia)
                     {
                         try
                         {
@@ -1923,85 +1843,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
 
-                    else if (CodigoISO == Pais.Colombia)
-                    {
-
-                        var zonaEncontrada = default(string);
-
-                        try
-                        {
-                            var urlServicioLocalColombia =
-                                ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
-                            //var parametro =
-                            //    new
-                            //    {
-                            //        idRegistro = "2",
-                            //        pais = CodigoISO,
-                            //        ciudad = model.NombreComuna,
-                            //        direccion = model.DireccionCadena
-                            //    };
-
-                            //var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDto>("/ConsultarGeoCo",
-                            //    parametro, urlServicioLocalColombia);
-
-                            //if (!string.IsNullOrWhiteSpace(resultadoGeo.coordenadaX) &&
-                            //    !string.IsNullOrWhiteSpace(resultadoGeo.coordenadaY))
-                            //{
-                            //    model.Puntos.Add(
-                            //        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.coordenadaY),
-                            //            decimal.Parse(resultadoGeo.coordenadaX), resultadoGeo.direccionEstandar));
-
-                            //    zonaEncontrada = resultadoGeo.zona;
-                            //    //model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                            //}
-
-                            var parametro = new { address = model.DireccionCadena, city = model.NombreComuna, parameters = "01|F|0|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
-                            var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
-                                parametro, urlServicioLocalColombia);
-                            if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
-                            {
-                                zonaEncontrada = resultadoGeo.data.zona1;
-                                if (!string.IsNullOrWhiteSpace(zonaEncontrada))
-                                {
-                                    model.Puntos.Add(
-                                        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.data.latitude),
-                                            decimal.Parse(resultadoGeo.data.longitude), resultadoGeo.data.dirtrad));
-                                    model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                        }
-
-                        if (!string.IsNullOrEmpty(zonaEncontrada))
-                        {
-                            model.Region = zonaEncontrada.Substring(0, 2);
-                            model.Zona = zonaEncontrada.Substring(2, 4);
-                            model.Seccion = zonaEncontrada.Substring(6, 1);
-                            model.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
-
-                            // 2. Buscamos los vertices por territorio
-                            var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
-                            {
-                                codigo = zonaEncontrada,
-                                pais = CodigoISO,
-                                aplicacion = 1
-                            }, "ObtenerVerticesTerritorioPorCodigo")
-                                .SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
-
-                            if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
-                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta")
-                                    .ToObject<string>() == "OK")
-                            {
-                                model.Vertices =
-                                    obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
-                                        .ToObject<JValue>()
-                                        .Value.ToString();
-                                model.Vertices = model.Vertices.Replace("Lat", "lat").Replace("Long", "lng");
-                            }
-                        }
-                    }
+                  
                 }
             }
 
@@ -4042,7 +3884,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Dominicana)
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Dominicana || CodigoISO == Pais.Colombia)
                 {
                     try
                     {
@@ -4150,84 +3992,7 @@ namespace Portal.Consultoras.Web.Controllers
                         modelMensaje.TextoMensaje = "Ocurrió un error";
                     }
                 }
-                else if (CodigoISO == Pais.Colombia)
-                {
 
-                    var zonaEncontrada = default(string);
-                    var latitudCol = default(string);
-                    var longitudCol = default(string);
-                    //var listaPuntos = new List<Tuple<decimal, decimal, string>>();
-
-                    try
-                    {
-                        var urlServicioLocalColombia = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
-
-
-                        var cityCadena = model.NombreLugarNivel2 + " (" + model.NombreLugarNivel1 + ")";
-                        var parametro = new { address = direccion, city = cityCadena, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
-                        var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
-                            parametro, urlServicioLocalColombia);
-                        if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
-                        {
-                            zonaEncontrada = resultadoGeo.data.zona1;
-                            latitudCol = resultadoGeo.data.latitude;
-                            longitudCol = resultadoGeo.data.longitude;
-                            if (!string.IsNullOrWhiteSpace(zonaEncontrada))
-                            {
-                                consultarUbicacionModel.Puntos.Add(
-                                    new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.data.latitude),
-                                        decimal.Parse(resultadoGeo.data.longitude), resultadoGeo.data.dirtrad));
-                                model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                            }
-
-                            consultarUbicacionModel.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24
-                                ? true
-                                : false;
-                        }
-
-                    }
-                    catch (Exception ex)
-                    {
-                        modelMensaje.TextoMensaje = "Ocurrió un error";
-                    }
-
-                    if (!string.IsNullOrEmpty(zonaEncontrada))
-                    {
-                        consultarUbicacionModel.Region = zonaEncontrada.Substring(0, 2);
-                        consultarUbicacionModel.Zona = zonaEncontrada.Substring(2, 4);
-                        consultarUbicacionModel.Seccion = zonaEncontrada.Substring(6, 1);
-                        consultarUbicacionModel.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
-
-                        modelMensaje.DataRegZonaSeccion = consultarUbicacionModel.Region + "/" + consultarUbicacionModel.Zona + "/" + consultarUbicacionModel.Seccion;
-                        modelMensaje.Region = consultarUbicacionModel.Region;
-                        modelMensaje.Zona = consultarUbicacionModel.Zona;
-                        modelMensaje.Seccion = consultarUbicacionModel.Seccion;
-                        modelMensaje.Territorio = consultarUbicacionModel.Territorio;
-
-                        modelMensaje.Latitud = latitudCol;
-                        modelMensaje.Longitud = longitudCol;
-
-                        // 2. Buscamos los vertices por territorio
-                        var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
-                        {
-                            codigo = zonaEncontrada,
-                            pais = CodigoISO,
-                            aplicacion = 1
-                        }, "ObtenerVerticesTerritorioPorCodigo").SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
-
-                        if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
-                            obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta").ToObject<string>() ==
-                            "OK")
-                        {
-                            consultarUbicacionModel.Vertices =
-                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
-                                    .ToObject<JValue>()
-                                    .Value.ToString();
-                            consultarUbicacionModel.Vertices =
-                                consultarUbicacionModel.Vertices.Replace("Lat", "lat").Replace("Long", "lng");
-                        }
-                    }
-                }
 
                 using (var sv = new PortalServiceClient())
                 {
@@ -4306,7 +4071,7 @@ namespace Portal.Consultoras.Web.Controllers
                     solicitudPostulante.LugarPadre = region;
                     solicitudPostulante.LugarHijo = comuna;
 
-                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana|| CodigoISO== Pais.Bolivia)
+                    if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador|| CodigoISO == Pais.PuertoRico || CodigoISO== Pais.Dominicana|| CodigoISO== Pais.Bolivia || CodigoISO == Pais.Colombia)
                     {
                         try
                         {
@@ -4354,43 +4119,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
                     }
-                    else if (CodigoISO == Pais.Colombia)
-                    {
-                        try
-                        {
-
-                            if (codregion != null)
-                            {
-                                if (!string.IsNullOrWhiteSpace(codregion))
-                                {
-                                    //solicitudPostulante.RespuestaGEO = ;
-                                    solicitudPostulante.CodigoZona = codzona;
-                                    solicitudPostulante.CodigoSeccion = codseccion;
-                                    solicitudPostulante.CodigoTerritorio = codterritorio;
-                                    solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.OK.ToInt();
-
-                                    model.Zona = codzona;
-                                    model.Seccion = codseccion;
-                                    model.Territorio = codterritorio;
-                                }
-                                else
-                                {
-                                    solicitudPostulante.EstadoGEO = !string.IsNullOrWhiteSpace(direccionCorrecta) &&
-                                                                    direccionCorrecta == "no"
-                                        ? Enumeradores.EstadoGEO.NoEncontroTerritorioNoLatLong.ToInt()
-                                        : Enumeradores.EstadoGEO.NoEncontroTerritorioSiLatLong.ToInt();
-                                }
-                            }
-                            else
-                            {
-                                solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            solicitudPostulante.EstadoGEO = Enumeradores.EstadoGEO.ErrorConsumoIntegracion.ToInt();
-                        }
-                    }
+                    
 
                     model.Region = string.IsNullOrEmpty(solicitudPostulante.CodigoZona) ? null : solicitudPostulante.CodigoZona.Substring(0, 2);
                     model.Zona = solicitudPostulante.CodigoZona;
@@ -4505,7 +4234,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
 
-                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador)
+                if (CodigoISO == Pais.Chile || CodigoISO == Pais.Mexico || CodigoISO == Pais.Peru || CodigoISO == Pais.Ecuador || CodigoISO == Pais.Colombia)
                 {
                     try
                     {
@@ -4613,89 +4342,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                     }
                 }
-                else if (CodigoISO == Pais.Colombia)
-                {
-
-                    var zonaEncontrada = default(string);
-                    //var listaPuntos = new List<Tuple<decimal, decimal, string>>();
-
-                    try
-                    {
-                        var urlServicioLocalColombia = ConfigurationManager.AppSettings[AppSettingsKeys.WSGEO_CO_Url];
-                        //var parametro =
-                        //    new
-                        //    {
-                        //        idRegistro = "2",
-                        //        pais = CodigoISO,
-                        //        ciudad = model.NombreLugarNivel2,
-                        //        direccion = direccion
-                        //    };
-
-                        //var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDto>("/ConsultarGeoCo",
-                        //    parametro, urlServicioLocalColombia);
-
-                        //if (!string.IsNullOrWhiteSpace(resultadoGeo.coordenadaX) &&
-                        //    !string.IsNullOrWhiteSpace(resultadoGeo.coordenadaY))
-                        //{
-                        //    consultarUbicacionModel.Puntos.Add(
-                        //        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.coordenadaY),
-                        //            decimal.Parse(resultadoGeo.coordenadaX), resultadoGeo.direccionEstandar));
-
-                        var parametro = new { address = direccion, city = model.NombreLugarNivel2, parameters = "01|T|4|2|T|8|T|3|2|T|1", usr = "belcrop", pwd = "Vkiohm*$a" };
-                        //    consultarUbicacionModel.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24
-                        //        ? true
-                        //        : false;
-                        //}
-                        var resultadoGeo = BaseUtilities.ConsumirServicio<ResponseGeoCoDtoTemp>("/ConsultarGeoCo",
-                            parametro, urlServicioLocalColombia);
-                        if (!string.IsNullOrWhiteSpace(resultadoGeo.data.latitude) && !string.IsNullOrWhiteSpace(resultadoGeo.data.longitude))
-                        {
-                            zonaEncontrada = resultadoGeo.data.zona1;
-                            if (!string.IsNullOrWhiteSpace(zonaEncontrada))
-                            {
-                                consultarUbicacionModel.Puntos.Add(
-                                        new Tuple<decimal, decimal, string>(decimal.Parse(resultadoGeo.data.latitude),
-                                            decimal.Parse(resultadoGeo.data.longitude), resultadoGeo.data.dirtrad));
-                                model.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24;
-                            }
-
-                            consultarUbicacionModel.ZonaPreferencial = zonaEncontrada.Substring(0, 2).ToInt() == 24
-                                ? true
-                                : false;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                    }
-
-                    if (!string.IsNullOrEmpty(zonaEncontrada))
-                    {
-                        consultarUbicacionModel.Region = zonaEncontrada.Substring(0, 2);
-                        consultarUbicacionModel.Zona = zonaEncontrada.Substring(2, 4);
-                        consultarUbicacionModel.Seccion = zonaEncontrada.Substring(6, 1);
-                        consultarUbicacionModel.Territorio = zonaEncontrada.Substring(7, zonaEncontrada.Length - 7);
-
-                        // 2. Buscamos los vertices por territorio
-                        var obtenerVerticesTerritorioPorCodigoResult = ConsultarServicio(new
-                        {
-                            codigo = zonaEncontrada,
-                            pais = CodigoISO,
-                            aplicacion = 1
-                        }, "ObtenerVerticesTerritorioPorCodigo").SelectToken("ObtenerVerticesTerritorioPorCodigoResult");
-
-                        if (obtenerVerticesTerritorioPorCodigoResult.HasValues &&
-                            obtenerVerticesTerritorioPorCodigoResult.SelectToken("MensajeRespuesta").ToObject<string>() ==
-                            "OK")
-                        {
-                            consultarUbicacionModel.Vertices =
-                                obtenerVerticesTerritorioPorCodigoResult.SelectToken("Resultado")
-                                    .ToObject<JValue>()
-                                    .Value.ToString();
-                            consultarUbicacionModel.Vertices =
-                                consultarUbicacionModel.Vertices.Replace("Lat", "lat").Replace("Long", "lng");
-                        }
-                    }
-                }
+                
 
                 using (var sv = new PortalServiceClient())
                 {

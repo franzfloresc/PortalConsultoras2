@@ -1242,7 +1242,7 @@
         }
     }
     
-    @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+    @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
     { 
         <text>$('#DivSinGEO').show();</text>
         <text>$('#DivConGEO').hide();</text>
@@ -1252,7 +1252,7 @@
         <text>$('#btnEditarPosicion').hide();</text>
         <text>$('#btnGrabarPosicion').html('Aceptar');</text>
         <text>$('#btnGrabarPosicion').show();</text>
-    }
+    }*@
 
     $(function () {
         setTimeout(cargarMapa, 50);
@@ -1745,7 +1745,7 @@
             //$('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
 
             //Nuevo requerimiento Colombia
-            @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+            @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
             { 
                 <text>$('#DivSinGEO').show();</text>
                 <text>$('#DivConGEO').hide();</text>
@@ -1755,7 +1755,7 @@
                 <text>$('#btnEditarPosicion').hide();</text>
                 <text>$('#btnGrabarPosicion').html('Aceptar');</text>
                 <text>$('#btnGrabarPosicion').show();</text>
-            }
+            }*@
 
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
