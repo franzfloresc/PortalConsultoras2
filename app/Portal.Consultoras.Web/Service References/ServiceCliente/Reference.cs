@@ -3877,6 +3877,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/CheckClienteByConsultora", ReplyAction="http://tempuri.org/IClienteService/CheckClienteByConsultoraResponse")]
         System.Threading.Tasks.Task<int> CheckClienteByConsultoraAsync(int paisID, long ConsultoraID, string Nombre);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetExisteClienteConsultora", ReplyAction="http://tempuri.org/IClienteService/GetExisteClienteConsultoraResponse")]
+        int GetExisteClienteConsultora(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/GetExisteClienteConsultora", ReplyAction="http://tempuri.org/IClienteService/GetExisteClienteConsultoraResponse")]
+        System.Threading.Tasks.Task<int> GetExisteClienteConsultoraAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IClienteService/UndoCliente", ReplyAction="http://tempuri.org/IClienteService/UndoClienteResponse")]
         void UndoCliente(int paisID, long consultoraID, int clienteID);
         
@@ -4139,6 +4145,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         public System.Threading.Tasks.Task<int> CheckClienteByConsultoraAsync(int paisID, long ConsultoraID, string Nombre) {
             return base.Channel.CheckClienteByConsultoraAsync(paisID, ConsultoraID, Nombre);
+        }
+        
+        public int GetExisteClienteConsultora(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad) {
+            return base.Channel.GetExisteClienteConsultora(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetExisteClienteConsultoraAsync(int paisID, Portal.Consultoras.Web.ServiceCliente.BECliente entidad) {
+            return base.Channel.GetExisteClienteConsultoraAsync(paisID, entidad);
         }
         
         public void UndoCliente(int paisID, long consultoraID, int clienteID) {

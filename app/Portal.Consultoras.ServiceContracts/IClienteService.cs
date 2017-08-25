@@ -38,6 +38,9 @@ namespace Portal.Consultoras.ServiceContracts
         int CheckClienteByConsultora(int paisID, long ConsultoraID, string Nombre);
 
         [OperationContract]
+        int GetExisteClienteConsultora(int paisID, BECliente entidad);
+
+        [OperationContract]
         void UndoCliente(int paisID, long consultoraID, int clienteID);
 
         [OperationContract]

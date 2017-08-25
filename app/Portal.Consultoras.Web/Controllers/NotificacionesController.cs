@@ -430,7 +430,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GetNotificacionesSinLeer()
         {
-            var cantidadNotificaciones = -1;
+            int cantidadNotificaciones = -1;
             var mensaje = string.Empty;
             try
             {
@@ -440,9 +440,10 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 else
                 {
-                    var listaNotificaciones = ObtenerNotificaciones();
-
-                    cantidadNotificaciones = listaNotificaciones.Count(p => p.Visualizado == false);
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        cantidadNotificaciones = sv.GetNotificacionesSinLeer(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR);
+                    }
 
                     Session["fechaGetNotificacionesSinLeer"] = DateTime.Now;
                     Session["cantidadGetNotificacionesSinLeer"] = cantidadNotificaciones;
