@@ -8755,6 +8755,12 @@ span.icon-advertencia{
     color:#000;
 }
 
+.icono_terminar_pedido{
+    background:url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/eFrB5kIPNXTjyJd/icono-reserva.png) no-repeat;
+    background-size:22px;
+    padding-left: 40px;    
+}
+
 /* FIN POPUP OFERTA FINAL */
 .texto_valorTurno {
     text-transform: lowercase;
