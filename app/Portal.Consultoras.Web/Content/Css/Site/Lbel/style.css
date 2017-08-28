@@ -34561,25 +34561,12 @@ h1#penmostreo .campana {
     line-height: 12px;
 }
 
-    .etiqueta_guia_negocio span {
-        display: block;
-        font-size: 13.9px;
-        font-weight: 700;
-        height: 14px;
+.etiqueta_guia_negocio span {
+    display: block;
+    font-size: 13.9px;
+    font-weight: 700;
+    height: 14px;
 }
-.content_pasos_linea {
-    position: relative;
-    width: 99%;
-    height: 2px;      
-    /*z-index: 3;*/
-    z-index:4;
-    left: 0;
-    width: 310px;
-    margin: 0 auto;
-    margin-top: -18px;
-    background: #d1d1d1;
-    }
-
 
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante {

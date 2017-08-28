@@ -1401,7 +1401,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult SesionExpirada()
         {
-            return View();          
+            return View();
         }
 
         [AllowAnonymous]
