@@ -46,7 +46,10 @@ function VerDetalleEstrategia(e) {
     var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
-    var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").data("OrigenPedidoWeb");
+    var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb");
+
+    VerDetalleComprarRDAnalytics(origenPedido, estrategia);
+
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia.EstrategiaID, origenPedido);
         return true;
@@ -182,7 +185,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     }
 
     var popupId = '#popupDetalleCarousel_lanzamiento';
-
+    estrategia.OrigenPedidoWeb = 
     SetHandlebars("#verdetalle-template", estrategia, popupId);
 
     if (btnDesabled == 0) {
@@ -317,7 +320,18 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var objInput = $(event.target);
 
+    origenPedidoWebEstrategia =
+        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
+
+    var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html");
+    popup = popup || false;
+
     if (EstrategiaValidarBloqueada(objInput, estrategia)) {
+        AgregarProductoDeshabilitadoRDAnalytics(origenPedidoWebEstrategia, campania, estrategia.DescripcionResumen, popup);
         return false;
     }
 
@@ -325,7 +339,7 @@ function EstrategiaAgregar(event, popup, limite) {
         return false;
     }
 
-    popup = popup || false;
+   
     limite = limite || 0;
     var cantidad = (limite > 0) ? limite
         :(
@@ -377,13 +391,6 @@ function EstrategiaAgregar(event, popup, limite) {
             });
         }
     }
-
-    origenPedidoWebEstrategia =
-       $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-      || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-      || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-      || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-      || origenPedidoWebEstrategia;
 
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
@@ -477,8 +484,9 @@ function EstrategiaAgregar(event, popup, limite) {
 
             // falta agregar este metodo en para las revista digital
             try {
+                AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                TagManagerClickAgregarProductoOfertaParaTI(datosEst);
+                TagManagerClickAgregarProductoOfertaParaTI(estrategia);
             } catch (e) { }
 
             CerrarLoad();
@@ -530,13 +538,10 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
             divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
             divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
         }
-
         $(".contenedor_popup_detalleCarousel").hide();
         $("#divMensajeBloqueada").show();
     }
-
     return true;
-
 }
 
 function EstrategiaValidarSeleccionTono(objInput) {

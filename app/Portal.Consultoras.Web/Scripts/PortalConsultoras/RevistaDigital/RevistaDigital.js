@@ -30,6 +30,10 @@ $(document).ready(function () {
                 $(objTag).css('padding-top', '50px');
             }
         });
+        // Registrar valrores de analytics
+        if (!isMobile()) {
+            TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
+        }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -135,21 +139,29 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
-        //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
-        var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
-        var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
-        var obj = GetProductoStorage(cuv, campania);
-        if (obj == undefined) {
-            return;
-        }
-        obj.CUV2 = $.trim(obj.CUV2);
-        if (obj.CUV2 != "") {
-            var guardo = EstrategiaGuardarTemporal(obj);
-            if (guardo)
-                return window.location = urlOfertaDetalleProducto + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
-        }
-    })
+    $("body").on("click",
+        "[data-item-accion='verdetalle']",
+        function(e) {
+            //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
+            var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
+            var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
+            var obj = GetProductoStorage(cuv, campania);
+            if (obj == undefined) {
+                return;
+            }
+            obj.CUV2 = $.trim(obj.CUV2);
+
+            if (obj.CUV2 != "") {
+                VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
+                var guardo = EstrategiaGuardarTemporal(obj);
+                if (guardo)
+                    return window.location = urlOfertaDetalleProducto +
+                        "?cuv=" +
+                        obj.CUV2 +
+                        "&campaniaId=" +
+                        obj.CampaniaID;
+            }
+        });
 
 });
 
@@ -344,7 +356,7 @@ function RDFiltrarLista(response, busquedaModel) {
     var universo = new Array();
     var cont = 0, contVal = 0;
 
-    OfertaObtenerIndLocal(response.CampaniaID)
+    OfertaObtenerIndLocal(response.CampaniaID);
     var ListaFiltro = filtroCampania[indCampania].ListaFiltro || new Array();
 
     if (ListaFiltro.length > 0) {
@@ -547,3 +559,4 @@ function RDPageInformativa() {
         window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
     }
 }
+
