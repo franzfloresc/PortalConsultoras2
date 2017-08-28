@@ -5449,8 +5449,9 @@ a.subir_carousel, a.bajar_carousel {
     display: block;
     position: absolute;
     top: 50%;
-    left: 50%;
-    margin: -271px auto 0 -360.5px;
+    left: 0;
+    right:0;
+    margin: -271px auto 0 auto;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -5669,7 +5670,7 @@ a.subir_carousel, a.bajar_carousel {
 
 #popupMisDatos {
     display: block;
-    margin: -279.5px auto 0 -360.5px;
+    margin: -298.5px auto 0 auto;
 }
 
 .titulo_misDatos {
