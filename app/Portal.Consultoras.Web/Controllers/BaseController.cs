@@ -818,6 +818,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
             //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
@@ -825,6 +827,11 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             foreach (var confiModel in lista)
             {
+                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
+                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
+                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
+                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
+
                 var confi = confiModel;
                 if (confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
                     || confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
@@ -1582,6 +1589,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Session["EsShowRoom"] = "1";
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+
                         if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                             && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                         {
@@ -2693,6 +2703,9 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
                         seccion.UrlLandig = "RevistaDigital/Index";
                         break;
+                    case Constantes.ConfiguracionPais.ShowRoom:
+                        seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                        break;
                     default:
                         break;
                 }
@@ -2714,6 +2727,11 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
+                        break;
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
+                        seccion.TemplatePresentacion = "seccion-showroom";
+                        seccion.TemplateProducto = "#template-showroom";
+                       
                         break;
                     default:
                         break;

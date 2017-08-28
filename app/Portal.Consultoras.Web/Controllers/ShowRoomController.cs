@@ -2743,15 +2743,17 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarIngresoShowRoom(false)) return ErrorJson("");
+                if (!ValidarIngresoShowRoom(esIntriga: false))
+                    return ErrorJson(string.Empty);
 
                 var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
                 bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
                 var urlCompartir = GetUrlCompartirFB();
-                var listaProductos = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
-                listaProductos.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                var listaNoSubCampania = listaProductos.Where(x => !x.EsSubCampania).ToList();
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+
+                var listaNoSubCampania = productosShowRoom.Where(x => !x.EsSubCampania).ToList();
                 int totalNoSubCampania = listaNoSubCampania.Count;
 
                 if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
@@ -2795,7 +2797,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 if (model.Limite > 0) listaNoSubCampania = listaNoSubCampania.Take(model.Limite).ToList();
 
-                var listaSubCampania = listaProductos.Where(x => x.EsSubCampania).ToList();
+                var listaSubCampania = productosShowRoom.Where(x => x.EsSubCampania).ToList();
                 listaSubCampania.ForEach(p => p.ListaDetalleOfertaShowRoom = GetOfertaConDetalle(p.OfertaShowRoomID).ListaDetalleOfertaShowRoom);
                 listaSubCampania = ValidarUnidadesPermitidas(listaSubCampania);
                 return Json(new
@@ -2805,6 +2807,44 @@ namespace Portal.Consultoras.Web.Controllers
                     listaNoSubCampania = listaNoSubCampania,
                     totalNoSubCampania = totalNoSubCampania,
                     listaSubCampania = listaSubCampania
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult CargarProductosShowRoomOferta(BusquedaProductoModel model)
+        {
+            try
+            {
+                if (!ValidarIngresoShowRoom(esIntriga: false))
+                    return ErrorJson(string.Empty);
+
+                var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+                bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
+                var urlCompartir = GetUrlCompartirFB();
+
+                var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
+                productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
+
+                if (model.Limite > 0)
+                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
+
+                var index = 0;
+                productosShowRoom.Each(x => {
+                    x.Posicion = index++;
+                    x.UrlDetalle = Url.Action("DetalleOferta", new { id = x.OfertaShowRoomID });
+                });
+
+                return Json(new
+                {
+                    success = true,
+                    message = "Ok",
+                    data = productosShowRoom
                 });
             }
             catch (Exception ex)
