@@ -5,7 +5,6 @@ var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
 var v_IsMovilDevice = 0;
-var v_IsMovilDeviceCall = 0;
 
 var CodigoISO;
 var PaisID;
@@ -289,8 +288,11 @@ $(document).ready(function () {
                 $(".lk_chat").css("text-decoration", "none");
                 $(".lk_chat").css("color", "black");
 
+                v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");
+
                 var paisId = $("#cboPaisCambioClave").val();
-                var v_telefonos = "123456789,987654321,999959074"; //$("#cboPaisCambioClave option:selected").attr("data-telefonos");
+                //var v_telefonos = "123456789,987654321,999959074";
+                var v_telefonos = $("#cboPaisCambioClave option:selected").attr("data-telefonos");
                 var va_telefonos = v_telefonos.split(",");
                 var template_telefonoprimero = $('#telefonoprimero-template').html();
                 var template_telefonootros = $('#telefonootros-template').html();
@@ -325,6 +327,15 @@ $(document).ready(function () {
                 
                 $(".lk_llamada").css("text-decoration", "none");
                 $(".lk_llamada").css("color", "black");
+                
+                $(".lk_chat").html(response.descripcionHorarioChat);
+                $("#divChatearConNosotros").css("display", "inline-block");
+                $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
+
+                if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
+                if (response.habilitarChat) $(".opciones_recuperacionContrasenia").css("cursor", "auto");
+
+                //$("..horarios_atencion_chat").css("padin")
             },
             error: function() { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
             complete: closeWaitingDialog
@@ -365,7 +376,10 @@ $(document).ready(function () {
 
 function Construir_EnlacexDispositivo(Modo){
     var v_urlbase = $("#hd_CONTEXTO_BASE").val();
-    var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp;
+    var paisId = $("#cboPaisCambioClave").val();
+    var codigoUsuario = $("#hdCodigoConsultora").val();
+    var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp + 
+        "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario;
 
     if (Modo == 2){
         if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
@@ -877,7 +891,8 @@ function ProcesaEnvioEmail(){
 
     let parametros = {
         paisId: paisId,
-        filtro: $("#txtCorreoElectronico").val()
+        filtro: $("#txtCorreoElectronico").val(),
+        EsMobile: parseInt($(".lk_chat").attr("ismovildevice"))
     };
 
     $.ajax({

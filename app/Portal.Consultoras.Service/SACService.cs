@@ -1427,5 +1427,10 @@ namespace Portal.Consultoras.Service
             bl.Update(configuracionPais);
         }
         #endregion
+
+        public BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible)
+        {
+            return new BLHorario().GetHorarioByCodigo(paisID, codigo, loadEstaDisponible);
+        }
     }
 }

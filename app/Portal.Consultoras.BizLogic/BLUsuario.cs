@@ -1191,7 +1191,7 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion)
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile)
         {
             var resultado = string.Empty;
             var paso = "1";
@@ -1616,6 +1616,11 @@ namespace Portal.Consultoras.BizLogic
             };
 
             return usuarioConfiguracion;
+        }
+
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario)
+        {
+            return new DAUsuario(paisID).GetUsuarioChatEmtelco(codigoUsuario);
         }
     }
 }

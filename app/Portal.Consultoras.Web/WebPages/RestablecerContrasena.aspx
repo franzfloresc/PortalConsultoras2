@@ -261,8 +261,9 @@
                     </form>
                 </div>
                 <div class="campos_actualizacionContrasenia" id="divActualizacionCorrecta" style="display:none;">
-                    <div>¡BIEN HECHO!</div>
-                    <div class="saludoConsultora">Tu contraseña fue actualizada</div>
+                    <div class="icono_alerta check_icono_mobile"></div>
+                    <div class="titulo_compartir">¡BIEN <b>HECHO</b>!</div>
+                    <div class="mensaje_alerta">Tu contraseña fue actualizada</div>
                     <span class="cambiarContraseniaTexto"></span>
                     <div class="formulario_actualizarContrasenia">
                         <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>

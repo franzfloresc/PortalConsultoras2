@@ -685,10 +685,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.RecuperarContrasenia(paisId, textoRecuperacion);
         }
 
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion)
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion);        
+            return BLUsuario.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile);        
         }
 
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
@@ -762,5 +762,9 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario)
+        {
+            return new BLUsuario().GetUsuarioChatEmtelco(paisID, codigoUsuario);
+        }
     }
 }

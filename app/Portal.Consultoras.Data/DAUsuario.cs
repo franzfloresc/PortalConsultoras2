@@ -783,5 +783,18 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        public BEUsuarioChatEmtelco GetUsuarioChatEmtelco(string codigoUsuario)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioChatEmtelco");
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, codigoUsuario);
+
+            BEUsuarioChatEmtelco usuarioChatemtelco = null;
+            using (IDataReader reader = Context.ExecuteReader(command))
+            {
+                if (reader.Read()) usuarioChatemtelco = new BEUsuarioChatEmtelco(reader);
+            }
+            return usuarioChatemtelco;
+        }
     }
 }

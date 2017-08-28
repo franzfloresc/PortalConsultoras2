@@ -1152,7 +1152,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .horarios_atencion_chat{
-    padding:0 23px;
+    padding:0 7px;
+    text-align:center;
 }
 
 .telefonos_desktop{
@@ -1751,8 +1752,8 @@ h1, h2, h3, h4, h5, h6 {
 
 @media only screen and (max-width: 768px) {
 
-    .opciones_recuperacionContrasenia.contenedor_telefonos_desktop{
-        display:block;
+    .opciones_recuperacionContrasenia.contenedor_telefonos_desktop {
+        display: block;
     }
 
     .contenedor_telefonos_mobile{

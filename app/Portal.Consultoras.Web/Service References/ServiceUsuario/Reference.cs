@@ -4449,6 +4449,99 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioChatEmtelco", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEUsuarioChatEmtelco : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoUsuarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string EmailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PrimerNombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SegmentoAbreviaturaField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoUsuario {
+            get {
+                return this.CodigoUsuarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoUsuarioField, value) != true)) {
+                    this.CodigoUsuarioField = value;
+                    this.RaisePropertyChanged("CodigoUsuario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Email {
+            get {
+                return this.EmailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string PrimerNombre {
+            get {
+                return this.PrimerNombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PrimerNombreField, value) != true)) {
+                    this.PrimerNombreField = value;
+                    this.RaisePropertyChanged("PrimerNombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SegmentoAbreviatura {
+            get {
+                return this.SegmentoAbreviaturaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SegmentoAbreviaturaField, value) != true)) {
+                    this.SegmentoAbreviaturaField = value;
+                    this.RaisePropertyChanged("SegmentoAbreviatura");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEConsultoraDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEConsultoraDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -7696,10 +7789,16 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioConfiguracion> ObtenerUsuarioConfiguracionAsync(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmail", ReplyAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmailResponse")]
-        string EnviaClaveAEmail(int paisId, string textoRecuperacion);
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/EnviaClaveAEmail", ReplyAction="http://tempuri.org/IUsuarioService/EnviaClaveAEmailResponse")]
-        System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion);
+        System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelcoResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelco", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioChatEmtelcoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco> GetUsuarioChatEmtelcoAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -8393,12 +8492,20 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.ObtenerUsuarioConfiguracionAsync(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
         }
         
-        public string EnviaClaveAEmail(int paisId, string textoRecuperacion) {
-            return base.Channel.EnviaClaveAEmail(paisId, textoRecuperacion);
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile) {
+            return base.Channel.EnviaClaveAEmail(paisId, textoRecuperacion, EsMobile);
         }
         
-        public System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion) {
-            return base.Channel.EnviaClaveAEmailAsync(paisId, textoRecuperacion);
+        public System.Threading.Tasks.Task<string> EnviaClaveAEmailAsync(int paisId, string textoRecuperacion, bool EsMobile) {
+            return base.Channel.EnviaClaveAEmailAsync(paisId, textoRecuperacion, EsMobile);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario) {
+            return base.Channel.GetUsuarioChatEmtelco(paisID, codigoUsuario);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioChatEmtelco> GetUsuarioChatEmtelcoAsync(int paisID, string codigoUsuario) {
+            return base.Channel.GetUsuarioChatEmtelcoAsync(paisID, codigoUsuario);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

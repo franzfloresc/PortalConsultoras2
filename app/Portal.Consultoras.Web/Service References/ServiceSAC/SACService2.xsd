@@ -129,6 +129,18 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="BEConfiguracionPaisDetalle" nillable="true" type="tns:BEConfiguracionPaisDetalle" />
+  <xs:complexType name="BEHorario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Codigo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EstaDisponible" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraISO" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HoraIncluyente" type="xs:boolean" />
+      <xs:element minOccurs="0" name="HorarioID" type="xs:int" />
+      <xs:element minOccurs="0" name="PrimerDiaSemana" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Resumen" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEHorario" nillable="true" type="tns:BEHorario" />
   <xs:complexType name="BEBelcorpNoticia">
     <xs:sequence>
       <xs:element minOccurs="0" name="ArchivoPortada" nillable="true" type="xs:string" />

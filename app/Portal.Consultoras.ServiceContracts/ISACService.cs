@@ -705,5 +705,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais);
         #endregion
+
+        #region Horario
+
+        [OperationContract]
+        BEHorario GetHorarioByCodigo(int paisID, string codigo, bool loadEstaDisponible);
+
+        #endregion
     }
 }

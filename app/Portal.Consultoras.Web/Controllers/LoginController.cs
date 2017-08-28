@@ -1466,13 +1466,23 @@ namespace Portal.Consultoras.Web.Controllers
                 string claveusuario = Util.Trim(obj.Length > 4 ? obj[4] : "");
                 string codigo = Util.Trim(obj.Length > 5 ? obj[5] : "");
                 string contextoBase = Util.Trim(obj.Length > 6 ? obj[6] : "");
+                bool mostrarChat = false;
+                string descripcionHorarioChat = "";
+                bool habilitarChat = false;
 
-                string paisISO = Util.GetPaisISO(paisId);
-                bool mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
-                string descripcionHorarioChat = "L,Mi,V: 08:00 a 20:00 y Ma,J,S: 08:00 a 18:00";
-                bool habilitarChat = true;
+                BEHorario horario;
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    horario = sv.GetHorarioByCodigo(paisId, Constantes.CodigoHorario.ChatEmtelco, true);
+                }
+                if(horario != null)
+                {
+                    string paisISO = Util.GetPaisISO(paisId);
+                    mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                    descripcionHorarioChat = horario.Resumen;
+                    habilitarChat = horario.EstaDisponible;
+                }
 
-                GetUserData(paisId, codigo, 1);
                 return Json(new
                 {
                     success = true,
@@ -1499,17 +1509,16 @@ namespace Portal.Consultoras.Web.Controllers
                 return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
         }
-
     
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult EnviaClaveAEmail(int paisId, string filtro)
+        public JsonResult EnviaClaveAEmail(int paisId, string filtro, int EsMobile)
         {
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    sv.EnviaClaveAEmail(paisId, filtro);
+                    sv.EnviaClaveAEmail(paisId, filtro, Convert.ToBoolean(EsMobile));
                 }
                 return SuccessJson(MensajesOlvideContrasena("4"), true);
             }
@@ -1763,6 +1772,15 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+                                
+        private JsonResult ErrorJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+        private JsonResult SuccessJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
 
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
@@ -1784,34 +1802,41 @@ namespace Portal.Consultoras.Web.Controllers
         /// Obtiene la URL para el chat que se mostrara dependiendo del pais.
         /// </summary>
         /// <returns>URL: chat relacionado al pais</returns>
-        public ActionResult ChatBelcorp()
+        public ActionResult ChatBelcorp(int paisId, string codigoUsuario)
         {
-            UsuarioModel userData = (UsuarioModel)Session["UserData"];
-
             string url = "";
-            if ((ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(userData.CodigoISO))
+            try
             {
-                url = String.Format(
-                    (ConfigurationManager.AppSettings["UrlBelcorpChat"] ?? ""),
-                    userData.SegmentoAbreviatura.Trim(),
-                    userData.CodigoUsuario.Trim(),
-                    userData.PrimerNombre.Split(' ').First().Trim(),
-                    userData.EMail.Trim(), userData.CodigoISO.Trim()
-                );
+                string paisISO = Util.GetPaisISO(paisId);
+                if ((ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO))
+                {
+                    BEUsuarioChatEmtelco usuarioChatEmtelco = null;
+                    using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                    {
+                        usuarioChatEmtelco = sv.GetUsuarioChatEmtelco(paisId, codigoUsuario);
+                    }
+
+                    url = String.Format(
+                        ConfigurationManager.AppSettings["UrlBelcorpChat"] ?? "",
+                        usuarioChatEmtelco.SegmentoAbreviatura.Trim(),
+                        codigoUsuario.Trim(),
+                        usuarioChatEmtelco.PrimerNombre.Split(' ').First().Trim(),
+                        usuarioChatEmtelco.Email.Trim(),
+                        paisISO
+                    );
+                }
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, string.Empty, Util.GetPaisISO(paisId));
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, Util.GetPaisISO(paisId));
             }
 
-            ViewBag.UrlBelcorpChatPais = url;            
-            return Redirect(url);
-        }
-
-        private JsonResult ErrorJson(string message, bool allowGet = false)
-        {
-            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
-        }
-
-        private JsonResult SuccessJson(string message, bool allowGet = false)
-        {
-            return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+            ViewBag.UrlBelcorpChatPais = url;
+            return View();
         }
     }
 }
