@@ -226,6 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
+                    TempData["usuarioValidado"] = "1";
                     if (model.UsuarioExterno == null)
                         return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
 
