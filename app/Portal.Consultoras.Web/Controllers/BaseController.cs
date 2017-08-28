@@ -2739,6 +2739,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (seccion.TemplatePresentacion == "") continue;
 
+                seccion.ImagenFondo = ConfigS3.GetUrlS3(Globals.UrlMatriz + "/" + Util.GetPaisISO(userData.PaisID)) +  seccion.ImagenFondo;
+
                 modelo.Add(seccion);
             }
             
