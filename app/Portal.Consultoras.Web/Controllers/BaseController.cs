@@ -1589,6 +1589,9 @@ namespace Portal.Consultoras.Web.Controllers
                         Session["EsShowRoom"] = "1";
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+
                         if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                             && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                         {
@@ -2700,6 +2703,9 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
                         seccion.UrlLandig = "RevistaDigital/Index";
                         break;
+                    case Constantes.ConfiguracionPais.ShowRoom:
+                        seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                        break;
                     default:
                         break;
                 }
@@ -2721,6 +2727,11 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
+                        break;
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
+                        seccion.TemplatePresentacion = "seccion-showroom";
+                        seccion.TemplateProducto = "#template-showroom";
+                       
                         break;
                     default:
                         break;

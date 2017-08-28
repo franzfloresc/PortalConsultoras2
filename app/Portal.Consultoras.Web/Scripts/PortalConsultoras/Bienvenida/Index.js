@@ -3168,14 +3168,14 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    AgregarTagManagerShowRoomPopupClick(2);
-    document.location.href = urlShowRoomIntriga;
+    //AgregarTagManagerShowRoomPopupClick(2);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    AgregarTagManagerShowRoomPopupClick(1);
-    document.location.href = urlShowRoomVenta;
+    //AgregarTagManagerShowRoomPopupClick(1);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }
 
