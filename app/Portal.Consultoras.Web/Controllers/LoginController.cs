@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
@@ -880,7 +881,6 @@ namespace Portal.Consultoras.Web.Controllers
                         {
                             model.OfertasDelDia = GetOfertaDelDiaModel(model);
                             model.TieneOfertaDelDia = model.OfertasDelDia.Any();
-                            //model.OfertaDelDia = model.OfertasDelDia[0];
                         }
                         #endregion
 
@@ -1230,7 +1230,7 @@ namespace Portal.Consultoras.Web.Controllers
                     sFecha = sv.GetFechaPromesaCronogramaByCampania(PaisId, CampaniaId, CodigoConsultora, FechaFact);
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, PaisId.ToString());
             }
@@ -1253,7 +1253,7 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoUsuario, PaisId.ToString());
             }
@@ -1281,8 +1281,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         private TimeSpan CountdownODD(UsuarioModel model)
         {
-            //DateTime hoy = DateTime.Now;
-            //DateTime d1 = new DateTime(hoy.Year, hoy.Month, hoy.Day, 0, 0, 0);
             DateTime hoy;
 
             using (SACServiceClient svc = new SACServiceClient())
@@ -1340,8 +1338,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!string.IsNullOrEmpty(arr1[i]))
                         descripcionODD += arr1[i].Trim() + "|";
                 }
-
-                //descripcionODD = descripcionODD.Substring(0, descripcionODD.Length - 1);
+                
                 descripcionODD = descripcionODD == "" ? "" : descripcionODD.Substring(0, descripcionODD.Length - 1);
 
                 var countdown = CountdownODD(model);
@@ -1352,7 +1349,6 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
 
-                //odd.FotoProducto01 = ConfigS3.GetUrlFileS3(carpetaPais, odd.FotoProducto01, carpetaPais); este campo ya se calcula en el servicio
                 odd.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, odd.ImagenURL, carpetaPais);
 
                 var oddModel = new OfertaDelDiaModel();
@@ -1366,8 +1362,6 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.TipoEstrategiaImagenMostrar = odd.TipoEstrategiaImagenMostrar;
                 oddModel.TeQuedan = countdown;
 
-                //if (contOdd == 0)
-                //{
                 var imgBanner = odd.FotoProducto01;
                 var imgDisplay = odd.FotoProducto01;
 
@@ -1376,8 +1370,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var imgSh = string.Format(ConfigurationManager.AppSettings.Get("UrlImgSoloHoyODD"), model.CodigoISO);
                 var exte = imgSh.Split('.')[imgSh.Split('.').Length - 1];
                 imgSh = imgSh.Substring(0, imgSh.Length - exte.Length - 1) + (lstOfertaDelDia.Count > 1 ? "s" : "") + "." + exte;
-                //var imgBanner = string.Format(ConfigurationManager.AppSettings.Get("UrlImgBannerODD"), model.CodigoISO, odd.ImagenURL);
-                //var imgDisplay = string.Format(ConfigurationManager.AppSettings.Get("UrlImgDisplayODD"), model.CodigoISO, odd.ImagenURL);
                 var colorF1 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9301).First().Codigo ?? string.Empty;
                 var colorF2 = configOfertaDelDia.Where(x => x.TablaLogicaDatosID == 9302).First().Codigo ?? string.Empty;
 
@@ -1388,7 +1380,7 @@ namespace Portal.Consultoras.Web.Controllers
                 oddModel.ImagenFondo2 = imgF2;
                 oddModel.ColorFondo2 = colorF2;
                 oddModel.ImagenDisplay = imgDisplay;
-                //}
+
                 oddModel.ID = contOdd++;
                 oddModel.NombreOferta = nombreODD;
                 oddModel.DescripcionOferta = descripcionODD;
@@ -1409,7 +1401,7 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult SesionExpirada()
         {
-            return View();
+            return View();          
         }
 
         [AllowAnonymous]
@@ -1452,101 +1444,95 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult RecuperarContrasenia(int paisId, string correo)
+        public JsonResult RecuperarContrasenia(int paisId, string textoRecuperacion)
         {
             try
             {
                 var respuesta = string.Empty;
-
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    respuesta = sv.RecuperarContrasenia(paisId, correo);
+                    respuesta = sv.RecuperarContrasenia(paisId, textoRecuperacion);                    
                 }
-
                 respuesta = respuesta == null ? "" : respuesta.Trim();
-                if (respuesta == "")
-                    return Json(new
-                    {
-                        success = false,
-                        message = "Error en la respuesta del servicio de Recuperar Contraseña."
-                    }, JsonRequestBehavior.AllowGet);
-
+                if (respuesta == "") return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+                
                 string[] obj = respuesta.Split('|');
-                string exito = obj.Length > 0 ? obj[0] : "";
-                string tipomsj = obj.Length > 1 ? obj[1] : "";
+                string exito = Util.Trim(obj.Length > 0 ? obj[0] : "");
+                string tipomsj = Util.Trim(obj.Length > 1 ? obj[1] : "");
+                if (exito != "1") return ErrorJson(MensajesOlvideContrasena(tipomsj), true);
 
-                exito = exito == null ? "" : exito.Trim();
-                tipomsj = tipomsj == null ? "" : tipomsj.Trim();
+                string correo = Util.Trim(obj.Length > 2 ? obj[2] : "");
+                string nombreusuario = Util.Trim(obj.Length > 3 ? obj[3] : "");
+                string claveusuario = Util.Trim(obj.Length > 4 ? obj[4] : "");
+                string codigo = Util.Trim(obj.Length > 5 ? obj[5] : "");
+                string contextoBase = Util.Trim(obj.Length > 6 ? obj[6] : "");
 
-                if (exito == "1")
-                {
-                    //mostrar popup2
-                    return Json(new
-                    {
-                        success = true,
-                        message = exito,
-                        correo = correo
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                string msj = MensajesOlvideContrasena(tipomsj);
+                string paisISO = Util.GetPaisISO(paisId);
+                bool mostrarChat = (ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO);
+                string descripcionHorarioChat = "L,Mi,V: 08:00 a 20:00 y Ma,J,S: 08:00 a 18:00";
+                bool habilitarChat = true;
+
+                GetUserData(paisId, codigo, 1);
                 return Json(new
                 {
-                    success = false,
-                    message = msj
+                    success = true,
+                    message = exito,
+                    correo = correo,
+                    nombre = nombreusuario,
+                    clave = claveusuario,
+                    pais = paisId,
+                    codigo = codigo,
+                    CONTEXTO_BASE = contextoBase,
+                    mostrarChat = mostrarChat,
+                    descripcionHorarioChat = descripcionHorarioChat,
+                    habilitarChat = habilitarChat
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, correo, Util.GetPaisISO(paisId));
-
-                return Json(new
-                {
-                    success = false,
-                    message = "Error en la respuesta del servicio de Recuperar Contraseña."
-                }, JsonRequestBehavior.AllowGet);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, textoRecuperacion, Util.GetPaisISO(paisId));
+                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, correo, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesBus(ex, textoRecuperacion, Util.GetPaisISO(paisId));
+                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
+            }
+        }
 
-                return Json(new
+    
+        [AllowAnonymous]
+        [HttpPost]
+        public JsonResult EnviaClaveAEmail(int paisId, string filtro)
+        {
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    success = false,
-                    message = "Error en la respuesta del servicio de Recuperar Contraseña."
-                }, JsonRequestBehavior.AllowGet);
+                    sv.EnviaClaveAEmail(paisId, filtro);
+                }
+                return SuccessJson(MensajesOlvideContrasena("4"), true);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, string.Empty, Util.GetPaisISO(paisId));
+                return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
         }
 
         private string MensajesOlvideContrasena(string tipoMensaje)
         {
-            string rpta = "";
-            tipoMensaje = tipoMensaje ?? "";
-            tipoMensaje = tipoMensaje.Trim();
-            if (tipoMensaje == "1")
+            tipoMensaje = Util.Trim(tipoMensaje);
+            switch (tipoMensaje)
             {
-                return ("El Número de Cédula ingresado no existe.");
+                case "1": return "El Número de Cédula ingresado no existe.";
+                case "2": return "No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente.";
+                case "3": return "Correo electrónico no identificado.";
+                case "4": return "Te hemos enviado una nueva clave a tu correo.";
+                case "5": return "Ocurrió un problema al recuperar tu contraseña.";
+                case "6": return "Error al realizar proceso, inténtelo mas tarde.";
+                default: return "";
             }
-            if (tipoMensaje == "2")
-            {
-                return ("No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente.");
-            }
-            if (tipoMensaje == "3")
-            {
-                return ("Correo electrónico no identificado.");
-            }
-            if (tipoMensaje == "4")
-            {
-                return ("Te hemos enviado una nueva clave a tu correo.");
-            }
-            if (tipoMensaje == "5")
-            {
-                return ("Ocurrió un problema al recuperar tu contraseña.");
-            }
-            if (tipoMensaje == "6")
-            {
-                return ("Error al realizar proceso, inténtelo mas tarde.");
-            }
-            return rpta;
         }
 
         [HttpPost]
@@ -1792,6 +1778,40 @@ namespace Portal.Consultoras.Web.Controllers
                 nroCampaniaResult = nroCampaniaResult + nroCampanias;
             }
             return (anioCampaniaResult * 100) + nroCampaniaResult;
+        }
+
+        /// <summary>
+        /// Obtiene la URL para el chat que se mostrara dependiendo del pais.
+        /// </summary>
+        /// <returns>URL: chat relacionado al pais</returns>
+        public ActionResult ChatBelcorp()
+        {
+            UsuarioModel userData = (UsuarioModel)Session["UserData"];
+
+            string url = "";
+            if ((ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(userData.CodigoISO))
+            {
+                url = String.Format(
+                    (ConfigurationManager.AppSettings["UrlBelcorpChat"] ?? ""),
+                    userData.SegmentoAbreviatura.Trim(),
+                    userData.CodigoUsuario.Trim(),
+                    userData.PrimerNombre.Split(' ').First().Trim(),
+                    userData.EMail.Trim(), userData.CodigoISO.Trim()
+                );
+            }
+
+            ViewBag.UrlBelcorpChatPais = url;            
+            return Redirect(url);
+        }
+
+        private JsonResult ErrorJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = false, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
+        }
+
+        private JsonResult SuccessJson(string message, bool allowGet = false)
+        {
+            return Json(new { success = true, message = message }, allowGet ? JsonRequestBehavior.AllowGet : JsonRequestBehavior.DenyGet);
         }
     }
 }

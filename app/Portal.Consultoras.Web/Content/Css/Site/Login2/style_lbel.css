@@ -1,4 +1,16 @@
-﻿#container, body, html {
+﻿
+/**************************************************************************
+***************************************************************************/
+
+@font-face {
+  font-family: 'iconos_cambio_pass';
+  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r');
+  src:  url('../fonts/icomoon/iconos-cambio-pass.eot?dhvc7r#iefix') format('embedded-opentype'), url('../fonts/icomoon/iconos-cambio-pass.ttf?dhvc7r') format('truetype'), url('../fonts/icomoon/iconos-cambio-pass.woff?dhvc7r') format('woff'), url('../fonts/icomoon/iconos-cambio-pass.svg?dhvc7r#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+#container, body, html {
     height: 100%;
     width: 100%;
 }
@@ -846,7 +858,7 @@ h1, h2, h3, h4, h5, h6 {
 /*  Main Navigation
 /* -------------------------------------------------- */
 
-#bg_1, #popup_olvidasteContrasenia {
+#bg_1, #popup_olvidasteContrasenia, #popup_cambioContrasenia {
     font-family: lato;
     /* height: 463px; */
     /* width: 868px; */
@@ -889,6 +901,22 @@ h1, h2, h3, h4, h5, h6 {
         color: black;
     }
 
+    #popup_olvidasteContrasenia .user input::-webkit-input-placeholder {
+        color: #838383;
+    }
+
+    #popup_olvidasteContrasenia .user input:-moz-placeholder {
+        color: #838383;
+    }
+
+    #popup_olvidasteContrasenia .user input::-moz-placeholder {
+        color: #838383;
+    }
+
+    #popup_olvidasteContrasenia .user input:-ms-input-placeholder {
+        color: #838383;
+    }
+
 .content_bg_1 {
     width: 40%;
     top: 20%;
@@ -898,17 +926,36 @@ h1, h2, h3, h4, h5, h6 {
     padding-bottom: 55px;
 }
 
-.content_bg_olvidasteContrasenia {
-    width: 35%;
-    top: 13.5%;
+.content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+    width: 100%;
+    max-width:588px;
     margin: 0 auto;
     position: relative;
     background: white;
     padding-bottom: 55px;
 }
 
+.content_bg_olvidasteContrasenia{
+    top: 18.5%;
+}
+
+.content_bg_cambioContrasenia{
+    top:18.5%;
+    padding-bottom:43px;
+}
+
+.contenido_mensaje{
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.contenido_mensaje.texto_bold{
+    font-weight:700;
+}
+
 .content_bg_contraseniaEnviada {
-    width: 35%;
+    width: 100%;
+    max-width:588px;
     top: 25%;
     margin: 0 auto;
     position: relative;
@@ -917,22 +964,42 @@ h1, h2, h3, h4, h5, h6 {
     padding-top: 10px;
 }
 
-#header {
+.contenedor_cabecera_popup{
+    display:block;
+    overflow:hidden;
+}
+
+#popup3{
+    display:none;
+}
+
+#header, #header_cambioContrasenia {
     /* height: 55px; */
     width: 100%;
     /* background: black url(../Images/popup_esika/fondo_header.png) top left no-repeat; */
     /* background-position: right; */
-    FONT-FAMILY: LATO;
+    font-family:'Lato';
     color: black;
     line-height: 55px;
     text-align: left;
     padding-top: 29px;
-    padding-left: 15%;
     box-sizing: border-box;
-    font-weight: 700;
+    font-weight: 300;
     letter-spacing: 0.4px;
     font-size: 11pt;
     border-bottom: 1px solid black;
+}
+
+#header{
+    padding-left: 20.2%;
+}
+
+#header_cambioContrasenia{
+    padding-left:6.6%;
+}
+
+#header .texto_bold, #header_cambioContrasenia .texto_bold{
+    font-weight:700;
 }
 
 .indicador_lbel {
@@ -957,16 +1024,225 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mensaje_pop_up2 {
-    margin-top: 56px;
-    margin-bottom: 41px;
+    margin-top: 39px;
+    margin-bottom: 26px;
     font-size: 11pt;
     color: black;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 20.2%;
+    margin-right: 20.2%;
     FONT-FAMILY: LATO;
     line-height: 15pt;
     font-weight: 400;
     text-align: left;
+}
+
+.contenedor_opciones{
+    display:block;
+}
+
+#popup_cambioContrasenia .mensaje_popup_cambioContrasenia{
+    margin-bottom:20px;
+    margin-right: 6%;
+    margin-left: 6%;
+    margin-top:17px;
+}
+
+.opciones_recuperacionContrasenia{
+    display: inline-block;
+    vertical-align: top;
+    width: 27%;
+    height: 137px;
+    border: 1px solid #959595;
+    margin-left: 6%;
+    margin-right: 3%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.opciones_recuperacionContrasenia:nth-child(3n){
+    background-color: rgba(242, 242, 242, 0.5);
+    border:1px solid rgba(242, 242, 242, 0.5);
+}
+
+/*.opciones_recuperacionContrasenia:nth-child(3n):hover{
+    border:none;
+    cursor:default;
+}*/
+
+.opcion_correoElectronico, .opcion_chateaConNosotros{
+    margin-bottom: 20px;
+}
+
+.opcion_chateaConNosotros, .contenedor_telefonos_desktop{
+    margin-left:0%;
+}
+
+.icono_mail, .icono_chateaConNosotros, .icono_llamanos {
+    width: 100%;
+    font-family:'iconos_cambio_pass';
+    line-height:43px;
+    padding:10px 0 0 0;
+}
+
+.bloque_texto_opcionRecuperacionContrasenia{
+    padding:3px 0 0 0;
+}
+
+.icono_mail, .icono_chateaConNosotros, .icono_llamanos, .bloque_texto_opcionRecuperacionContrasenia{
+    display: block;
+    vertical-align: middle;
+    height: 56px;
+    box-sizing: border-box;
+    text-align:center;
+}
+
+.icono_mail:before{
+    content: "\e61c";
+    font-size:17px;
+}
+
+.icono_chateaConNosotros:before{
+    content: "\e60c";
+    font-size: 32px;
+}
+
+.icono_llamanos:before{
+    content: "\e63c";
+    font-size:45px;
+}
+
+.icono_mail:before, .icono_chateaConNosotros:before, .icono_llamanos:before{
+    color: #642f80;
+    padding: 0 13px;
+}
+
+.contenido_mensaje.texto_opcionRecuperacion {
+    text-align: center;
+    color: #000;
+    letter-spacing: 0.5px;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+.texto_mayusc{
+    text-transform:uppercase;
+    margin-bottom: 6px;
+    padding: 0 4px;
+    font-weight: 600;
+}
+
+.texto_llamanos_mayusc{
+    margin-top: 6px;
+    margin-bottom: 14px;
+}
+
+.texto_opcionRecuperacion.tamanio_fuente{
+    font-size:12px;
+    font-weight:300;
+    text-align:center;
+    overflow-wrap:break-word;
+}
+
+.texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop{
+    text-align:left;
+}
+
+.correo_electronico_consult{
+    padding: 0 7px;
+}
+
+.horarios_atencion_chat{
+    padding:0 23px;
+}
+
+.telefonos_desktop{
+    padding:0 12px;
+}
+
+.contenedor_telefonos, .telefonos_centrales{
+    display:block;
+    text-align:center;
+}
+
+.contenedor_telefonos_mobile{
+    display:none;
+}
+
+.titulo_llamanos {
+    font-size: 12px;
+    color: #000;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+
+.telefono_central{
+    display: inline-block;
+    margin-right: 23px;
+    vertical-align:top;
+}
+
+.telefono_central:last-child{
+    margin-right:0px;
+}
+
+.icono_tel {
+    display: block;
+    margin: 0 auto;
+    width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background: #642f80;
+    margin-bottom: 9px;
+    font-family: 'iconos_cambio_pass';
+    font-size: 40px;
+    padding: 1px 2px 1px 0px;
+    box-sizing: border-box;
+}
+
+.icono_tel:before{
+    content: "\e62c";
+    color: #FFF;
+}
+
+/*.icono_tel img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+    position: relative;
+    left: -1px;
+}*/
+
+.num_central{
+    display:block;
+    color:#000;
+    font-size:11.4px;
+    text-transform:uppercase;
+}
+
+.primer_num_central{
+    width:60px;
+}
+
+.otros_num_centrales{
+    width:70px;
+}
+
+.opciones_recuperacionContrasenia:hover, .opciones_recuperacionContrasenia:focus, .opciones_recuperacionContrasenia:active{
+    border:1px solid #8931b7;
+}
+
+.deshabilitar_opcion_correo {
+    cursor: default;
+    opacity: 0.45;
+}
+
+.deshabilitar_opcion_correo .icono_mail:before {
+    color: #5a5a5a;
+}
+
+.opciones_recuperacionContrasenia.deshabilitar_opcion_correo:hover, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:focus, .opciones_recuperacionContrasenia.deshabilitar_opcion_correo:active{
+    border: 1px solid #959595;
 }
 
 .mensaje_pop_up_contraseniaEnviada h1 {
@@ -974,23 +1250,23 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 0px;
     font-size: 16pt;
     color: black;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 13%;
+    margin-right: 13%;
     FONT-FAMILY: LATO;
     line-height: 15pt;
-    font-weight: 400;
+    /*font-weight: 400;*/
     text-align: center;
 }
 
 .mensaje_pop_up_contraseniaEnviada p {
-    font-size: 11pt;
+    font-size: 14px;
     FONT-FAMILY: LATO;
     color: black;
     text-align: center;
 }
 
 .mensaje_pop_up_contraseniaEnviada strong {
-    font-size: 13pt;
+    font-size: 16px;
     FONT-FAMILY: LATO;
     color: black;
 }
@@ -1006,8 +1282,8 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 #popup_olvidasteContrasenia .formCont {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 20.2%;
+    margin-right: 20.2%;
 }
 
 .logo_gmail {
@@ -1268,6 +1544,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media only screen and (max-width : 1093px) {
+
     .content-pop-up {
         width: 50%;
         top: 7%;
@@ -1290,8 +1567,8 @@ h1, h2, h3, h4, h5, h6 {
         top: 12%;
     }
 
-    .content_bg_olvidasteContrasenia {
-        width: 46%;
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+        width: 75%;
         top: 12%;
     }
 
@@ -1319,9 +1596,6 @@ h1, h2, h3, h4, h5, h6 {
 
     .fondo_form {
         display: none;
-    }
-
-    #header {
     }
 
     #cuadro1 {
@@ -1469,7 +1743,68 @@ h1, h2, h3, h4, h5, h6 {
         }
 }
 
+@media only screen and (min-width : 769px) {
+    .titulo_llamanos {
+        display: none;
+    }
+}
+
 @media only screen and (max-width: 768px) {
+
+    .opciones_recuperacionContrasenia.contenedor_telefonos_desktop{
+        display:block;
+    }
+
+    .contenedor_telefonos_mobile{
+        display:block;
+    }
+
+    .opciones_recuperacionContrasenia{
+        display: block;
+        width:88%;
+        height: 69px;
+        margin-left: 6%;
+        margin-right: 6%;
+    }
+
+    .icono_mail, .icono_chateaConNosotros, .bloque_texto_opcionRecuperacionContrasenia {
+        display: inline-block;
+        height:69px;
+        padding:13px 0;
+    }
+
+    .icono_mail, .icono_chateaConNosotros {
+        width: 19%;
+    }
+
+    .icono_chateaConNosotros:before{
+        font-size: 34px;
+    }
+
+    .contenido_mensaje{
+        display: block;
+        margin-bottom: 0;
+    }
+
+    .contenido_mensaje.texto_opcionRecuperacion {
+        text-align: left;
+        font-size:12px;
+        line-height:22px;
+    }
+
+    .texto_mayusc{
+        margin-bottom:0;
+        padding:0;
+    }
+
+    .texto_opcionRecuperacion.tamanio_fuente{
+        font-weight:400;
+    }
+
+    .correo_electronico_consult, .horarios_atencion_chat{
+        padding:0;
+    }
+
     #pop-up-body {
         margin: 0 auto;
     }
@@ -1482,41 +1817,124 @@ h1, h2, h3, h4, h5, h6 {
         width: 75%;
     }
 
-    .content_bg_olvidasteContrasenia {
-        width: 65%;
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+        width: 86%;
+    }
+
+    .content_bg_cambioContrasenia{
+        top:9.5%;
     }
 
     .content_bg_contraseniaEnviada {
         width: 65%;
     }
+
+    .titulo_llamanos {
+        font-size: 12px;
+        color: #000;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+    }
+
+    .telefono_central{
+        display: inline-block;
+        margin-right: 23px;
+        vertical-align:top;
+    }
+
+    .telefono_central:last-child{
+        margin-right:0px;
+    }
+
+    .icono_tel {
+        display: block;
+        margin: 0 auto;
+        width: 45px;
+        height: 45px;
+        border-radius: 100%;
+        background: #642f80;
+        margin-bottom: 9px;
+        font-family: 'iconos_cambio_pass';
+        font-size: 40px;
+        padding: 1px 2px 1px 0px;
+        box-sizing: border-box;
+    }
+
+    .icono_tel:before{
+        content: "\e62c";
+        color: #FFF;
+    }
+
+    /*.icono_tel img {
+        display: block;
+        margin: 0 auto;
+        width: 100%;
+        height: auto;
+        position: relative;
+        left: -1px;
+    }*/
+
+    .num_central{
+        display:block;
+        color:#000;
+        max-width: 80px;
+        font-size:11.4px;
+        text-transform:uppercase;
+    }
+
+    .primer_num_central{
+        width:60px;
+    }
+
+    .otros_num_centrales{
+        width:70px;
+    }
+
 }
 
 @media only screen and (max-width : 595px) {
 
-    .content_bg_olvidasteContrasenia {
-        width: 75%;
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
+        width: 95%;
     }
 }
 
 @media only screen and (max-width : 480px) {
 
-    .content_bg_olvidasteContrasenia {
+    .content_bg_olvidasteContrasenia, .content_bg_cambioContrasenia {
         width: 90%;
     }
 
-        .content_bg_olvidasteContrasenia #header {
-            padding-left: 4%;
+        .content_bg_olvidasteContrasenia #header, .content_bg_cambioContrasenia #header_cambioContrasenia {
+            padding-left: 5%;
+        }
+
+        .content_bg_olvidasteContrasenia #header{
             font-size: 10pt;
         }
 
+        .content_bg_cambioContrasenia #header_cambioContrasenia{
+            font-size: 11pt;
+        }
+
     .mensaje_pop_up2 {
-        margin-left: 10%;
-        margin-right: 10%;
+        margin-left: 8%;
+        margin-right: 8%;
+        margin-top:33px;
     }
 
     #popup_olvidasteContrasenia .formCont {
         margin-left: 10%;
         margin-right: 10%;
+    }
+
+    #popup_olvidasteContrasenia .pais select, #popup_olvidasteContrasenia .user input{
+        font-size:14px;
+    }
+
+    #popup_olvidasteContrasenia .user:before{
+        position: relative;
+        bottom: -2px;
     }
 
     .content_bg_contraseniaEnviada {
@@ -1625,8 +2043,9 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (max-width : 375px) {
 
     #popup_olvidasteContrasenia .formCont {
-        margin-left: 10%;
-        margin-right: 10%;
+        margin-left: 8%;
+        margin-right: 8%;
+        margin-top:33px;
         display: block;
     }
 

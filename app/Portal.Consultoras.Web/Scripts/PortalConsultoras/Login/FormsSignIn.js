@@ -1,10 +1,11 @@
-var imgISO = "";
+﻿var imgISO = "";
 var _kiq = _kiq || [];
 var activarHover = true;
 var val_comboLogin = "";
 var temp = "";
 var openloginPopup = false;
-
+var v_IsMovilDevice = 0;
+var v_IsMovilDeviceCall = 0;
 
 var CodigoISO;
 var PaisID;
@@ -17,8 +18,7 @@ $(document).ready(function () {
     });
 
     $(document).keyup(function (e) {
-        if (e.keyCode == 27) {
-            
+        if (e.keyCode == 27) {            
             if ($('#popupAsociarUsuarioExt').is(':visible')) {
                 $('#popupAsociarUsuarioExt').hide();
             }
@@ -37,9 +37,7 @@ $(document).ready(function () {
     
     //$('#cboPaisCambioClave').val(isoPais);
 
-    if (avisoASP == 1) {
-        $('#AvisoASP').hide();
-    }
+    if (avisoASP == 1) $('#AvisoASP').hide();
     else {
         $('#AvisoASP').css({
             'display': 'block',
@@ -67,20 +65,17 @@ $(document).ready(function () {
     $("#ddlPais").change(function () {
         imgISO = $("#ddlPais").val();
 
-        if ($("#ddlPais").val() == "MX") {
-            $("#AvisoASP").show();
-        }
-        else {
-            $("#AvisoASP").hide();
-        }       
-        EsconderLogoEsikaPanama(imgISO);
+        if ($("#ddlPais").val() == "MX") $("#AvisoASP").show();
+        else $("#AvisoASP").hide();        
+        if (imgISO == "PA") $("#footer_esika").hide();
+        else $("#footer_esika").show();
+        if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
+        else $("#VinculoTarjetaHelm").hide();
+
         AsignarHojaEstilos();
 
         $('#ddlPais2').val(imgISO);
         ayudaLogin2();
-
-        if ($("#ddlPais").val() == "CO") $("#VinculoTarjetaHelm").show();
-        else $("#VinculoTarjetaHelm").hide();
     });
 
     $("#ddlPais2").change(function () {
@@ -136,23 +131,13 @@ $(document).ready(function () {
     });
 
     $(".cboPaisCambioClave").change(function () {
-        var valorComboCC = $(this).val();
-        var ISOPais = getISOPaisbyCodigo(valorComboCC);
+        var ISOPais = getISOPaisbyCodigo($(this).val());
         if (ISOPais != "00") $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + ISOPais + ".png') top 10px left 2px no-repeat");
         else $("#cargarBandera2").css("background", "url('/Content/Images/Login2/Banderas/" + ISOPais + ".png') top -7px left -10px no-repeat");
-
-        if (valorComboCC == "4") { //Colombia
-            $('#txtCorreoElectronico').attr("placeholder", "Número de Cédula");
-            $('#txtCorreoElectronico').parent().css("background-image", "url('')");
-        }
-        else {
-            $("#txtCorreoElectronico").attr("placeholder", "Correo electrónico");
-            $('#txtCorreoElectronico').parent().css("background-image", "");
-        }
-
-        $("#txtCorreoElectronico").val("");
-        $("#txtCorreoElectronico").focus();
-    });
+        
+        $("#txtCorreoElectronico").prop("placeholder", $(".cboPaisCambioClave option:selected").attr("data-campoclave"));
+        $("#txtCorreoElectronico").val("").focus();
+    });    
 
     Inicializar();
 
@@ -239,7 +224,7 @@ $(document).ready(function () {
             if (charCode <= 13) {
                 //ValidarAutenticacion();
                 $('#btnLogin2').focus();
-                login2();
+                //login2();
                 return false;
             }
         });
@@ -256,59 +241,139 @@ $(document).ready(function () {
         //TODO:Call al service de Log usando: errorMessage
     }
 
-    $("#btnRecuperarClave").click(function() {
+    $("#btnRecuperarClave").click(function () {
         var paisId = $("#cboPaisCambioClave").val();
-        var correo = $("#txtCorreoElectronico").val();
-
         if (paisId == '0') {
             alert("Debe seleccionar un pais.");
             return false;
         }
 
+        var correo = $("#txtCorreoElectronico").val();
         if (correo == '') {
-            var mensaje = paisId == '4' ? 'Debe ingresar un número de cédula.' : 'Debe ingresar un correo electrónico.';
-            alert(mensaje);
-        }
-
-        var validarCorreo = validateEmail(correo);
-
-        if (!validarCorreo && paisId != "4") {   //paisId != "4"
-            alert('El formato del correo electrónico ingresado no es correcto.');
+            var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
+            alert("Debe ingresar " + nombreDato);
             return false;
         }
-
-        var parametros = {
-            paisId: paisId,
-            correo: correo
-        };
-
+        
+        waitingDialog();
         jQuery.ajax({
             type: 'POST',
             url: urlRecuperarContrasenia,
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(parametros),
+            data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo }),
             async: true,
             success: function (response) {
-                if (response.success) {
-                    $("#popup1").hide();
-
-                    $("#correoDestino strong").html(correo);
-                    $("#popup2").show();
-                } else {
+                if (!response.success) {
                     alert(response.message);
+                    return false;
                 }
+                if (response.correo.length == 0) {
+                    alert("Usuario no tiene correo electrónico.");
+                    return false;
+                }
+
+                $("#hdcorreo").val(response.correo);
+                $("#hdclave").val(response.clave);
+                $("#hdCodigoConsultora").val(response.codigo);
+                $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);
+                var s_correo = Enmascarar_Correo(response.correo);
+
+                $("#popup1").hide();
+                $("#mensaje_pop_up2 p").html(s_correo);
+                $("#popup3").show();
+                $("#popup_cambioContrasenia").show();
+                $("#spcorreo").html(s_correo);                        
+                $("#spnombre").html(response.nombre);                               
+
+                $(".lk_chat").css("text-decoration", "none");
+                $(".lk_chat").css("color", "black");
+
+                var paisId = $("#cboPaisCambioClave").val();
+                var v_telefonos = "123456789,987654321,999959074"; //$("#cboPaisCambioClave option:selected").attr("data-telefonos");
+                var va_telefonos = v_telefonos.split(",");
+                var template_telefonoprimero = $('#telefonoprimero-template').html();
+                var template_telefonootros = $('#telefonootros-template').html();
+                var template_telprimero = Handlebars.compile(template_telefonoprimero);
+                var template_telotros = Handlebars.compile(template_telefonootros);
+                var html_telefonos = "";                        
+                var v_myobject = {telefono: "", mensaje: ""};
+                
+                //paisId = "8";               
+                
+                var v_enlaceurl = "";
+
+                if (paisId == "11") {                                        
+                    v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
+                    html_telefonos += template_telotros(v_myobject);
+                    $("#divTelefonos").html(html_telefonos);
+                    
+                    v_myobject = { telefono: '080113030', mensaje: "LLAMAR DE PROVINCIA" };
+                    html_telefonos += template_telotros(v_myobject);
+                    $("#divTelefonos").html(html_telefonos);
+                }
+                else if (paisId != "11") {
+
+                    $.each(va_telefonos, function(index,value){                                                                       
+                        v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
+                            
+                        html_telefonos += template_telotros(v_myobject);                        
+                    });
+
+                    $("#divTelefonos div.telefonos_centrales").html(html_telefonos);
+                }
+                
+                $(".lk_llamada").css("text-decoration", "none");
+                $(".lk_llamada").css("color", "black");
             },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                }
-            }
+            error: function() { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
+            complete: closeWaitingDialog
         });
     });
 
-    localStorage.setItem('PopUpChatOpened', 'false');
+    $("#divChatearConNosotros").click(function () {                       
+        $(".lk_chat").get(0).click();
+    });
+    
+    $(".lk_chat").click(function () {        
+        Construir_EnlacexDispositivo(2);
+    });
+
+    $("body").keyup(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+
+        if ($('#popup_olvidasteContrasenia').is(':visible') && charCode == 27) {
+            $('#popup1').hide();
+        }
+
+        if ($('#popup_cambioContrasenia').is(':visible') && charCode == 27) {            
+            $('#popup3').hide();
+        }
+        
+        if ($('#popup_contraseniaEnviada').is(':visible') && charCode == 27) {
+            $('#popup2').hide();
+        }
+    });
+
+    $("#txtCorreoElectronico").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {            
+            return false;
+        }
+    });
 });
+
+function Construir_EnlacexDispositivo(Modo){
+    var v_urlbase = $("#hd_CONTEXTO_BASE").val();
+    var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp;
+
+    if (Modo == 2){
+        if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+        if (v_IsMovilDevice == "1") $(".lk_chat").prop("href", v_url);
+        $(".lk_chat").css("text-decoration", "none");
+        $(".lk_chat").css("color", "black");
+    }
+}
 
 function Inicializar()
 {
@@ -665,14 +730,6 @@ function getISOPaisbyCodigo(codPais) {
     }
 }
 
-function EsconderLogoEsikaPanama(imgISO) {
-    if (imgISO == "PA") {
-        $("#footer_esika").hide();
-    } else {
-        $("#footer_esika").show();
-    };
-}
-
 function login2() {
     var valid = true;
     var CodigoISO = $('#ddlPais2').val();
@@ -798,6 +855,52 @@ function resizeNameUserExt() {
         }
         $('#btnLoginFB2').text('Continuar como ' + fname);
     }
+}
+function Enmascarar_Correo(p_correo)
+{
+    let v_literal = "";
+    let v_correo = "";
+    v_literal = p_correo.split("@")[0];
+
+    $.each(v_literal.split(""), function (index, value) {
+        v_correo += (index === 0 || index === 1 || index === v_literal.length - 1) ? value : "*";
+    });
+
+    v_correo = v_correo + "@" + p_correo.split("@")[1];
+
+    return v_correo;
+}
+
+function ProcesaEnvioEmail(){
+    let paisId = $("#cboPaisCambioClave").val();
+
+    let parametros = {
+        paisId: paisId,
+        filtro: $("#txtCorreoElectronico").val()
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: urlEnviaClaveAEmail,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(parametros), 
+        async: true,
+        success: function (response) {
+            if (response.success) {
+                $("#popup3").hide();
+                $("#popup2").show();               
+                $("#correoDestino").html("<b>" + $("#spcorreo").html() + "</b>");
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                closeWaitingDialog();
+            }
+        }
+    });
 }
 
 function saveLog(ISO, usuario, mensaje) {

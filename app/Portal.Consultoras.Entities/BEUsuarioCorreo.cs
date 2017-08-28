@@ -27,6 +27,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Nombre { get; set; }
 
+        [DataMember]
+        public string Correo { get; set; }
+
+        [DataMember]
+        public string Clave { get; set; }
+
+        [DataMember]
+        public int TipoUsuario { get; set; }
+
+        [DataMember]
+        public int RolID { get; set; }
+
         public BEUsuarioCorreo()
         { }
 
@@ -42,6 +54,10 @@ namespace Portal.Consultoras.Entities
                 Descripcion = Convert.ToString(row["Descripcion"]);
             if (DataRecord.HasColumn(row, "Nombre"))
                 Nombre = Convert.ToString(row["Nombre"]);
+            if (DataRecord.HasColumn(row, "Correo"))
+                Correo = Convert.ToString(row["Correo"]);
+            if (DataRecord.HasColumn(row, "ClaveSecreta"))
+                Clave = Convert.ToString(row["ClaveSecreta"]);
         }
 
     }

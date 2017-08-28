@@ -30251,6 +30251,16 @@ h1#penmostreo .campana {
     
 /* FIN POPUPS OFERTAS REVISTA */
 /* ACTUALIZAR CONTRASEÑA */
+.titulo_interiores.tituloCambioContrasenia {
+    font-weight:200;
+    background:black url("../../../Images/Esika/titulo_interiores_2.png") no-repeat;
+    background-position:right;
+}
+
+.titulo_interiores.tituloCambioContrasenia span{
+    font-weight:700;
+}
+
 .contenedor_actualizarContraseniaForm{
     display: block;
     margin: 50px auto 119px auto;
@@ -30259,7 +30269,6 @@ h1#penmostreo .campana {
 }
 
 .imagen_consultora, .campos_actualizacionContrasenia{
-    display: block;
     vertical-align: top;
     margin: 0 auto;
     width: 100%;
@@ -30267,7 +30276,16 @@ h1#penmostreo .campana {
     padding: 0px 18px 0 20px;
 }
 
+.campos_actualizacionContrasenia{
+    display:block;
+}
+
+.contenedor_vista_felicidades{
+    display:block;
+}
+
 .imagen_consultora{
+    display:none;
     width:131px;
     height:131px;
     border-radius:100%;
@@ -30320,21 +30338,32 @@ h1#penmostreo .campana {
     font-weight:normal;
     padding:0 20px;
 }
+    .campoContrasenia.borde_inferior_campo{
+        border-bottom: 1px solid #959595;
+        border-top: 0;
+        border-left: 0;
+        border-right: 0;
+        padding-left:0;
+        height: 36px;
+        line-height: 36px;
+        margin-bottom:30px;
+    }
+
 .campoContrasenia::-webkit-input-placeholder{
    color:#000;
-}
+    }
 
 .campoContrasenia:-moz-placeholder{
    color:#000;
-}
+    }
 
 .campoContrasenia::-moz-placeholder{
    color:#000;
-}
+    }
 
 .campoContrasenia:-ms-input-placeholder{
    color:#000;
-}
+    }
 
 .btnCambiarContrasenia{
     background:#e81c36;
@@ -30351,7 +30380,48 @@ h1#penmostreo .campana {
 
 .btnCambiarContrasenia:hover{
     opacity:0.8;
+    }
+
+    .btnCambiarContrasenia.mt-34{
+        margin-top:34px;
+    }
+
+.icono_check_felicitaciones, .mensaje_felicitaciones, .mensaje_felicitaciones span, .mensaje_felicitaciones a {
+    display: block;
+    font-size: 14px;
 }
+
+.icono_check_felicitaciones {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 22px auto;
+    background: url(../../../Images/Esika/icono_check_esika.png) no-repeat center;
+}
+
+.mensaje_felicitaciones span:first-child {
+    font-size: 24px;
+}
+
+.mensaje_felicitaciones a {
+    width: 328px;
+    height: 45px;
+    background: #e81c36;
+    color: #FFF;
+    text-align: center;
+    line-height: 45px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin:43px auto;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+    .mensaje_felicitaciones a:hover {
+        opacity: 0.8;
+    }
 
 @media screen and (max-width:1288px) {
 

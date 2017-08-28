@@ -338,5 +338,8 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
+
+        [OperationContract]
+        string EnviaClaveAEmail(int paisId, string textoRecuperacion);
     }
 }

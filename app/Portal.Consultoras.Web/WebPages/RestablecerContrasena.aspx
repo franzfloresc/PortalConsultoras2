@@ -257,11 +257,12 @@
                         </div>
                         <asp:TextBox ID="txtcontrasenanueva1" runat="server" CssClass="campoContrasenia" placeholder="Nueva contraseña" TextMode="Password"></asp:TextBox>
                         <asp:TextBox ID="txtcontrasenanueva2" runat="server" CssClass="campoContrasenia" placeholder="Confirmar contraseña" TextMode="Password"></asp:TextBox>
-                        <input id="btncambiar" class="btnCambiarContrasenia" type="button" value="CAMBIAR" />
+                        <input id="btncambiar" class="btnCambiarContrasenia" type="button" value="CAMBIAR CONTRASEÑA" />
                     </form>
                 </div>
                 <div class="campos_actualizacionContrasenia" id="divActualizacionCorrecta" style="display:none;">
-                    <div class="saludoConsultora">¡Tu contraseña fue actualizada correctamente!</div>
+                    <div>¡BIEN HECHO!</div>
+                    <div class="saludoConsultora">Tu contraseña fue actualizada</div>
                     <span class="cambiarContraseniaTexto"></span>
                     <div class="formulario_actualizarContrasenia">
                         <asp:HyperLink ID="linkregresarasomosbelcorp" runat="server" CssClass="btnCambiarContrasenia" style="text-align: center;">IR A SOMOS BELCORP</asp:HyperLink>

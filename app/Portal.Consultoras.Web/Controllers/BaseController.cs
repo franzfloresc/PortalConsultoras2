@@ -1009,7 +1009,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
             ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
 
             ViewBag.RegionAnalytics = model.CodigorRegion;
             ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
@@ -1159,8 +1158,6 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.PortalLideres = model.PortalLideres;
             ViewBag.LogOutComunidad = ConfigurationManager.AppSettings["URL_COM_LO"] + "&dest_url=" + ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
             ViewBag.LogOutSB = ConfigurationManager.AppSettings["URL_SB"] + "/WebPages/ComunidadLogout.aspx";
-            ViewBag.TokenAtento = ConfigurationManager.AppSettings["TokenAtento_" + model.CodigoISO];
-            ViewBag.IdbelcorpChat = "belcorpChat" + model.CodigoISO;
             ViewBag.FormatDecimalPais = GetFormatDecimalPais(model.CodigoISO);
             ViewBag.OfertaFinal = model.OfertaFinal;
             ViewBag.CatalogoPersonalizado = model.CatalogoPersonalizado;

@@ -80,7 +80,20 @@ namespace Portal.Consultoras.BizLogic
                 }
             return UsuarioCorreo;
         }
+        
+        public List<BEUsuarioCorreo> SelectByValorRestauracion(string ValorRestauracion, int paisID)
+        {
+            List<BEUsuarioCorreo> UsuarioCorreo = new List<BEUsuarioCorreo>();
 
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetValidarValorRestauracion(ValorRestauracion, paisID))
+            while (reader.Read())
+            {
+                UsuarioCorreo.Add(new BEUsuarioCorreo(reader));
+            }
+
+            return UsuarioCorreo;
+        }
         public int DelUsuarioRol(int paisID, string codigoUsuario, int RolID)
         {
             var DAUsuario = new DAUsuario(paisID);
@@ -1100,7 +1113,7 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
-        public string RecuperarContrasenia(int paisId, string correo)
+        public string RecuperarContrasenia(int paisId, string textoRecuperacion)
         {
             var resultado = string.Empty;
             var paso = "1";
@@ -1110,8 +1123,12 @@ namespace Portal.Consultoras.BizLogic
                 string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
                 string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
                 var esEsika = paisesEsika.Contains(paisISO);
+                string v_correo = String.Empty;
 
-                List<BEUsuarioCorreo> lst = SelectByEmail(correo, paisId).ToList();
+                //List<BEUsuarioCorreo> lst = SelectByEmail(textoRecuperacion, paisId).ToList();
+                List<BEUsuarioCorreo> lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
+                v_correo = lst[0].Correo;
+
                 paso = "2";
 
                 if (paisId.ToString().Trim() == "4")
@@ -1123,8 +1140,8 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else
                     {
-                        correo = lst[0].Descripcion;// contiene el correo del destinatario
-                        if (correo.Trim() == "")
+                        textoRecuperacion = lst[0].Descripcion;// contiene el correo del destinatario
+                        if (textoRecuperacion.Trim() == "")
                         {
                             resultado = "0" + "|" + "2";
                             return resultado;
@@ -1145,22 +1162,24 @@ namespace Portal.Consultoras.BizLogic
                     string paisiso = lst[0].CodigoISO;
                     string codigousuario = lst[0].CodigoUsuario;
                     string nombre = lst[0].Nombre.Trim().Split(' ').First();
+                    string clave = lst[0].Clave;
 
-                    var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, correo, paisiso, codigousuario, fechasolicitud, nombre);
+                    //var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, textoRecuperacion, paisiso, codigousuario, fechasolicitud, nombre);
 
-                    paso = "3";
+                    //paso = "3";
 
-                    string emailFrom = "no-responder@somosbelcorp.com";
-                    string emailTo = correo;
-                    string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
-                    string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
-                    string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
-                    string fondo = (esEsika ? "e81c36" : "642f80");
-                    string displayname = "Somos Belcorp";
+                    //string emailFrom = "no-responder@somosbelcorp.com";
+                    //string emailTo = v_correo;
+                    //string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                    //string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                    //string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
+                    //string fondo = (esEsika ? "e81c36" : "642f80");
+                    //string displayname = "Somos Belcorp";
 
-                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
+                    //if (emailTo.Trim().Length > 0)
+                    //    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
 
-                    resultado = "1" + "|" + "4" + "|" + correo;
+                    resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre + "|" + clave + "|" + codigousuario + "|" + urlportal;
                 }
             }
             catch (Exception ex)
@@ -1172,6 +1191,50 @@ namespace Portal.Consultoras.BizLogic
             return resultado;
         }
 
+        public string EnviaClaveAEmail(int paisId, string textoRecuperacion)
+        {
+            var resultado = string.Empty;
+            var paso = "1";
+
+            try
+            {
+                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
+                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
+                var esEsika = paisesEsika.Contains(paisISO);
+                string v_correo = String.Empty;
+
+                List<BEUsuarioCorreo> lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();                
+                v_correo = lst[0].Correo;
+
+                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                string paisiso = paisISO;
+                string codigousuario = lst[0].CodigoUsuario;
+                string nombre = lst[0].Nombre.Trim().Split(' ').First();
+                var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, textoRecuperacion, paisiso, codigousuario, fechasolicitud, nombre);
+
+                string emailFrom = "no-responder@somosbelcorp.com";
+                string emailTo = v_correo;
+                string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
+                string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
+                string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
+                string fondo = (esEsika ? "e81c36" : "642f80");
+                string displayname = "Somos Belcorp";
+
+                if (emailTo.Trim().Length > 0)
+                    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
+                
+                resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre;
+            }
+            catch (Exception ex)
+            {
+                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                LogManager.SaveLog(ex, string.Empty, string.Empty);
+            }
+
+            return resultado;
+        }
         public string ActualizarMisDatos(BEUsuario usuario, string CorreoAnterior)
         {
             string resultado = string.Empty;
