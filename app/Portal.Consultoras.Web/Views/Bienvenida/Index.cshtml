@@ -2474,34 +2474,7 @@
     </div>
     <!-- FIN POPUP REVISTA DIGITAL Suscripcion -->
     <!-- POPUP INSCRITA A REVISTA DIGITAL -->
-    <div class="Content_general_pop_up" id="PopRDInscrita" data-popup-main="" style="font-family: 'Lato' !important" data-popup-function-hide="RDPopupCerrar(1)">
-        <div class="popup_rd rd_confirmacion" style="width: 620px;" data-popup-body="">
-            <a class="cerrar_fichaProducto" style="position: absolute; top: 0px; right: -35px;" data-popup-close="">
-                <img src="/Content/Images/cerrar_04_blanco.png" alt="" alternate="" text="">
-            </a>
-            <div class="popup_rd_cabecera">
-                <div class="rd_logo" style="width: 160px;">
-                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="50px">
-                </div>
-                <div class="popup_cabecera_text" style="top: 22px; left: 190px;">
-                    <div class="popup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-                    <div>INGRESA A ÉSIKA PARA MÍ A PARTIR DE LA PRÓXIMA CAMPAÑA</div>
-                </div>
-            </div>
-            <div class="popup_rd_content" style="background-color: #f2eeef">
-                <div class="popup_rd_text">
-                    <div class="popup_saludo" style="font-size: 15px;">¡FELICIDADES @Model.SobreNombre ESTÁS INSCRITA!<br>ESTE ES UN GRAN PASO PARA CRECER Y GANAR MÁS</div>
-                    <div class="rd_desc" style="top: 75px;">A partir de la C-@Model.CampaniaMasDos tu revista online reemplazará a tu revista impresa.</div>
-                    <div class="btn_diagonal"><a href="javascript: RDSuscripcionRedireccionar()">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
-                    <div class="rd_desc" style="top: 210px;">
-                        Para cancelar tu inscripción
-                        <a href="javascript: RDRedireccionarDesuscripcion()" style="display: inline-block; text-decoration: underline;">ingresa aquí.</a>
-                    </div>
-                </div>
-                <img class="rd_cons" src="/Content/Images/RevistaDigital/rd_cons.png" />
-            </div>
-        </div>
-    </div>
+    @Html.Partial("~/Views/RevistaDigital/template-mensaje-inscrita.cshtml", (int)ViewBag.CampaniaMasDos)
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
@@ -2593,7 +2566,8 @@
         var urlShowRoomVenta = '@Url.Action("Index","ShowRoom")';
         var urlDetalleShowRoom = '@Url.Action("DetalleOferta", "ShowRoom")';
         var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital")';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
+        var urlRevistaDigitalInformacion = '@Url.Action("Informacion", "RevistaDigital")';
         var urlDetalleRevistaDigital = '@Url.Action("Detalle", "RevistaDigital")';
         var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim() ';
         var showRoomMostrarLista = '@Model.ShowRoomMostrarLista';

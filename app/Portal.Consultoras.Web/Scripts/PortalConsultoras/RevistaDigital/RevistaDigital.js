@@ -5,10 +5,17 @@ var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 
+var sProps = {
+    UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
+    UrlRevistaDigitalComprar: baseUrl + 'revistadigital/Comprar',
+    UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/'
+};
+
+
 $(document).ready(function () {
     "use strict";
 
-    isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
+    isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
     var rdaccion = estador == 1 ? estador : 0;
@@ -56,9 +63,9 @@ $(document).ready(function () {
 
     RDMostrarPosicion();
 
-    if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
-        $("footer").hide();
-    }
+    //if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
+    //    $("footer").hide();
+    //}
 
     if (isDetalle) {
         RDDetalleObtener();
@@ -464,16 +471,16 @@ function RDDetalleObtener() {
     }
 
     if (cuv == "" || campania == "") {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     var mobile = isMobile();
     if (prod == null || prod == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
     if (prod.CUV2 == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
 
     var obj = new Object();
@@ -556,7 +563,7 @@ function RDPageInformativa() {
     
     isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
     if (isDetalle) {
-        window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
+        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
     }
 }
 
