@@ -2,13 +2,26 @@
 
     var _config = {
         enviarFormularioUrl: config.enviarFormularioUrl || '',
-        irAModificarMisDatosUrl : config.irAModificarMisDatosUrl ||
+        irAModificarMisDatosUrl : config.irAModificarMisDatosUrl || ''
     };
 
-    modificar_mis_datos
+    var _irAModificarMisDatos = function () {
+        window.location = _config.irAModificarMisDatosUrl;
+    };
 
-    var _irAModificarMisDatos = function() {
-        window.location = irAModificarMisDatosUrl;
+    var _showAndsetPopupValues = function (data, popup, element1, element2, element3) {
+        $(popup).show();
+        $(element1).text(data.usuario.EMail);
+        $(element2).text(data.usuario.Celular);
+        $(element3).text(data.usuario.Nombre);
+    };
+
+    var _clearElements = function () {
+        $("#revisar-catalogo-clientes").prop("checked", false);
+        $("#dejar-catalogo-clientes").prop("checked", false);
+        $("#mis-clientes-vienen").prop("checked", false);
+        $("#llamar-pedir-productos").prop("checked", false);
+        $("#terminos-condiciones").prop("checked", false);
     };
 
     var _enviarFormulario = function () {
@@ -40,11 +53,14 @@
             data: JSON.stringify(params),
             async: true,
             success: function (data) {
-                if (data.success) {
-                    $("#popup-felicitaciones").show();
-                    $("#correo_consultora").text(data.usuario.EMail);
-                    $("#telefono_consultora").text(data.usuario.Celular);
-                    $("#nombre_consultora").text(data.usuario.Nombre);                   
+                if (data.success && data.resultado == 1) {
+                    _showAndsetPopupValues(data, "#popup-felicitaciones", "#correo_consultora", "#telefono_consultora", "#nombre_consultora");
+                    _clearElements();
+                }
+                if (data.success && data.resultado == -1) {
+                    _showAndsetPopupValues(data, "#popup-consultora-ya-registrada-coach-virtual", "#correo_consultora_registrada_coach",
+                        "#telefono_consultora_registrada_coach", "#nombre_consultora_registrada_coach");
+                    _clearElements();
                 }
             },
             error: function (data, error) {

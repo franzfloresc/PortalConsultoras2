@@ -45,9 +45,6 @@ namespace Portal.Consultoras.Web.Controllers
                     resultado = sv.EnviarFormulario(IsoPais, entidad);
                 }
 
-                if (resultado.Equals(-1))
-                    return Json(new { success = false, message = "Ya existe la Consultora.", extra = "" });
-
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
                     usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
@@ -56,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //esikateasesora@belcorp.biz
                 MailUtilities.EnviarMailBienvenidaAsesoraOnline("no-responder@somosbelcorp.com", usuario.EMail, "pendiente", "SomosBelcorp", usuario.Nombre );
 
-                return Json(new { success = true, message = "Se grabó con éxito el formulario.", extra = "", usuario = usuario });
+                return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });
                    
             }
             catch (FaultException ex)

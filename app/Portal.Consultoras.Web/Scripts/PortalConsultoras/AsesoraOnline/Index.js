@@ -3,7 +3,8 @@
 $(document).ready(function () {
 
     var asesoraOnlineObj = AsesoraOnline({
-        enviarFormularioUrl: baseUrl + 'AsesoraOnline/EnviarFormulario'
+        enviarFormularioUrl: baseUrl + 'AsesoraOnline/EnviarFormulario',
+        irAModificarMisDatosUrl: baseUrl + 'Bienvenida/Index'
     });
 
     var LandingAsesoraOnline;
@@ -81,7 +82,7 @@ $(document).ready(function () {
 
             $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
             $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
-
+            $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);
         };
 
     };
