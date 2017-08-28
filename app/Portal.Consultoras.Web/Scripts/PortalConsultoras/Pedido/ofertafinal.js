@@ -378,7 +378,6 @@ function MostrarPopupOfertaFinal(cumpleOferta, tipoPopupMostrar) {
 }
 
 function MostrarOfertaFinalRegalo(totalPedido) {
-    debugger;
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
         if (tipoOrigen == '2') $('#linkRegaloSorpresa').show();
@@ -418,7 +417,6 @@ function MostrarOfertaFinalRegalo(totalPedido) {
 }
 
 function GanoOfertaFinalRegalo(totalPedido) {
-    debugger;
     var container = (tipoOrigen == '1') ? $('#container-of-regalo') : $('#ContentSorpresaMobile');
     if (container.length > 0) {
         var gano = (totalPedido >= ofertaFinalRegalo.MontoMeta);

@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Web.Controllers
             List<ServicePedido.BEPedidoWebDetalle> olstPedido = new List<ServicePedido.BEPedidoWebDetalle>();
             using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
             {
-                olstPedido = sv.SelectByCampania(userData.PaisID, model.CampaniaID, ObtenerConsultoraId(), "").ToList();//ITG 1793 HFMG
+                olstPedido = sv.SelectByCampania(userData.PaisID, model.CampaniaID, ObtenerConsultoraId(), "", EsOpt()).ToList();//ITG 1793 HFMG
             }
 
             model.TieneDescuentoCuv = userData.EstadoSimplificacionCUV && olstPedido != null &&
