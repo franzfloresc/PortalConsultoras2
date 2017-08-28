@@ -1005,7 +1005,7 @@
 	display:block;
 	position:relative;
 	overflow:hidden;
-	padding-top:48px;
+	padding-top:49px;
 	min-height:200px;
 }
 
@@ -1299,9 +1299,10 @@
 }
 
 .titulo_popup_felicitaciones_coach_virtual{
-	font-size:22px;
+	font-size:20px;
 	margin-top:6px;
 	margin-bottom:42px;
+    line-height:30px;
 }
 
 .titulo_popup_felicitaciones_coach_virtual, .mensaje_popup_felicitaciones_coach_virtual{
@@ -1317,9 +1318,9 @@
 	margin-bottom:40px;
 }
 
-.mensaje_popup_felicitaciones_coach_virtual > span:first-child{
+/*.mensaje_popup_felicitaciones_coach_virtual > span:first-child{
 	margin-bottom:3px;
-}
+}*/
 
 .datos_consultora_popup_felicitaciones_coach_virtual, .btn_modificar_datos{
 	text-align:center;
@@ -1415,8 +1416,6 @@
 	    background-repeat: no-repeat;
 	    right: 9px;
 	    top: 10px;
-	    width: 25px;
-	    height: 26px;
 	}
 
 }
@@ -1437,6 +1436,7 @@
     	width: 100%;
     	max-width: 300px;
     	margin: 18px auto 42px auto;
+        line-height:26px;
 	}
 
 	.titulo_popup_felicitaciones_coach_virtual > span:first-child{
@@ -1444,11 +1444,12 @@
 	}
 
 	.titulo_popup_felicitaciones_coach_virtual > span:last-child{
-		font-size:20px;
+		font-size:22px;
 	}
 
 	.mensaje_popup_felicitaciones_coach_virtual{
-		font-size:14px;
+		font-size:16px;
+        padding:0 23px;
 	}
 
 	.bloque_der_datos > .datos_consultora_inscrita{
@@ -1491,12 +1492,12 @@
 
 .altoPopupConsultoraConRegistro{
     margin: -222.5px auto 0 auto;
-    height:445px;
+    height:428px;
 }
 
 .info_advertencia_consultora_registrada{
     display:block;
-    margin-top:11px;
+    margin-top:22px;
     margin-bottom:29px;
 }
 
@@ -1529,15 +1530,22 @@
 }
 
 .mensaje_advertencia_datos_registrados{
-    font-size:20px;
-    letter-spacing:0.5px;
+    max-width: 392px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    text-align: left;
+    line-height: 24px;
+}
+
+@media screen and (max-width:767px){
+
+    .titulo_popup_felicitaciones_coach_virtual{
+        font-size:18px;
+    }
+
 }
 
 @media screen and (max-width:600px){
-
-    .mensaje_advertencia_datos_registrados{
-        font-size:15px;
-    }
 
     .texto_datos_mensajeF{
         font-size:14px;
@@ -1561,7 +1569,9 @@
 @media screen and (max-width:480px){
 
     .mensaje_advertencia_datos_registrados{
-        margin-top:10px;
+        max-width: 213.7px;
+        line-height:22px;
+        font-size:15px;
     }
 
 }
