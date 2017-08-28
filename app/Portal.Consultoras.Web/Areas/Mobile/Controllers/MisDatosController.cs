@@ -327,6 +327,45 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             }
         }
 
-  
+        public JsonResult ValidadTelefonoConsultora(string Telefono)
+        {
+
+
+            try
+            {
+                int cantidad = 0;
+                using (UsuarioServiceClient svr = new UsuarioServiceClient())
+                {
+                    cantidad = svr.ValidarTelefonoConsultora(userData.PaisID, Telefono, userData.CodigoUsuario);
+                    if (cantidad > 0)
+                    {
+                        return Json(new
+                        {
+                            success = false,
+                            message = "",
+                            extra = ""
+                        }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = "OK",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error al intentar validar el celular.",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
     }
 }

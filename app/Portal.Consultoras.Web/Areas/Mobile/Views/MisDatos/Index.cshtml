@@ -206,33 +206,40 @@
             });
         });
 
+	function MensajeValdiacion(mensaje)
+	{
+	AbrirMensaje(mensaje, null, function () {
+                            if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
+                        });
+	}
+
 
  function ActualizarMD() {
  var viewBagPaisID = '@ViewBag.PaisID';
     if (viewBagPaisID != 4) {
 
         if (jQuery.trim($('#txtEMailMD').val()) == "") {
-            $('#txtEMailMD').focus();
-            alert("Debe ingresar EMail.\n");
+            $('#txtEMailMD').focus(); 
+			  MensajeValdiacion("Debe ingresar EMail.\n");
             return false;
         }
 
         if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
             $('#txtEMailMD').focus();
-            alert("El formato del correo electrónico ingresado no es correcto.\n");
+			 MensajeValdiacion("El formato del correo electrónico ingresado no es correcto.\n"); 
             return false;
         }
 
         if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
                 ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
             $('#txtTelefonoMD').focus();
-            alert('Debe ingresar al menos un número de contacto: celular o teléfono.');
+			MensajeValdiacion("Debe ingresar al menos un número de contacto: celular o teléfono."); 
             return false;
         }
 
         if (jQuery.trim($('#txtCelularMD').val()) != "") { 
             if (!ValidarTelefono($("#txtCelularMD").val())) {
-                alert('El formato del celular no es correcto.');
+			MensajeValdiacion("El formato del celular no es correcto.");  
                 return false;
             }
         }
@@ -241,14 +248,14 @@
         var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
         if (!MinCaracterCelular) {
             $('#txtCelularMD').focus();
-            alert('El formato del celular no es correcto.');
+			MensajeValdiacion("El formato del celular no es correcto.");  
             return false;
         }
 
         /*
         if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-            if ($('#txtCelularMD').val().substr(0, 1) != "3") {
-                alert('Número de celular tiene formato incorrecto.');
+            if ($('#txtCelularMD').val().substr(0, 1) != "3") { 
+				MensajeValdiacion("Número de celular tiene formato incorrecto.");  
                 $('#txtCelularMD').focus();
                 return false;
             }
@@ -264,7 +271,7 @@
     }
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
-        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+		MensajeValdiacion("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
         return false;
     }
 
@@ -294,16 +301,14 @@
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                   
-                    alert(data.message);
+                    closeWaitingDialog(); 
+				   MensajeValdiacion(data.message);   
                 }
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
-                     
-                    alert("ERROR");
+                      MensajeValdiacion("ERROR");   
                 }
             }
         });
@@ -321,19 +326,89 @@
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     PopupCerrar('popupMisDatos');
-                    alert(data.message);
+					MensajeValdiacion(data.message);  
                 }
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     closeWaitingDialog();
                     PopupCerrar('popupMisDatos');
-                    alert("ERROR");
+					MensajeValdiacion("ERROR");   
                 }
             }
         });
     }
 }
+
+       $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtTelefonoTrabajo, #txtTelefonoTrabajoMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+    $("#txtCelular, #txtCelularMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode; 
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[0-9+ *#-]/;
+            return re.test(keyChar);
+        }
+    });
+
+	 $("#txtSobrenombreMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /^[a-zA-Z@._0-9\-]*$/;
+            return re.test(keyChar);
+        }
+    });
+
+
+     $("#txtEMailMD").keypress(function (evt) {
+        var charCode = (evt.which) ? evt.which : window.event.keyCode;
+        if (charCode <= 13) {
+            return false;
+        }
+        else {
+            var keyChar = String.fromCharCode(charCode);
+            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+            return re.test(keyChar);
+        }
+    });
+
+        $('#hrefContrato').click(function () {
+            waitingDialog({});
+            DownloadAttachContratoCO();
+        });
+        $('#hrefTerminos').click(function () {
+            waitingDialog({});
+            DownloadAttachContratoActualizarDatos();
+    });
+
+
 
 function ValidarTelefono(celular) {
     var resultado = false;
@@ -343,8 +418,8 @@ function ValidarTelefono(celular) {
     };
 
     jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Bienvenida/ValidadTelefonoConsultora',
+        type: 'POST', 
+		url: '@Url.Action("ValidadTelefonoConsultora", "MisDatos", new { area = "Mobile" })',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
@@ -368,8 +443,8 @@ function ValidarTelefono(celular) {
 function limitarMinimo(contenido, caracteres, a) {
     if (contenido.length < caracteres && contenido.trim() != "")
     {
-        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono";
-        alert('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+        var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono"; 
+		MensajeValdiacion('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
     }
     return true;
