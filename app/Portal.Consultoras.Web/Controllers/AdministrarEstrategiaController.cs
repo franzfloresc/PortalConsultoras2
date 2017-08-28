@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.ServiceGestionWebPROL;
@@ -1470,8 +1470,24 @@ namespace Portal.Consultoras.Web.Controllers
                                         string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
                                         nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
                                     }
-                                
+
+                                    if (productoEstrategia.codigo_estrategia == "2001")
+                                    {
+                                        var listaHermanosE = new List<BEProducto>();
+                                        using (ODSServiceClient svc = new ODSServiceClient())
+                                        {
+                                            listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, opt.CUV2).ToList();
+                                        }
+                                        listaHermanosE = listaHermanosE ?? new List<BEProducto>();
+                                        opt.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
+                                    }
+                                    else if (productoEstrategia.codigo_estrategia == "2003")
+                                    {
+                                        opt.TieneVariedad = 1;
+                                    }
+                                    opt.CodigoEstrategia = productoEstrategia.codigo_estrategia;
                                 }
+
                                 foreach (String nemoTecnico in nemotecnicosLista)
                                 {
                                     if(contadorNemotecnico==0)
