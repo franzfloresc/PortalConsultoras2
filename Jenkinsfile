@@ -31,7 +31,7 @@ node {
             }
         }
     }
-    catch(err) {
+    catch(error) {
         currentBuild.result = 'FAILURE'
         notify(error)
         emailLog()
