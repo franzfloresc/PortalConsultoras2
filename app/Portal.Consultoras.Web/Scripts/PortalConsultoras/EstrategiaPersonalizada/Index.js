@@ -131,14 +131,23 @@ function SeccionCargarProductos(objConsulta) {
 
 function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
-    if (htmlSeccion.length !== 1) 
+    if (htmlSeccion.length !== 1) {
+        console.log(data.Seccion);
         return false
+    }
     
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
-    if (divListadoProductos.length !== 1) 
+    if (divListadoProductos.length !== 1) {
+        console.log(data.Seccion);
         return false
+    }
     
-    console.log(data.Seccion.TemplateProducto, data);
+    data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
+    if (data.Seccion.TemplateProducto === "") {
+        console.log(data.Seccion);
+        return false
+    }
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
