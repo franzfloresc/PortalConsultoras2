@@ -2681,10 +2681,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
                     continue;
-
-                entConf.MobileImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, entConf.MobileImagenFondo);
-                entConf.DesktopImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, entConf.DesktopImagenFondo);
-
+                
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
@@ -2705,11 +2702,10 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         break;
                     case Constantes.ConfiguracionPais.RevistaDigital:
-                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionHome";
-                        seccion.UrlLandig = "RevistaDigital/Index";
+                        seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
                         seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
@@ -2748,7 +2744,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (seccion.TemplatePresentacion == "") continue;
 
-                seccion.ImagenFondo = ConfigS3.GetUrlS3(Globals.UrlMatriz + "/" + Util.GetPaisISO(userData.PaisID)) +  seccion.ImagenFondo;
+                seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
 
                 modelo.Add(seccion);
             }
