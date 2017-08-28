@@ -992,6 +992,7 @@
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
+                    <span id="AcepteTYC" style="color: rgb(202, 3, 0); display: none;">Tiene que aceptar los Términos y Condiciones</span> 
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
@@ -2717,15 +2718,23 @@
         var baseUrl = "@Url.Content("~")";
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
+        var nombreConsultora = '@Model.NombreCompleto';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var telefono = '@Model.Telefono';
+        var telefonoTrabajo = '@Model.TelefonoTrabajo';
+        var sobreNombre = '@Model.SobreNombre';
+        var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var asesoraOnlinePopup = '@ViewBag.AsesoraOnlinePopup';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
+            actualizarUsuarioUrl: '@Url.Action("ActualizarUsuario", "AsesoraOnline")',
             codigoConsultora: viewBagCodigoConsultora || '',
             isoPais: paisISO || '',
-            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")'
+            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")',
+            tipoPopup: ((typeof asesoraOnlinePopup === 'undefined') || asesoraOnlinePopup == '' ) ? 0 : asesoraOnlinePopup
         });
 
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);

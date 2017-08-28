@@ -254,7 +254,10 @@ $(document).ready(function () {
             break;
 
         case popupAsesoraOnline:
-            asesoraOnlineObj.mostrar();
+            if (asesoraOnlineObj.tipoPopup == 0)
+                asesoraOnlineObj.mostrar();
+            if (asesoraOnlineObj.tipoPopup == 1)
+                asesoraOnlineObj.mostrarModificarDatos();
             break;
     }
 
