@@ -633,42 +633,43 @@ function ValidarFormulario() {
 }
 
 function AsignarHojaEstilos() {
+    var objEstiloEsika = $('#cssStyle>link');
+    var objEstiloLbel = $('#cssStyleLbel>link');
+
     if (paisesEsika.indexOf(imgISO) != -1) {
-        if ($("link[data-id='cssStyle']").prop('disabled') !== undefined) {
+        if (objEstiloEsika.prop('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = ' ÉSIKA ';
             $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
-            $("link[data-id='cssStyle']").prop('disabled', false);
-            $("link[data-id='cssStyleLbel']").prop('disabled', true);
+            objEstiloEsika.prop('disabled', false);
+            objEstiloLbel.prop('disabled', true);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
     }
-    else {
-        if (paisesLBel.indexOf(imgISO) != -1) {
-            if ($("link[data-id='cssStyleLbel']").prop('disabled') !== undefined) {
-                $("body").css("visibility", "hidden");
-                document.title = " L'BEL ";
-                $("link[data-id='iconPagina']").attr("href", "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico");
-                $("link[data-id='cssStyle']").prop('disabled', true);
-                $("link[data-id='cssStyleLbel']").prop('disabled', false);
-                window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-            }
-            $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
-            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
-        } else {
-            if ($("link[data-id='cssStyle']").attr('disabled') !== undefined) {
-                $("body").css("visibility", "hidden");
-                document.title = ' ÉSIKA ';
-                $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
-                $("link[data-id='cssStyle']").prop('disabled', false);
-                $("link[data-id='cssStyleLbel']").prop('disabled', true);
-                window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
-            }
-            $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
-            $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+    else if (paisesLBel.indexOf(imgISO) != -1) {
+        if (objEstiloLbel.prop('disabled') !== undefined) {
+            $("body").css("visibility", "hidden");
+            document.title = " L'BEL ";
+            $("link[data-id='iconPagina']").attr("href", "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico");
+            objEstiloEsika.prop('disabled', true);
+            objEstiloLbel.prop('disabled', false);
+            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
         }
+        $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+        $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
+    } else {
+        if (objEstiloEsika.attr('disabled') !== undefined) {
+            $("body").css("visibility", "hidden");
+            document.title = ' ÉSIKA ';
+            $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
+            objEstiloEsika.prop('disabled', false);
+            objEstiloLbel.prop('disabled', true);
+            window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
+        }
+        $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
+        $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");
     }
 }
 
