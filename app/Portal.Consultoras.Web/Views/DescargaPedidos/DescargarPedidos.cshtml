@@ -473,39 +473,18 @@
                 <div class="celda">
                     <span >Tipo de Proceso:</span>
                     <div class="selectP2 borde_redondeado">
-                        @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá")
-                        {
-                            <select id="cboTipoCronograma">
-                                <option value="0">-- Seleccionar --</option>
-                                <option value="1">Regular</option>
-                                <option value="2">Demanda Anticipada</option>
-                                <option value="3">Demanda Anticipada PRD</option>
-                                <option value="4">FIC</option>
-                                <option value="5">Generar Líderes</option>
+                        <select id="cboTipoCronograma">
+                            <option value="0">-- Seleccionar --</option>
+                            <option value="1">Regular</option>
+                            <option value="2">Demanda Anticipada</option>
+                            <option value="3">Demanda Anticipada PRD</option>
+                            @if (Model.PedidoFICActivo) { <option value="4">FIC</option> }
+                            <option value="5">Generar Líderes</option>
+                            @if (ViewBag.NombrePais == "México" || ViewBag.NombrePais == "Costa Rica" || ViewBag.NombrePais == "Guatemala" || ViewBag.NombrePais == "El Salvador" || ViewBag.NombrePais == "Panamá")
+                            {
                                 <option value="6">Digitacion Distribuida Parcial</option>
-                            </select>
-                        }
-                        else if (ViewBag.NombrePais == "Puerto Rico" || ViewBag.NombrePais == "República Dominicana")
-                        {
-                            <select id="cboTipoCronograma">
-                                <option value="0">-- Seleccionar --</option>
-                                <option value="1">Regular</option>
-                                <option value="2">Demanda Anticipada</option>
-                                <option value="3">Demanda Anticipada PRD</option>
-                                <option value="4">FIC</option>
-                                <option value="5">Generar Líderes</option>                        
-                            </select>
-                        }
-                        else
-                        {
-                            <select id="cboTipoCronograma">
-                                <option value="0">-- Seleccionar --</option>
-                                <option value="1">Regular</option>
-                                <option value="2">Demanda Anticipada</option>
-                                <option value="3">Demanda Anticipada PRD</option>                            
-                                <option value="5">Generar Líderes</option>
-                            </select>
-                        }
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="celda">

@@ -283,7 +283,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (idMatrizComercial == 0)
                 {
                     isNewRecord = true;
-                    //insertar cabecera
                     BEMatrizComercial entidad = Mapper.Map<MatrizComercialModel, BEMatrizComercial>(model);
                     entidad.UsuarioRegistro = userData.CodigoConsultora;
 
@@ -310,7 +309,8 @@ namespace Portal.Consultoras.Web.Controllers
                     PaisID = model.PaisID,
                     UsuarioRegistro = userData.CodigoConsultora,
                     UsuarioModificacion = userData.CodigoConsultora,
-                    NemoTecnico = nombreArchivoSinExtension
+                    NemoTecnico = nombreArchivoSinExtension,
+                    DescripcionComercial = model.DescripcionComercial
                 };
 
                 bool isNewImage = false;
@@ -319,13 +319,14 @@ namespace Portal.Consultoras.Web.Controllers
                     isNewImage = true;
                     //subir imagen temporal al S3
                     entity.Foto = this.UploadFoto(nombreArchivo, formatoArchivo.PreFileName, formatoArchivo.CarpetaPais);
-                    using (var sv = new PedidoServiceClient())
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         model.IdMatrizComercialImagen = sv.InsMatrizComercialImagen(entity);
                     }
-                }else
+                }
+                else
                 {
-                    using (var sv = new PedidoServiceClient())
+                    using (PedidoServiceClient sv = new PedidoServiceClient())
                     {
                         entity.IdMatrizComercialImagen = model.IdMatrizComercialImagen;
                         //crear nueva foto y borrar la anterior en S3
@@ -391,6 +392,30 @@ namespace Portal.Consultoras.Web.Controllers
                 message = "Se actualizó el nemotécnico satisfactoriamente."
             });
         }
+
+        [HttpPost]
+        public JsonResult ActualizarDescripcionComercial(MatrizComercialModel model)
+        {
+            var entity = new BEMatrizComercialImagen
+            {
+                IdMatrizComercialImagen = model.IdMatrizComercialImagen,
+                PaisID = model.PaisID,
+                UsuarioModificacion = userData.CodigoConsultora,
+                DescripcionComercial = model.DescripcionComercial,
+            };
+
+            using (var sv = new PedidoServiceClient())
+            {
+                sv.UpdMatrizComercialDescripcionComercial(entity);
+            }
+
+            return Json(new
+            {
+                entity = model,
+                success = true,
+                message = "Se actualizó la descripción comercial satisfactoriamente."
+            });
+        }    
 
         [HttpPost]
         public string UpdDescripcionProductoMasivo(HttpPostedFileBase flDescProd)
@@ -582,7 +607,8 @@ namespace Portal.Consultoras.Web.Controllers
                 IdMatrizComercialImagen = p.IdMatrizComercialImagen,
                 FechaRegistro = p.FechaRegistro.HasValue ? p.FechaRegistro.Value : default(DateTime),
                 Foto = urlS3 + p.Foto,
-                NemoTecnico = p.NemoTecnico
+                NemoTecnico = p.NemoTecnico,
+                DescripcionComercial = p.DescripcionComercial
             }).ToList();
 
             return data;
