@@ -18,6 +18,11 @@
         $("#virtual-coach-dialog").hide();
     };
 
+    var _hidePopupModificarDatos = function () {
+        $("#fondoComunPopUp").hide();
+        $("#popupActualizarMisDatosMexico").show();
+    };
+
     var _actualizarEstadoConfiguracionPaisDetalle = function (isoPais, codigoConsultora) {
         var params = {
             isoPais: typeof isoPais === "undefined" ? '' : isoPais,
@@ -56,8 +61,14 @@
         $("#virtual-coach-dialog").show();
     };
 
+    var _mostrarModificarDatos = function () {
+        $("#fondoComunPopUp").show();
+        $("#popupActualizarMisDatosMexico").show();
+    };
+
     return {
         asignarEventos: _asignarEventos,
         mostrar: _mostrar,
+        mostrarModificarDatos: _mostrarModificarDatos
     }
 }
