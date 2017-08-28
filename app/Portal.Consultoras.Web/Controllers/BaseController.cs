@@ -818,6 +818,8 @@ namespace Portal.Consultoras.Web.Controllers
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
 
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
             //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
@@ -825,6 +827,11 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             foreach (var confiModel in lista)
             {
+                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
+                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
+                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
+                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
+
                 var confi = confiModel;
                 if (confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
                     || confi.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
