@@ -869,7 +869,7 @@
 }
 
 .revistadigital .boxoffer.boxOfferPedido{
-    top:366px;
+    top: 300px;
 }
 
 .revistadigital .revistadigital-content{
@@ -1787,14 +1787,7 @@
     margin-top:50px;
     position:relative;
 }
-.content_texto_gana{
-    margin: 0 auto;
-    float: left;
-    width: -moz-calc(100% -765px);
-    width: calc(100% - 765px);
-    width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
-}
+
 .titulo_gana_landing{
     font-family:'Lato';
     font-size:16px;
@@ -2103,18 +2096,12 @@
     }
 }
 
-
 .flex-container {
     flex-wrap: wrap;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
 }
-
-/*.row {
-    width: auto;
-    border: 1px solid blue;
-}*/
 
 .flex-item {
     background-color: tomato;
@@ -2199,7 +2186,7 @@
 .content_item_home_bpt {
     background: white;
     /*border: 1px solid #e7e1e1;*/
-    border: 1px #000000 solid;
+    /*border: 1px #000000 solid;*/
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -2383,7 +2370,7 @@
 
 .home_rd .btn_diagonal:after {
     background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);rgba(233,27,55,1)
+    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
     background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
 }
 

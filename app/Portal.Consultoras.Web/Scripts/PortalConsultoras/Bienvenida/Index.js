@@ -15,7 +15,20 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
-    
+    $("#hdDataBarra").val("");
+
+    if (vbFotoPerfil != null && vbFotoPerfil != "") {
+        $('div.content_datos').css('max-width', '100%');
+        $('div.resumen_belcorp_cam').css('margin-left', '3%');
+        $('div.resumen_belcorp_cam').css('margin-right', '0%');
+        $('div.socia_negocio_home').css('margin-left', '4%');
+        $('div.contenedor_img_perfil').show();
+    }
+
+    $(".termino_condiciones_intriga").click(function () {
+        $(this).toggleClass('check_intriga');
+    });
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -3155,14 +3168,14 @@ function ValidarTelefono(celular) {
 }
 
 function VerShowRoomIntriga() {
-    AgregarTagManagerShowRoomPopupClick(2);
-    document.location.href = urlShowRoomIntriga;
+    //AgregarTagManagerShowRoomPopupClick(2);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomIntriga').hide();
 }
 
 function VerShowRoomVenta() {
-    AgregarTagManagerShowRoomPopupClick(1);
-    document.location.href = urlShowRoomVenta;
+    //AgregarTagManagerShowRoomPopupClick(1);
+    document.location.href = urlOfertasIndex;
     $('#PopShowroomVenta').hide();
 }
 

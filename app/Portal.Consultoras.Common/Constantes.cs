@@ -334,6 +334,9 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
+            public const int RevistaDigitalMobileCatalogoSeccion = 2401;
             /* FIN Revista Digital */
 
             // Mas Vendidos
@@ -652,6 +655,7 @@ namespace Portal.Consultoras.Common
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
+            public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
         }
 
         public class ConfiguracionPais
@@ -663,6 +667,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string ShowRoom = "SR";
         }
 
         public class ConfiguracionSeccion
@@ -673,6 +678,7 @@ namespace Portal.Consultoras.Common
                 public const int CarruselPrevisuales = 2;
                 public const int SimpleCentrado = 3;
                 public const int Banners = 4;
+                public const int ShowRoom = 5;
             }
         }
 
@@ -724,6 +730,7 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class EstadoRDSuscripcion

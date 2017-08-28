@@ -863,7 +863,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             type: "POST",
             async: true,
             crossDomain: true,
-            url: urlLogDynamo,
+            url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
             success: function (result) { console.log(result); },
@@ -1211,9 +1211,14 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     var _palanca = $.trim($(article).find(".Palanca").val());
 
     var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca == "FAV") {
+    if (_palanca === "FAV") {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
+    try {
+        if (_palanca === "LAN") {
+            CompartirProductoRDAnalytics(tipoRedes, pcDetalle, _nombre);
+        }
+    } catch (e) { console.log(e); }
 
     var Item = {
         mCUV: $(article).find(".CUV").val(),
@@ -1221,6 +1226,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         mDetalle: pcDetalle,
         mApplicacion: tipoRedes
     };
+
 
     jQuery.ajax({
         type: 'POST',

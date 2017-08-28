@@ -15,7 +15,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return IndexModel();
+                return RedirectToAction("Index", "Ofertas");
+                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -29,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return IndexModel(0);
+                return IndexModel();
             }
             catch (Exception ex)
             {

@@ -320,16 +320,23 @@ function messageInfoError(message, titulo, fnAceptar) {
     }
 }
 
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-}
+
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
+
+    var soloCantidad = true;
+    if (typeof controllerName == "undefined") {
+        soloCantidad = false;
+    }
+    else {
+        soloCantidad =  controllerName == 'pedido';
+    }
+
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
+        data: JSON.stringify({ soloCantidad: soloCantidad }),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -359,9 +366,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
                     if (showPopup == true) {
                         microefectoPedidoGuardado();
-                        setTimeout(function () {
-                            $(".contenedor_circulos").fadeOut();
-                        }, 2700);
+                       
                     }
                 }
                 else {
@@ -376,6 +381,14 @@ function CargarResumenCampaniaHeader(showPopup) {
         }
     });
 };
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
+}
+
 function CargarCantidadNotificacionesSinLeer() {
     jQuery.ajax({
         type: 'POST',

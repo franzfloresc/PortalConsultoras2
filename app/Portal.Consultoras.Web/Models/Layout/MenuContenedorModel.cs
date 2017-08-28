@@ -1,5 +1,8 @@
-﻿namespace Portal.Consultoras.Web.Models.Layout
+﻿using System;
+
+namespace Portal.Consultoras.Web.Models.Layout
 {
+    [Serializable]
     public class MenuContenedorModel
     {
         public string Codigo { get; set; }

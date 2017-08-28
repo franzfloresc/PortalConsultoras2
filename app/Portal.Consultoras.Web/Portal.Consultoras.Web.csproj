@@ -50,8 +50,8 @@
     <DeployOnBuild Condition=" '$(DeployWEB)'!='' ">$(DeployWEB)</DeployOnBuild>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\Binaries\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\Binaries\AutoMapper.dll</HintPath>
@@ -172,8 +172,8 @@
     <Reference Include="Trancenter.IFacturaEcuador.EncriptTool">
       <HintPath>..\Binaries\Trancenter.IFacturaEcuador.EncriptTool.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <HintPath>..\Binaries\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -363,7 +363,7 @@
     <Compile Include="Controllers\UneteController.cs" />
     <Compile Include="Controllers\UpdatePassSACController.cs" />
     <Compile Include="Controllers\UsuarioRolController.cs" />
-    <Compile Include="CustomAttributes\CustomHandleErrorAttribute.cs" />
+    <Compile Include="CustomFilters\LogErrorAttribute.cs" />
     <Compile Include="CustomFilters\LogActionFilter.cs" />
     <Compile Include="CustomFilters\LogActionFilterProvider.cs" />
     <Compile Include="CustomFilters\SessionExpiredActionFilter.cs" />
@@ -409,6 +409,8 @@
     <Compile Include="Models\ProductoComentarioModel.cs" />
     <Compile Include="Models\CompartirRedesSocialesModel.cs" />
     <Compile Include="Models\ComunModel.cs" />
+    <Compile Include="Models\ConsultoraOnlineMenuResumenModel.cs" />
+    <Compile Include="Models\ConsultoraOnlinePedidoModel.cs" />
     <Compile Include="Models\ConsultoraRegaloProgramaNuevasModel.cs" />
     <Compile Include="Models\CuponConsultoraModel.cs" />
     <Compile Include="Models\ConfiguracionPaisModel.cs" />
@@ -536,6 +538,7 @@
     <Compile Include="Models\Paso3CoreVm.cs" />
     <Compile Include="Models\PedidoActualizaModel.cs" />
     <Compile Include="Models\PedidoAsociadoModel.cs" />
+    <Compile Include="Models\PedidoDetalleCarritoModel.cs" />
     <Compile Include="Models\PedidoFICModel.cs" />
     <Compile Include="Models\PedidoModel.cs" />
     <Compile Include="Models\PedidoSb2Model.cs" />
@@ -715,6 +718,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="SessionManager\ISessionManager.cs" />
+    <Compile Include="SessionManager\SessionManager.cs" />
     <Compile Include="Set.aspx.cs">
       <DependentUpon>Set.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1193,6 +1198,8 @@
     <Content Include="Content\Css\Site\Esika\revistaDigital.css" />
     <Content Include="Content\Css\Site\Esika\style.css" />
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
+    <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
+    <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
@@ -1205,6 +1212,9 @@
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
+    <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
+    <Content Include="Content\Images\Esika\RevistaDigital\popup1.png" />
+    <Content Include="Content\Images\Esika\RevistaDigital\previous.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
@@ -1394,7 +1404,6 @@
     <Content Include="Content\Css\Site\Login2\style_lbel.css" />
     <Content Include="Content\Css\Site\navidadConsultora.css" />
     <Content Include="Content\Css\Site\Site.css" />
-    <Content Include="Content\Css\Site\slick.min.css" />
     <Content Include="Content\Css\Site\style-pedido.css" />
     <Content Include="Content\Css\Site\slick-pedido.css" />
     <Content Include="Content\Css\Site\slick-vertical.css" />
@@ -3065,7 +3074,6 @@
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3082,6 +3090,7 @@
     <Content Include="Scripts\jquery.rateyo.js" />
     <Content Include="Scripts\jquery.tmpl.js" />
     <Content Include="Scripts\jquery.toast.min.js" />
+    <Content Include="Scripts\LogError.js" />
     <Content Include="Scripts\MultiSelect\css\common.css" />
     <Content Include="Scripts\MultiSelect\css\ui.multiselect.css" />
     <Content Include="Scripts\MultiSelect\js\locale\ui-multiselect-de.js" />
@@ -3150,7 +3159,8 @@
     <Content Include="Scripts\PortalConsultoras\Pedido\ofertafinal.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Landing.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-Suscripcion.js" />
-    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
+	<Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
+    <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
@@ -3160,7 +3170,6 @@
     <Content Include="Scripts\PortalConsultoras\TagManager\Home-Pedido.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\slick.js" />
-    <Content Include="Scripts\slick.min.js" />
     <Content Include="Scripts\Tag\jquery.caret.min.js" />
     <Content Include="Scripts\jquery.flexnav.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
@@ -3427,6 +3436,15 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceCliente\ClienteService.disco" />
+    <None Include="Service References\ServiceCliente\ClienteService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceCliente\ClienteService32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">
@@ -3584,7 +3602,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
-    <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService5.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3688,13 +3706,13 @@
     <None Include="Service References\ServiceUsuarioExt\UsuarioWebService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Service References\ServiceSeguridad\SeguridadService.disco" />
-    <Content Include="Service References\ServiceSeguridad\configuration91.svcinfo" />
-    <Content Include="Service References\ServiceSeguridad\configuration.svcinfo" />
-    <Content Include="Service References\ServiceSeguridad\Reference.svcmap">
+    <None Include="Service References\ServiceSeguridad\SeguridadService.disco" />
+    <None Include="Service References\ServiceSeguridad\configuration91.svcinfo" />
+    <None Include="Service References\ServiceSeguridad\configuration.svcinfo" />
+    <None Include="Service References\ServiceSeguridad\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
+    </None>
     <None Include="Service References\ServiceUsuario\UsuarioService.disco" />
     <None Include="Service References\ServiceUsuario\configuration91.svcinfo" />
     <None Include="Service References\ServiceUsuario\configuration.svcinfo" />
@@ -4166,7 +4184,6 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />
-    <Content Include="Views\RevistaDigital\Revista2017.cshtml" />
     <Content Include="Views\AdministrarPalanca\Index.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoPalanca.cshtml" />
     <Content Include="Views\Shared\_MainLayoutContenedor.cshtml" />
@@ -4175,6 +4192,7 @@
     <Content Include="Views\EstrategiaPersonalizada\presentacion-carrusel-previsuales-producto.cshtml" />
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4495,10 +4513,10 @@
     <None Include="Web References\ServicesCalculosPROL\ServicesCalculosPROL.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
-    <Folder Include="Content\Css\Site\Login\" />
+    <Folder Include="CustomAttributes\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />
