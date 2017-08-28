@@ -145,22 +145,16 @@ function RDInformacion() {
     location.href = urlInformacionSuscripcion;
 }
 
-function RDSuscripcionRedireccionar(accion) {
-    SaberMasRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#0");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
-    window.location = url;
-    if (urlLocal.indexOf("/revistadigital/") > 0) {
-        window.location.reload();
-    }
-}
-
-function RDRedireccionarDesuscripcion() {
+function RDRedireccionarInformacion(seccion) {
+    seccion = seccion || 0;
     IrCancelarSuscripcionRDAnalytics();
-    var url = ((isMobile() ? "/Mobile" : "") + "/RevistaDigital#divCambiosEstadoRegistro");
-    var urlLocal = $.trim(window.location).toLowerCase().replace("#", "/")+"/";
+    var url = (isMobile() ? "/Mobile" : "") + "/RevistaDigital/Informacion";
+
+    if (seccion == 1) url += "#divCambiosEstadoRegistro";
+    
+    var urlLocal = $.trim(window.location).toLowerCase() + "/";
     window.location = url;
-    if (urlLocal.indexOf("/revistadigital/") > 0) {
+    if (urlLocal.indexOf("/revistadigital//Informacion/") >= 0) {
         window.location.reload();
     }
 }

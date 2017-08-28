@@ -2349,7 +2349,6 @@ else
 </script>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript">
         var arregloProductos;
         var cantProductosLoad = '@Model.ListaEstrategias.Count';
@@ -2371,10 +2370,8 @@ else
         var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
             : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
         var dataBarra = JSON.parse($("#hdDataBarra").val());
-        dataBarra.TotalPedido = dataBarra.TotalPedido || parseFloat('@Model.Total', 10);
         var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
         var listaMensajeMeta = dataBarra.ListaMensajeMeta;
-        $("#hdDataBarra, #hdListaEscala").val("");
         var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
         var urlReservadoOEnHorarioRestringido =
             '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
@@ -2384,9 +2381,8 @@ else
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
-
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
         var origenPagina = 2;

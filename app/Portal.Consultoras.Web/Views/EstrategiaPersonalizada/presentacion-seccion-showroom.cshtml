@@ -10,14 +10,18 @@
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 }
 
-@if (mostrarPopupIntriga)
-{
+<div class="bc_plantilla_estrategia_personalizada"
+     style="background: url(@Model.ImagenFondo);"
+     data-OrigenPedidoWeb="" data-seccion-productos="">
 
-}
+    @if (mostrarPopupIntriga)
+    {
 
-@if (mostrarPopupVenta)
-{
-    <div class="content_slider_ept" data-OrigenPedidoWeb="" data-seccion-productos=""></div>
+    }
+
+    @if (mostrarPopupVenta)
+    {
+
         <script id="template-showroom" type="text/x-handlebars-template">
             <div class="content-favclientes content_carrusel_agregado">
                 <div>
@@ -77,4 +81,7 @@
                 <hr class="clear">
             </div>
         </script>
-}
+    }
+
+
+</div>

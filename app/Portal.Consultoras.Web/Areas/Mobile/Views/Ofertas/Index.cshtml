@@ -11,93 +11,79 @@
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Mobile/esika/ofertas.css")" rel="stylesheet" />
 }
-<div class="bc_para_ti" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_estrellas.png"));">
-    <div class="bc_para_ti-logo">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/bg_esika.png")" alt="">
+<div class="bc_mobil_para-mi" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_estrellas.png"));">
+    <div class="bc_mobile-logo" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_esika.png"));">
+
     </div>
-    <div class="bc_para_ti-texto">
-        <div class="bc_para_ti-texto-contenido">
-            <p><b>CARMEN</b>, ¡VIVE LAS OFERTAS DE NAVIDAD ES NOVEDAD!</p>
+    <div class="bc_mobile-texto">
+        <div class="mobile-txt">
+            <p>CARMEN, ¡VIVE LAS OFERTAS DE NAVIDAD ES NOVEDAD</p>
+            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
         </div>
     </div>
-    <div class="bc_para_ti-clear"></div>
+    <div class="bc_clear"></div>
     <div class="bc_para_ti-menu">
         <ul>
             <li>
-                <a href="">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/fill-1.svg")" alt="" class="hover">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/shoppingcard_blanco.svg")" alt="" class="default">C-16
-                </a>
-                <ul>
-                    <!-- aquí menú -->
-                </ul>
+                <a attr-modal="#open-menu1">TITULO 1</a>
             </li><li>
-                <a href="">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/ojos.svg")" alt="" class="default">
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/ojos_negro.svg")" alt="" class="hover">C-17
-                </a>
-                <ul>
-                    Boli
-                </ul>
+                <a attr-modal="#open-menu2">TITULO 2</a>
             </li><li>
-                <a href="">SABER MÁS</a>
-                <ul>
-                    Camaron con coli
-                </ul>
+                <a attr-modal="#open-menu3">TITULO 3</a>
             </li>
         </ul>
     </div>
 </div>
-<div class="bc_mobil_contenido">
-    <div class="bc_mobil_contenido-plantilla1">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/plantilla1.png")" alt="">
+<div class="bc_para_ti-menu-opciones">
+    <ul id="open-menu1">
+        <li>
+            <a href="#">
+                op1
+            </a>
+        </li>
+    </ul>
+    <ul id="open-menu2">
+        <li>
+            <a href="#">
+                op2
+            </a>
+        </li>
+    </ul>
+    <ul id="open-menu3">
+        <li>
+            <a href="#">
+                op3
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="bc_plantilla-banner">
+    <img src="@Url.Content("~/Content/Images/RevistaDigital/plantilla1.png")" alt="">
+</div>
+<div class="bc_plantilla-producto-promocion" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/plantilla2.png"));">
+    <div class="promo-hora">
+        <p>¡SOLO HOY!</p>
+        <span>05:11:30</span>
     </div>
-    <div class="bc_mobil_contenido-plantilla2" style="
-         background:url(@Url.Content("~/Content/Images/RevistaDigital/plantilla2.png"));">
-    <div class="bc_mobil_contenido-plantilla2-contenido">
-        <p class="titulo">¡SOLO HOY!</p>
-        <p class="countdown">05:11:30</p>
-        <div class="bc_bloque_img_responsive">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
-        </div>
-        <div class="bc_bloque_txt">
+    <div class="promo-img-mobile">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
+    </div>
+    <div class="promo-info">
+        <p class="nombre-prod">
             SET ILUMINA A SOLO <b>$31.90</b>
-            <a href="" class="agregalo">¡AGRÉGALO YA!</a>
-            <a href="" class="ver-mas">+ VER MÁS DETALLE</a>
-        </div>
-        <div class="bc_bloque_img">
-            <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
-        </div>
+        </p>
+        <a href="" class="agregalo-ya">
+            ¡AGRÉGALO YA!
+        </a>
+        <a href="" class="ver-mas-detalle">
+            + VER MÁS DETALLE
+        </a>
     </div>
+    <div class="promo-img">
+        <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
+    </div>
+    <div class="bc_clear"></div>
 </div>
-<div class="bc_mobil_contenido-plantilla3">
-    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
-        <div class="contenido">
-            <p>Lanzamientos</p>
-            <span>Prueba este producto</span>
-        </div>
-    </div>
-    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
-        <div class="contenido">
-            <p>Lanzamientos</p>
-            <span>Prueba este producto</span>
-        </div>
-    </div>
-    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
-        <div class="contenido">
-            <p>Lanzamientos</p>
-            <span>Prueba este producto</span>
-        </div>
-    </div>
-    <div style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_mini_bloque.png"));">
-        <div class="contenido">
-            <p>Lanzamientos</p>
-            <span>Prueba este producto</span>
-        </div>
-    </div>
-</div>
-
-	</div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
@@ -112,28 +98,25 @@
 <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
 <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
 
+
 <script>
-
-    /*ejecutar menu modo desktop*/
-    $('.bc_para_ti-menu ul li a').hover(function(e) {
-        $(this).find('img.default').css('display', 'none');
-        $(this).find('img.hover').css('display', 'inline');
-    }, function(e) {
-        $(this).find('img.default').css('display', 'inline');
-        $(this).find('img.hover').css('display', 'none');
-    });
-
+    $(function () {
+        $('.bc_para_ti-menu-opciones ul').hide();
+        $('.bc_para_ti-menu-opciones ul:first').show();
+        $('.bc_para_ti-menu ul li').on('click', function () {
+            $('.bc_para_ti-menu-opciones ul').hide();
+            var activeTab = $(this).find('a').attr('attr-modal');
+            $(activeTab).show();
+            return false;
+        });
+    })
 </script>
 
+
 <script>
-		$('.bc_para_ti-menu ul li ').hover(function(e) {
-        $(this).find('ul').css({
-            display: "block"
-        });
-    }, function(e) {
-        $(this).find('ul').css({
-            display: "none"
-        });
+    $('.bc_para_ti-menu ul li a').on('click', function () {
+        $('.bc_para_ti-menu ul li a').removeClass('opcionActiva');
+        $(this).addClass('opcionActiva');
     });
 </script>
 }

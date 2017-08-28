@@ -157,6 +157,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
+
+                ViewBag.NombreConsultora = model.NombreConsultora;
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            try
+            {
+
                 // mostrar popup de revista digital....
                 model.RevistaDigitalPopUpMostrar = userData.RevistaDigital.NoVolverMostrar;
                 ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
@@ -167,15 +182,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
-                ViewBag.NombreConsultora = model.NombreConsultora;
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
             //PL20-1284

@@ -1,13 +1,12 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
-<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/DIADELAMOR_FONDO.png"));">
+<div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo);">
     <div class="titulo">
-        <h2>VENTA EXCLUSIVA WEB</h2> HASTA 65% DE DSCTO EN SETS EXCLUSIVOS ONLINE
+        <h2>@Model.Titulo</h2> @Model.SubTitulo
     </div>
-    <div class="contenido" data-seccion-productos="" >
-    </div>
+    <div class="contenido" data-seccion-productos="" ></div>
     <div class="boton-ir">
-        <a href="">VER MÁS OFERTAS</a>
+        <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
     </div>
 </div>

@@ -2669,7 +2669,8 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var modelo = new List<ConfiguracionSeccionHomeModel>();
-            
+
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var isMobile = IsMobile();
             foreach (var entConf in listaEntidad)
             {
@@ -2681,6 +2682,9 @@ namespace Portal.Consultoras.Web.Controllers
                 if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
                     continue;
 
+                entConf.MobileImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, entConf.MobileImagenFondo);
+                entConf.DesktopImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, entConf.DesktopImagenFondo);
+
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
@@ -2691,11 +2695,15 @@ namespace Portal.Consultoras.Web.Controllers
                     SubTitulo = isMobile ? entConf.MobileSubTitulo : entConf.DesktopSubTitulo,
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
-                    CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos
+                    CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
+                    UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion
                 };
 
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
+                    case Constantes.ConfiguracionPais.OfertasParaTi:
+                        seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
+                        break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductosSeccionLanzamiento";
                         break;
@@ -2711,6 +2719,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 seccion.TemplatePresentacion = "";
+                seccion.TemplateProducto = "";
                 switch (seccion.TipoPresentacion)
                 {
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.CarruselSimple:
@@ -2738,6 +2747,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 if (seccion.TemplatePresentacion == "") continue;
+
+                seccion.ImagenFondo = ConfigS3.GetUrlS3(Globals.UrlMatriz + "/" + Util.GetPaisISO(userData.PaisID)) +  seccion.ImagenFondo;
 
                 modelo.Add(seccion);
             }
