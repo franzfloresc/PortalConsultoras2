@@ -1432,19 +1432,21 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     using (PedidoServiceClient ps = new PedidoServiceClient())
                     {
-                         lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado, estrategiaID).ToList();
+                        lst = ps.GetOfertasParaTiByTipoConfigurado(userData.PaisID, campaniaId, tipoConfigurado,
+                            estrategiaID).ToList();
                     }
 
                     foreach (var opt in lst)
                     {
                         decimal precioOferta = 0;
-                       
+
                         try
                         {
                             using (ServicePROL.ServiceStockSsic svs = new ServicePROL.ServiceStockSsic())
                             {
                                 svs.Url = ConfigurarUrlServiceProl();
-                                precioOferta = svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
+                                precioOferta =
+                                    svs.wsObtenerPrecioPack(opt.CUV2, userData.CodigoISO, campaniaId.ToString());
                             }
 
                             if (habilitarNemotecnico)
@@ -1452,9 +1454,12 @@ namespace Portal.Consultoras.Web.Controllers
                                 List<RptProductoEstrategia> productoEstrategias = new List<RptProductoEstrategia>();
                                 string nemoTecnicoBusqueda = String.Empty;
                                 //TODO: Agregar el servicio de buscar por CUV2 el CODIGO SAP y CANTIDAD
-                                using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb())
+                                using (ServiceGestionWebPROL.WsGestionWeb svs = new ServiceGestionWebPROL.WsGestionWeb()
+                                )
                                 {
-                                    productoEstrategias = svs.GetEstrategiaProducto(campaniaId.ToString(), String.Empty, opt.CUV2, userData.CodigoISO.ToString()).ToList();
+                                    productoEstrategias = svs
+                                        .GetEstrategiaProducto(campaniaId.ToString(), String.Empty, opt.CUV2,
+                                            userData.CodigoISO.ToString()).ToList();
                                 }
 
                                 List<string> nemotecnicosLista = new List<string>();
@@ -1463,12 +1468,16 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 foreach (RptProductoEstrategia productoEstrategia in productoEstrategias)
                                 {
-                                    if ((productoEstrategia.codigo_estrategia == "2001" || productoEstrategia.codigo_estrategia == "2002") ||
-                                        (productoEstrategia.codigo_estrategia == "2003" && (grupoPrevio!= productoEstrategia.grupo)))
+                                    if ((productoEstrategia.codigo_estrategia == "2001" ||
+                                         productoEstrategia.codigo_estrategia == "2002") ||
+                                        (productoEstrategia.codigo_estrategia == "2003" &&
+                                         (grupoPrevio != productoEstrategia.grupo)))
                                     {
                                         grupoPrevio = productoEstrategia.grupo;
                                         string codigoSap = productoEstrategia.codigo_sap;
-                                        string cantidad = (productoEstrategia.cantidad.ToString().Length < 2) ? "0" + productoEstrategia.cantidad.ToString() : productoEstrategia.cantidad.ToString();
+                                        string cantidad = (productoEstrategia.cantidad.ToString().Length < 2)
+                                            ? "0" + productoEstrategia.cantidad.ToString()
+                                            : productoEstrategia.cantidad.ToString();
                                         nemotecnicosLista.Add(String.Format("{0}#{1}", codigoSap, cantidad));
                                     }
 
@@ -1477,7 +1486,9 @@ namespace Portal.Consultoras.Web.Controllers
                                         var listaHermanosE = new List<BEProducto>();
                                         using (ODSServiceClient svc = new ODSServiceClient())
                                         {
-                                            listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, opt.CUV2).ToList();
+                                            listaHermanosE =
+                                                svc.GetListBrothersByCUV(userData.PaisID, userData.CampaniaID, opt.CUV2)
+                                                    .ToList();
                                         }
                                         listaHermanosE = listaHermanosE ?? new List<BEProducto>();
                                         opt.TieneVariedad = listaHermanosE.Any() ? 1 : 0;
@@ -1491,7 +1502,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                                 foreach (String nemoTecnico in nemotecnicosLista)
                                 {
-                                    if(contadorNemotecnico==0)
+                                    if (contadorNemotecnico == 0)
                                         nemoTecnicoBusqueda += nemoTecnico;
                                     else
                                         nemoTecnicoBusqueda += "&" + nemoTecnico;
@@ -1501,7 +1512,9 @@ namespace Portal.Consultoras.Web.Controllers
                                 List<BEMatrizComercialImagen> lstImagenes = new List<BEMatrizComercialImagen>();
                                 using (PedidoServiceClient ps = new PedidoServiceClient())
                                 {
-                                    lstImagenes = ps.GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0, nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
+                                    lstImagenes = ps
+                                        .GetImagenByNemotecnico(userData.PaisID, 0, null, null, 0, 0, 0,
+                                            nemoTecnicoBusqueda, Common.Constantes.TipoBusqueda.Exacta, 1, 1).ToList();
                                     opt.FotoProducto01 = lstImagenes.Any() ? lstImagenes[0].Foto : String.Empty;
                                 }
                             }
@@ -1519,9 +1532,21 @@ namespace Portal.Consultoras.Web.Controllers
                         opt.Precio = 0; //cuvServiceProl.importevalorizado;
                     }
                 }
-                catch (Exception ex)
+                catch (TimeoutException e)
                 {
-                    lst = new List<BEEstrategia>();
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Tiempo agotado de espera durante la extracion de los productos."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                catch (Exception e)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "No se encontraron productos en ods.productocomercial."
+                    }, JsonRequestBehavior.AllowGet);
                 }
 
                 if (lst.Count > 0)
