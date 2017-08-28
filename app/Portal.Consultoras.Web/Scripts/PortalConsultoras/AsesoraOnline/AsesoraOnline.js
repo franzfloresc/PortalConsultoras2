@@ -1,7 +1,14 @@
 ﻿var AsesoraOnline = function (config) {
 
     var _config = {
-        enviarFormularioUrl: config.enviarFormularioUrl || ''
+        enviarFormularioUrl: config.enviarFormularioUrl || '',
+        irAModificarMisDatosUrl : config.irAModificarMisDatosUrl ||
+    };
+
+    modificar_mis_datos
+
+    var _irAModificarMisDatos = function() {
+        window.location = irAModificarMisDatosUrl;
     };
 
     var _enviarFormulario = function () {
@@ -50,6 +57,7 @@
     };
 
     return {
-        enviarFormulario : _enviarFormulario
+        enviarFormulario : _enviarFormulario,
+        irAModificarMisDatos: _irAModificarMisDatos
     }
 }

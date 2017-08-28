@@ -80,6 +80,7 @@ $(document).ready(function () {
             $(window).resize(me.Funciones.cambiarTexto);
 
             $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
+            $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
 
         };
 
