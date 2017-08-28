@@ -30,10 +30,9 @@
         </div>
         <div class="contenido_popUp">
             <h1 class="titulo_actualizarMisDatos titulo_misDatos">MIS&nbsp;<b>DATOS</b></h1>
-            <input type="hidden" id="hdn_CorreoMD" value="" />
-            <input type="hidden" id="hdn_CodigoUsuarioMD" value="" />
-            <input type="hidden" id="hdn_NombreCompletoMD" value="" />
-            <input type="hidden" id="hdn_NombreArchivoContratoMD" value="" />
+            <input type="hidden" id="hdn_CorreoMD" value="@Model.EMail" />
+            <input type="hidden" id="hdn_CodigoUsuarioMD" value="@Model.CodigoUsuario" />
+            <input type="hidden" id="hdn_NombreCompletoMD" value="@Model.NombreCompleto" /> 
             <input type="hidden" id="hdn_CaracterMinimo" value="@ViewBag.limiteMinimoTelef" />
 
             <form class="formulario_actualizar_datos">
@@ -374,27 +373,25 @@
         }
     });
 
-	   $("#txtEMailMD").keypress(function (evt) {
+   $("#txtEMailMD, #txtConfirmarEMail").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
         }
         else {
             var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+           var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ_.@@-]/;
             return re.test(keyChar);
         }
     });
-
-
-	 $("#txtSobrenombreMD").keypress(function (evt) {
+    $("#txtSobrenombreMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
         if (charCode <= 13) {
             return false;
         }
         else {
             var keyChar = String.fromCharCode(charCode);
-            var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
+           var re = /[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ _.-]/;
             return re.test(keyChar);
         }
     });
@@ -455,6 +452,93 @@ function limitarMinimo(contenido, caracteres, a) {
 function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
 }
+
+$("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
+
+ 
+function CambiarContrasenia() {
+    var oldPassword = $("#txtContraseniaAnterior").val();
+    var newPassword01 = $("#txtNuevaContrasenia01").val();
+    var newPassword02 = $("#txtNuevaContrasenia02").val();
+    var vMessage = "";
+
+    if (oldPassword == "")
+        vMessage += "- Debe ingresar la Contraseña Anterior.\n";
+
+    if (newPassword01 == "")
+        vMessage += "- Debe ingresar la Nueva Contraseña.\n";
+
+    if (newPassword02 == "")
+        vMessage += "- Debe repetir la Nueva Contraseña.\n";
+
+    if (newPassword01.length <= 3)
+        vMessage += "- La Nueva Contraseña debe de tener mas de 6 caracteres.\n";
+
+    if (newPassword01 != "" && newPassword02 != "") {
+        if (newPassword01 != newPassword02)
+            vMessage += "- Los campos de la nueva contraseña deben ser iguales, verifique.\n";
+    }
+
+    if (vMessage != "") {
+	MensajeValdiacion(vMessage);  
+        return false;
+    } else {
+
+        var item = {
+            OldPassword: oldPassword,
+            NewPassword: newPassword01
+        };
+
+        waitingDialog({});
+        jQuery.ajax({
+            type: 'POST', 
+			url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(item),
+            async: true,
+            success: function (data) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    if (data.success == true) {
+                        if (data.message == "0") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val(''); 
+							MensajeValdiacion("La contraseña anterior ingresada es inválida");  
+                        } else if (data.message == "1") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val(''); 
+							MensajeValdiacion("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");   
+                        } else if (data.message == "2") {
+                            $("#txtContraseniaAnterior").val('');
+                            $("#txtNuevaContrasenia01").val('');
+                            $("#txtNuevaContrasenia02").val('');
+                            $(".campos_cambiarContrasenia").fadeOut(200);
+                            $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
+                            $(".campos_actualizarDatos").delay(200);
+                            $(".campos_actualizarDatos").fadeIn(200);
+							 MensajeValdiacion("Se cambió satisfactoriamente la contraseña.");    
+                        }
+                        return false;
+                    }
+                }
+            },
+            error: function (data, error) {
+                if (checkTimeout(data)) {
+                    closeWaitingDialog();
+                    alert("Error en el Cambio de Contraseña");
+                }
+            }
+        });
+    }
+}
+
+
+
+
+
  </script>
 
      }
