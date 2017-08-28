@@ -1185,6 +1185,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .contenedor_opciones{
     display:block;
+    text-align:center;
 }
 
 #popup_cambioContrasenia .mensaje_popup_cambioContrasenia{
@@ -1199,7 +1200,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 27%;
     height: 137px;
     border: 1px solid #959595;
-    margin-left: 6%;
+    margin-left:6px;
     margin-right: 3%;
     text-align: left;
     cursor: pointer;
@@ -1220,7 +1221,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .opcion_chateaConNosotros, .contenedor_telefonos_desktop{
-    margin-left:0%;
+    margin-left:0;
+}
+
+.contenedor_telefonos_desktop{
+    margin-right:0;
 }
 
 .icono_mail, .icono_chateaConNosotros, .icono_llamanos {
@@ -1290,7 +1295,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .texto_opcionRecuperacion.tamanio_fuente.horarios_atencion_chat, .texto_opcionRecuperacion.tamanio_fuente.telefonos_desktop{
-    text-align:left;
+    text-align:center;
 }
 
 .correo_electronico_consult{
@@ -1823,7 +1828,7 @@ h1, h2, h3, h4, h5, h6 {
     @media only screen and (max-width : 768px) {
 
         .opciones_recuperacionContrasenia.contenedor_telefonos_desktop {
-            display: block;
+            display: none;
         }
 
         .contenedor_telefonos_mobile {

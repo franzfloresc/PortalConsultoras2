@@ -328,12 +328,15 @@ $(document).ready(function () {
                 $(".lk_llamada").css("text-decoration", "none");
                 $(".lk_llamada").css("color", "black");
                 
-                $(".lk_chat").html(response.descripcionHorarioChat);
+                $("#sp_chat").html(response.descripcionHorarioChat);
                 $("#divChatearConNosotros").css("display", "inline-block");
                 $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
 
-                if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
-                if (response.habilitarChat) $(".opciones_recuperacionContrasenia").css("cursor", "auto");
+                //if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
+                if (!response.habilitarChat) {
+                    $("#divChatearConNosotros").addClass("deshabilitar_opcion_correo");
+                    $(".lk_chat").removeAttr("target");
+                }
 
                 //$("..horarios_atencion_chat").css("padin")
             },
@@ -348,6 +351,11 @@ $(document).ready(function () {
     
     $(".lk_chat").click(function () {        
         Construir_EnlacexDispositivo(2);
+        var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
+        if (DeshabilitarBotonCorreo)
+        {
+            console.log("Esta fuera de hora");
+        }
     });
 
     $("body").keyup(function (evt) {
@@ -381,11 +389,16 @@ function Construir_EnlacexDispositivo(Modo){
     var v_url = v_urlbase.substring(0, v_urlbase, v_urlbase.length - 1) + urlChatBelCorp + 
         "?paisId=" + paisId + "&codigoUsuario=" + codigoUsuario;
 
+    var DeshabilitarBotonCorreo = $("#divChatearConNosotros").hasClass("deshabilitar_opcion_correo");
+    
     if (Modo == 2){
-        if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
-        if (v_IsMovilDevice == "1") $(".lk_chat").prop("href", v_url);
-        $(".lk_chat").css("text-decoration", "none");
-        $(".lk_chat").css("color", "black");
+        if (!DeshabilitarBotonCorreo)
+        {
+            if (v_IsMovilDevice == "0") window.open(v_url, 'ventanaChat', 'top=0,left=0,width=450,height=550');
+            if (v_IsMovilDevice == "1") $(".lk_chat").prop("href", v_url);
+            $(".lk_chat").css("text-decoration", "none");
+            $(".lk_chat").css("color", "black");
+        }
     }
 }
 

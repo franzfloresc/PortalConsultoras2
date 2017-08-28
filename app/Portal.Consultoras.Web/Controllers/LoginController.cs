@@ -1524,7 +1524,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, string.Empty, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, filtro, Util.GetPaisISO(paisId));
                 return ErrorJson(Constantes.MensajesError.RecuperarContrasenia, true);
             }
         }
@@ -1805,9 +1805,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ChatBelcorp(int paisId, string codigoUsuario)
         {
             string url = "";
+            string paisISO = Util.GetPaisISO(paisId);
             try
             {
-                string paisISO = Util.GetPaisISO(paisId);
                 if ((ConfigurationManager.AppSettings["PaisesBelcorpChatEMTELCO"] ?? "").Contains(paisISO))
                 {
                     BEUsuarioChatEmtelco usuarioChatEmtelco = null;
@@ -1828,11 +1828,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, string.Empty, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoUsuario, paisISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, string.Empty, Util.GetPaisISO(paisId));
+                LogManager.LogManager.LogErrorWebServicesBus(ex, codigoUsuario, paisISO);
             }
 
             ViewBag.UrlBelcorpChatPais = url;

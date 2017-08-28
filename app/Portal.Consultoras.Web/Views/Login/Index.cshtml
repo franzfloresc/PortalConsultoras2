@@ -380,7 +380,7 @@
                     </div>
 
                     @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros" onclick="javascript:Construir_EnlacexDispositivo(2);">*@
-                      <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
+                    @*<div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
                         <div class="icono_chateaConNosotros"></div>
                         <div class="bloque_texto_opcionRecuperacionContrasenia">
                             <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
@@ -397,44 +397,77 @@
                                 }
                             </span>
                         </div>
-                      </div>
+                    </div>*@
 
-                    </div>
+                    @{
+                        if (HttpContext.Current.Request.Browser.IsMobileDevice)
+                        {
+                            <a href="#" class="lk_chat" ismovildevice="1" target="_blank">
+                                <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
+                                    <div class="icono_chateaConNosotros"></div>
+                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                        <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">                                            
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="#" class="lk_chat" ismovildevice="0">
+                                <div class="opciones_recuperacionContrasenia opcion_chateaConNosotros" id="divChatearConNosotros">
+                                    <div class="icono_chateaConNosotros"></div>
+                                    <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                        <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc">Chatea con nosotros</span>
+                                        <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente horarios_atencion_chat" id="sp_chat">                                            
+                                        </span>
+                                    </div>
+                                </div>
 
-                @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
-                {
+                            </a>
+                        }
+                    }
+
+
+
+
+                    @if (!HttpContext.Current.Request.Browser.IsMobileDevice)
+                    {
                     <!-- TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                    <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
-                        <div class="icono_llamanos"></div>
-                        <div class="bloque_texto_opcionRecuperacionContrasenia">
-                            <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
-                            <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente telefonos_desktop">Lima: 01-2113614 Provincia: 080-11-3030</span>
-                        </div>
-                    </div>
-                        <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
-                }
-
-                @if (ViewBag.PaisID == 11)
-                {
-                    <a id="lk_telefono">
-                        <!-- TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
-                        <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
-                            <div class="titulo_llamanos">LLÁMANOS</div>
-                        </div>
-                        <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
-                    </a>
-                }
-                else if (ViewBag.PaisID != 11)
-                {
-                    <a id="lk_telefono">
-                        <div class="titulo_llamanos">LLÁMANOS</div>
-                        <!-- CASO 1 : 2 TELÉFONOS CENTRALES -->
-                        <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
-                            <div class="telefonos_centrales" style="display: block;">
+                        <div class="opciones_recuperacionContrasenia contenedor_telefonos_desktop">
+                            <div class="icono_llamanos"></div>
+                            <div class="bloque_texto_opcionRecuperacionContrasenia">
+                                <span class="contenido_mensaje texto_opcionRecuperacion texto_mayusc texto_llamanos_mayusc">Llámanos</span>
+                                <span class="contenido_mensaje texto_opcionRecuperacion tamanio_fuente telefonos_desktop"></span>
                             </div>
                         </div>
-                    </a>
-                }
+                        <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN DESKTOP -->
+                    }
+
+                    @if (ViewBag.PaisID == 11)
+                    {
+                        <a id="lk_telefono">
+                            <!-- TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
+                            <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
+                                <div class="titulo_llamanos">LLÁMANOS</div>
+                            </div>
+                            <!-- FIN TELÉFONOS CENTRALES PARA VERSIÓN MOBILE -->
+                        </a>
+                    }
+                    else if (ViewBag.PaisID != 11)
+                    {
+                        <a id="lk_telefono">
+                            <div class="titulo_llamanos">LLÁMANOS</div>
+                            <!-- CASO 1 : 2 TELÉFONOS CENTRALES -->
+                            <div class="contenedor_telefonos contenedor_telefonos_mobile" id="divTelefonos">
+                                <div class="telefonos_centrales" style="display: block;">
+                                </div>
+                            </div>
+                        </a>
+                    }
+
+                </div>
         </div>
     </div>
     </div>
