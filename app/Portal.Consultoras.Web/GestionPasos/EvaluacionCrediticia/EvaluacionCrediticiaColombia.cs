@@ -11,15 +11,17 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 
             using (var sv = new EvaluacionCrediticiaServiceClient())
             {
+                string codigoRegion = string.Empty;
+
                 if (entidad.CodigoZona != null)
                 {
-                    var codigoRegion = entidad.CodigoZona.Substring(0, 2);
-
-                    evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCO(codigoIso, "1",
-                        entidad.NumeroDocumento, entidad.ApellidoPaterno, codigoRegion,
-                        entidad.CodigoZona, "UNETE");
-
+                    codigoRegion = entidad.CodigoZona.Substring(0, 2);
                 }
+
+                evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCO(codigoIso, "1",
+    entidad.NumeroDocumento, entidad.ApellidoPaterno, codigoRegion,
+    entidad.CodigoZona, "UNETE");
+
             }
 
             return evaluacionCrediticaBe;
