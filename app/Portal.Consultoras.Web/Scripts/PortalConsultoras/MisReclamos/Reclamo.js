@@ -318,7 +318,7 @@ function BuscarCUV(CUV) {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
-            
+
             if (data.success == false) {
                 alert_msg(data.message);
                 return false;

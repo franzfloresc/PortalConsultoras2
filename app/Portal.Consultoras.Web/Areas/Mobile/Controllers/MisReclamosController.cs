@@ -39,16 +39,98 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
             model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
             model.ListaCDRWeb = listaCDRWebModel.FindAll(p => p.CantidadDetalle > 0);
-            model.MensajeGestionCdrInhabilitada =  MensajeGestionCdrInhabilitadaYChatEnLinea();
+            string msgGestionCDRInh = MensajeGestionCdrInhabilitadaYChatEnLinea();
+            if (msgGestionCDRInh != "")
+            {
+                int indiceMsg = msgGestionCDRInh.IndexOf(Constantes.CdrWebMensajes.ContactateChatEnLinea);
+                msgGestionCDRInh = msgGestionCDRInh.Substring(0, indiceMsg);
+            }
+            model.MensajeGestionCdrInhabilitada = msgGestionCDRInh;
 
             if (!string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return View(model);
             if (model.ListaCDRWeb.Count == 0) return RedirectToAction("Reclamo");
             return View(model);
         }
 
-        public ActionResult Reclamo()
+        public ActionResult Reclamo(int pedidoId = 0)
         {
-            return View();
+            var model = new MisReclamosModel { PedidoID = pedidoId };
+            model.MensajeGestionCdrInhabilitada = MensajeGestionCdrInhabilitadaYChatEnLinea();
+            if (pedidoId == 0 && !string.IsNullOrEmpty(model.MensajeGestionCdrInhabilitada)) return RedirectToAction("Index");
+
+            CargarInformacion();
+            model.ListaCampania = (List<CampaniaModel>)Session[Constantes.ConstSession.CDRCampanias];
+            /*EPD-1339*/
+            if (model.ListaCampania.Count <= 1) return RedirectToAction("Index");
+            /*EPD-1339*/
+
+            if (pedidoId != 0)
+            {
+                var listaCdr = CargarBECDRWeb(new MisReclamosModel { PedidoID = pedidoId });
+                if (listaCdr.Count == 0) return RedirectToAction("Index");
+
+                if (listaCdr.Count == 1)
+                {
+                    model.CampaniaID = listaCdr[0].CampaniaID;
+                    model.CDRWebID = listaCdr[0].CDRWebID;
+                    model.NumeroPedido = listaCdr[0].PedidoNumero;
+                }
+            }
+
+            string urlPoliticaCdr = ConfigurationManager.AppSettings.Get("UrlPoliticasCDR") ?? "{0}";
+            model.UrlPoliticaCdr = string.Format(urlPoliticaCdr, userData.CodigoISO);
+            model.Email = userData.EMail;
+            model.Telefono = userData.Celular;
+            model.MontoMinimo = userData.MontoMinimo;
+
+            #region CDR_Express
+            //EPD-1919
+            //model.TieneCDRExpress = userData.TieneCDRExpress;
+            //model.EsConsultoraNueva = userData.EsConsecutivoNueva;
+            //model.FleteDespacho = GetValorFleteExpress();
+            //model.MensajesExpress = new MensajesCDRExpressModel
+            //{
+            //    RegularPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularPrincipal),
+            //    RegularAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.RegularAdicional),
+            //    ExpressPrincipal = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressPrincipal),
+            //    ExpressAdicional = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.ExpressAdicional),
+            //    Nuevas = GetMensajeCDRExpress(Constantes.MensajesCDRExpress.Nuevas)
+            //};
+            //model.MensajesExpress.ExpressFlete = SetMensajeFleteExpress(model.FleteDespacho);
+            #endregion
+
+            if (userData.PaisID == 9)
+            {
+                model.limiteMinimoTelef = 5;
+                model.limiteMaximoTelef = 15;
+            }
+            else if (userData.PaisID == 11)
+            {
+                model.limiteMinimoTelef = 7;
+                model.limiteMaximoTelef = 9;
+            }
+            else if (userData.PaisID == 4)
+            {
+                model.limiteMinimoTelef = 10;
+                model.limiteMaximoTelef = 10;
+            }
+            else if (userData.PaisID == 8 || userData.PaisID == 7 || userData.PaisID == 10 || userData.PaisID == 5)
+            {
+                model.limiteMinimoTelef = 8;
+                model.limiteMaximoTelef = 8;
+            }
+            else if (userData.PaisID == 6)
+            {
+                model.limiteMinimoTelef = 9;
+                model.limiteMaximoTelef = 10;
+            }
+            else
+            {
+                model.limiteMinimoTelef = 0;
+                model.limiteMaximoTelef = 15;
+            }
+
+            return View(model);
         }
 
         public ActionResult Detalle()

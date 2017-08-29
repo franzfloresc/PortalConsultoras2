@@ -1,4 +1,6 @@
 ﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
+@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisReclamosModel
 @{
     ViewBag.Title = "Cambios y Devoluciones";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -32,7 +34,7 @@
             Queremos verte siempre satisfecha con nuestros productos y servicio.
         </span>
         <span class="mensaje_vista_cdr tipografia_lato_regular">
-            Si tuviste inconvenientes con algún producto y estás dentro del <a href="#" class="plazo_permitido" title="Detalle de plazo permitido">plazo permitido</a> puedes registrar una solicitud de cambios y devoluciones.
+            Si tuviste inconvenientes con algún producto y estás dentro del <a href="#" class="plazo_permitido" title="Detalle de plazo permitido">plazo permitido</a> sigue estos pasos.
         </span>
     </div>
     <div class="contenedor_proceso_registro_cdr">
@@ -133,17 +135,25 @@
                 </div>
             </div>
         </div>
+        <!--PASO A PASO RECLAMOS-->
+        <div style="display:none;">
+            <input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID" />
+            <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
+        </div>
         <div class="campos_registro_solicitud_cdr">
             <form class="formulario_inscripcion">
-                <select class="tipografia_lato tipografia_lato_regular">
+                @*<select class="tipografia_lato tipografia_lato_regular">
                     <option>¿En qué campaña lo solicitaste?</option>
                     <option>201710</option>
                     <option>201709</option>
-                </select>
+                </select>*@
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
+                <input type="hidden" id="txtPedidoID" value="@Model.PedidoID" />
+                <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
-                <input class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
+                <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
-                @*<div class="producto_cdr">
+                @*<div id="DescripcionCuv" class="producto_cdr">
                     <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
                     <a href="#" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>*@
@@ -406,4 +416,7 @@
 @section scripts{
 <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
+<script type="text/javascript">
+    var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
+</script>
 

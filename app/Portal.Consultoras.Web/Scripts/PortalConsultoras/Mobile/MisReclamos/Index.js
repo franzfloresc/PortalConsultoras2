@@ -22,7 +22,7 @@ $(document).ready(function () {
                 $(document).on('click', me.Variables.IrPaso1, function () {
                    
                     if (mensajeGestionCdrInhabilitada != '') {
-                        console.log('Mostrar el mensaje');
+                        //var _chat = "<span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>";
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(mensajeGestionCdrInhabilitada);
                         $('#popupInformacionSB2Error').show();
 

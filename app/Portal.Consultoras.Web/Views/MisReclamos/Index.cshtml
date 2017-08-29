@@ -401,7 +401,6 @@
         var imgFoco = '@Url.Content("~/Content/Images/Esika/foco1.png")';
         var imgCarta = '@Url.Content("~/Content/Images/Esika/carta1.png")';
         var urlReclamo = '@Url.Action("Reclamo")';
-        debugger
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         $(document).ready(function () {
             $(".verDetalle").on("click", function () {
@@ -506,7 +505,6 @@
             });
 
             $("#IrPaso1").on("click", function () {
-                debugger
                 if (mensajeGestionCdrInhabilitada != '') {
                     alert_msg(mensajeGestionCdrInhabilitada);
                     return false;
