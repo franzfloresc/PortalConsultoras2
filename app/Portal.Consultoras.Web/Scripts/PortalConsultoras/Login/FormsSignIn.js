@@ -241,140 +241,7 @@ $(document).ready(function () {
     }
 
     $("#btnRecuperarClave").click(function () {
-        var paisId = $("#cboPaisCambioClave").val();
-        if (paisId == '0') {
-            alert("Debe seleccionar un pais.");
-            return false;
-        }
-
-        var correo = $("#txtCorreoElectronico").val();
-        if (correo == '') {
-            var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
-            alert("Debe ingresar " + nombreDato);
-            return false;
-        }
-        
-        waitingDialog();
-        jQuery.ajax({
-            type: 'POST',
-            url: urlRecuperarContrasenia,
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo }),
-            async: true,
-            success: function (response) {
-                if (!response.success) {
-                    alert(response.message);
-                    return false;
-                }
-                if (response.correo.length == 0) {
-                    alert("Usuario no tiene correo electrónico.");
-                    return false;
-                }
-
-                $("#hdcorreo").val(response.correo);
-                $("#hdclave").val(response.clave);
-                $("#hdCodigoConsultora").val(response.codigo);
-                $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);
-                var s_correo = Enmascarar_Correo(response.correo);
-
-                $("#popup1").hide();
-                $("#mensaje_pop_up2 p").html(s_correo);
-                $("#popup3").show();
-                $("#popup_cambioContrasenia").show();
-                $("#spcorreo").html(s_correo);                        
-                $("#spnombre").html(response.nombre);                               
-
-                $(".lk_chat").css("text-decoration", "none");
-                $(".lk_chat").css("color", "black");
-
-                v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");
-
-                var paisId = $("#cboPaisCambioClave").val();
-                //var v_telefonos = "123456789,987654321,999959074";
-                var v_telefonos = $("#cboPaisCambioClave option:selected").attr("data-telefonos");
-                var va_telefonos = v_telefonos.split(",");
-                var template_telefonoprimero = $('#telefonoprimero-template').html();
-                var template_telefonootros = $('#telefonootros-template').html();
-                var template_telefonodesktop = $('#telefonodesktop-template').html(); 
-
-                var template_telprimero = Handlebars.compile(template_telefonoprimero);
-                var template_telotros = Handlebars.compile(template_telefonootros);
-                var template_teldesktop = Handlebars.compile(template_telefonodesktop);
-
-                var html_telefonos = "";                        
-                var v_myobject = {telefono: "", mensaje: ""};
-                
-                var v_enlaceurl = "";
-
-                if (v_IsMovilDevice == "1") {
-                    if (paisId == "11") {
-                        v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
-                        html_telefonos += template_telotros(v_myobject);
-                        $("#divTelefonos").html(html_telefonos);
-
-                        v_myobject = { telefono: '080-11-3030', mensaje: "LLAMAR DE PROVINCIA" };
-                        html_telefonos += template_telotros(v_myobject);
-                        $("#divTelefonos").html(html_telefonos);
-                    }
-                    else if (paisId != "11") {
-
-                        $.each(va_telefonos, function (index, value) {
-                            v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
-
-                            html_telefonos += template_telotros(v_myobject);
-                        });
-
-                        $("#divTelefonos div.telefonos_centrales").html(html_telefonos);
-                    }
-                }
-                else if (v_IsMovilDevice == "0") {
-                    
-
-                    if (paisId == "11") {
-                        v_myobject = { mensaje: "Lima: ", telefono: '2113614' };
-                        html_telefonos += template_teldesktop   (v_myobject);
-                        $("#divTelefonosDesktop").html(html_telefonos);
-
-                        v_myobject = { mensaje: "Provincia: ", telefono: '080-11-3030' };
-                        html_telefonos += template_teldesktop(v_myobject);
-                        $("#divTelefonosDesktop").html(html_telefonos);
-                    }
-                    else if (paisId != "11") {
-                        $.each(va_telefonos, function (index, value) {
-                            v_myobject = { telefono: value, mensaje: 'Central ' + (index + 1).toString() + ': ' }
-
-                            html_telefonos += template_teldesktop(v_myobject);
-                        });
-
-                        $("#divTelefonosDesktop").html(html_telefonos);
-                    }
-                }
-
-                $(".lk_llamada").css("text-decoration", "none");
-                $(".lk_llamada").css("color", "black");
-
-                $("#divTelefonosDesktop").css("text-decoration", "none");
-                $("#divTelefonosDesktop").css("color", "black");
-                $("#divTelefonosDesktop").css("text-align", "left");
-
-                $("#sp_chat").html(response.descripcionHorarioChat);
-                $("#divChatearConNosotros").css("display", "inline-block");
-                $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
-
-                //response.habilitarChat = false;
-
-                if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
-                if (!response.habilitarChat) {
-                    $("#divChatearConNosotros").addClass("deshabilitar_opcion_correo");
-                    $(".lk_chat").removeAttr("target");
-                }
-
-                //$("..horarios_atencion_chat").css("padin")
-            },
-            error: function() { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
-            complete: closeWaitingDialog
-        });
+        RecuperarClave();
     });
 
     $("#divChatearConNosotros").click(function () {                       
@@ -408,7 +275,12 @@ $(document).ready(function () {
 
     $("#txtCorreoElectronico").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
-        if (charCode <= 13) {            
+
+        if (charCode < 13) {
+            return false;
+        }
+        else if (charCode == 13){            
+            RecuperarClave();
             return false;
         }
     });
@@ -986,5 +858,143 @@ function saveLog(ISO, usuario, mensaje) {
         error: function (response) {
             console.log(response);
         }
+    });
+}
+
+function RecuperarClave() {
+    var paisId = $("#cboPaisCambioClave").val();
+    if (paisId == '0') {
+        alert("Debe seleccionar un pais.");
+        return false;
+    }
+
+    var correo = $("#txtCorreoElectronico").val();
+    if (correo == '') {
+        var nombreDato = $(".cboPaisCambioClave option:selected").attr("data-campoclave");
+        alert("Debe ingresar " + nombreDato);
+        return false;
+    }
+
+    waitingDialog();
+    jQuery.ajax({
+        type: 'POST',
+        url: urlRecuperarContrasenia,
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo }),
+        async: true,
+        success: function (response) {
+            if (!response.success) {
+                alert(response.message);
+                return false;
+            }
+
+            if (response.correo.length == 0) {
+                alert("Usuario no tiene correo electrónico.");
+                return false;
+            }
+
+            $("#hdcorreo").val(response.correo);
+            $("#hdclave").val(response.clave);
+            $("#hdCodigoConsultora").val(response.codigo);
+            $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);
+            var s_correo = Enmascarar_Correo(response.correo);
+
+            $("#popup1").hide();
+            $("#mensaje_pop_up2 p").html(s_correo);
+            $("#popup3").show();
+            $("#popup_cambioContrasenia").show();
+            $("#spcorreo").html(s_correo);
+            $("#spnombre").html(response.nombre);
+
+            $(".lk_chat").css("text-decoration", "none");
+            $(".lk_chat").css("color", "black");
+
+            v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");
+
+            var paisId = $("#cboPaisCambioClave").val();
+            //var v_telefonos = "123456789,987654321,999959074";
+            var v_telefonos = $("#cboPaisCambioClave option:selected").attr("data-telefonos");
+            var va_telefonos = v_telefonos.split(",");
+            var template_telefonoprimero = $('#telefonoprimero-template').html();
+            var template_telefonootros = $('#telefonootros-template').html();
+            var template_telefonodesktop = $('#telefonodesktop-template').html();
+
+            var template_telprimero = Handlebars.compile(template_telefonoprimero);
+            var template_telotros = Handlebars.compile(template_telefonootros);
+            var template_teldesktop = Handlebars.compile(template_telefonodesktop);
+
+            var html_telefonos = "";
+            var v_myobject = { telefono: "", mensaje: "" };
+
+            var v_enlaceurl = "";
+
+            if (v_IsMovilDevice == "1") {
+                if (paisId == "11") {
+                    v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
+                    html_telefonos += template_telotros(v_myobject);
+                    $("#divTelefonos").html(html_telefonos);
+
+                    v_myobject = { telefono: '080-11-3030', mensaje: "LLAMAR DE PROVINCIA" };
+                    html_telefonos += template_telotros(v_myobject);
+                    $("#divTelefonos").html(html_telefonos);
+                }
+                else if (paisId != "11") {
+
+                    $.each(va_telefonos, function (index, value) {
+                        v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
+
+                        html_telefonos += template_telotros(v_myobject);
+                    });
+
+                    $("#divTelefonos div.telefonos_centrales").html(html_telefonos);
+                }
+            }
+            else if (v_IsMovilDevice == "0") {
+
+
+                if (paisId == "11") {
+                    v_myobject = { mensaje: "Lima: ", telefono: '2113614' };
+                    html_telefonos += template_teldesktop(v_myobject);
+                    $("#divTelefonosDesktop").html(html_telefonos);
+
+                    v_myobject = { mensaje: "Provincia: ", telefono: '080-11-3030' };
+                    html_telefonos += template_teldesktop(v_myobject);
+                    $("#divTelefonosDesktop").html(html_telefonos);
+                }
+                else if (paisId != "11") {
+                    $.each(va_telefonos, function (index, value) {
+                        v_myobject = { telefono: value, mensaje: 'Central ' + (index + 1).toString() + ': ' }
+
+                        html_telefonos += template_teldesktop(v_myobject);
+                    });
+
+                    $("#divTelefonosDesktop").html(html_telefonos);
+                }
+            }
+
+            $(".lk_llamada").css("text-decoration", "none");
+            $(".lk_llamada").css("color", "black");
+
+            $("#divTelefonosDesktop").css("text-decoration", "none");
+            $("#divTelefonosDesktop").css("color", "black");
+            $("#divTelefonosDesktop").css("text-align", "left");
+
+            $("#sp_chat").html(response.descripcionHorarioChat);
+            $("#divChatearConNosotros").css("display", "inline-block");
+            $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
+
+            //response.habilitarChat = false;
+
+            if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
+            if (!response.habilitarChat) {
+                $("#divChatearConNosotros").addClass("deshabilitar_opcion_correo");
+                $(".lk_chat").removeAttr("target");
+            }
+
+            //$("..horarios_atencion_chat").css("padin")
+        },
+        error: function () { alert('Ocurrió un problema de conexión. Inténtelo en unos minutos.'); },
+        complete: closeWaitingDialog
     });
 }
