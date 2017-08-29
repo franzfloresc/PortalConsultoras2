@@ -362,7 +362,9 @@ $(document).ready(function () {
                 $("#divChatearConNosotros").css("display", "inline-block");
                 $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
 
-                //if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
+                response.habilitarChat = false;
+
+                if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
                 if (!response.habilitarChat) {
                     $("#divChatearConNosotros").addClass("deshabilitar_opcion_correo");
                     $(".lk_chat").removeAttr("target");
