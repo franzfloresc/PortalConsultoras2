@@ -80,13 +80,13 @@
         var celular = $("#txtCelularMD").val();
         var telefonoTrabajo = $("#txtTelefonoTrabajoMD").val();
 
-        /*var TYCchecked = $("#chkAceptoContratoMD").prop('checked')
+        var TYCchecked = $("#chkAceptoContratoMD").prop('checked')
 
         if (!TYCchecked) {
             $("#AcepteTYC").show();
             setTimeout(function () { $("#AcepteTYC").hide(); }, 3000);
             return false
-        }*/
+        }
 
         var params = {
             CodigoUsuario: codigoUsuario,
