@@ -296,38 +296,68 @@ $(document).ready(function () {
                 var va_telefonos = v_telefonos.split(",");
                 var template_telefonoprimero = $('#telefonoprimero-template').html();
                 var template_telefonootros = $('#telefonootros-template').html();
+                var template_telefonodesktop = $('#telefonodesktop-template').html(); 
+
                 var template_telprimero = Handlebars.compile(template_telefonoprimero);
                 var template_telotros = Handlebars.compile(template_telefonootros);
+                var template_teldesktop = Handlebars.compile(template_telefonodesktop);
+
                 var html_telefonos = "";                        
                 var v_myobject = {telefono: "", mensaje: ""};
                 
-                //paisId = "3";               
-                
                 var v_enlaceurl = "";
 
-                if (paisId == "11") {                                        
-                    v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
-                    html_telefonos += template_telotros(v_myobject);
-                    $("#divTelefonos").html(html_telefonos);
+                if (v_IsMovilDevice == "1") {
+                    if (paisId == "11") {
+                        v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
+                        html_telefonos += template_telotros(v_myobject);
+                        $("#divTelefonos").html(html_telefonos);
+
+                        v_myobject = { telefono: '080113030', mensaje: "LLAMAR DE PROVINCIA" };
+                        html_telefonos += template_telotros(v_myobject);
+                        $("#divTelefonos").html(html_telefonos);
+                    }
+                    else if (paisId != "11") {
+
+                        $.each(va_telefonos, function (index, value) {
+                            v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
+
+                            html_telefonos += template_telotros(v_myobject);
+                        });
+
+                        $("#divTelefonos div.telefonos_centrales").html(html_telefonos);
+                    }
+                }
+                else if (v_IsMovilDevice == "0") {
                     
-                    v_myobject = { telefono: '080113030', mensaje: "LLAMAR DE PROVINCIA" };
-                    html_telefonos += template_telotros(v_myobject);
-                    $("#divTelefonos").html(html_telefonos);
-                }
-                else if (paisId != "11") {
 
-                    $.each(va_telefonos, function(index,value){                                                                       
-                        v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
-                            
-                        html_telefonos += template_telotros(v_myobject);                        
-                    });
+                    if (paisId == "11") {
+                        v_myobject = { mensaje: "Lima: ", telefono: '2113614' };
+                        html_telefonos += template_teldesktop   (v_myobject);
+                        $("#divTelefonosDesktop").html(html_telefonos);
 
-                    $("#divTelefonos div.telefonos_centrales").html(html_telefonos);
+                        v_myobject = { mensaje: "Provincia: ", telefono: '080113030' };
+                        html_telefonos += template_teldesktop(v_myobject);
+                        $("#divTelefonosDesktop").html(html_telefonos);
+                    }
+                    else if (paisId != "11") {
+                        $.each(va_telefonos, function (index, value) {
+                            v_myobject = { telefono: value, mensaje: 'Central ' + (index + 1).toString() + ': ' }
+
+                            html_telefonos += template_teldesktop(v_myobject);
+                        });
+
+                        $("#divTelefonosDesktop").html(html_telefonos);
+                    }
                 }
-                
+
                 $(".lk_llamada").css("text-decoration", "none");
                 $(".lk_llamada").css("color", "black");
-                
+
+                $("#divTelefonosDesktop").css("text-decoration", "none");
+                $("#divTelefonosDesktop").css("color", "black");
+                $("#divTelefonosDesktop").css("text-align", "left");
+
                 $("#sp_chat").html(response.descripcionHorarioChat);
                 $("#divChatearConNosotros").css("display", "inline-block");
                 $(".opciones_recuperacionContrasenia").css("cursor", "cursor");

@@ -1140,7 +1140,7 @@ namespace Portal.Consultoras.BizLogic
                     }
                     else
                     {
-                        textoRecuperacion = lst[0].Descripcion;// contiene el correo del destinatario
+                        textoRecuperacion = v_correo; // contiene el correo del destinatario
                         if (textoRecuperacion.Trim() == "")
                         {
                             resultado = "0" + "|" + "2";
