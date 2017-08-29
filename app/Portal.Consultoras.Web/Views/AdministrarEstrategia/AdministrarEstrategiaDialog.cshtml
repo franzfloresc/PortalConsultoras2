@@ -486,7 +486,12 @@
              IdMatrizComercialImagen: idMatrizComercial,
              DescripcionComercial: descripcionComercial
          };
-         SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+         if (habilitarNemoTecnico) {
+             SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+             $("#divVistaPrevia").find("#descripcion-comercial").show();
+         } else {
+             $("#divVistaPrevia").find("#descripcion-comercial").hide();
+         }
          isVistaPreviaOpened = true;
          showDialog('divVistaPrevia');
      };
