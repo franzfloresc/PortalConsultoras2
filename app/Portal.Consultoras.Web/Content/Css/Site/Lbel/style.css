@@ -5537,6 +5537,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child{
+    min-width:140px;
     margin-right:50px;
     display:inline-block;
     vertical-align:top;
