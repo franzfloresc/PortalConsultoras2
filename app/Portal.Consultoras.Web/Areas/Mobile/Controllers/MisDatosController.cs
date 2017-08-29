@@ -326,22 +326,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 });
             }
         }
-
-
-        private bool ValidateTelefono(int paisID, short tipoContactoID, string telefono)
-        {
-            if (string.IsNullOrEmpty(telefono)) return true;
-
-            string paisISO = Util.GetPaisISO(paisID);
-
-            string expression = (tipoContactoID == Constantes.ClienteTipoContacto.Celular ? Constantes.ClienteCelularValidacion.RegExp[paisISO] : Constantes.ClienteTelefonoValidacion.RegExp[paisISO]);
-
-            System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(expression);
-            System.Text.RegularExpressions.Match match = regex.Match(telefono);
-
-            return match.Success;
-        }
-
         public JsonResult ValidadTelefonoConsultora(string Telefono)
         { 
             try
