@@ -513,6 +513,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     }
     else {//if (tipoMeta == "ME") {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
+        //var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
@@ -700,7 +701,9 @@ function CumpleOfertaFinal(montoPedido, montoEscala, tipoPopupMostrar, codigoMen
             //bug EPD-2365
             if (productoOfertaFinal.lista.length != 0) {
                 tipoMeta = productoOfertaFinal.lista[0].TipoMeta;
-                regaloOF = ObtenerOfertaFinalRegalo();
+                if (esOfertaFinalRegalo) {
+                    regaloOF = ObtenerOfertaFinalRegalo();
+                }
             }  
         }
     }
