@@ -1168,6 +1168,7 @@
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
+    <Content Include="Content\Css\Mobile\esika\misDatos.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
@@ -1182,6 +1183,7 @@
     <Content Include="Content\Css\Mobile\jquery.tag-editor.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
+    <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
