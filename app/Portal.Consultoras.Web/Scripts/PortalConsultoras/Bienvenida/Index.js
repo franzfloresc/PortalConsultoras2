@@ -3169,7 +3169,7 @@ function ValidarTelefono(celular) {
 
 function VerShowRoomIntriga() {
     //AgregarTagManagerShowRoomPopupClick(2);
-    document.location.href = urlOfertasIndex;
+    document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 
