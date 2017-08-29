@@ -80,13 +80,13 @@
         var celular = $("#txtCelularMD").val();
         var telefonoTrabajo = $("#txtTelefonoTrabajoMD").val();
 
-        var TYCchecked = $("#hrefTerminosMD").prop('checked')
+        /*var TYCchecked = $("#chkAceptoContratoMD").prop('checked')
 
         if (!TYCchecked) {
             $("#AcepteTYC").show();
             setTimeout(function () { $("#AcepteTYC").hide(); }, 3000);
             return false
-        }
+        }*/
 
         var params = {
             CodigoConsultora: codigoConsultora,
@@ -96,7 +96,8 @@
             EMail: eMail,
             Telefono: telefono,
             Celular: celular,
-            TelefonoTrabajo: telefonoTrabajo
+            TelefonoTrabajo: telefonoTrabajo,
+            PaisID: viewBagPaisID
         };
 
         jQuery.ajax({
