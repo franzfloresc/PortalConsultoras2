@@ -178,6 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pedidoWeb;
         }
+
         protected int EsOpt()
         {
             var esOpt = userData.RevistaDigital.TieneRDR
@@ -185,8 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ? 1 : 2;
             return esOpt;
         }
-
-
+        
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
@@ -820,7 +820,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
-            //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
+            lista = lista.Where(c => c.TienePerfil).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
 
@@ -2675,12 +2675,28 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var entConf in listaEntidad)
             {
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                
-                if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
-                    continue;
 
-                if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
-                    continue;
+                string titulo = "", subTitulo = "";
+
+                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo))
+                        continue;
+
+                    entConf.DesktopTitulo = titulo;
+                    entConf.DesktopSubTitulo = subTitulo;
+
+                    entConf.MobileTitulo = titulo;
+                    entConf.MobileSubTitulo = subTitulo;
+
+                    if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                    {
+                        entConf.MobileCantidadProductos = 0;
+                        entConf.DesktopCantidadProductos = 0;
+                    }
+                }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
@@ -2768,6 +2784,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region Revista Digital 
+
+        public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
+        {
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
+            {
+                if (!userData.RevistaDigital.TieneRDC) return false;
+            }
+
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
+            {
+                if (!userData.RevistaDigital.TieneRDR) return false;
+            }
+
+            titulo = "OFERTAS ÉSIKA PARA MÍ";
+            subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
+
+            if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+            {
+                if (userData.RevistaDigital.TieneRDC) return false;
+                if (userData.RevistaDigital.TieneRDR) return false;
+                
+                titulo = "OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
+            }
+
+            return true;
+        }
+
+        #endregion
 
     }
 }

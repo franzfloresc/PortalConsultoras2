@@ -172,6 +172,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
                     listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
+
                 return Json(new
                 {
                     success = true,

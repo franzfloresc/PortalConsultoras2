@@ -224,19 +224,13 @@ function RenderCarruselSimple(divProd) {
         autoplay: false,
         speed: 260,
         prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>',
-        responsive: [
-            {
-                breakpoint: 1025,
-                settings: {
-                    slidesToShow: 3
-                }
-            }
-        ]
+        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
     });
+
+    divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 }
 
 function GetArrowNamePrev() {
