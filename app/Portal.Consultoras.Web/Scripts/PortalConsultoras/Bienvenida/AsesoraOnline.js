@@ -59,7 +59,7 @@
     };
 
     var _setValuesPopupModificarDatos = function () {
-        $("#codigoUsurioMD").text(viewBagCodigoConsultora);
+        $("#codigoUsurioMD").text(codigoUsuario);
         $("#nombresUsuarioMD").text(nombreConsultora);
         $("#nombreGerenteZonal").text(nombreGerenteZonal);
         $("#txtSobrenombreMD").val(sobreNombre);
@@ -71,7 +71,7 @@
 
     var _actualizarUsuario = function () {
 
-        var codigoConsultora = $("#codigoUsurioMD").text();
+        var codigoUsuario = $("#codigoUsurioMD").text();
         var nombreConsultora = $("#nombresUsuarioMD").text();
         var nombreGerenteZonal = $("#nombreGerenteZonal").text();
         var sobrenombre = $("#txtSobrenombreMD").val();
@@ -89,7 +89,7 @@
         }*/
 
         var params = {
-            CodigoConsultora: codigoConsultora,
+            CodigoUsuario: codigoUsuario,
             NombreConsultora:  nombreConsultora,
             NombreGerenteZonal: nombreGerenteZonal,
             Sobrenombre: sobrenombre,
@@ -109,7 +109,8 @@
             async: true,
             success: function (data) {
                 if (data.success) {
-                    //_hidePopupModificarDatos();
+                    alert(data.message);
+                    _hidePopupModificarDatos();
                 }
             },
             error: function (data, error) {

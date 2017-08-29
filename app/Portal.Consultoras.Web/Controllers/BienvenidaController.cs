@@ -144,6 +144,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.SobreNombre = string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre;
                 model.SobreNombre = Util.Trim(model.SobreNombre).ToUpper();
                 model.CodigoConsultora = userData.CodigoConsultora;
+                model.CodigoUsuario = userData.CodigoUsuario;
                 model.CampaniaActual = userData.CampaniaID;
                 model.PrefijoPais = userData.CodigoISO;
                 model.CampanaInvitada = userData.CampanaInvitada;
@@ -280,6 +281,9 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
 
+                if (ViewBag.AsesoraOnlinePopup == 1)
+                    model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+
                 #endregion
 
                 if (Session[Constantes.ConstSession.IngresoPortalConsultoras] == null)
@@ -339,7 +343,7 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 ServiceUsuario.BEUsuario entidad = new ServiceUsuario.BEUsuario();
-                entidad.CodigoConsultora = usuario.CodigoConsultora;
+                entidad.CodigoUsuario = usuario.CodigoUsuario;
                 entidad.Nombre = usuario.NombreConsultora;
                 entidad.NombreGerenteZona = usuario.NombreGerenteZonal;
                 entidad.Sobrenombre = usuario.Sobrenombre;
@@ -348,6 +352,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.Celular = usuario.Celular;
                 entidad.TelefonoTrabajo = usuario.TelefonoTrabajo;
                 entidad.PaisID = usuario.PaisID;
+                entidad.Activo = true;
 
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
@@ -611,10 +616,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
                     bool existeAsesoraOnline = (existeAsesoraOnlineResult == 1);
-                    bool actualizarDatos = (ViewBag.AsesoraOnlinePopup == 1);
                     bool habilitadoConfiguracionPais = (habilitadoConfiguracionPaisResult == 1);
 
-                    if (paisConsultoraTieneAsesoraOnline && (!existeAsesoraOnline || actualizarDatos) 
+                    if (paisConsultoraTieneAsesoraOnline && (!existeAsesoraOnline) 
                         && habilitadoConfiguracionPais)
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
