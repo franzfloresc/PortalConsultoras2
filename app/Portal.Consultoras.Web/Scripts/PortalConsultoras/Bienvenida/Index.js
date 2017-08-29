@@ -60,6 +60,11 @@ $(document).ready(function () {
                 $('#fondoComunPopUp').hide();
             }
         }
+        if (!$(e.target).closest('#virtual-coach-dialog').length) {
+            if ($('#virtual-coach-dialog').is(':visible')) {
+                $('#fondoComunPopUp').hide();
+            }
+        }
     });
 
     $('.contenedor_popup_agregarUnidades').click(function (e) {
