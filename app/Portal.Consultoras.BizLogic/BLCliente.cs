@@ -320,6 +320,76 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
+        #region Contactos
+        private void ContactoListar(IList<BECliente> lstConsultoraCliente, List<BEClienteDB> lstCliente)
+        {
+            List<BEClienteContactoDB> contactos = null;
+
+            foreach (var consultoraCliente in lstConsultoraCliente)
+            {
+                contactos = new List<BEClienteContactoDB>();
+
+                var clienteDB = lstCliente.Where(x => x.ClienteID == consultoraCliente.CodigoCliente).FirstOrDefault();
+
+                if (clienteDB != null)
+                {
+                    if (!string.IsNullOrEmpty(consultoraCliente.Celular))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                            Valor = consultoraCliente.Celular,
+                            Estado = 1
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(consultoraCliente.Telefono))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                            Valor = consultoraCliente.Telefono,
+                            Estado = 1
+                        });
+                    }
+                    if (!string.IsNullOrEmpty(consultoraCliente.eMail))
+                    {
+                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo).FirstOrDefault();
+
+                        contactos.Add(new BEClienteContactoDB()
+                        {
+                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
+                            ClienteID = consultoraCliente.ClienteID,
+                            TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                            Valor = consultoraCliente.eMail,
+                            Estado = 1
+                        });
+                    }
+
+                    var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion || x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia)
+                                            .Select(x => new BEClienteContactoDB()
+                                            {
+                                                ContactoClienteID = x.ContactoClienteID,
+                                                ClienteID = consultoraCliente.ClienteID,
+                                                TipoContactoID = x.TipoContactoID,
+                                                Valor = x.Valor,
+                                                Estado = x.Estado
+                                            });
+                    if (contactoDB.Any()) contactos.AddRange(contactoDB);
+                }
+
+                consultoraCliente.Contactos = contactos;
+            }
+        }
+        #endregion
+
         #region ClienteDB
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
@@ -557,90 +627,41 @@ namespace Portal.Consultoras.BizLogic
             return lstResponse;
         }
 
-        public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        /// <summary>
+        /// Obtiene la lista de clientes por consultora
+        /// </summary>
+        /// <param name="paisID">Pais Id</param>
+        /// <param name="consultoraID">Consultora Id</param>
+        /// /// <param name="campaniaID">Campania Id</param>
+        /// <returns></returns>
+        public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
         {
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
             var daClienteDB = new BLClienteDB();
 
-            //1. OBTENER CLIENTE CONSULTORA
-            var lstConsultoraCliente = this.SelectByConsultora(paisID, consultoraID);
+            //OBTENER CLIENTE CONSULTORA
+            var lstConsultoraCliente = SelectByConsultora(paisID, consultoraID);
 
             var recordatorios = RecordatorioListar(paisID, consultoraID);
             var notas = NotaListar(paisID, consultoraID);
 
-            //2. OBTENER CLIENTES Y TIPO CONTACTOS
+            //OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
             var lstCliente = daClienteDB.GetClienteByClienteID(strclientes, paisID);
 
-            //3. ARMAR CONTACTOS POR CONSULTORA
-            foreach(var consultoraCliente in lstConsultoraCliente)
-            {
-                contactos = new List<BEClienteContactoDB>();
+            //ARMAR CONTACTOS POR CONSULTORA
+            ContactoListar(lstConsultoraCliente, lstCliente);
 
-                var clienteDB = lstCliente.Where(x => x.ClienteID == consultoraCliente.CodigoCliente).FirstOrDefault();
+            //OBTENER CALCULO DETALLES POR CLIENTE
+            var lstClienteDetalle = GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID);
 
-                if (clienteDB != null)
-                {
-                    if (!string.IsNullOrEmpty(consultoraCliente.Celular))
-                    {
-                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
-
-                        contactos.Add(new BEClienteContactoDB()
-                        {
-                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
-                            TipoContactoID = Constantes.ClienteTipoContacto.Celular,
-                            Valor = consultoraCliente.Celular,
-                            Estado = 1
-                        });
-                    }
-                    if (!string.IsNullOrEmpty(consultoraCliente.Telefono))
-                    {
-                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo).FirstOrDefault();
-
-                        contactos.Add(new BEClienteContactoDB()
-                        {
-                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
-                            TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
-                            Valor = consultoraCliente.Telefono,
-                            Estado = 1
-                        });
-                    }
-                    if (!string.IsNullOrEmpty(consultoraCliente.eMail))
-                    {
-                        var oContacto = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo).FirstOrDefault();
-
-                        contactos.Add(new BEClienteContactoDB()
-                        {
-                            ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
-                            TipoContactoID = Constantes.ClienteTipoContacto.Correo,
-                            Valor = consultoraCliente.eMail,
-                            Estado = 1
-                        });
-                    }
-
-                    var contactoDB = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Direccion || x.TipoContactoID == Constantes.ClienteTipoContacto.Referencia)
-                                            .Select(x => new BEClienteContactoDB()
-                                            {
-                                                ContactoClienteID = x.ContactoClienteID,
-                                                ClienteID = consultoraCliente.ClienteID,
-                                                TipoContactoID = x.TipoContactoID,
-                                                Valor = x.Valor,
-                                                Estado = x.Estado
-                                            });
-                    if(contactoDB.Any()) contactos.AddRange(contactoDB);
-                }
-
-                consultoraCliente.Contactos = contactos;
-            }
-
-            //4. CRUZAR 1 Y 2
+            //CONSULTA FINAL
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
                         join tblCliente in lstCliente
                          on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
+                         join tblClienteDetalle in lstClienteDetalle
+                         on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
                         select new BEClienteDB
                         {
                             ClienteID = tblConsultoraCliente.ClienteID,
@@ -654,16 +675,9 @@ namespace Portal.Consultoras.BizLogic
                             Origen = tblCliente.Origen,
                             Favorito = tblConsultoraCliente.Favorito,
                             TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                            Saldo = tblConsultoraCliente.Saldo,
+                            Saldo = tblClienteDetalle.Saldo,
+                            CantidadProductos = tblClienteDetalle.CantidadProductos,
                             Contactos = tblConsultoraCliente.Contactos,
-                            //Contactos = tblCliente.Contactos.Select(itemContacto => new BEClienteContactoDB
-                            //{
-                            //    ContactoClienteID = itemContacto.ContactoClienteID,
-                            //    ClienteID = tblConsultoraCliente.ClienteID,
-                            //    TipoContactoID = itemContacto.TipoContactoID,
-                            //    Valor = itemContacto.Valor,
-                            //    Estado = itemContacto.Estado
-                            //}).ToList(),
                             Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID),
                             Notas = notas.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID)
                         }).OrderBy(x => x.Nombres).ToList();
@@ -741,6 +755,22 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
+        private List<BECliente> GetClienteByConsultoraDetalle(int paisID, long consultoraID, int campaniaID)
+        {
+            var clientes = new List<BECliente>();
+            var DACliente = new DACliente(paisID);
+
+            using (IDataReader reader = DACliente.GetClienteByConsultoraDetalle(consultoraID, campaniaID))
+            {
+                while (reader.Read())
+                {
+                    var cliente = new BECliente(reader);
+                    clientes.Add(cliente);
+                }
+            }
+
+            return clientes;
+        }
 
         /// <summary>
         /// Obtiene todos los clientes deudores

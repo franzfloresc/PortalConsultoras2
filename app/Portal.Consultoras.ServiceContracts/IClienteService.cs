@@ -82,7 +82,7 @@ namespace Portal.Consultoras.ServiceContracts
         List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
 
         [OperationContract]
-        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID);
+        IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
 
         [OperationContract]
         BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
