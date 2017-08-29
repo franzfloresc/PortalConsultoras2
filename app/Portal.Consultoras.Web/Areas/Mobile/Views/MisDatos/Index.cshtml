@@ -58,7 +58,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             }
             else
             {
-                    <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                    <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" value="@Model.Sobrenombre"/>
             }
             </div>
             <div>
@@ -219,6 +219,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 
         $(function () {
             $("#btnActualizarMD").click(function () {
+				ShowLoading();
                  ActualizarMD();
             });
         });
@@ -232,7 +233,13 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 
 
  function ActualizarMD() {
+ ShowLoading();
  var viewBagPaisID = '@ViewBag.PaisID';
+
+   if (!$('#chkAceptoContratoMD').is(':checked')) {
+		MensajeValdiacion("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
+        return false;
+    }
     if (viewBagPaisID != 4) {
 
         if (jQuery.trim($('#txtEMailMD').val()) == "") {
@@ -256,7 +263,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 
         if (jQuery.trim($('#txtCelularMD').val()) != "") { 
             if (!ValidarTelefono($("#txtCelularMD").val())) {
-			MensajeValdiacion("El formato del celular no es correcto.");  
+			MensajeValdiacion("El número telefónico ya se encuentra registrado.");  
                 return false;
             }
         }
@@ -265,7 +272,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
         var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
         if (!MinCaracterCelular) {
             $('#txtCelularMD').focus();
-			MensajeValdiacion("El formato del celular no es correcto.");  
+			MensajeValdiacion("El número telefónico ya se encuentra registrado.");  
             return false;
         }
 
@@ -285,14 +292,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
                 return false;
             }
         }
-    }
-
-    if (!$('#chkAceptoContratoMD').is(':checked')) {
-		MensajeValdiacion("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
-        return false;
-    }
-
-    waitingDialog({});
+    } 
 
     var item = {
             CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
@@ -308,7 +308,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
     };
 
     if (viewBagPaisID != 4) {
-
+	ShowLoading();;
         jQuery.ajax({
             type: 'POST',
             url: '@Url.Action("ActualizarDatos", "MisDatos", new { area = "Mobile" })',
@@ -318,43 +318,18 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog(); 
+                    CloseLoading(); 
 				   MensajeValdiacion(data.message);   
                 }
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
+                    CloseLoading();
                       MensajeValdiacion("ERROR");   
                 }
             }
         });
-    }
-    else {
-
-        jQuery.ajax({
-            type: 'POST',
-            url: baseUrl + 'MisDatos/AceptarContrato',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    PopupCerrar('popupMisDatos');
-					MensajeValdiacion(data.message);  
-                }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    PopupCerrar('popupMisDatos');
-					MensajeValdiacion("ERROR");   
-                }
-            }
-        });
-    }
+    }  
 }
 
        $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
@@ -413,24 +388,10 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             return re.test(keyChar);
         }
     });
-
-
-  
-
-        $('#hrefContrato').click(function () {
-            waitingDialog({});
-            DownloadAttachContratoCO();
-        });
-        $('#hrefTerminos').click(function () {
-            waitingDialog({});
-            DownloadAttachContratoActualizarDatos();
-    });
-
-
-
+	  
 function ValidarTelefono(celular) {
     var resultado = false;
-
+	ShowLoading();;
     var item = {
         Telefono: celular //$("#txtCelular").val()
     };
@@ -444,14 +405,14 @@ function ValidarTelefono(celular) {
         async: false,
         cache: false,
         success: function (data) {
-            closeWaitingDialog();
+            CloseLoading();
             if (!checkTimeout(data))
                 resultado = false;
             else
                 resultado = data.success;
         },
         error: function (data, error) {
-            closeWaitingDialog();
+            CloseLoading();
             if (checkTimeout(data)) { }
         }
     });
@@ -479,7 +440,7 @@ function CambiarContrasenia() {
     var newPassword01 = $("#txtNuevaContrasenia01").val();
     var newPassword02 = $("#txtNuevaContrasenia02").val();
     var vMessage = "";
-
+	ShowLoading();;
     if (oldPassword == "")
         vMessage += "- Debe ingresar la Contraseña Anterior.\n";
 
@@ -507,7 +468,7 @@ function CambiarContrasenia() {
             NewPassword: newPassword01
         };
 
-        waitingDialog({});
+        ShowLoading();;
         jQuery.ajax({
             type: 'POST', 
 			url: '@Url.Action("CambiarContrasenia", "MisDatos", new { area = "Mobile" })',
@@ -517,7 +478,7 @@ function CambiarContrasenia() {
             async: true,
             success: function (data) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
+                    CloseLoading();
                     if (data.success == true) {
                         if (data.message == "0") {
                             $("#txtContraseniaAnterior").val('');
@@ -545,18 +506,12 @@ function CambiarContrasenia() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    closeWaitingDialog();
-                    alert("Error en el Cambio de Contraseña");
+                    CloseLoading();
+                    MensajeValdiacion("Error en el Cambio de Contraseña");
                 }
             }
         });
     }
-}
-
-
-
-
-
- </script>
-
+} 
+ </script> 
      }
