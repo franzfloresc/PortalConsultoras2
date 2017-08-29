@@ -956,41 +956,19 @@
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            @if (Model.PaisID == 4)
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
-                            }
-                            else
-                            {
-                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
-                            }
+                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
                         </label>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    @if (Model.PaisID == 4)
-                    {
-                        <div class="datos_obligatorios">
-                            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
-                        </div>
-                        <div class="contenedor_boton_actualizar">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                                ACEPTAR
-                            </button>
-                        </div>
-                    }
-                    else
-                    {
                         <div class="datos_obligatorios">
                             <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                         </div>
                         <div class="contenedor_boton_actualizar">
-                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarAO">
                                 ACTUALIZAR
                             </button>
                         </div>
-                    }
-
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
