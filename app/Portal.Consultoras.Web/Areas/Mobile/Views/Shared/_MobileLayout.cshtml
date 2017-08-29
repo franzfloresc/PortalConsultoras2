@@ -726,13 +726,13 @@
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
     }
-        $(document).ready(function() {
+        @*$(document).ready(function() {
 
             var clock = $('.clock').FlipClock(3600, {
                 countdown: true
             });
 
-        });
+        });*@
 
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
