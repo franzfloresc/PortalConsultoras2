@@ -1,3 +1,13 @@
+GO
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'ValidarValorRestauracionClave' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
+)
+BEGIN
+    DROP PROCEDURE dbo.ValidarValorRestauracionClave
+END
+GO
 CREATE PROCEDURE ValidarValorRestauracionClave
 	@CodigoUsuario	VARCHAR(50),
 	@PaisID	INT
