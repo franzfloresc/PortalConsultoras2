@@ -660,6 +660,7 @@ namespace Portal.Consultoras.Common
 
         public class ConfiguracionPais
         {
+            public const string Inicio = "InicioContenedor";
             public const string OfertasParaTi = "OPT";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";

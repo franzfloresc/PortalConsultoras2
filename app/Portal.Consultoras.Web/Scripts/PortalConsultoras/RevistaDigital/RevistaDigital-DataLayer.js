@@ -108,6 +108,8 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
 
 function VerDetalleComprarRDAnalytics(origenWeb, estrategia) {
     try {
+        origenWeb = $.trim(origenWeb);
+
         switch (origenWeb) {
             case "1721":
                 ProductClickPush("Esika para mí - Banner Principal", estrategia);
