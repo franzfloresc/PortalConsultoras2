@@ -313,7 +313,7 @@ $(document).ready(function () {
                         html_telefonos += template_telotros(v_myobject);
                         $("#divTelefonos").html(html_telefonos);
 
-                        v_myobject = { telefono: '080113030', mensaje: "LLAMAR DE PROVINCIA" };
+                        v_myobject = { telefono: '080-11-3030', mensaje: "LLAMAR DE PROVINCIA" };
                         html_telefonos += template_telotros(v_myobject);
                         $("#divTelefonos").html(html_telefonos);
                     }
@@ -336,7 +336,7 @@ $(document).ready(function () {
                         html_telefonos += template_teldesktop   (v_myobject);
                         $("#divTelefonosDesktop").html(html_telefonos);
 
-                        v_myobject = { mensaje: "Provincia: ", telefono: '080113030' };
+                        v_myobject = { mensaje: "Provincia: ", telefono: '080-11-3030' };
                         html_telefonos += template_teldesktop(v_myobject);
                         $("#divTelefonosDesktop").html(html_telefonos);
                     }
