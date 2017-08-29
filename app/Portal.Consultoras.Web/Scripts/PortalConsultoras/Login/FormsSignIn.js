@@ -362,7 +362,7 @@ $(document).ready(function () {
                 $("#divChatearConNosotros").css("display", "inline-block");
                 $(".opciones_recuperacionContrasenia").css("cursor", "cursor");
 
-                response.habilitarChat = false;
+                //response.habilitarChat = false;
 
                 if (!response.mostrarChat) $("#divChatearConNosotros").css("display", "none");
                 if (!response.habilitarChat) {
