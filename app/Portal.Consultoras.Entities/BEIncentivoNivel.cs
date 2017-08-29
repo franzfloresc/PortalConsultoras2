@@ -70,5 +70,10 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "PuntosExigidosFaltantes"))
                 PuntosExigidosFaltantes = Convert.ToInt32(row["PuntosExigidosFaltantes"]);
         }
+
+        public BEIncentivoNivel()
+        {
+
+        }
     }
 }
