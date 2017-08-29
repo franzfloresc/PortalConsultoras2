@@ -126,6 +126,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.Telefono = userData.Telefono;
                 model.TelefonoTrabajo = userData.TelefonoTrabajo;
                 model.Celular = userData.Celular;
+                model.NombreGerenteZonal = userData.NombreGerenteZonal;
 
                 string carpetaPais = WebConfigurationManager.AppSettings["CarpetaImagenCompartirCatalogo"] + userData.CodigoISO;
                 string nombreImagenCatalogo = WebConfigurationManager.AppSettings["NombreImagenCompartirCatalogo"];
@@ -324,6 +325,12 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return View("IndexSAC", model);
+        }
+
+        public ActionResult IndexVC(int asesoraOnlinePopup)
+        {
+            ViewBag.AsesoraOnlinePopup = asesoraOnlinePopup;
+            return Index();
         }
 
         private List<BEPopupPais> ObtenerListaPopupsDesdeServicio()
@@ -564,9 +571,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                     bool paisConsultoraTieneAsesoraOnline = (userData.TieneAsesoraOnline == 1);
                     bool existeAsesoraOnline = (existeAsesoraOnlineResult == 1);
+                    bool actualizarDatos = (ViewBag.AsesoraOnlinePopup == 1);
                     bool habilitadoConfiguracionPais = (habilitadoConfiguracionPaisResult == 1);
 
-                    if (paisConsultoraTieneAsesoraOnline && !existeAsesoraOnline && habilitadoConfiguracionPais)
+                    if (paisConsultoraTieneAsesoraOnline && (!existeAsesoraOnline || actualizarDatos) 
+                        && habilitadoConfiguracionPais)
                     {
                         TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
                         break;

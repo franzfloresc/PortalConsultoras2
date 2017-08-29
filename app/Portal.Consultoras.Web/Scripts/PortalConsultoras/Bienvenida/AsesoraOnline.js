@@ -2,10 +2,12 @@
 
     var _config = {
         asesoraOnlineUrl: config.asesoraOnlineUrl || '',
+        actualizarUsuarioUrl: config.actualizarUsuarioUrl || '',
         codigoConsultora: config.codigoConsultora || '',
         isoPais: config.isoPais || '',
         origen: 'SB',
-        actualizarEstadoConfiguracionPaisDetalleUrl: config.actualizarEstadoConfiguracionPaisDetalleUrl || ''
+        actualizarEstadoConfiguracionPaisDetalleUrl: config.actualizarEstadoConfiguracionPaisDetalleUrl || '',
+        tipoPopup : config.tipoPopup
 
     };
 
@@ -20,7 +22,7 @@
 
     var _hidePopupModificarDatos = function () {
         $("#fondoComunPopUp").hide();
-        $("#popupActualizarMisDatosMexico").show();
+        $("#popupMisDatos").show();
     };
 
     var _actualizarEstadoConfiguracionPaisDetalle = function (isoPais, codigoConsultora) {
@@ -53,8 +55,70 @@
         $("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
         $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);
         $("#no-volver-mostrar-mensaje").on("click",function(){ _actualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora);});
-        
+        $("#btnActualizarMD").on("click", _actualizarUsuario);
     };
+
+    var _setValuesPopupModificarDatos = function () {
+        $("#codigoUsurioMD").text(viewBagCodigoConsultora);
+        $("#nombresUsuarioMD").text(nombreConsultora);
+        $("#nombreGerenteZonal").text(nombreGerenteZonal);
+        $("#txtSobrenombreMD").val(sobreNombre);
+        $("#txtEMailMD").val(correo);
+        $("#txtTelefonoMD").val(telefono);
+        $("#txtCelularMD").val(celular);
+        $("#txtTelefonoTrabajoMD").val(telefonoTrabajo);
+    };
+
+    var _actualizarUsuario = function () {
+
+        var codigoConsultora = $("#codigoUsurioMD").text();
+        var nombreConsultora = $("#nombresUsuarioMD").text();
+        var nombreGerenteZonal = $("#nombreGerenteZonal").text();
+        var sobrenombre = $("#txtSobrenombreMD").val();
+        var eMail = $("#txtEMailMD").val();
+        var telefono = $("#txtTelefonoMD").val();
+        var celular = $("#txtCelularMD").val();
+        var telefonoTrabajo = $("#txtTelefonoTrabajoMD").val();
+
+        var TYCchecked = $("#hrefTerminosMD").prop('checked')
+
+        if (!TYCchecked) {
+            $("#AcepteTYC").show();
+            setTimeout(function () { $("#AcepteTYC").hide(); }, 3000);
+            return false
+        }
+
+        var params = {
+            CodigoConsultora: codigoConsultora,
+            NombreConsultora:  nombreConsultora,
+            NombreGerenteZonal: nombreGerenteZonal,
+            Sobrenombre: sobrenombre,
+            EMail: eMail,
+            Telefono: telefono,
+            Celular: celular,
+            TelefonoTrabajo: telefonoTrabajo
+        };
+
+        jQuery.ajax({
+            type: 'POST',
+            url: _config.actualizarUsuarioUrl,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(params),
+            async: true,
+            success: function (data) {
+                if (data.success) {
+                    _hidePopupModificarDatos();
+                }
+            },
+            error: function (data, error) {
+                alert(data.message);
+            }
+        });
+
+        return false;
+
+    };   
 
     var _mostrar = function () {
         $("#fondoComunPopUp").show();
@@ -63,12 +127,14 @@
 
     var _mostrarModificarDatos = function () {
         $("#fondoComunPopUp").show();
-        $("#popupActualizarMisDatosMexico").show();
+        $("#popupMisDatos").show();
+        _setValuesPopupModificarDatos();
     };
 
     return {
         asignarEventos: _asignarEventos,
         mostrar: _mostrar,
-        mostrarModificarDatos: _mostrarModificarDatos
+        mostrarModificarDatos: _mostrarModificarDatos,
+        tipoPopup: _config.tipoPopup
     }
 }
