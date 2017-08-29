@@ -55,7 +55,7 @@
         $("#ver-mas-informacion").attr("href", _armarAsesoraOnlineUrl(_config.isoPais, _config.codigoConsultora, _config.origen));
         $("#cerrar-virtual-coach-dialog").on("click", _hidePopup);
         $("#no-volver-mostrar-mensaje").on("click",function(){ _actualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora);});
-        $("#btnActualizarMD").on("click", _actualizarUsuario);
+        $("#btnActualizarAO").on("click", _actualizarUsuario);
     };
 
     var _setValuesPopupModificarDatos = function () {
@@ -109,7 +109,7 @@
             async: true,
             success: function (data) {
                 if (data.success) {
-                    _hidePopupModificarDatos();
+                    //_hidePopupModificarDatos();
                 }
             },
             error: function (data, error) {
