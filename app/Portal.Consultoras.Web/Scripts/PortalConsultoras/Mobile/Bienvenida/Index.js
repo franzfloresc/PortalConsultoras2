@@ -132,7 +132,7 @@ function CrearPopShow() {
 
 function MostrarShowRoom() {
     
-    if (sesionEsShowRoom == '0') {
+    if (!sesionEsShowRoom) {
         return;
     }
     $.ajax({

@@ -61,7 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.PermitirCerrarBannerPL20 = permitirCerrarBanner;
                     ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
                     ViewBag.ShowRoomBannerLateral = showRoomBannerLateral;
-                    ViewBag.MostrarShowRoomBannerLateral = Session["EsShowRoom"].ToString() != "0" &&
+                    ViewBag.MostrarShowRoomBannerLateral = sessionManager.GetEsShowRoom() &&
                         !showRoomBannerLateral.ConsultoraNoEncontrada && !showRoomBannerLateral.ConsultoraNoEncontrada &&
                         showRoomBannerLateral.BEShowRoomConsultora.EventoConsultoraID != 0 && showRoomBannerLateral.EstaActivoLateral;
                     
@@ -210,9 +210,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var resultado = false;
 
-            var esShowRoom = Session["EsShowRoom"] != null &&Session["EsShowRoom"].ToString() == "1";
-            var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
-            var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null &&Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
+            var esShowRoom = sessionManager.GetEsShowRoom();
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             if (esIntriga)
             {

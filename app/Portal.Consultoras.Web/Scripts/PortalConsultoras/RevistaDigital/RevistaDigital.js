@@ -63,10 +63,6 @@ $(document).ready(function () {
 
     RDMostrarPosicion();
 
-    //if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
-    //    $("footer").hide();
-    //}
-
     if (isDetalle) {
         RDDetalleObtener();
         $("footer").hide();
@@ -117,7 +113,7 @@ $(document).ready(function () {
 
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
-        //debugger;
+
         var $this = $(this);
         if ($this.next().hasClass('show1')) {
             $this.next().removeClass('show1');
@@ -149,7 +145,6 @@ $(document).ready(function () {
     $("body").on("click",
         "[data-item-accion='verdetalle']",
         function(e) {
-            //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
             var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
             var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
             var obj = GetProductoStorage(cuv, campania);
@@ -414,7 +409,6 @@ function RDFiltrarLista(response, busquedaModel) {
     var ordenar = filtroCampania[indCampania].Ordenamiento || new Object();
     ordenar.Tipo = $.trim(ordenar.Tipo).toLowerCase();
     if (ordenar.Tipo != "" && listaFinal.length > 0) {
-        //var listaFinalx = new Array();
         if (ordenar.Tipo == "precio") {
             if (ordenar.Valor == mayormenor) {
                 listaFinal = listaFinal.sort(function (a, b) { return b.Precio2 - a.Precio2 });
@@ -561,9 +555,6 @@ function RDPageInformativa() {
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     
-    isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
-    if (isDetalle) {
-        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
-    }
+    window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
 }
 

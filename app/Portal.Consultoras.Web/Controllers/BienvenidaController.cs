@@ -21,13 +21,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (Request.Browser.IsMobileDevice)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-
             var model = new BienvenidaHomeModel();
 
             try
             {
+                if (Request.Browser.IsMobileDevice)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
@@ -1794,8 +1794,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
-                var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null && Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
                 mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
                 mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;

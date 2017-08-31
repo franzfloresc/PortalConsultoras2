@@ -396,6 +396,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var params = ({
         listaCuvTonos: $.trim(cuvs),
+        cuv: $.trim(estrategia.CUV2),
         EstrategiaID: $.trim(estrategia.EstrategiaID),
         FlagNueva: $.trim(estrategia.FlagNueva),
         Cantidad: $.trim(cantidad),
@@ -495,7 +496,7 @@ function EstrategiaAgregar(event, popup, limite) {
                 $('#popupDetalleCarousel_packNuevas').hide();
             }
 
-            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos, true);
+            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
 
             ProcesarActualizacionMostrarContenedorCupon();
 

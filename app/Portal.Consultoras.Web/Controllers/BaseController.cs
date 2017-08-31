@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                         permiso.UrlItem = AccionControlador("sr");
                     else
                         continue;
@@ -717,11 +717,11 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                     {
                         menu.OnClickFunt = "";
                         menu.MenuPadreDescripcion = menu.Descripcion;
-                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                        if (sessionManager.GetMostrarShowRoomProductos())
                         {
                             menu.ClaseMenu = " etiqueta_showroom wsventa";
                         }
@@ -817,16 +817,18 @@ namespace Portal.Consultoras.Web.Controllers
             var listaMenu = new List<MenuContenedorModel>();
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
-
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
             lista = lista.Where(c => c.TienePerfil).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
-
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var isMobile = IsMobile();
             foreach (var confiModel in lista)
             {
+                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
+                    continue;
+
                 confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
                 confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
                 confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
@@ -932,7 +934,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. <br />INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
                 }
                 
                 return;
@@ -1039,16 +1041,35 @@ namespace Portal.Consultoras.Web.Controllers
 
         public MenuContenedorModel BuildMenuContenedorInicio(int campania = 0)
         {
+            var lista = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
+            var inicio = lista.FirstOrDefault(c => Util.Trim(c.Codigo).ToUpper() == Constantes.ConfiguracionPais.Inicio) ?? new ConfiguracionPaisModel();
+
+            var isMobile = IsMobile();
+
+            inicio.Codigo = Util.Trim(inicio.Codigo).ToUpper();
+
             var menu = new MenuContenedorModel
             {
-                Codigo = "",
+                Codigo = inicio.Codigo,
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
-                TituloMenu = "INICIO",
-                SubTituloMenu = "",
+                TituloMenu = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloMenu,
+                TituloBanner = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloBanner,
+                SubTituloBanner = isMobile ? inicio.MobileSubTituloBanner : inicio.DesktopSubTituloBanner,
+                LogoBanner = isMobile ? inicio.MobileLogoBanner : inicio.DesktopLogoBanner,
+                FondoBanner = isMobile ? inicio.MobileFondoBanner : inicio.DesktopFondoBanner,
                 UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            menu.LogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, menu.LogoBanner);
+            menu.FondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, menu.FondoBanner);
+
+            if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+            {
+                menu.LogoBanner = Url.Content("~/Content/Images/RevistaDigital/bg_esika.png");
+            }
 
             return menu;
         }
@@ -1580,9 +1601,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             const int SHOWROOM_ESTADO_ACTIVO = 1;
             
-            Session["EsShowRoom"] = "0";
-            Session["MostrarShowRoomProductos"] = "0";
-            Session["MostrarShowRoomProductosExpiro"] = "0";
+            sessionManager.SetEsShowRoom("0");
+            sessionManager.SetMostrarShowRoomProductos("0");
+            sessionManager.SetMostrarShowRoomProductosExpiro("0");
             //
             model.BeShowRoomConsultora = null;
             model.BeShowRoom = null;
@@ -1620,7 +1641,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
                     {
-                        Session["EsShowRoom"] = "1";
+                        sessionManager.SetEsShowRoom("1");
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
@@ -1629,11 +1650,11 @@ namespace Portal.Consultoras.Web.Controllers
                         if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                             && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                         {
-                            Session["MostrarShowRoomProductos"] = "1";
+                            sessionManager.SetMostrarShowRoomProductos("1");
                         }
 
                         if (fechaHoy > model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
-                            Session["MostrarShowRoomProductosExpiro"] = "1";
+                            sessionManager.SetMostrarShowRoomProductosExpiro("1");
                     }
 
                     if (personalizacionesNivel != null && personalizacionesNivel.Any())
@@ -2177,7 +2198,7 @@ namespace Portal.Consultoras.Web.Controllers
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
-                Session["MostrarShowRoomProductos"] = "1";
+                sessionManager.SetMostrarShowRoomProductos("1");
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
                 model.EstaActivoLateral = false;
@@ -2625,7 +2646,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case "sr":
                         controlador = "ShowRoom";
-                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        bool esVenta = (sessionManager.GetMostrarShowRoomProductos());
                         accion = esVenta ? "Index" : "Intriga";
                         break;
                 }

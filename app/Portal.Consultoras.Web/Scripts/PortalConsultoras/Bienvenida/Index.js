@@ -2633,7 +2633,7 @@ function CrearPopShow() {
 }
 function MostrarShowRoom() {
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({
@@ -3169,7 +3169,7 @@ function ValidarTelefono(celular) {
 
 function VerShowRoomIntriga() {
     //AgregarTagManagerShowRoomPopupClick(2);
-    document.location.href = urlOfertasIndex;
+    document.location.href = urlShowRoomIntriga;
     $('#PopShowroomIntriga').hide();
 }
 

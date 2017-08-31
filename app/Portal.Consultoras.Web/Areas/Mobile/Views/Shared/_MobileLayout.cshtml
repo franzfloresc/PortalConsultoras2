@@ -234,7 +234,7 @@
                     </li>
                 }
                 
-                @if (Session["EsShowRoom"] != null && @Session["EsShowRoom"].ToString() == "1")
+                @if (Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom())
                 {
                     if (showRoomBannerLateral.MostrarShowRoomProductos == true)
                     {
@@ -790,7 +790,7 @@
         var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
         var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
 

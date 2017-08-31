@@ -222,7 +222,7 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
        
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
