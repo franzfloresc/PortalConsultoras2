@@ -119,7 +119,8 @@ namespace Portal.Consultoras.Web.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
+                        //message = (model.ClienteID == 0 ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
+                        message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
                         extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
                     });
                 }

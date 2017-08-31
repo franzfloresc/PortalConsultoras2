@@ -391,12 +391,19 @@ namespace Portal.Consultoras.BizLogic
         #endregion
 
         #region ClienteDB
+        /// <summary>
+        /// Inserta o actualiza uno o varios clientes
+        /// </summary>
+        /// <param name="paisID">Pais Id</param>
+        /// <param name="clientes">Lista clientes</param>
+        /// <returns></returns>
         public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             List<BEClienteResponse> lstResponse = new List<BEClienteResponse>();
             var daCliente = new DACliente(paisID);
             var daClienteDB = new BLClienteDB();
             var clienteSB = new BECliente();
+            bool Insertado = false;
 
             foreach (var clienteDB in clientes)
             {
@@ -408,23 +415,6 @@ namespace Portal.Consultoras.BizLogic
                 {
                     //VALIDAR CLIENTE - ATRIBUTOS
                     var validacion = this.ValidateAttribute(paisID, clienteDB);
-                    if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
-                    {
-                        lstResponse.Add(new BEClienteResponse()
-                        {
-                            ClienteID = clienteDB.ClienteID,
-                            ConsultoraID = clienteDB.ConsultoraID,
-                            ClienteIDSB = clienteDB.ClienteIDSB,
-                            CodigoRespuesta = validacion,
-                            MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion]
-                        });
-
-                        continue;
-                    }
-
-                    //VALIDAR CLIENTE - CONSULTORA
-                    var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
-                    validacion = this.ValidateConsultora(paisID, clienteDB, lstClienteConsultora);
                     if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
                     {
                         lstResponse.Add(new BEClienteResponse()
@@ -456,6 +446,37 @@ namespace Portal.Consultoras.BizLogic
                             clienteDB.ClienteID = resGetCliente.ClienteID;
                             break;
                         }
+                    }
+
+                    //OBTENER CLIENTE SB
+                    var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
+                    if (clienteDB.ClienteIDSB == 0)
+                    {
+                        foreach (var contactoPrincipal in lstContactoPrincipal)
+                        {
+                            var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
+                            if (clienteSBSearch != null)
+                            {
+                                clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
+                                break;
+                            }
+                        }
+                    }
+
+                    //VALIDAR CLIENTE - CONSULTORA
+                    validacion = this.ValidateConsultora(paisID, clienteDB, lstClienteConsultora);
+                    if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
+                    {
+                        lstResponse.Add(new BEClienteResponse()
+                        {
+                            ClienteID = clienteDB.ClienteID,
+                            ConsultoraID = clienteDB.ConsultoraID,
+                            ClienteIDSB = clienteDB.ClienteIDSB,
+                            CodigoRespuesta = validacion,
+                            MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion]
+                        });
+
+                        continue;
                     }
 
                     //GRABAR CLIENTE DB
@@ -496,20 +517,7 @@ namespace Portal.Consultoras.BizLogic
                         }
                     }
 
-                    //OBTENER CLIENTE SB
-                    if (clienteDB.ClienteIDSB == 0)
-                    {
-                        foreach (var contactoPrincipal in lstContactoPrincipal)
-                        {
-                            var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
-                            if (clienteSBSearch != null)
-                            {
-                                clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
-                                break;
-                            }
-                        }
-                    }
-
+                    //GRABAR CLIENTE SB
                     var oCorreo = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
                     var correo = (oCorreo == null ? string.Empty : oCorreo.Valor);
                     var oTelefonoFijo = clienteDB.Contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo && x.Estado == Constantes.ClienteEstado.Activo).FirstOrDefault();
@@ -533,7 +541,6 @@ namespace Portal.Consultoras.BizLogic
                         TipoContactoFavorito = clienteDB.TipoContactoFavorito
                     };
 
-                    //GRABAR CLIENTE SB
                     if (clienteDB.ClienteIDSB == 0)
                     {
                         clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
@@ -551,6 +558,8 @@ namespace Portal.Consultoras.BizLogic
 
                             continue;
                         }
+
+                        Insertado = true;
                     }
                     else
                     {
@@ -569,6 +578,8 @@ namespace Portal.Consultoras.BizLogic
 
                             continue;
                         }
+
+                        Insertado = false;
                     }
 
                     //GRABAR NOTAS
@@ -611,7 +622,8 @@ namespace Portal.Consultoras.BizLogic
                     ClienteIDSB = clienteDB.ClienteIDSB,
                     Notas = clienteDB.Notas,
                     CodigoRespuesta = Constantes.ClienteValidacion.Code.SUCCESS,
-                    MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS]
+                    MensajeRespuesta = Constantes.ClienteValidacion.Message[Constantes.ClienteValidacion.Code.SUCCESS],
+                    Insertado = Insertado
                 };
 
                 if (!movimientosResponse.Success)
@@ -887,8 +899,10 @@ namespace Portal.Consultoras.BizLogic
             return Constantes.ClienteValidacion.Code.SUCCESS;
         }
 
-        private string ValidateConsultora(int paisID, BEClienteDB cliente, List<BECliente> lstCliente)
+        private string ValidateConsultora(int paisID, BEClienteDB cliente, List<BECliente> plstCliente)
         {
+            var lstCliente = plstCliente.Where(x => x.ClienteID != cliente.ClienteIDSB);
+
             if (!string.IsNullOrEmpty(cliente.NombreCompleto))
             {
                 var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.NombreCompleto.ToUpper());
@@ -916,8 +930,7 @@ namespace Portal.Consultoras.BizLogic
 
         private List<BECliente> ObtenerClienteConsultora(int paisID, BEClienteDB cliente)
         {
-            return this.SelectByConsultora(paisID, cliente.ConsultoraID)
-                                                .Where(x => x.ClienteID != cliente.ClienteIDSB).ToList();
+            return this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
         }
         #endregion
     }
