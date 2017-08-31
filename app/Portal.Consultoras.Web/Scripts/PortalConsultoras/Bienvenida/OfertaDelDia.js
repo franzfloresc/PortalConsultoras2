@@ -729,57 +729,57 @@
         }
     });
 
-    $("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
-        var accion = $(this).attr("data-odd-accion").toUpperCase();
-        if (accion == CONS_TIPO_ACCION.VEROFERTA) {
-            ResetearCantidadesDelPopup();
-            if (showDisplayODD == 0) {
-                var cantidad = parseInt($(this).attr("data-odd-cantidad"));
-                if (cantidad > 3) {
-                    var posicion = "0";
-                    $('#divOddCarrusel').slick('slickGoTo', posicion);
-                    $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
-                }
-                if (cantidad == 1) {
-                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
-                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
-                }
-                else {
-                    $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
-                    $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
-                }
-                $('#PopOfertaDia').slideDown();
-                $('.circulo_hoy span').html('-');
-                showDisplayODD = 1;
-            }
-            else {
-                $('#PopOfertaDia').slideUp();
-                $('.circulo_hoy span').html('+');
-                showDisplayODD = 0;
-            }
+    //$("body").on("click", "#OfertaDelDia [data-odd-accion]", function (e) {
+    //    var accion = $(this).attr("data-odd-accion").toUpperCase();
+    //    if (accion == CONS_TIPO_ACCION.VEROFERTA) {
+    //        ResetearCantidadesDelPopup();
+    //        if (showDisplayODD == 0) {
+    //            var cantidad = parseInt($(this).attr("data-odd-cantidad"));
+    //            if (cantidad > 3) {
+    //                var posicion = "0";
+    //                $('#divOddCarrusel').slick('slickGoTo', posicion);
+    //                $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
+    //            }
+    //            if (cantidad == 1) {
+    //                $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
+    //                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
+    //            }
+    //            else {
+    //                $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
+    //                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
+    //            }
+    //            $('#PopOfertaDia').slideDown();
+    //            $('.circulo_hoy span').html('-');
+    //            showDisplayODD = 1;
+    //        }
+    //        else {
+    //            $('#PopOfertaDia').slideUp();
+    //            $('.circulo_hoy span').html('+');
+    //            showDisplayODD = 0;
+    //        }
 
-            if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
-                $('div [data-odd-tipoventana="detalle"]').show();
-            }
-        }
-        else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
+    //        if ($(this).parents('div [data-odd-tipoventana="detalle"]').length == 1) {
+    //            $('div [data-odd-tipoventana="detalle"]').show();
+    //        }
+    //    }
+    //    else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
 
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
-            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
-            var posicion = $(this).parents("[data-item]").attr("data-item-position");
-            $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
-            // asignar valores del ver detalle
-        }
-        else if (accion == CONS_TIPO_ACCION.REGRESAR) {
+    //        $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').hide();
+    //        $('#OfertaDelDia [data-odd-tipoventana="detalle"]').show();
+    //        var posicion = $(this).parents("[data-item]").attr("data-item-position");
+    //        $('#divOddCarruselDetalle').slick('slickGoTo', posicion);
+    //        // asignar valores del ver detalle
+    //    }
+    //    else if (accion == CONS_TIPO_ACCION.REGRESAR) {
 
-            $('#divOddCarrusel').slick('refresh', false);
-            $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
-            $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
-        }
-        else if (accion == CONS_TIPO_ACCION.AGREGAR) {
-            OddAgregar(this);
-        }
-    });
+    //        $('#divOddCarrusel').slick('refresh', false);
+    //        $('#OfertaDelDia [data-odd-tipoventana="detalle"]').hide();
+    //        $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').show();
+    //    }
+    //    else if (accion == CONS_TIPO_ACCION.AGREGAR) {
+    //        OddAgregar(this);
+    //    }
+    //});
 
     $("body").on("click", ".btn_cerrar_pop_oferta_hoy", function (e) {
         $('#pop_oferta_mobile').hide('slide', { direction: 'Right' }, 500);
