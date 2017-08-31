@@ -162,9 +162,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             model.FormatoCampaniaID = string.Format("{0}-{1}",
                 model.CampaniaID.ToString().Substring(0, 4),
                 model.CampaniaID.ToString().Substring(4, 2));
-            model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == 3);
-            model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == 4);
-           
+            model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
+            model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
+
             Session["ListaCDRDetalle"] = model;
             return RedirectToAction("Detalle");
         }
@@ -179,7 +179,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             Session[Constantes.ConstSession.CDRWebDetalle] = null;
             objCDR.ListaDetalle = CargarDetalle(obj);
-            
+
             ViewBag.Origen = objCDR.OrigenCDRDetalle;
             ViewBag.FormatoCampania = objCDR.FormatoCampaniaID;
             ViewBag.FormatoFechaCulminado = objCDR.FormatoFechaCulminado;

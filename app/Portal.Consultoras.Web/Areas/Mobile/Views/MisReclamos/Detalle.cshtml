@@ -167,7 +167,7 @@ else if (ViewBag.Origen == "1")
             </div>
             <div class="dato_campania_solicitud_cdr">
                 <span class="tipografia_lato_light">Campaña</span>
-                <span  class="tipografia_lato_regular">@ViewBag.FormatoCampania</span>
+                <span class="tipografia_lato_regular">@ViewBag.FormatoCampania</span>
             </div>
             <div class="estado_productos_cdr">
                 <span class="tipografia_lato_regular">@ViewBag.EstadoProductos</span>
@@ -176,45 +176,47 @@ else if (ViewBag.Origen == "1")
     </div>
 
     <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRDetalle">
-            <div id="MiDetalleCDR" class="detalle_solicitud_listado">
-                @{ foreach (var item in ViewBag.ListaDetalle)
-                    {
-                        <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                            <div>
-                                @*Solicitud de Cambio*@    
-                                @item.SolucionSolicitada
-                            </div>
-                            <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-                                @if (item.Estado == 4)
-                                { <span>RECHAZADO</span> }
-                                @if (item.Estado == 3)
-                                { <span>APROBADO</span> }
-                                @if (item.Estado == 2)
-                                { <span>EN EVALUACION</span> }
-                                @if (item.Estado == 1)
-                                { <span>PENDIENTE</span> }
-                                </div>    
-                            </div>    
-                            <div class="detalle_tipo_solicitud">
-                            <div class="detalle_producto_cdr">
-                                <span class="detalle_cod_producto tipografia_lato_regular">
-                                    @*CUV*@
-                                    @item.CUV
-                                </span>
-                                <span class="detalle_nom_producto tipografia_lato_bold">
-                                    @item.Descripcion
-                                </span>
-                                <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                    x @item.Cantidad unidades
-                                </span>
-                                <span class="detalle_precio_producto tipografia_lato_regular">
-                                    @ViewBag.Simbolo @item.FormatoPrecio1
-                                </span>
-                            </div>
-                            <div class="detalle_cdr_solucion">
-                                <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-                                    @item.Solicitud
-                                </span>
+        <div id="MiDetalleCDR" class="detalle_solicitud_listado">
+            @{ foreach (var item in ViewBag.ListaDetalle)
+                {
+                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                        <div>
+                            @*Solicitud de Cambio*@
+                            @item.SolucionSolicitada
+                        </div>
+                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                            @if (item.Estado == 4)
+                            { <span>RECHAZADO</span> }
+                            @if (item.Estado == 3)
+                            { <span>APROBADO</span> }
+                            @if (item.Estado == 2)
+                            { <span>EN EVALUACION</span> }
+                            @if (item.Estado == 1)
+                            { <span>PENDIENTE</span> }
+                        </div>
+                    </div>
+                    <div class="detalle_tipo_solicitud">
+                        <div class="detalle_producto_cdr">
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                @*CUV*@
+                                @item.CUV
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                @item.Descripcion
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x @item.Cantidad unidades
+                            </span>
+                            <span class="detalle_precio_producto tipografia_lato_regular">
+                                @ViewBag.Simbolo @item.FormatoPrecio1
+                            </span>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                                @item.Solicitud
+                            </span>
+                            @if (item.CodigoOperacion.Equals("T"))
+                            {
                                 <span class="detalle_cod_producto tipografia_lato_regular">
                                     @item.CUV2
                                 </span>
@@ -227,80 +229,82 @@ else if (ViewBag.Origen == "1")
                                 <span class="detalle_precio_producto tipografia_lato_regular">
                                     @ViewBag.Simbolo @item.FormatoPrecio2
                                 </span>
-                            </div>
+                            }
+
                         </div>
-                    }
+                    </div>
                 }
-            </div>
-                
-
-
-                @*<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                        <div>
-                            Solicitud de reenvío
-                        </div>
-                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-                            APROBADO
-                        </div>
-                    </div>
-                    <div class="detalle_tipo_solicitud">
-                        <div class="detalle_producto_cdr">
-                            <span class="detalle_cod_producto tipografia_lato_regular">
-                                00411
-                            </span>
-                            <span class="detalle_nom_producto tipografia_lato_bold">
-                                Berrylicious shampoo rojo 375ml.
-                            </span>
-                            <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                x2 unidades
-                            </span>
-                        </div>
-                        <div class="detalle_cdr_solucion">
-                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                                Reenviar:
-                            </span>
-                            <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
-                                el mismo producto
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                        <div>
-                            Solicitud de devolución
-                        </div>
-                        <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
-                            RECHAZADO
-                        </div>
-                    </div>
-                    <div class="detalle_tipo_solicitud">
-                        <div class="detalle_producto_cdr">
-                            <span class="detalle_cod_producto tipografia_lato_regular">
-                                00411
-                            </span>
-                            <span class="detalle_nom_producto tipografia_lato_bold">
-                                Berrylicious shampoo rojo 375ml.
-                            </span>
-                            <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                x2 unidades
-                            </span>
-                        </div>
-                        <div class="detalle_cdr_solucion">
-                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                                Devolución:
-                            </span>
-                            <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-                                S/.15
-                            </span>
-                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                                Motivo de rechazo:
-                            </span>
-                            <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-                                por superar el límite establecido de unidades a reclamar
-                            </span>
-                        </div>
-                    </div>*@
-
+            }
         </div>
+
+
+
+        @*<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                <div>
+                    Solicitud de reenvío
+                </div>
+                <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                    APROBADO
+                </div>
+            </div>
+            <div class="detalle_tipo_solicitud">
+                <div class="detalle_producto_cdr">
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        00411
+                    </span>
+                    <span class="detalle_nom_producto tipografia_lato_bold">
+                        Berrylicious shampoo rojo 375ml.
+                    </span>
+                    <span class="detalle_cantidad_producto tipografia_lato_regular">
+                        x2 unidades
+                    </span>
+                </div>
+                <div class="detalle_cdr_solucion">
+                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                        Reenviar:
+                    </span>
+                    <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
+                        el mismo producto
+                    </span>
+                </div>
+            </div>
+
+            <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                <div>
+                    Solicitud de devolución
+                </div>
+                <div class="estado_solic_cdr color_marca  tipografia_lato_bold">
+                    RECHAZADO
+                </div>
+            </div>
+            <div class="detalle_tipo_solicitud">
+                <div class="detalle_producto_cdr">
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        00411
+                    </span>
+                    <span class="detalle_nom_producto tipografia_lato_bold">
+                        Berrylicious shampoo rojo 375ml.
+                    </span>
+                    <span class="detalle_cantidad_producto tipografia_lato_regular">
+                        x2 unidades
+                    </span>
+                </div>
+                <div class="detalle_cdr_solucion">
+                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                        Devolución:
+                    </span>
+                    <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
+                        S/.15
+                    </span>
+                    <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                        Motivo de rechazo:
+                    </span>
+                    <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
+                        por superar el límite establecido de unidades a reclamar
+                    </span>
+                </div>
+            </div>*@
+
+    </div>
     <!-- FIN VISTA DETALLE SOLICITUD CDR -->
-}
+                }
