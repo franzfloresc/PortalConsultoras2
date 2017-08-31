@@ -62,12 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
                 
-                int sessionExists = 0;
-                if (SessionExists(sessionExists) == 0)
-                {
-                    if (!returnUrl.Equals("sesionExpirada"))
-                        return RedirectToAction("SesionExpirada", "Login");
-                }
             }
             catch (FaultException ex)
             {
@@ -1414,8 +1408,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SesionExpirada()
+        public ActionResult SesionExpirada(string returnUrl)
         {
+            AsignarUrlRetorno(returnUrl);
             return View();
         }
 
