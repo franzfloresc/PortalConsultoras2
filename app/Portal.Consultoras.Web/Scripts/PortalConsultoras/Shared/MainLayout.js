@@ -803,7 +803,7 @@ function MostrarShowRoomBannerLateral() {
     });
 
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({

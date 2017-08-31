@@ -47,9 +47,20 @@ namespace Portal.Consultoras.Web.SessionManager
             return (List<ObservacionModel>)HttpContext.Current.Session["ObservacionesPROL"];
         }
 
-        public void SetObservacionesProl(List<ObservacionModel> observaciones)
+        void ISessionManager.SetObservacionesProl(List<ObservacionModel> observaciones)
         {
             HttpContext.Current.Session["ObservacionesPROL"] = observaciones;
+        }
+
+        void ISessionManager.SetEsShowRoom(string flag)
+        {
+            HttpContext.Current.Session["EsShowRoom"] = flag;
+        }
+
+        bool ISessionManager.GetEsShowRoom()
+        {
+            var esShowRoom = HttpContext.Current.Session["EsShowRoom"];
+            return esShowRoom != null && esShowRoom.ToString().Trim() == "1";
         }
     }
 }

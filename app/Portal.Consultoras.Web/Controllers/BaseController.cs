@@ -178,6 +178,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return pedidoWeb;
         }
+
         protected int EsOpt()
         {
             var esOpt = userData.RevistaDigital.TieneRDR
@@ -185,8 +186,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ? 1 : 2;
             return esOpt;
         }
-
-
+        
         public virtual List<BEPedidoWebDetalle> ObtenerPedidoWebDetalle()
         {
             var detallesPedidoWeb = (List<BEPedidoWebDetalle>)null;
@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                         permiso.UrlItem = AccionControlador("sr");
                     else
                         continue;
@@ -717,7 +717,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                     {
                         menu.OnClickFunt = "";
                         menu.MenuPadreDescripcion = menu.Descripcion;
@@ -817,16 +817,17 @@ namespace Portal.Consultoras.Web.Controllers
             var listaMenu = new List<MenuContenedorModel>();
             var lista = userData.ConfiguracionPais;
             if (lista == null || !lista.Any()) return listaMenu;
-
-            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-
-            //lista = lista.Where(c => c.TienePerfil && c.DesdeCampania > 0).ToList();
+            lista = lista.Where(c => c.TienePerfil).ToList();
 
             listaMenu.Add(BuildMenuContenedorInicio());
-
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var isMobile = IsMobile();
             foreach (var confiModel in lista)
             {
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
+                    continue;
+
                 confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
                 confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
                 confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
@@ -1027,16 +1028,33 @@ namespace Portal.Consultoras.Web.Controllers
 
         public MenuContenedorModel BuildMenuContenedorInicio(int campania = 0)
         {
+            var lista = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
+            var inicio = lista.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.Inicio) ?? new ConfiguracionPaisModel();
+
+            var isMobile = IsMobile();
+
             var menu = new MenuContenedorModel
             {
-                Codigo = "",
+                Codigo = inicio.Codigo,
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
-                TituloMenu = "INICIO",
-                SubTituloMenu = "",
+                TituloMenu = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloMenu,
+                TituloBanner = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloBanner,
+                SubTituloBanner = isMobile ? inicio.MobileSubTituloBanner : inicio.DesktopSubTituloBanner,
+                LogoBanner = isMobile ? inicio.MobileLogoBanner : inicio.DesktopLogoBanner,
+                FondoBanner = isMobile ? inicio.MobileFondoBanner : inicio.DesktopFondoBanner,
                 UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
                 Orden = 0,
                 Activa = true
             };
+            
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+            menu.LogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, menu.LogoBanner);
+            menu.FondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, menu.FondoBanner);
+
+            if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+            {
+                menu.LogoBanner = Url.Content("~/Content/Images/RevistaDigital/bg_esika.png");
+            }
 
             return menu;
         }
@@ -1546,7 +1564,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             const int SHOWROOM_ESTADO_ACTIVO = 1;
             
-            Session["EsShowRoom"] = "0";
+            sessionManager.SetEsShowRoom("0");
             Session["MostrarShowRoomProductos"] = "0";
             Session["MostrarShowRoomProductosExpiro"] = "0";
             //
@@ -1586,7 +1604,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
                     {
-                        Session["EsShowRoom"] = "1";
+                        sessionManager.SetEsShowRoom("1");
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
@@ -2675,12 +2693,28 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var entConf in listaEntidad)
             {
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
-                
-                if (!userData.RevistaDigital.TieneRDC && Constantes.ConfiguracionPais.RevistaDigital == entConf.ConfiguracionPais.Codigo)
-                    continue;
 
-                if (!userData.RevistaDigital.TieneRDR && Constantes.ConfiguracionPais.RevistaDigitalReducida == entConf.ConfiguracionPais.Codigo)
-                    continue;
+                string titulo = "", subTitulo = "";
+
+                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (!RDObtenerTitulosSeccion(ref titulo, ref subTitulo, entConf.ConfiguracionPais.Codigo))
+                        continue;
+
+                    entConf.DesktopTitulo = titulo;
+                    entConf.DesktopSubTitulo = subTitulo;
+
+                    entConf.MobileTitulo = titulo;
+                    entConf.MobileSubTitulo = subTitulo;
+
+                    if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                    {
+                        entConf.MobileCantidadProductos = 0;
+                        entConf.DesktopCantidadProductos = 0;
+                    }
+                }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
@@ -2768,6 +2802,36 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        #region Revista Digital 
+
+        public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
+        {
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
+            {
+                if (!userData.RevistaDigital.TieneRDC) return false;
+            }
+
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
+            {
+                if (!userData.RevistaDigital.TieneRDR) return false;
+            }
+
+            titulo = "OFERTAS ÉSIKA PARA MÍ";
+            subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
+
+            if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+            {
+                if (userData.RevistaDigital.TieneRDC) return false;
+                if (userData.RevistaDigital.TieneRDR) return false;
+                
+                titulo = "OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
+            }
+
+            return true;
+        }
+
+        #endregion
 
     }
 }
