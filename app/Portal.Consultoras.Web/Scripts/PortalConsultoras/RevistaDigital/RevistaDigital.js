@@ -142,28 +142,20 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click",
-        "[data-item-accion='verdetalle']",
-        function(e) {
-            var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
-            var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
-            var obj = GetProductoStorage(cuv, campania);
-            if (obj == undefined) {
-                return;
-            }
-            obj.CUV2 = $.trim(obj.CUV2);
-
-            if (obj.CUV2 != "") {
-                VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
-                var guardo = EstrategiaGuardarTemporal(obj);
-                if (guardo)
-                    return window.location = urlOfertaDetalleProducto +
-                        "?cuv=" +
-                        obj.CUV2 +
-                        "&campaniaId=" +
-                        obj.CampaniaID;
-            }
-        });
+    $("body").on("click", "[data-item-accion='verdetalle']", function(e) {
+        var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
+        var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
+        var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
+        obj.CUV2 = $.trim(obj.CUV2);
+        if (obj.CUV2 != "") {
+            VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
+            var guardo = EstrategiaGuardarTemporal(obj);
+            if (guardo)
+                return window.location = urlOfertaDetalleProducto +
+                    "?cuv=" + obj.CUV2 +
+                    "&campaniaId=" + obj.CampaniaID;
+        }
+    });
 
 });
 
@@ -225,43 +217,7 @@ function OfertaArmarEstrategias(response) {
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
-        response.Seccion = listaSeccion["LAN-" + response.CampaniaID];
-        if (response.Seccion == undefined) {
-            response.Seccion = listaSeccion["RD-" + response.CampaniaID];
-        }
-        if (response.Seccion == undefined) {
-            response.Seccion = listaSeccion["RDR-" + response.CampaniaID];
-        }
-
-        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
-
-        var cant = response.Seccion.CantidadProductos || 0;
-        cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
-        if (cant > 0) {
-            var newLista = [];
-            var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
-
-            $.each(listaItem, function (ind, item) {
-                if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
-                    if (ind < cant) {
-                        newLista.push(item);
-                    }
-                }
-            });
-
-            if (response.Seccion.Codigo == "LAN") {
-                response.listaLan = newLista;
-                response.lista = [];
-            }
-            else {
-                response.listaLan = [];
-                response.lista = newLista;
-            }
-
-        }
-
-        SeccionMostrarProductos(response);
-
+        OfertaArmarEstrategiasContenedor(response);
         return false;
     }
 
@@ -350,6 +306,52 @@ function OfertaArmarEstrategias(response) {
     if (!isDetalle) {
         LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
     }
+}
+
+function OfertaArmarEstrategiasContenedor(response) {
+
+    LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+
+    var listaSeccionesRD = ["LAN", "RD", "RDR"]
+
+    $.each(listaSeccionesRD, function (ind, tipo) {
+        response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
+        if (response.Seccion == undefined) {
+            var seccHtml = $('[data-seccion]').find('[data-seccion="' + tipo + '"]');
+            if (seccHtml.length != 1) {
+                response.Seccion = SeccionObtenerSeccion(seccHtml);
+                OfertaArmarEstrategiasContenedorSeccion(response);
+            }
+        }
+    });
+}
+
+function OfertaArmarEstrategiasContenedorSeccion(response) {
+    var cant = response.Seccion.CantidadProductos || 0;
+    cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
+    if (cant > 0) {
+        var newLista = [];
+        var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
+
+        $.each(listaItem, function (ind, item) {
+            if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
+                if (ind < cant) {
+                    newLista.push(item);
+                }
+            }
+        });
+
+        if (response.Seccion.Codigo == "LAN") {
+            response.listaLan = newLista;
+            response.lista = [];
+        }
+        else {
+            response.listaLan = [];
+            response.lista = newLista;
+        }
+    }
+
+    SeccionMostrarProductos(response);
 }
 
 function RDFiltrarLista(response, busquedaModel) {
