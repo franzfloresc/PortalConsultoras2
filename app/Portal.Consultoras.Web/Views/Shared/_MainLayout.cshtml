@@ -864,7 +864,7 @@
         var DesktopLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopLiquidacion;
         var DesktopCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp;
         var DesktopCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado;
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
         var ViewBagEsMobile = '@ViewBag.EsMobile';        
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; 

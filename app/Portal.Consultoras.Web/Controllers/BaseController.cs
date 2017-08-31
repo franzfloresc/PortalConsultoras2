@@ -501,7 +501,7 @@ namespace Portal.Consultoras.Web.Controllers
                 //if (permiso.Descripcion.ToLower() == "VENTA EXCLUSIVA WEB".ToLower())
                 if (permiso.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                         permiso.UrlItem = AccionControlador("sr");
                     else
                         continue;
@@ -717,7 +717,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (menu.Codigo.ToLower() == Constantes.MenuCodigo.RevistaShowRoom.ToLower())
                 {
-                    if (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() == "1")
+                    if (sessionManager.GetEsShowRoom())
                     {
                         menu.OnClickFunt = "";
                         menu.MenuPadreDescripcion = menu.Descripcion;
@@ -1564,7 +1564,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             const int SHOWROOM_ESTADO_ACTIVO = 1;
             
-            Session["EsShowRoom"] = "0";
+            sessionManager.SetEsShowRoom("0");
             Session["MostrarShowRoomProductos"] = "0";
             Session["MostrarShowRoomProductosExpiro"] = "0";
             //
@@ -1604,7 +1604,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
                     {
-                        Session["EsShowRoom"] = "1";
+                        sessionManager.SetEsShowRoom("1");
 
                         var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 

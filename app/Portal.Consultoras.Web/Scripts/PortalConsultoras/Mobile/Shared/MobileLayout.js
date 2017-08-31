@@ -164,7 +164,7 @@
     var urlBienvenida = URLactual.indexOf("Bienvenida");
 
     if (urlBienvenida > 0) {
-        if (sesionEsShowRoom != null && sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             $("#contentmobile").css({ 'margin-top': '0px' });
         } else {
             $("#contentmobile").css({ 'margin-top': '63px' });

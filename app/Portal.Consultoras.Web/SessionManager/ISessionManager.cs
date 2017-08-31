@@ -14,7 +14,6 @@ namespace Portal.Consultoras.Web.SessionManager
 
         void SetPedidoWeb(BEPedidoWeb pedidoWeb);
 
-
         List<BEPedidoWebDetalle> GetDetallesPedido();
 
         void SetDetallesPedido(List<BEPedidoWebDetalle> detallesPedidoWeb);
@@ -22,5 +21,9 @@ namespace Portal.Consultoras.Web.SessionManager
         List<ObservacionModel> GetObservacionesProl();
 
         void SetObservacionesProl(List<ObservacionModel> observaciones);
+
+        void SetEsShowRoom(string flag);
+
+        bool GetEsShowRoom();
     }
 }
