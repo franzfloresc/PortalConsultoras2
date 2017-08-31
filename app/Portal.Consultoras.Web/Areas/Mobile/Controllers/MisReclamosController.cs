@@ -133,20 +133,44 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
+        public ActionResult DetalleCDR(long solicitudId)
+        {
+            BELogCDRWeb logCdrWeb = new BELogCDRWeb();
+            var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                logCdrWeb = sv.GetLogCDRWebByLogCDRWebId(userData.PaisID, solicitudId);
+
+                listaCdrWebDetalle = sv.GetCDRWebDetalleLog(userData.PaisID, logCdrWeb).ToList() ?? new List<BECDRWebDetalle>();
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+            }
+
+            var model = Mapper.Map<CDRWebModel>(logCdrWeb);
+            model.NombreConsultora = userData.NombreConsultora;
+            model.CodigoIso = userData.CodigoISO;
+            model.Simbolo = userData.Simbolo;
+            model.ListaDetalle = listaCdrWebDetalle;
+            model.OrigenCDRDetalle = "1";
+            if (model.FechaCulminado.HasValue)
+            {
+                model.FormatoFechaCulminado = string.Format("{0}/{1}/{2}",
+                    model.FechaCulminado.Value.Day.ToString().PadLeft(2, '0'),
+                    model.FechaCulminado.Value.Month.ToString().PadLeft(2, '0'),
+                    model.FechaCulminado.Value.Year);
+            }
+            model.FormatoCampaniaID = string.Format("{0}-{1}",
+                model.CampaniaID.ToString().Substring(0, 4),
+                model.CampaniaID.ToString().Substring(4, 2));
+            model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == 3);
+            model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == 4);
+           
+            Session["ListaCDRDetalle"] = model;
+            return RedirectToAction("Detalle");
+        }
+
         public ActionResult Detalle()
         {
-            //try
-            //{
-            //    if (!UsuarioModel.HasAcces(ViewBag.Permiso, "MisReclamos/Detalle"))
-            //        return RedirectToAction("Index", "MisReclamos", new { area = "Mobile" });
-            //}
-            //catch (FaultException ex)
-            //{
-            //    LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            //}
-
-
-
             var objCDR = Session["ListaCDRDetalle"] as CDRWebModel;
 
             MisReclamosModel obj = new MisReclamosModel();
@@ -155,13 +179,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             Session[Constantes.ConstSession.CDRWebDetalle] = null;
             objCDR.ListaDetalle = CargarDetalle(obj);
-
-
+            
             ViewBag.Origen = objCDR.OrigenCDRDetalle;
             ViewBag.FormatoCampania = objCDR.FormatoCampaniaID;
             ViewBag.FormatoFechaCulminado = objCDR.FormatoFechaCulminado;
-            string estadoAprobado = objCDR.CantidadAprobados == 1 ? objCDR.CantidadAprobados + " producto aprobado, " : objCDR.CantidadAprobados + " productos aprobados, "; 
+            string estadoAprobado = objCDR.CantidadAprobados == 1 ? objCDR.CantidadAprobados + " producto aprobado, " : objCDR.CantidadAprobados + " productos aprobados, ";
             string estadoRechazado = objCDR.CantidadRechazados == 1 ? objCDR.CantidadRechazados + " rechazado" : objCDR.CantidadRechazados + " rechazados";
+
             ViewBag.EstadoProductos = estadoAprobado + estadoRechazado;
             ViewBag.CDR_ID = objCDR.CDRWebID;
             ViewBag.Simbolo = userData.Simbolo;
@@ -174,7 +198,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             try
             {
                 if (model.OrigenCDRDetalle == "1")
-                {                    
+                {
                     Session["ListaCDRDetalle"] = model;
                 }
                 return Json(new
