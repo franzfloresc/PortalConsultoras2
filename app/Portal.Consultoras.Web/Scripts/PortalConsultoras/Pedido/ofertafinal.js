@@ -475,7 +475,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
         } 
         
         if (parseFloat(data.total) >= montolimite) {
-            var msj = tipoOrigen == "2" ? "Ganancia estimada total: " : "Ahora tu ganancia estimada total es ";
+            var msj = tipoOrigen == "2" ? "Ahora tu ganancia estimada total es " : "Ahora tu ganancia estimada total es ";
             $("#spnTituloOfertaFinal span").html("¡LLEGASTE AL <b>MONTO MÍNIMO!</b>");
             if (ValoresOFR != null) {
                 if (ValoresOFR.total >= ValoresOFR.meta
