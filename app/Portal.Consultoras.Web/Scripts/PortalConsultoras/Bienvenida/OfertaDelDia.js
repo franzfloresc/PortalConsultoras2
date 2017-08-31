@@ -245,7 +245,7 @@ $(document).ready(function () {
             _data.ListaOfertas = AsignarPosicionAListaOfertas(_data.ListaOfertas);
             _data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(_data.ListaOfertas);
             fechaMostrarBanner = Date.now();
-            odd_mobile_google_analytics_promotion_impresion(_data.ListaOfertas, "page_load");
+            //odd_mobile_google_analytics_promotion_impresion(_data.ListaOfertas, "page_load");
             SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, _data, elements.ContenedorOfertaDelDiaMobile);
         }
     }
@@ -686,8 +686,7 @@ $(document).ready(function () {
         $(elements.TxtCantidadMobile).val(1);
     }
 
-    function ConfigurarSlick()
-    {
+    function ConfigurarSlick() {
         $(elements.ContenedorOfertaDelDiaMobile).show();
         $(elements.ContenedorOfertaDelDiaMobile + '.slick-initialized').slick('unslick');
         $(elements.ContenedorOfertaDelDiaMobile).slick({
