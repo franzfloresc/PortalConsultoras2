@@ -211,8 +211,8 @@ namespace Portal.Consultoras.Web.Controllers
             var resultado = false;
 
             var esShowRoom = sessionManager.GetEsShowRoom();
-            var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
-            var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null &&Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
+            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
             if (esIntriga)
             {

@@ -721,7 +721,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         menu.OnClickFunt = "";
                         menu.MenuPadreDescripcion = menu.Descripcion;
-                        if (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1")
+                        if (sessionManager.GetMostrarShowRoomProductos())
                         {
                             menu.ClaseMenu = " etiqueta_showroom wsventa";
                         }
@@ -922,7 +922,7 @@ namespace Portal.Consultoras.Web.Controllers
                 else
                 {
                     confi.DesktopTituloBanner += ", BIENVENIDA A ÉSIKA PARA MÍ TU NUEVA REVISTA ONLINE PRESONALIZADA";
-                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. <br />INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
+                    confi.DesktopSubTituloBanner = "ENCUENTRA LAS MEJORES OFERTAS Y BONIFICACIONES EXTRAS. INSCRÍBETE PARA DISFRUTAR DE TODAS ELLAS";
                 }
                 
                 return;
@@ -1568,8 +1568,8 @@ namespace Portal.Consultoras.Web.Controllers
             const int SHOWROOM_ESTADO_ACTIVO = 1;
             
             sessionManager.SetEsShowRoom("0");
-            Session["MostrarShowRoomProductos"] = "0";
-            Session["MostrarShowRoomProductosExpiro"] = "0";
+            sessionManager.SetMostrarShowRoomProductos("0");
+            sessionManager.SetMostrarShowRoomProductosExpiro("0");
             //
             model.BeShowRoomConsultora = null;
             model.BeShowRoom = null;
@@ -1616,11 +1616,11 @@ namespace Portal.Consultoras.Web.Controllers
                         if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                             && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                         {
-                            Session["MostrarShowRoomProductos"] = "1";
+                            sessionManager.SetMostrarShowRoomProductos("1");
                         }
 
                         if (fechaHoy > model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
-                            Session["MostrarShowRoomProductosExpiro"] = "1";
+                            sessionManager.SetMostrarShowRoomProductosExpiro("1");
                     }
 
                     if (personalizacionesNivel != null && personalizacionesNivel.Any())
@@ -2164,7 +2164,7 @@ namespace Portal.Consultoras.Web.Controllers
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
                 model.MostrarShowRoomProductos = true;
-                Session["MostrarShowRoomProductos"] = "1";
+                sessionManager.SetMostrarShowRoomProductos("1");
             }
             if (fechaHoy > userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date)
                 model.EstaActivoLateral = false;
@@ -2612,7 +2612,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case "sr":
                         controlador = "ShowRoom";
-                        bool esVenta = (Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1");
+                        bool esVenta = (sessionManager.GetMostrarShowRoomProductos());
                         accion = esVenta ? "Index" : "Intriga";
                         break;
                 }
