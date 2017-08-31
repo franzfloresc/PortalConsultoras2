@@ -11,6 +11,7 @@ namespace Portal.Consultoras.Entities
         public int ClienteIDSB { get; set; }
         public string CodigoRespuesta { get; set; }
         public string MensajeRespuesta { get; set; }
+        public bool Insertado { get; set; }
 
         public IEnumerable<BENota> Notas { get; set; }
 
