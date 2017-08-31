@@ -1403,24 +1403,19 @@ namespace Portal.Consultoras.Web.Controllers
                         case 3:
                             DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
                             DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
-                            DirNumero = DireccionConcatenada[2].ToString().Trim();
 
-                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
-                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+                            model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;  
+                            model.EditarDireccionModel.LugarNivel3 = DirlugarNivel3;
 
                             model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
-                            model.EditarDireccionModel.Numero = DirNumero;
+                            model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
                             break;
-                        case 2://nunca debería entrar aqui
+                        case 2:
                             DirlugarNivel3 = DireccionConcatenada[0].ToString().Trim();
                             DirCalleOAvenida = DireccionConcatenada[1].ToString().Trim();
 
                             model.EditarDireccionModel.NombreLugarNivel3 = DirlugarNivel3;
-                            lugaresNivel3 = sv.ObtenerParametrosUnete(CodigoISO, EnumsTipoParametro.LugarNivel3, model.EditarDireccionModel.LugarNivel2.ToInt());
-                            model.EditarDireccionModel.LugarNivel3 = lugaresNivel3.Where(x => x.Nombre == DirlugarNivel3).FirstOrDefault().IdParametroUnete.ToString();
-                            model.EditarDireccionModel.LugaresNivel3 = new SelectList(lugaresNivel3, "IdParametroUnete", "Nombre", model.EditarDireccionModel.LugarNivel3);
+                            model.EditarDireccionModel.LugarNivel3 = DirlugarNivel3;
 
                             model.EditarDireccionModel.CalleOAvenida = DirCalleOAvenida;
                             model.EditarDireccionModel.Numero = solicitudPostulante.CodigoPostal;
@@ -4032,7 +4027,7 @@ namespace Portal.Consultoras.Web.Controllers
                             : model.CodigoPais == Pais.Dominicana
                             ? model.CalleOAvenida
                               : model.CodigoPais == Pais.PuertoRico
-                            ? model.CalleOAvenida
+                             ? model.LugarNivel3 + "|" + model.CalleOAvenida
                             : model.CalleOAvenida + "|" + model.Numero,
 
                 NombreRegion = CodigoISO == Pais.Peru ? model.NombreLugarNivel2 : model.NombreLugarNivel1,
