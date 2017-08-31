@@ -8,6 +8,7 @@ var isDetalle = false;
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
     UrlRevistaDigitalComprar: baseUrl + 'revistadigital/Comprar',
+    UrlRevistaDigitalRevisar: baseUrl + 'revistadigital/Revisar',
     UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/'
 };
 
@@ -317,8 +318,8 @@ function OfertaArmarEstrategiasContenedor(response) {
     $.each(listaSeccionesRD, function (ind, tipo) {
         response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
         if (response.Seccion == undefined) {
-            var seccHtml = $('[data-seccion]').find('[data-seccion="' + tipo + '"]');
-            if (seccHtml.length != 1) {
+            var seccHtml = $('[data-seccion][data-seccion="' + tipo + '"]');
+            if (seccHtml.length == 1) {
                 response.Seccion = SeccionObtenerSeccion(seccHtml);
                 OfertaArmarEstrategiasContenedorSeccion(response);
             }
@@ -564,3 +565,9 @@ function RDPageInformativa() {
     window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
 }
 
+function RDDetalleVolver(campaniaId) {
+    if (campaniaCodigo == campaniaId) {
+        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
+    }
+    window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalRevisar;
+}

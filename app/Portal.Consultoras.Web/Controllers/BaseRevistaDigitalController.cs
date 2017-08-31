@@ -84,16 +84,16 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv  || modelo.CampaniaID != campaniaId)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
 
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
             if (EsCampaniaFalsa(modelo.CampaniaID))
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
 
             if (modelo.EstrategiaID > 0)
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 return View(modelo);
             }
-            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+            return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
         }
 
         public bool EsCampaniaFalsa(int campaniaId)

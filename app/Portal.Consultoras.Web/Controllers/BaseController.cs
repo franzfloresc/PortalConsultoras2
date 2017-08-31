@@ -2745,7 +2745,19 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
-                        seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                        if (sessionManager.GetEsShowRoom() && 
+                            !sessionManager.GetMostrarShowRoomProductos() && 
+                            !sessionManager.GetMostrarShowRoomProductosExpiro())
+                        {
+                            seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
+                        }
+
+                        if (sessionManager.GetEsShowRoom() && 
+                            sessionManager.GetMostrarShowRoomProductos() && 
+                            !sessionManager.GetMostrarShowRoomProductosExpiro())
+                        {
+                            seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                        }
                         break;
                     default:
                         break;
@@ -2771,9 +2783,11 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
-                        seccion.TemplatePresentacion = "seccion-showroom";
-                        seccion.TemplateProducto = "#template-showroom";
-                       
+                        if (sessionManager.GetEsShowRoom())
+                        {
+                            seccion.TemplatePresentacion = "seccion-showroom";
+                            seccion.TemplateProducto = "#template-showroom";
+                        }
                         break;
                     default:
                         break;

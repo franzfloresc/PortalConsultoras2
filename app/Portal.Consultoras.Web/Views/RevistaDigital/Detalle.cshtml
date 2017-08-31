@@ -1,6 +1,5 @@
 ﻿
 @using Portal.Consultoras.Common
-@using Portal.Consultoras.Web.Models
 
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
@@ -17,7 +16,7 @@
     <div class="revista_fondo_ficha"></div>
     <div class="content_belcorp">       
         <div class="rd_volver">
-            <a href="@Url.Action("Index","RevistaDigital", new { area = ""})">
+            <a href="javascript: RDDetalleVolver(@Model.CampaniaID);">
                 <img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")"/>
                 VOLVER
             </a>
@@ -82,10 +81,6 @@
                     <span class="hblock_title_perdio">@ViewBag.NombreConsultora, POR SI TE LO PERDISTE</span><br />
                     <span class="hblock_title_perdio2">GANA MÁS CON OFERTAS PARA SUSCRIPTORAS DESDE C-@ViewBag.CampaniaMasDos</span>
                 </div>
-
-                @*<div class="btn_diagonal rd_btn_rojo_right" style="top: 0;">
-                    <a href="javascript: RDPageInformativa();">INSCRIBIRME A ÉSIKA PARA MÍ</a>
-                </div>*@
             </div>
             <hr class="clear">
         }
@@ -143,8 +138,7 @@
 </div>
 @Html.Action("MensajeBloqueado", "RevistaDigital")
 <div class="flecha_scroll">
-    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll">
-    </a>
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
 </div>
 
 
