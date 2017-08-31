@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var titulo = "(" + userData.CodigoISO + ") Consultora que atenderá tu pedido de " + HttpUtility.HtmlDecode(Marca);
                 var mensaje = new StringBuilder();
                 mensaje.AppendFormat("<p>Hola {0},</br><br /><br />", HttpUtility.HtmlDecode(NombreCliente));
-                mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente); 
+                mensaje.AppendFormat("{0}</p><br/>", MensajeaCliente);
                 mensaje.Append("<br/>Saludos,<br/><br />");
                 mensaje.Append("<table><tr><td><img src=\"cid:{0}\" /></td>");
                 mensaje.AppendFormat("<td><p style='text-align: center;'><strong>{0}<br/>Consultora</strong></p></td></tr></table>", UserData().NombreConsultora);
@@ -151,9 +151,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 var tablalogicaDatosMail = service.GetTablaLogicaDatos(userData.PaisID, 57);
                 var emailOculto = tablalogicaDatosMail.First(x => x.TablaLogicaDatosID == 5701).Descripcion;
                 var tablalogicaDatos = service.GetTablaLogicaDatos(userData.PaisID, 56);
-                
+
                 numIteracionMaximo = Convert.ToInt32(tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5601).Codigo);
-                
+
                 if (NumIteracion == numIteracionMaximo)
                 {
                     service.RechazarSolicitudCliente(userData.PaisID, SolicitudId, true, 6, "");
@@ -209,11 +209,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var lstObservaciones = new List<BENotificacionesDetalle>();
             var lstObservacionesPedido = new List<BENotificacionesDetallePedido>();
             var model = new NotificacionesMobileModel();
-            
+
             using (var service = new UsuarioServiceClient())
             {
                 lstObservaciones = service.GetNotificacionesConsultoraDetalle(userData.PaisID, ProcesoId, TipoOrigen).ToList();
-                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, ProcesoId, TipoOrigen).ToList(); 
+                lstObservacionesPedido = service.GetNotificacionesConsultoraDetallePedido(userData.PaisID, ProcesoId, TipoOrigen).ToList();
             }
             model.Asunto = notificacion.Asunto;
             model.Campania = notificacion.CampaniaId;
@@ -255,7 +255,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 lstObservacionesPedido = service.GetValidacionStockProductos(userData.PaisID, userData.ConsultoraID, ValStockId).ToList();
             }
-            
+
             foreach (var item in lstObservacionesPedido)
             {
                 if (item.StockDisponible == 0) item.ObservacionPROL = string.Format("El producto {0} - {1} - cuenta nuevamente con stock. Si deseas agrégalo a tu pedido.", item.CUV, item.Descripcion);
@@ -305,21 +305,21 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             NotificacionesModel model = new NotificacionesModel();
             List<BELogGPRValidacion> LogsGPRValidacion = new List<BELogGPRValidacion>(); ;
-          
+
             using (PedidoRechazadoServiceClient sv = new PedidoRechazadoServiceClient())
             {
-                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();                
+                LogsGPRValidacion = sv.GetBELogGPRValidacionByGetLogGPRValidacionId(userData.PaisID, ProcesoId, userData.ConsultoraID).ToList();
             }
 
             CargarMensajesNotificacionesGPR(model, LogsGPRValidacion);
             model.NombreConsultora = (string.IsNullOrEmpty(userData.Sobrenombre) ? userData.NombreConsultora : userData.Sobrenombre);
             model.CampaniaDescripcion = userData.CampaniaID.ToString();// + " " + model.Campania.Substring(0, 4);
-            //model.FechaValidacionString = model.CampaniaDescripcion.ToString("dd/MM/yyyy hh:mm tt");
-            //model.Total = model.SubTotal + model.Descuento;
-            //model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
-            //model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
-            //model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
-           
+                                                                       //model.FechaValidacionString = model.CampaniaDescripcion.ToString("dd/MM/yyyy hh:mm tt");
+                                                                       //model.Total = model.SubTotal + model.Descuento;
+                                                                       //model.SubTotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.SubTotal, userData.CodigoISO);
+                                                                       //model.DescuentoString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Descuento, userData.CodigoISO);
+                                                                       //model.TotalString = userData.Simbolo + " " + Util.DecimalToStringFormat(model.Total, userData.CodigoISO);
+
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 
@@ -333,7 +333,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             var list = new List<BENotificaciones>();
             using (var sv = new UsuarioServiceClient())
             {
-                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, 1).ToList();
+                list = sv.GetNotificacionesConsultora(userData.PaisID, userData.ConsultoraID, userData.IndicadorBloqueoCDR).ToList();
             }
             return list;
         }
