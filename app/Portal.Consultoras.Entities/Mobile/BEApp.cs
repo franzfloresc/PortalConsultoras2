@@ -35,6 +35,9 @@ namespace Portal.Consultoras.Entities.Mobile
         [DataMember]
         public DateTime FechaActualizacion { get; set; }
 
+        [DataMember]
+        public string MinimaVersion { get; set; }
+
         public BEApp()
         { }
 
@@ -66,6 +69,9 @@ namespace Portal.Consultoras.Entities.Mobile
 
             if (row.HasColumn("FechaActualizacion"))
                 FechaActualizacion = row.GetValue<DateTime>("FechaActualizacion");
+
+            if (row.HasColumn("MinimaVersion"))
+                MinimaVersion = row.GetValue<string>("MinimaVersion");
         }
     }
 }
