@@ -929,7 +929,8 @@
 
 
 <script>
-
+    var geocoder = new google.maps.Geocoder;
+    var infowindow = new google.maps.InfoWindow;
     var defaultOption = '<option value="" >--Seleccione--</option>';
 
 
@@ -1163,6 +1164,27 @@
             //    $('#divEditarDireccion').hide();
             //});
         });
+
+
+        $('#inputSearchBox').focusout(function (a, b) {
+            var texto = $('#inputSearchBox').val();
+
+
+            if (texto != '')
+            {
+
+                if (texto.split(',').length == 2)
+                {
+                    geocodeLatLng(geocoder, map, infowindow);
+
+                }
+
+            }
+    
+
+        });
+
+       
     });
 
 
@@ -1396,6 +1418,7 @@
 
 
     function GetMarkerMorado() {
+        
         var makerMorado = null;
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].icon = urlContentImages + 'icono-maps-lbel.png') {
@@ -1410,7 +1433,7 @@
         return makerMorado;
     }
     function MostrarTerritorio(lat, lnt) {
-
+        
         if (map) {
 
             map.panTo(new google.maps.LatLng(lat, lnt));
@@ -1520,7 +1543,7 @@
     }
 
     function EditMapa() {
-
+        
         if (google && google.maps) {
             modalOpcion.dialog('close');
 
@@ -1561,6 +1584,7 @@
                         setMarkerOnMap(map, this);
                         clearMarkerMenosSeleccionado(this);
                         this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                        
                         MostrarTerritorio(this.position.lat(), this.position.lng());
                     });
 
@@ -1611,6 +1635,7 @@
             });
 
             searchBox.addListener('place_changed', function () {
+                
                 var place = searchBox.getPlace();
 
                 if (!place.id) {
@@ -1636,6 +1661,7 @@
                     this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                     $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
                     $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                    
                     MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
 
                 });
@@ -1645,6 +1671,7 @@
                 } else {
                     bounds.extend(place.geometry.location);
                 }
+                
                 MostrarTerritorio(parseFloat(newMarker.position.lat()).toFixed(7), parseFloat(newMarker.position.lng()).toFixed(7));
                 $('#coordenadasX').val(parseFloat(newMarker.position.lat()).toFixed(7));
                 $('#coordenadasY').val(parseFloat(newMarker.position.lng()).toFixed(7));
@@ -1658,6 +1685,7 @@
     }
 
     function pintarRojo() {
+        
         for (var i = 0; i < markers.length; i++) {
             markers[i].setIcon(urlContentImages + 'icono-maps-esika.png');
         }
@@ -1685,6 +1713,7 @@
     }
 
     function setMarkerOnMap(mapa, marcador) {
+        
         for (var i = 0; i < markers.length; i++) {
             if (markers[i].position.lat() == marcador.position.lat() && markers[i].position.lng() == marcador.position.lng())
             { markers[i].setMap(mapa); }
@@ -1693,6 +1722,7 @@
         }
     }
     function cargarMapa() {
+        
         var GLOBAL = {};
         if (google && google.maps) {
             var markerBounds = new google.maps.LatLngBounds();
@@ -1769,6 +1799,7 @@
                 this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                 $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
                 $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                
                 MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
                 
             });
@@ -1878,6 +1909,7 @@
                     this.setIcon(urlContentImages + 'icono-maps-lbel.png');
                     $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
                     $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                    
                     MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
 
                 });
@@ -1890,6 +1922,7 @@
                 }
                 $('#coordenadasX').val(parseFloat(marker.position.lat()).toFixed(7));
                 $('#coordenadasY').val(parseFloat(marker.position.lng()).toFixed(7));
+                
                 MostrarTerritorio(parseFloat(marker.position.lat()).toFixed(7), parseFloat(marker.position.lng()).toFixed(7));
                 map.fitBounds(bounds);
                 //map.fitBounds(markerBounds);
@@ -1991,6 +2024,71 @@
         $('.button_purple').css('behavior', 'url("@Url.Content("~/Content/Css/Pie/PIE.htc)")")');
     }, 10);
 
+
+    function geocodeLatLng(geocoder, map, infowindow) {
+
+        
+        if ($('#inputSearchBox').val() != ''  ) {
+
+            var input = $('#inputSearchBox').val(); // '-12.1062061,-77.0385050';
+            var latlngStr = input.split(',', 2);
+            var latlng = { lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1]) };
+            geocoder.geocode({ 'location': latlng }, function (results, status) {
+                if (status === 'OK') {
+                    if (results[1]) {
+                        map.setZoom(16);
+                        clearMarkers();
+                        clearPoligonos();
+
+
+                        var newMarker = new google.maps.Marker({
+                            map: map,
+                            // title: place.name,
+                            position: latlng,
+                            icon: urlContentImages + 'icono-maps-lbel.png'
+                        });
+                        //infowindow.setContent(results[1].formatted_address);
+                        //infowindow.open(map, marker);
+
+                        newMarker.addListener('click', function () {
+                            //Change the marker icon
+                            //pintarRojo();
+                            setMarkerOnMap(map, this);
+                            clearMarkerMenosSeleccionado(this)
+                            this.setIcon(urlContentImages + 'icono-maps-lbel.png');
+                            $('#coordenadasX').val(parseFloat(this.position.lat()).toFixed(7));
+                            $('#coordenadasY').val(parseFloat(this.position.lng()).toFixed(7));
+                            
+                            MostrarTerritorio(parseFloat(this.position.lat()).toFixed(7), parseFloat(this.position.lng()).toFixed(7));
+
+                        });
+
+                        markers.push(newMarker);
+                        //if (place.geometry.viewport) {
+                        //    bounds.union(place.geometry.viewport);
+                        //} else {
+                        //    bounds.extend(place.geometry.location);
+                        //}
+                        
+                        MostrarTerritorio(parseFloat(newMarker.position.lat()).toFixed(7), parseFloat(newMarker.position.lng()).toFixed(7));
+                        $('#coordenadasX').val(parseFloat(newMarker.position.lat()).toFixed(7));
+                        $('#coordenadasY').val(parseFloat(newMarker.position.lng()).toFixed(7));
+                        //map.fitBounds(bounds);
+                        //map.fitBounds(markerBounds);
+                        map.setZoom(16);
+                        map.setCenter(newMarker.position);
+
+                    } else {
+                        window.alert('No se encontraron coincidencias para lat, long ingresadas.');
+                    }
+                } else {
+                   // window.alert('Geocoder failed due to: ' + status);
+                    window.alert('No se encontraron coincidencias para lat, long ingresadas.');
+
+                }
+            });
+        }
+    }
 
     
 </script>
