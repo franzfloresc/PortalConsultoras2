@@ -378,6 +378,18 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteReader(command);
         }
+
+        public IDataReader GetClienteByConsultoraDetalle(long ConsultoraID, int CampaniaID)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetClienteByConsultoraDetalle");
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }
 

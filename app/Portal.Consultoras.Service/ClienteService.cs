@@ -144,9 +144,9 @@ namespace Portal.Consultoras.Service
             return BLCliente.SaveDB(paisID, clientes);
         }
 
-        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
         {
-            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID, campaniaID);
         }
 
         public BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente)
