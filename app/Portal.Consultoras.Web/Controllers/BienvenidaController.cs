@@ -1794,8 +1794,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
-                var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null && Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
                 mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
                 mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
