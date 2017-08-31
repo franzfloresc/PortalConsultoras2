@@ -195,6 +195,7 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="DataAccessConfiguration.cs" />
     <Compile Include="DATablaLogicaDatos.cs" />
+    <Compile Include="DATerminosCondiciones.cs" />
     <Compile Include="DATipoEstrategia.cs" />
     <Compile Include="DATipoMeta.cs" />
     <Compile Include="DATracking.cs" />

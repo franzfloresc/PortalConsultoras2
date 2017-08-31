@@ -315,6 +315,7 @@ namespace Portal.Consultoras.Data
                 Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaId);
                 Context.Database.AddInParameter(command, "@TipoConfigurado", DbType.Int32, tipoConfigurado);
                 Context.Database.AddInParameter(command, "@TipoEstrategia", DbType.Int32, estrategiaId);
+                command.CommandTimeout = 0;
                 return Context.ExecuteReader(command);
             }
         }
@@ -332,7 +333,10 @@ namespace Portal.Consultoras.Data
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,             
                 UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.FotoProducto01
+                FotoProducto01 = item.ImagenURL,
+                CodigoEstrategia = item.CodigoEstrategia,
+                TieneVariedad = item.TieneVariedad
+                
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaTemporal");
@@ -393,7 +397,9 @@ namespace Portal.Consultoras.Data
                 PrecioOferta = item.Precio2,
                 PrecioTachado = item.Precio,
                 UsuarioCreacion = codigoUsuario,
-                FotoProducto01 = item.FotoProducto01
+                FotoProducto01 = item.ImagenURL,
+                TieneVariedad = item.TieneVariedad,
+                CodigoEstrategia = item.CodigoEstrategia
             }).ToList();
 
             var command = new SqlCommand("dbo.InsertEstrategiaOfertaParaTi");
