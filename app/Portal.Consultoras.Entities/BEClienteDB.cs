@@ -75,6 +75,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal Saldo { get; set; }
+        [DataMember]
+        public int CantidadProductos { get; set; }
 
         [DataMember]
         public List<BEClienteContactoDB> Contactos { get; set; }
