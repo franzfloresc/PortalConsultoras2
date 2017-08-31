@@ -31,5 +31,10 @@ namespace Portal.Consultoras.Service
         {
             return new BLAsesoraOnline().ValidarAsesoraOnlineConfiguracionPais(paisISO, codigoConsultora);
         }
+
+        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
+        {
+           new BLAsesoraOnline().EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+        }
     }
 }

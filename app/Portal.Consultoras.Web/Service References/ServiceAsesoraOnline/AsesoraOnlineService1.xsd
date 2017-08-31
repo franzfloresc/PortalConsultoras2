@@ -78,4 +78,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EnviarMailBienvenidaAsesoraOnline">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="emailFrom" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="emailTo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="titulo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="displayname" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="nombreConsultora" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarMailBienvenidaAsesoraOnlineResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

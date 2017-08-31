@@ -5,6 +5,7 @@ using Portal.Consultoras.Entities.AsesoraOnline;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 using System.Data;
+using Portal.Consultoras.Common;
 
 //Made by Uchida Virtual Coach
 namespace Portal.Consultoras.BizLogic
@@ -52,6 +53,10 @@ namespace Portal.Consultoras.BizLogic
             int paisID = GetPaisID(paisISO);
             var DAAsesoraOnline = new DAAsesoraOnline(paisID);
             return DAAsesoraOnline.ValidarAsesoraOnlineConfiguracionPais(codigoConsultora);
+        }
+
+        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
+            MailUtilities.EnviarMailBienvenidaAsesoraOnline(emailFrom,  emailTo,  titulo, displayname, nombreConsultora);
         }
 
         public int GetPaisID(string ISO)

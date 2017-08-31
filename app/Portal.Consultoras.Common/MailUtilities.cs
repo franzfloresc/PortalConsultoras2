@@ -365,7 +365,7 @@ namespace Portal.Consultoras.Common
 
         public static void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
         {
-            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Template\\mailing_bienvenida_coach_virtual.html";
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_bienvenida_coach_virtual.html";
             string htmlTemplate = FileManager.GetContenido(templatePath);
 
             htmlTemplate = htmlTemplate.Replace("#NombreConsultora#", nombreConsultora);
