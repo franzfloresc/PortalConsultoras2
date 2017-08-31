@@ -1695,7 +1695,7 @@ function ObservacionesProducto(item) {
 
         $("#divObservaciones").html("");
 
-        if (sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
         } else {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
@@ -1781,7 +1781,7 @@ function ObservacionesProducto(item) {
     $("#txtCantidad").focus();
     
     if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom != "1") {
+        if (!sesionEsShowRoom) {
             $("#txtDescripcionProd").val("");
             $("#hdfDescripcionProd").val("");
             $("#txtPrecioR").val("");

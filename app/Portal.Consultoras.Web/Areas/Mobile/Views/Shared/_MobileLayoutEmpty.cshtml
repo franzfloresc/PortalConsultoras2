@@ -222,7 +222,7 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var sesionEsShowRoom = '@Session["EsShowRoom"]' === '1';
        
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
