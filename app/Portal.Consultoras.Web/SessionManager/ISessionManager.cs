@@ -25,5 +25,13 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetEsShowRoom(string flag);
 
         bool GetEsShowRoom();
+
+        void SetMostrarShowRoomProductos(string flag);
+
+        bool GetMostrarShowRoomProductos();
+
+        void SetMostrarShowRoomProductosExpiro(string flag);
+
+        bool GetMostrarShowRoomProductosExpiro();
     }
 }
