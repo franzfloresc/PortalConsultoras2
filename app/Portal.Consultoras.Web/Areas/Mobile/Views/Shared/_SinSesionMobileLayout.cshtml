@@ -147,7 +147,7 @@
         var MobileCatalogoPersonalizado = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizado;
         var MobileCatalogoPersonalizadoPopUp = @Constantes.OrigenPedidoWeb.MobileCatalogoPersonalizadoPopUp;
 
-        var sesionEsShowRoom = '@Session["EsShowRoom"]' === '1';
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
         var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
