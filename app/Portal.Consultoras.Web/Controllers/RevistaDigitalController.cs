@@ -152,7 +152,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var palanca = model.CampaniaID != userData.CampaniaID
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : userData.RevistaDigital.TieneRDC 
+                        ? userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : ""
+                        : userData.RevistaDigital.TieneRDR
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : "";
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);

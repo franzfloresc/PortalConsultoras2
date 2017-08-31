@@ -21,13 +21,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (Request.Browser.IsMobileDevice)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-
             var model = new BienvenidaHomeModel();
 
             try
             {
+                if (Request.Browser.IsMobileDevice)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 

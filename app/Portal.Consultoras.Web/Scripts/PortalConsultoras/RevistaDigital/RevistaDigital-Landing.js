@@ -324,13 +324,11 @@ function AgregarProductoAlCarrito(padre) {
 
 function OfertaCargarScroll() {
 
-    if (isScroll === false) {
-        return false;
-    }
+    if (isScroll === false) return false;
+    
+    var footerH = $(window).scrollTop() + $(window).height()
 
-    console.log("OfertaCargarScroll");
-
-    if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+    if (footerH == $(document).height()) {
         $(".flecha_scroll").animate({
             opacity: 0
         }, 100, 'swing', function () {
@@ -346,31 +344,8 @@ function OfertaCargarScroll() {
     }
 
     if (campaniaId <= 0) return false;
-    var footerH = $(window).scrollTop() + $(window).height() + $("footer").innerHeight();
 
-    //var seccFix = $("[data-listado-campania='" + campaniaId + "'] #orderby-filter");
-
-    //if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top + $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() + 20) {
-    //    seccFix.addClass("fix-search");
-    //    $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", (seccFix.height()) + "px");
-    //} else {
-    //    seccFix.removeClass("fix-search");
-    //    $("[data-listado-campania='" + campaniaId + "'] #RDListado").css("margin-top", "");
-    //}
-
-    //var seccFixInscribite= $("#block_inscribete");
-    //if ($(window).scrollTop() > $("[data-tag-html='" + campaniaId + "']").position().top +
-    //    $("[data-tag-html='" + campaniaId + "']").find("#divCarruselLan").height() +
-    //    $("[data-tag-html='" + campaniaId + "']").find("#divOfertaProductos").height() + 20) {
-    //    seccFixInscribite.addClass("fix-search");
-    //} else {
-    //    seccFixInscribite.removeClass("fix-search");
-    //}
-
-    var header = $("header").innerHeight();
-
-    //$(".fix-search").css("top", header + 'px');
-
+    footerH += $("footer").innerHeight() || 0;
     if (footerH >= $(document).height()) {
 
         var filtroCamp = filtroCampania[OfertaObtenerIndLocal(campaniaId)];
