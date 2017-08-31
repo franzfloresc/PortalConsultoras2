@@ -91,7 +91,13 @@
 <div class="wrap_cab">
     <div class="filtros2">
         <div class="elements" style="margin: 0 300px 0px 300px !important;">
-            <div class="div-2" style="letter-spacing: 2.1px; font-size: 25px; font-weight: 300; color:black; margin-bottom: 37px; font-family: 'lato'; ">
+            <div class="div-2" style="letter-spacing: 2.1px;
+    font-size: 25px;
+    font-weight: 300;
+  color:black;
+    margin-bottom: 37px;
+    font-family: 'lato';
+    ">
                 Herramienta de <b> Gesti&oacute;n</b>
             </div>
             <div class="div-3">
@@ -1781,7 +1787,7 @@
 
     function buildDocsPR(solicitudPostulanteID) {
         $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenDNI'), 1, 'Seguro Social'));//Imagen IFE
-        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 2, 'Contrato'));//ImagenContrato
+        $('#list01').append(buildItemList(getValueFromDataAttrib(solicitudPostulanteID, 'ImagenContrato'), 3, 'Contrato'));//ImagenContrato
     }
 
     function buildDocsGT(solicitudPostulanteID) {
@@ -1815,6 +1821,9 @@
         if (codigoIso == 'CO') {
             buildDocsCO(solicitudPostulanteID);
         }
+        else if (codigoIso == 'BO') {
+       buildDocsBO(solicitudPostulanteID);
+        }        
         else if (codigoIso == 'PE') {
             buildDocsPE(solicitudPostulanteID);
         }

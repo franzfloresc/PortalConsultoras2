@@ -17,10 +17,10 @@
     <meta property="og:site_name" content="Somos Belcorp" />
     <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
 
-    <link href="~/Content/Css/Site/Login2/style_esika.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika==false ? "disabled='disabled'":"") />
-    <link href="~/Content/Css/Site/Login2/style_lbel.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel"  @(ViewBag.EsPaisLbel==false ? "disabled='disabled'":"") />
-    <link href="~/Content/Css/ui.jquery/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/Css/Site/jquery.custom-scrollbar.css" rel="stylesheet" />
+    <link href="~/Content/Css/Site/Login2/style_esika.min.css" rel="stylesheet" data-id="cssStyle" id="cssStyle" @(ViewBag.EsPaisEsika == false ? "disabled='disabled'" : "") />
+    <link href="~/Content/Css/Site/Login2/style_lbel.min.css" rel="stylesheet" data-id="cssStyleLbel" id="cssStyleLbel" @(ViewBag.EsPaisLbel == false ? "disabled='disabled'" : "") />
+     
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Login")
 
     <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
 
@@ -34,6 +34,7 @@
 
         var esPaisEsika = '@ViewBag.EsPaisEsika';
         var esPaisLbel = '@ViewBag.EsPaisLbel';
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
 
         var _gaq = _gaq || [];
 
@@ -74,8 +75,8 @@
                 'gtm.start':
                 new Date().getTime(), event: 'gtm.js'
             }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
         })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
     </script>
     <!-- End Google Tag Manager -->
