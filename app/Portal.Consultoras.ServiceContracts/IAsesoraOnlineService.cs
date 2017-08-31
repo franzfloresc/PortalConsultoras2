@@ -21,5 +21,8 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         int ValidarAsesoraOnlineConfiguracionPais(string paisISO, string codigoConsultora);
+
+        [OperationContract]
+        void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora);
     }
 }

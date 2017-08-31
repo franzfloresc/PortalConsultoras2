@@ -38,6 +38,12 @@
   <wsdl:message name="IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarAsesoraOnlineConfiguracionPaisResponse" />
   </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMailBienvenidaAsesoraOnline" />
+  </wsdl:message>
+  <wsdl:message name="IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMailBienvenidaAsesoraOnlineResponse" />
+  </wsdl:message>
   <wsdl:portType name="IAsesoraOnlineService">
     <wsdl:operation name="EnviarFormulario">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarFormulario" message="tns:IAsesoraOnlineService_EnviarFormulario_InputMessage" />
@@ -58,6 +64,10 @@
     <wsdl:operation name="ValidarAsesoraOnlineConfiguracionPais">
       <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais" message="tns:IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPaisResponse" message="tns:IAsesoraOnlineService_ValidarAsesoraOnlineConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMailBienvenidaAsesoraOnline">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline" message="tns:IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineResponse" message="tns:IAsesoraOnlineService_EnviarMailBienvenidaAsesoraOnline_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IAsesoraOnlineService" type="tns:IAsesoraOnlineService">
@@ -100,6 +110,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarAsesoraOnlineConfiguracionPais">
       <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarMailBienvenidaAsesoraOnline">
+      <soap:operation soapAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

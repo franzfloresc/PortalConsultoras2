@@ -2783,6 +2783,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPais", ReplyAction="http://tempuri.org/IAsesoraOnlineService/ValidarAsesoraOnlineConfiguracionPaisRes" +
             "ponse")]
         System.Threading.Tasks.Task<int> ValidarAsesoraOnlineConfiguracionPaisAsync(string paisISO, string codigoConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineRespons" +
+            "e")]
+        void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnline", ReplyAction="http://tempuri.org/IAsesoraOnlineService/EnviarMailBienvenidaAsesoraOnlineRespons" +
+            "e")]
+        System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2850,6 +2858,14 @@ namespace Portal.Consultoras.Web.ServiceAsesoraOnline {
         
         public System.Threading.Tasks.Task<int> ValidarAsesoraOnlineConfiguracionPaisAsync(string paisISO, string codigoConsultora) {
             return base.Channel.ValidarAsesoraOnlineConfiguracionPaisAsync(paisISO, codigoConsultora);
+        }
+        
+        public void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
+            base.Channel.EnviarMailBienvenidaAsesoraOnline(emailFrom, emailTo, titulo, displayname, nombreConsultora);
+        }
+        
+        public System.Threading.Tasks.Task EnviarMailBienvenidaAsesoraOnlineAsync(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora) {
+            return base.Channel.EnviarMailBienvenidaAsesoraOnlineAsync(emailFrom, emailTo, titulo, displayname, nombreConsultora);
         }
     }
 }

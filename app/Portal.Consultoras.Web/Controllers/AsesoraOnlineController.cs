@@ -44,16 +44,12 @@ namespace Portal.Consultoras.Web.Controllers
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
                 {
                     resultado = sv.EnviarFormulario(IsoPais, entidad);
-                }
-
-                using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())
-                {
                     usuario = sv.GetUsuarioByCodigoConsultora(IsoPais, CodigoConsultora);
-                }
-                //no-responder@somosbelcorp.com
-                //esikateasesora@belcorp.biz
-                if(resultado.Equals(1))
-                    MailUtilities.EnviarMailBienvenidaAsesoraOnline("no-responder@somosbelcorp.com", usuario.EMail, "pendiente", "SomosBelcorp", usuario.Nombre );
+                    //no-responder@somosbelcorp.com
+                    //esikateasesora@belcorp.biz
+                    if (resultado.Equals(1))
+                        sv.EnviarMailBienvenidaAsesoraOnline("no-responder@somosbelcorp.com", usuario.EMail, "pendiente", "SomosBelcorp", usuario.Nombre);
+                }            
 
                 return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });
                    

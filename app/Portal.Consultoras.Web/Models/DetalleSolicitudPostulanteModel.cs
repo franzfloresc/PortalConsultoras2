@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^(?:[0-9]{0}|[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(8[0-9]{9}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^((787|939)[0-9]{6}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
-        [ExpressionRequiredIf("CodigoPais", "BO", Expresion = @"^([0-9]{7})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "BO", Expresion = @"^([0-9]{0}|[0-9]{7})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         public string Telefono { get; set; }
 
         [RequiredIf("CodigoPais", "CO,MX,EC,BO", ErrorMessage = "Campo obligatorio")]
@@ -96,14 +96,15 @@ namespace Portal.Consultoras.Web.Models
         [ExpressionRequiredIf("CodigoPais", "CR", Expresion = @"^([0-9]{8})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "DO", Expresion = @"^(8[0-9]{9})$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CodigoPais", "PR", Expresion = @"^((787|939)[0-9]{7}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
-        [ExpressionRequiredIf("CodigoPais", "BO", Expresion = @"^((591)[0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
+        [ExpressionRequiredIf("CodigoPais", "BO", Expresion = @"^([0-9]{8}|)$", RegexNotMatch = false, ErrorMessage = "Formato Incorrecto")]
         [ExpressionRequiredIf("CelularExiste", "2", Expresion = @"^[RegexThatDontMatch]$", ErrorMessage = "El celular ya se encuentra registrado.")]
         public string Celular { get; set; }
         public string CelularExiste { get; set; }
 
         [EmailAddress(ErrorMessage = "No es un correo válido")]
         [MaxLength(100, ErrorMessage = "Máximo 100 caractéres")]
-        [Required(ErrorMessage = "Este campo es obligatorio")]
+        //[Required(ErrorMessage = "Este campo es obligatorio")]
+        [RequiredIf("CodigoPais", "CL,PE,CO,MX,EC,SV,PA,GT,CR,DO,PR", ErrorMessage = "Este campo es obligatorio")]
         public string CorreoElectronico { get; set; }
 
         public string CodigoZona { get; set; }
