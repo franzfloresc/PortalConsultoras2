@@ -1,5 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
 using System.Configuration;
@@ -10,7 +11,7 @@ using System.Web.Routing;
 
 namespace Portal.Consultoras.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -52,34 +53,40 @@ namespace Portal.Consultoras.Web
             AutoMapperConfiguration.Configure();
         }
 
-
-        protected void Application_EndRequest()
+        protected void Session_End( object sender, EventArgs e )
         {
-            //var context = new HttpContextWrapper(Context);
-
-            //if (Context.Response.StatusCode == 302 && context.Request.IsAjaxRequest())
-            //{
-            //    Context.Response.Clear();
-            //    Context.Response.StatusCode = 401;
-            //}
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
         }
-
         protected void Session_Start(object sender, EventArgs e)
         {
-
-        }
-
-        protected void Session_End(object sender, EventArgs e)
-        {
-
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
         {
             if (String.Compare(Request.Path, Request.ApplicationPath, StringComparison.InvariantCultureIgnoreCase) == 0
                 && !(Request.Path.EndsWith("/")))
-                Response.Redirect(Request.Path + "/");
+                Response.Redirect(string.Format("{0}/", Request.Path));
         }
 
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
+
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            {
+                var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
+
+                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
+            }
+            else
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
+            }
+        }
     }
 }

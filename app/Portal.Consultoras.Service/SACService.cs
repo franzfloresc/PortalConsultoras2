@@ -587,28 +587,32 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public void InsertLugarPago(BELugarPago entidad)
+        public int InsertLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
-        public void UpdateLugarPago(BELugarPago entidad)
+        public int UpdateLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)
@@ -1403,6 +1407,25 @@ namespace Portal.Consultoras.Service
             return _blApp.ObtenerApps(paisID);
         }
         #endregion
+        
+        #region ConfiguracionPais
+        public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(paisId, tienePerfil);
+        }
 
+        public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, configuracionPaisId);
+        }
+
+        public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
+        {
+            var bl = new BLConfiguracionPais();
+            bl.Update(configuracionPais);
+        }
+        #endregion
     }
 }

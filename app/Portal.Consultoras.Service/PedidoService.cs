@@ -107,9 +107,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
+        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
         {
-            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
@@ -924,9 +924,9 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
-            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID);
+            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
         #region Pedidos DD
@@ -2188,12 +2188,11 @@ namespace Portal.Consultoras.Service
         #endregion
 
         #region Producto Comentario
-
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-
+        
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);

@@ -46,7 +46,8 @@ $(document).ready(function () {
         $('[data-oferta]').attr("class", "").hide();
     });
 
-    CargarFiltros();
+    if (IsoPais == "MX")
+        CargarFiltros();
 
     if (tipoOrigen != '3') {
         if (typeof cargarItemsFAV != 'undefined') {
