@@ -24,16 +24,21 @@
 	width: 100%;
     max-width: 1920px;
     margin: 0 auto;
-    background: -moz-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
+    /*background: -moz-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
     background: -webkit-gradient(left top, right top, color-stop(0%, rgba(135,0,0,1)), color-stop(77%, rgba(242,29,18,1)), color-stop(100%, rgba(242,29,18,1)));
     background: -webkit-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
     background: -o-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
     background: -ms-linear-gradient(left, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
     background: linear-gradient(to right, rgba(135,0,0,1) 0%, rgba(242,29,18,1) 77%, rgba(242,29,18,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#870000', endColorstr='#f21d12', GradientType=1 );
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#870000', endColorstr='#f21d12', GradientType=1 );*/
+    background: #f21f12;
+    background: -moz-linear-gradient(-45deg, #f21f12 1%, #880000 100%);
+    background: -webkit-linear-gradient(-45deg, #f21f12 1%,#880000 100%);
+    background: linear-gradient(135deg, #f21f12 1%,#880000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f21f12', endColorstr='#880000',GradientType=1 );
     position: relative;
     /*top: -205px;*/
-    height: 485px;
+    height: 393px;
     overflow: hidden;
 }
 
@@ -42,6 +47,7 @@
 	width:100%;
 	max-width:988px;
 	margin:0 auto;
+    position:relative;
 }
 
 .pt-35{
@@ -57,8 +63,34 @@
 }
 
 .cabecera_asesora_online{
-	display:block;
-	position:relative;
+	display: block;
+    position: relative;
+    background: #FFF;
+    height: 393px;
+    max-width: 610px;
+    position:relative;
+    padding-top:56px;
+}
+
+.extension_fondo_cabecera{
+    display: block;
+    background: #FFF;
+    width: 100%;
+    height: 393px;
+    position: absolute;
+    top: 0;
+    left: -92%;
+}
+
+.extension_fondo_cabecera_2{
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -53px;
+    width: 100%;
+    height: 393px;
+    background: #FFF;
+    transform: skewX(-14deg);
 }
 
 .marca_asesora_online{
@@ -76,16 +108,15 @@
 
 .img_cabecera_asesora_online{
 	display: block;
-    width: 62%;
-    height: 440px;
-    background: url(../../../Content/Images/img_cabecera_asesora_online.png);
-    background-repeat: no-repeat;
-    background-position: 93% -238px;
-    background-size: 757px;
-    background-attachment: fixed;
+    width: auto;
+    height: 474px;
     position: absolute;
-    top: 0px;
-    left: 39%;
+    top: 0;
+    right: 0;
+}
+
+.img_cabecera_asesora_online img{
+    height:100%;
 }
 
 .fondo_titulo_asesora, .extension_fondo, .titulo_principal_asesora_online, .descripcion_asesora_online, .cta_inscripcion {
@@ -117,7 +148,35 @@
 	line-height:24px;
 	position: relative;
     z-index: 4;
-    transform:rotate(3deg);
+    /*transform:rotate(3deg);*/
+}
+
+.titulo_principal_asesora_online span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.titulo_principal_asesora_online span:first-child{
+    max-width:138px;
+    height:55.9px;
+}
+
+.titulo_principal_asesora_online span:first-child img{
+    width:100%;
+    height:auto;
+}
+
+.titulo_principal_asesora_online span:nth-child(2){
+    height:54px;
+    margin:0 4px;
+}
+
+.titulo_principal_asesora_online span:nth-child(2) img{
+    height:100%;
+}
+
+.titulo_principal_asesora_online span:nth-child(3){
+    font-size:38px;
 }
 
 .titulo_tu_asesora_online{
@@ -125,21 +184,31 @@
 }
 
 .descripcion_asesora_online{
-    max-width: 368px;
-	color: #FFF;
-    font-size: 16px;
-    margin: 38px 0 32px 0;
+    max-width: 515px;
+	color: #000;
+    margin: 40px 0 52px 0;
     letter-spacing: 0.8px;
     line-height: 20px;
+    position:relative;
+    z-index:4;
 }
 
-.descripcion_asesora_online span{
+.descripcion_asesora_online div{
 	display:block;
+    letter-spacing:0.5px;
+    font-size: 18px;
+}
+
+.descripcion_asesora_online div:first-child{
+    font-size: 22px;
+    letter-spacing: 1px;
+    line-height: 29px;
+    margin-bottom: 8px;
 }
 
 .cta_inscripcion{
 	/*margin:0 auto;*/
-	max-width:268px;
+	max-width:311px;
 	background:rgba(0,0,0,1);
 	color:#FFF;
 	position:relative;
@@ -165,16 +234,16 @@
 
 .seccion_beneficios_asesora{
 	position: relative;
-    margin-top: -81px;
-    height: 304px;
-    transform: skewY(-3deg);
+    /*margin-top: -81px;*/
+    height: 293px;
+    /*transform: skewY(-3deg);
     -moz-transform: skewY(-3deg);
     -o-transform: skewY(-3deg);
     -ms-transform: skewY(-3deg);
-    -webkit-transform: skewY(-3deg);
-    padding: 45px 0 2px 0;
+    -webkit-transform: skewY(-3deg);*/
+    padding: 60px 0 2px 0;
     z-index: 5;
-    background: #FFF;
+    background: #F6F6F6;
 }
 
 .titulos_beneficios_asesora_online, .lista_beneficios_asesora_online, .lista_beneficios_asesora_online > div{
@@ -186,20 +255,24 @@
 }
 
 .titulos_beneficios_asesora_online{
-	width:28%;
+	width:19%;
     padding-top:3px;
 	margin-right:6%;
 }
 
 .lista_beneficios_asesora_online {
-    width: 65.5%;
+    width: 74%;
     position: relative;
     top: 8px;
 }
 
 .lista_beneficios_asesora_online > div{
-	width:33%;
+	width:31.5%;
 	vertical-align:top;
+}
+
+.lista_beneficios_asesora_online > div:last-child{
+    margin-left:4.15%;
 }
 
 .pregunta_inscripcion{
@@ -222,13 +295,37 @@
 	color:#e81c36;
 }
 
+.contenedor_titulo_beneficio_asesora_online{
+    display:block;
+    width:100%;
+    max-width:202px;
+    height:98px;
+    padding:22px 22px 18px 22px;
+    background-image:url("../../../Content/Images/img_dialog.png");
+    background-repeat:no-repeat;
+    background-size:202px;
+    background-position:center;
+    position:relative;
+    margin-bottom:14px;
+}
+
+.contenedor_titulo_beneficio_ofertas{
+    background-image:url("../../../Content/Images/img_dialog2.png");
+    background-size:235px;
+    max-width:235px;
+}
+
 .iconos_beneficios_asesora_online{
-	display:block;
-	width:39px;
-	height:39px;
-	border-radius:100%;
-	border:1px solid #000;
-	margin-bottom:18px;
+	display: block;
+    width: 39px;
+    height: 39px;
+    border-radius: 100%;
+    border: 1px solid #000;
+    margin-bottom: 18px;
+    position: absolute;
+    top: -16px;
+    left: -17px;
+    background: #F6F6F6;
 }
 
 .icono_vender_mas, .icono_oferta, .icono_fechas_importantes{
@@ -254,28 +351,49 @@
 }
 
 .titulo_beneficios_asesora_online{
-	font-size:16px;
-	text-transform:uppercase;
+	font-size:15.4px;
+	/*text-transform:uppercase;*/
 	max-width:189px;
 	margin-bottom:18px;
-    line-height:19px;
+    line-height:17.5px;
+    letter-spacing:-0.3px;
+}
+
+.titulo_beneficios_asesora_online > span{
+    opacity:0.7;
 }
 
 .descripcion_beneficios_asesora_online{
-	font-size:14px;
+	font-size:13px;
 	max-width:188px;
-	letter-spacing:0.3px;
+	letter-spacing:0.31px;
     line-height:17px;
+    padding-left:14px;
 }
 
 .seccion_formulario_inscripcion{
-	background: url(../../../Content/Images/fondo_form.png);
-    height: 554px;
+	/*background: url(../../../Content/Images/fondo_form.png);*/
+    height: 533px;
     background-repeat: no-repeat;
-    background-position: -30px 20px;
+    background-position:-30px 0;
+    /*background-position: -30px 20px;*/
     background-size: cover;
     position:relative;
-    margin-top:-60px;
+    /*margin-top:-60px;*/
+}
+
+.seccion_formulario_inscripcion_fondo{
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:1;
+}
+
+.seccion_formulario_inscripcion_fondo img{
+    width:100vw;
+    height:533px;
+    object-fit:cover;
+    object-position:center top;
 }
 
 .alinear_derecha{
@@ -286,10 +404,13 @@
 	display: inline-block;
     width: 100%;
 	max-width: 546px;
+    position:relative;
+    z-index:2;
 }
 
 .titulo_formulario_inscripcion {
-    padding-top: 85px;
+    padding-top:30px;
+    /*padding-top: 85px;*/
     text-align: center;
     font-size: 23px;
     letter-spacing: 1px;
@@ -299,13 +420,13 @@
 
 .contenedor_formulario{
 	background:rgba(255,255,255,0.9);
-	height:375px;
+	height:auto;
 	text-align: left;
 }
 
 .formulario_inscripcion{
 	display:block;
-	padding:28px;
+	padding: 25px 28px 9px 28px;
     text-align:center;
 }
 
@@ -557,7 +678,7 @@
     font-size: 12px;
 }
 
-@media screen and (min-width:1601px) and (max-width:1920px){
+/*@media screen and (min-width:1601px) and (max-width:1920px){
 
 	.img_cabecera_asesora_online {
 	    background-position: 832px -237px;
@@ -596,7 +717,7 @@
 	    background-position: 400px -237px;
 	}
 
-}
+}*/
 
 @media screen and (max-width:767px){
 
@@ -692,10 +813,13 @@
 
 	.lista_beneficios_asesora_online > div{
 		display:block;
-		margin:0 auto 38px auto;
 		width: 74%;
 	    max-width:233px;
 	}
+
+    .lista_beneficios_asesora_online > div, .lista_beneficios_asesora_online > div:last-child{
+        margin:0 auto 38px auto;
+    }
 
 	.iconos_beneficios_asesora_online{
 		width:32px;
@@ -703,9 +827,9 @@
 		margin-bottom:8px;
 	}
 
-	.titulo_beneficios_asesora_online{
+	/*.titulo_beneficios_asesora_online{
 		font-size:14px;
-	}
+	}*/
 
 	.descripcion_beneficios_asesora_online{
 		font-size:13px;
@@ -738,6 +862,7 @@
 	.titulo_formulario_inscripcion{
 		padding-top: 0;
 	    position: absolute;
+        z-index:4;
 	    margin: 0 auto;
 	    top: 52px;
 	    left: 0;

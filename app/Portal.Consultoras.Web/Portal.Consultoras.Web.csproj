@@ -2164,6 +2164,8 @@
     <Content Include="Content\Images\img_cabecera_asesora_online.png" />
     <Content Include="Content\Images\img_cabecera_asesora_online_mobile.png" />
     <Content Include="Content\Images\img_cabecera_asesora_online_mobile_landscape.png" />
+    <Content Include="Content\Images\img_dialog.png" />
+    <Content Include="Content\Images\img_dialog2.png" />
     <Content Include="Content\Images\img_inscripcion_asesoria_online.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
@@ -2321,6 +2323,8 @@
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
     <Content Include="Content\Images\like.png" />
+    <Content Include="Content\Images\linea-separadora.png" />
+    <Content Include="Content\Images\linea-separadora.svg" />
     <Content Include="Content\Images\list_add_font.png" />
     <Content Include="Content\Images\Loading.gif" />
     <Content Include="Content\Images\loadingCatalogo.gif" />
@@ -2499,6 +2503,8 @@
     <Content Include="Content\Images\login\ico3_b.png" />
     <Content Include="Content\Images\logo-asesora-online.svg" />
     <Content Include="Content\Images\logo-belcorp-academia.png" />
+    <Content Include="Content\Images\logo-esika-landing.png" />
+    <Content Include="Content\Images\logo-esika-landing.svg" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\logotipo_belcorp_05.png" />
     <Content Include="Content\Images\logo_azteca.png" />
