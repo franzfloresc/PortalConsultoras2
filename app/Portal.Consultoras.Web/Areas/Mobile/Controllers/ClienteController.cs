@@ -121,8 +121,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = (model.ClienteID == 0 ? "Cliente registrado satisfactoriamente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
+                        //message = (model.ClienteID == 0 ? "Cliente registrado satisfactoriamente." : "Se actualizó con éxito tu cliente."),
+                        message = (itemResponse.Insertado ? "Cliente registrado satisfactoriamente." : "Se actualizó con éxito tu cliente."),
+                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB),
+                        insertado = itemResponse.Insertado
                     });
                 }
                 else

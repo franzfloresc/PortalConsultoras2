@@ -209,6 +209,7 @@ else
                                 item.ClienteID = data.extra.split("|")[1];
 
                                 messageInfo(data.message, function () {
+                                    item.Insertado = data.insertado;
                                     if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
                                 });
                                 //RealizarLuegoGuardarCliente(data.extra);

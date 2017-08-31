@@ -278,7 +278,7 @@
             }
 
             function RealizarLuegoGuardarCliente(data) {
-                if (esAgregarCliente) {
+                if (data.Insertado) {
                     var clienteNombre = data.Nombre == "" || data.Nombre == null ? "" : data.Nombre;
                     var clienteEmail = data.Email == "" || data.Email == null ? "" : data.Email;
                     var clienteId = data.ClienteID == "" || data.ClienteID == null ? "" : data.ClienteID;
