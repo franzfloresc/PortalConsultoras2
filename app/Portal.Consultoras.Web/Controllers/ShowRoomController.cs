@@ -2854,6 +2854,107 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult PopupIntriga()
+        {
+            try
+            {
+                const int SHOWROOM_ESTADO_INACTIVO = 0;
+                const string TIPO_APLICACION_DESKTOP = "Desktop";
+
+                if (!PaisTieneShowRoom(userData.CodigoISO))
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomConsultora encontrada"
+                    });
+
+                }
+
+                if (!userData.CargoEntidadesShowRoom)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = ""
+                    });
+                }
+
+                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+
+                if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
+                var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
+
+                if (!mostrarPopupIntriga && !mostrarPopupVenta)
+                {
+                    return Json(new
+                    {
+                        success = false
+                    });
+                }
+
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+                mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+                var rutaShowRoomPopup = string.Empty;
+                if (mostrarShowRoomProductos)
+                {
+                    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                }
+
+                var personalizacionImagenIntriga = userData
+                    .ListaShowRoomPersonalizacionConsultora
+                    .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
+                        x.Atributo == "PopupImagenIntriga");
+
+                var imagenIntriga = personalizacionImagenIntriga.Valor;
+
+                var diasFaltantes = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days;
+                var nombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre)
+                        ? userData.NombreConsultora
+                        : userData.Sobrenombre;
+                var mensajeSaludo = $"{nombreConsultora} prepárate para la";
+                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : $"FALTAN {diasFaltantes} DÍAS";
+                return Json(new
+                {
+                    success = true,
+                    EventoId = showRoom.EventoID,
+                    EventoNombre = showRoom.Nombre,
+                    EventoTema = showRoom.Tema,
+                    DiasFaltantes = diasFaltantes,
+                    MensajeSaludo = mensajeSaludo,
+                    MensajeDiasFaltantes = mensajeDiasFaltantes,
+                    UrlImagenIntriga = imagenIntriga ?? string.Empty
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         [HttpPost]
         public JsonResult CerrarBannerCompraPorCompra()
         {
