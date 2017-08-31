@@ -646,6 +646,7 @@ namespace Portal.Consultoras.Common
             public const string Pedido = "PEDIDO";
             public const string MisPedidos = "MISPEDIDOS";
             public const string ShowRoom = "SHOWROOM";
+            public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
         }
 
         public class EstadoCuentaTipoMovimiento
