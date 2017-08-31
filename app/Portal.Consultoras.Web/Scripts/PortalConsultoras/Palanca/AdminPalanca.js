@@ -27,7 +27,7 @@ function Modificar(idConfiguracionPais, event) {
         url: baseUrl + 'AdministrarPalanca/GetPalanca',
         type: 'GET',
         dataType: 'html',
-        data: { idConfiguracionPais: idConfiguracionPais }, //cambiar por el id correcto
+        data: { idConfiguracionPais: idConfiguracionPais }, 
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-palanca").empty();
@@ -51,7 +51,7 @@ function ModificarOfertas(idOfertasHome) {
         url: baseUrl + 'AdministrarPalanca/GetOfertasHome',
         type: 'GET',
         dataType: 'html',
-        data: { idOfertasHome: idOfertasHome }, //cambiar por el id correcto
+        data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-ofertas-home").empty();
@@ -160,7 +160,15 @@ function IniDialogs() {
                     return false;
                 }
                 if (isNaN($("#DesktopOrden").val())) {
-                    _toastHelper.error("El valor del orden tiene que ser numerico.");
+                    _toastHelper.error("El valor del orden tiene que ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#DesktopCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#MobileCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                     return false;
                 }
                 var params = {
