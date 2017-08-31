@@ -20,7 +20,6 @@ $(document).ready(function () {
             bindEvents: function () {
 
                 $(document).on('click', me.Variables.IrPaso1, function () {
-                   
                     if (mensajeGestionCdrInhabilitada != '') {
                         //var _chat = "<span class=\"enlace_chat belcorpChat\"><a>Chat en Línea</a></span>";
                         $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(mensajeGestionCdrInhabilitada);
