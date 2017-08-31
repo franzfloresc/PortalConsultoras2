@@ -323,6 +323,10 @@ function OfertaArmarEstrategiasContenedor(response) {
                 OfertaArmarEstrategiasContenedorSeccion(response);
             }
         }
+        else {
+            OfertaArmarEstrategiasContenedorSeccion(response);
+        }
+       
     });
 }
 
