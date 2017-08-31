@@ -514,8 +514,7 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
-function odd_mobile_google_analytics_promotion_impresion(list,event,index) {
-
+function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
     var impressions = [];
     var position = 0;
     var elements = list.length;
