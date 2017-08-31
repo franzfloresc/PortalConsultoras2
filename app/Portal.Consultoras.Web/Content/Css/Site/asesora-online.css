@@ -91,6 +91,10 @@
     height: 393px;
     background: #FFF;
     transform: skewX(-14deg);
+    -moz-transform: skewX(-14deg);
+    -o-transform: skewX(-14deg);
+    -ms-transform: skewX(-14deg);
+    -webkit-transform: skewX(-14deg);
 }
 
 .marca_asesora_online{
