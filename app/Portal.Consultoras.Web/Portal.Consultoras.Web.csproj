@@ -2166,6 +2166,8 @@
     <Content Include="Content\Images\img_cabecera_asesora_online_mobile_landscape.png" />
     <Content Include="Content\Images\img_dialog.png" />
     <Content Include="Content\Images\img_dialog2.png" />
+    <Content Include="Content\Images\img_dialog2_popup.png" />
+    <Content Include="Content\Images\img_dialog_popup.png" />
     <Content Include="Content\Images\img_inscripcion_asesoria_online.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
