@@ -825,6 +825,7 @@ namespace Portal.Consultoras.Web.Controllers
             var isMobile = IsMobile();
             foreach (var confiModel in lista)
             {
+                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
                     continue;
 
@@ -1029,9 +1030,11 @@ namespace Portal.Consultoras.Web.Controllers
         public MenuContenedorModel BuildMenuContenedorInicio(int campania = 0)
         {
             var lista = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>();
-            var inicio = lista.FirstOrDefault(c => c.Codigo == Constantes.ConfiguracionPais.Inicio) ?? new ConfiguracionPaisModel();
+            var inicio = lista.FirstOrDefault(c => Util.Trim(c.Codigo).ToUpper() == Constantes.ConfiguracionPais.Inicio) ?? new ConfiguracionPaisModel();
 
             var isMobile = IsMobile();
+
+            inicio.Codigo = Util.Trim(inicio.Codigo).ToUpper();
 
             var menu = new MenuContenedorModel
             {
