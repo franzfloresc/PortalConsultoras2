@@ -396,7 +396,11 @@ function MostrarOfertaFinalRegalo(totalPedido) {
                 $(container).find('#of-regalo-msg3').show();
             }
             else if (tipoOrigen == '2') {
-                 $('#linkRegaloSorpresa').text('MIRA AQUI TU PREMIO');
+                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile");
+                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile_gano");
+                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa");
+                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa_gano");
+                $('#linkRegaloSorpresa').html('MIRA <ins>AQUÍ</ins> TU PREMIO');                
             }
         }
         else {
@@ -408,6 +412,12 @@ function MostrarOfertaFinalRegalo(totalPedido) {
             $(container).find('#of-regalo-montosaldo').text(montoSaldo);
             $(container).find('#of-regalo-montos').show();
             $(container).find('#of-regalo-msg1').show();
+            if (tipoOrigen == '2') {
+                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile_gano");
+                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile");                
+                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa_gano");
+                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa");
+            }
         }
         if (tipoOrigen == '1') {
             $(container).show();
@@ -431,7 +441,12 @@ function GanoOfertaFinalRegalo(totalPedido) {
                 $(container).find('#of-regalo-msg3').hide();
             }
             else if (tipoOrigen == '2') {
-                $('#linkRegaloSorpresa').text('MIRA AQUI TU PREMIO');
+                $('#ofIconoSuperior').removeClass("icono_alerta check_icono_mobile");
+                $('#ofIconoSuperior').addClass("icono_alerta check_icono_mobile_gano");
+                
+                $('#linkRegaloSorpresa').removeClass("btn_regalo_sorpresa");
+                $('#linkRegaloSorpresa').addClass("btn_regalo_sorpresa_gano");
+                $('#linkRegaloSorpresa').html('MIRA <ins>AQUÍ</ins> TU PREMIO');                
                 $('div.icono_regalo_sorpresa').css("background", "url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4950260/B53SkTLWMCi37tU/gif-regalo-blanco.gif)");
             }
         }

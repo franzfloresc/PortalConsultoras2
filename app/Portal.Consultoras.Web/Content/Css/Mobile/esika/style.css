@@ -6719,10 +6719,27 @@ input[type="checkbox"]:checked + span:after {
     background-size: cover;
 }
 
+.check_icono_mobile_gano {
+    width: 60px;
+    height: 60px;
+    background: url("../../../Images/mobile/Esika/gift-rojo-2.png") no-repeat;  
+}
+
 .exclamacion_icono_mobile {
     background: url("../../../Images/Esika/icono_exclamacion_esika.png") no-repeat;
     background-size: cover;
    
+}
+.btn_regalo_sorpresa_gano:before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 40px 0 0 25px;
+    border-color: rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) rgba(0, 0, 0, 0) #e81c37;
+    position: absolute;
+    right: -25px;
+    z-index: 1;
 }
 
 .icono_alerta img {
@@ -12947,6 +12964,21 @@ a{
 /*SPRINT 19 PL20*/
 .btn_regalo_sorpresa{
     background: #e81c36 url(../../../Images/mobile/icono_regalo.png) no-repeat; 
+    min-width: 255px;
+    text-transform:uppercase;
+    height: 40px;
+    font-family: 'Lato';
+    font-weight: 700;
+    color: white;
+    font-size: 13px;
+    letter-spacing: 1px;
+    line-height: 39px;
+    padding-left: 40px;
+    position: absolute;
+    top: 0;
+}
+.btn_regalo_sorpresa_gano{
+    background: #e81c36 url(https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/ZF23HX54ijtrL6t/icono_regalo_estrella.png) no-repeat; 
     min-width: 255px;
     text-transform:uppercase;
     height: 40px;
