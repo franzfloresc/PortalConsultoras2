@@ -36,10 +36,11 @@ namespace Portal.Consultoras.Data
         }
 
         /*GR-1209*/
-        public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora)
+        public IDataReader ObtenerComunicadoPorConsultora(string CodigoConsultora, short TipoDispositivo)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ObtenerComunicadoPorConsultora");
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);
+            Context.Database.AddInParameter(command, "@TipoDispositivo", DbType.Int16, TipoDispositivo);
 
             return Context.ExecuteReader(command);
         }
@@ -61,7 +62,5 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
 
         }
-
     }
 }
-
