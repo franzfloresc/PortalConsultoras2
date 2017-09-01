@@ -27130,16 +27130,25 @@ div.subir_archivo {
 }
 
 .nombre_cliente_sb {
-    width: 20%;
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
-    padding-left: 15px;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+.apellido_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
 .telefonofijo_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -27147,15 +27156,15 @@ div.subir_archivo {
 }
 
 .celular_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
-.correo_clientes {
-    width: 20%;
+.correo_clientes{
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -27163,42 +27172,39 @@ div.subir_archivo {
 }
 
 .pedido_detalle_cliente {
-    width: 9%;
+    width:9%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:center;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.pedido_detalle_cliente a{
+    padding-right:12px;
+    position:relative;
+    top:0px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.pedido_detalle_cliente a:hover{
+    top:-5px;
+    opacity:0.5;
+    filter:alpha(opacity=60);
+}
+.editar_cliente{
+    width:5%;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
     padding-top: 23px;
     padding-bottom: 23px;
 }
-
-    .pedido_detalle_cliente a {
-        padding-right: 12px;
-        position: relative;
-        top: 0px;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-    }
-
-        .pedido_detalle_cliente a:hover {
-            top: -5px;
-            opacity: 0.5;
-            filter: alpha(opacity=60);
-        }
-
-.editar_cliente {
-    width: 8%;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    padding-top: 23px;
-    padding-bottom: 23px;
-}
-
-.eliminar_cliente {
-    width: 8%;
+.eliminar_cliente{
+    width: 5%;
     display: inline-block;
     vertical-align: middle;
     text-align: center;

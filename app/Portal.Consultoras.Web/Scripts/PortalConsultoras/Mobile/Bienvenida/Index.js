@@ -78,7 +78,8 @@ $(document).ready(function () {
             }
         });
     });
-         
+   
+    ObtenerComunicadosPopup();
 });
 
 function CrearPopShow() {
@@ -513,8 +514,7 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
-function odd_mobile_google_analytics_promotion_impresion(list,event,index) {
-
+function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
     var impressions = [];
     var position = 0;
     var elements = list.length;
@@ -569,8 +569,132 @@ function odd_get_item_impresion(item) {
     }
     return impresion;
 }
+
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
+function ObtenerComunicadosPopup() {
+    if (primeraVezSession == 0) return;
 
+
+    $(".contenedor_popup_comunicado").click(function (e) {
+        grabarComunicadoPopup();
+    });
+
+    $(".popup_comunicado .btn_cerrar a").click(function (e) {
+        e.stopPropagation();
+        grabarComunicadoPopup();
+        $(".contenedor_popup_comunicado").modal("hide");
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
+        //CERRAR
+    });
+
+    $(window).resize(function (e) {
+        //var w_width = $(window).width() - 50;
+        //var w_height = $(window).height() - 150;
+        var w_width = 326;
+        var w_height = 418;
+
+        $(".popup_comunicado").css("width", w_width);
+        $(".popup_comunicado").css("height", w_height);
+
+        $(".detalle_popup_comunicado").css("width", w_width);
+        $(".detalle_popup_comunicado").css("height", w_height);
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado").click(function (e) {
+        if (userAgent.indexOf("iphone") > -1) {
+            e.preventDefault();
+            alert("La aplicación no se encuentra disponible para este dispositivo");
+            return;
+        }
+
+        window.open($(this).attr("urlAccion"));
+
+        //CLICK
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
+        e.stopPropagation();
+
+        var chk = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']");
+
+        if (chk.is(':checked')) {
+            $(this).html("");
+            chk.prop('checked', false);
+        }
+        else {
+            $(this).html("X");
+            chk.prop('checked', true);
+        }
+    });
+
+    ShowLoading();
+
+    $.ajax({
+        type: "GET",
+        url: baseUrl + 'Mobile/Bienvenida/ObtenerComunicadosPopUps',
+        contentType: 'application/json',
+        success: function (response) {
+            CloseLoading();
+
+            if (checkTimeout(response)) {
+                armarComunicadosPopup(response)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) CloseLoading();
+        }
+    });
+}
+
+function armarComunicadosPopup(response){
+    if (response == null) return;
+
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".contenedor_popup_comunicado").modal("show");
+
+    $(window).resize();
+
+    //ABRIR
+}
+
+function grabarComunicadoPopup() {
+    var checked = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").is(':checked');
+    if (!checked) return;
+
+    var comunicadoID = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val();
+    var params = { ComunicadoID: comunicadoID };
+
+    ShowLoading();
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if(!data.success) alert(data.message)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error al aceptar el comunicado.");
+            }
+        }
+    });
+}

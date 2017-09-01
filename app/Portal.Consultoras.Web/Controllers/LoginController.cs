@@ -119,14 +119,40 @@ namespace Portal.Consultoras.Web.Controllers
             return buscarIsoPorIp == "1";
         }
 
-        protected virtual string GetIpCliente()
+       	protected virtual string GetIpCliente()
         {
-            var ip = string.Empty;
+            string IP = string.Empty;
+            try
+            {
+                string ipAddress = string.Empty;
 
-            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
-            ip = request.ClientIPFromRequest(skipPrivate: true);
+                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
+                }
 
-            return ip;
+                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
+                }
+
+                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
+                {
+                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
+                }
+
+                if (ipAddress.IndexOf(":") > 0)
+                {
+                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
+                }
+
+                return ipAddress;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
+            }
+            return IP;
         }
 
         private void AsignarViewBagPorIso(string iso)
@@ -137,7 +163,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (iso == "BR") iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
-            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+            ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
             ViewBag.AvisoASP = 1;
@@ -149,7 +175,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (GetPaisesLbelFromConfig().Contains(iso))
             {
                 ViewBag.TituloPagina = " L'BEL ";
-                ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
                 if (iso == "MX") ViewBag.AvisoASP = 2;
@@ -200,6 +226,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
+                    TempData["usuarioValidado"] = "1";
                     if (model.UsuarioExterno == null)
                         return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
 
@@ -608,6 +635,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                     model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                     model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
+                    model.PedidoFICActivo = oBEUsuario.PedidoFICActivo;
                     model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
@@ -1645,7 +1673,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile
+                    MostrarHipervinculo = !model.EsAppMobile,
+                    EsAppMobile = model.EsAppMobile
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");
