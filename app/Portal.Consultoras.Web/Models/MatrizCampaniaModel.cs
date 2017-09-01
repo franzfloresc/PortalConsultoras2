@@ -24,5 +24,8 @@ namespace Portal.Consultoras.Web.Models
         public string Descripcion { get; set; }
         public decimal PrecioProducto { get; set; }
         public int FactorRepeticion { get; set; }
+        public string RegaloDescripcion { get; set; }
+        public string RegaloImagenUrl { get; set; }
+
     }
 }

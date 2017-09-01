@@ -79,7 +79,6 @@ function RechazarPedido(id) {
 };
 
 function AceptarPedido(id, tipo) {
-    //debugger;
     var isOk = true;
     var detalle = [];
     var ing = 0;

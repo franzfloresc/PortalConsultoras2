@@ -247,16 +247,11 @@ namespace Portal.Consultoras.Entities
                 IndicadorFlexiPago = Convert.ToInt32(row["IndicadorFlexiPago"]);
             if (DataRecord.HasColumn(row, "IndicadorPermisoFIC") && row["IndicadorPermisoFIC"] != DBNull.Value)
                 IndicadorPermisoFIC = Convert.ToInt32(row["IndicadorPermisoFIC"]);
+            if (DataRecord.HasColumn(row, "PedidoFICActivo")) PedidoFICActivo = Convert.ToBoolean(row["PedidoFICActivo"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
                 MostrarAyudaWebTraking = Convert.ToBoolean(row["MostrarAyudaWebTraking"]);
             if (DataRecord.HasColumn(row, "RolDescripcion") && row["RolDescripcion"] != DBNull.Value)
                 RolDescripcion = Convert.ToString(row["RolDescripcion"]);
-            if (DataRecord.HasColumn(row, "IndicadorOfertaFIC") && row["IndicadorOfertaFIC"] != DBNull.Value)//SSAP CGI(Id Solicitud=1402) begin
-                IndicadorOfertaFIC = Convert.ToInt32(row["IndicadorOfertaFIC"]);
-            if (DataRecord.HasColumn(row, "ImagenUrlOfertaFIC") && row["ImagenUrlOfertaFIC"] != DBNull.Value)
-                ImagenURLOfertaFIC = Convert.ToString(row["ImagenUrlOfertaFIC"]);
-            else
-                ImagenURLOfertaFIC = string.Empty;//SSAP CGI(Id Solicitud=1402)end
 
             if (DataRecord.HasColumn(row, "NroCampanias") && row["NroCampanias"] != DBNull.Value)//SSAP CGI(Id Solicitud=1402) begin
                 NroCampanias = Convert.ToInt32(row["NroCampanias"]);
@@ -913,10 +908,9 @@ namespace Portal.Consultoras.Entities
             set { mostrarAyudaWebTraking = value; }
         }
         [DataMember]
-        public int IndicadorOfertaFIC { get; set; }//SSAP CGI(Id Solicitud=1402)
-
+        public int IndicadorOfertaFIC { get; set; }
         [DataMember]
-        public string ImagenURLOfertaFIC { get; set; }//SSAP CGI(Id Solicitud=1402)
+        public string ImagenURLOfertaFIC { get; set; }
 
         [DataMember]
         public int Lider { get; set; }
@@ -1279,5 +1273,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsConsecutivoNueva { get; set; }
         //EPD-1919 FIN
+        
+        [DataMember]
+        public bool PedidoFICActivo { get; set; }
+
     }
 }

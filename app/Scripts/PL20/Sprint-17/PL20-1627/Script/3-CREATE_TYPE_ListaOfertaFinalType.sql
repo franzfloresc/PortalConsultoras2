@@ -1,4 +1,4 @@
-USE [BelcorpPeru]
+﻿USE [BelcorpPeru]
 GO
 /****** Object:  UserDefinedTableType [dbo].[ListaOfertaFinalType]    Script Date: 26/07/2017 09:55:43 a.m. ******/
 if exists(select 1 from sysobjects where name = 'GetListaProductoOfertaFinal' and xtype = 'p')

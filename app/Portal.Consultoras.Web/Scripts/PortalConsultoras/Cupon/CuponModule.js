@@ -73,7 +73,8 @@
         UrlS3: 'https://s3.amazonaws.com',
         Ambiente: '',
         TieneCupon: false,
-        CumpleMostrarContenedorCupon: false
+        CumpleMostrarContenedorCupon: false,
+        TieneOfertasPlan20: false,
     };
 
     var userModel = {
@@ -310,7 +311,7 @@
                     $(this).append(mensaje);
                     $(this).show();
                 }
-                if (response.tieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
+                if (TieneOfertasPlan20) { cambiarImagenPorGif($(this)); }
                 else { cambiarGifPorImagen($(this)); }
             });
         }
@@ -323,6 +324,7 @@
                 if (response.data) {
                     setting.Cupon = response.data;
                     if (setting.Cupon) {
+                        finishLoadCuponContenedorInfo = true;
                         setting.MostrarContenedorPadreCupon = setting.TieneCupon;
                         setting.MostrarContenedorInfo = (setting.Cupon.EstadoCupon == CONS_CUPON.CUPON_ACTIVO && setting.EsEmailActivo);
                         mostrarContenedorCuponPorPagina();
@@ -549,6 +551,7 @@
         ofertasPlan20Promise.then(function (response) {
             if (response.success) {
                 setting.CumpleMostrarContenedorCupon = true;
+                setting.TieneOfertasPlan20 = response.tieneOfertasPlan20;
                 if (response.tieneOfertasPlan20) {
                     if (setting.Cupon.TipoCupon == CONS_CUPON.TIPO_CUPON_MONTO) {
                         mensaje = "<b style='font-weight: 900'>¡TU DSCTO DE " + simbolo + " " + valor + " ES VÁLIDO!</b><br>Lo verás reflejado en tu facturación";
@@ -595,6 +598,7 @@
     }
 
     var mostrarContenedorConocelo = function () {
+        setting.CumpleMostrarContenedorCupon = true;
         $(elements.ContenedorCuponInfo).hide();
         $(elements.ContenedorCuponConocelo).show();
     }
