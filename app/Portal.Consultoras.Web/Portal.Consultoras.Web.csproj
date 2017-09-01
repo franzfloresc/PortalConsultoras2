@@ -210,7 +210,6 @@
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
@@ -250,7 +249,6 @@
     <Compile Include="Controllers\AdministrarBelcorpRespondeController.cs" />
     <Compile Include="Controllers\AdministrarConfiguracionPortalController.cs" />
     <Compile Include="Controllers\AdministrarCuponController.cs" />
-    <Compile Include="Controllers\AdministrarEstrategiaController.cs" />
     <Compile Include="Controllers\AdministrarPalancaController.cs" />
     <Compile Include="Controllers\AdministrarEtiquetasController.cs" />
     <Compile Include="Controllers\AdministrarFactoresGananciaController.cs" />
