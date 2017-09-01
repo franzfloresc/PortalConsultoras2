@@ -373,6 +373,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 ViewBag.CodigoConsultora = userData.CodigoConsultora;
                 model.TieneMasVendidos = userData.TieneMasVendidos;
+                ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
+                ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
             }
             catch (FaultException ex)
             {
@@ -3642,6 +3644,67 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        public JsonResult ObtenerOfertaFinalRegalo()
+        {
+            try
+            {
+                RegaloOfertaFinalModel model = null;
+                using (ProductoServiceClient ps = new ProductoServiceClient())
+                {
+                    RegaloOfertaFinal regalo = ps.ObtenerRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID);
+
+                    if (regalo != null)
+                    {
+                        model = Mapper.Map<RegaloOfertaFinal, RegaloOfertaFinalModel>(regalo);
+                        model.CodigoISO = userData.CodigoISO;
+                        string carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                        model.RegaloImagenUrl = ConfigS3.GetUrlFileS3(carpetaPais, regalo.RegaloImagenUrl, carpetaPais);
+                    }
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    data = model
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                });
+            }
+        }
+
+        public JsonResult InsertarOfertaFinalRegalo()
+        {
+            try
+            {
+                using (ProductoServiceClient ps = new ProductoServiceClient())
+                {
+                    double montoTotal = Convert.ToDouble(ObtenerPedidoWebDetalle().Sum(p => p.ImporteTotal));
+                    ps.InsertarRegaloOfertaFinal(userData.CodigoISO, userData.CampaniaID, userData.ConsultoraID, montoTotal, userData.OfertaFinalModel.Algoritmo);
+                }
+
+                return Json(new
+                {
+                    success = true
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message,
+                });
+            }
+        }
+
         public bool VerificarConsultoraNueva()
         {
             int segmentoId;
@@ -3833,12 +3896,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var oddModel = this.GetOfertaDelDiaModel();
                 oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
+                short position = 0;
                 foreach (var item in oddModel.ListaOfertas)
                 {
                     item.TipoEstrategiaDescripcion = string.Empty;
                     var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
                     if (tipo_estrategia != null)
                         item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
+                    item.Position = position++;
                 }
                 return Json(new
                 {

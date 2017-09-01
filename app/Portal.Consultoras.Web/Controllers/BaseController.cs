@@ -493,6 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
             string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
             bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
             if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (!userData.PedidoFICActivo) lst.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => lst.Remove(m));
             if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
@@ -1194,7 +1195,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //GPR
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
-            ViewBag.CerrarRechazado = model.CerrarRechazado;  
+            ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
            
 
@@ -1552,12 +1553,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
-            if (campania <= 0) return 0;
+            if (campania <= 0 || nroCampanias <= 0) return 0;
 
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
-
-            if (nroCampanias <= 0) return 0;
 
             int sumNroCampania = (nroCampania + numero) - 1;
             int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);

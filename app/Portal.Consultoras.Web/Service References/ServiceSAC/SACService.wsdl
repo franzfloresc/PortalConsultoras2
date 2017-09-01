@@ -36,12 +36,6 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_InputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCarga" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_OutputMessage">
-    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCargaResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdConfiguracionParametroCarga" />
   </wsdl:message>
@@ -528,12 +522,6 @@
   <wsdl:message name="ISACService_GetTablaLogicaDatos_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetTablaLogicaDatosResponse" />
   </wsdl:message>
-  <wsdl:message name="ISACService_GetTablaLogicaDatosPais_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatosPais" />
-  </wsdl:message>
-  <wsdl:message name="ISACService_GetTablaLogicaDatosPais_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetTablaLogicaDatosPaisResponse" />
-  </wsdl:message>
   <wsdl:message name="ISACService_SelectFeErratas_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectFeErratas" />
   </wsdl:message>
@@ -767,6 +755,12 @@
   </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniasActivasConfiguracionParametroCargaResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCarga" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_InsConfiguracionParametroCarga_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsConfiguracionParametroCargaResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCronogramaByCampania_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCronogramaByCampania" />
@@ -1153,10 +1147,6 @@
     <wsdl:part name="parameters" element="tns:GetIndicadorDescuentoByPedidoWebDetalleResponse" />
   </wsdl:message>
   <wsdl:portType name="ISACService">
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" message="tns:ISACService_InsConfiguracionParametroCarga_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCargaResponse" message="tns:ISACService_InsConfiguracionParametroCarga_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="UpdConfiguracionParametroCarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" message="tns:ISACService_UpdConfiguracionParametroCarga_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdConfiguracionParametroCargaResponse" message="tns:ISACService_UpdConfiguracionParametroCarga_OutputMessage" />
@@ -1481,10 +1471,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatos" message="tns:ISACService_GetTablaLogicaDatos_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatosResponse" message="tns:ISACService_GetTablaLogicaDatos_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatosPais">
-      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatosPais" message="tns:ISACService_GetTablaLogicaDatosPais_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetTablaLogicaDatosPaisResponse" message="tns:ISACService_GetTablaLogicaDatosPais_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/SelectFeErratas" message="tns:ISACService_SelectFeErratas_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/SelectFeErratasResponse" message="tns:ISACService_SelectFeErratas_OutputMessage" />
@@ -1640,6 +1626,10 @@
     <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCargaResponse" message="tns:ISACService_GetCampaniasActivasConfiguracionParametroCarga_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" message="tns:ISACService_InsConfiguracionParametroCarga_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/InsConfiguracionParametroCargaResponse" message="tns:ISACService_InsConfiguracionParametroCarga_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetCronogramaByCampania">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCronogramaByCampania" message="tns:ISACService_GetCronogramaByCampania_InputMessage" />
@@ -1900,15 +1890,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISACService" type="tns:ISACService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdConfiguracionParametroCarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
       <wsdl:input>
@@ -2638,15 +2619,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatosPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatosPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
       <wsdl:input>
@@ -2991,6 +2963,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3578,15 +3559,6 @@
   <wsdl:binding name="BasicHttpsBinding_ISACService" type="tns:ISACService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISACService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="InsConfiguracionParametroCarga">
-      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="UpdConfiguracionParametroCarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/UpdConfiguracionParametroCarga" style="document" />
       <wsdl:input>
@@ -4316,15 +4288,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetTablaLogicaDatosPais">
-      <soap:operation soapAction="http://tempuri.org/ISACService/GetTablaLogicaDatosPais" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SelectFeErratas">
       <soap:operation soapAction="http://tempuri.org/ISACService/SelectFeErratas" style="document" />
       <wsdl:input>
@@ -4669,6 +4632,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetCampaniasActivasConfiguracionParametroCarga">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniasActivasConfiguracionParametroCarga" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsConfiguracionParametroCarga">
+      <soap:operation soapAction="http://tempuri.org/ISACService/InsConfiguracionParametroCarga" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

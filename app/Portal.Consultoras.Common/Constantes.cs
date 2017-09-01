@@ -213,6 +213,8 @@ namespace Portal.Consultoras.Common
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
 
+            //FIC
+            public const string PedidoFIC = "PedidoFIC";
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
         }
@@ -634,6 +636,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
             public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
+            public const string PedidoFIC = "PedidoFIC";
         }
 
         public class IngresoExternoPagina
