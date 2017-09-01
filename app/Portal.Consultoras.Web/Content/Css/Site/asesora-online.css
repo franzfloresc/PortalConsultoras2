@@ -300,24 +300,24 @@
 	color:#e81c36;
 }
 
-.contenedor_titulo_beneficio_asesora_online{
-    display:block;
-    width:100%;
-    max-width:202px;
-    height:98px;
-    padding:22px 22px 18px 22px;
-    background-image:url("../../../Content/Images/img_dialog.png");
-    background-repeat:no-repeat;
-    background-size:202px;
-    background-position:center;
-    position:relative;
-    margin-bottom:14px;
+.contenedor_titulo_beneficio_asesora_online {
+    display: block;
+    width: 100%;
+    max-width: 202px;
+    height: 98px;
+    padding: 22px 22px 18px 22px;
+    background-image: url("../../../Content/Images/img_dialog.png");
+    background-repeat: no-repeat;
+    background-size: 202px;
+    background-position: center;
+    position: relative;
+    margin-bottom: 14px;
 }
 
-.contenedor_titulo_beneficio_ofertas{
-    background-image:url("../../../Content/Images/img_dialog2.png");
-    background-size:235px;
-    max-width:235px;
+.contenedor_titulo_beneficio_ofertas {
+    background-image: url("../../../Content/Images/img_dialog2.png");
+    background-size: 235px;
+    max-width: 235px;
 }
 
 .iconos_beneficios_asesora_online{
@@ -376,14 +376,14 @@
     padding-left:14px;
 }
 
-.seccion_formulario_inscripcion{
-	/*background: url(../../../Content/Images/fondo_form.png);*/
+.seccion_formulario_inscripcion {
+    /*background: url(../../../Content/Images/fondo_form.png);*/
     height: 533px;
     background-repeat: no-repeat;
-    background-position:-30px 0;
+    background-position: -30px 0;
     /*background-position: -30px 20px;*/
     background-size: cover;
-    position:relative;
+    position: relative;
     /*margin-top:-60px;*/
 }
 
@@ -585,11 +585,11 @@
 	margin-right:5px;
 }
 
-.terminos_condiciones_form input[type="checkbox"]:checked + label span{
-	background:url(../../../Content/Images/check-acepto-terminos.png);
-	background-repeat:no-repeat;
-	background-position:center center;
-}
+    .terminos_condiciones_form input[type="checkbox"]:checked + label span {
+        background: url(../../../Content/Images/check-acepto-terminos.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
 
 .terminos_condiciones_form > div label{
 	font-size:15px;
@@ -756,16 +756,16 @@
         right:57px;
     }
 
-    .img_cabecera_asesora_online{
-        display:block;
+    .img_cabecera_asesora_online {
+        display: block;
         width: 285px;
         height: 284px;
-        background:url(../../../Content/Images/img_cabecera_asesora_online_mobile.png);
-        background-position:center;
-        background-repeat:no-repeat;
-        background-size:285px;
-        position:relative;
-        margin-top:12px;
+        background: url(../../../Content/Images/img_cabecera_asesora_online_mobile.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 285px;
+        position: relative;
+        margin-top: 12px;
     }
 
     .img_cabecera_coach_virtual_desktop{
@@ -1458,23 +1458,23 @@
 	opacity:0.2;
 }
 
-.cerrar_popup_inscripcion{
-	display:block;
-	width:30px;
-	height:31px;
-	background:url(../../../Content/Images/icono-cerrar-popup-inscripcion.svg);
-	background-position:center;
-	background-repeat:no-repeat;
-	background-size:100%;
-	position:absolute;
-	top:0;
-	right:-40px;
-	z-index:1000;
-	transition:opacity, top 0.3s ease;
-	-moz-transition:opacity, top 0.3s ease;
-	-o-transition:opacity, top 0.3s ease;
-	-ms-transition:opacity, top 0.3s ease;
-	-webkit-transition:opacity, top 0.3s ease;
+.cerrar_popup_inscripcion {
+    display: block;
+    width: 30px;
+    height: 31px;
+    background: url(../../../Content/Images/icono-cerrar-popup-inscripcion.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    position: absolute;
+    top: 0;
+    right: -40px;
+    z-index: 1000;
+    transition: opacity, top 0.3s ease;
+    -moz-transition: opacity, top 0.3s ease;
+    -o-transition: opacity, top 0.3s ease;
+    -ms-transition: opacity, top 0.3s ease;
+    -webkit-transition: opacity, top 0.3s ease;
 }
 
 .cerrar_popup_inscripcion:hover{
@@ -1706,14 +1706,14 @@
 
 @media screen and (max-width:991px){
 
-	.cerrar_popup_inscripcion{
-		background: url(../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg);
-	    background-size: 100%;
-	    background-position: center;
-	    background-repeat: no-repeat;
-	    right: 9px;
-	    top: 10px;
-	}
+    .cerrar_popup_inscripcion {
+        background: url(../../../Content/Images/mobile/icono-cerrar-popup-inscripcion-mobile.svg);
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+        right: 9px;
+        top: 10px;
+    }
 
 }
 
