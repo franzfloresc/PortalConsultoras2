@@ -13,5 +13,7 @@ namespace Portal.Consultoras.Entities
         public string MensajeRespuesta { get; set; }
 
         public IEnumerable<BENota> Notas { get; set; }
+
+        public IEnumerable<BEMovimiento> Movimientos { get; set; }
     }
 }

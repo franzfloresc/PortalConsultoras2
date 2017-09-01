@@ -706,16 +706,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Service References\WsFuncionesSoap2\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\WsFuncionesSoap\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="SessionManager\ISessionManager.cs" />
     <Compile Include="SessionManager\SessionManager.cs" />
     <Compile Include="Set.aspx.cs">
@@ -1208,6 +1198,7 @@
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
+    <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\gif-regalo-blanco.png" />
     <Content Include="Content\Images\gif-regalo-gano.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
@@ -2204,6 +2195,7 @@
     <Content Include="Content\Images\Lbel\expofertas.png" />
     <Content Include="Content\Images\Lbel\facebook.png" />
     <Content Include="Content\Images\Lbel\facturacion_electronica.png" />
+    <Content Include="Content\Images\Lbel\favicon.ico" />
     <Content Include="Content\Images\Lbel\flechita.png" />
     <Content Include="Content\Images\Lbel\flechita.svg" />
     <Content Include="Content\Images\Lbel\flechita_info.png" />
@@ -2782,6 +2774,7 @@
     <Content Include="Content\Images\PL20\cupon3mobile.png" />
     <Content Include="Content\Images\PL20\cupon_gif_negro.gif" />
     <Content Include="Content\Images\PL20\cupon_gif_rojo.gif" />
+    <Content Include="Content\Images\PL20\editar.png" />
     <Content Include="Content\Images\PL20\flecha_regreso.png" />
     <Content Include="Content\Images\PL20\flecha_set_Especial.png" />
     <Content Include="Content\Images\PL20\flecha_regresa_chat.png" />
@@ -3024,6 +3017,7 @@
     <Content Include="LBelConmigo.html" />
     <Content Include="Pdto.aspx" />
     <Content Include="Scripts\accordion.js" />
+    <Content Include="Scripts\AdminContenido\DescripcionComercial.js" />
     <Content Include="Scripts\AdminContenido\MatrizComercialFileUpload.js" />
     <Content Include="Scripts\AdminContenido\ReporteValidacion.js" />
     <Content Include="Scripts\AdminContenido\ToastHelper.js" />
@@ -3475,6 +3469,7 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3576,6 +3571,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
+    <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
@@ -3970,20 +3966,6 @@
     <Content Include="WebPages\SetVentaDigital.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
-    <Content Include="Service References\WsFuncionesSoap2\WsFunciones.disco" />
-    <Content Include="Service References\WsFuncionesSoap2\configuration91.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap2\configuration.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap2\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\WsFuncionesSoap\WsFunciones.disco" />
-    <Content Include="Service References\WsFuncionesSoap\configuration91.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap\configuration.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\SolicitudCredito\DetalleCreditoVE.cshtml" />
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
@@ -3998,8 +3980,6 @@
     <Content Include="Views\OfertaFlexipago\OfertasFlexipago.cshtml" />
     <Content Include="Views\OfertaFlexipago\AdministrarOfertasFlexipago.cshtml" />
     <Content Include="Views\OfertaFlexipago\_ListadoOfertas.cshtml" />
-    <Content Include="Service References\WsFuncionesSoap\WsFunciones.wsdl" />
-    <Content Include="Service References\WsFuncionesSoap2\WsFunciones.wsdl" />
     <Content Include="Views\PedidoFIC\Index.cshtml" />
     <Content Include="Views\PedidoFIC\ListadoPedido.cshtml" />
     <Content Include="Views\CronogramaFIC\Index.cshtml" />
@@ -4644,8 +4624,6 @@
     <WCFMetadataStorage Include="Service References\ServicioGenerarLideres\" />
     <WCFMetadataStorage Include="Service References\ValidacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ValidacionesUnete\" />
-    <WCFMetadataStorage Include="Service References\WsFuncionesSoap2\" />
-    <WCFMetadataStorage Include="Service References\WsFuncionesSoap\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

@@ -2019,7 +2019,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     // Insertar/Actualizar los puntos de la consultora.
                     if (!string.IsNullOrEmpty(resultado.ListaConcursosCodigos))
-                        sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje);
+                        sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), resultado.ListaConcursosCodigos, resultado.ListaConcursosPuntaje, resultado.ListaConcursosPuntajeExigido);
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
@@ -2854,7 +2854,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var mensaje = "";
                 if (!(oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.DesktopPedidoOfertaFinal
-                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal))
+                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal
+                    || oBEPedidoWebDetalle.OrigenPedidoWeb == Constantes.OrigenPedidoWeb.AppOfertaFinalSinPopup))
                 {
                     var noPasa = ReservadoEnHorarioRestringido(out mensaje);
                     if (noPasa)
@@ -2941,6 +2942,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 oBEPedidoWebDetalle.IndicadorPedidoAutentico = indPedidoAutentico;
                 //EPD-2248
+                oBEPedidoWebDetalle.OrigenPedidoWeb = ProcesarOrigenPedido(oBEPedidoWebDetalle.OrigenPedidoWeb);
 
                 switch (TipoAdm)
                 {

@@ -514,7 +514,7 @@ function ActulizarValoresPopupOfertaFinal(data, popup) {
     else {//if (tipoMeta == "ME") {
         var faltante = $("#msjOfertaFinal").attr("data-meta-monto");
         //var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
-        var totalPedido = $("#divOfertaFinal > div").attr("data-meta-total");
+        var totalPedido = $("#divOfertaFinal div[data-meta-total]").attr("data-meta-total");
         var montolimite = parseFloat(faltante) + parseFloat(totalPedido);
 
         if (parseFloat(data.total) >= montolimite) {

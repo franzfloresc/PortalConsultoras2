@@ -32,8 +32,7 @@
     }
 
     // se refresca el arbol con el pais, region y zona seleccionadas
-    function CargarArbol(pais, campania, zona) {
-        
+    function CargarArbol(pais, campania, zona) {        
         waitingDialog({});
         $.jstree._reference($("#arbolRegionZona")).refresh(-1);
     }
@@ -88,8 +87,7 @@
             contentType: 'application/json; charset=utf-8',
             url: baseUrl + 'CronogramaFIC/DeshabilitarConsultoras',
             data: JSON.stringify({ lista: CronogramaFICModel.Lista }),
-            success: function (data) {
-                
+            success: function (data) {                
                 if (checkTimeout(data)) {
                     alert(data.message);
                     $('#chkSeleccionar').attr('checked', false);
@@ -106,61 +104,7 @@
             }
         });
     }
-
-    function fnGrilla() {
-        jQuery("#list").jqGrid({
-            url: baseUrl + "ModificacionCronograma/ConsultarLog",
-            hidegrid: false,
-            datatype: 'json',
-            mtype: 'GET',
-            contentType: "application/json; charset=utf-8",
-            colNames: ['Código Usuario', 'Fecha', 'Región / Zona', 'Días Cronograma Anterior', 'Dias Cronograma Nuevo'],
-            colModel: [
-                { name: 'CodigoUsuario', index: 'CodigoUsuario', width: 30, editable: true, resizable: false },
-                { name: 'Fecha', index: 'Fecha', width: 40, editable: true, resizable: false },
-                { name: 'CodigosRegionZona', index: 'CodigosRegionZona', width: 100, editable: true, resizable: false },
-                { name: 'DiasCronogramaAnterior', index: 'DiasCronogramaAnterior', width: 60, editable: true, resizable: false },
-                { name: 'DiasCronogramaActual', index: 'DiasCronogramaActual', width: 60, editable: true, resizable: false },
-            ],
-            jsonReader:
-                {
-                    root: "rows",
-                    page: "page",
-                    total: "total",
-                    records: "records",
-                    repeatitems: true,
-                    cell: "cell",
-                    id: "id",
-                    ISOPais: 'ISOPais'
-                },
-            pager: jQuery('#pager'),
-            loadtext: 'Cargando datos...',
-            recordtext: "{0} - {1} de {2} Registros",
-            emptyrecords: 'No hay resultados',
-            rowNum: 10,
-            scrollOffset: 0,
-            rowList: [10, 20, 30, 40, 50],
-            sortname: 'Fecha',
-            sortorder: 'desc',
-            viewrecords: true,
-            multiselect: false,
-            height: 'auto',
-            width: 930,
-            pgtext: 'Pág: {0} de {1}',
-            altRows: true,
-            altclass: 'jQGridAltRowClass',
-            gridComplete: function () { }
-        });
-        jQuery("#list").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#list").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-    }
-
-    function MostrarDialogo() {
-        
-        fnGrilla();
-        showDialog("DialogVerLog");
-    }
-
+    
     $(function () {
         $("#btnCancelar").click(function () {
             location.href = '@Url.Action("Index", "CronogramaFIC")';
@@ -175,7 +119,6 @@
                 alert("Debe seleccionar una Capamaña, verifique");
                 return false;
             }
-
             if ($("#ddlZona").val() == "") {
                 alert("Debe seleccionar una Zona, verifique");
                 return false;
@@ -183,7 +126,6 @@
 
             $('#chkSeleccionar').attr('checked', false);
             CargarArbol();
-
         });
 
         $("#arbolRegionZona").jstree({
@@ -191,20 +133,11 @@
                 //data: treeModel
                 ajax: {
                     url: baseUrl + "CronogramaFIC/CargarArbolRegionesZonas",
-                    //async: true,
-                    data: function (n) {
-                        
+                    data: function (n) {                        
                         return { PaisID: $("#ddlPais").val(), Codigocampaña: $("#ddlCampania").val(), ZonaID: $("#ddlZona").val() };
                     },
                     type: "GET",
-                    error: function (XMLHttpRequest, textStatus, errorThrown) {
-                        
-                    },
-                    success: function (data, textStatus, jqXHR) {
-                        
-                    },
-                    complete: function () {
-                        
+                    complete: function () {                        
                         $("#arbolRegionZona").jstree("set_theme", "apple", "@Url.Content("~/Content/Css/jstree/apple/stylejstree.css")");
                         closeWaitingDialog();
                     }
@@ -246,15 +179,12 @@
             }
         });
 
-        $("#chkSeleccionar").click(function () {
-            
+        $("#chkSeleccionar").click(function () {            
             //alert(this.checked);
             //$.jstree._reference($("#arbolRegionZona")).check_all();
-            if (this.checked)
-                //$.jstree._reference($("#arbolRegionZona")).get_checked(null, true)
-                $.jstree._reference($("#arbolRegionZona")).check_all();
-            else
-                $.jstree._reference($("#arbolRegionZona")).uncheck_all();
+            if (this.checked) $.jstree._reference($("#arbolRegionZona")).check_all();
+                //$.jstree._reference($("#arbolRegionZona")).get_checked(null, true)                
+            else $.jstree._reference($("#arbolRegionZona")).uncheck_all();
         });
     });
 </script>

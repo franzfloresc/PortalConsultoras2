@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e8e61e48-0d3a-48e7-a98b-460a63e50b30" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="f12500a1-d2ec-4ec8-a173-b9bce869a630" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -22,15 +22,15 @@
     <MetadataSource Address="http://localhost:41615/SACService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="28761c45-3e78-458b-8689-4edde60aa875" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
-    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="f9e54e5f-0f9f-4b8c-851c-c9506eedb916" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
-    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="ab7e498c-8798-4f5f-bc00-5b17c8aac130" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
-    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="7da7c096-d71c-46dc-901b-efe4c0c4586e" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
-    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="bc0a1bdb-abee-464f-a89e-7c4769d3c064" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
-    <MetadataFile FileName="SACService5.xsd" MetadataType="Schema" ID="eb47cd6c-34c8-4d2d-8aec-f811dddd6d97" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
-    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="dee1cc66-7964-448c-b507-c24dd4f0b0c5" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
-    <MetadataFile FileName="SACService6.xsd" MetadataType="Schema" ID="1bfb7cc3-d6c9-45e6-8e56-4719a852f840" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd6" />
-    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="831f00ec-40ca-41f8-9d57-63e1e648bd45" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd5" />
+    <MetadataFile FileName="SACService.wsdl" MetadataType="Wsdl" ID="b618a246-901e-4493-9656-401f7a3e4758" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?wsdl" />
+    <MetadataFile FileName="SACService.xsd" MetadataType="Schema" ID="52f945c3-9e65-44f3-bc94-82d80c2bc10e" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SACService1.xsd" MetadataType="Schema" ID="cd424fea-ad3f-4a58-8e34-c91af813dbec" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SACService2.xsd" MetadataType="Schema" ID="daa05c86-387b-4a19-a218-f465853a51a1" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SACService.disco" MetadataType="Disco" ID="35730da4-f5d9-4fcf-bfba-4112b63ec4f9" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?disco" />
+    <MetadataFile FileName="SACService3.xsd" MetadataType="Schema" ID="bd72e86b-0291-4dba-8945-093ba88b6edc" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd4" />
+    <MetadataFile FileName="SACService4.xsd" MetadataType="Schema" ID="dbc0b2a4-fcbe-46d4-afd6-ea61c627eb7c" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd3" />
+    <MetadataFile FileName="SACService6.xsd" MetadataType="Schema" ID="2b278d0c-afa3-4a03-81df-fbd932647c2e" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd6" />
+    <MetadataFile FileName="SACService5.xsd" MetadataType="Schema" ID="5feb545d-93d6-45b9-808c-29129ff429d0" SourceId="1" SourceUrl="http://localhost:41615/SACService.svc?xsd=xsd5" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

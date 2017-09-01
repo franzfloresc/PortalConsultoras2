@@ -56,10 +56,7 @@ namespace Portal.Consultoras.BizLogic
 
             using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
-                if (cliente.TipoRegistro == Constantes.ClienteTipoRegistro.Todos || cliente.TipoRegistro == Constantes.ClienteTipoRegistro.DatosGenerales)
-                    result = clienteData.UpdateCliente(cliente);
-                else
-                    result = true;
+                result = clienteData.UpdateCliente(cliente);
 
                 if (result && cliente.Contactos != null)
                 {
@@ -74,10 +71,10 @@ namespace Portal.Consultoras.BizLogic
                             if (existe == 0) result = clienteData.InsertContactoCliente(item);
                             else result = clienteData.UpdateContactoCliente(item);
                         }
-                        else
-                        {
-                            clienteData.DeleteContactoCliente(item);
-                        }
+                        //else
+                        //{
+                        //    clienteData.DeleteContactoCliente(item);
+                        //}
 
                         if (!result) break;
                     }
@@ -89,14 +86,14 @@ namespace Portal.Consultoras.BizLogic
             return result;
         }
 
-        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor)
+        public List<BEClienteDB> GetCliente(short TipoContactoID, string Valor, int PaisID)
         {
-            return clienteData.GetCliente(TipoContactoID, Valor);
+            return clienteData.GetCliente(TipoContactoID, Valor, PaisID);
         }
 
-        public List<BEClienteDB> GetClienteByClienteID(string Clientes)
+        public List<BEClienteDB> GetClienteByClienteID(string Clientes, int PaisID)
         {
-            var lst = clienteData.GetClienteByClienteID(Clientes);
+            var lst = clienteData.GetClienteByClienteID(Clientes, PaisID);
             List<BEClienteDB> result = (from tbl in lst
                                     group tbl by tbl.ClienteID into grp
                                         select new BEClienteDB

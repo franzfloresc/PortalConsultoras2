@@ -48,6 +48,8 @@ namespace Portal.Consultoras.Entities.ReservaProl
         public string ListaConcursosCodigos { get; set; }
         [DataMember]
         public string ListaConcursosPuntaje { get; set; }
+        [DataMember]
+        public string ListaConcursosPuntajeExigido { get; set; }
 
         #region Atributos Cargar Session
         [DataMember]
