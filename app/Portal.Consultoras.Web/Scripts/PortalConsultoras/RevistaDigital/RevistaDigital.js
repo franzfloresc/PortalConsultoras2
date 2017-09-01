@@ -569,5 +569,8 @@ function RDDetalleVolver(campaniaId) {
     if (campaniaCodigo == campaniaId) {
         window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
-    window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalRevisar;
+    else {
+        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalRevisar;
+    }
+   
 }
