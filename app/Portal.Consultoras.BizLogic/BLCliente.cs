@@ -450,16 +450,14 @@ namespace Portal.Consultoras.BizLogic
 
                     //OBTENER CLIENTE SB
                     var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
-                    if (clienteDB.ClienteIDSB == 0)
+
+                    foreach (var contactoPrincipal in lstContactoPrincipal)
                     {
-                        foreach (var contactoPrincipal in lstContactoPrincipal)
+                        var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
+                        if (clienteSBSearch != null)
                         {
-                            var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
-                            if (clienteSBSearch != null)
-                            {
-                                clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
-                                break;
-                            }
+                            clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
+                            break;
                         }
                     }
 
