@@ -25,22 +25,22 @@ namespace Portal.Consultoras.BizLogic
             }
             return productoDescripcion;
         }
-        public IList<BEProductoDescripcion> GetProductoComercialByPaisAndCampania(int CampaniaID, string codigo, int PaisID, int rowCount)
+        public IList<BEProductoDescripcion> GetProductoComercialByPaisAndCampania(int campaniaID, string codigo, int paisID, int rowCount)
         {
             var productos = new List<BEProductoDescripcion>();
-            var DAProducto = new DAProducto(PaisID);
+            var DAProducto = new DAProducto(paisID);
 
-            using (IDataReader reader = DAProducto.GetProductoComercialByPaisAndCampania(CampaniaID, PaisID))
+            using (IDataReader reader = DAProducto.GetProductoComercialByCampaniaAndCuv(campaniaID, codigo, rowCount))
+            {
                 while (reader.Read())
                 {
                     var prod = new BEProductoDescripcion(reader);
-                    prod.PaisID = PaisID;
+                    prod.PaisID = paisID;
+                    prod.CampaniaID = campaniaID;
                     productos.Add(prod);
                 }
-
-            return (from venta in productos
-                    where venta.CUV.Contains(codigo)
-                    select venta).Take(rowCount).ToList();
+            }
+            return productos;
         }
 
         public IList<BEProducto> SelectProductoByCodigoDescripcion(int paisID, int campaniaID, string codigoDescripcion, int criterio, int rowCount)

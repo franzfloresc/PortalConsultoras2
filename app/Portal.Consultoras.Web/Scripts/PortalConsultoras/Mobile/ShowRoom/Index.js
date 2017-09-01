@@ -18,7 +18,9 @@
         $('body').css({ 'overflow-x': 'hidden' });
         $('body').css({ 'overflow-y': 'hidden' });
         $('#PopCompra').show();
-
+        var id = $("#LlamarPopCompra").data("promotion-impresion-id");
+        var name = $("#LlamarPopCompra").data("promotion-impresion-name");
+        odd_mobile_promotion_impression(id,name);
         $('.content_pop_compra').slick({
             dots: false,
             infinite: true,
@@ -393,4 +395,36 @@ function OcultarSliderMobile() {
     $('#custom-filters').hide();
     $('#orderby-filter').show();
     $('#divCatalogoPersonalizado').show();
+}
+
+function odd_mobile_promotion_impression(id, name) {
+    dataLayer.push({
+        'event': 'promotionView',
+        'ecommerce': {
+            'promoView': {
+                'promotions': [
+                {
+                    'id': id,
+                    'name': name,
+                    'position': 'Showroom Footer',
+                    'creative': 'Promocion Showroom'
+                }]
+            }
+        }
+    });
+
+    dataLayer.push({
+        'event': 'promotionClick',
+        'ecommerce': {
+            'promoClick': {
+                'promotions': [
+                {
+                    'id': id,
+                    'name': name,
+                    'position': 'Showroom Footer',
+                    'creative': 'Promocion Showroom'
+                }]
+            }
+        }
+    });
 }
