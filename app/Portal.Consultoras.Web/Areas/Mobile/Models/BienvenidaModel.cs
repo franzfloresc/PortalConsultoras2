@@ -50,6 +50,7 @@
         public bool EmailActivo { get; set; }
         public int TieneCupon { get; set; }
         public int TieneMasVendidos { get; set; }
+        public short PrimeraVezSession { get; set; }
         public int TieneAsesoraOnline { get; set; }
     }
 }

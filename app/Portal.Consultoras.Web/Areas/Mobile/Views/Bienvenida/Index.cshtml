@@ -5,7 +5,8 @@
 @model BienvenidaModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
@@ -913,6 +914,31 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
+<div class="contenedor_popup_comunicado modal">
+    <div class="popup_comunicado">
+        <div class="btn_cerrar">
+            <a href="javascript:;">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span>CERRAR</span>
+            </a>
+        </div>
+        <div class="detalle_popup_comunicado">
+        </div>
+        <div class="pie_popup_comunicado">
+            <div style="display:table">
+                <div style="display:table-row">
+                    <div style="display:table-cell">
+                        <input type="checkbox" /><div class="check"></div>
+                    </div>
+                    <div class="check_text">
+                        No volver a mostrar este comunicado
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--FIN-->
 @section scripts{
     <script type="text/javascript">
@@ -993,7 +1019,9 @@
             var viewBagAmbiente = '@ViewBag.Ambiente';
             var correo = '@Model.EMail';
             var celular = '@Model.Celular';
-                var tipoOrigenPantalla = 2;
+            var tipoOrigenPantalla = 2;
+            var primeraVezSession = @Model.PrimeraVezSession;
+            var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
     </script>
     @Scripts.Render("~/bundles/JsMobile/Bienvenida")
    

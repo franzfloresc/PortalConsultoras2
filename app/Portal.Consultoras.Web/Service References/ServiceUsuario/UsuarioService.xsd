@@ -236,6 +236,7 @@
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="PasePedidoWeb" type="xs:int" />
+      <xs:element minOccurs="0" name="PedidoFICActivo" type="xs:boolean" />
       <xs:element minOccurs="0" name="PortalLideres" type="xs:boolean" />
       <xs:element minOccurs="0" name="PrimerApellido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PrimerNombre" nillable="true" type="xs:string" />
@@ -366,6 +367,15 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEUsuarioConfiguracion" nillable="true" type="tns:BEUsuarioConfiguracion" />
+  <xs:complexType name="BETerminosCondiciones">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Aceptado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CodigoConsultora" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PaisID" type="xs:int" />
+      <xs:element minOccurs="0" name="Tipo" type="xs:short" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BETerminosCondiciones" nillable="true" type="tns:BETerminosCondiciones" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

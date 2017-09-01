@@ -159,6 +159,12 @@ namespace Portal.Consultoras.BizLogic
             return dataAccess.UpdMatrizComercialNemotecnico(entity);
         }
 
+        public int UpdMatrizComercialDescripcionComercial(BEMatrizComercialImagen entity)
+        {
+            var dataAccess = new DAOfertaProducto(entity.PaisID);
+            return dataAccess.UpdMatrizComercialDescripcionComercial(entity);
+        }
+
         public IList<BEMatrizComercial> GetMatrizComercialByCodigoSAP(int paisID, string codigoSAP)
         {
             var lst = new List<BEMatrizComercial>();
