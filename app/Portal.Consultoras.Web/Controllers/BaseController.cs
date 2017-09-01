@@ -2819,6 +2819,15 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
+        public void MenuContenedorGuardar(string codigo, int campania)
+        {
+            Session[Constantes.SessionNames.MenuContenedorActivo] = new MenuContenedorModel
+            {
+                CampaniaID = campania,
+                Codigo = codigo
+            };
+        }
+
         #region Revista Digital 
 
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)

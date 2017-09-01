@@ -15,7 +15,7 @@ $(document).ready(function () {
                 codigo: ''
             };
 
-            LocalStorageListado(menuContenedorActivo, menuCheck);
+            MenuContenedorGuardar(menuCheck);
         }
         else {
             $('[data-layout-menu2]').show();
@@ -44,13 +44,9 @@ function MenuContenedor() {
     $("[data-layout-menu2] ul li").removeClass("seleccionado");
     $("[data-layout-menu1] ul li").removeClass("seleccionado");
 
-    var menuCheck = LocalStorageListado(menuContenedorActivo, "", 1);
-    if (menuCheck != undefined) {
-        menuCheck = JSON.parse(menuCheck);
-    }
-    menuCheck = menuCheck || {};
+    var menuCheck = MenuContenedorObtener();
 
-    if (menuCheck.campania == undefined) {
+    if (menuCheck.CampaniaID == undefined) {
         var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
@@ -72,19 +68,18 @@ function MenuContenedor() {
             codigo: $(primerSubMenu).data("codigo")
         };
 
-        LocalStorageListado(menuContenedorActivo, menuCheck);
+        MenuContenedorGuardar(menuCheck);
     }
 
-    $("[data-layout-menu1] ul li[data-campania='" + menuCheck.campania + "']").addClass("seleccionado");
-    var subMenus = $("[data-layout-menu2] ul li[data-campania='" + menuCheck.campania + "']");
+    $("[data-layout-menu1] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']").addClass("seleccionado");
+    var subMenus = $("[data-layout-menu2] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
     if (subMenus.length == 0) {
         $("[data-layout-menu2]").hide();
     }
     else {
         subMenus.show();
-        $("[data-layout-menu2] ul li[data-codigo='" + menuCheck.codigo + "']").addClass("seleccionado");
+        $("[data-layout-menu2] ul li[data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "']").addClass("seleccionado");
     }
-    
 
     LayoutHeaderFin();
 }
@@ -102,8 +97,6 @@ function MenuContenedorClick(e, url) {
     };
 
     MenuContenedorGuardar(codigoLocal);
-
-    LocalStorageListado(menuContenedorActivo, codigoLocal);
 
     window.location = url;
 }
@@ -132,6 +125,32 @@ function MenuContenedorGuardar(codigoLocal) {
 
     return detalle;
 }
+
+
+function MenuContenedorObtener() {
+    $.ajaxSetup({
+        cache: false
+    });
+
+    var detalle = {};
+
+    $.ajax({
+        type: 'POST',
+        url: "/Ofertas/ObtenerMenuContenedor",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function (data) {
+            detalle = data.data || {};
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });
+
+    return detalle;
+}
+
 
 function RedirectMenu(ActionName, ControllerName, Flag, Descripcion, parametros) {
     if (ControllerName == "ShowRoom") {
