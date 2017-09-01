@@ -392,6 +392,14 @@ function EstrategiaAgregar(event, popup, limite) {
         }
     }
 
+    if (!origenPedidoWebEstrategia) {
+        origenPedidoWebEstrategia =
+            $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+            || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+            || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+            || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+            || origenPedidoWebEstrategia;
+    }
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     var params = ({

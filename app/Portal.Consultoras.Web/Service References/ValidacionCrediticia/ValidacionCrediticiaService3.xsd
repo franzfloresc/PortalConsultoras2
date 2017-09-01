@@ -4,6 +4,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="Apellido" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Pais" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Region" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="documento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="numDocumento" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="serie" nillable="true" type="xs:string" />

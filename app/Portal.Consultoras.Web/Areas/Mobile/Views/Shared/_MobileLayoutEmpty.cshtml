@@ -13,7 +13,7 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
@@ -222,10 +222,21 @@
         var EstadoActivo = '@ViewBag.EstadoActivo';
         var ocultarBannerTop = '@Session["OcultarBannerTop"]';
 
-        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom().ToString().ToLower()' === 'true';
-       
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+
         var fingerprintOk = '@ViewBag.FingerprintOk';
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
     </script>
 
     <script type="text/javascript">
@@ -439,6 +450,7 @@
         };
     </script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
 
 </body>

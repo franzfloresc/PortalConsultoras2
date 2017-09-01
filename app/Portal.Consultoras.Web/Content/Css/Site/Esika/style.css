@@ -952,6 +952,20 @@ header {
     float:right;
     text-align:right;
 }
+.clear {
+    background: none;
+    border: 0;
+    clear: both;
+    display: block;
+    float: none;
+    font-size: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
 
 .wrapper_home_content {
     overflow: hidden;
@@ -4904,17 +4918,22 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_ofertaFinal{
-    display:block;
+    display:inline-block;
     position:relative;
-    top:50%;
-    margin:-298.5px auto 0 auto;
+    
+    margin:0 auto;
     background:#FFF;
-    width:100%;
-    max-width:892px;
+    
+    width:850px;
     height:auto;
     padding-top:40px;
     box-sizing:border-box;
     font-family:'Lato';
+    margin-top:50px;
+    vertical-align:top;
+}
+.center_text{
+    text-align:center;
 }
 
 .popup_ofertaFinal .icono_advertencia{
@@ -7782,6 +7801,15 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------------------------------------------------------------------- */
 /*	Clearfix
 	/* ---------------------------------------------------------------------- */
+
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+}
 
 .clearfix:after {
     clear: both;
@@ -20111,6 +20139,7 @@ label.checkpop.c_on {
     font-size: 14px;
     font-weight:700;
 }
+.clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
 .divAgregarShowRoom {
     padding: 60px !important;    
@@ -20584,7 +20613,7 @@ label.checkpop.c_on {
     margin-top:60px;
     position: relative;
 }
-.content_belcorp {
+.content_belcorp{
     max-width: 1189px;
     margin: 0 auto;
     height: auto;
@@ -26276,17 +26305,26 @@ div.subir_archivo input {
     padding-bottom: 23px;
 }
 
-.nombre_cliente_sb{
-    width: 20%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:15px;
-    padding-top:23px;
-    padding-bottom:23px;
+.nombre_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+.apellido_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
 }
 
 .telefonofijo_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -26294,7 +26332,7 @@ div.subir_archivo input {
 }
 
 .celular_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -26302,7 +26340,7 @@ div.subir_archivo input {
 }
 
 .correo_clientes{
-    width: 20%;
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
@@ -26333,7 +26371,7 @@ div.subir_archivo input {
     filter:alpha(opacity=60);
 }
 .editar_cliente{
-    width:8%;
+    width:5%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26341,7 +26379,7 @@ div.subir_archivo input {
     padding-bottom:23px;
 }
 .eliminar_cliente{
-    width: 8%;
+    width: 5%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -32600,7 +32638,7 @@ h1#penmostreo .campana {
     float:left;
     font-family:'Lato';
     font-size:13px;
-    padding-top:6px;
+    padding-top:20px;
 }
 .filtros_derecha{
     float:right;
@@ -32609,17 +32647,18 @@ h1#penmostreo .campana {
     /*margin-top:20px;*/
 }
 .select_filtros_fav{
-    width: 162px;
-    height: 33px;
+   width: 162px;
+    height: 27px;
     padding: 5px;   
     text-transform: uppercase;    
     color: black;
     margin-left: 20px;
     border: 1px solid #b8b8b8;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: bold;
     letter-spacing: 0.3px;
     font-family: 'Lato';
+    border:1px solid black;
 }
 .texto_fav_filtro{
     margin-top:16px;
@@ -32630,19 +32669,19 @@ h1#penmostreo .campana {
    position: relative;
     margin-left: 10px;
     padding-left: 33px;
-    padding-top: 4px;
-    margin-bottom: 18px;
+    padding-top: 3px;
+    margin-bottom: 15px;
     cursor: pointer;
     margin-top: 18px;
     line-height: normal;
     font-weight: normal;
 }
-/*.seleccion_filtro_fav:first-child{
+.seleccion_filtro_fav:first-child{
     margin-top:6px;
 }
 .seleccion_filtro_fav:last-child{
     margin-bottom:30px;
-}*/
+}
 .seleccion_filtro_fav:before{
     position:absolute;
     left:0;
@@ -33909,10 +33948,10 @@ h1#penmostreo .campana {
 /*SHOWROOM*/
 .set-productos-showroom{
     background-color: white;
-    margin-right: 2.6%;
+    margin-right: 2%;
     float: left;
     position: relative;
-    width: 23%;
+    width: 32%;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
@@ -33923,7 +33962,7 @@ h1#penmostreo .campana {
     margin-top: 15px;
     border: 1px solid #e6e3e3;
 }
-.set-productos-showroom:nth-child(4n){
+.set-productos-showroom:nth-child(3n){
       margin-right:0;
 }
 .nombre-producto-set{
@@ -33972,11 +34011,11 @@ h1#penmostreo .campana {
     width:100%;
 }*/
 .content_detalle_set{
-    width:48%;
+    width:45%;
     float:left;
     min-height:100px;
     background:white;
-    margin-left:2%;
+    margin-left:5%;
     padding:30px;
     font-family:'Lato';
 }
@@ -33989,7 +34028,7 @@ h1#penmostreo .campana {
     line-height:22px;
     color:black;
     font-weight:700;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
 }
 .precio_valorizado_showroom{
     text-align:right;
@@ -34199,7 +34238,7 @@ h1#penmostreo .campana {
     position:fixed;
     bottom:0;
     background: white;
-    /*width:100%;*/
+    width:100%;
     height:73px;
    
     /*margin-top:50px;*/
@@ -34738,7 +34777,7 @@ h1#penmostreo .campana {
     height:auto;
     bottom:0;
     z-index:150;
-    
+    width: 100%;
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -34760,7 +34799,7 @@ h1#penmostreo .campana {
     float: left; 
     /*background: url(../../../Images/PL20/fondo_triangular.png) no-repeat right top;*/ 
 }
-.titulo_promocion_showroom:after{
+/*.titulo_promocion_showroom:after{
     content: '';
     left:-150%;
     width: 150%;
@@ -34769,7 +34808,7 @@ h1#penmostreo .campana {
     position: absolute;
     top: 0;
     z-index: 151;
-}
+}*/
 .titulo_banner_showroom{
     display:block;
     font-size:24px;
@@ -35395,8 +35434,9 @@ h1#penmostreo .campana {
     text-align: center;
 }
 .imagen_producto_best_seller{
-    height:400px;
-    width:auto;
+     height: 330px;
+    width: auto;
+    margin-top: 55px;
 }
 .fondo_set_best_seller .content_detalle_set{
     width:53%;
@@ -35711,6 +35751,112 @@ h1#penmostreo .campana {
 .respuesta_valida{
     background:black;
     color:white;
+}
+/*SPRINT 18*/
+.content_regalo_sorpresa{
+    display:inline-block;
+    width:310px;
+    height:570px;
+    margin-top: 50px;
+    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    vertical-align:top;
+    margin-right: -25px;
+    z-index: 21;
+    position: relative;
+    padding-top:30px;
+    padding-left:25px;
+    padding-right:25px;
+}
+.fondo_blanco_regalo{
+    width:240px;
+    min-height:294px;
+    margin:0 auto;
+    background:white;  
+    padding-top:18px;  
+}
+.titulo_regalo_sorpresa{
+    font-family:'Lato';
+    font-size:17px;
+    letter-spacing:1px;
+    margin-bottom: 22px;
+    text-align:center;
+    margin-top:7px;
+    color:white;
+    line-height: 22px;
+}
+.titulo_regalo_producto{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-bottom:15px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:16px;
+}
+.content_imagen_sorpresa{
+    height:178px;
+    width:180px;
+    /*background:black;*/   
+    margin:0 auto;
+    margin-bottom:12px;
+}
+.descripcion_regalo{
+    font-family: 'Lato';
+    /* font-weight: 300; */
+    font-size: 10px;
+    color: black;
+    line-height: 12px;
+    padding-left:10px;
+    padding-right:10px;
+}
+.descripcion_regalo a{
+    display:block;
+    text-decoration:underline;
+    margin-top:4px;
+}
+.content_detalle_monto{
+   font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.5px;
+    color: white;
+    background: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    width: 240px;
+    margin: 0 auto;
+    min-height: 40px;
+}
+.icono_regalo_sorpresa {
+    width: 85px;
+    height: 55px;
+    background: url("/Content/Images/gif-regalo-blanco.png");
+    margin: 0 auto;
+    margin-top: 26px;
+}
+.titulo_regalo_2{
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    font-size: 19px;
+    margin-bottom: 36px;
+    margin-top: 7px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+.font_32{
+    font-weight:700;
+    padding-bottom:6px;    
+    display:block;
+    font-size:32px;
+    line-height: 35px;
+}
+.bold_900{
+    font-weight:900;
 }
 
 /*EPD-1919 INICIO*/
