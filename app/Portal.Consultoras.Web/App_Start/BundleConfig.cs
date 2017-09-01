@@ -106,7 +106,10 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
-               "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
+               "~/Content/Css/ui.jquery/Esika/jquery-ui.css"
+               ));
+
+            bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
                "~/Content/Css/Site/asesora-online.css"
                ));
 
