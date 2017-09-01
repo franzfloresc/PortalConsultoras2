@@ -53,14 +53,22 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GuardarMenuContenedor(string codigo, int campania)
         {
-            Session[Constantes.SessionNames.MenuContenedorActivo] = new MenuContenedorModel {
-                CampaniaID = campania,
-                Codigo = codigo
-            };
+            MenuContenedorGuardar(codigo, campania);
 
             return Json(new
             {
                 success = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult ObtenerMenuContenedor()
+        {
+            var objSession =  Session[Constantes.SessionNames.MenuContenedorActivo];
+
+            return Json(new
+            {
+                data = objSession
             }, JsonRequestBehavior.AllowGet);
         }
     }
