@@ -1,4 +1,4 @@
-use BelcorpPeru
+﻿use BelcorpPeru
 go
 alter procedure dbo.ObtenerDatosRegionZonaByCodigoZona
 @CodigoZona varchar(4)
