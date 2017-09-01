@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BienvenidaController : BaseMobileController
     {
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index()
         {
             var model = new BienvenidaModel();
@@ -169,6 +170,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
                 ViewBag.NombreConsultora = model.NombreConsultora;
+
+                model.PrimeraVezSession = 1;
+                if(Session["PrimeraVezSessionMobile"] != null) model.PrimeraVezSession = 0;
+                Session["PrimeraVezSessionMobile"] = 1;
             }
             catch (FaultException ex)
             {
@@ -289,6 +294,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 result = retorno
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ObtenerComunicadosPopUps()
+        {
+            BEComunicado oComunicados = null;
+
+            using (SACServiceClient sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+            }
+
+            return Json(oComunicados, JsonRequestBehavior.AllowGet);
         }
     }
 }

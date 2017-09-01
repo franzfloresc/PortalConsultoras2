@@ -135,6 +135,18 @@
   <wsdl:message name="IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUsuarioConfiguracionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTerminosCondiciones" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTerminosCondicionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetTerminosCondiciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminosCondiciones" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetTerminosCondiciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminosCondicionesResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
   </wsdl:message>
@@ -714,6 +726,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracionResponse" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" message="tns:IUsuarioService_InsertTerminosCondiciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse" message="tns:IUsuarioService_InsertTerminosCondiciones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" message="tns:IUsuarioService_GetTerminosCondiciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetTerminosCondicionesResponse" message="tns:IUsuarioService_GetTerminosCondiciones_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectResponse" message="tns:IUsuarioService_Select_OutputMessage" />
@@ -1203,6 +1223,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerUsuarioConfiguracion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2125,6 +2163,24 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerUsuarioConfiguracion">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

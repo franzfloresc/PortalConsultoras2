@@ -1,4 +1,4 @@
-use BelcorpPeru
+﻿use BelcorpPeru
 go
 if exists(select 1 from sysobjects where name = 'GetListaProductoOfertaFinal' and xtype = 'p')
 Drop PROCEDURE [dbo].[GetListaProductoOfertaFinal]
