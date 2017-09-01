@@ -237,6 +237,10 @@
     -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
 }
 
+.cta_inscripcion_fixed{
+    display:none;
+}
+
 .seccion_beneficios_asesora{
 	position: relative;
     /*margin-top: -81px;*/
@@ -249,6 +253,10 @@
     padding: 60px 0 2px 0;
     z-index: 5;
     background: #F6F6F6;
+}
+
+.arrow_down_coach_virtual{
+    display:none;
 }
 
 .titulos_beneficios_asesora_online, .lista_beneficios_asesora_online, .lista_beneficios_asesora_online > div{
@@ -836,17 +844,57 @@
         line-height:44px;
 	}
 
+    .cta_inscripcion_fixed{
+        display: block;
+        position: fixed;
+        width: 100%;
+        height: 53px;
+        line-height: 53px;
+        bottom: 0;
+        z-index: 2000;
+        font-size:15px;
+        letter-spacing:1.5px;
+        max-width: none;
+        box-shadow:0 -4px 6px rgba(0,0,0,0.35);
+        -moz-box-shadow:0 -4px 6px rgba(0,0,0,0.35);
+        -o-box-shadow:0 -4px 6px rgba(0,0,0,0.35);
+        -ms-box-shadow:0 -4px 6px rgba(0,0,0,0.35);
+        -webkit-box-shadow:0 -4px 6px rgba(0,0,0,0.35);
+        transition:all 0.3s ease;
+        -moz-transition:all 0.3s ease;
+        -o-transition:all 0.3s ease;
+        -ms-transition:all 0.3s ease;
+        -webkit-transition:all 0.3s ease;
+        opacity:0;
+    }
+
+    .mostrar_cta_inscripcion_mobile_fijo{
+        opacity:1;
+    }
+
 	.seccion_beneficios_asesora{
 		/*margin-top:-30px;*/
-		padding-top:13px;
+		padding-top:0;
 		height:auto;
 	}
+
+    .arrow_down_coach_virtual{
+        display:block;
+        margin:-14px auto 50px auto;
+        width:52px;
+        height:20px;
+    }
+
+    .arrow_down_coach_virtual img{
+        width:100%;
+        height:auto;
+    }
 
 	.titulos_beneficios_asesora_online{
 		display: block;
 	    width: 74%;
 	    max-width:233px;
-	    margin: 0 auto 25px auto;
+	    margin: 0 auto 54px auto;
 	}
 
 	.pregunta_inscripcion{
@@ -871,6 +919,7 @@
 
 	.lista_beneficios_asesora_online{
 		width:100%;
+        margin-bottom:21px;
 	}
 
 	.lista_beneficios_asesora_online > div{
@@ -908,6 +957,7 @@
 
 	.seccion_formulario_inscripcion{
 		margin-top:5px;
+        margin-bottom:54px;
 		background-position: -271px top;
 		position:relative;
 		padding-top:0;
@@ -1101,12 +1151,12 @@
 	    max-width: 500px;
 	}
 
-	.titulos_beneficios_asesora_online{
+	/*.titulos_beneficios_asesora_online{
 		margin-bottom:30px;
-	}
+	}*/
 
 	.lista_beneficios_asesora_online{
-		margin:0 auto;
+		margin:0 auto 21px auto;
 	}
 
 	.lista_beneficios_asesora_online > div{
