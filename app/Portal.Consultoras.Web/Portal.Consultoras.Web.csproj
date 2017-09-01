@@ -210,7 +210,6 @@
     <Compile Include="Areas\Mobile\Controllers\ProductosAgotadosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\RevistaDigitalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\SeguimientoPedidoController.cs" />
-    <Compile Include="Areas\Mobile\Controllers\ShowRoomController.cs" />
     <Compile Include="Areas\Mobile\Controllers\TerminosYCondicionesController.cs" />
     <Compile Include="Areas\Mobile\Helpers\HtmlsHelper.cs" />
     <Compile Include="Areas\Mobile\Helpers\JavaScriptHelper.cs" />
@@ -354,7 +353,6 @@
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\RVDigitalController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
-    <Compile Include="Controllers\ShowRoomController.cs" />
     <Compile Include="Controllers\SolicitudClienteController.cs" />
     <Compile Include="Controllers\SolicitudCreditoController.cs" />
     <Compile Include="Controllers\SuperateController.cs" />
