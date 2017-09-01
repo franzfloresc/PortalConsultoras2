@@ -429,7 +429,7 @@ namespace Portal.Consultoras.Web.Controllers
                         try
                         {
                             var PaisesParaRevisionPorPuntos = new List<string>() {
-                              Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador, Pais.Dominicana, Pais.PuertoRico, Pais.Bolivia
+                              Pais.Chile, Pais.Mexico, Pais.Peru, Pais.Ecuador, Pais.Dominicana, Pais.PuertoRico, Pais.Bolivia , Pais.Colombia
                             };
 
                             if (PaisesParaRevisionPorPuntos.FirstOrDefault(x => x == CodigoISO) == null)
@@ -1491,19 +1491,8 @@ namespace Portal.Consultoras.Web.Controllers
                                                      ? direccion[0]
                                                        : solicitudPostulante.LugarHijo,
                 aplicacion = 1
-            });
-
-            //var resultadoGEO = ConsultarServicio(new
-            //{
-            //    direccion = model.DireccionCadena,
-            //    pais = CodigoISO,
-            //    ciudad = CodigoISO == Pais.Peru ? solicitudPostulante.LugarHijo : solicitudPostulante.LugarPadre,
-            //    area = CodigoISO == Pais.Peru ? direccion[0]
-            //                                         : CodigoISO == Pais.Ecuador
-            //                                         ? direccion[0]
-            //                                           : solicitudPostulante.LugarHijo,
-            //    aplicacion = 1
-            //}, "ObtenerPuntosPorDireccion");
+            }); 
+    
 
             var obtenerPuntosPorDireccionResult =
                 resultadoGEO.SelectToken("ObtenerPuntosPorDireccionResult");
@@ -1543,6 +1532,15 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                         else
                         {
+
+                            if (CodigoISO == Pais.Colombia)
+                            { 
+                                model.Latitud = punto.Item1;
+                                model.Longitud = punto.Item2;
+
+                            }
+
+
                             GetLocationInfo(ref model);
                         }
                     }
