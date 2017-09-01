@@ -3,11 +3,7 @@
     ViewBag.Title = "Reporte Pedidos FIC";
 }
 <script type="text/javascript">
-
-
-
     $(function () {
-
         fnGrilla();
 
         $('#ddlRegion').change(function () {
@@ -427,9 +423,7 @@
     });
 
     function fnGrilla() {
-
         var vPaisID = jQuery.trim($("#ddlPais").val());
-
         var vCampaniaID = $("#ddlCampania").val();
 
         jQuery("#gvwPedidosCampana").jqGrid({
@@ -445,7 +439,7 @@
             }),
             mtype: 'GET',
             contentType: "application/json; charset=utf-8",
-            colNames: ['País', 'Periodo', 'Fecha de Registro', 'Fecha de Modificación', 'Zona', 'Cuenta', 'Código de Estrategia', 'Descripción', 'Número de oferta', 'CUV', 'Producto', 'Tipo de Oferta', 'Unidades', 'Venta Neta'],
+            colNames: ['País', 'Periodo', 'Fecha de Registro', 'Fecha de Modificación', 'Zona', 'Cuenta', 'CUV', 'Producto', 'Tipo de Oferta', 'Unidades', 'Venta Neta'],
             colModel: [
                 { name: 'PAIS', index: 'PAIS', width: 9, editable: false, align: 'center' },
                 { name: 'PERIODO', index: 'PERIODO', width: 9, editable: true, resizable: false, align: 'center' },
@@ -453,9 +447,6 @@
                 { name: 'FechaModificacion', index: 'FechaModificacion', width: 9, editable: true, resizable: false, align: 'center' },
                 { name: 'ZONA', index: 'ZONA', width: 9, editable: true, resizable: false, align: 'center' },
                 { name: 'CUENTA', index: 'CUENTA', width: 9, editable: true, resizable: false, align: 'center' },
-                { name: 'COD_ESTR', index: 'COD_ESTR', width: 9, editable: true, resizable: false, align: 'center' },
-                { name: 'VAL_I18N', index: 'VAL_I18N', width: 9, editable: true, resizable: false, align: 'right' },
-                { name: 'NUM_OFER', index: 'NUM_OFER', width: 9, editable: true, resizable: false, align: 'right' },
                 { name: 'CUV', index: 'CUV', width: 9, editable: true, resizable: false, align: 'right' },
                 { name: 'PRODUCTO', index: 'PRODUCTO', width: 9, editable: true, resizable: false, align: 'right' },
                 { name: 'TIPO_OFETA', index: 'TIPO_OFETA', width: 9, editable: true, resizable: false, align: 'right' },
@@ -493,20 +484,8 @@
             gridComplete: function () { }
         });
         jQuery("#gvwPedidosCampana").jqGrid('navGrid', "#pager", { edit: false, add: false, refresh: false, del: false, search: false });
-        jQuery("#gvwPedidosCampana").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
-    
-        if ('@ViewBag.Pais' == 5 || '@ViewBag.Pais' == 8 || '@ViewBag.Pais' == 7 || '@ViewBag.Pais' == 9 || '@ViewBag.Pais' == 10 || '@ViewBag.Pais' == 12 || '@ViewBag.Pais' == 13) {
-            var nada = 0;
-        }
-        else {
-            var myGrid = $('#gvwPedidosCampana');
-            myGrid.jqGrid('hideCol', myGrid.getGridParam("colModel")[2].name);
-            //myGrid.jqGrid('setColProp', myGrid.getGridParam("colModel")[2].name, { width: 0 });
-            myGrid.jqGrid('hideCol', myGrid.getGridParam("colModel")[3].name);
-            //myGrid.jqGrid('setColProp', myGrid.getGridParam("colModel")[3].name, { width: 0 });
-        }
+        jQuery("#gvwPedidosCampana").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');    
     }
-
 
     function ExportExcel() {
         var m = true;

@@ -213,9 +213,15 @@
     <Compile Include="CDR\BLCDRWebDescripcion.cs" />
     <Compile Include="CDR\BLCDRWebDetalle.cs" />
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
+    <Compile Include="Framework\ResponseType.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Mobile\BLApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClienteValidationMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="RevistaDigital\BLRevistaDigitalSuscripcion.cs" />
     <Compile Include="Resources\PedidoInsertMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -267,6 +273,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\ClienteValidationMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ClienteValidationMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
