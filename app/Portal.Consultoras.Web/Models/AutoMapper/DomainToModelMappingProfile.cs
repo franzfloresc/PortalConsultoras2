@@ -207,6 +207,12 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
 
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
 
+            Mapper.CreateMap<BEPais, PaisModel>();
+            Mapper.CreateMap<BECampania, CampaniaModel>();
+            Mapper.CreateMap<RegaloOfertaFinal, RegaloOfertaFinalModel>();
+            
+            Mapper.CreateMap<ServiceODS.BEProductoDescripcion, GestionFaltantesModel>();
+            
             Mapper.CreateMap<AdministrarLugaresPagoModel, BELugarPago>()
                    .ForMember(t => t.LugarPagoID, f => f.MapFrom(c => c.LugarPagoID))
                    .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))

@@ -346,7 +346,6 @@ function CerrarMensajeRechazado() {
 }
 
 function AceptarPedido(pedidoId, tipo) {
-    //debugger;
     var popup = (tipo == 1) ? $('#divPopupPedidoPend') : $('#divPopup2PedidoPend');
     var container = (tipo == 1) ? $('#divDetPedidoPend') : $('#divDet2PedidoPend');
 
