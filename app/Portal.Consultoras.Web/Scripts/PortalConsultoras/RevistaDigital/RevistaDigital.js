@@ -309,9 +309,11 @@ function OfertaArmarEstrategias(response) {
     }
 }
 
-function OfertaArmarEstrategiasContenedor(response) {
+function OfertaArmarEstrategiasContenedor(responseData) {
 
-    LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
+    LocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
+
+    var response = Clone(responseData);
 
     var listaSeccionesRD = ["LAN", "RD", "RDR"]
 
@@ -321,11 +323,11 @@ function OfertaArmarEstrategiasContenedor(response) {
             var seccHtml = $('[data-seccion][data-seccion="' + tipo + '"]');
             if (seccHtml.length == 1) {
                 response.Seccion = SeccionObtenerSeccion(seccHtml);
-                OfertaArmarEstrategiasContenedorSeccion(response);
+                OfertaArmarEstrategiasContenedorSeccion(Clone(response));
             }
         }
         else {
-            OfertaArmarEstrategiasContenedorSeccion(response);
+            OfertaArmarEstrategiasContenedorSeccion(Clone(response));
         }
        
     });
