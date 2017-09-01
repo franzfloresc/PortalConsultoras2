@@ -621,10 +621,15 @@
         var serverPaisId = '@TempData["serverPaisId"]'
         var serverPaisISO = '@TempData["serverPaisISO"]'
         var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]'
-
     </script>
 }
 
+@if(TempData["usuarioValidado"] != null)
+{
+    <script>
+        var usuarioValidado = '@TempData["usuarioValidado"]';
+    </script>
+}
 
 @section scripts {
     @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")

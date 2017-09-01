@@ -8,6 +8,7 @@ namespace Portal.Consultoras.Web.Models
     public class DescargarPedidoModel
     {
         public int PaisID { get; set; }
+        public bool PedidoFICActivo { get; set; }
         public DateTime FechaFacturacion { get; set; }
         public int TipoCronogramaID { get; set; }
         public bool FlagPedidos { get; set; }
