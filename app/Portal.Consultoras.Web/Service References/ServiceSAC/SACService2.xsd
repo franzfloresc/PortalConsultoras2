@@ -843,6 +843,7 @@
       <xs:element minOccurs="0" name="CodigoTipoOferta" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FactorRepeticion" type="xs:int" />
+      <xs:element minOccurs="0" name="IdMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorActivo" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorDigitable" type="xs:int" />
       <xs:element minOccurs="0" name="IndicadorFaltanteAnunciado" type="xs:int" />
@@ -851,6 +852,9 @@
       <xs:element minOccurs="0" name="PrecioCatalogo" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioProducto" type="xs:decimal" />
       <xs:element minOccurs="0" name="PrecioUnitario" type="xs:decimal" />
+      <xs:element minOccurs="0" name="RegaloDescripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegaloImagenUrl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SAP" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEProductoDescripcion" nillable="true" type="tns:BEProductoDescripcion" />

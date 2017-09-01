@@ -195,6 +195,7 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorPagoOnline { get; set; }
         public string UrlPagoOnline { get; set; }
         public int IndicadorPermisoFIC { get; set; }
+        public bool PedidoFICActivo { get; set; }
         public bool IndicadorPermisoFlexipago { get; set; }
 
         public string CampanaInvitada { get; set; } //1796

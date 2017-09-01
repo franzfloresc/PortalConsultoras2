@@ -238,6 +238,9 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
 
+            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
+                ImagenURL = row["ImagenURL"].ToString();
+
         }
 
         public BEEstrategia(IDataRecord row, int liteVersion)
@@ -509,6 +512,9 @@ namespace Portal.Consultoras.Entities
         
         public string UsuarioCreacion { get; set; }
         public string FotoProducto01 { get; set; }
+
+        public string CodigoEstrategia { get; set; }
+        public int TieneVariedad { get; set; }
     }
     // 1747 - Fin
 }

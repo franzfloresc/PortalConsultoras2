@@ -6892,6 +6892,86 @@ input[type="checkbox"]:checked + span:after {
     }
 }
 
+/* POPUP COMUNICADO*/
+
+.contenedor_popup_comunicado{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_comunicado{
+    position: relative;
+    top: 80px;
+    margin: 0 auto;
+    background: #FFF;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    padding: 0px
+}
+
+.popup_comunicado .btn_cerrar {
+    display: block;
+    width: 100%;
+    max-width: 38px;
+    height: auto;
+    position: absolute;
+    top: -44px;
+    right: -10px;
+}
+
+.popup_comunicado .btn_cerrar img {
+    width: 50%;
+    border: 0px;
+}
+
+.popup_comunicado .btn_cerrar span{
+    font-size: 8px;
+    color: #fff;
+    letter-spacing: .5px;
+    position: relative;
+    left: -6px;
+    top: -3px;
+}
+
+.popup_comunicado .detalle_popup_comunicado{
+    background-repeat:no-repeat;
+    background-position-x:center;
+    background-size:cover;
+    cursor:pointer
+}
+
+.popup_comunicado .pie_popup_comunicado{
+    width: 100%;
+    position: absolute;
+    color:#fff;
+    padding-top:5px;
+}
+
+.popup_comunicado .pie_popup_comunicado input[type="checkbox"]{
+    display:none
+}
+
+.popup_comunicado .pie_popup_comunicado .check{
+    height:20px;
+    width:18px;
+    border:solid 1px #fff;
+    border-radius:3px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.popup_comunicado .pie_popup_comunicado .check_text{
+    padding-left:4px;
+    vertical-align:top;
+    display:table-cell;
+}
+
 /* POPUP AGREGAR CLIENTE */
 
 #divAgregarCliente{

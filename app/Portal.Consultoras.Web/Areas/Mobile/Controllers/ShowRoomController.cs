@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
@@ -25,29 +25,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         private bool blnRecibido = false;
         #endregion
 
-        //TODO: en desarrollo
+        /// <summary>
+        /// Procesa la accion segun se determine si es Intriga o ShowRoom
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Procesar()
         {
+            var userData = (UsuarioModel)Session["UserData"];
+            if (userData != null)
+                CargarEntidadesShowRoom(userData);
+
             var esShowRoom = false;
 
             ShowRoomBannerLateralModel model = new ShowRoomBannerLateralModel();
-            //model.BEShowRoomConsultora = userData.BeShowRoomConsultora;
             model.BEShowRoom = userData.BeShowRoom;
 
             if (model.BEShowRoom == null)
             {
                 model.BEShowRoom = new BEShowRoomEvento();
-                //model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
             }
-            //else if (model.BEShowRoomConsultora == null) model.BEShowRoomConsultora = new BEShowRoomEventoConsultora();
 
-            //model.EstaActivoLateral = true;
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
             if ((fechaHoy >= userData.FechaInicioCampania.AddDays(-model.BEShowRoom.DiasAntes).Date &&
                 fechaHoy <= userData.FechaInicioCampania.AddDays(model.BEShowRoom.DiasDespues).Date))
             {
-                //model.MostrarShowRoomProductos = true;
                 esShowRoom = true && OfertaShowRoom() != null;
             }
 
@@ -109,30 +111,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
                 ActionExecutingMobile();
-                var listaShowRoomOferta = new List<BEShowRoomOferta>();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
-                }
 
-                if (!listaShowRoomOferta.Any())
+                var ofertasShowRoom = ObtenerOfertasShowRoom();
+
+                if (!ofertasShowRoom.Any())
                 {
                     return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
                 }
 
-                listaShowRoomOferta.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                listaShowRoomOferta.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
-                                ? "" : ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenMini, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                ActualizarUrlImagenes(ofertasShowRoom);
+                
+                var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
 
-                var listaShowRoomOfertaModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(listaShowRoomOferta);
-                listaShowRoomOfertaModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
-                var model = listaShowRoomOfertaModel.FirstOrDefault();
                 model.Simbolo = userData.Simbolo;
                 model.CodigoISO = userData.CodigoISO;
 
-                ShowRoomBannerLateralModel showRoomBannerLateral = GetShowRoomBannerLateral();
+                var showRoomBannerLateral = GetShowRoomBannerLateral();
 
                 if (showRoomBannerLateral.DiasFaltantes > 1)
                 {
@@ -142,18 +136,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
                 ViewBag.LetrasDias = showRoomBannerLateral.LetrasDias;
                 ViewBag.ImagenBannerShowroomIntriga = showRoomBannerLateral.ImagenBannerShowroomIntriga;
-
                 ViewBag.EstadoActivo = showRoomBannerLateral.EstadoActivo;
 
                 var eventoConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
                 eventoConsultora.CorreoEnvioAviso = Util.Trim(eventoConsultora.CorreoEnvioAviso);
+
+                model.Suscripcion = eventoConsultora.Suscripcion;
                 model.EMail = eventoConsultora.CorreoEnvioAviso == "" ? userData.EMail : eventoConsultora.CorreoEnvioAviso;
                 model.EMailActivo = eventoConsultora.CorreoEnvioAviso == userData.EMail ? userData.EMailActivo : true;
                 model.Celular = userData.Celular;
-                model.Suscripcion = eventoConsultora.Suscripcion;
                 model.UrlTerminosCondiciones = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.UrlTerminosCondiciones, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
-                var pedidoDetalle = ObtenerPedidoWebDetalle();
-                model.Agregado = pedidoDetalle.Any(d => d.CUV == model.CUV) ? "block" : "none";
+                model.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == model.CUV) ? "block" : "none";
 
                 return View(model);
             }

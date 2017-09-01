@@ -43,6 +43,18 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CodigoTipoOferta { set; get; } //R20151007
 
+        [DataMember]
+        public string RegaloDescripcion { set; get; }
+
+        [DataMember]
+        public string RegaloImagenUrl { set; get; }
+
+        [DataMember]
+        public string SAP { set; get; }
+
+        [DataMember]
+        public int IdMatrizComercial { set; get; }
+
         public BEProductoDescripcion(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
@@ -77,6 +89,15 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
                 CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
             //R20151007 - Fin
+
+            if (DataRecord.HasColumn(row, "RegaloDescripcion") && row["RegaloDescripcion"] != DBNull.Value)
+                RegaloDescripcion = Convert.ToString(row["RegaloDescripcion"]);
+            if (DataRecord.HasColumn(row, "RegaloImagenUrl") && row["RegaloImagenUrl"] != DBNull.Value)
+                RegaloImagenUrl = Convert.ToString(row["RegaloImagenUrl"]);
+            if (DataRecord.HasColumn(row, "SAP") && row["SAP"] != DBNull.Value)
+                SAP = Convert.ToString(row["SAP"]);
+            if (DataRecord.HasColumn(row, "IDMATRIZCOMERCIAL") && row["IDMATRIZCOMERCIAL"] != DBNull.Value)
+                IdMatrizComercial = Convert.ToInt32(row["IDMATRIZCOMERCIAL"]);
         }
     }
 }

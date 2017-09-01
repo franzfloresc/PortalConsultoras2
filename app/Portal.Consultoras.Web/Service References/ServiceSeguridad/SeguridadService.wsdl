@@ -134,6 +134,12 @@
   <wsdl:message name="ISeguridadService_GetItemsMenuMobile_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetItemsMenuMobileResponse" />
   </wsdl:message>
+  <wsdl:message name="ISeguridadService_GetMenuApp_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMenuApp" />
+  </wsdl:message>
+  <wsdl:message name="ISeguridadService_GetMenuApp_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMenuAppResponse" />
+  </wsdl:message>
   <wsdl:portType name="ISeguridadService">
     <wsdl:operation name="InsRol">
       <wsdl:input wsaw:Action="http://tempuri.org/ISeguridadService/InsRol" message="tns:ISeguridadService_InsRol_InputMessage" />
@@ -202,6 +208,10 @@
     <wsdl:operation name="GetItemsMenuMobile">
       <wsdl:input wsaw:Action="http://tempuri.org/ISeguridadService/GetItemsMenuMobile" message="tns:ISeguridadService_GetItemsMenuMobile_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISeguridadService/GetItemsMenuMobileResponse" message="tns:ISeguridadService_GetItemsMenuMobile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuApp">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISeguridadService/GetMenuApp" message="tns:ISeguridadService_GetMenuApp_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISeguridadService/GetMenuAppResponse" message="tns:ISeguridadService_GetMenuApp_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_ISeguridadService" type="tns:ISeguridadService">
@@ -359,6 +369,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMenuApp">
+      <soap:operation soapAction="http://tempuri.org/ISeguridadService/GetMenuApp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="BasicHttpsBinding_ISeguridadService" type="tns:ISeguridadService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_ISeguridadService_policy" />
@@ -509,6 +528,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetItemsMenuMobile">
       <soap:operation soapAction="http://tempuri.org/ISeguridadService/GetItemsMenuMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuApp">
+      <soap:operation soapAction="http://tempuri.org/ISeguridadService/GetMenuApp" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
