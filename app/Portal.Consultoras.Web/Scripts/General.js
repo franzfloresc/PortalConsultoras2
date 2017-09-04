@@ -549,8 +549,9 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
             
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+                var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
+                botonesCerrar.off('click');
+                botonesCerrar.on('click', fnAceptar);
             }
         }
         else {

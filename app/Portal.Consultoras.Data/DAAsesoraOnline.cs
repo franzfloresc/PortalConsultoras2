@@ -22,6 +22,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@Respuesta2", DbType.Int16, entidad.Respuesta2);
             Context.Database.AddInParameter(command, "@Respuesta3", DbType.Int16, entidad.Respuesta3);
             Context.Database.AddInParameter(command, "@Respuesta4", DbType.Int16, entidad.Respuesta4);
+            Context.Database.AddInParameter(command, "@Respuesta5", DbType.Int16, entidad.Respuesta5);
             Context.Database.AddInParameter(command, "@Origen", DbType.String, entidad.Origen);
 
             return Context.ExecuteNonQuery(command);

@@ -138,27 +138,27 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
         </div>
         <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
             @if (ViewBag.PaisId == 4)
-                {
+            {
                 <div class="datos_obligatorios">
                     Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
                 </div>
-                    <div class="contenedor_boton_actualizar">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                            ACEPTAR
-                        </button>
-                    </div>
-                }
-                else
-                {
+                <div class="contenedor_boton_actualizar">
+                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                        ACEPTAR
+                    </button>
+                </div>
+            }
+            else
+            {
                 <div class="datos_obligatorios">
                     <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                 </div>
-                    <div class="contenedor_boton_actualizar">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
-                            ACTUALIZAR
-                        </button>
-                    </div>
-                }
+                <div class="contenedor_boton_actualizar">
+                    <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                        ACTUALIZAR
+                    </button>
+                </div>
+            }
 
         </div>
         <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
@@ -217,84 +217,70 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             $(".campos_actualizarDatos").fadeIn(200);
         });
 
-        $(function () {
-            $("#btnActualizarMD").click(function () {
-				ShowLoading();
-                 ActualizarMD();
-            });
-        });
+        $("#btnActualizarMD").click(ActualizarMD);
 
-	function MensajeValdiacion(mensaje)
-	{
-	AbrirMensaje(mensaje, null, function () {
-                            if ($.isFunction(ClienteDetalleOK)) ClienteDetalleOK(item);
-                        });
-	}
+    function ActualizarMD() {
+        ShowLoading();
+        var viewBagPaisID = '@ViewBag.PaisID';
 
-
- function ActualizarMD() {
- ShowLoading();
- var viewBagPaisID = '@ViewBag.PaisID';
-
-   if (!$('#chkAceptoContratoMD').is(':checked')) {
-		MensajeValdiacion("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
-        return false;
-    }
-    if (viewBagPaisID != 4) {
-
-        if (jQuery.trim($('#txtEMailMD').val()) == "") {
-            $('#txtEMailMD').focus(); 
-			  MensajeValdiacion("Debe ingresar EMail.\n");
+        if (!$('#chkAceptoContratoMD').is(':checked')) {
+		    AbrirMensaje("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
             return false;
         }
-
-        if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
-            $('#txtEMailMD').focus();
-			 MensajeValdiacion("El formato del correo electrónico ingresado no es correcto.\n"); 
-            return false;
-        }
-
-        if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
-                ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
-            $('#txtTelefonoMD').focus();
-			MensajeValdiacion("Debe ingresar al menos un número de contacto: celular o teléfono."); 
-            return false;
-        }
-
-        if (jQuery.trim($('#txtCelularMD').val()) != "") { 
-            if (!ValidarTelefono($("#txtCelularMD").val())) {
-			MensajeValdiacion("El número telefónico ya se encuentra registrado.");  
+        if (viewBagPaisID != 4) {
+            if (jQuery.trim($('#txtEMailMD').val()) == "") {
+                $('#txtEMailMD').focus(); 
+			      AbrirMensaje("Debe ingresar EMail.\n");
                 return false;
             }
-        }
 
-        //Validando cantidad de caracteres minimos.
-        var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
-        if (!MinCaracterCelular) {
-            $('#txtCelularMD').focus();
-			MensajeValdiacion("El número telefónico ya se encuentra registrado.");  
-            return false;
-        }
+            if (!validateEmail(jQuery.trim($('#txtEMailMD').val()))) {
+                $('#txtEMailMD').focus();
+			     AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n"); 
+                return false;
+            }
 
-        /*
-        if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
-            if ($('#txtCelularMD').val().substr(0, 1) != "3") { 
-				MensajeValdiacion("Número de celular tiene formato incorrecto.");  
+            if (($('#txtTelefonoMD').val() == null || $.trim($('#txtTelefonoMD').val()) == "") &&
+                    ($('#txtCelularMD').val() == null || $.trim($('#txtCelularMD').val()) == "")) {
+                $('#txtTelefonoMD').focus();
+			    AbrirMensaje("Debe ingresar al menos un número de contacto: celular o teléfono."); 
+                return false;
+            }
+
+            if (jQuery.trim($('#txtCelularMD').val()) != "") { 
+                if (!ValidarTelefono($("#txtCelularMD").val())) {
+			    AbrirMensaje("El número telefónico ya se encuentra registrado.");  
+                    return false;
+                }
+            }
+
+            //Validando cantidad de caracteres minimos.
+            var MinCaracterCelular = limitarMinimo($('#txtCelularMD').val(), $("#hdn_CaracterMinimo").val(), 2);
+            if (!MinCaracterCelular) {
                 $('#txtCelularMD').focus();
+			    AbrirMensaje("El número telefónico ya se encuentra registrado.");  
                 return false;
             }
-        }
-        */
 
-        if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
-            var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
-            if (!MinCaracterOtroTelefono) {
-                return false;
+            /*
+            if (viewBagPaisID == 4) {//Validacion solo para Colombia, numero de celular debe empezar con 3.
+                if ($('#txtCelularMD').val().substr(0, 1) != "3") { 
+				    AbrirMensaje("Número de celular tiene formato incorrecto.");  
+                    $('#txtCelularMD').focus();
+                    return false;
+                }
             }
-        }
-    } 
+            */
 
-    var item = {
+            if ($("#txtTelefonoTrabajoMD").val().trim() != "") {
+                var MinCaracterOtroTelefono = limitarMinimo($('#txtTelefonoTrabajoMD').val(), $("#hdn_CaracterMinimo").val(), 3);
+                if (!MinCaracterOtroTelefono) {
+                    return false;
+                }
+            }
+        } 
+
+        var item = {
             CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
             EMail: $.trim(jQuery('#txtEMailMD').val()),
             Telefono: jQuery('#txtTelefonoMD').val(),
@@ -305,32 +291,35 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
             NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
             CompartirDatos: false,
             AceptoContrato: $('#chkAceptoContratoMD').is(':checked')
-    };
+        };
 
-    if (viewBagPaisID != 4) {
-	ShowLoading();;
-        jQuery.ajax({
-            type: 'POST',
-            url: '@Url.Action("ActualizarDatos", "MisDatos", new { area = "Mobile" })',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(item),
-            async: true,
-            success: function (data) {
-                if (checkTimeout(data)) {
-                    CloseLoading(); 
-				   MensajeValdiacion(data.message);   
+        if (viewBagPaisID != 4) {
+	        ShowLoading();
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("ActualizarDatos", "MisDatos", new { area = "Mobile" })',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(item),
+                async: true,
+                success: function (data) {
+                    if (checkTimeout(data)) {
+                        CloseLoading(); 
+                        AbrirMensaje(data.message, null, function () {
+                            ShowLoading();
+                            location.href = '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+                        });
+                    }
+                },
+                error: function (data, error) {
+                    if (checkTimeout(data)) {
+                        CloseLoading();
+                        AbrirMensaje("ERROR");   
+                    }
                 }
-            },
-            error: function (data, error) {
-                if (checkTimeout(data)) {
-                    CloseLoading();
-                      MensajeValdiacion("ERROR");   
-                }
-            }
-        });
-    }  
-}
+            });
+        }  
+    }
 
        $("#txtTelefono, #txtTelefonoMD").keypress(function (evt) {
         var charCode = (evt.which) ? evt.which : window.event.keyCode;
@@ -423,7 +412,7 @@ function limitarMinimo(contenido, caracteres, a) {
     if (contenido.length < caracteres && contenido.trim() != "")
     {
         var texto = a == 1 ? "teléfono" : a == 2 ? "celular" : "otro teléfono"; 
-		MensajeValdiacion('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
+		AbrirMensaje('El número de ' + texto + ' debe tener como mínimo ' + caracteres + ' números.');
         return false;
     }
     return true;
@@ -459,7 +448,7 @@ function CambiarContrasenia() {
     }
 
     if (vMessage != "") {
-	MensajeValdiacion(vMessage);  
+	    AbrirMensaje(vMessage);  
         return false;
     } else {
 
@@ -484,12 +473,12 @@ function CambiarContrasenia() {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
                             $("#txtNuevaContrasenia02").val(''); 
-							MensajeValdiacion("La contraseña anterior ingresada es inválida");  
+							AbrirMensaje("La contraseña anterior ingresada es inválida");  
                         } else if (data.message == "1") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
                             $("#txtNuevaContrasenia02").val(''); 
-							MensajeValdiacion("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");   
+							AbrirMensaje("Hubo un error al intentar cambiar la contraseña, por favor intente nuevamente.");   
                         } else if (data.message == "2") {
                             $("#txtContraseniaAnterior").val('');
                             $("#txtNuevaContrasenia01").val('');
@@ -498,7 +487,7 @@ function CambiarContrasenia() {
                             $(".popup_actualizarMisDatos").removeClass("incremento_altura_misDatos");
                             $(".campos_actualizarDatos").delay(200);
                             $(".campos_actualizarDatos").fadeIn(200);
-							 MensajeValdiacion("Se cambió satisfactoriamente la contraseña.");    
+							 AbrirMensaje("Se cambió satisfactoriamente la contraseña.");    
                         }
                         return false;
                     }
@@ -507,11 +496,11 @@ function CambiarContrasenia() {
             error: function (data, error) {
                 if (checkTimeout(data)) {
                     CloseLoading();
-                    MensajeValdiacion("Error en el Cambio de Contraseña");
+                    AbrirMensaje("Error en el Cambio de Contraseña");
                 }
             }
         });
     }
 } 
  </script> 
-     }
+}

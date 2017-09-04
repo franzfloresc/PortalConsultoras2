@@ -1,5 +1,4 @@
-Declare
-@MenuMobilIDUltimo int
+Declare @MenuMobilIDUltimo int
 set @MenuMobilIDUltimo=(select max(MenuMobileID) from MenuMobile) 
 if not exists(select MenuMobileID from MenuMobile where UrlItem='Mobile/MisDatos')
 	begin

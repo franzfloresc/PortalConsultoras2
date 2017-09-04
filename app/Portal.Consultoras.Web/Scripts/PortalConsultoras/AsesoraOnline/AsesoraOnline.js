@@ -30,6 +30,7 @@
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
         var respuesta3 = $("#mis-clientes-vienen:checked").val();
         var respuesta4 = $("#llamar-pedir-productos:checked").val();
+        var respuesta5 = $("#compartir-catalogos:checked").val();
         var TYCchecked = $("#terminos-condiciones").prop('checked')
 
         if (!TYCchecked) {
@@ -42,8 +43,9 @@
             Respuesta1: typeof respuesta1 === "undefined" ? 0 : respuesta1,
             Respuesta2: typeof respuesta2 === "undefined" ? 0 : respuesta2,
             Respuesta3: typeof respuesta3 === "undefined" ? 0 : respuesta3,
-            Respuesta4: typeof respuesta4 === "undefined" ? 0 : respuesta4
-            };
+            Respuesta4: typeof respuesta4 === "undefined" ? 0 : respuesta4,
+            Respuesta5: typeof respuesta5 === "undefined" ? 0 : respuesta5
+        };
 
         jQuery.ajax({
             type: 'POST',

@@ -39,6 +39,7 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.Respuesta2 = Convert.ToInt32(model.Respuesta2);
                 entidad.Respuesta3 = Convert.ToInt32(model.Respuesta3);
                 entidad.Respuesta4 = Convert.ToInt32(model.Respuesta4);
+                entidad.Respuesta5 = Convert.ToInt32(model.Respuesta5);
                 entidad.ConfirmacionInscripcion = 1;
 
                 using (AsesoraOnlineServiceClient sv = new AsesoraOnlineServiceClient())

@@ -10,6 +10,7 @@
       <xs:element minOccurs="0" name="Respuesta2" type="xs:int" />
       <xs:element minOccurs="0" name="Respuesta3" type="xs:int" />
       <xs:element minOccurs="0" name="Respuesta4" type="xs:int" />
+      <xs:element minOccurs="0" name="Respuesta5" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEAsesoraOnline" nillable="true" type="tns:BEAsesoraOnline" />

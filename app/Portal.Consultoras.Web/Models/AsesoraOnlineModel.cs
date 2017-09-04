@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace Portal.Consultoras.Web.Models
+﻿namespace Portal.Consultoras.Web.Models
 {
     public class AsesoraOnlineModel
     {
@@ -11,6 +6,7 @@ namespace Portal.Consultoras.Web.Models
         public string Respuesta2 { get; set; }
         public string Respuesta3 { get; set; }
         public string Respuesta4 { get; set; }
+        public string Respuesta5 { get; set; }
         public string ConfirmacionInscripcion { get; set; }
     }
 }
