@@ -24,6 +24,14 @@ $(document).ready(function () {
         }
     });
 
+    $(".campo_correoElectronico").focus(function () {
+        $(".iconoUsuario").addClass("iconoUsuarioActivo");
+    });
+
+    $(".campo_correoElectronico").focusout(function(){
+        $(".iconoUsuario").removeClass("iconoUsuarioActivo");
+    });
+
     $('#btnLoginFB').addClass('center_facebook');
 
     $("#ErrorTextLabel").css("padding-left", "0");

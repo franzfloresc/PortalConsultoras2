@@ -1031,19 +1031,19 @@ h1, h2, h3, h4, h5, h6 {
 
 
         #popup_olvidasteContrasenia .formcontrol input::-webkit-input-placeholder {
-            color: black;
+            color: #838383;
         }
 
         #popup_olvidasteContrasenia .formcontrol input:-moz-placeholder {
-            color: black;
+            color: #838383;
         }
 
         #popup_olvidasteContrasenia .formcontrol input::-moz-placeholder {
-            color: black;
+            color: #838383;
         }
 
         #popup_olvidasteContrasenia .formcontrol input:-ms-input-placeholder {
-            color: black;
+            color: #838383;
         }
 
         #popup_olvidasteContrasenia .user input::-webkit-input-placeholder {
@@ -1062,6 +1062,15 @@ h1, h2, h3, h4, h5, h6 {
             color: #838383;
         }
 
+.iconoUsuario:before{
+    position:relative;
+    top:3px;
+    color: #838383;
+}
+
+.iconoUsuarioActivo:before{
+    color:#000;
+}
 
 #popup_contraseniaEnviada {
     font-family: lato;
