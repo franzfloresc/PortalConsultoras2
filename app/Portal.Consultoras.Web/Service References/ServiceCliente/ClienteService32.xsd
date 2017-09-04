@@ -17,6 +17,28 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEClienteRecordatorio" nillable="true" type="tns:BEClienteRecordatorio" />
+  <xs:complexType name="ArrayOfBEMovimiento">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMovimiento" nillable="true" type="tns:BEMovimiento" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEMovimiento" nillable="true" type="tns:ArrayOfBEMovimiento" />
+  <xs:complexType name="BEMovimiento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClienteId" type="xs:short" />
+      <xs:element minOccurs="0" name="ClienteMovimientoId" type="xs:int" />
+      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodigoCliente" nillable="true" type="xs:long" />
+      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
+      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Monto" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Nota" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Pedidos" nillable="true" type="q1:ArrayOfBEPedidoDDWebDetalle" />
+      <xs:element minOccurs="0" name="TipoMovimiento" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEMovimiento" nillable="true" type="tns:BEMovimiento" />
   <xs:complexType name="ArrayOfBENota">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BENota" nillable="true" type="tns:BENota" />
@@ -34,28 +56,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENota" nillable="true" type="tns:BENota" />
-  <xs:complexType name="BEMovimiento">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="ClienteId" type="xs:short" />
-      <xs:element minOccurs="0" name="ClienteMovimientoId" type="xs:int" />
-      <xs:element minOccurs="0" name="CodigoCampania" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="CodigoCliente" nillable="true" type="xs:long" />
-      <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
-      <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Fecha" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Monto" type="xs:decimal" />
-      <xs:element minOccurs="0" name="Nota" nillable="true" type="xs:string" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="Pedidos" nillable="true" type="q1:ArrayOfBEPedidoDDWebDetalle" />
-      <xs:element minOccurs="0" name="TipoMovimiento" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="BEMovimiento" nillable="true" type="tns:BEMovimiento" />
-  <xs:complexType name="ArrayOfBEMovimiento">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEMovimiento" nillable="true" type="tns:BEMovimiento" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfBEMovimiento" nillable="true" type="tns:ArrayOfBEMovimiento" />
   <xs:complexType name="ArrayOfBEClienteDeudaRecordatorio">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="BEClienteDeudaRecordatorio" nillable="true" type="tns:BEClienteDeudaRecordatorio" />

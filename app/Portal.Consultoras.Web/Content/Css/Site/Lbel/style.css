@@ -5050,17 +5050,22 @@ a.subir_carousel, a.bajar_carousel {
 }
 
 .popup_ofertaFinal {
-    display: block;
+    display:inline-block;
     position: relative;
-    top: 50%;
-    margin: -298.5px auto 0 auto;
+    
+    margin:0 auto;
     background: #FFF;
-    width: 100%;
-    max-width: 892px;
+    
+    width:850px;
     height: auto;
     padding-top: 40px;
     box-sizing: border-box;
     font-family: 'Lato';
+    margin-top:50px;
+    vertical-align:top;
+}
+.center_text{
+    text-align:center;
 }
 
     .popup_ofertaFinal .icono_advertencia {
@@ -27123,16 +27128,25 @@ div.subir_archivo {
 }
 
 .nombre_cliente_sb {
-    width: 20%;
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
-    padding-left: 15px;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+.apellido_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
 .telefonofijo_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -27140,15 +27154,15 @@ div.subir_archivo {
 }
 
 .celular_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
     padding-bottom: 23px;
 }
 
-.correo_clientes {
-    width: 20%;
+.correo_clientes{
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -27156,42 +27170,39 @@ div.subir_archivo {
 }
 
 .pedido_detalle_cliente {
-    width: 9%;
+    width:9%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align:center;
+    padding-top:23px;
+    padding-bottom:23px;
+}
+.pedido_detalle_cliente a{
+    padding-right:12px;
+    position:relative;
+    top:0px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.pedido_detalle_cliente a:hover{
+    top:-5px;
+    opacity:0.5;
+    filter:alpha(opacity=60);
+}
+.editar_cliente{
+    width:5%;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
     padding-top: 23px;
     padding-bottom: 23px;
 }
-
-    .pedido_detalle_cliente a {
-        padding-right: 12px;
-        position: relative;
-        top: 0px;
-        transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-    }
-
-        .pedido_detalle_cliente a:hover {
-            top: -5px;
-            opacity: 0.5;
-            filter: alpha(opacity=60);
-        }
-
-.editar_cliente {
-    width: 8%;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    padding-top: 23px;
-    padding-bottom: 23px;
-}
-
-.eliminar_cliente {
-    width: 8%;
+.eliminar_cliente{
+    width: 5%;
     display: inline-block;
     vertical-align: middle;
     text-align: center;
@@ -35069,7 +35080,7 @@ h1#penmostreo .campana {
     line-height: 22px;
     color: black;
     font-weight: 700;
-    text-transform: uppercase;
+    /*text-transform:uppercase;*/
 }
 
 .precio_valorizado_showroom {
@@ -36735,8 +36746,9 @@ h1#penmostreo .campana {
 }
 
 .imagen_producto_best_seller {
-    height: 400px;
+    height: 330px;
     width: auto;
+    margin-top: 55px;
 }
 
 .fondo_set_best_seller .content_detalle_set {
@@ -37096,6 +37108,112 @@ h1#penmostreo .campana {
 .respuesta_valida {
     background: black;
     color: white;
+}
+/*SPRINT 18*/
+.content_regalo_sorpresa{
+    display:inline-block;
+    width:310px;
+    height:570px;
+    margin-top: 50px;
+    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    vertical-align:top;
+    margin-right: -25px;
+    z-index: 21;
+    position: relative;
+    padding-top:30px;
+    padding-left:25px;
+    padding-right:25px;
+}
+.fondo_blanco_regalo{
+    width:240px;
+    min-height:294px;
+    margin:0 auto;
+    background:white;  
+    padding-top:18px;  
+}
+.titulo_regalo_sorpresa{
+    font-family:'Lato';
+    font-size:17px;
+    letter-spacing:1px;
+    margin-bottom: 22px;
+    text-align:center;
+    margin-top:7px;
+    color:white;
+    line-height: 22px;
+}
+.titulo_regalo_producto{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-bottom:15px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:16px;
+}
+.content_imagen_sorpresa{
+    height:178px;
+    width:180px;
+    /*background:black;*/   
+    margin:0 auto;
+    margin-bottom:12px;
+}
+.descripcion_regalo{
+    font-family: 'Lato';
+    /* font-weight: 300; */
+    font-size: 10px;
+    color: black;
+    line-height: 12px;
+    padding-left:10px;
+    padding-right:10px;
+}
+.descripcion_regalo a{
+    display:block;
+    text-decoration:underline;
+    margin-top:4px;
+}
+.content_detalle_monto{
+   font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.5px;
+    color: white;
+    background: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    width: 240px;
+    margin: 0 auto;
+    min-height: 40px;
+}
+.icono_regalo_sorpresa{
+    width:85px;
+    height:55px;
+    background:url(https://image.prntscr.com/image/FsgNYCifSjqEzkw5UjWyBw.png);
+    margin: 0 auto;
+    margin-top:26px;
+}
+.titulo_regalo_2{
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    font-size: 19px;
+    margin-bottom: 36px;
+    margin-top: 7px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+.font_32{
+    font-weight:700;
+    padding-bottom:6px;    
+    display:block;
+    font-size:32px;
+    line-height: 35px;
+}
+.bold_900{
+    font-weight:900;
 }
 
 /*EPD-1919 INICIO*/

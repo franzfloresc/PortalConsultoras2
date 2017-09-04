@@ -78,7 +78,8 @@ $(document).ready(function () {
             }
         });
     });
-         
+   
+    ObtenerComunicadosPopup();
 });
 
 function CrearPopShow() {
@@ -465,7 +466,7 @@ $("#content_oferta_dia_mobile").click(function () {
 function odd_mobile_google_analytics_promotion_click() {
     if ($('#BloqueMobileOfertaDia').length > 0) {
         var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
-        var name = "Oferta del d�a - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var name = "Oferta del día - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
         var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
         dataLayer.push({
             'event': 'promotionClick',
@@ -513,57 +514,186 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
+function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
+    var impressions = [];
+    var position = 0;
+    var elements = list.length;
+    var item = null;
+    var impresion = null;
+    if (event === 'page_load') {//Ok
+        
+        position = 1;
+        for (var i = 0; i <= elements - 1; i++) {
+            item = list[i];
+            item.Posicion = position;
+            if (position <= 3) {
+                impresion = odd_get_item_impresion(item);
+                if (impresion != null)
+                    impressions.push(impresion);
+            }
+            else
+                break;
+            position++;
+        }
+    }
+    if (event === 'arrow_click') {
+        
+        item = list[index];
+        item.Posicion = index + 1;
+        impresion = odd_get_item_impresion(item);
+        if (impresion != null)
+            impressions.push(impresion);
+    }
+    if (impressions.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': impressions
+            }
+        });
+    }
+}
+function odd_get_item_impresion(item) {
+    var impresion = null;
+    if (item != null) {
+        impresion = {
+            'name': item.NombreOferta,
+            'id': item.CUV2,
+            'price': item.PrecioOferta,
+            'brand': item.DescripcionMarca,
+            'category': 'No disponible',
+            'variant': 'Lanzamiento',
+            'list': 'Oferta del día',
+            'position': item.Posicion
+        }
+    }
+    return impresion;
+}
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
-function VerShowRoomIntriga()
-{    
-    var id = "";
-    var name = "";
+function ObtenerComunicadosPopup() {
+    if (primeraVezSession == 0) return;
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
-    id = $("#hdEventoIDShowRoom").val();
 
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
-            }
+    $(".contenedor_popup_comunicado").click(function (e) {
+        grabarComunicadoPopup();
+    });
+
+    $(".popup_comunicado .btn_cerrar a").click(function (e) {
+        e.stopPropagation();
+        grabarComunicadoPopup();
+        $(".contenedor_popup_comunicado").modal("hide");
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
+        //CERRAR
+    });
+
+    $(window).resize(function (e) {
+        //var w_width = $(window).width() - 50;
+        //var w_height = $(window).height() - 150;
+        var w_width = 326;
+        var w_height = 418;
+
+        $(".popup_comunicado").css("width", w_width);
+        $(".popup_comunicado").css("height", w_height);
+
+        $(".detalle_popup_comunicado").css("width", w_width);
+        $(".detalle_popup_comunicado").css("height", w_height);
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado").click(function (e) {
+        if (userAgent.indexOf("iphone") > -1) {
+            e.preventDefault();
+            alert("La aplicación no se encuentra disponible para este dispositivo");
+            return;
+        }
+
+        window.open($(this).attr("urlAccion"));
+
+        //CLICK
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
+        e.stopPropagation();
+
+        var chk = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']");
+
+        if (chk.is(':checked')) {
+            $(this).html("");
+            chk.prop('checked', false);
+        }
+        else {
+            $(this).html("X");
+            chk.prop('checked', true);
         }
     });
 
+    ShowLoading();
+
+    $.ajax({
+        type: "GET",
+        url: baseUrl + 'Mobile/Bienvenida/ObtenerComunicadosPopUps',
+        contentType: 'application/json',
+        success: function (response) {
+            CloseLoading();
+
+            if (checkTimeout(response)) {
+                armarComunicadosPopup(response)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) CloseLoading();
+        }
+    });
 }
 
-function VerShowRoomVenta()
-{    
-    var id = "";
-    var name = "";
+function armarComunicadosPopup(response){
+    if (response == null) return;
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - Compra Ya';
-    id = $("#hdEventoIDShowRoom").val();
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
 
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".contenedor_popup_comunicado").modal("show");
+
+    $(window).resize();
+
+    //ABRIR
+}
+
+function grabarComunicadoPopup() {
+    var checked = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").is(':checked');
+    if (!checked) return;
+
+    var comunicadoID = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val();
+    var params = { ComunicadoID: comunicadoID };
+
+    ShowLoading();
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if(!data.success) alert(data.message)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurrió un error al aceptar el comunicado.");
             }
         }
     });

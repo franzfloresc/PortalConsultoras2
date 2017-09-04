@@ -1,4 +1,4 @@
-use BelcorpPeru
+﻿use BelcorpPeru
 go
 if not exists(select 1 from configuracionPais where Codigo = 'OFT')
 insert into configuracionPais(Codigo,Excluyente,Descripcion,Estado) 
