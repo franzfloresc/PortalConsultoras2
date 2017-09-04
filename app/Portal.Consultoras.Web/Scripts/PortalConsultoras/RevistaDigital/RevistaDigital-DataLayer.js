@@ -28,7 +28,8 @@
 
 function AccessRDAnalytics(origenWeb) {
     try {
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1101": //Home
                 VirtualEventPush("Home", "Ésika para mí", "Click banner Ver todas mis ofertas");
                 break;
@@ -53,7 +54,8 @@ function AccessRDAnalytics(origenWeb) {
 function TabsRDAnalytics(label, campaniaId) {
     try {
         var category = "Ésika para mí";
-        switch (label) {
+        var labelString = label.toString();
+        switch (labelString) {
             case "1":
                 VirtualEventPush(category, "Click tab", "Comprar campaña " + campaniaId);
                 break;
@@ -79,7 +81,8 @@ function FiltrarProductoRDAnalytics(label) {
 
 function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
     try {
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721"://Lan desktop
                 if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
                 else AddToCartPush("Esika para mí - Banner Principal", estrategia);
@@ -108,7 +111,8 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
 
 function VerDetalleComprarRDAnalytics(origenWeb, estrategia) {
     try {
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721":
                 ProductClickPush("Esika para mí - Banner Principal", estrategia);
                 break;
@@ -137,7 +141,8 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
     try {
         var category = "Ésika para mí";
         var label = campania + " - " + name;
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721":
                 if (popup) VirtualEventPush(category, "Agregar producto - Detalle Banner Principal", label);
                 else VirtualEventPush(category, "Agregar producto - Banner Principal", label);
