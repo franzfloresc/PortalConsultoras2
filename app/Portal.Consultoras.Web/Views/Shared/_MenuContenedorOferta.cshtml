@@ -4,7 +4,7 @@
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
-    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style='background: url(" + menuActivo.FondoBanner + ");'" : "";
+    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style=background:url(" + menuActivo.FondoBanner + ");" : "";
 }
 <div class="op_esika-para-mi" @estiloFondoBanner>
     <div>
