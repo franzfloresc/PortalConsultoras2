@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (Request.Browser.IsMobileDevice)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            var model = new BienvenidaHomeModel();
+           var model = new BienvenidaHomeModel();
 
             try
             {
