@@ -25,7 +25,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (Request.Browser.IsMobileDevice)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-           var model = new BienvenidaHomeModel();
+            var model = new BienvenidaHomeModel();
 
             try
             {
@@ -283,9 +283,11 @@ namespace Portal.Consultoras.Web.Controllers
             return View("IndexSAC", model);
         }
 
-        public ActionResult IndexVC(int asesoraOnlinePopup)
+        public ActionResult IndexVC()
         {
-            ViewBag.AsesoraOnlinePopup = asesoraOnlinePopup;
+            if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile" });
+
+            ViewBag.AsesoraOnlinePopup = 1;
             return Index();
         }
 
@@ -358,13 +360,14 @@ namespace Portal.Consultoras.Web.Controllers
                 return Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
             }
 
+            int TipoPopUpMostrar = 0;
             var listaPopUps = ObtenerListaPopupsDesdeServicio();
             if (listaPopUps.Any())
             {
-                int TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
+                TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
             }
-            return 0;
+            return TipoPopUpMostrar;
         }
 
         private bool MostrarPopupVideoIntroductorio(BienvenidaHomeModel model)

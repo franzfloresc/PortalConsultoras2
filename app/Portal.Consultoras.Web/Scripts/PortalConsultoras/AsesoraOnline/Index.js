@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     var asesoraOnlineObj = AsesoraOnline({
         enviarFormularioUrl: baseUrl + 'AsesoraOnline/EnviarFormulario',
-        irAModificarMisDatosUrl: baseUrl + 'Bienvenida/IndexVC?asesoraOnlinePopup=1'
+        irAModificarMisDatosUrl: baseUrl + 'Bienvenida/IndexVC'
     });
 
     var LandingAsesoraOnline;
