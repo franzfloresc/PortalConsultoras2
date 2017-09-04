@@ -1131,56 +1131,33 @@ namespace Portal.Consultoras.BizLogic
 
                 paso = "2";
 
-                if (paisId.ToString().Trim() == "4")
-                {
-                    if (lst.Count == 0)
-                    {
-                        resultado = "0" + "|" + "1";
-                        return resultado;
-                    }
-                    else
-                    {
-                        textoRecuperacion = v_correo; // contiene el correo del destinatario
-                        if (textoRecuperacion.Trim() == "")
-                        {
-                            resultado = "0" + "|" + "2";
-                            return resultado;
-                        }
-                    }
-                }
+                //if (paisId.ToString().Trim() == "4")
+                //{
+                //    if (lst.Count == 0)
+                //    {
+                //        resultado = "0" + "|" + "1";
+                //        return resultado;
+                //    }
+                //    else
+                //    {
+                //        textoRecuperacion = v_correo; // contiene el correo del destinatario
+                //        if (textoRecuperacion.Trim() == "")
+                //        {
+                //            resultado = "0" + "|" + "2";
+                //            return resultado;
+                //        }
+                //    }
+                //}
 
-                if (lst[0].Cantidad == 0)
-                {
-                    resultado = "0" + "|" + "3";
-                    return resultado;
-                }
-                else
-                {
-                    string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                    DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
-                    string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-                    string paisiso = lst[0].CodigoISO;
-                    string codigousuario = lst[0].CodigoUsuario;
-                    string nombre = lst[0].Nombre.Trim().Split(' ').First();
-                    string clave = lst[0].Clave;
+                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
+                string paisiso = lst[0].CodigoISO;
+                string codigousuario = lst[0].CodigoUsuario;
+                string nombre = lst[0].Nombre.Trim().Split(' ').First();
+                string clave = lst[0].Clave;
 
-                    //var newUri = Portal.Consultoras.Common.Util.GetUrlRecuperarContrasenia(urlportal, paisId, textoRecuperacion, paisiso, codigousuario, fechasolicitud, nombre);
-
-                    //paso = "3";
-
-                    //string emailFrom = "no-responder@somosbelcorp.com";
-                    //string emailTo = v_correo;
-                    //string titulo = "(" + lst[0].CodigoISO + ") Cambio de contraseña de Somosbelcorp";
-                    //string logo = (esEsika ? "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_esika.png" : "https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/Correo/logo_lbel.png");
-                    //string nombrecorreo = lst[0].Nombre.Trim().Split(' ').First();
-                    //string fondo = (esEsika ? "e81c36" : "642f80");
-                    //string displayname = "Somos Belcorp";
-
-                    //if (emailTo.Trim().Length > 0)
-                    //    Portal.Consultoras.Common.MailUtilities.EnviarMailProcesoRecuperaContrasenia(emailFrom, emailTo, titulo, displayname, logo, nombrecorreo, newUri.ToString(), fondo);
-
-                    resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre + "|" + clave + "|" + codigousuario + "|" + urlportal;
-                }
+                resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre + "|" + clave + "|" + codigousuario + "|" + urlportal;
             }
             catch (Exception ex)
             {

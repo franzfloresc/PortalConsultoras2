@@ -1535,7 +1535,7 @@ namespace Portal.Consultoras.Web.Controllers
             switch (tipoMensaje)
             {
                 case "1": return "El Número de Cédula ingresado no existe.";
-                case "2": return "No tienes un correo registrado para el envío de tu clave.<br />Por favor comunícate con el Servicio de Atención al Cliente.";
+                case "2": return "No tienes un correo registrado para el envío de tu clave. Por favor comunícate con el Servicio de Atención al Cliente.";
                 case "3": return "Correo electrónico no identificado.";
                 case "4": return "Te hemos enviado una nueva clave a tu correo.";
                 case "5": return "Ocurrió un problema al recuperar tu contraseña.";

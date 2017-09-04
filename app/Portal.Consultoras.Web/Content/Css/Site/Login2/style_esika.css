@@ -456,6 +456,20 @@ Image .nav0:hover {
         float: left;
     }
 
+.user2 {
+    /* background: url('../images/user_ico2.png') top left no-repeat;*/
+    font-family: 'icomoon';
+}
+
+    .user2:before {
+        content: "\e903";
+        font-size: 20px;
+        text-align: left;
+        
+        margin-right: 7px;
+        float: left;
+    }
+
 .pass {
     margin-bottom: 8px;
     /*background: url('../images/pass_ico2.png') top left no-repeat; */

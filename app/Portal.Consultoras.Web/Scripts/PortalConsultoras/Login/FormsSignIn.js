@@ -136,6 +136,8 @@ $(document).ready(function () {
         
         $("#txtCorreoElectronico").prop("placeholder", $(".cboPaisCambioClave option:selected").attr("data-campoclave"));
         $("#txtCorreoElectronico").val("").focus();
+
+        $("#hdfCorreoElectronico").val($(".cboPaisCambioClave option:selected").attr("data-campoclave"));
     });    
 
     Inicializar();
@@ -888,11 +890,11 @@ function RecuperarClave() {
                 alert(response.message);
                 return false;
             }
-
+            hdfCorreoElectronico
             if (response.correo.length == 0) {
-                alert("Usuario no tiene correo electrónico.");
+                alert("Por favor ingresa tu " + $("#hdfCorreoElectronico").val() + ".");
                 return false;
-            }
+            }            
 
             $("#hdcorreo").val(response.correo);
             $("#hdclave").val(response.clave);
