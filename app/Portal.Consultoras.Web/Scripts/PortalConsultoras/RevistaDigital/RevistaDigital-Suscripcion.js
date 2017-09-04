@@ -14,6 +14,7 @@ function RDPopupCerrar(tipo) {
     if (tipo == 2) {
         CerrarPopUpRDAnalytics('Banner Inscripción Exitosa');
         CerrarPopup("#PopRDSuscripcion");
+        CerrarLoad();
         return true;
     }
 

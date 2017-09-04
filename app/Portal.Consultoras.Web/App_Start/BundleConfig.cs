@@ -255,6 +255,18 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js"
                 ));
 
+            bundles.Add(new ScriptBundle("~/bundles/ActualizarMatrizCampaniaModuleMin").Include(
+                "~/Scripts/fileuploader.js",
+                "~/Scripts/jquery.form.js",
+                "~/Scripts/handlebars.js",
+                //"~/Scripts/jquery.paging.min.js",
+                "~/Scripts/AdminContenido/ToastHelper.js",
+                "~/Scripts/AdminContenido/Paginador.js",
+                "~/Scripts/AdminContenido/Nemotecnico.js",
+                "~/Scripts/AdminContenido/MatrizComercialFileUpload.js",
+                "~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCampaniaModule.js"
+                ));
+
 #if DEBUG
             BundleTable.EnableOptimizations = false;
 #else

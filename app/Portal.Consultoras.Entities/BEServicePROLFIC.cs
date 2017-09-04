@@ -21,12 +21,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string CUENTA { get; set; }
         [DataMember]
-        public string COD_ESTR { get; set; }
-        [DataMember]
-        public string VAL_I18N { get; set; }
-        [DataMember]
-        public string NUM_OFER { get; set; }
-        [DataMember]
         public string CUV { get; set; }
         [DataMember]
         public string TIPO_OFETA { get; set; }
@@ -56,12 +50,6 @@ namespace Portal.Consultoras.Entities
                 ZONA = Convert.ToString(row["ZONA"]);
             if (DataRecord.HasColumn(row, "CUENTA"))
                 CUENTA = Convert.ToString(row["CUENTA"]);
-            if (DataRecord.HasColumn(row, "COD_ESTR"))
-                COD_ESTR = Convert.ToString(row["COD_ESTR"]);
-            if (DataRecord.HasColumn(row, "VAL_I18N"))
-                VAL_I18N = Convert.ToString(row["VAL_I18N"]);
-            if (DataRecord.HasColumn(row, "NUM_OFER"))
-                NUM_OFER = Convert.ToString(row["NUM_OFER"]);
             if (DataRecord.HasColumn(row, "CUV"))
                 CUV = Convert.ToString(row["CUV"]);
             if (DataRecord.HasColumn(row, "TIPO_OFETA"))

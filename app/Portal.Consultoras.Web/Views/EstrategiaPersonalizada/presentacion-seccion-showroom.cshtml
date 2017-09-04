@@ -25,7 +25,9 @@
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
                     <div class="saludo_consultora_showroom">{{MensajeSaludo}}</div>
                     <div class="dias_intriga_home">{{MensajeDiasFaltantes}}"</div>
-                    <img class="imagen_dias_intriga" src="{{UrlImagenIntriga}}" onclick="VerShowRoomIntriga()" style="cursor: pointer; width:70%; height:70%;" />
+                    <a href="/ShowRoom/Intriga">
+                        <img class="imagen_dias_intriga" src="{{UrlImagenIntriga}}" style="width:70%; height:70%;" />
+                    </a>
                 </div>
             </div>
         </script>
@@ -36,7 +38,11 @@
         <script id="template-showroom" type="text/x-handlebars-template">
             <div class="content-favclientes content_carrusel_agregado">
                 <div>
-                    <hr class="clear">
+                    <div class="clear"></div>
+                    <div class="texto_filtros_fav">
+                        <a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS LOS SETS</a>
+                    </div>
+                    <hr class="clear" />
                     <div class="" style="position:relative;">
                         {{#each this.data as |item|}}
                         <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
@@ -89,7 +95,7 @@
                         <div class="clear"></div>
                     </div>
                 </div>
-                <hr class="clear">
+                <hr class="clear" />
             </div>
         </script>
     }

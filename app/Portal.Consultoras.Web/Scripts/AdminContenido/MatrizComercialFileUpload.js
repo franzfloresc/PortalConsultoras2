@@ -43,7 +43,9 @@ var MatrizComercialFileUpload = function (config) {
             onComplete: data.onComplete,
             onSubmit: _onFileSubmit,
             onProgress: function (id, fileName, loaded, total) { $(".qq-upload-list").css("display", "none"); },
-            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); }
+            onCancel: function (id, fileName) { $(".qq-upload-list").css("display", "none"); },
+            maxConnections: data.maxConnections || 3,
+            multiple: data.multiple || false
         });
     };
 

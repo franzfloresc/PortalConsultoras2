@@ -48,6 +48,8 @@ function VerDetalleEstrategia(e) {
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
     var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb");
 
+    estrategia.OrigenPedidoWeb = origenPedido;
+
     VerDetalleComprarRDAnalytics(origenPedido, estrategia);
 
     if (isMobile()) {
@@ -185,7 +187,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     }
 
     var popupId = '#popupDetalleCarousel_lanzamiento';
-    estrategia.OrigenPedidoWeb = 
+
     SetHandlebars("#verdetalle-template", estrategia, popupId);
 
     if (btnDesabled == 0) {
@@ -392,6 +394,14 @@ function EstrategiaAgregar(event, popup, limite) {
         }
     }
 
+    if (!origenPedidoWebEstrategia) {
+        origenPedidoWebEstrategia =
+            $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+            || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+            || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+            || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+            || origenPedidoWebEstrategia;
+    }
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     var params = ({

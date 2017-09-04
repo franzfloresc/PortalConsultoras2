@@ -550,6 +550,7 @@
     <Compile Include="Models\ProductoFaltanteModel.cs" />
     <Compile Include="Models\ProveedorDespachoCobranzaModel.cs" />
     <Compile Include="Models\RechazoModel.cs" />
+    <Compile Include="Models\RegaloOfertaFinalModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Models\RegistrarEstrategiaModel.cs" />
     <Compile Include="Models\ReporteConsolidadoModel.cs" />
@@ -703,16 +704,6 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\ValidacionesUnete\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\WsFuncionesSoap2\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Service References\WsFuncionesSoap\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1204,6 +1195,7 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
@@ -1211,6 +1203,9 @@
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
+    <Content Include="Content\Images\Esika\favicon.ico" />
+    <Content Include="Content\Images\gif-regalo-blanco.png" />
+    <Content Include="Content\Images\gif-regalo-gano.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\popup1.png" />
     <Content Include="Content\Images\Esika\RevistaDigital\previous.png" />
@@ -2205,6 +2200,7 @@
     <Content Include="Content\Images\Lbel\expofertas.png" />
     <Content Include="Content\Images\Lbel\facebook.png" />
     <Content Include="Content\Images\Lbel\facturacion_electronica.png" />
+    <Content Include="Content\Images\Lbel\favicon.ico" />
     <Content Include="Content\Images\Lbel\flechita.png" />
     <Content Include="Content\Images\Lbel\flechita.svg" />
     <Content Include="Content\Images\Lbel\flechita_info.png" />
@@ -3120,6 +3116,7 @@
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
+    <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -3497,6 +3494,7 @@
     <None Include="Service References\ServiceContenido\ContenidoService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceODS\ODSService.wsdl" />
     <None Include="Service References\ServiceODS\ODSService.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -3590,13 +3588,6 @@
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService38.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ServiceSAC\SACService.disco" />
-    <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
-    <None Include="Service References\ServiceSAC\configuration.svcinfo" />
-    <None Include="Service References\ServiceSAC\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <None Include="Service References\ServicePedido\PedidoService.disco" />
     <None Include="Service References\ServicePedido\configuration91.svcinfo" />
     <None Include="Service References\ServicePedido\configuration.svcinfo" />
@@ -3606,9 +3597,6 @@
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
-    <None Include="Service References\ServiceSAC\SACService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
@@ -3625,10 +3613,21 @@
     <None Include="Service References\ServiceSAC\SACService4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceSAC\SACService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceSAC\SACService6.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <None Include="Service References\ServiceSAC\SACService.disco" />
+    <None Include="Service References\ServiceSAC\configuration91.svcinfo" />
+    <None Include="Service References\ServiceSAC\configuration.svcinfo" />
+    <None Include="Service References\ServiceSAC\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
     <None Include="Service References\ServiceSeguridad\SeguridadService.xsd">
       <SubType>Designer</SubType>
@@ -3751,6 +3750,10 @@
     <None Include="Service References\ValidacionCrediticia\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.wsdl" />
+    <None Include="Service References\ValidacionCrediticia\ValidacionCrediticiaService.xsd">
+      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ValidacionesUnete\configuration91.svcinfo" />
     <None Include="Service References\ValidacionesUnete\configuration.svcinfo" />
@@ -3988,20 +3991,6 @@
     <Content Include="WebPages\SetVentaDigital.aspx" />
     <Content Include="WebPages\TerminosyReferencias_CO.aspx" />
     <Content Include="WebPages\WebTracking.aspx" />
-    <Content Include="Service References\WsFuncionesSoap2\WsFunciones.disco" />
-    <Content Include="Service References\WsFuncionesSoap2\configuration91.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap2\configuration.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap2\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
-    <Content Include="Service References\WsFuncionesSoap\WsFunciones.disco" />
-    <Content Include="Service References\WsFuncionesSoap\configuration91.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap\configuration.svcinfo" />
-    <Content Include="Service References\WsFuncionesSoap\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </Content>
     <Content Include="Views\SolicitudCredito\DetalleCreditoVE.cshtml" />
     <Content Include="Views\OfertaNueva\OfertaNueva.cshtml" />
     <Content Include="Views\ConsultaAdministrativa\Index.cshtml" />
@@ -4016,8 +4005,6 @@
     <Content Include="Views\OfertaFlexipago\OfertasFlexipago.cshtml" />
     <Content Include="Views\OfertaFlexipago\AdministrarOfertasFlexipago.cshtml" />
     <Content Include="Views\OfertaFlexipago\_ListadoOfertas.cshtml" />
-    <Content Include="Service References\WsFuncionesSoap\WsFunciones.wsdl" />
-    <Content Include="Service References\WsFuncionesSoap2\WsFunciones.wsdl" />
     <Content Include="Views\PedidoFIC\Index.cshtml" />
     <Content Include="Views\PedidoFIC\ListadoPedido.cshtml" />
     <Content Include="Views\CronogramaFIC\Index.cshtml" />
@@ -4182,6 +4169,8 @@
     <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
+    <Content Include="Views\Shared\MatrizComercial\_divVistaPrevia.cshtml" />
+    <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
@@ -4665,8 +4654,6 @@
     <WCFMetadataStorage Include="Service References\ServicioGenerarLideres\" />
     <WCFMetadataStorage Include="Service References\ValidacionCrediticia\" />
     <WCFMetadataStorage Include="Service References\ValidacionesUnete\" />
-    <WCFMetadataStorage Include="Service References\WsFuncionesSoap2\" />
-    <WCFMetadataStorage Include="Service References\WsFuncionesSoap\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
@@ -4685,11 +4672,13 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>20267</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:20267/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:20267/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

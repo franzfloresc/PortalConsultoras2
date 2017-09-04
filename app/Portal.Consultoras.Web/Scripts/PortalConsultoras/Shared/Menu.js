@@ -5,29 +5,28 @@ $(document).ready(function () {
 
     $("body").on("click", "[data-layout-menu1] ul li", function (e) {
         $("[data-layout-menu2] ul li").hide();
-        var listaMenus = $('[data-layout-menu2] ul').find("li[data-campania='" + $(this).data("campania") + "']");
+        var objClick = $(this);
+        var listaMenus = $('[data-layout-menu2] ul').find("li[data-campania='" + objClick.data("campania") + "']");
         listaMenus.css({ display: "block" });
         if (listaMenus.length == 0) {
             $('[data-layout-menu2]').hide();
-
-            var menuCheck = {
-                campania: 0,
-                codigo: ''
-            };
-
-            MenuContenedorGuardar(menuCheck);
         }
         else {
             $('[data-layout-menu2]').show();
         }
 
-        var urlAccion = $.trim($(this).data("url"));
+        var menuCheck = {
+            campania: objClick.data("campania"),
+            codigo: ''
+        };
+
+        MenuContenedorGuardar(menuCheck);
+
+        var urlAccion = $.trim(objClick.data("url"));
         if (urlAccion == "") {
-            LayoutHeaderFin();
+            urlAccion = "Ofertas";
         }
-        else {
-            window.location = "/" + (isMobile() ? "Mobile/" : "") + urlAccion;
-        }
+        window.location = "/" + (isMobile() ? "Mobile/" : "") + urlAccion;
     });
 
     MenuContenedor();
@@ -71,6 +70,8 @@ function MenuContenedor() {
         MenuContenedorGuardar(menuCheck);
     }
 
+    console.log(menuCheck);
+
     $("[data-layout-menu1] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']").addClass("seleccionado");
     var subMenus = $("[data-layout-menu2] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
     if (subMenus.length == 0) {
@@ -78,7 +79,9 @@ function MenuContenedor() {
     }
     else {
         subMenus.show();
-        $("[data-layout-menu2] ul li[data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "']").addClass("seleccionado");
+        $("[data-layout-menu2] ul "
+            + "li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
+            + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "']").addClass("seleccionado");
     }
 
     LayoutHeaderFin();
@@ -107,6 +110,9 @@ function MenuContenedorGuardar(codigoLocal) {
     });
 
     var detalle;
+
+    codigoLocal.campania = codigoLocal.campania || 0;
+    codigoLocal.codigo = $.trim(codigoLocal.codigo);
 
     $.ajax({
         type: 'POST',

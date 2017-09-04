@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
 
@@ -11,7 +7,7 @@ namespace Portal.Consultoras.BizLogic
 {
     public class BLTablaLogicaDatos
     {
-        public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, Int16 TablaLogicaID)
+        public List<BETablaLogicaDatos> GetTablaLogicaDatos(int paisID, short TablaLogicaID)
         {
             List<BETablaLogicaDatos> TablaLogicaDatos = new List<BETablaLogicaDatos>();
 

@@ -100,31 +100,40 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var lst = new List<BEOfertaProducto>();
             var estado = false;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
+            try
             {
-                lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros*2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
-            }
-            ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
-
-            // 1664
-            if (lst != null && lst.Count > 0)
-            {
-                if (lst.Count > cantidadregistros)
+                using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    estado = true;
+                    lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros * 2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
+                }
+                ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
+
+                // 1664
+                if (lst != null && lst.Count > 0)
+                {
+                    if (lst.Count > cantidadregistros)
+                    {
+                        estado = true;
+                    }
+
+                    lst = lst.Take(cantidadregistros).ToList();
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+                    lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
+                    lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
                 }
 
-                lst = lst.Take(cantidadregistros).ToList();
-                var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
-                lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
-                lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
+
             }
-            
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
             return Json(new
             {
-                lista = lst,             
-                verMas = estado 
-            }, JsonRequestBehavior.AllowGet);           
+                lista = lst,
+                verMas = estado
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public List<OfertaProductoModel> GetListadoOfertasLiquidacion()
@@ -206,6 +215,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
                     sv.InsPedidoWebDetalleOferta(entidad);
                     

@@ -23,7 +23,10 @@ namespace Portal.Consultoras.Web.Models
         public string NombreArchivoContrato { get; set; }
         public string DigitoVerificador { get; set; }
         public bool EnviarParametrosUTMs { get; set; }
-        public string CadenaParametrosUTMs {get {return @"utm_source=Transactional&utm_medium=email&utm_content=ConfirmarCuenta&utm_campaing=Registro"; }//Google Analytics
+        public string CadenaParametrosUTMs
+        {
+            get { return @"utm_source=Transactional&utm_medium=email&utm_content=ConfirmarCuenta&utm_campaing=RegistroShowRoomIntriga{{NOMBRE_EVENTO}}"; }
+
         }
     }
 }
