@@ -55,4 +55,86 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
+<script>
+        $('.op_esika-para-mi .op_menu-horizontal ul li a').hover(function (e) {
+            $(this).find('img.default').css('display', 'none');
+            $(this).find('img.hover').css('display', 'inline');
+            $(this).find('img.hover').css('margin-right', '5px');
+        }, function (e) {
+            $(this).find('img.default').css('display', 'inline');
+            $(this).find('img.default').css('margin-right', '5px');
+            $(this).find('img.hover').css('display', 'none');
+        });
+</script>
+
+<script>
+    /*$('.op_esika-menu ul li a').hover(function(e) {
+    	$(this).find('p').css('color', '#E81C36');
+
+    }, function(e) {
+
+    	$(this).find('p').css('color', 'black');
+
+    });*/
+</script>
+
+<script>
+        $(function () {
+            $('.op_esika-menu ul').hide();
+            $('.op_esika-menu ul:first').show();
+            $('.op_esika-para-mi .op_menu-horizontal ul li').on('click', function () {
+                $('.op_esika-menu ul').hide();
+                var activeTab = $(this).find('a').attr('attr-modal');
+                $(activeTab).show();
+                return false;
+            });
+        })
+</script>
+
+<script>
+        $('.op_esika-para-mi .op_menu-horizontal ul li a').on('click', function () {
+            $('.op_esika-para-mi .op_menu-horizontal ul li a').removeClass('active-menu');
+            $(this).addClass('active-menu');
+            /*if ($(this).hasClass('active-menu')){
+                $(this).find('img.hover').css('display', 'inline');
+            }*/
+        });
+</script>
+
+<script>
+        $('.op_esika-menu ul li a').on('click', function () {
+            $('.op_esika-menu ul li a').removeClass('activo');
+            $('.op_esika-menu ul li a p').removeClass('titulo-menu');
+            $(this).addClass('activo');
+            $(this).find('p').addClass('titulo-menu');
+        });
+</script>
+
+<script>
+	/*$(function(){
+		 /*if ($(".op_esika-menu ul li a.activo").hasClass('activo')){
+        	$(this).find('p').css("color","#B11314");
+	    }*/
+	   /* var detecta_activo = $( ".op_esika-menu ul li a.activo" ).append( $( "p:first" ).hasClass( "selected" ).toString() );
+	    if(detecta_activo is false)
+	    {
+	    	alert("d");
+	    }
+	    })*/
+</script>
+
+<script>
+        $(document).ready(function () {
+            var altura = $('.bc_estrategia_contenido').offset().top;
+
+            $(window).on('scroll', function () {
+                if ($(window).scrollTop() > altura) {
+                    $('.op_esika-menu').addClass('menu-fixed');
+                } else {
+                    $('.op_esika-menu').removeClass('menu-fixed');
+                }
+            });
+
+        });
+</script>
 }

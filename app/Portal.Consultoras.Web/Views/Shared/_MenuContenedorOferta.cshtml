@@ -6,7 +6,7 @@
     var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
     var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style='background: url(" + menuActivo.FondoBanner + ");'" : "";
 }
-<div class="bc_menu_estrategia" @estiloFondoBanner>
+<div class="op_esika-para-mi" @estiloFondoBanner>
     <div>
         @if (menuActivo.LogoBanner != "")
         {
@@ -32,20 +32,20 @@
     <div class="op_menu-horizontal" data-layout-menu1="">
         @if (menuActivo.CampaniaX0 > 0)
         {
-            <ul class="menu_estrategia">
+            <ul>
                 <li data-campania="@menuActivo.CampaniaX0">
-                    <a href="javascript:;" class="desplegable">
-                        <img src="img/carrito.png" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover">
-                        COMPRAR C-@(menuActivo.CampaniaX0 % 100)
+                    <a href="javascript:;" class="desplegable menuactivo" attr-modal="#open-menu1">
+                        <img src="img/carrito.png" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover menuactivo">
+                        <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                     </a>
                 </li><li data-campania="@menuActivo.CampaniaX1">
-                    <a href="javascript:;" class="desplegable">
+                    <a href="javascript:;" class="desplegable" attr-modal="#open-menu2">
                         <img src="img/ojos.svg" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
-                        REVISAR C-@(menuActivo.CampaniaX1 % 100)
+                        <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                     </a>
-                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
-                    <a href="javascript:;" class="desplegable">
-                        SABER MÁS DE ÉSIKA PARA MÍ
+                </li><li data-campania="@menuActivo.CampaniaX0">
+                    <a href="javascript:;" class="desplegable" attr-modal="#open-menu3">
+                        <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                     </a>
                 </li>
             </ul>
@@ -66,16 +66,16 @@
 <div data-layout-menu2="">
     @if (listaPloma.Any())
     {
-        <div class="op-menu-vertical">
-            <ul class="sbmenu_estrategia">
+        <div class="op_esika-menu sticky" id="op_esika-menu" data-margin-top="20" data-sticky-for="1023" data-sticky-class="is-sticky">
+            <ul class="subnavegador">
                 @foreach (var menuhijo in listaPloma)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa" 
+                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa"
                         data-codigo="@menuhijo.Codigo"
-                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')" >
+                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
                         <a href="javascript:;">
-                            <p>@menuhijo.TituloMenu</p>
                             <span>@menuhijo.SubTituloMenu</span>
+                            <p>@menuhijo.TituloMenu</p>
                         </a>
                     </li>
                 }
