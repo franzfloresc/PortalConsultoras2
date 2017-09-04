@@ -2193,6 +2193,50 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        protected void ActualizarDatosLogDynamoDB(string usuario, string campomodificacion, string valoractual, string valoranterior, string origen, string aplicacion, string pais, string rol, List<string> valoresdicionales)
+        {
+            var dataString = string.Empty;
+            try
+            {
+                var data = new
+                {
+                    Usuario = usuario,
+                    CampoModificacion = campomodificacion,
+                    ValorActual = valoractual,
+                    ValorAnterior = valoranterior,
+                    Origen = origen,
+                    Aplicacion = aplicacion,
+                    Pais = pais,
+                    Rol = rol,
+                    Dispositivo = Request.Browser.IsMobileDevice ? "MOBILE" : "WEB",
+                    CodigoConsultora = valoresdicionales[0].ToString()
+                };
+
+                var urlApi = ConfigurationManager.AppSettings.Get("UrlLogDynamo");
+
+                if (string.IsNullOrEmpty(urlApi)) return;
+
+                HttpClient httpClient = new HttpClient();
+                httpClient.BaseAddress = new Uri(urlApi);
+                httpClient.DefaultRequestHeaders.Accept.Clear();
+                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                dataString = JsonConvert.SerializeObject(data);
+
+                HttpContent contentPost = new StringContent(dataString, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = httpClient.PostAsync("Api/LogActualizaciones", contentPost).GetAwaiter().GetResult();
+
+                var noQuitar = response.IsSuccessStatusCode;
+
+                httpClient.Dispose();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO, dataString);
+            }
+        }
+
         protected int GetDiasFaltantesFacturacion(DateTime fechaInicioCampania, double zonaHoraria)
         {
             DateTime fechaHoy = DateTime.Now.AddHours(zonaHoraria).Date;
