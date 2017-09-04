@@ -212,8 +212,10 @@ $(document).ready(function () {
         }
     });
 
-    if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR') {
-        esOfertaFinalRegalo = true;
+    if (typeof ofertaFinalEstado !== 'undefined' && typeof ofertaFinalAlgoritmo !== 'undefined') {
+        if (ofertaFinalEstado == 'True' && ofertaFinalAlgoritmo == 'OFR') {
+            esOfertaFinalRegalo = true;
+        }
     }
 
     if (cuvOfertaProl != "") {
@@ -1300,6 +1302,7 @@ function of_google_analytics_addtocar(entorno, ubic, element, meta)
         });
     }
 }
+
 function of_google_analytics_product_click(entorno, element, meta) {
     var list;
     var name, price, brand, id, variant, quantity, position;

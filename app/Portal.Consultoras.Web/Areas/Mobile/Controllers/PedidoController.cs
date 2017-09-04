@@ -148,8 +148,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
             ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;            
-            ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
-            ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
 
             return View(model);
         }
@@ -321,7 +319,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
             ViewBag.NombreConsultora = userData.Sobrenombre;
-
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
 
