@@ -34,6 +34,8 @@ namespace Portal.Consultoras.Entities
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
+        [DataMember]
+        public string NumeroPremio { get; set; }
 
         public BEIncentivoNivel(IDataRecord row)
         {
