@@ -33,12 +33,11 @@ namespace Portal.Consultoras.BizLogic
                         if (item.Estado == Constantes.ClienteEstado.Inactivo) continue;
 
                         item.ClienteID = ClienteID;
-
-                        var resultInsertContacto = clienteData.InsertContactoCliente(item);
-
-                        if (!resultInsertContacto)
+                        item.ContactoClienteID = clienteData.InsertContactoCliente(item);
+                        if (item.ContactoClienteID == 0)
                         {
                             ClienteID = 0;
+                            item.ClienteID = 0;
                             break;
                         }
                     }
@@ -62,21 +61,26 @@ namespace Portal.Consultoras.BizLogic
                 {
                     foreach (var item in cliente.Contactos)
                     {
+                        if (item.Estado == Constantes.ClienteEstado.Inactivo) continue;
+
                         item.ClienteID = cliente.ClienteID;
 
-                        if (item.Estado == Constantes.ClienteEstado.Activo)
+                        var existe = clienteData.GetContactoCliente(item).FirstOrDefault();
+                        if (existe == null)
                         {
-                            var existe = clienteData.GetContactoCliente(item).Count;
-
-                            if (existe == 0) result = clienteData.InsertContactoCliente(item);
-                            else result = clienteData.UpdateContactoCliente(item);
+                            item.ContactoClienteID = clienteData.InsertContactoCliente(item);
+                            if (item.ContactoClienteID == 0)
+                            {
+                                result = false;
+                                break;
+                            }
                         }
-                        //else
-                        //{
-                        //    clienteData.DeleteContactoCliente(item);
-                        //}
-
-                        if (!result) break;
+                        else
+                        {
+                            item.ContactoClienteID = existe.ContactoClienteID;
+                            result = clienteData.UpdateContactoCliente(item);
+                            if (!result) break;
+                        }
                     }
                 }
 
