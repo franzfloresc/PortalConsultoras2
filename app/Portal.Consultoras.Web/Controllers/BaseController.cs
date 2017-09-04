@@ -81,7 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
                         return;
                     }
 		    
-		    ViewBag.MenuContenedor = BuildMenuContenedor();
+		            ViewBag.MenuContenedor = BuildMenuContenedor();
                     ViewBag.MenuContenedorActivo = BuildMenuContenedorActivo();
                     ViewBag.MenuMobile = BuildMenuMobile(userData);
 
@@ -859,6 +859,18 @@ namespace Portal.Consultoras.Web.Controllers
                     confi.MobileSubTituloBanner = confi.DesktopSubTituloBanner;
                 }
 
+                if (confi.Codigo == Constantes.ConfiguracionPais.ShowRoom)
+                {
+                    if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
+                        continue;
+                }
+
+                if (confi.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
+                {
+                    if (!CumpleOfertaDelDia(userData))
+                        continue;
+                }
+
                 listaMenu.Add(new MenuContenedorModel {
                     Codigo = confi.Codigo,
                     CampaniaID = userData.CampaniaID,
@@ -1459,20 +1471,21 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.GPRBannerUrl = model.GPRBannerUrl;
 
             // ODD
-            ViewBag.MostrarODD = NoMostrarBannerODD();
-            ViewBag.TieneOfertaDelDia = false;
-            if (!ViewBag.MostrarODD)
-            {
-                ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia
-                    && (
-                        !(
-                            (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
-                            || model.IndicadorGPRSB == 0)
-                        || model.CloseOfertaDelDia
-                    )
-                    ? false
-                    : model.TieneOfertaDelDia;
-            }
+            //ViewBag.MostrarODD = NoMostrarBannerODD();
+            //ViewBag.TieneOfertaDelDia = false;
+            //if (!ViewBag.MostrarODD)
+            //{
+            //    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia
+            //        && (
+            //            !(
+            //                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+            //                || model.IndicadorGPRSB == 0)
+            //            || model.CloseOfertaDelDia
+            //        )
+            //        ? false
+            //        : model.TieneOfertaDelDia;
+            //}
+            ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
 
             // ShowRoom (Mobile)
 
@@ -1496,6 +1509,27 @@ namespace Portal.Consultoras.Web.Controllers
             #endregion
 
             return model;
+        }
+
+        private bool CumpleOfertaDelDia(UsuarioModel model)
+        {
+            //ViewBag.MostrarODD = NoMostrarBannerODD();
+            //ViewBag.TieneOfertaDelDia = false;
+            var result = false;
+            if (!NoMostrarBannerODD())
+            {
+                result = model.TieneOfertaDelDia 
+                    && (
+                        !(
+                            (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                            || model.IndicadorGPRSB == 0)
+                        || model.CloseOfertaDelDia
+                    )
+                    ? false
+                    : model.TieneOfertaDelDia;
+            }
+
+            return result;
         }
 
         private string GetFormatDecimalPais(string isoPais)
