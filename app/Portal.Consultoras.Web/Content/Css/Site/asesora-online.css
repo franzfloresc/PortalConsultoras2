@@ -113,15 +113,16 @@
 .img_cabecera_asesora_online{
 	display: block;
     width: auto;
-    height: 474px;
+    height: 389px;
     position: absolute;
-    top: 0;
+    bottom: 0;
     right: 0;
 }
 
 .img_cabecera_coach_virtual_desktop{
     display:block;
     height:100%;
+    float:right;
 }
 
 .fondo_titulo_asesora, .extension_fondo, .titulo_principal_asesora_online, .descripcion_asesora_online, .cta_inscripcion {
@@ -732,6 +733,108 @@
 
 }*/
 
+@media screen and (min-width:853px) and (max-width:1023px){
+
+    .titulos_beneficios_asesora_online, .lista_beneficios_asesora_online{
+        padding-left:63px;
+    }
+
+}
+
+@media screen and (min-width:768px) and (max-width:920px){
+
+    .titulo_principal_asesora_online span:first-child{
+        max-width: 123px;
+        height: 51.9px;
+    }
+
+    .titulo_principal_asesora_online span:nth-child(2){
+        height:46px;
+    }
+
+    .titulo_principal_asesora_online span:last-child {
+        font-size: 32px;
+    }
+
+    .descripcion_asesora_online{
+        max-width:489px;
+    }
+
+    .descripcion_asesora_online div{
+        font-size:15px;
+    }
+
+    .descripcion_asesora_online div:first-child{
+       font-size: 19px;
+    }
+
+}
+
+@media screen and (min-width:768px) and (max-width:870px){
+
+    .titulo_principal_asesora_online span:first-child {
+        max-width: 102px;
+        height: 41.9px;
+    }
+
+    .titulo_principal_asesora_online span:nth-child(2) {
+        height: 35px;
+    }
+
+    .titulo_principal_asesora_online span:last-child {
+        font-size: 25px;
+    }
+
+    .descripcion_asesora_online {
+        max-width: 340px;
+    }
+
+    .descripcion_asesora_online div {
+        font-size: 13px;
+    }
+
+    .descripcion_asesora_online div:first-child {
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+}
+
+@media screen and (min-width:768px) and (max-width:1023px){
+
+    .wrapper_contenido_asesora_online{
+        padding:0 54px;
+    }
+
+    .titulos_beneficios_asesora_online{
+        display:block;
+        width:auto;
+        margin-bottom:43px;
+    }
+
+    .seccion_beneficios_asesora{
+        padding-top:39px;
+        height:345px;
+    }
+
+    .lista_beneficios_asesora_online{
+        width:100%;
+    }
+
+    .seccion_formulario_inscripcion{
+        padding-right:25px;
+    }
+
+    .seccion_formulario_inscripcion .wrapper_contenido_asesora_online{
+        padding:0;
+    }
+
+    .salto_linea{
+        display:inline;
+    }
+
+}
+
 @media screen and (max-width:767px){
 
 	.wrapper_contenido_asesora_online{
@@ -774,6 +877,7 @@
         background-size: 285px;
         position: relative;
         margin-top: 12px;
+        top:0;
     }
 
     .img_cabecera_coach_virtual_desktop{
@@ -955,20 +1059,23 @@
 		top:5.5px;
 	}
 
+    .seccion_formulario_inscripcion_fondo{
+        display:none;
+    }
+
 	.seccion_formulario_inscripcion{
-		margin-top:5px;
+		margin-top:0;
         margin-bottom:54px;
 		background-position: -271px top;
 		position:relative;
 		padding-top:0;
-		padding-bottom: 22px;
+		padding-bottom: 4px;
 		height:auto;
 		z-index: 1000;
 	}
 
 	.seccion_formulario_inscripcion .wrapper_contenido_asesora_online{
-		padding-left: 17px;
-    	padding-right: 17px;
+		padding:0;
 	}
 
 	.titulo_formulario_inscripcion{
@@ -976,7 +1083,7 @@
 	    position: absolute;
         z-index:4;
 	    margin: 0 auto;
-	    top: 52px;
+	    top: 43px;
 	    left: 0;
 	    right: 0;
 	    font-size: 20px;
@@ -993,7 +1100,7 @@
 	}
 
 	.formulario_inscripcion{
-		padding: 97px 33px 9px 33px;
+		padding: 127px 33px 30px 33px;
 	}
 
     .seccion_enviar_formulario{
@@ -1089,15 +1196,15 @@
 
 }
 
-@media screen and (min-width:474px) and (max-width:767px){
+/*@media screen and (min-width:474px) and (max-width:767px){
 
-    /*.img_cabecera_asesora_online{
+    .img_cabecera_asesora_online{
         background: url(../../../Content/Images/img_cabecera_asesora_online_mobile_landscape.png);
         background-repeat: no-repeat;
         background-position: 314px -219px;
         background-size: 701px;
         background-attachment: fixed;
-    }*/
+    }
 
     .wrapper_contenido_asesora_online {
         padding: 25px 40px 0 40px;
@@ -1121,7 +1228,7 @@
         max-width:315px;
     }
 
-}
+}*/
 
 /*@media screen and (max-width:473px){
 
@@ -1143,7 +1250,32 @@
 
 }*/
 
+@media screen and (min-width:697px) and (max-width:767px){
+
+    .img_cabecera_asesora_online{
+        width:334px!important;
+    }
+
+}
+
 @media screen and (orientation:landscape) and (max-width:767px) {
+
+    .seccion_quiero_inscribirme{
+        height:335px;
+    }
+
+    .cabecera_asesora_online{
+        max-width:410px;
+    }
+
+    .img_cabecera_asesora_online{
+        position:absolute;
+        width:287px;
+        height:361px;
+        background: url(../../../Content/Images/img_cabecera_asesora_online_mobile_landscape.png);
+        background-size:285px;
+        background-repeat:no-repeat;
+    }
 
 	.titulos_beneficios_asesora_online, .lista_beneficios_asesora_online {
 		display:block;
@@ -1190,11 +1322,6 @@
     .pt-0{
         padding:0 16px!important
     }
-
-	.seccion_formulario_inscripcion .wrapper_contenido_asesora_online{
-		padding-left: 10px;
-    	padding-right: 10px;
-	}
 
 	.titulo_formulario_inscripcion{
 		font-size:18px;
