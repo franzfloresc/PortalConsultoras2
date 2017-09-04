@@ -188,6 +188,7 @@ namespace Portal.Consultoras.BizLogic
                     {
                         item.CodigoPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.CodigoPremio));
                         item.DescripcionPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x=>x.DescripcionPremio));
+                        item.NumeroPremio = string.Join("\n", incentivosPremios.Where(p => p.CodigoConcurso == item.CodigoConcurso && p.CodigoNivel == item.CodigoNivel).Select(x => x.NumeroPremio));
                     }
                 }
 
