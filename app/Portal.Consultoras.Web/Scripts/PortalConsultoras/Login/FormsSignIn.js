@@ -26,10 +26,12 @@ $(document).ready(function () {
 
     $(".campo_correoElectronico").focus(function () {
         $(".iconoUsuario").addClass("iconoUsuarioActivo");
+        $(this).addClass("campo_correoElectronico_activo");
     });
 
     $(".campo_correoElectronico").focusout(function(){
         $(".iconoUsuario").removeClass("iconoUsuarioActivo");
+        $(this).removeClass("campo_correoElectronico_activo");
     });
 
     $('#btnLoginFB').addClass('center_facebook');

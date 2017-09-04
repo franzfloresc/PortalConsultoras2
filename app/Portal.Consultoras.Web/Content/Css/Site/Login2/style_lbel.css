@@ -927,6 +927,22 @@ h1, h2, h3, h4, h5, h6 {
     color:#000;
 }
 
+#popup_olvidasteContrasenia .campo_correoElectronico_activo::-webkit-input-placeholder {
+    color: #000!important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo:-moz-placeholder {
+    color: #000!important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo::-moz-placeholder {
+    color: #000!important;
+}
+
+#popup_olvidasteContrasenia .campo_correoElectronico_activo:-ms-input-placeholder {
+    color: #000!important;
+}
+
 .content_bg_1 {
     width: 40%;
     top: 20%;
