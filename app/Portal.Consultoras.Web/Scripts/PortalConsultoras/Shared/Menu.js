@@ -1,6 +1,7 @@
 ﻿
 var elementos = {
-    claseActivo: 'activo',
+    claseActivo: "activo",
+    claseActivoP: "titulo-menu",
     menu2: "[data-layout-menu2]",
     menu2Ul: "[data-layout-menu2] ul",
     menu2Li: "[data-layout-menu2] ul li",
@@ -88,6 +89,9 @@ function MenuContenedor() {
         $(elementos.menu2Ul
             + " li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
             + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a").addClass(elementos.claseActivo);
+        $(elementos.menu2Ul
+           + " li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
+           + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a p").addClass(elementos.claseActivoP);
     }
 
     LayoutHeaderFin();

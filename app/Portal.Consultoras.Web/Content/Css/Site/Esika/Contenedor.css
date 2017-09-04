@@ -198,6 +198,7 @@
     position: -webkit-sticky;
     position: absolute;
     left: 0;
+    z-index: 100;
 }
 
 .bc_menu_estrategia-contenido {
