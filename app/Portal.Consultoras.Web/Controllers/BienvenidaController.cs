@@ -455,7 +455,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<BEComunicado> comunicados = new List<BEComunicado>();
                         using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                         {
-                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
                             if (tempComunicados != null && tempComunicados.Length > 0)
                             {
                                 comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
@@ -1925,7 +1925,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
             {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
 
                 if (tempComunicados != null && tempComunicados.Length > 0)
                 {       //

@@ -318,10 +318,12 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
-
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
-                      
+
+            ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
+            ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+
             return View(model);
         }
         
