@@ -48,6 +48,8 @@ function VerDetalleEstrategia(e) {
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
     var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb");
 
+    estrategia.OrigenPedidoWeb = origenPedido;
+
     VerDetalleComprarRDAnalytics(origenPedido, estrategia);
 
     if (isMobile()) {
@@ -185,7 +187,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     }
 
     var popupId = '#popupDetalleCarousel_lanzamiento';
-    estrategia.OrigenPedidoWeb = 
+
     SetHandlebars("#verdetalle-template", estrategia, popupId);
 
     if (btnDesabled == 0) {

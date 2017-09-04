@@ -17,10 +17,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var listaSeccion = ObtenerConfiguracion();
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = listaSeccion,
+                    ListaSeccion = ObtenerConfiguracion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
 
@@ -82,8 +81,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return model;
         }
-
-
+        
         [HttpPost]
         public JsonResult ObtenerSeccion(string codigo, int campaniaId)
         {

@@ -14,6 +14,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult IndexModel()
         {
             var model = new RevistaDigitalModel();
+            
+            MenuContenedorGuardar("", 0);
+
             //model.EstadoAccion = -1;
             model.IsMobile = IsMobile();
 

@@ -2689,6 +2689,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Session[Constantes.ConstSession.ListadoSeccionPalanca] = listaEntidad;
             }
 
+            var menuActivo = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo];
+
             var modelo = new List<ConfiguracionSeccionHomeModel>();
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
@@ -2824,7 +2826,7 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.SessionNames.MenuContenedorActivo] = new MenuContenedorModel
             {
                 CampaniaID = campania,
-                Codigo = codigo
+                Codigo = Util.Trim(codigo) ?? Constantes.ConfiguracionPais.Inicio 
             };
         }
 
