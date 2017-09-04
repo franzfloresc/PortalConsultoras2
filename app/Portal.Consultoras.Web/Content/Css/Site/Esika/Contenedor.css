@@ -1,12 +1,12 @@
 ﻿/**/
-.op_esika-para-mi {
-    background: url(img/bg_estrellas.png);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: right center;
+.bc_menu_estrategia {
+    background-color: #808080;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: right center !important;
 }
 
-    .op_esika-para-mi .logo {
+    .bc_menu_estrategia .logo {
         width: 11%;
         float: left;
         height: 71px;
@@ -14,13 +14,13 @@
         background-repeat: no-repeat !important;
     }
 
-        .op_esika-para-mi .logo img {
+        .bc_menu_estrategia .logo img {
             width: 100%;
             height: 71px;
             display: none;
         }
 
-    .op_esika-para-mi .texto-info {
+    .bc_menu_estrategia .texto-info {
         width: 89%;
         float: left;
         height: 71px;
@@ -28,12 +28,12 @@
         padding: 0 5%;
     }
 
-        .op_esika-para-mi .texto-info .centrar-horizontal {
+        .bc_menu_estrategia .texto-info .centrar-horizontal {
             display: table-cell;
             vertical-align: middle;
         }
 
-        .op_esika-para-mi .texto-info p {
+        .bc_menu_estrategia .texto-info p {
             margin-bottom: 3px;
             display: block;
             font-weight: bolder;
@@ -42,7 +42,7 @@
             font-size: 12px;
         }
 
-        .op_esika-para-mi .texto-info span {
+        .bc_menu_estrategia .texto-info span {
             margin-bottom: 0;
             display: block;
             color: white;
@@ -50,26 +50,26 @@
             letter-spacing: 1px;
         }
 
-    .op_esika-para-mi .op_menu-horizontal {
+    .bc_menu_estrategia .op_menu-horizontal {
     }
 
-        .op_esika-para-mi .op_menu-horizontal ul {
+        .bc_menu_estrategia .op_menu-horizontal ul {
             padding: 0;
             margin: 0;
             list-style: none;
         }
 
-            .op_esika-para-mi .op_menu-horizontal ul li {
+            .bc_menu_estrategia .op_menu-horizontal ul li {
                 display: inline-block;
                 width: 33.33333%;
             }
 
-                .op_esika-para-mi .op_menu-horizontal ul li:nth-child(2) {
+                .bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2) {
                     border-left: 3px solid transparent;
                     border-right: 3px solid transparent;
                 }
 
-                .op_esika-para-mi .op_menu-horizontal ul li a {
+                .bc_menu_estrategia .op_menu-horizontal ul li a {
                     display: block;
                     background: rgba(255, 255, 255, 0.21);
                     text-align: center;
@@ -84,18 +84,13 @@
                     text-transform: uppercase;
                 }
 
-                    .op_esika-para-mi .op_menu-horizontal ul li a:hover {
+                    .bc_menu_estrategia .op_menu-horizontal ul li a:hover {
                         background: white;
                         color: #333;
                         text-decoration: none;
-                        /*border-bottom: 1px solid rgba(0, 0, 0, 0.10);*/
                     }
-                    /*.op_esika-para-mi .op_menu-horizontal ul li a.menuactivo{
-		background: white;
-		color:#333;
-		text-decoration: none;
-	}*/
-                    .op_esika-para-mi .op_menu-horizontal ul li a span {
+
+                    .bc_menu_estrategia .op_menu-horizontal ul li a span {
                         position: relative;
                         top: 1px;
                     }
@@ -115,7 +110,7 @@
     text-decoration: none;
 }
 
-.op_esika-para-mi .op_menu-horizontal ul li a img {
+.bc_menu_estrategia .op_menu-horizontal ul li a img {
     display: inline;
     margin: auto;
     width: 16px;
@@ -123,51 +118,47 @@
     margin-right: 5px !important;
 }
 
-    .op_esika-para-mi .op_menu-horizontal ul li a img.hover {
+    .bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
         display: none;
     }
-/*.op_esika-para-mi .op_menu-horizontal ul li a img.menuactivo{
-		display: inline !important;
-	}*/
-.op_esika-menu ul {
+
+.op-menu-vertical ul {
     margin: 0;
     padding: 0;
     list-style: none;
-    /* border-right: 1px solid rgba(0, 0, 0, 0.11);*/
     height: 100%;
 }
 
-    .op_esika-menu ul li {
+    .op-menu-vertical ul li {
         margin-top: 10px;
     }
 
-        .op_esika-menu ul li a {
+        .op-menu-vertical ul li a {
             word-wrap: break-word;
             color: #1b1b1b;
             padding: 15px 10px;
             display: block;
             height: auto;
-            /*border-bottom: 1px solid rgba(0, 0, 0, 0.11);*/
             transition: .3s;
             cursor: pointer;
             background: white;
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
         }
 
-            .op_esika-menu ul li a:hover {
+            .op-menu-vertical ul li a:hover {
                 box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
                 border-left: 5px solid #B11314;
                 text-decoration: none;
             }
 
-            .op_esika-menu ul li a.activo {
+            .op-menu-vertical ul li a.activo {
                 /*box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);*/
                 border-left: 5px solid #B11314;
                 text-decoration: none;
                 color: #B11314 !important;
             }
 
-            .op_esika-menu ul li a p {
+            .op-menu-vertical ul li a p {
                 display: block;
                 text-align: left;
                 margin-bottom: 0;
@@ -182,11 +173,11 @@
     color: #B11314 !important;
 }
 
-.op_esika-menu ul li a img {
+.op-menu-vertical ul li a img {
     display: inline;
 }
 
-.op_esika-menu ul li a p.titulo-estatico {
+.op-menu-vertical ul li a p.titulo-estatico {
     display: inline;
     position: relative;
     top: 0px;
@@ -197,7 +188,7 @@
     font-weight: bolder;
 }
 
-.op_esika-menu ul li a span {
+.op-menu-vertical ul li a span {
     display: block;
     text-align: left;
     font-weight: normal;
@@ -206,41 +197,21 @@
     letter-spacing: 2px;
     text-transform: uppercase;
 }
-/*.op_esika-menu ul li a p::after{
-		content: '';
-	    display: block;
-	    width: 20px;
-	    border: 1px solid #B11314;
-	    margin-top: 3px;
-	    margin-bottom: 7px;
-	}*/
-
-/**/
-
-.op_esika-menu {
+.op-menu-vertical {
     width: 136px;
-    /* float: left; */
     position: -webkit-sticky;
     position: absolute;
     left: 0;
-    /* top: 0;
-    position: -webkit-sticky;
-    position: sticky;*/
 }
 
-.op_esika-para-mi-contenido {
+.bc_menu_estrategia-contenido {
     background: url(img/Rectangle75.png);
     height: 500px;
     background-color: #bf0223;
 }
-
-/**/
-
-.op_esika-para-mi-clearfix {
+.bc_menu_estrategia-clearfix {
     clear: both;
 }
-
-/**/
 
 .menu-fixed {
     position: fixed;
@@ -248,39 +219,39 @@
 }
 
 @media (max-width: 1100px) {
-    .op_esika-para-mi .logo {
+    .bc_menu_estrategia .logo {
         width: 13%;
     }
 
-    .op_esika-para-mi .texto-info {
+    .bc_menu_estrategia .texto-info {
         width: 87%;
     }
 }
 
 @media (max-width: 950px) {
-    .op_esika-para-mi .logo {
+    .bc_menu_estrategia .logo {
         width: 15%;
     }
 
-    .op_esika-para-mi .texto-info {
+    .bc_menu_estrategia .texto-info {
         width: 85%;
     }
 
-        .op_esika-para-mi .texto-info p {
+        .bc_menu_estrategia .texto-info p {
             font-size: 10px;
         }
 
-        .op_esika-para-mi .texto-info span {
+        .bc_menu_estrategia .texto-info span {
             font-size: 9px;
         }
 }
 
 @media (max-width: 850px) {
-    .op_esika-para-mi .logo {
+    .bc_menu_estrategia .logo {
         width: 17%;
     }
 
-    .op_esika-para-mi .texto-info {
+    .bc_menu_estrategia .texto-info {
         width: 83%;
     }
 }
