@@ -658,7 +658,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                // se hace la actualizacion de modificación de cronograma
                 using (ZonificacionServiceClient sv = new ZonificacionServiceClient())
                 {
                     foreach (BECronogramaFIC item in lista)
@@ -666,22 +665,12 @@ namespace Portal.Consultoras.Web.Controllers
                         sv.DelCronogramaFICConsultora(UserData().PaisID, item.Campania, item.Zona, item.CodigoConsultora);
                     }
                 }
-                return Json(new
-                {
-                    success = true,
-                    message = "Modificación de cronograma exitosa.",
-                    extra = ""
-                });
+                return SuccessJson("Modificación de cronograma exitosa.");
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = ex.Message,
-                    extra = ""
-                });
+                return ErrorJson(ex.Message);
             }
         }
     }

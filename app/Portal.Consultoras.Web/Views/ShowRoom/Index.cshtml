@@ -140,9 +140,17 @@
                     descripcion = descripcion.Substring(0, 40) + " ...";
                 }
 
-                <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;">
+                <div class="content_banner_compra" id="divBannerCompraPorCompra" style="display: none;" data-cuv="@Model.ListaShowRoomCompraPorCompra[0].CUV" data-descripcion="@Model.ListaShowRoomCompraPorCompra[0].Descripcion">
                     <div class="titulo_promocion">PROMOCIÓN</div>
-                    <div class="content_interno_banner">
+                    @{
+                        var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                        if (_descripcion != null && _descripcion.Length > 41)
+                        {
+                            _descripcion = _descripcion.Substring(0, 40) + " ...";
+                        }
+                        _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta;
+                    }
+                    <div class="content_interno_banner" onclick="compraxcompra_promotion_click('@Model.ListaShowRoomCompraPorCompra[0].CUV','@_descripcion')">
                         <div style="width: 65%; margin: 0 auto;">
                             <div class="content_imagen_banner_compra">
                                 <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto">
@@ -347,14 +355,14 @@
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
 
-        <div class="producto_img_home mini" data-img="">
+        <div class="producto_img_home mini" data-img="" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">
             {{#IsNullOrEmpty ImagenProducto '=='}}
             <img src="@Url.Content("~/Content/Images/showroom/no_disponible.png")" style="width: auto; height: 100%;" class="imagen_producto" />
             {{else}}
             <img src="{{ImagenProducto}}" alt="" style="width: auto; height: 100%;" class="imagen_producto" />
-            {{/IsNullOrEmpty}}            
-            
-            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}" onclick="click_producto_showroow('{{Descripcion}}','{{CUV}}','{{PrecioOferta}}','{{DescripcionMarca}}','{{Posicion}}')">VER DETALLE</a>
+            {{/IsNullOrEmpty}}
+
+            <a class="ver_detalle_carrusel" href="{{UrlDetalle}}">VER DETALLE</a>
         </div>
         <div class="producto_nombre_descripcion">
             <p class="nombre-producto-set">{{Descripcion}}</p>
@@ -410,7 +418,6 @@
         var itemsSubCampania = @Model.ListaShowRoomOferta.Where(p => p.EsSubCampania).OrderBy(p => p.Orden).ToList().Count;
     </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/nieve.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>

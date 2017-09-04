@@ -15,7 +15,20 @@ var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
 $(document).ready(function () {
-    
+    $("#hdDataBarra").val("");
+
+    if (vbFotoPerfil != null && vbFotoPerfil != "") {
+        $('div.content_datos').css('max-width', '100%');
+        $('div.resumen_belcorp_cam').css('margin-left', '3%');
+        $('div.resumen_belcorp_cam').css('margin-right', '0%');
+        $('div.socia_negocio_home').css('margin-left', '4%');
+        $('div.contenedor_img_perfil').show();
+    }
+
+    $(".termino_condiciones_intriga").click(function () {
+        $(this).toggleClass('check_intriga');
+    });
+
     $('.contenedor_img_perfil').on('click', CargarCamara);
     $('#imgFotoUsuario').error(function () {
         $('#imgFotoUsuario').hide();
@@ -1644,7 +1657,6 @@ function CambiarContrasenia() {
     }
 }
 
-
 function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
@@ -1772,7 +1784,6 @@ function ActualizarMD() {
         });
     }
 }
-
 
 function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
@@ -2745,9 +2756,10 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
     var streventoNombre = "";
     if (tipo == "1") {
-        streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
-    } else {
-        streventoNombre = eventoNombre + ' ' + tema + ' Entérate Primero';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Compra Ya';
+    }
+    if (tipo == "2") {
+        streventoNombre = eventoNombre + ' ' + tema + ' - Entérate';
     }
     
     dataLayer.push({
@@ -2793,15 +2805,18 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     var id = "";
     var name = "";  
 
-    if (tipo == 1)
-    {
-        name = $("#spnShowRoomEvento").html() + ' Compra Ya';
-        id = $("#hdEventoIDShowRoomVenta").val();        
+    if (tipo == 1) {
+        var nombre = $("#spnShowRoomEventoVenta").val();
+        var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+        name = nombre + ' ' + tema + ' - Compra Ya';
+        id = $("#hdEventoIDShowRoomVenta").val();
     }
-    else
-    {
-        name = $("#spnShowRoomEventoHoy").html() + ' Entérate Primero';
-        id = $("#hdEventoIDShowRoom").val();        
+
+    if (tipo == 2) {
+        var nombre = $("#spnShowRoomEvento").val();
+        var tema = $("#spnShowRoomEventoDescripcion").val();
+        name = nombre + ' ' + tema + ' - Entérate';
+        id = $("#hdEventoIDShowRoom").val();
     }
     
     dataLayer.push({
@@ -3168,7 +3183,9 @@ function VerShowRoomVenta() {
 
 function CerrarPopShowroomIntriga()
 {
-    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' Entérate Primero';
+    var nombre = $("#spnShowRoomEvento").val();
+    var tema = $("#spnShowRoomEventoDescripcion").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' - Entérate';
     
     dataLayer.push({
         'event': 'virtualEvent',
@@ -3177,12 +3194,31 @@ function CerrarPopShowroomIntriga()
         'label': 'Cerrar Popup'
     });
 
-    CerrarPopup("#PopShowroomVenta");
     CerrarPopup("#PopShowroomIntriga");
 }
 
+function CerrarPopShowroomVenta() {
+    var nombre = $("#spnShowRoomEventoVenta").val();
+    var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' -  Compra Ya';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action,
+        'label': 'Cerrar Popup'
+    });
+
+    CerrarPopup("#PopShowroomVenta");
+}
+
 function SRPopupCerrar(tipo) {
-    CerrarPopShowroomIntriga();
+    if (tipo == 'I')
+        CerrarPopShowroomIntriga();
+
+    if (tipo == 'V')
+        CerrarPopShowroomVenta();
+
     AbrirLoad();
     $.ajax({
         type: 'POST',
@@ -3205,12 +3241,13 @@ function SRPopupCerrar(tipo) {
 
 function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()
 {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
+    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate';
 
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
 
@@ -3220,28 +3257,7 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
-
-/*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
-function click_zona_oscura_PopShowroomVenta() {
-    var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
-}
-
-function click_zona_oscura_PopShowroomIntriga() {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
-}
-*/

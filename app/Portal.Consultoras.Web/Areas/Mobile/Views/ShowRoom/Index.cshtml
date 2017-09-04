@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 
 @using Newtonsoft.Json
@@ -181,10 +182,13 @@
 <!--FIN-->
 
 <div class="titulo_showroom_mobile">
-    <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
-        T&eacute;rminos y condiciones de la @Model.Nombre<br />
-        @Model.Tema
-    </a>
+    @if (mobileConfiguracion.MostrarHipervinculo)
+    {
+        <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
+            T&eacute;rminos y condiciones de la @Model.Nombre<br/>
+            @Model.Tema
+        </a>
+    }
 </div>
 
 @if (Model.TieneCompraXcompra)
@@ -194,7 +198,17 @@
         <div class="content_promocion">
             <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
             <div class="content_desplegable_banner" id="BannerCompra">
-                <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra">
+                <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra"
+                     data-promotion-impresion-id ="@Model.ListaShowRoomCompraPorCompra[0].CUV"
+                      @{
+                          var _descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
+                          if (_descripcion != null && _descripcion.Length > 41)
+                          {
+                              _descripcion = _descripcion.Substring(0, 40) + " ...";
+                          }
+                          _descripcion = "Showroom - " + _descripcion + " A SÓLO " + Model.ListaShowRoomCompraPorCompra[0].Simbolo + " " + Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta;
+                      }
+                     data-promotion-impresion-name ="@_descripcion">
                     <div class="content_banner_img">
                         <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
                     </div>
@@ -266,7 +280,7 @@
                 <div style="top: 45px; left: 50%; border: solid transparent; height: 0; width: 0; pointer-events: none; border-color: rgba(0, 0, 0, 0);
                     border-top-color: #020202; border-width: 12px; margin-left: -12px; position: absolute;"></div>
             </div>
-            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial"></div>
+            <div id="contenedor-showroom-subcampanias-mobile" class="content_info_set_especial" style="height: 100%;"></div>
             <div class="content_btn_agregar" style="display:none;" id="agregarSetEspecial">
                 <div class="content_320">
                     <div class="content_cantidad_ficha_producto">
@@ -284,41 +298,6 @@
 }
 else
 {
-    if (Model.TieneCompraXcompra)
-    {
-        if (Model.ListaShowRoomCompraPorCompra != null && Model.ListaShowRoomCompraPorCompra.Count > 0)
-        {
-            <div class="content_promocion">
-                <div class="pestana_promocion" id="AbrirBannerCompra">PROMOCIÓN</div>
-                <div class="content_desplegable_banner" id="BannerCompra">
-                    <div class="content_carrusel_intriga" style="background: white;" id="LlamarPopCompra">
-                        <div class="content_banner_img">
-                            <img src="@Model.ListaShowRoomCompraPorCompra[0].ImagenProducto" />
-                        </div>
-                        <div class="content_banner_right">
-                            <div class="texto_banner_compra">
-                                <b style="margin-top: 10px;">
-                                    @{
-                                        var descripcion = Model.ListaShowRoomCompraPorCompra[0].Descripcion;
-                                        if (descripcion != null && descripcion.Length > 41)
-                                        {
-                                            descripcion = descripcion.Substring(0, 40) + " ...";
-                                        }
-                                    }
-                                    @descripcion
-                                </b>
-                                <b style="font-size: 18px;">A SÓLO @Model.ListaShowRoomCompraPorCompra[0].Simbolo @Model.ListaShowRoomCompraPorCompra[0].FormatoPrecioOferta </b>
-                                <span class="set_dia_banner">@Model.TextoCondicionCompraCpc</span>
-                            </div>
-                            @*<a class="btn_ver_detalle_pop_compra">VER DETALLE</a>*@
-                        </div>
-                        <hr class="clear" />
-                    </div>
-                </div>
-            </div>
-         }
-     }
-
     <!--POP UP COMPRA X COMPRA / QUITAR EL SCROLL DEL BODY CUANDO SALGA ESTE POP UP-->
     <div class="PopMobile1" id="PopCompra" data-popup-main="">
         <div class="content_popMobile" data-popup-body="" style="max-width: 450px;">
@@ -478,17 +457,19 @@ else
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
             <div class="content_redes_ficha" data-item="">
-                <div class="texto_redes">Comparte este producto con tus clientes:</div>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
-                <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
-            </div>
+                @if (mobileConfiguracion.MostrarHipervinculo)
+                {
+                    <div class="texto_redes">Comparte este producto con tus clientes:</div>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
+                    <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
+                }
+             </div>
         </div>
     </div>
     {{/each}}
 </script>
 
 @section scripts{
-    <script src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ShowRoom/Index.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js")"></script>

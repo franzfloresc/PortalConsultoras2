@@ -60,6 +60,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.CheckClienteByConsultora(paisID, ConsultoraID, Nombre);
         }
 
+        public int GetExisteClienteConsultora(int paisID, BECliente entidad)
+        {
+            return BLCliente.GetExisteClienteConsultora(paisID, entidad);
+        }
+
         public void UndoCliente(int paisID, long consultoraID, int clienteID)
         {
             BLCliente.UndoCliente(paisID, consultoraID, clienteID);
@@ -151,7 +156,9 @@ namespace Portal.Consultoras.Service
 
         public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
-            return BLCliente.MovimientoInsertar(paisId, movimiento);
+            var result = BLCliente.MovimientoInsertar(paisId, movimiento);
+
+            return result.Data;
         }
 
         public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId)
@@ -161,7 +168,8 @@ namespace Portal.Consultoras.Service
 
         public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
         {
-            return BLCliente.MovimientoActualizar(paisId, movimiento);
+            var result = BLCliente.MovimientoActualizar(paisId, movimiento);
+            return new Tuple<bool, string>(result.Success, result.Message);
         }
 
         public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)

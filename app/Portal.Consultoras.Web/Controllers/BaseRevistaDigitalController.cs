@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = ViewBag.EsMobile == 2;
 
             model.FiltersBySorting = new List<BETablaLogicaDatos>();
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
+            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
             
@@ -102,7 +102,8 @@ namespace Portal.Consultoras.Web.Controllers
                 ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                 ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
                 ViewBag.NombreConsultora = userData.Sobrenombre;
-                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                    ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
 
                 return View(modelo);
