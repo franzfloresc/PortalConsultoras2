@@ -105,6 +105,12 @@
   <wsdl:message name="IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerCampaniasAnterioresDesdeActualResponse" />
   </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerDatosConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IBelcorpPaisService_ObtenerDatosConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerDatosConsultoraResponse" />
+  </wsdl:message>
   <wsdl:portType name="IBelcorpPaisService">
     <wsdl:operation name="ObtenerIdCampaniaActiva">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerIdCampaniaActiva" message="tns:IBelcorpPaisService_ObtenerIdCampaniaActiva_InputMessage" />
@@ -169,6 +175,10 @@
     <wsdl:operation name="ObtenerCampaniasAnterioresDesdeActual">
       <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual" message="tns:IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActualResponse" message="tns:IBelcorpPaisService_ObtenerCampaniasAnterioresDesdeActual_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora" message="tns:IBelcorpPaisService_ObtenerDatosConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultoraResponse" message="tns:IBelcorpPaisService_ObtenerDatosConsultora_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IBelcorpPaisService" type="tns:IBelcorpPaisService">
@@ -310,6 +320,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerCampaniasAnterioresDesdeActual">
       <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerCampaniasAnterioresDesdeActual" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerDatosConsultora">
+      <soap:operation soapAction="http://tempuri.org/IBelcorpPaisService/ObtenerDatosConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
