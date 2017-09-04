@@ -44,8 +44,8 @@ function MenuContenedor() {
     $("[data-layout-menu1] ul li").removeClass("seleccionado");
 
     var menuCheck = MenuContenedorObtener();
-
-    if (menuCheck.CampaniaID == undefined) {
+    menuCheck.CampaniaID = menuCheck.CampaniaID || 0;
+    if (menuCheck.CampaniaID <= 0) {
         var primerMenu = $("[data-layout-menu1] ul li");
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
