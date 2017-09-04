@@ -345,7 +345,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
+                            ClienteIDSB = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.Celular,
                             Valor = consultoraCliente.Celular,
                             Estado = 1
@@ -358,7 +358,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
+                            ClienteIDSB = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
                             Valor = consultoraCliente.Telefono,
                             Estado = 1
@@ -371,7 +371,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteID = consultoraCliente.ClienteID,
+                            ClienteIDSB = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                             Valor = consultoraCliente.eMail,
                             Estado = 1
@@ -382,7 +382,7 @@ namespace Portal.Consultoras.BizLogic
                                             .Select(x => new BEClienteContactoDB()
                                             {
                                                 ContactoClienteID = x.ContactoClienteID,
-                                                ClienteID = consultoraCliente.ClienteID,
+                                                ClienteIDSB = consultoraCliente.ClienteID,
                                                 TipoContactoID = x.TipoContactoID,
                                                 Valor = x.Valor,
                                                 Estado = x.Estado
