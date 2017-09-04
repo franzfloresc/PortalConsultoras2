@@ -79,6 +79,13 @@ namespace Portal.Consultoras.Entities
         public int CantidadProductos { get; set; }
 
         [DataMember]
+        public string CodigoRespuesta { get; set; }
+        [DataMember]
+        public string MensajeRespuesta { get; set; }
+        [DataMember]
+        public bool Insertado { get; set; }
+
+        [DataMember]
         public List<BEClienteContactoDB> Contactos { get; set; }
 
         [DataMember]
