@@ -55,7 +55,7 @@
                     <span class="saludo_aniversario">¡Feliz Aniversario</span>
                 </div>
                 <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
+                    <span>@nombreConsultora</span>
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
@@ -64,7 +64,7 @@
                     <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
                 </div>
                 <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
+                    <span>@nombreConsultora</span>
                 </div>
             }
             else
@@ -73,7 +73,7 @@
                     <span style="margin-top: -0.5px!important;">¡Hola</span>
                 </div>
                 <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
+                    <span>@nombreConsultora</span>
                 </div>
             }
             @if (ViewBag.TipoUsuario != 2)
@@ -532,7 +532,7 @@
                 </span>
             </div>
             <div class="mensaje_popup">
-                <div class="tipografia_lato_bold">MILAGROS, SUSCRÍBETE Y RECIBE POR CORREO Y MENSAJE DE TEXTO</div>
+                <div class="tipografia_lato_bold">@Model.NombreConsultora, SUSCRÍBETE Y RECIBE POR CORREO Y MENSAJE DE TEXTO</div>
                 <div class="tipografia_lato_light">
                     TODOS LOS CONSEJOS PARA GANAR MÁS
                 </div>

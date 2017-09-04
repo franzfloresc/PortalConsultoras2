@@ -221,21 +221,20 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Lógica de Popups
 
-                PopupForzado popupForzado = new PopupForzado();
 
-                if (TempData["MostrarPopupCuponGanaste"] != null)
+                if (ViewBag.AsesoraOnlinePopup == 1) model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+                else
                 {
-                    popupForzado.Mostrar = true;
-                    popupForzado.TipoPopup = Convert.ToInt32(TempData["TipoPopup"]);
-                }
-                else {
-                    popupForzado.Mostrar = false;
-                    popupForzado.TipoPopup = 0;
-                }
-                model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
+                    PopupForzado popupForzado = new PopupForzado { Mostrar = false, TipoPopup = 0 };
+                    if (TempData["MostrarPopupCuponGanaste"] != null)
+                    {
+                        popupForzado.Mostrar = true;
+                        popupForzado.TipoPopup = Convert.ToInt32(TempData["TipoPopup"]);
+                    }
 
-                if (ViewBag.AsesoraOnlinePopup == 1)
-                    model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+                    model.TipoPopUpMostrar = ObtenerTipoPopUpMostrar(model, popupForzado);
+                }
+
 
                 #endregion
 
@@ -348,31 +347,24 @@ namespace Portal.Consultoras.Web.Controllers
 
         private int ObtenerTipoPopUpMostrar(BienvenidaHomeModel model, PopupForzado popupForzado)
         {
-            int TipoPopUpMostrar = 0;
-            List<BEPopupPais> listaPopUps = new List<BEPopupPais>();
-
             if (popupForzado.Mostrar)
             {
-                TipoPopUpMostrar = popupForzado.TipoPopup;
                 TempData["MostrarPopupCuponGanaste"] = null;
-                return TipoPopUpMostrar;
+                return popupForzado.TipoPopup;
             }
-
+            
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
-                TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
-                return TipoPopUpMostrar;
+                return Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
             }
 
-            listaPopUps = ObtenerListaPopupsDesdeServicio();
-
+            var listaPopUps = ObtenerListaPopupsDesdeServicio();
             if (listaPopUps.Any())
             {
-                TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
+                int TipoPopUpMostrar = BuscarTipoPopupEnLista(model, listaPopUps);
                 Session[Constantes.ConstSession.TipoPopUpMostrar] = TipoPopUpMostrar;
             }
-
-            return TipoPopUpMostrar;
+            return 0;
         }
 
         private bool MostrarPopupVideoIntroductorio(BienvenidaHomeModel model)
@@ -416,8 +408,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
@@ -428,8 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
@@ -443,8 +433,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
                 {
                     if (ValidarMostrarShowroomPopUp())
                     {
@@ -452,8 +441,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
@@ -479,8 +467,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
@@ -500,8 +487,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
                 {
                     if (userData.TipoUsuario == Constantes.TipoUsuario.Consultora)
                     {
@@ -521,8 +507,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
                     if (!userData.RevistaDigital.NoVolverMostrar)
                     {
@@ -534,10 +519,8 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         }
                     }
-                    continue;
                 }
-                
-                if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.Cupon)
                 {
                     var cupon = ObtenerCuponDesdeServicio();
                     bool consultoraTieneCupon = (cupon != null);
@@ -549,8 +532,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
                 {
                     if (!userData.RevistaDigital.NoVolverMostrar)
                     {
@@ -561,8 +543,7 @@ namespace Portal.Consultoras.Web.Controllers
                         }
                     }
                 }
-
-                if (popup.CodigoPopup == Constantes.TipoPopUp.AsesoraOnline)
+                else if (popup.CodigoPopup == Constantes.TipoPopUp.AsesoraOnline)
                 {
                     int existeAsesoraOnlineResult = ExisteConsultoraEnAsesoraOnline(userData.CodigoISO, userData.CodigoConsultora);
                     int habilitadoConfiguracionPaisResult =  ValidarAsesoraOnlineConfiguracionPais(userData.CodigoISO, userData.CodigoConsultora);
