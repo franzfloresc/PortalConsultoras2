@@ -132,7 +132,7 @@ namespace Portal.Consultoras.BizLogic
         {
             if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
                 return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-            
+
             movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
                 ? (-1) * Math.Abs(movimiento.Monto)
                 : Math.Abs(movimiento.Monto);
@@ -272,6 +272,19 @@ namespace Portal.Consultoras.BizLogic
         {
             var daCliente = new DACliente(paisId);
             return daCliente.RecordatorioEliminar(clienteId, consultoraId, recordatorioId);
+        }
+
+        public void RecordatorioProcesar(int paisID, BEClienteDB clienteDB)
+        {
+            foreach (var recordatorio in clienteDB.Recordatorios)
+            {
+                recordatorio.ClienteId = (short)clienteDB.ClienteIDSB;
+                recordatorio.ConsultoraId = clienteDB.ConsultoraID;
+                if (recordatorio.ClienteRecordatorioId == 0)
+                    recordatorio.ClienteRecordatorioId = RecordatorioInsertar(paisID, recordatorio);
+                else
+                    RecordatorioActualizar(paisID, recordatorio);
+            }
         }
 
         #endregion
@@ -559,6 +572,12 @@ namespace Portal.Consultoras.BizLogic
                         MovimientoProcesar(paisID, clienteDB);
                     }
 
+                    if (clienteDB.Recordatorios != null)
+                    {
+
+                        RecordatorioProcesar(paisID, clienteDB);
+                    }
+
                     clienteDB.Contactos.Update(x => x.ClienteIDSB = clienteDB.ClienteIDSB);
                 }
                 else
@@ -636,8 +655,8 @@ namespace Portal.Consultoras.BizLogic
             clientes = (from tblConsultoraCliente in lstConsultoraCliente
                         join tblCliente in lstCliente
                          on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
-                         join tblClienteDetalle in lstClienteDetalle
-                         on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
+                        join tblClienteDetalle in lstClienteDetalle
+                        on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
                         select new BEClienteDB
                         {
                             ClienteID = tblConsultoraCliente.CodigoCliente,
