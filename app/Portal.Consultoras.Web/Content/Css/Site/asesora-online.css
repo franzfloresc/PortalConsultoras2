@@ -1416,12 +1416,12 @@
     right: 0;
     width: 332px;
     height: 391px;
-    z-index:5;
+    z-index: 5;
 }
 
 .img_popup_inscripcion_asesoria_online img{
-	width:287px;
-	height:auto;
+	width:296px;
+	height:391px;
     float:right;
 }
 
