@@ -34,8 +34,7 @@ $(document).ready(function () {
         // Registrar valrores de analytics
         if (!esPrimeraCarga) {
             TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
-            esPrimeraCarga = false;
-        }
+        } else {esPrimeraCarga = false;}
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {

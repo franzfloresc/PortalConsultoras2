@@ -496,9 +496,13 @@ function EstrategiaAgregar(event, popup, limite) {
 
             // falta agregar este metodo en para las revista digital
             try {
-                AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
+                if (window.location.contains("RevistaDigital")) {
+                    AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
+                } else {
+                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
+                }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                TagManagerClickAgregarProductoOfertaParaTI(estrategia);
+                
             } catch (e) { }
 
             CerrarLoad();

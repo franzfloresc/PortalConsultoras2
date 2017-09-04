@@ -46,7 +46,7 @@ function AccessRDAnalytics(origenWeb) {
                 VirtualEventPush("MobileHome", "Ésika para mí", "Ver más lanzamientos");
                 break;
             case "2101": //Home
-                VirtualEventPush("Home", "Ésika para mí", "Click banner Ver todas mis ofertas");
+                VirtualEventPush("MobileHome", "Ésika para mí", "Click banner Ver todas mis ofertas");
                 break;
             case "2401": //Catalogos
                 VirtualEventPush("Catálogos y revistas", "Ésika para mí", "Click banner Ver todas mis ofertas");
@@ -55,10 +55,10 @@ function AccessRDAnalytics(origenWeb) {
                 VirtualEventPush("Pedido", "Ésika para mí", "Click banner Ver todas mis ofertas");
                 break;
             case "2104": //Home
-                VirtualEventPush("Home", "Ésika para mí", "Ver todas mis ofertas");
+                VirtualEventPush("MobileHome", "Ésika para mí", "Ver todas mis ofertas");
                 break;
             case "2105": //Home
-                VirtualEventPush("Home", "Ésika para mí", "Ver más ofertas");
+                VirtualEventPush("MobileHome", "Ésika para mí", "Ver más ofertas");
                 break;
         }
     } catch (e) {
@@ -103,23 +103,25 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
         switch (origenWebString) {
             case "1721"://Lan desktop
                 if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
-                else AddToCartPush("Esika para mí - Banner Principal", estrategia);
+                else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "2721"://Lan Mobile
                 if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
-                else AddToCartPush("Esika para mí - Banner Principal", estrategia);
+                else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "1711": //Mis Ofertas
-                if (!popup) AddToCartPush("Esika para mí - Mis Ofertas", estrategia);
+                if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
+                else AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
                 break;
             case "2711": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Mis Ofertas", estrategia);
+                if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
+                else AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
             case "2731": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
         }
     } catch (e) {
@@ -144,10 +146,10 @@ function VerDetalleComprarRDAnalytics(origenWeb, estrategia) {
                 ProductClickPush("Esika para mí - Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas 
-                ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                ProductClickPush("Esika para mí - Detalle Producto", estrategia);
                 break;
             case "2731": //Mis Ofertas Mobile
-                ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                ProductClickPush("Esika para mí - Detalle Producto", estrategia);
                 break;
         }
     } catch (e) {
@@ -170,11 +172,11 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
                 else VirtualEventPush(category, "Agregar producto - Banner Principal", label);
                 break;
             case "1711": //Mis Ofertas
-                if (!popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
+                if (popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
                 VirtualEventPush(category, "Agregar producto - Mis Ofertas", label);
                 break;
             case "2711": //Mis Ofertas Mobile
-                if (!popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
+                if (popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
                 VirtualEventPush(category, "Agregar producto - Mis Ofertas", label);
                 break;
             case "1731": //Mis Ofertas Mobile
