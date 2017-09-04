@@ -14,6 +14,9 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult IndexModel()
         {
             var model = new RevistaDigitalModel();
+            
+            MenuContenedorGuardar("", 0);
+
             //model.EstadoAccion = -1;
             model.IsMobile = IsMobile();
 
@@ -48,6 +51,15 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult ViewLanding(int tipo)
         {
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
+
+            var codePalanca = userData.RevistaDigital.TieneRDC 
+                ? Constantes.ConfiguracionPais.RevistaDigital 
+                : userData.RevistaDigital.TieneRDR
+                    ? Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    : Constantes.ConfiguracionPais.Inicio;
+
+            MenuContenedorGuardar(codePalanca, id);
+
             var model = new RevistaDigitalLandingModel();
             if (EsCampaniaFalsa(id)) return PartialView("template-Landing", model);
 
@@ -55,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
             model.IsMobile = IsMobile();
 
             model.FiltersBySorting = new List<BETablaLogicaDatos>();
-            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "LO MÁS VENDIDO" : "ORDENAR POR PRECIO" });
+            model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.Predefinido, Descripcion = model.IsMobile ? "ORDENAR POR" : "ORDENAR POR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor, Descripcion = model.IsMobile ? "MENOR PRECIO" : "MENOR A MAYOR PRECIO" });
             model.FiltersBySorting.Add(new BETablaLogicaDatos { Codigo = Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor, Descripcion = model.IsMobile ? "MAYOR PRECIO" : "MAYOR A MENOR PRECIO" });
             
@@ -84,33 +96,42 @@ namespace Portal.Consultoras.Web.Controllers
             var modelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
             if (modelo == null || modelo.EstrategiaID == 0 || modelo.CUV2 != cuv  || modelo.CampaniaID != campaniaId)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
 
             if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
             if (EsCampaniaFalsa(modelo.CampaniaID))
             {
-                return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
-
-            if (modelo.EstrategiaID > 0)
+            if (modelo.EstrategiaID <= 0)
             {
-                modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
-                modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
-                ViewBag.NombreConsultora = userData.Sobrenombre;
-                var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
-                    ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
-                ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
-
-                return View(modelo);
+                return RedirectToAction("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
             }
-            return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });
+
+            var codePalanca = userData.RevistaDigital.TieneRDC
+                ? Constantes.ConfiguracionPais.RevistaDigital
+                : userData.RevistaDigital.TieneRDR
+                    ? Constantes.ConfiguracionPais.RevistaDigitalReducida
+                    : Constantes.ConfiguracionPais.Inicio;
+
+            MenuContenedorGuardar(codePalanca, campaniaId);
+
+            modelo.TipoEstrategiaDetalle = modelo.TipoEstrategiaDetalle ?? new EstrategiaDetalleModelo();
+            modelo.ListaDescripcionDetalle = modelo.ListaDescripcionDetalle ?? new List<string>();
+            ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+            ViewBag.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+            ViewBag.TieneProductosPerdio = TieneProductosPerdio(modelo.CampaniaID);
+            ViewBag.NombreConsultora = userData.Sobrenombre;
+            var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
+            ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
+
+            return View(modelo);
+           
         }
 
         public bool EsCampaniaFalsa(int campaniaId)

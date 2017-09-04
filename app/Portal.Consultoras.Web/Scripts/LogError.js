@@ -42,9 +42,16 @@ window.onerror = function (msg, url, line, col, error) {
 
 // Tracking de llamadas $.ajax
 $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
+
+    if (jQuery.type(jqxhr.responseText) === "string") {
+        if ((jqxhr.responseText.indexOf('<input type="hidden" id="PaginaLogin" />') > -1) ||
+            (jqxhr.responseText.indexOf('<input type="hidden" id="PaginaSesionExpirada" />') > -1))
+            return;
+    }
+
     // Jquery Ajax
     // http://api.jquery.com/ajaxerror/
-
+    
     // AJAX - Server Response
     // https://www.w3schools.com/xml/ajax_xmlhttprequest_response.asp
 
@@ -70,9 +77,9 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
 });
 
 function registrarLogError(objError) {
-    if (!urlLogDynamo) {
-        return;
-    }
+    console.log(objError);
+
+    if (!urlLogDynamo) return;
 
     var urlLogError = urlLogDynamo + "Api/LogError";
     

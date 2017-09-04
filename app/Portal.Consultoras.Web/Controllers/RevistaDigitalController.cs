@@ -393,9 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-                
-                
-                
+
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);

@@ -20,35 +20,39 @@
                 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
             </div>
             <div data-seccion-load=""></div>
-            <div class="bc_vineta_baja">
-                <img src="@Url.Content("~/Content/Images/RevistaDigital/Vector.png")" alt="">
-            </div>
         </div>
     }
 </div>
 
-@*<div class="op_esika-para-mi-contenido">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates ullam asperiores dolorum eos deleniti distinctio. Voluptatem consectetur asperiores, commodi aperiam, soluta rerum nulla nam enim harum necessitatibus natus praesentium esse.
-    </div>*@
 <div class="bc_clearfix"></div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_lanzamiento" data-popup-main=""></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-verdetalle.cshtml")
+
+<div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-packnueva.cshtml")
+
+@Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
 
 @section scripts{
 <script type="text/javascript">
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital")';
+    var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
     var isScroll = false;
-        var tipoOrigenPantalla = 1;
+    var tipoOrigenPantalla = 1;
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
 }

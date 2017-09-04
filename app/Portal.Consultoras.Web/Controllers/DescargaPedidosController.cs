@@ -32,7 +32,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             var descargarPedidoModel = new DescargarPedidoModel()
             {
-                listaPaises = DropDowListPaises()
+                listaPaises = DropDowListPaises(),
+                PedidoFICActivo = userData.PedidoFICActivo
             };
             return View(descargarPedidoModel);
         }

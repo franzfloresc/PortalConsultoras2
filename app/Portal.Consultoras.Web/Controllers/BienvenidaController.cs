@@ -319,6 +319,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+
+                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                {
+                    if (userData.RevistaDigital.NoVolverMostrar)
+                        TipoPopUpMostrar = 0;
+                    
+                }
                 return TipoPopUpMostrar;
             }
 
@@ -373,6 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
@@ -385,6 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
@@ -400,6 +409,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
@@ -409,6 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
@@ -436,6 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
@@ -457,6 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
@@ -466,7 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<BEComunicado> comunicados = new List<BEComunicado>();
                         using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                         {
-                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
                             if (tempComunicados != null && tempComunicados.Length > 0)
                             {
                                 comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
@@ -478,6 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
@@ -506,6 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
@@ -518,6 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         }
                     }
+                    continue;
                 }
             }
 
@@ -1931,7 +1947,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
             {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
 
                 if (tempComunicados != null && tempComunicados.Length > 0)
                 {       //

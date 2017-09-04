@@ -16,6 +16,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
     public class BienvenidaController : BaseMobileController
     {
+        [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult Index()
         {
             var model = new BienvenidaModel();
@@ -182,14 +183,19 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
                 ViewBag.NumeroCampania = userData.CampaniaID % 100;
                 ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+                ViewBag.NombreConsultora = model.NombreConsultora;
+
+                model.PrimeraVezSession = 1;
+                if(Session["PrimeraVezSessionMobile"] != null) model.PrimeraVezSession = 0;
+                Session["PrimeraVezSessionMobile"] = 1;
             }
             catch (FaultException ex)
             {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
             catch (Exception ex)
             {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
             //PL20-1284
@@ -302,6 +308,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             {
                 result = retorno
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult ObtenerComunicadosPopUps()
+        {
+            BEComunicado oComunicados = null;
+
+            using (SACServiceClient sac = new SACServiceClient())
+            {
+                var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+            }
+
+            return Json(oComunicados, JsonRequestBehavior.AllowGet);
         }
     }
 }
