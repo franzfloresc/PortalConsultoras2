@@ -1,4 +1,4 @@
-use BelcorpPeru
+﻿use BelcorpPeru
 go
 alter PROCEDURE dbo.GetParametriaOfertaFinal_SB2
 @Algoritmo varchar(10) = NUll
