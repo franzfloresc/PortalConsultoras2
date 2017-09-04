@@ -78,14 +78,13 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         void InsCatalogoCampania(int paisID, string CodigoConsultora, int CampaniaID);
 
+        #region ClienteDB
         [OperationContract]
-        List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes);
+        List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes);
 
         [OperationContract]
         IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID);
-
-        [OperationContract]
-        BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente);
+        #endregion
 
         [OperationContract]
         int MovimientoInsertar(int paisId, BEMovimiento movimiento);

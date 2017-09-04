@@ -125,7 +125,7 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region Contacto
-        public bool InsertContactoCliente(BEClienteContactoDB contactoCliente)
+        public long InsertContactoCliente(BEClienteContactoDB contactoCliente)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertContactoCliente");
 
@@ -133,7 +133,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
 
-            return Context.ExecuteNonQuery(command) > 0;
+            return Convert.ToInt64(Context.ExecuteScalar(command));
         }
 
         public bool UpdateContactoCliente(BEClienteContactoDB contactoCliente)
@@ -143,16 +143,6 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
             Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
-
-            return Context.ExecuteNonQuery(command) > 0;
-        }
-
-        public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
-        {
-            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteContactoCliente");
-
-            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
 
             return Context.ExecuteNonQuery(command) > 0;
         }
@@ -172,6 +162,7 @@ namespace Portal.Consultoras.Data
                 {
                     var entity = new BEClienteContactoDB
                     {
+                        ContactoClienteID = GetDataValue<long>(reader, "ContactoClienteID"),
                         TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
                         ClienteID = GetDataValue<long>(reader, "ClienteID"),
                         Valor = GetDataValue<string>(reader, "Valor")
