@@ -55,8 +55,10 @@ function OfertaObtenerProductos(filtro, clear) {
             var tipo = $(filtro).data("filtro-campo");
             if (tipo === "precio") {
                 OrdenarProductoRDAnalytics(label);
-            } else {
+            } else if (tipo === "marca") {
                 FiltrarProductoRDAnalytics(label);
+            } else {
+                BorrarFiltroRDAnalytics();
             }
         }
     } catch (e) {

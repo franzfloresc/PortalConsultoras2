@@ -4,6 +4,7 @@ var CantidadFilas = CantidadFilas || 10;
 var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
+var esPrimeraCarga = true;
 
 $(document).ready(function () {
     "use strict";
@@ -31,8 +32,9 @@ $(document).ready(function () {
             }
         });
         // Registrar valrores de analytics
-        if (!isMobile()) {
+        if (!esPrimeraCarga) {
             TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
+            esPrimeraCarga = false;
         }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
@@ -150,9 +152,10 @@ $(document).ready(function () {
                 return;
             }
             obj.CUV2 = $.trim(obj.CUV2);
+            obj.Posicion = 1;
 
             if (obj.CUV2 != "") {
-                VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
+                VerDetalleLanRDAnalytics(obj);
                 var guardo = EstrategiaGuardarTemporal(obj);
                 if (guardo)
                     return window.location = urlOfertaDetalleProducto +

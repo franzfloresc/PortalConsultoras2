@@ -62,7 +62,7 @@ function RDSuscripcion(accion) {
                 $("[data-estadoregistro0]").hide();
                 $("[data-estadoregistro2]").hide();
                 $("[data-estadoregistro1]").show();
-                SuscripcionExistosaRDAnalytics();
+                //SuscripcionExistosaRDAnalytics();
                 SuscripcionExistosaRDAnalytics2();
                 return true;
             }
@@ -80,7 +80,7 @@ function RDSuscripcion(accion) {
                 CerrarPopup("#divMensajeBloqueada");
             }
             AbrirPopupFade("#PopRDInscrita");
-            SuscripcionExistosaRDAnalytics();
+            SuscripcionExistosaRDAnalytics2();
         },
         error: function (data, error) {
             CerrarLoad();

@@ -1153,12 +1153,12 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
         //google marca analytics        
-
+       // CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
         dataLayer.push({
             'event': 'socialEvent',
-            'network': 'Facebook',
-            'action': 'Compartir',
-            'target': ruta
+            'socialNetwork': 'Facebook',
+            'socialAction': 'Compartir',
+            'socialUrl': ruta
         });
         
         //****************************
@@ -1171,12 +1171,12 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
         //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
         //return "whatsapp://send?text=" + texto + ruta;
         //google marca analytics        
-
+        //CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
         dataLayer.push({
             'event': 'socialEvent',
-            'network': 'Whatsapp',
-            'action': 'Compartir',
-            'target': ruta
+            'socialNetwork': 'Whatsapp',
+            'socialAction': 'Compartir',
+            'socialUrl': ruta
         });
 
         //****************************
@@ -1203,9 +1203,9 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
     try {
-        if (_palanca === "LAN") {
-            CompartirProductoRDAnalytics(tipoRedes, pcDetalle, _nombre);
-        }
+        //if (_palanca === "LAN") {
+        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
+        //}
     } catch (e) { console.log(e); }
 
     var Item = {

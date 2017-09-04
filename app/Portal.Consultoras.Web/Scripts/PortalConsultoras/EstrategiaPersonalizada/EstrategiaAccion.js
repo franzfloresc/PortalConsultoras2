@@ -331,7 +331,10 @@ function EstrategiaAgregar(event, popup, limite) {
     popup = popup || false;
 
     if (EstrategiaValidarBloqueada(objInput, estrategia)) {
-        AgregarProductoDeshabilitadoRDAnalytics(origenPedidoWebEstrategia, campania, estrategia.DescripcionResumen, popup);
+        try {
+            AgregarProductoDeshabilitadoRDAnalytics(origenPedidoWebEstrategia, campania, estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada , popup);
+        } catch (e) {console.log(e)} 
+        
         return false;
     }
 
@@ -360,6 +363,7 @@ function EstrategiaAgregar(event, popup, limite) {
         CerrarLoad();
         return false;
     }
+    estrategia.Cantidad = cantidad;
 
     var agregoAlCarro = false;
     if (!isMobile()) {
