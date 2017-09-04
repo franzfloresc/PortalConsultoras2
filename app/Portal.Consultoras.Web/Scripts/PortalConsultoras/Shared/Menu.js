@@ -1,18 +1,24 @@
 ﻿
-var menuContenedorActivo = "MenuContenedorActivo";
+var elementos = {
+    claseActivo: 'activo',
+    menu2: "[data-layout-menu2]",
+    menu2Ul: "[data-layout-menu2] ul",
+    menu2Li: "[data-layout-menu2] ul li",
+    menu1Li: "[data-layout-menu1] ul li",
+};
 
 $(document).ready(function () {
 
     $("body").on("click", "[data-layout-menu1] ul li", function (e) {
-        $("[data-layout-menu2] ul li").hide();
+        $(elementos.menu2Li).hide();
         var objClick = $(this);
-        var listaMenus = $('[data-layout-menu2] ul').find("li[data-campania='" + objClick.data("campania") + "']");
+        var listaMenus = $(elementos.menu2Ul).find("li[data-campania='" + objClick.data("campania") + "']");
         listaMenus.css({ display: "block" });
         if (listaMenus.length == 0) {
-            $('[data-layout-menu2]').hide();
+            $(elementos.menu2).hide();
         }
         else {
-            $('[data-layout-menu2]').show();
+            $(elementos.menu2).show();
         }
 
         var menuCheck = {
@@ -39,25 +45,25 @@ $(document).ready(function () {
 });
 
 function MenuContenedor() {
-    $("[data-layout-menu2] ul li").hide();
-    $("[data-layout-menu2] ul li").removeClass("seleccionado");
-    $("[data-layout-menu1] ul li").removeClass("seleccionado");
+    $(elementos.menu2Li).hide();
+    $(elementos.menu2Li).removeClass(elementos.claseActivo);
+    $(elementos.menu1Li).removeClass(elementos.claseActivo);
 
     var menuCheck = MenuContenedorObtener();
     menuCheck.CampaniaID = menuCheck.CampaniaID || 0;
     if (menuCheck.CampaniaID <= 0) {
-        var primerMenu = $("[data-layout-menu1] ul li");
+        var primerMenu = $(elementos.menu1Li);
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
         }
         else {
             // fix PL20
-            var omenu2 = $("[data-layout-menu2] ul li");
+            var omenu2 = $(elementos.menu2Li);
             if (omenu2.length > 0)
                 primerMenu = $(omenu2).get(0);
         }
 
-        var primerSubMenu = $("[data-layout-menu2] ul li");
+        var primerSubMenu = $(elementos.menu2Li);
         if (primerSubMenu.length > 0) {
             primerSubMenu = $(primerSubMenu).get(0);
         }
@@ -72,16 +78,16 @@ function MenuContenedor() {
 
     console.log(menuCheck);
 
-    $("[data-layout-menu1] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']").addClass("seleccionado");
-    var subMenus = $("[data-layout-menu2] ul li[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
+    $(elementos.menu1Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "'] a").addClass(elementos.claseActivo);
+    var subMenus = $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
     if (subMenus.length == 0) {
-        $("[data-layout-menu2]").hide();
+        $(elementos.menu2).hide();
     }
     else {
         subMenus.show();
-        $("[data-layout-menu2] ul "
-            + "li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
-            + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "']").addClass("seleccionado");
+        $(elementos.menu2Ul
+            + " li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
+            + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a").addClass(elementos.claseActivo);
     }
 
     LayoutHeaderFin();
