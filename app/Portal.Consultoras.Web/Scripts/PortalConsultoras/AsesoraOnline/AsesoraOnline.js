@@ -25,7 +25,6 @@
     };
 
     var _enviarFormulario = function () {
-
         var respuesta1 = $("#revisar-catalogo-clientes:checked").val();
         var respuesta2 = $("#dejar-catalogo-clientes:checked").val();
         var respuesta3 = $("#mis-clientes-vienen:checked").val();

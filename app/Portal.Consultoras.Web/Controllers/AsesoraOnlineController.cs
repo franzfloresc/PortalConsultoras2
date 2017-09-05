@@ -49,11 +49,13 @@ namespace Portal.Consultoras.Web.Controllers
                     //no-responder@somosbelcorp.com
                     //esikateasesora@belcorp.biz
                     if (resultado.Equals(1))
-                        sv.EnviarMailBienvenidaAsesoraOnline("no-responder@somosbelcorp.com", usuario.EMail, "pendiente", "SomosBelcorp", usuario.Nombre);
+                    {
+                        var titulo = string.Format("{0}, BIENVENIDA A ÉSIKA MI GUÍA DIGITAL", usuario.Sobrenombre).ToUpper();
+                        sv.EnviarMailBienvenidaAsesoraOnline("esikamiguiadigital@belcorp.biz", usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
+                    }
                 }            
 
-                return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });
-                   
+                return Json(new { success = true, message = "Se proceso correctamente.", extra = "", usuario = usuario, resultado = resultado });                   
             }
             catch (FaultException ex)
             {
@@ -83,26 +85,22 @@ namespace Portal.Consultoras.Web.Controllers
                     int desactivado = 0;
                     resultado = sv.ActualizarEstadoConfiguracionPaisDetalle(isoPais, codigoConsultora, desactivado);
                 }
-                return Json(new { success = true, message = "Se actualizó con éxito.", extra = "" });
-
+                
+                return Json(new { success = true, message = "Se actualizó con éxito." });
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, codigoConsultora, isoPais);
-                return Json(new { success = false, message = ex.Message, extra = "" });
+                return Json(new { success = false, message = ex.Message });
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, codigoConsultora, isoPais);
-                return Json(new
-                {
+                return Json(new {
                     success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
-                    extra = ""
+                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente."
                 }, JsonRequestBehavior.AllowGet);
             }
-        }
-
-       
+        }       
     }
 }

@@ -221,8 +221,7 @@ namespace Portal.Consultoras.Web.Controllers
                 #endregion
 
                 #region Lógica de Popups
-
-
+                
                 if (ViewBag.AsesoraOnlinePopup == 1) model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
                 else
                 {
@@ -286,6 +285,22 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult IndexVC()
         {
+            try
+            {
+                if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
+                {
+                    int tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+                    if (tipoPopup == Constantes.TipoPopUp.AsesoraOnline)
+                    {
+                        Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
             if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile" });
 
             ViewBag.AsesoraOnlinePopup = 1;

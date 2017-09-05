@@ -28,7 +28,7 @@ namespace Portal.Consultoras.BizLogic
             using (IDataReader reader = DAAsesoraOnline.GetUsuarioByCodigoConsultora(codigoConsultora))
             while (reader.Read())
             {
-                entidad = new BEUsuario(reader, "AsesoraOnline", codigoConsultora, paisISO);
+                entidad = new BEUsuario(reader, true);
             }
 
             return entidad;

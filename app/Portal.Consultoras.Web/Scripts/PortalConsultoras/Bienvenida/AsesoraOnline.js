@@ -1,5 +1,4 @@
 ﻿var AsesoraOnline = function (config) {
-
     var _config = {
         asesoraOnlineUrl: config.asesoraOnlineUrl || '',
         cerrarPopupInicialUrl: config.cerrarPopupInicialUrl || '',
