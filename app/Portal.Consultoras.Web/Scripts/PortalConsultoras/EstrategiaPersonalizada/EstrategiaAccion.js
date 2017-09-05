@@ -56,7 +56,7 @@ function VerDetalleEstrategia(e) {
         var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
         var campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
         if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
-            VerDetalleLanRDAnalytics(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
+            VerDetalleBloqueadaRDAnalytics(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
         } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
             VerDetalleComprarRDAnalytics(origenPedido, estrategia);
         } else {

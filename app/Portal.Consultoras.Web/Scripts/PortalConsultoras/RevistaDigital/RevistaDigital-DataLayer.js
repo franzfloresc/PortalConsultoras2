@@ -193,7 +193,7 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
     }
 }
 
-function VerDetalleLanRDAnalytics(campania, name) {
+function VerDetalleBloqueadaRDAnalytics(campania, name) {
     try {
         var category = "Ésika para mí";
         var label = campania + " - " + name;
