@@ -4190,6 +4190,7 @@
     <Content Include="Views\AdministrarPalanca\Partials\MantenimientoOfertasHome.cshtml" />
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

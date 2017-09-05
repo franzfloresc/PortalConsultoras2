@@ -14,7 +14,8 @@ var CONS_TIPO_PRESENTACION = {
     CarruselPrevisuales: 2,
     SimpleCentrado: 3,
     Banners: 4,
-    ShowRoom: 5
+    ShowRoom: 5,
+    OfertaDelDia: 6,
 };
 
 var CONS_CODIGO_SECCION = {
@@ -22,9 +23,12 @@ var CONS_CODIGO_SECCION = {
     RD: "RD",
     RDR: "RDR",
     SR: "SR",
+    ODD: "ODD",
 };
 
 var listaSeccion = {};
+
+var timer;
 
 $(document).ready(function () {
     SeccionRender();
@@ -87,7 +91,7 @@ function SeccionObtenerSeccion(seccion) {
 function SeccionCargarProductos(objConsulta) {
     
     objConsulta = objConsulta || {};
-    if (typeof objConsulta.UrlObtenerProductos === "undefined")
+    if (typeof objConsulta.UrlObtenerProductos === "undefined" || objConsulta.UrlObtenerProductos == null)
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;

@@ -2837,6 +2837,9 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
                         }
                         break;
+                    case Constantes.ConfiguracionPais.OfertaDelDia:
+                        //seccion.UrlObtenerProductos = "undefined";
+                        break;
                     default:
                         break;
                 }
@@ -2866,6 +2869,9 @@ namespace Portal.Consultoras.Web.Controllers
                             seccion.TemplatePresentacion = "seccion-showroom";
                             seccion.TemplateProducto = "#template-showroom";
                         }
+                        break;
+                    case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
+                        seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                         break;
                     default:
                         break;
