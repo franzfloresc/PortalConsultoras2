@@ -2801,7 +2801,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
-                    IsMobile = isMobile,
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
                     Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
@@ -2887,11 +2886,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var seccion = new ConfiguracionSeccionHomeModel();
             var modelo = ObtenerConfiguracion();
-            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo && m.IsMobile == IsMobile()).ToList();
+            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
             if (campaniaId > -1)
             {
                 var modeloX = modelo.Where(m => m.CampaniaID <= campaniaId).OrderByDescending(m => m.CampaniaID).ToList();
-                seccion = new ConfiguracionSeccionHomeModel();
                 if (modeloX.Any()) seccion = modeloX[0];
             }
             return seccion;

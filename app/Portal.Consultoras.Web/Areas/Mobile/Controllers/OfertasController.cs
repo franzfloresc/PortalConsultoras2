@@ -28,25 +28,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
-        [HttpPost]
-        public JsonResult ObtenerSeccion(string codigo, int campaniaId)
-        {
-            try
-            {
-                var seccion = ObtenerSeccionHomePalanca(codigo, campaniaId);
-
-                return Json(new
-                {
-                    seccion = seccion
-                }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-
-                return Json(new ConfiguracionSeccionHomeModel());
-            }
-        }
+        
     }
 }

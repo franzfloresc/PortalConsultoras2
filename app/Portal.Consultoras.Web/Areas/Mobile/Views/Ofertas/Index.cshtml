@@ -3,91 +3,16 @@
 
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaModel
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles{
 <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Mobile/esika/ofertas.css")" rel="stylesheet" />
 }
-<div class="bc_mobil_para-mi" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_estrellas.png"));">
-    <div class="bc_mobile-logo" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/bg_esika.png"));">
-
-    </div>
-    <div class="bc_mobile-texto">
-        <div class="mobile-txt">
-            <p>CARMEN, ¡VIVE LAS OFERTAS DE NAVIDAD ES NOVEDAD</p>
-            <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</span>
-        </div>
-    </div>
-    <div class="bc_clear"></div>
-    <div class="bc_para_ti-menu">
-        <ul>
-            <li>
-                <a attr-modal="#open-menu1">TITULO 1</a>
-            </li><li>
-                <a attr-modal="#open-menu2">TITULO 2</a>
-            </li><li>
-                <a attr-modal="#open-menu3">TITULO 3</a>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="bc_para_ti-menu-opciones">
-    <ul id="open-menu1">
-        <li>
-            <a href="#">
-                op1
-            </a>
-        </li>
-    </ul>
-    <ul id="open-menu2">
-        <li>
-            <a href="#">
-                op2
-            </a>
-        </li>
-    </ul>
-    <ul id="open-menu3">
-        <li>
-            <a href="#">
-                op3
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="bc_plantilla-banner">
-    <img src="@Url.Content("~/Content/Images/RevistaDigital/plantilla1.png")" alt="">
-</div>
-<div class="bc_plantilla-producto-promocion" style="background: url(@Url.Content("~/Content/Images/RevistaDigital/plantilla2.png"));">
-    <div class="promo-hora">
-        <p>¡SOLO HOY!</p>
-        <span>05:11:30</span>
-    </div>
-    <div class="promo-img-mobile">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
-    </div>
-    <div class="promo-info">
-        <p class="nombre-prod">
-            SET ILUMINA A SOLO <b>$31.90</b>
-        </p>
-        <a href="" class="agregalo-ya">
-            ¡AGRÉGALO YA!
-        </a>
-        <a href="" class="ver-mas-detalle">
-            + VER MÁS DETALLE
-        </a>
-    </div>
-    <div class="promo-img">
-        <img src="@Url.Content("~/Content/Images/RevistaDigital/producto.png")" alt="">
-    </div>
-    <div class="bc_clear"></div>
-</div>
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
-
 
 @section scripts{
 <script type="text/javascript">
@@ -97,26 +22,4 @@
 <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
 <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
 <script type="text/javascript" src="@Url.Content(" ~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-
-
-<script>
-    $(function () {
-        $('.bc_para_ti-menu-opciones ul').hide();
-        $('.bc_para_ti-menu-opciones ul:first').show();
-        $('.bc_para_ti-menu ul li').on('click', function () {
-            $('.bc_para_ti-menu-opciones ul').hide();
-            var activeTab = $(this).find('a').attr('attr-modal');
-            $(activeTab).show();
-            return false;
-        });
-    })
-</script>
-
-
-<script>
-    $('.bc_para_ti-menu ul li a').on('click', function () {
-        $('.bc_para_ti-menu ul li a').removeClass('opcionActiva');
-        $(this).addClass('opcionActiva');
-    });
-</script>
 }

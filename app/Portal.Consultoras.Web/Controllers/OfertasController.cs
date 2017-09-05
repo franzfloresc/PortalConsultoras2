@@ -11,10 +11,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                //var menu = Session[Constantes.SessionNames.MenuContenedorActivo];
-
-                //MenuContenedorGuardar(codigo, campania);
-
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracion(),
