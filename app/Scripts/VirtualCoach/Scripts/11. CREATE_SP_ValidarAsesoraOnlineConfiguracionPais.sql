@@ -1,10 +1,16 @@
 USE BelcorpChile
 GO
-
-CREATE PROCEDURE ValidarAsesoraOnlineConfiguracionPais
-(
-	@CodigoConsultora varchar(20)
+IF EXISTS(
+	SELECT 1
+	FROM INFORMATION_SCHEMA.ROUTINES 
+	WHERE SPECIFIC_NAME = 'ValidarAsesoraOnlineConfiguracionPais' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
 )
+BEGIN
+    DROP PROCEDURE dbo.ValidarAsesoraOnlineConfiguracionPais
+END
+GO
+CREATE PROCEDURE ValidarAsesoraOnlineConfiguracionPais
+	@CodigoConsultora varchar(20)
 AS
 BEGIN
 	Declare @habilitadoPais int;

@@ -1,6 +1,5 @@
 USE BelcorpChile
 GO
-
 ALTER PROCEDURE [dbo].[GetSesionUsuario_SB2]
 	@CodigoConsultora varchar(25) = null,
 	@CodigoUsuario varchar(25) = null
