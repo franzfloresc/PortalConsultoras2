@@ -131,7 +131,9 @@ namespace Portal.Consultoras.Web.Models
         public int TieneCupon { get; set; }
         public int CampaniaMasDos { get; set; }
         public int TieneMasVendidos { get; set; }
-        
+        public string NombreGerenteZonal { get; internal set; }
+        public bool PopupInicialCerrado { get; set; }
+
         public BienvenidaHomeModel()
         {
             // EPD-2811 Colombia requiere campos de solo lectura debido a la LEY de actualizacion de datos

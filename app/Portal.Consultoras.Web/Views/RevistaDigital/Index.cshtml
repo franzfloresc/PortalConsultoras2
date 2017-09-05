@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
+    int indexTab = 0;
+    int indexContent = 0;
 }
 
 @section styles{
@@ -44,8 +46,9 @@
             <ul class="tabs_pagos" data-tab="tab">
                 @foreach (var tab in Model.ListaTabs)
                 {
+                    indexTab++;
                     <li>
-                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id" data-tab-tipo="@tab.ValorOpcional">
+                        <a href="javascript:;" id="@tab.Id" data-tag="@tab.Id" data-tab-tipo="@tab.ValorOpcional" data-tab-index="@indexTab"> 
                             <div class="texto_tab_pagos">@tab.Descripcion</div>
                             <div class="marcador_tab oculto"></div>
                         </a>
@@ -59,8 +62,9 @@
 
 @foreach (var tab in Model.ListaTabs)
 {
+    indexContent++;
     <hr class="clear" />
-    <div style="display: none;" data-tag-html="@tab.Id">
+    <div style="display: none;" data-tag-html="@tab.Id" data-tab-index="@indexContent">
         @if (tab.Id > 0)
         {
             @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })
@@ -111,6 +115,8 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
+    
 }

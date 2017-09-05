@@ -1073,6 +1073,7 @@
 
             $('#LugarNivel3')
                 .change(function () {
+                     
                     var nivel3 = $(this);
                     
                     $('#NombreLugarNivel3').val($(this).find('option:selected').text());
@@ -1080,7 +1081,10 @@
                     var nivel4 = $('#LugarNivel4');
                     if (nivel4.length == 0) return;
                     var div = $('#centroPoblado');
-                    nivel4.attr('disabled', 'disabled');
+
+                    if (codigoIso != "EC") {
+                        nivel4.attr('disabled', 'disabled');
+                    }
 
                     if (this.value == '')
                     {
@@ -1120,7 +1124,7 @@
                 });
 
             $('#LugarNivel4').change(function () {
-                
+                 
                 //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
                 var nivel3 = $(this);
 
