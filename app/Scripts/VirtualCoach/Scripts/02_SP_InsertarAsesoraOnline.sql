@@ -1,13 +1,7 @@
 USE BelcorpChile
 GO
-IF EXISTS(
-	SELECT 1
-	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'InsertarAsesoraOnline' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
-)
-BEGIN
-    DROP PROCEDURE dbo.InsertarAsesoraOnline
-END
+IF OBJECT_ID('InsertarAsesoraOnline', 'P') IS NOT NULL
+	DROP PROC InsertarAsesoraOnline
 GO
 CREATE PROCEDURE InsertarAsesoraOnline
 	@CodigoConsultora varchar(10),

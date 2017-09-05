@@ -1,13 +1,7 @@
 USE BelcorpChile
 GO
-IF EXISTS(
-	SELECT 1
-	FROM INFORMATION_SCHEMA.ROUTINES 
-	WHERE SPECIFIC_NAME = 'GetUsuarioByCodigoConsultora' AND SPECIFIC_SCHEMA = 'dbo' AND Routine_Type = 'PROCEDURE'
-)
-BEGIN
-    DROP PROCEDURE dbo.GetUsuarioByCodigoConsultora
-END
+IF OBJECT_ID('GetUsuarioByCodigoConsultora', 'P') IS NOT NULL
+	DROP PROC GetUsuarioByCodigoConsultora
 GO
 CREATE PROCEDURE dbo.GetUsuarioByCodigoConsultora
 	@CodigoConsultora varchar(20)
