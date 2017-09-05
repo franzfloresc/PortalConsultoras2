@@ -43,6 +43,19 @@ $(document).ready(function () {
     }, function (e) {
         $(this).find('p').css('font-weight', 'normal');
     });
+
+    var alturaH = $("header").innerHeight();
+    var alturaE = alturaH + $('.bc_menu_estrategia').innerHeight();
+
+    $(window).on('scroll', function () {
+        if ($(window).scrollTop() > alturaE) {
+            $('.op-menu-vertical').addClass('menu-fixed');
+            $('.op-menu-vertical').css('top', alturaH + "px");
+        } else {
+            $('.op-menu-vertical').removeClass('menu-fixed');
+            $('.op-menu-vertical').css('top', "");
+        }
+    });
 });
 
 function MenuContenedor() {

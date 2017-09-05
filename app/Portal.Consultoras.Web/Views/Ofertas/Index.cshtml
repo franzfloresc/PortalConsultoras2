@@ -55,23 +55,5 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-<script>
 
-       
-    $(document).ready(function () {
-        var alturaH = $("header").innerHeight();
-        var alturaE = alturaH + $('.bc_menu_estrategia').innerHeight();
-
-        $(window).on('scroll', function () {
-            if ($(window).scrollTop() > alturaE) {
-                $('.op-menu-vertical').addClass('menu-fixed');
-                $('.op-menu-vertical').css('top', alturaH + "px");
-            } else {
-                $('.op-menu-vertical').removeClass('menu-fixed');
-                $('.op-menu-vertical').css('top', "");
-            }
-        });
-
-    });
-</script>
 }
