@@ -20,6 +20,28 @@ jQuery(document).ready(function () {
         EditarOfertas: ModificarOfertas,
         //Eliminar: estrategiaObj.eliminar
     });
+
+    $("body").on("change", "#cbDesktopCantidadTodos", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#DesktopCantidadProductos").attr("disabled", "disabled");
+            $("#DesktopCantidadProductos").val("0");
+        } else {
+            $("#DesktopCantidadProductos").removeAttr("disabled");
+        }
+    });
+
+    $("body").on("change", "#cbMobileCantidadTodos", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#MobileCantidadProductos").attr("disabled", "disabled");
+            $("#MobileCantidadProductos").val("0");
+        } else {
+            $("#MobileCantidadProductos").removeAttr("disabled");
+        }
+    });
 });
 
 function Modificar(idConfiguracionPais, event) {
@@ -74,7 +96,7 @@ function IniDialogs() {
         width: 830,
         close: function () {},
         draggable: false,
-        title: "Configurar Palanca",
+        title: "Configurar Contenedor Menú",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
@@ -144,7 +166,7 @@ function IniDialogs() {
         width: 830,
         close: function () { },
         draggable: false,
-        title: "Configurar Ofertas Home",
+        title: "Configurar Contenedor Home",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
