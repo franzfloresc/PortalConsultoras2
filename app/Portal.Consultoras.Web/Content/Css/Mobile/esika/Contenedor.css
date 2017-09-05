@@ -72,6 +72,18 @@
 	background: white;
 	color:#333;
 }
+.bc_para_ti-menu ul li a img{
+    display: inline;
+    margin: auto;
+    width: 14px;
+    height: 11px;
+    margin-right: 5px !important;
+    position: relative;
+    top: 0px;
+}
+    .bc_para_ti-menu ul li a img.hover {
+        display: none;
+    }
 .bc_para_ti-menu-opciones{
 
 }
