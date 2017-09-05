@@ -206,7 +206,6 @@ function VerDetalleLanRDAnalytics(campania, name) {
 function VerDetalleLanRDAnalytics(estrategia) {
     try {
         ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
-        VirtualEventPush(category, "Ver producto", label);
     } catch (e) {
         console.log("Exeption on analytics RD " + e);
     }
@@ -218,7 +217,7 @@ function CompartirProductoRDAnalytics(tipo, url, name) {
         tipo = tipo.toString();
         switch (tipo) {
             case "FB":
-                SocialEventPush("Google", "+1", url);
+                SocialEventPush("Facebook", "Share", url);
                 break;
             case "WA":
                 VirtualEventPush(category, "Enviar por Whatsapp", label);

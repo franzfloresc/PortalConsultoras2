@@ -14,7 +14,7 @@
 </div>
 <div class="arrow_misofertas" onclick="FlechaScrollDown(@Model.CampaniaID)">MÁS<br/>OFERTAS<br/><img style="margin-top: 5px;" alt="" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowdown.svg")" /></div>
 <hr class="clear" />
-<div data-listado-campania="@Model.CampaniaID">
+<div data-listado-campania="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLanding">
     <div data-listado-content="" style="display: none;">
         <div>
         @if (ViewBag.TieneProductosPerdio)
