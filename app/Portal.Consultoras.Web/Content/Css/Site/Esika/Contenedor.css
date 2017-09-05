@@ -242,6 +242,10 @@
 }
 .btn-set-previous {
     width: 80px !important;
+    height: 80px !important;
+}
+.previous_ofertas_ept{
+    top:23px !important;
 }
 .previsualizales-ofertas {
     max-width: 700px !important;
