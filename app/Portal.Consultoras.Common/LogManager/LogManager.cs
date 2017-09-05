@@ -49,7 +49,7 @@ namespace Portal.Consultoras.Common
         {
             if (string.IsNullOrEmpty(pathFile))
             {
-                pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log";
+                pathFile = AppDomain.CurrentDomain.BaseDirectory + "/Log";
             }
 
             if (!Directory.Exists(pathFile))

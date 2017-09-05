@@ -7,25 +7,25 @@
 @Html.HiddenFor(model => model.ConfiguracionOfertasHomeID)
 <div class="div-3">
     <div class="titG">Campaña:</div>
-    <div class="selectP2 borde_redondeado">
+    <div class="titG selectP2 borde_redondeado">
         @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampanias, "CampaniaID", "NombreCorto"), "-- Seleccionar --", new { id = "ddlCampaniaOfertas" })
     </div>
 </div>
 <div class="div-3">
     <div class="titG">Palanca:</div>
-    <div class="selectP2 borde_redondeado">
+    <div class="titG selectP2 borde_redondeado">
         @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
     </div>
 </div>
 <div class="div-3">
     <div class="titG">Orden:</div>
-    <div class="titG borde_redondeado">
+    <div class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.DesktopOrden)
     </div>
 </div>
 <div class="div-3">
     <div class="titG">URL Sección:</div>
-    <div class="selectP2 borde_redondeado">
+    <div class="titG selectP2 borde_redondeado">
         @Html.TextBoxFor(m => m.UrlSeccion)
     </div>
 </div>
@@ -64,15 +64,17 @@
             </div>
             
             <div class="div-3">
-                <div class="titG">Título:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.DesktopTitulo)
+                <div class="titG" style="padding-bottom: 0;">Título:</div>
+                <br />  
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Título:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.DesktopSubTitulo)
+                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopSubTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
@@ -127,15 +129,15 @@
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Título:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.MobileTitulo)
+                <div class="titG" style="padding-bottom: 0;">Título:</div>
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
-                <div class="titG">Sub Título:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.MobileSubTitulo)
+                <div class="titG" style="padding-bottom: 0;">Sub Título:</div>
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileSubTitulo, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">
