@@ -1230,7 +1230,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
                 } else {
                     AbrirMensaje(response.message);
                 }
