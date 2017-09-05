@@ -5,14 +5,27 @@
     background-size: cover !important;
     background-position: right center !important;
 }
-
-    .bc_menu_estrategia .logo {
-        width: 11%;
-        float: left;
-        height: 71px;
-        background-size: 100% 100% !important;
-        background-repeat: no-repeat !important;
-    }
+.bc_plantilla_estrategia_personalizada .titulo {
+    display: block;
+    padding-top: 40px;
+    text-align: center;
+}
+    .bc_plantilla_estrategia_personalizada .titulo h2 {
+        display: inline;
+        position: relative;
+        top: 1px;
+        font-size: 17px;
+        margin-right: 10px;
+        font-weight: bolder !important;
+        letter-spacing: 1px;
+    } 
+.bc_menu_estrategia .logo {
+    width: 11%;
+    float: left;
+    height: 71px;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+}
 
         .bc_menu_estrategia .logo img {
             width: 100%;
@@ -215,42 +228,59 @@
 .menu-fixed {
     position: fixed;
     top: 0;
+    z-index: 1000;
 }
 
-@media (max-width: 1100px) {
-    .bc_menu_estrategia .logo {
-        width: 13%;
-    }
-
-    .bc_menu_estrategia .texto-info {
-        width: 87%;
-    }
+.boton-ir a {
+    background: black;
+    color: white;
+    display: block;
+    width: 180px;
+    text-align: center;
+    margin: auto;
+    padding: 10px 0px;
+}
+.btn-set-previous {
+    width: 80px !important;
+}
+.previsualizales-ofertas {
+    max-width: 700px !important;
 }
 
-@media (max-width: 950px) {
-    .bc_menu_estrategia .logo {
-        width: 15%;
-    }
-
-    .bc_menu_estrategia .texto-info {
-        width: 85%;
-    }
-
-        .bc_menu_estrategia .texto-info p {
-            font-size: 10px;
+    @media (max-width: 1100px) {
+        .bc_menu_estrategia .logo {
+            width: 13%;
         }
 
-        .bc_menu_estrategia .texto-info span {
-            font-size: 9px;
+        .bc_menu_estrategia .texto-info {
+            width: 87%;
         }
-}
-
-@media (max-width: 850px) {
-    .bc_menu_estrategia .logo {
-        width: 17%;
     }
 
-    .bc_menu_estrategia .texto-info {
-        width: 83%;
+    @media (max-width: 950px) {
+        .bc_menu_estrategia .logo {
+            width: 15%;
+        }
+
+        .bc_menu_estrategia .texto-info {
+            width: 85%;
+        }
+
+            .bc_menu_estrategia .texto-info p {
+                font-size: 10px;
+            }
+
+            .bc_menu_estrategia .texto-info span {
+                font-size: 9px;
+            }
     }
-}
+
+    @media (max-width: 850px) {
+        .bc_menu_estrategia .logo {
+            width: 17%;
+        }
+
+        .bc_menu_estrategia .texto-info {
+            width: 83%;
+        }
+    }
