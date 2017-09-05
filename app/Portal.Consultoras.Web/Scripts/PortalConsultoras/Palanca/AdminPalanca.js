@@ -42,6 +42,19 @@ jQuery(document).ready(function () {
             $("#MobileCantidadProductos").removeAttr("disabled");
         }
     });
+
+    $("body").on("change", "#cbAncla", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#UrlMenu").attr("disabled", "disabled");
+            $("#UrlMenu").val("#");
+        } else {
+            $("#UrlMenu").removeAttr("disabled");
+            $("#UrlMenu").val("");
+        }
+    });
+    
 });
 
 function Modificar(idConfiguracionPais, event) {
@@ -58,6 +71,12 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
             showDialog("DialogMantenimientoPalanca");
+
+            var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
+            if (esTrueAncla) {
+                $("#cbAncla").prop("checked", true);
+                $("#UrlMenu").attr("disabled", "disabled");
+            }
         },
         error: function (request, status, error) {
             alert(request);
@@ -81,6 +100,18 @@ function ModificarOfertas(idOfertasHome) {
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
             showDialog("DialogMantenimientoOfertasHome");
+
+            var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
+            if (esTrueDesktopCantidad) {
+                $("#cbDesktopCantidadTodos").prop("checked", true);
+                $("#DesktopCantidadProductos").attr("disabled", "disabled");
+            }
+
+            var esTrueMobileCantidad = $.trim($("#MobileCantidadProductos").val()) == "0";
+            if (esTrueMobileCantidad) {
+                $("#cbMobileCantidadTodos").prop("checked", true);
+                $("#MobileCantidadProductos").attr("disabled", "disabled");
+            }
         },
         error: function (request, status, error) {
             alert(request);
