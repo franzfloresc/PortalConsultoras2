@@ -900,7 +900,7 @@ function RecuperarClave() {
                 alert(response.message);
                 return false;
             }
-            hdfCorreoElectronico
+            
             if (response.correo.length == 0) {
                 alert("Por favor ingresa tu " + $("#hdfCorreoElectronico").val() + ".");
                 return false;

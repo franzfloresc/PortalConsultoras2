@@ -1131,6 +1131,12 @@ namespace Portal.Consultoras.BizLogic
 
                 paso = "2";
 
+                if ((lst[0].Cantidad == 1) && (v_correo.Length == 0))
+                {
+                    resultado = "0" + "|" + "2";
+                    return resultado;
+                }                
+
                 //if (paisId.ToString().Trim() == "4")
                 //{
                 //    if (lst.Count == 0)
