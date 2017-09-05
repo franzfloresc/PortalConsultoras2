@@ -109,9 +109,11 @@
 .bc_menu_estrategia .op_menu-horizontal ul li a img {
     display: inline;
     margin: auto;
-    width: 16px;
-    height: 14px;
+    width: 14px;
+    height: 11px;
     margin-right: 5px !important;
+    position: relative;
+    top: 2px;
 }
 
     .bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
