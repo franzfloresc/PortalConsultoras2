@@ -101,6 +101,16 @@
     cursor:pointer;
 }
 
+.bc_para_ti-menu-opciones ul > div{
+    width: 80%;
+    margin: 0 auto;
+}
+.bc-menu-vertical-prev, .bc-menu-vertical-next{
+    width: 5% !important;
+}
+.bc-menu-vertical-prev img, .bc-menu-vertical-next img{
+    height: 40px;
+}
 /* FIN Menu */
 
 .bc_plantilla-banner{
