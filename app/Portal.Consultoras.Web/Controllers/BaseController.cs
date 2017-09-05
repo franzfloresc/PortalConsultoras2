@@ -1067,12 +1067,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Codigo = inicio.Codigo,
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
-                TituloMenu = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloMenu,
+                TituloMenu = isMobile ? inicio.MobileTituloMenu : inicio.DesktopTituloMenu,
                 TituloBanner = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloBanner,
                 SubTituloBanner = isMobile ? inicio.MobileSubTituloBanner : inicio.DesktopSubTituloBanner,
                 LogoBanner = isMobile ? inicio.MobileLogoBanner : inicio.DesktopLogoBanner,
                 FondoBanner = isMobile ? inicio.MobileFondoBanner : inicio.DesktopFondoBanner,
-                UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
+                UrlMenu = (IsMobile() ? "/Mobile" : "") + "/Ofertas",
                 Orden = 0,
                 Activa = true
             };
@@ -2801,7 +2801,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = userData.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
-                    IsMobile = isMobile,
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
                     Titulo = isMobile ? entConf.MobileTitulo : entConf.DesktopTitulo,
@@ -2887,11 +2886,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var seccion = new ConfiguracionSeccionHomeModel();
             var modelo = ObtenerConfiguracion();
-            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo && m.IsMobile == IsMobile()).ToList();
+            if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
             if (campaniaId > -1)
             {
                 var modeloX = modelo.Where(m => m.CampaniaID <= campaniaId).OrderByDescending(m => m.CampaniaID).ToList();
-                seccion = new ConfiguracionSeccionHomeModel();
                 if (modeloX.Any()) seccion = modeloX[0];
             }
             return seccion;

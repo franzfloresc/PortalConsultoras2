@@ -1159,6 +1159,7 @@
     <Content Include="Content\Css\jstree\apple\throbber.gif" />
     <Content Include="Content\Css\Mobile\calc.css" />
     <Content Include="Content\Css\Mobile\esika\bootstrap-slider.min.css" />
+    <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
     <Content Include="Content\Css\Mobile\esika\ofertas.css" />
@@ -3163,6 +3164,7 @@
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital.js" />
     <Content Include="Scripts\PortalConsultoras\RevistaDigital\RevistaDigital-DataLayer.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\LoginLayout.js" />
+    <Content Include="Scripts\PortalConsultoras\Shared\MenuContenedor.js" />
     <Content Include="Scripts\PortalConsultoras\Shared\TrackingJetlore.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Intriga.js" />
     <Content Include="Scripts\PortalConsultoras\ShowRoom\Index.js" />
@@ -3429,6 +3431,8 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\Ofertas\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_MobileLayoutContenedor.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\_MenuContenedorOferta.cshtml" />
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
