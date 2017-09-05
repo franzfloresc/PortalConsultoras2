@@ -2930,8 +2930,8 @@ namespace Portal.Consultoras.Web.Controllers
                 var nombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre)
                         ? userData.NombreConsultora
                         : userData.Sobrenombre;
-                var mensajeSaludo = $"{nombreConsultora} prepárate para la";
-                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : $"FALTAN {diasFaltantes} DÍAS";
+                var mensajeSaludo = string.Format("{0} prepárate para la", nombreConsultora);
+                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : string.Format("FALTAN {0} DÍAS", diasFaltantes);
                 return Json(new
                 {
                     success = true,
