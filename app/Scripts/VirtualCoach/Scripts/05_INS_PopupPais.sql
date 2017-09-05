@@ -1,4 +1,3 @@
-USE BelcorpChile
 GO
 IF NOT EXISTS(SELECT 1 FROM PopupPais WHERE Descripcion = 'AsesoraOnline')
 BEGIN
