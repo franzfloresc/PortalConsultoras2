@@ -745,6 +745,7 @@ namespace Portal.Consultoras.Common
                 public const int SimpleCentrado = 3;
                 public const int Banners = 4;
                 public const int ShowRoom = 5;
+                public const int OfertaDelDia = 6;
             }
         }
 
