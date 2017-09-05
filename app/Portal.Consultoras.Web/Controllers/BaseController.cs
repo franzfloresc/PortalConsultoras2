@@ -1067,12 +1067,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Codigo = inicio.Codigo,
                 CampaniaID = campania == 0 ? userData.CampaniaID : campania,
-                TituloMenu = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloMenu,
+                TituloMenu = isMobile ? inicio.MobileTituloMenu : inicio.DesktopTituloMenu,
                 TituloBanner = isMobile ? inicio.MobileTituloBanner : inicio.DesktopTituloBanner,
                 SubTituloBanner = isMobile ? inicio.MobileSubTituloBanner : inicio.DesktopSubTituloBanner,
                 LogoBanner = isMobile ? inicio.MobileLogoBanner : inicio.DesktopLogoBanner,
                 FondoBanner = isMobile ? inicio.MobileFondoBanner : inicio.DesktopFondoBanner,
-                UrlMenu = (IsMobile() ? "/Mobile" : "") + Url.Action("Index", "Ofertas"),
+                UrlMenu = (IsMobile() ? "/Mobile" : "") + "/Ofertas",
                 Orden = 0,
                 Activa = true
             };
