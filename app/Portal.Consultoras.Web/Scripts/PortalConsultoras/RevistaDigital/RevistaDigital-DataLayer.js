@@ -123,6 +123,8 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
             case "2731": //Mis Ofertas Mobile
                 AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
+            default:
+                AddToCartPush("Ofertas para ti – Home", estrategia);
         }
     } catch (e) {
         console.log("Exeption on analytics RD " + e);
@@ -213,7 +215,7 @@ function CompartirProductoRDAnalytics(tipo, url, name) {
     try {
         var category = "Ésika para mí";
         var label = name + " - " + url;
-
+        tipo = tipo.toString();
         switch (tipo) {
             case "FB":
                 SocialEventPush("Google", "+1", url);
