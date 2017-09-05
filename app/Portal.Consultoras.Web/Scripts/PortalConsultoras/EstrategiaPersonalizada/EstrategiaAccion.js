@@ -496,8 +496,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
             // falta agregar este metodo en para las revista digital
             try {
-                if (window.location.href.indexOf("RevistaDigital") > -1 ||
-                    window.location.href.indexOf("OfertasParaTi/Detalle") > -1) {
+                if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
                 } else {
                     TagManagerClickAgregarProductoOfertaParaTI(estrategia);  

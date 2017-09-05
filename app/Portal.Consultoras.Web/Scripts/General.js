@@ -1150,7 +1150,7 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) 
     ruta = ruta.replace('[valor]', id);
 
     try {
-        if (window.location.href.indexOf("RevistaDigital") > -1) {
+        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
             CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
         } else {
             AnalyticsRedesSociales(tipoRedes, ruta);
