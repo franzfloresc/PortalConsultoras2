@@ -4,9 +4,9 @@
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
-    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style='background: url(" + menuActivo.FondoBanner + ");'" : "";
+    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style=background:url(" + menuActivo.FondoBanner + ");" : "";
 }
-<div class="op_esika-para-mi" @estiloFondoBanner>
+<div class="bc_menu_estrategia" @estiloFondoBanner>
     <div>
         @if (menuActivo.LogoBanner != "")
         {
@@ -35,38 +35,27 @@
             <ul>
                 <li data-campania="@menuActivo.CampaniaX0">
                     <a href="javascript:;" class="desplegable menuactivo" attr-modal="#open-menu1">
-                        <img src="img/carrito.png" alt="" class="default"><img src="img/fill-1.svg" alt="" class="hover menuactivo">
+                        <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
                         <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                     </a>
                 </li><li data-campania="@menuActivo.CampaniaX1">
                     <a href="javascript:;" class="desplegable" attr-modal="#open-menu2">
-                        <img src="img/ojos.svg" alt="" class="default"><img src="img/ojos_negro.svg" alt="" class="hover">
+                        <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
                         <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                     </a>
-                </li><li data-campania="@menuActivo.CampaniaX0">
+                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
                     <a href="javascript:;" class="desplegable" attr-modal="#open-menu3">
                         <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                     </a>
                 </li>
             </ul>
         }
-        @*@if (listaNegra.Any())
-        {
-            <ul class="menu_estrategia">
-                @foreach (var menu in listaNegra)
-                {<li data-campania="@menu.CampaniaID" data-activo="@menu.Activa">
-                        <a href="javascript:;" class="desplegable" attr-modal="#open-menu-@menu.CampaniaID">
-                            @menu.TituloMenu
-                        </a>
-                    </li>}
-            </ul>
-        }*@
     </div>
 </div>
 <div data-layout-menu2="">
     @if (listaPloma.Any())
     {
-        <div class="op_esika-menu sticky" id="op_esika-menu" data-margin-top="20" data-sticky-for="1023" data-sticky-class="is-sticky">
+        <div class="op-menu-vertical sticky">
             <ul class="subnavegador">
                 @foreach (var menuhijo in listaPloma)
                 {
@@ -82,14 +71,4 @@
             </ul>
         </div>
     }
-
-    @*<ul class="subnavegador" id="open-menu1">
-        <li>
-            <a href="">
-                <p>INICIO</p>
-                <span>Muestras renovadas y más</span>
-            </a>
-        </li>
-    </ul>*@
-
 </div>

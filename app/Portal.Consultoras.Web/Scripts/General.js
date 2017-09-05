@@ -933,17 +933,17 @@ function LayoutHeader() {
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
     $("[data-content]").css("margin-top", (wtop) + "px");
-    $("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
 
-    if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
-        wtop = $(window).innerWidth() * 0.12;
-        $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
-        $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
-    }
-    else {
-        $("[data-content] div[data-layout-body]").css("width", "100%");
-        $("[data-content] div[data-layout-body]").css("margin-left", "");
-    }
+    //$("[data-content] div[data-layout-menu2]").css("top", (wtop) + "px");
+    //if ($('[data-content] div[data-layout-menu2]').is(':visible')) {
+    //    wtop = $(window).innerWidth() * 0.12;
+    //    $("[data-content] div[data-layout-menu2]").css("width", (wtop) + "px");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", (wtop) + "px");
+    //}
+    //else {
+    //    $("[data-content] div[data-layout-body]").css("width", "100%");
+    //    $("[data-content] div[data-layout-body]").css("margin-left", "");
+    //}
 }
 
 function LayoutMenu() {
