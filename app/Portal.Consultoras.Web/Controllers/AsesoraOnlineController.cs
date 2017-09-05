@@ -51,7 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     if (resultado.Equals(1))
                     {
                         var titulo = string.Format("{0}, BIENVENIDA A ÉSIKA MI GUÍA DIGITAL", usuario.Sobrenombre).ToUpper();
-                        sv.EnviarMailBienvenidaAsesoraOnline("esikamiguiadigital@belcorp.biz", usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
+                        sv.EnviarMailBienvenidaAsesoraOnline("no-responder@belcorp.biz", usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
                     }
                 }            
 

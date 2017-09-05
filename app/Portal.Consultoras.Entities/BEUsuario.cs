@@ -80,29 +80,7 @@ namespace Portal.Consultoras.Entities
         public BEUsuario()
         {
         }
-
-        //public BEUsuario(IDataRecord row, string asesoraOnline, string codigoConsultora, string isoPais)
-        //{
-        //    msCodigoConsultora = row["CodigoConsultora"].ToString();
-        //    msCodigoUsuario = row["CodigoUsuario"].ToString();
-        //    miPaisID = Convert.ToInt32(row["PaisID"]);
-        //    msNombre = row["Nombre"].ToString();
-        //    msClaveSecreta = row["ClaveSecreta"].ToString();
-        //    msEMail = row["EMail"].ToString();
-        //    mbEMailActivo = Convert.ToBoolean(row["EMailActivo"]);
-        //    msTelefono = row["Telefono"].ToString();
-        //    msCelular = row["Celular"].ToString();
-        //    msSobrenombre = row["Sobrenombre"].ToString();
-        //    mbCompartirDatos = Convert.ToBoolean(row["CompartirDatos"]);
-        //    mbActivo = Convert.ToBoolean(row["Activo"]);
-        //    miTipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
-        //    mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
-
-        //    if (DataRecord.HasColumn(row, "Sobrenombre")) msSobrenombre = Convert.ToString(row["Sobrenombre"]);
-        //    else msSobrenombre = "";
-        //    if (string.IsNullOrEmpty(msSobrenombre) && DataRecord.HasColumn(row, "PrimerNombre")) msSobrenombre = Convert.ToString(row["PrimerNombre"]);
-        //}
-
+        
         public BEUsuario(IDataRecord row)
         {
             msCodigoConsultora = row["CodigoConsultora"].ToString();

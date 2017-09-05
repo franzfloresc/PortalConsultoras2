@@ -17,8 +17,7 @@ BEGIN
 		U.CodigoUsuario,
 		U.CodigoConsultora,
 		U.PaisID,
-		U.Nombre,
-		U.ClaveSecreta,
+		U.Nombre as NombreCompleto,
 		U.EMail,
 		U.EMailActivo,
 		U.Telefono,
@@ -27,10 +26,8 @@ BEGIN
 		U.Sobrenombre,
 		C.PrimerNombre,
 		U.CompartirDatos,
-		U.Activo,
 		U.TipoUsuario,
-		U.CambioClave,
-		U.MostrarAyudaWebTraking
+		U.CambioClave
 	from dbo.Usuario U
 	left join ods.Consultora C on U.CodigoConsultora = C.Codigo
 	where U.CodigoConsultora = @CodigoConsultora;
