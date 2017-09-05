@@ -1,12 +1,6 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using Portal.Consultoras.Web.Models.Layout;
-using Portal.Consultoras.Web.ServicePedido;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Portal.Consultoras.Web.Controllers
@@ -17,6 +11,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
+                //var menu = Session[Constantes.SessionNames.MenuContenedorActivo];
+
+                //MenuContenedorGuardar(codigo, campania);
+
                 var modelo = new EstrategiaPersonalizadaModel
                 {
                     ListaSeccion = ObtenerConfiguracion(),
