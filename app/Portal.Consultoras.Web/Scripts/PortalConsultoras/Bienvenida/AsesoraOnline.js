@@ -2,22 +2,27 @@
 
     var _config = {
         asesoraOnlineUrl: config.asesoraOnlineUrl || '',
+        cerrarPopupInicialUrl: config.cerrarPopupInicialUrl || '',
         actualizarUsuarioUrl: config.actualizarUsuarioUrl || '',
         codigoConsultora: config.codigoConsultora || '',
         isoPais: config.isoPais || '',
         origen: 'SB',
         actualizarEstadoConfiguracionPaisDetalleUrl: config.actualizarEstadoConfiguracionPaisDetalleUrl || '',
         tipoPopup : config.tipoPopup
-
     };
 
     var _armarAsesoraOnlineUrl = function (isoPais, codigoConsultora, origen) {
         return _config.asesoraOnlineUrl + '?isoPais=' + isoPais + '&codigoConsultora=' + codigoConsultora + '&origen=' + origen;
     };
-
+    
     var _hidePopup = function () {
-        $("#fondoComunPopUp").hide();
-        $("#virtual-coach-dialog").hide();
+        waitingDialog();
+        $.post(config.cerrarPopupInicialUrl)
+            .always(closeWaitingDialog)
+            .done(function () {
+                $("#fondoComunPopUp").hide();
+                $("#virtual-coach-dialog").hide();
+            })
     };
 
     var _hidePopupModificarDatos = function () {
@@ -120,9 +125,9 @@
 
         return false;
 
-    };   
+    };
 
-    var _mostrar = function () {
+    var _mostrarSuscripcion = function () {
         $("#fondoComunPopUp").show();
         $("#virtual-coach-dialog").show();
     };
@@ -133,10 +138,15 @@
         _setValuesPopupModificarDatos();
     };
 
+    var _mostrar = function () {
+        if (asesoraOnlineObj.tipoPopup == 0) _mostrarSuscripcion();
+        if (asesoraOnlineObj.tipoPopup == 1) _mostrarModificarDatos();
+    };
+
     return {
         asignarEventos: _asignarEventos,
         mostrar: _mostrar,
-        mostrarModificarDatos: _mostrarModificarDatos,
+        hidePopup: _hidePopup,
         tipoPopup: _config.tipoPopup
     }
 }

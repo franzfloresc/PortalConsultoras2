@@ -2682,9 +2682,11 @@
         var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
         var asesoraOnlinePopup = '@ViewBag.AsesoraOnlinePopup';
+        var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
+            cerrarPopupInicialUrl: '@Url.Action("CerrarPopupInicial", "Bienvenida")',
             actualizarUsuarioUrl: '@Url.Action("ActualizarUsuario", "Bienvenida")',
             codigoConsultora: viewBagCodigoConsultora || '',
             isoPais: paisISO || '',

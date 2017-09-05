@@ -75,6 +75,7 @@ namespace Portal.Consultoras.Web.Models
             this.OfertaFinalModel = new OfertaFinalModel();
             this.EsLebel = false;
             this.TieneCDRExpress = false;
+            this.PopupBienvenidaCerrado = false;
         }
 
         public string Celular { get; set; }
@@ -376,5 +377,6 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosConcursos { get; set; }
 
         public string ClaseLogoSB { get; set; }
+        public bool PopupBienvenidaCerrado { get; set; }
     }
 }

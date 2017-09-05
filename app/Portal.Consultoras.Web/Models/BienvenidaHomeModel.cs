@@ -132,6 +132,7 @@ namespace Portal.Consultoras.Web.Models
         public int CampaniaMasDos { get; set; }
         public int TieneMasVendidos { get; set; }
         public string NombreGerenteZonal { get; internal set; }
+        public bool PopupInicialCerrado { get; set; }
 
         public BienvenidaHomeModel()
         {

@@ -74,9 +74,7 @@ $(document).ready(function () {
             }
         }
         if (!$(e.target).closest('#virtual-coach-dialog').length) {
-            if ($('#virtual-coach-dialog').is(':visible')) {
-                $('#fondoComunPopUp').hide();
-            }
+            if ($('#virtual-coach-dialog').is(':visible')) asesoraOnlineObj.hidePopup();
         }
     });
 
@@ -272,10 +270,7 @@ $(document).ready(function () {
             break;
 
         case popupAsesoraOnline:
-            if (asesoraOnlineObj.tipoPopup == 0)
-                asesoraOnlineObj.mostrar();
-            if (asesoraOnlineObj.tipoPopup == 1)
-                asesoraOnlineObj.mostrarModificarDatos();
+            if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
     }
 
