@@ -22,4 +22,15 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+<script>
+    $('.bc_para_ti-menu ul li a').hover(function (e) {
+            $(this).find('img.default').css('display', 'none');
+            $(this).find('img.hover').css('display', 'inline');
+            $(this).find('img.hover').css('margin-right', '5px');
+        }, function (e) {
+            $(this).find('img.default').css('display', 'inline');
+            $(this).find('img.default').css('margin-right', '5px');
+            $(this).find('img.hover').css('display', 'none');
+        });
+</script>
 }
