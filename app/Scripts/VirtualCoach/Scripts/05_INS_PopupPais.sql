@@ -13,7 +13,7 @@ BEGIN
 		'AsesoraOnline', 
 		CodigoISO,
 		11,
-		1
+		0
 	FROM Pais
 	WHERE EstadoActivo = 1;
 END
