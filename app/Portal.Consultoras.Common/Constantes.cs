@@ -499,6 +499,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalSuscripcion = 9;
             public const int Cupon = 10;
             public const int CuponForzado = 11;
+            public const int AsesoraOnline = 12;
         }
 
         // Constantes de los motivos de GPR.
