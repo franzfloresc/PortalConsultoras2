@@ -77,8 +77,12 @@
             </div>
             <div class="div-3">
                 <div class="titG">Cantidad:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.DesktopCantidadProductos)
+                <div class="titG borde_redondeado" style="width: 50px;">
+                    @Html.TextBoxFor(m => m.DesktopCantidadProductos, new { @style = "width: 50px;" })
+                </div>
+                <div class="titG" style="width: 100px; display: inline-block;">
+                    Todos <input type="checkbox" id="cbDesktopCantidadTodos"
+                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;" />
                 </div>
             </div>
             <div class="div-3">
@@ -136,8 +140,12 @@
             </div>
             <div class="div-3">
                 <div class="titG">Cantidad:</div>
-                <div class="titG borde_redondeado">
-                    @Html.TextBoxFor(m => m.MobileCantidadProductos)
+                <div class="titG borde_redondeado" style="width: 50px;">
+                    @Html.TextBoxFor(m => m.MobileCantidadProductos, new { @style= "width: 50px;" })
+                </div>
+                <div class="titG" style="width: 100px; display: inline-block;">
+                    Todos <input type="checkbox" id="cbMobileCantidadTodos" 
+                                 style="display: inline-block !important; margin: 5px; vertical-align: middle; height: 15px !important;"/>
                 </div>
             </div>
             <div class="div-3">
