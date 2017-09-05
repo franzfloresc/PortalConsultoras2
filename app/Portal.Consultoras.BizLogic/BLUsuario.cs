@@ -1184,7 +1184,7 @@ namespace Portal.Consultoras.BizLogic
                 v_correo = lst[0].Correo;
 
                 string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
+                DateTime diasolicitud = DateTime.Now; //.AddMinutes(DateTime.Now.Minute + 5);
                 string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
                 string paisiso = paisISO;
                 string codigousuario = lst[0].CodigoUsuario;

@@ -255,7 +255,7 @@
             <div class="linea_separadora hideOnMobile"></div>
         </div>
 
-        <div class="content_belcorp">
+        <div class="content_belcorp" id="divCambiarClave" runat="server" visible="true">
             <div class="pestana_lbel pestanaLbelActualizarContrasenia"></div>
             <!--PESTAÑA PARA DARLE ESTILO CON LBEL-->
             <div class="contenedor_actualizarContraseniaForm" id="divFormularioActualizacion">
