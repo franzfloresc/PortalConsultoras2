@@ -760,5 +760,14 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
         }
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        public IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetEventoFestivo(Alcanse, FechaActual, paisID);
+        }
+        #endregion
     }
 }

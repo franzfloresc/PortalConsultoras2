@@ -45,6 +45,19 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.ListaPaises = ObtenerPaises();
+                
+                model.ListaEventos = ObtenerEventoFestivo("23/10/2017");
+                model.NombreClase = "fondo_estandar";
+
+                //if (model.ListaEventos.Count == 0)
+                //    model.NombreClase = "fondo_estandar";
+                //else
+                //{
+                //    model.NombreClase = "fondo_evento";
+                //    model.RutaEventoEsika = (from g in model.ListaEventos where g.Nombre == "FONDO_ESIKA" select g.Perzonalizacion).FirstOrDefault();
+                //    model.RutaEventoLBel = (from g in model.ListaEventos where g.Nombre == "FONDO_LBEL" select g.Perzonalizacion).FirstOrDefault();
+                //}
+
 
                 if (EstaActivoBuscarIsoPorIp())
                 {
@@ -111,6 +124,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
+        protected List<EventoFestivoModel> ObtenerEventoFestivo(string fechaActual)
+        {
+            List<BEEventoFestivo> lst;
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    lst = sv.GetEventoFestivo(Constantes.EventoFestivo.LOGIN, fechaActual, 0).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                lst = new List<BEEventoFestivo>(); ;
+            }
+            return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
         }
 
         protected virtual bool EstaActivoBuscarIsoPorIp()

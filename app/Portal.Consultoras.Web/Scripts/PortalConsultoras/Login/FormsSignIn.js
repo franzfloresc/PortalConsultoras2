@@ -577,7 +577,13 @@ function AsignarHojaEstilos() {
             $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
             $("link[data-id='cssStyle']").prop('disabled', false);
             $("link[data-id='cssStyleLbel']").prop('disabled', true);
+            if (!$("body").hasClass("fondo_estandar")) {
+                var ruta = $("#hddFondoFestivoEsika").val();
+                $("body").css("background", "url(" + ruta + ") center center no-repeat fixed");
+                $("body").css("background-size", "cover");
+            }
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
+            
         }
         $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
         $("#cargarBandera3").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -590,6 +596,11 @@ function AsignarHojaEstilos() {
                 $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
                 $("link[data-id='cssStyle']").prop('disabled', true);
                 $("link[data-id='cssStyleLbel']").prop('disabled', false);
+                if (!$("body").hasClass("fondo_estandar")) {
+                    var ruta = $("#hddFondoFestivoLebel").val();
+                    $("body").css("background", "url(" + ruta + ") center center no-repeat fixed");
+                    $("body").css("background-size", "cover");
+                }
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top 10px left 2px no-repeat");
@@ -601,6 +612,11 @@ function AsignarHojaEstilos() {
                 $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
                 $("link[data-id='cssStyle']").prop('disabled', false);
                 $("link[data-id='cssStyleLbel']").prop('disabled', true);
+                if (!$("body").hasClass("fondo_estandar")) {
+                    var ruta = $("#hddFondoFestivoEsika").val();
+                    $("body").css("background", "url(" + ruta + ") center center no-repeat fixed");
+                    $("body").css("background-size", "cover");
+                }
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
             $("#cargarBandera").css("background", "url('/Content/Images/Login2/Banderas/" + imgISO + ".png') top -7px left -10px no-repeat");

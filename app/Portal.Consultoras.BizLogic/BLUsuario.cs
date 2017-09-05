@@ -1577,5 +1577,26 @@ namespace Portal.Consultoras.BizLogic
             return terminos;
         }
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        public IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID)
+        {
+            if (paisID == 0)
+            {
+                paisID = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
+            }
+            IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcanse, Convert.ToDateTime(FechaActual)))
+            {
+                while (reader.Read())
+                {
+                    evento.Add(new BEEventoFestivo(reader));
+                }
+            }
+            return evento;
+        }
+        #endregion
     }
 }

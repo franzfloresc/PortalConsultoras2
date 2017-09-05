@@ -375,5 +375,7 @@ namespace Portal.Consultoras.Web.Models
         public string CodigosConcursos { get; set; }
 
         public string ClaseLogoSB { get; set; }
+
+        public List<EventoFestivoModel> ListaEventoFestivo { get; set; } //HD-817
     }
 }

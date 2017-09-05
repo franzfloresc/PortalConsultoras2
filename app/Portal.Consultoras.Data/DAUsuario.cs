@@ -774,5 +774,16 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        #region EventoFestivo
+        public IDataReader GetEventoFestivo(string Alcanse, DateTime FechaActual)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEventoFestivo");
+            Context.Database.AddInParameter(command, "@Alcanse", DbType.AnsiString, Alcanse);
+            Context.Database.AddInParameter(command, "@FechaActual", DbType.DateTime, FechaActual);
+
+            return Context.ExecuteReader(command);
+        }
+        #endregion
     }
 }

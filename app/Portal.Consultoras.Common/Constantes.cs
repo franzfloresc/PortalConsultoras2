@@ -979,7 +979,7 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
@@ -992,6 +992,16 @@ namespace Portal.Consultoras.Common
             public const short Todos = 0;
             public const short Desktop = 1;
             public const short Mobile = 2;
+        }
+
+        #region EventoFestivo
+        public class EventoFestivo
+        {
+            /*Nombre*/
+            public const string LOGIN = "LOGIN";
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";
+            public const string Fondo_login = "login-esika-1920.jpg";
+            #endregion
         }
     }
 }

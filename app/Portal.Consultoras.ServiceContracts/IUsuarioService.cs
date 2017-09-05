@@ -345,5 +345,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        [OperationContract]
+        IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID);
+        #endregion
     }
 }
