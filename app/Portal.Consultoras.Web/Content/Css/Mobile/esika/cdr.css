@@ -987,4 +987,70 @@
 
 /* FIN VISTA DETALLE SOLICITUD CDR */
 
+/* VISTA NOTIFICACIONES CDR MOBILE */
+
+.content_detalle_notificaciones_cdr,
+.datos_solicitud_cdr_notificacion,
+.saludo_consultora_en_sesion,
+.respuesta_solicitud_cdr,
+.lista_detalle_notificaciones_cdr,
+.titulo_cabecera_lista_detalle_notificacion_cdr,
+.info_detalle_notificacion_cdr,
+.btn_verSolicitud_somosBelcorp{
+    display:block;
+}
+
+.saludo_consultora_en_sesion{
+    margin-top:15px;
+    margin-bottom:14px;
+    font-size:13px;
+}
+
+.respuesta_solicitud_cdr{
+    font-size:15px;
+    line-height:18px;
+    margin-bottom:14px;
+}
+
+.tiempo_respuesta_solicitud_cdr{
+    font-size:13px;
+    line-height:15px;
+    margin-bottom:22px;
+}
+
+.datos_solicitud_cdr_notificacion{
+    background: #f7f7f7;
+    position: relative;
+    padding: 14px 0 0 0;
+    font-size:13px;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr, .info_detalle_notificacion_cdr{
+    border-bottom:1px solid #979797;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr{
+    border-top:1px solid #979797;
+    padding:10px 0;
+}
+
+.info_detalle_notificacion_cdr{
+    margin-bottom:22px;
+    padding:21px 0 23px 0;
+    line-height:19px;
+}
+
+.btn_verSolicitud_somosBelcorp{
+    margin:0 auto 30px auto;
+    width:100%;
+    max-width:296px;
+    height:45px;
+    line-height:43px;
+    border:1px solid #000;
+    color:#000;
+    font-size:13px;
+}
+
+/* FIN VISTA NOTIFICACIONES CDR MOBILE */
+
 /* FIN CDR MOBILE */

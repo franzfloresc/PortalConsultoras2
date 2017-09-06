@@ -1,0 +1,87 @@
+﻿@using Portal.Consultoras.Web.Models
+@model NotificacionesModel
+
+@{
+    ViewBag.Title = "Notificaciones CDR";
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+}
+
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
+    &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
+</div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+
+<div class="wrapper_resumen_mobile">
+
+    <div class="content_detalle_notificaciones_cdr tipografia_lato">
+        <div class="saludo_consultora_en_sesion tipografia_lato_regular text-center">
+            Hola, <span class="text-uppercase">Peter Rojas Beltrán</span>
+        </div>
+        <div class="respuesta_solicitud_cdr tipografia_lato_bold text-center">
+            HEMOS RECIBIDO TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES
+        </div>
+        <div class="tiempo_respuesta_solicitud_cdr tipografia_lato_regular text-center">
+            En estos momentos la estamos evaluando y en 30 min te daremos una respuesta
+        </div>
+        <div class="datos_solicitud_cdr_notificacion tipografia_lato text-center">
+            <div class="dato_fecha_solicitud_cdr text-center">
+                <span class="tipografia_lato_regular">Fecha</span>
+                <span class="tipografia_lato_regular">10/08/2017</span>
+            </div>
+            <div class="dato_num_solicitud_cdr text-center">
+                <span class="tipografia_lato_regular">Solicitud</span>
+                <span class="tipografia_lato_regular">N° 1035</span>
+            </div>
+            <div class="dato_campania_solicitud_cdr text-center">
+                <span class="tipografia_lato_regular">Campaña</span>
+                <span class="tipografia_lato_regular">2017-10</span>
+            </div>
+        </div>
+        <div class="lista_detalle_notificaciones_cdr">
+            <div class="titulo_cabecera_lista_detalle_notificacion_cdr text-center tipografia_lato_bold">DETALLE DE LA SOLICITUD</div>
+            <div class="info_detalle_notificacion_cdr">
+                <div class="detalle_producto_cdr">
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        01687
+                    </span>
+                    <span class="detalle_nom_producto tipografia_lato_bold">
+                        Cy Be Sexy Crem C Rizo 200 ml.
+                    </span>
+                    <span class="detalle_cantidad_producto tipografia_lato_regular">
+                        x 1 unidades
+                    </span>
+                    <span class="detalle_precio_producto tipografia_lato_regular">
+                        Bs 48.65
+                    </span>
+                </div>
+                <div class="detalle_cdr_solucion">
+                    <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                        Cambiar por:
+                    </span>
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        98765
+                    </span>
+                    <span class="detalle_nom_producto tipografia_lato_bold">
+                        Máscara Full Size Negro.
+                    </span>
+                    <span class="detalle_cantidad_producto tipografia_lato_regular">
+                        x 1 unidades
+                    </span>
+                    <span class="detalle_precio_producto tipografia_lato_regular">
+                        Bs 48.65
+                    </span>
+                </div>
+            </div>
+            <a href="#" class="btn_verSolicitud_somosBelcorp text-center tipografia_lato_bold" title="Ver la solicitud en Somos Belcorp">
+                VER LA SOLICITUD EN SOMOS BELCORP
+            </a>
+        </div>
+    </div>
+
+</div>
