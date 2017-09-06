@@ -2887,8 +2887,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 modelo.Add(seccion);
             }
-            
-            return modelo;
+
+            return modelo.OrderBy(s => s.Orden).ToList();
 
         }
 
