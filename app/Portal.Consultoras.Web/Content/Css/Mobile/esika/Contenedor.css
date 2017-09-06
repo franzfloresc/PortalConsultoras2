@@ -6,11 +6,11 @@
 	background-position: right center !important;
     background-color: #808080;
 }
-.bc_mobile-logo{
-	float: left;
-	background-size: 100% 100%;
-	height: 70px;
-	width: 10%;
+.bc_mobile-logo {
+    float: left;
+    background-size: 100% 100% !important;
+    height: 70px;
+    width: 10% !important;
 }
 .bc_mobile-texto{
 	display: table;
@@ -202,52 +202,62 @@ text-decoration: none;
 /**/
 @media (max-width:1200px) {
   	.bc_mobile-logo{
-		width:13%;
+		width:13% !important;
   	}
-  	.bc_mobile-texto{
-		width: 87%;
-  	}	
+    .bc_mobile-texto {
+        width: 87% !important;
+    }	
 }
 @media (max-width:960px) {
-  	.bc_mobile-logo{
-		width:15%;
-  	}
-  	.bc_mobile-texto{
-		width: 85%;
-  	}	
+    .bc_mobile-logo {
+        width: 15% !important;
+    }
+    .bc_mobile-texto {
+        width: 85% !important;
+    }	
 }
 @media (max-width:850px) {
-  	.bc_mobile-logo{
-		width:17%;
-  	}
-  	.bc_mobile-texto{
-		width: 83%;
-  	}	
+    .bc_mobile-logo {
+        width: 17% !important;
+    }
+    .bc_mobile-texto {
+        width: 83% !important;
+    }	
 }
 @media (max-width:750px) {
-  	.bc_mobile-logo{
-		width:19%;
-  	}
-  	.bc_mobile-texto{
-		width: 81%;
-  	}
+    .bc_mobile-logo {
+        width: 19% !important;
+    }
+    .bc_mobile-texto {
+        width: 81% !important;
+    }
 
 }
+@media (max-width:680px){
+    .bc_para_ti-menu ul li a {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .bc_para_ti-menu {
+        height: 31px;
+    }
+}
 @media (max-width:620px) {
-  	.bc_mobile-logo{
-		width:21%;
-  	}
-  	.bc_mobile-texto{
-		width: 79%;
-  	}	
+    .bc_mobile-logo {
+        width: 21% !important;
+    }
+    .bc_mobile-texto {
+        width: 79% !important;
+    }	
 }
 @media (max-width:580px) {
-  	.bc_mobile-logo{
-		width:23%;
-  	}
-  	.bc_mobile-texto{
-		width: 77%;
-  	}	
+    .bc_mobile-logo {
+        width: 23% !important;
+    }
+    .bc_mobile-texto {
+        width: 77% !important;
+    }	
   	.bc_mobile-texto .mobile-txt p {
 		letter-spacing: 1px;
 	}	
@@ -279,27 +289,27 @@ text-decoration: none;
   	}
 }
 @media (max-width:550px) {
-  	.bc_mobile-logo{
-		width:25%;
-  	}
-  	.bc_mobile-texto{
-		width: 75%;
-  	}	
+    .bc_mobile-logo {
+        width: 25% !important;
+    }
+    .bc_mobile-texto {
+        width: 75% !important;
+    }	
 }
 @media (max-width:480px) {
-  	.bc_mobile-logo{
-		width:32%;
-  	}
-  	.bc_mobile-texto{
-		width: 68%;
-  	}
+    .bc_mobile-logo {
+        width: 32% !important;
+    }
+    .bc_mobile-texto {
+        width: 68% !important;
+    }
   		
 }
 @media (max-width:360px) {
-  	.bc_mobile-logo{
-		width:36%;
-  	}
-  	.bc_mobile-texto{
-		width: 64%;
-  	}
+    .bc_mobile-logo {
+        width: 36% !important;
+    }
+    .bc_mobile-texto {
+        width: 64% !important;
+    }
 }
