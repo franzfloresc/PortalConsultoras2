@@ -987,12 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menu = new MenuContenedorModel();
             try
             {
-                menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
-
-                menu.CampaniaID = menu.CampaniaID > 0 ? menu.CampaniaID : userData.CampaniaID;
-                menu.Codigo = Util.Trim(menu.Codigo);
-                menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
-                MenuContenedorGuardar(menu.Codigo, menu.CampaniaID);
+                menu = MenuContenedorObtener();
 
                 var listaMenus = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
                 
@@ -2755,6 +2750,7 @@ namespace Portal.Consultoras.Web.Controllers
         #region Configuracion Seccion Palanca
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
         {
+
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
             if (Session[Constantes.ConstSession.ListadoSeccionPalanca] != null)
             {
@@ -2769,7 +2765,7 @@ namespace Portal.Consultoras.Web.Controllers
                 Session[Constantes.ConstSession.ListadoSeccionPalanca] = listaEntidad;
             }
 
-            var menuActivo = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo];
+            var menuActivo = MenuContenedorObtener();
 
             var modelo = new List<ConfiguracionSeccionHomeModel>();
 
@@ -2912,6 +2908,21 @@ namespace Portal.Consultoras.Web.Controllers
                 CampaniaID = campania,
                 Codigo = Util.Trim(codigo) ?? Constantes.ConfiguracionPais.Inicio 
             };
+        }
+
+        public MenuContenedorModel MenuContenedorObtener()
+        {
+            var menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
+
+            menu.Codigo = Util.Trim(menu.Codigo);
+            if (menu.CampaniaID <= 0 || menu.Codigo == "")
+            {
+                menu.CampaniaID = menu.CampaniaID > 0 ? menu.CampaniaID : userData.CampaniaID;
+                menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
+                MenuContenedorGuardar(menu.Codigo, menu.CampaniaID);
+            }
+
+            return menu;
         }
 
         #region Revista Digital 

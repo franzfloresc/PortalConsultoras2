@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerMenuContenedor()
         {
-            var objSession =  Session[Constantes.SessionNames.MenuContenedorActivo];
+            var objSession = MenuContenedorObtener();
 
             return Json(new
             {
