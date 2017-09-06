@@ -12,7 +12,7 @@
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />
 }
-
+<div data-tag-html="@ViewBag.Campania">
 <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop);' 
      data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="revista_fondo_ficha"></div>
@@ -101,12 +101,44 @@
         @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")
         {
             <div class="revista_producto_video" style="width: 60%">
-                @*<iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_VIDEO_CODE" frameborder="0" allowfullscreen></iframe>*@
-                <iframe width="100%" height="415" frameborder="0" allowfullscreen
-                        src="https://www.youtube.com/embed/@Model.TipoEstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>
+                @*<iframe width="100%" height="415" frameborder="0" allowfullscreen
+                        src="https://www.youtube.com/embed/@Model.TipoEstrategiaDetalle.UrlVideoDesktop?autoplay=0"></iframe>*@
+                <div id="player"></div>
+
+                <script>
+                    var tag = document.createElement('script');
+
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                    var player;
+                    function onYouTubeIframeAPIReady() {
+                        player = new YT.Player('player', {
+                            height: '415',
+                            width: '100%',
+                            videoId: '@Model.TipoEstrategiaDetalle.UrlVideoDesktop',
+                            events: {
+                                'onStateChange': onPlayerStateChange
+                            }
+                        });
+                    }
+
+                    function onPlayerStateChange(event) {
+                        if (event.data == YT.PlayerState.PLAYING) {
+                            CompartirProductoRDAnalytics("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
+                        }
+                        if (event.data == YT.PlayerState.ENDED) {
+                            CompartirProductoRDAnalytics("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
+                        }
+                    }
+
+                </script>
+
             </div>
         }
     </div>
+</div>
 </div>
 @Html.Action("MensajeBloqueado", "RevistaDigital")
 <div class="flecha_scroll">
@@ -126,6 +158,7 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Cupon/Cupon.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

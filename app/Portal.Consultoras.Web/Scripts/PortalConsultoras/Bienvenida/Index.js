@@ -14,7 +14,7 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
-$(document).ready(function () {
+$(document).ready(function () { 
     $("#hdDataBarra").val("");
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -72,6 +72,9 @@ $(document).ready(function () {
             if ($('#popupMisDatos').is(':visible')) {
                 $('#fondoComunPopUp').hide();
             }
+        }
+        if (!$(e.target).closest('#virtual-coach-dialog').length) {
+            if ($('#virtual-coach-dialog').is(':visible')) asesoraOnlineObj.hidePopup();
         }
     });
 
@@ -264,6 +267,10 @@ $(document).ready(function () {
             
         case popupCuponForzado:
             cuponModule.mostrarPopupGanaste();
+            break;
+
+        case popupAsesoraOnline:
+            if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
     }
 
