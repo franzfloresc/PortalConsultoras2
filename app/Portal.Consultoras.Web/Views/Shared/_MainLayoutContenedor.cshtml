@@ -217,7 +217,7 @@
         {
             @*<div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>*@
         }
-        
+
         <!--END BANNER -->
         <div class="clear"></div>
         <div class="wrapper_header">
@@ -327,7 +327,7 @@
                     || controllerAction == "showroomindex"
                     || controllerAction == "showroomintriga"
                     || ("/" + controllerAction).Contains("revistadigital")
-                ) 
+                )
                 && (@ViewBag.Title != "" && @ViewBag.Title != null))
             {
                 <div class="SubHeader">
@@ -335,8 +335,8 @@
                         <span><a href="@Url.Action("Index", "Bienvenida")">Home</a></span> <span> | @ViewBag.Title</span>
                     </div>
                 </div>
-            }   
-            
+            }
+
             @RenderBody()
             @if (ViewBag.TerminoMostrar == 1)
             {
@@ -582,7 +582,6 @@
         </div>
     </div>
     <!-- FIN POPUP MENSAJE USUARIO POSTULANTE -->
-    
     <!-- POPUP PEDIDO RESERVADO -->
     <div class="contenedor_popup_agregarUnidades contenedor_popup_error" id="dialog_PedidoReservado" style="display: none;">
         <div class="popup_agregarUnidades">
@@ -708,13 +707,14 @@
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
             <br />
             <br />
-            <div style="width:100%;">
+            <div class="solo_hoy" style="width:100%">
+                <div style="height:42px; overflow:hidden;float:left"><img src="{{ImagenSoloHoy}}" alt="" /></div>
                 <div class="clock" style="float:right"></div>
             </div>
             <br />
             <br />
             <br />
-    
+
 
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <!--CASO 1 CARRUSEL A 1024-->
@@ -892,7 +892,7 @@
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
-        
+
         var _ModificacionPedidoProl = '@ViewBag.ModificarPedidoProl'; //EPD-1682
          //EPD-2058
         var gTipoUsuario = '@ViewBag.TipoUsuario';
@@ -900,12 +900,12 @@
         var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
         var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
         var MensajePedidoDesktop = '@ViewBag.MensajePedidoDesktop';
-        
+
         var clock;
         var TipoOrigenPantallaODD = 1;
         var ViewIndicadorGPRSB = '@ViewBag.IndicadorGPRSB';
 
-     </script>
+    </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
     <script type='text/javascript'>
         (function () {
