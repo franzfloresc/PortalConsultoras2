@@ -766,5 +766,15 @@ namespace Portal.Consultoras.Service
         {
             return new BLUsuario().GetUsuarioChatEmtelco(paisID, codigoUsuario);
         }
+        #region TerminosCondiciones
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            return new BLUsuario().InsertTerminosCondiciones(terminos);
+        }
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
+        }
+        #endregion
     }
 }

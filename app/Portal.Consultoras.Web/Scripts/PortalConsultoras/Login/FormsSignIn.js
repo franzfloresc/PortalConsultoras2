@@ -246,10 +246,12 @@ $(document).ready(function () {
         $('#ErrorTextLabel').html(errorMessage);
         $("#ErrorTextLabel").css("padding-left", "20px");
 
-        var errorMessageLog = "Mensaje: " + errorLogin + " \n|PaisISO: " + serverPaisISO + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
-        saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
-
         //TODO:Call al service de Log usando: errorMessage
+        if (typeof usuarioValidado !== 'undefined') {
+            var errorMessageLog = "Mensaje: " + errorLogin + " \n|PaisISO: " + serverPaisISO + " \n|CodigoUsuario: " + serverCodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+            saveLog(serverPaisISO, serverCodigoUsuario, errorMessageLog);
+        }
+
     }
 
     $("#btnRecuperarClave").click(function () {
@@ -583,7 +585,7 @@ function AsignarHojaEstilos() {
         if (objEstiloEsika.prop('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = ' ÉSIKA ';
-            $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
+            $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
             objEstiloEsika.prop('disabled', false);
             objEstiloLbel.prop('disabled', true);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
@@ -595,7 +597,7 @@ function AsignarHojaEstilos() {
         if (objEstiloLbel.prop('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = " L'BEL ";
-            $("link[data-id='iconPagina']").attr("href", "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico");
+            $("link[data-id='iconPagina']").attr("href", "/Content/Images/Lbel/favicon.ico");
             objEstiloEsika.prop('disabled', true);
             objEstiloLbel.prop('disabled', false);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
@@ -606,7 +608,7 @@ function AsignarHojaEstilos() {
         if (objEstiloEsika.attr('disabled') !== undefined) {
             $("body").css("visibility", "hidden");
             document.title = ' ÉSIKA ';
-            $("link[data-id='iconPagina']").attr("href", "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico");
+            $("link[data-id='iconPagina']").attr("href", "/Content/Images/Esika/favicon.ico");
             objEstiloEsika.prop('disabled', false);
             objEstiloLbel.prop('disabled', true);
             window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
@@ -740,8 +742,10 @@ function login2() {
                 $("#ErrorTextLabel2").css("padding-left", "20px");
                 $('#divMensajeError2').show();
 
-                var errorMessageLog = "Mensaje: " + response.message + " \n|PaisISO: " + CodigoISO + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
-                saveLog(CodigoISO, CodigoUsuario, errorMessageLog);
+                if (typeof usuarioValidado !== 'undefined') {
+                    var errorMessageLog = "Mensaje: " + response.message + " \n|PaisISO: " + CodigoISO + " \n|CodigoUsuario: " + CodigoUsuario + " \n|Stack Browser: " + navigator.appVersion;
+                    saveLog(CodigoISO, CodigoUsuario, errorMessageLog);
+                }
 
                 $('#txtUsuario').val('');
                 $('#txtContrasenia').val('');
@@ -752,10 +756,11 @@ function login2() {
             //console.log(response);
             closeWaitingDialog();
 
-            var errorMessage = "login2, |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
-            alert("Error al procesar la solicitud" + errorMessage);
-
-            saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
+            if (typeof usuarioValidado !== 'undefined') {
+                var errorMessage = "login2, |CodigoISO: " + CodigoISO + " |PaisID: " + serverPaisId.toString() + " |CodigoUsuario: " + serverCodigoUsuario + " |Stack Browser: " + navigator.appVersion;
+                alert("Error al procesar la solicitud" + errorMessage);
+                saveLog(errorMessage, serverCodigoUsuario, CodigoISO);
+            }
            
             $('#txtUsuario').val('');
             $('#txtContrasenia').val('');

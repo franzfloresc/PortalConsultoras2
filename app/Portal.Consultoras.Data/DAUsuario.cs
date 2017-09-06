@@ -254,7 +254,7 @@ namespace Portal.Consultoras.Data
         public IDataReader GetSesionUsuario(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetSesionUsuario_SB2");
-            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoUsuario);
+            Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.AnsiString, CodigoUsuario);
 
             return Context.ExecuteReader(command);
         }

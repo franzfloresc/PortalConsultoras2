@@ -164,7 +164,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             if (iso == "BR") iso = "00";
             ViewBag.TituloPagina = " ÉSIKA ";
-            ViewBag.IconoPagina = "http://www.esika.com/wp-content/themes/nuevaesika/favicon.ico";
+            ViewBag.IconoPagina = "/Content/Images/Esika/favicon.ico";
             ViewBag.EsPaisEsika = true;
             ViewBag.EsPaisLbel = false;
             ViewBag.AvisoASP = 1;
@@ -176,7 +176,7 @@ namespace Portal.Consultoras.Web.Controllers
             else if (GetPaisesLbelFromConfig().Contains(iso))
             {
                 ViewBag.TituloPagina = " L'BEL ";
-                ViewBag.IconoPagina = "http://cdn.lbel.com/wp-content/themes/lbel2/images/icons/favicon.ico";
+                ViewBag.IconoPagina = "/Content/Images/Lbel/favicon.ico";
                 ViewBag.EsPaisEsika = false;
                 ViewBag.EsPaisLbel = true;
                 if (iso == "MX") ViewBag.AvisoASP = 2;
@@ -227,6 +227,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (resultadoInicioSesion != null && resultadoInicioSesion.Result == USUARIO_VALIDO)
                 {
+                    TempData["usuarioValidado"] = "1";
                     if (model.UsuarioExterno == null)
                         return Redireccionar(model.PaisID, resultadoInicioSesion.CodigoUsuario, returnUrl);
 
@@ -635,6 +636,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.VioTutorialDesktop = oBEUsuario.VioTutorialDesktop;
                     model.HabilitarRestriccionHoraria = oBEUsuario.HabilitarRestriccionHoraria;
                     model.IndicadorPermisoFIC = oBEUsuario.IndicadorPermisoFIC;
+                    model.PedidoFICActivo = oBEUsuario.PedidoFICActivo;
                     model.HorasDuracionRestriccion = oBEUsuario.HorasDuracionRestriccion;
                     model.EsJoven = oBEUsuario.EsJoven;
                     model.PROLSinStock = oBEUsuario.PROLSinStock;
@@ -1666,7 +1668,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     MostrarBotonAtras = !model.EsAppMobile,
                     ClienteID = model.ClienteID,
-                    MostrarHipervinculo = !model.EsAppMobile
+                    MostrarHipervinculo = !model.EsAppMobile,
+                    EsAppMobile = model.EsAppMobile
                 };
 
                 Session.Add("IngresoExterno", model.Version ?? "");

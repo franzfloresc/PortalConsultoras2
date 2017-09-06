@@ -1,4 +1,4 @@
-use BelcorpPeru
+﻿use BelcorpPeru
 go
 if exists(select 1 from sysobjects where name = 'ConfiguracionPais_GetAll' and xtype = 'p')
 drop procedure ConfiguracionPais_GetAll

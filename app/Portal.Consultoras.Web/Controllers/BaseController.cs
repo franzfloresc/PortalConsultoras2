@@ -310,7 +310,6 @@ namespace Portal.Consultoras.Web.Controllers
             var rtpa = new List<ObjMontosProl>();
             if (listProducto.Any())
             {
-
                 string ListaCUVS = string.Join("|", listProducto.Select(p => p.CUV).ToArray());
                 string ListaCantidades = string.Join("|", listProducto.Select(p => p.Cantidad).ToArray());
 
@@ -327,6 +326,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 rtpa.Add(new ObjMontosProl());
             }
+
             rtpa = rtpa ?? new List<ObjMontosProl>();
             Session[Constantes.ConstSession.PROL_CalculoMontosProl] = rtpa;
             return rtpa;
@@ -362,18 +362,35 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void UpdPedidoWebMontosPROL()
         {
-            userData.EjecutaProl = false;
             decimal montoAhorroCatalogo = 0, montoAhorroRevista = 0, montoDescuento = 0, montoEscala = 0;
+            ObjMontosProl oRespuestaProl = null;
+            string Puntajes = string.Empty;
+            string PuntajesExigidos = string.Empty;
+
+            userData.EjecutaProl = false;
 
             var lista = ServicioProl_CalculoMontosProl(false);
 
-            if (lista.Count > 0)
+            if (lista != null)
             {
-                var datos = lista[0];
-                Decimal.TryParse(datos.AhorroCatalogo, out montoAhorroCatalogo);
-                Decimal.TryParse(datos.AhorroRevista, out montoAhorroRevista);
-                Decimal.TryParse(datos.MontoTotalDescuento, out montoDescuento);
-                Decimal.TryParse(datos.MontoEscala, out montoEscala);
+                if (lista.Count > 0)
+                {
+                    oRespuestaProl = lista[0];
+
+                    Decimal.TryParse(oRespuestaProl.AhorroCatalogo, out montoAhorroCatalogo);
+                    Decimal.TryParse(oRespuestaProl.AhorroRevista, out montoAhorroRevista);
+                    Decimal.TryParse(oRespuestaProl.MontoTotalDescuento, out montoDescuento);
+                    Decimal.TryParse(oRespuestaProl.MontoEscala, out montoEscala);
+
+                    if (oRespuestaProl != null)
+                    {
+                        if (oRespuestaProl.ListaConcursoIncentivos != null)
+                        {
+                            Puntajes = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => c.puntajeconcurso.Split('|')[0]).ToArray());
+                            PuntajesExigidos = string.Join("|", oRespuestaProl.ListaConcursoIncentivos.Select(c => (c.puntajeconcurso.IndexOf('|') > -1 ? c.puntajeconcurso.Split('|')[1] : "0")).ToArray());
+                        }
+                    }
+                }
             }
 
             BEPedidoWeb bePedidoWeb = new BEPedidoWeb();
@@ -388,15 +405,12 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (PedidoServiceClient sv = new PedidoServiceClient())
             {
-                string Concursos = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.codigoconcurso).ToArray()) : string.Empty;
-                string Puntajes = lista[0].ListaConcursoIncentivos != null ? string.Join("|", lista[0].ListaConcursoIncentivos.Select(c => c.puntajeconcurso).ToArray()) : string.Empty;
-
                 sv.UpdateMontosPedidoWeb(bePedidoWeb);
 
                 // Insertar/Actualizar los puntos de la consultora.
                 //if (lista[0].ListaConcursoIncentivos != null)
                 if (!string.IsNullOrEmpty(userData.CodigosConcursos))
-                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes);
+                    sv.ActualizarInsertarPuntosConcurso(userData.PaisID, userData.CodigoConsultora, userData.CampaniaID.ToString(), userData.CodigosConcursos, Puntajes, PuntajesExigidos);
             }
 
             // poner en Session
@@ -479,6 +493,7 @@ namespace Portal.Consultoras.Web.Controllers
             string strpaises = ConfigurationManager.AppSettings.Get("Permisos_CCC");
             bool mostrarClienteOnline = (mostrarPedidosPendientes == "1" && strpaises.Contains(userData.CodigoISO));
             if (!mostrarClienteOnline) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "consultoraonline/index"));
+            if (!userData.PedidoFICActivo) lst.Where(m => m.Codigo == Constantes.MenuCodigo.PedidoFIC).ToList().ForEach(m => lst.Remove(m));
             if (userData.IndicadorPermisoFIC == 0) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "pedidofic/index"));
             if (userData.CatalogoPersonalizado == 0 || !userData.EsCatalogoPersonalizadoZonaValida) lst.Remove(lst.FirstOrDefault(p => p.UrlItem.ToLower() == "catalogopersonalizado/index"));
 
@@ -1177,7 +1192,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             //GPR
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
-            ViewBag.CerrarRechazado = model.CerrarRechazado;  
+            ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
            
 
@@ -1535,12 +1550,10 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
-            if (campania <= 0) return 0;
+            if (campania <= 0 || nroCampanias <= 0) return 0;
 
             int anioCampania = campania / 100;
             int nroCampania = campania % 100;
-
-            if (nroCampanias <= 0) return 0;
 
             int sumNroCampania = (nroCampania + numero) - 1;
             int anioCampaniaResult = anioCampania + (sumNroCampania / nroCampanias);
@@ -2404,6 +2417,36 @@ namespace Portal.Consultoras.Web.Controllers
                 }
             }
             return valor;
+        }
+
+        public MobileAppConfiguracionModel MobileAppConfiguracion
+        {
+            get
+            {
+                return Session["MobileAppConfiguracion"] == null
+                    ? new MobileAppConfiguracionModel()
+                    : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+            }
+        }
+
+        /// <summary>
+        /// Genera un codigo equivalente(inicial 4) para pedidos mobile generados desde el app
+        /// </summary>
+        /// <param name="origenActual">Pedido origen actual</param>
+        /// <returns>Codigo de origen referente al app mobile</returns>
+        protected int ProcesarOrigenPedido(int origenActual)
+        {
+            if (!MobileAppConfiguracion.EsAppMobile) return origenActual;
+            if (origenActual.ToString().StartsWith("2") || origenActual.ToString().StartsWith("0"))
+            {
+                var nuevoOrigen = origenActual.ToString()
+                .Remove(0, 1)
+                .Insert(0, "4");
+
+                origenActual = int.Parse(nuevoOrigen);
+            };
+
+            return origenActual;
         }
 
         protected string GetPaisesEsikaFromConfig()

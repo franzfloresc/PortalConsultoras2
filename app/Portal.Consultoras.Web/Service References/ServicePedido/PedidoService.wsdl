@@ -39,6 +39,12 @@
       <xsd:import schemaLocation="http://localhost:41615/PedidoService.svc?xsd=xsd9" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
     </xsd:schema>
   </wsdl:types>
+  <wsdl:message name="IPedidoService_ListConcursosByCampania_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosByCampania" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ListConcursosByCampania_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConcursosByCampaniaResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_ObtenerResumen_InputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerResumen" />
   </wsdl:message>
@@ -135,6 +141,12 @@
   <wsdl:message name="IPedidoService_GetReporteValidacion_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetReporteValidacionResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerIncentivosConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerIncentivosConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ObtenerIncentivosConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerIncentivosConsultoraResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_InsertarProductoComentarioDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:InsertarProductoComentarioDetalle" />
   </wsdl:message>
@@ -170,6 +182,12 @@
   </wsdl:message>
   <wsdl:message name="IPedidoService_AprobarProductoComentarioDetalle_OutputMessage">
     <wsdl:part name="parameters" element="tns:AprobarProductoComentarioDetalleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoomResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_CantidadPedidoByConsultoraShowRoom_InputMessage">
     <wsdl:part name="parameters" element="tns:CantidadPedidoByConsultoraShowRoom" />
@@ -675,11 +693,11 @@
   <wsdl:message name="IPedidoService_ListConcursosVigentes_OutputMessage">
     <wsdl:part name="parameters" element="tns:ListConcursosVigentesResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ListConcursosByCampania_InputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosByCampania" />
+  <wsdl:message name="IPedidoService_UpdConfirmacionEntrega_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfirmacionEntrega" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ListConcursosByCampania_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ListConcursosByCampaniaResponse" />
+  <wsdl:message name="IPedidoService_UpdConfirmacionEntrega_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdConfirmacionEntregaResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_InsConfirmacionRecojo_InputMessage">
     <wsdl:part name="parameters" element="tns:InsConfirmacionRecojo" />
@@ -1185,11 +1203,11 @@
   <wsdl:message name="IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUnidadesPermitidasByCuvShowRoomResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoom" />
+  <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_InputMessage">
+    <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivo" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarUnidadesPermitidasEnPedidoShowRoomResponse" />
+  <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivoResponse" />
   </wsdl:message>
   <wsdl:message name="IPedidoService_DelPedidoWebDetallePackNueva_InputMessage">
     <wsdl:part name="parameters" element="tns:DelPedidoWebDetallePackNueva" />
@@ -1695,12 +1713,6 @@
   <wsdl:message name="IPedidoService_InsConfirmacionEntrega_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsConfirmacionEntregaResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdConfirmacionEntrega_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfirmacionEntrega" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_UpdConfirmacionEntrega_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdConfirmacionEntregaResponse" />
-  </wsdl:message>
   <wsdl:message name="IPedidoService_GetPedidosReporteLiderIndicador_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPedidosReporteLiderIndicador" />
   </wsdl:message>
@@ -2037,6 +2049,12 @@
   <wsdl:message name="IPedidoService_UpdMatrizComercialNemotecnico_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdMatrizComercialNemotecnicoResponse" />
   </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdMatrizComercialDescripcionComercial_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdMatrizComercialDescripcionComercial" />
+  </wsdl:message>
+  <wsdl:message name="IPedidoService_UpdMatrizComercialDescripcionComercial_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdMatrizComercialDescripcionComercialResponse" />
+  </wsdl:message>
   <wsdl:message name="IPedidoService_GetMatrizComercialByCodigoSAP_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMatrizComercialByCodigoSAP" />
   </wsdl:message>
@@ -2205,13 +2223,11 @@
   <wsdl:message name="IPedidoService_GetCUVAsociadoByFilter_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCUVAsociadoByFilterResponse" />
   </wsdl:message>
-  <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_InputMessage">
-    <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivo" />
-  </wsdl:message>
-  <wsdl:message name="IPedidoService_DelPedidoWebDetalleMasivo_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DelPedidoWebDetalleMasivoResponse" />
-  </wsdl:message>
   <wsdl:portType name="IPedidoService">
+    <wsdl:operation name="ListConcursosByCampania">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampania" message="tns:IPedidoService_ListConcursosByCampania_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse" message="tns:IPedidoService_ListConcursosByCampania_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumen" message="tns:IPedidoService_ObtenerResumen_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerResumenResponse" message="tns:IPedidoService_ObtenerResumen_OutputMessage" />
@@ -2276,6 +2292,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacion" message="tns:IPedidoService_GetReporteValidacion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetReporteValidacionResponse" message="tns:IPedidoService_GetReporteValidacion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIncentivosConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" message="tns:IPedidoService_ObtenerIncentivosConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultoraResponse" message="tns:IPedidoService_ObtenerIncentivosConsultora_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="InsertarProductoComentarioDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" message="tns:IPedidoService_InsertarProductoComentarioDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalleResponse" message="tns:IPedidoService_InsertarProductoComentarioDetalle_OutputMessage" />
@@ -2299,6 +2319,10 @@
     <wsdl:operation name="AprobarProductoComentarioDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle" message="tns:IPedidoService_AprobarProductoComentarioDetalle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalleResponse" message="tns:IPedidoService_AprobarProductoComentarioDetalle_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="CantidadPedidoByConsultoraShowRoom">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/CantidadPedidoByConsultoraShowRoom" message="tns:IPedidoService_CantidadPedidoByConsultoraShowRoom_InputMessage" />
@@ -2636,9 +2660,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentes" message="tns:IPedidoService_ListConcursosVigentes_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosVigentesResponse" message="tns:IPedidoService_ListConcursosVigentes_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampania" message="tns:IPedidoService_ListConcursosByCampania_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ListConcursosByCampaniaResponse" message="tns:IPedidoService_ListConcursosByCampania_OutputMessage" />
+    <wsdl:operation name="UpdConfirmacionEntrega">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" message="tns:IPedidoService_UpdConfirmacionEntrega_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdConfirmacionEntregaResponse" message="tns:IPedidoService_UpdConfirmacionEntrega_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="InsConfirmacionRecojo">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsConfirmacionRecojo" message="tns:IPedidoService_InsConfirmacionRecojo_InputMessage" />
@@ -2976,9 +3000,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoom" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetUnidadesPermitidasByCuvShowRoomResponse" message="tns:IPedidoService_GetUnidadesPermitidasByCuvShowRoom_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoomResponse" message="tns:IPedidoService_ValidarUnidadesPermitidasEnPedidoShowRoom_OutputMessage" />
+    <wsdl:operation name="DelPedidoWebDetalleMasivo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivoResponse" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="DelPedidoWebDetallePackNueva">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetallePackNueva" message="tns:IPedidoService_DelPedidoWebDetallePackNueva_InputMessage" />
@@ -3316,10 +3340,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/InsConfirmacionEntrega" message="tns:IPedidoService_InsConfirmacionEntrega_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/InsConfirmacionEntregaResponse" message="tns:IPedidoService_InsConfirmacionEntrega_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UpdConfirmacionEntrega">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" message="tns:IPedidoService_UpdConfirmacionEntrega_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdConfirmacionEntregaResponse" message="tns:IPedidoService_UpdConfirmacionEntrega_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicadorResponse" message="tns:IPedidoService_GetPedidosReporteLiderIndicador_OutputMessage" />
@@ -3544,6 +3564,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdMatrizComercialNemotecnico" message="tns:IPedidoService_UpdMatrizComercialNemotecnico_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdMatrizComercialNemotecnicoResponse" message="tns:IPedidoService_UpdMatrizComercialNemotecnico_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdMatrizComercialDescripcionComercial">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionComercial" message="tns:IPedidoService_UpdMatrizComercialDescripcionComercial_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionComercialResponse" message="tns:IPedidoService_UpdMatrizComercialDescripcionComercial_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetMatrizComercialByCodigoSAP">
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetMatrizComercialByCodigoSAP" message="tns:IPedidoService_GetMatrizComercialByCodigoSAP_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetMatrizComercialByCodigoSAPResponse" message="tns:IPedidoService_GetMatrizComercialByCodigoSAP_OutputMessage" />
@@ -3656,13 +3680,18 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter" message="tns:IPedidoService_GetCUVAsociadoByFilter_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilterResponse" message="tns:IPedidoService_GetCUVAsociadoByFilter_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="DelPedidoWebDetalleMasivo">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivoResponse" message="tns:IPedidoService_DelPedidoWebDetalleMasivo_OutputMessage" />
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPedidoService" type="tns:IPedidoService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListConcursosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
@@ -3807,6 +3836,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIncentivosConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertarProductoComentarioDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" style="document" />
       <wsdl:input>
@@ -3854,6 +3892,15 @@
     </wsdl:operation>
     <wsdl:operation name="AprobarProductoComentarioDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4617,8 +4664,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+    <wsdl:operation name="UpdConfirmacionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -5382,8 +5429,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
+    <wsdl:operation name="DelPedidoWebDetalleMasivo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6147,15 +6194,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdConfirmacionEntrega">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -6660,6 +6698,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdMatrizComercialDescripcionComercial">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionComercial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMatrizComercialByCodigoSAP">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMatrizComercialByCodigoSAP" style="document" />
       <wsdl:input>
@@ -6905,15 +6952,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCUVAsociadoByFilter">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelPedidoWebDetalleMasivo">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -6925,6 +6963,15 @@
   <wsdl:binding name="BasicHttpsBinding_IPedidoService" type="tns:IPedidoService">
     <wsp:PolicyReference URI="#BasicHttpsBinding_IPedidoService_policy" />
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ListConcursosByCampania">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ObtenerResumen">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerResumen" style="document" />
       <wsdl:input>
@@ -7069,6 +7116,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ObtenerIncentivosConsultora">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ObtenerIncentivosConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="InsertarProductoComentarioDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/InsertarProductoComentarioDetalle" style="document" />
       <wsdl:input>
@@ -7116,6 +7172,15 @@
     </wsdl:operation>
     <wsdl:operation name="AprobarProductoComentarioDetalle">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/AprobarProductoComentarioDetalle" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -7879,8 +7944,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ListConcursosByCampania">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ListConcursosByCampania" style="document" />
+    <wsdl:operation name="UpdConfirmacionEntrega">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -8644,8 +8709,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="ValidarUnidadesPermitidasEnPedidoShowRoom">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/ValidarUnidadesPermitidasEnPedidoShowRoom" style="document" />
+    <wsdl:operation name="DelPedidoWebDetalleMasivo">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -9409,15 +9474,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="UpdConfirmacionEntrega">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdConfirmacionEntrega" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetPedidosReporteLiderIndicador">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetPedidosReporteLiderIndicador" style="document" />
       <wsdl:input>
@@ -9922,6 +9978,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdMatrizComercialDescripcionComercial">
+      <soap:operation soapAction="http://tempuri.org/IPedidoService/UpdMatrizComercialDescripcionComercial" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMatrizComercialByCodigoSAP">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetMatrizComercialByCodigoSAP" style="document" />
       <wsdl:input>
@@ -10167,15 +10232,6 @@
     </wsdl:operation>
     <wsdl:operation name="GetCUVAsociadoByFilter">
       <soap:operation soapAction="http://tempuri.org/IPedidoService/GetCUVAsociadoByFilter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DelPedidoWebDetalleMasivo">
-      <soap:operation soapAction="http://tempuri.org/IPedidoService/DelPedidoWebDetalleMasivo" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

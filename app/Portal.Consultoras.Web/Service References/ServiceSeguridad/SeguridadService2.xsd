@@ -238,4 +238,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetMenuApp">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="paisiD" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMenuAppResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" minOccurs="0" name="GetMenuAppResult" nillable="true" type="q15:ArrayOfBEMenuApp" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
