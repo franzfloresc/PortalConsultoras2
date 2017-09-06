@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Transactions;
+//using System.Transactions;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,8 +22,8 @@ namespace Portal.Consultoras.BizLogic
         {
             long ClienteID = 0;
 
-            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
-            {
+            //using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
+            //{
                 ClienteID = clienteData.InsertCliente(cliente);
 
                 if (ClienteID > 0 && cliente.Contactos != null)
@@ -43,8 +43,8 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (ClienteID > 0) Ambito.Complete();
-            }
+            //    if (ClienteID > 0) Ambito.Complete();
+            //}
 
             return ClienteID;
         }
@@ -53,8 +53,8 @@ namespace Portal.Consultoras.BizLogic
         {
             bool result = false;
 
-            using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
-            {
+            //using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
+            //{
                 result = clienteData.UpdateCliente(cliente);
 
                 if (result && cliente.Contactos != null)
@@ -84,8 +84,8 @@ namespace Portal.Consultoras.BizLogic
                     }
                 }
 
-                if (result) Ambito.Complete();
-            }
+            //    if (result) Ambito.Complete();
+            //}
 
             return result;
         }
