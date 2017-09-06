@@ -940,21 +940,78 @@ function RecuperarClave() {
             var v_myobject = { telefono: "", mensaje: "" };
 
             var v_enlaceurl = "";
+            var v_codigollamada = "";
+
+            switch (paisId)
+            {
+                case "2": {
+                    //Bolivia
+                    v_codigollamada = "591"; break;
+                }
+                case "3": {
+                    //Chile
+                    v_codigollamada = "56"; break;
+                }
+                case "4": {
+                    //Colombia
+                    v_codigollamada = "57"; break;
+                }
+                case "6": {
+                    //Ecuador
+                    v_codigollamada = "593"; break;
+                }
+                case "7": {
+                    //El Salvador
+                    v_codigollamada = "503"; break;
+                }
+                case "8": {
+                    //Guatemala
+                    v_codigollamada = "502"; break;
+                }
+                case "11": {
+                    //Peru
+                    v_codigollamada = "51"; break;
+                }
+                case "13": {
+                    //Republica Dominicana
+                    v_codigollamada = "1"; break;
+                }
+                case "14": {
+                    //Venezuela
+                    v_codigollamada = "58"; break;
+                }
+                case "5": {
+                    //Costa Rica
+                    v_codigollamada = "506"; break;
+                }
+                case "9": {
+                    //Mexico
+                    v_codigollamada = "52"; break;
+                }
+                case "10": {
+                    //Panamá
+                    v_codigollamada = "507"; break;
+                }
+                case "12": {
+                    //Puerto Rico
+                    v_codigollamada = "1"; break;
+                }
+            }
 
             if (v_IsMovilDevice == "1") {
                 if (paisId == "11") {
-                    v_myobject = { telefono: '2113614', mensaje: "LLAMAR DE LIMA" };
+                    v_myobject = { telefono: v_codigollamada + '51012113614', mensaje: "LLAMAR DE LIMA" };
                     html_telefonos += template_telotros(v_myobject);
                     $("#divTelefonos").html(html_telefonos);
 
-                    v_myobject = { telefono: '080-11-3030', mensaje: "LLAMAR DE PROVINCIA" };
+                    v_myobject = { telefono: v_codigollamada + '5101080-11-3030', mensaje: "LLAMAR DE PROVINCIA" };
                     html_telefonos += template_telotros(v_myobject);
                     $("#divTelefonos").html(html_telefonos);
                 }
                 else if (paisId != "11") {
 
                     $.each(va_telefonos, function (index, value) {
-                        v_myobject = { telefono: value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
+                        v_myobject = { telefono: v_codigollamada + value, mensaje: 'LLAMAR A CENTRAL ' + (index + 1).toString() }
 
                         html_telefonos += template_telotros(v_myobject);
                     });
