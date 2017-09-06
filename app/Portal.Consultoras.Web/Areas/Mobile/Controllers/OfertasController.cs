@@ -16,6 +16,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
+                if (Session[Constantes.SessionNames.MenuContenedorActivo] == null)
+                    MenuContenedorGuardar(Constantes.ConfiguracionPais.Inicio, userData.CampaniaID);
+
                 var listaSeccion = ObtenerConfiguracion();
                 var modelo = new EstrategiaPersonalizadaModel { ListaSeccion = listaSeccion };
 
