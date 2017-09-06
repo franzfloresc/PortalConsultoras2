@@ -217,6 +217,9 @@ namespace Portal.Consultoras.Common
             public const string PedidoFIC = "PedidoFIC";
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
+
+            //AsesoraOnline
+            public const string EmailAsesoraOnline = "EmailAsesoraOnline";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
