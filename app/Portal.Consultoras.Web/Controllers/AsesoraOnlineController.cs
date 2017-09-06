@@ -4,6 +4,7 @@ using Portal.Consultoras.Web.ServiceAsesoraOnline;
 using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.ServiceModel;
 using System.Web;
@@ -50,6 +51,7 @@ namespace Portal.Consultoras.Web.Controllers
                     //esikateasesora@belcorp.biz
                     if (resultado.Equals(1))
                     {
+                        var from = ConfigurationManager.AppSettings[Constantes.ConstSession.EmailAsesoraOnline] ?? "";
                         var titulo = string.Format("{0}, BIENVENIDA A ÉSIKA MI GUÍA DIGITAL", usuario.Sobrenombre).ToUpper();
                         sv.EnviarMailBienvenidaAsesoraOnline("esikamiguiadigital@somosbelcorp.com", usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
                     }
