@@ -65,8 +65,8 @@ function MenuContenedor() {
     $(elementos.menu2Li).attr("data-activo", "0");
 
     var menuCheck = MenuContenedorObtener();
-    menuCheck.CampaniaID = menuCheck.CampaniaID || 0;
-    if (menuCheck.CampaniaID <= 0) {
+    menuCheck.CampaniaID = $.trim(menuCheck.CampaniaID) || -1;
+    if (menuCheck.CampaniaID < 0) {
         var primerMenu = $(elementos.menu1Li);
         if (primerMenu.length > 0) {
             primerMenu = $(primerMenu).get(0);
