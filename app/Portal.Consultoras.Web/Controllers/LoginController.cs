@@ -1444,7 +1444,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public JsonResult RecuperarContrasenia(int paisId, string textoRecuperacion)
+        public JsonResult RecuperarContrasenia(int paisId, string textoRecuperacion, string MensajeErrorPais)
         {
             try
             {
@@ -1459,7 +1459,7 @@ namespace Portal.Consultoras.Web.Controllers
                 string[] obj = respuesta.Split('|');
                 string exito = Util.Trim(obj.Length > 0 ? obj[0] : "");
                 string tipomsj = Util.Trim(obj.Length > 1 ? obj[1] : "");
-                if (exito != "1") return ErrorJson(MensajesOlvideContrasena(tipomsj), true);
+                if (exito != "1") return ErrorJson(MensajeErrorPais, true);
 
                 string correo = Util.Trim(obj.Length > 2 ? obj[2] : "");
                 string nombreusuario = Util.Trim(obj.Length > 3 ? obj[3] : "");

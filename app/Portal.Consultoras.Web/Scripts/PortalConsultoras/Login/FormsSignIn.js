@@ -874,6 +874,9 @@ function saveLog(ISO, usuario, mensaje) {
 }
 
 function RecuperarClave() {
+    var v_mensaje = $("#hdfCorreoElectronico").val().trim();
+    var s_correo = "";
+
     var paisId = $("#cboPaisCambioClave").val();
     if (paisId == '0') {
         alert("Debe seleccionar un pais.");
@@ -893,30 +896,27 @@ function RecuperarClave() {
         url: urlRecuperarContrasenia,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo }),
+        data: JSON.stringify({ paisId: paisId, textoRecuperacion: correo, MensajeErrorPais: v_mensaje}),
         async: true,
         success: function (response) {
-            if (!response.success) {
-                alert(response.message);
-                return false;
-            }
-            
-            if (response.correo.length == 0) {
-                alert("Por favor ingrese su " + $("#hdfCorreoElectronico").val() + ".");
+            if (!response.success){
+                alert("Mensaje: " + response.message + " Incorrectas");
                 return false;
             }
 
-            $("#hdcorreo").val(response.correo);
-            //$("#hdclave").val(response.clave);
-            $("#hdCodigoConsultora").val(response.codigo);
-            $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);
-            var s_correo = Enmascarar_Correo(response.correo);
+            s_correo = ($.trim(response.correo).length > 0) ? Enmascarar_Correo($.trim(response.correo)) : "";
 
-            $("#popup1").hide();
+            $("#hdcorreo").val($.trim(response.correo));
             $("#mensaje_pop_up2 p").html(s_correo);
+            $("#spcorreo").html(s_correo);
+
+            $("#hdCodigoConsultora").val(response.codigo);
+            $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);            
+
+            $("#popup1").hide();            
             $("#popup3").show();
             $("#popup_cambioContrasenia").show();
-            $("#spcorreo").html(s_correo);
+            
             $("#spnombre").html(response.nombre);
 
             $(".lk_chat").css("text-decoration", "none");
@@ -925,9 +925,9 @@ function RecuperarClave() {
             v_IsMovilDevice = $(".lk_chat").attr("ismovildevice");
 
             var paisId = $("#cboPaisCambioClave").val();
-            //var v_telefonos = "123456789,987654321,999959074";
             var v_telefonos = $("#cboPaisCambioClave option:selected").attr("data-telefonos");
             var va_telefonos = v_telefonos.split(",");
+
             var template_telefonoprimero = $('#telefonoprimero-template').html();
             var template_telefonootros = $('#telefonootros-template').html();
             var template_telefonodesktop = $('#telefonodesktop-template').html();

@@ -1115,59 +1115,34 @@ namespace Portal.Consultoras.BizLogic
 
         public string RecuperarContrasenia(int paisId, string textoRecuperacion)
         {
-            var resultado = string.Empty;
-            var paso = "1";
+            string resultado = string.Empty;
+            string urlportal = string.Empty;
+            string v_correo = string.Empty;
+            string v_codigousuario = string.Empty;
+            string v_nombre = string.Empty;
+            string v_clave = string.Empty;
+            List<BEUsuarioCorreo> lst = null;
 
             try
             {
-                string paisISO = Portal.Consultoras.Common.Util.GetPaisISO(paisId);
-                string paisesEsika = ConfigurationManager.AppSettings["PaisesEsika"] ?? "";
-                var esEsika = paisesEsika.Contains(paisISO);
-                string v_correo = String.Empty;
+                urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
+                lst = new List<BEUsuarioCorreo>();
+                lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
 
-                //List<BEUsuarioCorreo> lst = SelectByEmail(textoRecuperacion, paisId).ToList();
-                List<BEUsuarioCorreo> lst = SelectByValorRestauracion(textoRecuperacion, paisId).ToList();
-                v_correo = lst[0].Correo;
+                v_codigousuario = lst[0].CodigoUsuario;
+                v_nombre = lst[0].Nombre.Trim().Split(' ').First();
+                v_clave = lst[0].Clave;
 
-                paso = "2";
-
-                if ((lst[0].Cantidad == 1) && (v_correo.Length == 0))
-                {
+                if (lst[0].Cantidad == 0 && lst[0].Correo.Trim().Length == 0){                   
                     resultado = "0" + "|" + "2";
-                    return resultado;
-                }                
-
-                //if (paisId.ToString().Trim() == "4")
-                //{
-                //    if (lst.Count == 0)
-                //    {
-                //        resultado = "0" + "|" + "1";
-                //        return resultado;
-                //    }
-                //    else
-                //    {
-                //        textoRecuperacion = v_correo; // contiene el correo del destinatario
-                //        if (textoRecuperacion.Trim() == "")
-                //        {
-                //            resultado = "0" + "|" + "2";
-                //            return resultado;
-                //        }
-                //    }
-                //}
-
-                string urlportal = ConfigurationManager.AppSettings["CONTEXTO_BASE"];
-                DateTime diasolicitud = DateTime.Now.AddHours(DateTime.Now.Hour + 24);
-                string fechasolicitud = diasolicitud.ToString("d/M/yyyy HH:mm:ss");
-                string paisiso = lst[0].CodigoISO;
-                string codigousuario = lst[0].CodigoUsuario;
-                string nombre = lst[0].Nombre.Trim().Split(' ').First();
-                string clave = lst[0].Clave;
-
-                resultado = "1" + "|" + "4" + "|" + v_correo + "|" + nombre + "|" + clave + "|" + codigousuario + "|" + urlportal;
+                }
+                else {
+                    resultado = "1" + "|" + "4" + "|" + lst[0].Correo + "|" + v_nombre + "|" + v_clave + "|" + v_codigousuario + "|" + urlportal;
+                }
             }
             catch (Exception ex)
             {
-                resultado = "0" + "|" + "6" + "|" + ex.Message + "|" + paso;
+                resultado = "0" + "|" + "6" + "|" + ex.Message;
                 LogManager.SaveLog(ex, string.Empty, string.Empty);
             }
 
