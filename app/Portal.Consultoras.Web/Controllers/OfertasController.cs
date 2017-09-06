@@ -13,7 +13,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
 
@@ -110,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerMenuContenedor()
         {
-            var objSession = MenuContenedorObtener();
+            var objSession = MenuContenedorObtenerActivo();
 
             return Json(new
             {

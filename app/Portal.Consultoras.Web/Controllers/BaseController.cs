@@ -987,7 +987,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menu = new MenuContenedorModel();
             try
             {
-                menu = MenuContenedorObtener();
+                menu = MenuContenedorObtenerActivo();
 
                 var listaMenus = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
                 
@@ -2748,24 +2748,24 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Configuracion Seccion Palanca
-        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
+        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
-
+            var menuActivo = MenuContenedorObtenerActivo();
+            var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaID;
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
-            if (Session[Constantes.ConstSession.ListadoSeccionPalanca] != null)
+
+            if (Session[sessionNombre] != null)
             {
-                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[Constantes.ConstSession.ListadoSeccionPalanca];
+                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[sessionNombre];
             }
             else
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, userData.CampaniaID).ToList();
+                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaID).ToList();
                 }
-                Session[Constantes.ConstSession.ListadoSeccionPalanca] = listaEntidad;
+                Session[sessionNombre] = listaEntidad;
             }
-
-            var menuActivo = MenuContenedorObtener();
 
             var modelo = new List<ConfiguracionSeccionHomeModel>();
 
@@ -2890,7 +2890,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
-            var modelo = ObtenerConfiguracion();
+            var modelo = ObtenerConfiguracionSeccion();
             if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
             if (campaniaId > -1)
             {
@@ -2910,7 +2910,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public MenuContenedorModel MenuContenedorObtener()
+        public MenuContenedorModel MenuContenedorObtenerActivo()
         {
             var menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
 

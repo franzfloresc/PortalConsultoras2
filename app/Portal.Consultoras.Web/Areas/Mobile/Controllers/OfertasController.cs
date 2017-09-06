@@ -11,7 +11,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var listaSeccion = ObtenerConfiguracion();
+                var listaSeccion = ObtenerConfiguracionSeccion();
                 var modelo = new EstrategiaPersonalizadaModel { ListaSeccion = listaSeccion };
 
                 return View(modelo);
