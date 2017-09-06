@@ -11,12 +11,12 @@
     <title>Belcorp | Portal Consultoras</title>
 
     <link href="@Url.Content("~/Content/Css/Site/flipclock.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 
     <link href="https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900" rel="stylesheet" type="text/css">
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics == null ? "" : ViewBag.PaisAnalytics))
     {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
     }
     else
@@ -67,6 +67,7 @@
             'codigoConsultora': '@ViewBag.CodigoConsultoraDL'
         };
         var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var controllerName = '@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString().ToLower()';
     </script>
 
     <link href="@Url.Content("~/Content/Css/Site/Esika/Contenedor.css")" rel="stylesheet" type="text/css" />
@@ -214,7 +215,7 @@
         }
         else if (ViewBag.tieneOfertaDelDia == true)
         {
-            <div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>
+            @*<div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>*@
         }
         
         <!--END BANNER -->
@@ -343,6 +344,12 @@
                     <a id="linkTerminosCondicionesShowRoom" onclick="SetMarcaGoogleAnalyticsTermino();" target="_blank">T&eacute;rminos y condiciones</a>
                 </div>
             }
+            <!-- footer -->
+            <hr class="clear" />
+            <footer class="footer_e">
+                @Html.Partial("~/Views/Shared/_Footer.cshtml")
+            </footer>
+            <!-- end footer -->
         </div>
     </div>
     <!-- end contenedor -->
@@ -688,14 +695,14 @@
                 </div>
                 <div style="float: left">
                     <input type="hidden" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
-                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-cabecera-position="0" href="javascript: void(0);" onclick="odd_desktop_google_analytics_addtocart('banner',0);">AGRÉGALO YA</a>
+                    <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
-                <a class="btn_detalle_hoy" data-odd-accion="veroferta"  data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click();">
-                    <div class="circulo_hoy"><span>+</span></div>
+                <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
+                    <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
             </div>
-            <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia();">x</a>
+            <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
         </div>
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
@@ -757,7 +764,7 @@
                                         <div class="descripcion_set_ofertaDia">{{{detalle.DescripcionOferta}}}</div>
                                         <div class="precio_valorizado_oferta">VALORIZADO EN <span>@ViewBag.Simbolo {{detalle.PrecioCatalogoFormat}}</span></div>
                                         <div class="precio_ofertaDia">A SOLO <span>@ViewBag.Simbolo {{detalle.PrecioOfertaFormat}}</span></div>
-                                    </div>                                   
+                                    </div>
                                     <div @*style="text-align: center"*@>
                                         <div class="liquidacion_rango_home js-no-popup">
                                             <input type="text" value="1" style="color:white" size="2" maxlength="2" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup txtcantidad-odd" tabindex="0">
@@ -770,7 +777,7 @@
                                                 </a>
                                             </div>
                                         </div>
-                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('detail',{{detalle.ID}})">AGRÉGALO</a>
+                                        <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
                             </div>
@@ -786,7 +793,7 @@
                     <div id="divOddCarrusel">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}" style="float:left; overflow:hidden;">
-                            <div class="content_item_carrusel_ODD">
+                            <div class="content_item_carrusel_ODD" onclick="odd_google_analytics_product_click('{{detalle.NombreOferta}}', '{{detalle.CUV2}}', {{detalle.PrecioOferta}}, '{{DescripcionMarca}}', '', {{Position}});">
                                 <div style="display:none;" data-item-campos="">
                                     <input type="hidden" class="tipoestrategia-id-odd" value="{{detalle.TipoEstrategiaID}}" />
                                     <input type="hidden" class="estrategia-id-odd" value="{{detalle.EstrategiaID}}" />
@@ -824,7 +831,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" onclick="odd_desktop_google_analytics_addtocart('list',{{detalle.ID}})">AGRÉGALO</a>
+                                    <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="list" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                 </div>
                                 <!-- SE AÑADIO EL CHECK AGREGADO  -->
                                 <div style="padding-top:6px; height: 15px;">
@@ -842,7 +849,6 @@
             </div>
 
             <!--FIN-->
-            <!--fin-->
         </div>
     </script>
     <!--OFERTA DEL DIA -->
@@ -871,7 +877,7 @@
         var DesktopLiquidacion = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopLiquidacion;
         var DesktopCatalogoPersonalizadoPopUp = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizadoPopUp;
         var DesktopCatalogoPersonalizado = @Portal.Consultoras.Common.Constantes.OrigenPedidoWeb.DesktopCatalogoPersonalizado;
-        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+        var sesionEsShowRoom = '@Portal.Consultoras.Web.SessionManager.SessionManager.Instance.GetEsShowRoom()' === 'true';
         var EfectoTutorialSalvavidas = '@ViewBag.Efecto_TutorialSalvavidas';
 
         var ViewBagEsMobile = '@ViewBag.EsMobile';
@@ -890,8 +896,6 @@
 
      </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2")
-    <script src="@Url.Content("~/Scripts/flipclock.js")" type="text/javascript"></script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type='text/javascript'>
         (function () {
             var proto = document.location.protocol || 'http:';

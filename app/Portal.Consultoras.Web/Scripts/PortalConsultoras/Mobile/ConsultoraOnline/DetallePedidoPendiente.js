@@ -1,4 +1,6 @@
 ﻿
+var _pedido = null;
+var ClienteDetalleOK = null;
 
 $(document).ready(function () {
 
@@ -77,90 +79,186 @@ function RechazarPedido(id) {
 };
 
 function AceptarPedido(id, tipo) {
-
     var isOk = true;
     var detalle = [];
-
-    var totIng = 0;
+    var ing = 0;
 
     $('div.detalle_pedido_reservado').each(function () {
-        var detid = $(this).find("input[id*='soldet_']").val();
-        var qty = $(this).find('#soldet_qty_' + detid).text();
-        var tipoate = $(this).find('#soldet_tipoate_' + detid).val();
-        var opt = 0;
+        var id = $(this).find("input[id*='soldet_']").val();
+        var cant = $(this).find('#soldet_qty_' + id).text();
+        var opt = $(this).find('#soldet_tipoate_' + id).val();
+        var k = 0;
 
-        if (typeof tipoate !== 'undefined') {
-            if (tipoate == "") {
+        if (typeof opt !== 'undefined') {
+            if (opt == "") {
                 $('#ComoloAtenderas').show();
                 isOk = false;
                 return false;
             }
             else {
-                opt = tipoate;
-                if (tipoate == 'ingrped') {
-                    totIng += parseInt(qty);
+                k = opt;
+                if (opt == 'ingrped') {
+                    ing += parseInt(cant);
                 }
             }
         }
 
-        var d = {
-            PedidoDetalleId: detid,
-            OpcionAcepta: opt
+        if (typeof id !== 'undefined' && id !== "") {
+            var d = {
+                PedidoDetalleId: id,
+                OpcionAcepta: k
+            }
+            detalle.push(d);
         }
-
-        detalle.push(d);
     });
 
-    if (isOk) {
-        var pedido = {
-            pedidoId: id,
-            ListaDetalleModel: detalle,
-            typeAction: '2'
-        }
+    if (isOk && detalle.length > 0) {
+        var name = $('#sc-nombre').text();
+        var phone = $('#sc-telefono').text();
+        var email = $('#sc-correo').text();
+
+        var cliente = {
+            ConsultoraId: 0,
+            Nombre: name,
+            Telefono: phone,
+            eMail: email
+        };
 
         ShowLoading();
+
         $.ajax({
             type: 'POST',
-            url: '/ConsultoraOnline/AceptarPedido',
+            url: '/ConsultoraOnline/GetExisteClienteConsultora',
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
-            data: JSON.stringify(pedido),
+            data: JSON.stringify(cliente),
             async: true,
             success: function (response) {
                 CloseLoading();
                 if (checkTimeout(response)) {
                     if (response.success) {
-                    
-                        if (tipo == 1) {
-                            $('#detallePedidoAceptado').text('Has agregado ' + totIng + ' producto(s) a tu pedido');
-                        }
-                        else {
-                            $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+                        var pedido = {
+                            PedidoId: id,
+                            ClienteId: 0,
+                            ListaDetalleModel: detalle,
+                            Accion: 2,
+                            Tipo: tipo,
+                            Ingresos: ing
                         }
 
-                        ActualizarGanancia(response.DataBarra);
-                        $('#PedidoAceptado').show();
-                    }
-                    else {
-                        if (response.code == 1) {
-                        AbrirMensaje(response.message);
+                        if (response.codigo == 0) {
+                            //$('#popup_pendientes').hide();
+                            _pedido = pedido;
+
+                            //showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK, AceptarPedidoRegistraClienteCancel);
+                            showClienteDetalle(cliente, AceptarPedidoRegistraClienteOK);
+                           
                         }
-                        else if (response.code == 2) {
-                            $('#MensajePedidoReservado').text(response.message);
-                            $('#AlertaPedidoReservado').show();
+                        else {
+                            pedido.ClienteId = response.codigo;
+                            ProcesarAceptarPedido(pedido);
                         }
                     }
                 }
             },
-            error: function (data, error) {
-                CloseLoading();
-                
-                if (checkTimeout(data)) {
-                    AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
-                }
+            error: function (response) {
+                console.log(response)
             }
         });
     }
+}
+
+function AceptarPedidoRegistraClienteOK(obj) {
+   
+
+    if (obj != null && _pedido !== null) {
+        _pedido.ClienteId = obj.ClienteID;
+        ProcesarAceptarPedido(_pedido);
+        _pedido = null;
+    }
+}
+
+function AceptarPedidoRegistraClienteCancel(obj) {
+    //console.log(obj);
+}
+
+function ProcesarAceptarPedido(pedido) {
+  
+    //console.log(pedido);
+
+    waitingDialog({});
+    $.ajax({
+        type: 'POST',
+        url: '/ConsultoraOnline/AceptarPedido',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(pedido),
+        async: true,
+        success: function (response) {
+            closeWaitingDialog();
+            if (checkTimeout(response)) {
+                if (response.success) {
+                    if (pedido.Tipo == 1) {
+                        $('#detallePedidoAceptado').text('Has agregado ' + pedido.Ingresos.toString() + ' producto(s) a tu pedido');
+                    }
+                    else {
+                        $('#detallePedidoAceptado').text('No te olvides de ingresar en tu pedido los productos de este cliente.');
+                    }
+
+                    ActualizarGanancia(response.DataBarra);
+                    $('#PedidoAceptado').show();
+                }
+                else {
+                    if (response.code == 1) {
+                        AbrirMensaje(response.message);
+                    }
+                    else if (response.code == 2) {
+                        $('#MensajePedidoReservado').text(response.message);
+                        $('#AlertaPedidoReservado').show();
+                    }
+                }
+            }
+        },
+        error: function (data, error) {
+            CloseLoading();
+            if (checkTimeout(data)) {
+                AbrirMensaje("Ocurrió un error inesperado al momento de aceptar el pedido. Consulte con su administrador del sistema para obtener mayor información");
+            }
+        }
+    });
+}
+
+var ClienteDetalleOK = null;
+function showClienteDetalle(pcliente, pClienteDetalleOK) {
+    var url = urlClienteDetalle;
+
+    var cliente = pcliente || {};
+
+    ShowLoading();
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'html',
+        cache: false,
+        url: url,
+        data: cliente,
+        success: function (data) {
+            CloseLoading();
+
+            $("#divDetalleCliente").html(data);
+            $("#divAgregarCliente").modal("show");
+            //$("#divAgregarCliente").show();
+
+            if ($.isFunction(pClienteDetalleOK)) {
+                ClienteDetalleOK = pClienteDetalleOK;
+            }
+
+        },
+        error: function (xhr, ajaxOptions, error) {
+            CloseLoading();
+            alert('Error: ' + xhr.status + " - " + xhr.responseText);
+        }
+    });
 }
 
 function CerrarMensajeRechazado() {

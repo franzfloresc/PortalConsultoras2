@@ -213,6 +213,8 @@ namespace Portal.Consultoras.Common
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
 
+            //FIC
+            public const string PedidoFIC = "PedidoFIC";
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
 
@@ -334,7 +336,70 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
+            public const int RevistaDigitalMobileCatalogoSeccion = 2401;
             /* FIN Revista Digital */
+
+            /// <summary>
+            /// App/Pedido/Digitación de Pedido
+            /// </summary>
+            public const int AppDigitaciondePedido = 4201;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Sin Popup
+            /// </summary>
+            public const int AppOfertasparaTiSinPopup = 4221;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Con Popup
+            /// </summary>
+            public const int AppOfertasparaTiConPopup = 4222;
+
+            /// <summary>
+            /// App/Pedido/Reemplazos Sugeridos
+            /// </summary>
+            public const int AppReemplazosSugeridos = 4251;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Sin Popup
+            /// </summary>
+            public const int AppOfertaFinalSinPopup = 4261;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Con Popup
+            /// </summary>
+            public const int AppOfertaFinalConPopup = 4262;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Sin Popup
+            /// </summary>
+            public const int AppEsikaparamiSinPopup = 4201;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Con Popup
+            /// </summary>
+            public const int AppEsikaparamiConPopup = 4202;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingSeccionSimplesyNiveles = 4711;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Popup Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingPopupSeccionSimplesyNiveles = 4712;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel
+            /// </summary>
+            public const int AppEsikaparamiLandingCarrusel = 4721;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel Ficha
+            /// </summary>
+            public const int AppEsikaparamiLandingCarruselFicha = 4731;
 
             // Mas Vendidos
             public const int DesktopHomeMasVendidosCarrusel = 1151;
@@ -576,6 +641,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
             public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
+            public const string PedidoFIC = "PedidoFIC";
         }
 
         public class IngresoExternoPagina
@@ -652,10 +718,13 @@ namespace Portal.Consultoras.Common
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
+            public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
         }
 
         public class ConfiguracionPais
         {
+            public const string Inicio = "INICIOCONTENEDOR";
+            public const string OfertasParaTi = "OPT";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
@@ -663,6 +732,8 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
+            public const string ShowRoom = "SR";
+            public const string OfertaDelDia = "ODD";
         }
 
         public class ConfiguracionSeccion
@@ -673,6 +744,8 @@ namespace Portal.Consultoras.Common
                 public const int CarruselPrevisuales = 2;
                 public const int SimpleCentrado = 3;
                 public const int Banners = 4;
+                public const int ShowRoom = 5;
+                public const int OfertaDelDia = 6;
             }
         }
 
@@ -724,6 +797,7 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class EstadoRDSuscripcion
@@ -839,6 +913,8 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_CLIENTENOACTUALIZADO = "12";
                 public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
                 public const string ERROR_TIPOCONTACTOREPETIDO = "14";
+                public const string ERROR_NOTAINVALIDA = "15";
+                public const string ERROR_MOVIMIENTOINVALIDO = "16";
             }
 
             public static Dictionary<string, string> Message
@@ -861,7 +937,9 @@ namespace Portal.Consultoras.Common
                         {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
                         {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
                         {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
-                        {Code.ERROR_TIPOCONTACTOREPETIDO, "El tipo de contacto {0} se encuentra repetido para el cliente."},
+                        {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
+                        {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
                     });
                 }
             }
@@ -925,12 +1003,19 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
             public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
 
+        }
+
+        public class ComunicadoTipoDispositivo
+        {
+            public const short Todos = 0;
+            public const short Desktop = 1;
+            public const short Mobile = 2;
         }
     }
 }

@@ -13,16 +13,22 @@ var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
     CarruselPrevisuales: 2,
     SimpleCentrado: 3,
-    Banners: 4
+    Banners: 4,
+    ShowRoom: 5,
+    OfertaDelDia: 6,
 };
 
 var CONS_CODIGO_SECCION = {
     LAN: "LAN",
     RD: "RD",
-    RDR: "RDR"
+    RDR: "RDR",
+    SR: "SR",
+    ODD: "ODD",
 };
 
 var listaSeccion = {};
+
+var timer;
 
 $(document).ready(function () {
     SeccionRender();
@@ -85,7 +91,7 @@ function SeccionObtenerSeccion(seccion) {
 function SeccionCargarProductos(objConsulta) {
     
     objConsulta = objConsulta || {};
-    if (typeof objConsulta.UrlObtenerProductos === "undefined")
+    if (typeof objConsulta.UrlObtenerProductos === "undefined" || objConsulta.UrlObtenerProductos == null)
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;
@@ -102,6 +108,10 @@ function SeccionCargarProductos(objConsulta) {
         campaniaId: objConsulta.CampaniaID
     }
 
+    if (objConsulta.Codigo == CONS_CODIGO_SECCION.SR) {
+        param.Limite = 3;
+    }
+
     $.ajaxSetup({
         cache: false
     });
@@ -114,7 +124,7 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            data.Seccion = listaSeccion[data.Codigo + "-" + data.CampaniaID]; //objConsulta;
+            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID];
             SeccionMostrarProductos(data);
         },
         error: function (error, x) {
@@ -125,25 +135,37 @@ function SeccionCargarProductos(objConsulta) {
 
 function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
-    if (htmlSeccion.length !== 1) 
+    if (htmlSeccion.length !== 1) {
+        console.log(data.Seccion);
         return false
+    }
     
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
-    if (divListadoProductos.length !== 1) 
+    if (divListadoProductos.length !== 1) {
+        console.log(data.Seccion);
         return false
+    }
     
-    console.log(data.Seccion.TemplateProducto, data);
+    data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
+    if (data.Seccion.TemplateProducto === "") {
+        console.log(data.Seccion);
+        return false
+    }
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         RenderCarruselPrevisuales(htmlSeccion);
     }
+    else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
+        RenderCarruselSimple(htmlSeccion);
+    }
 }
 
 function RenderCarruselPrevisuales(divProd) {
-    if (typeof divProd == "undefined") {
+    if (typeof divProd == "undefined")
         return false;
-    }
+    
     divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
         vertical: false,
@@ -191,6 +213,28 @@ function RenderCarruselPrevisuales(divProd) {
             slick.$nextArrow.find("img[data-prev]").show();
         }
     });
+}
+
+function RenderCarruselSimple(divProd) {
+    if (typeof divProd == "undefined")
+        return false;
+
+    divProd.find(sElementos.listadoProductos + '.slick-initialized').slick('unslick');
+    divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
+        infinite: true,
+        vertical: false,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        autoplay: false,
+        speed: 260,
+        prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+    //})
+    //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
+    //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
+    });
+
+    divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
 }
 
 function GetArrowNamePrev() {

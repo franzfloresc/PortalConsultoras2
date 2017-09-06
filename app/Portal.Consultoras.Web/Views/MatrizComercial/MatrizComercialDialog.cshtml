@@ -15,9 +15,9 @@
             <div class="titF">Descripción Original:</div>
             <div class="selectP2 borde_redondeado" style="width: 515px;">
                 <input type="text" value="{{descripcionOriginal}}" readonly="readonly" style="width: 515px;" />
-            </div>
-            <div class="titG" style="padding:0px"><div id="file-upload-add"></div></div>
-        </div>
+            </div>  
+            <div class="titG" style="padding:0px;"><div id="file-upload-add"></div></div>       
+        </div>      
         <div>
             {{#if habilitarNemotecnico}}
             <div id="matriz-busqueda-nemotecnico">
@@ -58,15 +58,26 @@
             <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-comercial">
         </div>
         <div class="actions" style="text-align:center">
-            {{#if ../habilitarNemotecnico}}
-            <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
-                <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+            {{#if ../habilitarNemotecnico}}          
+            <div class="div-3">
+                <div class="nemotecnico-wrapper" onclick='javascript:editarNemotecnico({{IdMatrizComercialImagen}})'>
+                    <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
+                    <a id="label-nemotecnico-{{IdMatrizComercialImagen}}" title="{{NemoTecnico}}">{{NemoTecnico}}</a>
+                </div>
             </div>
-            {{/if}}
-            <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
-        </div>
+            <div class="div-3">                          
+                <div class="nemotecnico-wrapper" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>   
+                    <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">                
+                    <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+                </div>
+            </div>
+                {{/if}}
+             <div class="file-upload" id="file-upload-{{@@index}}" style="padding-left:37px"></div>
+           </div>
     </div>
     {{/each}}
 </script>
+
+
 
 

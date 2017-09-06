@@ -3,6 +3,7 @@ var ProductoSugerido = function (config) {
 
     var _config = {
         actualizarMatrizComercialAction: config.actualizarMatrizComercialAction,
+        actualizarDescripcionComercialAction: config.actualizarDescripcionComercialAction,
         obtenerMatrizAction: config.obtenerMatrizAction,
         getImagesByIdMatrizAction: config.getImagesByIdMatrizAction,
         paisID: config.paisID || 0,
@@ -28,6 +29,9 @@ var ProductoSugerido = function (config) {
     var _paginador = Paginador({ elementId: 'matriz-imagenes-paginacion', elementClick: _paginadorClick, numeroImagenesPorPagina: _config.numeroImagenesPorPagina });
 
     var _nemotecnico = Nemotecnico({ expresionValidacion: _config.expValidacionNemotecnico });
+    var _descripcionComercial = DescripcionComercial({
+        prefixControlDescripcionComercial: 'label-descripcioncomercial-', actualizarDescripcionComercialAction: _config.actualizarDescripcionComercialAction, isSugeridosDescripcionComercial: true
+    });
 
     var _limpiarFiltrosNemotecnico = function () {
         $('#txtBusquedaNemotecnico').val('');
@@ -165,6 +169,11 @@ var ProductoSugerido = function (config) {
         _matrizFileUploader.actualizarParNemotecnico(val);
     };
 
+    var _editarDescripcionComercial = function editarDescripcionComercial(idImagen) {
+        _descripcionComercial.actualizarPais(_config.paisID);
+        _descripcionComercial.editarDescripcionComercial(idImagen);
+    }
+
     return {
         crearObjetoUpload: _crearObjetoUpload,
         obtenerMatriz: _obtenerMatrizComercialByCUV,
@@ -173,7 +182,9 @@ var ProductoSugerido = function (config) {
         actualizarPais: _actualizarPais,
         actualizarParNemotecnico: _actualizarParNemotecnico,
         buscarNemotecnico: _buscarNemotecnico,
+        obtenerImagenes: _obtenerImagenes,
         limpiarBusquedaNemotecnico: _limpiarBusquedaNemotecnico,
-        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico
+        limpiarFiltrosNemotecnico: _limpiarFiltrosNemotecnico,
+        editarDescripcionComercial: _editarDescripcionComercial
     }
 };

@@ -22,7 +22,13 @@ function LocalStorageListado(key, valor, accion) {
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
     if (sl == null || sl == undefined) {
-        var model = EstrategiaCargarCuv(cuv);
+
+        var model = $("[data-item-cuv=" + cuv + "]").find("[data-estrategia]").attr("data-estrategia");
+        if (model == undefined || model.length === 0) {
+            model = $("[data-item-cuv=" + cuv + "]").attr("data-estrategia");
+        }
+        
+        model = JSON.parse(model);
         if (model != null) return model;
         else return null;
     }

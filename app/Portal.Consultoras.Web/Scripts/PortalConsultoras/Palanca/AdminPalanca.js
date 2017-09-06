@@ -20,6 +20,41 @@ jQuery(document).ready(function () {
         EditarOfertas: ModificarOfertas,
         //Eliminar: estrategiaObj.eliminar
     });
+
+    $("body").on("change", "#cbDesktopCantidadTodos", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#DesktopCantidadProductos").attr("disabled", "disabled");
+            $("#DesktopCantidadProductos").val("0");
+        } else {
+            $("#DesktopCantidadProductos").removeAttr("disabled");
+        }
+    });
+
+    $("body").on("change", "#cbMobileCantidadTodos", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#MobileCantidadProductos").attr("disabled", "disabled");
+            $("#MobileCantidadProductos").val("0");
+        } else {
+            $("#MobileCantidadProductos").removeAttr("disabled");
+        }
+    });
+
+    $("body").on("change", "#cbAncla", function () {
+        var esTrue = $(this).is(':checked');
+
+        if (esTrue) {
+            $("#UrlMenu").attr("disabled", "disabled");
+            $("#UrlMenu").val("#");
+        } else {
+            $("#UrlMenu").removeAttr("disabled");
+            $("#UrlMenu").val("");
+        }
+    });
+    
 });
 
 function Modificar(idConfiguracionPais, event) {
@@ -27,7 +62,7 @@ function Modificar(idConfiguracionPais, event) {
         url: baseUrl + 'AdministrarPalanca/GetPalanca',
         type: 'GET',
         dataType: 'html',
-        data: { idConfiguracionPais: idConfiguracionPais }, //cambiar por el id correcto
+        data: { idConfiguracionPais: idConfiguracionPais }, 
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-palanca").empty();
@@ -36,6 +71,12 @@ function Modificar(idConfiguracionPais, event) {
                 UploadFilePalanca("mobile-fondo-banner"), UploadFilePalanca("mobile-logo-banner")
             );
             showDialog("DialogMantenimientoPalanca");
+
+            var esTrueAncla = $.trim($("#UrlMenu").val()) == "#";
+            if (esTrueAncla) {
+                $("#cbAncla").prop("checked", true);
+                $("#UrlMenu").attr("disabled", "disabled");
+            }
         },
         error: function (request, status, error) {
             alert(request);
@@ -51,7 +92,7 @@ function ModificarOfertas(idOfertasHome) {
         url: baseUrl + 'AdministrarPalanca/GetOfertasHome',
         type: 'GET',
         dataType: 'html',
-        data: { idOfertasHome: idOfertasHome }, //cambiar por el id correcto
+        data: { idOfertasHome: idOfertasHome },
         contentType: "application/json; charset=utf-8",
         success: function (result) {
             $("#dialog-content-ofertas-home").empty();
@@ -59,6 +100,18 @@ function ModificarOfertas(idOfertasHome) {
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
             showDialog("DialogMantenimientoOfertasHome");
+
+            var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
+            if (esTrueDesktopCantidad) {
+                $("#cbDesktopCantidadTodos").prop("checked", true);
+                $("#DesktopCantidadProductos").attr("disabled", "disabled");
+            }
+
+            var esTrueMobileCantidad = $.trim($("#MobileCantidadProductos").val()) == "0";
+            if (esTrueMobileCantidad) {
+                $("#cbMobileCantidadTodos").prop("checked", true);
+                $("#MobileCantidadProductos").attr("disabled", "disabled");
+            }
         },
         error: function (request, status, error) {
             alert(request);
@@ -74,7 +127,7 @@ function IniDialogs() {
         width: 830,
         close: function () {},
         draggable: false,
-        title: "Configurar Palanca",
+        title: "Configurar Contenedor Menú",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
@@ -144,7 +197,7 @@ function IniDialogs() {
         width: 830,
         close: function () { },
         draggable: false,
-        title: "Configurar Ofertas Home",
+        title: "Configurar Contenedor Home",
         open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
         buttons:
         {
@@ -160,7 +213,15 @@ function IniDialogs() {
                     return false;
                 }
                 if (isNaN($("#DesktopOrden").val())) {
-                    _toastHelper.error("El valor del orden tiene que ser numerico.");
+                    _toastHelper.error("El valor del orden tiene que ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#DesktopCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
+                    return false;
+                }
+                if (isNaN($("#MobileCantidadProductos").val())) {
+                    _toastHelper.error("El valor de cantidad de productos debe ser numérico.");
                     return false;
                 }
                 var params = {
@@ -273,7 +334,7 @@ function UpdateGrillaPalanca() {
         pager: false,
         loadtext: 'Cargando datos...',
         recordtext: "{0} - {1} de {2} Registros",
-        emptyrecords: 'No hay resultadost',
+        emptyrecords: 'No hay resultados',
         rowNum: 100,
         scrollOffset: 0,
         //rowList: [10, 20, 30, 40, 50],
@@ -352,7 +413,7 @@ function UpdateGrillaOfertas() {
         pager: jQuery('#pager'),
         loadtext: 'Cargando datos...',
         recordtext: "{0} - {1} de {2} Registros",
-        emptyrecords: 'No hay resultadost',
+        emptyrecords: 'No hay resultados',
         rowNum: 10,
         scrollOffset: 0,
         rowList: [10, 20, 30, 40, 50],

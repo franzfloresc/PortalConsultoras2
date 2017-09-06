@@ -63,6 +63,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
+            Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
+            Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
 
             Context.ExecuteNonQuery(command);
             cliente.ClienteID = Convert.ToInt32(command.Parameters["@ClienteID"].Value);
@@ -82,6 +84,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoCliente", DbType.Int64, cliente.CodigoCliente);
             Context.Database.AddInParameter(command, "@Favorito", DbType.Int16, cliente.Favorito);
             Context.Database.AddInParameter(command, "@TipoContactoFavorito", DbType.Int16, cliente.TipoContactoFavorito);
+            Context.Database.AddInParameter(command, "@NombreCliente", DbType.AnsiString, cliente.NombreCliente);
+            Context.Database.AddInParameter(command, "@ApellidoCliente", DbType.AnsiString, cliente.ApellidoCliente);
 
             return Context.ExecuteNonQuery(command);
         }
@@ -103,6 +107,18 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.CheckClienteNombreByConsultora");
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
             Context.Database.AddInParameter(command, "@Nombre", DbType.String, Nombre);
+
+            int result = Convert.ToInt32(Context.ExecuteScalar(command));
+            return result;
+        }
+
+        public int GetExisteClienteConsultora(BECliente entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetExisteClienteConsultora");
+            Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, entidad.ConsultoraID);
+            Context.Database.AddInParameter(command, "@Nombre", DbType.String, entidad.Nombre);
+            Context.Database.AddInParameter(command, "@Telefono", DbType.String, entidad.Telefono);
+            Context.Database.AddInParameter(command, "@Email", DbType.String, entidad.eMail);
 
             int result = Convert.ToInt32(Context.ExecuteScalar(command));
             return result;

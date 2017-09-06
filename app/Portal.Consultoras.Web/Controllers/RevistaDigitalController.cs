@@ -15,7 +15,8 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return IndexModel();
+                return RedirectToAction("Index", "Ofertas");
+                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -29,7 +30,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                return IndexModel(0);
+                return IndexModel();
             }
             catch (Exception ex)
             {
@@ -151,7 +152,15 @@ namespace Portal.Consultoras.Web.Controllers
 
                 ViewBag.EsMobile = model.IsMobile ? 2 : 1;
 
-                var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
+                var palanca = model.CampaniaID != userData.CampaniaID
+                    ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                    : userData.RevistaDigital.TieneRDC 
+                        ? userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : ""
+                        : userData.RevistaDigital.TieneRDR
+                            ? Constantes.TipoEstrategiaCodigo.RevistaDigital
+                            : "";
 
                 var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
                 var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
@@ -171,6 +180,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
                     listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
                 }
+
                 return Json(new
                 {
                     success = true,
@@ -383,9 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-                
-                
-                
+
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);

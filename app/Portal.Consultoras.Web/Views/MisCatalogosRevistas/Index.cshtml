@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
 @{
     ViewBag.Title = "Catálogos y Revistas";
 }
@@ -69,7 +70,9 @@
                             <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal btn_stroke_white">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -90,9 +93,10 @@
                         <div class="hblock_text" style="padding-top: 34px;">
                             <div class="hblock_tit" style="font-size: 14px;"> @ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                             <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
-                            <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                                          <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                 </a>
                             </div>
                         </div>
@@ -114,7 +118,8 @@
                             <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal btn_stroke_white">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -294,7 +299,10 @@
         }
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

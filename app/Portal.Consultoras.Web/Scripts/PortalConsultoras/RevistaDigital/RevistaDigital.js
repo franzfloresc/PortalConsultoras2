@@ -5,10 +5,18 @@ var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
 
+var sProps = {
+    UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
+    UrlRevistaDigitalComprar: baseUrl + 'revistadigital/Comprar',
+    UrlRevistaDigitalRevisar: baseUrl + 'revistadigital/Revisar',
+    UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/'
+};
+
+
 $(document).ready(function () {
     "use strict";
 
-    isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/detalle/") >= 0;
+    isDetalle = (window.location.pathname.toLowerCase() + "/").indexOf(sProps.UrlRevistaDigitalDetalle) >= 0;
 
     var estador = $("[data-estadoregistro]").attr("data-estadoregistro");
     var rdaccion = estador == 1 ? estador : 0;
@@ -30,6 +38,10 @@ $(document).ready(function () {
                 $(objTag).css('padding-top', '50px');
             }
         });
+        // Registrar valrores de analytics
+        if (!isMobile()) {
+            TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
+        }
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -51,10 +63,6 @@ $(document).ready(function () {
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
     RDMostrarPosicion();
-
-    if ((window.location.pathname.toLowerCase() + "/").indexOf("/revistadigital/") >= 0) {
-        $("footer").hide();
-    }
 
     if (isDetalle) {
         RDDetalleObtener();
@@ -106,7 +114,7 @@ $(document).ready(function () {
 
     $('.tit_pregunta_ept').click(function (e) {
         e.preventDefault();
-        //debugger;
+
         var $this = $(this);
         if ($this.next().hasClass('show1')) {
             $this.next().removeClass('show1');
@@ -135,21 +143,20 @@ $(document).ready(function () {
         return false;
     });
 
-    $("body").on("click", "[data-item-accion='verdetalle']", function (e) {
-        //var obj = JSON.parse($(this).parents("[data-item]").attr("data-estrategia"));
+    $("body").on("click", "[data-item-accion='verdetalle']", function(e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
-        var obj = GetProductoStorage(cuv, campania);
-        if (obj == undefined) {
-            return;
-        }
+        var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
         if (obj.CUV2 != "") {
+            VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
             var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo)
-                return window.location = urlOfertaDetalleProducto + "?cuv=" + obj.CUV2 + "&campaniaId=" + obj.CampaniaID;
+                return window.location = urlOfertaDetalleProducto +
+                    "?cuv=" + obj.CUV2 +
+                    "&campaniaId=" + obj.CampaniaID;
         }
-    })
+    });
 
 });
 
@@ -211,43 +218,7 @@ function OfertaArmarEstrategias(response) {
 
     var esContenedor = (window.location.pathname.toLowerCase() + "/").indexOf("/ofertas/") >= 0;
     if (esContenedor) {
-        response.Seccion = listaSeccion["LAN-" + response.CampaniaID];
-        if (response.Seccion == undefined) {
-            response.Seccion = listaSeccion["RD-" + response.CampaniaID];
-        }
-        if (response.Seccion == undefined) {
-            response.Seccion = listaSeccion["RDR-" + response.CampaniaID];
-        }
-
-        LocalStorageListado(lsListaRD + response.CampaniaID, filtroCampania[indCampania]);
-
-        var cant = response.Seccion.CantidadProductos || 0;
-        cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
-        if (cant > 0) {
-            var newLista = [];
-            var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
-
-            $.each(listaItem, function (ind, item) {
-                if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
-                    if (ind < cant) {
-                        newLista.push(item);
-                    }
-                }
-            });
-
-            if (response.Seccion.Codigo == "LAN") {
-                response.listaLan = newLista;
-                response.lista = [];
-            }
-            else {
-                response.listaLan = [];
-                response.lista = newLista;
-            }
-
-        }
-
-        SeccionMostrarProductos(response);
-
+        OfertaArmarEstrategiasContenedor(response);
         return false;
     }
 
@@ -338,13 +309,65 @@ function OfertaArmarEstrategias(response) {
     }
 }
 
+function OfertaArmarEstrategiasContenedor(responseData) {
+
+    LocalStorageListado(lsListaRD + responseData.CampaniaID, filtroCampania[indCampania]);
+
+    var response = Clone(responseData);
+
+    var listaSeccionesRD = ["LAN", "RD", "RDR"]
+
+    $.each(listaSeccionesRD, function (ind, tipo) {
+        response.Seccion = listaSeccion[tipo + "-" + response.CampaniaID];
+        if (response.Seccion == undefined) {
+            var seccHtml = $('[data-seccion][data-seccion="' + tipo + '"]');
+            if (seccHtml.length == 1) {
+                response.Seccion = SeccionObtenerSeccion(seccHtml);
+                OfertaArmarEstrategiasContenedorSeccion(Clone(response));
+            }
+        }
+        else {
+            OfertaArmarEstrategiasContenedorSeccion(Clone(response));
+        }
+       
+    });
+}
+
+function OfertaArmarEstrategiasContenedorSeccion(response) {
+    var cant = response.Seccion.CantidadProductos || 0;
+    cant = cant == 0 ? response.Seccion.Codigo == "LAN" ? response.listaLan.length : response.lista.length : cant;
+    if (cant > 0) {
+        var newLista = [];
+        var listaItem = response.Seccion.Codigo == "LAN" ? response.listaLan : response.lista;
+
+        $.each(listaItem, function (ind, item) {
+            if (("," + response.Seccion.TipoEstrategia + ",").indexOf("," + item.CodigoEstrategia + ",") >= 0) {
+                if (ind < cant) {
+                    newLista.push(item);
+                }
+            }
+        });
+
+        if (response.Seccion.Codigo == "LAN") {
+            response.listaLan = newLista;
+            response.lista = [];
+        }
+        else {
+            response.listaLan = [];
+            response.lista = newLista;
+        }
+    }
+
+    SeccionMostrarProductos(response);
+}
+
 function RDFiltrarLista(response, busquedaModel) {
 
     var listaFinal = Clone(response.lista);
     var universo = new Array();
     var cont = 0, contVal = 0;
 
-    OfertaObtenerIndLocal(response.CampaniaID)
+    OfertaObtenerIndLocal(response.CampaniaID);
     var ListaFiltro = filtroCampania[indCampania].ListaFiltro || new Array();
 
     if (ListaFiltro.length > 0) {
@@ -395,7 +418,6 @@ function RDFiltrarLista(response, busquedaModel) {
     var ordenar = filtroCampania[indCampania].Ordenamiento || new Object();
     ordenar.Tipo = $.trim(ordenar.Tipo).toLowerCase();
     if (ordenar.Tipo != "" && listaFinal.length > 0) {
-        //var listaFinalx = new Array();
         if (ordenar.Tipo == "precio") {
             if (ordenar.Valor == mayormenor) {
                 listaFinal = listaFinal.sort(function (a, b) { return b.Precio2 - a.Precio2 });
@@ -452,16 +474,16 @@ function RDDetalleObtener() {
     }
 
     if (cuv == "" || campania == "") {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
 
     var prod = GetProductoStorage(cuv, campania);
     var mobile = isMobile();
     if (prod == null || prod == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
     if (prod.CUV2 == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + "/RevistaDigital/Index";
+        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
 
     var obj = new Object();
@@ -542,8 +564,15 @@ function RDPageInformativa() {
     $(window).scrollTop(0);
     $('ul[data-tab="tab"] li a[data-tag="0"]').click();
     
-    isDetalle = isDetalle || (window.location.pathname.toLowerCase() + "/").indexOf("/detalle/") >= 0;
-    if (isDetalle) {
-        window.location = (isMobile() ? "/Mobile/" : "") + "/RevistaDigital#0";
+    window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalInformacion;
+}
+
+function RDDetalleVolver(campaniaId) {
+    if (campaniaCodigo == campaniaId) {
+        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
     }
+    else {
+        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalRevisar;
+    }
+   
 }

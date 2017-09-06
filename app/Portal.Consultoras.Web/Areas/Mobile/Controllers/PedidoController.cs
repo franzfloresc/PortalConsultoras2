@@ -23,9 +23,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             var model = new PedidoMobileModel();
 
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWeb"] = null;
-            Session["PedidoWebDetalle"] = null;
+            sessionManager.SetObservacionesProl(null);
+            sessionManager.SetPedidoWeb(null);
+            sessionManager.SetDetallesPedido(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())
@@ -148,14 +148,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
             ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+            ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
+            ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
 
             return View(model);
         }
         
         public ActionResult Detalle(bool autoReservar = false)
         {
-            Session["ObservacionesPROL"] = null;
-            Session["PedidoWebDetalle"] = null;
+            sessionManager.SetObservacionesProl(null);
+            sessionManager.SetDetallesPedido(null);
 
             BEConfiguracionCampania beConfiguracionCampania;
             using (var sv = new PedidoServiceClient())

@@ -21,13 +21,13 @@ namespace Portal.Consultoras.Web.Controllers
     {
         public ActionResult Index()
         {
-            if (Request.Browser.IsMobileDevice)
-                return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
-
             var model = new BienvenidaHomeModel();
 
             try
             {
+                if (Request.Browser.IsMobileDevice)
+                    return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
+
                 ViewBag.UrlImgMiAcademia = ConfigurationManager.AppSettings["UrlImgMiAcademia"].ToString() + "/" + userData.CodigoISO + "/academia.png";
                 ViewBag.RutaImagenNoDisponible = ConfigurationManager.AppSettings.Get("rutaImagenNotFoundAppCatalogo");
 
@@ -59,53 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
                 var fechaVencimientoTemp = userData.FechaLimPago;
                 model.FechaVencimiento = fechaVencimientoTemp.ToString("dd/MM/yyyy") == "01/01/0001" ? "--/--" : fechaVencimientoTemp.ToString("dd/MM/yyyy");
                 model.MontoDeuda = userData.MontoDeuda;
-
-                //model.VioVideoBienvenidaModel = userData.VioVideoModelo;
-                //model.VioTutorialDesktop = userData.VioTutorialDesktop;
-
-                #region Rangos de Escala de Descuento
-
-                //model.ListaEscalaDescuento = GetListaEscalaDescuento() ?? new List<BEEscalaDescuento>();
-
-                //var pos = -1;
-                //int nro = 4;
-                //var listaEscala = new List<BEEscalaDescuento>();
-                //var tamano = model.ListaEscalaDescuento.Count;
-                //int montoEscalaDescuento = Convert.ToInt32(bePedidoWeb.MontoEscala);
-
-                //for (int i = 0; i < tamano; i++)
-                //{
-                //    var objEscala = model.ListaEscalaDescuento[i];
-                //    if (userData.MontoMinimo > objEscala.MontoHasta)
-                //    {
-                //        continue;
-                //    }
-
-                //    objEscala.MontoDesde = listaEscala.Count() == 0 ? userData.MontoMinimo : model.ListaEscalaDescuento[i - 1].MontoHasta;
-
-                //    if (objEscala.MontoDesde <= montoEscalaDescuento && montoEscalaDescuento < objEscala.MontoHasta)
-                //    {
-                //        objEscala.Seleccionado = true;
-                //        pos = i;
-                //    }
-                //    listaEscala.Add(objEscala);
-                //}
-
-                //model.ListaEscalaDescuento = new List<BEEscalaDescuento>();
-                //if (listaEscala.Any())
-                //{
-                //    int posMin, posMax, tamX = listaEscala.Count - 1;
-                //    posMax = tamX >= pos + nro - 1 ? (pos + nro - 1) : tamX;
-                //    posMin = posMax > (nro - 1) ? (posMax - (nro - 1)) : 0;
-                //    posMin = pos < 0 ? 0 : posMin;
-                //    posMax = pos < 0 ? Math.Min(listaEscala.Count() - 1, nro - 1) : posMax;
-                //    for (int i = posMin; i <= posMax; i++)
-                //    {
-                //        model.ListaEscalaDescuento.Add(listaEscala[i]);
-                //    }
-                //}
-
-                #endregion Rangos de Escala de Descuento
 
                 var datDescBoton = new List<BETablaLogicaDatos>();
                 var datUrlBoton = new List<BETablaLogicaDatos>();
@@ -285,15 +238,6 @@ namespace Portal.Consultoras.Web.Controllers
                     RegistrarLogDynamoDB(Constantes.LogDynamoDB.AplicacionPortalConsultoras, Constantes.LogDynamoDB.RolConsultora, "HOME", "INGRESAR");
                     Session[Constantes.ConstSession.IngresoPortalConsultoras] = true;
                 }
-                
-                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
-                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
-                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
-                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
-                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
-                ViewBag.NumeroCampania = userData.CampaniaID % 100;
-                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
                 model.CampaniaMasDos = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 2) % 100;
 
@@ -307,6 +251,26 @@ namespace Portal.Consultoras.Web.Controllers
                 model.EmailActivo = userData.EMailActivo;
                 ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
                 TempData.Keep("MostrarPopupCuponGanaste");
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+
+            try
+            {
+                ViewBag.TieneRDC = userData.RevistaDigital.TieneRDC;
+                ViewBag.TieneRDR = userData.RevistaDigital.TieneRDR;
+                ViewBag.TieneRDS = userData.RevistaDigital.TieneRDS;
+                ViewBag.EstadoSucripcionRD = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
+                ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
+                ViewBag.NumeroCampania = userData.CampaniaID % 100;
+                ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
             }
             catch (FaultException ex)
             {
@@ -355,6 +319,13 @@ namespace Portal.Consultoras.Web.Controllers
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
+
+                if (TipoPopUpMostrar == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
+                {
+                    if (userData.RevistaDigital.NoVolverMostrar)
+                        TipoPopUpMostrar = 0;
+                    
+                }
                 return TipoPopUpMostrar;
             }
 
@@ -409,6 +380,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.VideoIntroductorio;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.DemandaAnticipada) // validar lógica para mostrar Demanda anticipada (PE)
@@ -421,6 +393,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.AceptacionContrato) // validar lógica para mostrar Aceptacion Contrato (CO)
@@ -436,6 +409,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Showroom) // validar lógica para mostrar Showroom 
@@ -445,6 +419,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.Showroom;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.ActualizarDatos)  // validar lógica para mostrar la ventana de actualización de datos.
@@ -472,6 +447,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Flexipago) // validar lógica para mostrar la   (CO)
@@ -493,6 +469,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.Comunicado) // validar lógica para mostrar los comunicados configurados.
@@ -502,7 +479,7 @@ namespace Portal.Consultoras.Web.Controllers
                         List<BEComunicado> comunicados = new List<BEComunicado>();
                         using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
                         {
-                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                            var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
                             if (tempComunicados != null && tempComunicados.Length > 0)
                             {
                                 comunicados = tempComunicados.Where(c => String.IsNullOrEmpty(c.CodigoCampania) || Convert.ToInt32(c.CodigoCampania) == userData.CampaniaID).ToList();
@@ -514,6 +491,7 @@ namespace Portal.Consultoras.Web.Controllers
                             }
                         }
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
@@ -542,6 +520,7 @@ namespace Portal.Consultoras.Web.Controllers
                         TipoPopUpMostrar = Constantes.TipoPopUp.Cupon;
                         break;
                     }
+                    continue;
                 }
 
                 if (popup.CodigoPopup == Constantes.TipoPopUp.RevistaDigitalSuscripcion)
@@ -554,6 +533,7 @@ namespace Portal.Consultoras.Web.Controllers
                             break;
                         }
                     }
+                    continue;
                 }
             }
 
@@ -1830,8 +1810,8 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var mostrarShowRoomProductos = Session["MostrarShowRoomProductos"] != null && Session["MostrarShowRoomProductos"].ToString() == "1";
-                var mostrarShowRoomProductosExpiro = Session["MostrarShowRoomProductosIntriga"] != null && Session["MostrarShowRoomProductosIntriga"].ToString() == "1";
+                var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
 
                 mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
                 mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
@@ -1967,7 +1947,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             using (ServiceSAC.SACServiceClient sac = new ServiceSAC.SACServiceClient())
             {
-                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora);
+                var tempComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Desktop);
 
                 if (tempComunicados != null && tempComunicados.Length > 0)
                 {       //

@@ -1,0 +1,72 @@
+﻿
+@{
+    var menuList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
+    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style=background:url(" + menuActivo.FondoBanner + ");" : "";
+}
+<div class="bc_mobil_para-mi" @estiloFondoBanner>
+    @if (menuActivo.LogoBanner != "")
+    {
+        <div class="bc_mobile-logo" style="background: url(@menuActivo.LogoBanner);"></div>
+    }
+    <div class="bc_mobile-texto">
+        @if (menuActivo.TituloBanner != "" || menuActivo.SubTituloBanner != "")
+        {
+            <div class="mobile-txt">
+                @if (menuActivo.TituloBanner != "")
+                {
+                    <p>@menuActivo.TituloBanner</p>
+                }
+                @if (menuActivo.SubTituloBanner != "")
+                {
+                    <span>@menuActivo.SubTituloBanner</span>
+                }
+            </div>
+        }
+    </div>
+    <div class="clear"></div>
+    <div class="bc_para_ti-menu" data-layout-menu1="">
+        @if (menuActivo.CampaniaX0 > 0)
+        {
+            <ul>
+                <li data-campania="@menuActivo.CampaniaX0">
+                    <a href="javascript:;" class="desplegable">
+                        <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
+                        <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
+                    </a>
+                </li><li data-campania="@menuActivo.CampaniaX1">
+                    <a href="javascript:;" class="desplegable">
+                        <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
+                        <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
+                    </a>
+                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
+                    <a href="javascript:;" class="desplegable">
+                        <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
+                    </a>
+                </li>
+            </ul>
+        }
+    </div>
+</div>
+<div data-layout-menu2="">
+    @if (listaPloma.Any())
+    {
+        <div class="bc_para_ti-menu-opciones">
+            <ul>
+                @foreach (var menuhijo in listaPloma)
+                {
+                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa"
+                        data-codigo="@menuhijo.Codigo"
+                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
+                        <a href="javascript:;">
+                            <span>@menuhijo.SubTituloMenu</span>
+                            <p>@menuhijo.TituloMenu</p>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+</div>
