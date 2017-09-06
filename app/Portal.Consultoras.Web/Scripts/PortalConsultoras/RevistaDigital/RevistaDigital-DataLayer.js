@@ -102,20 +102,20 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
         var origenWebString = origenWeb.toString();
         switch (origenWebString) {
             case "1721"://Lan desktop
-                if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
+                if (popup) AddToCartPush("Oferta para ti - RO Detalle Banner Principal", estrategia);
                 else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "2721"://Lan Mobile
-                if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
+                if (popup) AddToCartPush("Oferta para ti - RO Detalle Banner Principal", estrategia);
                 else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "1711": //Mis Ofertas
                 if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
-                else AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                else AddToCartPush("Oferta para ti - RO Detalle Mis Ofertas", estrategia);
                 break;
             case "2711": //Mis Ofertas Mobile
                 if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
-                else AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                else AddToCartPush("Oferta para ti - RO Detalle Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas Mobile
                 AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
@@ -136,22 +136,22 @@ function VerDetalleComprarRDAnalytics(origenWeb, estrategia) {
         var origenWebString = origenWeb.toString();
         switch (origenWebString) {
             case "1721":
-                ProductClickPush("Esika para mí - Banner Principal", estrategia);
+                ProductClickPush("Oferta para ti - RO Banner Principal", estrategia);
                 break;
             case "2721":
-                ProductClickPush("Esika para mí - Banner Principal", estrategia);
+                ProductClickPush("Oferta para ti - RO Banner Principal", estrategia);
                 break;
             case "1711":
-                ProductClickPush("Esika para mí - Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Mis Ofertas", estrategia);
                 break;
             case "2711":
-                ProductClickPush("Esika para mí - Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas 
-                ProductClickPush("Esika para mí - Detalle Producto", estrategia);
+                ProductClickPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
             case "2731": //Mis Ofertas Mobile
-                ProductClickPush("Esika para mí - Detalle Producto", estrategia);
+                ProductClickPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
         }
     } catch (e) {
@@ -193,7 +193,7 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
     }
 }
 
-function VerDetalleLanRDAnalytics(campania, name) {
+function VerDetalleBloqueadaRDAnalytics(campania, name) {
     try {
         var category = "Ésika para mí";
         var label = campania + " - " + name;
