@@ -57,6 +57,10 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public DateTime FechaFinFIC { get; set; }
         [DataMember]
+        public int IndicadorOfertaFIC { get; set; }
+        [DataMember]
+        public string ImagenURLOfertaFIC { get; set; }
+        [DataMember]
         public bool PROLSinStock { get; set; } //1510
         [DataMember]
         public DateTime FechaInicioReFacturacion { get; set; }
@@ -130,10 +134,13 @@ namespace Portal.Consultoras.Entities
                 PROLSinStock = Convert.ToBoolean(datarec["PROLSinStock"]); //1510
             else
                 PROLSinStock = false;
-            if (DataRecord.HasColumn(datarec, "FechaFinFIC") && datarec["FechaFinFIC"] != DBNull.Value)
-                FechaFinFIC = Convert.ToDateTime(datarec["FechaFinFIC"]);
-            else
-                FechaFinFIC = DateTime.Today;
+
+            if (DataRecord.HasColumn(datarec, "FechaFinFIC")) FechaFinFIC = Convert.ToDateTime(datarec["FechaFinFIC"]);
+            else FechaFinFIC = DateTime.Today;
+            if (DataRecord.HasColumn(datarec, "IndicadorOfertaFIC")) IndicadorOfertaFIC = Convert.ToInt32(datarec["IndicadorOfertaFIC"]);
+            if (DataRecord.HasColumn(datarec, "ImagenUrlOfertaFIC")) ImagenURLOfertaFIC = Convert.ToString(datarec["ImagenUrlOfertaFIC"]);
+            else ImagenURLOfertaFIC = string.Empty;
+
             if (DataRecord.HasColumn(datarec, "FechaInicioReFacturacion") && datarec["FechaInicioReFacturacion"] != DBNull.Value)
                 FechaInicioReFacturacion = Convert.ToDateTime(datarec["FechaInicioReFacturacion"]);
             if (DataRecord.HasColumn(datarec, "FactorCierreZonaNormal") && datarec["FactorCierreZonaNormal"] != DBNull.Value)

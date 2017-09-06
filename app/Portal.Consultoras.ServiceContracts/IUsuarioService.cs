@@ -341,8 +341,15 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         string EnviaClaveAEmail(int paisId, string textoRecuperacion, bool EsMobile);
-
+        
         [OperationContract]
         BEUsuarioChatEmtelco GetUsuarioChatEmtelco(int paisID, string codigoUsuario);
+
+        #region TerminosCondiciones
+        [OperationContract]
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        #endregion
     }
 }

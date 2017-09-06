@@ -63,6 +63,12 @@
   <wsdl:message name="IODSService_ObtenerConsultoraLiderPorZonaySeccion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerConsultoraLiderPorZonaySeccionResponse" />
   </wsdl:message>
+  <wsdl:message name="IODSService_ObtenerYaEsConsultora_InputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerYaEsConsultora" />
+  </wsdl:message>
+  <wsdl:message name="IODSService_ObtenerYaEsConsultora_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerYaEsConsultoraResponse" />
+  </wsdl:message>
   <wsdl:portType name="IODSService">
     <wsdl:operation name="ObtenerEstadoActividadDeConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ObtenerEstadoActividadDeConsultora" message="tns:IODSService_ObtenerEstadoActividadDeConsultora_InputMessage" />
@@ -99,6 +105,10 @@
     <wsdl:operation name="ObtenerConsultoraLiderPorZonaySeccion">
       <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ObtenerConsultoraLiderPorZonaySeccion" message="tns:IODSService_ObtenerConsultoraLiderPorZonaySeccion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ObtenerConsultoraLiderPorZonaySeccionResponse" message="tns:IODSService_ObtenerConsultoraLiderPorZonaySeccion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerYaEsConsultora">
+      <wsdl:input wsaw:Action="http://tempuri.org/IODSService/ObtenerYaEsConsultora" message="tns:IODSService_ObtenerYaEsConsultora_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IODSService/ObtenerYaEsConsultoraResponse" message="tns:IODSService_ObtenerYaEsConsultora_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IODSService" type="tns:IODSService">
@@ -177,6 +187,15 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerConsultoraLiderPorZonaySeccion">
       <soap:operation soapAction="http://tempuri.org/IODSService/ObtenerConsultoraLiderPorZonaySeccion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerYaEsConsultora">
+      <soap:operation soapAction="http://tempuri.org/IODSService/ObtenerYaEsConsultora" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
