@@ -2748,6 +2748,12 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
             var menuActivo = MenuContenedorObtenerActivo();
+            if (menuActivo.CampaniaID <= 0)
+            {
+                menuActivo.CampaniaID = userData.CampaniaID;
+                MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaID);
+            }
+
             var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaID;
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
 
@@ -2920,9 +2926,9 @@ namespace Portal.Consultoras.Web.Controllers
             var menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
 
             menu.Codigo = Util.Trim(menu.Codigo);
-            if (menu.CampaniaID <= 0 || menu.Codigo == "")
+            if (menu.CampaniaID < 0 || menu.Codigo == "")
             {
-                menu.CampaniaID = menu.CampaniaID > 0 ? menu.CampaniaID : userData.CampaniaID;
+                menu.CampaniaID = menu.CampaniaID >= 0 ? menu.CampaniaID : userData.CampaniaID;
                 menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
                 MenuContenedorGuardar(menu.Codigo, menu.CampaniaID);
             }
