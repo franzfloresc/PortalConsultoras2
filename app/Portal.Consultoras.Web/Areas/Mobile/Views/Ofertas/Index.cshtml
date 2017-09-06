@@ -38,6 +38,15 @@
         }
     </style>
 }
+@foreach (var seccion in Model.ListaSeccion)
+{
+    <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+        <div data-seccion-content="">
+            @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+        </div>
+        <div data-seccion-load=""></div>
+    </div>
+}
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")

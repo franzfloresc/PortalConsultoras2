@@ -989,11 +989,14 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
 
+                menu.CampaniaID = menu.CampaniaID > 0 ? menu.CampaniaID : userData.CampaniaID;
+                menu.Codigo = Util.Trim(menu.Codigo);
+                menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
+                MenuContenedorGuardar(menu.Codigo, menu.CampaniaID);
+
                 var listaMenus = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
-                if (menu.CampaniaID > 0 && menu.Codigo != "")
-                {
-                    menu = listaMenus.FirstOrDefault(m => m.Codigo == menu.Codigo && m.CampaniaID == menu.CampaniaID) ?? new MenuContenedorModel();
-                }
+                
+                menu = listaMenus.FirstOrDefault(m => m.Codigo == menu.Codigo && m.CampaniaID == menu.CampaniaID) ?? new MenuContenedorModel();
 
                 if (userData.RevistaDigital.TieneRDC)
                 {
