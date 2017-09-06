@@ -78,8 +78,9 @@ $(document).ready(function () {
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
                 var _data = response.data;
-                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
+                
                 RenderOfertaDelDiaMobile(_data, contenedorOfertas);
+                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 array_odd = response.data;
             },
@@ -170,8 +171,9 @@ $(document).ready(function () {
                     return false;
 
                 var _data = response.data;
-                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
+                
                 RenderOfertaDelDia(_data, contenedorOfertas)
+                MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
                 $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
 
@@ -275,6 +277,7 @@ $(document).ready(function () {
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
 
+        console.log(data);
         SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);     
     }
 
@@ -848,7 +851,7 @@ $(document).ready(function () {
         $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
     });
 
-    self.CargarODD();
+    //self.CargarODD();
 });
 
 function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide) {
