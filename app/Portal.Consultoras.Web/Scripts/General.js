@@ -4,8 +4,8 @@ var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
-
     $("body").on("click", "[data-compartir]", function (e) {
+        e.preventDefault();
         CompartirRedesSociales(e);
     });
 
@@ -1132,10 +1132,8 @@ function CompartirRedesSocialesTexto(texto) {
     return "whatsapp://send?text=" + texto;
 }
 
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
-    CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, "");
-}
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre = "") {
     id = $.trim(id);
     if (id == "0" || id == "") {
         console.log("CompartirRedesSocialesAbrirVentana Falta ID");
@@ -1177,7 +1175,7 @@ function AnalyticsRedesSociales(tipoRedes, ruta) {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Facebook',
-            'action': 'Compartir',
+            'action': 'Share',
             'target': ruta
         });
     } else if (tipoRedes == "WA"){

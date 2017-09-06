@@ -11,6 +11,7 @@ var tieneOPT = false;
 var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
+var _campania = "";
 
 // Copiar el $(document).ready de Estrategia.js, en caso no hacer caso al archivo Estrategia.JS
 //$(document).ready(function () {});
@@ -51,10 +52,10 @@ function VerDetalleEstrategia(e) {
         || $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb")
         || $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
         || origenPedidoWebEstrategia;
-   
+    _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
     try {
         var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
-        var campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
+        
         if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
             VerDetalleBloqueadaRDAnalytics(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
         } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
@@ -342,14 +343,16 @@ function EstrategiaAgregar(event, popup, limite) {
         || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
         || origenPedidoWebEstrategia;
 
-    var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html");
+    var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html") || _campania;
     popup = popup || false;
 
     if (EstrategiaValidarBloqueada(objInput, estrategia)) {
         try {
-            AgregarProductoDeshabilitadoRDAnalytics(origenPedidoWebEstrategia, campania, estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada , popup);
+            AgregarProductoDeshabilitadoRDAnalytics(
+                origenPedidoWebEstrategia, campania, (estrategia.DescripcionResumen +
+                    " " +
+                    estrategia.DescripcionCortada).trim(), popup);
         } catch (e) {console.log(e)} 
-        
         return false;
     }
 

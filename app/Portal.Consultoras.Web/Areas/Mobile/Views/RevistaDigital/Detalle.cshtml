@@ -127,16 +127,13 @@
                                 }
                             });
                         }
-                        var doneStart = false;
-                        var doneEnd = false;
+
                         function onPlayerStateChange(event) {
-                            if (event.data == YT.PlayerState.PLAYING && !doneStart) {
+                            if (event.data == YT.PlayerState.PLAYING) {
                                 CompartirProductoRDAnalytics("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
-                                doneStart = true;
                             }
-                            if (event.data == YT.PlayerState.ENDED && !doneEnd) {
+                            if (event.data == YT.PlayerState.ENDED) {
                                 CompartirProductoRDAnalytics("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
-                                doneEnd = true;
                             }
                         }
 
