@@ -902,12 +902,12 @@ function RecuperarClave() {
             }
             
             if (response.correo.length == 0) {
-                alert("Por favor ingresa tu " + $("#hdfCorreoElectronico").val() + ".");
+                alert("Por favor ingrese su " + $("#hdfCorreoElectronico").val() + ".");
                 return false;
-            }            
+            }
 
             $("#hdcorreo").val(response.correo);
-            $("#hdclave").val(response.clave);
+            //$("#hdclave").val(response.clave);
             $("#hdCodigoConsultora").val(response.codigo);
             $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);
             var s_correo = Enmascarar_Correo(response.correo);
