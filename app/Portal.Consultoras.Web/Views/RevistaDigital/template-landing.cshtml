@@ -18,13 +18,13 @@
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
-    <div class="content_belcorp" data-listado-content="" style="display: none;">
+    <div class="content_belcorp" data-listado-content="" style="display: none; padding: 0 8%;">
         
         @if (ViewBag.TieneProductosPerdio == false)
         {       
             <div id="orderby-filter">
                 <div id="divBusquedaFiltros" class="rd-busqueda-filtros">
-                    <div class="rd-seccion2">
+                    <div class="rd-seccion2" style=" padding: 0px 0%;">
                         <div id="divFiltros" class="rd-fitlros-fix rd-filtros">
                             @if (Model.FiltersByBrand.Any())
                             {
@@ -63,7 +63,7 @@
             </div>
         }
         <div id="RDListado" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
-            <div id="divOfertaProductos"  style="text-align: center; overflow: hidden;"></div>
+            <div id="divOfertaProductos"  style="text-align: center;"></div>
             @if (ViewBag.TieneProductosPerdio)
             {
                 <div id="block_inscribete">

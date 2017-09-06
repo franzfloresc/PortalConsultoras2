@@ -884,7 +884,7 @@ namespace Portal.Consultoras.Web.Controllers
                     SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
                     Orden = confi.Orden,
                     UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu,
-                    EsAncla = confi.UrlMenu.Contains("#")
+                    EsAncla = Util.Trim(confi.UrlMenu).Contains("#")
                 });
             }
 

@@ -18,6 +18,7 @@
         margin-right: 10px;
         font-weight: bolder !important;
         letter-spacing: 1px;
+        float:left;
     } 
 .bc_menu_estrategia .logo {
     width: 11%;
@@ -239,6 +240,7 @@
     text-align: center;
     margin: auto;
     padding: 10px 0px;
+    display:none;
 }
 .btn-set-previous {
     width: 80px !important;
