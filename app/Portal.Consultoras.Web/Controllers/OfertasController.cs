@@ -11,12 +11,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (Session[Constantes.SessionNames.MenuContenedorActivo] == null)
-                    MenuContenedorGuardar(Constantes.ConfiguracionPais.Inicio, userData.CampaniaID);
-
                 var modelo = new EstrategiaPersonalizadaModel
                 {
-                    ListaSeccion = ObtenerConfiguracion(),
+                    ListaSeccion = ObtenerConfiguracionSeccion(),
                     MensajeProductoBloqueado = MensajeProductoBloqueado()
                 };
 
@@ -113,7 +110,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult ObtenerMenuContenedor()
         {
-            var objSession =  Session[Constantes.SessionNames.MenuContenedorActivo];
+            var objSession = MenuContenedorObtenerActivo();
 
             return Json(new
             {
