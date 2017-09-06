@@ -80,15 +80,15 @@ namespace Portal.Consultoras.Web.Controllers
                         base.OnActionExecuting(filterContext);
                         return;
                     }
-		    
-		            ViewBag.MenuContenedor = BuildMenuContenedor();
+		            var listaMenuContenedor = BuildMenuContenedor();
+                    ViewBag.MenuContenedor = listaMenuContenedor;
+                    ViewBag.MenuContenedorMas1 = BuildMenuContenedor(listaMenuContenedor);
                     ViewBag.MenuContenedorActivo = BuildMenuContenedorActivo();
-                    ViewBag.MenuMobile = BuildMenuMobile(userData);
 
+                    ViewBag.MenuMobile = BuildMenuMobile(userData);
                     ViewBag.Permiso = BuildMenu();
 
                     ViewBag.ProgramaBelcorpMenu = BuildMenuService();
-
                     ViewBag.codigoISOMenu = userData.CodigoISO;
 
                     /*** EPD 2170 ***/
@@ -827,6 +827,9 @@ namespace Portal.Consultoras.Web.Controllers
             return lstModel;
         }
 
+        /*
+        * Retorna la lista de Menu vertical del contenedor en la campaña x
+        */
         public List<MenuContenedorModel> BuildMenuContenedor()
         {
             var listaMenu = new List<MenuContenedorModel>();
@@ -880,39 +883,33 @@ namespace Portal.Consultoras.Web.Controllers
                     TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
                     SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
                     Orden = confi.Orden,
-                    UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu
+                    UrlMenu = "/" + (isMobile ? "Mobile/" : "") + confi.UrlMenu,
+                    EsAncla = confi.UrlMenu.Contains("#")
                 });
             }
 
+            listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
+            return listaMenu;
+        }
 
+        /*
+         * Retorna la lista de Menu vertical del contenedor en la campaña x+1
+         * Por defecto solo 3 secciones.
+         */
+        public List<MenuContenedorModel> BuildMenuContenedor(List<MenuContenedorModel> lista)
+        {
+            var listaMenu = new List<MenuContenedorModel>();
             if (userData.RevistaDigital.TieneRDC)
             {
-                //var menuCampania = BuildMenuContenedorCampania();
-                //listaMenu.AddRange(menuCampania);
-
                 listaMenu.Add(BuildMenuContenedorInicio(AddCampaniaAndNumero(userData.CampaniaID, 1)));
 
-                var confi = lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital) ?? new ConfiguracionPaisModel();
-                if (confi.ConfiguracionPaisID > 0)
-                {
-                    listaMenu.Add(new MenuContenedorModel
-                    {
-                        Codigo = confi.Codigo,
-                        CampaniaID = AddCampaniaAndNumero(userData.CampaniaID, 1),
-                        TituloMenu = isMobile ? confi.MobileTituloMenu : confi.DesktopTituloMenu,
-                        LogoBanner = isMobile ? confi.MobileLogoBanner : confi.DesktopLogoBanner,
-                        FondoBanner = isMobile ? confi.MobileFondoBanner : confi.DesktopFondoBanner,
-                        TituloBanner = isMobile ? confi.MobileTituloBanner : confi.DesktopTituloBanner,
-                        SubTituloBanner = isMobile ? confi.MobileSubTituloBanner : confi.DesktopSubTituloBanner,
-                        Orden = confi.Orden,
-                        UrlMenu = "/" + (isMobile ? "Mobile/" : "") + "RevistaDigital/Revisar"
-                    });
-                }
-                
+                if(lista.Any(e => e.Codigo == Constantes.ConfiguracionPais.RevistaDigital))
+                    listaMenu.Add(lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.RevistaDigital));
+
+                if (lista.Any(e => e.Codigo == Constantes.ConfiguracionPais.Lanzamiento))
+                    listaMenu.Add(lista.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Lanzamiento));
             }
-
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
-
             return listaMenu;
         }
 
@@ -987,7 +984,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menu = new MenuContenedorModel();
             try
             {
-                menu = MenuContenedorObtener();
+                menu = MenuContenedorObtenerActivo();
 
                 var listaMenus = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
                 
@@ -2748,24 +2745,24 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         #region Configuracion Seccion Palanca
-        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracion()
+        public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
-
+            var menuActivo = MenuContenedorObtenerActivo();
+            var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaID;
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
-            if (Session[Constantes.ConstSession.ListadoSeccionPalanca] != null)
+
+            if (Session[sessionNombre] != null)
             {
-                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[Constantes.ConstSession.ListadoSeccionPalanca];
+                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[sessionNombre];
             }
             else
             {
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, userData.CampaniaID).ToList();
+                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaID).ToList();
                 }
-                Session[Constantes.ConstSession.ListadoSeccionPalanca] = listaEntidad;
+                Session[sessionNombre] = listaEntidad;
             }
-
-            var menuActivo = MenuContenedorObtener();
 
             var modelo = new List<ConfiguracionSeccionHomeModel>();
 
@@ -2890,7 +2887,7 @@ namespace Portal.Consultoras.Web.Controllers
         public ConfiguracionSeccionHomeModel ObtenerSeccionHomePalanca(string codigo, int campaniaId)
         {
             var seccion = new ConfiguracionSeccionHomeModel();
-            var modelo = ObtenerConfiguracion();
+            var modelo = ObtenerConfiguracionSeccion();
             if (codigo != "") modelo = modelo.Where(m => m.Codigo == codigo).ToList();
             if (campaniaId > -1)
             {
@@ -2910,7 +2907,7 @@ namespace Portal.Consultoras.Web.Controllers
             };
         }
 
-        public MenuContenedorModel MenuContenedorObtener()
+        public MenuContenedorModel MenuContenedorObtenerActivo()
         {
             var menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
 
