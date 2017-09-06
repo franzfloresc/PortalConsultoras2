@@ -1405,12 +1405,17 @@ h1, h2, h3, h4, h5, h6 {
 .icono_correo {
     margin: 0 auto;
     width: 102px;
+    height:64px;
+    background-image: url("../../../Images/Login2/Icons/icono-envelope-esika.png");
+    background-repeat:no-repeat;
+    background-position:center;
+    background-size:100%;
 }
 
-    .icono_correo img {
+    /*.icono_correo img {
         width: 100%;
         height: auto;
-    }
+    }*/
 
 #popup_olvidasteContrasenia .formCont {
     margin-left: 20.2%;

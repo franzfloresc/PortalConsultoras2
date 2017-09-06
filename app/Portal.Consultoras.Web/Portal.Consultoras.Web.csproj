@@ -1199,6 +1199,8 @@
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\Css\Site\fonts\icomoon\iconos-cambio-pass.svg" />
     <Content Include="Content\Images\Lbel\icono_check_lbel.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-envelope-esika.png" />
+    <Content Include="Content\Images\Login2\Icons\icono-envelope-lbel.png" />
     <Content Include="Content\Images\Login2\Icons\icono-envelope.png" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
