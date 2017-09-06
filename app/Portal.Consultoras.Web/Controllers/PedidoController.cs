@@ -1496,6 +1496,10 @@ namespace Portal.Consultoras.Web.Controllers
                         + beConsultoraCUV.CuvCredito
                     : "";
 
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = userData.RevistaDigital.TieneRDC &&
+                    userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+
                 olstProductoModel.Add(new ProductoModel()
                 {
                     CUV = olstProducto[0].CUV.Trim(),
@@ -1520,7 +1524,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
                     TieneSugerido = olstProducto[0].TieneSugerido,
                     CodigoProducto = olstProducto[0].CodigoProducto,
-                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99
+                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99,
+                    TieneRDC = tieneRDC
                 });
 
             }
