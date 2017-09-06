@@ -53,7 +53,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         var from = ConfigurationManager.AppSettings[Constantes.ConstSession.EmailAsesoraOnline] ?? "";
                         var titulo = string.Format("{0}, BIENVENIDA A ÉSIKA MI GUÍA DIGITAL", usuario.Sobrenombre).ToUpper();
-                        sv.EnviarMailBienvenidaAsesoraOnline("esikamiguiadigital@somosbelcorp.com", usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
+                        sv.EnviarMailBienvenidaAsesoraOnline(from, usuario.EMail, titulo, "SomosBelcorp", usuario.Nombre);
                     }
                 }            
 
