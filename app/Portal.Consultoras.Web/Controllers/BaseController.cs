@@ -2764,6 +2764,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaID).ToList();
                 }
+
+                if (menuActivo.CampaniaID > userData.CampaniaID)
+                {
+                    listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Inicio).ToList();
+                }
+
                 Session[sessionNombre] = listaEntidad;
             }
 
@@ -2798,7 +2806,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
-                    CampaniaID = userData.CampaniaID,
+                    CampaniaID = menuActivo.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
