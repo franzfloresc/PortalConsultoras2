@@ -447,28 +447,33 @@ namespace Portal.Consultoras.BizLogic
                                                 && tbl.Estado == Constantes.ClienteEstado.Activo
                                                 select tbl).OrderBy(x => x.TipoContactoID);
 
-                    foreach (var contactoPrincipal in lstContactoPrincipal)
+                    if (clienteDB.ClienteID == 0)
                     {
-                        var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID)
-                                                            .FirstOrDefault();
-
-                        if (resGetCliente != null)
+                        foreach (var contactoPrincipal in lstContactoPrincipal)
                         {
-                            clienteDB.ClienteID = resGetCliente.ClienteID;
-                            break;
+                            var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID)
+                                                                .FirstOrDefault();
+
+                            if (resGetCliente != null)
+                            {
+                                clienteDB.ClienteID = resGetCliente.ClienteID;
+                                break;
+                            }
                         }
                     }
 
                     //OBTENER CLIENTE SB
                     var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
-
-                    foreach (var contactoPrincipal in lstContactoPrincipal)
+                    if (clienteDB.ClienteIDSB == 0)
                     {
-                        var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
-                        if (clienteSBSearch != null)
+                        foreach (var contactoPrincipal in lstContactoPrincipal)
                         {
-                            clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
-                            break;
+                            var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
+                            if (clienteSBSearch != null)
+                            {
+                                clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
+                                break;
+                            }
                         }
                     }
 
