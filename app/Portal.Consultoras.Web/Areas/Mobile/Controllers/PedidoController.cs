@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
+using System.Web.Routing;
 using BEPedidoWeb = Portal.Consultoras.Web.ServicePedido.BEPedidoWeb;
 using BEPedidoWebDetalle = Portal.Consultoras.Web.ServicePedido.BEPedidoWebDetalle;
 
@@ -149,9 +150,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
             ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
 
-            return View(model);
+            return View("Index", model);
         }
-        
+
+        public ActionResult virtualCoach(string cuv = "", int campanaId = 0)
+        {
+            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", cuv = cuv, campanaId = campanaId }));
+        }
+
         public ActionResult Detalle(bool autoReservar = false)
         {
             sessionManager.SetObservacionesProl(null);

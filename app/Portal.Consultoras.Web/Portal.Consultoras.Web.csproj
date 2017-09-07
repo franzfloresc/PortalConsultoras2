@@ -202,6 +202,7 @@
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\FichaProductoController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PaypalController.cs" />
     <Compile Include="Areas\Mobile\Controllers\PedidoClienteController.cs" />
@@ -270,6 +271,7 @@
     <Compile Include="Controllers\EstrategiaProductoComentarioController.cs" />
     <Compile Include="Controllers\CatalogosBelcorpController.cs" />
     <Compile Include="Controllers\EstrategiaPersonalizadaController.cs" />
+    <Compile Include="Controllers\FichaProductoController.cs" />
     <Compile Include="Controllers\ProductoComentarioController.cs" />
     <Compile Include="Controllers\EstrategiaProductoController.cs" />
     <Compile Include="Controllers\LoginChatbotController.cs" />
@@ -405,6 +407,8 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\FichaProductoDetalleModel.cs" />
+    <Compile Include="Models\FichaProductoModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
@@ -3092,6 +3096,7 @@
     <Content Include="Scripts\HojaInscripcion\validations.js" />
     <Content Include="Areas\Mobile\Views\Shared\_ChatbotEmptyLayout.cshtml" />
     <Content Include="Areas\Mobile\Views\Compartir\CompartirEnChatBot.cshtml" />
+    <Content Include="Areas\Mobile\Views\FichaProducto\Detalle.cshtml" />
     <Content Include="Scripts\jquery-1.11.2.js" />
     <Content Include="Scripts\jquery-1.11.2.min.js" />
     <Content Include="Scripts\jquery-labelauty.js" />
@@ -3139,6 +3144,7 @@
     <Content Include="Scripts\PortalConsultoras\CatalogoPersonalizado\catalogoPersonalizado.js" />
     <Content Include="Scripts\PortalConsultoras\Cliente\Index.js" />
     <Content Include="Scripts\PortalConsultoras\MatrizCampania\ActualizarMatrizCampaniaModule.js" />
+    <Content Include="Scripts\PortalConsultoras\FichaProducto\Index.js" />
     <Content Include="Scripts\PortalConsultoras\ProductoComentario\ProductoComentarioAdmModule.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdm.js" />
     <Content Include="Scripts\PortalConsultoras\Cupon\CuponAdmModule.js" />
@@ -4225,6 +4231,7 @@
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
+    <Content Include="Views\FichaProducto\template-ficha-producto.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

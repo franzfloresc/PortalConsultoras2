@@ -181,6 +181,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public class TipoFichaProducto
+        {
+            public const string SinTonos = "0";
+            public const string IndividualConTonos = "1";
+            public const string PackConTonos = "2";
+        }
+
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -404,6 +411,10 @@ namespace Portal.Consultoras.Common
             public const int DesktopMasVendidosProductPageCarrusel = 1612;
             public const int MobileHomeMasVendidosCarrusel = 2151;
             public const int MobileMasVendidosProductPageFicha = 2611;
+
+            //FichaProducto VirtualCoach
+            public const int DesktopPedidoVirtualCoach = 1231;
+            public const int MobilePedidoVirtualCoach = 2231;
         }
 
         public class TipoTutorial
@@ -778,6 +789,8 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+
+            public const string FichaProductoTemporal = "FichaProductoTemporal";
         }
 
         public class EstadoRDSuscripcion

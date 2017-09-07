@@ -91,6 +91,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLClienteDB.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />
+    <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLCuponConsultora.cs" />

@@ -10,6 +10,7 @@ using Portal.Consultoras.Web.ServicesCalculosPROL;
 using Portal.Consultoras.Web.ServiceSeguridad;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServiceZonificacion;
+using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.SessionManager;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
+using Portal.Consultoras.Web.ServiceODS;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -1442,6 +1444,264 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             SetUserData(model);
+        }
+
+        #endregion
+
+        #region FichaProducto
+        public List<FichaProductoModel> ConsultarFichaProductoPorCuv(string cuv = "", int campanaId=0)
+        {
+            var entidad = new BEFichaProducto
+            {
+                PaisID = userData.PaisID,
+                CampaniaID = campanaId > 0 ? campanaId : userData.CampaniaID,
+                ConsultoraID = (userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociadaID : userData.ConsultoraID).ToString(),
+                CUV2 = Util.Trim(cuv),
+                Zona = userData.ZonaID.ToString(),
+                ZonaHoraria = userData.ZonaHoraria,
+                FechaInicioFacturacion = userData.FechaFinCampania,
+                ValidarPeriodoFacturacion = true,
+                Simbolo = userData.Simbolo,
+                CodigoAgrupacion = Util.Trim("")
+            };
+            var listFichaProducto = new List<BEFichaProducto>();
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listFichaProducto = sv.GetFichaProducto(entidad).ToList();
+            }
+            listFichaProducto = listFichaProducto ?? new List<BEFichaProducto>();
+            listFichaProducto = listFichaProducto.Where(e => e.Precio2 > 0).ToList();
+            /**/
+            var listaProductoModel = FichaProductoModelFormato(listFichaProducto);
+            return listaProductoModel;
+        }
+
+        public List<FichaProductoDetalleModel> FichaProductoFormatearModelo(List<FichaProductoModel> listaProductoModel)
+        {
+            var listaRetorno = new List<FichaProductoDetalleModel>();
+            if (!listaProductoModel.Any())
+                return listaRetorno;
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            listaProductoModel.ForEach(fichaProducto =>
+            {
+                var prodModel = new FichaProductoDetalleModel();
+                prodModel.CampaniaID = fichaProducto.CampaniaID;
+                prodModel.CUV2 = fichaProducto.CUV2;
+                prodModel.TipoImagenMostrar = fichaProducto.TipoImagenMostrar;
+                prodModel.CodigoTipoOferta = fichaProducto.CodigoTipoOferta;
+                prodModel.CodigoVariante = "1";
+                prodModel.FotoProducto01 = fichaProducto.FotoProducto01;
+                prodModel.ImagenURL = fichaProducto.ImagenURL;
+                prodModel.DescripcionMarca = fichaProducto.DescripcionMarca;
+                prodModel.DescripcionResumen = fichaProducto.DescripcionResumen;
+                prodModel.DescripcionCortada = fichaProducto.DescripcionCortada;
+                prodModel.DescripcionDetalle = fichaProducto.DescripcionDetalle;
+                prodModel.DescripcionCompleta = fichaProducto.DescripcionCUV2.Split('|')[0];
+                prodModel.Simbolo = userData.Simbolo;
+                prodModel.Precio = fichaProducto.Precio;
+                prodModel.Precio2 = fichaProducto.Precio2;
+                prodModel.PrecioTachado = fichaProducto.PrecioTachado;
+                prodModel.PrecioVenta = fichaProducto.PrecioString;
+                //prodModel.ClaseBloqueada = (fichaProducto.CampaniaID > 0 && fichaProducto.CampaniaID != userData.CampaniaID) ? "btn_desactivado_general" : "";
+                prodModel.ProductoPerdio = false;
+                prodModel.FlagNueva = fichaProducto.FlagNueva;
+                prodModel.IsAgregado = listaPedido.Any(p => p.CUV == fichaProducto.CUV2.Trim());
+                prodModel.ArrayContenidoSet = fichaProducto.FlagNueva == 1 ? fichaProducto.DescripcionCUV2.Split('|').Skip(1).ToList() : new List<string>();
+                prodModel.ListaDescripcionDetalle = fichaProducto.ListaDescripcionDetalle ?? new List<string>();
+                prodModel.TextoLibre = Util.Trim(fichaProducto.TextoLibre);
+
+                prodModel.MarcaID = fichaProducto.MarcaID;
+                prodModel.UrlCompartir = fichaProducto.UrlCompartir;
+
+                prodModel.TienePaginaProducto = fichaProducto.PuedeVerDetalle;
+                prodModel.TienePaginaProductoMob = fichaProducto.PuedeVerDetalleMob;
+                prodModel.TieneVerDetalle = true;
+
+                prodModel.TipoAccionAgregar = fichaProducto.TieneVariedad == 0 ? 2 : 3;
+                listaRetorno.Add(prodModel);
+            });
+
+            return listaRetorno;
+        }
+
+        public List<FichaProductoModel> FichaProductoModelFormato(List<BEFichaProducto> listaProducto)
+        {
+            listaProducto = listaProducto ?? new List<BEFichaProducto>();
+            List<FichaProductoModel> listaProductoModel = Mapper.Map<List<BEFichaProducto>, List<FichaProductoModel>>(listaProducto);
+            return FichaProductoModelFormato(listaProductoModel);
+        }
+
+        public List<FichaProductoModel> FichaProductoModelFormato(List<FichaProductoModel> listaProductoModel)
+        {
+            if (!listaProductoModel.Any())
+                return listaProductoModel;
+
+            var listaPedido = ObtenerPedidoWebDetalle();
+            var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+            listaProductoModel.ForEach(ficha =>
+            {
+                ficha.ClaseBloqueada = ficha.CampaniaID > 0 && ficha.CampaniaID != userData.CampaniaID ? "btn_desactivado_general" : "";
+                ficha.IsAgregado = listaPedido.Any(p => p.CUV == ficha.CUV2.Trim());
+                ficha.DescripcionResumen = "";
+                ficha.DescripcionDetalle = "";               
+                if (ficha.FlagNueva == 1)
+                {
+                    ficha.DescripcionCortada = ficha.DescripcionCUV2.Split('|')[0];
+                    ficha.DescripcionDetalle = ficha.DescripcionCUV2.Split('|')[1];
+                    ficha.DescripcionResumen = "";
+                }
+                else
+                {
+                    ficha.DescripcionCortada = Util.SubStrCortarNombre(ficha.DescripcionCUV2, 40);
+                };
+                
+                if (ficha.FlagMostrarImg == 1)
+                {
+                    ficha.ImagenURL = "/Content/Images/oferta-ultimo-minuto.png";                   
+                }
+                else
+                {
+                    ficha.ImagenURL = "";
+                }
+
+                ficha.PuedeCambiarCantidad = 1;
+                ficha.PuedeAgregar = 1;
+            });
+
+            return listaProductoModel;
+        }
+
+        public FichaProductoDetalleModel FichaProductoHermanos(FichaProductoDetalleModel fichaProductoModelo)
+        {
+            try
+            {
+                if (fichaProductoModelo == null)
+                    return fichaProductoModelo;
+                fichaProductoModelo.Hermanos = new List<ProductoModel>();
+                fichaProductoModelo.TextoLibre = Util.Trim(fichaProductoModelo.TextoLibre);
+                fichaProductoModelo.CodigoVariante = Util.Trim(fichaProductoModelo.CodigoVariante);
+                fichaProductoModelo.UrlCompartir = GetUrlCompartirFB();
+
+                var listaPedido = ObtenerPedidoWebDetalle();
+                fichaProductoModelo.IsAgregado = listaPedido.Any(p => p.CUV == fichaProductoModelo.CUV2);
+
+                if (fichaProductoModelo.CodigoVariante == "")
+                    return fichaProductoModelo;
+
+                string joinCuv = "|", separador = "|";
+
+                fichaProductoModelo.CampaniaID = fichaProductoModelo.CampaniaID > 0 ? fichaProductoModelo.CampaniaID : userData.CampaniaID;
+
+                var listaHermanosE = new List<BEProducto>();
+                if (fichaProductoModelo.CodigoVariante != Constantes.TipoFichaProducto.SinTonos)
+                {                    
+                    using (ODSServiceClient svc = new ODSServiceClient())
+                    {
+                        listaHermanosE = svc.GetListBrothersByCUV(userData.PaisID, fichaProductoModelo.CampaniaID, fichaProductoModelo.CUV2).ToList();
+                    }
+
+                    foreach (var item in listaHermanosE)
+                    {
+                        item.CodigoSAP = Util.Trim(item.CodigoSAP);
+                        if (item.CodigoSAP != "" && !joinCuv.Contains(separador + item.CodigoSAP + separador))
+                            joinCuv += item.CodigoSAP + separador;
+                    }
+                }
+
+                if (joinCuv == separador) return fichaProductoModelo;
+
+                joinCuv = joinCuv.Substring(separador.Length, joinCuv.Length - separador.Length * 2);
+
+                var listaAppCatalogo = new List<Producto>();
+                using (ProductoServiceClient svc = new ProductoServiceClient())
+                {
+                    listaAppCatalogo = svc.ObtenerProductosByCodigoSap(userData.CodigoISO, fichaProductoModelo.CampaniaID, joinCuv).ToList();
+                }
+
+                if (!listaAppCatalogo.Any()) return fichaProductoModelo;
+
+                var listaHermanos = Mapper.Map<List<Producto>, List<ProductoModel>>(listaAppCatalogo);
+
+                if (fichaProductoModelo.CodigoVariante == Constantes.TipoFichaProducto.IndividualConTonos)
+                {
+                    listaHermanos.ForEach(h =>
+                    {
+                        h.CUV = Util.Trim(h.CUV);
+                    });
+                    listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                }
+                if (fichaProductoModelo.CodigoVariante == Constantes.TipoFichaProducto.PackConTonos)
+                {
+                    var listaHermanosX = new List<ProductoModel>();
+                    listaHermanos = listaHermanos.OrderBy(p => p.CodigoProducto).ToList();
+
+                    var idPk = 1;
+                    listaHermanos.ForEach(h => h.ID = idPk++);
+
+                    idPk = 0;
+                    foreach (var item in listaHermanos)
+                    {
+                        var prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.CodigoProducto == p.CodigoProducto) ?? new ProductoModel()).Clone();
+                        if (Util.Trim(prod.CodigoProducto) == "")
+                            continue;
+
+                        var listaIgual = listaHermanos.Where(p => item.CodigoProducto == p.CodigoProducto);
+                        if (listaIgual.Count() > 1)
+                        {
+                            prod = (ProductoModel)(listaHermanos.FirstOrDefault(p => item.CodigoProducto == p.CodigoProducto && p.ID > idPk) ?? new ProductoModel()).Clone();
+                        }
+
+                        prod.Orden = item.Orden;
+                        prod.Grupo = item.Grupo;
+                        prod.PrecioCatalogo = item.PrecioCatalogo;
+                        prod.PrecioCatalogoString = Util.DecimalToStringFormat(item.PrecioCatalogo, userData.CodigoISO);
+                        prod.Digitable = item.Digitable;
+                        prod.CUV = Util.Trim(item.CUV);
+                        prod.Cantidad = item.Cantidad;
+                        listaHermanosX.Add(prod);
+                        idPk = prod.ID;
+                    }
+
+                    listaHermanos = listaHermanosX;
+
+                    if (fichaProductoModelo.CodigoVariante == Constantes.TipoFichaProducto.PackConTonos)
+                    {
+                        var listaHermanosR = new List<ProductoModel>();
+                        var hermano = new ProductoModel();
+                        foreach (var item in listaHermanos)
+                        {
+                            hermano = (ProductoModel)item.Clone();
+                            hermano.Hermanos = new List<ProductoModel>();
+                            if (hermano.Digitable == 1)
+                            {
+                                var existe = false;
+                                foreach (var itemR in listaHermanosR)
+                                {
+                                    existe = itemR.Hermanos.Any(h => h.CUV == hermano.CUV);
+                                    if (existe) break;
+                                }
+                                if (existe) continue;
+
+                                hermano.Hermanos = listaHermanos.Where(p => p.Grupo == hermano.Grupo).OrderBy(p => p.Orden).ToList();
+                            }
+                            listaHermanosR.Add(hermano);
+                        }
+                        listaHermanos = listaHermanosR.OrderBy(p => p.Orden).ToList();
+                    }
+                }
+                fichaProductoModelo.Hermanos = listaHermanos ?? new List<ProductoModel>();
+            }
+            catch (Exception ex)
+            {
+                fichaProductoModelo = new FichaProductoDetalleModel();
+                fichaProductoModelo.Hermanos = new List<ProductoModel>();
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return fichaProductoModelo;
         }
 
         #endregion

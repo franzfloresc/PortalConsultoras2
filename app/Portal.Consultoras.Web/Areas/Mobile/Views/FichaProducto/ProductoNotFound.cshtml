@@ -1,0 +1,35 @@
+﻿@{
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+}
+
+@section styles
+{
+    <style>
+        footer {
+            display: none;
+        }
+    </style>
+    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
+}
+
+<div class="titulo_mobile">
+    <a href="@Url.Action("Index", "Bienvenida", new { area = "Mobile" })" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;HOME</span>
+</div>
+
+<div class="" style="border-bottom:0">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+</div>
+
+    <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
+        <div class="content_oferta_guia_negocio">
+            <div class="content_imagen_ficha">
+                ¡UPSS!<br />
+                El producto que estás buscando no se encuentra en esta campaña!
+            </div>
+           
+        </div>
+
+    </div>

@@ -223,6 +223,8 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                    .ForMember(t => t.TextoPago, f => f.MapFrom(c => c.TextoPago))
                    .ForMember(t => t.Posicion, f => f.MapFrom(c => c.Posicion))
                    .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
+
+            Mapper.CreateMap<BEFichaProducto, FichaProductoModel>();
         }
     }
 }
