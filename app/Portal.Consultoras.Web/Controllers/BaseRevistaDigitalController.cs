@@ -50,11 +50,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var id = tipo == 1 ? userData.CampaniaID : AddCampaniaAndNumero(userData.CampaniaID, 1);
 
-            var codePalanca = userData.RevistaDigital.TieneRDC 
-                ? Constantes.ConfiguracionPais.RevistaDigital 
-                : userData.RevistaDigital.TieneRDR
-                    ? Constantes.ConfiguracionPais.RevistaDigitalReducida
-                    : Constantes.ConfiguracionPais.Inicio;
+            //var codePalanca = userData.RevistaDigital.TieneRDC 
+            //    ? Constantes.ConfiguracionPais.RevistaDigital 
+            //    : userData.RevistaDigital.TieneRDR
+            //        ? Constantes.ConfiguracionPais.RevistaDigitalReducida
+            //        : Constantes.ConfiguracionPais.Inicio;
 
             //MenuContenedorGuardar(codePalanca, id);
 

@@ -898,18 +898,29 @@ namespace Portal.Consultoras.Web.Controllers
             var listaMenu =  new List<ConfiguracionPaisModel>();
            foreach (var configuracionPais in lista)
             {
-
-                if (configuracionPais.Codigo == Constantes.ConfiguracionPais.Inicio ||
-                    configuracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento ||
-                    configuracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
+                ConfiguracionPaisModel config;
+                switch (configuracionPais.Codigo)
                 {
-                    var config = (ConfiguracionPaisModel) configuracionPais.Clone();
-                    config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                    listaMenu.Add(config);
+                    case Constantes.ConfiguracionPais.Inicio:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/Ofertas/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.Lanzamiento:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "#";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
+                    case Constantes.ConfiguracionPais.RevistaDigital:
+                        config = (ConfiguracionPaisModel)configuracionPais.Clone();
+                        config.UrlMenu = "/RevistaDigital/Revisar";
+                        config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                        listaMenu.Add(config);
+                        break;
                 }
-                    
             }
-           // listaMenu.ForEach(m => m.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1));
             return listaMenu;
         }
 
@@ -2675,10 +2686,10 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menuActivo = MenuContenedorObtenerActivo();
             var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
-            if (menuActivo.CampaniaID <= 0)
+            if (menuActivo.CampaniaId <= 0)
             {
-                menuActivo.CampaniaID = userData.CampaniaID;
-                MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaID);
+                menuActivo.CampaniaId = userData.CampaniaID;
+                //MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaId);
             }
 
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
@@ -2694,7 +2705,7 @@ namespace Portal.Consultoras.Web.Controllers
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
                 }
 
-                if (menuActivo.CampaniaID > userData.CampaniaID)
+                if (menuActivo.CampaniaId > userData.CampaniaID)
                 {
                     listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
@@ -2735,7 +2746,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
-                    CampaniaID = menuActivo.CampaniaID,
+                    CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
