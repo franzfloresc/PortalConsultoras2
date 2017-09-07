@@ -973,53 +973,112 @@
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>@Model.TextoSobrenombre</label>
-                        <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
                     </div>
                     <div>
                         <label>
-                            @Model.TextoCorreoElectronico
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
                         </label>
-                        <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>
-                            @Model.TextoTelefono
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
                         </label>
-                        <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
                     </div>
                     <div>
                         <label>
-                            @Model.TextoCelular
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
                         </label>
-                        <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
+
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
                         <label>Otro teléfono:</label>
-                        <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoTrabajoMD" id="txtTelefonoTrabajoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoTrabajoMD')" />
+                        }
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <span id="AcepteTYC" style="color: rgb(202, 3, 0); display: none;">Tiene que aceptar los Términos y Condiciones</span>
                     <div class="checkbox_condiciones">
                         <input type="checkbox" name="condiciones" id="chkAceptoContratoMD" />
                         <label for="chkAceptoContratoMD" class="texto_terminosCondiciones">
-                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                            @if (Model.PaisID == 4)
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y recepción de la factura a través de medios electrónicos, y que me encuentro de acuerdo con los mismos.</span>
+                            }
+                            else
+                            {
+                                <span class="asterisco_actualizar_datos">(*)&nbsp;</span><span>Declaro que he leído los <span><a href="javascript:;" id="hrefTerminosMD">términos y condiciones</a></span> sobre Protección de  Datos Personales y que me encuentro de acuerdo con los mismos.</span>
+                            }
                         </label>
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
-                    <div class="datos_obligatorios">
-                        <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
-                    </div>
-                    <div class="contenedor_boton_actualizar">
-                        <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarAO">
-                            ACTUALIZAR
-                        </button>
-                    </div>
+                    @if (Model.PaisID == 4)
+                    {
+                        <div class="datos_obligatorios">
+                            Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
+                        </div>
+                        <div class="contenedor_boton_actualizar">
+                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                                ACEPTAR
+                            </button>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="datos_obligatorios">
+                            <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
+                        </div>
+                        <div class="contenedor_boton_actualizar">
+                            <button type="button" name="btn_actualizarMisDatos" class="btn_actualizarMisDatos" id="btnActualizarMD">
+                                ACTUALIZAR
+                            </button>
+                        </div>
+                    }
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
@@ -2681,17 +2740,15 @@
         var sobreNombre = '@Model.SobreNombre';
         var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
-        var asesoraOnlinePopup = '@ViewBag.AsesoraOnlinePopup';
+        var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
         var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
 
         var asesoraOnlineObj = AsesoraOnline({
             asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
             cerrarPopupInicialUrl: '@Url.Action("CerrarPopupInicial", "Bienvenida")',
-            actualizarUsuarioUrl: '@Url.Action("ActualizarUsuario", "Bienvenida")',
             codigoConsultora: viewBagCodigoConsultora || '',
             isoPais: paisISO || '',
-            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")',
-            tipoPopup: ((typeof asesoraOnlinePopup === 'undefined') || asesoraOnlinePopup == '' ) ? 0 : asesoraOnlinePopup
+            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")'
         });
 
         asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
