@@ -305,47 +305,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", new { showPopupMisDatos = true });
         }
 
-        [HttpPost]
-        public JsonResult ActualizarUsuario(UsuarioModel usuario)
-        {
-            try
-            {
-                ServiceUsuario.BEUsuario entidad = new ServiceUsuario.BEUsuario();
-                entidad.CodigoUsuario = usuario.CodigoUsuario;
-                entidad.Nombre = usuario.NombreConsultora;
-                entidad.NombreGerenteZona = usuario.NombreGerenteZonal;
-                entidad.Sobrenombre = usuario.Sobrenombre;
-                entidad.EMail = usuario.EMail;
-                entidad.Telefono = usuario.Telefono;
-                entidad.Celular = usuario.Celular;
-                entidad.TelefonoTrabajo = usuario.TelefonoTrabajo;
-                entidad.PaisID = usuario.PaisID;
-                entidad.Activo = true;
-
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    sv.Update(entidad);
-                }
-                return Json(new { success = true, message = "Se actualizó con éxito.", extra = "" });
-
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
-                return Json(new { success = false, message = ex.Message, extra = "" });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, usuario.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
-        }
-
         public void CerrarPopupInicial()
         {
             try
