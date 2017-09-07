@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Portal.Consultoras.Web.Models
+namespace Portal.Consultoras.Web.Models 
 {
     [Serializable]
-    public class ConfiguracionPaisModel
+    public class ConfiguracionPaisModel : ICloneable
     {
         public int ConfiguracionPaisID { get; set; }
         public int DesdeCampania { get; set; }
@@ -30,5 +30,14 @@ namespace Portal.Consultoras.Web.Models
         public string MobileLogoBanner { get; set; }
 
         public string UrlMenu { get; set; }
+        public string UrlMenuMobile { get; set; }
+
+        public bool EsAncla { get; set; }
+        public int CampaniaId { get; set; }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 }
