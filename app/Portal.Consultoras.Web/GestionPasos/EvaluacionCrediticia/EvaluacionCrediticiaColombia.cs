@@ -7,6 +7,9 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
     {
         public EvaluacionCrediticiaBE Evaluar(string codigoIso, SolicitudPostulante entidad)
         {
+            string tipoDocumento = entidad.TipoDocumento != null ? entidad.TipoDocumento : string.Empty;
+            string codigoRegion = string.Empty;
+
             var evaluacionCrediticaBe = default(EvaluacionCrediticiaBE);
 
             using (var sv = new EvaluacionCrediticiaServiceClient())
@@ -14,12 +17,12 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
 
                 if (entidad.CodigoZona != null)
                 {
-                    var codigoRegion = entidad.CodigoZona.Substring(0, 2);
-
-                    evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCO(codigoIso, "1",
-        entidad.NumeroDocumento, entidad.ApellidoPaterno, codigoRegion,
-        entidad.CodigoZona, "UNETE");
+                      codigoRegion = entidad.CodigoZona.Substring(0, 2);
                 }
+
+                evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCO(codigoIso, tipoDocumento, entidad.NumeroDocumento, entidad.ApellidoPaterno, codigoRegion,
+                                        entidad.CodigoZona, "UNETE");
+
             }
 
             return evaluacionCrediticaBe;
