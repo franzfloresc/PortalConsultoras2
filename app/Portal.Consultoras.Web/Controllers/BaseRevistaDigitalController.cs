@@ -105,7 +105,7 @@ namespace Portal.Consultoras.Web.Controllers
                 var campaniaX2 = userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID > 0 && userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo
                     ? userData.RevistaDigital.SuscripcionAnterior1Model.CampaniaID : userData.CampaniaID;
                 ViewBag.CampaniaMasDos = AddCampaniaAndNumero(campaniaX2, 2) % 100;
-
+                ViewBag.Campania = campaniaId;
                 return View(modelo);
             }
             return RedirectToAction("Index", "RevistaDigital", new { area = ViewBag.EsMobile == 2 ? "Mobile" : "" });

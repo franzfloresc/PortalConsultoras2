@@ -362,6 +362,17 @@ namespace Portal.Consultoras.Common
             
             return sBuilder.ToString();
         }
+
+        public static void EnviarMailBienvenidaAsesoraOnline(string emailFrom, string emailTo, string titulo, string displayname, string nombreConsultora)
+        {
+            string templatePath = AppDomain.CurrentDomain.BaseDirectory + "bin\\Templates\\mailing_bienvenida_coach_virtual.html";
+            string htmlTemplate = FileManager.GetContenido(templatePath);
+
+            htmlTemplate = htmlTemplate.Replace("#NombreConsultora#", nombreConsultora);
+
+            try { Util.EnviarMail(emailFrom, emailTo, string.Empty, titulo, htmlTemplate, true, displayname); }
+            catch { }
+        }
     }
 
     public class ToWithType
