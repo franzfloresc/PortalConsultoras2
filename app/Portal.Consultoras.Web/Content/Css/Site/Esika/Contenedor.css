@@ -233,14 +233,18 @@
 }
 
 .boton-ir a {
-    background: black;
+    background: #b11314;
     color: white;
     display: block;
     width: 180px;
     text-align: center;
     margin: auto;
     padding: 10px 0px;
-    display:none;
+    /* display: none; */
+    font-size: 10px;
+    float: right;
+    margin-top: -5px;
+    letter-spacing: 1px;
 }
 .btn-set-previous {
     width: 80px !important;
