@@ -1,15 +1,20 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
-
+<style>
+    .slick-slider {
+        margin-top: 15px !important;
+    }
+</style>
 <div class="bc_plantilla_estrategia_personalizada" style="background: url(@Model.ImagenFondo);
     padding: 0 18%;
     margin: auto;     background-size: 100% 100% !important;
     background-position: center !important;">
     <div class="titulo">
-        <h2>@Model.Titulo</h2> @Model.SubTitulo
+        <h2>@Model.Titulo</h2> <div class="boton-ir">
+    <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
+</div>
     </div>
+     <div class="clear"></div>
     <div class="contenido" data-seccion-productos="" ></div>
-    <div class="boton-ir">
-        <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
-    </div>
+    
 </div>
