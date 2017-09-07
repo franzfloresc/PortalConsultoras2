@@ -1204,6 +1204,7 @@
     <Content Include="Content\Images\dislike.png" />
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
+    <Content Include="Content\Images\group_blanco.svg" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\gif-regalo-blanco.png" />
