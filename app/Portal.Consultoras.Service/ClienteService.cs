@@ -112,6 +112,11 @@ namespace Portal.Consultoras.Service
             return BLCatalogo.GetListCatalogoRevistaPublicadoWithTitulo(paisISO, codigoZona, campania);
         }
 
+        public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias)
+        {
+            return BLCatalogo.GetCatalogoRevista(paisISO, codigoZona, campanias);
+        }
+
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
         {
             return BLPedidoWebAnteriores.GetPedidosWebAnterioresByConsultora(paisID, consultoraID);
