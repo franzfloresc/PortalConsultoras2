@@ -268,7 +268,7 @@ function OfertaArmarEstrategias(response) {
     divProd = divProd.length > 0 ? divProd : $("#divOfertaProductos").parent();
     if (response.Mobile) {
         $.each(modeloTemp.lista, function (ind, tem) {
-            tem.PuedeAgregar = 0;
+            tem.TipoAccionAgregar = 0;
         });
     }
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);

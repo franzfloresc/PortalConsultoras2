@@ -91,8 +91,6 @@ function MenuContenedor() {
         MenuContenedorGuardar(menuCheck);
     }
 
-    console.log(menuCheck);
-
     $(elementos.menu1Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "'] a").addClass(elementos.claseActivo);
     var subMenus = $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
     if (subMenus.length == 0) {
