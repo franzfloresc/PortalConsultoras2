@@ -1291,6 +1291,9 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
                                               string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
+            OrigenPedidoWeb = Util.Trim(OrigenPedidoWeb) ?? "0";
+            OrigenPedidoWeb = OrigenPedidoWeb == "" ? "0" : OrigenPedidoWeb;
+
             var pedidoModel = new PedidoSb2Model()
             {
                 ClienteID = string.Empty,

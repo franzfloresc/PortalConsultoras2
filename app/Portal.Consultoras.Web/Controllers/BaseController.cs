@@ -2748,6 +2748,12 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
             var menuActivo = MenuContenedorObtenerActivo();
+            if (menuActivo.CampaniaID <= 0)
+            {
+                menuActivo.CampaniaID = userData.CampaniaID;
+                MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaID);
+            }
+
             var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaID;
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
 
@@ -2761,6 +2767,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaID).ToList();
                 }
+
+                if (menuActivo.CampaniaID > userData.CampaniaID)
+                {
+                    listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Inicio).ToList();
+                }
+
                 Session[sessionNombre] = listaEntidad;
             }
 
@@ -2795,7 +2809,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
-                    CampaniaID = userData.CampaniaID,
+                    CampaniaID = menuActivo.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
@@ -2879,8 +2893,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 modelo.Add(seccion);
             }
-            
-            return modelo;
+
+            return modelo.OrderBy(s => s.Orden).ToList();
 
         }
 
@@ -2912,9 +2926,9 @@ namespace Portal.Consultoras.Web.Controllers
             var menu = (MenuContenedorModel)Session[Constantes.SessionNames.MenuContenedorActivo] ?? new MenuContenedorModel();
 
             menu.Codigo = Util.Trim(menu.Codigo);
-            if (menu.CampaniaID <= 0 || menu.Codigo == "")
+            if (menu.CampaniaID < 0 || menu.Codigo == "")
             {
-                menu.CampaniaID = menu.CampaniaID > 0 ? menu.CampaniaID : userData.CampaniaID;
+                menu.CampaniaID = menu.CampaniaID >= 0 ? menu.CampaniaID : userData.CampaniaID;
                 menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
                 MenuContenedorGuardar(menu.Codigo, menu.CampaniaID);
             }
