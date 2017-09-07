@@ -5,16 +5,13 @@
 @{
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
+    var idBorrar = "borrar" + Model.CampaniaID;
 }
 
 @section styles{
     <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-}
-
-@{
-    var idBorrar = "borrar" + Model.CampaniaID;
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID">
