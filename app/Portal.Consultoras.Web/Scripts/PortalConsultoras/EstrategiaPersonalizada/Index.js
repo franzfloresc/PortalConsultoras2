@@ -5,7 +5,7 @@ var sElementos = {
     listadoProductos: "[data-seccion-productos]"
 };
 
-var sProps = {
+var cUrl = {
     UrlObtenerSeccion: baseUrl + 'Ofertas/ObtenerSeccion'
 };
 
@@ -72,7 +72,7 @@ function SeccionObtenerSeccion(seccion) {
 
     $.ajax({
         type: 'POST',
-        url: sProps.UrlObtenerSeccion,
+        url: cUrl.UrlObtenerSeccion,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(param),
@@ -155,7 +155,12 @@ function SeccionMostrarProductos(data) {
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
-        RenderCarruselPrevisuales(htmlSeccion);
+        if (isMobile()) {
+            RenderCarruselSimple(htmlSeccion);
+        }
+        else {
+            RenderCarruselPrevisuales(htmlSeccion);
+        }
     }
     else if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselSimple) {
         RenderCarruselSimple(htmlSeccion);
@@ -223,12 +228,12 @@ function RenderCarruselSimple(divProd) {
     divProd.find(sElementos.listadoProductos).not('.slick-initialized').slick({
         infinite: true,
         vertical: false,
-        slidesToShow: 3,
+        slidesToShow: isMobile() ? 1 : 3,
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="previous_ofertas js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="previous_ofertas js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
