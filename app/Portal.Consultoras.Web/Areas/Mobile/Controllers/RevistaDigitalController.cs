@@ -16,8 +16,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
-                return IndexModel();
+                return RedirectToAction("Index", "Ofertas", new { area = "Mobile" });
+                //return IndexModel();
             }
             catch (Exception ex)
             {
@@ -42,6 +42,49 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "RevistaDigital", new { area = "Mobile" });
         }
+
+        public ActionResult Informacion()
+        {
+            try
+            {
+                return IndexModel();
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Comprar()
+        {
+            try
+            {
+                return ViewLanding(1);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
+        public ActionResult Revisar()
+        {
+            try
+            {
+                return ViewLanding(2);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
 
         public ActionResult _Landing(int id)
         {

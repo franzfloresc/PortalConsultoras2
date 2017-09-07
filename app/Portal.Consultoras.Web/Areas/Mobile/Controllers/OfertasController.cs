@@ -23,6 +23,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
+
+
+
+
         
     }
 }

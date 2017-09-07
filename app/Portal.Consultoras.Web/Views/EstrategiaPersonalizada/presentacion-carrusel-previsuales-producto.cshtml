@@ -5,6 +5,8 @@
             <div data-item-tag="body" class="lan_content_body">
                 <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
                 <div class="detalle_set_banner" data-item-tag="contenido">
+                    {{#if ../Mobile}}
+                    {{else}}
                     {{#iff lan.TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
                     <div>
                         <div class="etiqueta_nuevo_ept">
@@ -12,6 +14,7 @@
                         </div>
                     </div>
                     {{/iff}}
+                    {{/if}}
                     
                     {{#if ../Mobile}} 
                     <div class="content_set_imagen_banner" data-item-tag="foto"
@@ -95,11 +98,14 @@
                     {{/if}}
                 </div>
             </div>
+            {{#if ../Mobile}}
+            {{else}}
             {{#iff lan.TipoEstrategiaDetalle.ImgFondoDesktop '!=' ''}}
                 <div class="imagen_fondo" data-item-tag="fotofondo">
                     <img src="{{lan.TipoEstrategiaDetalle.ImgFondoDesktop}}" alt="" />
                 </div>
             {{/iff}}
+            {{/if}}
         </div>
     {{/each}}
 </script>
