@@ -151,7 +151,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
             #region EventoFestivo
-            if (userData.EfRutaPedido == "")
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
             {
                 ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
             }
