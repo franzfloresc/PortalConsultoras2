@@ -332,9 +332,6 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
             if (newLista.length > 0) {
                 $.each(newLista, function (ind, tem) {
                     tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
-                    tem.TipoEstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgPrevDesktop;
-                    tem.TipoEstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.TipoEstrategiaDetalle.ImgFichaMobile : tem.TipoEstrategiaDetalle.ImgFichaDesktop;
-                    tem.TipoEstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgFondoDesktop;
                     tem.Posicion = ind + 1;
                 });
             }
