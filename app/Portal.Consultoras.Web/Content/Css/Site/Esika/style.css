@@ -32824,10 +32824,10 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    background: #d9b33f;
+    background: white;
     border-radius: 100px;
     line-height: 14px;
-    color: black;
+    color: #c00026;
     font-weight: 700;
     font-size: 16px;
     font-family: 'Lato';
@@ -32845,9 +32845,9 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
-    color: #d9b33f;
+    color: white;
     letter-spacing: 0.75px;
-    border-bottom: 1px solid #d9b33f;
+    border-bottom: 1px solid white;
 }
 
 .btn_cerrar_ofertaDia {

@@ -34070,10 +34070,10 @@ h1#penmostreo .campana {
 .circulo_hoy {
     width: 16px;
     height: 16px;
-    background: #d9b33f;
+    background:white;
     border-radius: 100px;
     line-height: 14px;
-    color: black;
+    color:#043553;
     font-weight: 700;
     font-size: 16px;
     font-family: 'Lato';
@@ -34091,9 +34091,9 @@ h1#penmostreo .campana {
     font-size: 13px;
     font-family: 'Lato';
     font-weight: 700;
-    color: #d9b33f;
+    color: white;
     letter-spacing: 0.75px;
-    border-bottom: 1px solid #d9b33f;
+    border-bottom: 1px solid white;
 }
 
 .btn_cerrar_ofertaDia {
@@ -37328,3 +37328,13 @@ h1#penmostreo .campana {
     padding-top: 6px;
 }
 
+.flip-clock-wrapper ul li a div div.inn {
+    
+    text-shadow: 0 1px 2px #043553;
+    text-align: center;
+    background-color: #043553;
+    
+}
+.flip-clock-wrapper .flip{
+    box-shadow:0 2px 5px rgba(4, 53, 83, 0.7)
+}

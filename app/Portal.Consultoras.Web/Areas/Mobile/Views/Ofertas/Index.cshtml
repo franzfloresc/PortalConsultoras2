@@ -9,6 +9,18 @@
 <link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
+    <style>
+        
+    </style>
+}
+@foreach (var seccion in Model.ListaSeccion)
+{
+    <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+        <div data-seccion-content="">
+            @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
+        </div>
+        <div data-seccion-load=""></div>
+    </div>
 }
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
@@ -16,12 +28,18 @@
 
 @section scripts{
 <script type="text/javascript">
-        var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
+    var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
+    var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
+
 <script>
     $('.bc_para_ti-menu ul li a').hover(function (e) {
             $(this).find('img.default').css('display', 'none');

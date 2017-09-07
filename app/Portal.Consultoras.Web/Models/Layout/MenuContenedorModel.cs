@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.Models.Layout
 
         public bool IsMenuCampania { get; set; }
         public bool Activa { get; set; }
+        public bool EsAncla { get; set; }
 
         // Solo para Menu Campaña
         public int CampaniaX0 { get; set; }
