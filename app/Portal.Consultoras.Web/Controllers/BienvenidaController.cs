@@ -20,12 +20,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(bool showPopupMisDatos = false)
         {
             if (Request.Browser.IsMobileDevice)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            var model = new BienvenidaHomeModel();
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             try
             {
@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Lógica de Popups
                 
-                if (ViewBag.AsesoraOnlinePopup == 1) model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+                if (model.ShowPopupMisDatos) model.TipoPopUpMostrar = Constantes.TipoPopUp.Ninguno;
                 else
                 {
                     PopupForzado popupForzado = new PopupForzado { Mostrar = false, TipoPopup = 0 };
@@ -302,50 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile" });
-
-            ViewBag.AsesoraOnlinePopup = 1;
-            return Index();
-        }
-
-        [HttpPost]
-        public JsonResult ActualizarUsuario(UsuarioModel usuario)
-        {
-            try
-            {
-                ServiceUsuario.BEUsuario entidad = new ServiceUsuario.BEUsuario();
-                entidad.CodigoUsuario = usuario.CodigoUsuario;
-                entidad.Nombre = usuario.NombreConsultora;
-                entidad.NombreGerenteZona = usuario.NombreGerenteZonal;
-                entidad.Sobrenombre = usuario.Sobrenombre;
-                entidad.EMail = usuario.EMail;
-                entidad.Telefono = usuario.Telefono;
-                entidad.Celular = usuario.Celular;
-                entidad.TelefonoTrabajo = usuario.TelefonoTrabajo;
-                entidad.PaisID = usuario.PaisID;
-                entidad.Activo = true;
-
-                using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                {
-                    sv.Update(entidad);
-                }
-                return Json(new { success = true, message = "Se actualizó con éxito.", extra = "" });
-
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, usuario.CodigoConsultora, usuario.CodigoISO);
-                return Json(new { success = false, message = ex.Message, extra = "" });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, usuario.CodigoConsultora, usuario.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Ocurrió un problema al intentar acceder al servicio, intente nuevamente.",
-                    extra = ""
-                }, JsonRequestBehavior.AllowGet);
-            }
+            return RedirectToAction("Index", new { showPopupMisDatos = true });
         }
 
         public void CerrarPopupInicial()
