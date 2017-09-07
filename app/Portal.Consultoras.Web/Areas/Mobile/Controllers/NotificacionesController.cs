@@ -323,6 +323,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("ListadoPedidoRechazadoDetalle", model);
         }
 
+        public ActionResult DetalleNotificacionesCDR()
+        {
+            return View();
+        }
+
         #endregion
 
         #region Metodos
