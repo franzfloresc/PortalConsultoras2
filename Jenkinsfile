@@ -17,7 +17,7 @@ node {
                 withSonarQubeEnv('Sonar Qube Server') {
                     dir('app') {
                         bat ".\\.nuget\\Nuget.exe restore"
-                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - ${branchName}\" /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.inclusions=**/*.cs"
+                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - ${branchName}\" /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
                         bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
                         bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
                     }
