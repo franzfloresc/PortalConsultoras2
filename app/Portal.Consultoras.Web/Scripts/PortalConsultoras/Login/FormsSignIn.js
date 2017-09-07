@@ -298,8 +298,13 @@ $(document).ready(function () {
             return false;
         }
     });
+
+    $("#divRecup_porcorreo").click(function () {
+        ProcesaEnvioEmail();
+    });
 });
 
+////////////
 function Construir_EnlacexDispositivo(Modo){
     var v_urlbase = $("#hd_CONTEXTO_BASE").val();
     var paisId = $("#cboPaisCambioClave").val();
@@ -909,11 +914,24 @@ function RecuperarClave() {
                 return false;
             }
 
-            s_correo = ($.trim(response.correo).length > 0) ? Enmascarar_Correo($.trim(response.correo)) : "";
+            s_correo = ($.trim(response.correo).length > 0) ? Enmascarar_Correo($.trim(response.correo)) : "Usted no cuenta con un correo registrado";
 
             $("#hdcorreo").val($.trim(response.correo));
             $("#mensaje_pop_up2 p").html(s_correo);
             $("#spcorreo").html(s_correo);
+            $("#spsincorreo").html(s_correo);
+
+            if ($.trim(response.correo).length > 0) {
+                $("#spcorreo").show();
+                $("#spsincorreo").hide();
+                $("#spsincorreo").html("");
+            } else {
+                $("#spcorreo").hide();                
+                $("#spsincorreo").show();
+                $("#spcorreo").html("");
+                $("#divRecup_porcorreo").addClass("deshabilitar_opcion_correo");
+                $("#divRecup_porcorreo").unbind("click");
+            }
 
             $("#hdCodigoConsultora").val(response.codigo);
             $("#hd_CONTEXTO_BASE").val(response.CONTEXTO_BASE);            
