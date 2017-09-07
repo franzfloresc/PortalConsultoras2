@@ -1,6 +1,18 @@
-﻿
+﻿@using Portal.Consultoras.Common
+
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 
-<div class="bc_slider previsualizales-ofertas">
+@*<div class="bc_slider previsualizales-ofertas">
     <div class="content_slider_ept" data-OrigenPedidoWeb="" data-seccion-productos=""></div>
+</div>*@
+
+<div style="background:#F6F6F6">
+    <div class="content_carrusel_landing">
+        <div id="divCarruselLan" class="divCarruselLan" 
+             data-content-item="@Model.CampaniaID" 
+             data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel"
+             data-seccion-productos="">
+
+        </div>
+    </div>
 </div>

@@ -3,7 +3,7 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
 }

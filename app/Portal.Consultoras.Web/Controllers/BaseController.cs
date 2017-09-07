@@ -2675,6 +2675,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menuActivo = MenuContenedorObtenerActivo();
             var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
+            if (menuActivo.CampaniaID <= 0)
+            {
+                menuActivo.CampaniaID = userData.CampaniaID;
+                MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaID);
+            }
+
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
 
             if (Session[sessionNombre] != null)
@@ -2687,6 +2693,14 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
                 }
+
+                if (menuActivo.CampaniaID > userData.CampaniaID)
+                {
+                    listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Inicio).ToList();
+                }
+
                 Session[sessionNombre] = listaEntidad;
             }
 
@@ -2721,7 +2735,7 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 
                 var seccion = new ConfiguracionSeccionHomeModel {
-                    CampaniaID = userData.CampaniaID,
+                    CampaniaID = menuActivo.CampaniaID,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
                     Orden = isMobile ? entConf.MobileOrden : entConf.DesktopOrden,
                     ImagenFondo = isMobile ? entConf.MobileImagenFondo : entConf.DesktopImagenFondo,
@@ -2805,8 +2819,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 modelo.Add(seccion);
             }
-            
-            return modelo;
+
+            return modelo.OrderBy(s => s.Orden).ToList();
 
         }
 

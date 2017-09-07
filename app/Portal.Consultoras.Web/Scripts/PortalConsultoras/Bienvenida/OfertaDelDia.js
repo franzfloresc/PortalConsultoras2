@@ -175,7 +175,7 @@ $(document).ready(function () {
                 RenderOfertaDelDia(_data, contenedorOfertas)
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
-                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
+                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
 
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');

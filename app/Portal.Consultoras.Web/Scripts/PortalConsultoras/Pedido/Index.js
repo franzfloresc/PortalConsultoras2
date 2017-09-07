@@ -1717,7 +1717,8 @@ function ObservacionesProducto(item) {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
                 }
                 if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");                    
+                    if (!item.TieneRDC)
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
 
                 if (item.MensajeCUV != null) {

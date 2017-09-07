@@ -238,27 +238,6 @@ function OfertaArmarEstrategias(response) {
     OfertaObtenerIndLocal(response.CampaniaID);
     if (filtroCampania[indCampania] != undefined) {
 
-        //if (response.Completo == 0) {
-        //    var divProdLan = $("[data-tag-html=" + response.CampaniaID + "]");
-        //    response.listaLan = response.listaLan || new Array();
-        //    if (response.listaLan.length > 0) {
-        //        $.each(response.listaLan, function (ind, tem) {
-        //            tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
-        //            tem.TipoEstrategiaDetalle.ImgPrev = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgPrevDesktop;
-        //            tem.TipoEstrategiaDetalle.ImgEtiqueta = response.Mobile ? tem.TipoEstrategiaDetalle.ImgFichaMobile : tem.TipoEstrategiaDetalle.ImgFichaDesktop;
-        //            tem.TipoEstrategiaDetalle.ImgFondo = response.Mobile ? "" : tem.TipoEstrategiaDetalle.ImgFondoDesktop;
-        //            tem.Posicion = ind + 1;
-        //        });
-        //        var htmlLan = SetHandlebars("#lanzamiento-carrusel-template", response);
-        //        divProdLan.find("#divCarruselLan").html(htmlLan);
-        //        RenderCarrusel(divProdLan);
-        //        divProdLan.find('#divCarruselLan').slick('slickGoTo', 0);
-        //    }
-        //    else {
-        //        divProdLan.find("#divCarruselLan").remove();
-        //    }
-        //}
-
         var cantListados = filtroCampania[indCampania].CantMostrados;
         filtroCampania[indCampania].CantTotal = response.cantidad;
 
@@ -289,7 +268,7 @@ function OfertaArmarEstrategias(response) {
     divProd = divProd.length > 0 ? divProd : $("#divOfertaProductos").parent();
     if (response.Mobile) {
         $.each(modeloTemp.lista, function (ind, tem) {
-            tem.PuedeAgregar = 0;
+            tem.TipoAccionAgregar = 0;
         });
     }
     var htmlDiv = SetHandlebars("#producto-landing-template", modeloTemp);
@@ -349,6 +328,14 @@ function OfertaArmarEstrategiasContenedorSeccion(response) {
         });
 
         if (response.Seccion.Codigo == "LAN") {
+            response.Mobile = isMobile();
+            if (newLista.length > 0) {
+                $.each(newLista, function (ind, tem) {
+                    tem.TipoEstrategiaDetalle = tem.TipoEstrategiaDetalle || {};
+                    tem.Posicion = ind + 1;
+                });
+            }
+
             response.listaLan = newLista;
             response.lista = [];
         }

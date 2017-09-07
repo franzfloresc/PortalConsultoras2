@@ -1291,6 +1291,9 @@ namespace Portal.Consultoras.Web.Controllers
         public JsonResult AgregarProductoZE(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
                                               string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "", int tipoEstrategiaImagen = 0)
         {
+            OrigenPedidoWeb = Util.Trim(OrigenPedidoWeb) ?? "0";
+            OrigenPedidoWeb = OrigenPedidoWeb == "" ? "0" : OrigenPedidoWeb;
+
             var pedidoModel = new PedidoSb2Model()
             {
                 ClienteID = string.Empty,
@@ -1496,6 +1499,10 @@ namespace Portal.Consultoras.Web.Controllers
                         + beConsultoraCUV.CuvCredito
                     : "";
 
+                /* Iscrita en EPM Revista 100% */
+                var tieneRDC = userData.RevistaDigital.TieneRDC &&
+                    userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo;
+
                 olstProductoModel.Add(new ProductoModel()
                 {
                     CUV = olstProducto[0].CUV.Trim(),
@@ -1520,7 +1527,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoEstrategiaID = olstProducto[0].TipoEstrategiaID,
                     TieneSugerido = olstProducto[0].TieneSugerido,
                     CodigoProducto = olstProducto[0].CodigoProducto,
-                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99
+                    LimiteVenta = estrategia != null ? estrategia.LimiteVenta : 99,
+                    TieneRDC = tieneRDC
                 });
 
             }

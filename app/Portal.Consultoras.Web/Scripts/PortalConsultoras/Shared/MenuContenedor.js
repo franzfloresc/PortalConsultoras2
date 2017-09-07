@@ -92,7 +92,6 @@ function MenuContenedor() {
     //}
 
     //console.log(menuCheck);
-
     //$(elementos.menu1Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "'] a").addClass(elementos.claseActivo);
     //var subMenus = $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "']");
     //if (subMenus.length == 0) {
