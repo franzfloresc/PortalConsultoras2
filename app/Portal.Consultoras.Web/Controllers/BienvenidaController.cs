@@ -20,12 +20,12 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(bool showPopupMisDatos = false)
         {
             if (Request.Browser.IsMobileDevice)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile" });
 
-            var model = new BienvenidaHomeModel();
+            var model = new BienvenidaHomeModel { ShowPopupMisDatos = showPopupMisDatos };
 
             try
             {
@@ -222,7 +222,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 #region Lógica de Popups
                 
-                if (ViewBag.AsesoraOnlinePopup == 1) model.TipoPopUpMostrar = Constantes.TipoPopUp.AsesoraOnline;
+                if (model.ShowPopupMisDatos) model.TipoPopUpMostrar = Constantes.TipoPopUp.Ninguno;
                 else
                 {
                     PopupForzado popupForzado = new PopupForzado { Mostrar = false, TipoPopup = 0 };
@@ -302,9 +302,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             if (Request.Browser.IsMobileDevice) return RedirectToAction("Index", "MisDatos", new { area = "Mobile" });
-
-            ViewBag.AsesoraOnlinePopup = 1;
-            return Index();
+            return RedirectToAction("Index", new { showPopupMisDatos = true });
         }
 
         [HttpPost]

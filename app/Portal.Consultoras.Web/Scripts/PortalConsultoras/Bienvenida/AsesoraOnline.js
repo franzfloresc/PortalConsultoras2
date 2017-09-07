@@ -144,7 +144,7 @@
 
     return {
         asignarEventos: _asignarEventos,
-        mostrar: _mostrar,
+        mostrar: _mostrarSuscripcion,
         hidePopup: _hidePopup,
         tipoPopup: _config.tipoPopup
     }

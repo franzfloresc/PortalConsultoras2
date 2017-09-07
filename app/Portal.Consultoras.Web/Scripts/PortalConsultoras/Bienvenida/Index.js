@@ -209,70 +209,7 @@ $(document).ready(function () {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
     
-    switch (TipoPopUpMostrar) {
-        case 0:
-            break;
-
-        case popupVideoIntroductorio:
-            mostrarVideoIntroductorio();
-            break;
-
-        case popupGPR:
-            break;
-
-        case popupDemandaAnticipada:
-            $('#fechaHasta').text(mensajeFechaDA);
-            $('#fechaLuego').text(mensajeFechaDA);
-            PopupMostrar('popupDemandaAnticipada');
-            break;
-
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
-            break;
-
-        case popupShowRoom:
-            CrearPopShow();
-            MostrarShowRoom();
-            break;
-
-        case popupActualizarDatos:
-            if (mostrarPopupActualizarDatosXPais == 9) {
-                PopupMostrar('popupActualizarMisDatosMexico');
-            } else {
-                if (mostrarPopupActualizarDatosXPais == 11) {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
-                } else {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
-                }
-                PopupMostrar('popupActualizarMisDatos');
-            }
-            break;
-
-        case popupFlexipago:
-            PopupMostrar('popupInvitaionFlexipago');
-            break;
-
-        case popupComunicado:
-            ObtenerComunicadosPopup();
-            break;
-
-        case popupRevistaDigitalSuscripcion:
-            PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
-            break;
-
-        case popupCupon:
-            cuponModule.mostrarPopupGana();
-            break;
-            
-        case popupCuponForzado:
-            cuponModule.mostrarPopupGanaste();
-            break;
-
-        case popupAsesoraOnline:
-            if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
-            break;
-    }
+    MostrarPopupInicial();
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
 
@@ -3267,4 +3204,64 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
         'action': action,
         'label': 'Cerrar Popup'
     });
+}
+
+function MostrarPopupInicial() {
+    if (showPopupMisDatos == '1') {
+        CargarMisDatos();
+        return;
+    }
+    
+    switch (TipoPopUpMostrar) {
+        case 0:
+            break;
+        case popupVideoIntroductorio:
+            mostrarVideoIntroductorio();
+            break;
+        case popupGPR:
+            break;
+        case popupDemandaAnticipada:
+            $('#fechaHasta').text(mensajeFechaDA);
+            $('#fechaLuego').text(mensajeFechaDA);
+            PopupMostrar('popupDemandaAnticipada');
+            break;
+        case popupAceptacionContrato:
+            PopupMostrar('popupAceptacionContrato');
+            break;
+        case popupShowRoom:
+            CrearPopShow();
+            MostrarShowRoom();
+            break;
+        case popupActualizarDatos:
+            if (mostrarPopupActualizarDatosXPais == 9) {
+                PopupMostrar('popupActualizarMisDatosMexico');
+            } else {
+                if (mostrarPopupActualizarDatosXPais == 11) {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+                } else {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
+                }
+                PopupMostrar('popupActualizarMisDatos');
+            }
+            break;
+        case popupFlexipago:
+            PopupMostrar('popupInvitaionFlexipago');
+            break;
+        case popupComunicado:
+            ObtenerComunicadosPopup();
+            break;
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
+            MostrarPopupRDAnalytics();
+            break;
+        case popupCupon:
+            cuponModule.mostrarPopupGana();
+            break;
+        case popupCuponForzado:
+            cuponModule.mostrarPopupGanaste();
+            break;
+        case popupAsesoraOnline:
+            if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
+            break;
+    }
 }
