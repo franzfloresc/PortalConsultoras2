@@ -24,11 +24,18 @@
             Hola, <span class="text-uppercase">Peter Rojas Beltrán</span>
         </div>
         <div class="respuesta_solicitud_cdr tipografia_lato_bold text-center">
-            HEMOS RECIBIDO TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES
+            <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE REGISTRO SALE ESTE MENSAJE -->
+            <span>HEMOS RECIBIDO TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES</span>
+            <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE REGISTRO SALE ESTE MENSAJE -->
+            <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
+            @*<span>ESTA ES LA RESPUESTA A TU SOLICITUD DE CAMBIOS Y DEVOLUCIONES</span>*@
+            <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SALE ESTE MENSAJE -->
         </div>
+        <!-- INICIO - CUANDO LA NOTIFICACION ES DE REGISTRO DE SOLICITUD SE MUESTRA ESTE MENSAJE -->
         <div class="tiempo_respuesta_solicitud_cdr tipografia_lato_regular text-center">
             En estos momentos la estamos evaluando y en 30 min te daremos una respuesta
         </div>
+        <!-- FIN - CUANDO LA NOTIFICACION ES DE REGISTRO DE SOLICITUD SE MUESTRA ESTE MENSAJE -->
         <div class="datos_solicitud_cdr_notificacion tipografia_lato text-center">
             <div class="dato_fecha_solicitud_cdr text-center">
                 <span class="tipografia_lato_regular">Fecha</span>
@@ -43,8 +50,51 @@
                 <span class="tipografia_lato_regular">2017-10</span>
             </div>
         </div>
+        <!-- INICIO - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
+        @*<div class="contenedor_mensajes_respuesta_cdr">*@
+            @*<div class="resumen_respuesta_cdr">
+                <span class="tipografia_lato_regular">Resumen:</span>
+                <!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
+                <span class="tipografia_lato_bold" style="display:none;">Todos los productos fueron aprobados</span>
+                <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO APROBADA -->
+                <!-- INICIO - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->
+                <span class="tipografia_lato_bold">Resuelve las observaciones y envía nuevamente la solicitud.</span>
+                <!-- FIN - MENSAJE CUANDO LA SOLICITUD CDR HA SIDO RECHAZADA -->
+            </div>*@
+            <!-- INICIO - CUANDO HAY MENSAJE DE ENVÍO EXPRESS -->
+            @*<div class="envio_express_cdr">
+                <div>
+                    <span class="tipografia_lato_bold">Envío EXPRESS especial:</span>
+                    <span class="tipografia_lato_regular">Tiene un costo de envío.</span>
+                    <span class="tipografia_lato_regular color_marca">Gratuito en tu ciclo de nuevas.</span>
+                </div>
+                <div>
+                    <span class="tipografia_lato_bold">Recíbelo:</span>
+                    <span class="tipografia_lato_regular">Lima - 48 horas y provincia 72 horas. No aplica domingos y feriados.</span>
+                </div>
+            </div>*@
+            <!-- FIN - CUANDO HAY MENSAJE DE ENVÍO EXPRESS -->
+            <!-- INICIO - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SE MUESTRA EL SALDO ACTUALIZADO -->
+            @*<div class="saldo_actualizado">
+                <span class="tipografia_lato_regular">Tu saldo actualizado es de:</span>
+                <span class="tipografia_lato_bold">Bs 167.68</span>
+            </div>*@
+            <!-- FIN - CUANDO LA NOTIFICACIÓN ES DE RESPUESTA SE MUESTRA EL SALDO ACTUALIZADO -->
+        @*</div>*@
+        <!-- FIN - ESTE DIV APARECE CUANDO LA NOTIFICACIÓN ES DE RESPUESTA A LA SOLICITUD CDR -->
         <div class="lista_detalle_notificaciones_cdr">
             <div class="titulo_cabecera_lista_detalle_notificacion_cdr text-center tipografia_lato_bold">DETALLE DE LA SOLICITUD</div>
+            <!-- INICIO - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
+            @*<div class="lista_detalle_estado_solicitud_cdr">
+                <span class="tipografia_lato_bold">Estado de solicitud :</span>*@
+                <!-- INICIO - ESTADO APROBADO -->
+                @*<span class="tipografia_lato_bold color_marca text-right">APROBADO</span>*@
+                <!-- FIN - ESTADO APROBADO -->
+                <!-- INICIO - ESTADO RECHAZADO -->
+                @*<span class="tipografia_lato_bold color_marca text-right">RECHAZADO</span>*@
+                <!-- FIN - ESTADO RECHAZADO -->
+            @*</div>*@
+            <!-- FIN - CUANDO LA SOLICITUD CDR HA SIDO RESPONDIDA SE MUESTRA EL ESTADO DE LA SOLICITUD -->
             <div class="info_detalle_notificacion_cdr">
                 <div class="detalle_producto_cdr">
                     <span class="detalle_cod_producto tipografia_lato_regular">
@@ -56,11 +106,14 @@
                     <span class="detalle_cantidad_producto tipografia_lato_regular">
                         x 1 unidades
                     </span>
+                    <!-- INICIO - EL COSTO DEL PRODUCTO SALE CUANDO LA SOLICITUD CDR ES DE CAMBIO DE PRODUCTO -->
                     <span class="detalle_precio_producto tipografia_lato_regular">
                         Bs 48.65
                     </span>
+                    <!-- FIN - EL COSTO DEL PRODUCTO SALE CUANDO LA SOLICITUD CDR ES DE CAMBIO DE PRODUCTO -->
                 </div>
                 <div class="detalle_cdr_solucion">
+                    <!-- INICIO - SOLICITUD CAMBIO DE PRODUCTO -->
                     <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
                         Cambiar por:
                     </span>
@@ -76,9 +129,26 @@
                     <span class="detalle_precio_producto tipografia_lato_regular">
                         Bs 48.65
                     </span>
+                    <!-- FIN - SOLICITUD CAMBIO DE PRODUCTO -->
+                    <!-- INICIO - SOLICITUD REENVÍO DE PRODUCTO -->
+                    @*<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                        Reenviar:
+                    </span>
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        El mismo producto
+                    </span>*@
+                    <!-- FIN - SOLICITUD REENVÍO DE PRODUCTO -->
+                    <!-- INICIO - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
+                    @*<span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                        Motivo de rechazo
+                    </span>
+                    <span class="detalle_cod_producto tipografia_lato_regular">
+                        por superar el límite de tiempo establecido para el reclamo.
+                    </span>*@
+                    <!-- FIN - CUANDO LA SOLICITUD CDR ES RECHAZADA SE MUESTRA EL MOTIVO -->
                 </div>
             </div>
-            <a href="#" class="btn_verSolicitud_somosBelcorp text-center tipografia_lato_bold" title="Ver la solicitud en Somos Belcorp">
+            <a href="" class="btn_verSolicitud_somosBelcorp text-center tipografia_lato_bold" title="Ver la solicitud en Somos Belcorp">
                 VER LA SOLICITUD EN SOMOS BELCORP
             </a>
         </div>

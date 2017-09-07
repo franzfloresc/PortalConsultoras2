@@ -995,8 +995,17 @@
 .respuesta_solicitud_cdr,
 .lista_detalle_notificaciones_cdr,
 .titulo_cabecera_lista_detalle_notificacion_cdr,
+.lista_detalle_estado_solicitud_cdr,
 .info_detalle_notificacion_cdr,
-.btn_verSolicitud_somosBelcorp{
+.btn_verSolicitud_somosBelcorp,
+.contenedor_mensajes_respuesta_cdr,
+.resumen_respuesta_cdr,
+.resumen_respuesta_cdr span,
+.envio_express_cdr,
+.envio_express_cdr > div,
+.envio_express_cdr > div span,
+.saldo_actualizado,
+.saldo_actualizado span{
     display:block;
 }
 
@@ -1025,13 +1034,26 @@
     font-size:13px;
 }
 
-.titulo_cabecera_lista_detalle_notificacion_cdr, .info_detalle_notificacion_cdr{
+.titulo_cabecera_lista_detalle_notificacion_cdr, .info_detalle_notificacion_cdr, .lista_detalle_estado_solicitud_cdr{
     border-bottom:1px solid #979797;
 }
 
 .titulo_cabecera_lista_detalle_notificacion_cdr{
     border-top:1px solid #979797;
+}
+
+.titulo_cabecera_lista_detalle_notificacion_cdr, .lista_detalle_estado_solicitud_cdr{
     padding:10px 0;
+}
+
+.lista_detalle_estado_solicitud_cdr span{
+    display:inline-block;
+    width:49.5%;
+    font-size:14px;
+}
+
+.lista_detalle_estado_solicitud_cdr span:nth-child(2), .lista_detalle_estado_solicitud_cdr span:last-child{
+    font-size:13px;
 }
 
 .info_detalle_notificacion_cdr{
@@ -1048,6 +1070,40 @@
     line-height:43px;
     border:1px solid #000;
     color:#000;
+    font-size:13px;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_verSolicitud_somosBelcorp:hover{
+    background:#000;
+    color:#FFF;
+}
+
+.contenedor_mensajes_respuesta_cdr{
+    background:#F7F7F7;
+    padding:15px 10px 19px 10px;
+    border-top:1px solid #979797;
+}
+
+.resumen_respuesta_cdr{
+    margin-bottom:10px;
+    font-size:13px;
+}
+
+.envio_express_cdr > div:first-child{
+    margin-bottom:10px;
+}
+
+.envio_express_cdr > div span{
+    font-size:13px;
+}
+
+.saldo_actualizado{
+    margin-top:10px;
     font-size:13px;
 }
 
