@@ -27,6 +27,26 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+        public ActionResult Revisar()
+        {
+            try
+            {
+                var modelo = new EstrategiaPersonalizadaModel
+                {
+                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                    MensajeProductoBloqueado = MensajeProductoBloqueado()
+                };
+
+                return View("Index", modelo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+
+            return RedirectToAction("Index", "Bienvenida");
+        }
+
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
@@ -99,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpPost]
         public JsonResult GuardarMenuContenedor(string codigo, int campania)
         {
-            MenuContenedorGuardar(codigo, campania);
+            //MenuContenedorGuardar(codigo, campania);
 
             return Json(new
             {
