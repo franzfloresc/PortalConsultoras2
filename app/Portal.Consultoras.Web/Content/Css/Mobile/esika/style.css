@@ -5230,7 +5230,7 @@ body {
 .banner_ingresoPedido {
     display: block;
     /*height: 132px;*/
-    background: #000 url(../../../Images/Esika/background_pedido.png) no-repeat center center;
+    /*background: #000 url(../../../Images/Esika/background_pedido.png) no-repeat center center;*/
     background-size: cover;
     height:200px
 }
