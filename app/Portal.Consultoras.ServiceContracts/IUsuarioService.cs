@@ -349,7 +349,7 @@ namespace Portal.Consultoras.ServiceContracts
         #region EventoFestivo
         /*HD-817*/
         [OperationContract]
-        IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID);
+        IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
         #endregion
     }
 }

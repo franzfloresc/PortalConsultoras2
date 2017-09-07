@@ -15,7 +15,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Nombre { get; set; }
         [DataMember]
-        public string Alcanse { get; set; }
+        public string Alcance { get; set; }
         [DataMember]
         public string Periodo { get; set; }
         [DataMember]
@@ -23,7 +23,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string Fin { get; set; }
         [DataMember]
-        public string Perzonalizacion { get; set; }
+        public string Personalizacion { get; set; }
         [DataMember]
         public bool Estado { get; set; }
 
@@ -35,16 +35,16 @@ namespace Portal.Consultoras.Entities
         {
             if (row.HasColumn("Nombre") && row["Nombre"] != DBNull.Value)
                 Nombre = Convert.ToString(row["Nombre"]);
-            if (row.HasColumn("Alcanse") && row["Alcanse"] != DBNull.Value)
-                Alcanse = Convert.ToString(row["Alcanse"]);
+            if (row.HasColumn("Alcance") && row["Alcance"] != DBNull.Value)
+                Alcance = Convert.ToString(row["Alcance"]);
             if (row.HasColumn("Periodo") && row["Periodo"] != DBNull.Value)
                 Periodo = Convert.ToString(row["Periodo"]);
             if (row.HasColumn("Inicio") && row["Inicio"] != DBNull.Value)
                 Inicio = Convert.ToString(row["Inicio"]);
             if (row.HasColumn("Fin") && row["Fin"] != DBNull.Value)
                 Fin = Convert.ToString(row["Fin"]);
-            if (row.HasColumn("Perzonalizacion") && row["Perzonalizacion"] != DBNull.Value)
-                Perzonalizacion = Convert.ToString(row["Perzonalizacion"]);
+            if (row.HasColumn("Personalizacion") && row["Personalizacion"] != DBNull.Value)
+                Personalizacion = Convert.ToString(row["Personalizacion"]);
             if (row.HasColumn("Estado") && row["Estado"] != DBNull.Value)
                 Estado = Convert.ToBoolean(row["Estado"]);
         }

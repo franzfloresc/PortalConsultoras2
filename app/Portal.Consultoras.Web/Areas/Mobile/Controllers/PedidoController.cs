@@ -150,6 +150,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+            #region EventoFestivo
+            if (userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
+            #endregion
 
             return View(model);
         }

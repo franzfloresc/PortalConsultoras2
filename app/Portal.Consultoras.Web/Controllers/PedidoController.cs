@@ -375,6 +375,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
                 ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+                #region EventoFestivo
+                if (userData.EfRutaPedido == "")
+                {
+                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+                }
+                else
+                {
+                    ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+                }                    
+                #endregion
             }
             catch (FaultException ex)
             {

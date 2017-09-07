@@ -66,6 +66,15 @@
                     <span>@(nombreConsultora)</span>
                 </div>
             }
+            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡@ViewBag.SaludoFestivo</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@(nombreConsultora)</span>
+                </div>
+            }
             else
             {
                 <div class="nombre_consultora">

@@ -995,13 +995,19 @@ namespace Portal.Consultoras.Common
         }
 
         #region EventoFestivo
-        public class EventoFestivo
+        public class EventoFestivoAlcance
         {
-            /*Nombre*/
             public const string LOGIN = "LOGIN";
-            public const string SOMOS_BELCORP = "SOMOS_BELCORP";
-            public const string Fondo_login = "login-esika-1920.jpg";
-            #endregion
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";            
         }
+
+        public class EventoFestivoNombre
+        {
+            public const string FONDO_ESIKA = "FONDO_ESIKA";
+            public const string FONDO_LBEL = "FONDO_LBEL";
+            public const string SALUDO = "SALUDO";
+            public const string FONDO_INGPED = "FONDO_INGPED";
+        }
+        #endregion
     }
 }

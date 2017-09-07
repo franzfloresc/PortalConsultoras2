@@ -383,13 +383,13 @@
   <xs:element name="ArrayOfBEEventoFestivo" nillable="true" type="tns:ArrayOfBEEventoFestivo" />
   <xs:complexType name="BEEventoFestivo">
     <xs:sequence>
-      <xs:element minOccurs="0" name="Alcanse" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Alcance" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
       <xs:element minOccurs="0" name="Fin" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Inicio" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Periodo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Perzonalizacion" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />

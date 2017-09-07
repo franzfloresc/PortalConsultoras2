@@ -1580,7 +1580,7 @@ namespace Portal.Consultoras.BizLogic
 
         #region EventoFestivo
         /*HD-817*/
-        public IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID)
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
         {
             if (paisID == 0)
             {
@@ -1588,7 +1588,7 @@ namespace Portal.Consultoras.BizLogic
             }
             IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
             var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcanse, Convert.ToDateTime(FechaActual)))
+            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcance, Campania))
             {
                 while (reader.Read())
                 {

@@ -4566,7 +4566,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AlcanseField;
+        private string AlcanceField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool EstadoField;
@@ -4584,7 +4584,7 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string PeriodoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PerzonalizacionField;
+        private string PersonalizacionField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -4597,14 +4597,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Alcanse {
+        public string Alcance {
             get {
-                return this.AlcanseField;
+                return this.AlcanceField;
             }
             set {
-                if ((object.ReferenceEquals(this.AlcanseField, value) != true)) {
-                    this.AlcanseField = value;
-                    this.RaisePropertyChanged("Alcanse");
+                if ((object.ReferenceEquals(this.AlcanceField, value) != true)) {
+                    this.AlcanceField = value;
+                    this.RaisePropertyChanged("Alcance");
                 }
             }
         }
@@ -4675,14 +4675,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Perzonalizacion {
+        public string Personalizacion {
             get {
-                return this.PerzonalizacionField;
+                return this.PersonalizacionField;
             }
             set {
-                if ((object.ReferenceEquals(this.PerzonalizacionField, value) != true)) {
-                    this.PerzonalizacionField = value;
-                    this.RaisePropertyChanged("Perzonalizacion");
+                if ((object.ReferenceEquals(this.PersonalizacionField, value) != true)) {
+                    this.PersonalizacionField = value;
+                    this.RaisePropertyChanged("Personalizacion");
                 }
             }
         }
@@ -7894,10 +7894,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> GetTerminosCondicionesAsync(int PaisID, string CodigoConsultora, short Tipo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(string Alcanse, string FechaActual, int paisID);
+        Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(string Alcanse, string FechaActual, int paisID);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -8607,12 +8607,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetTerminosCondicionesAsync(PaisID, CodigoConsultora, Tipo);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(string Alcanse, string FechaActual, int paisID) {
-            return base.Channel.GetEventoFestivo(Alcanse, FechaActual, paisID);
+        public Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania) {
+            return base.Channel.GetEventoFestivo(paisID, Alcance, Campania);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(string Alcanse, string FechaActual, int paisID) {
-            return base.Channel.GetEventoFestivoAsync(Alcanse, FechaActual, paisID);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania) {
+            return base.Channel.GetEventoFestivoAsync(paisID, Alcance, Campania);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {

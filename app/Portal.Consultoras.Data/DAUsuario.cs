@@ -776,11 +776,11 @@ namespace Portal.Consultoras.Data
         }
 
         #region EventoFestivo
-        public IDataReader GetEventoFestivo(string Alcanse, DateTime FechaActual)
+        public IDataReader GetEventoFestivo(string Alcance, int Campania)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetEventoFestivo");
-            Context.Database.AddInParameter(command, "@Alcanse", DbType.AnsiString, Alcanse);
-            Context.Database.AddInParameter(command, "@FechaActual", DbType.DateTime, FechaActual);
+            Context.Database.AddInParameter(command, "@Alcance", DbType.AnsiString, Alcance);
+            Context.Database.AddInParameter(command, "@Campania", DbType.Int32, Campania);
 
             return Context.ExecuteReader(command);
         }

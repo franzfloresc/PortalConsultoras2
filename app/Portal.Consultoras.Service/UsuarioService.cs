@@ -763,10 +763,10 @@ namespace Portal.Consultoras.Service
 
         #region EventoFestivo
         /*HD-817*/
-        public IList<BEEventoFestivo> GetEventoFestivo(string Alcanse, string FechaActual, int paisID)
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetEventoFestivo(Alcanse, FechaActual, paisID);
+            return BLUsuario.GetEventoFestivo(paisID, Alcance, Campania);
         }
         #endregion
     }

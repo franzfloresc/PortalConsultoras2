@@ -1238,6 +1238,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
+            #region EventoFestivo
+            ViewBag.SaludoFestivo = model.EfSaludo;
+            #endregion
+
 
             #endregion
 
