@@ -7,11 +7,9 @@
 }
 
 <style type="text/css">
-
-    .footer-page{
-        padding-bottom:70px;
+    .footer-page {
+        padding-bottom: 70px;
     }
-
 </style>
 
 <div class="titulo_mobile">
@@ -40,9 +38,6 @@
     <div class="contenedor_proceso_registro_cdr">
         <div class="pasos_proceso_registro">
             <!-- Status icono off -->
-            @*<div class="icono_paso icono_producto icono_paso_activo">
-                    <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1.png")" />
-                </div>*@
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
             <div class="icono_paso icono_producto icono_paso_activo">
@@ -55,9 +50,6 @@
             </div>
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
-            @*<div class="icono_paso icono_solucion_elegida icono_paso_activo">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso2_activo.png")" />
-            </div>*@
             <!-- Fin Status icono on -->
             <!-- Status icono off -->
             <div class="icono_paso icono_solucion_elegida">
@@ -66,8 +58,8 @@
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
             @*<div class="icono_paso icono_envio_solicitud_cdr icono_paso_activo">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
-            </div>*@
+                    <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
+                </div>*@
             <!-- Fin Status icono on -->
             <div class="linea_conexion_pasos"></div>
         </div>
@@ -137,11 +129,6 @@
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
             <form class="formulario_inscripcion">
-                @*<select class="tipografia_lato tipografia_lato_regular">
-                    <option>¿En qué campaña lo solicitaste?</option>
-                    <option>201710</option>
-                    <option>201709</option>
-                </select>*@
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
 
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
@@ -151,7 +138,6 @@
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
                     <a href="#" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>
-
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                     <div id="txtCantidad">
@@ -166,89 +152,66 @@
         <div style="display:none;">
             <input type="hidden" name="CDRWebID" id="CDRWebID" value="@Model.CDRWebID" />
             <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
-            <input type="hidden" id="txtPedidoID" value="@Model.PedidoID" />
-            <input type="hidden" id="txtNumeroPedido" value="@Model.NumeroPedido" />
+            <input type="hidden" id="hdPedidoID" value="@Model.PedidoID" />
+            <input type="hidden" id="hdNumeroPedido" value="@Model.NumeroPedido" />
             <input type="hidden" id="txtPrecioUnidad" />
             <input type="hidden" id="hdImporteTotalPedido" />
         </div>
         <!-- FIN VISTA CON QUÉ PRODUCTO HAS TENIDO INCONVENIENTES -->
-
         <!-- INICIO VISTA CUÁL FUE EL INCONVENIENTE -->
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro2" style="display:none;">
             ¿Cuál fue el inconveniente?
         </div>
         <div class="campos_registro_solicitud_cdr Registro2" style="display:none;">
             <form class="formulario_inscripcion">
-                <div class="lista_opciones_motivo_cdr">
-                    <div class="motivo_cdr">
-                        <input id="motivo-estado" type="radio" name="motivo-cdr" />
-                        <label for="motivo-estado" class="tipografia_lato_regular">
-                            <span></span>
-                            Me llegó en mal estado
-                        </label>
-                    </div>
-                    <div class="motivo_cdr">
-                        <input id="motivo-cliente" type="radio" name="motivo-cdr" />
-                        <label for="motivo-cliente" class="tipografia_lato_regular">
-                            <span></span>
-                            No le gustó a mi cliente
-                        </label>
-                    </div>
-                    <div class="motivo_cdr">
-                        <input id="motivo-equivocacion" type="radio" name="motivo-cdr" />
-                        <label for="motivo-equivocacion" class="tipografia_lato_regular">
-                            <span></span>
-                            Me equivoqué al solicitarlo
-                        </label>
-                    </div>
-                    <div class="motivo_cdr">
-                        <input id="motivo-promocion-incompleta" type="radio" name="motivo-cdr" />
-                        <label for="motivo-promocion-incompleta" class="tipografia_lato_regular">
-                            <span></span>
-                            La promoción me llegó incompleta
-                        </label>
-                    </div>
-                    <div class="motivo_cdr">
-                        <input id="motivo-no-solicitud" type="radio" name="motivo-cdr" />
-                        <label for="motivo-no-solicitud" class="tipografia_lato_regular">
-                            <span></span>
-                            No solicité el producto
-                        </label>
-                    </div>
-                    <div class="motivo_cdr">
-                        <input id="motivo-llegada-tarde" type="radio" name="motivo-cdr" />
-                        <label for="motivo-llegada-tarde" class="tipografia_lato_regular">
-                            <span></span>
-                            Me llegó muy tarde / no me llegó
-                        </label>
-                    </div>
+                <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
             </form>
         </div>
         <!-- FIN VISTA CUÁL FUE EL INCONVENIENTE -->
-
         <!-- INICIO VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 Registro3" style="display:none;">
             Escoge una solución
         </div>
-        <div class="listado_soluciones_cdr tipografia_lato Registro3" style="display:none;">
-            <a href="" class="solucion_cdr tipografia_lato_bold" title="Reenvío del mismo producto">Reenvío del mismo producto</a>
-            <a href="" class="solucion_cdr tipografia_lato_bold" title="Cambiarlo por otro producto">Cambiarlo por otro producto</a>
-            <a href="" class="solucion_cdr tipografia_lato_bold" title="Devolución del dinero">Devolución del dinero</a>
+        <div class="listado_soluciones_cdr tipografia_lato Registro3" id="listado_soluciones_cdr" style="display:none;">
         </div>
-        <div class="eleccion_solucion_cdr tipografia_lato Registro3" style="display:none;">
-            <div class="titulo_eleccion_cdr tipografia_lato_bold">
-                <span>ELEGISTE:</span>
-                <span>CAMBIARLO POR OTRO PRODUCTO</span>
+        @*<div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;">
+                <div class="titulo_eleccion_cdr tipografia_lato_bold">
+                    <span>ELEGISTE:</span>
+                    <span>CAMBIARLO POR OTRO PRODUCTO</span>
+                </div>
+                <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="canje">
+                    <span>
+                        Puedes cambiarlo por otro producto (s) cuyo monto sea mayor o igual al que reclamas <span>(Bs.180.09)</span>
+                    </span>
+                    <span >Búscalo en tus catálogos de Campaña <span>15</span>:</span>
+                    <div data-detalle-confirma=""></div>
+                </div>
+            </div>*@
+
+        @*Canje*@
+        <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">
+            <div>
+                <span>Te proponemos la siguiente solución</span>
+                <div data-detalle-confirma=""></div>
             </div>
-            <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular">
-                <span>
-                    Puedes cambiarlo por otro producto (s) cuyo monto sea mayor o igual al que reclamas <span>(Bs.180.09)</span>
-                </span>
-                <span>Búscalo en tus catálogos de Campaña <span>15</span>:</span>
+            @*<div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="canje">
+                    <span>
+                        Puedes cambiarlo por otro producto (s) cuyo monto sea mayor o igual al que reclamas <span>(Bs.180.09)</span>
+                    </span>
+                    <span>Búscalo en tus catálogos de Campaña <span>15</span>:</span>
+                    <div data-detalle-confirma=""></div>
+                </div>*@
+            <div class="info_importante_cdr tipografia_lato">
+                <div class="titulo_info_cdr tipografia_lato_regular">
+                    TEN EN CUENTA
+                </div>
+                <div id="spnMensajeTenerEnCuentaCambio" class="content_info_cdr tipografia_lato_regular">
+                </div>
             </div>
         </div>
-        <div class="campos_registro_solicitud_cdr Registro3" style="display:none;">
+
+        <div class="campos_registro_solicitud_cdr" style="display:none;">
             <form class="formulario_inscripcion">
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
@@ -264,7 +227,13 @@
                             <img src="/Content/Images/Mobile/Esika/menos.png">
                         </span>
                         <div class="campo_cantidadProductos">
-                            <input type="tel" name="cantidad" value="1" id="txtCantidad" style="padding-left:0;" min="1" max="99" maxlength="2" oninput="maxLengthCheck(this,2)" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
+                            <input type="tel" name="cantidad"
+                                   value="1"
+                                   id="txtCantidad"
+                                   style="padding-left:0;"
+                                   min="1" max="99" maxlength="2"
+                                   oninput="maxLengthCheck(this,2)"
+                                   onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);" />
                         </div>
                         <span class="signo_mas" id="suma">
                             <img src="/Content/Images/Mobile/Esika/mas.png">
@@ -275,113 +244,109 @@
             </form>
         </div>
         <!-- FIN VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
-
         <!-- INICIO VISTA CONFIRMACIÓN ELECCIÓN -->
         @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-                Confirma tu elección
-        </div>
-        <div>
-            <div class="contenedor_producto_cambio_por tipografia_lato">
-                <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
-                <div class="producto_cdr tipografia_lato">
-                    <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                    <span class="cantidad_producto tipografia_lato_regular">
-                        x<span>2</span> unidades
-                    </span>
+                    Confirma tu elección
+            </div>
+            <div>
+                <div class="contenedor_producto_cambio_por tipografia_lato">
+                    <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
+                    <div class="producto_cdr tipografia_lato">
+                        <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                        <span class="cantidad_producto tipografia_lato_regular">
+                            x<span>2</span> unidades
+                        </span>
+                    </div>
+                </div>
+                <div class="contenedor_producto_cambio_por tipografia_lato">
+                    <span class="texto_producto_a_cambiar">Por:</span>
+                    <div class="producto_cdr tipografia_lato">
+                        <span class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
+                        <span class="cantidad_producto tipografia_lato_regular">
+                            x<span>2</span> unidades
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="contenedor_producto_cambio_por tipografia_lato">
-                <span class="texto_producto_a_cambiar">Por:</span>
-                <div class="producto_cdr tipografia_lato">
-                    <span class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
-                    <span class="cantidad_producto tipografia_lato_regular">
-                        x<span>2</span> unidades
-                    </span>
+            <div class="info_importante_cdr tipografia_lato">
+                <div class="titulo_info_cdr tipografia_lato_regular">
+                    TEN EN CUENTA
                 </div>
-            </div>
-        </div>
-        <div class="info_importante_cdr tipografia_lato">
-            <div class="titulo_info_cdr tipografia_lato_regular">
-                TEN EN CUENTA
-            </div>
-            <div class="content_info_cdr tipografia_lato_regular">
-                Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
-            </div>
-        </div>*@
+                <div class="content_info_cdr tipografia_lato_regular">
+                    Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
+                </div>
+            </div>*@
         <!-- FIN VISTA CONFIRMACIÓN ELECCIÓN -->
-
         <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
         @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-            <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
-            <span class="mensaje_vista_cdr tipografia_lato_regular">
-                Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
-            </span>
-        </div>
-        <div class="content_solicitud_cdr tipografia_lato">
-            <div class="contenedor_info_cdr">
-                <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
-                <div class="info_solicitud_cdr tipografia_lato_regular">
-                    <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
+                <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
+                <span class="mensaje_vista_cdr tipografia_lato_regular">
+                    Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
+                </span>
+            </div>
+            <div class="content_solicitud_cdr tipografia_lato">
+                <div class="contenedor_info_cdr">
+                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
+                    <div class="info_solicitud_cdr tipografia_lato_regular">
+                        <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
+                    </div>
+                </div>
+                <div class="contenedor_info_cdr">
+                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
+                    <div class="info_solicitud_cdr tipografia_lato_regular">
+                        <span>98765</span> - <span>Máscara full size negro.</span>
+                    </div>
+                </div>
+                <div class="icono_eliminar_solic_cdr">
+                    <a href="" title="eliminar solicitud">
+                        <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
+                    </a>
                 </div>
             </div>
-            <div class="contenedor_info_cdr">
-                <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
-                <div class="info_solicitud_cdr tipografia_lato_regular">
-                    <span>98765</span> - <span>Máscara full size negro.</span>
+            <div class="validacion_datos tipografia_lato">
+                <div class="validacion_seccion_titulo">
+                    <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
+                    <div class="mensaje_validacion_datos tipografia_lato_regular">Es por si necesitamos contactarnos contigo.</div>
+                </div>
+                <div class="validacion_seccion_datos">
+                    <form>
+                        <div class="mb-27">
+                            <label class="tipografia_lato_regular">Correo electrónico</label>
+                            <input type="text" value="juanita@hotmail.com" />
+                        </div>
+                        <div class="mb-23">
+                            <label class="tipografia_lato_regular">Celular</label>
+                            <input type="text" value="988978654" />
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="icono_eliminar_solic_cdr">
-                <a href="" title="eliminar solicitud">
-                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
-                </a>
+            <div class="content_politica_devolucion tipografia_lato">
+                <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
+                <label for="politica-devolucion">
+                    <span></span>
+                    <a href="" class="enlace_politica_devolucion tipografia_lato_regular" title="acepto la política de devolución">
+                        Acepto la política de devolución
+                    </a>
+                </label>
             </div>
-        </div>
-        <div class="validacion_datos tipografia_lato">
-            <div class="validacion_seccion_titulo">
-                <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
-                <div class="mensaje_validacion_datos tipografia_lato_regular">Es por si necesitamos contactarnos contigo.</div>
-            </div>
-            <div class="validacion_seccion_datos">
-                <form>
-                    <div class="mb-27">
-                        <label class="tipografia_lato_regular">Correo electrónico</label>
-                        <input type="text" value="juanita@hotmail.com" />
-                    </div>
-                    <div class="mb-23">
-                        <label class="tipografia_lato_regular">Celular</label>
-                        <input type="text" value="988978654" />
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="content_politica_devolucion tipografia_lato">
-            <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
-            <label for="politica-devolucion">
-                <span></span>
-                <a href="" class="enlace_politica_devolucion tipografia_lato_regular" title="acepto la política de devolución">
-                    Acepto la política de devolución
-                </a>
-            </label>
-        </div>
-        <div class="tooltip_btn_reportar_inconveniente tipografia_lato">
-            <span class="icono_alerta_cdr">
-                <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
-            </span>
-            <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
-                Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
-            </span>
-        </div>*@
+            <div class="tooltip_btn_reportar_inconveniente tipografia_lato">
+                <span class="icono_alerta_cdr">
+                    <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
+                </span>
+                <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
+                    Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
+                </span>
+            </div>*@
 
         <!-- INICIO BOTÓN REPORTAR OTRO INCONVENIENTE -->
         @*<button class="tipografia_lato tipografia_lato_bold btn_reportar_inconveniente">REPORTA OTRO INCONVENIENTE</button>*@
         <!-- FIN BOTÓN REPORTAR OTRO INCONVENIENTE -->
-
         <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
-
         <!-- INICIO ENLACE QUIERO VER OTRA ALTERNATIVA -->
         @*<a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
-            QUIERO VER OTRA ALTERNATIVA
-        </a>*@
+                QUIERO VER OTRA ALTERNATIVA
+            </a>*@
         <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
         <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
         <a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes anteriores">
@@ -396,22 +361,99 @@
 </div>
 
 <!-- INICIO BOTONES CTA (CALL TO ACTION) -->
-<button id="btnSiguiente1" class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
+<button id="btnSiguiente1"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
     SIGUIENTE
 </button>
-<button id="btnSiguiente2" class="btn_cta_cdr tipografia_lato tipografia_lato_bold" style="display:none;">
+<button id="btnSiguiente2"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
     SIGUIENTE @*CAMBIALO POR ESTE PRODUCTO*@
 </button>
-<button id="btnSiguiente3" class="btn_cta_cdr tipografia_lato tipografia_lato_bold" style="display:none;">
+<button id="btnSiguiente3"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
     SIGUIENTE @*CONFIRMA TU ELECCIÓN*@
 </button>
-<button id="btnSiguiente4" class="btn_cta_cdr tipografia_lato tipografia_lato_bold" style="display:none;">
+<button id="btnAceptarSolucion"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        data-cambiopaso="3"
+        style="display:none;">
+    ACEPTAR LA SOLUCIÓN @*ACEPTAR LA SOLUCIÓN*@
+</button>
+<button id="btnSiguiente4"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
     FINALIZA Y ENVÍA TU SOLICITUD
 </button>
 <!-- FIN BOTONES CTA (CALL TO ACTION) -->
 
+<script id="template-motivo" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="motivo_cdr">
+        <input id="{{item.CodigoReclamo}}" type="radio" name="motivo-cdr" />
+        <label for="{{item.CodigoReclamo}}" class="tipografia_lato_regular">
+            <span></span>
+            {{item.DescripcionReclamo}}
+        </label>
+    </div>
+    {{/each}}
+</script>
+<script id="template-operacion" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <a href="#"
+       id="{{item.CodigoOperacion}}"
+       data-tipo="{{item.Tipo}}"
+       class="solucion_cdr tipografia_lato_bold"
+       title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
+        {{item.CDRTipoOperacion.DescripcionOperacion}}
+    </a>
+    {{/each}}
+</script>
+<script id="template-confirmacion" type="text/x-handlebars-template">
+    {{#iff CUV2 '!=' ''}}
+    <div class="content_resumen_cambio">
+        {{else}}
+        <div class="contenedor_producto_cambio_por tipografia_lato">
+            {{/iff}}
+            <div class="texto_producto_a_cambiar">{{DescripcionConfirma}}:</div>
+            <div class="producto_cdr tipografia_lato">
+                <span class="codigo_producto_cdr tipografia_lato_bold">
+                    {{CUV}}
+                </span> - <span class="nom_producto_cdr tipografia_lato_bold">
+                    {{DescripcionProd}}
+                </span>
+                <span class="cantidad_producto tipografia_lato_regular">
+                    x<span>{{Cantidad}}</span> unidades
+                </span>
+            </div>
+        </div>
+
+        @*<div class="contenedor_producto_cambio_por tipografia_lato">
+                <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
+                <div class="producto_cdr tipografia_lato">
+                    <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                    <span class="cantidad_producto tipografia_lato_regular">
+                        x<span>2</span> unidades
+                    </span>
+                </div>
+            </div>*@
+
+        {{#IsNullOrEmpty CUV2  '!=' }}
+        <div class="indicador_reclamo"></div>
+        <div class="content_resumen_cambio">
+            <div class="titulo_resumen">{{DescripcionConfirma2}}:</div>
+            <div class="descri_producto_reclamo">
+                {{CUV2}} <br />
+                <b>{{DescripcionProd2}}</b><br />
+                x{{Cantidad2}} unidades
+            </div>
+        </div>
+        {{/IsNullOrEmpty}}
+    </div>
+</script>
 @section scripts{
-<script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
+    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
 <script type="text/javascript">
     var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';

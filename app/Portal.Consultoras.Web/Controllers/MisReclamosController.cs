@@ -262,38 +262,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return new List<BEPedidoWeb>();
             }
         }
-
-        private List<BECDRMotivoReclamo> CargarMotivo(MisReclamosModel model)
-        {
-            var listaRetorno = new List<BECDRMotivoReclamo>();
-            try
-            {
-                model.Operacion = Util.SubStr(model.Operacion, 0);
-                var listaFiltro = CargarMotivoOperacionPorDias(model);
-                foreach (var item in listaFiltro)
-                {
-                    if (item.CodigoOperacion != model.Operacion && model.Operacion != "")
-                        continue;
-
-                    if (listaRetorno.Any(r => r.CodigoReclamo == item.CodigoReclamo))
-                        continue;
-
-                    var desc = ObtenerDescripcion(item.CDRMotivoReclamo.CodigoReclamo, Constantes.TipoMensajeCDR.Motivo);
-                    var add = new BECDRMotivoReclamo();
-                    add.CodigoReclamo = item.CodigoReclamo;
-                    add.DescripcionReclamo = desc.Descripcion;
-                    listaRetorno.Add(add);
-                }
-
-                return listaRetorno;
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return listaRetorno;
-            }
-        }
-
+        
         private List<BECDRWebMotivoOperacion> CargarOperacion(MisReclamosModel model)
         {
             var listaRetorno = new List<BECDRWebMotivoOperacion>();
@@ -326,25 +295,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return listaRetorno;
             }
         }
-
-        private List<BECDRWebMotivoOperacion> CargarMotivoOperacionPorDias(MisReclamosModel model)
-        {
-            var listaPedidoFacturado = CargarPedidosFacturados();
-            var pedido = listaPedidoFacturado.FirstOrDefault(p => p.PedidoID == model.PedidoID) ?? new BEPedidoWeb();
-            DateTime fechaSys = userData.FechaActualPais.Date;
-            DateTime fechaFinCampania = pedido.FechaRegistro.Date;
-            TimeSpan diferencia = fechaSys - fechaFinCampania;
-            int differenceInDays = diferencia.Days;
-            //Para Pruebas
-            //differenceInDays = 30;
-
-            if (differenceInDays <= 0) return new List<BECDRWebMotivoOperacion>();
-
-            var listaMotivoOperacion = CargarMotivoOperacion();
-            var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
-            return listaFiltro.OrderBy(p => p.Prioridad).ToList();
-        }
-
+               
         private bool TieneDetalleFueraFecha(BECDRWeb cdrWeb, MisReclamosModel model)
         {
             var operacionValidaList = CargarMotivoOperacionPorDias(model);
@@ -426,7 +377,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         public JsonResult BuscarCUV(MisReclamosModel model)
-        {
+            {
             var listaPedidoFacturados = CargarPedidoCUV(model);
 
             /*para prueba*/

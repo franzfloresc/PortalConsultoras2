@@ -37,11 +37,11 @@ $(document).ready(function () {
         $(this).attr("data-check", "1");
     });
 
-    $("#IrPAso2").on("click", function () { 
+    $("#IrPAso2").on("click", function () {
         $("#txtCUVDescripcion2").val('')
         $("#txtCUV2").val('');
         $("#txtCUVPrecio2").val('');
-        
+
         if (ValidarPaso1()) {
             paso2Actual = 1;
             CambioPaso();
@@ -74,7 +74,7 @@ $(document).ready(function () {
             $("#spnCuv2").html($("#txtCUV2").val());
             $("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
             $("#spnCantidadCuv2").html($("#txtCantidad2").val());
-        }        
+        }
     });
 
     $("[data-cambiopaso]").on("click", function () {
@@ -114,10 +114,10 @@ $(document).ready(function () {
             alert_msg(mensajeGestionCdrInhabilitada);
             return false;
         }
-        
+
         var cantidadDetalle = $("#divDetallePaso3 .content_listado_reclamo").length || 0;
         if (cantidadDetalle == 0) {
-            var functionRegresar = function() { window.location = urlRegresar; };
+            var functionRegresar = function () { window.location = urlRegresar; };
             messageConfirmacion("", "No se puede finalizar la solicitud porque no cuenta con registros.", functionRegresar);
             return false;
         }
@@ -130,7 +130,7 @@ $(document).ready(function () {
         DetalleAccion(this);
     });
 
-    $("#btnAceptoPoliticas").on("click", function() {
+    $("#btnAceptoPoliticas").on("click", function () {
         if ($(this).hasClass("politica_reclamos_icono_active")) {
             $(this).removeClass("politica_reclamos_icono_active");
         } else {
@@ -162,7 +162,7 @@ $(document).ready(function () {
             botonExpress.addClass(claseBotonDesactivado);
             tipoDespacho = false;
         }
-    });    
+    });
     $("#btnDespachoExpress").on("click", function () {
         var claseBotonActivado = "cdr_tipo_despacho_icono_active";
         var claseBotonDesactivado = "cdr_tipo_despacho_icono";
@@ -331,7 +331,7 @@ function BuscarCUV(CUV) {
             } else {
                 if (data.detalle.length > 1) PopupPedido(data.detalle);
                 else AsignarCUV(data.detalle[0]);
-            }            
+            }
         },
         error: function (data, error) {
             closeWaitingDialog();
@@ -340,7 +340,7 @@ function BuscarCUV(CUV) {
     });
 }
 
-function BuscarCUVCambiar(cuv) {    
+function BuscarCUVCambiar(cuv) {
     cuv = $.trim(cuv) || $.trim($("#txtCUV2").val());
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
     if (CampaniaId <= 0 || cuv.length < 5)
@@ -372,7 +372,7 @@ function BuscarCUVCambiar(cuv) {
                 $("#CambioProducto2").removeClass("disabledClick");
                 var descripcion = data[0].Descripcion;
                 var precio = data[0].PrecioCatalogo;
-                
+
                 $("#txtCUVDescripcion2").val(descripcion);
                 $("#txtCUVPrecio2").val(DecimalToStringFormat(precio));
                 $("#hdCuvPrecio2").val(precio);
@@ -451,7 +451,7 @@ function AsignarCUV(pedido) {
 
 function BuscarMotivo() {
 
-    var PedidoId = $.trim( $("#txtPedidoID").val()) || 0;
+    var PedidoId = $.trim($("#txtPedidoID").val()) || 0;
     var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
     if (PedidoId <= 0 || CampaniaId <= 0)
         return false;
@@ -475,7 +475,7 @@ function BuscarMotivo() {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
-            
+
             if (data.success == false) {
                 alert_msg(data.message);
                 return false;
@@ -518,7 +518,7 @@ function ValidarPaso1() {
         Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
         CampaniaID: $("#ddlCampania").val()
     };
-    
+
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/ValidarPaso1',
@@ -565,7 +565,7 @@ function CargarOperacion() {
         cache: false,
         success: function (data) {
             closeWaitingDialog();
-            if (!checkTimeout(data)) 
+            if (!checkTimeout(data))
                 return false;
 
             if (data.success == false) {
@@ -593,15 +593,16 @@ function AnalizarOperacion(id) {
 
         CargarPropuesta(id);
     }
-    
+
     if (id == "D") {
+        console.log('D');
         if (ValidarPaso2Devolucion(id)) {
             CambioPaso2(100);
             $("[data-tipo-confirma='cambio']").hide();
             $("[data-tipo-confirma=canje]").show();
 
             CargarPropuesta(id);
-        }        
+        }
     }
 
     if (id == "F") {
@@ -611,7 +612,7 @@ function AnalizarOperacion(id) {
             $("[data-tipo-confirma=canje]").show();
 
             CargarPropuesta(id);
-        }        
+        }
     }
 
     if (id == "G") {
@@ -621,7 +622,7 @@ function AnalizarOperacion(id) {
             $("[data-tipo-confirma=canje]").show();
 
             CargarPropuesta(id);
-        }       
+        }
     }
 
     if (id == "T") {
@@ -716,12 +717,12 @@ function CargarPropuesta(codigoSsic) {
     var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
     var item = {
-        CUV: $.trim($("#txtCUV").val()),
+        CUV: $.trim($("#txtCuv").text()),
         DescripcionProd: $.trim($("#txtCUVDescripcion").val()),
         Cantidad: $.trim($("#txtCantidad").val()),
         EstadoSsic: $.trim(codigoSsic)
     };
-    
+
     waitingDialog();
 
     jQuery.ajax({
@@ -797,7 +798,7 @@ function DetalleGuardar() {
             if (checkTimeout(data)) { }
         }
     });
-    
+
 }
 
 function CambioPaso2(paso) {
@@ -807,7 +808,7 @@ function CambioPaso2(paso) {
     $('[id=Cambio' + paso2Actual + ']').show();
 }
 
-function ValidarPaso2Devolucion(codigoSsic) {    
+function ValidarPaso2Devolucion(codigoSsic) {
     var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
     var montoTotalPedido = $("#hdImporteTotalPedido").val();
     var montoProductosDevolverActual = ObtenerMontoProductosDevolver(codigoSsic);
@@ -934,7 +935,7 @@ function ValidarPaso2Trueque() {
         } else {
             var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
             diferencia2 = Math.abs(diferencia2);
-            
+
             if (diferencia2 > parseInt(valorParametria)) {
                 alert_msg("Diferencia en trueques excede lo permitido");
                 return false;
@@ -977,7 +978,7 @@ function DetalleCargar() {
         contentType: 'application/json; charset=utf-8',
         data: JSON.stringify(item),
         cache: false,
-        success: function(data) {
+        success: function (data) {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
@@ -989,7 +990,7 @@ function DetalleCargar() {
 
             $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
             SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
-            ValidarVisualizacionBannerResumen();            
+            ValidarVisualizacionBannerResumen();
 
             SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
             SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
@@ -1000,7 +1001,7 @@ function DetalleCargar() {
             //EPD-1919 FIN
 
         },
-        error: function(data, error) {
+        error: function (data, error) {
             closeWaitingDialog();
             if (checkTimeout(data)) { }
         }
@@ -1012,7 +1013,7 @@ function DetalleAccion(obj) {
     if (accion == "") {
         return false;
     }
-       
+
     if (accion == "x") {
         var pedidodetalleid = $.trim($(obj).attr("data-pedidodetalleid"));
 
@@ -1021,7 +1022,7 @@ function DetalleAccion(obj) {
         };
 
 
-        var functionEliminar = function() {
+        var functionEliminar = function () {
             DetalleEliminar(item);
         };
         messageConfirmacion("", "Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
@@ -1062,63 +1063,63 @@ function DetalleEliminar(objItem) {
 }
 
 function ControlSetError(inputId, spanId, message) {
-	if (IfNull(message, '') == '') {
-		$(inputId).css('border-color', '#b5b5b5');
-		$(spanId).css('display', 'none');
-	}
-	else {
-		$(inputId).css('border-color', 'red');
-		$(spanId).css('display', '');
-		$(spanId).html(message);
-	}
+    if (IfNull(message, '') == '') {
+        $(inputId).css('border-color', '#b5b5b5');
+        $(spanId).css('display', 'none');
+    }
+    else {
+        $(inputId).css('border-color', 'red');
+        $(spanId).css('display', '');
+        $(spanId).html(message);
+    }
 }
 
 function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
-	var ok = true;
-	var correo = $.trim($("#txtEmail").val());
-	var celular = $.trim($("#txtTelefono").val());
-	ControlSetError('#txtEmail', '#spnEmailError', null);
-	ControlSetError('#txtTelefono', '#spnTelefonoError', null);
-	
-	if (IfNull(validarCorreoVacio, true) && correo == "") {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
-		ok = false;
-	}
-	if (IfNull(validarCelularVacio, true) && celular == "") {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
-		ok = false;
-	}
-	if (!ok) {
-		alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
-		return false;
-	}
+    var ok = true;
+    var correo = $.trim($("#txtEmail").val());
+    var celular = $.trim($("#txtTelefono").val());
+    ControlSetError('#txtEmail', '#spnEmailError', null);
+    ControlSetError('#txtTelefono', '#spnTelefonoError', null);
 
-	if (correo != "" && !validateEmail(correo)) {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+    if (IfNull(validarCorreoVacio, true) && correo == "") {
+        ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
         ok = false;
     }
-	if (celular != "" && celular.length < 6) {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+    if (IfNull(validarCelularVacio, true) && celular == "") {
+        ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
         ok = false;
-	}
-	if (!ok) return false;
-	
-	if (celular != "" && !ValidarTelefono(celular)) {
-		ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
-		return false;
-	}
+    }
+    if (!ok) {
+        alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
+        return false;
+    }
+
+    if (correo != "" && !validateEmail(correo)) {
+        ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+        ok = false;
+    }
+    if (celular != "" && celular.length < 6) {
+        ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+        ok = false;
+    }
+    if (!ok) return false;
+
+    if (celular != "" && !ValidarTelefono(celular)) {
+        ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+        return false;
+    }
 
     var correoActual = $.trim($("#hdEmail").val());
-	if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
-		ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
-		return false;
+    if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
+        ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
+        return false;
     }
-	
-	if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
+
+    if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
         alert_msg("Debe aceptar la política de Cambios y Devoluciones");
         return false;
     }
-    
+
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0,
@@ -1150,11 +1151,11 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
                 alert_msg(data.message);
                 return false;
             }
-            
+
             var formatoFechaCulminado = "";
             var numeroSolicitud = 0;
             var formatoCampania = "";
-            var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho,'');
+            var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
             if (data.cdrWeb.CDRWebID > 0) {
                 if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
                     var dateString = data.cdrWeb.FechaCulminado.substr(6);
@@ -1181,7 +1182,7 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
             $("#divUltimasSolicitudes").hide();
             $("#TituloReclamo").hide();
             $("#SolicitudEnviada").show();
-           
+
             if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
         },
         error: function (data, error) {
@@ -1304,7 +1305,7 @@ function ValidarTelefono() {
         url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-	data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
+        data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
         async: false,
         cache: false,
         success: function (data) {
@@ -1314,7 +1315,7 @@ function ValidarTelefono() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-	    checkTimeout(data);
+            checkTimeout(data);
         }
     });
     return resultado;
@@ -1327,7 +1328,7 @@ function ValidarCorreoDuplicado(correo) {
         url: baseUrl + 'MisReclamos/ValidarCorreoDuplicado',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-	data: JSON.stringify({ correo: correo }),
+        data: JSON.stringify({ correo: correo }),
         async: false,
         cache: false,
         success: function (data) {
@@ -1349,7 +1350,7 @@ function ValidarCorreoDuplicado(correo) {
 function limitarMaximo(e, contenido, caracteres, id) {
     var unicode = e.keyCode ? e.keyCode : e.charCode;
     if (unicode == 8 || unicode == 46 || unicode == 13 || unicode == 9 || unicode == 37 ||
-    unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
+        unicode == 39 || unicode == 38 || unicode == 40 || unicode == 17 || unicode == 67 || unicode == 86)
         return true;
 
     if (contenido.length >= caracteres) {

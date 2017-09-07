@@ -216,5 +216,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }, JsonRequestBehavior.AllowGet);
             }
         }
+        public JsonResult BuscarMotivo(MisReclamosModel model)
+        {
+            var lista = CargarMotivo(model);
+            return Json(new
+            {
+                success = true,
+                message = "",
+                detalle = lista
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
