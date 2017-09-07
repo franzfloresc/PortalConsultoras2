@@ -215,14 +215,6 @@ cursor: pointer;
 font-size: 10px;
 text-transform: uppercase;
 }
-.slick-track {
-position: relative;
-top: 0;
-left: 0 !important;
-display: block;
-width: 100% !important;
-overflow: hidden !important;
-}
 .bc-menu-vertical-prev, .bc-menu-vertical-next{
 width:auto !important;
 }
