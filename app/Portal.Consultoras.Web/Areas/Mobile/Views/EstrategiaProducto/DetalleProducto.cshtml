@@ -294,10 +294,10 @@
                     ratedFill: "#cca11e",
                     starWidth: "17px"
                 });
-                $(document).ready(function () {            
+                $(document).ready(function () {
                     bestSellerCommentModule.ini({
-                        urlListarComentarios: '@Url.Action("ListarComentarios", "EstrategiaProductoComentario")',
-                        urlRegistrarComentario: '@Url.Action("RegistrarComentario", "EstrategiaProductoComentario")',
+                        urlListarComentarios: '/EstrategiaProductoComentario/ListarComentarios',
+                        urlRegistrarComentario: '/EstrategiaProductoComentario/RegistrarComentario',
                         urlImagenUsuarioDefault: '@Url.Content("~/Content/Images/Esika/user.jpg")',
                         origenPantalla:2
                     });
