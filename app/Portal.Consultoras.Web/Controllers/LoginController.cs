@@ -45,7 +45,8 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.ListaPaises = ObtenerPaises();
-                model.ListaEventos = ObtenerEventoFestivo();
+                model.ListaEventos = ObtenerEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0);
+                
                 if (model.ListaEventos.Count == 0)
                 {
                     model.NombreClase = "fondo_estandar";
@@ -125,14 +126,14 @@ namespace Portal.Consultoras.Web.Controllers
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
         }
 
-        protected List<EventoFestivoModel> ObtenerEventoFestivo()
+        protected List<EventoFestivoModel> ObtenerEventoFestivo(int paisID, string Alcance, int Campania)
         {
             List<BEEventoFestivo> lst;
             try
             {
                 using (UsuarioServiceClient sv = new UsuarioServiceClient())
                 {
-                    lst = sv.GetEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0).ToList();
+                    lst = sv.GetEventoFestivo(paisID, Alcance, Campania).ToList();
                 }
             }
             catch (Exception ex)
@@ -1078,12 +1079,8 @@ namespace Portal.Consultoras.Web.Controllers
                         #region EventoFestivo
                         try
                         {
-                            using (UsuarioServiceClient sv = new UsuarioServiceClient())
-                            {
-                                //verificar si tiene un evento festivo
-                                var lstEvento = sv.GetEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
-                                model.ListaEventoFestivo = Mapper.Map<IList<ServiceUsuario.BEEventoFestivo>, List<EventoFestivoModel>>(lstEvento);
-                            }
+                            model.ListaEventoFestivo = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
+                            
                             if (model.ListaEventoFestivo.Any())
                             {
                                 foreach (var item in model.ListaEventoFestivo)
@@ -1100,6 +1097,8 @@ namespace Portal.Consultoras.Web.Controllers
                                     }
                                 }
                             }
+
+                            model.ListaGifMenuContenedorOfertas = ObtenerEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.MENU_SOMOS_BELCORP, model.CampaniaID);
                         }
                         catch (Exception ex)
                         {

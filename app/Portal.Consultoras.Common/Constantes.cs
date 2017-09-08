@@ -634,14 +634,17 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {
-            public const string RevistaShowRoom = "ShowRoom";
+        {            
             public const string MiNegocio = "MiNegocio";
-            public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
-            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
             public const string PedidoFIC = "PedidoFIC";
+            public const string ContenedorOfertas = "ContenedorOfertas";
+        }
+
+        public class BannerCodigo
+        {
+            public const string RevistaDigital = "RevistaDigital";
         }
 
         public class IngresoExternoPagina
@@ -1022,7 +1025,8 @@ namespace Portal.Consultoras.Common
         public class EventoFestivoAlcance
         {
             public const string LOGIN = "LOGIN";
-            public const string SOMOS_BELCORP = "SOMOS_BELCORP";            
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";
+            public const string MENU_SOMOS_BELCORP = "MENU_SOMOS_BELCORP";
         }
 
         public class EventoFestivoNombre
@@ -1031,6 +1035,8 @@ namespace Portal.Consultoras.Common
             public const string FONDO_LBEL = "FONDO_LBEL";
             public const string SALUDO = "SALUDO";
             public const string FONDO_INGPED = "FONDO_INGPED";
+            public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
+            public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
         }
         #endregion
     }

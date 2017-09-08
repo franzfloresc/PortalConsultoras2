@@ -138,7 +138,7 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital) || EsCampaniaFalsa(model.CampaniaID))
+                if (!(userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR) || EsCampaniaFalsa(model.CampaniaID))
                 {
                     return Json(new
                     {
@@ -409,7 +409,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = userData.RevistaDigital.EstadoSuscripcion > 0,
                     message = userData.RevistaDigital.EstadoSuscripcion > 0 ? "" : "Ocurrió un error, vuelva a intentarlo.",
-                    CodigoMenu = Constantes.MenuCodigo.RevistaDigital
+                    CodigoMenu = Constantes.BannerCodigo.RevistaDigital
                 }, JsonRequestBehavior.AllowGet);
 
             }

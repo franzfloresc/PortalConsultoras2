@@ -379,5 +379,7 @@ namespace Portal.Consultoras.Web.Models
         public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
         public string EfRutaPedido { get; set; }
         public string EfSaludo { get; set; }
+
+        public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
     }
 }
