@@ -114,7 +114,7 @@ GO
 
 --- STORES NECESARIO 
 
-ALTER PROCEDURE [dbo].[ConfiguracionPaisList]
+CREATE PROCEDURE [dbo].[ConfiguracionPaisList]
 	@TienePerfil BIT
 AS
 BEGIN
@@ -124,7 +124,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[ConfiguracionPaisGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionPaisGet] 
 	@ConfiguracionPaisID int
 AS
 BEGIN
@@ -134,7 +134,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
+CREATE PROCEDURE [dbo].[ConfiguracionPaisUpdate] 
 	@ConfiguracionPaisID int,
 	@Excluyente bit,
 	@Estado bit,
@@ -245,7 +245,7 @@ ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOf
 
 GO
 
-ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
 BEGIN
@@ -257,7 +257,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
@@ -267,7 +267,7 @@ BEGIN
 END
 GO
 
-ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeUpdate] 
 	@ConfiguracionOfertasHomeID int,
 	@ConfiguracionPaisID int,
 	@CampaniaID int,

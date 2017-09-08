@@ -56,8 +56,22 @@ $(document).ready(function () {
             $('.op-menu-vertical').css('top', "");
         }
     });
+
+    VerificarAncla();
 });
 
+function VerificarAncla() {
+    var anchorValue;
+    var url = document.location;
+    if (url.indexOf("#") > -1) {
+        var strippedUrl = url.toString().split("#");
+        if (strippedUrl.Length > 1) anchorValue = strippedUrl[1];
+        $(elementos.menu2Li).removeClass(elementos.claseActivo);
+        $("html, body").find("[data-generated=" + anchorValue + "]").children("a").addClass("activo");
+    }
+   
+
+}
 function MenuContenedor() {
     //$(elementos.menu2Li).hide();
     //$(elementos.menu2Li).removeClass(elementos.claseActivo);
@@ -88,7 +102,7 @@ function MenuContenedor() {
     //        codigo: $(primerSubMenu).data("codigo")
     //    };
 
-    //    MenuContenedorGuardar(menuCheck);
+    //    MenuContenedorG2uardar(menuCheck);
     //}
 
     //console.log(menuCheck);
