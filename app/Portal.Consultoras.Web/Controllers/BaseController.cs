@@ -2871,7 +2871,9 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.TemplateProducto = "#producto-landing-template";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
-                        seccion.TemplatePresentacion = "seccion-simple-centrado";
+                        seccion.TemplatePresentacion = "seccion-banner";
+                        seccion.Titulo = "";
+                        seccion.SubTitulo = "";
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                         if (sessionManager.GetEsShowRoom())

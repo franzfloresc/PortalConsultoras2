@@ -1162,7 +1162,6 @@
     <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
-    <Content Include="Content\Css\Mobile\esika\ofertas.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
