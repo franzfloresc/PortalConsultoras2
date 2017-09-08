@@ -29,17 +29,20 @@
     {
         <h6>EDITAR <b>CLIENTE</b></h6>
 
-        String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
-        DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-        String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
-
-        if (DateTime.Now.Date <= FechaCliente)
+        String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"] ?? string.Empty;
+        if (!string.IsNullOrEmpty(FechaClienteConfig))
         {
-            <div class="clienteMensajeEditar">
-                <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-                <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-            </div>
-            <br />
+            DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
+
+            if (DateTime.Now.Date <= FechaCliente)
+            {
+                <div class="clienteMensajeEditar">
+                    <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
+                    <span>Ingresa al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
+                </div>
+                <br />
+            }
         }
     }
 }
