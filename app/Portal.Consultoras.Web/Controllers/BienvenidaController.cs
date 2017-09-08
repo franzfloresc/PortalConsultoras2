@@ -356,6 +356,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return popupForzado.TipoPopup;
             }
             
+            int TipoPopUpMostrar = 0;
             if (Session[Constantes.ConstSession.TipoPopUpMostrar] != null)
             {
                 TipoPopUpMostrar = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
@@ -369,7 +370,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return TipoPopUpMostrar;
             }
 
-            int TipoPopUpMostrar = 0;
             var listaPopUps = ObtenerListaPopupsDesdeServicio();
             if (listaPopUps.Any())
             {
