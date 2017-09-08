@@ -755,7 +755,7 @@
         });
         $("#txtCUV2").keyup(function () {
             var cuvIngresado = $(this).val();
-            $("#imgSeleccionada").attr("src", rutaImagenVacia);ex
+            $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
             estrategiaObj.mostrarInformacionCUV(cuvIngresado, isNuevo);
         });
@@ -797,7 +797,6 @@
                 PaletaColores();
             }
         });
-
 
         $("#btnNuevoMasivo").click(function () {
             if ($("#ddlPais").val() == "") {

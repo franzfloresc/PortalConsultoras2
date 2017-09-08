@@ -4,8 +4,8 @@ var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
-
     $("body").on("click", "[data-compartir]", function (e) {
+        e.preventDefault();
         CompartirRedesSociales(e);
     });
 
@@ -552,8 +552,9 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
             
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+                var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
+                botonesCerrar.off('click');
+                botonesCerrar.on('click', fnAceptar);
             }
         }
         else {
@@ -1144,7 +1145,8 @@ function CompartirRedesSocialesTexto(texto) {
     return "whatsapp://send?text=" + texto;
 }
 
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre = "") {
     id = $.trim(id);
     if (id == "0" || id == "") {
         console.log("CompartirRedesSocialesAbrirVentana Falta ID");
@@ -1158,43 +1160,44 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
     ruta = ruta.replace('[valor]', id);
 
+    try {
+        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+        } else {
+            AnalyticsRedesSociales(tipoRedes, ruta);
+        }
+    } catch (e) {console.log(e)} 
+
     if (tipoRedes == "FB") {
         var popWwidth = 570;
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
-        //google marca analytics        
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    } else if (tipoRedes == "WA") {
+        if (texto != "")
+            texto = texto + " - ";
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
+        $("#HiddenRedesSocialesWA")[0].click();
+    }
+}
 
+function AnalyticsRedesSociales(tipoRedes, ruta) {
+    if (tipoRedes === "FB") {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Facebook',
-            'action': 'Compartir',
+            'action': 'Share',
             'target': ruta
         });
-        
-        //****************************
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    } else if (tipoRedes == "WA") {
-
-        if (texto != "")
-            texto = texto + " - ";
-
-        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
-        //return "whatsapp://send?text=" + texto + ruta;
-        //google marca analytics        
-
+    } else if (tipoRedes == "WA"){
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Whatsapp',
             'action': 'Compartir',
             'target': ruta
         });
-
-        //****************************
-        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
-        $("#HiddenRedesSocialesWA")[0].click();
-        //document.getElementById('HiddenRedesSocialesWA').click();
     }
 }
 
@@ -1215,9 +1218,9 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
     try {
-        if (_palanca === "LAN") {
-            CompartirProductoRDAnalytics(tipoRedes, pcDetalle, _nombre);
-        }
+        //if (_palanca === "LAN") {
+        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
+        //}
     } catch (e) { console.log(e); }
 
     var Item = {
@@ -1238,7 +1241,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
                 } else {
                     AbrirMensaje(response.message);
                 }

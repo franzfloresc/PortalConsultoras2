@@ -4,6 +4,7 @@ var CantidadFilas = CantidadFilas || 10;
 var lsListaRD = lsListaRD || "ListaRD";
 var indCampania = indCampania || 0;
 var isDetalle = false;
+var esPrimeraCarga = true;
 
 var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
@@ -39,9 +40,9 @@ $(document).ready(function () {
             }
         });
         // Registrar valrores de analytics
-        if (!isMobile()) {
+        if (!esPrimeraCarga) {
             TabsRDAnalytics($(this).attr("data-tab-index"), campaniaId);
-        }
+        } else {esPrimeraCarga = false;}
 
         var funt = $.trim($(this).attr("data-tag-funt"));
         if (funt != "") {
@@ -146,10 +147,24 @@ $(document).ready(function () {
     $("body").on("click", "[data-item-accion='verdetalle']", function(e) {
         var campania = $(this).parents("[data-tag-html]").attr("data-tag-html");
         var cuv = $(this).parents("[data-item]").attr("data-item-cuv");
+        var obj = GetProductoStorage(cuv, campania);
+        if (obj == undefined) {
+            obj = $(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia");
+            if (obj != undefined)
+            {
+                 obj = JSON.parse(obj);
+            }
+        }
+        if (obj == undefined) {
+	    return;
+        }
+
+
         var obj = JSON.parse($(this).parents("[data-item]").find("[data-estrategia]").attr("data-estrategia"));
         obj.CUV2 = $.trim(obj.CUV2);
+            obj.Posicion = 1;
         if (obj.CUV2 != "") {
-            VerDetalleLanRDAnalytics(campania, obj.DescripcionResumen);
+                VerDetalleLanRDAnalytics(obj);
             var guardo = EstrategiaGuardarTemporal(obj);
             if (guardo)
                 return window.location = urlOfertaDetalleProducto +

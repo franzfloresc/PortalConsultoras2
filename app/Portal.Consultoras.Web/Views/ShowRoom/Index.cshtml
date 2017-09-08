@@ -61,60 +61,69 @@
 
         </div>
         <div class="content-left-item content_new_showroom">
-            <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer;">
-                FILTRAR POR CATEGORÍA
-                <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
-                    @if (Model.TieneCategoria)
+            <div style="float:left;">
+                <div id="divCantProductos" class="cantidad_productos_resultado">
+                    Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
+                </div>
+            </div>
+            <div style="float:right;">
+
+
+                <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer;">
+                    FILTRAR POR CATEGORÍA
+                    <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
+                        @if (Model.TieneCategoria)
                      {
                         if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                         {
-                             <div id="div-filter-category">
-                                        @foreach (var itemCategoria in Model.ListaCategoria)
+                                <div id="div-filter-category">
+                                    @foreach (var itemCategoria in Model.ListaCategoria)
                                         {
                                             if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
                                             {
-                                                <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
-                                                <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
+                                            <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
+                                            <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
                                             }
                                         }
-                            </div>
-                            
+                                </div>
+
                         }
                     }
-                </div>            
-            </div>
-            <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:330px;">
-                FILTRAR POR PRECIO
-                <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none;">
-                    <div class="content_filtro_range_showroom">
-                        <input class="range-slider" value="" style="width: 100%; display: none;" />
                     </div>
                 </div>
-            </div>
-
-            <div id="divCantProductos" class="cantidad_productos_resultado">
-                Mostrando <span id="spnCantidadFiltro">0</span> de <span id="spnCantidadTotal">0 productos</span>
-            </div>
-            @if (Model.FiltersBySorting != null)
-            {
-                <div class="filtros_derecha_SHOWROOM">
-                   
-
-                    <select id="filter-sorting" class="select_filtros_fav" style="width:250px; margin-left:0;">
-                        @foreach (var item in Model.FiltersBySorting)
-                        {
-                            <option value="@item.Codigo">@item.Descripcion</option>
-                        }
-                    </select>
-
+                <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:330px;">
+                    FILTRAR POR PRECIO
+                    <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none;">
+                        <div class="content_filtro_range_showroom">
+                            <input class="range-slider" value="" style="width: 100%; display: none;" />
+                        </div>
+                    </div>
                 </div>
-            }
+
+
+                @if (Model.FiltersBySorting != null)
+            {
+                    <div class="filtros_derecha_SHOWROOM">
+
+
+                        <select id="filter-sorting" class="select_filtros_fav" style="width:250px; margin-left:0; height:33px; border:0;box-shadow:inset 0 0 0 1px #b8b8b8">
+                            @foreach (var item in Model.FiltersBySorting)
+                        {
+                        <option value="@item.Codigo">@item.Descripcion</option>
+                        }
+                        </select>
+
+                    </div>
+                }
+
+            </div>
 
             <hr class="clear" />
             <div id="divProductosShowRoom"></div>
         </div>
 
     </div>
+
     <hr class="clear" />
     @if (Model.TieneSubCampania)
     {

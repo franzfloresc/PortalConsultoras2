@@ -5,6 +5,7 @@
 @section styles{
 
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssBienvenida")
+    @System.Web.Optimization.Styles.Render("~/Content/Css/Site/AsesoraOnline")
     <style type="text/css">
         .contenedorCuponInfo .contenedor-texto-agregar {
             display: inline-block;
@@ -54,13 +55,22 @@
                     <span class="saludo_aniversario">¡Feliz Aniversario</span>
                 </div>
                 <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
+                    <span>@nombreConsultora</span>
                 </div>
             }
             else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
             {
                 <div class="nombre_consultora">
                     <span class="saludo_aniversario">¡Feliz Cumpleaños</span>
+                </div>
+                <div class="consultora_home">
+                    <span>@nombreConsultora</span>
+                </div>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+            {
+                <div class="nombre_consultora">
+                    <span class="saludo_aniversario">¡@ViewBag.SaludoFestivo</span>
                 </div>
                 <div class="consultora_home">
                     <span>@(nombreConsultora)</span>
@@ -72,7 +82,7 @@
                     <span style="margin-top: -0.5px!important;">¡Hola</span>
                 </div>
                 <div class="consultora_home">
-                    <span>@(nombreConsultora)</span>
+                    <span>@nombreConsultora</span>
                 </div>
             }
             @if (ViewBag.TipoUsuario != 2)
@@ -122,11 +132,11 @@
             string ultPg, vermas;
             string clasePagoOnlineVZ = "";
             string clasePagoUltMovVZ = "";
-            
+
             if (verUltmPagos == "1") { ultPg = "display: block;"; vermas = "display:none;"; } else { ultPg = "display:none;"; vermas = "display: block;"; }
             if (Model.PaisID == 14) { clasePagoUltMovVZ = "boton_ultimos_movimientosVZ"; clasePagoOnlineVZ = "margin-top: 0px;"; } //EPD-1204
         }
-        
+
         <div class="titulo_home_img"></div>
         <div class="titulo_home_belcorp">
             <div>MI ESTADO DE CUENTA</div>
@@ -163,10 +173,10 @@
         }
         else if (Model.PaisID == 14) //Venezuela EPD-1204
         {
-            <a role="link" region="Cuerpo" parent="Mi estado de cuenta" 
-               title="Pago en Línea" class="btn_paga_online btn_100_paga" 
-		href="@Url.Action("Index", "MisPagos", new { pestanhaInicial = "LugaresPago"})" 
-               style="@clasePagoOnlineVZ"> PAGA EN L&Iacute;NEA</a>
+            <a role="link" region="Cuerpo" parent="Mi estado de cuenta"
+               title="Pago en Línea" class="btn_paga_online btn_100_paga"
+               href="@Url.Action("Index", "MisPagos", new { pestanhaInicial = "LugaresPago"})"
+               style="@clasePagoOnlineVZ">PAGA EN L&Iacute;NEA</a>
         }
         <hr class="clear" />
 
@@ -246,10 +256,9 @@
 <!--CAROUSEL OFERTAS PARA TI-->
 <div id="divListaEstrategias" style="display:none;">
     <div id="contenedor_template_estrategia_cabecera" class="fondo_gris"></div>
-    
+
 </div>
 <!--FIN CAROUSEL OFERTAS PARA TI-->
-
 <!--REVISTA DIGITAL -->
 <div class="fondo_gris content_belcorp" id="divRevistaDigital">
 
@@ -504,9 +513,122 @@
 <!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI LANZAMIENTO -->
 <!-- POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <div class="contenedor_popup_detalleCarousel" id="popupDetalleCarousel_packNuevas"></div>
-<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
+
 <!-- POPUPs HOME -->
 <div class="contenedor_fondo_popup" id="fondoComunPopUp" style="display:none;">
+    <!-- POPUP INSCRIPCION COACH VIRTUAL -->
+    <div id="virtual-coach-dialog" class="popup_inscripcion_asesoria_online tipografia_lato" style="display:none;">
+        <a id="cerrar-virtual-coach-dialog" class="cerrar_popup_inscripcion" title="Cerrar">
+            @*<img src="@Url.Content("~/Content/Images/icono-cerrar-popup-inscripcion.svg")" alt="Cerrar">*@
+        </a>
+        <div class="img_celular_animado">
+            <img src="@Url.Content("~/Content/Images/popup-inscripcion-animacion.gif")" alt="" />
+        </div>
+        <div class="img_popup_inscripcion_asesoria_online">
+            <img src="@Url.Content("~/Content/Images/img_inscripcion_asesoria_online.png")" alt="Inscripción Asesora Online">
+        </div>
+        <div class="contenido_popup">
+            <div class="extension_cabecera_popup_inscripcion"></div>
+            <div class="titulo_principal_asesora_online">
+                <span>
+                    <img src="@Url.Content("~/Content/Images/logo-esika-landing.svg")" alt="Logo Ésika" />
+                </span>
+                <span>
+                    <img src="@Url.Content("~/Content/Images/linea-separadora.svg")" alt="" />
+                </span>
+                <span class="tipografia_lato_light">
+                    MI GUÍA DIGITAL
+                </span>
+            </div>
+            <div class="mensaje_popup">
+                <div class="tipografia_lato_bold"><span style="text-transform:uppercase;">@Model.NombreConsultora,</span> SUSCRÍBETE Y RECIBE POR CORREO Y MENSAJE DE TEXTO</div>
+                <div class="tipografia_lato_light">
+                    TODOS LOS CONSEJOS PARA GANAR MÁS
+                </div>
+            </div>
+            <div class="lista_beneficios_inscripcion">
+                <div class="beneficio_inscripcion">
+                    <div class="beneficio_consejos_negocio">
+                        <img src="@Url.Content("~/Content/Images/img_dialog_popup.png")" alt="Recibe consejos para tu negocio">
+                        <div class="beneficio_descripcion">
+                            <span class="tipografia_lato_bold">Recibe <br /><span class="color_esika">CONSEJOS PARA<br />TU NEGOCIO</span></span>
+                            <span class="tipografia_lato_regular">Mensaje de texto 12:46 a.m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="beneficio_inscripcion">
+                    <div class="beneficio_ofertas_personalizadas">
+                        <img src="@Url.Content("~/Content/Images/img_dialog_popup.png")" alt="Recibe consejos para tu negocio">
+                        <div class="beneficio_descripcion">
+                            <span class="tipografia_lato_bold">Tienes <span class="color_esika">OFERTAS<br />PERSONALIZADAS<br /></span>para ti</span>
+                            <span class="tipografia_lato_regular">Mensaje de texto 12:46 a.m</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="beneficio_inscripcion">
+                    <div class="beneficio_fechas_clave">
+                        <img src="@Url.Content("~/Content/Images/img_dialog_popup.png")" alt="Recibe consejos para tu negocio">
+                        <div class="beneficio_descripcion">
+                            <span class="tipografia_lato_bold">Recuerda las <br /><span class="color_esika">FECHAS CLAVE<br /></span>de tu campaña</span>
+                            <span class="tipografia_lato_regular">Mensaje de texto 12:46 a.m</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper_cta_inscripcion">
+                <a id="quiero-tips-ofertas" class="cta_inscripcion tipografia_lato_bold" title="Quiero suscribirme">
+                    QUIERO SUSCRIBIRME
+                </a>
+                <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_lato_bold" title="">VER MÁS INFORMACIÓN</a>
+            </div>
+            @*<div class="fondo_titulo_asesora">
+                    <div class="titulo_principal_asesora_online tipografia_lato_light">
+                        SUSCRÍBETE Y GANA MÁS CON<br /><span class="titulo_tu_asesora_online tipografia_lato_bold">ÉSIKA TE ASESORA</span>
+                    </div>
+                </div>
+                <div class="mensaje_popup">
+                    <div class="texto_popup">
+                        TODO LO QUE NECESITAS PARA GANAR MÁS, <span class="salto_linea">AHORA EN LA PALMA DE TUS MANOS (CORREO Y SMS)</span>
+                    </div>
+                    <div class="lista_beneficios_inscripcion">
+                        <div class="beneficio_inscripcion">
+                            <div class="icono_beneficio_inscripcion beneficio_vender_mas">
+                                <img src="@Url.Content("~/Content/Images/icono-vender-mas-asesora-online-blanco.png")" alt="LOS MEJORES CONSEJOS PARA VENDER MÁS">
+                            </div>
+                            <div class="descripcion_beneficio_inscripcion">
+                                <div>LOS MEJORES CONSEJOS PARA VENDER MÁS</div>
+                            </div>
+                        </div>
+                        <div class="beneficio_inscripcion">
+                            <div class="icono_beneficio_inscripcion beneficio_ofertas_asesoras">
+                                <img src="@Url.Content("~/Content/Images/icono-ofertas-asesora-online.png")" alt="LAS OFERTAS EXCLUSIVAS SÓLO PARA TI">
+                            </div>
+                            <div class="descripcion_beneficio_inscripcion">
+                                <div>LAS OFERTAS EXCLUSIVAS <span class="salto_linea">SÓLO PARA TI</span></div>
+                            </div>
+                        </div>
+                        <div class="beneficio_inscripcion">
+                            <div class="icono_beneficio_inscripcion beneficio_asesoramiento_gestion_clientes">
+                                <img src="@Url.Content("~/Content/Images//icono-gestion-clientes-asesora-online.png")" alt="ASESORAMIENTO PARA GESTIONAR TUS CLIENTES">
+                            </div>
+                            <div class="descripcion_beneficio_inscripcion">
+                                <div>ASESORAMIENTO PARA GESTIONAR TUS CLIENTES</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wrapper_cta_inscripcion">
+                        <a id="quiero-tips-ofertas" class="cta_inscripcion tipografia_lato_bold" title="Quiero inscribirme">
+                            QUIERO TIPS Y OFERTAS
+                        </a>
+                        <a id="ver-mas-informacion" class="enlace_ver_mas_informacion tipografia_bold" title="">VER MÁS INFORMACIÓN</a>
+                    </div>
+                </div>*@
+        </div>
+        <a id="no-volver-mostrar-mensaje" class="enlace_no_volver_mostrar_mensaje" title="No volver a ver este mensaje">
+            No volver a ver este mensaje
+        </a>
+    </div>
+    <!-- FIN POPUP INSCRIPCION COACH VIRTUAL -->
     <!-- POPUP VIDEO INTRODUCTORIO -->
     <div class="popup_video_introductorio" style="display:none;" id="videoIntroductorio">
         <div class="contenedor_video_introductorio">
@@ -697,10 +819,10 @@
                         Modifica tus datos comunicándote al 5948060 en Bogotá y 018000937452 a nivel nacional.
                     </div>
                     <div class="contenedor_boton_actualizar">
-                             <button type = "button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
-                                 ACEPTAR
-                             </button>
-                     </div>
+                        <button type="button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
+                            ACEPTAR
+                        </button>
+                    </div>
                 }
                 else
                 {
@@ -708,10 +830,10 @@
                         <span class="asterisco_actualizar_datos">(*)&nbsp;</span>Datos obligatorios
                     </div>
                     <div class="contenedor_boton_actualizar">
-                        <button type = "button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
-                                 ACTUALIZAR
+                        <button type="button" name="btn_actualizarMisDatos2" class="btn_actualizarMisDatos" id="btnActualizarMD2">
+                            ACTUALIZAR
                         </button>
-                     </div>
+                    </div>
                 }
             </form>
         </div>
@@ -859,50 +981,59 @@
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                         <label>@Model.TextoSobrenombre</label>
-                         @if (Model.PaisID == 4)
-                         {
-                         <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
-                         }
-                         else {
-                         <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
-                            }
+                        <label>@Model.TextoSobrenombre</label>
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtSobrenombre" id="txtSobrenombreMD" />
+                        }
                     </div>
                     <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico</label>
-                         @if (Model.PaisID == 4)
-                         {
-                             <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
-                         }
+                        <label>
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCorreoElectronico
+                        </label>
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtEMailMD" id="txtEMailMD" onkeydown="return limitarMaximo(event,this.value,100,'txtEMailMD')" />
+                        }
                     </div>
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_actualizarDatos">
                     <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono</label>
-                         @if (Model.PaisID == 4)
-                         {
-                             <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
-                         } 
-
+                        <label>
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoTelefono
+                        </label>
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtTelefonoMD" id="txtTelefonoMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtTelefonoMD')" />
+                        }
                     </div>
                     <div>
-                        <label>@if (Model.PaisID != 4){<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular</label>
-                         @if (Model.PaisID == 4)
-                         {
-                             <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                         }
-                         else
-                         {
-                             <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
-                         } 
+                        <label>
+                            @if (Model.PaisID != 4)
+                            {<span class="asterisco_actualizar_datos">(*)&nbsp;</span>}@Model.TextoCelular
+                        </label>
+                        @if (Model.PaisID == 4)
+                        {
+                            <input type="text" disabled="disabled" readonly name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
+                        else
+                        {
+                            <input type="text" name="txtCelularMD" id="txtCelularMD" onkeydown="return limitarMaximo(event,this.value,@Model.limiteMaximoTelef,'txtCelularMD')" />
+                        }
 
                     </div>
                 </div>
@@ -957,7 +1088,6 @@
                             </button>
                         </div>
                     }
-
                 </div>
                 <div class="grupo_input_actualizarMisDatos campos_cambiarContrasenia">
                     <div>
@@ -1021,7 +1151,9 @@
     <div id="popupComunicados" style="display:none;"></div>
     <!-- FIN POPUP COMUNICADOS -->
 </div>
+
 <!-- FIN POPUP POPUPs HOME -->
+<!-- FIN POPUP DETALLE CARRUSEL OFERTAS PARA TI PACK NUEVAS -->
 <!--POP UP FOTO CARGADA-->
 <div class="popup_actualizarMisDatos" id="CamaraIntroductoria" style="display: none;">
     <div class="btn_cerrar_actualizarMisDatos">
@@ -1307,7 +1439,7 @@
                     <div class="hblock_tit">{{Titulo}}</div>
                     <div style="width: 65%">{{TituloDescripcion}}</div>
                     <div class="btn_diagonal">
-                        <a href="@Url.Action("Index", "RevistaDigital")">
+                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeSeccion)">
                             VER TODAS MIS OFERTAS
                             <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                             <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
@@ -1316,9 +1448,9 @@
                 </div>
             </div>
         </div>
-        <hr class="clear" />
-        <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
-        <hr class="clear" />
+            <hr class="clear" />
+            <div class="" id="divListadoEstrategia2" data-origenpedidoweb="@Constantes.OrigenPedidoWeb.DesktopHomeOfertasParaTi"></div>
+            <hr class="clear" />
     }
     else
     {
@@ -1329,7 +1461,7 @@
 
 @if (ViewBag.TieneRDR || (ViewBag.TieneRDC && ViewBag.EstadoSucripcionRDAnterior2 == 1))
 {
-    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary {{ "NombreConsultora", Model.SobreNombre }})
+    @Html.Partial("~/Views/Bienvenida/template-seccion-bpt.cshtml", new ViewDataDictionary { { "NombreConsultora", Model.SobreNombre } })
 }
 
 @Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
@@ -2331,7 +2463,7 @@
         <input type="hidden" id="hdEventoIDShowRoom" />
         <input type="hidden" id="spnShowRoomEvento" />
         <input type="hidden" id="spnShowRoomEventoDescripcion" />
-        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;"  data-popup-close="" >
+        <a class="cerrar_fichaProducto" style="top:20px; right:-25px;" href="javascript:;" data-popup-close="">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="">
         </a>
         <div class="saludo_consultora_showroom">Valeria prepárate para la</div>
@@ -2423,7 +2555,6 @@
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
 <!--FIN REVISTA DIGITAL-->
-
 <!--EPD-1204 INICIO-->
 <script id="js-LugaresPago" type="text/x-handlebars-template">
     {{#each this.listaLugaresPago as |lugar|}}
@@ -2434,6 +2565,9 @@
     </div>
     {{/each}}
 </script>
+
+@System.Web.Optimization.Scripts.Render("~/Scripts/PortalConsultoras/Bienvenida/AsesoraOnline.js")
+
 <!--EPD-1204 FIN-->
 @section scripts{
     <script type="text/javascript">
@@ -2497,6 +2631,7 @@
         var popupRevistaDigitalSuscripcion = '@Constantes.TipoPopUp.RevistaDigitalSuscripcion';
         var popupCupon = '@Constantes.TipoPopUp.Cupon';
         var popupCuponForzado = '@Constantes.TipoPopUp.CuponForzado';
+        var popupAsesoraOnline = '@Constantes.TipoPopUp.AsesoraOnline';
         var mostrarPopupActualizarDatosXPais = '@Model.MostrarPopupActualizarDatosXPais';
         var mensajeFechaDA = '@Model.MensajeFechaDA';
         var origenPagina = 1;
@@ -2526,9 +2661,28 @@
         var baseUrl = "@Url.Content("~")";
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var mostrarPopupCuponGanaste = '@TempData["MostrarPopupCuponGanaste"]';
+        var nombreConsultora = '@Model.NombreCompleto';
+        var codigoUsuario = '@Model.CodigoUsuario';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
+        var telefono = '@Model.Telefono';
+        var telefonoTrabajo = '@Model.TelefonoTrabajo';
+        var sobreNombre = '@Model.SobreNombre';
+        var nombreGerenteZonal =  '@Model.NombreGerenteZonal';
         var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var showPopupMisDatos = '@(Model.ShowPopupMisDatos ? 1 : 0)';
+        var popupInicialCerrado = '@(Model.PopupInicialCerrado ? 1 : 0)';
+
+        var asesoraOnlineObj = AsesoraOnline({
+            asesoraOnlineUrl: '@Url.Action("Index", "AsesoraOnline")',
+            cerrarPopupInicialUrl: '@Url.Action("CerrarPopupInicial", "Bienvenida")',
+            codigoConsultora: viewBagCodigoConsultora || '',
+            isoPais: paisISO || '',
+            actualizarEstadoConfiguracionPaisDetalleUrl: '@Url.Action("ActualizarEstadoConfiguracionPaisDetalle", "AsesoraOnline")'
+        });
+
+        asesoraOnlineObj.asignarEventos(paisISO, viewBagCodigoConsultora);
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Bienvenida")
     @{ Session["IsContrato"] = 0; }

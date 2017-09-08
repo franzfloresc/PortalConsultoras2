@@ -184,6 +184,7 @@
     <Compile Include="App_Start\RouteConfig.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Areas\Mobile\Controllers\MisDatosController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CompartirController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoRevistaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\CatalogoPersonalizadoController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Controllers\AdministrarProductoSugeridoController.cs" />
     <Compile Include="Controllers\AdministrarReporteValidacionController.cs" />
     <Compile Include="Controllers\AdministrarTipoEstrategiaController.cs" />
+    <Compile Include="Controllers\AsesoraOnlineController.cs" />
     <Compile Include="Controllers\BaseControllerUnete.cs" />
     <Compile Include="Controllers\BaseRevistaDigitalController.cs" />
     <Compile Include="Controllers\BaseEstrategiaController.cs" />
@@ -392,6 +394,7 @@
     <Compile Include="Models\AdministrarOfertasHomeModel.cs" />
     <Compile Include="Models\AdministrarPalancaModel.cs" />
     <Compile Include="Models\AdministrarProductoSugerido.cs" />
+    <Compile Include="Models\AsesoraOnlineModel.cs" />
     <Compile Include="Models\AutoMapper\AutoMapperConfiguration.cs" />
     <Compile Include="Models\AutoMapper\ModelToDomainMappingProfile.cs" />
     <Compile Include="Models\AutoMapper\DomainToModelMappingProfile.cs" />
@@ -404,6 +407,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
@@ -615,6 +619,11 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Service References\HojaInscripcionODS\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ServiceAsesoraOnline\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -1162,7 +1171,7 @@
     <Content Include="Content\Css\Mobile\esika\Contenedor.css" />
     <Content Include="Content\Css\Mobile\esika\icomon.css" />
     <Content Include="Content\Css\Mobile\esika\menu.css" />
-    <Content Include="Content\Css\Mobile\esika\ofertas.css" />
+    <Content Include="Content\Css\Mobile\esika\misDatos.css" />
     <Content Include="Content\Css\Mobile\esika\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\esika\slick.css" />
     <Content Include="Content\Css\Mobile\esika\style.css" />
@@ -1177,12 +1186,14 @@
     <Content Include="Content\Css\Mobile\jquery.tag-editor.css" />
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
+    <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
     <Content Include="Content\Css\Mobile\svg\circle.svg" />
     <Content Include="Content\Css\Pie\PIE.htc" />
     <Content Include="Content\Css\Site\ActualizarDatos.css" />
+    <Content Include="Content\Css\Site\asesora-online.css" />
     <Content Include="Content\Css\Site\CambiarContrasena.css" />
     <Content Include="Content\Css\Site\Esika\backgroundsize.min.htc" />
     <Content Include="Content\Css\Site\Esika\Contenedor.css" />
@@ -1192,13 +1203,16 @@
     <Content Include="Content\HojaInscripcion\carrito-menu.png" />
     <Content Include="Content\Css\Site\Login2\style_esika.min.css" />
     <Content Include="Content\Css\Site\Login2\style_lbel.min.css" />
+    <Content Include="Content\Images\arrow-down.svg" />
     <Content Include="Content\Images\arrow.png" />
     <Content Include="Content\Css\Site\jquery.rateyo.css" />
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
+    <Content Include="Content\Images\Esika\esika-venta.jpg" />
     <Content Include="Content\Images\Esika\esika_intriga.jpg" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
@@ -1206,6 +1220,10 @@
     <Content Include="Content\Images\enable.png" />
     <Content Include="Content\Css\Site\LoginChatbot_lbel.css" />
     <Content Include="Content\Images\group_blanco.svg" />
+    <Content Include="Content\Images\fondo_form.png" />
+    <Content Include="Content\Images\icono-cerrar-popup-inscripcion.svg" />
+    <Content Include="Content\Images\icono-gestion-clientes-asesora-online.png" />
+    <Content Include="Content\Images\icono-mail-popup-felicitaciones.svg" />
     <Content Include="Content\Images\icono-mala-zonificacion.png" />
     <Content Include="Content\Images\Esika\favicon.ico" />
     <Content Include="Content\Images\gif-regalo-blanco.png" />
@@ -1213,6 +1231,15 @@
     <Content Include="Content\Images\Esika\RevistaDigital\letra.gif" />
     <Content Include="Content\Images\Esika\RevistaDigital\popup1.png" />
     <Content Include="Content\Images\Esika\RevistaDigital\previous.png" />
+    <Content Include="Content\Images\icono-notificacion-fechas-importantes-asesora-online.svg" />
+    <Content Include="Content\Images\icono-ofertas-asesora-online.png" />
+    <Content Include="Content\Images\icono-ofertas-asesora-online.svg" />
+    <Content Include="Content\Images\icono-smartphone-popup-felicitaciones.svg" />
+    <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.png" />
+    <Content Include="Content\Images\icono-vender-mas-asesora-online-blanco.svg" />
+    <Content Include="Content\Images\icono-vender-mas-asesora-online.svg" />
+    <Content Include="Content\Images\icono_advertencia_consultora_registrada_coach.png" />
+    <Content Include="Content\Images\icono_envelope_inscripcion.png" />
     <Content Include="Content\Images\img-carrusel-mobile.png" />
     <Content Include="Content\Css\Site\LoginChatbot.css" />
     <Content Include="Content\Css\Site\incentivosSMS.css" />
@@ -2143,6 +2170,14 @@
     <Content Include="Content\Images\img-historialPostulante.svg" />
     <Content Include="Content\Images\img-carrusel2.png" />
     <Content Include="Content\Images\img-sinGeo.png" />
+    <Content Include="Content\Images\img_cabecera_asesora_online.png" />
+    <Content Include="Content\Images\img_cabecera_asesora_online_mobile.png" />
+    <Content Include="Content\Images\img_cabecera_asesora_online_mobile_landscape.png" />
+    <Content Include="Content\Images\img_dialog.png" />
+    <Content Include="Content\Images\img_dialog2.png" />
+    <Content Include="Content\Images\img_dialog2_popup.png" />
+    <Content Include="Content\Images\img_dialog_popup.png" />
+    <Content Include="Content\Images\img_inscripcion_asesoria_online.png" />
     <Content Include="Content\Images\img_no_disponible.png" />
     <Content Include="Content\Images\imprimir.png" />
     <Content Include="Content\Images\incentivos.png" />
@@ -2300,6 +2335,8 @@
     <Content Include="Content\Images\Lbel\youtube.png" />
     <Content Include="Content\Images\lbel_logo.png" />
     <Content Include="Content\Images\like.png" />
+    <Content Include="Content\Images\linea-separadora.png" />
+    <Content Include="Content\Images\linea-separadora.svg" />
     <Content Include="Content\Images\list_add_font.png" />
     <Content Include="Content\Images\Loading.gif" />
     <Content Include="Content\Images\loadingCatalogo.gif" />
@@ -2476,7 +2513,10 @@
     <Content Include="Content\Images\login\ico2_b.png" />
     <Content Include="Content\Images\login\ico3.png" />
     <Content Include="Content\Images\login\ico3_b.png" />
+    <Content Include="Content\Images\logo-asesora-online.svg" />
     <Content Include="Content\Images\logo-belcorp-academia.png" />
+    <Content Include="Content\Images\logo-esika-landing.png" />
+    <Content Include="Content\Images\logo-esika-landing.svg" />
     <Content Include="Content\Images\Logo.gif" />
     <Content Include="Content\Images\logotipo_belcorp_05.png" />
     <Content Include="Content\Images\logo_azteca.png" />
@@ -2486,6 +2526,7 @@
     <Content Include="Content\Images\logo_belcorp.png" />
     <Content Include="Content\Images\logo_cyzone.png" />
     <Content Include="Content\Images\logo_esika2.png" />
+    <Content Include="Content\Images\logo_esika_footer.svg" />
     <Content Include="Content\Images\logo_foot.png" />
     <Content Include="Content\Images\logo_intro.png" />
     <Content Include="Content\Images\logo_lbel2.png" />
@@ -2583,6 +2624,7 @@
     <Content Include="Content\Images\mobile\flecha-left.png" />
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
+    <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
@@ -2813,6 +2855,7 @@
     <Content Include="Content\Images\Pop Up Navidad 2-04.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-05.png" />
     <Content Include="Content\Images\Pop Up Navidad 2-06.png" />
+    <Content Include="Content\Images\popup-inscripcion-animacion.gif" />
     <Content Include="Content\Images\popup_esika\gmail.png" />
     <Content Include="Content\Images\Pop_Up_Navidad_2_01.png" />
     <Content Include="Content\Images\preloader.gif" />
@@ -3114,7 +3157,10 @@
     <Content Include="Scripts\MultiSelect\js\plugins\scrollTo\README.txt" />
     <Content Include="Scripts\MultiSelect\js\ui.multiselect.js" />
     <Content Include="Scripts\nieve.js" />
+    <Content Include="Scripts\PortalConsultoras\AsesoraOnline\AsesoraOnline.js" />
+    <Content Include="Scripts\PortalConsultoras\AsesoraOnline\Index.js" />
     <Content Include="Scripts\PortalConsultoras\BestSeller\BestSellerCommentModule.js" />
+    <Content Include="Scripts\PortalConsultoras\Bienvenida\AsesoraOnline.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\OfertaDelDia.js" />
     <Content Include="Scripts\PortalConsultoras\Bienvenida\Estrategia.js" />
     <Content Include="Scripts\PortalConsultoras\Campania\CampaniaModule.js" />
@@ -3440,6 +3486,20 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
+    <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCDR\CDRService.disco" />
     <None Include="Service References\ServiceCDR\configuration91.svcinfo" />
     <None Include="Service References\ServiceCDR\configuration.svcinfo" />
@@ -3608,7 +3668,13 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Service References\ServiceProductoCatalogoPersonalizado\ProductoService2.disco" />
-    <None Include="Service References\ServiceSeguridad\SeguridadService.wsdl" />
+    <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.disco" />
+    <None Include="Service References\ServiceAsesoraOnline\configuration91.svcinfo" />
+    <None Include="Service References\ServiceAsesoraOnline\configuration.svcinfo" />
+    <None Include="Service References\ServiceAsesoraOnline\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <None Include="Service References\ServiceSAC\SACService.wsdl" />
     <None Include="Service References\ServiceSAC\SACService.xsd">
       <SubType>Designer</SubType>
@@ -4198,6 +4264,12 @@
     <Content Include="Views\Shared\_MenuContenedorOferta.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-showroom.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
+    <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo9.cshtml" />
+    <Content Include="Views\AsesoraOnline\Index.cshtml" />
+    <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
+    <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
+    <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -4649,6 +4721,7 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\HojaInscripcionBelcorpPais\" />
     <WCFMetadataStorage Include="Service References\HojaInscripcionODS\" />
+    <WCFMetadataStorage Include="Service References\ServiceAsesoraOnline\" />
     <WCFMetadataStorage Include="Service References\ServiceCDR\" />
     <WCFMetadataStorage Include="Service References\ServiceCliente\" />
     <WCFMetadataStorage Include="Service References\ServiceComunidad\" />

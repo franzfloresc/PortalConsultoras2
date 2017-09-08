@@ -1,6 +1,6 @@
 
 
-ALTER PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
 -- ConfiguracionOfertasHomeListarSecciones 201713

@@ -218,6 +218,8 @@ namespace Portal.Consultoras.Common
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
 
+            //AsesoraOnline
+            public const string EmailAsesoraOnline = "EmailAsesoraOnline";
             // Configuracion Seccion Home Contenedor de Palancas
             public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
 
@@ -334,6 +336,8 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
@@ -506,6 +510,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalSuscripcion = 9;
             public const int Cupon = 10;
             public const int CuponForzado = 11;
+            public const int AsesoraOnline = 12;
         }
 
         // Constantes de los motivos de GPR.
@@ -640,14 +645,17 @@ namespace Portal.Consultoras.Common
         }
 
         public class MenuCodigo
-        {
-            public const string RevistaShowRoom = "ShowRoom";
+        {            
             public const string MiNegocio = "MiNegocio";
-            public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
-            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
             public const string PedidoFIC = "PedidoFIC";
+            public const string ContenedorOfertas = "ContenedorOfertas";
+        }
+
+        public class BannerCodigo
+        {
+            public const string RevistaDigital = "RevistaDigital";
         }
 
         public class IngresoExternoPagina
@@ -1001,7 +1009,7 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
@@ -1015,5 +1023,24 @@ namespace Portal.Consultoras.Common
             public const short Desktop = 1;
             public const short Mobile = 2;
         }
+
+        #region EventoFestivo
+        public class EventoFestivoAlcance
+        {
+            public const string LOGIN = "LOGIN";
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";
+            public const string MENU_SOMOS_BELCORP = "MENU_SOMOS_BELCORP";
+        }
+
+        public class EventoFestivoNombre
+        {
+            public const string FONDO_ESIKA = "FONDO_ESIKA";
+            public const string FONDO_LBEL = "FONDO_LBEL";
+            public const string SALUDO = "SALUDO";
+            public const string FONDO_INGPED = "FONDO_INGPED";
+            public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
+            public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
+        }
+        #endregion
     }
 }
