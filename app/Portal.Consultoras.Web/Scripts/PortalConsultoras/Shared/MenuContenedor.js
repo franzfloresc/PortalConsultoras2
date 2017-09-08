@@ -118,10 +118,23 @@ function MenuContenedor() {
 
 function MenuContenedorClick(e, url) {
     var objHtmlEvent = $(e.target);
-    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
+    if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
+    objHtmlEvent.siblings("li").children("a").removeClass("activo");
+    objHtmlEvent.children("a").addClass("activo");
 
-    if ($(objHtmlEvent).data("es-ancla") == true) {
-
+    var esAncla = $(objHtmlEvent).data("es-ancla");
+    if (esAncla === "True") {
+        var codigo = $(objHtmlEvent).data("codigo");
+        if (window.location.href.indexOf("/Ofertas") > -1) {
+            $('html, body').animate({
+                    scrollTop: $('#' + codigo).top - 180
+                },
+                1000,
+                'swing');
+        } else {
+            window.location = "/Ofertas#" + codigo;
+        }
+        
     } else {
         window.location = url;
     }
