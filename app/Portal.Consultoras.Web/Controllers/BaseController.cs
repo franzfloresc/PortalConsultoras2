@@ -1501,109 +1501,111 @@ namespace Portal.Consultoras.Web.Controllers
 
         protected void CargarEntidadesShowRoom(UsuarioModel model)
         {
-            const int SHOWROOM_ESTADO_ACTIVO = 1;
-            
-            sessionManager.SetEsShowRoom("0");
-            sessionManager.SetMostrarShowRoomProductos("0");
-            sessionManager.SetMostrarShowRoomProductosExpiro("0");
-            //
-            model.BeShowRoomConsultora = null;
-            model.BeShowRoom = null;
-            //
-            model.CargoEntidadesShowRoom = false;
+            try
+            {
+                const int SHOWROOM_ESTADO_ACTIVO = 1;
 
-            if (PaisTieneShowRoom(model.CodigoISO))
-            { 
-                try
+                sessionManager.SetEsShowRoom("0");
+                sessionManager.SetMostrarShowRoomProductos("0");
+                sessionManager.SetMostrarShowRoomProductosExpiro("0");
+                //
+                model.BeShowRoomConsultora = null;
+                model.BeShowRoom = null;
+                //
+                model.CargoEntidadesShowRoom = false;
+
+                if (!PaisTieneShowRoom(model.CodigoISO))
                 {
-                    var codigoConsultora = model.UsuarioPrueba == 1
-                        ? model.ConsultoraAsociada
-                        : model.CodigoConsultora;
-                    List<BEShowRoomPersonalizacionNivel> personalizacionesNivel=null;
-
-                    using (var pedidoService = new PedidoServiceClient())
-                    {
-                        model.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
-                        model.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
-                            model.PaisID, 
-                            model.CampaniaID,
-                            codigoConsultora,
-                            model.BeShowRoom != null && model.BeShowRoom.TienePersonalizacion);
-
-                        model.ListaShowRoomNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
-                        model.ListaShowRoomPersonalizacion = pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList();
-                        model.ShowRoomNivelId = ObtenerNivelId(model.ListaShowRoomNivel);
-
-                        if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
-                        {
-                            personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
-                                model.BeShowRoom.EventoID, model.ShowRoomNivelId,0).ToList();
-                        }
-                    }
-
-                    if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
-                    {
-                        sessionManager.SetEsShowRoom("1");
-
-                        var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
-
-                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
-                        if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
-                            && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
-                        {
-                            sessionManager.SetMostrarShowRoomProductos("1");
-                        }
-
-                        if (fechaHoy > model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
-                            sessionManager.SetMostrarShowRoomProductosExpiro("1");
-                    }
-
-                    if (personalizacionesNivel != null && personalizacionesNivel.Any())
-                    {
-                        var personalizacionesModel = Mapper.Map<List<BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(model.ListaShowRoomPersonalizacion);
-
-                        var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
-                        Session["carpetaPais"] = carpetaPais;
-
-                        foreach (var item in personalizacionesModel)
-                        {
-                            var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
-                                p => p.NivelId == model.ShowRoomNivelId &&
-                                     p.EventoID == model.BeShowRoom.EventoID &&
-                                     p.PersonalizacionId == item.PersonalizacionId);
-
-                            if (personalizacionNivel == null)
-                            {
-                                item.PersonalizacionNivelId = 0;
-                                item.Valor = string.Empty;
-                                continue;
-                            }
-
-                            item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
-                            item.Valor = personalizacionNivel.Valor;
-
-                            if (item.TipoAtributo == "IMAGEN")
-                            {
-                                item.Valor = string.IsNullOrEmpty(item.Valor)
-                                    ? string.Empty
-                                    : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
-                                        Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
-                            }
-                        }
-
-                        model.ListaShowRoomPersonalizacionConsultora = personalizacionesModel;
-                    }
-
-                    model.CargoEntidadesShowRoom = true;
+                    SetUserData(model);
+                    return;
                 }
-                catch (Exception ex)
+
+                var codigoConsultora = model.UsuarioPrueba == 1
+                    ? model.ConsultoraAsociada
+                    : model.CodigoConsultora;
+                List<BEShowRoomPersonalizacionNivel> personalizacionesNivel = null;
+
+                using (var pedidoService = new PedidoServiceClient())
                 {
-                    Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
-                    model.CargoEntidadesShowRoom = false;
+                    model.BeShowRoom = pedidoService.GetShowRoomEventoByCampaniaID(model.PaisID, model.CampaniaID);
+                    model.BeShowRoomConsultora = pedidoService.GetShowRoomConsultora(
+                        model.PaisID,
+                        model.CampaniaID,
+                        codigoConsultora,
+                        model.BeShowRoom != null && model.BeShowRoom.TienePersonalizacion);
+
+                    model.ListaShowRoomNivel = pedidoService.GetShowRoomNivel(model.PaisID).ToList();
+                    model.ListaShowRoomPersonalizacion = pedidoService.GetShowRoomPersonalizacion(model.PaisID).ToList();
+                    model.ShowRoomNivelId = ObtenerNivelId(model.ListaShowRoomNivel);
+
+                    if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO)
+                    {
+                        personalizacionesNivel = pedidoService.GetShowRoomPersonalizacionNivel(model.PaisID,
+                            model.BeShowRoom.EventoID, model.ShowRoomNivelId, 0).ToList();
+                    }
                 }
+
+                if (model.BeShowRoom != null && model.BeShowRoom.Estado == SHOWROOM_ESTADO_ACTIVO && model.BeShowRoomConsultora != null)
+                {
+                    sessionManager.SetEsShowRoom("1");
+
+                    var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
+
+                    ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+
+                    if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
+                        && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                    {
+                        sessionManager.SetMostrarShowRoomProductos("1");
+                    }
+
+                    if (fechaHoy > model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
+                        sessionManager.SetMostrarShowRoomProductosExpiro("1");
+                }
+
+                if (personalizacionesNivel != null && personalizacionesNivel.Any())
+                {
+                    var personalizacionesModel = Mapper.Map<List<BEShowRoomPersonalizacion>, List<ShowRoomPersonalizacionModel>>(model.ListaShowRoomPersonalizacion);
+
+                    var carpetaPais = Globals.UrlMatriz + "/" + model.CodigoISO;
+                    Session["carpetaPais"] = carpetaPais;
+
+                    foreach (var item in personalizacionesModel)
+                    {
+                        var personalizacionNivel = personalizacionesNivel.FirstOrDefault(
+                            p => p.NivelId == model.ShowRoomNivelId &&
+                                 p.EventoID == model.BeShowRoom.EventoID &&
+                                 p.PersonalizacionId == item.PersonalizacionId);
+
+                        if (personalizacionNivel == null)
+                        {
+                            item.PersonalizacionNivelId = 0;
+                            item.Valor = string.Empty;
+                            continue;
+                        }
+
+                        item.PersonalizacionNivelId = personalizacionNivel.PersonalizacionNivelId;
+                        item.Valor = personalizacionNivel.Valor;
+
+                        if (item.TipoAtributo == "IMAGEN")
+                        {
+                            item.Valor = string.IsNullOrEmpty(item.Valor)
+                                ? string.Empty
+                                : ConfigS3.GetUrlFileS3(carpetaPais, item.Valor,
+                                    Globals.RutaImagenesMatriz + "/" + userData.CodigoISO);
+                        }
+                    }
+
+                    model.ListaShowRoomPersonalizacionConsultora = personalizacionesModel;
+                }
+
+                model.CargoEntidadesShowRoom = true;
             }
-
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
+                model.CargoEntidadesShowRoom = false;
+            }
 
             SetUserData(model);
         }
