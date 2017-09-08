@@ -29,11 +29,15 @@
                 {{/iff}}
             </div>
             <div class="producto_nombre_descripcion" data-item-tag="precio">
-                <div>
-                    {{#iff Precio '>' 0}}
+                <div>   
+                    {{#iff FlagNueva '==' '1'}}
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>                        
+                    {{else}}
+                        {{#iff Precio '>' 0}}
                         <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span>
+                        {{/iff}}
+                        <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
                     {{/iff}}
-                    <span class="producto_precio_oferta"><b>{{Simbolo}} {{PrecioVenta}}</b></span>
                 </div>
             </div>
         </div>
