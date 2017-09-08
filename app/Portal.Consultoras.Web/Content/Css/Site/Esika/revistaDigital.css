@@ -643,6 +643,7 @@
 
 .BloqueLandingRD{
     margin-top:35px;
+    min-height: 600px;
 }
 .BloqueLandingRD .cantidad_productos_fav {
     padding-bottom: 20px;
