@@ -62,7 +62,7 @@ $(document).ready(function () {
 
 function VerificarAncla() {
     var anchorValue;
-    var url = document.location;
+    var url = document.location.href;
     if (url.indexOf("#") > -1) {
         var strippedUrl = url.toString().split("#");
         if (strippedUrl.Length > 1) anchorValue = strippedUrl[1];
