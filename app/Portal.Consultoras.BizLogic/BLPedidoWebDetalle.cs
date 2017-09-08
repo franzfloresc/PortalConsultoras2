@@ -505,7 +505,9 @@ namespace Portal.Consultoras.BizLogic
                 using (TransactionScope oTransactionScope = new TransactionScope(TransactionScopeOption.Required, oTransactionOptions))
                 {
                     DAPedidoWebDetalle.DelPedidoWebDetalleMasivo(CampaniaID, PedidoID);
-                    DAPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(CampaniaID, PedidoID, 201, false, 0, 0, CodigoUsuario);
+                    DAPedidoWeb.UpdPedidoWebByEstadoConTotalesMasivo(CampaniaID, PedidoID, 201, false, 0, 0, CodigoUsuario);                    
+                    DAPedidoWeb.DelIndicadorPedidoAutenticoCompleto(new BEIndicadorPedidoAutentico { PedidoID = PedidoID, CampaniaID = CampaniaID });
+                    
                     oTransactionScope.Complete();
                 }
             }
