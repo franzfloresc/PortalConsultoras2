@@ -259,6 +259,7 @@
       <xs:element minOccurs="0" name="Telefono" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TelefonoTrabajo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TerritorioID" type="xs:int" />
+      <xs:element minOccurs="0" name="TieneAsesoraOnline" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDR" type="xs:int" />
       <xs:element minOccurs="0" name="TieneCDRExpress" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneCupon" type="xs:int" />

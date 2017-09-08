@@ -48,7 +48,6 @@ namespace Portal.Consultoras.Web.Models
         [RequiredIf("CodigoPais", "MX,CO,PE,EC", ErrorMessage = "Este campo es obligatorio")]
         public string LugarNivel3 { get; set; }
         //[ExpressionRequiredIf("ContaValorNivel3", "1", Expresion = @"^(\s|\S)*(\S)+(\s|\S)*$", RegexNotMatch = false, ErrorMessage = "Campo obligatorio")]
-        [RequiredIf("CodigoPais", "EC", ErrorMessage = "Este campo es obligatorio")]
         public string LugarNivel4 { get; set; }
         [RequiredIf("CodigoPais", "GT", ErrorMessage = "Este campo es obligatorio")]
         public string LugarNivel5 { get; set; }
