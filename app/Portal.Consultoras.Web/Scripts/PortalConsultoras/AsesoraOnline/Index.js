@@ -49,17 +49,19 @@ $(document).ready(function () {
             inicializarEventos: function () {
                 $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
                 $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
+                $("body").on("click", "#datos_son_correctos", me.Eventos.cerrarPopupsAsesoraOnline);
                 $(document).on("scroll", me.Eventos.mostrarBotonSuscripcionMobile);
+
+                $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
+                $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
+                $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);
             }
         };
 
         me.Inicializar = function () {
             me.Funciones.removerEnlace();
             me.Funciones.inicializarEventos();
-
-            $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
-            $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
-            $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);
+            $("#terminos-condiciones").prop("checked", true);
         };
     };
 
