@@ -741,7 +741,7 @@ namespace Portal.Consultoras.Web.Controllers
         //    }
         //}
 
-        public JsonResult DetalleGuardar(MisReclamosModel model)
+        public JsonResult DetalleGuardar(MisReclamosModel model)                                                                                                                                                                                                   
         {
             try
             {
