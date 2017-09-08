@@ -1,29 +1,35 @@
-﻿@using Portal.Consultoras.Web.Models.Layout
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Layout
 
 @{
-    var menuList = (List<MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<MenuContenedorModel>();
+    var menuList = (List<ConfiguracionPaisModel>) ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<MenuContenedorModel>();
-    var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
-    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style=background:url(" + menuActivo.FondoBanner + ");" : "";
+    //var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<MenuContenedorModel>();
+    var menuActivo = (MenuContenedorModel) ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    var estiloFondoBanner = menuActivo.ConfiguracionPais.DesktopFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.DesktopFondoBanner + ");" : "";
+
+    var classMenuX = menuActivo.CampaniaId == menuActivo.CampaniaX0 ? "desplegable activo" : "desplegable";
+    var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
+    var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 <div class="bc_menu_estrategia" @estiloFondoBanner>
     <div>
-        @if (menuActivo.LogoBanner != "")
+        @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
         {
-            <div class="logo" style="background: url(@menuActivo.LogoBanner);"></div>
+            <div class="logo" style="background: url(@menuActivo.ConfiguracionPais.DesktopLogoBanner);"></div>
         }
-        @if (menuActivo.TituloBanner != "" || menuActivo.SubTituloBanner != "")
+        @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         {
             <div class="texto-info">
                 <div class="centrar-horizontal">
-                    @if (menuActivo.TituloBanner != "")
+                    @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "")
                     {
-                        <p>@menuActivo.TituloBanner</p>
+                        <p>@menuActivo.ConfiguracionPais.DesktopTituloBanner</p>
                     }
-                    @if (menuActivo.SubTituloBanner != "")
+                    @if (menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
                     {
-                        <span>@menuActivo.SubTituloBanner</span>
+                        <span>@menuActivo.ConfiguracionPais.DesktopSubTituloBanner</span>
                     }
                 </div>
             </div>
@@ -35,37 +41,42 @@
         {
             <ul>
                 <li data-campania="@menuActivo.CampaniaX0">
-                    <a href="javascript:;" class="desplegable menuactivo" attr-modal="#open-menu1">
+                    <a href="@Url.Action("Index", "Ofertas")" class="@classMenuX" attr-modal="#open-menu1">
                         <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
                         <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                     </a>
-                </li><li data-campania="@menuActivo.CampaniaX1">
-                    <a href="javascript:;" class="desplegable" attr-modal="#open-menu2">
+                </li>
+                <li data-campania="@menuActivo.CampaniaX1">
+                    <a href="@Url.Action("Revisar", "Ofertas")" class="@classMenuX1" attr-modal="#open-menu2">
                         <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
                         <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                     </a>
-                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
-                    <a href="javascript:;" class="desplegable" attr-modal="#open-menu3">
+                </li>
+                <li data-campania="0" data-url="">
+                    <a href="@Url.Action("Informacion", "RevistaDigital")" class="@classMenuInfo" attr-modal="#open-menu3">
                         <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                     </a>
                 </li>
             </ul>
-        }
+         } 
     </div>
 </div>
 <div data-layout-menu2="">
-    @if (listaPloma.Any())
+    @if (menuList.Any())
     {
         <div class="op-menu-vertical sticky">
             <ul class="subnavegador">
-                @foreach (var menuhijo in listaPloma)
+                @foreach (var menuhijo in menuList)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa"
-                        data-codigo="@menuhijo.Codigo"
-                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
-                        <a href="javascript:;">
-                            <span>@menuhijo.SubTituloMenu</span>
-                            <p>@menuhijo.TituloMenu</p>
+                    var claseActivo = "";
+                    claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                    <li data-campania="@menuhijo.CampaniaId" data-activo="1"
+                        data-codigo="@menuhijo.Codigo" 
+                        data-es-ancla="@menuhijo.EsAncla"
+                        onclick="MenuContenedorClick(this, '@menuhijo.UrlMenu')">
+                        <a href="javascript:;" class="@claseActivo">
+                            <span>@menuhijo.Descripcion</span>
+                            <p>@menuhijo.DesktopTituloMenu</p>
                         </a>
                     </li>
                 }

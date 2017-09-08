@@ -19,14 +19,14 @@
     {
         <script id="template-showroom" type="text/x-handlebars-template">
             <div class="" data-popup-main="">
-                <div class="" data-popup-body style="text-align:center">
+                <div class="" data-popup-body style="text-align:center; position:relative">
                     <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
                     <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
-                    <div class="saludo_consultora_showroom">{{MensajeSaludo}}</div>
-                    <div class="dias_intriga_home">{{MensajeDiasFaltantes}}"</div>
+                    <div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>
+                    <div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>
                     <a href="/ShowRoom/Intriga">
-                        <img class="imagen_dias_intriga" src="{{UrlImagenIntriga}}" style="width:70%; height:70%;" />
+                        <img class="imagen_dias_intriga_inicio" src="@Url.Content("~/Content/Images/Esika/esika_intriga.jpg")" @*src="{{UrlImagenIntriga}}"*@/>
                     </a>
                 </div>
             </div>

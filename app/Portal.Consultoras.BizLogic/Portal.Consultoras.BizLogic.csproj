@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLConfiguracionOfertasHome.cs" />
+    <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLClienteDB.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />
@@ -263,6 +264,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Templates\mailing_bienvenida_coach_virtual.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Templates\mailing_proceso_actualizar_misdatos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

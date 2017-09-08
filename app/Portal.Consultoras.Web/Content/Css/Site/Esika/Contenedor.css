@@ -5,21 +5,30 @@
     background-size: cover !important;
     background-position: right center !important;
 }
+
+.bc_plantilla-banner{
+	width: 100%;
+    display: inline-block;
+}
+.bc_plantilla-banner img{
+	width:100%;
+}
+
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
     padding-top: 40px;
     text-align: center;
 }
-    .bc_plantilla_estrategia_personalizada .titulo h2 {
-        display: inline;
-        position: relative;
-        top: 1px;
-        font-size: 17px;
-        margin-right: 10px;
-        font-weight: bolder !important;
-        letter-spacing: 1px;
-        float:left;
-    } 
+.bc_plantilla_estrategia_personalizada .titulo h2 {
+    display: inline;
+    position: relative;
+    top: 1px;
+    font-size: 17px;
+    margin-right: 10px;
+    font-weight: bolder !important;
+    letter-spacing: 1px;
+    float:left;
+}
 .bc_menu_estrategia .logo {
     width: 11%;
     float: left;
@@ -72,7 +81,7 @@
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
-    width: 33.33333%;
+    width: 33.1%;
 }
             
 .bc_menu_estrategia .op_menu-horizontal ul li a.activo {
@@ -141,45 +150,44 @@
     height: 100%;
 }
 
-    .op-menu-vertical ul li {
-        margin-top: 10px;
-        display:none;
-    }
+.op-menu-vertical ul li {
+    margin-top: 10px;
+}
 
-        .op-menu-vertical ul li a {
-            word-wrap: break-word;
-            color: #1b1b1b;
-            padding: 15px 10px;
-            display: block;
-            height: auto;
-            transition: .3s;
-            cursor: pointer;
-            background: white;
-            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
-        }
+.op-menu-vertical ul li a {
+    word-wrap: break-word;
+    color: #1b1b1b;
+    padding: 15px 10px;
+    display: block;
+    height: auto;
+    transition: .3s;
+    cursor: pointer;
+    background: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+}
 
-            .op-menu-vertical ul li a:hover {
-                box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
-                border-left: 5px solid #B11314;
-                text-decoration: none;
-            }
+.op-menu-vertical ul li a:hover {
+    box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
+    border-left: 5px solid #B11314;
+    text-decoration: none;
+}
 
-            .op-menu-vertical ul li a.activo {
-                border-left: 5px solid #B11314;
-                text-decoration: none;
-                color: #B11314 !important;
-            }
+.op-menu-vertical ul li a.activo {
+    border-left: 5px solid #B11314;
+    text-decoration: none;
+    color: #B11314 !important;
+}
 
-            .op-menu-vertical ul li a p {
-                display: block;
-                text-align: left;
-                margin-bottom: 0;
-                font-weight: bolder;
-                font-size: 9px;
-                color: black;
-                letter-spacing: 2px;
-                text-transform: uppercase;
-            }
+.op-menu-vertical ul li a p {
+    display: block;
+    text-align: left;
+    margin-bottom: 0;
+    font-weight: bolder;
+    font-size: 9px;
+    color: black;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
 
 .titulo-menu {
     color: #B11314 !important;
@@ -253,6 +261,8 @@
 .previous_ofertas_ept{
     top:23px !important;
 }
+
+
 .previsualizales-ofertas {
     max-width: 700px !important;
 }
@@ -294,3 +304,7 @@
             width: 83%;
         }
     }
+
+.bc_estrategia_contenido {
+    min-height: 800px;
+}
