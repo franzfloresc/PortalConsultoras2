@@ -28,7 +28,8 @@
 
 function AccessRDAnalytics(origenWeb) {
     try {
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1101": //Home
                 VirtualEventPush("Home", "Ésika para mí", "Click banner Ver todas mis ofertas");
                 break;
@@ -44,6 +45,21 @@ function AccessRDAnalytics(origenWeb) {
             case "2103": //Lanzamiento mobile
                 VirtualEventPush("MobileHome", "Ésika para mí", "Ver más lanzamientos");
                 break;
+            case "2101": //Home
+                VirtualEventPush("MobileHome", "Ésika para mí", "Click banner Ver todas mis ofertas");
+                break;
+            case "2401": //Catalogos
+                VirtualEventPush("Catálogos y revistas", "Ésika para mí", "Click banner Ver todas mis ofertas");
+                break;
+            case "2201": //Pedido
+                VirtualEventPush("Pedido", "Ésika para mí", "Click banner Ver todas mis ofertas");
+                break;
+            case "2104": //Home
+                VirtualEventPush("MobileHome", "Ésika para mí", "Ver todas mis ofertas");
+                break;
+            case "2105": //Home
+                VirtualEventPush("MobileHome", "Ésika para mí", "Ver más ofertas");
+                break;
         }
     } catch (e) {
         console.log("Exeption on analytics RD " + e);
@@ -53,7 +69,8 @@ function AccessRDAnalytics(origenWeb) {
 function TabsRDAnalytics(label, campaniaId) {
     try {
         var category = "Ésika para mí";
-        switch (label) {
+        var labelString = label.toString();
+        switch (labelString) {
             case "1":
                 VirtualEventPush(category, "Click tab", "Comprar campaña " + campaniaId);
                 break;
@@ -77,29 +94,37 @@ function FiltrarProductoRDAnalytics(label) {
     VirtualEventPush("Ésika para mí", "Filtrar por marca", label);
 }
 
+function BorrarFiltroRDAnalytics() {
+    VirtualEventPush("Ésika para mí", "Borrar Filtros", "(not available)");
+}
 function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
     try {
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721"://Lan desktop
-                if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
-                else AddToCartPush("Esika para mí - Banner Principal", estrategia);
+                if (popup) AddToCartPush("Oferta para ti - RO Detalle Banner Principal", estrategia);
+                else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "2721"://Lan Mobile
-                if (popup) AddToCartPush("Esika para mí - Detalle Banner Principal", estrategia);
-                else AddToCartPush("Esika para mí - Banner Principal", estrategia);
+                if (popup) AddToCartPush("Oferta para ti - RO Detalle Banner Principal", estrategia);
+                else AddToCartPush("Oferta para ti - RO BannerPrincipal", estrategia);
                 break;
             case "1711": //Mis Ofertas
-                if (!popup) AddToCartPush("Esika para mí - Mis Ofertas", estrategia);
+                if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
+                else AddToCartPush("Oferta para ti - RO Detalle Mis Ofertas", estrategia);
                 break;
             case "2711": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Mis Ofertas", estrategia);
+                if (!popup) AddToCartPush("Oferta para ti - RO Mis Ofertas", estrategia);
+                else AddToCartPush("Oferta para ti - RO Detalle Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
             case "2731": //Mis Ofertas Mobile
-                AddToCartPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                AddToCartPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
+            default:
+                AddToCartPush("Ofertas para ti – Home", estrategia);
         }
     } catch (e) {
         console.log("Exeption on analytics RD " + e);
@@ -108,26 +133,25 @@ function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
 
 function VerDetalleComprarRDAnalytics(origenWeb, estrategia) {
     try {
-        origenWeb = $.trim(origenWeb);
-
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721":
-                ProductClickPush("Esika para mí - Banner Principal", estrategia);
+                ProductClickPush("Oferta para ti - RO Banner Principal", estrategia);
                 break;
             case "2721":
-                ProductClickPush("Esika para mí - Banner Principal", estrategia);
+                ProductClickPush("Oferta para ti - RO Banner Principal", estrategia);
                 break;
             case "1711":
-                ProductClickPush("Esika para mí - Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Mis Ofertas", estrategia);
                 break;
             case "2711":
-                ProductClickPush("Esika para mí - Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Mis Ofertas", estrategia);
                 break;
             case "1731": //Mis Ofertas 
-                ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
             case "2731": //Mis Ofertas Mobile
-                ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+                ProductClickPush("Oferta para ti - RO Detalle Producto", estrategia);
                 break;
         }
     } catch (e) {
@@ -139,7 +163,8 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
     try {
         var category = "Ésika para mí";
         var label = campania + " - " + name;
-        switch (origenWeb) {
+        var origenWebString = origenWeb.toString();
+        switch (origenWebString) {
             case "1721":
                 if (popup) VirtualEventPush(category, "Agregar producto - Detalle Banner Principal", label);
                 else VirtualEventPush(category, "Agregar producto - Banner Principal", label);
@@ -149,16 +174,18 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
                 else VirtualEventPush(category, "Agregar producto - Banner Principal", label);
                 break;
             case "1711": //Mis Ofertas
-                if (!popup) VirtualEventPush(category, "Agregar producto - Mis Ofertas", label);
+                if (popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
+                VirtualEventPush(category, "Agregar producto - Mis Ofertas", label);
                 break;
             case "2711": //Mis Ofertas Mobile
+                if (popup) VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
                 VirtualEventPush(category, "Agregar producto - Mis Ofertas", label);
                 break;
             case "1731": //Mis Ofertas Mobile
-                VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
+                VirtualEventPush(category, "Agregar producto - Detalle Producto", label);
                 break;
             case "2731": //Mis Ofertas Mobile
-                VirtualEventPush(category, "Agregar producto - Detalle Mis Ofertas", label);
+                VirtualEventPush(category, "Agregar producto - Detalle Producto", label);
                 break;
         }
     } catch (e) {
@@ -166,7 +193,7 @@ function AgregarProductoDeshabilitadoRDAnalytics(origenWeb, campania, name, popu
     }
 }
 
-function VerDetalleLanRDAnalytics(campania, name) {
+function VerDetalleBloqueadaRDAnalytics(campania, name) {
     try {
         var category = "Ésika para mí";
         var label = campania + " - " + name;
@@ -176,15 +203,21 @@ function VerDetalleLanRDAnalytics(campania, name) {
     }
 }
 
+function VerDetalleLanRDAnalytics(estrategia) {
+    try {
+        ProductClickPush("Esika para mí - Detalle Mis Ofertas", estrategia);
+    } catch (e) {
+        console.log("Exeption on analytics RD " + e);
+    }
+}
 function CompartirProductoRDAnalytics(tipo, url, name) {
     try {
         var category = "Ésika para mí";
-        url = "{" + url + "}";
         var label = name + " - " + url;
-
+        tipo = tipo.toString();
         switch (tipo) {
             case "FB":
-                SocialEventPush("Google", "+1", url);
+                SocialEventPush("Facebook", "Share", url);
                 break;
             case "WA":
                 VirtualEventPush(category, "Enviar por Whatsapp", label);
@@ -239,7 +272,7 @@ function IrCancelarSuscripcionRDAnalytics() {
 }
 
 function CancelarSuscripcionRDAnalytics() {
-     VirtualEventPush("Revista Online", "Cancelar inscripción", "(not available)");
+    VirtualEventPush("Ésika para mí", "Cancelar inscripción", "(not available)");
 }
 
 /*
@@ -264,7 +297,7 @@ function PromotionClickPush(name, position, creative) {
                 "promotions": [
                     {
                         "id": "1",
-                        "name": name,
+                        "name": name.trim(),
                         "position": position,
                         "creative": creative
                     }]
@@ -281,7 +314,7 @@ function PromotionViewPush(name, position, creative) {
                 "promotions": [
                     {
                         "id": "1",
-                        "name": name,
+                        "name": name.trim(),
                         "position": position,
                         "creative": creative
                     }]
@@ -299,12 +332,12 @@ function AddToCartPush(list, estrategia) {
                 "actionField": { "list": list },
                 "products": [
                     {
-                        "name": estrategia.DescripcionResumen,
-                        "price": estrategia.Precio2,
+                        "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
+                        "price": estrategia.Precio2.toString(),
                         "brand": estrategia.DescripcionMarca,
                         "id": estrategia.CUV2,
                         "category": "NO DISPONIBLE",
-                        "variant": estrategia.DescripcionEstrategia,
+                        "variant": (estrategia.DescripcionEstrategia === undefined) ? "Estándar" : estrategia.DescripcionEstrategia,
                         "quantity": parseInt(estrategia.Cantidad)
                     }
                 ]
@@ -321,13 +354,13 @@ function ProductClickPush(list, estrategia) {
             "click": {
                 "actionField": { "list": list },
                 "products": [{
-                    "name": estrategia.DescripcionCUV2,
+                    "name": (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
                     "id": estrategia.CUV2,
-                    "price": estrategia.Precio2,
+                    "price": estrategia.Precio2.toString(),
                     "brand": estrategia.DescripcionMarca,
                     "category": "NO DISPONIBLE",
-                    "variant": estrategia.DescripcionEstrategia,
-                    "position": parseInt(estrategia.posicionItem)
+                    "variant": (estrategia.DescripcionEstrategia === undefined) ? "Estándar" : estrategia.DescripcionEstrategia,
+                    "position": parseInt(estrategia.posicionItem === undefined ? estrategia.Posicion : estrategia.posicionItem) 
                 }]
             }
         }

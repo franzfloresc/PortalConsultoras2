@@ -218,6 +218,8 @@ namespace Portal.Consultoras.Common
 
             public const string TipoPopUpMostrar = "TipoPopUpMostrar";
 
+            //AsesoraOnline
+            public const string EmailAsesoraOnline = "EmailAsesoraOnline";
             // Configuracion Seccion Home Contenedor de Palancas
             public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
 
@@ -334,6 +336,8 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
@@ -506,6 +510,7 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalSuscripcion = 9;
             public const int Cupon = 10;
             public const int CuponForzado = 11;
+            public const int AsesoraOnline = 12;
         }
 
         // Constantes de los motivos de GPR.
