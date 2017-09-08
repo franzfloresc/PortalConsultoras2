@@ -15,7 +15,7 @@
         }
     </style>
 }
-
+<div data-tag-html="@ViewBag.Campania">
 <div class="revista_ficha" style='background: url(@Model.TipoEstrategiaDetalle.ImgFichaFondoDesktop);' 
      data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="revista_fondo_ficha"></div>
@@ -118,20 +118,17 @@
                             width: '100%',
                             videoId: '@Model.TipoEstrategiaDetalle.UrlVideoDesktop',
                             events: {
-                               'onStateChange': onPlayerStateChange
+                                'onStateChange': onPlayerStateChange
                             }
                         });
                     }
-                    var doneStart = false;
-                    var doneEnd = false;
+
                     function onPlayerStateChange(event) {
-                        if (event.data == YT.PlayerState.PLAYING && !doneStart) {
+                        if (event.data == YT.PlayerState.PLAYING) {
                             CompartirProductoRDAnalytics("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
-                            doneStart = true;
                         }
-                        if (event.data == YT.PlayerState.ENDED && !doneEnd) {
+                        if (event.data == YT.PlayerState.ENDED) {
                             CompartirProductoRDAnalytics("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
-                            doneEnd = true;
                         }
                     }
 
@@ -140,6 +137,7 @@
             </div>
         }
     </div>
+</div>
 </div>
 @Html.Action("MensajeBloqueado", "RevistaDigital")
 <div class="flecha_scroll">

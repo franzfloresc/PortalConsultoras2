@@ -19,7 +19,7 @@
 }
 <div class="wrapper_resumen_mobile sin_padding">
     <!-- BANNERS INGRESO DE PEDIDO -->
-    <div class="banner_ingresoPedido">
+    <div class="banner_ingresoPedido" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center center;">
         <div class="content_320 ingresoPedido">            
             @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
                 if (mobileConfiguracion.MostrarBotonAtras)
@@ -671,8 +671,8 @@
         var viewBagAmbiente = '@ViewBag.Ambiente';
         var correo = '@Model.EMail';
         var celular = '@Model.Celular';
-        var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
-        var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+
     </script>
     @System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/Pedido")
 
