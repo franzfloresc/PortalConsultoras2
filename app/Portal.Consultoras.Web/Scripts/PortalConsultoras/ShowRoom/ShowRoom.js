@@ -268,7 +268,7 @@ function CargarProductosShowRoom(busquedaModel) {
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
-                var arrayEstrategia = [];
+                var impressions = [];
 
                 if (typeof value != "undefined") {
 

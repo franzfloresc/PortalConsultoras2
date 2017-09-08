@@ -2581,6 +2581,7 @@ function MostrarShowRoom() {
         $.ajax({
             type: "POST",
             url: baseUrl + "Bienvenida/MostrarShowRoomPopup",
+            data: null,
             contentType: 'application/json',
             success: function (response) {
                 if (checkTimeout(response)) {
