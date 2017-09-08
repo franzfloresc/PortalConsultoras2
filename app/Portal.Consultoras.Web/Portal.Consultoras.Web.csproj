@@ -407,6 +407,7 @@
     <Compile Include="Models\ClienteOnlineDetalleModel.cs" />
     <Compile Include="Models\ClienteSb2Model.cs" />
     <Compile Include="Models\BarraConsultoraModel.cs" />
+    <Compile Include="Models\EventoFestivoModel.cs" />
     <Compile Include="Models\OfertaFinalModel.cs" />
     <Compile Include="Models\MensajesCDRExpressModel.cs" />
     <Compile Include="Models\ProductoComentarioModel.cs" />
@@ -1211,6 +1212,7 @@
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
+    <Content Include="Content\Images\Esika\esika-venta.jpg" />
     <Content Include="Content\Images\Esika\esika_intriga.jpg" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
@@ -4267,6 +4269,7 @@
     <Content Include="Views\Shared\_AsesoraOnlineLayout.cshtml" />
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>

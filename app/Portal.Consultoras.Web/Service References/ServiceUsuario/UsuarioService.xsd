@@ -376,6 +376,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BETerminosCondiciones" nillable="true" type="tns:BETerminosCondiciones" />
+  <xs:complexType name="ArrayOfBEEventoFestivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBEEventoFestivo" nillable="true" type="tns:ArrayOfBEEventoFestivo" />
+  <xs:complexType name="BEEventoFestivo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Alcance" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Estado" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Fin" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Inicio" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nombre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Periodo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Personalizacion" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BEEventoFestivo" nillable="true" type="tns:BEEventoFestivo" />
   <xs:complexType name="BEConsultoraDatos">
     <xs:sequence>
       <xs:element minOccurs="0" name="AutorizaPedido" nillable="true" type="xs:string" />

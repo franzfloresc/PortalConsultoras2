@@ -238,6 +238,9 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.TipoPersonalizacion, f => f.MapFrom(c => c.TipoPersonalizacion))
                 .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
                 .ForMember(t => t.Estado, f => f.MapFrom(c => c.Estado));
+               
+            Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
+
         }
     }
 }

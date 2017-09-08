@@ -1780,7 +1780,7 @@ header {
     top: 0%;
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
     /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
     /*background-size:cover;*/
 }
@@ -36026,6 +36026,11 @@ h1#penmostreo .campana {
    height:590px;
     object-fit: cover;
 }
+
+#container-showroom-landing {
+    background: url(../../../Images/Esika/esika-venta.jpg) center center no-repeat;
+}
+
 .dias_inicio_landing {
     font-size: 66px;
     top:170px;
