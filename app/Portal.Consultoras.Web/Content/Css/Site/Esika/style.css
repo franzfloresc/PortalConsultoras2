@@ -33865,6 +33865,15 @@ h1#penmostreo .campana {
     top:50%;
     margin:-205px auto auto auto;
 }
+
+.contenedorMensajesA{
+    width:70%;
+}
+
+.contenedorMensajesB{
+    width:30%;
+}
+
 .dias_intriga_home{
     font-family:'Lato';
     font-size:55px;
@@ -36021,7 +36030,7 @@ h1#penmostreo .campana {
 .imagen_dias_intriga_inicio{
     display: block;
     width: 100vw;
-   height:590px;
+    height:590px;
     object-fit: cover;
 }
 .dias_inicio_landing {
