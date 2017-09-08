@@ -220,6 +220,12 @@ namespace Portal.Consultoras.Common
 
             // Configuracion Seccion Home Contenedor de Palancas
             public const string ListadoSeccionPalanca = "ListadoSeccionPalanca";
+
+            public const string MenuContenedor = "MenuContenedor";
+
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+            public const string ProductoTemporal = "ProductoTemporal";
+            public const string MenuContenedorActivo = "MenuContenedorActivo";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -734,6 +740,7 @@ namespace Portal.Consultoras.Common
             public const string OfertaFinalRegaloSorpresa = "OFR";
             public const string ShowRoom = "SR";
             public const string OfertaDelDia = "ODD";
+            public const string Informacion = "INFO";
         }
 
         public class ConfiguracionSeccion
@@ -791,15 +798,6 @@ namespace Portal.Consultoras.Common
             public const string VE = "Los 4 últimos dígitos de<br/>tu Cédula de Identidad.";
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
-
-        public class SessionNames
-        {
-            // Lista de estrategias en session para OPT y BPT 
-            public const string ListaEstrategia = "ListadoEstrategiaPedido";
-            public const string ProductoTemporal = "ProductoTemporal";
-            public const string MenuContenedorActivo = "MenuContenedorActivo";
-        }
-
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;

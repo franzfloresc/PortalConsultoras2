@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Controllers
             if (Session["ListadoMasVendidos"] != null && origen.Equals(Constantes.OrigenPedidoWeb.MobileHomeMasVendidos))
                 return (List<BEEstrategia>)Session["ListadoMasVendidos"];
 
-            string varSession = Constantes.SessionNames.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
+            string varSession = Constantes.ConstSession.ListaEstrategia;// + (campaniaId > 0 ? campaniaId.ToString() : "");
             if (Session[varSession] != null && campaniaId == 0) return (List<BEEstrategia>)Session[varSession];
 
             //var usuario = ObtenerUsuarioConfiguracion();            
@@ -98,7 +98,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             try
             {
-                estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.SessionNames.ProductoTemporal];
+                estrategiaModelo = (EstrategiaPersonalizadaProductoModel)Session[Constantes.ConstSession.ProductoTemporal];
                 if (estrategiaModelo == null || estrategiaModelo.EstrategiaID <= 0)
                     return estrategiaModelo;
 
@@ -271,15 +271,15 @@ namespace Portal.Consultoras.Web.Controllers
         public List<EstrategiaPedidoModel> ConsultarEstrategiasFiltrarSegunTipo(string cuv = "", string codAgrupacion = "")
         {
             var listModel = new List<BEEstrategia>();
-            if (Session[Constantes.SessionNames.ListaEstrategia] != null)
-                listModel = (List<BEEstrategia>)Session[Constantes.SessionNames.ListaEstrategia];
+            if (Session[Constantes.ConstSession.ListaEstrategia] != null)
+                listModel = (List<BEEstrategia>)Session[Constantes.ConstSession.ListaEstrategia];
             else
             {
                 listModel = ConsultarEstrategias(cuv, 0, codAgrupacion);
 
                 if (!listModel.Any())
                 {
-                    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
+                    Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                     return new List<EstrategiaPedidoModel>();
                 }
 
@@ -325,7 +325,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (top <= 0)
                     {
-                        Session[Constantes.SessionNames.ListaEstrategia] = listModel;
+                        Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                         return new List<EstrategiaPedidoModel>();
                     }
 
@@ -347,7 +347,7 @@ namespace Portal.Consultoras.Web.Controllers
                         listaDemas.RemoveRange(top, listaDemas.Count() - top);
                     
                     listModel.AddRange(listaDemas);
-                    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
+                    Session[Constantes.ConstSession.ListaEstrategia] = listModel;
                 }
                 #endregion
 

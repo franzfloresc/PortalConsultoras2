@@ -34127,11 +34127,11 @@ h1#penmostreo .campana {
     margin: 0 auto;
     left: 0;
     right: 0;
-    position: absolute;
+    position: relative;
     margin-top: 0px;
     max-width: 1024px;
-    height: 415px;
-    z-index: 2010;
+    height: auto;
+    /*z-index: 2010;*/
     background: #000;
     /*background: black url(../../../Images/PL20/fondo_pop.png) no-repeat;*/
 }
@@ -34149,12 +34149,13 @@ h1#penmostreo .campana {
 }
 
 .imagen_set_Oferta_pop {
-    width: 350px;
+    width: 46%;
     height: auto;
     float: left;
     /*margin-left: 15px;*/
     /* margin-top: 5px; */
     text-align: center;
+    margin-top:25px;
 }
 
     .imagen_set_Oferta_pop img {
@@ -34167,10 +34168,11 @@ h1#penmostreo .campana {
     /* width: 210px; */
     font-family: 'Lato';
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     text-align: left;
     /* letter-spacing: 0.75px; */
     line-height: 18px;
+    letter-spacing:0.2px;
     /* font-weight: 300; */
 }
 
@@ -34189,7 +34191,7 @@ h1#penmostreo .campana {
     /* width: 200px; */
     margin: 0 auto;
     font-family: 'Lato';
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 700;
     letter-spacing: 1.2px;
     /* text-align: center; */
@@ -34230,15 +34232,15 @@ h1#penmostreo .campana {
     width: 90%;
     /*height: 166px;*/
     margin: 0 auto;
-    margin-top: 21px;
+    /*margin-top: 21px;*/
     overflow: hidden;
 }
 
 .right_set_hoy {
     float: left;
-    width: 295px;
+    width: 49%;
     /* margin-top: 45px; */
-    margin-left: 14%;
+    margin-right: 5%;
 }
 
 .precio_valorizado_oferta {
@@ -34799,7 +34801,7 @@ h1#penmostreo .campana {
     background: #f0f0f0;
     padding: 26px;
     min-height: 100px;
-    margin-top: -52px;
+    margin-top: 38px;
     margin-left: 6%;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
@@ -34990,7 +34992,7 @@ h1#penmostreo .campana {
     font-weight: bold;
     letter-spacing: 0.5px;
     text-align: center;
-    color: #a18328;
+    color: white;
 }
 /*SHOWROOM*/
 .set-productos-showroom {
@@ -35924,10 +35926,12 @@ h1#penmostreo .campana {
 .regresar_carrusel {
     color: white;
     font-family: 'Lato';
-    font-size: 12px;
-    float: right;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    float: left;
     margin-right: 15px;
-    background: url(../../../Images/PL20/flecha_regreso.png) no-repeat;
+    background: url(../../../Images/Esika/regresar.png) no-repeat;
+    background-size: 13px 24px;
     padding-left: 16px;
     background-position: 0px -1px;
 }
@@ -35935,12 +35939,14 @@ h1#penmostreo .campana {
 .titulo_set_ODD {
     color: white;
     font-family: 'Lato';
-    font-size: 18px;
-    /*text-align:center;*/
+    font-size: 25px;
+    font-weight: 700;
+    /* text-align: center; */
     letter-spacing: 1.3px;
     text-transform: uppercase;
-    font-weight: 700;
-    /*margin-top:10px;*/
+    margin-bottom: 15px;
+    /* margin-top: 10px; */
+    line-height: 32px;
 }
 
 .barra_inferior {
@@ -35981,10 +35987,12 @@ h1#penmostreo .campana {
 .content_item_carrusel_ODD {
     width: 260px;
     padding: 30px 30px 11px 30px;
-    border: 1px solid #d5b03e;
+    border: 1px solid white;
     float: left;
     margin-top: 12px;
     margin-bottom: 30px;
+    background:#a3001f;
+    background:rgba(255,255,255,0.05);
 }
 
 .content_img_carrusel_ODD {
@@ -37328,13 +37336,46 @@ h1#penmostreo .campana {
     padding-top: 6px;
 }
 
-.flip-clock-wrapper ul li a div div.inn {
-    
-    text-shadow: 0 1px 2px #043553;
-    text-align: center;
-    background-color: #043553;
-    
+.content_landing_odd .flip-clock-wrapper ul li a div div.inn{ 
+        font-size: 50px;
 }
-.flip-clock-wrapper .flip{
-    box-shadow:0 2px 5px rgba(4, 53, 83, 0.7)
+.content_landing_odd .flip-clock-wrapper ul{
+    width: 30px;
+    height: 64px;
+}
+.content_landing_odd .flip-clock-wrapper{
+    width:278px;
+    margin-bottom: 14px;
+}
+.content_landing_odd .flip-clock-dot {    
+    width: 8px;
+    height: 8px;
+}
+.content_landing_odd .flip-clock-dot.bottom {
+    top: 27px;
+}
+.content_landing_odd .flip-clock-divider {  
+    margin-top:13px;
+    margin-right: 5px;
+    /* margin-left: 2px; */
+}
+.content_item_carrusel_ODD .agregado{
+    color:white;
+}
+.content_item_carrusel_ODD .agregado .icono {   
+    background: url(../../../Images/group_blanco.svg) center center no-repeat;
+}
+.imagen_dias_intriga_inicio{
+    display: block;
+    width: 100vw;
+   height:590px;
+    object-fit: cover;
+}
+.dias_inicio_landing {
+    font-size: 66px;
+    top:170px;
+}
+.saludo_landing{
+    top: 109px;
+    font-size: 17px;
 }

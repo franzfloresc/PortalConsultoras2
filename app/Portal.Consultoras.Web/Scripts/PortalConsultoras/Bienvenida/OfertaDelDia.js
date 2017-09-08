@@ -175,7 +175,7 @@ $(document).ready(function () {
                 RenderOfertaDelDia(_data, contenedorOfertas)
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
-                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '") repeat-x');
+                $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
 
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
                 $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
@@ -246,7 +246,8 @@ $(document).ready(function () {
                     document.location.href = '/Ofertas';
                 }
                 else if (accion == CONS_TIPO_ACCION.VERDETALLE) {
-
+                    $(contenedorOfertas + ' #imgSoloHoy').hide();
+                    $(contenedorOfertas + ' [data-odd-accion="regresar"]').show();
                     $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').hide();
                     $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').show();
                     var posicion = $(this).parents("[data-item]").attr("data-item-position");
@@ -256,6 +257,8 @@ $(document).ready(function () {
                 else if (accion == CONS_TIPO_ACCION.REGRESAR) {
 
                     $('#divOddCarrusel').slick('refresh', false);
+                    $(contenedorOfertas + ' #imgSoloHoy').show();
+                    $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
                     $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').hide();
                     $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
                 }
@@ -272,7 +275,7 @@ $(document).ready(function () {
         
         data.CantidadProductos = data.ListaOfertas.length;
         data.Simbolo = vbSimbolo;
-        data.ClassDimension = data.CantidadProductos < 3 ? "content_780_ODD" : "";
+        //data.ClassDimension = data.CantidadProductos < 3 ? "content_780_ODD" : "";
         data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
@@ -283,7 +286,8 @@ $(document).ready(function () {
 
     function ConfigurarCarruselProductos(contenedorOfertas,cantidadProductos) {
         if (cantidadProductos > 1) {
-            $(contenedorOfertas + ' [data-odd-accion="regresar"]').show();
+            $(contenedorOfertas + ' #imgSoloHoy').show();
+            $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="carrusel"]').show();
         }
 
@@ -316,6 +320,7 @@ $(document).ready(function () {
 
     function ConfigurarCarruselDetalleProductos(contenedorOfertas,cantidadProductos) {
         if (cantidadProductos == 1) {
+            $(contenedorOfertas + ' #imgSoloHoy').show();
             $(contenedorOfertas + ' [data-odd-accion="regresar"]').hide();
             $(contenedorOfertas + ' [data-odd-tipoventana="detalle"]').show();
         }

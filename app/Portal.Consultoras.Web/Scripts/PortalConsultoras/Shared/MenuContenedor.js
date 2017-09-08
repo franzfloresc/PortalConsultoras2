@@ -59,56 +59,57 @@ $(document).ready(function () {
 });
 
 function MenuContenedor() {
-    $(elementos.menu2Li).hide();
-    $(elementos.menu2Li).removeClass(elementos.claseActivo);
-    $(elementos.menu1Li).removeClass(elementos.claseActivo);
-    $(elementos.menu2Li).attr("data-activo", "0");
+    //$(elementos.menu2Li).hide();
+    //$(elementos.menu2Li).removeClass(elementos.claseActivo);
+    //$(elementos.menu1Li).removeClass(elementos.claseActivo);
+    //$(elementos.menu2Li).attr("data-activo", "0");
 
-    var menuCheck = MenuContenedorObtener();
-    menuCheck.CampaniaID = $.trim(menuCheck.CampaniaID) || -1;
-    if (menuCheck.CampaniaID < 0) {
-        var primerMenu = $(elementos.menu1Li);
-        if (primerMenu.length > 0) {
-            primerMenu = $(primerMenu).get(0);
-        }
-        else {
-            // fix PL20
-            var omenu2 = $(elementos.menu2Li);
-            if (omenu2.length > 0)
-                primerMenu = $(omenu2).get(0);
-        }
+    //var menuCheck = MenuContenedorObtener();
+    //menuCheck.CampaniaId = menuCheck.CampaniaId || 0;
+    //if (menuCheck.CampaniaId <= 0) {
+    //    var primerMenu = $(elementos.menu1Li);
+    //    if (primerMenu.length > 0) {
+    //        primerMenu = $(primerMenu).get(0);
+    //    }
+    //    else {
+    //        // fix PL20
+    //        var omenu2 = $(elementos.menu2Li);
+    //        if (omenu2.length > 0)
+    //            primerMenu = $(omenu2).get(0);
+    //    }
 
-        var primerSubMenu = $(elementos.menu2Li);
-        if (primerSubMenu.length > 0) {
-            primerSubMenu = $(primerSubMenu).get(0);
-        }
+    //    var primerSubMenu = $(elementos.menu2Li);
+    //    if (primerSubMenu.length > 0) {
+    //        primerSubMenu = $(primerSubMenu).get(0);
+    //    }
 
-        menuCheck = {
-            campania: $(primerMenu).data("campania"),
-            codigo: $(primerSubMenu).data("codigo")
-        };
+    //    menuCheck = {
+    //        campania: $(primerMenu).data("campania"),
+    //        codigo: $(primerSubMenu).data("codigo")
+    //    };
 
-        MenuContenedorGuardar(menuCheck);
-    }
+    //    MenuContenedorGuardar(menuCheck);
+    //}
 
-    $(elementos.menu1Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "'] a").addClass(elementos.claseActivo);
-    var subMenus = $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "']");
-    if (subMenus.length == 0) {
-        $(elementos.menu2).hide();
-    }
-    else {
-        subMenus.show();
-        subMenus.attr("data-activo", "1");
-        $(elementos.menu2Ul
-            + " li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
-            + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a").addClass(elementos.claseActivo);
-        $(elementos.menu2Ul
-           + " li[data-campania=" + (menuCheck.CampaniaID || menuCheck.campania)
-           + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a p").addClass(elementos.claseActivoP);
-    }
+    //console.log(menuCheck);
+    //$(elementos.menu1Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "'] a").addClass(elementos.claseActivo);
+    //var subMenus = $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "']");
+    //if (subMenus.length == 0) {
+    //    $(elementos.menu2).hide();
+    //}
+    //else {
+    //    subMenus.show();
+    //    subMenus.attr("data-activo", "1");
+    //    $(elementos.menu2Ul
+    //        + " li[data-campania=" + (menuCheck.CampaniaId || menuCheck.campania)
+    //        + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a").addClass(elementos.claseActivo);
+    //    $(elementos.menu2Ul
+    //       + " li[data-campania=" + (menuCheck.CampaniaId || menuCheck.campania)
+    //       + "][data-codigo='" + (menuCheck.Codigo || menuCheck.codigo) + "'] a p").addClass(elementos.claseActivoP);
+    //}
 
     if (isMobile()) {
-        $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaID || menuCheck.campania) + "'][data-activo='0']").remove();
+        $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "'][data-activo='0']").remove();
         MenuContenedorCarrusel();
     }
 
@@ -117,19 +118,38 @@ function MenuContenedor() {
 
 function MenuContenedorClick(e, url) {
     var objHtmlEvent = $(e.target);
-    if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
-    if ($(objHtmlEvent).data("campania") == undefined) {
-        objHtmlEvent = $(objHtmlEvent).parents("[data-campania]");
+    if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
+    objHtmlEvent.siblings("li").children("a").removeClass("activo");
+    objHtmlEvent.children("a").addClass("activo");
+
+    var esAncla = $(objHtmlEvent).data("es-ancla");
+    if (esAncla === "True") {
+        var codigo = $(objHtmlEvent).data("codigo");
+        if (window.location.href.indexOf("/Ofertas") > -1) {
+            $('html, body').animate({
+                    scrollTop: $('#' + codigo).top - 180
+                },
+                1000,
+                'swing');
+        } else {
+            window.location = "/Ofertas#" + codigo;
+        }
+        
+    } else {
+        window.location = url;
     }
+    //if ($(objHtmlEvent).data("campania") == undefined) {
+    //    objHtmlEvent = $(objHtmlEvent).parents("[data-campania]");
+    //}
 
-    var codigoLocal = {
-        campania: $(objHtmlEvent).data("campania"),
-        codigo: $(objHtmlEvent).data("codigo")
-    };
+    //var codigoLocal = {
+    //    campania: $(objHtmlEvent).data("campania"),
+    //    codigo: $(objHtmlEvent).data("codigo")
+    //};
 
-    MenuContenedorGuardar(codigoLocal);
+    //MenuContenedorGuardar(codigoLocal);
 
-    window.location = url;
+  
 }
 
 function MenuContenedorGuardar(codigoLocal) {
