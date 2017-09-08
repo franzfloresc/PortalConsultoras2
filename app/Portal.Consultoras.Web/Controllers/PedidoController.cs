@@ -389,14 +389,31 @@ namespace Portal.Consultoras.Web.Controllers
             return View("Index",model);
         }
 
-        public ActionResult virtualCoach(string cuv = "", int campanaId = 0) {
+        public ActionResult virtualCoach(string param = "") {
             if (Request.Browser.IsMobileDevice)
             {
-                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", cuv = cuv , campanaId = campanaId })); 
+                return RedirectToAction("virtualCoach", new RouteValueDictionary(new { controller = "Pedido", area = "Mobile", param = param })); 
             }
-            ViewBag.VirtualCoachCuv = cuv;
-            ViewBag.VirtualCoachCampana = campanaId;
-            return Index(false, cuv, campanaId);
+            try
+            {
+                string cuv = String.Empty;
+                string campanaId = "0";
+                int campana = 0;
+                if (param.Length == 11)
+                {
+                    cuv = param.Substring(0, 5);
+                    campanaId = param.Substring(5, 6);
+                }
+                campana = Convert.ToInt32(campanaId);
+                ViewBag.VirtualCoachCuv = cuv;
+                ViewBag.VirtualCoachCampana = campanaId;
+                return Index(false, cuv, campana);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            return Index();
         }
 
         private string GetMarcaPorCodigoIso(string codigoIso)

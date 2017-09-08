@@ -153,9 +153,27 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View("Index", model);
         }
 
-        public ActionResult virtualCoach(string cuv = "", int campanaId = 0)
+        public ActionResult virtualCoach(string param = "")
         {
-            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", cuv = cuv, campanaId = campanaId }));
+            string cuv = String.Empty;
+            string campanaId = "0";
+            int campana = 0;
+            try
+            {               
+                if (param.Length == 11)
+                {
+                    cuv = param.Substring(0, 5);
+                    campanaId = param.Substring(5, 6);
+                }
+                campana = Convert.ToInt32(campanaId);
+            }
+            catch (Exception ex)
+            {
+                cuv = "";
+                campana = 0;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            return RedirectToAction("Detalle", new RouteValueDictionary(new { controller = "FichaProducto", area = "Mobile", cuv = cuv, campanaId = campana }));
         }
 
         public ActionResult Detalle(bool autoReservar = false)

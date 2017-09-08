@@ -653,10 +653,15 @@ function ValidarCorreoComunidad(tipo) {
     }
 };
 
-function alert_msg(message, titulo) {
+function alert_msg(message, titulo, funcion) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
+    if (typeof funcion == "function") {
+        $("#alertDialogMensajes").dialog("option", "buttons", {
+            "Ver Ofertas": function () { funcion(); }
+        });
+    }
     $('#alertDialogMensajes').dialog('open');
 }
 function alert_msg_com(message) {

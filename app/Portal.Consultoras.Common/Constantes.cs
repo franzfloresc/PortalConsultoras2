@@ -793,6 +793,14 @@ namespace Portal.Consultoras.Common
             public const string FichaProductoTemporal = "FichaProductoTemporal";
         }
 
+        public class SeccionBienvenida {
+            public const int Home = 0;
+            public const int Belcorp = 1;
+            public const int MisOfertas = 2;
+            public const int MisAcademia = 3;
+            public const int Footer = 4;
+        }
+
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;

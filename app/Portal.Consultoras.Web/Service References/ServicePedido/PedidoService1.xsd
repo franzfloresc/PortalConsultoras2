@@ -314,7 +314,6 @@
       <xs:element minOccurs="0" name="CUV1" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CUV2" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="CampaniaID" type="xs:int" />
-      <xs:element minOccurs="0" name="CampaniaIDFin" type="xs:int" />
       <xs:element minOccurs="0" name="CantComenAprob" type="xs:int" />
       <xs:element minOccurs="0" name="CantComenRecom" type="xs:int" />
       <xs:element minOccurs="0" name="Cantidad" type="xs:int" />
@@ -330,8 +329,6 @@
       <xs:element minOccurs="0" name="EnMatrizComercial" type="xs:int" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="EtiquetaDescripcion2" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="EtiquetaID" type="xs:int" />
-      <xs:element minOccurs="0" name="EtiquetaID2" type="xs:int" />
       <xs:element minOccurs="0" name="FechaInicioFacturacion" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FlagCEP" type="xs:int" />
       <xs:element minOccurs="0" name="FlagCEP2" type="xs:int" />
@@ -350,9 +347,7 @@
       <xs:element minOccurs="0" name="LimiteVenta" type="xs:int" />
       <xs:element minOccurs="0" name="MarcaID" type="xs:int" />
       <xs:element minOccurs="0" name="Mensaje" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="NumeroPedido" type="xs:int" />
       <xs:element minOccurs="0" name="OfertaUltimoMinuto" type="xs:int" />
-      <xs:element minOccurs="0" name="Orden" type="xs:int" />
       <xs:element minOccurs="0" name="PaisID" type="xs:int" />
       <xs:element minOccurs="0" name="Precio" type="xs:decimal" />
       <xs:element minOccurs="0" name="Precio2" type="xs:decimal" />
@@ -366,7 +361,6 @@
       <xs:element minOccurs="0" name="TextoLibre" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TieneStockProl" type="xs:boolean" />
       <xs:element minOccurs="0" name="TieneVariedad" type="xs:int" />
-      <xs:element minOccurs="0" name="TipoImagenMostrar" type="xs:int" />
       <xs:element minOccurs="0" name="TipoOferta" type="xs:int" />
       <xs:element minOccurs="0" name="TipoTallaColor" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="URLCompartir" nillable="true" type="xs:string" />

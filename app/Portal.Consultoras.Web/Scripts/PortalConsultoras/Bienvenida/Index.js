@@ -425,6 +425,10 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
+    setTimeout(function () {
+        VerSeccionInicio(verSeccion);
+    }, 1000);
+   
 });
 
 
@@ -3264,4 +3268,29 @@ function MostrarPopupInicial() {
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
     }
+}
+
+function VerSeccionInicio(seccion) {
+    var id = "";
+    switch (seccion) {        
+        case "1"://Belcorp
+            id = ".content_belcorp";
+            break
+        case "2"://Mis Ofertas
+            id = "#contenedor_template_estrategia_cabecera";
+            break;
+        case "3"://Mi Academia
+            id = "#seccionMiAcademiaLiquidacion";
+            break;
+        case "4"://Footer
+            id = "footer";
+            break;
+        default ://Home
+            id = ".flexslider";
+            break;
+    }
+    
+    $("html, body").animate({
+        scrollTop: $(id).offset().top - 60
+    }, 1000);
 }

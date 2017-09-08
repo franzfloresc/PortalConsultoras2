@@ -17,10 +17,14 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
-                var producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
-                producto = FichaProductoHermanos(producto);
-                Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                var producto = (FichaProductoDetalleModel)null;
+                if (userData.CampaniaID == campanaId)
+                {
+                    var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
+                    producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
+                    producto = FichaProductoHermanos(producto);
+                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                }
                 if (producto == null)
                 {
                     return View("ProductoNotFound");

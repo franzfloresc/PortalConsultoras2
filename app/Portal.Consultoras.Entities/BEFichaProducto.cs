@@ -17,12 +17,6 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int CampaniaID { get; set; }
         [DataMember]
-        public int CampaniaIDFin { get; set; }
-        [DataMember]
-        public int NumeroPedido { get; set; }
-        [DataMember]
-        public int Orden { get; set; }
-        [DataMember]
         public int ID { get; set; }
         [DataMember]
         public decimal Precio { get; set; }
@@ -48,10 +42,6 @@ namespace Portal.Consultoras.Entities
         public string CodigoProducto { get; set; }
         [DataMember]
         public string ImagenURL { get; set; }
-        [DataMember]
-        public int EtiquetaID { get; set; }
-        [DataMember]
-        public int EtiquetaID2 { get; set; }
         [DataMember]
         public string EtiquetaDescripcion { get; set; }
         [DataMember]
@@ -102,10 +92,7 @@ namespace Portal.Consultoras.Entities
         /*R2621 -LR - Se añade la propiedad FlagNueva*/
         [DataMember]
         public int FlagNueva { get; set; }
-
-        [DataMember]
-        public int TipoImagenMostrar { get; set; }
-
+        
         [DataMember]
         public bool TieneStockProl { get; set; }
 
@@ -203,10 +190,7 @@ namespace Portal.Consultoras.Entities
         {
             if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
                 Precio2 = Convert.ToDecimal(row["Precio2"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
-                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
-
+            
             if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
                 CUV2 = row["CUV2"].ToString();
 
@@ -239,13 +223,7 @@ namespace Portal.Consultoras.Entities
             
             if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-
-            if (DataRecord.HasColumn(row, "CampaniaIDFin") && row["CampaniaIDFin"] != DBNull.Value)
-                CampaniaIDFin = Convert.ToInt32(row["CampaniaIDFin"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
-                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
-
+            
             if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
                 Activo = Convert.ToInt32(row["Activo"]);
 
@@ -263,10 +241,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
                 CUV1 = row["CUV"].ToString();
-
-            if (DataRecord.HasColumn(row, "EtiquetaID") && row["EtiquetaID"] != DBNull.Value)
-                EtiquetaID = Convert.ToInt32(row["EtiquetaID"]);
-
+            
             if (DataRecord.HasColumn(row, "Precio") && row["Precio"] != DBNull.Value)
                 Precio = Convert.ToDecimal(row["Precio"]);
 
@@ -275,10 +250,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
                 CUV2 = row["CUV2"].ToString();
-
-            if (DataRecord.HasColumn(row, "EtiquetaID2") && row["EtiquetaID2"] != DBNull.Value)
-                EtiquetaID2 = Convert.ToInt32(row["EtiquetaID2"]);
-
+            
             if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
                 Precio2 = Convert.ToDecimal(row["Precio2"]);
 
@@ -299,10 +271,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Zona") && row["Zona"] != DBNull.Value)
                 Zona = row["Zona"].ToString();
-
-            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
-                Orden = Convert.ToInt32(row["Orden"]);
-
+            
             if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
                 ID = Convert.ToInt32(row["ID"]);
 
@@ -349,10 +318,7 @@ namespace Portal.Consultoras.Entities
             /*R2621LR - Flag Nueva*/
             if (DataRecord.HasColumn(row, "FlagNueva") && row["FlagNueva"] != DBNull.Value)
                 FlagNueva = Convert.ToInt32(row["FlagNueva"].ToString());
-
-            if (DataRecord.HasColumn(row, "TipoImagenMostrar") && row["TipoImagenMostrar"] != DBNull.Value)
-                TipoImagenMostrar = Convert.ToInt32(row["TipoImagenMostrar"].ToString());
-
+            
             if (DataRecord.HasColumn(row, "TieneStockProl") && row["TieneStockProl"] != DBNull.Value)
                 TieneStockProl = Convert.ToBoolean(row["TieneStockProl"].ToString());
 

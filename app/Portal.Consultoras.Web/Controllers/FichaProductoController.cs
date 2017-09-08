@@ -12,11 +12,22 @@ namespace Portal.Consultoras.Web.Controllers
         [HttpGet]
         public JsonResult ObtenerFichaProducto(string cuv = "", int campanaId = 0)
         {
-            var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
-            var producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
-            producto = FichaProductoHermanos(producto);
-            Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
-            return Json(producto, JsonRequestBehavior.AllowGet);
+            try
+            {
+                if (userData.CampaniaID == campanaId)
+                {
+                    var lst = ConsultarFichaProductoPorCuv(cuv, campanaId);
+                    var producto = FichaProductoFormatearModelo(lst).SingleOrDefault();
+                    producto = FichaProductoHermanos(producto);
+                    Session[Constantes.SessionNames.FichaProductoTemporal] = producto;
+                    return Json(producto, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
+            }
+            return Json(null, JsonRequestBehavior.AllowGet);
         }
 
     }

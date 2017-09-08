@@ -23,7 +23,12 @@ $(document).ready(function () {
                     FichaProducto.Funciones.ObtenerProducto();
             },
             AlertaMensajeProductoNotFound: function () {
-                alert_msg("El producto que estás buscando no se encuentra en esta campaña!","¡UPSS!");
+                alert_msg("El producto que estás buscando no se encuentra en esta campaña!", "¡UPSS!", function () {
+                    if (!window.hasOwnProperty("seccionMisOfertas"))
+                        var seccionMisOfertas = '2';
+                    var url = "/Bienvenida?VerSeccion=" + seccionMisOfertas;
+                    window.location = url;
+                });
             },
             AlertaMensaje: function (mensaje) {
                 alert_msg(mensaje);

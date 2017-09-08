@@ -3462,9 +3462,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int CampaniaIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int CampaniaIDFinField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int CantComenAprobField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3508,12 +3505,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string EtiquetaDescripcion2Field;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EtiquetaIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int EtiquetaID2Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaInicioFacturacionField;
@@ -3570,13 +3561,7 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string MensajeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int NumeroPedidoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int OfertaUltimoMinutoField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int PaisIDField;
@@ -3616,9 +3601,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneVariedadField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TipoImagenMostrarField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TipoOfertaField;
@@ -3702,19 +3684,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.CampaniaIDField.Equals(value) != true)) {
                     this.CampaniaIDField = value;
                     this.RaisePropertyChanged("CampaniaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int CampaniaIDFin {
-            get {
-                return this.CampaniaIDFinField;
-            }
-            set {
-                if ((this.CampaniaIDFinField.Equals(value) != true)) {
-                    this.CampaniaIDFinField = value;
-                    this.RaisePropertyChanged("CampaniaIDFin");
                 }
             }
         }
@@ -3910,32 +3879,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.EtiquetaDescripcion2Field, value) != true)) {
                     this.EtiquetaDescripcion2Field = value;
                     this.RaisePropertyChanged("EtiquetaDescripcion2");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EtiquetaID {
-            get {
-                return this.EtiquetaIDField;
-            }
-            set {
-                if ((this.EtiquetaIDField.Equals(value) != true)) {
-                    this.EtiquetaIDField = value;
-                    this.RaisePropertyChanged("EtiquetaID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int EtiquetaID2 {
-            get {
-                return this.EtiquetaID2Field;
-            }
-            set {
-                if ((this.EtiquetaID2Field.Equals(value) != true)) {
-                    this.EtiquetaID2Field = value;
-                    this.RaisePropertyChanged("EtiquetaID2");
                 }
             }
         }
@@ -4175,19 +4118,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int NumeroPedido {
-            get {
-                return this.NumeroPedidoField;
-            }
-            set {
-                if ((this.NumeroPedidoField.Equals(value) != true)) {
-                    this.NumeroPedidoField = value;
-                    this.RaisePropertyChanged("NumeroPedido");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public int OfertaUltimoMinuto {
             get {
                 return this.OfertaUltimoMinutoField;
@@ -4196,19 +4126,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.OfertaUltimoMinutoField.Equals(value) != true)) {
                     this.OfertaUltimoMinutoField = value;
                     this.RaisePropertyChanged("OfertaUltimoMinuto");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Orden {
-            get {
-                return this.OrdenField;
-            }
-            set {
-                if ((this.OrdenField.Equals(value) != true)) {
-                    this.OrdenField = value;
-                    this.RaisePropertyChanged("Orden");
                 }
             }
         }
@@ -4378,19 +4295,6 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TieneVariedadField.Equals(value) != true)) {
                     this.TieneVariedadField = value;
                     this.RaisePropertyChanged("TieneVariedad");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TipoImagenMostrar {
-            get {
-                return this.TipoImagenMostrarField;
-            }
-            set {
-                if ((this.TipoImagenMostrarField.Equals(value) != true)) {
-                    this.TipoImagenMostrarField = value;
-                    this.RaisePropertyChanged("TipoImagenMostrar");
                 }
             }
         }
