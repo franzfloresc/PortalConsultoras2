@@ -378,5 +378,11 @@ namespace Portal.Consultoras.Web.Models
 
         public string ClaseLogoSB { get; set; }
         public bool PopupBienvenidaCerrado { get; set; }
+        //HD-817 Evento Festivo
+        public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
+        public string EfRutaPedido { get; set; }
+        public string EfSaludo { get; set; }
+
+        public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
     }
 }
