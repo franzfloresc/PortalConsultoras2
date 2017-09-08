@@ -268,6 +268,8 @@ function CargarProductosShowRoom(busquedaModel) {
         })
         .fail(function (response) {
             if (busquedaModel.hidden) {
+                var arrayEstrategia = [];
+
                 if (typeof value != "undefined") {
 
                     var impression = {
