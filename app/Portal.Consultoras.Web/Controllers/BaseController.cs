@@ -818,7 +818,7 @@ namespace Portal.Consultoras.Web.Controllers
                 config.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
                 config.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
                 config.UrlMenuMobile = "/Mobile/" + config.UrlMenu;
-                config.EsAncla = config.UrlMenu?.Contains("#") ?? false;
+                config.EsAncla = config.UrlMenu == null ? false : config.UrlMenu.Contains("#");
                 config.CampaniaId = userData.CampaniaID;
 
                 if (config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
