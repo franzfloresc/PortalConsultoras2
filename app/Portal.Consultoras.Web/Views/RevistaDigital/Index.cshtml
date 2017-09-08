@@ -6,6 +6,7 @@
     ViewBag.Title = "ÉSIKA PARA MÍ";
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
     int indexTab = 0;
+    int indexContent = 0;
 }
 
 @section styles{
@@ -61,8 +62,9 @@
 
 @foreach (var tab in Model.ListaTabs)
 {
+    indexContent++;
     <hr class="clear" />
-    <div style="display: none;" data-tag-html="@tab.Id">
+    <div style="display: none;" data-tag-html="@tab.Id" data-tab-index="@indexContent">
         @if (tab.Id > 0)
         {
             @Html.Action("_Landing", "RevistaDigital", new { id = tab.Id })

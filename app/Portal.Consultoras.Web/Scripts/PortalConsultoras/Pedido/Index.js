@@ -2271,6 +2271,7 @@ function EjecutarServicioPROL() {
 
             AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;
+            CerrarSplash();
             }
         },
         error: function (data, error) {

@@ -704,24 +704,21 @@
             </div>
             <a class="btn_cerrar_ofertaDia" href="javascript:;" onclick="closeOfertaDelDia(this);">x</a>
         </div>
-        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">
+        <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">           
             <br />
-            <br />
-            <div class="solo_hoy" style="width:100%">
-                <div style="height:42px; overflow:hidden;float:left"><img src="{{ImagenSoloHoy}}" alt="" /></div>
+            <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 2px;">
+                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
+                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px;"><img src="{{ImagenSoloHoy}}" alt="" /></div>
                 <div class="clock" style="float:right"></div>
             </div>
-            <br />
-            <br />
-            <br />
+            <hr class="clear" />
 
 
             <!--AÑADIR LA CLASE "content_780_ODD" PARA REDIMENSIONAR EL TAMAÑO DEL DISPLAY EN 1 Ó 2-->
             <!--CASO 1 CARRUSEL A 1024-->
             <div data-odd-tipoventana="detalle" style="display:none;">
-                <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
                 <hr class="clear" />
-                <div class="content_90" style="margin-top: 20px;">
+                <div class="content_90" style="margin-top: 20px; padding-bottom:25px;">
                     <div id="divOddCarruselDetalle">
                         {{#each this.ListaOfertas  as |detalle|}}
                         <div data-item="" data-item-position="{{detalle.ID}}">
@@ -759,16 +756,7 @@
                                 <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                             </div>
                             <div class="content_set_pop_hoy">
-                                <div class="imagen_set_Oferta_pop">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
-                                    <div class="compartir_redes_ficha">
-                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
-                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
-                                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
-                                        </a>
-                                        <hr class="clear">
-                                    </div>
-                                </div>
+                                
                                 <div class="right_set_hoy">
                                     <div class="height_min">
                                         <div class="titulo_set_ODD">{{detalle.NombreOferta}}</div>
@@ -791,6 +779,16 @@
                                         <a class="btn_pop_agregalo_oferta" data-odd-accion="agregar" data-odd-accion-type="detail" data-odd-accion-element="{{detalle.ID}}">AGRÉGALO</a>
                                     </div>
                                 </div>
+                                <div class="imagen_set_Oferta_pop">
+                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
+                                    <div class="compartir_redes_ficha" style="margin-top:10px;">
+                                        <div class="texto_compartelo" style="color:#fff;">Comparte la oferta con tus clientes</div>
+                                        <a class="btn_compartir_facebook_ficha" href="javascript: void(0);" data-compartir="FB">
+                                            <img src="https://s3.amazonaws.com/uploads.hipchat.com/583104/4578891/dUttu2lhWRcJ1AQ/face_new.png" />
+                                        </a>
+                                        <hr class="clear">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         {{/each}}
@@ -799,6 +797,7 @@
             </div>
             <!--CASO CARRUSEL DE 3 PRODUCTOS A MAS A 1024-->
             <div style="display:none;" data-odd-tipoventana="carrusel">
+
                 <div class="saludo_mas_productos" data-odd-texto="cliente" style="display:none;">{{UsuarioNombre}}, APROVECHA ESTAS OFERTAS ¡SOLO HOY!</div>
                 <div class="content_90">
                     <div id="divOddCarrusel">
@@ -822,7 +821,8 @@
                                     <input type="hidden" Class="tipoestrategia-descripcion-odd" value="{{TipoEstrategiaDescripcion}}" />
                                 </div>
                                 <div class="content_img_carrusel_ODD" data-odd-accion="verdetalle">
-                                    <img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" />
+                                    <div style="height:139px;"><img src="{{detalle.ImagenDisplay}}" alt="" id="img-display-odd" class="imagen_producto" /></div>
+                                   
                                     <a class="ver_detalle_carrusel" style="top: 80px;">VER DETALLE</a>
                                     <div class="titulo_carrusel_ODD">{{detalle.NombreOferta}}</div>
                                     {{#iff detalle.PrecioCatalogo '>' 0}}

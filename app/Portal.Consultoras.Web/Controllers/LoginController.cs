@@ -834,6 +834,7 @@ namespace Portal.Consultoras.Web.Controllers
                     model.TieneCDR = oBEUsuario.TieneCDR;
                     model.TieneCupon = oBEUsuario.TieneCupon;
                     model.TieneMasVendidos = oBEUsuario.TieneMasVendidos;
+                    model.TieneAsesoraOnline = oBEUsuario.TieneAsesoraOnline;
                     //model.TieneOfertaLog = oBEUsuario.TieneOfertaLog;
 
                     model.TieneCDRExpress = oBEUsuario.TieneCDRExpress; //EPD-1919 

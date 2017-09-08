@@ -302,6 +302,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string CodigoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int ConfiguracionPaisIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -309,12 +312,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int DesdeCampaniaField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DesktopFondoBannerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DesktopLogoBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DesktopSubTituloBannerField;
@@ -338,12 +335,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private string LogoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MobileFondoBannerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string MobileLogoBannerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MobileSubTituloBannerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -356,10 +347,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool TienePerfilField;
+        private int PaisID1Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UrlMenuField;
+        private bool TienePerfilField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool ValidadoField;
@@ -373,6 +364,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((object.ReferenceEquals(this.CodigoField, value) != true)) {
                     this.CodigoField = value;
                     this.RaisePropertyChanged("Codigo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Color {
+            get {
+                return this.ColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorField, value) != true)) {
+                    this.ColorField = value;
+                    this.RaisePropertyChanged("Color");
                 }
             }
         }
@@ -412,32 +416,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.DesdeCampaniaField.Equals(value) != true)) {
                     this.DesdeCampaniaField = value;
                     this.RaisePropertyChanged("DesdeCampania");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DesktopFondoBanner {
-            get {
-                return this.DesktopFondoBannerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DesktopFondoBannerField, value) != true)) {
-                    this.DesktopFondoBannerField = value;
-                    this.RaisePropertyChanged("DesktopFondoBanner");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DesktopLogoBanner {
-            get {
-                return this.DesktopLogoBannerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DesktopLogoBannerField, value) != true)) {
-                    this.DesktopLogoBannerField = value;
-                    this.RaisePropertyChanged("DesktopLogoBanner");
                 }
             }
         }
@@ -534,32 +512,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MobileFondoBanner {
-            get {
-                return this.MobileFondoBannerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MobileFondoBannerField, value) != true)) {
-                    this.MobileFondoBannerField = value;
-                    this.RaisePropertyChanged("MobileFondoBanner");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string MobileLogoBanner {
-            get {
-                return this.MobileLogoBannerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.MobileLogoBannerField, value) != true)) {
-                    this.MobileLogoBannerField = value;
-                    this.RaisePropertyChanged("MobileLogoBanner");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string MobileSubTituloBanner {
             get {
                 return this.MobileSubTituloBannerField;
@@ -611,6 +563,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute(Name="PaisID")]
+        public int PaisID1 {
+            get {
+                return this.PaisID1Field;
+            }
+            set {
+                if ((this.PaisID1Field.Equals(value) != true)) {
+                    this.PaisID1Field = value;
+                    this.RaisePropertyChanged("PaisID1");
+                }
+            }
+        }
+        
         [System.Runtime.Serialization.DataMemberAttribute()]
         public bool TienePerfil {
             get {
@@ -620,19 +585,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TienePerfilField.Equals(value) != true)) {
                     this.TienePerfilField = value;
                     this.RaisePropertyChanged("TienePerfil");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UrlMenu {
-            get {
-                return this.UrlMenuField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UrlMenuField, value) != true)) {
-                    this.UrlMenuField = value;
-                    this.RaisePropertyChanged("UrlMenu");
                 }
             }
         }
@@ -1347,6 +1299,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TerritorioIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneAsesoraOnlineField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
@@ -3121,6 +3076,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneAsesoraOnline {
+            get {
+                return this.TieneAsesoraOnlineField;
+            }
+            set {
+                if ((this.TieneAsesoraOnlineField.Equals(value) != true)) {
+                    this.TieneAsesoraOnlineField = value;
+                    this.RaisePropertyChanged("TieneAsesoraOnline");
                 }
             }
         }
