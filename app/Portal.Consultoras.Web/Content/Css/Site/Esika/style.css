@@ -33755,7 +33755,7 @@ h1#penmostreo .campana {
     background:#f0f0f0;
     padding:26px;
     min-height:100px;
-    margin-top: -52px;
+    margin-top: 38px;
     margin-left:6%;
         -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,0.7);
@@ -36017,4 +36017,18 @@ h1#penmostreo .campana {
 }
 .content_item_carrusel_ODD .agregado .icono {   
     background: url(../../../Images/group_blanco.svg) center center no-repeat;
+}
+.imagen_dias_intriga_inicio{
+    display: block;
+    width: 100vw;
+   height:590px;
+    object-fit: cover;
+}
+.dias_inicio_landing {
+    font-size: 66px;
+    top:170px;
+}
+.saludo_landing{
+    top: 109px;
+    font-size: 17px;
 }
