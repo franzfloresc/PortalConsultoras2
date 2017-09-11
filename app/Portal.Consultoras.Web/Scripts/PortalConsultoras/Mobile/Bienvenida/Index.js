@@ -526,7 +526,6 @@ var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
-
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
     });
@@ -613,9 +612,9 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
-
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response)
+                if (response.success) armarComunicadosPopup(response.extra);
+                else alert(response.message);
             }
         },
         error: function (data, error) {
