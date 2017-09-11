@@ -784,8 +784,6 @@ namespace Portal.Consultoras.Web.Controllers
             var menuActivo = MenuContenedorObtenerActivo();
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-            if (!userData.RevistaDigital.TieneRDC)
-                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
 
             return listMenu; 
         }
@@ -2907,12 +2905,12 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menu = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo] ?? new MenuContenedorModel();
 
-            //menu.Codigo = Util.Trim(menu.Codigo);
-            //if (menu.CampaniaId <= 0)
-            //{
-            //    menu.CampaniaId = menu.CampaniaId > 0 ? menu.CampaniaId : userData.CampaniaID;
-            //    menu.Codigo = menu.Codigo == "" ? Constantes.ConfiguracionPais.Inicio : menu.Codigo;
-            //}
+            menu.Codigo = Util.Trim(menu.Codigo);
+            if (menu.Codigo == "")
+            {
+                menu.CampaniaId = menu.CampaniaId > 0 ? menu.CampaniaId : userData.CampaniaID;
+                menu.Codigo = Constantes.ConfiguracionPais.Inicio;
+            }
             return menu;
         }
 
