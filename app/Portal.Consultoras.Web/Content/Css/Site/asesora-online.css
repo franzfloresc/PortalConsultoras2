@@ -2057,4 +2057,22 @@
 
 }
 
+/* INICIO FICHA PRODUCTO NO ENCONTRADO */
+
+.titulo_producto_no_encontrado {
+    display: block;
+    margin: 0 0 20px 0;
+    padding: 13px 0;
+    border-bottom: 1px solid #CCC;
+}
+
+.mensaje_producto_no_encontrado{
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 100%;
+    max-width: 301px;
+}
+
+/* FIN FICHA PRODUCTO NO ENCONTRADO */
+
 /* FIN ESTILOS ADICIONALES PARA POPUP CONSULTORA YA REGISTRADA A COACH VIRTUAL */

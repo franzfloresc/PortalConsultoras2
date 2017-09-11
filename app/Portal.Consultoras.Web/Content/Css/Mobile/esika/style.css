@@ -13019,3 +13019,13 @@ a{
 .fondo_pestana{
     background:#eeeeee;
 }
+
+.btn_aceptar_no_hay_producto{
+    display: block;
+    margin: 0 auto;
+    color: #FFF;
+    background: #e81c36;
+    width: 100%;
+    max-width: 197px;
+    height: 40px;
+}
