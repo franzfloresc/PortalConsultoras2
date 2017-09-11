@@ -1864,7 +1864,7 @@
 .btn_modificar_datos button{
 	margin:0 auto;
 	width:100%;
-	max-width:252px;
+	max-width:300px;
 	height:40px;
 	line-height:36px;
 	border:1px solid #000;
@@ -1886,11 +1886,9 @@
 .btn_modificar_datos button, .btn_modificar_datos span{
 	color:#000;
 	font-size:14px;
-	letter-spacing:1.5px;
+	letter-spacing:1px;
 }
-#datos_son_correctos {
-    cursor: pointer;
-}
+
 
 @media screen and (max-width:991px){
 

@@ -26,11 +26,14 @@ $(document).ready(function () {
                 e.preventDefault();
 
                 $(this).parents(".contenedor_fondo_popup").fadeOut(400);
-                $(this).parent().fadeOut(400);            
+                //$(this).parent().fadeOut(400);            
             },
             mostrarBotonSuscripcionMobile: function () {
                 if(window.matchMedia("(max-width:767px)").matches) {
-                    if ($(window).scrollTop() > $("#cta-suscribirme").offset().top + 45) {
+                    if ($(window).scrollTop() > $("#formulario-inscripcion").offset().top - 200) {
+                        $(".cta_inscripcion_fixed").removeClass("mostrar_cta_inscripcion_mobile_fijo");
+                    }
+                    else if ($(window).scrollTop() > $("#cta-suscribirme").offset().top + 45) {
                         $(".cta_inscripcion_fixed").addClass("mostrar_cta_inscripcion_mobile_fijo");
                     }
                     else {
