@@ -60,22 +60,7 @@
     <div class="pestana_esika"></div><!--PESTANA ESIKA-->
     <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
-
-
     <div class="col-xs-12">
-        @{
-            String FechaClienteConfig = System.Configuration.ConfigurationManager.AppSettings["FechaCliente"];
-            DateTime FechaCliente = DateTime.ParseExact(FechaClienteConfig, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            String FechaClienteSalida = FechaCliente.ToString("dd 'de' MMMM", new CultureInfo("es-PE"));
-
-            if (DateTime.Now.Date <= FechaCliente)
-            {
-                <div class="clienteMensaje">
-                    <span><img src="~/Content/Images/icons/icoWarning.png" height="24" /></span>
-                    <span>Tienes hasta el @FechaClienteSalida para actualizar los datos de tus clientes e ingresar al menos un teléfono de contacto. Con esta actualización, luego podrás contar con nuevos beneficios para ti</span>
-                </div>
-            }
-        }
         <div class="text-center">
             <a href="javascript:;" class="btn_ver_pedido_reservado agregarCliente">Agregar cliente</a>
         </div>
