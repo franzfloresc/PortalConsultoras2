@@ -122,7 +122,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, "ObtenerPaises", "ObtenerPaises");
                 lst = new List<BEPais>();
-                lst.Add(new BEPais { PaisID = -1, Nombre = ex.StackTrace });
+                lst.Add(new BEPais { PaisID = -1, Nombre = ex.Message + " - StackTrace => " + ex.StackTrace + " - InnerException => " + ex.InnerException });
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
