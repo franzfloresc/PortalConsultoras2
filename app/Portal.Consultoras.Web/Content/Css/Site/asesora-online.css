@@ -970,10 +970,12 @@
         -ms-transition:all 0.3s ease;
         -webkit-transition:all 0.3s ease;
         opacity:0;
+        visibility:hidden;
     }
 
     .mostrar_cta_inscripcion_mobile_fijo{
         opacity:1;
+        visibility:visible;
     }
 
 	.seccion_beneficios_asesora{
@@ -984,9 +986,12 @@
 
     .arrow_down_coach_virtual{
         display:block;
-        margin:-14px auto 50px auto;
+        margin:-14px auto 25px auto;
         width:52px;
-        height:20px;
+        height:36px;
+        position:relative;
+        z-index:1001;
+        border:none;
     }
 
     .arrow_down_coach_virtual img{
