@@ -122,7 +122,7 @@ function MenuContenedor() {
     //}
 
     if (isMobile()) {
-        $(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "'][data-activo='0']").remove();
+        //$(elementos.menu2Li + "[data-campania='" + (menuCheck.CampaniaId || menuCheck.campania) + "'][data-activo='0']").remove();
         MenuContenedorCarrusel();
     }
 
