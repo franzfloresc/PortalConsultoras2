@@ -16,7 +16,7 @@
 }
 <div class="content_detalle_set_bpt_general" id="divDetalleContenido" data-item="" 
      data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalMobileProductPage" 
-     data-estadoregistro="@ViewBag.EstadoSuscripcion">
+     data-estadoregistro="@ViewBag.EstadoSuscripcion" data-tag-html="@ViewBag.Campania">
 
     <div data-compartir-campos="" style="display:none;">
         <input type="hidden" class="CUV" value="@Model.CUV2" />
@@ -107,7 +107,37 @@
         {
             <div class="" style="padding-top:30px;" id="divDiveo">
                 <div class="video-responsive-bpt">
-                    <iframe frameborder="0" allowfullscreen="allowfullscreen" src="https://www.youtube.com/embed/@Model.TipoEstrategiaDetalle.UrlVideoMobile?autoplay=0"></iframe>
+                    <div id="player"></div>
+
+                    <script>
+                        var tag = document.createElement('script');
+
+                        tag.src = "https://www.youtube.com/iframe_api";
+                        var firstScriptTag = document.getElementsByTagName('script')[0];
+                        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+                        var player;
+                        function onYouTubeIframeAPIReady() {
+                            player = new YT.Player('player', {
+                                height: '415',
+                                width: '100%',
+                                videoId: '@Model.TipoEstrategiaDetalle.UrlVideoMobile',
+                                events: {
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+
+                        function onPlayerStateChange(event) {
+                            if (event.data == YT.PlayerState.PLAYING) {
+                                CompartirProductoRDAnalytics("YTI", player.getVideoUrl(), "@Model.DescripcionResumen");
+                            }
+                            if (event.data == YT.PlayerState.ENDED) {
+                                CompartirProductoRDAnalytics("YTF", player.getVideoUrl(), "@Model.DescripcionResumen");
+                            }
+                        }
+
+                    </script>
                 </div>
             </div>
         }
@@ -129,6 +159,7 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistDigital-Landing.js")"></script>

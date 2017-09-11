@@ -11,6 +11,7 @@ var tieneOPT = false;
 var origenRetorno = $.trim(origenRetorno);
 var origenPedidoWebEstrategia = origenPedidoWebEstrategia || "";
 var divAgregado = null;
+var _campania = "";
 
 // Copiar el $(document).ready de Estrategia.js, en caso no hacer caso al archivo Estrategia.JS
 //$(document).ready(function () {});
@@ -46,7 +47,44 @@ function VerDetalleEstrategia(e) {
     var estrategia = EstrategiaObtenerObj(e);
     var objHtmlEvent = $(e.target);
     if (objHtmlEvent.length == 0) objHtmlEvent = $(e);
-    var origenPedido = $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").data("OrigenPedidoWeb");
+    var origenPedido = (objHtmlEvent).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        || $(objHtmlEvent).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objHtmlEvent).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || $(objHtmlEvent).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
+    _campania = $(objHtmlEvent).parents("[data-tag-html]").attr("data-tag-html");
+    try {
+        var contentIndex = $(objHtmlEvent).parents("[data-tab-index]").attr("data-tab-index");
+        
+        if (contentIndex !== undefined && contentIndex !== null && contentIndex.toString() === "2") {
+            VerDetalleBloqueadaRDAnalytics(campania, (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim());
+        } else if (origenPedido !== undefined && origenPedido !== null && origenPedido.indexOf("7") !== -1) {
+            VerDetalleComprarRDAnalytics(origenPedido, estrategia);
+        } else {
+            dataLayer.push({
+                'event': 'productClick',
+                'ecommerce': {
+                    'click': {
+                        'actionField': { 'list': 'Ofertas para ti – ' + origen },
+                        'products': [{
+                            'id': estrategia.CUV2,
+                            'name': estrategia.DescripcionCompleta,
+                            'price': $.trim(estrategia.Precio2),
+                            'brand': estrategia.DescripcionMarca,
+                            'category': 'NO DISPONIBLE',
+                            'variant': estrategia.DescripcionEstrategia,
+                            'position': estrategia.Posicion
+                        }]
+                    }
+                }
+            });
+        }
+
+        
+    } catch (e) {console.log(e)}
+
+    
+
     if (isMobile()) {
         EstrategiaVerDetalleMobile(estrategia.EstrategiaID, origenPedido);
         return true;
@@ -67,25 +105,6 @@ function VerDetalleEstrategia(e) {
     };
 
     CerrarLoad();
-
-    dataLayer.push({
-        'event': 'productClick',
-        'ecommerce': {
-            'click': {
-                'actionField': { 'list': 'Ofertas para ti – ' + origen },
-                'products': [{
-                    'id': estrategia.CUV2,
-                    'name': estrategia.DescripcionCompleta,
-                    'price': $.trim(estrategia.Precio2),
-                    'brand': estrategia.DescripcionMarca,
-                    'category': 'NO DISPONIBLE',
-                    'variant': estrategia.DescripcionEstrategia,
-                    'position': estrategia.Posicion
-                }]
-            }
-        }
-    });
-
     return true;
 }
 
@@ -182,7 +201,7 @@ function EstrategiaVerDetalleGeneral(estrategia) {
     }
 
     var popupId = '#popupDetalleCarousel_lanzamiento';
-
+    estrategia.OrigenPedidoWeb = 
     SetHandlebars("#verdetalle-template", estrategia, popupId);
 
     if (btnDesabled == 0) {
@@ -317,7 +336,23 @@ function EstrategiaAgregar(event, popup, limite) {
 
     var objInput = $(event.target);
 
+    origenPedidoWebEstrategia =
+        $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+        || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+        || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+        || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+        || origenPedidoWebEstrategia;
+
+    var campania = $(objInput).parents("[data-tag-html]").attr("data-tag-html") || _campania;
+    popup = popup || false;
+
     if (EstrategiaValidarBloqueada(objInput, estrategia)) {
+        try {
+            AgregarProductoDeshabilitadoRDAnalytics(
+                origenPedidoWebEstrategia, campania, (estrategia.DescripcionResumen +
+                    " " +
+                    estrategia.DescripcionCortada).trim(), popup);
+        } catch (e) {console.log(e)} 
         return false;
     }
 
@@ -325,7 +360,7 @@ function EstrategiaAgregar(event, popup, limite) {
         return false;
     }
 
-    popup = popup || false;
+   
     limite = limite || 0;
     var cantidad = (limite > 0) ? limite
         :(
@@ -346,6 +381,7 @@ function EstrategiaAgregar(event, popup, limite) {
         CerrarLoad();
         return false;
     }
+    estrategia.Cantidad = cantidad;
 
     var agregoAlCarro = false;
     if (!isMobile()) {
@@ -386,7 +422,6 @@ function EstrategiaAgregar(event, popup, limite) {
             || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
             || origenPedidoWebEstrategia;
     }
-
     var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
 
     var params = ({
@@ -479,8 +514,13 @@ function EstrategiaAgregar(event, popup, limite) {
 
             // falta agregar este metodo en para las revista digital
             try {
+                if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+                    AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
+                } else {
+                    TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
+                }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-                TagManagerClickAgregarProductoOfertaParaTI(datosEst);
+                
             } catch (e) { }
 
             CerrarLoad();
@@ -532,13 +572,10 @@ function EstrategiaValidarBloqueada(objInput, estrategia) {
             divMensaje.find('[data-item-tag="contenido"]').css("position", "initial");
             divMensaje.find('[data-item-tag="contenido"]').attr("class", "");
         }
-
         $(".contenedor_popup_detalleCarousel").hide();
         $("#divMensajeBloqueada").show();
     }
-
     return true;
-
 }
 
 function EstrategiaValidarSeleccionTono(objInput) {
