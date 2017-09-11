@@ -816,6 +816,12 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
 
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                {
+                    if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
+                        continue;
+                }
+
                 var config = confiModel;
                 config.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
                 config.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
@@ -831,6 +837,9 @@ namespace Portal.Consultoras.Web.Controllers
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
                     BuilTituloBannerRD(ref config);
+                    if (config.DesktopSubTituloBanner == "")
+                        continue;
+                    
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
