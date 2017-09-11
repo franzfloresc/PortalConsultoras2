@@ -205,10 +205,11 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                 .ForMember(t => t.MenuPadreDescripcion, f => f.MapFrom(c => c.Descripcion));
 
             Mapper.CreateMap<BEBannerInfo, BannerInfoModel>();
-            
             Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
 
             Mapper.CreateMap<BEProductoComentarioDetalle, EstrategiaProductoComentarioModel>();
+            
+            Mapper.CreateMap<BEConfiguracionOfertasHome, ConfiguracionSeccionHomeModel>();
 
             Mapper.CreateMap<BEPais, PaisModel>();
             Mapper.CreateMap<BECampania, CampaniaModel>();

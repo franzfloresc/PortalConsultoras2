@@ -3800,7 +3800,13 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
+    <None Include="Service References\ServiceZonificacion\configuration.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\configuration91.svcinfo" />
+    <None Include="Service References\ServiceZonificacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference1.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ServiceZonificacion\ZonificacionService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.wsdl" />
     <None Include="Service References\ServiceUsuario\UsuarioService.xsd">
       <SubType>Designer</SubType>
@@ -4243,14 +4249,14 @@
     <Content Include="Views\ConsultaPedido\ConsultaPedidoImp.cshtml" />
     <Content Include="Views\Shared\_Menu2.cshtml" />
     <Content Include="Views\AdministrarReporteValidacion\Index.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
+    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\Unete\ReporteFunnel.cshtml" />
     <Content Include="Views\Unete\_DevolverSolicitud.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_divVistaPrevia.cshtml" />
     <Content Include="Views\Shared\MatrizComercial\_matrizComercialItemTemplate.cshtml" />
     <Content Include="Views\Unete\TemplatesUbigeos\_UbigeoGrupo8.cshtml" />
     <Content Include="Views\Unete\_MotivoRechazo.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
-    <Content Include="Views\EstrategiaPersonalizada\template-producto-packnueva.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-producto-verdetalle.cshtml" />
     <Content Include="Views\Ofertas\Index.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\template-lanzamiento-carrusel.cshtml" />

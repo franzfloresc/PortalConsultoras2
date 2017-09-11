@@ -1414,7 +1414,6 @@ namespace Portal.Consultoras.Service
             var bl = new BLConfiguracionPais();
             return bl.GetList(paisId, tienePerfil);
         }
-
         public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
         {
             var bl = new BLConfiguracionPais();
