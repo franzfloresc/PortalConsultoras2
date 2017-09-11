@@ -175,7 +175,7 @@
         </div>
         <div class="listado_soluciones_cdr tipografia_lato Registro3" id="listado_soluciones_cdr" style="display:none;">
         </div>
-        @*<div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;">
+        <div class="eleccion_solucion_cdr tipografia_lato Reg4CambiarloPorOtroProducto" id="eleccion" style="display:none;">
                 <div class="titulo_eleccion_cdr tipografia_lato_bold">
                     <span>ELEGISTE:</span>
                     <span>CAMBIARLO POR OTRO PRODUCTO</span>
@@ -187,7 +187,7 @@
                     <span >Búscalo en tus catálogos de Campaña <span>15</span>:</span>
                     <div data-detalle-confirma=""></div>
                 </div>
-            </div>*@
+            </div>
 
         @*Canje*@
         <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">
@@ -459,5 +459,8 @@
     var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
     var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
     var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
+    var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = ""} )';
+    var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
+    var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
 </script>
 
