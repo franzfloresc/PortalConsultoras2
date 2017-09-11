@@ -1888,6 +1888,9 @@
 	font-size:14px;
 	letter-spacing:1.5px;
 }
+#datos_son_correctos {
+    cursor: pointer;
+}
 
 @media screen and (max-width:991px){
 
