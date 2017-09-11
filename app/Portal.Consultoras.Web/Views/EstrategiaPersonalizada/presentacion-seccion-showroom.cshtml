@@ -23,8 +23,12 @@
                     <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
                     <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
-                    <div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>
-                    <div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>
+                    <div class="contenedorMensajeIntrigaA">
+                        <div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>
+                        <div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>
+                    </div>
+                    <div class="contenedorMensajeIntrigaB">
+                    </div>
                     <a href="/ShowRoom/Intriga">
                         <img class="imagen_dias_intriga_inicio" src="@Url.Content("~/Content/Images/Esika/esika_intriga.jpg")" @*src="{{UrlImagenIntriga}}"*@/>
                     </a>
