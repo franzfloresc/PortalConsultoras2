@@ -516,8 +516,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string imagenContenedorOfertasDefaultBpt = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS_BPT");
 
                     bool tieneRevistaDigital = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR;
-                    
-                    permiso.UrlImagen = string.Format(permiso.UrlImagen, (tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault));
+                    string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                    permiso.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, urlGifContenedorOfertas);
 
                     if (userData.ListaGifMenuContenedorOfertas.Any())
                     {
@@ -705,7 +707,10 @@ namespace Portal.Consultoras.Web.Controllers
                     string imagenContenedorOfertasDefault = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS");
                     string imagenContenedorOfertasDefaultBpt = ConfigurationManager.AppSettings.Get("GIF_MENU_DEFAULT_OFERTAS_BPT");
                     
-                    menu.UrlImagen = string.Format(menu.UrlImagen, (tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault));
+                    string urlGifContenedorOfertas = tieneRevistaDigital ? imagenContenedorOfertasDefaultBpt : imagenContenedorOfertasDefault;
+                    var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
+
+                    menu.UrlImagen = ConfigS3.GetUrlFileS3(carpetaPais, urlGifContenedorOfertas);
 
                     if (userData.ListaGifMenuContenedorOfertas.Any())
                     {
