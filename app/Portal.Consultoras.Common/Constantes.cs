@@ -1042,5 +1042,22 @@ namespace Portal.Consultoras.Common
             public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
         }
         #endregion
+
+        /* 
+         * Url del contenedor
+         * Usar solo minusculas. 
+         */
+        public class UrlMenuContenedor
+        {
+            public const string Inicio = "/ofertas";
+            public const string InicioRevisar = "/ofertas/revisar";
+            public const string RdComprar = "/revistadigital/comprar";
+            public const string RdRevisar = "/revistadigital/revisar";
+            public const string RdInformacion = "/revistadigital/informacion";
+            public const string RdInicio = "/revistadigital";
+            public const string SwInicio = "/showroom";
+            public const string SwIntriga = "/showroom/intriga";
+            public const string SwDetalle = "/showroom/detalle";
+        }
     }
 }

@@ -2833,57 +2833,46 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception e) {Console.WriteLine(e);}
 
-
             var menuActivo = new MenuContenedorModel();
             switch (newPath.ToLower())
             {
-                case  "/ofertas":
+                case Constantes.UrlMenuContenedor.Inicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/ofertas/revisar":
+                case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/revistadigital/comprar":
+                case Constantes.UrlMenuContenedor.RdComprar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/revistadigital/revisar":
+                case Constantes.UrlMenuContenedor.RdRevisar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/revistadigital/informacion":
+                case Constantes.UrlMenuContenedor.RdInformacion:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
-                case "/revistadigital":
+                case Constantes.UrlMenuContenedor.RdInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/showroom":
+                case Constantes.UrlMenuContenedor.SwInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/showroom/intriga":
+                case Constantes.UrlMenuContenedor.SwIntriga:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/showroom/detalle":
+                case Constantes.UrlMenuContenedor.SwDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
             }
-
-            // Menu para ShowRoom
-            if (string.IsNullOrEmpty(menuActivo.Codigo))
-            {
-                if (path.Contains("/ShowRoom"))
-                {
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.CampaniaId = userData.CampaniaID;
-                }
-            } 
 
             var configMenu =
                 listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);

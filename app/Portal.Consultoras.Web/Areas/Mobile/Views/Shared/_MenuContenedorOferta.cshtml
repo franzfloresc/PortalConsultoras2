@@ -1,27 +1,35 @@
-﻿
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Models
+@using Portal.Consultoras.Web.Models.Layout
+
+
 @{
-    var menuList = (List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>)ViewBag.MenuContenedor ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var menuList = (List<ConfiguracionPaisModel>)ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
-    var menuActivo = (Portal.Consultoras.Web.Models.Layout.MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new Portal.Consultoras.Web.Models.Layout.MenuContenedorModel();
-    var estiloFondoBanner = menuActivo.FondoBanner != "" ? "style=background:url(" + menuActivo.FondoBanner + ");" : "";
+    //var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
+    var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    var estiloFondoBanner = menuActivo.ConfiguracionPais.MobileFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.MobileFondoBanner + ");" : "";
+
+    var classMenuX = menuActivo.CampaniaId == menuActivo.CampaniaX0 ? "desplegable activo" : "desplegable";
+    var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
+    var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 <div class="bc_mobil_para-mi" @estiloFondoBanner>
-    @if (menuActivo.LogoBanner != "")
+    @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
     {
-        <div class="bc_mobile-logo" style="background: url(@menuActivo.LogoBanner);"></div>
+        <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
     }
     <div class="bc_mobile-texto">
-        @if (menuActivo.TituloBanner != "" || menuActivo.SubTituloBanner != "")
+        @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "" || menuActivo.ConfiguracionPais.MobileTituloBanner != "")
         {
             <div class="mobile-txt">
-                @if (menuActivo.TituloBanner != "")
+                @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "")
                 {
-                    <p>@menuActivo.TituloBanner</p>
+                    <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
                 }
-                @if (menuActivo.SubTituloBanner != "")
+                @if (menuActivo.ConfiguracionPais.MobileSubTituloBanner != "")
                 {
-                    <span>@menuActivo.SubTituloBanner</span>
+                    <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
                 }
             </div>
         }
@@ -51,18 +59,21 @@
     </div>
 </div>
 <div data-layout-menu2="">
-    @if (listaPloma.Any())
+    @if (menuList.Any())
     {
         <div class="bc_para_ti-menu-opciones">
             <ul>
-                @foreach (var menuhijo in listaPloma)
+                @foreach (var menuhijo in menuList)
                 {
-                    <li data-campania="@menuhijo.CampaniaID" data-activo="@menuhijo.Activa"
+                    var claseActivo = "";
+                    claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                    <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                         data-codigo="@menuhijo.Codigo"
+                        data-es-ancla="@menuhijo.EsAncla"
                         onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
                         <a href="javascript:;">
-                            <span>@menuhijo.SubTituloMenu</span>
-                            <p>@menuhijo.TituloMenu</p>
+                            <span>@menuhijo.Descripcion</span>
+                            <p>@menuhijo.DesktopTituloMenu</p>
                         </a>
                     </li>
                 }
