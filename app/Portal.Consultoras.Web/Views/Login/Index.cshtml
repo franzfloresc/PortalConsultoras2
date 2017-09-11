@@ -434,7 +434,7 @@
                                 {
                                     foreach (var item in Model.ListaPaises)
                                     {
-                                        if (item.PaisID)
+                                        if (item.PaisID > 0)
                                         {
                                             <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
                                         }
