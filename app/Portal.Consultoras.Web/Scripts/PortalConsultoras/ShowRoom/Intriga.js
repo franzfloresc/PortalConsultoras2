@@ -28,7 +28,7 @@ $(document).ready(function () {
     });
 
     $("#btnIntrigaConfirmarCorreo").click(function (e) {
-        IntrigaConfirmarCorreo();
+        IntrigaConfirmarCorreo(true);
     });
 
     $("[data-email-cambiar]").click(function (e) {
@@ -42,38 +42,31 @@ $(document).ready(function () {
     $("[data-email-reenviar]").click(function (e) {
         $(".termino_condiciones_intriga").addClass('check_intriga');
         intrigaAceptoTerminos = true;
-        IntrigaConfirmarCorreo();
+        IntrigaConfirmarCorreo(false);
     });
 });
 
-function IntrigaConfirmarCorreo() {
+function IntrigaConfirmarCorreo(sendAnalytics) {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
+
     if (emailNuevo == "") {
-        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("Debe ingresar EMail.\n");
         return false;
     }
     if (!validateEmail(emailNuevo)) {
-        //$('#txtIntrigaEmail').focus();
         AbrirMensaje("El formato del correo electrónico ingresado no es correcto.\n");
         return false;
     }
-
-    //if ($.trim($("#txtIntrigaCelular").val()) == "") {
-    //    $('#txtIntrigaCelular').focus();
-    //    AbrirMensaje("Debe ingresar celular.\n");
-    //    return false;
-    //}
 
     if (!intrigaAceptoTerminos) {
         AbrirMensaje('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
         return false;
     }
 
-    IntrigaActualizarDatos();
+    IntrigaActualizarDatos(sendAnalytics);
 }
 
-function IntrigaActualizarDatos() {
+function IntrigaActualizarDatos(sendAnalytics) {
     var emailNuevo = $.trim($("#txtIntrigaEmail").val()).toLowerCase();
 
     AbrirLoad();
@@ -95,13 +88,14 @@ function IntrigaActualizarDatos() {
             CerrarLoad();
             if (checkTimeout(data)) {
 
-                if (data.success != true) {
+                if (!data.success) {
                     AbrirMensaje(data.message);
                     $("#divIntrigaProgramarAvisoDatos").show();
                     return false;
                 }
 
-                click_completar_registro_form_intriga();
+                if (sendAnalytics != undefined && sendAnalytics == true)
+                    click_completar_registro_form_intriga();
 
                 emailActivo = $.trim(data.emailValidado).toLowerCase();
                 $("[data-email-registrado]").html(emailNuevo);
@@ -124,13 +118,9 @@ function IntrigaActualizarDatos() {
             if (checkTimeout(data)) {
                 $("#divIntrigaProgramarAvisoDatos").show();
                 AbrirMensaje("Ocurrió un error, intente nuevamente.");
-                //alert("ERROR");
             }
         }
     });
-
-
-   
 }
 
 function click_terminos_y_condiciones_form_intriga()

@@ -333,12 +333,27 @@ namespace Portal.Consultoras.Web
             AutoMapperConfiguration.Configure();
         }
 
+        protected void Session_End( object sender, EventArgs e )
+        {
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
+        }
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
+        }
+
         private void Application_BeginRequest(object sender, EventArgs e)
         {
             if (String.Compare(Request.Path, Request.ApplicationPath, StringComparison.InvariantCultureIgnoreCase) == 0
                 && !(Request.Path.EndsWith("/")))
                 Response.Redirect(string.Format("{0}/", Request.Path));
         }
+
+       
 
         protected void Application_Error(object sender, EventArgs e)
         {

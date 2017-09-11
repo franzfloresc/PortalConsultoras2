@@ -4,8 +4,8 @@ var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
-
     $("body").on("click", "[data-compartir]", function (e) {
+        e.preventDefault();
         CompartirRedesSociales(e);
     });
 
@@ -549,8 +549,9 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
             
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+                var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
+                botonesCerrar.off('click');
+                botonesCerrar.on('click', fnAceptar);
             }
         }
         else {
@@ -1132,7 +1133,8 @@ function CompartirRedesSocialesTexto(texto) {
     return "whatsapp://send?text=" + texto;
 }
 
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre = "") {
     id = $.trim(id);
     if (id == "0" || id == "") {
         console.log("CompartirRedesSocialesAbrirVentana Falta ID");
@@ -1146,43 +1148,44 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
     ruta = ruta.replace('[valor]', id);
 
+    try {
+        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+        } else {
+            AnalyticsRedesSociales(tipoRedes, ruta);
+        }
+    } catch (e) {console.log(e)} 
+
     if (tipoRedes == "FB") {
         var popWwidth = 570;
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
-        //google marca analytics        
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    } else if (tipoRedes == "WA") {
+        if (texto != "")
+            texto = texto + " - ";
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
+        $("#HiddenRedesSocialesWA")[0].click();
+    }
+}
 
+function AnalyticsRedesSociales(tipoRedes, ruta) {
+    if (tipoRedes === "FB") {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Facebook',
-            'action': 'Compartir',
+            'action': 'Share',
             'target': ruta
         });
-        
-        //****************************
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    } else if (tipoRedes == "WA") {
-
-        if (texto != "")
-            texto = texto + " - ";
-
-        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
-        //return "whatsapp://send?text=" + texto + ruta;
-        //google marca analytics        
-
+    } else if (tipoRedes == "WA"){
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Whatsapp',
             'action': 'Compartir',
             'target': ruta
         });
-
-        //****************************
-        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
-        $("#HiddenRedesSocialesWA")[0].click();
-        //document.getElementById('HiddenRedesSocialesWA').click();
     }
 }
 
@@ -1199,9 +1202,14 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     var _palanca = $.trim($(article).find(".Palanca").val());
 
     var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca == "FAV") {
+    if (_palanca === "FAV") {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
+    try {
+        //if (_palanca === "LAN") {
+        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
+        //}
+    } catch (e) { console.log(e); }
 
     var Item = {
         mCUV: $(article).find(".CUV").val(),
@@ -1209,6 +1217,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         mDetalle: pcDetalle,
         mApplicacion: tipoRedes
     };
+
 
     jQuery.ajax({
         type: 'POST',
@@ -1220,7 +1229,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
                 } else {
                     AbrirMensaje(response.message);
                 }
@@ -1391,12 +1400,36 @@ function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
 }
 
-function odd_desktop_google_analytics_promotion_click() {
-    if ($('#divOddCarruselDetalle').length > 0) {
-
+function odd_desktop_google_analytics_promotion_click() {    
+    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
         var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
         var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
-        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val()
+        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+
+        odd_desktop_google_analytics_product_impresion();
+    }
+}
+
+function odd_desktop_google_analytics_promotion_click_verofertas() {
+    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+        var id = $('#banner-odd').find(".estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
+        var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -1421,15 +1454,15 @@ function odd_desktop_google_analytics_product_impresion() {
     var carrusel = $("[data-odd-tipoventana='carrusel']");
     var detalle = $("[data-odd-tipoventana='detalle']");
     var impresions = new Array();
-    if (carrusel.length > 0) {        
+    if (carrusel.length > 0 && carrusel.is(":visible")) {        
         var divs = new Array();
-        var div1 = $(carrusel).find("[data-item-position = 0]");
-        var div2 = $(carrusel).find("[data-item-position = 1]");
-        var div3 = $(carrusel).find("[data-item-position = 2]");
+        var div1 = $(carrusel).find("[data-item-position = 0]")[0];
+        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
+        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
 
-        if (div1 != null) { divs.push(div1); }
-        if (div2 != null) { divs.push(div2); }
-        if (div3 != null) { divs.push(div3); }
+        if (div1 != undefined) { divs.push(div1); }
+        if (div2 != undefined) { divs.push(div2); }
+        if (div3 != undefined) { divs.push(div3); }
 
         $(divs).each(function (index, div) {
             impresions.push({
@@ -1444,7 +1477,7 @@ function odd_desktop_google_analytics_product_impresion() {
             });
         });
     }
-    if (detalle.length > 0) {
+    if (detalle.length > 0 && detalle.is(":visible")) {
         var div1 = $(detalle).find("[data-item-position = 0]");
         if (div1 != null) { divs.push(div1); }
         $(divs).each(function (index, div) {
@@ -1496,7 +1529,17 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
     }
 
     if (variant == "") { variant = "Estándar"; }
-    dataLayer.push({
+
+    quantity = parseInt(quantity);
+
+    var fechaAddToCart = Date.now();    
+    var dimension15 = fechaAddToCart - fechaMostrarBanner;
+    if (dimension15 != 0)
+        dimension15 = (dimension15 / 1000);
+
+    dimension15 = parseInt(dimension15);
+
+    var data = {
         'event': 'addToCart',
         'ecommerce': {
             'add': {
@@ -1508,16 +1551,18 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
                     'id': id,
                     'category': 'No disponible',
                     'variant': variant,
-                    'quantity': quantity, 'dimension15': '100',
+                    'quantity': quantity,
+                    'dimension15': dimension15,
                     'dimension16': dimension16
                 }]
             }
         }
-    });
+    }
+
+    dataLayer.push(data);
 }
 
-function odd_desktop_google_analytics_product_click(name, id, price, brand, variant, position) {
-    position++;
+function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
     if (variant == null || variant == "")
         variant = "Estándar";
     dataLayer.push

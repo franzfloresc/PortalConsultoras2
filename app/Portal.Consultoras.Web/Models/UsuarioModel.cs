@@ -75,6 +75,7 @@ namespace Portal.Consultoras.Web.Models
             this.OfertaFinalModel = new OfertaFinalModel();
             this.EsLebel = false;
             this.TieneCDRExpress = false;
+            this.PopupBienvenidaCerrado = false;
         }
 
         public string Celular { get; set; }
@@ -195,6 +196,7 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorPagoOnline { get; set; }
         public string UrlPagoOnline { get; set; }
         public int IndicadorPermisoFIC { get; set; }
+        public bool PedidoFICActivo { get; set; }
         public bool IndicadorPermisoFlexipago { get; set; }
 
         public string CampanaInvitada { get; set; } //1796
@@ -314,6 +316,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneCDR { get; set; }
         public int TieneCupon { get; set; }
         public int TieneMasVendidos { get; set; }
+        public int TieneAsesoraOnline { get; set; }
         public int TieneOfertaLog { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
@@ -322,6 +325,7 @@ namespace Portal.Consultoras.Web.Models
         public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool RechazadoXdeuda { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
         public bool TieneCDRExpress { get; set; } //EPD-1919
@@ -365,12 +369,14 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
+        public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
-        public List<MenuMobileModel> MenuMobile { get; internal set; }
+        public List<MenuMobileModel> MenuMobile { get; set; }
 
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
 
         public string ClaseLogoSB { get; set; }
+        public bool PopupBienvenidaCerrado { get; set; }
     }
 }

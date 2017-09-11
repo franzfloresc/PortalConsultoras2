@@ -206,6 +206,8 @@ namespace Portal.Consultoras.BizLogic
                         usuario.HorasDuracionRestriccion = configuracion.HorasDuracionRestriccion;
                         usuario.NroCampanias = configuracion.NroCampanias;
                         usuario.FechaFinFIC = configuracion.FechaFinFIC;
+                        usuario.IndicadorOfertaFIC = configuracion.IndicadorOfertaFIC;
+                        usuario.ImagenURLOfertaFIC = configuracion.ImagenURLOfertaFIC;
                         usuario.PROLSinStock = configuracion.PROLSinStock; //1510
                         usuario.NuevoPROL = configuracion.NuevoPROL; //RQ_NP - R2133
                         usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL; //RQ_NP - R2133
@@ -297,10 +299,10 @@ namespace Portal.Consultoras.BizLogic
             return DAUsuario.GetUsuarioAsociado(codigoConsultora);
         }
 
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
         {
             var DAUsuario = new DAUsuario(paisID);
-            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+            return DAUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
 
         public bool IsUserExist(int paisID, string CodigoUsuario)
@@ -1554,5 +1556,26 @@ namespace Portal.Consultoras.BizLogic
 
             return usuarioConfiguracion;
         }
+
+        #region TerminosCondiciones
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            var daTerminosCondiciones = new DATerminosCondiciones(terminos.PaisID);
+            return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
+        }
+
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            var terminos = new BETerminosCondiciones();
+            var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
+
+            using (IDataReader reader = daTerminosCondiciones.GetTerminosCondiciones(CodigoConsultora, Tipo))
+            {
+                if (reader.Read()) terminos = new BETerminosCondiciones(reader);
+            }
+
+            return terminos;
+        }
+        #endregion
     }
 }

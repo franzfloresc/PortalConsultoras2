@@ -87,14 +87,15 @@ function TagManagerClickAgregarProductoOfertaParaTI(item) {
                 'actionField': { 'list': 'Ofertas para ti – Home' },
                 'products': [
                     {
-                        'name': item.DescripcionCUV2,
-                        'price': item.Precio2,
+                        'name': (estrategia.DescripcionResumen + " " + estrategia.DescripcionCortada).trim(),
+                        'price': item.Precio2.toString(),
                         'brand': item.DescripcionMarca,
                         'id': item.CUV2,
                         'category': 'NO DISPONIBLE',
-                        'variant': item.DescripcionEstrategia,
+                        'variant': (estrategia.DescripcionEstrategia === undefined) ? "Estándar" : estrategia.DescripcionEstrategia,
                         'quantity': parseInt(item.Cantidad),
                         'position': parseInt(item.posicionItem)
+
                     }
                 ]
             }

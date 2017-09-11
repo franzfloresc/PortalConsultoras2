@@ -142,10 +142,10 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
         }
 
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
 
         public bool IsUserExist(int paisID, string CodigoUsuario)
@@ -284,6 +284,13 @@ namespace Portal.Consultoras.Service
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
+
+        //FRZ-12
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        {
+            var BLNotificaciones = new BLNotificaciones();
+            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        }       
 
         //R2073
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
@@ -743,5 +750,15 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        #region TerminosCondiciones
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            return new BLUsuario().InsertTerminosCondiciones(terminos);
+        }
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
+        }
+        #endregion
     }
 }

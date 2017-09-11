@@ -21,6 +21,9 @@
                 </div> <div style="text-align:center;margin-top: 15px;">
                     <span class="elementsFont" style="font-weight: bold; text-align:center; color: @(Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PuedeSerConsultora) || Model.EstadoBuroCrediticioID == Convert.ToInt32(EnumsEstadoBurocrediticio.PodriaSerConsultoraCuandoTengaAval) ? "#009EE4" : "#e51437")">@Model.Mensaje</span>
                 </div> 
+                <div style="text-align:center;margin-top: 15px;">
+                    <span class="elementsFont" style="text-align:center;  ">@ViewBag.MotivoRechazo </span>
+                </div> 
             </div>
 
 

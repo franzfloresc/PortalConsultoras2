@@ -5,7 +5,8 @@
 @model BienvenidaModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
     var urlDomain = Util.GetUrlHost(Request);
     var nombreConsultora = Portal.Consultoras.Common.Util.SubStrCortarNombre(Model.NombreConsultora, 10, "!");
     var tipoUsuaio = ViewBag.TipoUsuario;
@@ -16,12 +17,9 @@
     <style type="text/css">
         body {
             background: #FFF !important;
-         
         }
     </style>
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
+    @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/CcsBienvenida")   
 }
 
 <div id="tutorialesMobile" style="display:none;">
@@ -159,10 +157,10 @@
 
     @if (ViewBag.CantPedidosPendientes > 0)
     {
-        <br/>
+        <br />
     }
     @(Html.Raw(ViewBag.MensajeCierreCampania))
-    <br/>
+    <br />
     <a role="link" region="Central" parent="Seguimiento a tu Pedido" title="Seguimiento a tu Pedido"
        class="btn_seguirp_mobile seguimientoPedido" href="@Url.Action("Index", "SeguimientoPedido", new { area = "Mobile" })">SEGUIMIENTO A TU PEDIDO</a>
 
@@ -283,7 +281,7 @@
             HAZ CRECER TU NEGOCIO CON<br />
             EL APP DE CATÁLOGOS
             <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-                class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
+               class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">ENTÉRATE MÁS</a>
 
             @if (Model.IsConsultoraOnline != -1)
             {
@@ -324,11 +322,11 @@
                     //urlWhatsApp = "whatsapp://send?text=Bájate%20el%20App%20de%20Catálogo%20y%20agrégame%20como%20tu%20Consultora.%20Mi%20código%20es " + Model.codigoConsultora + ".%20" + urlBase;
                 }
                 <span class="texto_ws">Compartir el app por</span> <a role="link" region="Central" parent="App de Catálogos" title="Whatsapp"
-                                                                        id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
+                                                                      id="btnCompartirWhatsApp" class="btn_comparte_ws" href="@(urlWhatsApp)" data-action="share/whatsapp/share"><b>Whatsapp</b></a>
             }
         </div>
         <a role="link" region="Central" parent="App de Catálogos" title="Entérate Más"
-            class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
+           class="btn_compartelos" href="@Url.Action("EnterateMas", "Catalogo", new { area = "Mobile" })">
             <div class="imagen_catalogo celular_esika"><img src="@Model.UrlImagenAppCatalogo" alt="-" /></div>
         </a>
         <hr class="clear" />
@@ -365,12 +363,12 @@
         @if (tipoUsuaio == 2)
         {
             <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-                class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
+               class="btn_compartelos" href="#" onclick="return messageInfoPostulante();">ENTRA A “MI ACADEMIA”</a>
         }
         else
         {
             <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia"
-                class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
+               class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">ENTRA A “MI ACADEMIA”</a>
         }
     </div>
     <a role="link" region="Central" parent="Entra A Mi Academia" title="Entra a Mi Academia" class="btn_compartelos" href="@Url.Action("Index", "MiAcademia", new { area = "" })">
@@ -387,7 +385,7 @@
         <div class="comartir_home_mobile">
             LIQUIDACIÓN WEB
             <a role="link" region="Central" parent="Oferta Liquidacion" title="Compártelos"
-                class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
+               class="btn_compartelos" href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">¡ENTRA Y APROVECHA!</a>
         </div>
         <div class="imagen_catalogo liquidacion_esika">
             <a href="@Url.Action("Index", "OfertaLiquidacion", new { area = "Mobile" })">
@@ -659,58 +657,58 @@
 <!--POP UP REVISTA DIGITAL-->
 @if (@ViewBag.TieneRDS == true)
 {
-<div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" data-popup-function-hide="RDPopupCerrar(0)">
-    <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" data-popup-close="" href="javascript:;">
-            <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
-        </a>
-        <div class="mpopup_rd_cabecera">
-            <div class="mrd_logo">
-                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+    <div class="CompartirCorreoPop contenedor_fondo_popup" style="display:none; font-family: 'Lato' !important" data-popup-main="" id="PopRDSuscripcion" data-popup-function-hide="RDPopupCerrar(0)">
+        <div class="mpopup_rd mob_rd_inscripcion" data-popup-body="">
+            <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" data-popup-close="" href="javascript:;">
+                <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
+            </a>
+            <div class="mpopup_rd_cabecera">
+                <div class="mrd_logo">
+                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+                </div>
+                <div class="mpopup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
             </div>
-            <div class="mpopup_tit">TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
-        </div>
 
-        <div class="mpopup_rd_content">
-            <div class="mpopup_saludo">@Model.NombreConsultora, crece tus ganancias con ofertas únicas para ti. Reemplazando:</div>
-            <div class="mpopup_inscripcion">
-                <img src="/Content/Images/RevistaDigital/mpopup_inscripcion.png" width="100%">
+            <div class="mpopup_rd_content">
+                <div class="mpopup_saludo">@Model.NombreConsultora, crece tus ganancias con ofertas únicas para ti. Reemplazando:</div>
+                <div class="mpopup_inscripcion">
+                    <img src="/Content/Images/RevistaDigital/mpopup_inscripcion.png" width="100%">
+                </div>
+                <div class="mpopup_text">
+                    <div><span class="mtit">GANA <span style="font-size: 17px; margin-right: 10px;">+</span></span> Hasta 65% descuento</div>
+                    <div><span class="mtit">VENDE <span style="font-size: 17px; margin-right: 4px;">+</span></span> Productos que tus clientes piden</div>
+                </div>
+                <div class="btn_bpt btn_red"><a href="javascript: RDSuscripcion();">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
+                <div class="mpopup_textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
             </div>
-            <div class="mpopup_text">
-                <div><span class="mtit">GANA <span style="font-size: 17px; margin-right: 10px;">+</span></span> Hasta 65% descuento</div>
-                <div><span class="mtit">VENDE <span style="font-size: 17px; margin-right: 4px;">+</span></span> Productos que tus clientes piden</div>
+            <div class="mpopup_nomostrar">
+                <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a ver este mensaje">No volver a ver este mensaje</a>
             </div>
-            <div class="btn_bpt btn_red"><a href="javascript: RDSuscripcion();">INSCRIBIRME A ÉSIKA PARA MÍ</a></div>
-            <div class="mpopup_textleg">Al inscribirte estás aceptando los <a href="javascript: MostrarTerminos();">Términos y Condiciones</a><br />En cualquier momento puedes cancelar tu inscripción.</div>
-        </div>
-        <div class="mpopup_nomostrar">
-            <a href="javascript:RDPopupNoVolverMostrar();" title="No volver a ver este mensaje">No volver a ver este mensaje</a>
         </div>
     </div>
-</div>
-<!-- FIN POPUP REVISTA DIGITAL -->
-<!-- POPUP INSCRITA A REVISTA DIGITAL -->
+    <!-- FIN POPUP REVISTA DIGITAL -->
+    <!-- POPUP INSCRITA A REVISTA DIGITAL -->
 
-<div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;font-family: 'Lato' !important" data-popup-main="" data-popup-function-hide="RDPopupCerrar(1)">
-    <div class="mpopup_rd mob_rd_confirmacion" data-popup-body="">
-        <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript:;" data-popup-close="">
-            <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
-        </a>
-        <div class="mpopup_rd_cabecera">
-            <div class="mrd_logo">
-                <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+    <div class="CompartirCorreoPop contenedor_fondo_popup" id="PopRDInscrita" style="display:none;font-family: 'Lato' !important" data-popup-main="" data-popup-function-hide="RDPopupCerrar(1)">
+        <div class="mpopup_rd mob_rd_confirmacion" data-popup-body="">
+            <a class="cerrar_fichaProducto" style="position: absolute; top: 6px; right: 6px; width: 40px; height: 40px; text-align: right;" href="javascript:;" data-popup-close="">
+                <img src="/Content/Images/cerrar_04_blanco.png" width="20px" alt="" alternate="" text="">
+            </a>
+            <div class="mpopup_rd_cabecera">
+                <div class="mrd_logo">
+                    <img src="/Content/Images/RevistaDigital/esika-para-mi-blanco.svg" height="38px">
+                </div>
+                <div class="mpopup_tit">¡FELICIDADES ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE!</div>
             </div>
-            <div class="mpopup_tit">¡FELICIDADES ESTÁS INSCRITA A TU NUEVA REVISTA ONLINE!</div>
-        </div>
 
-        <div class="mpopup_rd_content">
-            <div class="mpopup_text">@Model.NombreConsultora, ingresa a Ésika para mí la próxima campaña y a partir de la C-@Model.CampaniaMasDos, tu revista online reemplazará a tu revista impresa.</div>
-            <div class="btn_bpt btn_transparent"><a href="javascript: RDSuscripcionRedireccionar();">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
-            <div class="mpopup_textleg">Para cancelar tu inscripción <a href="javascript: RDRedireccionarDesuscripcion();">haz click aquí</a></div>
+            <div class="mpopup_rd_content">
+                <div class="mpopup_text">@Model.NombreConsultora, ingresa a Ésika para mí la próxima campaña y a partir de la C-@Model.CampaniaMasDos, tu revista online reemplazará a tu revista impresa.</div>
+                <div class="btn_bpt btn_transparent"><a href="javascript: RDSuscripcionRedireccionar();">SABER MÁS DE ÉSIKA PARA MÍ</a></div>
+                <div class="mpopup_textleg">Para cancelar tu inscripción <a href="javascript: RDRedireccionarDesuscripcion();">haz click aquí</a></div>
+            </div>
+            <img class="rd_consultora" src="/Content/Images/RevistaDigital/mob_rd_consultora.png" />
         </div>
-        <img class="rd_consultora" src="/Content/Images/RevistaDigital/mob_rd_consultora.png" />
     </div>
-</div>
 
 }
 <!-- FIN POPUP INSCRITA A REVISTA DIGITAL -->
@@ -787,9 +785,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV2}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-                <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-                <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartir}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{FotoProducto01}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -884,10 +882,10 @@
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
         </div>
-       @* <div></div>
-        <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
-        <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
-            *@
+        @* <div></div>
+            <a class="btn_compartir_ofertas" href="javascript:window.location=CompartirRedesSociales(this);" data-compartir="WA" data-action="share/whatsapp/share"><img src="@Url.Content("~/Content/Images/Mobile/Esika/catalogo_ws.png")" alt=""></a>
+            <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="@Url.Content("~/Content/Images/Mobile/Esika/facebook.png")" alt=""></a>
+        *@
         <hr class="clear" />
         {{#if MostrarTextoLibre}}
         <div class="mensaje_advertencia_detalleCarousel" style="margin-top:10px; margin-left:0px;">
@@ -916,44 +914,67 @@
 @Html.Partial("~/Views/Shared/Cupon/popupCuponConfirmarMobile.cshtml")
 @Html.Partial("~/Views/Shared/Cupon/popupCuponGanasteMobile.cshtml")
 
+<div class="contenedor_popup_comunicado modal">
+    <div class="popup_comunicado">
+        <div class="btn_cerrar">
+            <a href="javascript:;">
+                <img src="@Url.Content("~/Content/Images/btn_cerrar_popup.svg")" alt="Cerrar" />
+                <span>CERRAR</span>
+            </a>
+        </div>
+        <div class="detalle_popup_comunicado">
+        </div>
+        <div class="pie_popup_comunicado">
+            <div style="display:table">
+                <div style="display:table-row">
+                    <div style="display:table-cell">
+                        <input type="checkbox" /><div class="check"></div>
+                    </div>
+                    <div class="check_text">
+                        No volver a mostrar este comunicado
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--FIN-->
-    @section scripts{
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $(".termino_condiciones_intriga").click(function () {
-                    $(this).toggleClass('check_intriga');
-                    if (typeof intrigaAceptoTerminos !== 'undefined') {
-                        intrigaAceptoTerminos = !intrigaAceptoTerminos;
-                    }
-                });
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".termino_condiciones_intriga").click(function () {
+                $(this).toggleClass('check_intriga');
+                if (typeof intrigaAceptoTerminos !== 'undefined') {
+                    intrigaAceptoTerminos = !intrigaAceptoTerminos;
+                }
             });
-            $(function () {
+        });
+        $(function () {
             var rating = 1.6;
-                $(".rateyo-readonly-widg").rateYo({
-                    rating: rating,
-                    numStars: 5,
-                    precision: 2,
-                    minValue: 1,
-                    maxValue: 5,
-                    starWidth: "17px"
-                }).on("rateyo.change", function (e, data) {
-                     //console.log(data.rating);
-                });
-                   
-                $('.titulo_estrellas').rateYo({
-                    rating    : "100%",
-                    spacing   : "10px",
-                    numStars: 5,                
-                    starWidth: "14px",
-                    readOnly: true,
-                    ratedFill: "#cca11e"
-                });
+            $(".rateyo-readonly-widg").rateYo({
+                rating: rating,
+                numStars: 5,
+                precision: 2,
+                minValue: 1,
+                maxValue: 5,
+                starWidth: "17px"
+            }).on("rateyo.change", function (e, data) {
+                //console.log(data.rating);
             });
-            
-        </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.rateyo.js")"></script>
-        <script type="text/javascript">
+
+            $('.titulo_estrellas').rateYo({
+                rating: "100%",
+                spacing: "10px",
+                numStars: 5,
+                starWidth: "14px",
+                readOnly: true,
+                ratedFill: "#cca11e"
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
 
             var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
             var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
@@ -974,7 +995,7 @@
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
             var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
             var tipoOrigenEstrategia = 2;
@@ -991,21 +1012,17 @@
             var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
             var tieneCupon = '@Model.TieneCupon';
             var tieneMasVendidos = @Model.TieneMasVendidos;
+            var tieneAsesoraOnline = '@Model.TieneAsesoraOnline';
             var paginaOrigenCupon = 2;
             var esEmailActivo = '@Model.EmailActivo';
             var paisISO = '@ViewBag.paisISO';
             var viewBagAmbiente = '@ViewBag.Ambiente';
             var correo = '@Model.EMail';
             var celular = '@Model.Celular';
-                var tipoOrigenPantalla = 2;
-        </script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaProducto/DetalleProducto.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/Bienvenida/Index.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js")"></script>
-        <script type="text/javascript" src="~/Scripts/PortalConsultoras/Cupon/CuponModule.js"></script>
-        <script type="text/javascript" src="~/Scripts/PortalConsultoras/Cupon/Cupon.js"></script>
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>    
-    }
+            var tipoOrigenPantalla = 2;
+            var primeraVezSession = @Model.PrimeraVezSession;
+            var userAgent = '@HttpContext.Current.Request.UserAgent.ToLower()';
+    </script>
+    @Scripts.Render("~/bundles/JsMobile/Bienvenida")
+   
+}

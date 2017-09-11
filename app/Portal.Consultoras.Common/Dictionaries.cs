@@ -431,9 +431,25 @@ namespace Portal.Consultoras.Common
             { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
             { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
-            { "PR", "TemplatesUbigeos/_UbigeoGrupo7" },
+            { "PR", "TemplatesUbigeos/_UbigeoGrupo9" },
             { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "VE", "" }
+        };
+
+        public static Dictionary<string, RangoEdad> RangoEdadesPais = new Dictionary<string, RangoEdad>
+        {
+            {PaisesCodigoIso.Chile, new RangoEdad(18, 80)},
+            {PaisesCodigoIso.Colombia, new RangoEdad(18, 80)},
+            {PaisesCodigoIso.Mexico, new RangoEdad(18, 80)},
+            {PaisesCodigoIso.Peru, new RangoEdad(18, 80)},
+            {PaisesCodigoIso.Guatemala, new RangoEdad(18, 65, int.MaxValue)},
+            {PaisesCodigoIso.Panama, new RangoEdad(18, 65, int.MaxValue)},
+            {PaisesCodigoIso.CostaRica, new RangoEdad(16,18, 65, 80)},
+            {PaisesCodigoIso.Salvador, new RangoEdad(18, 65, int.MaxValue)},
+            {PaisesCodigoIso.Ecuador, new RangoEdad(18, 75)},
+            {PaisesCodigoIso.Dominicana, new RangoEdad(18, 65)},
+            {PaisesCodigoIso.PuertoRico, new RangoEdad(18, 75)},
+            {PaisesCodigoIso.Bolivia, new RangoEdad(18, 65)}
         };
 
         public static Dictionary<string, string> TemplatDatosGenerales = new Dictionary<string, string>
@@ -452,5 +468,58 @@ namespace Portal.Consultoras.Common
             { "SV", "TemplatesDatosGenerales/_DatosGeneralesGrupo2" },
             { "VE", "" }
         };
+
+
     }
+
+    public class RangoEdad
+    {
+        public int EdadMinima { get; set; }
+        public int EdadMinimaLimite { get; set; }
+        public int EdadMaxima { get; set; }
+
+        public int EdadMinimaRiesgo { get; set; }
+
+        public RangoEdad(int edadMinima, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = int.MaxValue;
+        }
+
+        public RangoEdad(int edadMinima, int edadMinimaRiesgo, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = edadMinimaRiesgo;
+        }
+
+        public RangoEdad(int edadMinima, int edadMinimaLimite, int edadMinimaRiesgo, int edadMaxima)
+        {
+            EdadMinima = edadMinima;
+            EdadMinimaLimite = edadMinimaLimite;
+            EdadMaxima = edadMaxima;
+            EdadMinimaRiesgo = edadMinimaRiesgo;
+        }
+
+    }
+
+    public class PaisesCodigoIso
+    {
+        public const string Colombia = "CO";
+        public const string Mexico = "MX";
+        public const string Chile = "CL";
+        public const string CostaRica = "CR";
+        public const string Guatemala = "GT";
+        public const string Salvador = "SV";
+        public const string Panama = "PA";
+        public const string Peru = "PE";
+        public const string Ecuador = "EC";
+        public const string Argentina = "AR";
+        public const string Brasil = "BR";
+        public const string Dominicana = "DO";
+        public const string PuertoRico = "PR";
+        public const string Bolivia = "BO";
+    }
+
 }

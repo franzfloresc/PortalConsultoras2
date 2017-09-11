@@ -13,6 +13,99 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     using System;
     
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioExternoPais", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEUsuarioExternoPais : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoISOField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IdAplicacionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ProveedorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoISO {
+            get {
+                return this.CodigoISOField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
+                    this.CodigoISOField = value;
+                    this.RaisePropertyChanged("CodigoISO");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IdAplicacion {
+            get {
+                return this.IdAplicacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IdAplicacionField, value) != true)) {
+                    this.IdAplicacionField = value;
+                    this.RaisePropertyChanged("IdAplicacion");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Proveedor {
+            get {
+                return this.ProveedorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ProveedorField, value) != true)) {
+                    this.ProveedorField = value;
+                    this.RaisePropertyChanged("Proveedor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EAplicacionOrigen", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     public enum EAplicacionOrigen : int {
@@ -1139,6 +1232,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int PasePedidoWebField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool PedidoFICActivoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool PortalLideresField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1203,6 +1299,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TerritorioIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneAsesoraOnlineField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
@@ -2683,6 +2782,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool PedidoFICActivo {
+            get {
+                return this.PedidoFICActivoField;
+            }
+            set {
+                if ((this.PedidoFICActivoField.Equals(value) != true)) {
+                    this.PedidoFICActivoField = value;
+                    this.RaisePropertyChanged("PedidoFICActivo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public bool PortalLideres {
             get {
                 return this.PortalLideresField;
@@ -2964,6 +3076,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneAsesoraOnline {
+            get {
+                return this.TieneAsesoraOnlineField;
+            }
+            set {
+                if ((this.TieneAsesoraOnlineField.Equals(value) != true)) {
+                    this.TieneAsesoraOnlineField = value;
+                    this.RaisePropertyChanged("TieneAsesoraOnline");
                 }
             }
         }
@@ -4340,6 +4465,99 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.ZonaValidaField.Equals(value) != true)) {
                     this.ZonaValidaField = value;
                     this.RaisePropertyChanged("ZonaValida");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BETerminosCondiciones", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BETerminosCondiciones : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool AceptadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodigoConsultoraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int PaisIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private short TipoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Aceptado {
+            get {
+                return this.AceptadoField;
+            }
+            set {
+                if ((this.AceptadoField.Equals(value) != true)) {
+                    this.AceptadoField = value;
+                    this.RaisePropertyChanged("Aceptado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CodigoConsultora {
+            get {
+                return this.CodigoConsultoraField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodigoConsultoraField, value) != true)) {
+                    this.CodigoConsultoraField = value;
+                    this.RaisePropertyChanged("CodigoConsultora");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int PaisID {
+            get {
+                return this.PaisIDField;
+            }
+            set {
+                if ((this.PaisIDField.Equals(value) != true)) {
+                    this.PaisIDField = value;
+                    this.RaisePropertyChanged("PaisID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public short Tipo {
+            get {
+                return this.TipoField;
+            }
+            set {
+                if ((this.TipoField.Equals(value) != true)) {
+                    this.TipoField = value;
+                    this.RaisePropertyChanged("Tipo");
                 }
             }
         }
@@ -7432,102 +7650,15 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="BEUsuarioExternoPais", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
-    [System.SerializableAttribute()]
-    public partial class BEUsuarioExternoPais : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string CodigoISOField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string IdAplicacionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int PaisIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ProveedorField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string CodigoISO {
-            get {
-                return this.CodigoISOField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.CodigoISOField, value) != true)) {
-                    this.CodigoISOField = value;
-                    this.RaisePropertyChanged("CodigoISO");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string IdAplicacion {
-            get {
-                return this.IdAplicacionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.IdAplicacionField, value) != true)) {
-                    this.IdAplicacionField = value;
-                    this.RaisePropertyChanged("IdAplicacion");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int PaisID {
-            get {
-                return this.PaisIDField;
-            }
-            set {
-                if ((this.PaisIDField.Equals(value) != true)) {
-                    this.PaisIDField = value;
-                    this.RaisePropertyChanged("PaisID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Proveedor {
-            get {
-                return this.ProveedorField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ProveedorField, value) != true)) {
-                    this.ProveedorField = value;
-                    this.RaisePropertyChanged("Proveedor");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceUsuario.IUsuarioService")]
     public interface IUsuarioService {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
+        int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
+        System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/CambiarClaveUsuario", ReplyAction="http://tempuri.org/IUsuarioService/CambiarClaveUsuarioResponse")]
         bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen);
@@ -7624,6 +7755,18 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion", ReplyAction="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracionResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioConfiguracion> ObtenerUsuarioConfiguracionAsync(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones", ReplyAction="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse")]
+        bool InsertTerminosCondiciones(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones terminos);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones", ReplyAction="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse")]
+        System.Threading.Tasks.Task<bool> InsertTerminosCondicionesAsync(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones terminos);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetTerminosCondiciones", ReplyAction="http://tempuri.org/IUsuarioService/GetTerminosCondicionesResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetTerminosCondiciones", ReplyAction="http://tempuri.org/IUsuarioService/GetTerminosCondicionesResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> GetTerminosCondicionesAsync(int PaisID, string CodigoConsultora, short Tipo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
@@ -7800,10 +7943,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<string> GetUsuarioAsociadoAsync(int paisID, string CodigoConsultora);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisos", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioPermisosResponse")]
-        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisos", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioPermisosResponse")]
-        System.Threading.Tasks.Task<string> GetUsuarioPermisosAsync(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+        System.Threading.Tasks.Task<string> GetUsuarioPermisosAsync(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[] GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
@@ -7900,6 +8043,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse")]
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse")]
+        System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle", ReplyAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalleResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen);
@@ -8146,12 +8295,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetValidarAutoLogin", ReplyAction="http://tempuri.org/IUsuarioService/GetValidarAutoLoginResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginAsync(int paisID, string codigoUsuario, string proveedor);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
-        int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/InsUsuarioExternoPais", ReplyAction="http://tempuri.org/IUsuarioService/InsUsuarioExternoPaisResponse")]
-        System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -8179,6 +8322,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public UsuarioServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
+        }
+        
+        public int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
+            return base.Channel.InsUsuarioExternoPais(paisID, entidad);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
+            return base.Channel.InsUsuarioExternoPaisAsync(paisID, entidad);
         }
         
         public bool CambiarClaveUsuario(int paisId, string paisIso, string codigoUsuario, string nuevacontrasena, string correo, string codigoUsuarioAutenticado, Portal.Consultoras.Web.ServiceUsuario.EAplicacionOrigen origen) {
@@ -8307,6 +8458,22 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioConfiguracion> ObtenerUsuarioConfiguracionAsync(int paisID, int consultoraID, int campania, bool usuarioPrueba, int aceptacionConsultoraDA) {
             return base.Channel.ObtenerUsuarioConfiguracionAsync(paisID, consultoraID, campania, usuarioPrueba, aceptacionConsultoraDA);
+        }
+        
+        public bool InsertTerminosCondiciones(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones terminos) {
+            return base.Channel.InsertTerminosCondiciones(terminos);
+        }
+        
+        public System.Threading.Tasks.Task<bool> InsertTerminosCondicionesAsync(Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones terminos) {
+            return base.Channel.InsertTerminosCondicionesAsync(terminos);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo) {
+            return base.Channel.GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> GetTerminosCondicionesAsync(int PaisID, string CodigoConsultora, short Tipo) {
+            return base.Channel.GetTerminosCondicionesAsync(PaisID, CodigoConsultora, Tipo);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
@@ -8541,12 +8708,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetUsuarioAsociadoAsync(paisID, CodigoConsultora);
         }
         
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario) {
-            return base.Channel.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID) {
+            return base.Channel.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
         
-        public System.Threading.Tasks.Task<string> GetUsuarioPermisosAsync(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario) {
-            return base.Channel.GetUsuarioPermisosAsync(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+        public System.Threading.Tasks.Task<string> GetUsuarioPermisosAsync(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID) {
+            return base.Channel.GetUsuarioPermisosAsync(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEKitNueva[] GetValidarConsultoraNueva(int paisID, string CodigoConsultora) {
@@ -8675,6 +8842,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BENotificaciones[]> GetNotificacionesConsultoraAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
             return base.Channel.GetNotificacionesConsultoraAsync(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        }
+        
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
+            return base.Channel.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetNotificacionesSinLeerAsync(int PaisID, long ConsultoraId, int indicadorBloqueoCDR) {
+            return base.Channel.GetNotificacionesSinLeerAsync(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BENotificacionesDetalle[] GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen) {
@@ -8979,14 +9154,6 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEValidaLoginSB2> GetValidarAutoLoginAsync(int paisID, string codigoUsuario, string proveedor) {
             return base.Channel.GetValidarAutoLoginAsync(paisID, codigoUsuario, proveedor);
-        }
-        
-        public int InsUsuarioExternoPais(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
-            return base.Channel.InsUsuarioExternoPais(paisID, entidad);
-        }
-        
-        public System.Threading.Tasks.Task<int> InsUsuarioExternoPaisAsync(int paisID, Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExternoPais entidad) {
-            return base.Channel.InsUsuarioExternoPaisAsync(paisID, entidad);
         }
     }
 }

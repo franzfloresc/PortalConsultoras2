@@ -225,8 +225,8 @@ namespace Portal.Consultoras.Web.Controllers
                 BarraConsultoraModel dataBarra = new BarraConsultoraModel();
                 try
                 {
-                    Session["ObservacionesPROL"] = null;
-                    Session["PedidoWebDetalle"] = null;
+                    sessionManager.SetObservacionesProl( null);
+                    sessionManager.SetDetallesPedido(null);
                     UpdPedidoWebMontosPROL();
                     dataBarra = GetDataBarra();
                 }
@@ -850,7 +850,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora).ToList();
+                    lst = sv.SelectByCampania(userData.PaisID, int.Parse(CampaniaId), ObtenerConsultoraId(), userData.NombreConsultora, EsOpt()).ToList();
                 }
                 lst.Update(c => c.NombreCliente = string.IsNullOrEmpty(c.Nombre) ? userData.NombreConsultora : c.Nombre);
                 #endregion
