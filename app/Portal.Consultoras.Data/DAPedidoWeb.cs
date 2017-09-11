@@ -786,6 +786,14 @@ namespace Portal.Consultoras.Data
             Context.ExecuteScalar(command);
         }
 
+        public void DelIndicadorPedidoAutenticoCompleto(BEIndicadorPedidoAutentico entidad)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DelIndicadorPedidoAutenticoCompleto");
+            Context.Database.AddInParameter(command, "@PedidoID", DbType.Int32, entidad.PedidoID);
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, entidad.CampaniaID);
+            Context.ExecuteScalar(command);
+        }
+
         public string GetTokenIndicadorPedidoAutentico(string paisISO, string codigoRegion, string codigoZona)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetTokenIndicadorPedidoAutentico");

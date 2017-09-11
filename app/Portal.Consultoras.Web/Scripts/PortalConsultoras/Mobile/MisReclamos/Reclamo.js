@@ -2,6 +2,7 @@
 var misReclamosRegistro
 var cuvKeyUp = false, cuv2KeyUp = false;
 var cuvPrevVal = '', cuv2PrevVal = '';
+var paso2Actual = 1;
 
 $(document).ready(function () {
     'use strict';
@@ -33,8 +34,9 @@ $(document).ready(function () {
             btnSiguiente4: "#btnSiguiente4",
             btnAceptarSolucion: "[data-cambiopaso]",
             Enlace_regresar: ".enlace_regresar",
-
+            RegistroAceptarSolucion: ".AceptarSolucion",
             ComboCampania: "#ddlCampania",
+            SolicitudEnviada: "#SolicitudEnviada",
             hdPedidoId: "#txtPedidoID",
             hdCDRID: "#CDRWebID"
         };
@@ -167,15 +169,29 @@ $(document).ready(function () {
                     console.log('Siguiente 3 ');
                 });
 
-                               
                 $(me.Variables.btnAceptarSolucion).click(function () {
                     console.log('Aceptar solucion..');
                     me.Funciones.DetalleGuardar();
+
+                    $(me.Variables.Registro4).hide();
+                    $(me.Variables.btnAceptarSolucion).hide();
+
+                    $(me.Variables.btnSiguiente4).show();
+                    $(me.Variables.RegistroAceptarSolucion).show();
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro1).show();
+                });
+
+                $(me.Variables.btnSiguiente4).click(function () {
+                    console.log('Finalizar y enviar solicitud');
+
+                    me.Funciones.SolicitudEnviar();
+
+                    $(me.Variables.RegistroAceptarSolucion).hide();
+                    $(me.Variables.SolicitudEnviada).show();
                 });
             }
         };
@@ -288,50 +304,6 @@ $(document).ready(function () {
             }
         }
 
-        function DetalleCargar() {
-            var item = {
-                CDRWebID: $("#CDRWebID").val() || 0,
-                PedidoID: $("#txtPedidoID").val() || 0
-            };
-
-            //waitingDialog();
-            jQuery.ajax({
-                type: 'POST',
-                url: baseUrl + 'MisReclamos/DetalleCargar',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(item),
-                cache: false,
-                success: function (data) {
-                    //closeWaitingDialog();
-                    if (!checkTimeout(data))
-                        return false;
-
-                    if (data.success != true) {
-                        alert_msg(data.message);
-                        return false;
-                    }
-
-                    $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
-                    SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
-                    ValidarVisualizacionBannerResumen();
-
-                    SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
-                    SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
-
-                    //EPD-1919 INICIO
-                    if (data.esCDRExpress) $("#TipoDespacho").show();
-                    else $("#TipoDespacho").hide();
-                    //EPD-1919 FIN
-
-                },
-                error: function (data, error) {
-                    //closeWaitingDialog();
-                    if (checkTimeout(data)) { }
-                }
-            });
-        }
-
         me.Constantes = {
             //PromocionNoDisponible: "Esta promoción no se encuentra disponible."
         };
@@ -339,7 +311,7 @@ $(document).ready(function () {
         me.Funciones = {
 
             BuscarMotivo: function () {
-
+                debugger;
                 var PedidoId = $.trim($("#hdPedidoID").val()) || 0;
                 var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
@@ -383,12 +355,12 @@ $(document).ready(function () {
                 var ok = true;
 
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
-                console.log('ok');
+                console.log('ok' + ok);
                 if (!ok) {
                     alert_msg("Datos incorrectos");
                     return false;
                 }
-                debugger;
+
                 var item = {
                     PedidoID: $("#hdPedidoID").val(),
                     CUV: $("#txtCuv").text(),
@@ -427,7 +399,7 @@ $(document).ready(function () {
             },
 
             AnalizarOperacion: function (id) {
-                debugger;
+
                 if (id == "C") {
 
                 }
@@ -442,17 +414,237 @@ $(document).ready(function () {
                 }
 
                 if (id == "F") {
+                    if (me.Funciones.ValidarPaso2Faltante(id)) {
+                        me.Funciones.CambioPaso2(100);
+                        $("[data-tipo-confirma='cambio']").hide();
+                        $("[data-tipo-confirma=canje]").show();
+
+                        me.Funciones.CargarPropuesta(id);
+                    }
                 }
 
                 if (id == "G") {
+                    if (me.Funciones.ValidarPaso2FaltanteAbono(id)) {
+                        //CambioPaso2(100);
+                        $("[data-tipo-confirma='cambio']").hide();
+                        $("[data-tipo-confirma=canje]").show();
+
+                        me.Funciones.CargarPropuesta(id);
+                    }
                 }
 
                 if (id == "T") {
+                    //me.Funciones.CambioPaso(); CambioPaso2
+                    $("[data-tipo-confirma='canje']").hide();
+                    $("[data-tipo-confirma=cambio]").show();
+
+                    $("#spnSimboloMonedaReclamo").html(vbSimbolo);
+
+                    var precioUnidad = $("#txtPrecioUnidad").val();
+                    var cantidad = $("#txtCantidad").val();
+                    var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
+
+                    $("#hdMontoMinimoReclamo").val(totalTrueque);
+                    $("#spnMontoMinimoReclamoFormato").html(DecimalToStringFormat(totalTrueque));
+
+                    var campania = $("#ddlCampania").val() || 0;
+                    var numeroCampania = '00';
+                    if (campania > 0) {
+                        numeroCampania = campania.substring(4);
+                    }
+
+                    $("#spnNumeroCampaniaReclamo").html(numeroCampania);
+
+                    me.Funciones.ObtenerValorParametria(id);
+                    me.Funciones.CargarPropuesta(id);
                 }
             },
 
-            CambioPaso: function () {
+            CambioPaso: function (paso) {
+                paso = paso || 1;
+                pasoActual = pasoActual + paso || 1;
+                pasoActual = pasoActual < 1 ? 1 : pasoActual > 3 ? 3 : pasoActual;
 
+                $(".paso_reclamo[data-paso]").removeClass("paso_active_reclamo");
+                $(".paso_reclamo[data-paso] span").html("");
+
+                $(".paso_reclamo[data-paso]").each(function (ind, tag) {
+                    var pasoTag = $(tag).attr("data-paso");
+                    if (pasoTag < pasoActual) {
+                        $(tag).addClass("paso_active_reclamo");
+                        $(tag).find("span").html("<img src='" + imgCheck + "' />");
+                    }
+                    else if (pasoTag == pasoActual) {
+                        $(tag).addClass("paso_active_reclamo");
+                        $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoActual + "_activo") + "' />");
+                    }
+                    else $(tag).find("span").html("<img src='" + imgPasos.replace("{0}", "cdr_paso" + pasoTag) + "' />");
+                });
+
+                $('div[id^=Cambio]').hide();
+                $('div[id^=Paso]').hide();
+                $('[id=Paso' + pasoActual + ']').show();
+                $('[id=Paso' + pasoActual + '] #Cambio' + paso2Actual).show();
+
+                me.Funciones.ValidarVisualizacionBannerResumen();
+            },
+
+            CambioPaso2: function () {
+
+                paso2Actual = paso2Actual + (paso || 1);
+                paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
+                $('div[id^=Cambio]').hide();
+                $('[id=Cambio' + paso2Actual + ']').show();
+            },
+
+            ValidarPaso2Faltante: function (codigoSsic) {
+                var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
+
+                if (esCantidadPermitidaValida) {
+                    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                    var montoProductosFaltanteActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
+                    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                    var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
+
+                    me.Funciones.ObtenerValorParametria(codigoSsic);
+                    var valorParametria = $("#hdParametriaCdr").val() || 0;
+
+                    valorParametria = parseFloat(valorParametria);
+
+                    var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+                    if (montoMaximoDevolver < montoDevolver) {
+                        alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
+                        return false;
+                    }
+                    return true;
+
+                } else
+                    return false;
+            },
+
+            ValidarPaso2FaltanteAbono: function (codigoSsic) {
+                return me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
+            },
+
+            ValidarCantidadMaximaPermitida: function (codigoSsic) {
+                me.Funciones.ObtenerValorCDRWebDatos(codigoSsic);
+
+                var cantidadProductosFaltanteActual = ObtenerCantidadProductosByCodigoSsic(codigoSsic);
+                var cantidadCuvActual = parseInt($("#txtCantidad").val()) || 0;
+
+                var cantidadFaltante = cantidadProductosFaltanteActual + cantidadCuvActual;
+
+                var valorCdrWebDatos = $("#hdCdrWebDatos_Ssic").val() || 0;
+                valorCdrWebDatos = parseInt(valorCdrWebDatos);
+
+                if (cantidadFaltante > valorCdrWebDatos) {
+                    alert_msg("Superas la cantidad máxima permitida de (" + valorCdrWebDatos +
+                        ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
+                    return false;
+                }
+
+                return true;
+            },
+
+            ValidarPaso2Devolucion: function (codigoSsic) {
+
+                var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
+                var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                var montoProductosDevolverActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
+
+                var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
+                var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                var montoDevolver = montoProductosDevolverActual + montoCuvActual;
+
+                if (diferenciaMonto < montoDevolver) {
+                    alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
+                    return false;
+                }
+
+                me.Funciones.ObtenerValorParametria(codigoSsic);
+                var valorParametria = $("#hdParametriaCdr").val() || 0;
+
+                valorParametria = parseFloat(valorParametria);
+                console.log('Validar paso2 : ' + valorParametria);
+                var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+
+                if (montoMaximoDevolver < montoDevolver) {
+                    alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado");
+                    return false;
+                }
+
+                return true;
+            },
+
+            ObtenerValorCDRWebDatos: function (codigoSsic) {
+
+                var item = {
+                    EstadoSsic: codigoSsic
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'MisReclamos/BuscarCdrWebDatos',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        if (!checkTimeout(data))
+                            return false;
+
+                        var cdrWebDatos = data.cdrWebdatos;
+
+                        $("#hdCdrWebDatos_Ssic").val(cdrWebDatos.Valor);
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                        if (checkTimeout(data)) { }
+                    }
+                });
+            },
+
+            ObtenerCantidadProductosByCodigoSsic: function (codigoSsic) {
+
+                var resultado = 0;
+
+                var item = {
+                    CDRWebID: $("#CDRWebID").val() || 0,
+                    PedidoID: $("#hdPedidoID").val() || 0,
+                    EstadoSsic: codigoSsic
+                };
+                waitingDialog();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'MisReclamos/ObtenerCantidadProductosByCodigoSsic',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        if (!checkTimeout(data))
+                            return false;
+
+                        if (data.success != true) {
+                            alert_msg(data.message);
+                            return false;
+                        }
+
+                        resultado = data.cantidadProductos;
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                        if (checkTimeout(data)) { }
+                    }
+                });
+
+                return resultado;
             },
 
             CargarPropuesta: function (codigoSsic) {
@@ -464,7 +656,7 @@ $(document).ready(function () {
                     Cantidad: $.trim($("#txtCantidadFichaOPT").val()),
                     EstadoSsic: $.trim(codigoSsic)
                 };
-              
+
                 jQuery.ajax({
                     type: 'POST',
                     url: baseUrl + 'MisReclamos/BuscarPropuesta',
@@ -482,14 +674,12 @@ $(document).ready(function () {
                             alert_msg(data.message);
                             return false;
                         }
-                        
+
                         $(me.Variables.Registro4).show();
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                         }
-
                         //$(me.Variables.Registro3).hide();
-
 
                         $("#spnMensajeTenerEnCuentaCanje").html(data.descripcionTenerEnCuenta);
                         $("#spnMensajeTenerEnCuentaCambio").html(data.descripcionTenerEnCuenta);
@@ -497,6 +687,44 @@ $(document).ready(function () {
                     error: function (data, error) {
                         closeWaitingDialog();
                         if (checkTimeout(data)) { }
+                    }
+                });
+            },
+
+            CargarOperacion: function () {
+                // debugger;
+                var item = {
+                    CampaniaID: $.trim($("#ddlCampania").val()),
+                    PedidoID: $("#hdPedidoID").val(),
+                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id")
+                };
+
+                waitingDialog();
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'MisReclamos/BuscarOperacion',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: true,
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        if (!checkTimeout(data))
+                            return false;
+
+                        if (data.success == false) {
+                            alert_msg(data.message);
+                            return false;
+                        }
+                        SetHandlebars("#template-operacion", data.detalle, "#listado_soluciones_cdr");
+
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                        if (checkTimeout(data)) {
+                        }
                     }
                 });
             },
@@ -536,9 +764,10 @@ $(document).ready(function () {
                             alert_msg(data.message);
                             return false;
                         }
+                        debugger;
                         $("#CDRWebID").val(data.detalle);
-                        CambioPaso();
-                        DetalleCargar();
+                        me.Funciones.CambioPaso();
+                        me.Funciones.DetalleCargar();
                     },
                     error: function (data, error) {
                         closeWaitingDialog();
@@ -547,36 +776,58 @@ $(document).ready(function () {
                 });
             },
 
-            ValidarPaso2Devolucion: function (codigoSsic) {
+            DetalleCargar: function () {
 
-                var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
-                var montoTotalPedido = $("#hdImporteTotalPedido").val();
-                var montoProductosDevolverActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
-
-                var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
-                var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
-                var montoDevolver = montoProductosDevolverActual + montoCuvActual;
-
-                if (diferenciaMonto < montoDevolver) {
-                    alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
-                    return false;
-                }
+                var item = {
+                    CDRWebID: $("#CDRWebID").val() || 0,
+                    PedidoID: $("#hdPedidoID").val() || 0
+                };
                 debugger;
-                me.Funciones.ObtenerValorParametria(codigoSsic);
-                var valorParametria = $("#hdParametriaCdr").val() || 0;
+                waitingDialog();
+                jQuery.ajax({
+                    type: 'POST',
+                    url: baseUrl + 'MisReclamos/DetalleCargar',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        if (!checkTimeout(data))
+                            return false;
 
-                valorParametria = parseFloat(valorParametria);
-                console.log('Validar paso2 : ' + valorParametria);
-                var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
+                        if (data.success != true) {
+                            alert_msg(data.message);
+                            return false;
+                        }
 
-                if (montoMaximoDevolver < montoDevolver) {
-                    alert_msg("Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado");
-                    return false;
-                }
+                        $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
+                        SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
+                        ValidarVisualizacionBannerResumen();
 
-                return true;
+                        SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
+                        SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
 
+                        //EPD-1919 INICIO
+                        if (data.esCDRExpress) $("#TipoDespacho").show();
+                        else $("#TipoDespacho").hide();
+                        //EPD-1919 FIN
 
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                        if (checkTimeout(data)) { }
+                    }
+                });
+            },
+
+            ValidarVisualizacionBannerResumen: function () {
+                var cantidadDetalles = $("#spnCantidadUltimasSolicitadas").html();
+
+                if ($('#Paso2:visible').length > 0 || cantidadDetalles == 0) $("#btn_ver_solicitudes").hide();
+                else $("#btn_ver_solicitudes").show();
+                if ($('#Paso3:visible').length > 0) $("#divUltimasSolicitudes").hide();
+                else $("#divUltimasSolicitudes").show();
             },
 
             ObtenerValorParametria: function (codigoSsic) {
@@ -651,42 +902,132 @@ $(document).ready(function () {
 
             },
 
-            CargarOperacion: function () {
-               // debugger;
+            SolicitudEnviar: function () {
+                var ok = true;
+                var correo = $.trim($("#txtEmail").val());
+                var celular = $.trim($("#txtTelefono").val());
+
+                if (IfNull(validarCorreoVacio, true) && correo == "") {
+                    me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+                    ok = false;
+                }
+                if (IfNull(validarCelularVacio, true) && celular == "") {
+                    me.Funciones.ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+                    ok = false;
+                }
+                if (!ok) {
+                    alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
+                    return false;
+                }
+
+                if (correo != "" && !validateEmail(correo)) {
+                    me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
+                    ok = false;
+                }
+                if (celular != "" && celular.length < 6) {
+                    me.Funciones.ControlSetError('#txtTelefono', '#spnTelefonoError', '*Celular incorrecto');
+                    ok = false;
+                }
+                if (!ok) return false;
+
+                if (celular != "" && !ValidarTelefono(celular)) {
+                    me.Funciones.ControlSetError('#txtTelefono', '#spnTelefonoError', '*Este número de celular ya está siendo utilizado. Intenta con otro.');
+                    return false;
+                }
+
+                var correoActual = $.trim($("#hdEmail").val());
+                if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
+                    me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
+                    return false;
+                }
+
+                if (!$("#btnAceptoPoliticas").hasClass("politica_reclamos_icono_active")) {
+                    alert_msg("Debe aceptar la política de Cambios y Devoluciones");
+                    return false;
+                }
+                debugger;
                 var item = {
-                    CampaniaID: $.trim($("#ddlCampania").val()),
-                    PedidoID: $("#hdPedidoID").val(),
-                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id")
+                    CDRWebID: $("#CDRWebID").val() || 0,
+                    PedidoID: $("#hdPedidoID").val() || 0,
+                    Email: $("#txtEmail").val(),
+                    Telefono: $("#txtTelefono").val(),
+                    TipoDespacho: false,
+                    FleteDespacho: 0,
+                    MensajeDespacho: ''
                 };
+                if ($("#hdTieneCDRExpress").val() == '1') {
+                    item.TipoDespacho = tipoDespacho;
+                    item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+                    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+                }
 
                 waitingDialog();
-
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarOperacion',
+                    url: baseUrl + 'MisReclamos/SolicitudEnviar',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
-                    async: true,
                     cache: false,
                     success: function (data) {
                         closeWaitingDialog();
-                        if (!checkTimeout(data))
-                            return false;
+                        if (!checkTimeout(data)) return false;
 
-                        if (data.success == false) {
+                        if (data.success != true) {
                             alert_msg(data.message);
                             return false;
                         }
-                        SetHandlebars("#template-operacion", data.detalle, "#listado_soluciones_cdr");
 
+                        var formatoFechaCulminado = "";
+                        var numeroSolicitud = 0;
+                        var formatoCampania = "";
+                        var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho, '');
+                        if (data.cdrWeb.CDRWebID > 0) {
+                            if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
+                                var dateString = data.cdrWeb.FechaCulminado.substr(6);
+                                var currentTime = new Date(parseInt(dateString));
+                                var month = currentTime.getMonth() + 1;
+                                var day = currentTime.getDate();
+                                var year = currentTime.getFullYear();
+                                formatoFechaCulminado = (day < 10 ? "0" + day : day) + "/" + (month < 10 ? "0" + month : month) + "/" + year;
+                            }
+
+                            numeroSolicitud = data.cdrWeb.CDRWebID;
+
+                            if (data.cdrWeb.CampaniaID.toString().length == 6) {
+                                formatoCampania = data.cdrWeb.CampaniaID.toString().substring(0, 4) + "-" + data.cdrWeb.CampaniaID.toString().substring(4);
+                            }
+                        }
+
+                        $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
+                        $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
+                        $("#spnSolicitudCampania").html(formatoCampania);
+                        if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+                        else $("#spnTipoDespacho").show().html(mensajeDespacho);
+                        $("#divProcesoReclamo").hide();
+                        $("#divUltimasSolicitudes").hide();
+                        $("#TituloReclamo").hide();
+                        $("#SolicitudEnviada").show();
+
+                        if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
                     },
                     error: function (data, error) {
                         closeWaitingDialog();
-                        if (checkTimeout(data)) {
-                        }
+                        if (checkTimeout(data)) { }
                     }
                 });
+            },
+
+            ControlSetError: function (inputId, spanId, message) {
+                if (IfNull(message, '') == '') {
+                    $(inputId).css('border-color', '#b5b5b5');
+                    $(spanId).css('display', 'none');
+                }
+                else {
+                    $(inputId).css('border-color', 'red');
+                    $(spanId).css('display', '');
+                    $(spanId).html(message);
+                }
             }
         };
 
