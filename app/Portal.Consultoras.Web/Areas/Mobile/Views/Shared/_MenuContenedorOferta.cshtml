@@ -15,7 +15,7 @@
     var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
-<div class="bc_mobil_para-mi" @estiloFondoBanner>
+<div class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
     @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
     {
         <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
