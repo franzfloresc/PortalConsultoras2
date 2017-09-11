@@ -189,7 +189,7 @@ $(document).ready(function () {
                 $('#PopOfertaDia').hide();
 
                 if (tipoOrigenPantallaODD == CONS_TIPO_ORIGEN.ESCRITORIO_OFERTAS) {
-                    $('#banner-odd').hide();
+                    $('#banner-odd').parent().hide();
                     $('#PopOfertaDia').show();
                 }
 
