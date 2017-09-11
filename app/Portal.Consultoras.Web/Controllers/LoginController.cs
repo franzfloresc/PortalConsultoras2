@@ -120,6 +120,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception ex)
             {
+                Common.LogManager.SaveLog(ex, "ObtenerPaises", "ObtenerPaises");
                 lst = new List<BEPais>();
             }
 
