@@ -1134,11 +1134,15 @@ function CompartirRedesSocialesTexto(texto) {
 }
 
 
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre = "") {
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
+    if (!nombre) {
+        nombre = "";
+    }
+
     id = $.trim(id);
     if (id == "0" || id == "") {
         console.log("CompartirRedesSocialesAbrirVentana Falta ID");
-        return false;
+        return false;   
     }
     ruta = $.trim(ruta);
     if (ruta == "") {
