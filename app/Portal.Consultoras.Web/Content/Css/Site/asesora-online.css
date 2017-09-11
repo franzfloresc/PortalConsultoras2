@@ -1352,8 +1352,8 @@
 .popup_inscripcion_asesoria_online{
 	display:block;
 	width:834px;
-	height:458px;
-	margin:-229px auto 0 auto;
+	height:437px;
+	margin:-218.5px auto 0 auto;
 	position:relative;
 	top:50%;
 	background: #f21f12;
@@ -1367,9 +1367,9 @@
 	display: block;
     position: relative;
     /* overflow: hidden; */
-    padding-top: 44px;
+    padding-top: 35px;
     padding-left: 42px;
-    height: 458px;
+    height: 437px;
     background: #FFF;
     max-width: 555px;
     z-index: 4;
@@ -1381,7 +1381,7 @@
     top: 0;
     right: -58px;
     width: 100%;
-    height: 458px;
+    height: 437px;
     background: #FFF;
     transform: skewX(-14deg);
     -moz-transform: skewX(-14deg);
@@ -1412,7 +1412,7 @@
 .img_popup_inscripcion_asesoria_online{
 	display: block;
     position: absolute;
-    bottom: 0;
+    bottom: -2px;
     right: 0;
     width: 332px;
     height: 391px;
@@ -1420,8 +1420,8 @@
 }
 
 .img_popup_inscripcion_asesoria_online img{
-	width:296px;
-	height:391px;
+	width:277px;
+	height:389px;
     float:right;
 }
 
@@ -1473,7 +1473,7 @@
 }
 
 .lista_beneficios_inscripcion{
-	margin: 26px 0 17px 0;
+	margin: 25px 0 17px 0;
 }
 
 .beneficio_inscripcion {
@@ -1774,6 +1774,7 @@
 }
 
 .contenido_popup_landing_coach_virtual{
+    padding-top:44px;
     padding-left:0;
     max-width:none;
     height:auto;
