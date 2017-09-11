@@ -3,6 +3,7 @@
 @{
     Layout = "~/Views/Shared/_LoginLayout.cshtml";
     ViewBag.Title = "Login";
+    var mensajeError = "";
 }
 
 <body>
@@ -433,7 +434,14 @@
                                 {
                                     foreach (var item in Model.ListaPaises)
                                     {
-                                        <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                        if (item.PaisID)
+                                        {
+                                            <option value="@item.CodigoISO" data-id="@item.PaisID">@item.Nombre</option>
+                                        }
+                                        else
+                                        {
+                                            mensajeError = item.Nombre;
+                                        }
                                     }
                                 }
                             </select>
