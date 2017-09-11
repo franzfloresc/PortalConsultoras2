@@ -65,13 +65,12 @@ function VerificarAncla() {
     var url = document.location.href;
     if (url.indexOf("#") > -1) {
         var strippedUrl = url.toString().split("#");
-        if (strippedUrl.Length > 1) anchorValue = strippedUrl[1];
-        $(elementos.menu2Li).removeClass(elementos.claseActivo);
-        $("html, body").find("[data-generated=" + anchorValue + "]").children("a").addClass("activo");
+        if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
+        $(elementos.menu2Li).children("a").removeClass(elementos.claseActivo);
+        $("html, body").find("[data-codigo=" + anchorValue + "]").children("a").addClass("activo");
     }
-   
-
 }
+
 function MenuContenedor() {
     //$(elementos.menu2Li).hide();
     //$(elementos.menu2Li).removeClass(elementos.claseActivo);

@@ -834,6 +834,7 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
+                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
                 listaMenu.Add(config);
             }
 
@@ -2816,34 +2817,46 @@ namespace Portal.Consultoras.Web.Controllers
         public MenuContenedorModel GetMenuActivo(string path)
         {
             var listMenu = BuildMenuContenedor();
-            var menuActivo = new MenuContenedorModel();
-            switch (path)
+            var pathStrings = path.Split('/');
+            var newPath = "";
+            try
             {
-                case  "/Ofertas":
+                newPath += "/";
+                newPath += pathStrings[0];
+                newPath += "/";
+                newPath += pathStrings[1];
+            }
+            catch (Exception e) {Console.WriteLine(e);}
+
+
+            var menuActivo = new MenuContenedorModel();
+            switch (newPath.ToLower())
+            {
+                case  "/ofertas":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/Ofertas/Revisar":
+                case "/ofertas/revisar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/RevistaDigital/Comprar":
+                case "/revistaDigital/comprar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/RevistaDigital/Revisar":
+                case "/revistaDigital/revisar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/RevistaDigital/Informacion":
+                case "/revistaDigital/informacion":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
-                case "/RevistaDigital":
+                case "/revistaDigital":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/ShowRoom":
+                case "/showRoom":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
