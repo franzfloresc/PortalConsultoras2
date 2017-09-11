@@ -784,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menuActivo = MenuContenedorObtenerActivo();
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-            if (userData.RevistaDigital.TieneRDC)
+            if (!userData.RevistaDigital.TieneRDC || !userData.RevistaDigital.TieneRDR)
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
 
             return listMenu; 
@@ -2850,6 +2850,18 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case "/revistadigital":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                    break;
+                case "/showroom":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                    break;
+                case "/showroom/intriga":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                    break;
+                case "/showroom/detalle":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
             }
