@@ -2838,11 +2838,18 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/ShowRoom":
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
-                    menuActivo.CampaniaId = userData.CampaniaID;
-                    break;
             }
+
+            // Menu para ShowRoom
+            if (string.IsNullOrEmpty(menuActivo.Codigo))
+            {
+                if (path.Contains("/ShowRoom"))
+                {
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                }
+            } 
+
             var configMenu =
                 listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
             if(menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
