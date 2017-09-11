@@ -784,7 +784,7 @@ namespace Portal.Consultoras.Web.Controllers
             var menuActivo = MenuContenedorObtenerActivo();
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-            if (!userData.RevistaDigital.TieneRDC || !userData.RevistaDigital.TieneRDR)
+            if (!userData.RevistaDigital.TieneRDC)
                 listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
 
             return listMenu; 
