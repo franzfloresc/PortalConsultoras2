@@ -13,6 +13,15 @@ $(document).ready(function () {
         var me = this;
 
         me.Eventos = {
+            scrollDownArrow: function (e) {
+                e.preventDefault();
+
+                var atributoTitulo = $(".arrow_down_coach_virtual").attr("href");
+
+                $('html,body').animate({
+                    scrollTop: $(atributoTitulo).offset().top - 30
+                }, 650, "easeOutSine");
+            },
             irASeccionFormulario: function (e) {
                 e.preventDefault();
 
@@ -44,15 +53,16 @@ $(document).ready(function () {
         };
 
         me.Funciones = {
-            removerEnlace: function () {
-                setTimeout(function () {
-                    $('a[href*="//apps.elfsight.com/panel/"]').remove();
-                }, 2000);
-            },
+            //removerEnlace: function () {
+            //    setTimeout(function () {
+            //        $('a[href*="//apps.elfsight.com/panel/"]').remove();
+            //    }, 2000);
+            //},
             inicializarEventos: function () {
                 $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
                 $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
                 $("body").on("click", "#datos_son_correctos", me.Eventos.cerrarPopupsAsesoraOnline);
+                $("body").on("click", ".arrow_down_coach_virtual", me.Eventos.scrollDownArrow);
                 $(document).on("scroll", me.Eventos.mostrarBotonSuscripcionMobile);
 
                 $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
@@ -62,7 +72,7 @@ $(document).ready(function () {
         };
 
         me.Inicializar = function () {
-            me.Funciones.removerEnlace();
+            //me.Funciones.removerEnlace();
             me.Funciones.inicializarEventos();
             $("#terminos-condiciones").prop("checked", true);
         };
