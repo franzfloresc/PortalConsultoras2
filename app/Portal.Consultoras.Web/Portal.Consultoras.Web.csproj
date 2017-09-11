@@ -2897,6 +2897,8 @@
     <Content Include="Content\Images\RevistaDigital\fondo_repeat.png" />
     <Content Include="Content\Images\RevistaDigital\fondo_titulo.png" />
     <Content Include="Content\Images\RevistaDigital\group.png" />
+    <Content Include="Content\Images\RevistaDigital\HOME_NEGRO.svg" />
+    <Content Include="Content\Images\RevistaDigital\HOME_ROJO.svg" />
     <Content Include="Content\Images\RevistaDigital\icono1.png" />
     <Content Include="Content\Images\RevistaDigital\icono2.png" />
     <Content Include="Content\Images\RevistaDigital\icono3.png" />

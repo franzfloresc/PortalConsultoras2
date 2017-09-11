@@ -784,7 +784,10 @@ namespace Portal.Consultoras.Web.Controllers
             var menuActivo = MenuContenedorObtenerActivo();
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-            return listMenu;
+            if (userData.RevistaDigital.TieneRDC)
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+
+            return listMenu; 
         }
 
         /*
@@ -838,11 +841,6 @@ namespace Portal.Consultoras.Web.Controllers
                 listaMenu.Add(config);
             }
 
-            //List<ConfiguracionPaisModel> lista2 = new List<ConfiguracionPaisModel>();
-            //lista2 = listaMenu.Where(m => (m.Codigo == Constantes.ConfiguracionPais.Inicio ||
-            //                                    m.Codigo ==  Constantes.ConfiguracionPais.Lanzamiento ||
-            //                                    m.Codigo == Constantes.ConfiguracionPais.RevistaDigital)).ToList();
-            //lista2.ForEach(m => m.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1));
             listaMenu.AddRange(BuildMenuContenedor(listaMenu));
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
@@ -2821,10 +2819,8 @@ namespace Portal.Consultoras.Web.Controllers
             var newPath = "";
             try
             {
-                newPath += "/";
-                newPath += pathStrings[0];
-                newPath += "/";
-                newPath += pathStrings[1];
+                newPath += "/" + pathStrings[1];
+                newPath += "/" + pathStrings[2];
             }
             catch (Exception e) {Console.WriteLine(e);}
 
@@ -2840,19 +2836,19 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/revistaDigital/comprar":
+                case "/revistadigital/comprar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/revistaDigital/revisar":
+                case "/revistadigital/revisar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/revistaDigital/informacion":
+                case "/revistadigital/informacion":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
-                case "/revistaDigital":
+                case "/revistadigital":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
@@ -2878,8 +2874,6 @@ namespace Portal.Consultoras.Web.Controllers
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
             }
             Session[Constantes.ConstSession.MenuContenedorActivo] = menuActivo;
-
-
             return menuActivo;
         }
 
