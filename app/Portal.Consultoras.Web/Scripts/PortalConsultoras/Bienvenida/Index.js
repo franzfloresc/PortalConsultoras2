@@ -1666,11 +1666,11 @@ function ActualizarMD() {
 
     var item = {
             CodigoUsuario: jQuery('#hdn_CodigoUsuarioMD').val(),
-            EMail: $.trim(jQuery('#txtEMailMD').val()),
-            Telefono: jQuery('#txtTelefonoMD').val(),
-            TelefonoTrabajo: jQuery('#txtTelefonoTrabajoMD').val(),
-            Celular: jQuery('#txtCelularMD').val(),
-            Sobrenombre: jQuery('#txtSobrenombreMD').val(),
+            EMail: $.trim($.trim(jQuery('#txtEMailMD').val())),
+            Telefono: $.trim(jQuery('#txtTelefonoMD').val()),
+            TelefonoTrabajo: $.trim(jQuery('#txtTelefonoTrabajoMD').val()),
+            Celular: $.trim(jQuery('#txtCelularMD').val()),
+            Sobrenombre: $.trim(jQuery('#txtSobrenombreMD').val()),
             CorreoAnterior: $.trim(jQuery('#hdn_CorreoMD').val()),
             NombreCompleto: jQuery('#hdn_NombreCompletoMD').val(),
             CompartirDatos: false,

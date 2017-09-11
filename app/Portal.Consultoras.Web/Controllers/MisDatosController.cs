@@ -149,8 +149,21 @@ namespace Portal.Consultoras.Web.Controllers
                     .ForMember(t => t.CompartirDatos, f => f.MapFrom(c => c.CompartirDatos))
                     .ForMember(t => t.AceptoContrato, f => f.MapFrom(c => c.AceptoContrato));
 
-                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);              
+                BEUsuario entidad = Mapper.Map<MisDatosModel, BEUsuario>(model);
 
+                entidad.CodigoUsuario = (entidad.CodigoUsuario == null) ? "" : UserData().CodigoUsuario;
+                entidad.EMail = (entidad.EMail == null) ? "" : entidad.EMail;
+                entidad.Telefono = (entidad.Telefono == null) ? "" : entidad.Telefono;
+                entidad.TelefonoTrabajo = (entidad.TelefonoTrabajo == null) ? "" : entidad.TelefonoTrabajo;
+                entidad.Celular = (entidad.Celular == null) ? "" : entidad.Celular;
+                entidad.Sobrenombre = (entidad.Sobrenombre == null) ? "" : entidad.Sobrenombre;
+                entidad.ZonaID = UserData().ZonaID;
+                entidad.RegionID = UserData().RegionID;
+                entidad.ConsultoraID = UserData().ConsultoraID;
+                entidad.PaisID = UserData().PaisID;
+                entidad.PrimerNombre = userData.PrimerNombre;
+                entidad.CodigoISO = UserData().CodigoISO;
+                
                 /*MC-HD881*/
                 if (Session[Constantes.ConstSession.ActualizarDatosConsultora] == null){
                     Session[Constantes.ConstSession.ActualizarDatosConsultora] = true;
@@ -159,36 +172,40 @@ namespace Portal.Consultoras.Web.Controllers
 
                 using (UsuarioServiceClient svr = new UsuarioServiceClient())
                 {
-                    string resultado = svr.ActualizarMisDatos(entidad, UserData().EMail);
+                    string resultado = svr.ActualizarMisDatos(entidad, model.CorreoAnterior);
 
                     //Data actual viene del Model       => model
                     //Data anterior viene del userData  => userData
 
+                    model.Sobrenombre = (model.Sobrenombre == null) ? "" : model.Sobrenombre;
                     if (UserData().Sobrenombre.ToString().Trim().ToUpper() != model.Sobrenombre.ToString().Trim().ToUpper())
                     {
-                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "SOBRENOMBRE", model.Sobrenombre.ToString().Trim(), UserData().Sobrenombre.ToString().Trim(), "HOME", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string>{ UserData().CodigoConsultora });
+                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "SOBRENOMBRE", model.Sobrenombre.ToString().Trim(), UserData().Sobrenombre.ToString().Trim(), "BIENVENIDA", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
                     }
 
+                    model.EMail = (model.EMail == null) ? "" : model.EMail;
                     if (UserData().EMail.ToString().Trim().ToUpper() != model.EMail.ToString().Trim().ToUpper())
                     {
-                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "EMAIL", model.EMail.ToString().Trim(), UserData().EMail.ToString().Trim(), "HOME", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
+                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "EMAIL", model.EMail.ToString().Trim(), UserData().EMail.ToString().Trim(), "BIENVENIDA", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
                     }
 
+                    model.Telefono = (model.Telefono == null) ? "" : model.Telefono;
                     if (UserData().Telefono.ToString().Trim().ToUpper() != model.Telefono.ToString().Trim().ToUpper())
                     {
-                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "TELEFONO", model.Telefono.ToString().Trim(), UserData().Telefono.ToString().Trim(), "HOME", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
+                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "TELEFONO", model.Telefono.ToString().Trim(), UserData().Telefono.ToString().Trim(), "BIENVENIDA", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
                     }
 
+                    model.Celular = (model.Celular == null) ? "" : model.Celular;
                     if (UserData().Celular.ToString().Trim().ToUpper() != model.Celular.ToString().Trim().ToUpper())
                     {
-                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "CELULAR", model.Celular.ToString().Trim(), UserData().Celular.ToString().Trim(), "HOME", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
+                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "CELULAR", model.Celular.ToString().Trim(), UserData().Celular.ToString().Trim(), "BIENVENIDA", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
                     }
 
+                    model.TelefonoTrabajo = (model.TelefonoTrabajo == null) ? "" : model.TelefonoTrabajo;
                     if (UserData().TelefonoTrabajo.ToString().Trim().ToUpper() != model.TelefonoTrabajo.ToString().Trim().ToUpper())
                     {
-                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "TELEFONO TRABAJO", model.TelefonoTrabajo.ToString().Trim(), UserData().TelefonoTrabajo.ToString().Trim(), "HOME", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
+                        ActualizarDatosLogDynamoDB(UserData().CodigoUsuario, "TELEFONO TRABAJO", model.TelefonoTrabajo.ToString().Trim(), UserData().TelefonoTrabajo.ToString().Trim(), "BIENVENIDA", Constantes.LogDynamoDB.AplicacionPortalConsultoras, UserData().PaisID.ToString(), Constantes.LogDynamoDB.RolConsultora, new List<string> { UserData().CodigoConsultora });
                     }
-
 
                     string[] lst = resultado.Split('|');
 
