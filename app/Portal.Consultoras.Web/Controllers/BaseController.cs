@@ -784,7 +784,10 @@ namespace Portal.Consultoras.Web.Controllers
             var menuActivo = MenuContenedorObtenerActivo();
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
-            return listMenu;
+            if (!userData.RevistaDigital.TieneRDC)
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+
+            return listMenu; 
         }
 
         /*
@@ -843,14 +846,10 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
+                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
                 listaMenu.Add(config);
             }
 
-            //List<ConfiguracionPaisModel> lista2 = new List<ConfiguracionPaisModel>();
-            //lista2 = listaMenu.Where(m => (m.Codigo == Constantes.ConfiguracionPais.Inicio ||
-            //                                    m.Codigo ==  Constantes.ConfiguracionPais.Lanzamiento ||
-            //                                    m.Codigo == Constantes.ConfiguracionPais.RevistaDigital)).ToList();
-            //lista2.ForEach(m => m.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1));
             listaMenu.AddRange(BuildMenuContenedor(listaMenu));
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
@@ -2825,38 +2824,67 @@ namespace Portal.Consultoras.Web.Controllers
         public MenuContenedorModel GetMenuActivo(string path)
         {
             var listMenu = BuildMenuContenedor();
-            var menuActivo = new MenuContenedorModel();
-            switch (path)
+            var pathStrings = path.Split('/');
+            var newPath = "";
+            try
             {
-                case  "/Ofertas":
+                newPath += "/" + pathStrings[1];
+                newPath += "/" + pathStrings[2];
+            }
+            catch (Exception e) {Console.WriteLine(e);}
+
+
+            var menuActivo = new MenuContenedorModel();
+            switch (newPath.ToLower())
+            {
+                case  "/ofertas":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/Ofertas/Revisar":
+                case "/ofertas/revisar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/RevistaDigital/Comprar":
+                case "/revistadigital/comprar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/RevistaDigital/Revisar":
+                case "/revistadigital/revisar":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
-                case "/RevistaDigital/Informacion":
+                case "/revistadigital/informacion":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
-                case "/RevistaDigital":
+                case "/revistadigital":
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
-                case "/ShowRoom":
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                case "/showroom":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                    break;
+                case "/showroom/intriga":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                    break;
+                case "/showroom/detalle":
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     menuActivo.CampaniaId = userData.CampaniaID;
                     break;
             }
+
+            // Menu para ShowRoom
+            if (string.IsNullOrEmpty(menuActivo.Codigo))
+            {
+                if (path.Contains("/ShowRoom"))
+                {
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    menuActivo.CampaniaId = userData.CampaniaID;
+                }
+            } 
+
             var configMenu =
                 listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
             if(menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
@@ -2874,8 +2902,6 @@ namespace Portal.Consultoras.Web.Controllers
                 menuActivo.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
             }
             Session[Constantes.ConstSession.MenuContenedorActivo] = menuActivo;
-
-
             return menuActivo;
         }
 

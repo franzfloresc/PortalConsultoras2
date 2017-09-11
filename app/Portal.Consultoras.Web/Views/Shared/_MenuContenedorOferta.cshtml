@@ -71,10 +71,12 @@
                     var claseActivo = "";
                     claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
                     <li data-campania="@menuhijo.CampaniaId" data-activo="1"
-                        data-codigo="@menuhijo.Codigo" 
+                        data-codigo="@menuhijo.Codigo"
                         data-es-ancla="@menuhijo.EsAncla"
                         onclick="MenuContenedorClick(this, '@menuhijo.UrlMenu')">
+                        
                         <a href="javascript:;" class="@claseActivo">
+                            @*<img src="../"/>*@
                             <span>@menuhijo.Descripcion</span>
                             <p>@menuhijo.DesktopTituloMenu</p>
                         </a>
