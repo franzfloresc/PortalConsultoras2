@@ -33868,26 +33868,27 @@ h1#penmostreo .campana {
     margin:-205px auto auto auto;
 }
 
-.contenedorMensajesA{
-    width:70%;
+.contenedorMensajeIntrigaA{
+    width:88%;
+    position:absolute;
 }
 
-.contenedorMensajesB{
-    width:30%;
+.contenedorMensajeIntrigaB{
+    width:auto;
+    position:absolute;
 }
 
 .dias_intriga_home{
     font-family:'Lato';
-    font-size:55px;
-    letter-spacing:4px;
+    letter-spacing:1.4px;
     color:white;
     text-align:center;
     width:100%;
-    text-shadow: -0.1em 0.1em black;
+    text-shadow: -0.08em 0.08em black;
     position: absolute;
-    top: 36%;
-    font-weight: 700;
+    font-weight: bold;
 }
+
 .link_cambiar_correo{
     font-family:'Lato';
     font-size:11px;
@@ -36041,7 +36042,7 @@ h1#penmostreo .campana {
 }
 
 .dias_inicio_landing {
-    font-size: 66px;
+    font-size: 78.4px;
     top:170px;
 }
 .saludo_landing{
