@@ -310,29 +310,31 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 }
 
                 return Json(new
-                    {
-                        success = true,
-                        message = string.Empty,
-                        extra = oComunicados
+                {
+                    success = true,
+                    message = string.Empty,
+                    extra = oComunicados
                 }, JsonRequestBehavior.AllowGet);
             }
             catch (FaultException ex)
             {
                 LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 return Json(new
                 {
                     success = false,
                     message = ex.Message
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
                 return Json(new
                 {
                     success = false,
                     message = ex.Message
-                });
+                }, JsonRequestBehavior.AllowGet);
             }
         }
     }
