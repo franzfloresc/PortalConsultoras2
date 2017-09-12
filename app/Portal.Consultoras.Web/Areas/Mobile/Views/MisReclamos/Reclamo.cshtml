@@ -65,7 +65,7 @@
         </div>
 
         <!-- INICIO VISTA CON QUÉ PRODUCTO HAS TENIDO INCONVENIENTES -->
-        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1">
+        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold Registro1" id="divUltimasSolicitudes">
             ¿Con qué producto has tenido inconvenientes?
             <div class="mi_solicitud_cdr">
                 <div class="pestania_ver_mi_solicitud">
@@ -150,6 +150,15 @@
                     </div>
                 </div>
             </form>
+            <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
+            @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">*@
+            <span class="icono_arrow_left">
+                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+            </span>
+            <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
+                <span>VER SOLICITUDES ANTERIORES</span>
+            </a>
+            <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
         </div>
         <!--PASO A PASO RECLAMOS-->
         <div style="display:none;">
@@ -310,6 +319,11 @@
         <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
             Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
         </span>
+    </div>
+    <div class="AceptarSolucion" style="display:none;">
+        <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
+            <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
+        </a>
     </div>
     <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
     <!--SOLICITUD ENVIADA-->
@@ -545,18 +559,7 @@
             QUIERO VER OTRA ALTERNATIVA
         </a>*@
     <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
-    <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-    @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">*@
-    @*<span class="icono_arrow_left">
-            <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
-        </span>*@
-    <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
-        <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
-    </a>
 
-    <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
-
-</div>
 </div>
 
 <!-- INICIO BOTONES CTA (CALL TO ACTION) -->
@@ -676,12 +679,12 @@
             </div>
             <div class="icono_eliminar_solic_cdr">
                 @*<a href="#" title="eliminar solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
-                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
-                </a>*@
+                        <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
+                    </a>*@
 
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
-                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
-                    title="Eliminar solicitud"></a>
+                   style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+                   title="Eliminar solicitud"></a>
 
             </div>
         </div>
@@ -753,6 +756,7 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
 <script type="text/javascript">
+    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
     var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
     var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
     var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
