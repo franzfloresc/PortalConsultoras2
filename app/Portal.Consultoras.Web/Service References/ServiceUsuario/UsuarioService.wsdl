@@ -135,6 +135,18 @@
   <wsdl:message name="IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage">
     <wsdl:part name="parameters" element="tns:ObtenerUsuarioConfiguracionResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTerminosCondiciones" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_InsertTerminosCondiciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertTerminosCondicionesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetTerminosCondiciones_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminosCondiciones" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetTerminosCondiciones_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTerminosCondicionesResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_Select_InputMessage">
     <wsdl:part name="parameters" element="tns:Select" />
   </wsdl:message>
@@ -261,23 +273,11 @@
   <wsdl:message name="IUsuarioService_IsUserExist_OutputMessage">
     <wsdl:part name="parameters" element="tns:IsUserExistResponse" />
   </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUserUPN_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserUPN" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_GetUserUPN_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetUserUPNResponse" />
-  </wsdl:message>
   <wsdl:message name="IUsuarioService_ChangePasswordUser_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangePasswordUser" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ChangePasswordUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangePasswordUserResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidateUserCredentialsActiveDirectory_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateUserCredentialsActiveDirectory" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_ValidateUserCredentialsActiveDirectory_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidateUserCredentialsActiveDirectoryResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_UpdUsuarioDatosPrimeraVezEstado_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdUsuarioDatosPrimeraVezEstado" />
@@ -321,17 +321,17 @@
   <wsdl:message name="IUsuarioService_GetUsuarioAsociado_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsuarioAsociadoResponse" />
   </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPermisos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPermisos" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetUsuarioPermisos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsuarioPermisosResponse" />
+  </wsdl:message>
   <wsdl:message name="IUsuarioService_GetValidarConsultoraNueva_InputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarConsultoraNueva" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetValidarConsultoraNueva_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetValidarConsultoraNuevaResponse" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CreateActiveDirectoryUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:CreateActiveDirectoryUser" />
-  </wsdl:message>
-  <wsdl:message name="IUsuarioService_CreateActiveDirectoryUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CreateActiveDirectoryUserResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_ValidarUsuarioPrueba_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidarUsuarioPrueba" />
@@ -368,6 +368,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_InsLogIngresoPortal_OutputMessage">
     <wsdl:part name="parameters" element="tns:InsLogIngresoPortalResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_AceptarContrato_InputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarContrato" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_AceptarContrato_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarContratoResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_AceptarContratoAceptacion_InputMessage">
     <wsdl:part name="parameters" element="tns:AceptarContratoAceptacion" />
@@ -416,6 +422,12 @@
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetNotificacionesConsultora_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetNotificacionesConsultoraResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNotificacionesSinLeer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesSinLeer" />
+  </wsdl:message>
+  <wsdl:message name="IUsuarioService_GetNotificacionesSinLeer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNotificacionesSinLeerResponse" />
   </wsdl:message>
   <wsdl:message name="IUsuarioService_GetNotificacionesConsultoraDetalle_InputMessage">
     <wsdl:part name="parameters" element="tns:GetNotificacionesConsultoraDetalle" />
@@ -714,6 +726,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracion" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ObtenerUsuarioConfiguracionResponse" message="tns:IUsuarioService_ObtenerUsuarioConfiguracion_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" message="tns:IUsuarioService_InsertTerminosCondiciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsertTerminosCondicionesResponse" message="tns:IUsuarioService_InsertTerminosCondiciones_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" message="tns:IUsuarioService_GetTerminosCondiciones_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetTerminosCondicionesResponse" message="tns:IUsuarioService_GetTerminosCondiciones_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/Select" message="tns:IUsuarioService_Select_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/SelectResponse" message="tns:IUsuarioService_Select_OutputMessage" />
@@ -798,17 +818,9 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/IsUserExist" message="tns:IUsuarioService_IsUserExist_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/IsUserExistResponse" message="tns:IUsuarioService_IsUserExist_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUserUPN" message="tns:IUsuarioService_GetUserUPN_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUserUPNResponse" message="tns:IUsuarioService_GetUserUPN_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ChangePasswordUser" message="tns:IUsuarioService_ChangePasswordUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ChangePasswordUserResponse" message="tns:IUsuarioService_ChangePasswordUser_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" message="tns:IUsuarioService_ValidateUserCredentialsActiveDirectory_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectoryResponse" message="tns:IUsuarioService_ValidateUserCredentialsActiveDirectory_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdUsuarioDatosPrimeraVezEstado">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/UpdUsuarioDatosPrimeraVezEstado" message="tns:IUsuarioService_UpdUsuarioDatosPrimeraVezEstado_InputMessage" />
@@ -838,13 +850,13 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioAsociado" message="tns:IUsuarioService_GetUsuarioAsociado_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioAsociadoResponse" message="tns:IUsuarioService_GetUsuarioAsociado_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetUsuarioPermisos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisos" message="tns:IUsuarioService_GetUsuarioPermisos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetUsuarioPermisosResponse" message="tns:IUsuarioService_GetUsuarioPermisos_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetValidarConsultoraNueva">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" message="tns:IUsuarioService_GetValidarConsultoraNueva_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetValidarConsultoraNuevaResponse" message="tns:IUsuarioService_GetValidarConsultoraNueva_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" message="tns:IUsuarioService_CreateActiveDirectoryUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUserResponse" message="tns:IUsuarioService_CreateActiveDirectoryUser_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidarUsuarioPrueba">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/ValidarUsuarioPrueba" message="tns:IUsuarioService_ValidarUsuarioPrueba_InputMessage" />
@@ -869,6 +881,10 @@
     <wsdl:operation name="InsLogIngresoPortal">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortal" message="tns:IUsuarioService_InsLogIngresoPortal_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/InsLogIngresoPortalResponse" message="tns:IUsuarioService_InsLogIngresoPortal_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AceptarContrato">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContrato" message="tns:IUsuarioService_AceptarContrato_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoResponse" message="tns:IUsuarioService_AceptarContrato_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="AceptarContratoAceptacion">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/AceptarContratoAceptacion" message="tns:IUsuarioService_AceptarContratoAceptacion_InputMessage" />
@@ -901,6 +917,10 @@
     <wsdl:operation name="GetNotificacionesConsultora">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora" message="tns:IUsuarioService_GetNotificacionesConsultora_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraResponse" message="tns:IUsuarioService_GetNotificacionesConsultora_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesSinLeer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer" message="tns:IUsuarioService_GetNotificacionesSinLeer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeerResponse" message="tns:IUsuarioService_GetNotificacionesSinLeer_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetNotificacionesConsultoraDetalle">
       <wsdl:input wsaw:Action="http://tempuri.org/IUsuarioService/GetNotificacionesConsultoraDetalle" message="tns:IUsuarioService_GetNotificacionesConsultoraDetalle_InputMessage" />
@@ -1210,6 +1230,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/Select" style="document" />
       <wsdl:input>
@@ -1399,26 +1437,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUserUPN" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ChangePasswordUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1489,8 +1509,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetValidarConsultoraNueva">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
+    <wsdl:operation name="GetUsuarioPermisos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioPermisos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1498,8 +1518,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" style="document" />
+    <wsdl:operation name="GetValidarConsultoraNueva">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1554,6 +1574,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsLogIngresoPortal">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsLogIngresoPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarContrato">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/AceptarContrato" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1626,6 +1655,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetNotificacionesConsultora">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesSinLeer">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2132,6 +2170,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="InsertTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsertTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTerminosCondiciones">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetTerminosCondiciones" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Select">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/Select" style="document" />
       <wsdl:input>
@@ -2321,26 +2377,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetUserUPN">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUserUPN" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="ChangePasswordUser">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/ChangePasswordUser" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ValidateUserCredentialsActiveDirectory">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/ValidateUserCredentialsActiveDirectory" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2411,8 +2449,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetValidarConsultoraNueva">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
+    <wsdl:operation name="GetUsuarioPermisos">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetUsuarioPermisos" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2420,8 +2458,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CreateActiveDirectoryUser">
-      <soap:operation soapAction="http://tempuri.org/IUsuarioService/CreateActiveDirectoryUser" style="document" />
+    <wsdl:operation name="GetValidarConsultoraNueva">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetValidarConsultoraNueva" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2476,6 +2514,15 @@
     </wsdl:operation>
     <wsdl:operation name="InsLogIngresoPortal">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/InsLogIngresoPortal" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarContrato">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/AceptarContrato" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2548,6 +2595,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetNotificacionesConsultora">
       <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNotificacionesConsultora" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNotificacionesSinLeer">
+      <soap:operation soapAction="http://tempuri.org/IUsuarioService/GetNotificacionesSinLeer" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

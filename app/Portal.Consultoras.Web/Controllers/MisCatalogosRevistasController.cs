@@ -27,9 +27,9 @@ namespace Portal.Consultoras.Web.Controllers
             clienteModel.CampaniaActual = userData.CampaniaID.ToString();
             clienteModel.CampaniaAnterior = AddCampaniaAndNumero(userData.CampaniaID, -1).ToString();
             clienteModel.CampaniaSiguiente = AddCampaniaAndNumero(userData.CampaniaID, 1).ToString();
-            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual, userData.RevistaDigital.TieneRDR);
-            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior, userData.RevistaDigital.TieneRDR);
-            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente, userData.RevistaDigital.TieneRDR);
+            clienteModel.CodigoRevistaActual = GetRevistaCodigoIssuu(clienteModel.CampaniaActual);
+            clienteModel.CodigoRevistaAnterior = GetRevistaCodigoIssuu(clienteModel.CampaniaAnterior);
+            clienteModel.CodigoRevistaSiguiente = GetRevistaCodigoIssuu(clienteModel.CampaniaSiguiente);
 
             ViewBag.CodigoISO = userData.CodigoISO;
             ViewBag.EsConsultoraNueva = userData.ConsultoraNueva == Constantes.EstadoActividadConsultora.Registrada ||
@@ -588,11 +588,9 @@ namespace Portal.Consultoras.Web.Controllers
         {
             try
             {
-                var mostrarRevistaDigital = ValidarPermiso(Constantes.MenuCodigo.RevistaDigital);
-
                 if (string.IsNullOrEmpty(campania)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
-                string codigo = GetRevistaCodigoIssuu(campania, mostrarRevistaDigital);
+                string codigo = GetRevistaCodigoIssuu(campania);
                 if (string.IsNullOrEmpty(codigo)) return Json(new { success = false }, JsonRequestBehavior.AllowGet);
 
                 string url = ConfigurationManager.AppSettings["UrlIssuu"].ToString();

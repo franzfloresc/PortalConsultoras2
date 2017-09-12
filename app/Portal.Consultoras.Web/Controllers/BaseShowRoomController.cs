@@ -10,7 +10,6 @@ using Portal.Consultoras.Web.ServiceUsuario;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using Portal.Consultoras.Web.ServiceProductoCatalogoPersonalizado;
 using Portal.Consultoras.Web.Areas.Mobile.Controllers;
 using System.Linq;
 using System.ServiceModel;
@@ -697,5 +696,38 @@ namespace Portal.Consultoras.Web.Controllers
             return showRoomEventoModel;
         }
 
+        protected virtual List<BEShowRoomOferta> ObtenerOfertasShowRoom()
+        {
+            var listaShowRoomOferta = (List<BEShowRoomOferta>)null;
+
+            using (PedidoServiceClient sv = new PedidoServiceClient())
+            {
+                listaShowRoomOferta = sv.GetShowRoomOfertasConsultora(userData.PaisID, userData.CampaniaID, userData.CodigoConsultora, TienePersonalizacion()).ToList();
+            }
+
+            return listaShowRoomOferta;
+        }
+
+        protected virtual void ActualizarUrlImagenes(List<BEShowRoomOferta> ofertasShowRoom)
+        {
+            ofertasShowRoom.Update(x => x.ImagenProducto = string.IsNullOrEmpty(x.ImagenProducto)
+                            ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenProducto, ObtenerCarpetaPais()));
+            ofertasShowRoom.Update(x => x.ImagenMini = string.IsNullOrEmpty(x.ImagenMini)
+                ? "" : ConfigS3.GetUrlFileS3(ObtenerCarpetaPais(), x.ImagenMini, ObtenerCarpetaPais()));
+        }
+
+        protected virtual string ObtenerCarpetaPais()
+        {
+            return Globals.UrlMatriz + "/" + userData.CodigoISO;
+        }
+
+        protected virtual ShowRoomOfertaModel ObtenerPrimeraOfertaShowRoom(List<BEShowRoomOferta> ofertasShowRoom)
+        {
+            var ofertasShowRoomModel = Mapper.Map<List<BEShowRoomOferta>, List<ShowRoomOfertaModel>>(ofertasShowRoom);
+            ofertasShowRoomModel.Update(x => x.DescripcionMarca = GetDescripcionMarca(x.MarcaID));
+
+            var model = ofertasShowRoomModel.FirstOrDefault();
+            return model;
+        }
     }
 }

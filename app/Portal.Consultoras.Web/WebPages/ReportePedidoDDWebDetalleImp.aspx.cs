@@ -35,8 +35,8 @@ namespace Portal.Consultoras.Web.WebPages
             string usuario = lst[14];
             string simbolo = lst[15];
             string TipoProceso = lst[18];
-            int PaisID = Convert.ToInt32(lst[19]);
             string MotivoRechazo = lst[20];
+            int PaisID = Convert.ToInt32(lst[19]);
 
             Usuario.Text = usuario;
             lblCampaniaCod.Text = CampaniaCod;
@@ -47,7 +47,6 @@ namespace Portal.Consultoras.Web.WebPages
             lblValidado.Text = Validado;
             lblSaldo.Text = Saldo;
             lblMotivoRechazo.Text = MotivoRechazo;
-
             /* Los importes ya vienen formateados */
             lblImporte.Text = Importe;
             lblImporteConDescuento.Text = ImporteConDescuento;

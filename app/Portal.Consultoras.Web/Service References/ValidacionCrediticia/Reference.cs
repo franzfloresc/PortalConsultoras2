@@ -30,6 +30,9 @@ namespace Portal.Consultoras.Web.ValidacionCrediticia {
         private string PaisField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RegionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string documentoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -79,6 +82,19 @@ namespace Portal.Consultoras.Web.ValidacionCrediticia {
                 if ((object.ReferenceEquals(this.PaisField, value) != true)) {
                     this.PaisField = value;
                     this.RaisePropertyChanged("Pais");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Region {
+            get {
+                return this.RegionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RegionField, value) != true)) {
+                    this.RegionField = value;
+                    this.RaisePropertyChanged("Region");
                 }
             }
         }

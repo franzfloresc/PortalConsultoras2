@@ -141,19 +141,19 @@ namespace Portal.Consultoras.Entities
         public string TipoEstrategiaID { get; set; }
         /* CGI (AHAA) - BUG 2015000858 - Fin */
         [DataMember]
-        public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
-                                                     //[DataMember]
-                                                     //public string Indicador
-                                                     //{
-                                                     //    get { return msIndicador; }
-                                                     //    set { msIndicador = value; }
-                                                     //}
-                                                     //[DataMember]
-                                                     //public byte PaisID
-                                                     //{
-                                                     //    get { return miPaisID; }
-                                                     //    set { miPaisID = value; }
-                                                     //}
+        public bool IndicadorOfertaCUV  { get; set; } /*R20150701*/
+        //[DataMember]
+        //public string Indicador
+        //{
+        //    get { return msIndicador; }
+        //    set { msIndicador = value; }
+        //}
+        //[DataMember]
+        //public byte PaisID
+        //{
+        //    get { return miPaisID; }
+        //    set { miPaisID = value; }
+        //}
 
         [DataMember]
         public string Nombre { get; set; }

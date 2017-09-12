@@ -119,7 +119,7 @@
                 window.setTimeout(function () { $("body").css("visibility", "visible"); }, 100);
             }
 
-            document.getElementById('linkregresarasomosbelcorp').href = result.url;
+            //document.getElementById('linkregresarasomosbelcorp').href = result.url;
            
 
         });

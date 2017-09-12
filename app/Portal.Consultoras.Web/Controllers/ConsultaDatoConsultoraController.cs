@@ -131,16 +131,6 @@
                 simbolo = string.Format("{0} ", userData.Simbolo);
                 ///Fin Totales
 
-
-
-
-
-
-
-
-
-
-
                 if (lst.Count != 0)
                 {
                     lst.RemoveAt(lst.Count - 1);
@@ -609,7 +599,7 @@
                 using (ServicePedido.PedidoServiceClient sv = new ServicePedido.PedidoServiceClient())
                 {
                     //Inicio ITG 1793 HFMG
-                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "").ToList();
+                    olstPedido = sv.SelectByCampania(userData.PaisID, int.Parse(campaniaId), long.Parse(consultoraId), "", EsOpt()).ToList();
                     //Fin ITG 1793 HFMG
                 }
 

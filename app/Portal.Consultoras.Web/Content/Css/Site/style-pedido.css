@@ -5,6 +5,11 @@
     max-width: 700px !important;
 }
 
+.SubHeader
+{
+    position: absolute;
+    margin-left: 83px;
+}
 .ubicacion_web {
     width: 100% !important;
     max-width: 1189px !important;

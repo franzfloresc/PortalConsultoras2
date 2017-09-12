@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
+﻿@using Portal.Consultoras.Common
+@model Portal.Consultoras.Web.Models.MisCatalogosRevistasModel
 @{
     ViewBag.Title = "Catálogos y Revistas";
 }
@@ -69,7 +70,9 @@
                             <div class="hblock_tit">@ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal btn_stroke_white">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
+                                    VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -87,12 +90,13 @@
                         <div class="rd_logo">
                             <img src="@Url.Content("~/Content/Images/RevistaDigital/esika-para-mi-blanco.svg")" height="70">
                         </div>
-                        <div class="hblock_text" style="padding-top: 34px;">ViewBag.NumeroCampania
-                            <div class="hblock_tit" style="font-size: 14px;">@ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
+                        <div class="hblock_text" style="padding-top: 34px;">
+                            <div class="hblock_tit" style="font-size: 14px;"> @ViewBag.NombreConsultora, LLEGÓ TU NUEVA REVISTA ONLINE PERSONALIZADA</div>
                             <div style="max-width: 70%; font-size: 18px;">¿YA VISTE TUS OFERTAS DE LA C-@ViewBag.NumeroCampania EN ÉSIKA PARA MÍ? </div>
-                            <div class="btn_diagonal"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                                                          <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                 </a>
                             </div>
                         </div>
@@ -114,7 +118,8 @@
                             <div class="hblock_tit"> @ViewBag.NombreConsultora, YA LLEGÓ TU NUEVA REVISTA ONLINE</div>
                             <div>¿YA VISTE TUS <b>OFERTAS EN ÉSIKA PARA MÍ</b>?
                             </div>
-                            <div class="btn_diagonal btn_stroke_white"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
+                            <div class="btn_diagonal btn_stroke_white">
+                                <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">VER TODAS MIS OFERTAS
                                     <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                                     <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                                 </a>
@@ -128,7 +133,7 @@
         {
             @Html.Partial("~/Views/MisCatalogosRevistas/template-revista-slide.cshtml")
             <!-- Agregar revista -->
-            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative; display: none;">
+            <div class="revista_content" id="contentRevistaDigital" style="height: 300px; position: relative;">
                 <div>
                     <div style="height: 127px; top: 40px; position: relative; margin-bottom: 16px;">
                         <img src="/Content/Images/esika-para-mi-img.svg" alt="Alternate Text" style="height: 100%; float: left;"/>
@@ -138,7 +143,7 @@
                         <span style="display: block; font-size: 15px; font-weight: bold; padding-left: 10px;">Conoce ahora tus ofertas y aumenta tus ganancias</span>
                     </div>
                     <div class="revistadigital revistaDigital_catalogosRevistas">
-                        <div class="boxoffer" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
+                        <div class="boxoffer" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopCatalogoSeccion)">
                             <div class="fondo_boton"></div>
                             <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
                         </div>
@@ -248,14 +253,13 @@
     <input type="hidden" name="campaniaRevista" id="campaniaRevista" value="">
 }
 </div>
-
 @section styles{
 
     <link href="~/Content/Css/Site/jquery.tag-editor.css" rel="stylesheet" />
     <link href="~/Content/Css/Site/Esika/revistaDigital.css" rel="stylesheet" />
 }
 @section scripts{
-    <script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/slick-vertical.min.js")"></script>*@
     <script src="@Url.Content("~/Scripts/Tag/jquery.tags.input.js")"></script>
 
     <script type="text/javascript" id="js-ready-Catalogo">
@@ -295,7 +299,10 @@
         }
         var urlDetalle = '@Url.Action("Detalle", "MisCatalogosRevistas", new { area = "" })';
         var _Pagina = 1;
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/MisCatalogosRevistas/Index.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Suscripcion.js")"></script>
 }

@@ -19,7 +19,10 @@ namespace Portal.Consultoras.Web.GestionPasos
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Guatemala, new EvaluacionCrediticiaCam());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Panama, new EvaluacionCrediticiaCam());
             EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Salvador, new EvaluacionCrediticiaCam());
-            
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Dominicana, new EvaluacionCrediticiaDominicana());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.PuertoRico, new EvaluacionCrediticiaPuertoRico());
+            EvaluacionCrediticia.Add(Constantes.CodigosISOPais.Bolivia, new EvaluacionCrediticiaBolivia());
+
         }
     }
 }

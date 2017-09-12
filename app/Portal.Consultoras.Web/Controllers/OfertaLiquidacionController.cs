@@ -5,6 +5,7 @@ using Portal.Consultoras.Web.ServicePedido;
 using Portal.Consultoras.Web.ServiceZonificacion;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
@@ -104,25 +105,6 @@ namespace Portal.Consultoras.Web.Controllers
                 lst = origen == "OfertaLiquidacion" ? sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros*2).ToList() : sv.GetOfertaProductosPortal2(userData.PaisID, Constantes.ConfiguracionOferta.Liquidacion, 1, userData.CampaniaID, offset, cantidadregistros).ToList();
             }
             ViewBag.Simbolo = userData.Simbolo.ToString().Trim();
-            Mapper.CreateMap<BEOfertaProducto, OfertaProductoModel>()
-                  .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
-                  .ForMember(t => t.CampaniaID, f => f.MapFrom(c => c.CampaniaID))
-                  .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.Descripcion))
-                  .ForMember(t => t.PrecioOferta, f => f.MapFrom(c => c.PrecioOferta))
-                  .ForMember(t => t.Stock, f => f.MapFrom(c => c.Stock))
-                  .ForMember(t => t.ImagenProducto, f => f.MapFrom(c => c.ImagenProducto))
-                  .ForMember(t => t.Orden, f => f.MapFrom(c => c.Orden))
-                  .ForMember(t => t.UnidadesPermitidas, f => f.MapFrom(c => c.UnidadesPermitidas))
-                  .ForMember(t => t.CodigoCampania, f => f.MapFrom(c => c.CodigoCampania))
-                  .ForMember(t => t.ConfiguracionOfertaID, f => f.MapFrom(c => c.ConfiguracionOfertaID))
-                  .ForMember(t => t.TipoOfertaSisID, f => f.MapFrom(c => c.TipoOfertaSisID))
-                  .ForMember(t => t.MarcaID, f => f.MapFrom(c => c.MarcaID))
-                  .ForMember(t => t.OfertaProductoID, f => f.MapFrom(c => c.OfertaProductoID))
-                  .ForMember(t => t.DescripcionLegal, f => f.MapFrom(c => c.DescripcionLegal))
-                  .ForMember(t => t.TallaColor, f => f.MapFrom(c => c.TallaColor))
-                  .ForMember(t => t.DescripcionMarca, f => f.MapFrom(c => c.DescripcionMarca))
-                  .ForMember(t => t.DescripcionCategoria, f => f.MapFrom(c => c.DescripcionCategoria))
-                  .ForMember(t => t.DescripcionEstrategia, f => f.MapFrom(c => c.DescripcionEstrategia));
 
             // 1664
             if (lst != null && lst.Count > 0)
@@ -137,7 +119,7 @@ namespace Portal.Consultoras.Web.Controllers
                 lst.Update(x => x.ImagenProducto = ConfigS3.GetUrlFileS3(carpetaPais, x.ImagenProducto, Globals.UrlMatriz + "/" + userData.CodigoISO));
                 lst.Update(x => x.PrecioString = Util.DecimalToStringFormat(x.PrecioOferta, userData.CodigoISO));
             }
-           
+            
             return Json(new
             {
                 lista = lst,             
@@ -224,6 +206,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     entidad.CodigoUsuarioCreacion = userData.CodigoConsultora;
                     entidad.CodigoUsuarioModificacion = entidad.CodigoUsuarioCreacion;
+                    entidad.OrigenPedidoWeb = ProcesarOrigenPedido(entidad.OrigenPedidoWeb);
 
                     sv.InsPedidoWebDetalleOferta(entidad);
                     
@@ -464,7 +447,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 lstCampania = new List<CampaniaModel>(),
                 lstConfiguracionOferta = new List<ConfiguracionOfertaModel>(),
-                lstPais = DropDowListPaises()
+                lstPais = DropDowListPaises(),
+                ExpValidacionNemotecnico = ConfigurationManager.AppSettings["ExpresionValidacionNemotecnico"]
             };
             return View(cronogramaModel);
         }
@@ -543,10 +527,13 @@ namespace Portal.Consultoras.Web.Controllers
             //PaisID = 11;
             IEnumerable<CampaniaModel> lst = DropDowListCampanias(PaisID);
             IEnumerable<ConfiguracionOfertaModel> lstConfig = DropDowListConfiguracion(PaisID);
+            string habilitarNemotecnico = ObtenerValorTablaLogica(PaisID, Constantes.TablaLogica.Plan20, Constantes.TablaLogicaDato.BusquedaNemotecnicoOfertaLiquidacion);
+
             return Json(new
             {
                 lista = lst,
-                lstConfig = lstConfig
+                lstConfig = lstConfig,
+                habilitarNemotecnico = habilitarNemotecnico == "1"
             }, JsonRequestBehavior.AllowGet);
         }
 

@@ -4,7 +4,11 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;CONDICIONES DE USO WEB
 </div>
 <div class="fondo_f2f2f2" style="background:white;">
@@ -22,11 +26,11 @@
 
     <span class="subtitulo_terminos">2. CONDICIONES GENERALES</span>
 
-        Estas condiciones generales tienen por objeto regular el acceso y la utilización del sitio Web
-        que LA EMPRESA pone gratuitamente a disposición de los Usuarios, salvo en lo relativo al coste de la conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por los Usuarios.<br />
+    Estas condiciones generales tienen por objeto regular el acceso y la utilización del sitio Web
+    que LA EMPRESA pone gratuitamente a disposición de los Usuarios, salvo en lo relativo al coste de la conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por los Usuarios.<br />
 
-        El acceso al sitio Web y la navegación por el mismo implica la aceptación, sin reservas, de
-        todas las condiciones incluidas en este documento.<br />
+    El acceso al sitio Web y la navegación por el mismo implica la aceptación, sin reservas, de
+    todas las condiciones incluidas en este documento.<br />
 
-        La utilización de determinados servicios ofrecidos en este sitio Web se regirá, además, por las condiciones particulares previstas en cada caso, las cuales se entenderán aceptadas por el solo uso de éstos.<br />
+    La utilización de determinados servicios ofrecidos en este sitio Web se regirá, además, por las condiciones particulares previstas en cada caso, las cuales se entenderán aceptadas por el solo uso de éstos.<br />
 </div>

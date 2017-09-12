@@ -3,9 +3,14 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
 }
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     PEDIDO FACTURADO
 </div>
+
 @if (Model.ListaPedidoCliente.Count == 0)
 {
     <div class="">
@@ -51,9 +56,9 @@ else
         var campaniaActual = "";
         var campaniasCargadas = new Array();
 
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $(".mytab").click(function() {
+            $(".mytab").click(function () {
 
                 $('.mytab.active').removeClass("active");
                 $(this).addClass("active");
@@ -85,7 +90,7 @@ else
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({ campaniaID: campaniaID, pedidoId: pedidoId }),
                 async: true,
-                success: function(html) {
+                success: function (html) {
                     $("#divListaPedidoDetalle_" + campaniaID).html(html);
                     campaniaActual = campaniaID;
                     if (primerEnvio != 0) {
@@ -95,7 +100,7 @@ else
                     campaniasCargadas.push(campaniaID);
                     CloseLoading();
                 },
-                error: function(data, error) {
+                error: function (data, error) {
                     if (checkTimeout(data)) {
                         CloseLoading();
                         console.log(data);

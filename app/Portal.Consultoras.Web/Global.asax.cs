@@ -1,28 +1,27 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.CustomFilters;
+using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
 using System.Configuration;
 using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace Portal.Consultoras.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-           
-            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales"); 
+
+            Globals.RutaTemporales = HttpContext.Current.Server.MapPath("~/Content/Temporales");
             Globals.RutaImagenesTemp = HttpContext.Current.Server.MapPath("~/Content/Images/temp");
             Globals.RutaImagenesTempOfertas = HttpContext.Current.Server.MapPath("~/Content/TemporalesOfertas");
             Globals.RutaImagenesFondoLogin = HttpContext.Current.Server.MapPath("~/Content/Images/login");
@@ -30,15 +29,15 @@ namespace Portal.Consultoras.Web
             Globals.RutaImagenesLogoPortal = HttpContext.Current.Server.MapPath("~/Content/Images/logo");
             Globals.RutaImagenesOfertasWeb = HttpContext.Current.Server.MapPath("~/Content/Ofertas");
             Globals.RutaImagenesOfertasLiquidacion = HttpContext.Current.Server.MapPath("~/Content/OfertasLiquidacion");
-            Globals.RutaImagenesMatriz = "/Content/Matriz"; 
+            Globals.RutaImagenesMatriz = "/Content/Matriz";
             Globals.RutaImagenesTempMatriz = HttpContext.Current.Server.MapPath("~/Content/TemporalesMatriz");
             Globals.RutaImagenesBanners = HttpContext.Current.Server.MapPath("~/Content/Banners");
             Globals.RutaImagenesTempBanners = HttpContext.Current.Server.MapPath("~/Content/TemporalesBanners");
-            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago"); 
-            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago"; 
+            Globals.RutaImagenesTempLugaresPago = HttpContext.Current.Server.MapPath("~/Content/TemporalesLugaresPago");
+            Globals.RutaImagenesLugaresPago = "/Content/LugaresPago";
             Globals.RutaImagenesTempIncentivos = HttpContext.Current.Server.MapPath("~/Content/TemporalesIncentivos");
-            Globals.RutaImagenesIncentivos = "/Content/Incentivos"; 
-            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas"; 
+            Globals.RutaImagenesIncentivos = "/Content/Incentivos";
+            Globals.RutaImagenesOfertasNuevas = "/Content/OfertasNuevas";
 
             Globals.UrlBanner = ConfigurationManager.AppSettings["Banners"];
             Globals.UrlFileConsultoras = ConfigurationManager.AppSettings["FileConsultoras"];
@@ -50,18 +49,6 @@ namespace Portal.Consultoras.Web
             Globals.UrlEscalaDescuentos = ConfigurationManager.AppSettings["EscalaDescuentos"];
             Globals.UrlOfertasFic = ConfigurationManager.AppSettings["OfertasFic"];
             Globals.UrlNavidadConsultora = ConfigurationManager.AppSettings["NavidadConsultora"];
-
-            // configuración del Dynamic Global Action Filter de Log
-            //LogActionFilterProvider providerLog = new LogActionFilterProvider();
-            //providerLog.Add("Bienvenida", "Index");
-            //providerLog.Add("Login", "Index");
-            //providerLog.Add("Catalogo", "Index");
-            //providerLog.Add("Cliente", "Index");
-            //providerLog.Add("Cliente", "Mantener");
-            //providerLog.Add("Bienvenida", "ConsultarFaltantesAnunciados");
-            //providerLog.Add("EstadoCuenta", "Index");
-
-            //FilterProviders.Providers.Add(providerLog);
 
             // configuración del Dynamic Global Action Filter de Expiración de Sesión
             SessionExpiredActionFilterProvider providerSession = new SessionExpiredActionFilterProvider();
@@ -90,7 +77,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Cliente", "DeshacerCambios");
             providerSession.Add("Cliente", "Update");
             providerSession.Add("Cliente", "Insert");
-            
+
             providerSession.Add("ConfiguracionValidacion", "Index");
             providerSession.Add("ConfiguracionValidacion", "ObtenerConfiguracionPedidosPorPais");
             providerSession.Add("ConfiguracionValidacion", "Mantener");
@@ -132,7 +119,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("DescargaPedidos", "RealizarDescarga");
 
             providerSession.Add("DuplaSAC", "Index");
-            
+
             providerSession.Add("FacturaElectronica", "Index");
 
             providerSession.Add("FileUpload", "ImageUpload");
@@ -317,7 +304,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Notificaciones", "DetalleSolicitudCliente", "Mobile");
             providerSession.Add("Notificaciones", "ListarObservaciones", "Mobile");
             providerSession.Add("Notificaciones", "ListarObservacionesStock", "Mobile");
-			providerSession.Add("Notificaciones", "DetalleSolicitudClienteCatalogo", "Mobile");
+            providerSession.Add("Notificaciones", "DetalleSolicitudClienteCatalogo", "Mobile");
             providerSession.Add("OfertaLiquidacion", "Index", "Mobile");
             providerSession.Add("PedidoCliente", "Index", "Mobile");
             providerSession.Add("Pedido", "Index", "Mobile");
@@ -330,7 +317,7 @@ namespace Portal.Consultoras.Web
             providerSession.Add("Revista", "Index", "Mobile");
             providerSession.Add("SeguimientoPedido", "Index", "Mobile");
             providerSession.Add("Cliente", "Index", "Mobile");
-			providerSession.Add("Paypal", "Index", "Mobile");
+            providerSession.Add("Paypal", "Index", "Mobile");
             providerSession.Add("ConsultoraOnline", "Index", "Mobile");
             providerSession.Add("ConsultoraOnline", "Informacion", "Mobile");
             providerSession.Add("ConsultoraOnline", "Inscripcion", "Mobile");
@@ -346,98 +333,42 @@ namespace Portal.Consultoras.Web
             AutoMapperConfiguration.Configure();
         }
 
-
-        protected void Application_EndRequest()
+        protected void Session_End( object sender, EventArgs e )
         {
-            //var context = new HttpContextWrapper(Context);
-
-            //if (Context.Response.StatusCode == 302 && context.Request.IsAjaxRequest())
-            //{
-            //    Context.Response.Clear();
-            //    Context.Response.StatusCode = 401;
-            //}
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
         }
-
         protected void Session_Start(object sender, EventArgs e)
         {
-
+            Session["OP_BuildMenuMobile"] = null;
+            Session["OP_BuildMenu"] = null;
+            Session["OP_BuildMenuService"] = null;
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
         {
             if (String.Compare(Request.Path, Request.ApplicationPath, StringComparison.InvariantCultureIgnoreCase) == 0
                 && !(Request.Path.EndsWith("/")))
-                Response.Redirect(Request.Path + "/");
+                Response.Redirect(string.Format("{0}/", Request.Path));
         }
 
-        //void OnServiceConfigurationCreated(object sender, FederationConfigurationCreatedEventArgs e) 
-        //{ 
-        //    var sessionTransforms = new List<CookieTransform>(
-        //        new CookieTransform[] { new DeflateCookieTransform(), 
-        //            new RsaEncryptionCookieTransform(e.FederationConfiguration.ServiceCertificate), 
-        //            new RsaSignatureCookieTransform(e.FederationConfiguration.ServiceCertificate) }); 
-        //    var sessionHandler = new SessionSecurityTokenHandler(sessionTransforms.AsReadOnly()); 
-        //    e.FederationConfiguration.IdentityConfiguration.SecurityTokenHandlers.AddOrReplace(sessionHandler); 
-        //}
+       
 
-        //protected void Application_Error(object sender, EventArgs e)
-        //{
-        //    var httpContext = ((MvcApplication)sender).Context;
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var exception = Server.GetLastError();
 
-        //    var currentRouteData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(httpContext));
-        //    var currentController = " ";
-        //    var currentAction = " ";
+            if (HttpContext.Current != null && HttpContext.Current.Session != null)
+            {
+                var userData = (UsuarioModel)HttpContext.Current.Session["UserData"];
 
-        //    // obtiene de routing la controladora y accion donde ocurrio el error
-        //    if (currentRouteData != null)
-        //    {
-        //        if (currentRouteData.Values["controller"] != null && !String.IsNullOrEmpty(currentRouteData.Values["controller"].ToString()))
-        //        {
-        //            currentController = currentRouteData.Values["controller"].ToString();
-        //        }
-
-        //        if (currentRouteData.Values["action"] != null && !String.IsNullOrEmpty(currentRouteData.Values["action"].ToString()))
-        //        {
-        //            currentAction = currentRouteData.Values["action"].ToString();
-        //        }
-        //    }
-
-        //    var ex = Server.GetLastError();
-
-        //    // crea la controladora dinamicamente
-        //    var controller = new ErrorController();
-        //    var routeData = new RouteData();
-        //    var action = "Index";
-
-        //    if (ex is HttpException)
-        //    {
-        //        var httpEx = ex as HttpException;
-
-        //        switch (httpEx.GetHttpCode())
-        //        {
-        //            case 404:
-        //                action = "NotFound";
-        //                break;
-
-        //            // otros errores Http
-
-        //            default:
-        //                action = "Index";
-        //                break;
-        //        }
-        //    }
-
-        //    // se deriva a la controladora de errores Http y las Views correspondientes
-        //    httpContext.ClearError();
-        //    httpContext.Response.Clear();
-        //    httpContext.Response.StatusCode = ex is HttpException ? ((HttpException)ex).GetHttpCode() : 500;
-        //    httpContext.Response.TrySkipIisCustomErrors = true;
-        //    routeData.Values["controller"] = "Error";
-        //    routeData.Values["action"] = action;
-
-        //    controller.ViewData.Model = new HandleErrorInfo(ex, currentController, currentAction);
-        //    ((IController)controller).Execute(new RequestContext(new HttpContextWrapper(httpContext), routeData));
-        //} 
-
+                LogManager.LogManager.LogErrorWebServicesBus(exception, userData.CodigoUsuario, userData.CodigoISO);
+            }
+            else
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(exception, "", "");
+            }
+        }
     }
 }

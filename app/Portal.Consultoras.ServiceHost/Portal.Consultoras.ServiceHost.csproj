@@ -54,6 +54,10 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -97,11 +101,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AsesoraOnlineService.svc" />
     <Content Include="CDRService.svc" />
     <Content Include="CatalogoService.svc" />
     <Content Include="ClienteService.svc" />
     <Content Include="ConsultoraWebService.svc" />
     <Content Include="ContenidoService.svc" />
+    <Content Include="Global.asax" />
     <Content Include="ODSService.svc" />
     <Content Include="PedidoService.svc" />
     <Content Include="SACService.svc" />
@@ -115,6 +121,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +141,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Portal.Consultoras.Common\Portal.Consultoras.Common.csproj">
+      <Project>{136fa1d7-ab98-4ffa-8c03-c011d34d8d27}</Project>
+      <Name>Portal.Consultoras.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portal.Consultoras.Service\Portal.Consultoras.Service.csproj">
       <Project>{b3ad057a-2326-4f70-8723-0b2b3afce4ea}</Project>
       <Name>Portal.Consultoras.Service</Name>

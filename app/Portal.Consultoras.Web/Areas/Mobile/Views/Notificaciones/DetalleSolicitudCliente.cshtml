@@ -16,70 +16,74 @@
 <input type="hidden" id="hdSolicitudId" value="@Model.SolicitudClienteId" />
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;&nbsp;&nbsp;MIS NOTIFICACIONES
 </div>
 <div class="pestana_esika"></div><!--PESTANA ESIKA-->
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
 
-    
-       
-            <div class="col-xs-12">
-                <ul class="list-notificaciones noti-detalle">
-                    <li>
-                      
-                        <div class="text-noti">
-                            <div class="sub_titulo_noti">
-                                <span>@Model.Asunto</span> 
-                                <span>CAMPAÑA @Model.Campania.ToString().Substring(4) @Model.Campania.ToString().Substring(0, 4)</span>
 
-                            </div>
-                            <span>@Model.FechaEjecucion</span>
-                        </div>
-                    </li>
-                </ul>
+
+<div class="col-xs-12">
+    <ul class="list-notificaciones noti-detalle">
+        <li>
+
+            <div class="text-noti">
+                <div class="sub_titulo_noti">
+                    <span>@Model.Asunto</span>
+                    <span>CAMPAÑA @Model.Campania.ToString().Substring(4) @Model.Campania.ToString().Substring(0, 4)</span>
+
+                </div>
+                <span>@Model.FechaEjecucion</span>
             </div>
-    
-   
+        </li>
+    </ul>
+</div>
+
+
 
 
 <br />
 
 
-    <div class="col-xs-12">
-        @if (String.IsNullOrEmpty(Model.Estado))
-        {
-            <p style="text-align: justify;">
-                Tienes hasta el @Model.FechaEjecucion.ToString("dddd", new CultureInfo("es-ES")) <strong>@Model.FechaDescripcion a las @Model.FechaEjecucion.ToString("HH:mm") horas</strong> para contactarte con tu nuevo cliente y notificarnos
-                si vas aceptar o rechazar su pedido presionando los botones al final de este mensaje. <br />Sus datos son:
-            </p>
-        }
-        else if (Model.Estado.Equals("A"))
-        {
-            <p>Has aceptado la solicitud de pedido.<br /> Sus datos son:</p>
-        }
+<div class="col-xs-12">
+    @if (String.IsNullOrEmpty(Model.Estado))
+    {
+        <p style="text-align: justify;">
+            Tienes hasta el @Model.FechaEjecucion.ToString("dddd", new CultureInfo("es-ES")) <strong>@Model.FechaDescripcion a las @Model.FechaEjecucion.ToString("HH:mm") horas</strong> para contactarte con tu nuevo cliente y notificarnos
+            si vas aceptar o rechazar su pedido presionando los botones al final de este mensaje. <br />Sus datos son:
+        </p>
+    }
+    else if (Model.Estado.Equals("A"))
+    {
+        <p>Has aceptado la solicitud de pedido.<br /> Sus datos son:</p>
+    }
+</div>
+
+
+<div class="col-xs-12">
+    <div class="list-table">
+        <ul>
+            <li>
+                Nombre de cliente: <strong>@Model.NombreCliente</strong>
+            </li>
+            <li>
+                Correo: <strong>@Model.EmailCliente</strong>
+            </li>
+            <li>
+                Teléfono: <strong>@Model.TelefonoCliente</strong>
+            </li>
+        </ul>
     </div>
-
-
-    <div class="col-xs-12">
-        <div class="list-table">
-            <ul>
-                <li>
-                    Nombre de cliente: <strong>@Model.NombreCliente</strong>
-                </li>
-                <li>
-                    Correo: <strong>@Model.EmailCliente</strong>
-                </li>
-                <li>
-                    Teléfono: <strong>@Model.TelefonoCliente</strong>
-                </li>
-            </ul>
-        </div>
-        <br />
-        @if (Model.lsProductosDetalle.Count > 0)
-        {
-            <h3 class="title-line">Detalle del pedido</h3>
+    <br />
+    @if (Model.lsProductosDetalle.Count > 0)
+    {
+        <h3 class="title-line">Detalle del pedido</h3>
             <p style="text-align: justify;">A continuación se detalla lo que el cliente ha solicitado y el precio que espera pagar. En caso no figure el precio, guíate por el precio que figura en el catálogo.</p>
             <div class="list-table-new">
                 <ul class="list-table-title upper">
@@ -154,14 +158,14 @@
                 <strong>Total Pedido</strong> @ViewBag.Simbolo @string.Format("{0:N2}", Model.lsProductosDetalle.Sum(p => (p.Cantidad * p.Precio)))
             </div>
             <hr class="success" />
-        }
+    }
 
-        <div class="form-group form-controls-grey">
-            <div id="MensajeClienteInfo" style="color:red"></div>
-            <br />
-            <div style="margin-bottom: 10px;">Este es el mensaje que le llegará al cliente una vez aceptado el pedido:</div>
+    <div class="form-group form-controls-grey">
+        <div id="MensajeClienteInfo" style="color:red"></div>
+        <br />
+        <div style="margin-bottom: 10px;">Este es el mensaje que le llegará al cliente una vez aceptado el pedido:</div>
 
-            @if (String.IsNullOrEmpty(Model.Estado))
+        @if (String.IsNullOrEmpty(Model.Estado))
             {
                 if (String.IsNullOrEmpty(Model.MensajeaCliente))
                 {
@@ -169,31 +173,31 @@
                 }
 
                 @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", id = "taMensaje", @class = "form-control", maxlength = 250 })
-            }
-            else
-            {
-                @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", @readonly = true, id = "taMensaje", @class = "form-control", maxlength = 250 })
-            }
-        </div>
+        }
+        else
+        {
+            @Html.TextAreaFor(m => m.MensajeaCliente, new { rows = 4, cols = 60, placeholder = "Máximo 250 caracteres", @readonly = true, id = "taMensaje", @class = "form-control", maxlength = 250 })
+        }
+    </div>
 
-        <div class="block-center text-center">
-            <p>
-                @if (String.IsNullOrEmpty(Model.Estado))
-                {
-                    <button id="btnGuardar" class="btn btn-line-action btn-wfijo btn-round" type="button" onclick="AceptarSolicitud(@Model.SolicitudClienteId,@Model.ConsultoraID,'@Html.Encode(Model.MarcaNombre)','@Model.EmailCliente.ToString()',' @Html.Encode(Model.NombreCliente.ToString())')">
-                        Aceptar
-                    </button>
+    <div class="block-center text-center">
+        <p>
+            @if (String.IsNullOrEmpty(Model.Estado))
+            {
+                <button id="btnGuardar" class="btn btn-line-action btn-wfijo btn-round" type="button" onclick="AceptarSolicitud(@Model.SolicitudClienteId,@Model.ConsultoraID,'@Html.Encode(Model.MarcaNombre)','@Model.EmailCliente.ToString()',' @Html.Encode(Model.NombreCliente.ToString())')">
+                    Aceptar
+                </button>
                     <br />
                     <br />
                     <button id="btnRechazar" type="button" class="btn btn-line-action btn-wfijo btn-round" onclick="RechazarSolicitud(@Model.SolicitudClienteId,@Model.NumIteracion,'@Model.CodigoUbigeo','@Model.Campania',@Model.MarcaID)">
                         Rechazar
                     </button>
-                }
-            </p>
-        </div>
-
-        <p><b>Gracias, <br> Equipo de Belcorp</b></p><br />
+            }
+        </p>
     </div>
+
+    <p><b>Gracias, <br> Equipo de Belcorp</b></p><br />
+</div>
 
 
 <div class="modal fade" id="DiagloBotonCancelar">

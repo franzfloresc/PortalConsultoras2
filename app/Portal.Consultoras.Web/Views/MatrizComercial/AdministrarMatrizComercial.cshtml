@@ -5,10 +5,17 @@
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.toast.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/ToastHelper.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercial.js")" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
 
 <script type="text/javascript">
     var paisNombre = "";
@@ -22,7 +29,11 @@
         matrizComercialObj = MatrizComercial({
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesByIdMatrizAction: '@Url.Action("GetImagesByIdMatriz", "MatrizComercial")',
-            numeroImagenesPorPagina: numeroImagenesPorPagina
+            actualizarNemotecnicoAction: '@Url.Action("ActualizarNemotecnicoMatrizComercial", "MatrizComercial")',
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")',
+            getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnico", "MatrizComercial")',
+            numeroImagenesPorPagina: numeroImagenesPorPagina,
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
         });
 
         fnGrilla();
@@ -48,6 +59,7 @@
                 return false;
             }
         });
+
         $(".qq-upload-list").css("display", "none");
         $.ajaxSetup({ cache: false });
         $('#ddlPais').change(function () {
@@ -58,6 +70,7 @@
                 $.getJSON(baseUrl + 'MatrizComercial/ObtenerISOPais', { paisID: paisID }, function (data) {
                     closeWaitingDialog();
                     isoPAIS = data.ISO;
+                    matrizComercialObj.actualizarParNemotecnico(data.habilitarNemotecnico);
                 });
             } else
                 $("#list").jqGrid("clearGridData", true).trigger("reloadGrid");
@@ -67,6 +80,9 @@
             LimpiarCargaDescProd();
             return false;
         });
+
+        $('#matriz-comercial-dialog').on('click', '#matriz-busqueda-nemotecnico #btnBuscarNemotecnico', matrizComercialObj.buscarNemotecnico);
+        $('#matriz-comercial-dialog').on('click', '#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico', matrizComercialObj.limpiarBusquedaNemotecnico);
 
         $.jgrid.extend({
             Editar: matrizComercialObj.editar
@@ -212,6 +228,15 @@
             }
         });
     }
+
+    function editarNemotecnico(idImagen) {
+        matrizComercialObj.editarNemotecnico(idImagen);
+    }
+
+    function editarDescripcionComercial(idImagen) {
+        matrizComercialObj.editarDescripcionComercial(idImagen);
+    }
+
 </script>
 <div class="wrap_cab">
     <div class="filtros">

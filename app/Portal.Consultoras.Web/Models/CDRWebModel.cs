@@ -27,20 +27,25 @@ namespace Portal.Consultoras.Web.Models
         public string Simbolo { get; set; }
         public decimal ConsultoraSaldo { get; set; }    //EPD-1665
 
+        //EPD-1919 INICIO
+        public bool? TipoDespacho { get; set; }
+        public decimal FleteDespacho { get; set; }
+        public string MensajeDespacho { get; set; }
+        //EPD-1919 FIN
+
         public List<BECDRWebDetalle> ListaDetalle { get; set; }
         public string EstadoDescripcion
         {
             get
             {
-                return Estado == Constantes.EstadoCDRWeb.Pendiente
-                    ? "PENDIENTE"
-                    : Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "EN EVALUACIÓN"
-                        : Estado == Constantes.EstadoCDRWeb.Observado
-                        ? "RECHAZADO"
-                        : Estado == Constantes.EstadoCDRWeb.Aceptado
-                            ? "APROBADO"
-                            : "";
+                switch (Estado)
+                {
+                    case Constantes.EstadoCDRWeb.Pendiente: return "PENDIENTE";
+                    case Constantes.EstadoCDRWeb.Enviado: return "EN EVALUACIÓN";
+                    case Constantes.EstadoCDRWeb.Observado: return "RECHAZADO";
+                    case Constantes.EstadoCDRWeb.Aceptado: return "APROBADO";
+                    default: return "";
+                }
             }
         }
 
@@ -48,15 +53,14 @@ namespace Portal.Consultoras.Web.Models
         {
             get
             {
-                return Estado == Constantes.EstadoCDRWeb.Pendiente
-                    ? "Pendiente"
-                    : Estado == Constantes.EstadoCDRWeb.Enviado
-                        ? "Enviado"
-                        : Estado == Constantes.EstadoCDRWeb.Observado
-                        ? "Resuelve las observaciones y envía nuevamente la solicitud"
-                        : Estado == Constantes.EstadoCDRWeb.Aceptado
-                            ? "Todos los productos fueron aprobados"
-                            : "";
+                switch (Estado)
+                {
+                    case Constantes.EstadoCDRWeb.Pendiente: return "Pendiente";
+                    case Constantes.EstadoCDRWeb.Enviado: return "En evaluación";
+                    case Constantes.EstadoCDRWeb.Observado: return "Resuelve las observaciones y envía nuevamente la solicitud";
+                    case Constantes.EstadoCDRWeb.Aceptado: return "Todos los productos fueron aprobados";
+                    default: return "";
+                }
             }
         }
 

@@ -5,16 +5,25 @@
 
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.toast.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/ToastHelper.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/OfertaLiquidacion.js")" type="text/javascript"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="@Url.Content("~/Content/Css/Toast/jquery.toast.min.css")" rel="stylesheet" />
 
 <script type="text/javascript">
 
     var paisNombre = "";
     var paisID = 11;
     var ofertaLiquidacionObj;
+    
+    var isVistaPreviaOpened = false;
 
     $(document).unbind('keydown').bind('keydown', function (event) {
         var doPrevent = false;
@@ -42,9 +51,13 @@
             paisID: paisID,
             actualizarMatrizComercialAction: '@Url.Action("ActualizarMatrizComercial", "MatrizComercial")',
             getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
+            getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             numeroImagenesPorPagina: numeroImagenesPorPagina,
-            imagenProductoElementId: 'ImagenProducto'
-        });
+            imagenProductoElementId: 'ImagenProducto',
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
+            });
+
 
         IniDialogOfertas();
         IniDialogImages();
@@ -53,6 +66,9 @@
         IniDialogCantidadMaximaLiquidacion();
         IniForm();
         fnGrilla();
+
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnBuscarNemotecnico', ofertaLiquidacionObj.buscarNemotecnico);
+        $('#matriz-comercial-header').on('click', '#matriz-busqueda-nemotecnico #btnLimpiarBusquedaNemotecnico', ofertaLiquidacionObj.limpiarBusquedaNemotecnico);
 
         $("#txtCUVTC").keyup(function () {
 
@@ -198,6 +214,15 @@
 
                         var ddlCampania = $('#ddlCampania');
                         var ddlConfiguracionOferta = $("#ddlConfiguracionOferta");
+
+                        if(data.habilitarNemotecnico) {
+                            $("#matriz-busqueda-nemotecnico").show();
+                        }else{
+                            $("#matriz-busqueda-nemotecnico").hide();
+                        }
+
+                        ofertaLiquidacionObj.actualizarParNemotecnico(data.habilitarNemotecnico);
+
                         ddlCampania.empty();
                         ddlConfiguracionOferta.empty();
                         if (data.lista.length > 0) {
@@ -259,6 +284,15 @@
 
         var imagenOnClick = function () {
             $("#imgPreview").attr("src", $(this).attr("src"));
+            var index = $(this).attr("id").split("-");
+            var descripcionComercial = $("#descripcion-comercial-"+index[2]).attr("value");
+            var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
+            var editData = {
+                IdMatrizComercialImagen: idMatrizComercial,
+                DescripcionComercial: descripcionComercial
+            };
+            SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+            isVistaPreviaOpened = true;
             showDialog('divVistaPrevia');
         };
 
@@ -328,7 +362,20 @@
             width: 250,
             draggable: false,
             title: "Vista previa",
-            buttons: { "Cerrar": function () { $(this).dialog('close'); } }
+            buttons:
+            {
+                "Cerrar": function () {
+                    if(isVistaPreviaOpened){
+                        var codigoSap =  $('#hdnCodigoSAP').val();
+                        ofertaLiquidacionObj.obtenerImagenes(codigoSap, 1, true).done(function () {
+                            showDialog("matriz-comercial-dialog");
+                            closeWaitingDialog();
+                        });
+                    }
+                    isVistaPreviaOpened = false;
+                    $(this).dialog('close');
+                }
+            }
         });
     }
 
@@ -627,14 +674,19 @@
             var imgSeleccionada = $($("#list").jqGrid('getCell', ID, 'Imagen')).attr('src');
             $("#ImagenProducto").val(formatUrl(imgSeleccionada));
 
-            ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1).done(function (data) {
+            ofertaLiquidacionObj.limpiarFiltrosNemotecnico();
+
+            ofertaLiquidacionObj.obtenerImagenes(CodigoSAP, 1, true).done(function (data) {
                 llenarDatosFormulario(ID, CUV, CampaniaID, Flag, CodigoOferta, ISO, FlagCheck, FlagOrden, CodigoSAP, Stock);
+
+                ofertaLiquidacionObj.actualizarPais(paisID);
 
                 var params = {
                     idMatrizComercial: data.idMatrizComercial,
                     idImagenMatriz: 0,
                     paisID: paisID,
-                    codigoSAP: CodigoSAP
+                    codigoSAP: CodigoSAP,
+                    descripcionOriginal: jQuery("#list").jqGrid('getCell', ID, 'Descripcion'),
                 };
                 ofertaLiquidacionObj.crearObjetoUpload(params);
                 closeWaitingDialog();
@@ -862,6 +914,7 @@
             width: 800,
             draggable: true,
             title: "Registro / Edición Ofertas Liquidación",
+            open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog).hide(); },
             buttons:
             {
                 "Guardar": function () {
@@ -1190,6 +1243,10 @@
         document.body.appendChild(iframe_);
     }
 
+    function editarDescripcionComercial(idImagen) {
+        ofertaLiquidacionObj.editarDescripcionComercial(idImagen);
+    }
+
 </script>
 <div class="wrap_cab">
     <div class="filtros">
@@ -1292,12 +1349,6 @@
             </div>
         </div>
     }
-</div>
-
-<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
-    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
-        <img id="imgPreview" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
-    </div>
 </div>
 
 <div id="DialogAdministrarCantidad" style="display: none;">

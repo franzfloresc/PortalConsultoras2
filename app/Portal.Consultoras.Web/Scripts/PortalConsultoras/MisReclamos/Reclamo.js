@@ -5,6 +5,7 @@ var pasoActual = 1;
 var paso2Actual = 1;
 var listaPedidos = new Array();
 var codigoSsic = "";
+var tipoDespacho = false;
 
 $(document).ready(function () {
     $("#ddlCampania").on("change", function () {
@@ -149,6 +150,33 @@ $(document).ready(function () {
         $("#spnImporteTotal2").html(DecimalToStringFormat(importeTotal));
     });
 
+    //EPD-1919 INICIO
+    $("#btnDespachoNormal").on("click", function () {
+        var claseBotonActivado = "cdr_tipo_despacho_icono_active";
+        var claseBotonDesactivado = "cdr_tipo_despacho_icono";
+        var botonExpress = $("#btnDespachoExpress");
+
+        if (!$(this).hasClass(claseBotonActivado)) {
+            $(this).addClass(claseBotonActivado);
+            botonExpress.removeClass(claseBotonActivado);
+            botonExpress.addClass(claseBotonDesactivado);
+            tipoDespacho = false;
+        }
+    });    
+    $("#btnDespachoExpress").on("click", function () {
+        var claseBotonActivado = "cdr_tipo_despacho_icono_active";
+        var claseBotonDesactivado = "cdr_tipo_despacho_icono";
+        var botonNormal = $("#btnDespachoNormal");
+
+        if (!$(this).hasClass(claseBotonActivado)) {
+            $(this).addClass(claseBotonActivado);
+            botonNormal.removeClass(claseBotonActivado);
+            botonNormal.addClass(claseBotonDesactivado);
+            tipoDespacho = true;
+        }
+    });
+    //EPD-1919 FIN
+
     $(".modificarPrecioMenos").on("click", function () {
         var precio = $("#hdCuvPrecio2").val();
         var cantidad = parseInt($("#txtCantidad2").val());
@@ -193,7 +221,7 @@ $(document).ready(function () {
     }
 
 
-    $('#alertEMailDialogMensajes').dialog({        
+    $('#alertEMailDialogMensajes').dialog({
         autoOpen: false,
         resizable: false,
         modal: true,
@@ -299,7 +327,7 @@ function BuscarCUV(CUV) {
 
             if (data.detalle.length <= 0) {
                 $("#divMotivo").html("");
-                alert_msg("El Producto Ingresado no existe");
+                alert_msg("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
             } else {
                 if (data.detalle.length > 1) PopupPedido(data.detalle);
                 else AsignarCUV(data.detalle[0]);
@@ -307,8 +335,7 @@ function BuscarCUV(CUV) {
         },
         error: function (data, error) {
             closeWaitingDialog();
-            if (checkTimeout(data)) {
-            }
+            checkTimeout(data);
         }
     });
 }
@@ -966,6 +993,12 @@ function DetalleCargar() {
 
             SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
             SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
+
+            //EPD-1919 INICIO
+            if (data.esCDRExpress) $("#TipoDespacho").show();
+            else $("#TipoDespacho").hide();
+            //EPD-1919 FIN
+
         },
         error: function(data, error) {
             closeWaitingDialog();
@@ -1091,9 +1124,17 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
         PedidoID: $("#txtPedidoID").val() || 0,
         Email: $("#txtEmail").val(),
         Telefono: $("#txtTelefono").val(),
+        TipoDespacho: false,
+        FleteDespacho: 0,
+        MensajeDespacho: ''
     };
-    waitingDialog();
+    if ($("#hdTieneCDRExpress").val() == '1') {
+        item.TipoDespacho = tipoDespacho;
+        item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+        item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+    }
 
+    waitingDialog();
     jQuery.ajax({
         type: 'POST',
         url: baseUrl + 'MisReclamos/SolicitudEnviar',
@@ -1113,6 +1154,7 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
             var formatoFechaCulminado = "";
             var numeroSolicitud = 0;
             var formatoCampania = "";
+            var mensajeDespacho = IfNull(data.cdrWeb.MensajeDespacho,'');
             if (data.cdrWeb.CDRWebID > 0) {
                 if (data.cdrWeb.FechaCulminado != 'null' || data.cdrWeb.FechaCulminado != "" || data.cdrWeb.FechaCulminado != undefined) {
                     var dateString = data.cdrWeb.FechaCulminado.substr(6);
@@ -1133,6 +1175,8 @@ function SolicitudEnviar(validarCorreoVacio, validarCelularVacio) {
             $("#spnSolicitudFechaCulminado").html(formatoFechaCulminado);
             $("#spnSolicitudNumeroSolicitud").html(numeroSolicitud);
             $("#spnSolicitudCampania").html(formatoCampania);
+            if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
+            else $("#spnTipoDespacho").show().html(mensajeDespacho);
             $("#divProcesoReclamo").hide();
             $("#divUltimasSolicitudes").hide();
             $("#TituloReclamo").hide();
@@ -1260,7 +1304,7 @@ function ValidarTelefono() {
         url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-		data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
+	data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
         async: false,
         cache: false,
         success: function (data) {
@@ -1270,7 +1314,7 @@ function ValidarTelefono() {
         },
         error: function (data, error) {
             closeWaitingDialog();
-			checkTimeout(data);
+	    checkTimeout(data);
         }
     });
     return resultado;
@@ -1283,7 +1327,7 @@ function ValidarCorreoDuplicado(correo) {
         url: baseUrl + 'MisReclamos/ValidarCorreoDuplicado',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
-		data: JSON.stringify({ correo: correo }),
+	data: JSON.stringify({ correo: correo }),
         async: false,
         cache: false,
         success: function (data) {

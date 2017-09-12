@@ -163,7 +163,7 @@
                 { name: 'BARRIO_COLONIA_URBANIZACION_REFERENCIAS', index: 'BARRIO_COLONIA_URBANIZACION_REFERENCIAS', width:13, editable: true, resizable: false, align: 'center', hidden: true, },
                 { name: 'BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS', index: 'BARRIO_COLONIA_URBANIZACION_BARRIADAS_REFERENCIAS', width: 13, editable: true, resizable: false, align: 'center', hidden: true, },
                 { name: 'BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS', index: 'BARRIO_COLONIA_URBANIZACION_ALDEA_REFERENCIAS', width: 13, editable: true, resizable: false, align: 'center', hidden: true, },
-
+        
             ],
             jsonReader:
                 {
@@ -196,7 +196,7 @@
 
             },
             gridComplete: function () {
-
+               
 
                 if ('@ViewBag.CodigoISO' == 'CR') {
                     jQuery("#gvwSolicitudesPostulante").jqGrid('showCol', 'PROVINCIA');
