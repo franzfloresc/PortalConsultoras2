@@ -89,6 +89,9 @@
     .bc_para_ti-menu ul li a img.hover {
         display: none;
     }
+        .bc_para_ti-menu ul li a img.click-menu {
+            display: none;
+        }
 .bc_para_ti-menu-opciones{
 
 }
@@ -235,6 +238,10 @@ margin-top: 10px !important;
     margin:0;
     
 }
+    .bc_para_ti-menu-opciones ul li a p.activo {
+        border-bottom: 1px solid #e81c36;
+        color: #e81c36;
+    }
 
 .bc-menu-vertical-prev, .bc-menu-vertical-next{
 width:auto !important;

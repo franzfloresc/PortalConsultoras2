@@ -41,22 +41,13 @@
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 
-<script>
-    $('.bc_para_ti-menu ul li a').hover(function (e) {
-            $(this).find('img.default').css('display', 'none');
-            $(this).find('img.hover').css('display', 'inline');
-            $(this).find('img.hover').css('margin-right', '5px');
-        }, function (e) {
-            $(this).find('img.default').css('display', 'inline');
-            $(this).find('img.default').css('margin-right', '5px');
-            $(this).find('img.hover').css('display', 'none');
-        });
-</script>
     <script>
-        if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
-            $(this).find('img.default').css('display', 'inline');
-        } else {
-            $(this).find('img.default').css('display', 'none')
-        }
+        $(document).ready(function () {
+            if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
+                $('.bc_para_ti-menu ul li a.activo').find('img.hover').css('display', 'none');
+                $('.bc_para_ti-menu ul li a.activo').find('img.default').css('display', 'none');
+                $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
+            }
+        });
     </script>
 }
