@@ -397,6 +397,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (estrategia.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento)
                 {
+                    #region Lanzamiento
                     estrategia.EstrategiaDetalle.ImgFondoDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFondoDesktop);
                     estrategia.EstrategiaDetalle.ImgPrevDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgPrevDesktop);
                     estrategia.EstrategiaDetalle.ImgFichaDesktop = ConfigS3.GetUrlFileS3(carpetaPais, estrategia.EstrategiaDetalle.ImgFichaDesktop);
@@ -418,9 +419,12 @@ namespace Portal.Consultoras.Web.Controllers
                         estrategia.DescripcionDetalle = string.Join("<br />", listadescr.Skip(2));
                     }
                     estrategia.DescripcionCortada = Util.SubStrCortarNombre(estrategia.DescripcionCortada, 40);
+
+                    #endregion
                 }
                 else if (estrategia.FlagNueva == 1)
                 {
+                    estrategia.Precio = 0;
                     estrategia.DescripcionCortada = estrategia.DescripcionCUV2.Split('|')[0];
                     estrategia.DescripcionDetalle = estrategia.DescripcionCUV2.Split('|')[1];
                     estrategia.DescripcionResumen = "";

@@ -6,10 +6,20 @@ var elementos = {
     menu2Ul: "[data-layout-menu2] ul",
     menu2Li: "[data-layout-menu2] ul li",
     menu1Li: "[data-layout-menu1] ul li",
+    seccionMenuMobile: "#seccion-menu-mobile",
+    seccionBannerMobile: "#seccion-banner-mobile" 
 };
+
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+var seccionMenuMobileOuterHeight = $(elementos.seccionMenuMobile).outerHeight();
+var seccionMenuMobileHeight = 0;
 
 $(document).ready(function () {
 
+    seccionMenuMobileHeight = $(elementos.seccionBannerMobile).height();
     $("body").on("click", "[data-layout-menu1] ul li", function (e) {
         $(elementos.menu2Li).hide();
         var objClick = $(this);
@@ -22,12 +32,11 @@ $(document).ready(function () {
             $(elementos.menu2).show();
         }
 
-        var menuCheck = {
-            campania: objClick.data("campania"),
-            codigo: ''
-        };
-
-        MenuContenedorGuardar(menuCheck);
+        //var menuCheck = {
+        //    campania: objClick.data("campania"),
+        //    codigo: ''
+        //};
+        //MenuContenedorGuardar(menuCheck);
 
         var urlAccion = $.trim(objClick.data("url"));
         if (urlAccion == "") {
@@ -55,9 +64,14 @@ $(document).ready(function () {
             $('.op-menu-vertical').removeClass('menu-fixed');
             $('.op-menu-vertical').css('top', "");
         }
+        hasScrolled();
     });
 
     VerificarAncla();
+
+    //$(window).scroll(function (event) {
+    //});
+
 });
 
 function VerificarAncla() {
@@ -140,10 +154,9 @@ function MenuContenedorClick(e, url) {
         var codigo = $(objHtmlEvent).data("codigo");
         if (window.location.href.indexOf("/Ofertas") > -1) {
             $('html, body').animate({
-                    scrollTop: $('#' + codigo).top - 180
+                scrollTop: $('#' + codigo).offset().top - 60
                 },
-                1000,
-                'swing');
+                1000);
         } else {
             window.location = "/Ofertas#" + codigo;
         }
@@ -165,33 +178,33 @@ function MenuContenedorClick(e, url) {
   
 }
 
-function MenuContenedorGuardar(codigoLocal) {
-    $.ajaxSetup({
-        cache: false
-    });
+//function MenuContenedorGuardar(codigoLocal) {
+//    $.ajaxSetup({
+//        cache: false
+//    });
 
-    var detalle;
+//    var detalle;
 
-    codigoLocal.campania = codigoLocal.campania || 0;
-    codigoLocal.codigo = $.trim(codigoLocal.codigo);
+//    codigoLocal.campania = codigoLocal.campania || 0;
+//    codigoLocal.codigo = $.trim(codigoLocal.codigo);
 
-    $.ajax({
-        type: 'POST',
-        url: "/Ofertas/GuardarMenuContenedor",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(codigoLocal),
-        async: false,
-        success: function (data) {
-            detalle = data.success || false;
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
+//    $.ajax({
+//        type: 'POST',
+//        url: "/Ofertas/GuardarMenuContenedor",
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(codigoLocal),
+//        async: false,
+//        success: function (data) {
+//            detalle = data.success || false;
+//        },
+//        error: function (error, x) {
+//            console.log(error, x);
+//        }
+//    });
 
-    return detalle;
-}
+//    return detalle;
+//}
 
 function MenuContenedorObtener() {
     $.ajaxSetup({
@@ -202,7 +215,7 @@ function MenuContenedorObtener() {
 
     $.ajax({
         type: 'POST',
-        url: "/Ofertas/ObtenerMenuContenedor",
+        url: "/Ofertas/MenuContenedorObtener",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,
@@ -232,4 +245,32 @@ function MenuContenedorCarrusel() {
     });
 
     //divProd.find(sElementos.listadoProductos).css("overflow-y", "visible");
+}
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+
+    if (Math.abs(lastScrollTop - st) <= delta)
+        return;
+
+    //Scroll dowm
+    if (st > lastScrollTop && st > (seccionMenuMobileHeight)) {
+        //fix the menu 
+        $(elementos.seccionMenuMobile).css("position", "fixed");
+        $(elementos.seccionBannerMobile).css("display", "none");
+        $(elementos.menu2Ul).css("position", "fixed").css("top", navbarHeight + "px");
+    } else {
+        // Scroll Up
+        if (st < navbarHeight) {
+            //console.log("we are onteh most top ");
+            $(elementos.seccionMenuMobile).css("position", "");
+            $(elementos.seccionBannerMobile).css("display", "");
+            $(elementos.menu2Ul).css("position", "").css("top", "");
+        } else if (st > (seccionMenuMobileHeight) && st + $(window).height() < $(document).height()) {
+            //console.log("scroll up");
+            $(elementos.seccionBannerMobile).css("display", "").css("top", navbarHeight + "px");
+            $(elementos.menu2Ul).css("position", "fixed").css("top", (navbarHeight + seccionMenuMobileHeight) + "px");
+        }
+    }
+    lastScrollTop = st;
 }

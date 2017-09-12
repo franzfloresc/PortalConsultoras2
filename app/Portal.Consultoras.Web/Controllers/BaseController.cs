@@ -79,7 +79,7 @@ namespace Portal.Consultoras.Web.Controllers
                     return;
                 }
 
-                ViewBag.MenuContenedorActivo = GetMenuActivo(Request.Path);
+                ViewBag.MenuContenedorActivo = GetMenuActivo();
                 ViewBag.MenuContenedor = ObtenerMenuContenedor();
 
                 ViewBag.MenuMobile = BuildMenuMobile(userData);
@@ -822,6 +822,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
                         continue;
                 }
+                
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+                        continue;
+                }
 
                 var config = confiModel;
                 config.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
@@ -1562,8 +1568,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                    ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
+                    if (userData.FechaInicioCampania != default(DateTime))
+                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+                    
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                         && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                     {
@@ -2819,8 +2826,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
         #endregion
 
-        public MenuContenedorModel GetMenuActivo(string path)
+        public MenuContenedorModel GetMenuActivo()
         {
+            string path = Request.Path;
             var listMenu = BuildMenuContenedor();
             path = path.ToLower().Replace("/mobile", "");
             var pathStrings = path.Split('/');
@@ -2831,13 +2839,25 @@ namespace Portal.Consultoras.Web.Controllers
                 newPath += "/" + pathStrings[2];
             }
             catch (Exception e) {Console.WriteLine(e);}
+            
+            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID };
 
-            var menuActivo = new MenuContenedorModel();
+            try
+            {
+                var parametro = Request.QueryString.AllKeys ?? new string[0];
+                int campaniaid = 0;
+                string campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+                if (Int32.TryParse(campaniaIdStr, out campaniaid))
+                {
+                    menuActivo.CampaniaId = Int32.Parse(campaniaIdStr);
+                }
+            }
+            catch (Exception e) { Console.WriteLine(e); }
+
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
@@ -2845,7 +2865,6 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
@@ -2855,34 +2874,37 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
+                case Constantes.UrlMenuContenedor.RdDetalle:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                    break;
                 case Constantes.UrlMenuContenedor.RdInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
                 case Constantes.UrlMenuContenedor.SwIntriga:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
                 case Constantes.UrlMenuContenedor.SwDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
-                    menuActivo.CampaniaId = userData.CampaniaID;
                     break;
             }
 
-            var configMenu =
-                listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
+            var configMenu = listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
             if(menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
                 configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Inicio && m.CampaniaId == userData.CampaniaID);
 
             if (configMenu == null)
-            {
-                // Implementar las funciones por defecto
                 configMenu = new ConfiguracionPaisModel();
+            
+            configMenu.Codigo = Util.Trim(configMenu.Codigo);
+            if (configMenu.Codigo == "")
+            {
+                configMenu.CampaniaId = configMenu.CampaniaId > 0 ? configMenu.CampaniaId : userData.CampaniaID;
+                configMenu.Codigo = Constantes.ConfiguracionPais.Inicio;
             }
+
             menuActivo.ConfiguracionPais = configMenu;
             if (userData.RevistaDigital.TieneRDC)
             {
@@ -2906,12 +2928,6 @@ namespace Portal.Consultoras.Web.Controllers
         {
             var menu = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo] ?? new MenuContenedorModel();
 
-            menu.Codigo = Util.Trim(menu.Codigo);
-            if (menu.Codigo == "")
-            {
-                menu.CampaniaId = menu.CampaniaId > 0 ? menu.CampaniaId : userData.CampaniaID;
-                menu.Codigo = Constantes.ConfiguracionPais.Inicio;
-            }
             return menu;
         }
 
