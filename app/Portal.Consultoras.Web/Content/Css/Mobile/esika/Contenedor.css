@@ -24,17 +24,19 @@
 	padding: 0px 2%;
 	overflow-y: hidden;
 }
-.bc_mobile-texto .mobile-txt p{
-  	display: block;
-  	color:white;
-  	font-weight: bolder;
-  	letter-spacing: 2px;
-    font-size: 11px;
-}
+    .bc_mobile-texto .mobile-txt p {
+        display: block;
+        color: white;
+        font-weight: bolder;
+        letter-spacing: 2px;
+        font-size: 11px;
+        margin-bottom: 0;
+    }
 .bc_mobile-texto .mobile-txt span{
   	letter-spacing: 1px;
   	color:white;
   	font-size: 11px;
+      display:none;
 }
   	
 .bc_para_ti-menu ul{

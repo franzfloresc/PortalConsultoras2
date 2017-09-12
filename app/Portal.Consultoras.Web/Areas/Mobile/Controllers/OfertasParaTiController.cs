@@ -45,7 +45,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                         ViewBag.OrigenUrl = Url.Action("Index", "Pedido", new { area = "Mobile" });
                         break;
                     case "7":
-                        ViewBag.Codigo = Constantes.BannerCodigo.RevistaDigital;
+                        ViewBag.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
                         ViewBag.OrigenUrl = Url.Action("Index", "RevistaDigital", new { area = IsMobile() ? "Mobile" : "" });
                         break;
                 }

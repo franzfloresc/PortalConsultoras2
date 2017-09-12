@@ -32,12 +32,11 @@ $(document).ready(function () {
             $(elementos.menu2).show();
         }
 
-        var menuCheck = {
-            campania: objClick.data("campania"),
-            codigo: ''
-        };
-
-        MenuContenedorGuardar(menuCheck);
+        //var menuCheck = {
+        //    campania: objClick.data("campania"),
+        //    codigo: ''
+        //};
+        //MenuContenedorGuardar(menuCheck);
 
         var urlAccion = $.trim(objClick.data("url"));
         if (urlAccion == "") {
@@ -179,33 +178,33 @@ function MenuContenedorClick(e, url) {
   
 }
 
-function MenuContenedorGuardar(codigoLocal) {
-    $.ajaxSetup({
-        cache: false
-    });
+//function MenuContenedorGuardar(codigoLocal) {
+//    $.ajaxSetup({
+//        cache: false
+//    });
 
-    var detalle;
+//    var detalle;
 
-    codigoLocal.campania = codigoLocal.campania || 0;
-    codigoLocal.codigo = $.trim(codigoLocal.codigo);
+//    codigoLocal.campania = codigoLocal.campania || 0;
+//    codigoLocal.codigo = $.trim(codigoLocal.codigo);
 
-    $.ajax({
-        type: 'POST',
-        url: "/Ofertas/GuardarMenuContenedor",
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(codigoLocal),
-        async: false,
-        success: function (data) {
-            detalle = data.success || false;
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
+//    $.ajax({
+//        type: 'POST',
+//        url: "/Ofertas/GuardarMenuContenedor",
+//        dataType: 'json',
+//        contentType: 'application/json; charset=utf-8',
+//        data: JSON.stringify(codigoLocal),
+//        async: false,
+//        success: function (data) {
+//            detalle = data.success || false;
+//        },
+//        error: function (error, x) {
+//            console.log(error, x);
+//        }
+//    });
 
-    return detalle;
-}
+//    return detalle;
+//}
 
 function MenuContenedorObtener() {
     $.ajaxSetup({
@@ -216,7 +215,7 @@ function MenuContenedorObtener() {
 
     $.ajax({
         type: 'POST',
-        url: "/Ofertas/ObtenerMenuContenedor",
+        url: "/Ofertas/MenuContenedorObtener",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         async: false,

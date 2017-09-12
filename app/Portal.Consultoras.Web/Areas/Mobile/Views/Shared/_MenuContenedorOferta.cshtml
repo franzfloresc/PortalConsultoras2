@@ -43,19 +43,17 @@
                 <ul>
                     <li data-campania="@menuActivo.CampaniaX0">
                         <a href="@Url.Action("Index", "Ofertas", new { area = "Mobile" })" class="@classMenuX">
-                            <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
-                            <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
-                        </a>
-                    </li>
-                    <li data-campania="@menuActivo.CampaniaX1">
-                        <a href="@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })" class="@classMenuX1">
-                            <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
-                            <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
-                        </a>
-                    </li>
-                    <li data-campania="0" data-url="">
-                        <a href="@Url.Action("Informacion", "RevistaDigital", new { area = "Mobile" })" class="@classMenuInfo">
-                            <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
+                    </a>
+                </li><li data-campania="@menuActivo.CampaniaX1">
+                    <a href="@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })" class="@classMenuX1">                    
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
+                    </a>
+                </li><li data-campania="0" data-url="">
+                    <a href="@Url.Action("Informacion", "RevistaDigital", new { area = "Mobile" })" class="@classMenuInfo">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i><span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                         </a>
                     </li>
                 </ul>

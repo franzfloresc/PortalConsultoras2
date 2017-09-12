@@ -116,19 +116,18 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult GuardarMenuContenedor(string codigo, int campania)
-        {
-            //MenuContenedorGuardar(codigo, campania);
+        //[HttpPost]
+        //public JsonResult GuardarMenuContenedor(string codigo, int campania)
+        //{
+        //    MenuContenedorGuardar(codigo, campania);
+        //    return Json(new
+        //    {
+        //        success = true
+        //    }, JsonRequestBehavior.AllowGet);
+        //}
 
-            return Json(new
-            {
-                success = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-
         [HttpPost]
-        public JsonResult ObtenerMenuContenedor()
+        public JsonResult MenuContenedorObtener()
         {
             var objSession = MenuContenedorObtenerActivo();
 
