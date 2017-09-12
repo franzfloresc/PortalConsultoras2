@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
 
@@ -11,8 +10,10 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                var listaSeccion = ObtenerConfiguracionSeccion();
-                var modelo = new EstrategiaPersonalizadaModel { ListaSeccion = listaSeccion };
+                var modelo = new EstrategiaPersonalizadaModel
+                {
+                    ListaSeccion = ObtenerConfiguracionSeccion()
+                };
 
                 return View(modelo);
             }
@@ -24,9 +25,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+        public ActionResult Revisar()
+        {
+            try
+            {
+                var modelo = new EstrategiaPersonalizadaModel
+                {
+                    ListaSeccion = ObtenerConfiguracionSeccion()
+                };
 
+                return View("Index", modelo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
+            return RedirectToAction("Index", "Bienvenida");
+        }
 
-        
     }
 }

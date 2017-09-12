@@ -2,8 +2,9 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var codigo = ViewBag.Codigo ?? "";
 }
 
 @section styles
@@ -23,7 +24,7 @@
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
         } 
     }
-    @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
+    @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
     {
         <div class="revistadigital-detalle-titulo">
             <div class="logo_EPT_content">
@@ -40,7 +41,7 @@
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
     }
 </div>
-@if (ViewBag.Codigo != Constantes.MenuCodigo.RevistaDigital)
+@if (codigo != Constantes.ConfiguracionPais.RevistaDigital)
 {
     <div class="" style="border-bottom:0">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -62,7 +63,7 @@
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
-            @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
+            @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
             {
 
                 <div class="precio_bpt">

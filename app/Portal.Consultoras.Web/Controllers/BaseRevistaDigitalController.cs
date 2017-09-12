@@ -258,7 +258,7 @@ namespace Portal.Consultoras.Web.Controllers
         public MensajeProductoBloqueadoModel MensajeProductoBloqueado()
         {
             var model = new MensajeProductoBloqueadoModel();
-            model.IsMobile = ViewBag.EsMobile == 2;
+            model.IsMobile = IsMobile();
             if (userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
             {
                 if (userData.RevistaDigital.SuscripcionModel.EstadoRegistro == Constantes.EstadoRDSuscripcion.Activo)
