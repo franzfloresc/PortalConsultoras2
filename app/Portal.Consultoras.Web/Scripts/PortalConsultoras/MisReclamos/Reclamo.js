@@ -50,6 +50,7 @@ $(document).ready(function () {
     });
 
     $('#divOperacion').on("click", ".btn_solución_reclamo", function () {
+
         $(".btn_solución_reclamo").attr("data-check", "0");
         var id = $.trim($(this).attr("id"));
         if (id == "") {
