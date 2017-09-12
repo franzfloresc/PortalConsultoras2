@@ -1562,8 +1562,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                    ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
+                    if (userData.FechaInicioCampania != default(DateTime))
+                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+                    
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                         && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                     {
