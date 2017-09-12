@@ -201,6 +201,23 @@ namespace Portal.Consultoras.Data
             }
         }
 
+        public bool MovimientoEliminar(long consultoraId, short clienteId, int movimientoId)
+        {
+            using (var command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Eliminar"))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                Context.Database.AddInParameter(command, "@ConsultoraId", DbType.Int64, consultoraId);
+                Context.Database.AddInParameter(command, "@ClienteId", DbType.Int32, clienteId);
+                Context.Database.AddInParameter(command, "@MovimientoId", DbType.Int32, movimientoId);
+
+                using (var reader = Context.ExecuteReader(command))
+                {
+                    return reader.RecordsAffected == 1;
+                }
+            }
+        }
+
         public IDataReader MovimientosListar(short clienteId, long consultoraId)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ClienteMovimiento_Listar");

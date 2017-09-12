@@ -99,6 +99,9 @@ namespace Portal.Consultoras.ServiceContracts
         Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento);
 
         [OperationContract]
+        Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId);
+
+        [OperationContract]
         int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio);
 
         [OperationContract]

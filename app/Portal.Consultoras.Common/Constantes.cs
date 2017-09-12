@@ -964,9 +964,14 @@ namespace Portal.Consultoras.Common
             public const string Cargo = "C";
 
             /// <summary>
-            /// Cargo belcorp, no editable desde la api
+            /// Cargo belcorp
             /// </summary>
             public const string CargoBelcorp = "CB";
+            
+            /// <summary>
+            /// Historico belcorp, no editable desde la api
+            /// </summary>
+            public const string Historico = "H";
 
             public static string[] Todos
             {
@@ -974,7 +979,7 @@ namespace Portal.Consultoras.Common
                 {
                     return new[]
                     {
-                        Abono, Cargo, CargoBelcorp
+                        Abono, Cargo, CargoBelcorp, Historico
                     };
                 }
             }
@@ -989,7 +994,7 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
