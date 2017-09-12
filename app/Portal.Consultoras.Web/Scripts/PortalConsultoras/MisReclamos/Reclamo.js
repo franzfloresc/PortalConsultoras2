@@ -595,7 +595,6 @@ function AnalizarOperacion(id) {
     }
 
     if (id == "D") {
-        console.log('D');
         if (ValidarPaso2Devolucion(id)) {
             CambioPaso2(100);
             $("[data-tipo-confirma='cambio']").hide();

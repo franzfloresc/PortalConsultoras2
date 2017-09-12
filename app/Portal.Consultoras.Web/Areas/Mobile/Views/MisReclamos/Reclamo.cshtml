@@ -17,7 +17,7 @@
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-            <a class="enlace_regresar catalogosR" title="Regresar"></a>
+        <a class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
     CAMBIOS Y DEVOLUCIONES
@@ -84,6 +84,9 @@
                             <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="">
                         </div>
                     </div>
+                    
+                    <div id="divDetalleUltimasSolicitudes"></div>
+
                     <div class="listado_productos_agregados">
                         <div class="producto_agregado">
                             <span class="cod_producto_agregado tipografia_lato_regular">00411</span>
@@ -218,7 +221,7 @@
                 Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
             </span>
         </div>
-        <div id="divDetalleUltimasSolicitudes" class="AceptarSolucion" style="display:none;">
+        <div id="divDetallePaso3" class="AceptarSolucion" style="display:none;">
             <!--template-detalle-banner-->
         </div>
 
@@ -244,19 +247,24 @@
         <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
             <div class="validacion_seccion_titulo">
                 <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
-                <div class="mensaje_validacion_datos tipografia_lato_regular">Es por si necesitamos contactarnos contigo.</div>
+                <div class="mensaje_validacion_datos tipografia_lato_regular">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
             </div>
             <div class="validacion_seccion_datos">
                 <form>
                     <div class="mb-27">
                         <label class="tipografia_lato_regular">Correo electrónico</label>
                         <input type="hidden" id="hdEmail" value="@Model.Email" />
-                        <input type="text" value="@Model.Email" />
+                        <input type="text" id="txtEmail" value="@Model.Email" />
                     </div>
                     <div class="mb-23">
                         <label class="tipografia_lato_regular">Celular</label>
-                        <input type="text" value="@Model.Telefono" />
+                        <input type="text" id="txtTelefono" value="@Model.Telefono" />
                         <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
+                        <div class="correo_reclamo_error">
+                            <span id="spnTelefonoError" style="display: none;">
+                                *Teléfono incorrecto
+                            </span>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -265,8 +273,9 @@
             <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
             <label for="politica-devolucion">
                 <span></span>
-                <a href="@Model.UrlPoliticaCdr" class="enlace_politica_devolucion tipografia_lato_regular" title="acepto la política de devolución">
-                    Acepto la política de devolución
+                <a href="@Model.UrlPoliticaCdr" target="_blank" class="enlace_politica_devolucion tipografia_lato_regular"
+                   title="acepto la política de devolución">
+                    Acepto la política de cambios y devoluciones
                 </a>
             </label>
         </div>
@@ -610,6 +619,40 @@
             <a href="" title="eliminar solicitud">
                 <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
             </a>
+        </div>
+    </div>
+    {{/each}}
+</script>
+
+<script id="template-detalle-paso3" type="text/x-handlebars-template">
+    {{#each detalle as |item|}}
+    <div class="content_solicitud_cdr tipografia_lato">
+        <div class="contenedor_info_cdr">
+            <div class="titulo_solicitud_cdr tipografia_lato_bold">
+                {{#if_eq CodigoOperacion 'C'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'F'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'G'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'T'}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{else}}
+                {{/if_eq}}
+            </div>
+            <div class="info_solicitud_cdr tipografia_lato_regular">
+                <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
+            </div>
+            <div class="icono_eliminar_solic_cdr">
+                <a href="" title="eliminar solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
+                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
+                </a>
+            </div>
         </div>
     </div>
     {{/each}}
