@@ -17,7 +17,7 @@
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-        <a class="enlace_regresar catalogosR" title="Regresar"></a>
+            <a class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
     CAMBIOS Y DEVOLUCIONES
@@ -84,7 +84,7 @@
                             <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="">
                         </div>
                     </div>
-                    
+
                     <div id="divDetalleUltimasSolicitudes"></div>
 
                     <div class="listado_productos_agregados">
@@ -157,6 +157,8 @@
             <input type="hidden" id="hdMontoMinimoPedido" value="@Model.MontoMinimo" />
             <input type="hidden" id="hdPedidoID" value="@Model.PedidoID" />
             <input type="hidden" id="hdNumeroPedido" value="@Model.NumeroPedido" />
+            <input type="hidden" id="hdParametriaCdr" />
+            <input type="hidden" id="hdParametriaAbsCdr" />
             <input type="hidden" id="txtPrecioUnidad" />
             <input type="hidden" id="hdImporteTotalPedido" />
         </div>
@@ -179,22 +181,21 @@
         <div class="listado_soluciones_cdr tipografia_lato Registro3" id="listado_soluciones_cdr" style="display:none;">
         </div>
         <!-- FIN VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
-
         <!--INICIO DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
         <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="Cambio2" style="display:none;">
             <div class="titulo_eleccion_cdr tipografia_lato_bold">
                 <span>ELEGISTE:</span>
                 <span>CAMBIARLO POR OTRO PRODUCTO</span>
             </div>
-            <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" @*data-tipo-confirma="canje"*@>
+            <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
                 <span>
                     <input type="hidden" id="hdMontoMinimoReclamo" />
                     Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
                 </span>
-                <span >Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
+                <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
                 <div data-detalle-confirma=""></div>
             </div>
-            
+
             <form class="formulario_inscripcion">
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
 
@@ -212,9 +213,6 @@
                 </div>
             </form>
         </div>
-        <!--FIN DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
-     </div>
-
         @*Canje*@
         <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">
             <div>
@@ -236,323 +234,329 @@
                 </div>
             </div>
         </div>
-        <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
-        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 AceptarSolucion" style="display:none;">
+        <!--FIN DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
+    </div>
+
+
+    <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
+    <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 AceptarSolucion" style="display:none;">
+        <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
+        <span class="mensaje_vista_cdr tipografia_lato_regular">
+            Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
+        </span>
+    </div>
+    <div id="divDetallePaso3" class="AceptarSolucion" style="display:none;">
+        <!--template-detalle-banner-->
+    </div>
+
+    @*<div class="content_solicitud_cdr tipografia_lato">
+            <div class="contenedor_info_cdr">
+                <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
+                <div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
+                </div>
+            </div>
+            <div class="contenedor_info_cdr">
+                <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
+                <div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>98765</span> - <span>Máscara full size negro.</span>
+                </div>
+            </div>
+            <div class="icono_eliminar_solic_cdr">
+                <a href="" title="eliminar solicitud">
+                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
+                </a>
+            </div>
+        </div>*@
+    <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
+        <div class="validacion_seccion_titulo">
+            <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
+            <div class="mensaje_validacion_datos tipografia_lato_regular">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
+        </div>
+        <div class="validacion_seccion_datos">
+            <form>
+                <div class="mb-27">
+                    <label class="tipografia_lato_regular">Correo electrónico</label>
+                    <input type="hidden" id="hdEmail" value="@Model.Email" />
+                    <input type="text" id="txtEmail" value="@Model.Email" />
+                </div>
+                <div class="mb-23">
+                    <label class="tipografia_lato_regular">Celular</label>
+                    <input type="text" id="txtTelefono" value="@Model.Telefono" />
+                    <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
+                    <div class="correo_reclamo_error">
+                        <span id="spnTelefonoError" style="display: none;">
+                            *Teléfono incorrecto
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="content_politica_devolucion tipografia_lato AceptarSolucion" style="display:none;">
+        <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
+        <label for="politica-devolucion">
+            <span></span>
+            <a href="@Model.UrlPoliticaCdr" target="_blank" class="enlace_politica_devolucion tipografia_lato_regular"
+               title="acepto la política de devolución">
+                Acepto la política de cambios y devoluciones
+            </a>
+        </label>
+    </div>
+    <div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
+        <span class="icono_alerta_cdr">
+            <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
+        </span>
+        <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
+            Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
+        </span>
+    </div>
+    <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
+    <!--SOLICITUD ENVIADA-->
+    <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
+        <!-- VISTA SOLICITUD ENVIADA -->
+        <div class="content_mensaje_solicitud_enviada">
+            <div class="icono_solicitud_enviada">
+                <img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
+            </div>
+            <div class="titulo_solicitud_enviada tipografia_lato_regular">
+                ¡SOLICITUD <span class="tipografia_lato_bold">ENVIADA!</span>
+            </div>
+            <div class="mensaje_solicitud_enviada tipografia_lato_regular">
+                Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico.
+            </div>
+        </div>
+
+        <div class="detalle_solicitud_cdr">
+            <div class="titulo_detalle_solicitud_cdr tipografia_lato_bold">
+                Solicitud de Cambio y devolución
+            </div>
+            <div class="info_detalle_cdr tipografia_lato_light">
+                <div class="info_fecha_solicitud">
+                    Fecha: <span class="tipografia_lato_regular" id="spnSolicitudFechaCulminado"></span>
+                </div>
+                <div class="info_num_solicitud">
+                    Solicitud: Nº <span class="tipografia_lato_regular" id="spnSolicitudNumeroSolicitud"></span>
+                </div>
+                <div class="info_campania_solicitud">
+                    Campaña: <span class="tipografia_lato_regular" id="spnSolicitudCampania"></span>
+                </div>
+            </div>
+            <div class="detalle_solicitud_listado" id="divDetalleEnviar">
+                @*<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                        Solicitud de cambio
+                    </div>
+                    <div class="detalle_tipo_solicitud">
+                        <div class="detalle_producto_cdr">
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                00411
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                Berrylicious shampoo rojo 375ml.
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x2 unidades
+                            </span>
+                            <span class="detalle_precio_producto tipografia_lato_regular">
+                                S/.15.00
+                            </span>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
+                                Cambiar por:
+                            </span>
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                98765
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                Máscara Full Size Negro.
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x2 unidades
+                            </span>
+                            <span class="detalle_precio_producto tipografia_lato_regular">
+                                S/.15.00
+                            </span>
+                        </div>
+                    </div>
+                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                        Solicitud de reenvío
+                    </div>
+                    <div class="detalle_tipo_solicitud">
+                        <div class="detalle_producto_cdr">
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                00411
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                Berrylicious shampoo rojo 375ml.
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x2 unidades
+                            </span>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                                Reenviar:
+                            </span>
+                            <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
+                                el mismo producto
+                            </span>
+                        </div>
+                    </div>
+                    <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
+                        Solicitud de devolución
+                    </div>
+                    <div class="detalle_tipo_solicitud">
+                        <div class="detalle_producto_cdr">
+                            <span class="detalle_cod_producto tipografia_lato_regular">
+                                00411
+                            </span>
+                            <span class="detalle_nom_producto tipografia_lato_bold">
+                                Berrylicious shampoo rojo 375ml.
+                            </span>
+                            <span class="detalle_cantidad_producto tipografia_lato_regular">
+                                x2 unidades
+                            </span>
+                        </div>
+                        <div class="detalle_cdr_solucion">
+                            <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
+                                Devolución:
+                            </span>
+                            <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
+                                S/.15
+                            </span>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+        <!-- FIN VISTA SOLICITUD ENVIADA -->
+        <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
+        <a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
+            <span class="icono_arrow_left">
+                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
+            </span>
+            <span href="@Url.Action("Index")">VER TUS SOLICITUDES</span>
+        </a>
+        <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
+
+    </div>
+    <!--FIN SOLICITUD ENVIADA-->
+    <!-- INICIO VISTA CONFIRMACIÓN ELECCIÓN -->
+    @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
+                Confirma tu elección
+        </div>
+        <div>
+            <div class="contenedor_producto_cambio_por tipografia_lato">
+                <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
+                <div class="producto_cdr tipografia_lato">
+                    <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                    <span class="cantidad_producto tipografia_lato_regular">
+                        x<span>2</span> unidades
+                    </span>
+                </div>
+            </div>
+            <div class="contenedor_producto_cambio_por tipografia_lato">
+                <span class="texto_producto_a_cambiar">Por:</span>
+                <div class="producto_cdr tipografia_lato">
+                    <span class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
+                    <span class="cantidad_producto tipografia_lato_regular">
+                        x<span>2</span> unidades
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="info_importante_cdr tipografia_lato">
+            <div class="titulo_info_cdr tipografia_lato_regular">
+                TEN EN CUENTA
+            </div>
+            <div class="content_info_cdr tipografia_lato_regular">
+                Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
+            </div>
+        </div>*@
+    <!-- FIN VISTA CONFIRMACIÓN ELECCIÓN -->
+    <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
+    @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
             <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
             <span class="mensaje_vista_cdr tipografia_lato_regular">
                 Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
             </span>
         </div>
-        <div id="divDetallePaso3" class="AceptarSolucion" style="display:none;">
-            <!--template-detalle-banner-->
+        <div class="content_solicitud_cdr tipografia_lato">
+            <div class="contenedor_info_cdr">
+                <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
+                <div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
+                </div>
+            </div>
+            <div class="contenedor_info_cdr">
+                <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
+                <div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>98765</span> - <span>Máscara full size negro.</span>
+                </div>
+            </div>
+            <div class="icono_eliminar_solic_cdr">
+                <a href="" title="eliminar solicitud">
+                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
+                </a>
+            </div>
         </div>
-
-        @*<div class="content_solicitud_cdr tipografia_lato">
-                <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
-                    <div class="info_solicitud_cdr tipografia_lato_regular">
-                        <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
-                    </div>
-                </div>
-                <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
-                    <div class="info_solicitud_cdr tipografia_lato_regular">
-                        <span>98765</span> - <span>Máscara full size negro.</span>
-                    </div>
-                </div>
-                <div class="icono_eliminar_solic_cdr">
-                    <a href="" title="eliminar solicitud">
-                        <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
-                    </a>
-                </div>
-            </div>*@
-        <div class="validacion_datos tipografia_lato AceptarSolucion" style="display:none;">
+        <div class="validacion_datos tipografia_lato">
             <div class="validacion_seccion_titulo">
                 <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
-                <div class="mensaje_validacion_datos tipografia_lato_regular">En caso de necesitar contactarnos contigo, lo haremos a través de:</div>
+                <div class="mensaje_validacion_datos tipografia_lato_regular">Es por si necesitamos contactarnos contigo.</div>
             </div>
             <div class="validacion_seccion_datos">
                 <form>
                     <div class="mb-27">
                         <label class="tipografia_lato_regular">Correo electrónico</label>
-                        <input type="hidden" id="hdEmail" value="@Model.Email" />
-                        <input type="text" id="txtEmail" value="@Model.Email" />
+                        <input type="text" value="juanita@hotmail.com" />
                     </div>
                     <div class="mb-23">
                         <label class="tipografia_lato_regular">Celular</label>
-                        <input type="text" id="txtTelefono" value="@Model.Telefono" />
-                        <input type="hidden" id="hdTelefono" value="@Model.Telefono" />
-                        <div class="correo_reclamo_error">
-                            <span id="spnTelefonoError" style="display: none;">
-                                *Teléfono incorrecto
-                            </span>
-                        </div>
+                        <input type="text" value="988978654" />
                     </div>
                 </form>
             </div>
         </div>
-        <div class="content_politica_devolucion tipografia_lato AceptarSolucion" style="display:none;">
+        <div class="content_politica_devolucion tipografia_lato">
             <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
             <label for="politica-devolucion">
                 <span></span>
-                <a href="@Model.UrlPoliticaCdr" target="_blank" class="enlace_politica_devolucion tipografia_lato_regular"
-                   title="acepto la política de devolución">
-                    Acepto la política de cambios y devoluciones
+                <a href="" class="enlace_politica_devolucion tipografia_lato_regular" title="acepto la política de devolución">
+                    Acepto la política de devolución
                 </a>
             </label>
         </div>
-        <div class="tooltip_btn_reportar_inconveniente tipografia_lato AceptarSolucion" style="display:none;">
+        <div class="tooltip_btn_reportar_inconveniente tipografia_lato">
             <span class="icono_alerta_cdr">
                 <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
             </span>
             <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
                 Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
             </span>
-        </div>
-        <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
-        <!--SOLICITUD ENVIADA-->
-        <div class="wrapper_resumen_mobile tipografia_lato bloqueCDRRegistro" id="SolicitudEnviada" style="display:none;">
-            <!-- VISTA SOLICITUD ENVIADA -->
-            <div class="content_mensaje_solicitud_enviada">
-                <div class="icono_solicitud_enviada">
-                    <img src="@Url.Content("~/Content/Images/Esika/icono_check_esika.svg")" alt="Solicitud Enviada">
-                </div>
-                <div class="titulo_solicitud_enviada tipografia_lato_regular">
-                    ¡SOLICITUD <span class="tipografia_lato_bold">ENVIADA!</span>
-                </div>
-                <div class="mensaje_solicitud_enviada tipografia_lato_regular">
-                    Vamos a evaluarla y en un plazo de 30 minutos te enviaremos una respuesta a tu correo electrónico.
-                </div>
-            </div>
+        </div>*@
 
-            <div class="detalle_solicitud_cdr">
-                <div class="titulo_detalle_solicitud_cdr tipografia_lato_bold">
-                    Solicitud de Cambio y devolución
-                </div>
-                <div class="info_detalle_cdr tipografia_lato_light">
-                    <div class="info_fecha_solicitud">
-                        Fecha: <span class="tipografia_lato_regular" id="spnSolicitudFechaCulminado"></span>
-                    </div>
-                    <div class="info_num_solicitud">
-                        Solicitud: Nº <span class="tipografia_lato_regular" id="spnSolicitudNumeroSolicitud"></span>
-                    </div>
-                    <div class="info_campania_solicitud">
-                        Campaña: <span class="tipografia_lato_regular" id="spnSolicitudCampania"></span>
-                    </div>
-                </div>
-                <div class="detalle_solicitud_listado" id="divDetalleEnviar">
-                    @*<div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                            Solicitud de cambio
-                        </div>
-                        <div class="detalle_tipo_solicitud">
-                            <div class="detalle_producto_cdr">
-                                <span class="detalle_cod_producto tipografia_lato_regular">
-                                    00411
-                                </span>
-                                <span class="detalle_nom_producto tipografia_lato_bold">
-                                    Berrylicious shampoo rojo 375ml.
-                                </span>
-                                <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                    x2 unidades
-                                </span>
-                                <span class="detalle_precio_producto tipografia_lato_regular">
-                                    S/.15.00
-                                </span>
-                            </div>
-                            <div class="detalle_cdr_solucion">
-                                <span class="detalle_cdr_solucion_titulo color_marca tipografia_lato_bold">
-                                    Cambiar por:
-                                </span>
-                                <span class="detalle_cod_producto tipografia_lato_regular">
-                                    98765
-                                </span>
-                                <span class="detalle_nom_producto tipografia_lato_bold">
-                                    Máscara Full Size Negro.
-                                </span>
-                                <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                    x2 unidades
-                                </span>
-                                <span class="detalle_precio_producto tipografia_lato_regular">
-                                    S/.15.00
-                                </span>
-                            </div>
-                        </div>
-                        <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                            Solicitud de reenvío
-                        </div>
-                        <div class="detalle_tipo_solicitud">
-                            <div class="detalle_producto_cdr">
-                                <span class="detalle_cod_producto tipografia_lato_regular">
-                                    00411
-                                </span>
-                                <span class="detalle_nom_producto tipografia_lato_bold">
-                                    Berrylicious shampoo rojo 375ml.
-                                </span>
-                                <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                    x2 unidades
-                                </span>
-                            </div>
-                            <div class="detalle_cdr_solucion">
-                                <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                                    Reenviar:
-                                </span>
-                                <span class="detalle_cdr_solucion_titulo tipografia_lato_regular">
-                                    el mismo producto
-                                </span>
-                            </div>
-                        </div>
-                        <div class="detalle_tipo_solicitud_titulo tipografia_lato_bold">
-                            Solicitud de devolución
-                        </div>
-                        <div class="detalle_tipo_solicitud">
-                            <div class="detalle_producto_cdr">
-                                <span class="detalle_cod_producto tipografia_lato_regular">
-                                    00411
-                                </span>
-                                <span class="detalle_nom_producto tipografia_lato_bold">
-                                    Berrylicious shampoo rojo 375ml.
-                                </span>
-                                <span class="detalle_cantidad_producto tipografia_lato_regular">
-                                    x2 unidades
-                                </span>
-                            </div>
-                            <div class="detalle_cdr_solucion">
-                                <span class="detalle_cdr_solucion_titulo tipografia_lato_bold color_marca">
-                                    Devolución:
-                                </span>
-                                <span class="detalle_cdr_monto_devolucion tipografia_lato_regular">
-                                    S/.15
-                                </span>
-                            </div>
-                        </div>*@
-                </div>
-            </div>
-            <!-- FIN VISTA SOLICITUD ENVIADA -->
-            <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            <a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
-                <span class="icono_arrow_left">
-                    <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
-                </span>
-                <span href="@Url.Action("Index")">VER TUS SOLICITUDES</span>
-            </a>
-            <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
+    <!-- INICIO BOTÓN REPORTAR OTRO INCONVENIENTE -->
+    @*<button class="tipografia_lato tipografia_lato_bold btn_reportar_inconveniente">REPORTA OTRO INCONVENIENTE</button>*@
+    <!-- FIN BOTÓN REPORTAR OTRO INCONVENIENTE -->
+    <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
+    <!-- INICIO ENLACE QUIERO VER OTRA ALTERNATIVA -->
+    @*<a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
+            QUIERO VER OTRA ALTERNATIVA
+        </a>*@
+    <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
+    <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
+    @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">*@
+    @*<span class="icono_arrow_left">
+            <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
+        </span>*@
+    <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
+        <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
+    </a>
 
-        </div>
-        <!--FIN SOLICITUD ENVIADA-->
-        <!-- INICIO VISTA CONFIRMACIÓN ELECCIÓN -->
-        @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-                    Confirma tu elección
-            </div>
-            <div>
-                <div class="contenedor_producto_cambio_por tipografia_lato">
-                    <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
-                    <div class="producto_cdr tipografia_lato">
-                        <span class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                        <span class="cantidad_producto tipografia_lato_regular">
-                            x<span>2</span> unidades
-                        </span>
-                    </div>
-                </div>
-                <div class="contenedor_producto_cambio_por tipografia_lato">
-                    <span class="texto_producto_a_cambiar">Por:</span>
-                    <div class="producto_cdr tipografia_lato">
-                        <span class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
-                        <span class="cantidad_producto tipografia_lato_regular">
-                            x<span>2</span> unidades
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="info_importante_cdr tipografia_lato">
-                <div class="titulo_info_cdr tipografia_lato_regular">
-                    TEN EN CUENTA
-                </div>
-                <div class="content_info_cdr tipografia_lato_regular">
-                    Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
-                </div>
-            </div>*@
-        <!-- FIN VISTA CONFIRMACIÓN ELECCIÓN -->
-        <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
-        @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-                <span class="titulo_revision_resumen">Revisa el resumen, finaliza y envía tu solicitud</span>
-                <span class="mensaje_vista_cdr tipografia_lato_regular">
-                    Asegúrate de tener todos los inconvenientes registrados porque <span class="tipografia_lato_bold">sólo puedes hacer 1 solicitud web por pedido.</span>
-                </span>
-            </div>
-            <div class="content_solicitud_cdr tipografia_lato">
-                <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
-                    <div class="info_solicitud_cdr tipografia_lato_regular">
-                        <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
-                    </div>
-                </div>
-                <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Cambiar por:</div>
-                    <div class="info_solicitud_cdr tipografia_lato_regular">
-                        <span>98765</span> - <span>Máscara full size negro.</span>
-                    </div>
-                </div>
-                <div class="icono_eliminar_solic_cdr">
-                    <a href="" title="eliminar solicitud">
-                        <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
-                    </a>
-                </div>
-            </div>
-            <div class="validacion_datos tipografia_lato">
-                <div class="validacion_seccion_titulo">
-                    <div class="titulo_validacion_datos tipografia_lato_bold">Valida tus datos</div>
-                    <div class="mensaje_validacion_datos tipografia_lato_regular">Es por si necesitamos contactarnos contigo.</div>
-                </div>
-                <div class="validacion_seccion_datos">
-                    <form>
-                        <div class="mb-27">
-                            <label class="tipografia_lato_regular">Correo electrónico</label>
-                            <input type="text" value="juanita@hotmail.com" />
-                        </div>
-                        <div class="mb-23">
-                            <label class="tipografia_lato_regular">Celular</label>
-                            <input type="text" value="988978654" />
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="content_politica_devolucion tipografia_lato">
-                <input type="checkbox" value="" id="politica-devolucion" name="politica-devolucion" />
-                <label for="politica-devolucion">
-                    <span></span>
-                    <a href="" class="enlace_politica_devolucion tipografia_lato_regular" title="acepto la política de devolución">
-                        Acepto la política de devolución
-                    </a>
-                </label>
-            </div>
-            <div class="tooltip_btn_reportar_inconveniente tipografia_lato">
-                <span class="icono_alerta_cdr">
-                    <img src="@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.svg")" alt="reportar inconveniente">
-                </span>
-                <span class="tipografia_lato tipografia_lato_regular texto_tooltip_reportar_inconveniente">
-                    Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
-                </span>
-            </div>*@
+    <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
-        <!-- INICIO BOTÓN REPORTAR OTRO INCONVENIENTE -->
-        @*<button class="tipografia_lato tipografia_lato_bold btn_reportar_inconveniente">REPORTA OTRO INCONVENIENTE</button>*@
-        <!-- FIN BOTÓN REPORTAR OTRO INCONVENIENTE -->
-        <!-- FIN VISTA FINALIZACIÓN DE SOLICITUD -->
-        <!-- INICIO ENLACE QUIERO VER OTRA ALTERNATIVA -->
-        @*<a href="#" class="enlace_quiero_ver_otra_alternativa tipografia_lato tipografia_lato_regular" title="Quiero ver otra alternativa">
-                QUIERO VER OTRA ALTERNATIVA
-            </a>*@
-        <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
-        <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-        <a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes anteriores">
-            <span class="icono_arrow_left">
-                <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
-            </span>
-            <span>VER SOLICITUDES ANTERIORES</span>
-        </a>
-        <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
-
-    </div>
+</div>
 </div>
 
 <!-- INICIO BOTONES CTA (CALL TO ACTION) -->
@@ -671,9 +675,14 @@
                 <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
             </div>
             <div class="icono_eliminar_solic_cdr">
-                <a href="" title="eliminar solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
+                @*<a href="#" title="eliminar solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
                     <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" />
-                </a>
+                </a>*@
+
+                <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
+                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+                    title="Eliminar solicitud"></a>
+
             </div>
         </div>
     </div>
@@ -751,5 +760,8 @@
     var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
     var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
     var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
+
+    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
 </script>
 
