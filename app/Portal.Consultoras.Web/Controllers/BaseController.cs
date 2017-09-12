@@ -822,6 +822,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
                         continue;
                 }
+                
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+                        continue;
+                }
 
                 var config = confiModel;
                 config.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
