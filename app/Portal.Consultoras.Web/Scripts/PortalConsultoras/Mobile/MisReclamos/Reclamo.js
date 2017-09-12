@@ -1,5 +1,4 @@
-﻿
-var misReclamosRegistro;
+﻿var misReclamosRegistro;
 var cuvKeyUp = false;
 var cuv2KeyUp = false;
 var cuvPrevVal = '', cuv2PrevVal = '';
@@ -45,7 +44,7 @@ $(document).ready(function () {
             SolicitudEnviada: "#SolicitudEnviada",
             hdPedidoId: "#txtPedidoID",
             hdCDRID: "#CDRWebID",
-            CambioProducto: "#CambioProducto"
+            CambioProducto: "#CambioProducto",
             IrSolicitudInicial: "#IrSolicitudInicial"
         };
 
@@ -386,8 +385,7 @@ $(document).ready(function () {
         };
 
         me.Funciones = {
-
-
+            
             EvaluarCUV2: function () {
                 
                 if (!me.Funciones.CUV2Cambio()) return false;
@@ -403,8 +401,7 @@ $(document).ready(function () {
                     $("#CambioProducto2").addClass("disabledClick");
                 }
             },
-
-
+            
             CUV2Cambio: function () {
                 var cuv2Val = $(me.Variables.txtCuvMobile2).val();
                 if (cuv2Val == null) cuv2Val = '';
@@ -843,7 +840,7 @@ $(document).ready(function () {
             },
 
             CargarPropuesta: function (codigoSsic) {
-                debugger;
+                
                 var tipo = (codigoSsic == "C" || codigoSsic == "D" || codigoSsic == "F" || codigoSsic == "G") ? "canje" : "cambio";
 
                 var item = {
@@ -862,7 +859,7 @@ $(document).ready(function () {
                     async: true,
                     cache: false,
                     success: function (data) {
-                        debugger;
+                        
                         closeWaitingDialog();
                         if (!checkTimeout(data))
                             return false;
