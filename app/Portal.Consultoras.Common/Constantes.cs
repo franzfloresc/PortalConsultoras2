@@ -1054,6 +1054,7 @@ namespace Portal.Consultoras.Common
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
+            public const string RdDetalle = "/revistadigital/detalle";
             public const string RdInicio = "/revistadigital";
             public const string SwInicio = "/showroom";
             public const string SwIntriga = "/showroom/intriga";
