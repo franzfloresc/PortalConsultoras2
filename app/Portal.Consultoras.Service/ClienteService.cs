@@ -174,6 +174,12 @@ namespace Portal.Consultoras.Service
             return new Tuple<bool, string>(result.Success, result.Message);
         }
 
+        public Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId)
+        {
+            var result = BLCliente.MovimientoEliminar(paisId, consultoraId, clienteId, movimientoId);
+            return new Tuple<bool, string>(result.Success, result.Message);
+        }
+
         public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
             return BLCliente.RecordatorioInsertar(paisId, recordatorio);
