@@ -36,8 +36,8 @@ namespace Portal.Consultoras.Common
                     logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
                 }
 
-                RegistrarArchivoTexto(logError, pathFile);
-                RegistrarDynamoDB(logError);
+                //RegistrarArchivoTexto(logError, pathFile);
+                //RegistrarDynamoDB(logError);
             }
             catch (Exception ex)
             {

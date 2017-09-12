@@ -192,30 +192,31 @@ $(document).ready(function () {
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
 
-                    me.Funciones.BuscarMotivo();
+                    if ($(me.Variables.Registro1).is(":visible")) {
+                        me.Funciones.BuscarMotivo();
+                        $("#pasodos").hide();
+                        $("#pasodosactivo").show();
+                        $(me.Variables.Registro1).hide();
+                        $(me.Variables.Registro2).show();
+                        return false;
+                    }
 
-                    $(me.Variables.Registro1).hide();
-                    $(me.Variables.Registro2).show();
-                    $(me.Variables.btnSiguiente1).hide();
-                    $(me.Variables.btnSiguiente2).show();
-                });
-
-                $(me.Variables.btnSiguiente2).click(function (e) {
-                    //$("#txtCUVDescripcion2").val('')
-                    //$("#txtCUV2").val('');
-                    //$("#txtCUVPrecio2").val('');
+                    if ($(me.Variables.Registro2).is(":visible")) {
+                        //$("#txtCUVDescripcion2").val('')
+                        //$("#txtCUV2").val('');
+                        //$("#txtCUVPrecio2").val('');
 
                         if (me.Funciones.ValidarPaso1()) {
-
+                            console.log(' Paso 1 validado... ');
                             //paso2Actual = 1;
                             //me.Funciones.CambioPaso();
                             me.Funciones.CargarOperacion();
 
                             $(me.Variables.Registro2).hide();
                             $(me.Variables.Registro3).show();
-                            $(me.Variables.btnSiguiente1).hide();                            
+                            $(me.Variables.btnSiguiente2).hide();
+                            $(me.Variables.btnSiguiente3).hide();
                         }
-                        return false;
                     }
                 });
 
