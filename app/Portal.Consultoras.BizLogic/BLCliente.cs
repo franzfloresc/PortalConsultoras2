@@ -145,12 +145,11 @@ namespace Portal.Consultoras.BizLogic
 
         public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId)
         {
-            int codigoCampania;
             var movimientos = new List<BEMovimiento>();
             var daCliente = new DACliente(paisId);
             var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
 
-            using (IDataReader reader = daCliente.MovimientosListar(clienteId, consultoraId))
+            using (var reader = daCliente.MovimientosListar(clienteId, consultoraId))
                 while (reader.Read())
                 {
                     var movimiento = new BEMovimiento(reader);
@@ -159,9 +158,10 @@ namespace Portal.Consultoras.BizLogic
 
             foreach (var movimiento in movimientos)
             {
-                if (movimiento.TipoMovimiento != "CB")
+                if (movimiento.TipoMovimiento != Constantes.MovimientoTipo.CargoBelcorp)
                     continue;
 
+                int codigoCampania;
                 if (!int.TryParse(movimiento.CodigoCampania, out codigoCampania))
                     continue;
 
@@ -169,7 +169,7 @@ namespace Portal.Consultoras.BizLogic
                     continue;
 
                 var pedidos = new List<BEPedidoDDWebDetalle>();
-                using (IDataReader reader = daPedidoDetalle.ClientePedidoFacturadoListar(codigoCampania, consultoraId, clienteId))
+                using (var reader = daPedidoDetalle.ClientePedidoFacturadoListar(codigoCampania, consultoraId, clienteId))
                     while (reader.Read())
                     {
                         var pedido = new BEPedidoDDWebDetalle(reader);
@@ -199,16 +199,31 @@ namespace Portal.Consultoras.BizLogic
             return ResponseType<BEMovimiento>.Build(result, string.Empty);
         }
 
-        private ResponseType<List<BEMovimiento>> MovimientoProcesar(int paisId, BEClienteDB clienteDB)
+        public ResponseType<int> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId)
         {
-            var movimientos = clienteDB.Movimientos;
+            var movimientos = MovimientoListar(paisId, clienteId, consultoraId);
+            var movimiento = movimientos.FirstOrDefault(m => m.ClienteMovimientoId == movimientoId);
 
+            if (movimiento == null)
+                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
+
+            if (new[] { Constantes.MovimientoTipo.Historico, Constantes.MovimientoTipo.CargoBelcorp }.Contains(movimiento.TipoMovimiento))
+                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
+
+            var daCliente = new DACliente(paisId);
+            var result = daCliente.MovimientoEliminar(consultoraId, clienteId, movimientoId);
+
+            return ResponseType<int>.Build(result, string.Empty);
+        }
+
+        private ResponseType<List<BEMovimiento>> MovimientoProcesar(int paisId, BEClienteDB clienteDb)
+        {
             var movimientosResponse = ResponseType<List<BEMovimiento>>.Build(data: new List<BEMovimiento>());
 
-            foreach (var movimiento in movimientos)
+            foreach (var movimiento in clienteDb.Movimientos)
             {
-                movimiento.ClienteId = (short)clienteDB.ClienteIDSB;
-                movimiento.CodigoCliente = clienteDB.ClienteID;
+                movimiento.ClienteId = (short)clienteDb.ClienteIDSB;
+                movimiento.CodigoCliente = clienteDb.ClienteID;
 
                 if (movimiento.ClienteMovimientoId == 0)
                 {
