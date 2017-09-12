@@ -52,4 +52,11 @@
             $(this).find('img.hover').css('display', 'none');
         });
 </script>
+    <script>
+        if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
+            $(this).find('img.default').css('display', 'inline');
+        } else {
+            $(this).find('img.default').css('display', 'none')
+        }
+    </script>
 }

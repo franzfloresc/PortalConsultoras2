@@ -1,10 +1,12 @@
 ﻿
 /* Menu */
-.bc_mobil_para-mi{
-  	background-repeat: no-repeat !important;
-	background-size: cover !important;
-	background-position: right center !important;
+.bc_mobil_para-mi {
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: right center !important;
     background-color: #808080;
+    height: 102px;
+    overflow: hidden;
 }
 .bc_mobile-logo {
     float: left;
@@ -53,19 +55,20 @@
     margin-left: 3px;
     margin-right:3px;
 }
-.bc_para_ti-menu ul li a{
-	display: block;
-	cursor:pointer;
-	text-align: center;
-	background: rgba(255, 255, 255, 0.50);
-	font-size: 8px;
-	color: white;
-	text-decoration: none;
-	letter-spacing: 2px;
-	font-weight: bolder;
-	padding: 10px;
-	transition:.3s;
-}
+    .bc_para_ti-menu ul li a {
+        display: block;
+        cursor: pointer;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.50);
+        font-size: 8px;
+        color: white;
+        text-decoration: none;
+        letter-spacing: 2px;
+        font-weight: bolder;
+        padding: 10px;
+        transition: .3s;
+        height: 34px;
+    }
 .bc_para_ti-menu ul li a.activo{
 	background: white !important;
 	color:#333 !important;
@@ -74,15 +77,15 @@
 	background: white;
 	color:#333;
 }
-.bc_para_ti-menu ul li a img{
-    display: inline;
-    margin: auto;
-    width: 14px;
-    height: 11px;
-    margin-right: 5px !important;
-    position: relative;
-    top: 0px;
-}
+    .bc_para_ti-menu ul li a img {
+        display: inline;
+        margin: auto;
+        width: 14px;
+        height: auto;
+        margin-right: 5px !important;
+        position: relative;
+        top: -1.5px;
+    }
     .bc_para_ti-menu ul li a img.hover {
         display: none;
     }
@@ -211,12 +214,28 @@ padding: 0px 19px !important;
 margin-top: 10px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
-padding: 5px;
-display: block;
-cursor: pointer;
-font-size: 10px;
-text-transform: uppercase;
+    padding: 5px;
+    display: block;
+    cursor: pointer;
+    font-size: 10px;
+    text-transform: uppercase;
+    transition: .3s;
 }
+.bc_para_ti-menu-opciones li a:hover {
+    color: #e81c36;
+}
+/*.bc_para_ti-menu-opciones ul li a::after {
+    content: '';
+    width: 20px;
+    margin: auto;
+    display: block;
+    border: 1px solid #e81c36;
+}*/
+.bc_para_ti-menu-opciones ul li a p{
+    margin:0;
+    
+}
+
 .bc-menu-vertical-prev, .bc-menu-vertical-next{
 width:auto !important;
 }
