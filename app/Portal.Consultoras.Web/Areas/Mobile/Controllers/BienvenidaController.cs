@@ -314,15 +314,22 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public JsonResult ObtenerComunicadosPopUps()
         {
-            BEComunicado oComunicados = null;
 
-            using (SACServiceClient sac = new SACServiceClient())
+            List<BEComunicado> lstComunicados;
+            using (var sacServiceClient = new SACServiceClient())
             {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
-                if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+                 lstComunicados = sacServiceClient.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
             }
 
-            return Json(oComunicados, JsonRequestBehavior.AllowGet);
+            BEComunicado comunicado = null;
+            if (lstComunicados != null && lstComunicados.Any())
+                comunicado = lstComunicados.FirstOrDefault();
+
+
+            return Json(new {
+                succes =true,
+                data = comunicado
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

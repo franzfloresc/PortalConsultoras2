@@ -15,34 +15,34 @@ namespace Portal.Consultoras.Common
     {
         public static void SaveLog(Exception exception, string codigoUsuario, string paisISO)
         {
-            SaveLog(new LogError
-            {
-                Exception = exception,
-                CodigoUsuario = codigoUsuario,
-                IsoPais = paisISO,
-                Origen = "Servidor",
-                Titulo = "Seguimiento de Errores Servicio Portal"
-            });
+            //SaveLog(new LogError
+            //{
+            //    Exception = exception,
+            //    CodigoUsuario = codigoUsuario,
+            //    IsoPais = paisISO,
+            //    Origen = "Servidor",
+            //    Titulo = "Seguimiento de Errores Servicio Portal"
+            //});
         }
 
         public static void SaveLog(LogError logError, string pathFile = "")
         {
-            try
-            {
-                if (logError == null || logError.Exception == null) return;
+            //try
+            //{
+            //    if (logError == null || logError.Exception == null) return;
 
-                if (Util.isNumeric(logError.IsoPais))
-                {
-                    logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
-                }
+            //    if (Util.isNumeric(logError.IsoPais))
+            //    {
+            //        logError.IsoPais = Util.GetPaisISO(int.Parse(logError.IsoPais));
+            //    }
 
-                RegistrarArchivoTexto(logError, pathFile);
-                RegistrarDynamoDB(logError);
-            }
-            catch (Exception ex)
-            {
-                EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
-            }
+            //    RegistrarArchivoTexto(logError, pathFile);
+            //    RegistrarDynamoDB(logError);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
+            //}
         }
 
         private static void RegistrarArchivoTexto(LogError logError, string pathFile = "")
