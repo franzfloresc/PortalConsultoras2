@@ -38,28 +38,36 @@
     <div class="contenedor_proceso_registro_cdr">
         <div class="pasos_proceso_registro">
             <!-- Status icono off -->
+            @*<div class="icono_paso icono_producto icono_paso_activo">
+            <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1.png")" />
+            </div>*@
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
             <div class="icono_paso icono_producto icono_paso_activo">
                 <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1_activo.png")" />
             </div>
             <!-- Fin Status icono on -->
+
             <!-- Status icono off -->
-            <div class="icono_paso icono_solucion_elegida">
+            <div id="pasodos" class="icono_paso icono_solucion_elegida">
                 <img src="@Url.Content("~/Content/Images/mobile/cdr_paso2.png")" />
             </div>
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
+            <div id="pasodosactivo" class="icono_paso icono_solucion_elegida icono_paso_activo" style="display:none;">
+                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso2_activo.png")" />
+            </div>
             <!-- Fin Status icono on -->
+
             <!-- Status icono off -->
-            <div class="icono_paso icono_solucion_elegida">
+            <div id="pasotres" class="icono_paso icono_solucion_elegida">
                 <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3.png")" />
             </div>
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
-            @*<div class="icono_paso icono_envio_solicitud_cdr icono_paso_activo">
-                    <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
-                </div>*@
+            <div id="pasotresactivo" class="icono_paso icono_envio_solicitud_cdr icono_paso_activo" style="display:none;">
+                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso3_activo.png")" />
+            </div>
             <!-- Fin Status icono on -->
             <div class="linea_conexion_pasos"></div>
         </div>
@@ -139,7 +147,7 @@
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                    <a href="#" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
+                    <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
@@ -201,7 +209,7 @@
 
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
-                    <a href="#" id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
+                    <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
@@ -442,8 +450,9 @@
     </div>
     <!--FIN SOLICITUD ENVIADA-->
     <!-- INICIO VISTA CONFIRMACIÓN ELECCIÓN -->
-    @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
-                Confirma tu elección
+    <div  id="Cambio3" style="display:none;">
+        <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
+            Confirma tu elección
         </div>
         <div>
             <div class="contenedor_producto_cambio_por tipografia_lato">
@@ -472,7 +481,8 @@
             <div class="content_info_cdr tipografia_lato_regular">
                 Es importante que le entregues al transportista el producto a cambiar en la entrega de tu siguiente pedido, en caso contrario, el cambio será anulado y se cargará nuevamente el monto a tu saldo.
             </div>
-        </div>*@
+        </div>
+    </div>
     <!-- FIN VISTA CONFIRMACIÓN ELECCIÓN -->
     <!-- INICIO VISTA FINALIZACIÓN DE SOLICITUD -->
     @*<div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23">
@@ -550,7 +560,7 @@
     @*<span class="icono_arrow_left">
             <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
         </span>*@
-    <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
+    <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud" style="display:none;">
         <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
     </a>
 
@@ -564,21 +574,21 @@
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
     SIGUIENTE
 </button>
-<button id="btnSiguiente2"
+<button id="btnCambioProducto"
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
         style="display:none;">
-    SIGUIENTE @*CAMBIALO POR ESTE PRODUCTO*@
+    CAMBIALO POR ESTE PRODUCTO
 </button>
 <button id="btnSiguiente3"
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
         style="display:none;">
-    SIGUIENTE @*CONFIRMA TU ELECCIÓN*@
+    CONFIRMA TU ELECCIÓN
 </button>
 <button id="btnAceptarSolucion"
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
         data-cambiopaso="3"
         style="display:none;">
-    ACEPTAR LA SOLUCIÓN @*ACEPTAR LA SOLUCIÓN*@
+    ACEPTAR LA SOLUCIÓN
 </button>
 <button id="btnSiguiente4"
         class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
@@ -753,6 +763,7 @@
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
 <script type="text/javascript">
+    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
     var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
     var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
     var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';

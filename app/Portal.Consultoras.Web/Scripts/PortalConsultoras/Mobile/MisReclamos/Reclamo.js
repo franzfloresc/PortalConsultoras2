@@ -44,7 +44,7 @@ $(document).ready(function () {
             SolicitudEnviada: "#SolicitudEnviada",
             hdPedidoId: "#txtPedidoID",
             hdCDRID: "#CDRWebID",
-            CambioProducto: "#CambioProducto",
+            btnCambioProducto: "#btnCambioProducto",
             IrSolicitudInicial: "#IrSolicitudInicial"
         };
 
@@ -160,7 +160,7 @@ $(document).ready(function () {
                     me.Funciones.AnalizarOperacion(id);
 
                     $(me.Variables.Registro3).hide();
-                    $(me.Variables.btnAceptarSolucion).show();
+                    //$(me.Variables.btnAceptarSolucion).show();
                 });
 
                 $("body").on("click", "[data-accion]", function () {
@@ -175,6 +175,7 @@ $(document).ready(function () {
                 $(me.Variables.aCambiarProducto).click(function (e) {
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
+                    $(me.Variables.txtCuvMobile).focus();
                 });
 
                 $(me.Variables.aCambiarProducto2).click(function (e) {
@@ -182,32 +183,51 @@ $(document).ready(function () {
                     $(me.Variables.txtCuvMobile2).fadeIn();
                 });
 
-                $(me.Variables.btnSiguiente1).click(function (e) {
+                $(me.Variables.btnSiguiente1).click(function (e) {                    
+                    if ($(me.Variables.Registro1).is(":visible")) {
+                        me.Funciones.BuscarMotivo();
+                        $("#pasodos").hide();
+                        $("#pasodosactivo").show();
+                        $(me.Variables.Registro1).hide();
+                        $(me.Variables.Registro2).show();
+                        return false;
+                    }
+                    
+                    if ($(me.Variables.Registro2).is(":visible")){
+                        //$("#txtCUVDescripcion2").val('')
+                        //$("#txtCUV2").val('');
+                        //$("#txtCUVPrecio2").val('');
 
-                    me.Funciones.BuscarMotivo();
+                        if (me.Funciones.ValidarPaso1()) {
+                            console.log(' Paso 1 validado... ');
+                            //paso2Actual = 1;
+                            //me.Funciones.CambioPaso();
+                            me.Funciones.CargarOperacion();
 
-                    $(me.Variables.Registro1).hide();
-                    $(me.Variables.Registro2).show();
-                    $(me.Variables.btnSiguiente1).hide();
-                    $(me.Variables.btnSiguiente2).show();
+                            $(me.Variables.Registro2).hide();
+                            $(me.Variables.Registro3).show();
+                            $(me.Variables.btnSiguiente1).hide();                            
+                        }
+                        return false;
+                    }
                 });
 
                 $(me.Variables.btnSiguiente2).click(function (e) {
-                    //$("#txtCUVDescripcion2").val('')
-                    //$("#txtCUV2").val('');
-                    //$("#txtCUVPrecio2").val('');
+                    ////$("#txtCUVDescripcion2").val('')
+                    ////$("#txtCUV2").val('');
+                    ////$("#txtCUVPrecio2").val('');
 
-                    if (me.Funciones.ValidarPaso1()) {
-                        console.log(' Paso 1 validado... ');
-                        //paso2Actual = 1;
-                        //me.Funciones.CambioPaso();
-                        me.Funciones.CargarOperacion();
+                    //if (me.Funciones.ValidarPaso1()) {
+                    //    console.log(' Paso 1 validado... ');
+                    //    //paso2Actual = 1;
+                    //    //me.Funciones.CambioPaso();
+                    //    me.Funciones.CargarOperacion();
 
-                        $(me.Variables.Registro2).hide();
-                        $(me.Variables.Registro3).show();
-                        $(me.Variables.btnSiguiente2).hide();
-                        $(me.Variables.btnSiguiente3).hide();
-                    }
+                    //    $(me.Variables.Registro2).hide();
+                    //    $(me.Variables.Registro3).show();
+                    //    $(me.Variables.btnSiguiente2).hide();
+                    //    $(me.Variables.btnSiguiente3).hide();
+                    //}
                 });
 
                 $(me.Variables.btnSiguiente3).click(function (e) {
@@ -256,17 +276,20 @@ $(document).ready(function () {
                     me.Funciones.EvaluarCUV2();
                 });
 
-                $(me.Variables.CambioProducto).on('keyup', function (evt) {
-                    if (ValidarPaso2Trueque()) {
-                        CambioPaso2(1);
+                $(me.Variables.btnCambioProducto).click(function (evt) {
+                    me.Funciones.CambioPaso2(1);
+                    $(me.Variables.btnCambioProducto).hide();
+                    $(me.Variables.btnAceptarSolucion).show();
+                    //if (ValidarPaso2Trueque()) {
+                    //    CambioPaso2(1);
 
-                        //$("#spnCuv1").html($("#txtCUV").val());
-                        //$("#spnDescripcionCuv1").html($("#txtCUVDescripcion").val());
-                        //$("#spnCantidadCuv1").html($("#txtCantidad").val());
-                        //$("#spnCuv2").html($("#txtCUV2").val());
-                        //$("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
-                        //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
-                    }
+                    //    //$("#spnCuv1").html($("#txtCUV").val());
+                    //    //$("#spnDescripcionCuv1").html($("#txtCUVDescripcion").val());
+                    //    //$("#spnCantidadCuv1").html($("#txtCantidad").val());
+                    //    //$("#spnCuv2").html($("#txtCUV2").val());
+                    //    //$("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
+                    //    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
+                    //}
                 });
             }
         };
@@ -636,6 +659,7 @@ $(document).ready(function () {
                     }
 
                     $("#spnNumeroCampaniaReclamo").html(numeroCampania);
+                    $(me.Variables.btnCambioProducto).show();
 
                     me.Funciones.ObtenerValorParametria(id);
                     me.Funciones.CargarPropuesta(id);
