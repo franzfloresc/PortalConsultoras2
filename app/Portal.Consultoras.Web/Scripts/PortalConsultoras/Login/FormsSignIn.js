@@ -925,6 +925,7 @@ function RecuperarClave() {
                 $("#spcorreo").show();
                 $("#spsincorreo").hide();
                 $("#spsincorreo").html("");
+                $("#divRecup_porcorreo").removeClass("deshabilitar_opcion_correo");
             } else {
                 $("#spcorreo").hide();                
                 $("#spsincorreo").show();
