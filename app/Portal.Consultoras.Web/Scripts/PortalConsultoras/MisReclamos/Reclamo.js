@@ -272,6 +272,7 @@ function EvaluarCUV() {
 }
 
 function EvaluarCUV2() {
+
     if (!CUV2Cambio()) return false;
 
     var cuv = $("#txtCUV2").val();
