@@ -24,9 +24,24 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return RedirectToAction("Index", "Bienvenida");
         }
 
+        public ActionResult Revisar()
+        {
+            try
+            {
+                var modelo = new EstrategiaPersonalizadaModel
+                {
+                    ListaSeccion = ObtenerConfiguracionSeccion(),
+                };
 
+                return View("Index", modelo);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
 
+            return RedirectToAction("Index", "Bienvenida");
+        }
 
-        
     }
 }

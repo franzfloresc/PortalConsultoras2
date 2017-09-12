@@ -327,8 +327,8 @@ function AgregarProductoAlCarrito(padre) {
 function OfertaCargarScroll() {
 
     if (isScroll === false) return false;
-    
-    var footerH = $(window).scrollTop() + $(window).height()
+
+    var footerH = $(window).scrollTop() + $(window).height();
 
     if (footerH == $(document).height()) {
         $(".flecha_scroll").animate({
