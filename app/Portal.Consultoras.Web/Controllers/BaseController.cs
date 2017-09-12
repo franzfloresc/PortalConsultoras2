@@ -822,6 +822,12 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
                         continue;
                 }
+                
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+                {
+                    if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+                        continue;
+                }
 
                 var config = confiModel;
                 config.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
@@ -1562,8 +1568,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
 
-                    ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
-
+                    if (userData.FechaInicioCampania != default(DateTime))
+                        ViewBag.DiasFaltan = (userData.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes) - fechaHoy).Days;
+                    
                     if (fechaHoy >= model.FechaInicioCampania.AddDays(-model.BeShowRoom.DiasAntes).Date
                         && fechaHoy <= model.FechaInicioCampania.AddDays(model.BeShowRoom.DiasDespues).Date)
                     {

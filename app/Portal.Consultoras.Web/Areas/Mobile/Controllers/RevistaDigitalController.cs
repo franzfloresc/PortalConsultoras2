@@ -31,7 +31,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 ViewBag.CampaniaMasDosX = AddCampaniaAndNumero(userData.CampaniaID, 2) % 100;
                 return DetalleModel(cuv, campaniaId);
             }
@@ -84,13 +83,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             return RedirectToAction("Index", "Bienvenida");
         }
-
-
+        
         public ActionResult _Landing(int id)
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return ViewLanding(id);
             }
             catch (Exception ex)
@@ -104,7 +101,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             try
             {
-                ViewBag.EsMobile = 2;
                 return PartialView("template-mensaje-bloqueado", MensajeProductoBloqueado());
             }
             catch (Exception ex)
