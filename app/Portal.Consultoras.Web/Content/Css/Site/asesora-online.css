@@ -219,9 +219,9 @@
 	color:#FFF;
 	position:relative;
 	text-align:center;
-	height:40px;
-	line-height:38px;
-	font-size:13px;
+	height:42px;
+	line-height:40px;
+	font-size:15px;
 	letter-spacing:1.5px;
 	transition:all 0.3s ease;
 	-moz-transition:all 0.3s ease;
@@ -613,8 +613,18 @@
     width: 246px;
     height: 40px;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14px;
     letter-spacing:1.5px;
+    opacity:1;
+    transition:all 0.3s ease;
+    -moz-transition:all 0.3s ease;
+    -o-transition:all 0.3s ease;
+    -ms-transition:all 0.3s ease;
+    -webkit-transition:all 0.3s ease;
+}
+
+.btn_enviar_form:hover{
+    opacity:0.9;
 }
 
 .seccion_instagram {
@@ -946,6 +956,7 @@
 		max-width:309px;
         height:45px;
         line-height:44px;
+        font-size:15px;
 	}
 
     .cta_inscripcion_fixed{
@@ -1070,7 +1081,7 @@
 
 	.seccion_formulario_inscripcion{
 		margin-top:0;
-        margin-bottom:54px;
+        /*margin-bottom:54px;*/
 		background-position: -271px top;
 		position:relative;
 		padding-top:0;
@@ -1164,6 +1175,10 @@
 
     .terminos_condiciones_form > div label{
         font-size:13px;
+    }
+
+    .btn_enviar_form{
+        font-size:15px;
     }
 
 	.ocultar_en_mobile{
@@ -1345,6 +1360,32 @@
 /* FIN LANDING ASESORA ONLINE /*
 
 /* INICIO POPUP INSCRIPCIÓN ASESORÍA ONLINE */
+
+.cta_inscripcion_popup{
+	/*margin:0 auto;*/
+	max-width:311px;
+	background:rgba(0,0,0,1);
+	color:#FFF;
+	position:relative;
+	text-align:center;
+	height:40px;
+	line-height:38px;
+	font-size:13px;
+	letter-spacing:1.5px;
+	transition:all 0.3s ease;
+	-moz-transition:all 0.3s ease;
+	-o-transition:all 0.3s ease;
+	-ms-transition:all 0.3s ease;
+	-webkit-transition:all 0.3s ease;
+}
+
+.cta_inscripcion_popup:hover{
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    -o-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
 
 .bg_popup{
 	display:block;
