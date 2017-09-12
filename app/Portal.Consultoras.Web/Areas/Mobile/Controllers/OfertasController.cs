@@ -1,5 +1,4 @@
-﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.Models;
+﻿using Portal.Consultoras.Web.Models;
 using System;
 using System.Web.Mvc;
 
