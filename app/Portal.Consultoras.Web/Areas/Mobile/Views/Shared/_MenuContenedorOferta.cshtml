@@ -15,7 +15,7 @@
     var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
-<div class="bc_mobil_para-mi" @estiloFondoBanner>
+<div class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
     @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
     {
         <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
@@ -41,17 +41,17 @@
         {
             <ul>
                 <li data-campania="@menuActivo.CampaniaX0">
-                    <a href="javascript:;" class="desplegable">
+                    <a href="@Url.Action("Index", "Ofertas", new { area = "Mobile" })" class="@classMenuX">
                         <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
                         <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                     </a>
                 </li><li data-campania="@menuActivo.CampaniaX1">
-                    <a href="javascript:;" class="desplegable">
+                    <a href="@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })" class="@classMenuX1">
                         <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
                         <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                     </a>
-                </li><li data-campania="0" data-url="RevistaDigital/Informacion">
-                    <a href="javascript:;" class="desplegable">
+                </li><li data-campania="0" data-url="">
+                    <a href="@Url.Action("Informacion", "RevistaDigital", new { area = "Mobile" })" class="@classMenuInfo">
                         <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                     </a>
                 </li>
@@ -72,9 +72,8 @@
                         data-codigo="@menuhijo.Codigo"
                         data-es-ancla="@menuhijo.EsAncla"
                         onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
-                        <a href="javascript:;">
-                            <span>@menuhijo.Descripcion</span>
-                            <p>@menuhijo.DesktopTituloMenu</p>
+                        <a href="javascript:;" class="@claseActivo">
+                            <p>@menuhijo.MobileTituloMenu</p>
                         </a>
                     </li>
                 }

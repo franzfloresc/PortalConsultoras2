@@ -7,13 +7,14 @@
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     //var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<MenuContenedorModel>();
     var menuActivo = (MenuContenedorModel) ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    menuActivo.ConfiguracionPais.DesktopFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.DesktopFondoBanner);
     var estiloFondoBanner = menuActivo.ConfiguracionPais.DesktopFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.DesktopFondoBanner + ");" : "";
 
     var classMenuX = menuActivo.CampaniaId == menuActivo.CampaniaX0 ? "desplegable activo" : "desplegable";
     var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
-<div class="bc_menu_estrategia" @estiloFondoBanner>
+<div class="bc_menu_estrategia" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
     <div>
         @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
         {

@@ -2822,6 +2822,7 @@ namespace Portal.Consultoras.Web.Controllers
         public MenuContenedorModel GetMenuActivo(string path)
         {
             var listMenu = BuildMenuContenedor();
+            path = path.ToLower().Replace("/mobile", "");
             var pathStrings = path.Split('/');
             var newPath = "";
             try
