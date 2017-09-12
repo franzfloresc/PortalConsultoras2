@@ -1,6 +1,6 @@
-﻿
-var misReclamosRegistro
-var cuvKeyUp = false,
+﻿debugger;
+var misReclamosRegistro;
+var cuvKeyUp = false;
 var cuv2KeyUp = false;
 var cuvPrevVal = '', cuv2PrevVal = '';
 var paso2Actual = 1;
@@ -361,7 +361,7 @@ $(document).ready(function () {
 
 
             BuscarCUVCambiar: function (cuv) {
-                cuv = $.trim(cuv) || $.trim(me.Variables.txtcuv2).val());
+                cuv = $.trim(cuv) || $.trim(me.Variables.txtcuv2).val();
                 var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
                 if (CampaniaId <= 0 || cuv.length < 5)
                     return false;
