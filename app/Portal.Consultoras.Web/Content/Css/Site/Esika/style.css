@@ -36037,6 +36037,8 @@ h1#penmostreo .campana {
     width: 100vw;
     height:590px;
     object-fit: cover;
+    font-size:55px;
+    top: 36%;
 }
 
 /*#container-showroom-landing {
