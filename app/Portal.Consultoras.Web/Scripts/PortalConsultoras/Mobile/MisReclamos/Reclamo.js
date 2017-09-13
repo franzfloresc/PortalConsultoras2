@@ -77,10 +77,11 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso(-100);
                     me.Funciones.BuscarMotivo();
 
-                    $(me.Variables.RegistroAceptarSolucion).hide();
-
                     $("#divUltimasSolicitudes").show();
                     $(me.Variables.Registro1).show();
+
+                    $(me.Variables.RegistroAceptarSolucion).hide();
+                    $(me.Variables.btnSiguiente4).hide();
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
 
@@ -558,7 +559,9 @@ $(document).ready(function () {
 
             ValidarPaso1: function () {
                 var ok = true;
-
+                ok = $("#ddlCampania").val() > 0 ? ok : false;
+                ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
+                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
                 if (!ok) {
@@ -616,12 +619,11 @@ $(document).ready(function () {
                     CargarPropuesta(id);
                 }
                 if (id == 'D') {
-                    if (me.Funciones.ValidarPaso2Devolucion(id)) {
-                        me.Funciones.CambioPaso2(100);
 
+                    if (me.Funciones.ValidarPaso2Devolucion(id)) {
+                      
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
-
                         me.Funciones.CargarPropuesta(id);
 
                         $(me.Variables.Registro3).hide();
@@ -1033,7 +1035,8 @@ $(document).ready(function () {
                         }
 
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
-                        SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
+                        $(".num_solicitudes").html(data.detalle.length)
+                        SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
                         // ValidarVisualizacionBannerResumen();
 
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
