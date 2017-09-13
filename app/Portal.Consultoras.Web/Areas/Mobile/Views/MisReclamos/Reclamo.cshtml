@@ -1,6 +1,7 @@
-﻿@using Portal.Consultoras.Web.Areas.Mobile.Models
-@using Portal.Consultoras.Common
+﻿@using Portal.Consultoras.Common
+@using Portal.Consultoras.Web.Areas.Mobile.Models
 @model Portal.Consultoras.Web.Models.MisReclamosModel
+
 @{
     ViewBag.Title = "Cambios y Devoluciones";
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
@@ -705,20 +706,21 @@
         {{/IsNullOrEmpty}}
 
 </script>
+
 @section scripts{
-    <script src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
+    <script type="text/javascript">
+
+        var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
+        var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
+        var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
+        var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
+        var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = ""} )';
+        var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
+        var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
+        var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
+        var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
+        var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
+    </script>
+
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
-<script type="text/javascript">
-    var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
-    var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
-    var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
-    var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
-    var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = ""} )';
-    var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
-    var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
-    var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
-
-    var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
-    var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
-</script>
-

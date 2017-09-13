@@ -150,7 +150,7 @@ $(document).ready(function () {
                 });
 
                 $(".enlace_ir_al_final a").click(function (e) {
-                   
+
                     e.preventDefault();
                     $(me.Variables.listadoProductosAgregados).animate({
                         scrollTop: me.Variables.alturaListaMiSolicitud + "px"
@@ -178,7 +178,7 @@ $(document).ready(function () {
 
                 $('a[data-accion]').on('click', function (e) {
                     e.preventDefault(); // prevents the <a> from navigating
-                //$("body").on("click", "[data-accion]", function () {
+                    //$("body").on("click", "[data-accion]", function () {
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -201,12 +201,14 @@ $(document).ready(function () {
                 $(me.Variables.btnSiguiente1).click(function (e) {
 
                     if ($(me.Variables.Registro1).is(":visible")) {
-                        me.Funciones.BuscarMotivo();
-                        $("#pasodos").hide();
-                        $("#pasodosactivo").show();
-                        $(me.Variables.Registro1).hide();
-                        $(me.Variables.Registro2).show();
-                        return false;
+                        if (me.Funciones.ValidarCUVCampania()) {
+                            me.Funciones.BuscarMotivo();
+                            $("#pasodos").hide();
+                            $("#pasodosactivo").show();
+                            $(me.Variables.Registro1).hide();
+                            $(me.Variables.Registro2).show();
+                            return false;
+                        }
                     }
 
                     if ($(me.Variables.Registro2).is(":visible")) {
@@ -306,7 +308,7 @@ $(document).ready(function () {
                     //    //$("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
                     //    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
                     //}
-                });               
+                });
             }
         };
 
@@ -564,11 +566,21 @@ $(document).ready(function () {
                 });
             },
 
-            ValidarPaso1: function () {
+            ValidarCUVCampania: function () {
                 var ok = true;
                 ok = $("#ddlCampania").val() > 0 ? ok : false;
-                ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
                 ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
+
+                if (!ok) {
+                    messageInfoValidado("Datos incorrectos");
+                    return false;
+                }
+                return ok;
+            },
+
+            ValidarPaso1: function () {
+                var ok = true;               
+                ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
                 if (!ok) {
