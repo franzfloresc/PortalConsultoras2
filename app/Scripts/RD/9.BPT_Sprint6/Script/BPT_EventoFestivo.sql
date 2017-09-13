@@ -48,16 +48,32 @@ CREATE TABLE [dbo].[EventoFestivo](
 END
 GO
 
-SET IDENTITY_INSERT [dbo].[EventoFestivo] ON 
 
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (1, N'FONDO_ESIKA', N'LOGIN', N'1', N'20171023', N'20180114', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/ESLOGNAV_2017.jpg', 1)
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (2, N'FONDO_LBEL', N'LOGIN', N'1', N'20171023', N'20180114', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/LBLOGNAV_2017.jpg', 1)
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (3, N'SALUDO', N'SOMOS_BELCORP', N'2', N'201717', N'201718', N'Feliz Navidad', 1)
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (4, N'FONDO_INGPED', N'SOMOS_BELCORP', N'2', N'201717', N'201718', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/INGPEDNAV_2017.png', 1)
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (5, N'GIF_MENU_OFERTAS', N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/gif-navidad-es-novedad.gif', 1)
-INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (6, N'GIF_MENU_OFERTAS_BPT', N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/gif-navidad-esikaparami.gif', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'FONDO_ESIKA', N'LOGIN', N'1', N'20171023', N'20180114', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/ESLOGNAV_2017.jpg', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'FONDO_LBEL', N'LOGIN', N'1', N'20171023', N'20180114', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/LBLOGNAV_2017.jpg', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'SALUDO', N'SOMOS_BELCORP', N'2', N'201717', N'201718', N'Feliz Navidad', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'FONDO_INGPED', N'SOMOS_BELCORP', N'2', N'201717', N'201718', N'https://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/INGPEDNAV_2017.png', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'GIF_MENU_OFERTAS', N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/gif-navidad-es-novedad.gif', 1)
+INSERT [dbo].[EventoFestivo] ([ID], [Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'GIF_MENU_OFERTAS_BPT', N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/gif-navidad-esikaparami.gif', 1)
 
-SET IDENTITY_INSERT [dbo].[EventoFestivo] OFF
+-- para RD
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_D_ImagenLogo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/logo-esikaparami.png', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_D_ImagenFondo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/banner-navidad-esikaparami.png', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_D_TituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'#Nombre, IMPULSA TU CAMPAÑA NAVIDEÑA CON ÉSIKA PARA MÍ', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_D_SubTituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'APROVECHAS LAS OFERTAS ¡SOLOS HOY!. LOS SET ESPECIALES Y MUCHO MÁS!.', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_M_ImagenLogo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/logo-esikaparami.png', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_M_ImagenFondo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/banner-navidad-esikaparami.png', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_M_TituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'#Nombre, ¡GANA CON LAS OFERTAS DE NAVIDAD ES NOVEDAD!', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_SI_M_SubTituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'  ', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_D_ImagenLogo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_D_ImagenFondo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_D_TituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'#Nombre, EMPIEZA GANANDO ESTA CAMPAÑA', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_D_SubTituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'¡GANA MÁS DESDE EL PRIMER DÍA CON TU GUÍA DE NEGOCIO ONLINE PERSONALIZADA!', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_M_ImagenLogo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_M_ImagenFondo',		N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_M_TituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'Es tiempo de ganar más.', 1)
+INSERT [dbo].[EventoFestivo] ([Nombre], [Alcance], [Periodo], [Inicio], [Fin], [Personalizacion], [Estado]) VALUES (N'RD_NO_M_SubTituloBanner',	N'MENU_SOMOS_BELCORP', N'2', N'201714', N'201718', N'¡LAS MEJORES OFERTAS SOLO AQUÍ!', 1)
+
 GO
 
 IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
