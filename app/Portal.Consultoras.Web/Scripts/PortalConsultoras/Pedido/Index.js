@@ -2846,7 +2846,6 @@ function Update(CampaniaID, PedidoID, PedidoDetalleID, FlagValidacion, CUV) {
 
 function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisID, CUV, FlagValidacion, CantidadModi) {
     AbrirSplash();
-
     if (HorarioRestringido()) {
         CerrarSplash();
         return false;
@@ -2873,7 +2872,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
     }
 
     var PrecioUnidad = $('#hdfLPPrecioU' + PedidoDetalleID).val();
-
     if (TipoOfertaSisID == constConfiguracionOfertaLiquidacion) {
         var PROL = $("#hdValidarPROL").val();
 
@@ -2897,20 +2895,24 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
 
         var Flag = 0;
         var StockNuevo = 0;
+        StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
             Flag = 1;
-            StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
         } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
             Flag = 2;
-            StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
         }
 
         if (CliDes.length == 0) {
             CliID = 0;
         }
         AbrirSplash();
-        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+        $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad}, function (data) {
             CerrarSplash();
+            if (data.message != "") { /*Validación Pedido Máximo*/
+                AbrirMensajeEstrategia(data.message);
+                CargarDetallePedido();                
+                return false;
+            } 
             var Saldo = data.Saldo;
             var UnidadesPermitidas = data.UnidadesPermitidas;
             var CantidadPedida = data.CantidadPedida;
@@ -3049,12 +3051,13 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             var DesProd = $('#lblLPDesProd' + PedidoDetalleID).html();
             var Flag = 0;
             var StockNuevo = 0;
+            StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
             if (parseInt(CantidadAnti) > parseInt(Cantidad)) {
                 Flag = 1;
-                StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
+                //StockNuevo = parseInt(CantidadAnti) - parseInt(Cantidad);
             } else if (parseInt(Cantidad) > parseInt(CantidadAnti)) {
                 Flag = 2;
-                StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
+                //StockNuevo = parseInt(Cantidad) - parseInt(CantidadAnti);
             }
             if (FlagValidacion == "1") {
                 if (CantidadAnti == Cantidad)
@@ -3083,7 +3086,12 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
             if (CliDes.length == 0) {
                 CliID = 0;
             }
-            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            $.getJSON(baseUrl + 'ShowRoom/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: StockNuevo, PrecioUnidad: PrecioUnidad }, function (data) {
+                if (data.message != "") { /*Validación Pedido Máximo*/
+                    AbrirMensajeEstrategia(data.message);
+                    CargarDetallePedido();
+                    return false;
+                } 
                 var Saldo = data.Saldo;
                 var UnidadesPermitidas = data.UnidadesPermitidas;
                 var CantidadPedida = data.CantidadPedida;
@@ -3237,8 +3245,6 @@ function UpdateLiquidacion(CampaniaID, PedidoID, PedidoDetalleID, TipoOfertaSisI
                 success: function (datos) {
                     if (checkTimeout(datos)) {
                         if (!datos.result) {
-                            //$('#dialog_ErrorMainLayout').find('.mensaje_agregarUnidades').text(datos.message);
-                            //$('#dialog_ErrorMainLayout').show();
                             AbrirMensajeEstrategia(datos.message);
                             CerrarSplash();
                             $('#txtLPCant' + PedidoDetalleID).val(CantidadAnti);

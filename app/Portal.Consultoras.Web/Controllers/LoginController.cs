@@ -906,7 +906,8 @@ namespace Portal.Consultoras.Web.Controllers
                                             
 
                                         case Constantes.ConfiguracionPais.CDRMontoMaximo:
-                                            model.TieneValidacionMontoMaximo = c.Estado;
+                                            if (model.ConsultoraNueva == 2)
+                                                model.TieneValidacionMontoMaximo = c.Estado;
                                             break;
                                     }
                                 }

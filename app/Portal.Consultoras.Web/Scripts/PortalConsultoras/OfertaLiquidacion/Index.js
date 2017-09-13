@@ -265,7 +265,11 @@ $(document).ready(function () {
                 cache: false
             });
 
-            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV }, function (data) {
+            $.getJSON(baseUrl + 'OfertaLiquidacion/ValidarUnidadesPermitidasPedidoProducto', { CUV: CUV, Cantidad: Cantidad, PrecioUnidad: PrecioUnidad}, function (data) {
+                if (data.message != "") { /*Validación Pedido Máximo*/
+                    AbrirMensaje(data.message);
+                    return false;
+                } 
                 if (parseInt(data.Saldo) < parseInt(Cantidad)) {
                     var Saldo = data.Saldo;
                     var UnidadesPermitidas = data.UnidadesPermitidas;
