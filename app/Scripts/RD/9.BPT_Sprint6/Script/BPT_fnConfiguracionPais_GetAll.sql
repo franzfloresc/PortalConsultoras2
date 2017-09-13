@@ -1,4 +1,4 @@
-
+GO
 ALTER function fnConfiguracionPais_GetAll
 (
 	@Codigo varchar(100) = ''
@@ -9,11 +9,26 @@ ALTER function fnConfiguracionPais_GetAll
 )
 returns @tabla table
 (
-	ConfiguracionPaisID int,
-	Codigo	   varchar(100),
-	Excluyente bit,
-	Descripcion varchar(1000),
-	Estado bit
+  ConfiguracionPaisID	int
+, Codigo	varchar(100)
+, Excluyente	bit
+, Descripcion	varchar(1000)
+, Estado	bit
+, TienePerfil	bit
+, DesdeCampania	int
+, MobileTituloMenu	varchar(255)
+, DesktopTituloMenu	varchar(255)
+, Logo	varchar(255)
+, Orden	int
+, DesktopTituloBanner	varchar(255)
+, MobileTituloBanner	varchar(255)
+, DesktopSubTituloBanner varchar(255)
+, MobileSubTituloBanner	varchar(255)
+, DesktopFondoBanner	varchar(255)
+, MobileFondoBanner	varchar(255)
+, DesktopLogoBanner	varchar(255)
+, MobileLogoBanner	varchar(255)
+, UrlMenu	varchar(255)
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -58,12 +73,46 @@ begin
 		and DD.CodigoSeccion = @CodigoSeccion
 		and DD.CodigoConsultora = @CodigoConsultora
 	
-	insert @tabla(ConfiguracionPaisID,Codigo,Excluyente,Descripcion,Estado)
+	insert @tabla(ConfiguracionPaisID
+		,Codigo
+		,Excluyente
+		,Descripcion
+		,Estado
+		,TienePerfil
+		,DesdeCampania
+		,MobileTituloMenu
+		,DesktopTituloMenu
+		,Logo
+		,Orden
+		,DesktopTituloBanner
+		,MobileTituloBanner
+		,DesktopSubTituloBanner
+		,MobileSubTituloBanner
+		,DesktopFondoBanner
+		,MobileFondoBanner
+		,DesktopLogoBanner
+		,MobileLogoBanner
+		,UrlMenu)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
 		,c.Descripcion
 		,c.Estado
+		,C.TienePerfil
+		,C.DesdeCampania
+		,C.MobileTituloMenu
+		,C.DesktopTituloMenu
+		,C.Logo
+		,C.Orden
+		,C.DesktopTituloBanner
+		,C.MobileTituloBanner
+		,C.DesktopSubTituloBanner
+		,C.MobileSubTituloBanner
+		,C.DesktopFondoBanner
+		,C.MobileFondoBanner
+		,C.DesktopLogoBanner
+		,C.MobileLogoBanner
+		,C.UrlMenu
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -80,3 +129,4 @@ begin
 	return 
 end
 
+GO

@@ -102,12 +102,12 @@ var menuModule = (function () {
                     },
                     1000);
             } else {
-                window.location = "/Ofertas#" + codigo;
+                window.location = "/" + (isMobile() ? "Mobile/" : "") + "/Ofertas#" + codigo;
             }
         } else {
-            url = $.trim(url)
-            url = url[0] == "/" ? url.replace("/", "") : url;
-            window.location = "/" + (isMobile() ? "Mobile/" : "") + url;
+            url = $.trim(url);
+            url = url[0] !== "/" ? "/" + url : url;
+            window.location = url;
         }
     }
     function setCarrouselMenu() {
