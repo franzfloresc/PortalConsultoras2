@@ -60,7 +60,7 @@
         cursor: pointer;
         text-align: center;
         background: rgba(255, 255, 255, 0.50);
-        font-size: 8px;
+        font-size: 13px;
         color: white;
         text-decoration: none;
         letter-spacing: 2px;
@@ -220,7 +220,7 @@ margin-top: 10px !important;
     padding: 5px;
     display: block;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
     transition: .3s;
 }
