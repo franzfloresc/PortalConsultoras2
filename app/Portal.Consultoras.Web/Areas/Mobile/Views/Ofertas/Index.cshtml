@@ -11,9 +11,14 @@
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
-        .slick-slider-fixed-mobile{
-            height:40px !important;
+        .slick-slider-fixed-mobile {
+            height: 40px !important;
+            box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
+            -webkit-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
+            -moz-box-shadow: 0 2px 6px 0 rgba(126, 126, 126, 0.4) !important;
+            background: white;
         }
+
     </style>
 }
 @foreach (var seccion in Model.ListaSeccion)
@@ -49,6 +54,16 @@
                 $('.bc_para_ti-menu ul li a.activo').find('img.hover').css('display', 'none');
                 $('.bc_para_ti-menu ul li a.activo').find('img.default').css('display', 'none');
                 $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            if ($('.bc_para_ti-menu-opciones ul li a').hasClass('activo')) {
+                $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'block');
+            }
+            else {
+                $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'none');
             }
         });
     </script>
