@@ -994,8 +994,7 @@ namespace Portal.Consultoras.Web.Controllers
                                             model.RevistaDigital.TieneRDR = true;
                                             break;
                                         case Constantes.ConfiguracionPais.CDRMontoMaximo:
-                                            if (model.ConsultoraNueva == 2)
-                                                model.TieneValidacionMontoMaximo = c.Estado;
+                                            model.TieneValidacionMontoMaximo = c.Estado;
                                             break;
                                         case Constantes.ConfiguracionPais.OfertaFinalTradicional:
                                         case Constantes.ConfiguracionPais.OfertaFinalCrossSelling:
