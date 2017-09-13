@@ -17,12 +17,26 @@ namespace Portal.Consultoras.Web.Controllers
         private static string IsoPais;
         private static string CodigoConsultora;
         private static string Origen;
-        // GET: AsesoraOnline
-        public ActionResult Index(string isoPais, string codigoConsultora, string origen)
+        // GET: AsesoraOnline        
+        public ActionResult Index(string param)
         {
-            IsoPais = isoPais == null ? String.Empty : isoPais;
-            CodigoConsultora = codigoConsultora == null ? String.Empty : codigoConsultora;
-            Origen = origen == null ? String.Empty : origen;
+            try
+            {
+                if (param.Length > 10)
+                {
+                    IsoPais = param.Substring(0, 2);
+                    CodigoConsultora = param.Substring(2, 7);
+                    Origen = param.Substring(9);
+                }
+            }
+            catch (Exception ex )
+            {
+                IsoPais = String.Empty;
+                CodigoConsultora =  String.Empty;
+                Origen = String.Empty;
+                LogManager.LogManager.LogErrorWebServicesBus(ex, CodigoConsultora, IsoPais);
+            }
+            
             return View();
         }
 
