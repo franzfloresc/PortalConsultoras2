@@ -170,15 +170,20 @@ $(document).ready(function () {
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
 
-                var _data = response.data;
-                
+                var _data = response.data;                                               
+
                 RenderOfertaDelDia(_data, contenedorOfertas)
+                
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
+
+                ///*Para personalizar el fondo del reloj*/
+                //$(".flip-clock-wrapper .flip").css("box-shadow", "0 2px 5px " + "black");
+                //$(".flip-clock-wrapper ul li a div div.inn").css("text-shadow", "0 1px 2px" + "black");
+                //$(".flip-clock-wrapper ul li a div div.inn").css("background-color", "black");
 
                 $(contenedorOfertas).css('background', 'url("' + _data.ImagenFondo1 + '")');
 
                 $('#banner-odd').css('background-color', _data.ColorFondo1);
-                $('#PopOfertaDia').css('background', 'url("' + _data.ImagenFondo2 + '") no-repeat');
                 $('#PopOfertaDia').css('background-color', _data.ColorFondo2);
 
                 $(contenedorOfertas).show();

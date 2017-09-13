@@ -580,6 +580,9 @@ namespace Portal.Consultoras.Common
                 public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
                 public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
                 public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";
+                public const string ImagenFondoContenedorOfertasShowRoomIntriga = "ImagenFondoContenedorOfertasShowRoomIntriga";
+                public const string ImagenFondoContenedorOfertasShowRoomVenta = "ImagenFondoContenedorOfertasShowRoomVenta";
+
             }
 
             public class Mobile
@@ -598,6 +601,9 @@ namespace Portal.Consultoras.Common
                 public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
                 public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
+                public const string ImagenBannerContenedorOfertasIntriga = "ImagenBannerContenedorOfertasIntriga";
+                public const string ImagenBannerContenedorOfertasVenta = "ImagenBannerContenedorOfertasVenta";
+                
             }
 
             public class TipoAplicacion

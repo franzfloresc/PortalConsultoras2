@@ -2800,6 +2800,8 @@ namespace Portal.Consultoras.Web.Controllers
                     UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion
                 };
 
+                seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
+
                 switch (entConf.ConfiguracionPais.Codigo)
                 {
                     case Constantes.ConfiguracionPais.OfertasParaTi:
@@ -2812,11 +2814,25 @@ namespace Portal.Consultoras.Web.Controllers
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
                         break;
                     case Constantes.ConfiguracionPais.ShowRoom:
+
                         if (sessionManager.GetEsShowRoom() && 
                             !sessionManager.GetMostrarShowRoomProductos() && 
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
                             seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
+
+                            if (!isMobile)
+                            {
+                                seccion.ImagenFondo =
+                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomIntriga,
+                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                            }
+                            else
+                            {
+                                seccion.ImagenFondo = 
+                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasIntriga,
+                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                            }
                         }
 
                         if (sessionManager.GetEsShowRoom() && 
@@ -2824,6 +2840,19 @@ namespace Portal.Consultoras.Web.Controllers
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
                             seccion.UrlObtenerProductos = "ShowRoom/CargarProductosShowRoomOferta";
+                            if (!isMobile)
+                            {
+                                seccion.ImagenFondo =
+                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.ImagenFondoContenedorOfertasShowRoomVenta,
+                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
+                            }
+                            else
+                            {
+                                seccion.ImagenFondo =
+                                    ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Mobile.ImagenBannerContenedorOfertasVenta,
+                                                                        Constantes.ShowRoomPersonalizacion.TipoAplicacion.Mobile);
+                            }
+                                
                         }
                         break;
                     case Constantes.ConfiguracionPais.OfertaDelDia:
@@ -2868,9 +2897,7 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;
-
-                seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
+                if (seccion.TemplatePresentacion == "") continue;                
 
                 modelo.Add(seccion);
             }
