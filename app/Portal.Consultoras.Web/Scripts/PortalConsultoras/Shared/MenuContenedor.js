@@ -105,9 +105,9 @@ var menuModule = (function () {
                 window.location = "/" + (isMobile() ? "Mobile/" : "") + "/Ofertas#" + codigo;
             }
         } else {
-            url = $.trim(url)
-            url = url[0] == "/" ? url.replace("/", "") : url;
-            window.location = "/" + (isMobile() ? "Mobile/" : "") + url;
+            url = $.trim(url);
+            url = url[0] !== "/" ? "/" + url : url;
+            window.location = url;
         }
     }
     function setCarrouselMenu() {
