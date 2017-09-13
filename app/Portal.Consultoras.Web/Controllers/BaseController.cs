@@ -805,6 +805,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var confiModel in lista)
             {
+                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
                 {
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
@@ -1191,7 +1192,9 @@ namespace Portal.Consultoras.Web.Controllers
             }
             var valor = Util.Trim(eventoFestivo.Personalizacion);
             valor = valor == "" ? Util.Trim(valorBase) : valor;
-            
+            valor = valor.Replace("#Nombre", userData.UsuarioNombre);
+            valor = valor.Replace("#NOMBRE", userData.UsuarioNombre);
+            valor = valor.Replace("#nombre", userData.UsuarioNombre);
             return valor;
         }
         #endregion
