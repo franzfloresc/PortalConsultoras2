@@ -466,8 +466,6 @@ function EstrategiaAgregar(event, popup, limite) {
             if (divAgregado != null) {
                 $(divAgregado).show();
             }
-            var cuv = estrategia.CUV2;
-
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);
             }
@@ -479,6 +477,8 @@ function EstrategiaAgregar(event, popup, limite) {
                     CargarResumenCampaniaHeader();
                 }
             }
+
+            var cuv = estrategia.CUV2;
 
             if (tipoOrigenEstrategia == 1) {
                 MostrarBarra(data, '1');
@@ -517,7 +517,6 @@ function EstrategiaAgregar(event, popup, limite) {
                 }
             }
 
-            // falta agregar este metodo en para las revista digital
             try {
                 if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
                     AgregarProductoRDAnalytics(origenPedidoWebEstrategia, estrategia, popup);
@@ -525,18 +524,18 @@ function EstrategiaAgregar(event, popup, limite) {
                     TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
                 }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
+
+                CerrarLoad();
+                if (popup) {
+                    CerrarPopup('#popupDetalleCarousel_lanzamiento');
+                    $('#popupDetalleCarousel_packNuevas').hide();
+                }
+
+                ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
+
+                ProcesarActualizacionMostrarContenedorCupon();
                 
-            } catch (e) { }
-
-            CerrarLoad();
-            if (popup) {
-                CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                $('#popupDetalleCarousel_packNuevas').hide();
-            }
-
-            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
-
-            ProcesarActualizacionMostrarContenedorCupon();
+            } catch (e) { console.log(e); }
 
         },
         error: function (data, error) {
