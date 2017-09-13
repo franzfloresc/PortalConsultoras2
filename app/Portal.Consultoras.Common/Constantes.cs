@@ -737,7 +737,8 @@ namespace Portal.Consultoras.Common
 
         public class ConfiguracionPais
         {
-            public const string Inicio = "INICIOCONTENEDOR";
+            public const string InicioRD = "INICIORD";
+            public const string Inicio = "INICIO";
             public const string OfertasParaTi = "OPT";
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
@@ -1040,6 +1041,22 @@ namespace Portal.Consultoras.Common
             public const string FONDO_INGPED = "FONDO_INGPED";
             public const string GIF_MENU_OFERTAS = "GIF_MENU_OFERTAS";
             public const string GIF_MENU_OFERTAS_BPT = "GIF_MENU_OFERTAS_BPT";
+            public const string RD_SI_D_ImagenLogo = "RD_SI_D_ImagenLogo";
+            public const string RD_SI_D_ImagenFondo = "RD_SI_D_ImagenFondo";
+            public const string RD_SI_D_TituloBanner = "RD_SI_D_TituloBanner";
+            public const string RD_SI_D_SubTituloBanner = "RD_SI_D_SubTituloBanner";
+            public const string RD_SI_M_ImagenLogo = "RD_SI_M_ImagenLogo";
+            public const string RD_SI_M_ImagenFondo = "RD_SI_M_ImagenFondo";
+            public const string RD_SI_M_TituloBanner = "RD_SI_M_TituloBanner";
+            public const string RD_SI_M_SubTituloBanner = "RD_SI_M_SubTituloBanner";
+            public const string RD_NO_D_ImagenLogo = "RD_NO_D_ImagenLogo";
+            public const string RD_NO_D_ImagenFondo = "RD_NO_D_ImagenFondo";
+            public const string RD_NO_D_TituloBanner = "RD_NO_D_TituloBanner";
+            public const string RD_NO_D_SubTituloBanner = "RD_NO_D_SubTituloBanner";
+            public const string RD_NO_M_ImagenLogo = "RD_NO_M_ImagenLogo";
+            public const string RD_NO_M_ImagenFondo = "RD_NO_M_ImagenFondo";
+            public const string RD_NO_M_TituloBanner = "RD_NO_M_TituloBanner";
+            public const string RD_NO_M_SubTituloBanner = "RD_NO_M_SubTituloBanner";
         }
         #endregion
 
