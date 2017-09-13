@@ -21,7 +21,6 @@
         $("#dejar-catalogo-clientes").prop("checked", false);
         $("#mis-clientes-vienen").prop("checked", false);
         $("#llamar-pedir-productos").prop("checked", false);
-        $("#terminos-condiciones").prop("checked", false);
     };
 
     var _enviarFormulario = function () {
@@ -30,7 +29,7 @@
         var respuesta3 = $("#mis-clientes-vienen:checked").val();
         var respuesta4 = $("#llamar-pedir-productos:checked").val();
         var respuesta5 = $("#compartir-catalogos:checked").val();
-        var TYCchecked = $("#terminos-condiciones").prop('checked')
+        var TYCchecked = $("#terminos-condiciones").prop('checked');
 
         if (!TYCchecked) {
             $("#AcepteTYC").show();
