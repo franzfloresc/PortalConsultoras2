@@ -79,12 +79,18 @@
                         <div class="contenedorMenu">
                             <a href="javascript:;" class="@claseActivo">
                                 <div class="contenedorInformacion">
-                                    <div class="contenedorImagen">
-                                        <img style="display:inline;" src="../" />
-                                    </div>
-                                    <div class="contenedorDescripcion">
-                                        <span>@menuhijo.Descripcion</span>
-                                    </div>
+                                    @if (menuhijo.Logo != "" && menuhijo.Logo != null)
+                                    {
+                                        <div class="contenedorImagen">
+                                            <img style="display:inline;" src="../" />
+                                        </div>
+                                    }
+                                    @if (menuhijo.Descripcion)
+                                    {
+                                        <div class="contenedorDescripcion">
+                                            <span>@menuhijo.Descripcion</span>
+                                        </div>
+                                    }
                                     <div class="contenedorTitulo">
                                         <p>@menuhijo.DesktopTituloMenu</p>
                                     </div>
