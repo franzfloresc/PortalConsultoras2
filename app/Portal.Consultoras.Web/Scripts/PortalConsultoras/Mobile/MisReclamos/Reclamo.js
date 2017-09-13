@@ -176,12 +176,12 @@ $(document).ready(function () {
                     //$(me.Variables.btnAceptarSolucion).show();
                 });
 
-                $('a[data-accion]').on('click', function (e) {
-                    e.preventDefault(); // prevents the <a> from navigating
-                    //$("body").on("click", "[data-accion]", function () {
+                $(".UltimasSolicitudes").on('click', 'a[data-accion]', function (e) {
+
+                    e.preventDefault(); // prevents the <a> from navigating                  
                     me.Funciones.DetalleAccion(this);
                 });
-
+                                
                 $(me.Variables.txtCuvMobile).on('keyup', function (evt) {
                     cuvKeyUp = true;
                     EvaluarCUV();
@@ -579,7 +579,7 @@ $(document).ready(function () {
             },
 
             ValidarPaso1: function () {
-                var ok = true;               
+                var ok = true;
                 ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
