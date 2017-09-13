@@ -31,6 +31,19 @@ var listaSeccion = {};
 var timer;
 
 $(document).ready(function () {
+    if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
+        $('.bc_para_ti-menu ul li a.activo').find('img.hover').css('display', 'none');
+        $('.bc_para_ti-menu ul li a.activo').find('img.default').css('display', 'none');
+        $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
+    }
+
+    if ($('.bc_para_ti-menu-opciones ul li a').hasClass('activo')) {
+        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'block');
+    }
+    else {
+        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'none');
+    }
+
     SeccionRender();
 });
 
@@ -180,8 +193,8 @@ function RenderCarruselPrevisuales(divProd) {
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
     }).on('afterChange', function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
@@ -232,8 +245,8 @@ function RenderCarruselSimple(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="div-carousel-rd-prev div-carousel-rd-prev-fix-carousel js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="div-carousel-rd-next div-carousel-rd-next-fix-carousel js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);
