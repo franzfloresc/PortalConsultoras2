@@ -7,14 +7,16 @@
 
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+    var backgroundVenta = mostrarPopupIntriga ? "" : "background: url(" + @Model.ImagenFondo + ") center center no-repeat;";
 }
 
 @if (esShowRoom)
 {
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
-     data-seccion-productos=""
-     style="background: url(@Model.ImagenFondo) center center no-repeat">
+     data-seccion-productos="" 
+     style ="@backgroundVenta">
 
     @if (mostrarPopupIntriga)
     {
@@ -31,7 +33,7 @@
                     <div class="contenedorMensajeIntrigaB">
                     </div>
                     <a href="/ShowRoom/Intriga">
-                        <img class="imagen_dias_intriga_inicio" src="@Url.Content("~/Content/Images/Esika/esika_intriga.jpg")" @*src="{{UrlImagenIntriga}}"*@/>
+                        <img class="imagen_dias_intriga_inicio" src="@Model.ImagenFondo" />
                     </a>
                 </div>
             </div>
