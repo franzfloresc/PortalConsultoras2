@@ -773,23 +773,5 @@ namespace Portal.Consultoras.Service
         }
         #endregion
 
-        //EPD-HD1051
-        public int UpdUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
-        {
-            BLUsuario objUsuario = new BLUsuario();
-            int v_resultado = 0;
-
-            try
-            {
-                objUsuario = new BLUsuario();
-                v_resultado = objUsuario.UpdUsuarioExterno(usuarioExterno);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return v_resultado;
-        }
     }
 }
