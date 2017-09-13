@@ -1448,29 +1448,46 @@ namespace Portal.Consultoras.BizLogic
             return entidad;
         }
 
-        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil)
         {
-            var DAUsuario1 = new DAUsuario(11);
+            DAUsuario DAUsuario1 = null;
             BEUsuarioExternoPais entidad1 = null;
             BEUsuarioExterno entidad2 = null;
-
-            using (IDataReader reader = DAUsuario1.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
+            DAUsuario DAUsuario2 = null;
+           
+            try
             {
-                if (reader.Read())
-                    entidad1 = new BEUsuarioExternoPais(reader);
-            }
+                DAUsuario1 = new DAUsuario(11);
 
-            if (entidad1 != null)
-            {
-                var DAUsuario2 = new DAUsuario(entidad1.PaisID);
-                using (IDataReader reader = DAUsuario2.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                using (IDataReader reader = DAUsuario1.GetUsuarioExternoPaisByProveedorAndIdApp(proveedor, idAplicacion))
                 {
-                    if (reader.Read())
-                        entidad2 = new BEUsuarioExterno(reader);
+                    if (reader.Read()) entidad1 = new BEUsuarioExternoPais(reader);
                 }
 
-                entidad2.PaisID = entidad1.PaisID;
-                entidad2.CodigoISO = entidad1.CodigoISO;
+                if (entidad1 != null)
+                {
+                    DAUsuario2 = new DAUsuario(entidad1.PaisID);
+                    using (IDataReader reader = DAUsuario2.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion))
+                    {
+                        if (reader.Read())
+                            entidad2 = new BEUsuarioExterno(reader);
+                    }
+
+                    entidad2.PaisID = entidad1.PaisID;
+                    entidad2.CodigoISO = entidad1.CodigoISO;
+                    fotoPerfil = String.IsNullOrEmpty(fotoPerfil) ? null : fotoPerfil;
+
+                    if (fotoPerfil != null && fotoPerfil != entidad2.FotoPerfil)
+                    {
+                        entidad2.FotoPerfil = fotoPerfil;
+                        DAUsuario1.UpdUsuarioExterno(entidad2);
+                    }
+                        
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
             return entidad2;
@@ -1577,5 +1594,24 @@ namespace Portal.Consultoras.BizLogic
             return terminos;
         }
         #endregion
+
+        //EPD-HD1051
+        public int UpdUsuarioExterno(BEUsuarioExterno p_usuarioexterno)
+        {
+            DAUsuario objUsuario = null;
+            int v_resultado = 0;
+
+            try
+            {
+                objUsuario = new DAUsuario(p_usuarioexterno.PaisID);
+                v_resultado = objUsuario.UpdUsuarioExterno(p_usuarioexterno);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return v_resultado;
+        }
     }
 }

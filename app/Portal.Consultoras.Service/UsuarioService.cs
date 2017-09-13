@@ -717,10 +717,22 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioExternoByCodigoUsuario(paisID, codigoUsuario);
         }
 
-        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion);
+        public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil)
+        {            
+            BLUsuario obj_Usuario = null;
+            BEUsuarioExterno ent_usuario = null;
+            
+            try
+            {
+                obj_Usuario = new BLUsuario();                
+                ent_usuario = obj_Usuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return ent_usuario;
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)
@@ -760,5 +772,24 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
         }
         #endregion
+
+        //EPD-HD1051
+        public int UpdUsuarioExterno(int paisID, BEUsuarioExterno usuarioExterno)
+        {
+            BLUsuario objUsuario = new BLUsuario();
+            int v_resultado = 0;
+
+            try
+            {
+                objUsuario = new BLUsuario();
+                v_resultado = objUsuario.UpdUsuarioExterno(usuarioExterno);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return v_resultado;
+        }
     }
 }

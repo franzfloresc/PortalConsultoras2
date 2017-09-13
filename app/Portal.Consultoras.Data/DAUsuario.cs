@@ -774,5 +774,28 @@ namespace Portal.Consultoras.Data
 
             return Context.ExecuteNonQuery(command);
         }
+
+        //EPD-HD1051
+        public int UpdUsuarioExterno(BEUsuarioExterno p_usuarioexterno)
+        {            
+            DbCommand command = null;
+            int v_resultado = 0;
+
+            try
+            {
+                command = Context.Database.GetStoredProcCommand("dbo.UpdUsuarioExterno");
+                Context.Database.AddInParameter(command, "@IdAplicacion", DbType.AnsiString, p_usuarioexterno.IdAplicacion);
+                Context.Database.AddInParameter(command, "@Proveedor", DbType.AnsiString, p_usuarioexterno.Proveedor);
+                Context.Database.AddInParameter(command, "@FotoPerfil", DbType.AnsiString, p_usuarioexterno.FotoPerfil);
+
+                v_resultado = Context.ExecuteNonQuery(command);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return v_resultado;
+        }
     }
 }

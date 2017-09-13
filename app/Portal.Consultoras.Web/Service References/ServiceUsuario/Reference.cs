@@ -7733,10 +7733,10 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByCodigoUsuarioAsync(int paisID, string codigoUsuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse")]
-        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion);
+        Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdApp", ReplyAction="http://tempuri.org/IUsuarioService/GetUsuarioExternoByProveedorAndIdAppResponse")]
-        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion);
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion, string fotoPerfil);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetListaLoginExterno", ReplyAction="http://tempuri.org/IUsuarioService/GetListaLoginExternoResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario);
@@ -8428,12 +8428,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
             return base.Channel.GetUsuarioExternoByCodigoUsuarioAsync(paisID, codigoUsuario);
         }
         
-        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion) {
-            return base.Channel.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion);
+        public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil) {
+            return base.Channel.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);
         }
         
-        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion) {
-            return base.Channel.GetUsuarioExternoByProveedorAndIdAppAsync(proveedor, idAplicacion);
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno> GetUsuarioExternoByProveedorAndIdAppAsync(string proveedor, string idAplicacion, string fotoPerfil) {
+            return base.Channel.GetUsuarioExternoByProveedorAndIdAppAsync(proveedor, idAplicacion, fotoPerfil);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuarioExterno[] GetListaLoginExterno(int paisID, string codigoUsuario) {

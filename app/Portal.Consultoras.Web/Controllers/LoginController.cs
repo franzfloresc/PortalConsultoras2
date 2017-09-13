@@ -1556,14 +1556,17 @@ namespace Portal.Consultoras.Web.Controllers
         public ActionResult checkExternalUser(string codigoISO, string proveedor, string appid)
         {
             pasoLog = "Login.POST.checkExternalUser";
+            BEUsuarioExterno beUsuarioExt = null;
+            bool f = false;
 
             try
             {
-                var f = false;
+                f = false;
+                beUsuarioExt = new BEUsuarioExterno();
 
                 using (UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    var beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
+                    beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid, null);
                     if (beUsuarioExt != null)
                     {
                         f = true;
@@ -1593,7 +1596,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult validExternalUser(string codigoISO, string proveedor, string appid, string returnUrl)
+        public ActionResult validExternalUser(string codigoISO, string proveedor, string appid, string returnUrl, string foto)
         {
             pasoLog = "Login.POST.ValidExternalUser";
 
@@ -1602,7 +1605,7 @@ namespace Portal.Consultoras.Web.Controllers
                 BEUsuarioExterno beUsuarioExt = null;
                 using (ServiceUsuario.UsuarioServiceClient svc = new UsuarioServiceClient())
                 {
-                    beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid);
+                    beUsuarioExt = svc.GetUsuarioExternoByProveedorAndIdApp(proveedor, appid, foto);
                 }
 
                 if (beUsuarioExt != null)
