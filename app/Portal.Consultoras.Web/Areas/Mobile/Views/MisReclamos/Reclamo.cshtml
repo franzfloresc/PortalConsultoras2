@@ -17,7 +17,7 @@
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-            <a class="enlace_regresar catalogosR" title="Regresar"></a>
+        <a class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
     CAMBIOS Y DEVOLUCIONES
@@ -96,7 +96,7 @@
                         <div class="icono_flecha_mi_solicitud">
                             <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="">
                         </div>
-                        <a href="" class="tipografia_lato_regular" title="Ir al final">IR AL FINAL</a>
+                        <a href="" class="tipografia_lato_regular" id="btn_ver_solicitudes" title="Ir al final">IR AL FINAL</a>
                     </div>
                 </div>
             </div>
@@ -413,7 +413,7 @@
             </div>
             <!-- FIN VISTA SOLICITUD ENVIADA -->
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            <a href="#" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
+            <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
                 <span class="icono_arrow_left">
                     <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
                 </span>
@@ -584,8 +584,7 @@
 </script>
 <script id="template-operacion" type="text/x-handlebars-template">
     {{#each this as |item|}}
-    <a href="#"
-       id="{{item.CodigoOperacion}}"
+    <a id="{{item.CodigoOperacion}}"
        data-tipo="{{item.Tipo}}"
        class="solucion_cdr tipografia_lato_bold"
        title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
@@ -600,9 +599,14 @@
         <span class="cod_producto_agregado tipografia_lato_regular">{{item.CUV}}</span>
         <span class="nom_producto_agregado tipografia_lato_regular">{{item.Descripcion}}</span>
         <span class="cant_producto_agregado tipografia_lato_regular">{{item.Cantidad2}} unidades</span>
-        <span class="icono_eliminar_producto_agregado" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
-            <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" alt="Eliminar producto de lista de solicitud">
-        </span>
+        <div class="icono_eliminar_solic_cdr">
+            <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
+               style="background-image: url('/Content/Images/mobile/icono-eliminar-cdr.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+               title="Eliminar solicitud"></a>
+        </div>
+        @*<span class="icono_eliminar_producto_agregado" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
+                <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" alt="Eliminar producto de lista de solicitud">
+            </span>*@
     </div>
     {{/each}}
 </script>
@@ -631,11 +635,10 @@
             <div class="info_solicitud_cdr tipografia_lato_regular">
                 <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
             </div>
-            <div class="icono_eliminar_solic_cdr">             
+            <div class="icono_eliminar_solic_cdr">
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
                    title="Eliminar solicitud"></a>
-
             </div>
         </div>
     </div>

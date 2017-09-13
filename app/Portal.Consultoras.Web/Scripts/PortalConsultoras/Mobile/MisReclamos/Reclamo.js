@@ -46,6 +46,7 @@ $(document).ready(function () {
             hdPedidoId: "#txtPedidoID",
             hdCDRID: "#CDRWebID",
             btnCambioProducto: "#btnCambioProducto",
+            btn_ver_solicitudes: "#btn_ver_solicitudes",
             IrSolicitudInicial: "#IrSolicitudInicial"
         };
 
@@ -149,12 +150,16 @@ $(document).ready(function () {
                 });
 
                 $(".enlace_ir_al_final a").click(function (e) {
-
+                   
                     e.preventDefault();
                     $(me.Variables.listadoProductosAgregados).animate({
                         scrollTop: me.Variables.alturaListaMiSolicitud + "px"
                     }, 500);
 
+                    $(me.Variables.Registro1).hide();
+                    $(me.Variables.btnSiguiente1).hide();
+                    $(me.Variables.RegistroAceptarSolucion).show();
+                    $(me.Variables.btnSiguiente4).show();
                 });
 
                 $(".listado_soluciones_cdr").on('click', '.solucion_cdr', function () {
@@ -171,7 +176,9 @@ $(document).ready(function () {
                     //$(me.Variables.btnAceptarSolucion).show();
                 });
 
-                $("body").on("click", "[data-accion]", function () {
+                $('a[data-accion]').on('click', function (e) {
+                    e.preventDefault(); // prevents the <a> from navigating
+                //$("body").on("click", "[data-accion]", function () {
                     me.Funciones.DetalleAccion(this);
                 });
 
@@ -299,7 +306,7 @@ $(document).ready(function () {
                     //    //$("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
                     //    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
                     //}
-                });
+                });               
             }
         };
 
@@ -621,7 +628,7 @@ $(document).ready(function () {
                 if (id == 'D') {
 
                     if (me.Funciones.ValidarPaso2Devolucion(id)) {
-                      
+
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
                         me.Funciones.CargarPropuesta(id);
