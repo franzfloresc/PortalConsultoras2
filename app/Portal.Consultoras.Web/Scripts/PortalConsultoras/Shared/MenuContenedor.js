@@ -102,10 +102,10 @@ var menuModule = (function () {
                     },
                     1000);
             } else {
-                window.location = "/" + (isMobile() ? "Mobile/" : "") + "/Ofertas#" + codigo;
+                window.location = "/Ofertas#" + codigo;
             }
         } else {
-            window.location = "/" + (isMobile() ? "Mobile/" : "") +url;
+            window.location = url;
         }
     }
     function setCarrouselMenu() {
@@ -141,7 +141,12 @@ $(document).ready(function () {
     menuModule.setCarrouselMenu();
     LayoutHeaderFin();
     $(window).on('scroll', function () {
-        menuModule.hasScrolledDesktop($(window).scrollTop());
-        menuModule.hasScrolledMobile($(window).scrollTop());
+        if (isMobile()) {
+            menuModule.hasScrolledMobile($(window).scrollTop());
+        } else {
+            menuModule.hasScrolledDesktop($(window).scrollTop());
+        }
+       
+        
     });
 });
