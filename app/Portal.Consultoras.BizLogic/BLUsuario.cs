@@ -1595,23 +1595,5 @@ namespace Portal.Consultoras.BizLogic
         }
         #endregion
 
-        //EPD-HD1051
-        public int UpdUsuarioExterno(BEUsuarioExterno p_usuarioexterno)
-        {
-            DAUsuario objUsuario = null;
-            int v_resultado = 0;
-
-            try
-            {
-                objUsuario = new DAUsuario(p_usuarioexterno.PaisID);
-                v_resultado = objUsuario.UpdUsuarioExterno(p_usuarioexterno);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return v_resultado;
-        }
     }
 }
