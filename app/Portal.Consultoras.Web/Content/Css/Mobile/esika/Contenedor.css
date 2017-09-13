@@ -350,6 +350,10 @@ width:auto !important;
     .bc_mobile-texto {
         width: 68% !important;
     }
+        .bc_mobile-texto .mobile-txt p{
+            text-align:center;
+            font-size:9px;
+        }
   		
 }
 @media (max-width:360px) {
@@ -358,5 +362,10 @@ width:auto !important;
     }
     .bc_mobile-texto {
         width: 64% !important;
+    }
+}
+@media (max-width:359px) {
+    .slick-list {
+        padding: 8px 0px !important;
     }
 }
