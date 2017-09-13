@@ -75,14 +75,15 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.CampaniaActual = userData.CampaniaID;
                 model.CatalogoPersonalizadoMobile = userData.CatalogoPersonalizado;
 
-                if (userData.CodigoISO == "CL" || userData.CodigoISO == "CO")
+                if (userData.CodigoISO == Constantes.CodigosISOPais.Chile || 
+                    userData.CodigoISO == Constantes.CodigosISOPais.Colombia)
                 {
                     var tabla = new List<BETablaLogicaDatos>();
                     using (SACServiceClient sac = new SACServiceClient())
                     {
                         tabla = sac.GetTablaLogicaDatos(userData.PaisID, 60).ToList();
 
-                        if (userData.CodigoISO == "CL")
+                        if (userData.CodigoISO == Constantes.CodigosISOPais.Chile)
                         {
                             model.RutaChile = ConfigurationManager.AppSettings.Get("UrlPagoLineaChile");
                         }
