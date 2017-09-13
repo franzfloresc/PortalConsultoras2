@@ -23,7 +23,7 @@
 <div class="bc_estrategia_contenido">
     @foreach (var seccion in Model.ListaSeccion)
     {
-        <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+        <div id="@seccion.Codigo" data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
             <div data-seccion-content="">
                 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
             </div>
