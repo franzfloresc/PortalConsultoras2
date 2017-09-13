@@ -469,14 +469,6 @@ function EstrategiaAgregar(event, popup, limite) {
             if (isMobile()) {
                 ActualizarGanancia(data.DataBarra);
             }
-            else {
-                if (tipoOrigenEstrategia == 1) {
-                    CargarResumenCampaniaHeader(true);
-                }
-                else {
-                    CargarResumenCampaniaHeader();
-                }
-            }
 
             var cuv = estrategia.CUV2;
 
@@ -487,6 +479,8 @@ function EstrategiaAgregar(event, popup, limite) {
                 if (tieneMasVendidos === 1) {
                     CargarCarouselMasVendidos('desktop');
                 }
+
+                CargarResumenCampaniaHeader(true);
             }
             else if (tipoOrigenEstrategia == 11) {
 
@@ -494,12 +488,16 @@ function EstrategiaAgregar(event, popup, limite) {
 
                 cierreCarouselEstrategias();
                 CargarCarouselEstrategias(cuv);
+                CargarResumenCampaniaHeader();
                 HideDialog("divVistaPrevia");
 
                 tieneMicroefecto = true;
 
                 CargarDetallePedido();
                 MostrarBarra(data);
+            }
+            else if ($.trim(tipoOrigenEstrategia)[0] == "1") {
+                CargarResumenCampaniaHeader(true);
             }
             else if (tipoOrigenEstrategia == 2 || tipoOrigenEstrategia == 21 || tipoOrigenEstrategia == 27 || tipoOrigenEstrategia == 262 || tipoOrigenEstrategia == 272) {
                 if (tipoOrigenEstrategia == 262) {

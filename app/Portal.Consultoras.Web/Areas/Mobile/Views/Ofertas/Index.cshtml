@@ -14,7 +14,7 @@
 }
 @foreach (var seccion in Model.ListaSeccion)
 {
-    <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+    <div id="@seccion.Codigo" data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
         <div data-seccion-content="">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
         </div>
@@ -22,7 +22,7 @@
     </div>
 }
 
-@Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
+@Html.Partial("~/Views/EstrategiaPersonalizada/template-producto-landing.cshtml")
 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-carrusel-previsuales-producto.cshtml")
 
 @section scripts{
@@ -30,7 +30,6 @@
     var urlLoad = '@Url.Content("~/Content/Images/loading_spinner.gif")';
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
-    var tipoOrigenEstrategia = 207;
 </script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
