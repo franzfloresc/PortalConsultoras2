@@ -26,23 +26,35 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GuardarProductoTemporal(EstrategiaPedidoModel modelo)
+        public JsonResult GuardarProductoTemporal(EstrategiaPersonalizadaProductoModel modelo)
         {
+            if (modelo != null)
+            {
+                modelo.ClaseBloqueada = Util.Trim(modelo.ClaseBloqueada);
+                modelo.ClaseEstrategia = Util.Trim(modelo.ClaseEstrategia);
+                modelo.CodigoEstrategia = Util.Trim(modelo.CodigoEstrategia);
+                modelo.DescripcionResumen = Util.Trim(modelo.DescripcionResumen);
+                modelo.DescripcionDetalle = Util.Trim(modelo.DescripcionDetalle);
+                modelo.DescripcionCompleta = Util.Trim(modelo.DescripcionCompleta);
+                modelo.PrecioTachado = Util.Trim(modelo.PrecioTachado);
+                modelo.CodigoVariante = Util.Trim(modelo.CodigoVariante);
+                modelo.TextoLibre = Util.Trim(modelo.TextoLibre);
+                modelo.UrlCompartir = Util.Trim(modelo.UrlCompartir);
+            }
+
             Session[Constantes.SessionNames.ProductoTemporal] = modelo;
 
             return Json(new
             {
                 success = true
             }, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult Detalle(string cuv, int campaniaId)
         {
             try
             {
-                var modelo = (EstrategiaPedidoModel)Session[Constantes.SessionNames.ProductoTemporal];
-                return DetalleModel(modelo);
+                return DetalleModel(cuv, campaniaId);
             }
             catch (Exception ex)
             {
@@ -79,7 +91,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetProductos(BusquedaProductoModel model)
+        public JsonResult RDObtenerProductos(BusquedaProductoModel model)
         {
             try
             {
@@ -99,105 +111,32 @@ namespace Portal.Consultoras.Web.Controllers
 
                 var palanca = model.ValorOpcional == Constantes.TipoEstrategiaCodigo.OfertaParaTi ? "" : Constantes.TipoEstrategiaCodigo.RevistaDigital;
 
-                var listModel = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
-
-                var listModelLan = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-                listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
-
-
-                var listaFinal = listModel;
-                //listaFinal.AddRange(listModel);
+                var listaFinal1 = ConsultarEstrategiasModel("", model.CampaniaID, palanca);
+                var listModel = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                
+                var listModelLan = listModel.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                listModel = listModel.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
 
                 int cantidadTotal = listModel.Count;
-
-                #region Filtros y Orden
-
-                //#region Filtros
-                //if (model.ListaFiltro != null && model.ListaFiltro.Count > 0)
-                //{
-                //    listaFinal = new List<EstrategiaPedidoModel>();
-                //    var universo = new List<EstrategiaPedidoModel>();
-                //    int cont = 0, contVal = 0;
-                //    foreach (var filtro in model.ListaFiltro)
-                //    {
-                //        filtro.Valores = filtro.Valores ?? new List<string>();
-                //        if (!filtro.Valores.Any()) continue;
-
-                //        universo = cont == 0 ? listModel : listaFinal;
-                //        filtro.Tipo = Util.Trim(filtro.Tipo).ToLower();
-                //        contVal = 0;
-                //        foreach (var valor in filtro.Valores)
-                //        {
-                //            var val = Util.Trim(valor).ToLower();
-                //            if (val == "" || val == "-")
-                //            {
-                //                listaFinal = contVal == 0 ? universo : listaFinal;
-                //                continue;
-                //            }
-
-                //            if (filtro.Tipo == "marca")
-                //            {
-                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                //                listaFinal.AddRange(universo.Where(p => Util.Trim(p.DescripcionMarca).ToLower() == val));
-                //            }
-                //            else if (filtro.Tipo == "precio")
-                //            {
-                //                var listaValDet = val.Split(',');
-                //                var valorDesde = Convert.ToDecimal(listaValDet[0]);
-                //                var valorHasta = Convert.ToDecimal(listaValDet[1]);
-
-                //                if (contVal <= 0) listaFinal = new List<EstrategiaPedidoModel>();
-                //                listaFinal.AddRange(universo.Where(p => p.Precio2 >= valorDesde && p.Precio2 <= valorHasta));
-                //            }
-                //            contVal++;
-                //        }
-                //        cont++;
-                //    }
-                //}
-                //#endregion
-
-                //#region Orden
-                //if (model.Ordenamiento != null)
-                //{
-                //    model.Ordenamiento.Tipo = Util.Trim(model.Ordenamiento.Tipo).ToLower();
-                //    if (model.Ordenamiento.Tipo == "precio")
-                //    {
-                //        switch (model.Ordenamiento.Valor)
-                //        {
-                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MenorAMayor:
-                //                listaFinal = listaFinal.OrderBy(p => p.Precio2).ToList();
-                //                break;
-                //            case Constantes.ShowRoomTipoOrdenamiento.ValorPrecio.MayorAMenor:
-                //                listaFinal = listaFinal.OrderByDescending(p => p.Precio2).ToList();
-                //                break;
-                //            default:
-                //                listaFinal = listaFinal.OrderBy(p => p.Orden).ToList();
-                //                break;
-                //        }
-                //    }
-                //}
-                //#endregion
-
-                #endregion
-
-                int cantidad = listaFinal.Count;
-
-                //var cantMostrar = 10;
-                //listaFinal = listaFinal.Skip(model.CantMostrados).Take(cantMostrar).ToList();
-
-                listaFinal.ForEach(p =>
+                
+                var listPerdio = new List<EstrategiaPersonalizadaProductoModel>();
+                if (TieneProductosPerdio(model.CampaniaID))
                 {
-                    p.PuedeAgregar = IsMobile() ? 0 : 1;
-                    p.IsMobile = IsMobile() ? 1 : 0;
-                });
-
+                    var listPerdio1 = ConsultarEstrategiasModel("", model.CampaniaID, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                    listPerdio1 = listPerdio1.Where(p => p.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.PackNuevas).ToList();
+                    listPerdio = ConsultarEstrategiasFormatearModelo(listPerdio1, 1);
+                    
+                    listModelLan.AddRange(listPerdio.Where(e => e.CodigoEstrategia == Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList());
+                    listPerdio = listPerdio.Where(e => e.CodigoEstrategia != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList();
+                }
                 return Json(new
                 {
                     success = true,
-                    lista = listaFinal,
+                    lista = listModel,
+                    listaPerdio = listPerdio,
                     listaLan = listModelLan,
                     cantidadTotal = cantidadTotal,
-                    cantidad = cantidad,
+                    cantidad = cantidadTotal,
                     campaniaId = model.CampaniaID
                 });
             }
@@ -228,10 +167,11 @@ namespace Portal.Consultoras.Web.Controllers
                     });
                 }
 
-                var listaFinal = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPedidoModel();
+                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
+                var listaFinal = ConsultarEstrategiasFormatearModelo(listaFinal1);
+                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPersonalizadaProductoModel();
 
-                producto.PuedeAgregar = 1;
+                //producto.PuedeAgregar = 1;
                 producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
 
                 return Json(new
@@ -280,6 +220,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede suscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
@@ -289,22 +240,26 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.EstadoEnvio = 0;
                 entidad.IsoPais = userData.CodigoISO;
                 entidad.EMail = userData.EMail;
-
+                if (entidad.CodigoConsultora == "")
+                    throw new Exception("El codigo de la consultora no puede ser nulo.");
+               
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
                     entidad.RevistaDigitalSuscripcionID = sv.RDSuscripcion(entidad);
                 }
-
+                
+                
+                
                 if (entidad.RevistaDigitalSuscripcionID > 0)
                 {
                     userData.RevistaDigital.SuscripcionModel = Mapper.Map<BERevistaDigitalSuscripcion, RevistaDigitalSuscripcionModel>(entidad);
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -340,6 +295,17 @@ namespace Portal.Consultoras.Web.Controllers
                     }, JsonRequestBehavior.AllowGet);
                 }
 
+                var diasAntesFactura = userData.RevistaDigital.DiasAntesFacturaHoy;
+                var diasFaltanFactura = GetDiasFaltantesFacturacion(userData.FechaInicioCampania, userData.ZonaHoraria);
+                if (diasFaltanFactura <= -1 * diasAntesFactura)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Lo sentimos no puede desuscribirse, porque " + (diasFaltanFactura == 0 ? "hoy" : diasFaltanFactura == 1 ? "mañana" : "en " + diasFaltanFactura + " días ") + " es cierre de campaña."
+                    }, JsonRequestBehavior.AllowGet);
+                }
+
                 var entidad = new BERevistaDigitalSuscripcion();
                 entidad.PaisID = userData.PaisID;
                 entidad.CodigoConsultora = userData.CodigoConsultora;
@@ -361,10 +327,10 @@ namespace Portal.Consultoras.Web.Controllers
                     userData.RevistaDigital.NoVolverMostrar = true;
                     userData.RevistaDigital.EstadoSuscripcion = userData.RevistaDigital.SuscripcionModel.EstadoRegistro;
                     userData.MenuMobile = null;
+                    userData.Menu = null;
                 }
 
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -409,7 +375,6 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {
@@ -433,8 +398,8 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 userData.RevistaDigital.NoVolverMostrar = true;
                 userData.RevistaDigital.EstadoSuscripcion = Constantes.EstadoRDSuscripcion.NoPopUp;
+                Session[Constantes.ConstSession.TipoPopUpMostrar] = Constantes.TipoPopUp.Ninguno;
                 SetUserData(userData);
-                Session["TipoPopUpMostrar"] = null;
 
                 return Json(new
                 {

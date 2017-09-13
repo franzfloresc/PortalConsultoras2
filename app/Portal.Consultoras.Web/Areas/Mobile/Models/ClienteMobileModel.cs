@@ -12,9 +12,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
 
         public int FlagValidate { get; set; }
 
-        [Display(Name = "Nombre")]
-        [Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
-        [StringLength(150, ErrorMessage = "No puede ingresar mas de 150 caracteres", MinimumLength = 1)]
+        //[Display(Name = "Nombre")]
+        //[Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
+        //[StringLength(150, ErrorMessage = "No puede ingresar mas de 150 caracteres", MinimumLength = 1)]
         public string Nombre { get; set; }
 
         [Display(Name = "Correo")]
@@ -22,8 +22,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         [StringLength(50, ErrorMessage = "No se puede ingresar más de 50 caracteres")]
         public string Email { get; set; }
 
-        [Display(Name = "Celular")]
-        [RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
+        [Display(Name = "Teléfono Fijo")]
+        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
         public string Telefono { get; set; }
 
         public string CampaniaAnterior { get; set; }
@@ -33,5 +33,20 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Models
         public string CampaniaSiguiente { get; set; }
 
         public string CodigoZona { get; set; } //R20160204        
+
+        [Display(Name = "Celular")]
+        //[RegularExpression(@"^\d+$", ErrorMessage = "Debe ingresar un nro. celular válido")]
+        public string Celular { get; set; }
+
+        public long CodigoCliente { get; set; }
+
+        public short TieneTelefono { get; set; }
+
+        [Required(ErrorMessage = "Debe ingresar el Nombre del Cliente")]
+        [StringLength(100, ErrorMessage = "No puede ingresar mas de 100 caracteres", MinimumLength = 1)]
+        public string NombreCliente { get; set; }
+
+        [StringLength(100, ErrorMessage = "No puede ingresar mas de 100 caracteres", MinimumLength = 0)]
+        public string ApellidoCliente { get; set; }
     }
 }

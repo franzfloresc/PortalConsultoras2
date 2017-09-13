@@ -303,8 +303,7 @@
         <div class="logo-esika">
         </div>
         <div class="text_bienvenida_esika">
-            ¡Bienvenida a la Compañía de Belleza <br/>
-            con la que puedes<span style="font-size:21px"> ganar más!</span>
+            ¡Bienvenida a la Compañía de Belleza con la que puedes <span> ganar más! </span>
         </div>
         <div class="title">
             <img src="~/Content/Images/Login2/logo_welcome.png" alt="" />
@@ -429,7 +428,7 @@
 
 
                             <select id="ddlPais" name="CodigoISO" class="DropDown" tabindex="1">
-                                <option value="00">Elige tu País</option>
+                                <option value="00" data-id="99">Elige tu País</option>
                                 @if (Model.ListaPaises != null)
                                 {
                                     foreach (var item in Model.ListaPaises)
@@ -619,11 +618,20 @@
 {
     <script type="text/javascript">
         var errorLogin = '@TempData["errorLogin"]';
+        var serverPaisId = '@TempData["serverPaisId"]'
+        var serverPaisISO = '@TempData["serverPaisISO"]'
+        var serverCodigoUsuario = '@TempData["serverCodigoUsuario"]'
+    </script>
+}
+
+@if(TempData["usuarioValidado"] != null)
+{
+    <script>
+        var usuarioValidado = '@TempData["usuarioValidado"]';
     </script>
 }
 
 @section scripts {
-    <script src="~/Scripts/General.js"></script>
-    <script src="~/Scripts/PortalConsultoras/Login/FormsSignIn.js"></script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JS-Login")
 }
 

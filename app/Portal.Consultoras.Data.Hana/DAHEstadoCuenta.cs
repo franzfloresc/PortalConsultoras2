@@ -37,7 +37,6 @@ namespace Portal.Consultoras.Data.Hana
                     bool esFecha = DateTime.TryParseExact(estadoCuenta.fechaRegistro, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out fechaRegistro);
                     if (esFecha)
                         beEstadoCuenta.FechaRegistro = fechaRegistro;
-
                     beEstadoCuenta.DescripcionOperacion = estadoCuenta.descripcionOperacion;
 
                     decimal montoOperacion;

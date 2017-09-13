@@ -69,7 +69,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@EsSugerido", DbType.Boolean, pedidowebdetalle.EsSugerido);
             Context.Database.AddInParameter(command, "@EsKitNueva", DbType.Boolean, pedidowebdetalle.EsKitNueva);
 
-            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);            
+            Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
 
             Context.ExecuteNonQuery(command);
 
@@ -103,11 +103,12 @@ namespace Portal.Consultoras.Data
             return deleted;
         }
 
-        public IDataReader GetPedidoWebDetalleByCampania(int CampaniaID, long ConsultoraID)
+        public IDataReader GetPedidoWebDetalleByCampania(int CampaniaID, long ConsultoraID, int esOpt = -1)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@EsOpt", DbType.Int32, esOpt);
 
             return Context.ExecuteReader(command);
         }
@@ -180,7 +181,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CodigoUsuarioModificacion", DbType.String, pedidowebdetalle.CodigoUsuarioModificacion);
             Context.Database.AddInParameter(command, "@EsSugerido", DbType.Boolean, pedidowebdetalle.EsSugerido);
             Context.Database.AddInParameter(command, "@OrdenPedidoWD", DbType.Int32, pedidowebdetalle.OrdenPedidoWD);
-            
+
             Context.Database.AddInParameter(command, "@OrigenPedidoWeb", DbType.Int16, pedidowebdetalle.OrigenPedidoWeb);
 
             int result = Context.ExecuteNonQuery(command);
@@ -247,7 +248,7 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, Consultora);
 
-           return Context.ExecuteReader(command);
+            return Context.ExecuteReader(command);
         }
 
         public int DelPedidoWebDetalleMasivo(int CampaniaID, int PedidoID)
@@ -308,5 +309,24 @@ namespace Portal.Consultoras.Data
             Context.ExecuteNonQuery(command);
         }
 
+        /// <summary>
+        /// Lista los pedidos facturados del cliente
+        /// </summary>
+        /// <param name="codigoCampania">Codigo de campaña</param>
+        /// <param name="consultoraId">Consultora Id</param>
+        /// <param name="clienteId">Cliente Id</param>
+        /// <returns></returns>
+        public IDataReader ClientePedidoFacturadoListar(int codigoCampania, long consultoraId, short clienteId)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConsultoraCliente_ObtenerPedidoFacturado");
+
+            command.CommandType = CommandType.StoredProcedure;
+
+            Context.Database.AddInParameter(command, "@campaniaID", DbType.Int32, codigoCampania);
+            Context.Database.AddInParameter(command, "@consultoraId", DbType.Int64, consultoraId);
+            Context.Database.AddInParameter(command, "@clienteId", DbType.Int16, clienteId);
+
+            return Context.ExecuteReader(command);
+        }
     }
 }

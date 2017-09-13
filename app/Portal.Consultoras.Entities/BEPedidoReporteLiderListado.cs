@@ -40,6 +40,9 @@ namespace Portal.Consultoras.Entities
         public int VentaConsultora { get; set; }
 
         [DataMember]
+        public int DescuentoConsultora { get; set; }
+
+        [DataMember]
         public int MontoPedidoFacturado { get; set; }
 
         [DataMember]
@@ -98,6 +101,8 @@ namespace Portal.Consultoras.Entities
                 SaldoPendienteTotal = Convert.ToDecimal(row["SaldoPendienteTotal"]);
             if (DataRecord.HasColumn(row, "VentaConsultora"))
                 VentaConsultora = Convert.ToInt32(row["VentaConsultora"]);
+            if (DataRecord.HasColumn(row, "DescuentoConsultora"))
+                DescuentoConsultora = Convert.ToInt32(row["DescuentoConsultora"]);
             if (DataRecord.HasColumn(row, "MontoPedidoFacturado"))
                 MontoPedidoFacturado = Convert.ToInt32(row["MontoPedidoFacturado"]);
             if (DataRecord.HasColumn(row, "MotivoRechazo"))

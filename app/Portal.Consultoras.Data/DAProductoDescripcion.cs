@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Data
             Context.Database.AddInParameter(command, "@PrecioProducto", DbType.Decimal, producto.PrecioProducto);
             Context.Database.AddInParameter(command, "@FactorRepeticion", DbType.Int16, producto.FactorRepeticion);
             Context.Database.AddInParameter(command, "@CodigoUsuario", DbType.String, codigoUsuario);
+            Context.Database.AddInParameter(command, "@RegaloDescripcion", DbType.String, producto.RegaloDescripcion);
+            Context.Database.AddInParameter(command, "@RegaloImagenUrl", DbType.String, producto.RegaloImagenUrl);
 
             return Context.ExecuteNonQuery(command);
         }

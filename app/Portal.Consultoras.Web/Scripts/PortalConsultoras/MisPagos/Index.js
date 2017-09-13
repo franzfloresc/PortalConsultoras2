@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    
     $('ul[data-tab="tab"] li a[data-tag]').click(function (e) {
         // mostrar el tab correcto
         $("[data-tag-html]").hide();
@@ -17,13 +16,6 @@
     $('ul[data-tab="tab"]').mouseover(function () { $("#barCursor").css("opacity", "1"); })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    (function () {
-        if (localStorage.getItem("redirectFromIndex") == '1') {
-            localStorage.setItem("redirectFromIndex", "0");//restored
-            pestanhaInicial = 'LugaresPago';
-        }        
-    })();
-    
     $('ul[data-tab="tab"] li a[data-tag="' + pestanhaInicial + '"]').click();
 
     $("#lblCorreoEnviar").click(function () {

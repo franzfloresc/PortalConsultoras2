@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Portal.Consultoras.Entities;
-using Portal.Consultoras.BizLogic;
-using Portal.Consultoras.ServiceContracts;
+﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Common;
+using Portal.Consultoras.Entities;
+using Portal.Consultoras.Entities.Cliente;
+using Portal.Consultoras.ServiceContracts;
+using System;
+using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {
@@ -47,6 +45,11 @@ namespace Portal.Consultoras.Service
             return BLCliente.SelectByConsultora(paisID, consultoraID);
         }
 
+        public BECliente SelectByConsultoraByCodigo(int paisID, long consultoraID, int ClienteID, long codigoCliente)
+        {
+            return BLCliente.SelectByConsultoraByCodigo(paisID, consultoraID, ClienteID, codigoCliente);
+        }
+
         public BECliente SelectById(int paisID, long consultoraID, int clienteID)
         {
             return BLCliente.SelectById(paisID, consultoraID, clienteID);
@@ -55,6 +58,11 @@ namespace Portal.Consultoras.Service
         public int CheckClienteByConsultora(int paisID, long ConsultoraID, string Nombre)
         {
             return BLCliente.CheckClienteByConsultora(paisID, ConsultoraID, Nombre);
+        }
+
+        public int GetExisteClienteConsultora(int paisID, BECliente entidad)
+        {
+            return BLCliente.GetExisteClienteConsultora(paisID, entidad);
         }
 
         public void UndoCliente(int paisID, long consultoraID, int clienteID)
@@ -130,5 +138,83 @@ namespace Portal.Consultoras.Service
         {
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
+
+        public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
+        {
+            return BLCliente.SaveDB(paisID, clientes);
+        }
+
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        {
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+        }
+
+        public BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente)
+        {
+            return BLCliente.ValidateTelefonoByConsultoraDB(paisID, consultoraID, contactoCliente);
+        }
+
+        public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
+        {
+            var result = BLCliente.MovimientoInsertar(paisId, movimiento);
+
+            return result.Data;
+        }
+
+        public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId)
+        {
+            return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
+        }
+
+        public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
+        {
+            var result = BLCliente.MovimientoActualizar(paisId, movimiento);
+            return new Tuple<bool, string>(result.Success, result.Message);
+        }
+
+        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioInsertar(paisId, recordatorio);
+        }
+
+        public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId)
+        {
+            return BLCliente.RecordatorioListar(paisId, consultoraId);
+        }
+
+        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
+        {
+            return BLCliente.RecordatorioActualizar(paisId, recordatorio);
+        }
+
+        public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
+        {
+            return BLCliente.RecordatorioEliminar(paisId, clienteId, consultoraId, recordatorioId);
+        }
+
+        public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
+        {
+            return BLCliente.ObtenerDeudores(paisId, consultoraId);
+        }
+
+        public long NotaInsertar(int paisId, BENota nota)
+        {
+            return BLCliente.NotaInsertar(paisId, nota);
+        }
+
+        public IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId)
+        {
+            return BLCliente.NotaListar(paisId, consultoraId);
+        }
+
+        public bool NotaActualizar(int paisId, BENota nota)
+        {
+            return BLCliente.NotaActualizar(paisId, nota);
+        }
+
+        public bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        {
+            return BLCliente.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
+        }
     }
-    }
+}

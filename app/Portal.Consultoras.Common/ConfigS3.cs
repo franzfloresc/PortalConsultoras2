@@ -50,8 +50,16 @@ namespace Portal.Consultoras.Common
                 var deleteRequest = new DeleteObjectRequest();
                 deleteRequest.BucketName = ConfigS3.BUCKET_NAME;
                 deleteRequest.Key = ConfigS3.ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;
-
-                client.DeleteObject(deleteRequest);
+                // Fix Error: cliente no cuenta con permiso para eliminar archivos. 
+                try
+                {
+                    client.DeleteObject(deleteRequest);
+                }
+                catch (Exception e)
+                {
+                    LogManager.SaveLog(e, "", "");
+                }
+                
             }
 
             client.Dispose();

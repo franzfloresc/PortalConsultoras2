@@ -1,4 +1,5 @@
-﻿namespace Portal.Consultoras.Common
+﻿using System.Collections.Generic;
+namespace Portal.Consultoras.Common
 {
     public class Constantes
     {
@@ -56,6 +57,9 @@
         {
             public const short Pendiente = 201;
             public const short Procesado = 202;
+
+            public const short Registrado = 1;
+            public const short Facturado = 2;
         }
 
         public class CodigosISOPais
@@ -118,8 +122,12 @@
             public const int TablaLogicaPackNuevasPedidoAsociadoID = 72;
             public const int TablaLogicaDatosPackNuevasPedidoAsociadoID = 7201;
             public const int PersonalizacionShowroom = 9850;
+            public const int BusquedaNemotecnicoMatriz = 9851;
+            public const int BusquedaNemotecnicoOfertaLiquidacion = 9852;
+            public const int BusquedaNemotecnicoProductoSugerido = 9853;
+            public const int BusquedaNemotecnicoZonaEstrategia = 9854;
         }
-        
+
         public class ParametrosNames
         {
             public const string CorreoRequerido = "CorreoRequerido";
@@ -132,7 +140,7 @@
             public const string Medio = "MEDIO";
             public const string Alto = "ALTO";
         }
-        
+
         public class EstadoActividadConsultora
         {
             public const int Registrada = 1;
@@ -153,7 +161,7 @@
             public const int OfertaWeb = 4;
             public const int Lanzamiento = 5;
         }
-        
+
         public class TipoEstrategiaSet
         {
             public const string IndividualConTonos = "2001";
@@ -164,11 +172,12 @@
         public class TipoEstrategiaCodigo
         {
             public const string OfertaParaTi = "001";
-            public const string PackNuevas = "002";
+            public const string PackNuevas = "002"; // Oferta Nueva Esika
             public const string Lanzamiento = "005";
             public const string OfertasParaMi = "007";
             public const string PackAltoDesembolso = "008";
             public const string RevistaDigital = "101"; // No tiene referecia con BD, es un grupo de estrategias
+            public const string LosMasVendidos = "020";
 
         }
 
@@ -194,14 +203,23 @@
             public const string CDRWeb = "CDRWeb";
             public const string CDRParametria = "CDRParametria";
             public const string CDRWebDatos = "CDRWebDatos";
+            public const string CDRExpressMensajes = "CDRExpressMensajes";
 
             // Tabla LOgica
 
             public const string TablaLogicaDatos = "TablaLogicaDatos";
-            
+
             //ShowRoom
             public const string ListaProductoShowRoom = "ListaProductoShowRoom";
             public const string ListaProductoShowRoomCpc = "ListaProductoShowRoomCpc";
+
+            //FIC
+            public const string PedidoFIC = "PedidoFIC";
+
+            public const string TipoPopUpMostrar = "TipoPopUpMostrar";
+
+            //AsesoraOnline
+            public const string EmailAsesoraOnline = "EmailAsesoraOnline";
         }
 
         public class TipoOfertaFinalCatalogoPersonalizado
@@ -267,8 +285,9 @@
             public const int MobileShowRoomProductPage = 2531;
             public const int MobileShowRoomProductPageCarrusel = 2532;
             public const int MobileShowRoomProductPageTactica = 2533;
-            
+
             public const int MobileHomeOfertasParaTi = 2121;
+            public const int MobileHomeMasVendidos = 2123;
 
             public const int MobilePedidoOfertasParaTi = 2221;
             public const int MobilePedidoSugerido = 2251;
@@ -291,7 +310,7 @@
             public const int DesktopPedidoDisplayOfertaDelDia = 1292;
             public const int DesktopGeneralBannerOfertaDelDia = 1991;
             public const int DesktopGeneralDisplayOfertaDelDia = 1992;
-            
+
             /* Revista Digital */
             public const int RevistaDigitalDesktopLanding = 1711;
             public const int RevistaDigitalDesktopLandingCarrusel = 1721;
@@ -309,7 +328,9 @@
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
-            
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
+
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
             public const int RevistaDigitalDesktopPedidoLanzamiento = 1203;
@@ -317,7 +338,85 @@
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
+            public const int RevistaDigitalMobileCatalogoSeccion = 2401;
             /* FIN Revista Digital */
+
+            /// <summary>
+            /// App/Pedido/Digitación de Pedido
+            /// </summary>
+            public const int AppDigitaciondePedido = 4201;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Sin Popup
+            /// </summary>
+            public const int AppOfertasparaTiSinPopup = 4221;
+
+            /// <summary>
+            /// App/Pedido/Ofertas para Ti/Con Popup
+            /// </summary>
+            public const int AppOfertasparaTiConPopup = 4222;
+
+            /// <summary>
+            /// App/Pedido/Reemplazos Sugeridos
+            /// </summary>
+            public const int AppReemplazosSugeridos = 4251;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Sin Popup
+            /// </summary>
+            public const int AppOfertaFinalSinPopup = 4261;
+
+            /// <summary>
+            /// App/Pedido/Oferta Final/Con Popup
+            /// </summary>
+            public const int AppOfertaFinalConPopup = 4262;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Sin Popup
+            /// </summary>
+            public const int AppEsikaparamiSinPopup = 4201;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Con Popup
+            /// </summary>
+            public const int AppEsikaparamiConPopup = 4202;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingSeccionSimplesyNiveles = 4711;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Popup Sección Simples y Niveles
+            /// </summary>
+            public const int AppEsikaparamiLandingPopupSeccionSimplesyNiveles = 4712;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel
+            /// </summary>
+            public const int AppEsikaparamiLandingCarrusel = 4721;
+
+            /// <summary>
+            /// App/Pedido/Esika para mi/Landing/Carrusel Ficha
+            /// </summary>
+            public const int AppEsikaparamiLandingCarruselFicha = 4731;
+
+            // Mas Vendidos
+            public const int DesktopHomeMasVendidosCarrusel = 1151;
+            public const int DesktopMasVendidosProductPageFicha = 1611;
+            public const int DesktopMasVendidosProductPageCarrusel = 1612;
+            public const int MobileHomeMasVendidosCarrusel = 2151;
+            public const int MobileMasVendidosProductPageFicha = 2611;
+        }
+
+        public class TipoTutorial
+        {
+            public const int Video = 1;
+            public const int Desktop = 2;
+            public const int Salvavidas = 3;
+            public const int Mobile = 4;
         }
 
         public class COTipoAtencionMensaje
@@ -332,20 +431,12 @@
             public const string Portal = "Se retiraron de tu pedido los productos de este cliente.";
             public const string Marcas = "No te olvides comunicarte con tu cliente.";
         }
-        
-        public class TipoTutorial
-        {
-            public const int Video = 1;
-            public const int Desktop = 2;
-            public const int Salvavidas = 3;
-            public const int Mobile = 4;
-        }
 
         public class BackOrder
         {
             public const string LogAccionCancelar = "El cliente no aceptó BackOrder.";
         }
-        
+
         public class EstadoCDRWeb
         {
             public const int Pendiente = 1;
@@ -361,7 +452,7 @@
             public const string Propuesta = "Propuesta";
             public const string TenerEnCuenta = "TenerEnCuenta";
             public const string Finalizado = "Finalizado";
-            public const string MensajeFinalizado = "MensajeFinalizado"; 
+            public const string MensajeFinalizado = "MensajeFinalizado";
         }
 
         public class ParametriaCDR
@@ -378,7 +469,6 @@
             public const string ValidacionDiasFaltante = "ValidacionDiasFaltante";
             public const string DiasAntesFacturacion = "DiasAntesFacturacion";
         }
-
         public class CdrWebMensajes
         {
             public const string ZonaBloqueada = "Lo sentimos, por el momento tu zona no se encuentra disponible para realizar esta operación.";
@@ -399,6 +489,7 @@
 
         public class TipoPopUp
         {
+            public const int Ninguno = 0;
             public const int VideoIntroductorio = 1;
             public const int GPR = 2;
             public const int DemandaAnticipada = 3;
@@ -410,6 +501,7 @@
             public const int RevistaDigitalSuscripcion = 9;
             public const int Cupon = 10;
             public const int CuponForzado = 11;
+            public const int AsesoraOnline = 12;
         }
 
         // Constantes de los motivos de GPR.
@@ -422,6 +514,14 @@
             public const string Mostrar2OpcionesNotificacion = "1"; // Flag para mostrar dos opciones en notificaciones.
         }
 
+        public class ValidacionExisteUsuario
+        {
+            public const int NoExiste = 0;
+            public const int ExisteDiferenteClave = 1;
+            public const int Existe = 2;
+
+        }
+
         public class LogDynamoDB
         {
             public const string AplicacionPortalConsultoras = "PORTALCONSULTORAS";
@@ -431,13 +531,7 @@
             public const string RolSociaEmpresaria = "SE";
         }
 
-        public class ValidacionExisteUsuario
-        {
-            public const int NoExiste = 0;
-            public const int ExisteDiferenteClave = 1;
-            public const int Existe = 2;
-        }
-        
+
         public class MensajeEstaEnRevista
         {
             public const string EsikaWeb = "Producto en la Guía de Negocio Ésika con oferta especial.";
@@ -445,7 +539,7 @@
             public const string EsikaMobile = "Este producto está en la Guía de Negocio Ésika con oferta especial.";
             public const string LbelMobile = "Este producto está en Mi Negocio L’Bel con oferta especial.";
         }
-        
+
         public class PestanhasMisPagos
         {
             public const string EstadoCuenta = "EstadoCuenta";
@@ -477,7 +571,7 @@
                 public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
                 public const string ImagenFondoTituloOfertaSubCampania = "ImagenFondoTituloOfertaSubCampania";
                 public const string ColorFondoContenidoOfertaSubCampania = "ColorFondoContenidoOfertaSubCampania";
-                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";                                   
+                public const string TextoBotonVerMasOfertaSubCampania = "TextoBotonVerMasOfertaSubCampania";
             }
 
             public class Mobile
@@ -495,7 +589,7 @@
                 public const string ColorTextoInicialOfertaSubCampania = "ColorTextoInicialOfertaSubCampania";
                 public const string TextoTituloOfertaSubCampania = "TextoTituloOfertaSubCampania";
                 public const string ColorTextoTituloOfertaSubCampania = "ColorTextoTituloOfertaSubCampania";
-                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";               
+                public const string ColorFondoTituloOfertaSubCampania = "ColorFondoTituloOfertaSubCampania";
             }
 
             public class TipoAplicacion
@@ -528,10 +622,20 @@
             }
         }
 
+        public class MatrizNemotecnicoMensajes
+        {
+            public const string TooltipInformacionFormatoBusqueda = "Formato de búsqueda de Nemotécnico: &lt;SAP_1&gt;#&lt;Cantidad_1&gt;&amp;&lt;SAP_2&gt;#&lt;Cantidad_2&gt;&amp;...&lt;SAP_N&gt;#&lt;Cantidad_N&gt; , ejemplos: 210080203, 210080203#01, 200083988 210080203, 200083988&210080203, 200083988#02&210080203#01";
+            public const string PlaceHolderTextoNemotecnico = "Ingrese patrón de búsqueda";
+            public const string TextoBotonBuscar = "Buscar por nemotécnico";
+            public const string TextoBotonLimpiar = "Limpiar filtros nemotécnico";
+            public const string TextoBusquedaExacta = "B.Exacta";
+        }
+
         public class IncentivosSMS
         {
             public const string MensajeAgregarMasProductos = "Agrega otros productos desde aquí";
         }
+
         public class MenuCodigo
         {
             public const string RevistaShowRoom = "ShowRoom";
@@ -539,6 +643,8 @@
             public const string RevistaDigital = "RevistaDigital";
             public const string RevistaDigitalSuscripcion = "RevistaDigitalSuscripcion";
             public const string CatalogoPersonalizado = "FDTC";
+            public const string RevistaDigitalShowRoom = "RevistaDigitalShowRoom";
+            public const string PedidoFIC = "PedidoFIC";
         }
 
         public class IngresoExternoPagina
@@ -548,6 +654,9 @@
             public const string PedidoDetalle = "PEDIDODETALLE";
             public const string NotificacionesValidacionAuto = "NOTIFICACIONVALIDACIONAUTO";
             public const string CompartirCatalogo = "COMPARTIRCATALOGO";
+            public const string Pedido = "PEDIDO";
+            public const string MisPedidos = "MISPEDIDOS";
+            public const string ShowRoom = "SHOWROOM";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -582,18 +691,48 @@
             public const string Lbel = "Mi Negocio L’Bel";
         }
 
+        public class EstadoCupon
+        {
+            public const int Reservado = 1;
+            public const int Activo = 2;
+            public const int Utilizado = 3;
+        }
+
+        public class NombreEstadoCupon
+        {
+            public const string Reservado = "Registrado";
+            public const string Activo = "Activado";
+            public const string Utilizado = "Utilizado";
+        }
+
+        public class CodigoTipoCupon
+        {
+            public const int Monto = 1;
+            public const int Porcentaje = 2;
+        }
+
+        public class NombreTipoCupon
+        {
+            public const string Monto = "Monto";
+            public const string Porcentaje = "Porcentaje";
+        }
+
         public class MensajesError
         {
             public const string InsertarDesglose = "Ocurrió un error al procesar la reserva.";
             public const string CargarProductosShowRoom = "Error al cargar los productos.";
+            public const string DeletePedido_CuvNoExiste = "El producto que deseas eliminar ya no se encuentra en tu pedido. Por favor, vuelva a carga la página (F5).";
         }
-        
+
         public class ConfiguracionPais
         {
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
             public const string CDRMontoMaximo = "CDR";
+            public const string OfertaFinalTradicional = "OFT";
+            public const string OfertaFinalCrossSelling = "OFC";
+            public const string OfertaFinalRegaloSorpresa = "OFR";
         }
 
         public class TooltipLoginUsuario
@@ -610,7 +749,21 @@
             public const string VE = "Tu código de consultora,<br/>cédula de identidad<br/>o correo electrónico.";
             public const string CAM = "Tu código de consultora,<br/>documento único de identidad o<br/>correo electrónico.";
         }
-        
+
+        public class TipoOfertasPlan20
+        {
+            public const int OfertaFinal = 35;
+            public const int Showroom = 44;
+            public const int OPT = 45;
+            public const int ODD = 46;
+        }
+
+        public class TipoBusqueda
+        {
+            public const int Aproximacion = 1;
+            public const int Exacta = 2;
+        }
+
         public class TooltipLoginPassword
         {
             public const string BO = "Si es la primera vez que ingresas, es<br/>el número de tu Carné de Identidad,<br/>con las 3 letras de la extensión del<br/>lugar de emisión.";
@@ -625,13 +778,13 @@
             public const string CAM = "Si es la primera vez<br/>que ingresas, son los<br/>4 últimos dígitos de tu<br/>documento de identidad.";
         }
 
-	    public class SessionNames
+        public class SessionNames
         {
-                // Lista de estrategias en session para OPT y BPT 
-                public const string ListaEstrategia = "ListadoEstrategiaPedido";
-                public const string ProductoTemporal = "ProductoTemporal";
+            // Lista de estrategias en session para OPT y BPT 
+            public const string ListaEstrategia = "ListadoEstrategiaPedido";
+            public const string ProductoTemporal = "ProductoTemporal";
         }
-	
+
         public class EstadoRDSuscripcion
         {
             public const int SinRegistroDB = 0;
@@ -643,20 +796,211 @@
         public struct TablaLogica
         {
             public const int Plan20 = 98;
+            public const int CDRExpress = 104;
         }
 
-        public class EstadoCupon
+        public struct MensajesCDRExpress
         {
-            public const int Reservado = 1;
-            public const int Activo = 2;
+            public const string RegularPrincipal = "Regular1";
+            public const string RegularAdicional = "Regular2";
+            public const string ExpressPrincipal = "Express1";
+            public const string ExpressFlete = "Express2";
+            public const string ExpressAdicional = "Express3";
+            public const string ExpressFleteCero = "Express4";
+            public const string Nuevas = "Nuevas1";
         }
 
-        public class TipoOfertasPlan20
+
+        #region Clientes
+        public class ClienteTipoContacto
         {
-            public const int OfertaFinal = 35;
-            public const int Showroom = 44;
-            public const int OPT = 45;
-            public const int ODD = 46;
+            public const short Celular = 1;
+            public const short TelefonoFijo = 2;
+            public const short Correo = 3;
+            public const short Direccion = 4;
+            public const short Referencia = 5;
+        }
+
+        public class ClienteCelularValidacion
+        {
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"BO", @""},
+                        {"CL", @"^(?:(9)[0-9]{8}|)$"},
+                        {"CO", @"^(?:(3)[0-9]{9}|)$"},
+                        {"CR", @"^[0-9]{8}$"},
+                        {"DO", @""},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                        {"GT", @"^[0-9]{8}$"},
+                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{10}$.*$"},
+                        {"PA", @"^[0-9]{8}$"},
+                        {"PE", @"^(?:(9)[0-9]{8}|)$"},
+                        {"PR", @""},
+                        {"SV", @"^[0-9]{8}$"},
+                        {"VE", @""},
+                    });
+                }
+            }
+        }
+
+        public class ClienteTelefonoValidacion
+        {
+            private static Dictionary<string, string> _RegExp;
+
+            public static Dictionary<string, string> RegExp
+            {
+                get
+                {
+                    return _RegExp ?? (_RegExp = new Dictionary<string, string>
+                    {
+                        {"BO", @""},
+                        {"CL", @""},
+                        {"CO", @"^(?:[0-9]{7}|)$"},
+                        {"CR", @"^(?:[0-9]{8}|)$"},
+                        {"DO", @""},
+                        {"EC", @"^(?:[0-9]{9,10}|)$"},
+                        {"GT", @"^(?:[0-9]{8}|)$"},
+                        {"MX", @"^(?!.*?(?=(\d)\1{5,}))\d{8,12}$.*$"},
+                        {"PA", @"^(?:[0-9]{8}|)$"},
+                        {"PE", @"^(?:[0-9]{7,9}|)$"},
+                        {"PR", @""},
+                        {"SV", @"^(?:[0-9]{8}|)$"},
+                        {"VE", @""},
+                    });
+                }
+            }
+        }
+
+        public class ClienteValidacion
+        {
+            private static Dictionary<string, string> _Message;
+
+            public class Code
+            {
+                public const string SUCCESS = "0";
+                public const string ERROR_FORMATOTELCELULAR = "1";
+                public const string ERROR_FORMATOTELFIJO = "2";
+                public const string ERROR_NOMBRENOENVIADO = "3";
+                public const string ERROR_NUMEROTELEFONONOENVIADO = "4";
+                public const string ERROR_FORMATOCORREO = "5";
+                public const string ERROR_CONTACTOSNOENVIADO = "6";
+                public const string ERROR_TIPOCONTACTOVALORNOENVIADO = "7";
+                public const string ERROR_CONSULTORANOMBREEXISTE = "8";
+                public const string ERROR_CONSULTORATELEFONOEXISTE = "9";
+                public const string ERROR_NUMEROTELEFONOEXISTE = "10";
+                public const string ERROR_CLIENTENOREGISTRADO = "11";
+                public const string ERROR_CLIENTENOACTUALIZADO = "12";
+                public const string ERROR_CLIENTEASOCIADOPEDIDO = "13";
+                public const string ERROR_TIPOCONTACTOREPETIDO = "14";
+                public const string ERROR_NOTAINVALIDA = "15";
+                public const string ERROR_MOVIMIENTOINVALIDO = "16";
+            }
+
+            public static Dictionary<string, string> Message
+            {
+                get
+                {
+                    return _Message ?? (_Message = new Dictionary<string, string>
+                    {
+                        {Code.SUCCESS, "OK"},
+                        {Code.ERROR_FORMATOTELCELULAR, "Formato de número de teléfono celular incorrecto."},
+                        {Code.ERROR_FORMATOTELFIJO, "Formato de número de teléfono fijo incorrecto."},
+                        {Code.ERROR_NOMBRENOENVIADO, "Campo Nombres no fue enviado."},
+                        {Code.ERROR_NUMEROTELEFONONOENVIADO, "El cliente debe tener un teléfono de contacto."},
+                        {Code.ERROR_FORMATOCORREO, "Formato de correo incorrecto."},
+                        {Code.ERROR_CONTACTOSNOENVIADO, "Campo Contactos no fue enviado."},
+                        {Code.ERROR_TIPOCONTACTOVALORNOENVIADO, "Campo Tipo Contacto {0} Valor no fue enviado."},
+                        {Code.ERROR_CONSULTORANOMBREEXISTE, "El nombre ya se encuentra registrado para otro cliente."},
+                        {Code.ERROR_CONSULTORATELEFONOEXISTE, "El número de teléfono ya se encuentra registrado para otro cliente."},
+                        {Code.ERROR_NUMEROTELEFONOEXISTE, "El número de teléfono ya se encuentra registrado en nuestra base."},
+                        {Code.ERROR_CLIENTENOREGISTRADO, "El cliente no fue registrado."},
+                        {Code.ERROR_CLIENTENOACTUALIZADO, "El cliente no fue actualizado."},
+                        {Code.ERROR_CLIENTEASOCIADOPEDIDO, "No es posible eliminar al cliente dado que se encuentra asociado a un pedido."},
+                        {Code.ERROR_TIPOCONTACTOREPETIDO, "El contacto se encuentra repetido para el cliente."},
+                        {Code.ERROR_NOTAINVALIDA, "Nota invalida, no se pudo procesar"},
+                        {Code.ERROR_MOVIMIENTOINVALIDO, "Movimiento invalido, no se pudo procesar"}
+                    });
+                }
+            }
+        }
+
+        public class ClienteEstado
+        {
+            public const short Activo = 1;
+            public const short Inactivo = 0;
+        }
+
+        public class ClienteTipoRegistro
+        {
+            public const short Todos = 0;
+            public const short DatosGenerales = 1;
+            public const short TipoContacto = 2;
+        }
+
+        public class ClienteOrigen
+        {
+            public const string Desktop = "SOMOS_BELCORP_DESKTOP";
+            public const string Mobile = "SOMOS_BELCORP_MOBILE";
+        }
+        #endregion
+
+        public class MovimientoTipo
+        {
+            /// <summary>
+            /// Abono
+            /// </summary>
+            public const string Abono = "A";
+
+            /// <summary>
+            /// Cargo
+            /// </summary>
+            public const string Cargo = "C";
+
+            /// <summary>
+            /// Cargo belcorp, no editable desde la api
+            /// </summary>
+            public const string CargoBelcorp = "CB";
+
+            public static string[] Todos
+            {
+                get
+                {
+                    return new[]
+                    {
+                        Abono, Cargo, CargoBelcorp
+                    };
+                }
+            }
+        }
+
+        public class Incentivo
+        {
+            public const string TeFaltan = "Te faltan {0}* puntos";
+            public const string NoTenemosConcurso = "NO TENEMOS CONCURSO ESTA CAMPAÑA Estamos preparando una gran sorpresa … ";
+            public const string VasXPuntos = "VAS {0}* PUNTOS.";
+            public const string GANASTE = "¡GANASTE!";
+            public const string TEFALTA = "¡TE FALTA!";
+            public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
+            public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
+            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
+            public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
+            public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
+            public const string MontoPremiacion = "Pasa pedido de {0} {1} esta campaña para entregarte tu premio.";
+
+        }
+
+        public class ComunicadoTipoDispositivo
+        {
+            public const short Todos = 0;
+            public const short Desktop = 1;
+            public const short Mobile = 2;
         }
     }
 }

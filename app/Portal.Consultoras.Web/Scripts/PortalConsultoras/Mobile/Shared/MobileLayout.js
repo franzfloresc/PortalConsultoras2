@@ -1,5 +1,4 @@
-﻿
-$(function () {
+﻿$(function () {
 
     LayoutHeader();
 
@@ -61,6 +60,8 @@ $(function () {
     });
 
     $("body").on("click", "[data-cantidad-agregar]", function () {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
+
         var signo = $(this).attr("data-cantidad-agregar");
         var objPadre = $(this).parents("[data-cantidad-contenedor]");
         var objInput = objPadre.find("[data-cantidad-input]");
@@ -75,7 +76,8 @@ $(function () {
         objInput.val(actual);
     });
 
-    $("body").on("click", ".cantidad_menos_home", function () {
+    $("body").on("click", ".cantidad_menos_home", function (e) {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -83,9 +85,11 @@ $(function () {
         cantidad = cantidad > 1 ? (cantidad - 1) : 1;
 
         $txtcantidad.val(cantidad);
+        e.stopPropagation();
     });
 
-    $("body").on("click", ".cantidad_mas_home", function () { 
+    $("body").on("click", ".cantidad_mas_home", function (e) {
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
         var $txtcantidad = $(this).siblings('input');
         var cantidad = parseInt($txtcantidad.val());
 
@@ -93,6 +97,7 @@ $(function () {
         cantidad = cantidad < 99 ? (cantidad + 1) : 99;
 
         $txtcantidad.val(cantidad);
+        e.stopPropagation();
     });
 
     $("body").on("click", "[data-popup-main]", function (e) {
@@ -174,8 +179,10 @@ $(function () {
 
     $(".bannersi").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -183,9 +190,9 @@ $(function () {
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
-                            'position': 'Home pop-up - 1',
+                            'id': eventId,
+                            'name': eventName,
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
@@ -197,8 +204,10 @@ $(function () {
 
     $(".bannersc").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -206,9 +215,9 @@ $(function () {
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
-                            'position': 'Home pop-up - 1',
+                            'id': eventId,
+                            'name': eventName,
+                            'position': 'Home Slider - 1',
                             'creative': 'Banner'
                         }
                     ]
@@ -218,11 +227,12 @@ $(function () {
 
     });
 
-
     $(".wsventa").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Compra Ya'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -230,8 +240,8 @@ $(function () {
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Compra Ya',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -244,8 +254,10 @@ $(function () {
 
     $(".wsintriga").on("click", function () {
 
-        var eventoIDIdenti = $("#hdEventoIDShowRoom").val();
-        var eventoShowRoomNombres = $("#hdNombreEventoShowRoom").val();
+        var eventId = $("#hdEventoIDShowRoom").val();
+        var nombre = $("#hdNombreEventoShowRoom").val();
+        var tema = $("#hdTemaEventoShowRoom").val();
+        var eventName = nombre + ' ' + tema + ' - Entérate'
 
         dataLayer.push({
             'event': 'promotionClick',
@@ -253,8 +265,8 @@ $(function () {
                 'promoView': {
                     'promotions': [
                         {
-                            'id': eventoIDIdenti,
-                            'name': 'Venta Exclusiva Web ' + eventoShowRoomNombres + ' Entérate primero',
+                            'id': eventId,
+                            'name': eventName,
                             'position': 'Mobile Menu',
                             'creative': 'Banner'
                         }
@@ -264,7 +276,6 @@ $(function () {
         });
 
     });
-    
 });
 
 function loadBannerLP20() {
@@ -678,7 +689,7 @@ function CloseComunidad() {
 }
 
 function ShowLoading() {
-    $("#loading-spin").fadeIn();
+    $("#loading-spin").css('visibility', 'visible').fadeIn();
 }
 
 function CloseLoading() {
@@ -693,10 +704,18 @@ function messageInfo(message, fnAceptar) {
 
     $('#mensajeInformacion').html(message);
     $('#popupInformacion').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacion .btn-aceptar').off('click');
-        $('#popupInformacion .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacion .btn-aceptar').off('click');
+    $('#popupInformacion .cerrar_popMobile').off('click');
+
+    $('#popupInformacion .btn-aceptar').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
+    $('#popupInformacion .cerrar_popMobile').on('click', function () {
+        $('#popupInformacion').hide();
+        if ($.isFunction(fnAceptar)) fnAceptar();
+    });
 }
 
 function messageInfoBueno(message, fnAceptar) {
@@ -724,10 +743,23 @@ function messageInfoError(message, fnAceptar) {
     }
     $('#mensajeInformacionSB2_Error').html(message);
     $('#popupInformacionSB2Error').show();
-    if ($.isFunction(fnAceptar)) {
-        $('#popupInformacionSB2Error .btn-aceptar').off('click');
-        $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
-    }
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').off('click');
+    $('#popupInformacionSB2Error .btn_ok_mobile').off('click');
+
+    $('#popupInformacionSB2Error .cerrar_popMobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+    });
+
+    $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
+        $('#popupInformacionSB2Error').hide();
+        fnAceptar();
+    });
+
+    //if ($.isFunction(fnAceptar)) {
+    //    $('#popupInformacionSB2Error .btn-aceptar').off('click');
+    //    $('#popupInformacionSB2Error .btn-aceptar').on('click', fnAceptar);
+    //}
 }
 
 function messageInfoValidado(message, fnAceptar) {
@@ -746,6 +778,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         type: 'POST',
         url: urlGetCantidadProductos,
         dataType: 'json',
+        data: JSON.stringify({ soloCantidad : true }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -777,7 +810,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -805,7 +838,7 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -839,7 +872,7 @@ function CargarCantidadPedidosConsultoraOnline() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -906,3 +939,59 @@ function OcultarBannerTop() {
     });
 }
 
+function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
+    var impressions = [];
+    var position = 0;
+    var elements = list.length;
+    var item = null;
+    var impresion = null;
+    if (event === 'page_load') {//Ok
+
+        position = 1;
+        for (var i = 0; i <= elements - 1; i++) {
+            item = list[i];
+            item.Posicion = position;
+            if (position <= 3) {
+                impresion = odd_get_item_impresion(item);
+                if (impresion != null)
+                    impressions.push(impresion);
+            }
+            else
+                break;
+            position++;
+        }
+    }
+    if (event === 'arrow_click') {
+
+        item = list[index];
+        item.Posicion = index + 1;
+        impresion = odd_get_item_impresion(item);
+        if (impresion != null)
+            impressions.push(impresion);
+    }
+    if (impressions.length > 0) {
+        dataLayer.push({
+            'event': 'productImpression',
+            'ecommerce': {
+                'impressions': impressions
+            }
+        });
+    }
+}
+
+function odd_get_item_impresion(item) {
+    var impresion = null;
+    if (item != null) {
+        impresion = {
+            'name': item.NombreOferta,
+            'id': item.CUV2,
+            'price': item.PrecioOferta,
+            'brand': item.DescripcionMarca,
+            'category': 'No disponible',
+            'variant': 'Lanzamiento',
+            'list': 'Oferta del día',
+            'position': item.Posicion
+        }
+    }
+    return impresion;
+}

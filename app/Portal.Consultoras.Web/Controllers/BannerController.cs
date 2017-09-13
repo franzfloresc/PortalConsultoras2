@@ -599,9 +599,8 @@ namespace Portal.Consultoras.Web.Controllers
 
             lstFinalModel.ForEach(item=> {
                 item.Clase = "";
-                if (item.Titulo.Trim().ToLower().Contains("_revistadigital_"))
+                if (item.Titulo.ToLower() == "c" + userData.CampaniaNro + "_revistadigital_" + userData.CodigoISO.ToLower())
                 {
-                    item.PaginaNueva = 0;
                     item.Codigo = Constantes.MenuCodigo.RevistaDigital;
                     if (!ValidarPermiso(Constantes.MenuCodigo.RevistaDigital))
                         if (ValidarPermiso("", Constantes.ConfiguracionPais.RevistaDigitalSuscripcion))

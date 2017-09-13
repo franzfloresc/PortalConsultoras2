@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Portal.Consultoras.Common
+
+<!DOCTYPE html>
 <html lang="es-PE">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -11,7 +13,7 @@
 
     @if (System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))
     {
-        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        <link href="@Url.Content("~/Content/Images/Esika/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
         @Styles.Render("~/Content/Css/Mobile/Esika/CssSB2Mobile")
     }
     else
@@ -23,6 +25,7 @@
 
     <script type="text/javascript">
         var isEsika = '@(System.Configuration.ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(ViewBag.PaisAnalytics))' == "True";
+        var urlLogDynamo = '@System.Configuration.ConfigurationManager.AppSettings["UrlLogDynamo"]';
     </script>
 
     @RenderSection("styles", required: false)
@@ -177,23 +180,63 @@
             <a href="javascript:;" onclick="$('#popupInformacionSB2Bueno').hide();" class="btn_ok_mobile"><b>OK</b></a>
         </div>
     </div>
+    
+    <div style="display:none">
+        <a id="HiddenRedesSocialesWA" href="#" data-action="share/whatsapp/share">WA</a>
+    </div>
 
     @Scripts.Render("~/Scripts/Mobile")
+    @Scripts.Render("~/Scripts/MobileLayout")
     <script type="text/javascript" src="@Url.Content("~/Scripts/handlebars.min.js")"></script>
     <script src="@Url.Content("~/Scripts/PortalConsultoras/Shared/TrackingJetlore.js")"></script>
 
     <script type="text/javascript">
         var baseUrl = "@Url.Content("~")";
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
+        var urlGetCantidadProductos = '@Url.Action("GetResumenCampania", "GestionContenido", new { area = "" })';
+        var urlGetNotificacionesSinLeer = '@Url.Action("GetNotificacionesSinLeer", "Notificaciones", new { area = "" })';
         var formatDecimalPaisMain = '@ViewBag.FormatDecimalPais';
         var vbSimbolo = '@ViewBag.Simbolo';
         var ViewBagEsMobile = '@ViewBag.EsMobile';
         var urlChatbot = '@System.Configuration.ConfigurationManager.AppSettings.Get("UrlChatbot")';
         var ingresoExterno = '@Session["IngresoExterno"]';
         var gTipoUsuario = '@ViewBag.TipoUsuario';
+        var usuarioNombre = '@ViewBag.UsuarioNombre';
+        var campaniaCodigo = '@ViewBag.CampaniaCodigo';
+        var campaniaAnio = parseInt(parseInt(campaniaCodigo) / 100);
+        var campaniaNro = parseInt(campaniaCodigo) - campaniaAnio * 100;
+
+        //Postulante
+        var mostrarBannerPostulante = '@ViewBag.MostrarBannerPostulante';
 
         //GPR
         var estaRechazado = '@ViewBag.IndicadorGPRSB';
+        var cerrarRechazado = '@ViewBag.CerrarRechazado';
+        var mostrarBannerRechazo = '@ViewBag.MostrarBannerRechazo';
+
+        var MobilePedidoSugerido = @Constantes.OrigenPedidoWeb.MobilePedidoSugerido;
+        var MobilePedidoOfertaFinal = @Constantes.OrigenPedidoWeb.MobilePedidoOfertaFinal;
+
+        //ODD
+        var MostrarBannerPL20 = '@ViewBag.MostrarBannerPL20';
+        var EstadoActivo = '@ViewBag.EstadoActivo';
+        var ocultarBannerTop = '@Session["OcultarBannerTop"]';
+
+        var sesionEsShowRoom = '@Session["EsShowRoom"]';
+
+        var fingerprintOk = '@ViewBag.FingerprintOk';
+        var tokenPedidoAutenticoOk = '@ViewBag.TokenPedidoAutenticoOk';
+
+        var userData = {
+            'aplicacion': '@(Constantes.LogDynamoDB.AplicacionPortalConsultoras)',
+            'rol': '@(Constantes.LogDynamoDB.RolConsultora)',
+            'campana': '@ViewBag.AnalyticsCampania',
+            'region': '@ViewBag.AnalyticsRegion',
+            'zona': '@ViewBag.AnalyticsZona',
+            'seccion': '@ViewBag.AnalyticsSeccion',
+            'pais': '@ViewBag.AnalyticsPais',
+            'codigoConsultora': '@ViewBag.AnalyticsCodigoConsultora'
+        };
     </script>
 
     <script type="text/javascript">
@@ -407,6 +450,7 @@
         };
     </script>
 
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
     @RenderSection("scripts", required: false)
 
 </body>

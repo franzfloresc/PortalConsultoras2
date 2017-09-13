@@ -2,21 +2,36 @@
 @model Portal.Consultoras.Web.Models.ShowRoomOfertaModel
 
 @{
-    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
 }
 @section styles
 {
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+    
+    @if (Session["IngresoExterno"] != null)
+    {
+        <style>
+            #content {
+                margin-top: 0px !important;
+            }
+        </style>
+    }    
 }
-
-<div class="content_room_product_sheet">
-    <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
-        <div class="titulo_mobile" style="margin-top:-28px; margin-bottom:20px;">
+<div class="titulo_mobile">
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar"></a>
-            &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
-            <div class="pestana_esika"></div><!--PESTANA ESIKA-->
-            <div class="pestana_lbel mobileLiquidaciones pestana_favoritos"></div><!--PESTANA LBEL-->
-        </div>
+        } }
+    &nbsp;&nbsp;&nbsp;&nbsp;VENTA EXCLUSIVA WEB
+    
+</div>
+<div class="pestana_esika"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+
+<div class="content_room_product_sheet content_detalle_s">
+    <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
+        
         <img src="@Model.ImagenProducto" width="236" style="margin-top:20px;">
     </div>
     <div class="wrapper_resumen_mobile" style="margin-top:10px;">
@@ -51,8 +66,8 @@
                                 <span class="price" style="margin-bottom:8px;">@detalle.Descripcion2</span>
                             </div>
                         </div>
-                        
-                       
+
+
                     </div>
                 </div>
                 <div class="variants" style="display:none;">
@@ -186,7 +201,7 @@
                                         <span>@Model.TextoCondicionCompraCpc</span>
                                     </div>
                                 </div>
-                                
+
                                 <a class="btn_agrega_compra verDetalleCompraPorCompra">VER PROMOCIÓN</a>
                             </div>
                             {
@@ -196,14 +211,14 @@
                     </div>
                 </div>
             </div>
-           
-        }
-    }
+
+                                }
+                            }
 
 
     <div class="other_consultants">
         <div class="oc_title">
-         <b>VER MÁS SETS</b>  EXCLUSIVOS PARA TI
+            <b>VER MÁS SETS</b>  EXCLUSIVOS PARA TI
         </div>
         <div class="content_carrusel_intriga" id="divEstrategias">
             @{ var posicionx = 0; }
@@ -248,7 +263,7 @@
 
 
         </div>
-       
+
     </div>
     @if (!string.IsNullOrEmpty(Model.TipNegocio))
     {
@@ -272,6 +287,8 @@
             <input type="hidden" class="ProductoDescripcion" value="@Model.Descripcion" />
             <input type="hidden" class="Palanca" value="SR" />
         </div>
+    @if (mobileConfiguracion.MostrarBotonAtras)
+    {
         <div class="title">Comparte este producto con tus clientes:</div>
         <div class="content_redes_ficha">
             <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA">
@@ -281,6 +298,7 @@
                 <img src="/Content/Images/Mobile/Esika/facebook.png">
             </a>
         </div>
+    }        
     </div>
 </div>
 <div class="content_btn_agregar" data-posicion="0" data-item="@Model.OfertaShowRoomID">
@@ -383,7 +401,6 @@
 </div>
 
 @section scripts{
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
     <script type="text/javascript">
         var tipoOrigenPantalla = 21;

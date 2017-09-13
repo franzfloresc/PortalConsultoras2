@@ -28,6 +28,10 @@ namespace Portal.Consultoras.Entities
         public string ImgFichaFondoDesktop { get; set; }
         [DataMember]
         public string ImgFichaFondoMobile { get; set; }
+        [DataMember]
+        public string ImgHomeDesktop { get; set; }
+        [DataMember]
+        public string ImgHomeMobile { get; set; }
 
         public BEEstrategiaDetalle(BEEstrategia estrategia)
         {
@@ -41,6 +45,8 @@ namespace Portal.Consultoras.Entities
             UrlVideoMobile = estrategia.UrlVideoMobile;
             ImgFichaFondoDesktop = estrategia.ImgFichaFondoDesktop;
             ImgFichaFondoMobile = estrategia.ImgFichaFondoMobile;
+            ImgHomeDesktop = estrategia.ImgHomeDesktop;
+            ImgHomeMobile = estrategia.ImgHomeMobile;
         }
 
         public BEEstrategiaDetalle()
@@ -69,6 +75,11 @@ namespace Portal.Consultoras.Entities
                 ImgFichaFondoDesktop = row["ImgFichaFondoDesktop"].ToString();
             if (DataRecord.HasColumn(row, "ImgFichaFondoMobile") && row["ImgFichaFondoMobile"] != DBNull.Value)
                 ImgFichaFondoMobile = row["ImgFichaFondoMobile"].ToString();
+            if (DataRecord.HasColumn(row, "ImgHomeDesktop") && row["ImgHomeDesktop"] != DBNull.Value)
+                ImgHomeDesktop = row["ImgHomeDesktop"].ToString();
+            if (DataRecord.HasColumn(row, "ImgHomeMobile") && row["ImgHomeMobile"] != DBNull.Value)
+                ImgHomeMobile = row["ImgHomeMobile"].ToString();
+
         }
     }
 }

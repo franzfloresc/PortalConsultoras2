@@ -474,6 +474,16 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.Simbolo = userData.Simbolo;
             ViewBag.NombreCompleto = userData.NombreConsultora;
 
+            // set detalles del pedido
+            List<BEMisPedidosDetalle> olstMisPedidosDet = new List<BEMisPedidosDetalle>();
+            using (UsuarioServiceClient svc = new UsuarioServiceClient())
+            {
+                olstMisPedidosDet = svc.GetMisPedidosDetalleConsultoraOnline(userData.PaisID, pedidoId).ToList();
+                Session["objMisPedidosDetalle"] = olstMisPedidosDet;
+            }
+            
+            pedido.DetallePedido = olstMisPedidosDet.ToArray();
+
             return View("DetallePedido", pedido);
         }
 
@@ -1970,7 +1980,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     //model.RegistrosTotal = pag.RecordCount.ToString();
                     //model.Pagina = pag.CurrentPage.ToString();
                     //model.PaginaDe = pag.PageCount.ToString();
-                    model.RegistrosTotal = model.ListaDetalle.Count.ToString();
+                    model.RegistrosTotal = model.ListaDetalle2.Count.ToString();
                 }
                 else
                 {

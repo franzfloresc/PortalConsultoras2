@@ -87,7 +87,6 @@ namespace Portal.Consultoras.Entities
         //F- SB20-871
         [DataMember]
         public string DocumentoIdentidad { get; set; }
-
         public BEPedidoDDWeb()
         { }
 
@@ -141,12 +140,11 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Region") && row["Region"] != DBNull.Value)
                 Region = Convert.ToString(row["Region"]);
             // 2446 - Fin
-
             if (DataRecord.HasColumn(row, "DescuentoProl"))
                 this.DescuentoProl = row["DescuentoProl"] == DBNull.Value ? 0 : Convert.ToDecimal(row["DescuentoProl"]);
-             // SB20-871
-             if (DataRecord.HasColumn(row, "MotivoRechazo"))
-                 this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
+            // SB20-871
+            if (DataRecord.HasColumn(row, "MotivoRechazo"))
+                this.MotivoRechazo = Convert.ToString(row["MotivoRechazo"]);
             this.ImporteTotalConDescuento = this.ImporteTotal - this.DescuentoProl;
         }
     }

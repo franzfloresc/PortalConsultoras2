@@ -5,10 +5,8 @@
     ViewBag.Title = "Los favoritos de tus clientes esta campaña";
 }
 
-<link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
-
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick.min.css")" rel="stylesheet" />
+<link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 <link href="@Url.Content("~/Content/Css/Site/jquery.range.css")" rel="stylesheet" />
     <style>
         body{
@@ -390,8 +388,7 @@
                     </div>
                 </div>
             </div> 
-        </div>
-        
+        </div>        
 
         <div class="row_40">
             <div class="sombra_oferta">
@@ -411,7 +408,6 @@
         </div>
     </div>
 </div>
-
 <!--POP UP FICHA PRODUCTO NUEVA-->
 <div id="PopFichaProductoNueva" class="Content_general_pop_up"></div>
 <!--FIN-->
@@ -863,9 +859,9 @@
         <div data-compartir-campos="" style="display:none;">
             <input type="hidden" class="CUV" value="{{CUV}}" />
             <input type="hidden" class="rsFBMensaje" value="" />
-            <input type="hidden" class="rsFBRuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsFBRuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsWAMensaje" value="" />
-            <input type="hidden" class="rsWARuta" value="{{FBRuta}}" />
+            <input type="hidden" class="rsWARuta" value="{{UrlCompartirFB}}" />
             <input type="hidden" class="rsFBRutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="rsWARutaImagen" value="{{ImagenProductoSugerido}}" />
             <input type="hidden" class="MarcaID" value="{{MarcaID}}" />
@@ -950,7 +946,6 @@
         var precioMin = '@ViewBag.PrecioMin';
         var precioMax = '@ViewBag.PrecioMax';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/slick.min.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.range.js")"></script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/CatalogoPersonalizado/CatalogoPersonalizado.js")"></script>
     <script src="~/Scripts/PortalConsultoras/Mobile/CatalogoPersonalizado/bootstrap-slider.min.js"></script>

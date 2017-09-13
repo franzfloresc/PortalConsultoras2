@@ -5,7 +5,11 @@
 }
 
 <div class="titulo_mobile">
-    <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+    @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+        if (mobileConfiguracion.MostrarBotonAtras)
+        {
+            <a href="@Request.UrlReferrer" class="enlace_regresar catalogosR" title="Regresar"></a>
+        } }
     &nbsp;&nbsp;PENDIENTES
 </div>
 <div class="fondo_f2f2f2 triang_pe">
@@ -43,14 +47,14 @@
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Nombre</span>
-            <span class="nom_his_2"><b>@solicitud.Cliente.ToUpper()</b></span>
+            <span class="nom_his_2" id="sc-nombre"><b>@solicitud.Cliente.ToUpper()</b></span>
             <hr class="clear" />
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Teléfono:</span>
             <span class="nom_his_2">
                 <a href="tel:@solicitud.Telefono" onclick="return (navigator.userAgent.match(/Android|iPhone|iPad|iPod|Mobile/i))!=null;">
-                    <b class="color_belcorp" style="vertical-align:top;">@solicitud.Telefono</b>
+                    <b class="color_belcorp" style="vertical-align:top;" id="sc-telefono">@solicitud.Telefono</b>
                     <span class="icono_telefono"></span>
                 </a>
             </span>
@@ -58,7 +62,7 @@
         </div>
         <div class="content_dato_historial">
             <span class="nom_his">Correo:</span>
-            <span class="nom_his_2"><b>@solicitud.Email</b></span>
+            <span class="nom_his_2"><b id="sc-correo">@solicitud.Email</b></span>
             <hr class="clear" />
         </div>
         <div class="content_dato_historial">
@@ -140,7 +144,6 @@
                     <span class="agotado_consultora" style="font-size: 12px;">@item.MensajeValidacion</span>
                 }
             }
-
         </div>
     }
 
@@ -228,7 +231,7 @@
         <hr class="clear">
         <div class="titulo_compartir"> <b>CUÉNTANOS POR QUÉ LO RECHAZASTE</b></div>
         <div class="mensaje_alerta">Si rechazas el pedido vas a perderlo</div>
-        
+
         <div>
             @foreach (var item in ViewBag.MotivosRechazo)
             {
@@ -254,11 +257,18 @@
     </div>
 </div>
 
+<div class="contenedor_popup_clientes modal" id="divAgregarCliente" style="display:none;">
+    <div class="popup_agregarCliente">
+        <div id="divDetalleCliente"></div>
+    </div>
+</div>
+
 @section scripts {
     <script type="text/javascript">
         var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
         var urlPendientes = '@Url.Action("Pendientes","ConsultoraOnline")';
         var urlPedido = '@Url.Action("Index","Pedido")';
+        var urlClienteDetalle = "@Url.Action("AgregarCliente", "Cliente", new { area = "Mobile" })";
     </script>
 
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/ConsultoraOnline/DetallePedidoPendiente.js")"></script>

@@ -26,13 +26,13 @@ namespace Portal.Consultoras.BizLogic
 
         private void EnviarEmailSolicitudCliente(int paisID, BEConsultoraSolicitudCliente consultoraSolicitudCliente, BEResultadoSolicitud resultado)
         {
-            BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);            
+            BESolicitudCliente solicitudCliente = GetSolicitudClienteWithoutMarcaBySolicitudId(paisID, resultado.Resultado);
             // SACService ServiceSAC = new SACService();            
             var TablaLogDatos = new BLTablaLogicaDatos();
-               // List<BETablaLogicaDatos> TablaLogicaDatosMail = TablaLogDatos.GetTablaLogicaDatos(paisID, 57);
+            // List<BETablaLogicaDatos> TablaLogicaDatosMail = TablaLogDatos.GetTablaLogicaDatos(paisID, 57);
             List<BETablaLogicaDatos> tablalogicaDatos = TablaLogDatos.GetTablaLogicaDatos(paisID, 56);
 
-                String emailOculto = string.Empty;// TablaLogicaDatosMail.FirstOrDefault(x => x.TablaLogicaDatosID == 5701).Descripcion;
+            String emailOculto = string.Empty;// TablaLogicaDatosMail.FirstOrDefault(x => x.TablaLogicaDatosID == 5701).Descripcion;
             String horas = tablalogicaDatos.First(x => x.TablaLogicaDatosID == 5603).Codigo;
 
             if (consultoraSolicitudCliente != null)
@@ -240,7 +240,7 @@ namespace Portal.Consultoras.BizLogic
             }
             return consultorasolicitudCliente;
         }
-        
+
         /*R2613-LR*/
         public void EnviarEmail(string From, String To, String CCO, String Subject, String Message, bool isHTML)
         {
@@ -286,7 +286,7 @@ namespace Portal.Consultoras.BizLogic
         public void CancelarSolicitudCliente(int paisID, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
         {
             var DASolicitudCliente = new DASolicitudCliente(paisID);
-            DASolicitudCliente.CancelarSolicitudCliente(solicitudId,opcionCancelacion,razonMotivoCancelacion);
+            DASolicitudCliente.CancelarSolicitudCliente(solicitudId, opcionCancelacion, razonMotivoCancelacion);
         }
 
         public string CancelarSolicitudClienteYRemoverPedido(int paisID, int campaniaID, long consultoraID, string codigoUsuario, long solicitudId, int opcionCancelacion, string razonMotivoCancelacion)
@@ -299,11 +299,11 @@ namespace Portal.Consultoras.BizLogic
 
                 DAPedidoWeb dAPedidoWeb = new DAPedidoWeb(paisID);
                 DAPedidoWebDetalle dAPedidoWebDetalle = new DAPedidoWebDetalle(paisID);
-                
+
                 List<BEPedidoWebDetalle> olstPedidoWebDetalle = new BLPedidoWebDetalle().GetPedidoWebDetalleByCampania(paisID, campaniaID, consultoraID, "").ToList();
                 List<BEMisPedidosDetalle> listDetallesClienteOnline = new BLConsultoraOnline().GetMisPedidosDetalle(paisID, solicitudId.ToInt()).ToList();
                 listDetallesClienteOnline = listDetallesClienteOnline.Where(d => d.PedidoWebDetalleID != 0).ToList();
-                
+
                 TransactionOptions transactionOptions = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.ReadCommitted };
                 using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
                 {
@@ -361,7 +361,8 @@ namespace Portal.Consultoras.BizLogic
                     transactionScope.Complete();
                 }
             }
-            catch (Exception ex) { 
+            catch (Exception ex)
+            {
                 LogManager.SaveLog(ex, "", paisID.ToString());
                 return "Ocurrió un error al intentar cancelar la solicutd de pedido";
             }
@@ -463,19 +464,19 @@ namespace Portal.Consultoras.BizLogic
             {
                 while (reader.Read())
                 {
-                    var reporteAfiliados = new  BEReporteAfiliados(reader);
+                    var reporteAfiliados = new BEReporteAfiliados(reader);
                     listaReporteAfiliados.Add(reporteAfiliados);
                 }
             }
 
-             return listaReporteAfiliados;
-        }      
+            return listaReporteAfiliados;
+        }
 
-        public List<BEReportePedidos> GetReportePedidos(DateTime FechaIni, DateTime FechaFin, int estado, string marca, string campania,int paisID)
+        public List<BEReportePedidos> GetReportePedidos(DateTime FechaIni, DateTime FechaFin, int estado, string marca, string campania, int paisID)
         {
             List<BEReportePedidos> listaReportePedidos = new List<BEReportePedidos>();
             DASolicitudCliente DASolicitudCliente = new DASolicitudCliente(paisID);
-             using (IDataReader reader =  DASolicitudCliente.ReportePedidos(FechaIni, FechaFin,estado,marca,campania))
+            using (IDataReader reader = DASolicitudCliente.ReportePedidos(FechaIni, FechaFin, estado, marca, campania))
             {
                 while (reader.Read())
                 {
@@ -485,8 +486,75 @@ namespace Portal.Consultoras.BizLogic
             }
 
             return listaReportePedidos;
-        }      
+        }
+
+        #region AppCatalogo
+
+        /*      EPD-2035        */
+
+        public BEResultadoMisPedidosAppCatalogo GetPedidosAppCatalogo(int paisID, long consultoraID, string dispositivoID, int tipoUsuario, int campania)
+        {
+            BEResultadoMisPedidosAppCatalogo resultado = null;
+            try
+            {
+                resultado = new BEResultadoMisPedidosAppCatalogo(false, "OK");
+                var DAMisPedidos = new DAConsultoraOnline(paisID);
+                var misPedidos = new List<BEMisPedidosAppCatalogo>();
+
+                IDataReader reader;
+                
+                if(tipoUsuario == 1) reader = DAMisPedidos.GetPedidosClienteAppCatalogo(dispositivoID, campania);
+                else reader = DAMisPedidos.GetPedidosConsultoraAppCatalogo(consultoraID, campania);
+
+                using (reader)
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEMisPedidosAppCatalogo(reader);
+                        misPedidos.Add(entidad);
+                    }
+                }
+                resultado.Data = misPedidos;
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEResultadoMisPedidosAppCatalogo(true, ex.Message.ToString());
+                return resultado;
+            }
+        }
+
+        public BEResultadoPedidoDetalleAppCatalogo GetPedidoDetalle(int PaisID, long PedidoID)
+        {
+            BEResultadoPedidoDetalleAppCatalogo resultado = null;
+            try
+            {
+                resultado = new BEResultadoPedidoDetalleAppCatalogo(false, "OK");
+                
+                var DAMisPedidos = new DAConsultoraOnline(PaisID);
+                var miPedidoDetalles = new List<BEMisPedidosDetalleAppCatalogo>();
+
+                using (IDataReader reader = DAMisPedidos.GetDetallePedidoAppCatalogo(PedidoID))
+                {
+                    while (reader.Read())
+                    {
+                        var entidad = new BEMisPedidosDetalleAppCatalogo(reader);
+                        miPedidoDetalles.Add(entidad);
+                    }
+                    resultado.Data = miPedidoDetalles;
+                }
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado = new BEResultadoPedidoDetalleAppCatalogo(true, ex.Message.ToString());
+                return resultado;
+            }
+        }
 
 
+        /*      FIN EPD-2035        */
+
+        #endregion
     }
 }

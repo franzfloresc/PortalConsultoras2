@@ -385,14 +385,14 @@ function CargarOfertasLiquidacion() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
-                if (!data.verMas) UnlinkCargarOfertasToScroll();
-                offsetRegistros += cantidadRegistros;
+            if (data.lista.length > 0) ArmarCarouselLiquidaciones(data.lista);
+            if (!data.verMas) UnlinkCargarOfertasToScroll();
+            offsetRegistros += cantidadRegistros;
             }
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.log(error);
+            console.log(error);
             }
         },
         complete: function (data) {
@@ -421,12 +421,15 @@ function ArmarCarouselLiquidaciones(data) {
         arrayOfertas.push(itemOferta);
     });
 
+    /* 
+    EPD-1871
     dataLayer.push({
         'event': 'productImpression',
         'ecommerce': {
             'impressions': arrayOfertas
         }
     })
+    */
 };
 function EstructurarDataCarouselLiquidaciones(array) {
     var contadorLq = 1;
@@ -617,7 +620,7 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-            }
+        }
         }
     });
     return restringido;
@@ -657,7 +660,7 @@ function ReservadoOEnHorarioRestringidoAsync(mostrarAlerta, fnRestringido, fnNoR
         error: function (data, error) {
             if (checkTimeout(data)) {
                 AbrirMensaje('Ocurrió un error al intentar validar el horario restringido o si el pedido está reservado. Por favor inténtelo en unos minutos.', "LO SENTIMOS");
-            }
+        }
         }
     });
 }

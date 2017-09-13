@@ -31,8 +31,9 @@
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities" />
       <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Mobile" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:41615/SACService.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="ISACService_UpdConfiguracionParametroCarga_InputMessage">
@@ -335,11 +336,47 @@
   <wsdl:message name="ISACService_EnviarProactivaChatbot_OutputMessage">
     <wsdl:part name="parameters" element="tns:EnviarProactivaChatbotResponse" />
   </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosDetalleMobile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalleMobile" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetPedidosFacturadosDetalleMobile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPedidosFacturadosDetalleMobileResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateClientePedidoFacturado_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientePedidoFacturado" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateClientePedidoFacturado_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateClientePedidoFacturadoResponse" />
+  </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_InputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePais" />
   </wsdl:message>
   <wsdl:message name="ISACService_GetCampaniaActualAndSiguientePais_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetCampaniaActualAndSiguientePaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarApps_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListarApps" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListarApps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListarAppsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_ListConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ListConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_GetConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfiguracionPaisResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionPais_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionPais" />
+  </wsdl:message>
+  <wsdl:message name="ISACService_UpdateConfiguracionPais_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateConfiguracionPaisResponse" />
   </wsdl:message>
   <wsdl:message name="ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdatePedidoWebEstimadoGanancia" />
@@ -1310,9 +1347,33 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/EnviarProactivaChatbot" message="tns:ISACService_EnviarProactivaChatbot_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/EnviarProactivaChatbotResponse" message="tns:ISACService_EnviarProactivaChatbot_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalleMobile">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile" message="tns:ISACService_GetPedidosFacturadosDetalleMobile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobileResponse" message="tns:ISACService_GetPedidosFacturadosDetalleMobile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientePedidoFacturado">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" message="tns:ISACService_UpdateClientePedidoFacturado_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateClientePedidoFacturadoResponse" message="tns:ISACService_UpdateClientePedidoFacturado_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" message="tns:ISACService_GetCampaniaActualAndSiguientePais_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePaisResponse" message="tns:ISACService_GetCampaniaActualAndSiguientePais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListarApps" message="tns:ISACService_ListarApps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListarAppsResponse" message="tns:ISACService_ListarApps_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionPais" message="tns:ISACService_ListConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/ListConfiguracionPaisResponse" message="tns:ISACService_ListConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPais" message="tns:ISACService_GetConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/GetConfiguracionPaisResponse" message="tns:ISACService_GetConfiguracionPais_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPais" message="tns:ISACService_UpdateConfiguracionPais_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISACService/UpdateConfiguracionPaisResponse" message="tns:ISACService_UpdateConfiguracionPais_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdatePedidoWebEstimadoGanancia">
       <wsdl:input wsaw:Action="http://tempuri.org/ISACService/UpdatePedidoWebEstimadoGanancia" message="tns:ISACService_UpdatePedidoWebEstimadoGanancia_InputMessage" />
@@ -2279,8 +2340,62 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalleMobile">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientePedidoFacturado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarApps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3894,8 +4009,62 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPedidosFacturadosDetalleMobile">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetPedidosFacturadosDetalleMobile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateClientePedidoFacturado">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateClientePedidoFacturado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetCampaniaActualAndSiguientePais">
       <soap:operation soapAction="http://tempuri.org/ISACService/GetCampaniaActualAndSiguientePais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListarApps">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListarApps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/ListConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/GetConfiguracionPais" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateConfiguracionPais">
+      <soap:operation soapAction="http://tempuri.org/ISACService/UpdateConfiguracionPais" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

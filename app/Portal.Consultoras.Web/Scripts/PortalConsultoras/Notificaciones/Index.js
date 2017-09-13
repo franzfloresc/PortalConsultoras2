@@ -1,5 +1,4 @@
-﻿
-function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
+﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso, EsMontoMinimo, obj) {
     waitingDialog({});
 
     var TipoOrigen;

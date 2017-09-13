@@ -7,7 +7,6 @@ $(document).ready(function () {
     campSelect = $("#hdCampaniaActual").val().substring(4, 6);
 
     $('#campaniaRevista').val($("#hdCampaniaActual").val());
-
     $("#contentCatalogo #TextoCampania").text("CATÁLOGOS C-" + campSelect);    
     aCam.push($("#hdCampaniaAnterior").val());
     aCam.push($("#hdCampaniaActual").val());

@@ -1,6 +1,7 @@
-var arrayOfertasParaTi = [];
+Ôªøvar arrayOfertasParaTi = [];
 
-$(document).ready(function () {    
+$(document).ready(function () {
+
     $('.flexsliderTutorialMobile').flexslider({
         animation: "slide"
     });
@@ -41,6 +42,25 @@ $(document).ready(function () {
 
 
     CargarCarouselEstrategias("");
+
+    if (tieneMasVendidos === 1) {
+        masVendidosModule.readVariables({
+            baseUrl: baseUrl,
+            urlDetalleProducto: baseUrl + 'Mobile/EstrategiaProducto/DetalleProducto'
+        });
+        var rating = 1.6;
+        $(".rateyo-readonly-widg").rateYo({
+            rating: rating,
+            numStars: 5,
+            precision: 2,
+            minValue: 1,
+            maxValue: 5,
+            starWidth: "17px"
+        }).on("rateyo.change", function (e, data) {
+        });
+        CargarCarouselMasVendidos('mobile');
+    }
+
     CargarPopupsConsultora();
     TagManagerCatalogosPersonalizados();
     $(document).on('click', '.banner_inferior_mobile', function () {
@@ -58,7 +78,8 @@ $(document).ready(function () {
             }
         });
     });
-         
+   
+    ObtenerComunicadosPopup();
 });
 
 function CrearPopShow() {
@@ -95,7 +116,7 @@ function CrearPopShow() {
             },
             error: function (data, error) {
                 if (checkTimeout(data)) {
-                    messageInfo("OcurriÛ un error al intentar no mostrar el popup de showroom.");
+                    messageInfo("Ocurri√≥ un error al intentar no mostrar el popup de showroom.");
                 }
             }
         });
@@ -251,6 +272,7 @@ function stopVideo() {
         }
     }
 };
+
 function playVideo() {
     if (player) {
         if (player.playVideo) {
@@ -271,12 +293,12 @@ function UpdateUsuarioTutorialMobile() {
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
-                viewBagVioTutorial = data.result;
+            viewBagVioTutorial = data.result;
             }
         },
         error: function (data) {
             if (checkTimeout(data)) {
-            }
+        }
         }
     });
 };
@@ -330,9 +352,9 @@ function ReservadoOEnHorarioRestringido(mostrarAlerta) {
         error: function (data, error) {
             CloseLoading();
             if (checkTimeout(data)) {
-                console.log(error);
-                messageInfo('OcurriÛ un error al intentar validar el horario restringido o si el pedido est· reservado. Por favor intÈntelo en unos minutos.');
-            }
+            console.log(error);
+            messageInfo('Ocurri√≥ un error al intentar validar el horario restringido o si el pedido est√° reservado. Por favor int√©ntelo en unos minutos.');
+        }
         }
     });
     return restringido;
@@ -369,10 +391,12 @@ function MostrarDemandaAnticipada() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                if (tipo == 1) {
-                    alert("OcurriÛ un error al validar demanda anticipada.");
-                } else {
-                    alert("OcurriÛ un error al validar la demanda anticipada.");
+                if (typeof tipo !== "undefined") {
+                    if (tipo == 1) {
+                        alert("Ocurri√≥ un error al validar demanda anticipada.");
+                    } else {
+                        alert("Ocurri√≥ un error al validar la demanda anticipada.");
+                    }
                 }
             }
         }
@@ -382,6 +406,7 @@ function MostrarDemandaAnticipada() {
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
 };
+
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
 };
@@ -408,14 +433,15 @@ function InsertarDemandaAnticipada(tipo) {
         error: function (data, error) {
             if (checkTimeout(data)) {
                 if (tipo == 1) {
-                    alert("OcurriÛ un error al aceptar la demanda anticipada.");
+                    alert("Ocurri√≥ un error al aceptar la demanda anticipada.");
                 } else {
-                    alert("OcurriÛ un error al cancelar la demanda anticipada.");
+                    alert("Ocurri√≥ un error al cancelar la demanda anticipada.");
                 }
             }
         }
     });
 };
+
 function TagManagerCatalogosPersonalizados() {
     if (!!document.getElementById("flagCatalogoPersonalizado")) {
         dataLayer.push({
@@ -434,180 +460,188 @@ function TagManagerCatalogosPersonalizados() {
     }
 };
 
-function TagManagerCarruselInicio(arrayItems) {
-    var cantidadRecomendados = $('#divListadoEstrategia').find(".slick-active").length;
+$("#content_oferta_dia_mobile").click(function () {
+    $('#PopOfertaDia').slideDown();
+    odd_mobile_google_analytics_promotion_click();
+});
 
-    var arrayEstrategia = [];
-    for (var i = 0; i < cantidadRecomendados; i++) {
-        var recomendado = arrayItems[i];
-        var impresionRecomendado = {
-            'name': recomendado.DescripcionCompleta,
-            'id': recomendado.CUV2,
-            'price': recomendado.Precio2.toString(),
-            'brand': recomendado.DescripcionMarca,
-            'category': 'NO DISPONIBLE',
-            'variant': recomendado.DescripcionEstrategia,
-            'list': 'Ofertas para ti ? Home',
-            'position': recomendado.Posicion
-        };
-
-        arrayEstrategia.push(impresionRecomendado);
-    }
-
-    if (arrayEstrategia.length > 0) {
+function odd_mobile_google_analytics_promotion_click() {
+    if ($('#BloqueMobileOfertaDia').length > 0) {
+        var id = $('#BloqueMobileOfertaDia').find("#estrategia-id-odd").val();
+        var name = "Oferta del d√≠a - " + $('#BloqueMobileOfertaDia').find("#nombre-odd").val();
+        var creative = $('#BloqueMobileOfertaDia').find("#nombre-odd").val() + " - " + $('#BloqueMobileOfertaDia').find("#cuv2-odd").val()
         dataLayer.push({
-            'event': 'productImpression',
+            'event': 'promotionClick',
             'ecommerce': {
-                'impressions': arrayEstrategia
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
             }
         });
     }
 }
-function TagManagerClickAgregarProducto() {
+
+function odd_mobile_google_analytics_addtocart() {    
+    var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
+    var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
+    var name = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".nombre-odd").val();
+    var price = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".precio-odd").val();
+    var marca = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".MarcaNombre").val();
+    var variant = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".DescripcionEstrategia").val();
+    var quantity = $('#pop_oferta_mobile').find("#txtCantidad").val();
+    if (variant == "")
+        variant = "Est√°ndar";
     dataLayer.push({
         'event': 'addToCart',
         'ecommerce': {
             'add': {
-                'actionField': { 'list': 'Ofertas para ti ? Home' },
-                'products': [
-                    {
-                        'name': $("#txtCantidadZE").attr("est-descripcion"),
-                        'price': $("#txtCantidadZE").attr("est-precio2"),
-                        'brand': $("#txtCantidadZE").attr("est-descripcionMarca"),
-                        'id': $("#txtCantidadZE").attr("est-cuv2"),
-                        'category': 'NO DISPONIBLE',
-                        'variant': $("#txtCantidadZE").attr("est-descripcionEstrategia"),
-                        'quantity': parseInt($("#txtCantidadZE").val()),
-                        'position': parseInt($("#txtCantidadZE").attr("est-posicion"))
-                    }
-                ]
+                'actionField': { 'list': 'Oferta del d√≠a' },
+                'products': [{
+                    'name': name,
+                    'price': price,
+                    'brand': marca,
+                    'id': id,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'quantity': quantity,
+                    'dimension15': '100',
+                    'dimension16': 'Oferta del d√≠a - Detalle'
+                }]
             }
         }
     });
 }
-function TagManagerCarruselPrevia() {
-    var posicionPrimerActivo = $($('#divListadoEstrategia').find(".slick-active")[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = posicionPrimerActivo == 1 ? arrayOfertasParaTi.length - 1 : posicionPrimerActivo - 2;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
-
-
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': recomendado.Precio2.toString(),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti ? Home',
-        'position': recomendado.Posicion
-    };
-
-    arrayEstrategia.push(impresionRecomendado);
-
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': 'Ofertas para ti',
-        'label': 'Ver anterior'
-    });
-
-}
-function TagManagerCarruselSiguiente() {
-    var posicionUltimoActivo = $($('#divListadoEstrategia').find(".slick-active").slice(-1)[0]).find('.PosicionEstrategia').val();
-    var posicionEstrategia = arrayOfertasParaTi.length == posicionUltimoActivo ? 0 : posicionUltimoActivo;
-    var recomendado = arrayOfertasParaTi[posicionEstrategia];
-    var arrayEstrategia = new Array();
-
-    var impresionRecomendado = {
-        'name': recomendado.DescripcionCompleta,
-        'id': recomendado.CUV2,
-        'price': recomendado.Precio2.toString(),
-        'brand': recomendado.DescripcionMarca,
-        'category': 'NO DISPONIBLE',
-        'variant': recomendado.DescripcionEstrategia,
-        'list': 'Ofertas para ti ? Home',
-        'position': recomendado.Posicion
-    };
-
-    arrayEstrategia.push(impresionRecomendado);
-
-    dataLayer.push({
-        'event': 'productImpression',
-        'ecommerce': {
-            'impressions': arrayEstrategia
-        }
-    });
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': 'Ofertas para ti',
-        'label': 'Ver siguiente'
-    });
-
-}
-
-
-$("#content_oferta_dia_mobile").click(function () {
-    $('#PopOfertaDia').slideDown();
-});
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
-function VerShowRoomIntriga()
-{    
-    var id = "";
-    var name = "";
+function ObtenerComunicadosPopup() {
+    if (primeraVezSession == 0) return;
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - ' + ' Ent\u00e9rate Primero';
-    id = $("#hdEventoIDShowRoom").val();
+    $(".contenedor_popup_comunicado").click(function (e) {
+        grabarComunicadoPopup();
+    });
 
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
-            }
+    $(".popup_comunicado .btn_cerrar a").click(function (e) {
+        e.stopPropagation();
+        grabarComunicadoPopup();
+        $(".contenedor_popup_comunicado").modal("hide");
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
+        //CERRAR
+    });
+
+    $(window).resize(function (e) {
+        //var w_width = $(window).width() - 50;
+        //var w_height = $(window).height() - 150;
+        var w_width = 326;
+        var w_height = 418;
+
+        $(".popup_comunicado").css("width", w_width);
+        $(".popup_comunicado").css("height", w_height);
+
+        $(".detalle_popup_comunicado").css("width", w_width);
+        $(".detalle_popup_comunicado").css("height", w_height);
+    });
+
+    $(".popup_comunicado .detalle_popup_comunicado").click(function (e) {
+        if (userAgent.indexOf("iphone") > -1) {
+            e.preventDefault();
+            alert("La aplicaci√≥n no se encuentra disponible para este dispositivo");
+            return;
+        }
+
+        window.open($(this).attr("urlAccion"));
+
+        //CLICK
+    });
+
+    $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
+        e.stopPropagation();
+
+        var chk = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']");
+
+        if (chk.is(':checked')) {
+            $(this).html("");
+            chk.prop('checked', false);
+        }
+        else {
+            $(this).html("X");
+            chk.prop('checked', true);
         }
     });
 
+    ShowLoading();
+
+    $.ajax({
+        type: "GET",
+        url: baseUrl + 'Mobile/Bienvenida/ObtenerComunicadosPopUps',
+        contentType: 'application/json',
+        success: function (response) {
+            CloseLoading();
+
+            if (checkTimeout(response)) {
+                if (response.success) armarComunicadosPopup(response.extra);
+                else alert(response.message);
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) CloseLoading();
+        }
+    });
 }
 
-function VerShowRoomVenta()
-{    
-    var id = "";
-    var name = "";
+function armarComunicadosPopup(response){
+    if (response == null) return;
 
-    name = $("#hdNombreEventoShowRoom").val() + ' - Compra Ya';
-    id = $("#hdEventoIDShowRoom").val();
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
 
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': id,
-                        'name': name,
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }
-                ]
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".contenedor_popup_comunicado").modal("show");
+
+    $(window).resize();
+
+    //ABRIR
+}
+
+function grabarComunicadoPopup() {
+    var checked = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").is(':checked');
+    if (!checked) return;
+
+    var comunicadoID = $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val();
+    var params = { ComunicadoID: comunicadoID };
+
+    ShowLoading();
+
+    $.ajax({
+        type: "POST",
+        url: baseUrl + "Bienvenida/AceptarComunicadoVisualizacion",
+        data: JSON.stringify(params),
+        contentType: 'application/json',
+        success: function (data) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                if(!data.success) alert(data.message)
+            }
+        },
+        error: function (data, error) {
+            if (checkTimeout(data)) {
+                CloseLoading();
+                alert("Ocurri√≥ un error al aceptar el comunicado.");
             }
         }
     });

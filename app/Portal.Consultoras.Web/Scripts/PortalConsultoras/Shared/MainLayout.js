@@ -3,7 +3,7 @@ var showDisplayODD = 0;
 var ventanaChat = null;
 
 $(document).ready(function () {
-
+    LayoutHeader();
     LayoutMenu();
 
     window.onresize = function (event) {
@@ -99,6 +99,7 @@ $(document).ready(function () {
     $("body").on("click", "[data-popup-close]", function (e) {
         var popupClose = $("#" + $(this).attr("data-popup-close"));// || $(this).parent("[data-popup-main]");
         popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-main]");
+        popupClose = popupClose.length > 0 ? popupClose : $(this).parents("[data-popup-body]").parent();
 
         var functionHide = $.trim($(popupClose).attr("data-popup-function-hide"));
         FuncionEjecutar(functionHide);
@@ -113,10 +114,14 @@ $(document).ready(function () {
             }
         }
     });
-
-    //waitingDialog();
-    //closeWaitingDialog();
-
+    
+    if (mostrarBannerPostulante == 'True') {
+        $('#bloquemensajesPostulante').show();        
+    }
+    else {
+        MensajeEstadoPedido();
+    }
+   
     $(document).ajaxStop(function () {
         $(this).unbind("ajaxStop");
         closeWaitingDialog();
@@ -231,7 +236,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".menos", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -240,7 +245,7 @@ $(document).ready(function () {
     });
 
     $("body").on("click", ".mas", function () {
-        if ($.trim($(this).data("bloqueda")) !== "") return false;
+        if ($.trim($(this).data("bloqueada")) !== "") return false;
 
         var cantidad = parseInt($(this).parent().prev().val());
         cantidad = isNaN(cantidad) ? 0 : cantidad;
@@ -251,6 +256,11 @@ $(document).ready(function () {
     $("#belcorpChatEcuador").click(function () {
         var url = 'http://200.32.70.19/Belcorp/';
         window.open(url, '_blank');
+    });
+    $("#belcorpChat a_").click(function () {       
+        if (this.href.indexOf('#') != -1) {
+            alert_unidadesAgregadas("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde", 2);
+        }
     });
 
     $("body").on('click', '.belcorpChat', function (e) {
@@ -289,24 +299,36 @@ function AbrirVentanaBelcorpChat(url) {
     ventanaChat.focus();
 }
 
-function messageInfoError(message, titulo) {
+function messageInfoError(message, titulo, fnAceptar) {
     message = $.trim(message);
     if (message != "") {
         $('#dialog_ErrorMainLayout #mensajeInformacionSB2_Error').html(message);
         $('#dialog_ErrorMainLayout').show();
+
+        $('#dialog_ErrorMainLayout .btn_ok').off('click');
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').off('click');
+
+        $('#dialog_ErrorMainLayout .btn_ok').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
+
+        $('#dialog_ErrorMainLayout .btn_cerrar_agregarUnidades a').on('click', function () {
+            $('#dialog_ErrorMainLayout').hide();
+            if ($.isFunction(fnAceptar)) fnAceptar();
+        });
     }
 }
 
-function microefectoPedidoGuardado() {
-    $(".contenedor_circulos").fadeIn();
-}
+
 
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
+
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: '',
+        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -336,9 +358,7 @@ function CargarResumenCampaniaHeader(showPopup) {
 
                     if (showPopup == true) {
                         microefectoPedidoGuardado();
-                        setTimeout(function () {
-                            $(".contenedor_circulos").fadeOut();
-                        }, 2700);
+                       
                     }
                 }
                 else {
@@ -348,11 +368,19 @@ function CargarResumenCampaniaHeader(showPopup) {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
 };
+
+function microefectoPedidoGuardado() {
+    $(".contenedor_circulos").fadeIn();
+    setTimeout(function () {
+        $(".contenedor_circulos").fadeOut();
+    }, 2700);
+}
+
 function CargarCantidadNotificacionesSinLeer() {
     jQuery.ajax({
         type: 'POST',
@@ -383,7 +411,7 @@ function CargarCantidadNotificacionesSinLeer() {
         },
         error: function (data, error) {
             if (checkTimeout(data)) {
-                console.error(error);
+                console.error(data, error);
             }
         }
     });
@@ -624,13 +652,13 @@ function ValidarCorreoComunidad(tipo) {
         }
     }
 };
+
 function alert_msg(message, titulo) {
     titulo = titulo || "MENSAJE";
     $('#alertDialogMensajes .terminos_title_2').html(titulo);
     $('#alertDialogMensajes .pop_pedido_mensaje').html(message);
     $('#alertDialogMensajes').dialog('open');
 }
-
 function alert_msg_com(message) {
     $('#DialogMensajesCom .message_text').html(message);
     $('#DialogMensajesCom').dialog('open');
@@ -782,7 +810,7 @@ function MostrarShowRoomBannerLateral() {
 
                         if (showroomConsultora.EventoConsultoraID != 0) {
                             if (response.estaActivoLateral) {
-                                $("#hdNombreEventoShowRoom").val(evento.Tema);
+                                $("#hdTemaEventoShowRoom").val(evento.Tema);
                                 $("#hdEventoIDShowRoom").val(evento.EventoID);
 
                                 if (response.mostrarShowRoomProductos) {
@@ -878,7 +906,7 @@ function AgregarTimerShowRoom(dia, mes, anio) {
 }
 
 function AgregarTagManagerShowRoomBannerLateral(esHoy) {
-    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
 
     if (esHoy)
         name += " - fase 2";
@@ -900,7 +928,7 @@ function AgregarTagManagerShowRoomBannerLateral(esHoy) {
 }
 
 function AgregarTagManagerShowRoomBannerLateralConocesMas(esHoy) {
-    var name = 'showroom digital ' + $("#hdNombreEventoShowRoom").val();
+    var name = 'showroom digital ' + $("#hdTemaEventoShowRoom").val();
 
     if (esHoy)
         name += " - fase 2";
@@ -947,7 +975,12 @@ function Notificaciones() {
     location.href = baseUrl + 'Notificaciones/Index';
 };
 function SetMarcaGoogleAnalyticsTermino() {
-    dataLayer.push({ 'event': 'virtualEvent', 'category': 'Ofertas Showroom', 'action': 'Click enlace', 'label': 'Términos y Condiciones' });
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Ofertas Showroom',
+        'action': 'Click enlace',
+        'label': 'Términos y Condiciones'
+    });
 };
 
 function ReservadoOEnHorarioRestringido(mostrarAlerta) {
@@ -1115,7 +1148,11 @@ function messageConfirmacion(title, message, fnAceptar) {
     }
 }
          
-function closeOfertaDelDia() {    
+function closeOfertaDelDia(sender) {  
+    var nombreProducto = $(sender)
+        .parent()
+        .find("[data-item-campos]")
+        .find('.nombre-odd').val();
     $.ajax({
         type: 'GET',
         url: baseUrl + 'Pedido/CloseOfertaDelDia',
@@ -1127,6 +1164,7 @@ function closeOfertaDelDia() {
             {
                 $('#OfertaDelDia').hide();
                 LayoutHeader();
+                odd_desktop_google_analytics_cerrar_banner(nombreProducto);
             }
         },
         error: function (err) {
@@ -1135,3 +1173,11 @@ function closeOfertaDelDia() {
     });
 }
 
+function odd_desktop_google_analytics_cerrar_banner(nombreProducto) {
+    dataLayer.push({
+            'event': 'virtualEvent',
+            'category': 'Oferta del día',
+            'action': 'Cerrar Banner',
+            'label': 'nombreProducto'
+        });
+}

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.ServiceContracts;
 using System.ServiceModel;
 using System.Data;
+using Portal.Consultoras.Entities.Mobile;
+using Portal.Consultoras.BizLogic.Mobile;
 
 namespace Portal.Consultoras.Service
 {
@@ -45,6 +45,7 @@ namespace Portal.Consultoras.Service
         private BLLogParametroDiasCargaPedido BLLogParametroDiasCargaPedido; //R20151221
         private BLParticipantesDemandaAnticipada BLParticipantesDemandaAnticipada; //R20160302
         private BLPopupPais BLPopupPais; //SB20-1095
+        private BLApp _blApp;
 
         public SACService()
         {
@@ -80,6 +81,7 @@ namespace Portal.Consultoras.Service
             BLLogParametroDiasCargaPedido = new BLLogParametroDiasCargaPedido(); //R20151221
             BLParticipantesDemandaAnticipada = new BLParticipantesDemandaAnticipada(); //R20160302
             BLPopupPais = new BLPopupPais();
+            _blApp = new BLApp();
         }
 
         #region Cronograma Anticipado
@@ -585,28 +587,32 @@ namespace Portal.Consultoras.Service
             }
         }
 
-        public void InsertLugarPago(BELugarPago entidad)
+        public int InsertLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.InsertLugarPago(entidad);
+                lintPosicion= BLLugarPago.InsertLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la inserción de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
-        public void UpdateLugarPago(BELugarPago entidad)
+        public int UpdateLugarPago(BELugarPago entidad)
         {
+            int lintPosicion = 0;
             try
             {
-                BLLugarPago.UpdateLugarPago(entidad);
+                lintPosicion= BLLugarPago.UpdateLugarPago(entidad);
             }
             catch
             {
                 throw new FaultException("Error al realizar la actualización de Lugar de Pago.");
             }
+            return lintPosicion;
         }
 
         public void DeleteLugarPago(int paisID, int lugarPagoID)
@@ -1108,9 +1114,9 @@ namespace Portal.Consultoras.Service
             return BLComunicado.GetComunicadoByConsultora(paisID, CodigoConsultora);
         }
 
-        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora)
+        public List<BEComunicado> ObtenerComunicadoPorConsultora(int PaisID, string CodigoConsultora, short TipoDispositivo)
         {
-            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora).ToList();
+            return BLComunicado.ObtenerComunicadoPorConsultora(PaisID, CodigoConsultora, TipoDispositivo);
         }
 
         public List<BEPopupPais> ObtenerOrdenPopUpMostrar(int PaisID)
@@ -1171,7 +1177,7 @@ namespace Portal.Consultoras.Service
         }
 
         //RQ_PBS - R2161
-        /*RE2544 - CS(CGI)*/
+        /*RE2544 - CS(CGI)*/        
         public void UpdServicioCampaniaSegmentoZona(int ServicioId, int CampaniaId, int PaisId, int Segmento, string ConfiguracionZona, string SegmentoInternoId)
         {
             BLServicio.UpdServicioCampaniaSegmentoZona(ServicioId, CampaniaId, PaisId, Segmento, ConfiguracionZona, SegmentoInternoId);
@@ -1304,8 +1310,6 @@ namespace Portal.Consultoras.Service
         #endregion
         /*R20150804 - MER - fin*/
 
-
-
         public List<BEEstadoSolicitudCliente> GetEstadoSolicitudCliente(int paisID)
         {
             return BLSolicitudCliente.GetEstadoSolicitudCliente(paisID);
@@ -1382,9 +1386,46 @@ namespace Portal.Consultoras.Service
             return new BLProactivaChatbot().SendMessage(paisISO, urlRelativa, listMensajeProactiva);
         }
 
+        public List<BEPedidoFacturado> GetPedidosFacturadosDetalleMobile(int PaisId, int CampaniaID, long ConsultoraID, short ClienteID, string CodigoConsultora)
+        {
+            return BLPedidoFacturado.GetPedidosFacturadosDetalleMobile(PaisId, CampaniaID, ConsultoraID, ClienteID, CodigoConsultora);
+        }
+
+        public int UpdateClientePedidoFacturado(int paisID, int codigoPedido, int ClienteID)
+        {
+            return BLPedidoFacturado.UpdateClientePedidoFacturado(paisID, codigoPedido, ClienteID);
+        }
         public string GetCampaniaActualAndSiguientePais(int paisID, string codigoIso)
         {
             return BLCronograma.GetCampaniaActualAndSiguientePais(paisID, codigoIso);
+
         }
+
+        #region Mobile
+        public IList<BEApp> ListarApps(int paisID)
+        {
+            return _blApp.ObtenerApps(paisID);
+        }
+        #endregion
+        
+        #region ConfiguracionPais
+        public List<BEConfiguracionPais> ListConfiguracionPais(int paisId, bool tienePerfil)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.GetList(paisId, tienePerfil);
+        }
+
+        public BEConfiguracionPais GetConfiguracionPais(int paisId, int configuracionPaisId)
+        {
+            var bl = new BLConfiguracionPais();
+            return bl.Get(paisId, configuracionPaisId);
+        }
+
+        public void UpdateConfiguracionPais(BEConfiguracionPais configuracionPais)
+        {
+            var bl = new BLConfiguracionPais();
+            bl.Update(configuracionPais);
+        }
+        #endregion
     }
 }

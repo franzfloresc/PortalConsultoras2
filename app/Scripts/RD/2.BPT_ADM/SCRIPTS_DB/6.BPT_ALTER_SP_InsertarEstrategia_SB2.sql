@@ -43,9 +43,13 @@ BEGIN
 		BEGIN TRY
 
 		set @Retorno = 0
-
+		DECLARE @CodigoTipoEstrategia VARCHAR = ''
 		DECLARE @TipoEstrategiaIDPackNueva INT = 0, @TipoEstrategiaIDOfertaDia INT = 0
 		
+		SELECT	@CodigoTipoEstrategia = Codigo 
+		FROM	TipoEstrategia 
+		WHERE	TipoEstrategiaId = @TipoEstrategiaID 
+
 		-- Para calcular la etiqueta para pack nuevas
 		SELECT	@TipoEstrategiaIDPackNueva = COUNT( TipoEstrategiaID) 
 		FROM	TipoEstrategia 
@@ -64,7 +68,7 @@ BEGIN
 		if isnull(@CUV,'') != ''
 			SELECT @EtiquetaID = EtiquetaID FROM Etiqueta 
 			WHERE Descripcion like '%' + UPPER('Precio Cat') + '%'
-		else if @TipoEstrategiaID in ( 3016, 3017, 3018)
+		else if @CodigoTipoEstrategia in ('005', '007', '008')
 			set @EtiquetaID = 1
 		else 
 			set @EtiquetaID = 0
@@ -89,7 +93,7 @@ BEGIN
 				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 			END
 
-			IF (@TipoEstrategiaID NOT IN (3009, 3016, 3017, 3018) AND ISNULL(@Orden,0) > 0)	-- SB20-312
+			IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0)	-- SB20-312
 			BEGIN
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID AND NUMEROPEDIDO = @NumeroPedido)
 				BEGIN
@@ -117,7 +121,7 @@ BEGIN
 				RAISERROR('El valor de cuv2 a registrar ya existe para el tipo de estrategia y campaña seleccionado.', 16, 1)
 			END								 
 				
-			IF (@TipoEstrategiaID NOT IN (3009, 3016, 3017, 3018) AND ISNULL(@Orden,0) > 0) -- SB20-312
+			IF (@CodigoTipoEstrategia NOT IN ('001', '005', '007', '008') AND ISNULL(@Orden,0) > 0) -- SB20-312
 			BEGIN
 
 				IF EXISTS(SELECT 1 FROM ESTRATEGIA WHERE Orden = @Orden AND CAMPANIAID = @CampaniaID AND TIPOESTRATEGIAID = @TipoEstrategiaID  AND ESTRATEGIAID <> @EstrategiaID AND NUMEROPEDIDO = @NumeroPedido)

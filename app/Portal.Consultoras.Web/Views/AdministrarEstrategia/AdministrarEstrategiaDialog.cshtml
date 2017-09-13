@@ -1,4 +1,5 @@
-﻿@model Portal.Consultoras.Web.Models.EstrategiaModel
+﻿@using Mensajes = Portal.Consultoras.Common.Constantes.MatrizNemotecnicoMensajes
+@model Portal.Consultoras.Web.Models.EstrategiaModel
 @{
     ViewBag.Title = "Administración de Estrategias";
     string imagenVacia = "prod_grilla_vacio.png";
@@ -102,6 +103,33 @@
                     VISUALES  DE LA SECCIÓN  LANZAMIENTOS
                 </div>
             </div>
+            <div class="fontColorAdm">
+                <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
+                    <h4>Home Desktop</h4>
+                    <div style="display: inline-block; width: 100%;">
+                        <input type="hidden" id="nombre-img-home-desktop" />
+                        <label style="width: 130px; display: inline-block;">Img. Lanzamiento:</label>
+                        <div id="img-home-desktop" style="display: inline-block;vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-home-desktop" class="img-matriz-preview2" data-id="">
+                        </div>
+                        <div class="inforRdText">400 x 560 pixeles</div>
+                    </div>
+                </div>
+                <div class="fontColorAdm" style="display: inline-block; width: 47%; text-align: left; padding: 8px; margin-right: -3px; vert-align: top; position: absolute">
+                    <h4>Home Mobile</h4>
+                    <div style="display: inline-block; width: 100%">
+                        <input type="hidden" id="nombre-img-home-mobile" />
+                        <label style="width: 130px; display: inline-block;">Img. Lanzamiento:</label>
+                        <div id="img-home-mobile" style="display: inline-block; vertical-align: middle;"></div>
+                        <div class="pdr_modal2 borde_redondeado alignrigth">
+                            <img src='@Url.Content("~/Content/Images/" + imagenVacia)' id="src-img-home-mobile" class="img-matriz-preview2" data-id="">
+                        </div>
+                        <div class="inforRdText">375 x 270 pixeles</div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear-fix"></div>
             <div class="fontColorAdm">
                 <div style="display: inline-block; width: 48%; text-align: left; padding: 8px; margin-right: -3px; border-right: 1px #D0D0D0 solid;">
                     <h4>Carrusel Desktop</h4>
@@ -212,7 +240,24 @@
             </div>
             <!--IMAGENES-->
             <div id="divImagenEstrategiaContenido">
-                <div>
+                <div id="matriz-comercial-header">
+                    <div id="matriz-busqueda-nemotecnico">
+                        <a title="@HttpUtility.HtmlDecode(Mensajes.TooltipInformacionFormatoBusqueda)" class="search-button-field">
+                            <i class="material-icons">info</i>
+                        </a>
+                        <div class="busqueda-exacta">
+                            <label for="chkTipoBusquedaNemotecnico">@Mensajes.TextoBusquedaExacta</label>
+                            <input type="checkbox" id="chkTipoBusquedaNemotecnico">
+                        </div>
+
+                        <input id="txtBusquedaNemotecnico" class="search-input-field" placeholder="@Mensajes.PlaceHolderTextoNemotecnico" maxlength="100" type="text" />
+                        <a id="btnBuscarNemotecnico" title="@Mensajes.TextoBotonBuscar" class="search-button-field">
+                            <i class="material-icons">search</i>
+                        </a>
+                        <a id="btnLimpiarBusquedaNemotecnico" title="@Mensajes.TextoBotonLimpiar" class="search-button-field">
+                            <i class="material-icons">undo</i>
+                        </a>
+                    </div>
                     <div id="matriz-imagenes-paginacion"></div>
                 </div>
                 <div class="actions">
@@ -273,17 +318,48 @@
     {{#each imagenes}}
     <div class="titG2 div-img-matriz-comercial">
         <div class="pdr_modal borde_redondeado aligncenter">
-            <img id="img-matriz-{{@@index}}" src='{{Foto}}' class="img-matriz-preview">
+            <img id="img-matriz-{{@@index}}" title='{{NemoTecnico}}' src='{{Foto}}' class="img-matriz-preview">
         </div>
         <div class="pdr_modal_check aligncenter">
             <input type="checkbox" value="{{Foto}}"  id="chkImagenProducto{{@@index}}" class="chkImagenProducto">
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="descripcion-comercial-{{@@index}}" value='{{DescripcionComercial}}'>
+        </div>
+        <div class="pdr_modal borde_redondeado aligncenter" style="display:none">
+            <input id="id-matriz-comercial-imagen-{{@@index}}" value='{{IdMatrizComercialImagen}}'>
         </div>
        
     </div>
     {{/each}}
 </script>
 
+<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
+    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
+        <div style="position: absolute; width: 100%;">
+            <img id="imgTipoOferta" style="float: right; margin-top: 10px;" src="">
+        </div>
+        <img id="imgZonaEstrategia" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
+    </div>
+    <div class="div-3" style="text-align:center; color:black;">
+        <div id="descripcion-comercial">
+        </div>
+    </div>
+    <div class="zona_estrategia_1"></div>
+    <div>&nbsp;</div>
+    <div class="zona_estrategia_2"></div>
+    <div class="zona_estrategia_3"></div>
+    <div class="zona_estrategia_4"></div>
+</div>
+<script id="descripcion-comercial-template" type="text/x-handlebars-template">
+    <div style="text-align:center; color:black;" onclick='javascript:editarDescripcionComercial({{IdMatrizComercialImagen}})'>
+        <img src="../Content/Images/PL20/editar.png" style="width:14px; height:14px">
+        <a id="label-descripcioncomercial-{{IdMatrizComercialImagen}}" title="{{DescripcionComercial}}">{{DescripcionComercial}}</a>
+    </div>
+</script>
+
 <script type="text/javascript">
+
      $("#linkTallaColor").click(function () {
             if ($.trim($("#txtCUV2").val()) == "") {
                 alert("Debe ingresar un valor para CUV2");
@@ -403,6 +479,20 @@
 
      var imagenOnClick = function () {
          $("#imgZonaEstrategia").attr("src", $(this).attr("src"));
+         var index = $(this).attr("id").split("-");
+         var descripcionComercial = $("#descripcion-comercial-"+index[2]).attr("value");
+         var idMatrizComercial = $("#id-matriz-comercial-imagen-" + index[2]).attr("value");
+         var editData = {
+             IdMatrizComercialImagen: idMatrizComercial,
+             DescripcionComercial: descripcionComercial
+         };
+         if (habilitarNemoTecnico) {
+             SetHandlebars('#descripcion-comercial-template', editData, '#descripcion-comercial');
+             $("#divVistaPrevia").find("#descripcion-comercial").show();
+         } else {
+             $("#divVistaPrevia").find("#descripcion-comercial").hide();
+         }
+         isVistaPreviaOpened = true;
          showDialog('divVistaPrevia');
      };
 
@@ -427,5 +517,6 @@
      $("#divImagenEstrategia").on("click", imagenEstrategiaOnClick);
 
      $("#divInformacionAdicionalEstrategia").on("click", informacionAdicionalEstrategiaOnClick);
+
 
 </script>

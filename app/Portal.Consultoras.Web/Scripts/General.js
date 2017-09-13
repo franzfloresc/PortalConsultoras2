@@ -1,10 +1,11 @@
 ﻿
 var formatDecimalPais = formatDecimalPais || new Object();
+var finishLoadCuponContenedorInfo = false;
 
 jQuery(document).ready(function () {
     CreateLoading();
-
     $("body").on("click", "[data-compartir]", function (e) {
+        e.preventDefault();
         CompartirRedesSociales(e);
     });
 
@@ -55,6 +56,13 @@ jQuery(document).ready(function () {
             $(this).attr('checked', 'checked');
         }
     };
+
+    $.fn.CleanWhitespace = function () {
+        textNodes = this.contents().filter(
+            function () { return (this.nodeType == 3 && !/\S/.test(this.nodeValue)); })
+            .remove();
+        return this;
+    }
 
     Clone = function (obj) {
         if (obj == null || typeof (obj) != 'object')
@@ -163,6 +171,7 @@ jQuery(document).ready(function () {
 
     HandlebarsRegisterHelper = function () {
         if (typeof (Handlebars) != "undefined") {
+
             Handlebars.registerHelper('if_eq', function (a, b, opts) {
                 if (a == b) {
                     return opts.fn(this);
@@ -173,6 +182,21 @@ jQuery(document).ready(function () {
 
             Handlebars.registerHelper('iff', function (a, operator, b, opts) {
                 var bool = false;
+                var ret = false;
+                
+                switch (b) {
+                    case undefined:
+                    case null:
+                        ret = typeof a == "boolean";
+                        bool = ret ? a : false;
+                        break;
+                    default:  break;
+                }
+
+                if (ret)
+                    return bool ? operator.fn(this) : operator.inverse(this);
+                
+
                 switch (operator) {
                     case '==':
                         bool = a == b;
@@ -376,6 +400,12 @@ jQuery(document).ready(function () {
         return pEnteraFinal + pDecimal;
     }
 
+    $(document).scroll(function () {
+        try {
+            $(".loadingScreenWindow").css("top", (($(window).height() / 2) + $(document).scrollTop() - $(".loadingScreenWindow").height()) + "px");
+        } catch (e) { }        
+    });
+    
     RemoverRepetidos = function (lista, campo) {
         campo = $.trim(campo);
         var newLista = new Array();
@@ -398,8 +428,7 @@ jQuery(document).ready(function () {
         });
 
         return newLista;
-    };
-    
+    };    
 })(jQuery);
 
 function showDialog(dialogId) {
@@ -518,15 +547,32 @@ function AbrirMensaje(mensaje, titulo, fnAceptar, tipoIcono) {
             $('#mensajeInformacionvalidado').html(mensaje);
             $('#popupInformacionValidado').show();
             $('#popupInformacionValidado #bTagTitulo').html(titulo);
+            
             if ($.isFunction(fnAceptar)) {
-                $('#popupInformacionValidado .btn_ok_mobile').off('click');
-                $('#popupInformacionValidado .btn_ok_mobile').on('click', fnAceptar);
+                var botonesCerrar = $('#popupInformacionValidado .btn_ok_mobile,.cerrar_popMobile');
+                botonesCerrar.off('click');
+                botonesCerrar.on('click', fnAceptar);
             }
         }
         else {
             $('#alertDialogMensajes .terminos_title_2').html(titulo);
             $('#alertDialogMensajes .pop_pedido_mensaje').html(mensaje);
             $('#alertDialogMensajes').dialog('open');
+
+            $('.ui-dialog .ui-button').off('click');
+            $('.ui-dialog .ui-icon-closethick').off('click');
+
+            $('.ui-dialog .ui-button').on('click', function () {
+                $('#alertDialogMensajes').dialog('close');
+                if($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('.ui-dialog .ui-icon-closethick').on('click', function () {
+                $('#alertDialogMensajes').dialog('close');
+                if($.isFunction(fnAceptar)) fnAceptar();
+            });
+
+            $('.ui-dialog .ui-button').focus();
         }
         CerrarLoad();
     } catch (e) {
@@ -580,6 +626,10 @@ function isMobile() {
     var isUrlMobile = $.trim(location.href).toLowerCase().indexOf("/mobile/") > 0;
     return isUrlMobile;
 }
+function isHome() {
+    var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
+    return isUrl;
+}
 
 function isInt(n) {
     var patron = /^[0-9]+$/;
@@ -588,7 +638,7 @@ function isInt(n) {
 }
 
 function checkTimeout(data) {
-    var thereIsStillTime = true
+    var thereIsStillTime = true;
 
     if (data) {
         var eval = data.responseText ? data.responseText : data;
@@ -604,11 +654,11 @@ function checkTimeout(data) {
             if (ViewBagEsMobile == 1) {/*1 Desktop, 2 Mobile*/
                 $('#dialog_SesionMainLayout #mensajeSesionSB2_Error').html(message);
                 $('#dialog_SesionMainLayout').show();
-            }
+        }
             else {
                 $('#popupInformacionSB2SesionFinalizada').find('#mensajeInformacionSB2_SesionFinalizada').text(message);
                 $('#popupInformacionSB2SesionFinalizada').show();
-            }
+    }
         }
     }
     else {
@@ -619,7 +669,7 @@ function checkTimeout(data) {
 
 function checkUserSession() {
     var res = -1;
-
+    
     $.ajax({
         url: '/Login/CheckUserSession',
         type: 'POST',
@@ -694,7 +744,8 @@ function ActualizarGanancia(data) {
     $("[data-ganancia]").html(data.MontoGananciaStr || "");
     $("[data-ganancia2]").html(vbSimbolo + " " + data.MontoGananciaStr || "");
     $("[data-pedidocondescuento]").html(DecimalToStringFormat(data.TotalPedido - data.MontoDescuento));
-    $("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    //$("[data-montodescuento]").html(vbSimbolo + (data.MontoDescuento == 0 ? " " : " -") + data.MontoDescuentoStr);
+    $("[data-montodescuento]").html(vbSimbolo + " " + data.MontoDescuentoStr);
     $("[data-pedidototal]").html(vbSimbolo + " " + data.TotalPedidoStr);
     $("[data-cantidadproducto]").html(data.CantidadProductos);
     $("[data-montoahorrocatalogo]").html(vbSimbolo + " " + data.MontoAhorroCatalogoStr);
@@ -809,7 +860,7 @@ function InsertarLogDymnamo(pantallaOpcion, opcionAccion, esMobile, extra) {
             type: "POST",
             async: true,
             crossDomain: true,
-            url: urlLogDynamo,
+            url: urlLogDynamo + "Api/LogUsabilidad",
             dataType: "json",
             data: data,
             success: function (result) { console.log(result); },
@@ -870,6 +921,16 @@ function LayoutHeader() {
     $(document).ajaxStop(function () {
         LayoutHeaderFin();
     });
+    //setTimeout(function () {
+    //    var wtop = $("header").innerHeight();
+    //    $("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    //}, 350);
+}
+
+function LayoutHeaderFin() {
+    var wtop = $("header").innerHeight();
+    //$("[data-content]").animate({ "margin-top": (wtop) + "px" });
+    $("[data-content]").css("margin-top", (wtop) + "px");
 }
 function LayoutHeaderFin() {
     var wtop = $("header").innerHeight();
@@ -883,49 +944,65 @@ function LayoutMenu() {
 }
 function LayoutMenuFin() {
     // validar si sale en dos lineas
-    var hok = true;
-    var idMenus = "#ulNavPrincipal > li";
-        $(".wrapper_header").css("max-width", "");
-        $(".wrapper_header").css("width", "");
+    var idMenus = "#ulNavPrincipal-0 > li";
 
-        $(".logo_esika").css("width", "");
-        $(".menu_esika_b").css("width", "");
-        $(idMenus).css("margin-left", "0px");
-        $(".menu_new_esika").css("width", "");
+    if ($(idMenus).length == 0) {
+        return false;
+    }
 
-        var wt = $(".wrapper_header").width();
-        var wl = $(".logo_esika").innerWidth();
-        var wr = $(".menu_esika_b").innerWidth();
-        $(".wrapper_header").css("max-width", wt + "px");
-        $(".wrapper_header").css("width", wt + "px");
+    $(".wrapper_header").css("max-width", "");
+    $(".wrapper_header").css("width", "");
+    $(".logo_esika").css("width", "");
+    $(".menu_esika_b").css("width", "");
+    $(idMenus).css("margin-left", "0px");
+    $(".menu_new_esika").css("width", "");
 
-        $(".logo_esika").css("width", wl + "px");
-        $(".menu_esika_b").css("width", wr + "px");
+    var wt = $(".wrapper_header").width();
+    var wl = $(".logo_esika").innerWidth();
+    var wr = $(".menu_esika_b").innerWidth() + 1;
+    $(".wrapper_header").css("max-width", wt + "px");
+    $(".wrapper_header").css("width", wt + "px");
 
-        wt = wt - wl - wr;
-        $(".menu_new_esika").css("width", wt + "px");
+    wl = Math.min(wl, 100);
+    $(".logo_esika").css("width", wl + "px");
+    $(".menu_esika_b").css("width", wr + "px");
 
-        hok = false;
+    wt = wt - wl - wr;
+    $(".menu_new_esika").css("width", wt + "px");
 
-        var h = $(".wrapper_header").height();
+    var h = $(".wrapper_header").height();
 
-        if (h <= 61 && $(idMenus).length > 0) {
-            wr = 0;
-            $.each($(idMenus), function (ind, menupadre) {
-                wr += $(menupadre).innerWidth();
-            });
+    if (h > 61) {
+        $(idMenus + " a").css("font-size", "9px");
+    }
 
-            if (wt > wr) {
-            wr = (wt - wr) / $(idMenus).length;
-            wr = Math.min(wr, 20);
+    wr = 0;
+    $.each($(idMenus), function (ind, menupadre) {
+        wr += $(menupadre).innerWidth();
+    });
 
-            $.each($(idMenus), function (ind, menupadre) {
-                if (ind > 0 && ind + 1 < $(idMenus).length) {
-                    $(menupadre).css("margin-left", wr + "px");
-                }
-            });
+    if (wt == wr) {
+        $(idMenus + " a").css("font-size", "9px");
+        wr = 0;
+        $.each($(idMenus), function (ind, menupadre) {
+            wr += $(menupadre).innerWidth();
+        });
+    }
+
+    if (wt < wr) {
+        $(idMenus + " a").css("font-size", "10.5px");
+    }
+    else if (wt > wr) {
+        wr = (wt - wr) / $(idMenus).length;
+        wr = parseInt(wr * 10) / 10;
+        wr = Math.min(wr, 20);
+
+        $.each($(idMenus), function (ind, menupadre) {
+            if (ind > 0 && ind + 1 < $(idMenus).length) {
+                $(menupadre).css("margin-left", wr + "px");
             }
-        }
+        });
+    }
 
     // caso no entre en el menu
     // poner en dos renglones
@@ -936,6 +1013,7 @@ function LayoutMenuFin() {
 
     LayoutHeader();
 }
+
 function ResizeMensajeEstadoPedido() {
 
     $("#bloquemensajesPedido").css("height", "");
@@ -1004,9 +1082,6 @@ function cerrarMensajePostulante() {
             console.log(response);
         }
     });
-
-    //OrdenarCabecera();
-
 }
 
 function MostrarMensajePedidoRechazado() {
@@ -1058,7 +1133,12 @@ function CompartirRedesSocialesTexto(texto) {
     return "whatsapp://send?text=" + texto;
 }
 
-function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
+
+function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto, nombre) {
+    if (!nombre) {
+        nombre = "";
+    }
+
     id = $.trim(id);
     if (id == "0" || id == "") {
         console.log("CompartirRedesSocialesAbrirVentana Falta ID");
@@ -1072,43 +1152,44 @@ function CompartirRedesSocialesAbrirVentana(id, tipoRedes, ruta, texto) {
 
     ruta = ruta.replace('[valor]', id);
 
+    try {
+        if (origenPedidoWebEstrategia !== undefined && origenPedidoWebEstrategia.indexOf("7") !== -1) {
+            CompartirProductoRDAnalytics(tipoRedes, ruta, nombre);
+        } else {
+            AnalyticsRedesSociales(tipoRedes, ruta);
+        }
+    } catch (e) {console.log(e)} 
+
     if (tipoRedes == "FB") {
         var popWwidth = 570;
         var popHeight = 420;
         var left = (screen.width / 2) - (popWwidth / 2);
         var top = (screen.height / 2) - (popHeight / 2);
         var url = "http://www.facebook.com/sharer/sharer.php?u=" + ruta;
-        //google marca analytics        
+        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
+    } else if (tipoRedes == "WA") {
+        if (texto != "")
+            texto = texto + " - ";
+        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
+        $("#HiddenRedesSocialesWA")[0].click();
+    }
+}
 
+function AnalyticsRedesSociales(tipoRedes, ruta) {
+    if (tipoRedes === "FB") {
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Facebook',
-            'action': 'Compartir',
+            'action': 'Share',
             'target': ruta
         });
-
-        //****************************
-        window.open(url, 'Facebook', "width=" + popWwidth + ",height=" + popHeight + ",menubar=0,toolbar=0,directories=0,scrollbars=no,resizable=no,left=" + left + ",top=" + top + "");
-    } else if (tipoRedes == "WA") {
-
-        if (texto != "")
-            texto = texto + " - ";
-
-        //$("#HiddenRedesSocialesWA").attr("href", "javascript:window.location=" + "whatsapp://send?text=" + texto + ruta);
-        //return "whatsapp://send?text=" + texto + ruta;
-        //google marca analytics        
-
+    } else if (tipoRedes == "WA"){
         dataLayer.push({
             'event': 'socialEvent',
             'network': 'Whatsapp',
             'action': 'Compartir',
             'target': ruta
         });
-
-        //****************************
-        $("#HiddenRedesSocialesWA").attr("href", 'javascript:window.location=CompartirRedesSocialesTexto("' + texto + ruta + '")');
-        $("#HiddenRedesSocialesWA")[0].click();
-        //document.getElementById('HiddenRedesSocialesWA').click();
     }
 }
 
@@ -1125,9 +1206,14 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
     var _palanca = $.trim($(article).find(".Palanca").val());
 
     var pcDetalle = _rutaImagen + "|" + _marcaID + "|" + _marcaDesc + "|" + _nombre;
-    if (_palanca == "FAV") {
+    if (_palanca === "FAV") {
         pcDetalle += "|" + _vol + "|" + _descProd;
     }
+    try {
+        //if (_palanca === "LAN") {
+        //    CompartirProductoRDAnalytics(tipoRedes, ruta, _nombre);
+        //}
+    } catch (e) { console.log(e); }
 
     var Item = {
         mCUV: $(article).find(".CUV").val(),
@@ -1135,6 +1221,7 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
         mDetalle: pcDetalle,
         mApplicacion: tipoRedes
     };
+
 
     jQuery.ajax({
         type: 'POST',
@@ -1146,9 +1233,9 @@ function CompartirRedesSocialesInsertar(article, tipoRedes, ruta) {
             //CloseLoading();
             if (checkTimeout(response)) {
                 if (response.success) {
-                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje);
+                    CompartirRedesSocialesAbrirVentana(response.data.id, tipoRedes, ruta, _mensaje, _nombre);
                 } else {
-                    window.messageInfo(response.message);
+                    AbrirMensaje(response.message);
                 }
             }
             //CerrarLoad();
@@ -1173,113 +1260,6 @@ function CerrarPopup(ident) {
     $('body').css({ 'overflow-y': 'auto' });
     $('body').css({ 'overflow-x': 'auto' });
     $('body').css({ 'overflow': 'auto' });
-}
-
-/*** EPD-2378 ***/
-function EnviarCorreoPedidoReservado() {
-    jQuery.ajax({
-        type: 'POST',
-        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) { },
-        error: function (data, error) {
-            CerrarSplash();
-            if (checkTimeout(data)) {
-            }
-        }
-    });
-}
-/*** Fin EPD-2378 ***/
-
-function AbrirPopupFade(ident) {
-    $(ident).fadeIn();
-    $('body').css({ 'overflow-x': 'hidden' });
-    $('body').css({ 'overflow-y': 'hidden' });
-}
-
-function CerrarPopupFade(ident) {
-    $(ident).fadeOut();
-    $('body').css({ 'overflow-y': 'auto' });
-    $('body').css({ 'overflow-x': 'auto' });
-    $('body').css({ 'overflow': 'auto' });
-}
-
-
-function GuardarIndicadorPedidoAutentico() {
-    if (fingerprintOk == 0) {
-        new Fingerprint2().get(function (result, components) {
-            var data1 = { 'accion': 1, 'codigo': result };
-            jQuery.ajax({
-                type: 'POST',
-                url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(data1),
-                success: function (response) {
-                    if (response.success) {
-                    }
-                },
-                error: function (response) {
-                    console.log(response);
-                }
-            });
-        });
-    }
-
-    if (tokenPedidoAutenticoOk == 0) {
-        if (typeof (Storage) !== 'undefined') {
-            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
-
-            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
-
-                var data2 = { 'accion': 2 };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data2),
-                    success: function (response) {
-                        if (response.success) {
-                            localStorage.setItem('SBTokenPais', IsoPais);
-                            localStorage.setItem('SBTokenPedido', response.message);
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            } else {
-                
-                var accion = 3;
-                var tp = localStorage.getItem('SBTokenPais');
-                if (tp !== IsoPais) {
-                    accion = 2;
-                }
-
-                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
-                jQuery.ajax({
-                    type: 'POST',
-                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    data: JSON.stringify(data3),
-                    success: function (response) {
-                        if (response.success) {
-                            if (accion == 2) {
-                                localStorage.setItem('SBTokenPais', IsoPais);
-                                localStorage.setItem('SBTokenPedido', response.message);
-                            }
-                        }
-                    },
-                    error: function (response) {
-                        console.log(response);
-                    }
-                });
-            }
-        }
-    }
 }
 
 function ModificarPedido2(pTipo) {
@@ -1390,9 +1370,10 @@ function MostrarMenu(codigo, accion) {
     if (codigo == "") {
         return false;
     }
-    var menu = $("#ulNavPrincipal").find("[data-codigo='" + codigo + "']");
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
-    menu = menu.length == 0 ? $("#ulNavPrincipal").find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
+    var idMenus = "#ulNavPrincipal-0";
+    var menu = $(idMenus).find("[data-codigo='" + codigo + "']");
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toLowerCase() + "']") : menu;
+    menu = menu.length == 0 ? $(idMenus).find("[data-codigo='" + codigo.toUpperCase() + "']") : menu;
 
     if (menu.length == 0) {
         // puede implementarse para los iconos de la parte derecha
@@ -1421,4 +1402,355 @@ function FuncionEjecutar(functionHide) {
 
 function IfNull(input, replaceNull) {
     return input == null ? replaceNull : input;
+}
+
+function odd_desktop_google_analytics_promotion_click() {    
+    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+        var id = $('#divOddCarruselDetalle').find(".estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#divOddCarruselDetalle').find(".nombre-odd").val();
+        var creative = $('#divOddCarruselDetalle').find(".nombre-odd").val() + " - " + $('#divOddCarruselDetalle').find(".cuv2-odd").val();
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+
+        odd_desktop_google_analytics_product_impresion();
+    }
+}
+
+function odd_desktop_google_analytics_promotion_click_verofertas() {
+    if ($('#divOddCarruselDetalle').length > 0 && $("#odd_simbolo_ver_ofertas").html() === "+") {
+        var id = $('#banner-odd').find(".estrategia-id-odd").val();
+        var name = "Oferta del día - " + $('#banner-odd').find(".nombre-odd").val();
+        var creative = $('#banner-odd').find(".nombre-odd").val() + " - " + $('#banner-odd').find(".cuv2-odd").val();
+
+        dataLayer.push({
+            'event': 'promotionClick',
+            'ecommerce': {
+                'promoClick': {
+                    'promotions': [
+                    {
+                        'id': id,
+                        'name': name,
+                        'position': 'Banner Superior Home - 1',
+                        'creative': creative
+                    }]
+                }
+            }
+        });
+
+        odd_desktop_google_analytics_product_impresion();
+    }
+}
+
+function odd_desktop_google_analytics_product_impresion() {
+    var carrusel = $("[data-odd-tipoventana='carrusel']");
+    var detalle = $("[data-odd-tipoventana='detalle']");
+    var impresions = new Array();
+    if (carrusel.length > 0 && carrusel.is(":visible")) {        
+        var divs = new Array();
+        var div1 = $(carrusel).find("[data-item-position = 0]")[0];
+        var div2 = $(carrusel).find("[data-item-position = 1]")[0];
+        var div3 = $(carrusel).find("[data-item-position = 2]")[0];
+
+        if (div1 != undefined) { divs.push(div1); }
+        if (div2 != undefined) { divs.push(div2); }
+        if (div3 != undefined) { divs.push(div3); }
+
+        $(divs).each(function (index, div) {
+            impresions.push({
+                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+                'category': 'No disponible',
+                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+                'list': 'Oferta del día',
+                'position': index + 1
+            });
+        });
+    }
+    if (detalle.length > 0 && detalle.is(":visible")) {
+        var div1 = $(detalle).find("[data-item-position = 0]");
+        if (div1 != null) { divs.push(div1); }
+        $(divs).each(function (index, div) {
+            impresions.push({
+                'name': $(div).find("[data-item-campos]").find(".nombre-odd").val(),
+                'id': $(div).find("[data-item-campos]").find(".cuv2-odd").val(),
+                'price': $(div).find("[data-item-campos]").find(".precio-odd").val(),
+                'brand': $(div).find("[data-item-campos]").find(".marca-descripcion-odd").val(),
+                'category': 'No disponible',
+                'variant': $(div).find("[data-item-campos]").find(".tipoestrategia-descripcion-odd").val(),
+                'list': 'Oferta del día',
+                'position': index + 1
+            });
+        });
+    }
+    if (impresions.length > 0) {
+        dataLayer.push({ 'event': 'productImpression', 'ecommerce': { 'impressions': impresions } });
+    }
+}
+
+function odd_desktop_google_analytics_addtocart(tipo,element) {
+    var id, name, price, marca, variant, quantity, dimension16;
+    if (tipo == "banner") {        
+        id = $('#banner-odd').find(".cuv2-odd").val();
+        name = $('#banner-odd').find(".nombre-odd").val();
+        price = $('#banner-odd').find(".precio-odd").val();
+        marca = $('#banner-odd').find(".marca-descripcion-odd").val();
+        variant = $('#banner-odd').find(".tipoestrategia-descripcion-odd").val();
+        quantity = 1;        
+        dimension16 = "Oferta del día - Banner";
+    }
+    if (tipo == "list") {
+        id = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarrusel').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+    if (tipo == "detail") {
+        id = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".cuv2-odd").val();
+        name = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".nombre-odd").val();
+        price = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".precio-odd").val();
+        marca = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".marca-descripcion-odd").val();
+        variant = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".tipoestrategia-descripcion-odd").val();
+        quantity = $('#divOddCarruselDetalle').find("[data-item-position=" + element + "]").find(".txtcantidad-odd").val();
+        dimension16 = "Oferta del día - Detalle";
+    }
+
+    if (variant == "") { variant = "Estándar"; }
+
+    quantity = parseInt(quantity);
+
+    var fechaAddToCart = Date.now();    
+    var dimension15 = fechaAddToCart - fechaMostrarBanner;
+    if (dimension15 != 0)
+        dimension15 = (dimension15 / 1000);
+
+    dimension15 = parseInt(dimension15);
+
+    var data = {
+        'event': 'addToCart',
+        'ecommerce': {
+            'add': {
+                'actionField': { 'list': 'Oferta del día' },
+                'products': [{
+                    'name': name,
+                    'price': price,
+                    'brand': marca,
+                    'id': id,
+                    'category': 'No disponible',
+                    'variant': variant,
+                    'quantity': quantity,
+                    'dimension15': dimension15,
+                    'dimension16': dimension16
+                }]
+            }
+        }
+    }
+
+    dataLayer.push(data);
+}
+
+function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
+    if (variant == null || variant == "")
+        variant = "Estándar";
+    dataLayer.push
+	({
+	    'event': 'productClick',
+	    'ecommerce':
+		{
+		    'click':
+			{
+			    'actionField': { 'list': 'Oferta del día' },
+			    'products':
+				[{
+				    'name': name,
+				    'id': id,
+				    'price': price,
+				    'brand': brand,
+				    'category': 'No disponible',
+				    'variant': variant,
+				    'position': position
+				}]
+			}
+		}
+	});
+}
+function GuardarIndicadorPedidoAutentico() {
+    if (fingerprintOk == 0) {
+        new Fingerprint2().get(function (result, components) {
+            var data1 = { 'accion': 1, 'codigo': result };
+            jQuery.ajax({
+                type: 'POST',
+                url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify(data1),
+                success: function (response) {
+                    if (response.success) {
+                    }
+                },
+                error: function (response) {
+                    console.log(response);
+                }
+            });
+        });
+    }
+
+    if (tokenPedidoAutenticoOk == 0) {
+        if (typeof (Storage) !== 'undefined') {
+            var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+
+            if (typeof (itemSBTokenPedido) === 'undefined' || itemSBTokenPedido === null) {
+
+                var data2 = { 'accion': 2 };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data2),
+                    success: function (response) {
+                        if (response.success) {
+                            localStorage.setItem('SBTokenPais', IsoPais);
+                            localStorage.setItem('SBTokenPedido', response.message);
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                
+                var accion = 3;
+                var tp = localStorage.getItem('SBTokenPais');
+                if (tp !== IsoPais) {
+                    accion = 2;
+                }
+
+                var data3 = { 'accion': accion, 'codigo': itemSBTokenPedido };
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '/Pedido/GuardarIndicadorPedidoAutentico',
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data3),
+                    success: function (response) {
+                        if (response.success) {
+                            if (accion == 2) {
+                                localStorage.setItem('SBTokenPais', IsoPais);
+                                localStorage.setItem('SBTokenPedido', response.message);
+                            }
+                        }
+                    },
+                    error: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        }
+    }
+}
+
+/*** EPD-2378 ***/
+function EnviarCorreoPedidoReservado() {
+    jQuery.ajax({
+        type: 'POST',
+        url: baseUrl + 'Pedido/EnviarCorreoPedidoReservado',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) { },
+        error: function (data, error) {
+            CerrarSplash();
+            if (checkTimeout(data)) {
+            }
+        }
+    });
+}
+/*** Fin EPD-2378 ***/
+
+
+function AbrirPopupFade(ident) {
+    $(ident).fadeIn();
+    $('body').css({ 'overflow-x': 'hidden' });
+    $('body').css({ 'overflow-y': 'hidden' });
+}
+
+function CerrarPopupFade(ident) {
+    $(ident).fadeOut();
+    $('body').css({ 'overflow-y': 'auto' });
+    $('body').css({ 'overflow-x': 'auto' });
+    $('body').css({ 'overflow': 'auto' });
+}
+
+function set_local_storage(data, key) {
+    var value = JSON.stringify(data);
+    localStorage.setItem(key, value);
+}
+
+function get_local_storage(key) {
+    var value = localStorage.getItem(key);
+    value = JSON.parse(value);
+    return value;
+}
+
+function limpiar_local_storage() {
+    if (typeof (Storage) !== 'undefined') {
+        var itemSBTokenPais = localStorage.getItem('SBTokenPais');
+        var itemSBTokenPedido = localStorage.getItem('SBTokenPedido');
+ 
+        localStorage.clear();
+
+        if (typeof (itemSBTokenPais) !== 'undefined' && itemSBTokenPais !== null) {
+            localStorage.setItem('SBTokenPais', itemSBTokenPais);
+        }
+
+        if (typeof (itemSBTokenPedido) !== 'undefined' && itemSBTokenPedido !== null) {
+            localStorage.setItem('SBTokenPedido', itemSBTokenPedido);
+        }
+    }
+};
+
+function _validartieneMasVendidos() {
+    if (tieneMasVendidos === 0 || tieneMasVendidos === 1) {
+        set_local_storage(tieneMasVendidos, "tieneMasVendidos");
+        return tieneMasVendidos;
+    }
+    else {
+        var xvalor = get_local_storage("tieneMasVendidos");
+        return xvalor;
+    }
+}
+
+var _actualizarModelMasVendidosPromise = function (model) {
+    var d = $.Deferred();
+    var promise = $.ajax({
+        type: 'POST',
+        url: '/OfertasMasVendidos/ActualizarModel',
+        data: JSON.stringify(model),
+        dataType: 'json',        
+        contentType: 'application/json; charset=utf-8',
+        async: false
+    });
+    promise.done(function (response) {
+        d.resolve(response);
+    })
+    promise.fail(d.reject);
+
+    return d.promise();
 }

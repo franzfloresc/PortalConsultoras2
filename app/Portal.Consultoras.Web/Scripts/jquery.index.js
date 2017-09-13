@@ -7,7 +7,8 @@ $(document).ready(function() {
     $('#menu li').mouseenter(function () {
         $('.submenu').css('display', 'none');
         var submenu = $(this).parent().parent().find('#submenu' + ($(this).index() + 1));
-        submenu.stop().fadeTo('fast', 1).css({ 'width': $(window).width() });
+        submenu.attr("style", "width: " + ($(window).width()) + "px !important");
+        submenu.stop().fadeTo('fast', 1);
         var submenuLeft = ($(this).offset().left + ($(this).outerWidth() / 2)) - (submenu.outerWidth() / 2);
 
         desfase = ($(window).width() - 1280) / 2;

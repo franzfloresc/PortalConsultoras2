@@ -42,7 +42,7 @@
 	position: relative;
 }
 .revistadigital .revistadigital-content img {
-    max-width: 100% !important;
+  max-width: 100% !important;
     height: 100%;
 }
 .revistadigital p.marca {
@@ -644,10 +644,72 @@
 .BloqueLandingRD{
     margin-top:35px;
 }
+.BloqueLandingRD .cantidad_productos_fav {
+    padding-bottom: 20px;
+    float: none; 
+    text-align: right;
+}
+.BloqueLandingRD .rd-cantidad{
+    display: inline-block;
+}
+.BloqueLandingRD .rd-filtro-limpiar{
+    display: inline-block; margin: 0 0 0 15px;
+}
+
+.BloqueLandingRD .fix-search {
+    position: fixed;
+    top: 61px;
+    width: 100%;
+    background: #000;
+    /*margin: 0 -80px;*/
+    left: 0;
+    padding: 0px 80px;
+    z-index: 100;
+    box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -webkit-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+    -moz-box-shadow: 0 4px 4px 0 rgba(126, 126, 126, 0.5);
+}
+.BloqueLandingRD .fix-search .cantidad_productos_fav {
+    background: transparent;
+    padding: 0 0 0 7px;
+    color: #fff;
+    float: right;
+    text-align: right;
+    margin-left: 2%;
+}
+.BloqueLandingRD .fix-search .clear {
+        clear: initial;
+}
+.BloqueLandingRD .fix-search .rd-busqueda-filtros{
+    padding: 15px 0;
+    overflow:hidden;
+}
+
+.BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-seccion2 {
+    width: 75%;
+    overflow: hidden;
+}
+.BloqueLandingRD .fix-search .rd-busqueda-filtros .rd-filtros {
+    width: 75%;
+    overflow: hidden;
+    float: left;
+}
+
+.BloqueLandingRD .fix-search .rd-cantidad{
+    display: block;
+}
+
+.BloqueLandingRD .fix-search span {
+    color: #ffffff !important;
+}
+
+    .BloqueLandingRD .fix-search .btn_diagonal {
+        margin-top: 15px;
+    }
 .titulo_pagina{
     float:left;
-    width:300px;
-    height:40px;
+    width:auto;
+    height:auto;
     color:white;
     font-family:'Lato';
     font-size:17px;
@@ -655,11 +717,13 @@
     letter-spacing:2px;
     font-weight:700;
     padding-left:20px;
+    padding-right:20px;
     background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
 }
+
 .marca_ept{
     display:block;
-    width:15%;
+    min-width:15%;
     height:40px;
     color:black;
     font-family:'Lato';
@@ -700,19 +764,15 @@
     width: auto;
     overflow: hidden;
     display: inline-block;
-    margin-right: 2%;
-    margin-left: 2%;
-    padding-bottom: 18px;
-    margin-bottom:10px;
+    padding : 0 20px 25px 20px;
 }
 .revistadigital-landing .content_item_carrusel{   
     margin-right: 0;
     width:100%;
     min-width: 230px;
-    padding-top: 10px;
-    padding-right: 16px;
-    padding-left:16px;
-    height: 390px;
+    /*padding-top: 10px;*/
+    padding-right: 10px;
+    padding-left:10px;
 }
 /*.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
@@ -723,7 +783,7 @@
 }
 
 .revistadigital-landing .producto_img_home img {
-    height: 150px;
+    height: 100%;
     width: auto;
 }
 
@@ -810,7 +870,7 @@
 }
 
 .revistadigital .boxoffer.boxOfferPedido{
-    top:366px;
+    top: 300px;
 }
 
 .revistadigital .revistadigital-content{
@@ -1445,6 +1505,15 @@
     color: #fff;
     font-size: 13px;
 }
+
+.rd_btn_rojo_right {
+    background: #e81c36;
+    width: 220px;
+    right: 0;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+}
 .rd_btn_rojo:after {
     background: rgba(233,27,55,1);
     background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
@@ -1719,14 +1788,7 @@
     margin-top:50px;
     position:relative;
 }
-.content_texto_gana{
-    margin: 0 auto;
-    float: left;
-    width: -moz-calc(100% -765px);
-    width: calc(100% - 765px);
-    width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
-}
+
 .titulo_gana_landing{
     font-family:'Lato';
     font-size:16px;
@@ -1948,7 +2010,7 @@
 .rd_ver_mas:after {
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 6px 10px;
+    background-size: 6px 8px;
     display: inline-block;
     width: 6px;
     position: absolute;
@@ -1956,6 +2018,7 @@
     content: "";
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 10;
 }
 
 .rd_ver_mas:hover:after {
@@ -2034,17 +2097,11 @@
     }
 }
 
-
 .flex-container {
     flex-wrap: wrap;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-}
-
-.row {
-    width: auto;
-    border: 1px solid blue;
 }
 
 .flex-item {
@@ -2088,7 +2145,7 @@
     right: 0;
     height: 120px;
     left: 300px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 100;
     padding-top: 24px;
     line-height: 24px;
@@ -2100,10 +2157,37 @@
     text-transform: uppercase;
 }
 
+.hblock_title_perdio {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+.hblock_title_perdio2 {
+    height: 120px;
+    left: 300px;
+    font-size: 18px;
+    font-weight: 100;
+    padding-top: 24px;
+    line-height: 24px;
+    letter-spacing: 2px;
+}
+.hblock_title_perdio3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
 .content_item_home_bpt {
     background: white;
     /*border: 1px solid #e7e1e1;*/
-    border: 1px #000000 solid;
+    /*border: 1px #000000 solid;*/
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -2287,7 +2371,7 @@
 
 .home_rd .btn_diagonal:after {
     background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);rgba(233,27,55,1)
+    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
     background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
 }
 
@@ -2396,16 +2480,16 @@
     top: 50%;
     margin: auto;
     margin-top: -295px;
-    padding: 40px;
+    padding: 25px 40px;
     text-align: center;
  }
  .popup_rd_bloqueado .box_producto {
- 	max-height: 305px;
- 	margin: 15px 0;
+ 	max-height: 320px;
+ 	margin: 10px 0;
  	background-color: #fff;
  }
  .popup_rd_bloqueado .popup_text {
- 	margin: 10px 48px;
+ 	margin: 7px 48px;
     font-size: 16px;
     line-height: 20px;
     color: black;
@@ -2423,11 +2507,237 @@
     content: "";
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 10px 14px;
+    background-size: 8px 12px;
     display: inline-block;
     width: 10px;
     position: absolute;
     height: 14px;
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 2 !important;
+}
+
+#bc_content_oferta {
+    width: 100%;
+    margin-top: 2px;
+}
+
+#bc_promo {
+    width: 26%;
+    float: left;
+    background: white;
+    padding: 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#bc_promo .bc_promo_contenido {
+    float: right;
+    width: 100%;
+}
+
+#bc_promo .bc_promo_contenido p.ven-conoce {
+    display: inline-block;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid white;
+    letter-spacing: 0.75pt;
+    text-align: center;
+    padding: 0px 50px;
+    /* margin: 20px; */
+    margin-bottom: 5px;
+}
+
+#bc_promo .bc_promo_contenido a.btn-descubre {
+    background: black;
+    color: white;
+    letter-spacing: 0.75pt;
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    display: block;
+    margin: auto;
+    width: 200px;
+    text-align: center;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+#bc_promo .bc_promo_contenido a.ver-mas {
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    /* border-bottom: 2px solid white; */
+    letter-spacing: 0.75pt;
+    text-align: center;
+    display: block;
+    text-align: center;
+    width: 200px;
+    margin: auto;
+}
+
+#bc_promo .bc_promo_contenido a.ver-mas img {
+    width: 7px;
+    margin-top: 4px;
+    position: absolute;
+    margin-left: 5px;
+}
+
+#bc_promo .bc_promo_contenido img.modelo {
+    max-width: 100% !important;
+    display: block;
+    margin: auto;
+    height: auto;
+}
+
+/**/
+
+.bc_productos {
+    width: 68%;
+    float: left;
+    height: 452px;
+    background: #f0f0f0;
+}
+
+.bc_productos .bc_productos_contenido {
+    overflow-y: auto;
+    height: 485.98px;
+    padding: 20px;
+    text-align: center;
+}
+
+.bc_productos .bc_productos_contenido .grid-item {
+    display: inline-block;
+    /*padding-left: 20px;*/
+    /* margin: 0 0 1.5em; */
+    width: auto;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    /*min-width: 300px;*/
+    /* margin-right: 20px; */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
+    font-family: 'lato';
+    font-weight: 700;
+    font-size: 10px;
+    text-decoration: none;
+    color: black;
+    /* border-bottom: 2px solid white; */
+    letter-spacing: 0.75pt;
+    text-align: center;
+    display: block;
+    text-align: left;
+    width: 100%;
+    padding: 0px 22px;
+    margin-bottom: 10px;
+}
+
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
+    width: 7px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.bc_productos .bc_productos_contenido .grid-item .revistadigital-landing {
+    width: 100% !important;
+    overflow: hidden !important;
+    display: inline-block !important;
+    margin-right: 0% !important;
+    margin-left: 0% !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.bc_productos .bc_productos_contenido .grid-item--width2 {
+    width: 400px;
+}
+
+.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
+    width: 140px !important;
+}
+
+.bc_productos .bc_productos_contenido .clearfix {
+    clear: both;
+}
+.bc_content_item_carrusel {
+    width: initial !important;
+}
+/**/
+#bc_content_oferta .clearfix {
+    clear: both;
+}
+
+.producto_img_home_bpt {
+    position: relative;
+    height: 135px;
+    text-align: center;
+    margin: 10px 10px 0px 10px;
+}
+
+.producto_img_home_bpt img {
+    width: auto;
+    height: 93.5%;
+}
+.producto_img_home_bpt:hover .ver_detalle_carrusel{
+    opacity: 1;
+}
+
+.producto_nombre_descripcion_bpt{
+    width:100%;
+    padding-left:16px;
+    padding-right:16px;
+    /*margin-bottom: 10px;*/
+    height:auto;
+    font-family:'Lato';
+    letter-spacing:0.2px;
+    text-align:center;
+    position:relative;
+}
+
+.producto_nombre_descripcion_bpt h6{
+    margin:0px;
+    padding:0px;
+    font-size:11px;
+    color:#000;
+    /*margin-top:8px;*/
+    margin-bottom:2px;
+    text-transform:uppercase;
+}
+
+.producto_nombre_descripcion_bpt .nombre_producto{
+    padding: 0;
+    font-size: 13px;
+    margin: 0 auto;
+    max-width: 90%;
+    overflow: hidden;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    line-height:18px;
+}
+
+.producto_precio_bpt {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-family: 'Lato';
+    letter-spacing: 0.2px;
+    color: #000;
+}
+
+
+.block_inscribete_predio {
+    margin: 15px 0px;
 }

@@ -104,8 +104,6 @@ namespace Portal.Consultoras.Entities
         public string DescripcionEstrategia { get; set; } //JICM_R2469
         [DataMember]
         public int TipoEstrategiaID { get; set; }//LR_R2621
-        [DataMember]
-        public string TipoEstrategiaCodigo { get; set; }
 
         [DataMember]
         public bool IndicadorOfertaCUV { get; set; } /*R20150701*/
@@ -148,7 +146,6 @@ namespace Portal.Consultoras.Entities
         public BEIndicadorPedidoAutentico IndicadorPedidoAutentico { get; set; }
         [DataMember]
         public int CodigoCatalago { get; set; }
-
 
         public BEPedidoWebDetalle()
         { }
@@ -214,10 +211,6 @@ namespace Portal.Consultoras.Entities
             // 2621
             if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = Convert.ToInt32(row["TipoEstrategiaID"]);
-
-            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
-                TipoEstrategiaCodigo = Convert.ToString(row["TipoEstrategiaCodigo"]);
-
             /*R20150701*/
             if (DataRecord.HasColumn(row, "IndicadorOfertaCUV"))
                 IndicadorOfertaCUV = row["IndicadorOfertaCUV"] == DBNull.Value ? false : Convert.ToBoolean(row["IndicadorOfertaCUV"]);
@@ -336,9 +329,6 @@ namespace Portal.Consultoras.Entities
             // 2621
             if (DataRecord.HasColumn(row, "TipoEstrategiaID"))
                 TipoEstrategiaID = row["TipoEstrategiaID"] == DBNull.Value ? 0 : Convert.ToInt32(row["TipoEstrategiaID"]);
-
-            if (DataRecord.HasColumn(row, "TipoEstrategiaCodigo"))
-                TipoEstrategiaCodigo = Convert.ToString(row["TipoEstrategiaCodigo"]);
 
             /*R20150701*/
             if (DataRecord.HasColumn(row, "IndicadorOfertaCUV"))
