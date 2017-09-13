@@ -37380,8 +37380,10 @@ h1#penmostreo .campana {
 .imagen_dias_intriga_inicio{
     display: block;
     width: 100vw;
-   height:590px;
+    height:590px;
     object-fit: cover;
+    font-size:55px;
+    top: 36%;
 }
 .dias_inicio_landing {
     font-size: 78.4px;
