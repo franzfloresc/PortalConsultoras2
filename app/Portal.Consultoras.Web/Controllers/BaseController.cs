@@ -2951,10 +2951,10 @@ namespace Portal.Consultoras.Web.Controllers
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
@@ -2972,7 +2972,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
                 case Constantes.UrlMenuContenedor.RdInicio:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
