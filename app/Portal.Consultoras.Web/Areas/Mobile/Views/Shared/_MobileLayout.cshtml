@@ -385,6 +385,7 @@
                                 @if (ViewBag.MostrarOfertaDelDia == true)
                                 {
                                     <li>
+
                                         <div id="BloqueMobileOfertaDia" class="BloqueOfertaDia" style="background-color:@ofertaDelDia.ColorFondo1">
                                             <div style="width:90%; margin:0 auto;" id="content_oferta_dia_mobile">
                                                 <div class="solo_hoy_mobile">
@@ -394,6 +395,7 @@
                                                     <img src="@ofertaDelDia.ImagenBanner" alt="Solo Hoy" id="img-banner-odd" />
                                                 </div>
                                                 <div class="clock" data-total-seconds="@ofertaDelDia.TeQuedan.TotalSeconds"></div>
+
                                                 <div class="float_left" style="width:50%; margin-left:1%;">
                                                     <div class="nombre_set_oferta_mobile">@ofertaDelDia.NombreOferta <br /><b>@ViewBag.Simbolo @ofertaDelDia.PrecioOfertaFormat</b></div>
 
@@ -424,6 +426,8 @@
                                     </li>
                                 }
                             </ul>
+
+
                         </div>
                     </div>
                 }
@@ -726,17 +730,6 @@
     @if (ViewBag.MostrarOfertaDelDia == true)
     {
         <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
-
-        <script type="text/javascript">
-                $(document).ready(function () {
-                        var totalSeconds = parseInt($('.clock').data('total-seconds'));
-                        $('.clock').html('');
-                        var clock = $('.clock').FlipClock(totalSeconds, {
-                                clockFace: 'HourlyCounter',
-                                countdown: true
-                        });
-                });
-        </script>
     }
 
     <script type="text/javascript">
@@ -753,6 +746,7 @@
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var urlContenedorOfertasMobile = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';

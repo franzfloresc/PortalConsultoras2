@@ -60,7 +60,7 @@
         cursor: pointer;
         text-align: center;
         background: rgba(255, 255, 255, 0.50);
-        font-size: 8px;
+        font-size: 13px;
         color: white;
         text-decoration: none;
         letter-spacing: 2px;
@@ -220,7 +220,7 @@ margin-top: 10px !important;
     padding: 5px;
     display: block;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     text-transform: uppercase;
     transition: .3s;
 }
@@ -350,6 +350,10 @@ width:auto !important;
     .bc_mobile-texto {
         width: 68% !important;
     }
+        .bc_mobile-texto .mobile-txt p{
+            text-align:center;
+            font-size:9px;
+        }
   		
 }
 @media (max-width:360px) {
@@ -358,5 +362,10 @@ width:auto !important;
     }
     .bc_mobile-texto {
         width: 64% !important;
+    }
+}
+@media (max-width:359px) {
+    .slick-list {
+        padding: 8px 0px !important;
     }
 }

@@ -1267,8 +1267,6 @@ function CargarBanners() {
                         vpromotionsTagged.push(vpromotions[slider.currentSlide]);
                     }
                 });
-                
-
             }
         }
     });

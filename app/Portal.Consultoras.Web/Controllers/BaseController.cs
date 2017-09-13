@@ -805,6 +805,40 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var confiModel in lista)
             {
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
+                {
+                    if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
+                        continue;
+
+                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenFondo, confiModel.DesktopFondoBanner) ;
+                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_ImagenLogo, confiModel.DesktopLogoBanner);
+                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_TituloBanner, confiModel.DesktopTituloBanner);
+                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
+
+                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenFondo, confiModel.MobileFondoBanner);
+                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_ImagenLogo, confiModel.MobileLogoBanner);
+                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
+                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
+
+                }
+
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
+                {
+                    if (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+                        continue;
+
+                    confiModel.DesktopFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenFondo, confiModel.DesktopFondoBanner);
+                    confiModel.DesktopLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_ImagenLogo, confiModel.DesktopLogoBanner);
+                    confiModel.DesktopTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_TituloBanner, confiModel.DesktopTituloBanner);
+                    confiModel.DesktopSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_D_SubTituloBanner, confiModel.DesktopSubTituloBanner);
+
+                    confiModel.MobileFondoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenFondo, confiModel.MobileFondoBanner);
+                    confiModel.MobileLogoBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_ImagenLogo, confiModel.MobileLogoBanner);
+                    confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
+                    confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
+
+                }
+
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.ShowRoom)
                 {
                     if (Session["EsShowRoom"] == null || (Session["EsShowRoom"] != null && Session["EsShowRoom"].ToString() != "1"))
@@ -859,7 +893,6 @@ namespace Portal.Consultoras.Web.Controllers
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;
         }
-
         
         public List<ConfiguracionPaisModel> BuildMenuContenedor(List<ConfiguracionPaisModel> lista)
         {
@@ -1127,6 +1160,40 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
+        #endregion
+
+        #region eventoFestivo
+
+        public EventoFestivoModel EventoFestivoSegunNombre(string nombre)
+        {
+            var eventoFestivo = new EventoFestivoModel();
+            try
+            {
+                eventoFestivo = userData.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return eventoFestivo;
+        }
+
+        public string EventoFestivoPersonalizacionSegunNombre(string nombre, string valorBase = "")
+        {
+            var eventoFestivo = new EventoFestivoModel();
+            try
+            {
+                eventoFestivo = userData.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            var valor = Util.Trim(eventoFestivo.Personalizacion);
+            valor = valor == "" ? Util.Trim(valorBase) : valor;
+            
+            return valor;
+        }
         #endregion
 
         #region UserData        

@@ -594,7 +594,7 @@ function ObtenerComunicadosPopup() {
             CloseLoading();
 
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response)
+                armarComunicadosPopup(response.data)
             }
         },
         error: function (data, error) {
@@ -603,19 +603,18 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(response){
-    if (response == null) return;
+function armarComunicadosPopup(comunicado){
+    if (comunicado == null)
+        return;
 
-    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(comunicado.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
-    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
-    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
     $(window).resize();
-
-    //ABRIR
 }
 
 function grabarComunicadoPopup() {

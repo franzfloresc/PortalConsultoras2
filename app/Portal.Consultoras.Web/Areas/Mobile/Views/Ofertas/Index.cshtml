@@ -11,12 +11,14 @@
 <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     <style>
-        
+        .slick-slider{
+            height:40px !important;
+        }
     </style>
 }
 @foreach (var seccion in Model.ListaSeccion)
 {
-    <div data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
+    <div id="@seccion.Codigo" data-seccion="@seccion.Codigo" data-campania="@seccion.CampaniaID">
         <div data-seccion-content="">
             @Html.Partial("~/Areas/Mobile/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
         </div>
