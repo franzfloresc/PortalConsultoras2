@@ -218,9 +218,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
             string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Index") return true;
-            //if (controllerName == "CatalogoPersonalizado" && actionName == "Producto") return true;
-            //if (controllerName == "ShowRoom") return true;
             if (controllerName == "Bienvenida" && actionName == "Index") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
@@ -228,6 +225,9 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (controllerName == "SeguimientoPedido") return true;
             if (controllerName == "PedidosFacturados") return true;
             if (controllerName == "OfertaLiquidacion") return true;
+            if (controllerName == "Ofertas") return true;
+            if (controllerName == "OfertaDelDia") return true;
+
             return false;
         }
 
@@ -238,9 +238,11 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
             if (controllerName == "OfertaLiquidacion") return true;
             if (controllerName == "CatalogoPersonalizado") return true;
-            //if (controllerName == "MisPedidos") return true;
             if (controllerName == "Pedido") return true;
             if (controllerName == "ShowRoom") return true;
+            if (controllerName == "Ofertas") return true;
+            if (controllerName == "OfertaDelDia") return true;
+
             return false;
         }
 
