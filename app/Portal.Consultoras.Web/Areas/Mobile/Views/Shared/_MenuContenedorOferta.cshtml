@@ -2,7 +2,6 @@
 @using Portal.Consultoras.Web.Models
 @using Portal.Consultoras.Web.Models.Layout
 
-
 @{
     var menuList = (List<ConfiguracionPaisModel>)ViewBag.MenuContenedor ?? new List<ConfiguracionPaisModel>();
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
@@ -15,69 +14,71 @@
     var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
-<div class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-    @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
-    {
-        <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
-    }
-    <div class="bc_mobile-texto">
-        @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "" || menuActivo.ConfiguracionPais.MobileTituloBanner != "")
+<div id="seccion-menu-mobile" style="z-index: 10">
+    <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
+        @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
         {
-            <div class="mobile-txt">
-                @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "")
-                {
-                    <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
-                }
-                @if (menuActivo.ConfiguracionPais.MobileSubTituloBanner != "")
-                {
-                    <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
-                }
+            <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
+        }
+        <div class="bc_mobile-texto">
+            @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "" || menuActivo.ConfiguracionPais.MobileTituloBanner != "")
+            {
+                <div class="mobile-txt">
+                    @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "")
+                    {
+                        <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
+                    }
+                    @if (menuActivo.ConfiguracionPais.MobileSubTituloBanner != "")
+                    {
+                        <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
+                    }
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+        <div class="bc_para_ti-menu" data-layout-menu1="">
+            @if (menuActivo.CampaniaX0 > 0)
+            {
+                <ul>
+                    <li data-campania="@menuActivo.CampaniaX0">
+                        <a href="@Url.Action("Index", "Ofertas", new { area = "Mobile" })" class="@classMenuX">
+                            <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover menuactivo">
+                            <span>C-@(menuActivo.CampaniaX0 % 100)</span>
+                        </a>
+                    </li><li data-campania="@menuActivo.CampaniaX1">
+                        <a href="@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })" class="@classMenuX1">                    
+                            <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover">
+                            <span>V-@(menuActivo.CampaniaX1 % 100)</span>
+                        </a>
+                    </li><li data-campania="0" data-url="">
+                        <a href="@Url.Action("Informacion", "RevistaDigital", new { area = "Mobile" })" class="@classMenuInfo">
+                            <span>SABER MÁS</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+        </div>
+    </div>
+    <div data-layout-menu2="">
+        @if (menuList.Any())
+        {
+            <div class="bc_para_ti-menu-opciones">
+                <ul style="width: 100%; height: 30px; background: #fff;">
+                    @foreach (var menuhijo in menuList)
+                    {
+                        var claseActivo = "";
+                        claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                        <li data-campania="@menuhijo.CampaniaId" data-activo="1"
+                            data-codigo="@menuhijo.Codigo"
+                            data-es-ancla="@menuhijo.EsAncla"
+                            onclick="MenuContenedorClick(this, '@menuhijo.UrlMenuMobile')">
+                            <a href="javascript:;" class="@claseActivo">
+                                <p>@menuhijo.MobileTituloMenu</p>
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         }
     </div>
-    <div class="clear"></div>
-    <div class="bc_para_ti-menu" data-layout-menu1="">
-        @if (menuActivo.CampaniaX0 > 0)
-        {
-            <ul>
-                <li data-campania="@menuActivo.CampaniaX0">
-                    <a href="@Url.Action("Index", "Ofertas", new { area = "Mobile" })" class="@classMenuX">
-                        <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover menuactivo"><img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu">
-                        <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
-                    </a>
-                </li><li data-campania="@menuActivo.CampaniaX1">
-                    <a href="@Url.Action("Revisar", "Ofertas", new { area = "Mobile" })" class="@classMenuX1">
-                        <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover"><img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu">
-                        <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
-                    </a>
-                </li><li data-campania="0" data-url="">
-                    <a href="@Url.Action("Informacion", "RevistaDigital", new { area = "Mobile" })" class="@classMenuInfo">
-                        <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
-                    </a>
-                </li>
-            </ul>
-        }
-    </div>
-</div>
-<div data-layout-menu2="">
-    @if (menuList.Any())
-    {
-        <div class="bc_para_ti-menu-opciones">
-            <ul>
-                @foreach (var menuhijo in menuList)
-                {
-                    var claseActivo = "";
-                    claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
-                    <li data-campania="@menuhijo.CampaniaId" data-activo="1"
-                        data-codigo="@menuhijo.Codigo"
-                        data-es-ancla="@menuhijo.EsAncla"
-                        onclick="MenuContenedorClick(event, '@menuhijo.UrlMenu')">
-                        <a href="javascript:;" class="@claseActivo">
-                            <p>@menuhijo.MobileTituloMenu</p>
-                        </a>
-                    </li>
-                }
-            </ul>
-        </div>
-    }
 </div>
