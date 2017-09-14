@@ -45,15 +45,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
-            if (model.DesktopTituloMenu.Contains("|")) 
+            if (!string.IsNullOrEmpty(model.DesktopTituloMenu) && model.DesktopTituloMenu.Contains("|")) 
             {
-                model.DesktopTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
                 model.DesktopSubTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+                model.DesktopTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
             }
-            if (model.MobileTituloMenu.Contains("|"))
+            if (!string.IsNullOrEmpty(model.MobileTituloMenu) && model.MobileTituloMenu.Contains("|"))
             {
-                model.MobileTituloMenu = model.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
                 model.MobileSubTituloMenu = model.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+                model.MobileTituloMenu = model.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
             }
             return PartialView("Partials/MantenimientoPalanca", model);
         }
