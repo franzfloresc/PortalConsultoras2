@@ -40,11 +40,21 @@ namespace Portal.Consultoras.Web.Controllers
             AdministrarPalancaModel model = new AdministrarPalancaModel();
             using (SACServiceClient sv = new SACServiceClient())
             {
-                ServiceSAC.BEConfiguracionPais beConfiguracionPais = sv.GetConfiguracionPais(UserData().PaisID, idConfiguracionPais);
-                model = Mapper.Map<ServiceSAC.BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
+                BEConfiguracionPais beConfiguracionPais = sv.GetConfiguracionPais(UserData().PaisID, idConfiguracionPais);
+                model = Mapper.Map<BEConfiguracionPais, AdministrarPalancaModel>(beConfiguracionPais);
             }
             model.ListaCampanias = ListCampanias(userData.PaisID);
             model.ListaTipoPresentacion = ListTipoPresentacion();
+            if (model.DesktopTituloMenu.Contains("|")) 
+            {
+                model.DesktopTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
+                model.DesktopSubTituloMenu = model.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+            }
+            if (model.MobileTituloMenu.Contains("|"))
+            {
+                model.MobileTituloMenu = model.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
+                model.MobileSubTituloMenu = model.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+            }
             return PartialView("Partials/MantenimientoPalanca", model);
         }
             
@@ -160,9 +170,12 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesPalanca(model);
+                if (!String.IsNullOrEmpty(model.DesktopSubTituloMenu)) model.DesktopTituloMenu += "|" + model.DesktopSubTituloMenu;
+                if (!String.IsNullOrEmpty(model.MobileSubTituloMenu)) model.MobileSubTituloMenu += "|" + model.MobileSubTituloMenu;
+
                 using (SACServiceClient sv = new SACServiceClient())
                 {
-                    var entidad = Mapper.Map<AdministrarPalancaModel, ServiceSAC.BEConfiguracionPais>(model);
+                    var entidad = Mapper.Map<AdministrarPalancaModel, BEConfiguracionPais>(model);
                     sv.UpdateConfiguracionPais(entidad);
                 }
                 return Json(new

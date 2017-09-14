@@ -903,7 +903,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ConfiguracionPaisModel config;
                 switch (configuracionPais.Codigo)
                 {
-                    case Constantes.ConfiguracionPais.Inicio:
+                    case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
