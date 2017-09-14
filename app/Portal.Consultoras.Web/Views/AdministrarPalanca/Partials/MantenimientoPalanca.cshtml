@@ -38,7 +38,7 @@
         @Html.TextBoxFor(m => m.Orden, true)
     </div>
 </div>
-<div class="div-3" style="display: inline-block; text-align: left; margin-bottom: 15px;">
+<div class="div-3" style="display: none; text-align: left; margin-bottom: 15px;">
     <div class="titG">Icono Menu:</div>
     <div style="display: inline-block;">
         @Html.HiddenFor(m => m.Logo, new { id = "nombre-icono" })
@@ -114,6 +114,14 @@
                 </div>
           
             </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Sub Título Menu:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.DesktopSubTituloMenu, new { @style = "width: 312px;" })
+                </div>
+
+            </div>
             @*<div class="div-3">
             </div>*@
             <div class="div-3">
@@ -157,6 +165,13 @@
                 <br />
                 <div class="titG selectP2 borde_redondeado" style="width: 312px;">
                     @Html.TextBoxFor(m => m.MobileTituloMenu, new { @style = "width: 312px;" })
+                </div>
+            </div>
+            <div class="div-3">
+                <div class="titG" style="padding-bottom: 0;">Sub Título Menu:</div>
+                <br />
+                <div class="titG selectP2 borde_redondeado" style="width: 312px;">
+                    @Html.TextBoxFor(m => m.MobileSubTituloMenu, new { @style = "width: 312px;" })
                 </div>
             </div>
             <div class="div-3">

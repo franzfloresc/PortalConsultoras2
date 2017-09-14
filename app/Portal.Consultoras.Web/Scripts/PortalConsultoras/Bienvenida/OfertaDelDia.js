@@ -62,7 +62,10 @@ $(document).ready(function () {
         }
     }
 
+
     self.CargarODDMobile = function () {
+        MostrarRelojOfertaDelDia($('.clock').data('total-seconds'));
+
         var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
 
         if ($(contenedorOfertas).length == 0)
@@ -75,6 +78,8 @@ $(document).ready(function () {
             dataType: 'json',
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
+                array_odd = response.data;
+
                 if (!EsValidoResponseGetOfertaDelDia(response))
                     return false;
                 var _data = response.data;
@@ -82,12 +87,25 @@ $(document).ready(function () {
                 RenderOfertaDelDiaMobile(_data, contenedorOfertas);
                 MostrarRelojOfertaDelDia(_data.TeQuedan.TotalSeconds);
 
-                array_odd = response.data;
+                $('#txtCantidad').val('1');
+                $('body').css({ 'overflow-y': 'auto' });
+
             },
             error: function (err) {
                 console.log(err);
             }
         });
+    }
+
+    function MostrarRelojOfertaDelDia(totalSegundos) {
+
+        $('.clock').each(function (index, elem) {
+            $(elem).FlipClock(totalSegundos, {
+                clockFace: 'HourlyCounter',
+                countdown: true
+            });
+        });
+
     }
 
     function EsValidoResponseGetOfertaDelDia(response) {
@@ -103,13 +121,6 @@ $(document).ready(function () {
         return true;
     }
 
-    function MostrarRelojOfertaDelDia(totalSegundos) {
-        var clock = $('.clock').FlipClock(totalSegundos, {
-            clockFace: 'HourlyCounter',
-            countdown: true
-        });
-    }
-
     function RenderOfertaDelDiaMobile(data, contenedorOfertas) {
         $(contenedorOfertas).hide();
 
@@ -119,6 +130,8 @@ $(document).ready(function () {
         data.ListaOfertas = AsignarClaseCssAPalabraGratisMobile(data.ListaOfertas);
 
         SetHandlebars(elements.ContenedorEstrategiaTemplateCarrusel, data, elements.ContenedorOfertaDelDiaMobile);
+
+        ConfigurarSlick();
     }
 
     function AsignarPosicionAListaOfertas(listaOfertas) {
@@ -745,13 +758,6 @@ $(document).ready(function () {
         return qty;
     };
 
-    function MostrarContenedorOverOfertaDelDia() {
-        $('#txtCantidad').val('1');
-        $('body').css({ 'overflow-x': 'hidden' });
-        $('body').css({ 'overflow-y': 'hidden' });
-        $('#pop_oferta_mobile').toggle('slide', { direction: 'Right' }, 500);
-    }
-
     function ResetearCantidadesDelPopup() {
         $("#divOddCarrusel").find(".liquidacion_rango_cantidad_pedido.txtcantidad-odd").val(1);
         $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
@@ -782,7 +788,6 @@ $(document).ready(function () {
                 odd_mobile_google_analytics_promotion_impresion(list, evento, index)
         });
         $(elements.ContenedorOfertaDelDiaMobile).slick('slickGoTo', 0);
-
     }
     
     function AsignarClaseCssAPalabraGratisMobile(listaOfertas) {
@@ -808,7 +813,7 @@ $(document).ready(function () {
     }
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
-        document.location.href = urlContenedorOfertasMobile;
+        document.location.href = urlOfertaDelDiaMobile;
     });
 
     $("body").on("click", elements.BtnAgregarMobile, function (e) {
@@ -827,8 +832,6 @@ $(document).ready(function () {
     $("body").on("click", ".ver_detalle_carrusel", function (e) {
         $('#divOddCarruselDetalle').find('.liquidacion_rango_cantidad_pedido.txtcantidad-odd').val(1);
     });
-
-    //self.CargarODD();
 });
 
 function odd_desktop_procesar_evento_before_change(event, slick, currentSlide, nextSlide) {

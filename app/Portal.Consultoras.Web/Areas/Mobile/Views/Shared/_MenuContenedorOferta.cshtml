@@ -14,7 +14,7 @@
     var classMenuX1 = menuActivo.CampaniaId == menuActivo.CampaniaX1 ? "desplegable activo" : "desplegable";
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
-<div id="seccion-menu-mobile" style="z-index: 10; width:100%;">
+<div id="seccion-menu-mobile" style="z-index: 10; width: 100%;">
     <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
         @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
         {
@@ -63,11 +63,10 @@
         @if (menuList.Any())
         {
             <div class="bc_para_ti-menu-opciones">
-                <ul style="width: 100%; height: 30px; background: #fff;">
+                <ul style="width: 100%; height: 40px; background: #fff;">
                     @foreach (var menuhijo in menuList)
                     {
-                        var claseActivo = "";
-                        claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+                        var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
                         <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                             data-codigo="@menuhijo.Codigo"
                             data-es-ancla="@menuhijo.EsAncla"

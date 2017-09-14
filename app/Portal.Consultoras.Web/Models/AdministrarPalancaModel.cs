@@ -17,7 +17,9 @@ namespace Portal.Consultoras.Web.Models
         public bool Validado { get; set; }
         public bool TienePerfil { get; set; }
         public string MobileTituloMenu { get; set; }
+        public string MobileSubTituloMenu { get; set; }
         public string DesktopTituloMenu { get; set; }
+        public string DesktopSubTituloMenu { get; set; }
         public string Logo { get; set; }
         public int Orden { get; set; }
         public int DesdeCampania { get; set; }

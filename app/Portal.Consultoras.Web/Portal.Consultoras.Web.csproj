@@ -201,6 +201,7 @@
     <Compile Include="Areas\Mobile\Controllers\EstadoCuentaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\MenuController.cs" />
     <Compile Include="Areas\Mobile\Controllers\NotificacionesController.cs" />
+    <Compile Include="Areas\Mobile\Controllers\OfertaDelDiaController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertaLiquidacionController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasController.cs" />
     <Compile Include="Areas\Mobile\Controllers\OfertasParaTiController.cs" />
@@ -1212,6 +1213,8 @@
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_normal.png" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Esika\esika-venta.jpg" />
     <Content Include="Content\Images\Esika\esika_intriga.jpg" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
@@ -3489,6 +3492,9 @@
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\presentacion-seccion-oferta-del-dia.cshtml" />
     <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
+    <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

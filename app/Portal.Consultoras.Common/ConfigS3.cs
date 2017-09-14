@@ -24,6 +24,9 @@ namespace Portal.Consultoras.Common
             if (fileName.StartsWith(URL_S3))
                 return fileName;
 
+            if (fileName.StartsWith("http"))
+                return fileName;
+
             carpetaPais = carpetaPais ?? "";
             if (fileName.Trim() == "") return fileName;
             return URL_S3 + "/" + BUCKET_NAME + "/" + ROOT_DIRECTORY + "/" + ((carpetaPais != "") ? carpetaPais + "/" : "") + fileName;

@@ -805,6 +805,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             foreach (var confiModel in lista)
             {
+                confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
                 {
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
@@ -820,6 +821,8 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
+                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Descripcion = "";
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.Inicio)
@@ -837,6 +840,8 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
+                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Descripcion = "";
                 }
 
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.ShowRoom)
@@ -884,7 +889,9 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
-                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
+                SepararPipe(ref config);
+                RemplazarTagNombreConfiguracion(ref config);
+
                 listaMenu.Add(config);
             }
 
@@ -902,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ConfiguracionPaisModel config;
                 switch (configuracionPais.Codigo)
                 {
-                    case Constantes.ConfiguracionPais.Inicio:
+                    case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -1189,10 +1196,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            var valor = Util.Trim(eventoFestivo.Personalizacion);
-            valor = valor == "" ? Util.Trim(valorBase) : valor;
-            
-            return valor;
+            return Util.Trim(eventoFestivo.Personalizacion);
         }
         #endregion
 
@@ -2951,10 +2955,10 @@ namespace Portal.Consultoras.Web.Controllers
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
@@ -2972,7 +2976,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
                 case Constantes.UrlMenuContenedor.RdInicio:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
@@ -3056,6 +3060,35 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        private void SepararPipe(ref ConfiguracionPaisModel config)
+        {
+            if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
+            {
+                config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+            if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
+            {
+                config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+        }
+
+        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
+        {
+            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
+            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner);
+            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner);
+            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner);
+        }
+
+        private string RemplazaTag(string cadena)
+        {
+            cadena = cadena.Replace("#Nombre", userData.NombreCorto);
+            cadena = cadena.Replace("#nombre", userData.NombreCorto);
+            cadena = cadena.Replace("#NOMBRE", userData.NombreCorto);
+            return cadena;
+        }
     }
 }
 

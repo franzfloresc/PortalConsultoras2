@@ -9720,7 +9720,7 @@ span.icon-advertencia{
     width: 100%;
     /*overflow:hidden;*/
     padding-top:12px;
-    min-height: 166px;
+    min-height: 196px;
 }
 .solo_hoy_mobile{
     width: 70%;
@@ -9766,15 +9766,15 @@ span.icon-advertencia{
 }
 
 .content_pop_oferta_mobile{
-    display:none;
-    position:fixed;
+    /*display:none;*/
+    /*position:fixed;*/
     width:100%;
     height:100%;
     padding-bottom:45px;
     top:0;
     background:white;
     color:black;
-    z-index: 1100;
+    /*z-index: 1100;*/
     overflow-x: auto;
 }
 .header_pop_oferta{
