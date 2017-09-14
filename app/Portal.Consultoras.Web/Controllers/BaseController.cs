@@ -889,20 +889,9 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
-                if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
-                {
-                    config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
-                    config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
-                }
-                if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
-                {
-                    config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
-                    config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
-                }
+                SepararPipe(ref config);
+                RemplazarTagNombreConfiguracion(ref config);
 
-                config.DesktopTituloMenu = config.DesktopTituloMenu.Contains("|") ? config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault() : config.DesktopTituloMenu;
-                config.DesktopSubTituloMenu = config.DesktopTituloMenu.Contains("|") ? config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault() : config.DesktopTituloMenu;
-                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
                 listaMenu.Add(config);
             }
 
@@ -1207,12 +1196,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            var valor = Util.Trim(eventoFestivo.Personalizacion);
-            valor = valor == "" ? Util.Trim(valorBase) : valor;
-            valor = valor.Replace("#Nombre", userData.UsuarioNombre);
-            valor = valor.Replace("#NOMBRE", userData.UsuarioNombre);
-            valor = valor.Replace("#nombre", userData.UsuarioNombre);
-            return valor;
+            return Util.Trim(eventoFestivo.Personalizacion);
         }
         #endregion
 
@@ -3076,6 +3060,35 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        private void SepararPipe(ref ConfiguracionPaisModel config)
+        {
+            if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
+            {
+                config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+            if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
+            {
+                config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+        }
+
+        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
+        {
+            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
+            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner);
+            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner);
+            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner);
+        }
+
+        private string RemplazaTag(string cadena)
+        {
+            cadena = cadena.Replace("#Nombre", userData.NombreCorto);
+            cadena = cadena.Replace("#nombre", userData.NombreCorto);
+            cadena = cadena.Replace("#NOMBRE", userData.NombreCorto);
+            return cadena;
+        }
     }
 }
 
