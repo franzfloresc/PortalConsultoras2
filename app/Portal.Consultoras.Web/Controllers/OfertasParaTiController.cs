@@ -63,7 +63,7 @@ namespace Portal.Consultoras.Web.Controllers
             return Json(model, JsonRequestBehavior.AllowGet);
         }
         
-        [HttpGet]
+        [HttpPost]
         public JsonResult ConsultarEstrategiasOPT()
         {
             var model = new EstrategiaOutModel();
@@ -82,7 +82,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Json(model);
         }
 
 

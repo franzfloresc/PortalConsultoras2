@@ -31,19 +31,6 @@ var listaSeccion = {};
 var timer;
 
 $(document).ready(function () {
-    if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
-        $('.bc_para_ti-menu ul li a.activo').find('img.hover').css('display', 'none');
-        $('.bc_para_ti-menu ul li a.activo').find('img.default').css('display', 'none');
-        $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
-    }
-
-    if ($('.bc_para_ti-menu-opciones ul li a').hasClass('activo')) {
-        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'block');
-    }
-    else {
-        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'none');
-    }
-
     SeccionRender();
 });
 
@@ -67,8 +54,9 @@ function SeccionRender() {
 }
 
 function SeccionObtenerSeccion(seccion) {
-    var codigo = $.trim($(seccion).data("seccion"));
-    var campania = $.trim($(seccion).data("campania"));
+    var codigo = $.trim($(seccion).attr("data-seccion"));
+    var campania = $.trim($(seccion).attr("data-campania"));
+    var urlproducto = $.trim($(seccion).attr("data-url"));
     var detalle = {};
 
     if (codigo === "" || campania === "")
@@ -79,32 +67,38 @@ function SeccionObtenerSeccion(seccion) {
     });
 
     var param = {
-        codigo: codigo,
-        campaniaId: campania
+        Codigo: codigo,
+        CampaniaId: campania,
+        UrlObtenerProductos: urlproducto,
+        TemplateProducto: $.trim($(seccion).attr("data-templateProducto")),
+        TipoPresentacion: $.trim($(seccion).attr("data-tipoPresentacion")),
+        TipoEstrategia: $.trim($(seccion).attr("data-tipoEstrategia")),
+        CantidadProductos: $.trim($(seccion).attr("data-cantidadProductos"))
     }
+    return param;
 
-    $.ajax({
-        type: 'POST',
-        url: cUrl.UrlObtenerSeccion,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        async: false,
-        success: function (data) {
-            detalle = data.seccion || {};
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-
-    return detalle;
+    //$.ajax({
+    //    type: 'POST',
+    //    url: cUrl.UrlObtenerSeccion,
+    //    dataType: 'json',
+    //    contentType: 'application/json; charset=utf-8',
+    //    data: JSON.stringify(param),
+    //    async: false,
+    //    success: function (data) {
+    //        detalle = data.seccion || {};
+    //    },
+    //    error: function (error, x) {
+    //        console.log(error, x);
+    //    }
+    //});
+    //return detalle;
 }
 
 function SeccionCargarProductos(objConsulta) {
     
     objConsulta = objConsulta || {};
-    if (typeof objConsulta.UrlObtenerProductos === "undefined" || objConsulta.UrlObtenerProductos == null)
+    objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
+    if (objConsulta.UrlObtenerProductos === "")
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;

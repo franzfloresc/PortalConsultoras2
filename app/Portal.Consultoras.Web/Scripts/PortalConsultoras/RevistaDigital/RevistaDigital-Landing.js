@@ -181,7 +181,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
-    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaID || campaniaId || 0;
+    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaID || objSeccion.CampaniaId || campaniaId || 0;
 
     if (busquedaModel.CampaniaID <= 0) return false;
 
