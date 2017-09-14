@@ -794,11 +794,11 @@ namespace Portal.Consultoras.Common
         }
 
         public class SeccionBienvenida {
-            public const int Home = 0;
-            public const int Belcorp = 1;
-            public const int MisOfertas = 2;
-            public const int MisAcademia = 3;
-            public const int Footer = 4;
+            public const string Home = "Home";
+            public const string Belcorp = "Belcorp";
+            public const string MisOfertas = "MisOfertas";
+            public const string MisAcademia = "MiAcademia";
+            public const string Footer = "Footer";
         }
 
         public class EstadoRDSuscripcion

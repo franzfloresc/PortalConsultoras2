@@ -13,9 +13,19 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public string ConsultoraID { get; set; }
         [DataMember]
+        public int EstrategiaID { get; set; }
+        [DataMember]
         public int PaisID { get; set; }
         [DataMember]
         public int CampaniaID { get; set; }
+        [DataMember]
+        public int CampaniaIDFin { get; set; }
+        [DataMember]
+        public int NumeroPedido { get; set; }
+        [DataMember]
+        public int TipoEstrategiaID { get; set; }
+        [DataMember]
+        public int Orden { get; set; }
         [DataMember]
         public int ID { get; set; }
         [DataMember]
@@ -42,6 +52,10 @@ namespace Portal.Consultoras.Entities
         public string CodigoProducto { get; set; }
         [DataMember]
         public string ImagenURL { get; set; }
+        [DataMember]
+        public int EtiquetaID { get; set; }
+        [DataMember]
+        public int EtiquetaID2 { get; set; }
         [DataMember]
         public string EtiquetaDescripcion { get; set; }
         [DataMember]
@@ -88,11 +102,16 @@ namespace Portal.Consultoras.Entities
         public string DescripcionMarca { get; set; }
         [DataMember]
         public string DescripcionCategoria { get; set; }
+        [DataMember]
+        public string DescripcionEstrategia { get; set; }
         // FIN 
         /*R2621 -LR - Se añade la propiedad FlagNueva*/
         [DataMember]
         public int FlagNueva { get; set; }
-        
+
+        [DataMember]
+        public int TipoEstrategiaImagenMostrar { get; set; }
+
         [DataMember]
         public bool TieneStockProl { get; set; }
 
@@ -108,15 +127,20 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int EnMatrizComercial { get; set; }
         [DataMember]
-        public string CodigoTipoOferta { get; set; }
+        public string CodigoEstrategia { get; set; }
         [DataMember]
         public int TieneVariedad { get; set; }
 
         [DataMember]
         public string CodigoAgrupacion { get; set; }
 
-        
-        
+
+        [DataMember]
+        public BEEstrategiaDetalle EstrategiaDetalle { get; set; }
+
+        [DataMember]
+        public BETipoEstrategia TipoEstrategia { get; set; }
+
 
         /// <summary>
         /// Url para compartir
@@ -130,7 +154,7 @@ namespace Portal.Consultoras.Entities
         /// </summary>
         [DataMember]
         public bool ValidarPeriodoFacturacion { get; set; }
-        
+
         /// <summary>
         /// [Filtro] del usuario
         /// </summary>
@@ -140,13 +164,15 @@ namespace Portal.Consultoras.Entities
         /// <summary>
         /// [Filtro] del usuario
         /// </summary>
-        
+
         [DataMember]
         public int IdMatrizComercial { get; set; }
         [DataMember]
         public string FotoProducto01 { get; set; }
-        
-        
+
+        [DataMember]
+        public string CodigoTipoEstrategia { get; set; }
+
         [DataMember]
         public int ProdComentarioId { get; set; }
 
@@ -159,7 +185,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int PromValorizado { get; set; }
 
-        
+
         public BEFichaProducto(IDataRecord row, bool partial)
         {
 
@@ -184,13 +210,22 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
 
+            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
+                ImagenURL = row["ImagenURL"].ToString();
+
         }
 
         public BEFichaProducto(IDataRecord row, int liteVersion)
         {
+            if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
+                EstrategiaID = Convert.ToInt32(row["EstrategiaID"]);
+
             if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
                 Precio2 = Convert.ToDecimal(row["Precio2"]);
-            
+
+            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
+
             if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
                 CUV2 = row["CUV2"].ToString();
 
@@ -212,18 +247,30 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
-        
+
         public BEFichaProducto()
         { }
-        
+
         public BEFichaProducto(IDataRecord row)
         {
             if (DataRecord.HasColumn(row, "TipoTallaColor") && row["TipoTallaColor"] != DBNull.Value)
                 TipoTallaColor = row["TipoTallaColor"].ToString();
-            
+
+            if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
+                EstrategiaID = Convert.ToInt32(row["EstrategiaID"]);
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaID") && row["TipoEstrategiaID"] != DBNull.Value)
+                TipoEstrategiaID = Convert.ToInt32(row["TipoEstrategiaID"]);
+
             if (DataRecord.HasColumn(row, "CampaniaID") && row["CampaniaID"] != DBNull.Value)
                 CampaniaID = Convert.ToInt32(row["CampaniaID"]);
-            
+
+            if (DataRecord.HasColumn(row, "CampaniaIDFin") && row["CampaniaIDFin"] != DBNull.Value)
+                CampaniaIDFin = Convert.ToInt32(row["CampaniaIDFin"]);
+
+            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
+
             if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
                 Activo = Convert.ToInt32(row["Activo"]);
 
@@ -241,7 +288,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CUV") && row["CUV"] != DBNull.Value)
                 CUV1 = row["CUV"].ToString();
-            
+
+            if (DataRecord.HasColumn(row, "EtiquetaID") && row["EtiquetaID"] != DBNull.Value)
+                EtiquetaID = Convert.ToInt32(row["EtiquetaID"]);
+
             if (DataRecord.HasColumn(row, "Precio") && row["Precio"] != DBNull.Value)
                 Precio = Convert.ToDecimal(row["Precio"]);
 
@@ -250,7 +300,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
                 CUV2 = row["CUV2"].ToString();
-            
+
+            if (DataRecord.HasColumn(row, "EtiquetaID2") && row["EtiquetaID2"] != DBNull.Value)
+                EtiquetaID2 = Convert.ToInt32(row["EtiquetaID2"]);
+
             if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
                 Precio2 = Convert.ToDecimal(row["Precio2"]);
 
@@ -271,7 +324,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "Zona") && row["Zona"] != DBNull.Value)
                 Zona = row["Zona"].ToString();
-            
+
+            if (DataRecord.HasColumn(row, "Orden") && row["Orden"] != DBNull.Value)
+                Orden = Convert.ToInt32(row["Orden"]);
+
             if (DataRecord.HasColumn(row, "ID") && row["ID"] != DBNull.Value)
                 ID = Convert.ToInt32(row["ID"]);
 
@@ -314,11 +370,17 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionCategoria") && row["DescripcionCategoria"] != DBNull.Value)
                 DescripcionCategoria = row["DescripcionCategoria"].ToString();
+
+            if (DataRecord.HasColumn(row, "DescripcionEstrategia") && row["DescripcionEstrategia"] != DBNull.Value)
+                DescripcionEstrategia = row["DescripcionEstrategia"].ToString();
             //FIN 
             /*R2621LR - Flag Nueva*/
             if (DataRecord.HasColumn(row, "FlagNueva") && row["FlagNueva"] != DBNull.Value)
                 FlagNueva = Convert.ToInt32(row["FlagNueva"].ToString());
-            
+
+            if (DataRecord.HasColumn(row, "TipoEstrategiaImagenMostrar") && row["TipoEstrategiaImagenMostrar"] != DBNull.Value)
+                TipoEstrategiaImagenMostrar = Convert.ToInt32(row["TipoEstrategiaImagenMostrar"].ToString());
+
             if (DataRecord.HasColumn(row, "TieneStockProl") && row["TieneStockProl"] != DBNull.Value)
                 TieneStockProl = Convert.ToBoolean(row["TieneStockProl"].ToString());
 
@@ -333,10 +395,10 @@ namespace Portal.Consultoras.Entities
                 CodigoSAP = row["CodigoSAP"].ToString().Trim();
 
             if (DataRecord.HasColumn(row, "EnMatrizComercial") && row["EnMatrizComercial"] != DBNull.Value)
-                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]); 
+                EnMatrizComercial = Convert.ToInt32(row["EnMatrizComercial"]);
 
-            if (DataRecord.HasColumn(row, "CodigoTipoOferta") && row["CodigoTipoOferta"] != DBNull.Value)
-                CodigoTipoOferta = Convert.ToString(row["CodigoTipoOferta"]);
+            if (DataRecord.HasColumn(row, "CodigoEstrategia") && row["CodigoEstrategia"] != DBNull.Value)
+                CodigoEstrategia = Convert.ToString(row["CodigoEstrategia"]);
 
             if (DataRecord.HasColumn(row, "TieneVariedad") && row["TieneVariedad"] != DBNull.Value)
                 TieneVariedad = Convert.ToInt32(row["TieneVariedad"]);
@@ -358,6 +420,9 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PromValorizado"))
                 PromValorizado = Convert.ToInt32(row["PromValorizado"]);
+
+            EstrategiaDetalle = new BEEstrategiaDetalle(row);
+            TipoEstrategia = new BETipoEstrategia(row);
         }
     }
 }

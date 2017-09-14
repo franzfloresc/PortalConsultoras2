@@ -16,7 +16,7 @@ $(document).ready(function () {
         };
         me.Funciones = {
             InicializarEventos: function () {
-                              
+                //$('.btn_aceptar_no_hay_producto').on('click', me.Funciones.IrASeccionBienvenida());
             },
             Ready: function () {
                 if (!window.hasOwnProperty('detalleFichaProducto'))
@@ -24,14 +24,19 @@ $(document).ready(function () {
             },
             AlertaMensajeProductoNotFound: function () {
                 alert_msg("El producto que estás buscando no se encuentra en esta campaña!", "¡UPSS!", function () {
-                    if (!window.hasOwnProperty("seccionMisOfertas"))
-                        var seccionMisOfertas = '2';
-                    var url = "/Bienvenida?VerSeccion=" + seccionMisOfertas;
-                    window.location = url;
+                    me.Funciones.IrASeccionBienvenida();
                 });
             },
             AlertaMensaje: function (mensaje) {
                 alert_msg(mensaje);
+            },
+            IrASeccionBienvenida: function () {                
+                if (!window.hasOwnProperty("seccionMisOfertas")) {
+                    Object.defineProperty(window, 'seccionMisOfertas');
+                    seccionMisOfertas = 'MisOfertas';
+                }
+                var url = "/Bienvenida?verSeccion=" + seccionMisOfertas;
+                window.location = url;              
             },
             VerDetalleFichaProducto: function (ficha) {
                 ficha.Posicion = 1;
@@ -200,40 +205,46 @@ $(document).ready(function () {
                 
                 var cuvs = "";
                 var CodigoVariante = ficha.CodigoVariante;
-                if ((CodigoVariante == "1" || CodigoVariante == "2") && popup) {
+                if ((CodigoVariante == "2001" || CodigoVariante == "2003") && popup) {
                     var listaCuvs = $(objInput).parents("[data-item]").find("[data-tono][data-tono-select]");
                     if (listaCuvs.length > 0) {
                         $.each(listaCuvs, function (i, item) {
                             var cuv = $(item).attr("data-tono-select");
                             if (cuv != "") {
                                 cuvs = cuvs + (cuvs == "" ? "" : "|") + cuv;
-                                if (CodigoVariante == "2" || CodigoVariante == "1") {
-                                    cuvs = cuvs + ";" + $(item).find("#Tono_hd_MarcaID").val();
-                                    cuvs = cuvs + ";" + $(item).find("#Tono_hd_PrecioCatalogo").val();
+                                if (CodigoVariante == "2003") {
+                                    cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_MarcaID").val();
+                                    cuvs = cuvs + ";" + $(item).find("#Estrategia_hd_PrecioCatalogo").val();
                                 }
                             }
                         });
                     }
                 }
 
-                origenPedidoWebFichaProducto =
-                   $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
-                  || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
-                  || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
-                  || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
-                  || origenPedidoWebFichaProducto;
-                
+                if (!origenPedidoWebFichaProducto) {
+                    origenPedidoWebFichaProducto =
+                       $(objInput).parents("[data-item]").find("input.OrigenPedidoWeb").val()
+                      || $(objInput).parents("[data-item]").attr("OrigenPedidoWeb")
+                      || $(objInput).parents("[data-item]").attr("data-OrigenPedidoWeb")
+                      || $(objInput).parents("[data-OrigenPedidoWeb]").attr("data-OrigenPedidoWeb")
+                      || origenPedidoWebFichaProducto;
+                }
+
+                var tipoEstrategiaImagen = $(objInput).parents("[data-item]").attr("data-tipoestrategiaimagenmostrar");
+
                 var params = ({
                     listaCuvTonos: $.trim(cuvs),
+                    EstrategiaID: $.trim(ficha.EstrategiaID),
                     FlagNueva: $.trim(ficha.FlagNueva),
                     Cantidad: $.trim(cantidad),
                     OrigenPedidoWeb: $.trim(origenPedidoWebFichaProducto),
-                    ClienteID_: '-1'
+                    ClienteID_: '-1',
+                    tipoEstrategiaImagen: tipoEstrategiaImagen || 0
                 });
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'Pedido/AgregarProductoVC',
+                    url: baseUrl + 'Pedido/AgregarProducto',
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(params),

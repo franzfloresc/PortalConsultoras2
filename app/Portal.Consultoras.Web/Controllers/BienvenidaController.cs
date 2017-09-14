@@ -20,7 +20,7 @@ namespace Portal.Consultoras.Web.Controllers
 {
     public class BienvenidaController : BaseController
     {
-        public ActionResult Index(bool showPopupMisDatos = false, int verSeccion = 0)
+        public ActionResult Index(bool showPopupMisDatos = false, string verSeccion = "")
         {
             if (Request.Browser.IsMobileDevice)
                 return RedirectToAction("Index", "Bienvenida", new { area = "Mobile", verSeccion = verSeccion });

@@ -12,8 +12,9 @@ namespace Portal.Consultoras.Web.Models
         }
 
         public int CampaniaID { get; set; }
+        public int EstrategiaID { get; set; }
         public string CUV2 { get; set; }
-        public int TipoImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
+        public int TipoEstrategiaImagenMostrar { get; set; } // puede controlarse con el codigo de tipo estrategia
         public string ClaseEstrategia { get; set; }
         public int Posicion { get; set; }
         public bool TieneVerDetalle { get; set; }
@@ -34,14 +35,16 @@ namespace Portal.Consultoras.Web.Models
         public int TipoAccionAgregar { get; set; } // es para los diferentes botones que sale en la seccion de agrega, elegir tono, ...
         public string ClaseBloqueada { get; set; }
         public bool ProductoPerdio { get; set; }
+        public int TipoEstrategiaID { get; set; }
         public int FlagNueva { get; set; }
         public bool IsAgregado { get; set; }
-        public string CodigoTipoOferta { get; set; }
-        public string CodigoVariante { get; set; }        
+        public string CodigoEstrategia { get; set; }
+        public string CodigoVariante { get; set; }
         public List<string> ArrayContenidoSet { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
         public string TextoLibre { get; set; }
         public int IndicadorMontoMinimo { get; set; }
+        public int LimiteVenta { get; set; }
 
         public int MarcaID { get; set; }
         public string UrlCompartir { get; set; }

@@ -6,13 +6,15 @@ namespace Portal.Consultoras.Web.Models
 {
     [Serializable]
     public class FichaProductoModel
-    {        
+    {
         public int MarcaID { get; set; }
         public string ConsultoraID { get; set; }
+        public int EstrategiaID { get; set; }
         public int PaisID { get; set; }
         public int CampaniaID { get; set; }
         public int CampaniaIDFin { get; set; }
         public int NumeroPedido { get; set; }
+        public int TipoEstrategiaID { get; set; }
         public int Orden { get; set; }
         public int ID { get; set; }
         public decimal Precio { get; set; }
@@ -60,7 +62,7 @@ namespace Portal.Consultoras.Web.Models
         public string DescripcionEstrategia { get; set; }
         public string Descripcion { get; set; }
         public int FlagNueva { get; set; }
-        public int TipoImagenMostrar { get; set; }
+        public int TipoEstrategiaImagenMostrar { get; set; }
         public bool TieneStockProl { get; set; }
         public int FlagMostrarImg { get; set; }
         public bool IsAgregado { get; set; }
@@ -68,9 +70,9 @@ namespace Portal.Consultoras.Web.Models
         public int PuedeCambiarCantidad { get; set; }
         public int PuedeAgregar { get; set; }
         public int IsMobile { get; set; }
-        
+
         public string UrlCompartir { get; set; }
-        public string CodigoTipoOferta { get; set; }
+        public string CodigoEstrategia { get; set; }
         public List<ProductoModel> Hermanos { get; set; }
         public List<string> ListaDescripcionDetalle { get; set; }
 
@@ -85,7 +87,7 @@ namespace Portal.Consultoras.Web.Models
         public bool ProductoPerdio { get; set; }
 
         //public EstrategiaDetalleModelo EstrategiaDetalle { get; set; }
-        //public TipoEstrategiaModelo TipoEstrategia { get; set; }
+        public TipoEstrategiaModelo TipoEstrategia { get; set; }
 
         public decimal Ganancia
         {
@@ -104,7 +106,7 @@ namespace Portal.Consultoras.Web.Models
         public int CantComenRecom { get; set; }
         public int PromValorizado { get; set; }
         //public EstrategiaProductoComentarioModel UltimoComentario { get; set; }
-        public int Posicion {get;set;}
+        public int Posicion { get; set; }
         public string GananciaString { get; set; }
     }
 }

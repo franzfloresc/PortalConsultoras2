@@ -3,7 +3,7 @@
         <a class="cerrar_fichaProducto" href="javascript:;" data-popup-close="popupDetalleCarousel_lanzamiento" title="Cerrar">
             <img src="/Content/Images/cerrar_04_blanco.png" alt="Cerrar">
         </a>
-        <div data-item="" data-clone-content="{{ContentItem}}" data-cuv="">
+        <div data-item="" data-clone-content="{{ContentItem}}" data-tipoestrategiaimagenmostrar="{{TipoEstrategiaImagenMostrar}}" data-cuv="">
             <input type="hidden" class="OrigenPedidoWeb" value="{{OrigenPedidoWeb}}" />
             <div data-compartir-campos="" style="display:none;">
                 <input type="hidden" class="CUV" value="{{CUV2}}" />
@@ -39,7 +39,7 @@
             </div>
             <div class="content_right_ficha">
                 <div style="min-height:300px;">
-                    <div {{#iff CodigoVariante  '==' '2'}} class="content_left_ficha" {{/iff}}>
+                    <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_left_ficha" {{/iff}}>
                         {{#iff DescripcionMarca '!=' ''}}
                         <div class="marca_producto">{{DescripcionMarca}}</div>
                         {{/iff}}
@@ -48,7 +48,7 @@
                             {{DescripcionCompleta}}
                         </div>
                     </div>
-                    <div {{#iff CodigoVariante '==' '2'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
+                    <div {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}} class="content_right_ficha" style="text-align:right;" {{/iff}}>
                         <div class="precio_ficha_producto">
                             {{#iff Precio '>' 0}}
                             <span class="producto_precio_normal">{{Simbolo}} {{PrecioTachado}}</span><br />
@@ -59,7 +59,7 @@
                     <hr class="clear">
                     <div data-estrategia="{{CodigoVariante}}">
                         {{#iff CodigoVariante '!=' ''}}
-                        {{#iff CodigoVariante '==' '1'}}@*2001*@
+                        {{#iff CodigoVariante '==' '2001'}}
                         <div class="content_tonos" data-tono="" data-tono-select="{{CUVSelect}}" data-tono-digitable="1">
                             <div class="tono_select_opt">
                                 <div class="content_tono_elegido texto_sin_tono" data-tono-change="1">
@@ -91,15 +91,15 @@
                             <!--FIN-->
                         </div>
                         {{/iff}}
-                        {{#iff CodigoVariante '==' '2'}}@*'ContainsArray' '[2002,2003]'*@
+                        {{#iff CodigoVariante 'ContainsArray' '[2002,2003]'}}
                         <div class="titulo_contenido">CONTENIDO</div>
 
                         {{#each this.Detalle as |item1|}}
 
                         <div class="content_producto_tono" data-tono="" data-tono-select="{{item1.CUVSelect}}" data-tono-digitable="{{item1.Digitable}}" style="border-bottom: {{../Linea}};">
                             <div style="display: none;">
-                                <input type="hidden" name="nameMarcaID" id="Tono_hd_MarcaID" value="{{item1.MarcaID}}" />
-                                <input type="hidden" name="namePrecioCatalogo" id="Tono_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
+                                <input type="hidden" name="nameMarcaID" id="Estrategia_hd_MarcaID" value="{{item1.MarcaID}}" />
+                                <input type="hidden" name="namePrecioCatalogo" id="Estrategia_hd_PrecioCatalogo" value="{{item1.PrecioCatalogo}}" />
                             </div>
                             <div class="content_left_ficha" data-tono-visible="" style="width:{{#iff item1.Digitable '==' '1'}}50%,{{else}}100%{{/iff}}; margin-right:0">
                                 <div class="sub_nombre_producto">
@@ -142,7 +142,7 @@
                         <a class="menos" data-cantidad-agregar="-" data-bloqueada="{{ClaseBloqueada}}"><img src="/Content/Images/Esika/menos.png" alt=""></a>
                     </div>
                 </div>
-                <a class="boton_Agregalo_home ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto" 
+                <a class="boton_Agregalo_home ficha_btn_agregar {{ClaseBloqueada}}" data-bloqueada="{{ClaseBloqueada}}" id="tbnAgregarProducto"
                    onclick="javascript: FichaProducto.Funciones.ProductoAgregar(event, true);" style="cursor: pointer;">
                     AGRÉGALO
                 </a>

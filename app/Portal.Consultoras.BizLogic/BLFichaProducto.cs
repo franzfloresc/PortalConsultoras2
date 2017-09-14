@@ -54,28 +54,39 @@ namespace Portal.Consultoras.BizLogic
                     listaTieneStock = new List<Lista>();
                 }
 
-                fichasProductos.ForEach(fichaProducto =>
+                fichasProductos.ForEach(ficha =>
                 {
-                    if (fichaProducto.Precio2 > 0)
+                    if (ficha.Precio2 > 0)
                     {
-                        fichasProductosResult.Add(fichaProducto);
+                        var add = true;
+                        if (ficha.TipoEstrategiaImagenMostrar ==
+                            Constantes.TipoEstrategia.OfertaParaTi)
+                        {
+                            add = listaTieneStock.Any(p => p.Codsap.ToString() == ficha.CodigoProducto && p.estado == 1);
+                        }
+                        if (!add) return;
+
+                        if (ficha.Precio >= ficha.Precio2)
+                            ficha.Precio = Convert.ToDecimal(0.0);
+
+                        fichasProductosResult.Add(ficha);
                     }
                 });
             }
             else fichasProductosResult.AddRange(fichasProductos);
 
             var carpetaPais = Globals.UrlMatriz + "/" + codigoIso; //pais ISO
-            fichasProductosResult.ForEach(fichaProducto =>
+            fichasProductosResult.ForEach(ficha =>
             {
-                fichaProducto.CampaniaID = entidad.CampaniaID;
-                fichaProducto.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, fichaProducto.ImagenURL, carpetaPais);
-                fichaProducto.Simbolo = entidad.Simbolo;
-                fichaProducto.TieneStockProl = true;
-                fichaProducto.PrecioString = Util.DecimalToStringFormat(fichaProducto.Precio2, codigoIso);
-                fichaProducto.PrecioTachado = Util.DecimalToStringFormat(fichaProducto.Precio, codigoIso);
-                fichaProducto.FotoProducto01 = string.IsNullOrEmpty(fichaProducto.FotoProducto01) ? string.Empty : fichaProducto.FotoProducto01;
-                fichaProducto.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
-                fichaProducto.CodigoTipoOferta = Util.Trim(fichaProducto.CodigoTipoOferta);
+                ficha.CampaniaID = entidad.CampaniaID;
+                ficha.ImagenURL = ConfigS3.GetUrlFileS3(carpetaPais, ficha.ImagenURL, carpetaPais);
+                ficha.Simbolo = entidad.Simbolo;
+                ficha.TieneStockProl = true;
+                ficha.PrecioString = Util.DecimalToStringFormat(ficha.Precio2, codigoIso);
+                ficha.PrecioTachado = Util.DecimalToStringFormat(ficha.Precio, codigoIso);
+                ficha.FotoProducto01 = string.IsNullOrEmpty(ficha.FotoProducto01) ? string.Empty : ConfigS3.GetUrlFileS3(carpetaPais, ficha.FotoProducto01, carpetaPais);
+                ficha.URLCompartir = Util.GetUrlCompartirFB(codigoIso);
+                ficha.CodigoEstrategia = Util.Trim(ficha.CodigoEstrategia);
             });
             return fichasProductosResult;
         }
