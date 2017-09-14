@@ -19,7 +19,43 @@ go
 USE BelcorpGuatemala
 go
 
-USE BelcorpMexico
+USE BelcorpMexico_Plan20
+go
+
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	and TipoPersonalizacion = 'EVENTO')
+begin
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	and TipoPersonalizacion = 'EVENTO'
+end
+
+go
+
+if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	and TipoPersonalizacion = 'EVENTO')
+begin
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	and TipoPersonalizacion = 'EVENTO'
+end
+
+go
+
+if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	and TipoPersonalizacion = 'EVENTO')
+begin
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	and TipoPersonalizacion = 'EVENTO'
+end
+
+go
+
+if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+	and TipoPersonalizacion = 'EVENTO')
+begin
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+	and TipoPersonalizacion = 'EVENTO'
+end
+
 go
 
 USE BelcorpPanama

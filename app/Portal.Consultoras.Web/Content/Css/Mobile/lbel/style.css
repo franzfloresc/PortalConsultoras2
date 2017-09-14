@@ -9720,7 +9720,7 @@ span.icon-advertencia{
     width: 100%;
     /*overflow:hidden;*/
     padding-top:12px;
-    min-height: 166px;
+    min-height: 196px;
 }
 .solo_hoy_mobile{
     width: 70%;
@@ -9745,9 +9745,9 @@ span.icon-advertencia{
 .float_left{
     float:left;
 }
-.imagen_set_oferta_mobile{
-    float: left;
-    width:47%;
+.imagen_set_oferta_mobile {
+    float: right;
+    width: 47%;
     margin-top: 9px;
     /*margin-left: 9px;*/
     text-align: center;

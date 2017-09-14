@@ -1,5 +1,6 @@
 ﻿
 var _toastHelper = ToastHelper();
+var _listPalanca = ['LAN', 'RDR', 'RD', 'OPT'];
 
 jQuery(document).ready(function () {
     UpdateGrillaOfertas();
@@ -54,7 +55,15 @@ jQuery(document).ready(function () {
             $("#UrlMenu").val("");
         }
     });
-    
+
+    $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
+        
+        if (_listPalanca.indexOf($(this).find('option:selected').attr("data-codigo")) > -1) {
+            $(".hide-configuration").show();
+        } else {
+            $(".hide-configuration").hide();
+        }
+    });
 });
 
 function Modificar(idConfiguracionPais, event) {
@@ -99,8 +108,9 @@ function ModificarOfertas(idOfertasHome) {
             $("#dialog-content-ofertas-home").html(result).ready(
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
+            
             showDialog("DialogMantenimientoOfertasHome");
-
+            
             var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
             if (esTrueDesktopCantidad) {
                 $("#cbDesktopCantidadTodos").prop("checked", true);
@@ -111,6 +121,11 @@ function ModificarOfertas(idOfertasHome) {
             if (esTrueMobileCantidad) {
                 $("#cbMobileCantidadTodos").prop("checked", true);
                 $("#MobileCantidadProductos").attr("disabled", "disabled");
+            }
+            if (_listPalanca.indexOf($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo")) > -1) {
+                $(".hide-configuration").show();
+            } else {
+                $(".hide-configuration").hide();
             }
         },
         error: function (request, status, error) {
@@ -147,7 +162,9 @@ function IniDialogs() {
                     Orden: $("#Orden").val(),
                     DesdeCampania : $("#ddlCampania").val(),
                     DesktopTituloMenu : $("#DesktopTituloMenu").val(),
-                    MobileTituloMenu : $("#MobileTituloMenu").val(),
+                    MobileTituloMenu: $("#MobileTituloMenu").val(),
+                    DesktopSubTituloMenu: $("#DesktopSubTituloMenu").val(),
+                    MobileSubTituloMenu: $("#MobileSubTituloMenu").val(),
                     DesktopTituloBanner : $("#DesktopTituloBanner").val(),
                     DesktopSubTituloBanner : $("#DesktopSubTituloBanner").val(),
                     MobileTituloBanner : $("#MobileTituloBanner").val(),

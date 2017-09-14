@@ -174,6 +174,14 @@ function OfertaObtenerFiltro(filtro, clear) {
             }
         }
     });
+
+    if (listaFiltros.ListaFiltro.length > 0 || listaFiltros.Ordenamiento.Valor != "01") {
+        if ($("#div-delete-filters").length)
+            $("#div-delete-filters").css("display", "");
+    } else {
+        if ($("#div-delete-filters").length)
+            $("#div-delete-filters").css("display", "none");
+    }
     return listaFiltros;
 }
 

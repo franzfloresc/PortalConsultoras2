@@ -551,11 +551,6 @@
     @Scripts.Render("~/Scripts/Mobile")
     @Scripts.Render("~/Scripts/MobileLayout")
 
-    @if (ViewBag.MostrarOfertaDelDia == true)
-    {
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
-    }
-
     <script type="text/javascript">
         var urlRegistrarUsuarioComunidad = '@Url.Action("RegistrarUsuarioComunidad", "Bienvenida", new { area = "" })';
         var urlValidarCorreoComunidad = '@Url.Action("ValidarCorreoComunidad", "Bienvenida", new { area = "" })';
@@ -570,6 +565,7 @@
         var urlDeshacerReservaPedidoReservado2 = '@Url.Action("PedidoValidadoDeshacerReserva", "Pedido", new { area = "" })';
         var urlReservadoEnHorarioRestringuido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new { area = "" })';
         var urlPedidoValidado = '@Url.Action("Validado", "Pedido", new { area = "Mobile" })';
+        var urlOfertaDelDiaMobile = '@Url.Action("Index", "OfertaDelDia", new { area = "Mobile" })';
 
         var urlValidarStockEstrategia = '@Url.Action("ValidarStockEstrategia", "Pedido", new { area = "" })';
         var urlPedidoInsertZe = '@Url.Action("AgregarProductoZE", "Pedido", new { area = "" })';
@@ -639,6 +635,20 @@
         var MensajePedidoMobile = '@ViewBag.MensajePedidoMobile';
 
     </script>
+
+    @if (ViewBag.MostrarOfertaDelDia == true)
+    {
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                if (mostrarOfertaDelDia) {
+                    window.OfertaDelDia.CargarODD();
+                }
+            });
+        </script>
+    }
+
+    
 
     @if (ViewBag.MostrarBannerPL20 == true || ViewBag.MostrarBannerOtros == true)
     {

@@ -889,7 +889,9 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
-                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
+                SepararPipe(ref config);
+                RemplazarTagNombreConfiguracion(ref config);
+
                 listaMenu.Add(config);
             }
 
@@ -907,7 +909,7 @@ namespace Portal.Consultoras.Web.Controllers
                 ConfiguracionPaisModel config;
                 switch (configuracionPais.Codigo)
                 {
-                    case Constantes.ConfiguracionPais.Inicio:
+                    case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
@@ -1194,12 +1196,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            var valor = Util.Trim(eventoFestivo.Personalizacion);
-            valor = valor == "" ? Util.Trim(valorBase) : valor;
-            valor = valor.Replace("#Nombre", userData.UsuarioNombre);
-            valor = valor.Replace("#NOMBRE", userData.UsuarioNombre);
-            valor = valor.Replace("#nombre", userData.UsuarioNombre);
-            return valor;
+            return Util.Trim(eventoFestivo.Personalizacion);
         }
         #endregion
 
@@ -2768,8 +2765,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
             var isMobile = IsMobile();
-            foreach (var entConf in listaEntidad)
+            foreach (var beConfiguracionOfertasHome in listaEntidad)
             {
+                var entConf = beConfiguracionOfertasHome;
                 entConf.ConfiguracionPais.Codigo = Util.Trim(entConf.ConfiguracionPais.Codigo).ToUpper();
 
                 string titulo = "", subTitulo = "";
@@ -2794,6 +2792,8 @@ namespace Portal.Consultoras.Web.Controllers
                     }
                 }
                 
+                RemplazarTagNombreConfiguracionOferta(ref entConf);
+
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
@@ -2900,8 +2900,6 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.OfertaDelDia:
                         seccion.TemplatePresentacion = "seccion-oferta-del-dia";
                         break;
-                    default:
-                        break;
                 }
 
                 if (seccion.TemplatePresentacion == "") continue;                
@@ -2941,7 +2939,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception e) {Console.WriteLine(e);}
             
-            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID };
+            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
 
             try
             {
@@ -3006,7 +3004,7 @@ namespace Portal.Consultoras.Web.Controllers
                 configMenu.Codigo = Constantes.ConfiguracionPais.Inicio;
             }
 
-            menuActivo.ConfiguracionPais = configMenu;
+            menuActivo.ConfiguracionPais = configMenu ?? new ConfiguracionPaisModel();
             if (userData.RevistaDigital.TieneRDC)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;
@@ -3063,6 +3061,46 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
+        #region Helper function contenedor 
+        private void SepararPipe(ref ConfiguracionPaisModel config)
+        {
+            if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
+            {
+                config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+            if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
+            {
+                config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+                config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
+            }
+        }
+        private void RemplazarTagNombreConfiguracionOferta(ref BEConfiguracionOfertasHome config)
+        {
+            config.DesktopTitulo = RemplazaTag(config.DesktopTitulo);
+            config.DesktopSubTitulo = RemplazaTag(config.DesktopSubTitulo);
+            config.MobileTitulo = RemplazaTag(config.MobileTitulo);
+            config.MobileSubTitulo = RemplazaTag(config.MobileSubTitulo);
+        }
+        private void RemplazarTagNombreConfiguracion(ref ConfiguracionPaisModel config)
+        {
+            config.DesktopTituloBanner = RemplazaTag(config.DesktopTituloBanner);
+            config.DesktopSubTituloBanner = RemplazaTag(config.DesktopSubTituloBanner);
+            config.MobileTituloBanner = RemplazaTag(config.MobileTituloBanner);
+            config.MobileSubTituloBanner = RemplazaTag(config.MobileSubTituloBanner);
+            config.DesktopTituloMenu = RemplazaTag(config.DesktopTituloMenu);
+            config.DesktopSubTituloMenu = RemplazaTag(config.DesktopSubTituloMenu);
+            config.MobileTituloMenu = RemplazaTag(config.MobileTituloMenu);
+            config.MobileSubTituloMenu = RemplazaTag(config.MobileSubTituloMenu);
+        }
+        private string RemplazaTag(string cadena)
+        {
+            cadena = cadena.Replace("#Nombre", userData.Sobrenombre);
+            cadena = cadena.Replace("#nombre", userData.Sobrenombre);
+            cadena = cadena.Replace("#NOMBRE", userData.Sobrenombre);
+            return cadena;
+        }
+        #endregion
     }
 }
 

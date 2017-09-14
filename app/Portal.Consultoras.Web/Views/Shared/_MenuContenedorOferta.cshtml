@@ -7,6 +7,7 @@
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     //var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<MenuContenedorModel>();
     var menuActivo = (MenuContenedorModel) ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
     menuActivo.ConfiguracionPais.DesktopFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.DesktopFondoBanner);
     var estiloFondoBanner = menuActivo.ConfiguracionPais.DesktopFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.DesktopFondoBanner + ");" : "";
 
@@ -79,20 +80,20 @@
                         <div class="contenedorMenu">
                             <a href="javascript:;" class="@claseActivo">
                                 <div class="contenedorInformacion">
-                                    @if (menuhijo.Logo != "" && menuhijo.Logo != null)
+                                    @if (!string.IsNullOrEmpty(menuhijo.Logo))
                                     {
                                         <div class="contenedorImagen">
                                             <img style="display:inline;" src="@menuhijo.Logo" />
                                         </div>
                                     }
-                                    @if (menuhijo.Descripcion != "" && menuhijo.Descripcion != null)
+                                    @if (!string.IsNullOrEmpty(menuhijo.DesktopTituloMenu))
                                     {
                                         <div class="contenedorDescripcion">
-                                            <span>@menuhijo.Descripcion</span>
+                                            <span>@menuhijo.DesktopTituloMenu</span>
                                         </div>
                                     }
                                     <div class="contenedorTitulo">
-                                        <p>@menuhijo.DesktopTituloMenu</p>
+                                        <p>@menuhijo.DesktopSubTituloMenu</p>
                                     </div>
                                 </div>
                             </a>
