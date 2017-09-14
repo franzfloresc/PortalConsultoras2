@@ -32,6 +32,7 @@ $(document).ready(function () {
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
             txtCantidad: "#txtCantidad",
+            txtCantidad2: "#txtCantidad2",
             Registro1: ".Registro1",
             Registro2: ".Registro2",
             Registro3: ".Registro3",
@@ -45,8 +46,9 @@ $(document).ready(function () {
             RegistroAceptarSolucion: ".AceptarSolucion",
             ComboCampania: "#ddlCampania",
             SolicitudEnviada: "#SolicitudEnviada",
-            hdPedidoId: "#txtPedidoID",
+            hdPedidoID: "#hdPedidoID",
             hdCDRID: "#CDRWebID",
+            hdNumeroPedido: "#hdNumeroPedido",
             btnCambioProducto: "#btnCambioProducto",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             IrSolicitudInicial: "#IrSolicitudInicial"
@@ -355,7 +357,7 @@ $(document).ready(function () {
             var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
             if (CampaniaId <= 0 || CUV.length < 5) return false;
 
-            var PedidoId = $.trim($(me.Variables.hdPedidoId).val()) || 0;
+            var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
 
             var item = {
                 CampaniaID: CampaniaId,
@@ -1076,22 +1078,22 @@ $(document).ready(function () {
             },
 
             DetalleGuardar: function () {
-
+                
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
-                    NumeroPedido: $("#hdNumeroPedido").val() || 0,
-                    CampaniaID: $("#ddlCampania").val() || 0,
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
+                    NumeroPedido: $(me.Variables.hdNumeroPedido).val() || 0,
+                    CampaniaID: $(me.Variables.ComboCampania).val() || 0,
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"), //$(".reclamo_motivo_select[data-check='1']").attr("id"),
                     Operacion: $(".solucion_cdr[data-check='1']").attr('id'),
-                    CUV: $("#txtCuv").text(),
-                    Cantidad: $.trim($("#txtCantidad").val()),
-                    CUV2: $("#txtCUV2").val(),
-                    Cantidad2: $("#txtCantidad2").val()
+                    CUV: $(me.Variables.txtCuv).html(),
+                    Cantidad: $.trim($(me.Variables.txtCantidad).val()),
+                    CUV2: $(me.Variables.txtCuv2).html(),
+                    Cantidad2: $(me.Variables.txtCantidad2).val()
                 };
 
                 waitingDialog();
-
+                
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlDetalleGuardar,
@@ -1124,7 +1126,7 @@ $(document).ready(function () {
             },
 
             DetalleCargar: function () {
-
+                
                 var item = {
                     CDRWebID: $("#CDRWebID").val() || 0,
                     PedidoID: $("#hdPedidoID").val() || 0
@@ -1147,13 +1149,13 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-                        debugger
+                        
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                         $(".num_solicitudes").html(data.detalle.length)
 
                         SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
-                        ValidarVisualizacionBannerResumen();
-
+                        me.Funciones.ValidarVisualizacionBannerResumen();
+                        
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
                         

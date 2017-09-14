@@ -619,7 +619,14 @@
     {{#each detalle as |item|}}
     <div class="content_solicitud_cdr tipografia_lato">
         <div class="contenedor_info_cdr">
-            <div class="titulo_solicitud_cdr tipografia_lato_bold">
+            <div class="listado_producto_reclamo">
+                <b>{{item.SolucionSolicitada}}</b><br />
+                {{item.CUV}} - {{item.Descripcion}}<br />
+                {{item.Cantidad}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
+            </div>
+            <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
+            <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
                 {{#if_eq CodigoOperacion 'C'}}
                 {{item.SolucionSolicitada}}
                 {{else if_eq CodigoOperacion 'D'}}
@@ -630,15 +637,15 @@
                 {{item.SolucionSolicitada}}
                 {{else if_eq CodigoOperacion 'T'}}
                 {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Descripcion2}} <br />
                 {{item.Cantidad2}} unidades<br />
                 Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
                 {{else}}
                 {{/if_eq}}
             </div>
-            <div class="info_solicitud_cdr tipografia_lato_regular">
+            @*<div class="info_solicitud_cdr tipografia_lato_regular">
                 <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-            </div>
+            </div>*@
             <div class="icono_eliminar_solic_cdr">
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
@@ -663,6 +670,7 @@
                 {{else if_eq CodigoOperacion 'G'}}
                 {{item.SolucionSolicitada}}
                 {{else if_eq CodigoOperacion 'T'}}
+                <b>{{item.SolucionSolicitada}}</b><br />
                 {{item.CUV2}}<br />
                 <b>{{item.Descripcion2}}</b> <br />
                 {{item.Cantidad2}} unidades<br />
