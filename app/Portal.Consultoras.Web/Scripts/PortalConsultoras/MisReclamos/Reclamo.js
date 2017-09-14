@@ -79,6 +79,7 @@ $(document).ready(function () {
     });
 
     $("[data-cambiopaso]").on("click", function () {
+        debugger
         DetalleGuardar();
     });
 
@@ -369,7 +370,6 @@ function BuscarCUVCambiar(cuv) {
             closeWaitingDialog();
             if (!checkTimeout(data))
                 return false;
-
             if (data[0].MarcaID != 0) {
                 $("#CambioProducto2").removeClass("disabledClick");
                 var descripcion = data[0].Descripcion;
@@ -598,7 +598,7 @@ function AnalizarOperacion(id) {
 
     if (id == "D") {
         if (ValidarPaso2Devolucion(id)) {
-            CambioPaso2(100);
+            //CambioPaso2(100);
             $("[data-tipo-confirma='cambio']").hide();
             $("[data-tipo-confirma=canje]").show();
 
@@ -966,6 +966,7 @@ function ValidarCantidadMaximaPermitida(codigoSsic) {
     return true;
 }
 function DetalleCargar() {
+    debugger
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0
@@ -988,7 +989,7 @@ function DetalleCargar() {
                 alert_msg(data.message);
                 return false;
             }
-
+            
             $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
             SetHandlebars("#template-detalle-banner", data.detalle, "#divDetalleUltimasSolicitudes");
             ValidarVisualizacionBannerResumen();

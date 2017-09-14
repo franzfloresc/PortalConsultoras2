@@ -24,8 +24,10 @@ $(document).ready(function () {
             DescripcionCuv: "#DescripcionCuv",
             DescripcionCuv2: "#DescripcionCuv2",
             txtCuv: "#txtCuv",
-            txtcuv2: "txtCuv2",
+            txtCuv2: "#txtCuv2",
             txtDescripcionCuv: "#txtDescripcionCuv",
+            txtDescripcionCuv2: "#txtDescripcionCuv2",
+            txtPrecioCuv2: "#txtPrecioCuv2",
             txtTelefono: "#txtTelefono",
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
@@ -179,6 +181,7 @@ $(document).ready(function () {
                 $(me.Variables.aCambiarProducto2).click(function (e) {
                     $(me.Variables.DescripcionCuv2).hide();
                     $(me.Variables.txtCuvMobile2).fadeIn();
+                    $(me.Variables.txtCuvMobile2).focus();
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
@@ -207,8 +210,8 @@ $(document).ready(function () {
 
                             $(me.Variables.Registro2).hide();
                             $(me.Variables.Registro3).show();
-                            $(me.Variables.btnSiguiente2).hide();
-                            $(me.Variables.btnSiguiente3).hide();
+                            $(me.Variables.btnSiguiente1).hide();
+                            //$(me.Variables.btnSiguiente3).hide();
                         }
                     }
                 });
@@ -239,12 +242,15 @@ $(document).ready(function () {
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
 
-                    me.Funciones.DetalleGuardar();
-
+                    me.Funciones.DetalleGuardar(); 
+                    
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
 
                     $(me.Variables.btnSiguiente4).show();
+                    $("#Cambio3").hide();
+                    $("#pasotres").hide();
+                    $("#pasotresactivo").show();
                     $(me.Variables.RegistroAceptarSolucion).show();
                 });
 
@@ -296,19 +302,25 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnCambioProducto).click(function (evt) {
-                    me.Funciones.CambioPaso2(1);
+                    
                     $(me.Variables.btnCambioProducto).hide();
                     $(me.Variables.btnAceptarSolucion).show();
-                    //if (ValidarPaso2Trueque()) {
-                    //    CambioPaso2(1);
 
-                    //    //$("#spnCuv1").html($("#txtCUV").val());
-                    //    //$("#spnDescripcionCuv1").html($("#txtCUVDescripcion").val());
-                    //    //$("#spnCantidadCuv1").html($("#txtCantidad").val());
-                    //    //$("#spnCuv2").html($("#txtCUV2").val());
-                    //    //$("#spnDescripcionCuv2").html($("#txtCUVDescripcion2").val());
-                    //    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
+                    me.Funciones.CambioPaso2(1);
+                    //if (ValidarPaso2Trueque()) {
+                    
+
+                    $("#spnCuv1").html($(me.Variables.txtCuvMobile).val());
+                    $("#spnDescripcionCuv1").html($(me.Variables.txtDescripcionCuv).html());
+                    //$("#spnCantidadCuv1").html($("#txtCantidad").val());
+
+                    $("#spnCuv2").html($(me.Variables.txtCuvMobile2).val());
+                    $("#spnDescripcionCuv2").html($(me.Variables.txtDescripcionCuv2).html());
+                    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
                     //}
+
+                                      
+                    
                 });
             }
         };
@@ -428,8 +440,88 @@ $(document).ready(function () {
 
         me.Funciones = {
 
-            EvaluarCUV2: function () {
+            //ValidarPaso2Trueque: function() {
+            //    if ($("#CambioProducto2").hasClass("disabledClick")) {
+            //        return false;
+            //    }
 
+            //    var ok = true;
+            //    ok = $.trim($("#txtCUV2").val()).length == "5" ? ok : false;
+            //    ok = $.trim($("#txtCUVDescripcion2").val()) != "" ? ok : false;
+            //    ok = $.trim($("#txtCUVPrecio2").val()) != "" ? ok : false;
+
+            //    var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
+            //    var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
+            //    var montoPedidoTrueque = $("#hdImporteTotal2").val();
+
+            //    //------------------------------------------------------------
+            //    waitingDialog();
+
+            //    var item = {
+            //        PedidoID: $("#txtPedidoID").val(),
+            //        CUV: $.trim($("#txtCUV2").val()),
+            //        Cantidad: $.trim($("#txtCantidad2").val()),
+            //        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
+            //        CampaniaID: $("#ddlCampania").val()
+            //    };
+
+            //    jQuery.ajax({
+            //        type: 'POST',
+            //        url: baseUrl + 'MisReclamos/ValidarNoPack',
+            //        dataType: 'json',
+            //        contentType: 'application/json; charset=utf-8',
+            //        data: JSON.stringify(item),
+            //        async: false,
+            //        cache: false,
+            //        success: function (data) {
+            //            closeWaitingDialog();
+            //            ok = data.success;
+
+            //            if (!data.success && data.message != "") {
+            //                alert_msg(data.message);
+            //                return false;
+            //            }
+            //        },
+            //        error: function (data, error) {
+            //            closeWaitingDialog();
+            //        }
+            //    });
+            //    //------------------------------------------------------------
+            //    var valorParametria = $("#hdParametriaCdr").val();
+            //    var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
+
+            //    var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
+
+            //    if (valorParametriaAbs == "1") {
+            //        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+            //        if (diferencia > parseInt(valorParametria)) {
+            //            alert_msg("Diferencia en trueques excede lo permitido");
+            //            return false;
+            //        }
+            //    } else {
+            //        if (valorParametriaAbs == "2") {
+            //            if (montoPedidoTrueque < montoMinimoReclamo) {
+            //                alert_msg("Está devolviendo menos de lo permitido");
+            //                return false;
+            //            }
+            //        } else {
+            //            var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+            //            diferencia2 = Math.abs(diferencia2);
+
+            //            if (diferencia2 > parseInt(valorParametria)) {
+            //                alert_msg("Diferencia en trueques excede lo permitido");
+            //                return false;
+            //            }
+            //        }
+            //    }
+
+            //    return ok;
+            //},
+
+
+            
+            EvaluarCUV2: function () {
+                
                 if (!me.Funciones.CUV2Cambio()) return false;
 
                 var cuv = $(me.Variables.txtCuvMobile2).val();
@@ -458,6 +550,7 @@ $(document).ready(function () {
             },
 
             BuscarCUVCambiar: function (cuv) {
+
                 cuv = $.trim(cuv) || $.trim(me.Variables.txtCuvMobile2).val();
                 var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
                 if (CampaniaId <= 0 || cuv.length < 5)
@@ -468,7 +561,7 @@ $(document).ready(function () {
                 var item = {
                     CampaniaID: CampaniaId,
                     PedidoID: PedidoId,
-                    CDRWebID: $("#CDRWebID").val(),
+                    CDRWebID: $(me.Variables.hdCDRID).val(),
                     CUV: cuv
                 };
 
@@ -494,6 +587,7 @@ $(document).ready(function () {
 
                             $(me.Variables.txtCuv2).html(cuv2);
                             $(me.Variables.txtDescripcionCuv2).html(descripcion);
+                            $(me.Variables.txtPrecioCuv2).html(precio);
 
                             $(me.Variables.txtCuvMobile2).hide();
                             $(me.Variables.DescripcionCuv2).fadeIn();
@@ -1000,7 +1094,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/DetalleGuardar',
+                    url: UrlDetalleGuardar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1039,7 +1133,7 @@ $(document).ready(function () {
                 waitingDialog();
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/DetalleCargar',
+                    url: UrlDetalleCargar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1053,19 +1147,21 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-
+                        debugger
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                         $(".num_solicitudes").html(data.detalle.length)
+
                         SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
-                        // ValidarVisualizacionBannerResumen();
+                        ValidarVisualizacionBannerResumen();
 
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
+                        
 
-                        //EPD-1919 INICIO
-                        if (data.esCDRExpress) $("#TipoDespacho").show();
-                        else $("#TipoDespacho").hide();
-                        //EPD-1919 FIN
+                        ////EPD-1919 INICIO
+                        //if (data.esCDRExpress) $("#TipoDespacho").show();
+                        //else $("#TipoDespacho").hide();
+                        ////EPD-1919 FIN
 
                     },
                     error: function (data, error) {
