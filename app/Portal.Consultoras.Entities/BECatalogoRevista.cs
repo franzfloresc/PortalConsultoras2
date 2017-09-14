@@ -24,5 +24,7 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public int CampaniaID { get; set; }
+        [DataMember]
+        public string PaisISO { get; set; }
     }
 }
