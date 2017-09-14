@@ -270,7 +270,7 @@ $(document).ready(function () {
                     var cantidadDetalle = $("#divDetallePaso3 .content_solicitud_cdr").length || 0;
 
                     if (cantidadDetalle == 0) {
-                        messageInfoValidado("No se puede finalizar la solicitud porque no cuenta con registros.",
+                        messageInfoValidado(me.Constantes.NoCuentaConRegistros,
                             function () {
                                 window.location = urlRegresar;
                             });
@@ -326,7 +326,12 @@ $(document).ready(function () {
         };
 
         me.Constantes = {
-            //PromocionNoDisponible: "Esta promoción no se encuentra disponible."
+            DebeAceptarSeccionValidaTusDatos: "Debe completar la sección de VALIDA TUS DATOS para finalizar",
+            DebeAceptarPoliticaCambios: "Debe aceptar la política de Cambios y Devoluciones",
+            NoCuentaConRegistros: "No se puede finalizar la solicitud porque no cuenta con registros",
+            SeleccionaOtraSoluccionPorcentajeFaltante: "Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado",
+            SeleccionaOtraSoluccionMontoMinimo: "Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido",
+            SeleccionaOtraSoluccionSuperasPorcentaje: "Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado"
         };
 
         me.Funciones = {
@@ -434,7 +439,7 @@ $(document).ready(function () {
                     CDRWebID: $(me.Variables.hdCDRID).val(),
                     CUV: CUV
                 };
-                
+
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlBuscarCuv,
@@ -453,9 +458,8 @@ $(document).ready(function () {
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
-                            //$("#divMotivo").html("");
-                            $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                            $('#popupInformacionSB2Error').show()
+                            //$("#divMotivo").html("");    
+                            messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
                             if (data.detalle.length > 1) PopupPedido(data.detalle);
@@ -473,10 +477,9 @@ $(document).ready(function () {
                 //$("#divMotivo").html("");
 
                 if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
-                    //alert_msg("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
-                    $('#popupInformacionSB2Error').show();
+                    messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                     return false;
+
                 } else {
                     pedido.olstBEPedidoWebDetalle = pedido.olstBEPedidoWebDetalle || new Array();
                     var detalle = pedido.olstBEPedidoWebDetalle.Find("CUV", $(me.Variables.txtCuvMobile).val() || "");
@@ -704,8 +707,7 @@ $(document).ready(function () {
 
                             if (!data.success && data.message != "") {
                                 //alert_msg(data.message);
-                                $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error').text(data.message);
-                                $('#popupInformacionSB2Error').show();
+                                messageInfoError(data.message);
                             }
                         }
                     },
@@ -845,9 +847,8 @@ $(document).ready(function () {
 
                     if (montoMaximoDevolver < montoDevolver) {
                         //alert_msg(
-                        $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                            .text("Por favor, selecciona otra solución, ya que superas el porcentaje de faltante permitido en tu pedido facturado");
-                        $('#popupInformacionSB2Error').show();
+                        messageInfoError(me.Constantes.SeleccionaOtraSoluccionPorcentajeFaltante);
+
                         return false;
                     }
                     return true;
@@ -872,10 +873,7 @@ $(document).ready(function () {
                 valorCdrWebDatos = parseInt(valorCdrWebDatos);
 
                 if (cantidadFaltante > valorCdrWebDatos) {
-                    //alert_msg(
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                        .text("Superas la cantidad máxima permitida de (" + valorCdrWebDatos + ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
-                    $('#popupInformacionSB2Error').show();
+                    messageInfoError("Superas la cantidad máxima permitida de (" + valorCdrWebDatos + ") unidades a reclamar para este servicio postventa, por favor modifica tu solicitud");
                     return false;
                 }
 
@@ -893,10 +891,8 @@ $(document).ready(function () {
                 var montoDevolver = montoProductosDevolverActual + montoCuvActual;
 
                 if (diferenciaMonto < montoDevolver) {
-                    //alert_msg("Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido");
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                        .text('Por favor, selecciona otra solución, ya que tu pedido está quedando por debajo del monto mínimo permitido');
-                    $('#popupInformacionSB2Error').show();
+                    messageInfoError(me.Constantes.SeleccionaOtraSoluccionMontoMinimo);
+
                     return false;
                 }
 
@@ -908,8 +904,7 @@ $(document).ready(function () {
 
                 if (montoMaximoDevolver < montoDevolver) {
                     //alert_msg(
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                        .text("Por favor, selecciona otra solución, ya que superas el porcentaje de devolución permitido en tu pedido facturado");
+                    messageInfoError(me.Constantes.SeleccionaOtraSoluccionSuperasPorcentaje);
                     return false;
                 }
 
@@ -1264,11 +1259,7 @@ $(document).ready(function () {
                     ok = false;
                 }
                 if (!ok) {
-                    //alert_msg("Debe completar la sección de VALIDA TUS DATOS para finalizar");
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                        .text("Debe completar la sección de VALIDA TUS DATOS para finalizar");
-                    $('#popupInformacionSB2Error').show();
-
+                    messageInfoError(me.Constantes.DebeAceptarSeccionValidaTusDatos);
                     return false;
                 }
 
@@ -1294,11 +1285,7 @@ $(document).ready(function () {
                 }
 
                 if ($("#politica-devolucion").prop("checked") == false) {
-                    //alert_msg
-                    $('#popupInformacionSB2Error').find('#mensajeInformacionSB2_Error')
-                        .text("Debe aceptar la política de Cambios y Devoluciones");
-                    $('#popupInformacionSB2Error').show();
-
+                    messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
 
