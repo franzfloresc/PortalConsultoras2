@@ -5,6 +5,8 @@ using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.BizLogic.Cliente;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Service
 {
@@ -15,14 +17,20 @@ namespace Portal.Consultoras.Service
         private BLPedidoWebDetalle BLPedidoWebDetalle;
         private BLCatalogo BLCatalogo;
         private BLPedidoWebAnteriores BLPedidoWebAnteriores;
+        private readonly INotasBusinessLogic _notasBusinessLogic;
 
-        public ClienteService()
+        public ClienteService() : this(new BLNotas())
         {
             BLCliente = new BLCliente();
             BLPedidoWeb = new BLPedidoWeb();
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLCatalogo = new BLCatalogo();
             BLPedidoWebAnteriores = new BLPedidoWebAnteriores();
+        }
+
+        public ClienteService(INotasBusinessLogic notasBusinessLogic)
+        {
+            _notasBusinessLogic = notasBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -205,24 +213,24 @@ namespace Portal.Consultoras.Service
             return BLCliente.ObtenerDeudores(paisId, consultoraId);
         }
 
-        public long NotaInsertar(int paisId, BENota nota)
+        public ResponseType<long> NotaInsertar(int paisId, BENota nota)
         {
-            return BLCliente.NotaInsertar(paisId, nota);
+            return _notasBusinessLogic.NotaInsertar(paisId, nota);
         }
 
-        public IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId)
+        public ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId)
         {
-            return BLCliente.NotaListar(paisId, consultoraId);
+            return _notasBusinessLogic.NotaListar(paisId, consultoraId);
         }
 
-        public bool NotaActualizar(int paisId, BENota nota)
+        public ResponseType<bool> NotaActualizar(int paisId, BENota nota)
         {
-            return BLCliente.NotaActualizar(paisId, nota);
+            return _notasBusinessLogic.NotaActualizar(paisId, nota);
         }
 
-        public bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        public ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
         {
-            return BLCliente.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
+            return _notasBusinessLogic.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
     }
 }
