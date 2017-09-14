@@ -199,7 +199,7 @@ namespace Portal.Consultoras.Web.Controllers
                             userData.PaisID,
                             userData.CampaniaID,
                             userData.ConsultoraID,
-                            userData.NombreConsultora, 
+                            userData.NombreConsultora,
                             EsOpt()
                         ).ToList();
                     }
@@ -1025,7 +1025,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorPermisoFIC = model.IndicadorPermisoFIC;
             ViewBag.IndicadorPermisoFlexipago = model.IndicadorPermisoFlexipago;
             ViewBag.HorasDuracionRestriccion = model.HorasDuracionRestriccion;
-            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail.Trim(), model.CodigoISO.Trim());
+            ViewBag.UrlBelcorpChat = String.Format(UrlEMTELCO, model.SegmentoAbreviatura.Trim(), model.CodigoUsuario.Trim(), model.PrimerNombre.Split(' ').First().Trim(), model.EMail == null ? string.Empty : model.EMail.Trim(), model.CodigoISO.Trim());
 
             ViewBag.RegionAnalytics = model.CodigorRegion;
             ViewBag.SegmentoAnalytics = model.Segmento != null && model.Segmento != "" ?
@@ -1198,7 +1198,7 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
             ViewBag.CerrarRechazado = model.CerrarRechazado;
             ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
-           
+
 
 
             ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
@@ -1532,7 +1532,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listaFiltro = listaMotivoOperacion.Where(mo => mo.CDRTipoOperacion.NumeroDiasAtrasOperacion >= differenceInDays).ToList();
             return listaFiltro.OrderBy(p => p.Prioridad).ToList();
         }
-        
+
         protected BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
         {
             codigoSsic = Util.SubStr(codigoSsic, 0);

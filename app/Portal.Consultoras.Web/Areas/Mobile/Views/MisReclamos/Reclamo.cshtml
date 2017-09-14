@@ -18,7 +18,7 @@
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-    <a class="enlace_regresar catalogosR" title="Regresar"></a>
+            <a class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
     CAMBIOS Y DEVOLUCIONES
@@ -105,7 +105,7 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
 
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
@@ -151,7 +151,7 @@
             ¿Cuál fue el inconveniente?
         </div>
         <div class="campos_registro_solicitud_cdr Registro2" style="display:none;">
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
             </form>
@@ -179,7 +179,7 @@
                 <div data-detalle-confirma=""></div>
             </div>
 
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
 
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
@@ -545,173 +545,173 @@
         <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
     </div>
+</div>
 
+<!-- INICIO BOTONES CTA (CALL TO ACTION) -->
+<button id="btnSiguiente1"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
+    SIGUIENTE
+</button>
+<button id="btnCambioProducto"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
+    CAMBIALO POR ESTE PRODUCTO
+</button>
+<button id="btnSiguiente3"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
+    CONFIRMA TU ELECCIÓN
+</button>
+<button id="btnAceptarSolucion"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        data-cambiopaso="3"
+        style="display:none;">
+    ACEPTAR LA SOLUCIÓN
+</button>
+<button id="btnSiguiente4"
+        class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
+        style="display:none;">
+    FINALIZA Y ENVÍA TU SOLICITUD
+</button>
+<!-- FIN BOTONES CTA (CALL TO ACTION) -->
 
-    <!-- INICIO BOTONES CTA (CALL TO ACTION) -->
-    <button id="btnSiguiente1"
-            class="btn_cta_cdr tipografia_lato tipografia_lato_bold">
-        SIGUIENTE
-    </button>
-    <button id="btnCambioProducto"
-            class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
-            style="display:none;">
-        CAMBIALO POR ESTE PRODUCTO
-    </button>
-    <button id="btnSiguiente3"
-            class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
-            style="display:none;">
-        CONFIRMA TU ELECCIÓN
-    </button>
-    <button id="btnAceptarSolucion"
-            class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
-            data-cambiopaso="3"
-            style="display:none;">
-        ACEPTAR LA SOLUCIÓN
-    </button>
-    <button id="btnSiguiente4"
-            class="btn_cta_cdr tipografia_lato tipografia_lato_bold"
-            style="display:none;">
-        FINALIZA Y ENVÍA TU SOLICITUD
-    </button>
-    <!-- FIN BOTONES CTA (CALL TO ACTION) -->
+<script id="template-motivo" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <div class="motivo_cdr">
+        <input id="{{item.CodigoReclamo}}" type="radio" name="motivo-cdr" />
+        <label for="{{item.CodigoReclamo}}" class="tipografia_lato_regular">
+            <span></span>
+            {{item.DescripcionReclamo}}
+        </label>
+    </div>
+    {{/each}}
+</script>
+<script id="template-operacion" type="text/x-handlebars-template">
+    {{#each this as |item|}}
+    <a id="{{item.CodigoOperacion}}"
+       data-tipo="{{item.Tipo}}"
+       class="solucion_cdr tipografia_lato_bold"
+       title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
+        {{item.CDRTipoOperacion.DescripcionOperacion}}
+    </a>
+    {{/each}}
+</script>
 
-    <script id="template-motivo" type="text/x-handlebars-template">
-        {{#each this as |item|}}
-        <div class="motivo_cdr">
-            <input id="{{item.CodigoReclamo}}" type="radio" name="motivo-cdr" />
-            <label for="{{item.CodigoReclamo}}" class="tipografia_lato_regular">
-                <span></span>
-                {{item.DescripcionReclamo}}
-            </label>
+<script id="template-detalle-banner" type="text/x-handlebars-template">
+    {{#each detalle as |item|}}
+    <div class="producto_agregado">
+        <span class="cod_producto_agregado tipografia_lato_regular">{{item.CUV}}</span>
+        <span class="nom_producto_agregado tipografia_lato_regular">{{item.Descripcion}}</span>
+        <span class="cant_producto_agregado tipografia_lato_regular">{{item.Cantidad2}} unidades</span>
+        <div class="icono_eliminar_solic_cdr">
+            <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
+               style="background-image: url('/Content/Images/mobile/icono-eliminar-cdr.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+               title="Eliminar solicitud"></a>
         </div>
-        {{/each}}
-    </script>
-    <script id="template-operacion" type="text/x-handlebars-template">
-        {{#each this as |item|}}
-        <a id="{{item.CodigoOperacion}}"
-           data-tipo="{{item.Tipo}}"
-           class="solucion_cdr tipografia_lato_bold"
-           title="{{item.CDRTipoOperacion.DescripcionOperacion}}">
-            {{item.CDRTipoOperacion.DescripcionOperacion}}
-        </a>
-        {{/each}}
-    </script>
+        @*<span class="icono_eliminar_producto_agregado" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
+                <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" alt="Eliminar producto de lista de solicitud">
+            </span>*@
+    </div>
+    {{/each}}
+</script>
 
-    <script id="template-detalle-banner" type="text/x-handlebars-template">
-        {{#each detalle as |item|}}
-        <div class="producto_agregado">
-            <span class="cod_producto_agregado tipografia_lato_regular">{{item.CUV}}</span>
-            <span class="nom_producto_agregado tipografia_lato_regular">{{item.Descripcion}}</span>
-            <span class="cant_producto_agregado tipografia_lato_regular">{{item.Cantidad2}} unidades</span>
+<script id="template-detalle-paso3" type="text/x-handlebars-template">
+    {{#each detalle as |item|}}
+    <div class="content_solicitud_cdr tipografia_lato">
+        <div class="contenedor_info_cdr">
+            <div class="titulo_solicitud_cdr tipografia_lato_bold">
+                {{#if_eq CodigoOperacion 'C'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'F'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'G'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'T'}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{else}}
+                {{/if_eq}}
+            </div>
+            <div class="info_solicitud_cdr tipografia_lato_regular">
+                <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
+            </div>
             <div class="icono_eliminar_solic_cdr">
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
-                   style="background-image: url('/Content/Images/mobile/icono-eliminar-cdr.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
+                   style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
                    title="Eliminar solicitud"></a>
             </div>
-            @*<span class="icono_eliminar_producto_agregado" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x">
-                    <img src="@Url.Content("~/Content/Images/mobile/icono-eliminar-cdr.png")" alt="Eliminar producto de lista de solicitud">
-                </span>*@
         </div>
-        {{/each}}
-    </script>
+    </div>
+    {{/each}}
+</script>
 
-    <script id="template-detalle-paso3" type="text/x-handlebars-template">
-        {{#each detalle as |item|}}
-        <div class="content_solicitud_cdr tipografia_lato">
-            <div class="contenedor_info_cdr">
-                <div class="titulo_solicitud_cdr tipografia_lato_bold">
-                    {{#if_eq CodigoOperacion 'C'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'D'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'F'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'G'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'T'}}
-                    {{item.CUV2}}<br />
-                    <b>{{item.Descripcion2}}</b> <br />
-                    {{item.Cantidad2}} unidades<br />
-                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                    {{else}}
-                    {{/if_eq}}
-                </div>
-                <div class="info_solicitud_cdr tipografia_lato_regular">
-                    <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-                </div>
-                <div class="icono_eliminar_solic_cdr">
-                    <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
-                       style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
-                       title="Eliminar solicitud"></a>
-                </div>
+<script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">
+    {{#each detalle as |item|}}
+    <div class="content_solicitud_cdr tipografia_lato">
+        <div class="contenedor_info_cdr">
+            <div class="titulo_solicitud_cdr tipografia_lato_bold">
+                {{#if_eq CodigoOperacion 'C'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'F'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'G'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'T'}}
+                {{item.CUV2}}<br />
+                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{else}}
+                {{/if_eq}}
+            </div>
+            <div class="info_solicitud_cdr tipografia_lato_regular">
+                <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
             </div>
         </div>
-        {{/each}}
-    </script>
+    </div>
+    {{/each}}
+</script>
 
-    <script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">
-        {{#each detalle as |item|}}
-        <div class="content_solicitud_cdr tipografia_lato">
-            <div class="contenedor_info_cdr">
-                <div class="titulo_solicitud_cdr tipografia_lato_bold">
-                    {{#if_eq CodigoOperacion 'C'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'D'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'F'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'G'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'T'}}
-                    {{item.CUV2}}<br />
-                    <b>{{item.Descripcion2}}</b> <br />
-                    {{item.Cantidad2}} unidades<br />
-                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                    {{else}}
-                    {{/if_eq}}
-                </div>
-                <div class="info_solicitud_cdr tipografia_lato_regular">
-                    <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-                </div>
+<script id="template-confirmacion" type="text/x-handlebars-template">
+    {{#iff CUV2 '!=' ''}}
+    <div class="content_resumen_cambio">
+        {{else}}
+        <div class="contenedor_producto_cambio_por tipografia_lato">
+            {{/iff}}
+            <div class="texto_producto_a_cambiar">{{DescripcionConfirma}}:</div>
+            <div class="producto_cdr tipografia_lato">
+                <span class="codigo_producto_cdr tipografia_lato_bold">
+                    {{CUV}}
+                </span> - <span class="nom_producto_cdr tipografia_lato_bold">
+                    {{DescripcionProd}}
+                </span>
+                <span class="cantidad_producto tipografia_lato_regular">
+                    x<span>{{Cantidad}}</span> unidades
+                </span>
             </div>
         </div>
-        {{/each}}
-    </script>
-
-    <script id="template-confirmacion" type="text/x-handlebars-template">
-        {{#iff CUV2 '!=' ''}}
+        {{#IsNullOrEmpty CUV2  '!=' }}
+        <div class="indicador_reclamo"></div>
         <div class="content_resumen_cambio">
-            {{else}}
-            <div class="contenedor_producto_cambio_por tipografia_lato">
-                {{/iff}}
-                <div class="texto_producto_a_cambiar">{{DescripcionConfirma}}:</div>
-                <div class="producto_cdr tipografia_lato">
-                    <span class="codigo_producto_cdr tipografia_lato_bold">
-                        {{CUV}}
-                    </span> - <span class="nom_producto_cdr tipografia_lato_bold">
-                        {{DescripcionProd}}
-                    </span>
-                    <span class="cantidad_producto tipografia_lato_regular">
-                        x<span>{{Cantidad}}</span> unidades
-                    </span>
-                </div>
+            <div class="titulo_resumen">{{DescripcionConfirma2}}:</div>
+            <div class="descri_producto_reclamo">
+                {{CUV2}} <br />
+                <b>{{DescripcionProd2}}</b><br />
+                x{{Cantidad2}} unidades
             </div>
-            {{#IsNullOrEmpty CUV2  '!=' }}
-            <div class="indicador_reclamo"></div>
-            <div class="content_resumen_cambio">
-                <div class="titulo_resumen">{{DescripcionConfirma2}}:</div>
-                <div class="descri_producto_reclamo">
-                    {{CUV2}} <br />
-                    <b>{{DescripcionProd2}}</b><br />
-                    x{{Cantidad2}} unidades
-                </div>
-            </div>
-            {{/IsNullOrEmpty}}
         </div>
-    </script>
+        {{/IsNullOrEmpty}}
+    </div>
+</script>
 
-    @section scripts{
-        <script type="text/javascript">
+@section scripts{
+    <script type="text/javascript">
 
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
         var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
@@ -726,7 +726,7 @@
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
-        </script>
+    </script>
 
-        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
-    }
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
+}
