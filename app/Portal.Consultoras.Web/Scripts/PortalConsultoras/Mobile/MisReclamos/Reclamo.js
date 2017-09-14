@@ -96,27 +96,19 @@ $(document).ready(function () {
                     e.stopPropagation();
 
                     $(me.Variables.numSolicitudes).fadeOut(150);
-
                     $(me.Variables.pestaniaVerMiSolicitud).addClass("crece");
 
                     $(me.Variables.miSolicitudCDR).animate({
-
                         "width": "222px"
-
                     }, 120, function () {
 
                         $(me.Variables.miSolicitudCDR).animate({
-
                             "height": "291px"
-
                         }, 220);
-
                     });
 
                     setTimeout(function () {
-
                         $(me.Variables.datosSolicitudOpened).fadeIn(200);
-
                     }, 220);
 
                 });
@@ -126,27 +118,18 @@ $(document).ready(function () {
                     e.stopPropagation();
 
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
-
                     $(me.Variables.miSolicitudCDR).animate({
-
                         "height": "35px"
-
                     }, 220, function () {
 
                         $(me.Variables.pestaniaVerMiSolicitud).removeClass("crece");
-
                         $(me.Variables.miSolicitudCDR).animate({
-
                             "width": "35px"
-
                         }, 120);
-
                     });
 
                     setTimeout(function () {
-
                         $(me.Variables.numSolicitudes).fadeIn(200);
-
                     }, 450);
 
                 });
@@ -183,7 +166,7 @@ $(document).ready(function () {
                     e.preventDefault(); // prevents the <a> from navigating                  
                     me.Funciones.DetalleAccion(this);
                 });
-                                
+
                 $(me.Variables.txtCuvMobile).on('keyup', function (evt) {
                     cuvKeyUp = true;
                     EvaluarCUV();
@@ -278,6 +261,24 @@ $(document).ready(function () {
 
                 $(me.Variables.btnSiguiente4).click(function () {
                     console.log('Finalizar y enviar solicitud');
+
+                    if (mensajeGestionCdrInhabilitada != '') {
+                        messageInfoValidado(mensajeGestionCdrInhabilitada);
+                        return false;
+                    }
+
+                    var cantidadDetalle = $("#divDetallePaso3 .content_solicitud_cdr").length || 0;
+
+                    if (cantidadDetalle == 0) {
+                        messageInfoValidado("No se puede finalizar la solicitud porque no cuenta con registros.",
+                            function () {
+                                window.location = urlRegresar;
+                            });
+
+                        return false;
+                    }
+
+                    $("#ddlCampania").removeAttr("disabled");
 
                     me.Funciones.SolicitudEnviar(false, true);
                 });
