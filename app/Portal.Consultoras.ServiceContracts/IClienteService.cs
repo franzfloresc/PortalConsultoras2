@@ -4,6 +4,7 @@ using Portal.Consultoras.Entities.Cliente;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -117,16 +118,15 @@ namespace Portal.Consultoras.ServiceContracts
         IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId);
 
         [OperationContract]
-        long NotaInsertar(int paisId, BENota nota);
+        ResponseType<long> NotaInsertar(int paisId, BENota nota);
 
         [OperationContract]
-        IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId);
+        ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId);
 
         [OperationContract]
-        bool NotaActualizar(int paisId, BENota nota);
+        ResponseType<bool> NotaActualizar(int paisId, BENota nota);
 
         [OperationContract]
-        bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
-
+        ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
     }
 }
