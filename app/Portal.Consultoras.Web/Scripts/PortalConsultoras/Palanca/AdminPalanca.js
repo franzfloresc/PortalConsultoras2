@@ -1,5 +1,6 @@
 ﻿
 var _toastHelper = ToastHelper();
+var _listPalanca = ['LAN', 'RDR', 'RD', 'OPT'];
 
 jQuery(document).ready(function () {
     UpdateGrillaOfertas();
@@ -54,7 +55,12 @@ jQuery(document).ready(function () {
             $("#UrlMenu").val("");
         }
     });
-    
+
+    $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
+        if (_listPalanca.indexOf($(this).val()) > -1) {
+            console.log("Im on the list");
+        }
+    });
 });
 
 function Modificar(idConfiguracionPais, event) {
@@ -147,7 +153,9 @@ function IniDialogs() {
                     Orden: $("#Orden").val(),
                     DesdeCampania : $("#ddlCampania").val(),
                     DesktopTituloMenu : $("#DesktopTituloMenu").val(),
-                    MobileTituloMenu : $("#MobileTituloMenu").val(),
+                    MobileTituloMenu: $("#MobileTituloMenu").val(),
+                    DesktopSubTituloMenu: $("#DesktopSubTituloMenu").val(),
+                    MobileSubTituloMenu: $("#MobileSubTituloMenu").val(),
                     DesktopTituloBanner : $("#DesktopTituloBanner").val(),
                     DesktopSubTituloBanner : $("#DesktopSubTituloBanner").val(),
                     MobileTituloBanner : $("#MobileTituloBanner").val(),

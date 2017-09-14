@@ -14,7 +14,14 @@
 <div class="div-3">
     <div class="titG">Palanca:</div>
     <div class="titG selectP2 borde_redondeado">
-        @Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })
+        <select data-val="true" data-val-required="El campo ConfiguracionPaisID es obligatorio." id="ddlConfiguracionIdOfertas" name="ConfiguracionPaisID">
+            <option value="">-- Seleccionar --</option>
+            @foreach (var item in Model.ListaConfiguracionPais)
+            {
+                <option data-codigo="@item.Codigo" value="@item.ConfiguracionPaisID">@item.Descripcion</option>
+            }
+        </select>
+        @*@Html.DropDownListFor(model => model.ConfiguracionPaisID, new SelectList(Model.ListaConfiguracionPais, "ConfiguracionPaisID", "Descripcion"), "-- Seleccionar --", new { id = "ddlConfiguracionIdOfertas" })*@
     </div>
 </div>
 <div class="div-3">

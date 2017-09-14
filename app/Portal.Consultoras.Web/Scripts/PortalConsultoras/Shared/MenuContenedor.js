@@ -91,15 +91,15 @@ var menuModule = (function () {
         if (url.indexOf(anchorMark) > -1) {
             var strippedUrl = url.toString().split(anchorMark);
             if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
-            $(elementos.menu2Li).children("a").removeClass(elementos.claseActivo);
-            $(elementos.html).find("[data-codigo=" + anchorValue + "]").children("a").addClass(elementos.claseActivo);
+            $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
+            $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
         }
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e.target);
         if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
         objHtmlEvent.siblings("li").children("a").removeClass("activo");
-        objHtmlEvent.children("a").addClass("activo");
+        objHtmlEvent.find("a").addClass("activo");
 
         var esAncla = $(objHtmlEvent).data("es-ancla");
         if (esAncla === "True") {
@@ -110,12 +110,12 @@ var menuModule = (function () {
                     },
                     1000);
             } else {
-                window.location = "/" + (isMobile() ? "Mobile/" : "") + "/Ofertas#" + codigo;
+                window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-            window.location = url;
+            window.location = window.location.origin + url;
         }
     }
     function setCarrouselMenu() {
@@ -165,7 +165,10 @@ $(document).ready(function () {
     menuModule.setCarrouselMenu();
     LayoutHeaderFin();
     $(window).on('scroll', function () {
-        menuModule.hasScrolledDesktop($(window).scrollTop());
-        menuModule.hasScrolledMobile($(window).scrollTop());
+        if (isMobile()) {
+            menuModule.hasScrolledMobile($(window).scrollTop());
+        } else {
+            menuModule.hasScrolledDesktop($(window).scrollTop());
+        }
     });
 });
