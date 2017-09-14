@@ -889,6 +889,19 @@ namespace Portal.Consultoras.Web.Controllers
                     config.MobileTituloBanner = config.DesktopTituloBanner;
                     config.MobileSubTituloBanner = config.DesktopSubTituloBanner;
                 }
+                if (!string.IsNullOrEmpty(config.DesktopTituloMenu) && config.DesktopTituloMenu.Contains("|"))
+                {
+                    config.DesktopSubTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault();
+                    config.DesktopTituloMenu = config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault();
+                }
+                if (!string.IsNullOrEmpty(config.MobileTituloMenu) && config.MobileTituloMenu.Contains("|"))
+                {
+                    config.MobileSubTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').LastOrDefault();
+                    config.MobileTituloMenu = config.MobileTituloMenu.SplitAndTrim('|').FirstOrDefault();
+                }
+
+                config.DesktopTituloMenu = config.DesktopTituloMenu.Contains("|") ? config.DesktopTituloMenu.SplitAndTrim('|').FirstOrDefault() : config.DesktopTituloMenu;
+                config.DesktopSubTituloMenu = config.DesktopTituloMenu.Contains("|") ? config.DesktopTituloMenu.SplitAndTrim('|').LastOrDefault() : config.DesktopTituloMenu;
                 //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
                 listaMenu.Add(config);
             }
