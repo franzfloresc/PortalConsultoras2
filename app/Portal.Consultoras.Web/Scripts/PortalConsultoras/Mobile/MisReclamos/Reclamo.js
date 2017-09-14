@@ -1152,7 +1152,7 @@ $(document).ready(function () {
                         $(".num_solicitudes").html(data.detalle.length)
 
                         SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
-                        ValidarVisualizacionBannerResumen();
+                        me.Funciones.ValidarVisualizacionBannerResumen();
 
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
