@@ -743,7 +743,7 @@ function CargarPropuesta(codigoSsic) {
                 alert_msg(data.message);
                 return false;
             }
-            debugger
+
             if (tipo == "canje")
                 SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
             $("#spnMensajeTenerEnCuentaCanje").html(data.descripcionTenerEnCuenta);

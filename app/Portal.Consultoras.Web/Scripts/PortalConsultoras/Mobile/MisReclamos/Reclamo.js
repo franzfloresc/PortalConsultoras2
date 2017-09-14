@@ -1019,7 +1019,6 @@ $(document).ready(function () {
                         }
 
                         //$(me.Variables.Registro4).show();
-                        debugger
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                             //$("#eleccion").show();
@@ -1094,7 +1093,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/DetalleGuardar',
+                    url: UrlDetalleGuardar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1133,7 +1132,7 @@ $(document).ready(function () {
                 waitingDialog();
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/DetalleCargar',
+                    url: UrlDetalleCargar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1147,11 +1146,12 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-
+                        debugger
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                         $(".num_solicitudes").html(data.detalle.length)
+
                         SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
-                        // ValidarVisualizacionBannerResumen();
+                        ValidarVisualizacionBannerResumen();
 
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");

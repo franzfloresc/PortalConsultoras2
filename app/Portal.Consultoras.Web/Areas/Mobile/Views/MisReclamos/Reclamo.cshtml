@@ -92,7 +92,9 @@
                         </div>
                     </div>
 
-                    <div class="listado_productos_agregados UltimasSolicitudes" id="divDetalleUltimasSolicitudes"></div>
+                    <div class="listado_productos_agregados UltimasSolicitudes" id="divDetalleUltimasSolicitudes">
+                        @*template-detalle-banner*@
+                    </div>
                     <div class="enlace_ir_al_final">
                         <div class="icono_flecha_mi_solicitud">
                             <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="">
@@ -705,7 +707,7 @@
             </div>
         </div>
         {{/IsNullOrEmpty}}
-
+    </div>
 </script>
 
 @section scripts{
@@ -714,8 +716,9 @@
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
         var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
         var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
-        var UrlCargarDetalle = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
         var UrlBuscarOperacion = '@Url.Action("BuscarOperacion", "MisReclamos", new { area = ""} )';
+        var UrlDetalleGuardar = '@Url.Action("DetalleGuardar", "MisReclamos", new { area = ""})';
+        var UrlDetalleCargar = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
         var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
         var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
         var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
