@@ -1081,7 +1081,7 @@ namespace Portal.Consultoras.Common
             public const string RdInicio = "/revistadigital";
             public const string SwInicio = "/showroom";
             public const string SwIntriga = "/showroom/intriga";
-            public const string SwDetalle = "/showroom/detalle";
+            public const string SwDetalle = "/showroom/detalleoferta";
         }
     }
 }
