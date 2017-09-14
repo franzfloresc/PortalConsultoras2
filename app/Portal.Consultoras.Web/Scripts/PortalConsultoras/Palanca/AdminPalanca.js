@@ -57,8 +57,11 @@ jQuery(document).ready(function () {
     });
 
     $("body").on("change", "#ddlConfiguracionIdOfertas", function () {
-        if (_listPalanca.indexOf($(this).val()) > -1) {
-            console.log("Im on the list");
+        
+        if (_listPalanca.indexOf($(this).find('option:selected').attr("data-codigo")) > -1) {
+            $(".hide-configuration").show();
+        } else {
+            $(".hide-configuration").hide();
         }
     });
 });
@@ -105,8 +108,9 @@ function ModificarOfertas(idOfertasHome) {
             $("#dialog-content-ofertas-home").html(result).ready(
                 UploadFilePalanca("fondo-mobile"), UploadFilePalanca("fondo-desktop")
             );
+            
             showDialog("DialogMantenimientoOfertasHome");
-
+            
             var esTrueDesktopCantidad = $.trim($("#DesktopCantidadProductos").val()) == "0";
             if (esTrueDesktopCantidad) {
                 $("#cbDesktopCantidadTodos").prop("checked", true);
@@ -117,6 +121,11 @@ function ModificarOfertas(idOfertasHome) {
             if (esTrueMobileCantidad) {
                 $("#cbMobileCantidadTodos").prop("checked", true);
                 $("#MobileCantidadProductos").attr("disabled", "disabled");
+            }
+            if (_listPalanca.indexOf($("#ddlConfiguracionIdOfertas").find('option:selected').attr("data-codigo")) > -1) {
+                $(".hide-configuration").show();
+            } else {
+                $(".hide-configuration").hide();
             }
         },
         error: function (request, status, error) {
