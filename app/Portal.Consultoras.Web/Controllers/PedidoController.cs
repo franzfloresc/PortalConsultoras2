@@ -1280,7 +1280,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     result = true,
-                    message = ""
+                    message = mensaje
                 });
             }
             else
@@ -2030,8 +2030,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
-            sessionManager.SetObservacionesProl(null);
-            sessionManager.SetDetallesPedido(null);
+                sessionManager.SetObservacionesProl(null);
+                sessionManager.SetDetallesPedido(null);
                 if (resultado.RefreshMontosProl)
                 {
                     Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {

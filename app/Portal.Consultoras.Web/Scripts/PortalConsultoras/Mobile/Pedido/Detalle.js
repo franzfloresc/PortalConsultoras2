@@ -259,7 +259,7 @@ function UpdateLiquidacionTipoOfertaSis(urls, CampaniaID, PedidoID, PedidoDetall
     if (cantidadAnterior > cantidadActual) {
         Flag = 1;
     } else if (cantidadActual > cantidadAnterior) {
-        Flag = 2;        
+        Flag = 2;
     }
     StockNuevo = cantidadActual - cantidadAnterior;
     
