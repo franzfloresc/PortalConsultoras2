@@ -34,6 +34,16 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetProductoComercialByCampaniaAndCuv(int campaniaID, string cuv, int rowCount)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaAndCuv");
+            Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, campaniaID);
+            Context.Database.AddInParameter(command, "@CUV", DbType.String, cuv);
+            Context.Database.AddInParameter(command, "@RowCount", DbType.Int32, rowCount);
+
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetProductoComercialByCampaniaBySearch(int CampaniaID, int RowCount, int Criterio, string CodigoDescripcion)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetProductoComercialByCampaniaBySearch");

@@ -699,9 +699,16 @@
     display: block;
 }
 
+.BloqueLandingRD .fix-search span {
+    color: #ffffff !important;
+}
+
+    .BloqueLandingRD .fix-search .btn_diagonal {
+        margin-top: 15px;
+    }
 .titulo_pagina{
     float:left;
-    width:25%;
+    width:auto;
     height:auto;
     color:white;
     font-family:'Lato';
@@ -710,6 +717,7 @@
     letter-spacing:2px;
     font-weight:700;
     padding-left:20px;
+    padding-right:20px;
     background: url(../../../Images/RevistaDigital/fondo_titulo.png) no-repeat top right;
 }
 
@@ -756,18 +764,15 @@
     width: auto;
     overflow: hidden;
     display: inline-block;
-    margin-right: 1%;
-    margin-left: 1%;
-    padding-bottom: 18px;
-    margin-bottom:10px;
+    padding : 0 20px 25px 20px;
 }
 .revistadigital-landing .content_item_carrusel{   
     margin-right: 0;
     width:100%;
     min-width: 230px;
-    padding-top: 10px;
-    padding-right: 16px;
-    padding-left:16px;
+    /*padding-top: 10px;*/
+    padding-right: 10px;
+    padding-left:10px;
 }
 /*.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
@@ -778,7 +783,7 @@
 }
 
 .revistadigital-landing .producto_img_home img {
-    height: 150px;
+    height: 100%;
     width: auto;
 }
 
@@ -865,7 +870,7 @@
 }
 
 .revistadigital .boxoffer.boxOfferPedido{
-    top:366px;
+    top: 300px;
 }
 
 .revistadigital .revistadigital-content{
@@ -1500,6 +1505,15 @@
     color: #fff;
     font-size: 13px;
 }
+
+.rd_btn_rojo_right {
+    background: #e81c36;
+    width: 220px;
+    right: 0;
+    border: 0px solid;
+    color: #fff;
+    font-size: 13px;
+}
 .rd_btn_rojo:after {
     background: rgba(233,27,55,1);
     background: -moz-linear-gradient(-45deg, rgba(233,27,55,1) 0%, rgba(233,27,55,1) 31%, rgba(157,7,29,1) 100%);
@@ -1774,14 +1788,7 @@
     margin-top:50px;
     position:relative;
 }
-.content_texto_gana{
-    margin: 0 auto;
-    float: left;
-    width: -moz-calc(100% -765px);
-    width: calc(100% - 765px);
-    width: -webkit-calc(100% - 765px);
-    width: -webkit-calc(~'100% - 765px');
-}
+
 .titulo_gana_landing{
     font-family:'Lato';
     font-size:16px;
@@ -2003,7 +2010,7 @@
 .rd_ver_mas:after {
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 6px 10px;
+    background-size: 6px 8px;
     display: inline-block;
     width: 6px;
     position: absolute;
@@ -2011,6 +2018,7 @@
     content: "";
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 10;
 }
 
 .rd_ver_mas:hover:after {
@@ -2089,17 +2097,11 @@
     }
 }
 
-
 .flex-container {
     flex-wrap: wrap;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-}
-
-.row {
-    width: auto;
-    border: 1px solid blue;
 }
 
 .flex-item {
@@ -2155,10 +2157,37 @@
     text-transform: uppercase;
 }
 
+.hblock_title_perdio {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
+.hblock_title_perdio2 {
+    height: 120px;
+    left: 300px;
+    font-size: 18px;
+    font-weight: 100;
+    padding-top: 24px;
+    line-height: 24px;
+    letter-spacing: 2px;
+}
+.hblock_title_perdio3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin-top: 22px;
+    text-align: center;
+    margin-bottom: 18px;
+}
 .content_item_home_bpt {
     background: white;
     /*border: 1px solid #e7e1e1;*/
-    border: 1px #000000 solid;
+    /*border: 1px #000000 solid;*/
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -2342,7 +2371,7 @@
 
 .home_rd .btn_diagonal:after {
     background: -webkit-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
-    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);rgba(233,27,55,1)
+    background: -o-linear-gradient(top left, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
     background: linear-gradient(to bottom right, #cc0e27 0%, #cc0e27 31%, rgb(157,7,29) 100%);
 }
 
@@ -2478,13 +2507,14 @@
     content: "";
     background-image: url(../../../Images/RevistaDigital/rd_arrowright.png);
     background-repeat: no-repeat;
-    background-size: 10px 14px;
+    background-size: 8px 12px;
     display: inline-block;
     width: 10px;
     position: absolute;
     height: 14px;
     margin-left: 8px;
     margin-top: 4px;
+    z-index: 2 !important;
 }
 
 #bc_content_oferta {
@@ -2493,7 +2523,7 @@
 }
 
 #bc_promo {
-    width: 38%;
+    width: 26%;
     float: left;
     background: white;
     padding: 20px;
@@ -2502,7 +2532,7 @@
 
 #bc_promo .bc_promo_contenido {
     float: right;
-    width: 245px;
+    width: 100%;
 }
 
 #bc_promo .bc_promo_contenido p.ven-conoce {
@@ -2568,22 +2598,21 @@
 
 /**/
 
-#bc_productos {
-    width: 62%;
+.bc_productos {
+    width: 68%;
     float: left;
+    height: 452px;
     background: #f0f0f0;
 }
 
-#bc_productos .bc_productos_contenido {
-    width: 780px;
-    float: left;
+.bc_productos .bc_productos_contenido {
     overflow-y: auto;
     height: 485.98px;
-    padding-top: 20px;
+    padding: 20px;
     text-align: center;
 }
 
-#bc_productos .bc_productos_contenido .grid-item {
+.bc_productos .bc_productos_contenido .grid-item {
     display: inline-block;
     /*padding-left: 20px;*/
     /* margin: 0 0 1.5em; */
@@ -2597,7 +2626,7 @@
     text-align: center;
 }
 
-#bc_productos .bc_productos_contenido a.ver-mas-ofertas {
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas {
     font-family: 'lato';
     font-weight: 700;
     font-size: 10px;
@@ -2613,13 +2642,13 @@
     margin-bottom: 10px;
 }
 
-#bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
+.bc_productos .bc_productos_contenido a.ver-mas-ofertas img {
     width: 7px;
     margin-top: 4px;
     margin-left: 5px;
 }
 
-#bc_productos .bc_productos_contenido .grid-item .revistadigital-landing {
+.bc_productos .bc_productos_contenido .grid-item .revistadigital-landing {
     width: 100% !important;
     overflow: hidden !important;
     display: inline-block !important;
@@ -2629,15 +2658,15 @@
     margin-bottom: 0px !important;
 }
 
-#bc_productos .bc_productos_contenido .grid-item--width2 {
+.bc_productos .bc_productos_contenido .grid-item--width2 {
     width: 400px;
 }
 
-#bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
+.bc_productos .bc_productos_contenido .grid-item .boton_Agregalo_home {
     width: 140px !important;
 }
 
-#bc_productos .bc_productos_contenido .clearfix {
+.bc_productos .bc_productos_contenido .clearfix {
     clear: both;
 }
 .bc_content_item_carrusel {
@@ -2706,4 +2735,9 @@
     font-family: 'Lato';
     letter-spacing: 0.2px;
     color: #000;
+}
+
+
+.block_inscribete_predio {
+    margin: 15px 0px;
 }

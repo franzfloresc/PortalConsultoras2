@@ -1,12 +1,11 @@
 ﻿using Portal.Consultoras.BizLogic;
+using Portal.Consultoras.BizLogic.CDR;
+using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Portal.Consultoras.BizLogic.CDR;
-using Portal.Consultoras.Common;
-using Portal.Consultoras.Entities.CDR;
 
 namespace Portal.Consultoras.Service
 {
@@ -131,7 +130,6 @@ namespace Portal.Consultoras.Service
             return BLUsuario.ActiveEmail(paisID, codigoUsuario, iso, email);
         }
 
-
         public BEUsuario GetSesionUsuario(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -144,16 +142,16 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetUsuarioAsociado(paisID, codigoUsuario);
         }
 
-        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario)
+        public string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario);
+            return BLUsuario.GetUsuarioPermisos(paisID, codigoUsuario, codigoConsultora, tipoUsuario, rolID);
         }
 
-        public bool IsUserExist(string CodigoUsuario)
+        public bool IsUserExist(int paisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
-            return BLUsuario.IsUserExist(CodigoUsuario);
+            return BLUsuario.IsUserExist(paisID, CodigoUsuario);
         }
 
         public bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen)
@@ -161,19 +159,7 @@ namespace Portal.Consultoras.Service
             var BLUsuario = new BLUsuario();
             return BLUsuario.ChangePasswordUser(paisID, codigoUsuarioAutenticado, emailCodigoUsuarioModificado, password, emailUsuarioModificado, origen);
         }
-
-        public string GetUserUPN(string Email)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetUserUPN(Email);
-        }
-
-        public int ValidateUserCredentialsActiveDirectory(int paisID, string codigoUsuarioAutenticado, string codigoUsuarioModificado, string OldPassword, string NewPassword)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.ValidateUserCredentialsActiveDirectory(paisID, codigoUsuarioAutenticado, codigoUsuarioModificado, OldPassword, NewPassword);
-        }
-
+        
         public int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -213,12 +199,6 @@ namespace Portal.Consultoras.Service
         {
             var BLUsuario = new BLUsuario();
             return BLUsuario.GetValidarConsultoraNueva(paisID, CodigoConsultora);
-        }
-
-        public bool CreateActiveDirectoryUser(string login, string alias, string firstname, string lastname, string PaisISO, string Clave)
-        {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.CreateActiveDirectoryUser(login, alias, firstname, lastname, PaisISO, Clave);
         }
 
         public int ValidarUsuarioPrueba(string CodigoUsuario, int paisID)
@@ -304,6 +284,13 @@ namespace Portal.Consultoras.Service
             var BLNotificaciones = new BLNotificaciones();
             return BLNotificaciones.GetNotificacionesConsultora(PaisID, ConsultoraId, indicadorBloqueoCDR);
         }
+
+        //FRZ-12
+        public int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR)
+        {
+            var BLNotificaciones = new BLNotificaciones();
+            return BLNotificaciones.GetNotificacionesSinLeer(PaisID, ConsultoraId, indicadorBloqueoCDR);
+        }       
 
         //R2073
         public IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen)
@@ -763,5 +750,15 @@ namespace Portal.Consultoras.Service
             BLUsuario.UpdatePostulantesMensajes(paisID, codigoUsuario, tipo);
         }
 
+        #region TerminosCondiciones
+        public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
+        {
+            return new BLUsuario().InsertTerminosCondiciones(terminos);
+        }
+        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        {
+            return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
+        }
+        #endregion
     }
 }

@@ -103,11 +103,12 @@ namespace Portal.Consultoras.Data
             return deleted;
         }
 
-        public IDataReader GetPedidoWebDetalleByCampania(int CampaniaID, long ConsultoraID)
+        public IDataReader GetPedidoWebDetalleByCampania(int CampaniaID, long ConsultoraID, int esOpt = -1)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetPedidoWebDetalleByCampania_SB2");
             Context.Database.AddInParameter(command, "@CampaniaID", DbType.Int32, CampaniaID);
             Context.Database.AddInParameter(command, "@ConsultoraID", DbType.Int64, ConsultoraID);
+            Context.Database.AddInParameter(command, "@EsOpt", DbType.Int32, esOpt);
 
             return Context.ExecuteReader(command);
         }

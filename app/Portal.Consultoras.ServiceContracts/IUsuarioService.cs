@@ -1,10 +1,7 @@
-﻿using System;
+﻿using Portal.Consultoras.Entities;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ServiceModel;
-using Portal.Consultoras.Entities;
 
 namespace Portal.Consultoras.ServiceContracts
 {
@@ -74,17 +71,11 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
-        bool IsUserExist(string CodigoUsuario);
-
-        [OperationContract]
-        string GetUserUPN(string Email);
+        bool IsUserExist(int paisID, string CodigoUsuario);
 
         [OperationContract]
         bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen);
-
-        [OperationContract]
-        int ValidateUserCredentialsActiveDirectory(int paisID, string codigoUsuarioAutenticado, string codigoUsuarioModificado, string OldPassword, string NewPassword);
-
+        
         [OperationContract]
         int UpdUsuarioDatosPrimeraVezEstado(int PaisID, string CodigoUsuario);
 
@@ -107,14 +98,11 @@ namespace Portal.Consultoras.ServiceContracts
         string GetUsuarioAsociado(int paisID, string CodigoConsultora);
 
         [OperationContract]
-        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario);
+        string GetUsuarioPermisos(int paisID, string codigoUsuario, string codigoConsultora, short tipoUsuario, short rolID);
 
         [OperationContract]
         List<BEKitNueva> GetValidarConsultoraNueva(int paisID, string CodigoConsultora);
-
-        [OperationContract]
-        bool CreateActiveDirectoryUser(string login, string alias, string firstname, string lastname, string PaisISO, string Clave);
-
+        
         [OperationContract]
         int ValidarUsuarioPrueba(string CodigoUsuario, int paisID);
 
@@ -161,6 +149,10 @@ namespace Portal.Consultoras.ServiceContracts
 
         [OperationContract]
         IList<BENotificaciones> GetNotificacionesConsultora(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
+
+        //FRZ-12
+        [OperationContract]
+        int GetNotificacionesSinLeer(int PaisID, long ConsultoraId, int indicadorBloqueoCDR);
 
         [OperationContract]
         IList<BENotificacionesDetalle> GetNotificacionesConsultoraDetalle(int PaisID, long ValAutomaticaPROLLogId, int TipoOrigen); //R2073
@@ -346,5 +338,12 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         BEUsuarioConfiguracion ObtenerUsuarioConfiguracion(int paisID, int consultoraID, int campania,
             bool usuarioPrueba, int aceptacionConsultoraDA);
+
+        #region TerminosCondiciones
+        [OperationContract]
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
+        [OperationContract]
+        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        #endregion
     }
 }

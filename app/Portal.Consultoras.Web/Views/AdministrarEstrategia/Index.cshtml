@@ -6,11 +6,13 @@
 
 <script src="@Url.Content("~/Scripts/fileuploader.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.form.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.toast.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/handlebars.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/jquery.paging.min.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/ToastHelper.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Paginador.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Nemotecnico.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/AdminContenido/DescripcionComercial.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/MatrizComercialFileUpload.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Scripts/AdminContenido/Estrategia.js")" type="text/javascript"></script>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -176,19 +178,6 @@
         <div id="pagerTC"></div>
     </div>
 </div>
-<div id="divVistaPrevia" class="Content_modal_ZE" style="display: none; background-color: #fff; width: 200px; height: 330px; overflow: hidden; text-align: center">
-    <div class="Content_modal_ZE" style="margin: 5px; overflow: hidden;">
-        <div style="position: absolute; width: 100%;">
-            <img id="imgTipoOferta" style="float: right; margin-top: 10px;" src="">
-        </div>
-        <img id="imgZonaEstrategia" style="width: 128px; height: 161px; margin: 5px;" src="" alt="Imagen Producto">
-    </div>
-    <div class="zona_estrategia_1"></div>
-    <div>&nbsp;</div>
-    <div class="zona_estrategia_2"></div>
-    <div class="zona_estrategia_3"></div>
-    <div class="zona_estrategia_4"></div>
-</div>
 <div id="DialogNuevoMasivo" style="display: none;">
     <div class="Content_modal">
         <div class="div-3" style="text-align: center;">
@@ -304,6 +293,7 @@
     var imagen = "";
     var imagenPrevia = "";
     var isNuevo = false;
+    var isVistaPreviaOpened = false;
     var urlS3 = "@Model.UrlS3";
     var estrategiaObj;
     var habilitarNemoTecnico = @Json.Encode(Model.habilitarNemotecnico);
@@ -319,8 +309,9 @@
             getImagesByCodigoSAPAction: '@Url.Action("GetImagesByCodigoSAP", "MatrizComercial")',
             getImagesByNemotecnico: '@Url.Action("GetImagesByNemotecnicoSAP", "MatrizComercial")',
             habilitarNemotecnico: @Json.Encode(Model.habilitarNemotecnico),
-            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico)
-        });
+            expValidacionNemotecnico: @Html.Raw(Model.ExpValidacionNemotecnico),
+            actualizarDescripcionComercialAction: '@Url.Action("ActualizarDescripcionComercial", "MatrizComercial")'
+        }); 
 
         if(habilitarNemoTecnico) {
             $("#matriz-busqueda-nemotecnico").show();
@@ -766,7 +757,7 @@
             var cuvIngresado = $(this).val();
             $("#imgSeleccionada").attr("src", rutaImagenVacia);
             $("#imgSeleccionada").attr("data-id", "0");
-             estrategiaObj.mostrarInformacionCUV(cuvIngresado);
+            estrategiaObj.mostrarInformacionCUV(cuvIngresado, isNuevo);
         });
 
         $(".chk-estrategia-imagen").click(function () {
@@ -806,7 +797,6 @@
                 PaletaColores();
             }
         });
-
 
         $("#btnNuevoMasivo").click(function () {
             if ($("#ddlPais").val() == "") {
@@ -960,146 +950,6 @@
         UploadFileLanzamineto('img-home-mobile');
         });
 
-
-    function mostrarInformacionCUV(cuvIngresado) {
-        $("#hdnCodigoSAP").val("");
-        $("#hdnEnMatrizComercial").val("");
-        if (cuvIngresado.length == 5) {
-            waitingDialog({});
-            $.ajaxSetup({ cache: false });
-
-            var flagNueva = $("#ddlTipoEstrategia option:selected").attr("flag-nueva");
-            var flagRecoProduc = $("#ddlTipoEstrategia option:selected").attr("flag-recoproduct");
-            var flagRecoPerfil = $("#ddlTipoEstrategia option:selected").attr("flag-recoperfil");
-            var auxOD = $('#ddlTipoEstrategia').find(':selected').data('id');
-            var flagOD = "";
-            if (auxOD == '7') {
-                flagOD = '4';
-            } else if (auxOD == '9' || auxOD == '10' || auxOD == '11') {
-                flagOD = auxOD;
-            }else {
-                flagOD = '0';
-            }
-
-            var params = {
-                CampaniaID: $("#ddlCampania").val(),
-                CUV2: $("#txtCUV2").val(),
-                TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
-                CUV1: "0",
-                flag: flagOD,
-                FlagNueva: flagNueva,
-                FlagRecoProduc: flagRecoProduc,
-                FlagRecoPerfil: flagRecoPerfil
-            };
-
-            jQuery.ajax({
-                type: 'POST',
-                url: urlGetOfertaByCUV,
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: JSON.stringify(params),
-                async: true,
-                success: function (data) {
-                    var objPreview, objChkImagen, idImagen, dataImagen, imgFormat;
-                    $('#mensajeErrorCUV').val("");
-
-                    if (data.message == "OK") {
-                        $("#txtDescripcion").val(data.descripcion);
-
-                        if (data.wsprecio > 0) {
-                            $("#txtPrecio2").val(parseFloat(data.wsprecio).toFixed(2));
-                            $("#txtPrecio2")[0].disabled = true;
-                        }
-                        else if (data.wsprecio == 0) {
-                            if (data.precio == 0) {
-                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
-                            }
-                            else {
-                                $("#txtPrecio2").val(parseFloat(data.precio).toFixed(2));
-                                $("#txtPrecio2")[0].disabled = true;
-                            }
-                        }
-                        else if (data.wsprecio == -1) {
-                            $("#txtPrecio2")[0].disabled = true;
-                            alert("No se pudo  obtener el precio del producto. Por favor, comunicarse con Soporte Digital Consultoras");
-                        }
-                        else if (data.wsprecio == -2) {
-                            $("#txtPrecio2")[0].disabled = false;
-                            $("#txtPrecio2").val("");
-                            $("#txtPrecio2").focus();
-                        }
-
-                        $("#ContenidoImagenes").empty();
-                        $("#hdnCodigoSAP").val(data.codigoSAP);
-                        $("#hdnEnMatrizComercial").val(data.enMatrizComercial);
-                        imagenesProductos = [];
-                        var imagenProductoSeleccionada = $("#imgSeleccionada").attr('src');
-                        imagenProductoSeleccionada = imagenProductoSeleccionada.substr(imagenProductoSeleccionada.lastIndexOf("/") + 1);
-
-                        /*for (var i = 1; i <= nroImagenes; i++) {
-                            idImagen = ('0' + i).substr(-2);
-                            dataImagen = data['imagen' + i];
-
-
-                            if (dataImagen != '') {
-                                var imagen = {
-                                    "idImagen": idImagen,
-                                    "dataImagen": dataImagen,
-                                    "fotoProducto": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                    "fotoProductoAnterior": dataImagen.substr(dataImagen.lastIndexOf("/") + 1),
-                                    "selected": dataImagen.substr(dataImagen.lastIndexOf("/") + 1) == imagenProductoSeleccionada ? true : false
-                                }
-                                imagenesProductos.push(imagen);
-                            }
-                        }*/
-
-                        $('#ImagenCUV-template').tmpl(imagenesProductos).appendTo("#ContenidoImagenes");
-
-                        $("#divImagenEstrategiaContenido").show();
-                        $("#divInformacionAdicionalEstrategiaContenido").hide();
-
-                        (imagenesProductos.length == 10) ? $("#fpUpload").hide() : $("#fpUpload").show();
-
-                        $('#mensajeErrorCUV2').val("");
-                        closeWaitingDialog();
-                    } else {
-                        $('#mensajeErrorCUV2').val(data.message);
-                        alert($('#mensajeErrorCUV2').val());
-                        $("#txtDescripcion").val("");
-                        $("#txtPrecio2").val("");
-
-                        $("#txtPrecio").val("");
-                        $("#txtCUV").val("");
-
-                        /*for (var i = 1; i <= nroImagenes; i++) {
-                            idImagen = ('0' + i).substr(-2);
-                            objPreview = $('#preview' + i);
-                            objChkImagen = $('#chkImagenProducto' + idImagen);
-                            dataImagen = data['imagen' + i];
-
-                            if (dataImagen != '') {
-                                objPreview.attr('src', data.imagen1);
-                                objChkImagen.attr('disabled', false);
-                            }
-                            else {
-                                objPreview.attr('src', rutaImagenVacia);
-                                objChkImagen.attr('disabled', true);
-                            }
-                            objChkImagen.attr('checked', false);
-                        }*/
-
-                        closeWaitingDialog();
-                    }
-                },
-                error: function (data, error) {
-                    alert(data.message);
-                    closeWaitingDialog();
-                }
-            });
-        }
-    }
-
     $("#divImagenEstrategia").click(function () {
         $(this).css("color", "white");
         $(this).css("background", "#00A2E8");
@@ -1251,8 +1101,6 @@
         jQuery("#listCargaMasiva2").jqGrid('navGrid', "#pagerCargaMasiva2", { edit: false, add: false, refresh: false, del: false, search: false });
         jQuery("#listCargaMasiva2").setGridParam({ datatype: 'json', page: 1 }).trigger('reloadGrid');
     }
-
-
 
     function InitCap(str) {
         return str.replace(/([^\W_]+[^\s-]*) */g, function (txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
@@ -2001,7 +1849,6 @@
             }
         });
 
-
         $('#divVistaPrevia').dialog({
             autoOpen: false,
             resizable: false,
@@ -2013,6 +1860,15 @@
             buttons:
             {
                 "Cerrar": function () {
+                    if(isVistaPreviaOpened){
+                        var params = { paisID: $("#ddlPais").val(), EstrategiaID: $("#hdEstrategiaID").val(), CampaniaID: $("#ddlCampania").val(), TipoEstrategiaID: $("#ddlTipoEstrategia").val(),
+                            CUV2 : $("#txtCUV2").val()};
+                        estrategiaObj.obtenerImagenes(params, 1, true).done(function () {
+                            showDialog("matriz-comercial-dialog");
+                            closeWaitingDialog();
+                        });
+                    }
+                    isVistaPreviaOpened = false;
                     $(this).dialog('close');
                 }
             }
@@ -2190,5 +2046,9 @@
     function LimpiarCamposLanzamiento(nombreCampo) {
         $("#nombre-" + nombreCampo).val("");
         $("#src-" + nombreCampo).attr("src", rutaImagenVacia);
+    }
+
+    function editarDescripcionComercial(idImagen) {
+        estrategiaObj.editarDescripcionComercial(idImagen);
     }
 </script>

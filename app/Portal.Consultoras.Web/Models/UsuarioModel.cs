@@ -69,10 +69,13 @@ namespace Portal.Consultoras.Web.Models
             this.TipoCasoPromesa = string.Empty;
             this.DiasCasoPromesa = 0;
             this.SegmentoAbreviatura = string.Empty;
-            this.EsLebel = false;
             this.RevistaDigital = new RevistaDigitalModel();
             this.MensajePedidoDesktop = 0;
             this.MensajePedidoMobile = 0;
+            this.OfertaFinalModel = new OfertaFinalModel();
+            this.EsLebel = false;
+            this.TieneCDRExpress = false;
+            this.PopupBienvenidaCerrado = false;
         }
 
         public string Celular { get; set; }
@@ -193,6 +196,7 @@ namespace Portal.Consultoras.Web.Models
         public int IndicadorPagoOnline { get; set; }
         public string UrlPagoOnline { get; set; }
         public int IndicadorPermisoFIC { get; set; }
+        public bool PedidoFICActivo { get; set; }
         public bool IndicadorPermisoFlexipago { get; set; }
 
         public string CampanaInvitada { get; set; } //1796
@@ -312,6 +316,7 @@ namespace Portal.Consultoras.Web.Models
         public int TieneCDR { get; set; }
         public int TieneCupon { get; set; }
         public int TieneMasVendidos { get; set; }
+        public int TieneAsesoraOnline { get; set; }
         public int TieneOfertaLog { get; set; }
         public int IndicadorEnviado { get; set; }
         public int IndicadorRechazado { get; set; }
@@ -320,8 +325,12 @@ namespace Portal.Consultoras.Web.Models
         public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
         public DateTime FechaProceso { get; set; }
         public bool MostrarBannerRechazo { get; set; }
+        public bool RechazadoXdeuda { get; set; }
         public bool MostrarBannerPostulante { get; set; }
 
+        public bool TieneCDRExpress { get; set; } //EPD-1919
+        public string MensajeCDRExpress { get; set; } //EPD-1919
+        public bool EsConsecutivoNueva { get; set; } //EPD-1919
         public DateTime FechaActualPais { get; set; }
         // 0: No hay Respuesta, 1: Rechazado, 2: No Rechazado
         public int CerrarRechazado { get; set; }
@@ -360,11 +369,15 @@ namespace Portal.Consultoras.Web.Models
         public int MensajePedidoDesktop { get; set; }
         public int MensajePedidoMobile { get; set; }
 
+        public ConsultoraOnlineMenuResumenModel ConsultoraOnlineMenuResumen { get; set; }
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
-        public List<MenuMobileModel> MenuMobile { get; internal set; }
+        public List<MenuMobileModel> MenuMobile { get; set; }
 
+        public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
 
         public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
+        public string ClaseLogoSB { get; set; }
+        public bool PopupBienvenidaCerrado { get; set; }
     }
 }
