@@ -1213,6 +1213,8 @@
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_normal.png" />
+    <Content Include="Content\Images\Esika\Contenedor\inicio_hover.png" />
     <Content Include="Content\Images\Esika\esika-venta.jpg" />
     <Content Include="Content\Images\Esika\esika_intriga.jpg" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />

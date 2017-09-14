@@ -54,8 +54,9 @@ function SeccionRender() {
 }
 
 function SeccionObtenerSeccion(seccion) {
-    var codigo = $.trim($(seccion).data("seccion"));
-    var campania = $.trim($(seccion).data("campania"));
+    var codigo = $.trim($(seccion).attr("data-seccion"));
+    var campania = $.trim($(seccion).attr("data-campania"));
+    var urlproducto = $.trim($(seccion).attr("data-url"));
     var detalle = {};
 
     if (codigo === "" || campania === "")
@@ -66,32 +67,38 @@ function SeccionObtenerSeccion(seccion) {
     });
 
     var param = {
-        codigo: codigo,
-        campaniaId: campania
+        Codigo: codigo,
+        CampaniaId: campania,
+        UrlObtenerProductos: urlproducto,
+        TemplateProducto: $.trim($(seccion).attr("data-templateProducto")),
+        TipoPresentacion: $.trim($(seccion).attr("data-tipoPresentacion")),
+        TipoEstrategia: $.trim($(seccion).attr("data-tipoEstrategia")),
+        CantidadProductos: $.trim($(seccion).attr("data-cantidadProductos"))
     }
+    return param;
 
-    $.ajax({
-        type: 'POST',
-        url: cUrl.UrlObtenerSeccion,
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(param),
-        async: false,
-        success: function (data) {
-            detalle = data.seccion || {};
-        },
-        error: function (error, x) {
-            console.log(error, x);
-        }
-    });
-
-    return detalle;
+    //$.ajax({
+    //    type: 'POST',
+    //    url: cUrl.UrlObtenerSeccion,
+    //    dataType: 'json',
+    //    contentType: 'application/json; charset=utf-8',
+    //    data: JSON.stringify(param),
+    //    async: false,
+    //    success: function (data) {
+    //        detalle = data.seccion || {};
+    //    },
+    //    error: function (error, x) {
+    //        console.log(error, x);
+    //    }
+    //});
+    //return detalle;
 }
 
 function SeccionCargarProductos(objConsulta) {
     
     objConsulta = objConsulta || {};
-    if (typeof objConsulta.UrlObtenerProductos === "undefined" || objConsulta.UrlObtenerProductos == null)
+    objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
+    if (objConsulta.UrlObtenerProductos === "")
         return false;
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;
@@ -180,8 +187,8 @@ function RenderCarruselPrevisuales(divProd) {
         slidesToShow: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
-        nextArrow: '<div class="btn-set-previous div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
+        prevArrow: '<div class="btn-set-previous div-carousel-rd-prev-fix-carousel div-carousel-rd-prev"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-prev"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNamePrev() + '" alt="" /></a></div>',
+        nextArrow: '<div class="btn-set-previous div-carousel-rd-next-fix-carousel div-carousel-rd-next"><img src="" alt="" data-prev="" /><a class="previous_ofertas_ept js-slick-next"><img src="' + baseUrl + 'Content/Images/RevistaDigital/' + GetArrowNameNext() + '" alt="" /></a></div>'
     }).on('afterChange', function (event, slick, currentSlide) {
 
         var slides = (slick || new Object()).$slides || new Array();
@@ -232,8 +239,8 @@ function RenderCarruselSimple(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="div-carousel-rd-prev div-carousel-rd-prev-fix-carousel js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="div-carousel-rd-next div-carousel-rd-next-fix-carousel js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);

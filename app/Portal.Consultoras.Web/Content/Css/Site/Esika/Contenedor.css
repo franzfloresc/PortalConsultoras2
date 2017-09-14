@@ -148,7 +148,6 @@
     padding: 0;
     list-style: none;
     height: 100%;
-    width: 100%;
     margin-top: -5px;
 }
 
@@ -258,7 +257,8 @@
 }
 
 .contenedorImagen {
-    display:none;
+    float: left;
+    margin-right: 10px;
 }
 
 .contenedorDescripcion {
@@ -308,6 +308,12 @@
     top:23px !important;
 }
 
+.div-carousel-rd-prev-fix-carousel {
+    left: -9.2% !important;
+}
+.div-carousel-rd-next-fix-carousel {
+    right: -9.5% !important;
+}
 
 .previsualizales-ofertas {
     max-width: 700px !important;

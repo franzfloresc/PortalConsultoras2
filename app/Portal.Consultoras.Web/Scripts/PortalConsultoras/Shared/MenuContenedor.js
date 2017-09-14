@@ -12,7 +12,7 @@ var menuModule = (function () {
             seccionBannerMobile: "#seccion-banner-mobile",
             header: "header",
             bcMenuEstrategia: ".bc_menu_estrategia",
-            aHover: "ul.sbmenu_estrategia ul li a"
+            aHover: "ul.subnavegador li a"
         },
         anchorMark = "#",
         anchorValue,
@@ -40,9 +40,17 @@ var menuModule = (function () {
 
     function setHover() {
         $(elementos.aHover).hover(function (e) {
-            $(this).find('p').css('font-weight', 'bolder');
+            var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
+            if (img != "") {
+                img = img.replace("_normal.", "_hover.");
+                $(this).find('.contenedorImagen img').attr("src", img)
+            }
         }, function (e) {
-            $(this).find('p').css('font-weight', 'normal');
+            var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
+            if (img != "") {
+                img = img.replace("_hover.", "_normal.");
+                $(this).find('.contenedorImagen img').attr("src", img)
+            }
         });
     }
 
@@ -137,6 +145,20 @@ var menuModule = (function () {
 })();
 
 $(document).ready(function () {
+
+    if ($('.bc_para_ti-menu ul li a').hasClass('activo')) {
+        $('.bc_para_ti-menu ul li a.activo').find('img.hover').css('display', 'none');
+        $('.bc_para_ti-menu ul li a.activo').find('img.default').css('display', 'none');
+        $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
+    }
+
+    if ($('.bc_para_ti-menu-opciones ul li a').hasClass('activo')) {
+        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'block');
+    }
+    else {
+        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'none');
+    }
+
     menuModule.init();
     menuModule.setHover();
     menuModule.checkAnchor();
