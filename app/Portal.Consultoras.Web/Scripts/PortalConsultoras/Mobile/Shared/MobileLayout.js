@@ -771,6 +771,15 @@ function messageInfoValidado(message, fnAceptar) {
     }
 }
 
+function messageConfirmacion(message, fnAceptar) {
+    $('#mensajeInformacionConfirmacion').html(message);
+    $('#popupInformacionConfirmacion').show();
+    if ($.isFunction(fnAceptar)) {
+        $('#popupInformacionConfirmacion .aceptar-mobile').off('click');
+        $('#popupInformacionConfirmacion .aceptar-mobile').on('click', fnAceptar);
+    }
+}
+
 function CargarCantidadProductosPedidos(noMostrarEfecto) {
     noMostrarEfecto = noMostrarEfecto || false;
 
@@ -778,7 +787,7 @@ function CargarCantidadProductosPedidos(noMostrarEfecto) {
         type: 'POST',
         url: urlGetCantidadProductos,
         dataType: 'json',
-        data: JSON.stringify({ soloCantidad : true }),
+        data: JSON.stringify({ soloCantidad: true }),
         contentType: 'application/json; charset=utf-8',
         success: function (data) {
             if (checkTimeout(data)) {
@@ -888,7 +897,7 @@ function SeparadorMiles(pnumero) {
 
     if (numero.indexOf(",") >= 0) nuevoNumero = nuevoNumero.substring(0, nuevoNumero.indexOf(","));
 
-    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i--, j++)
+    for (var j, i = nuevoNumero.length - 1, j = 0; i >= 0; i-- , j++)
         resultado = nuevoNumero.charAt(i) + ((j > 0) && (j % 3 == 0) ? "." : "") + resultado;
 
     if (numero.indexOf(",") >= 0) resultado += numero.substring(numero.indexOf(","));

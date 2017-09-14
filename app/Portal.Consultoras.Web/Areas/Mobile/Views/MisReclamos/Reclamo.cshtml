@@ -18,7 +18,7 @@
         var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
-    <a class="enlace_regresar catalogosR" title="Regresar"></a>
+            <a class="enlace_regresar catalogosR" title="Regresar"></a>
         }
     }
     CAMBIOS Y DEVOLUCIONES
@@ -105,7 +105,7 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
 
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
@@ -151,7 +151,7 @@
             ¿Cuál fue el inconveniente?
         </div>
         <div class="campos_registro_solicitud_cdr Registro2" style="display:none;">
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
             </form>
@@ -179,7 +179,7 @@
                 <div data-detalle-confirma=""></div>
             </div>
 
-            <form class="formulario_inscripcion">
+            <form class="formulario_inscripcion padding0">
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
 
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
@@ -417,11 +417,11 @@
             </div>
             <!-- FIN VISTA SOLICITUD ENVIADA -->
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes">
+            <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
                 <span class="icono_arrow_left">
                     <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
                 </span>
-                <span href="@Url.Action("Index")">VER TUS SOLICITUDES</span>
+                <span>VER TUS SOLICITUDES</span>
             </a>
             <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
@@ -436,18 +436,18 @@
                 <div class="contenedor_producto_cambio_por tipografia_lato">
                     <span class="texto_producto_a_cambiar">Vas a cambiar:</span>
                     <div class="producto_cdr tipografia_lato">
-                    <span id="spnCuv1" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="spnDescripcionCuv1" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                        <span id="spnCuv1" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="spnDescripcionCuv1" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
                         <span class="cantidad_producto tipografia_lato_regular">
-                        x<span id="spnCantidadCuv1">2</span> unidades
+                            x<span id="spnCantidadCuv1">2</span> unidades
                         </span>
                     </div>
                 </div>
                 <div class="contenedor_producto_cambio_por tipografia_lato">
                     <span class="texto_producto_a_cambiar">Por:</span>
                     <div class="producto_cdr tipografia_lato">
-                    <span id="spnCuv2" class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span id="spnDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
+                        <span id="spnCuv2" class="codigo_producto_cdr tipografia_lato_bold">98765</span> - <span id="spnDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Máscara Full Size Negro</span>
                         <span class="cantidad_producto tipografia_lato_regular">
-                        x<span id="spnCantidadCuv2">2</span> unidades
+                            x<span id="spnCantidadCuv2">2</span> unidades
                         </span>
                     </div>
                 </div>
@@ -545,7 +545,7 @@
         <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
     </div>
-
+</div>
 
 <!-- INICIO BOTONES CTA (CALL TO ACTION) -->
 <button id="btnSiguiente1"
