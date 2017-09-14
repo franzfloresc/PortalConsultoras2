@@ -1299,8 +1299,9 @@
     letter-spacing: 0.5px;
     position: absolute;
     top: -20px;
-    left: 20px;
+    /*left: 20px;*/
     transition: all 0.2s ease-in-out;
+    padding-left: 0;
 }
 .revista_ficha .rd_volver .previous_volver {
     width: 8px;
