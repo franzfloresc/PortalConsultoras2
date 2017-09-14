@@ -821,7 +821,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo =  "/Content/Images/Esika/Contenedor/inicio.png";
+                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 
@@ -840,7 +840,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio.png";
+                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 

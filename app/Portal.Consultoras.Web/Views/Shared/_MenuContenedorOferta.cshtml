@@ -82,10 +82,10 @@
                                     @if (menuhijo.Logo != "" && menuhijo.Logo != null)
                                     {
                                         <div class="contenedorImagen">
-                                            <img style="display:inline;" src="../" />
+                                            <img style="display:inline;" src="@menuhijo.Logo" />
                                         </div>
                                     }
-                                    @if (menuhijo.Descripcion)
+                                    @if (menuhijo.Descripcion != "" && menuhijo.Descripcion != null)
                                     {
                                         <div class="contenedorDescripcion">
                                             <span>@menuhijo.Descripcion</span>
