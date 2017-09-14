@@ -9719,7 +9719,7 @@ span.icon-advertencia{
     /*height: 142px;*/
     width: 100%;
     /*overflow:hidden;*/
-    padding-top:12px;
+    padding-top:4px;
     min-height: 196px;
 }
 .solo_hoy_mobile{
@@ -9737,7 +9737,7 @@ span.icon-advertencia{
     font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 16%;
+    margin-top: 13%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -9751,6 +9751,7 @@ span.icon-advertencia{
     margin-top: 9px;
     /*margin-left: 9px;*/
     text-align: center;
+    margin-top: -7px;
 }
 .imagen_set_oferta_mobile img{
     width:90%;
