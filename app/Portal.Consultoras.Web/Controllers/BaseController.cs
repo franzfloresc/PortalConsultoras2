@@ -2939,7 +2939,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             catch (Exception e) {Console.WriteLine(e);}
             
-            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID };
+            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
 
             try
             {
@@ -3004,7 +3004,7 @@ namespace Portal.Consultoras.Web.Controllers
                 configMenu.Codigo = Constantes.ConfiguracionPais.Inicio;
             }
 
-            menuActivo.ConfiguracionPais = configMenu;
+            menuActivo.ConfiguracionPais = configMenu ?? new ConfiguracionPaisModel();
             if (userData.RevistaDigital.TieneRDC)
             {
                 menuActivo.CampaniaX0 = userData.CampaniaID;

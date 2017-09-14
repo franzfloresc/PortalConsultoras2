@@ -7,6 +7,7 @@
     //var listaNegra = menuList.Where(p => p.IsMenuCampania).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     //var listaPloma = menuList.Where(p => p.IsMenuCampania == false).ToList() ?? new List<Portal.Consultoras.Web.Models.Layout.MenuContenedorModel>();
     var menuActivo = (MenuContenedorModel)ViewBag.MenuContenedorActivo ?? new MenuContenedorModel();
+    menuActivo.ConfiguracionPais = menuActivo.ConfiguracionPais ?? new ConfiguracionPaisModel();
     menuActivo.ConfiguracionPais.MobileFondoBanner = Util.Trim(menuActivo.ConfiguracionPais.MobileFondoBanner);
     var estiloFondoBanner = menuActivo.ConfiguracionPais.MobileFondoBanner != "" ? "style=background:url(" + menuActivo.ConfiguracionPais.MobileFondoBanner + ");" : "";
 
@@ -18,7 +19,9 @@
     <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
         @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
         {
-            <div class="bc_mobile-logo" style="background: url(@menuActivo.ConfiguracionPais.MobileLogoBanner);"></div>
+            <div class="bc_mobile-logo">
+                <img src="@menuActivo.ConfiguracionPais.MobileLogoBanner" alt="" />
+            </div>
         }
         <div class="bc_mobile-texto">
             @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "" || menuActivo.ConfiguracionPais.MobileTituloBanner != "")

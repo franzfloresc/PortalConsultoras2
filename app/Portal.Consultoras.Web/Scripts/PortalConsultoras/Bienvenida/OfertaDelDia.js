@@ -62,7 +62,10 @@ $(document).ready(function () {
         }
     }
 
+
     self.CargarODDMobile = function () {
+        MostrarRelojOfertaDelDia($('.clock').data('total-seconds'));
+
         var contenedorOfertas = elements.ContenedorOfertaDelDiaMobile;
 
         if ($(contenedorOfertas).length == 0)
@@ -94,6 +97,17 @@ $(document).ready(function () {
         });
     }
 
+    function MostrarRelojOfertaDelDia(totalSegundos) {
+
+        $('.clock').each(function (index, elem) {
+            $(elem).FlipClock(totalSegundos, {
+                clockFace: 'HourlyCounter',
+                countdown: true
+            });
+        });
+
+    }
+
     function EsValidoResponseGetOfertaDelDia(response) {
         if (!response.success)
             return false;
@@ -105,13 +119,6 @@ $(document).ready(function () {
             return false;
 
         return true;
-    }
-
-    function MostrarRelojOfertaDelDia(totalSegundos) {
-        var clock = $('.clock').FlipClock(totalSegundos, {
-            clockFace: 'HourlyCounter',
-            countdown: true
-        });
     }
 
     function RenderOfertaDelDiaMobile(data, contenedorOfertas) {
@@ -806,7 +813,7 @@ $(document).ready(function () {
     }
 
     $(elements.ContenedorInternoSliderOfertaDelDiaMobileHome + ", " + elements.ContenedorInternoSliderOfertaDelDiaMobile).click(function () {
-        document.location.href = urlContenedorOfertasMobile;
+        document.location.href = urlOfertaDelDiaMobile;
     });
 
     $("body").on("click", elements.BtnAgregarMobile, function (e) {

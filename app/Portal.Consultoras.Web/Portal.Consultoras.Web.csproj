@@ -1210,6 +1210,10 @@
     <Content Include="Content\Css\Toast\jquery.toast.min.css" />
     <Content Include="Content\Css\Site\calc.css" />
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
+    <Content Include="Content\Images\carrito-hover.png" />
+    <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\casita-rojo.png" />
+    <Content Include="Content\Images\casita.png" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />
@@ -2815,6 +2819,8 @@
     <Content Include="Content\Images\nuevo-producto.png" />
     <Content Include="Content\Images\oferta-ultimo-minuto.png" />
     <Content Include="Content\Images\oferta.png" />
+    <Content Include="Content\Images\ojito-hover.png" />
+    <Content Include="Content\Images\ojito.png" />
     <Content Include="Content\Images\paquete_doc.png" />
     <Content Include="Content\Images\paquete_documentario.svg" />
     <Content Include="Content\Images\paypal_error.png" />

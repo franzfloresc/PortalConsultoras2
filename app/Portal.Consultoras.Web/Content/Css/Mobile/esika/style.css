@@ -10463,7 +10463,7 @@ a{
     width: 100%;
     /*overflow:hidden;*/
     padding-top:12px;
-    min-height: 166px;
+    min-height: 196px;
 }
 .solo_hoy_mobile{
     width: 70%;
@@ -10488,8 +10488,8 @@ a{
 .float_left{
     float:left;
 }
-.imagen_set_oferta_mobile{
-    float: left;
+.imagen_set_oferta_mobile {
+    float: right;
     width: 47%;
     margin-top: 9px;
     /*margin-left: 9px;*/
