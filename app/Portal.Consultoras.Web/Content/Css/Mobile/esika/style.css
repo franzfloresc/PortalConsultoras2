@@ -10488,8 +10488,8 @@ a{
 .float_left{
     float:left;
 }
-.imagen_set_oferta_mobile{
-    float: left;
+.imagen_set_oferta_mobile {
+    float: right;
     width: 47%;
     margin-top: 9px;
     /*margin-left: 9px;*/
