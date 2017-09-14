@@ -152,13 +152,6 @@ $(document).ready(function () {
         $('.bc_para_ti-menu ul li a.activo').find('img.click-menu').css('display', 'inline');
     }
 
-    if ($('.bc_para_ti-menu-opciones ul li a').hasClass('activo')) {
-        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'block');
-    }
-    else {
-        $('.bc_para_ti-menu-opciones ul li a.activo').find('p::after').css('display', 'none');
-    }
-
     menuModule.init();
     menuModule.setHover();
     menuModule.checkAnchor();
