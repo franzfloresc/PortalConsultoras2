@@ -3084,6 +3084,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private string RemplazaTag(string cadena)
         {
+            cadena = cadena ?? "";
             cadena = cadena.Replace("#Nombre", userData.NombreCorto);
             cadena = cadena.Replace("#nombre", userData.NombreCorto);
             cadena = cadena.Replace("#NOMBRE", userData.NombreCorto);
