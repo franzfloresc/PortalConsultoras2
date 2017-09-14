@@ -43,13 +43,18 @@
     @if (mostrarPopupVenta)
     {
         <script id="template-showroom" type="text/x-handlebars-template">
+
             <div id="container-showroom-landing" class="content-favclientes content_carrusel_agregado">
                 <div>
-                    <div class="clear"></div>
-                    <div class="texto_filtros_fav">
-                        <a class="btn_ver_todo_filtros" href="/ShowRoom">VER TODOS LOS SETS</a>
+                    <div class="titulo">
+                        <h2>@Model.Titulo</h2>
+                        <div class="boton-ir">
+                            <a href="/ShowRoom">VER TODOS LOS SETS</a>
+                        </div>
                     </div>
-                    <hr class="clear" />
+                   
+                    <div class="clear"></div>
+                    @*<hr class="clear" />*@
                     <div class="" style="position:relative;">
                         {{#each this.data as |item|}}
                         <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
