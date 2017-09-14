@@ -1269,8 +1269,8 @@ $(document).ready(function () {
                         else $("#spnTipoDespacho").show().html(mensajeDespacho);
                         $("#divProcesoReclamo").hide();
                         $("#divUltimasSolicitudes").hide();
+                        $(me.Variables.btnSiguiente4).hide();
                         $("#TituloReclamo").hide();
-                        $("#SolicitudEnviada").show();
 
                         if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
 
@@ -1334,10 +1334,9 @@ $(document).ready(function () {
                         CDRWebDetalleID: pedidodetalleid
                     };
 
-                    var functionEliminar = function () {
+                    messageConfirmacion("Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", function () {
                         me.Funciones.DetalleEliminar(item);
-                    };
-                    messageInfoValidado("Se eliminará el registro seleccionado. <br/>¿Deseas continuar?", functionEliminar);
+                    });
                 }
             },
 

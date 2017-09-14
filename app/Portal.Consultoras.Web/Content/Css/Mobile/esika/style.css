@@ -6755,6 +6755,10 @@ input[type="checkbox"]:checked + span:after {
     text-decoration:none!important;
 }
 
+.btn_ok_mobile-inline {    
+    display: inline-block;
+}
+
 /* ver mas la fleca abajo => poner solo la clase al contenedor*/
 
 .ver-mas-vertical span.icono {
