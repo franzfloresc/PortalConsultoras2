@@ -170,5 +170,7 @@ $(document).ready(function () {
         } else {
             menuModule.hasScrolledDesktop($(window).scrollTop());
         }
+       
+        
     });
 });
