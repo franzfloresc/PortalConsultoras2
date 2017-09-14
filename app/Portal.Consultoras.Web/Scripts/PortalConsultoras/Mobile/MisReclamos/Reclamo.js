@@ -242,8 +242,8 @@ $(document).ready(function () {
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
 
-                    me.Funciones.DetalleGuardar(); 
-                    
+                    me.Funciones.DetalleGuardar();
+
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
 
@@ -302,13 +302,13 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnCambioProducto).click(function (evt) {
-                    
+
                     $(me.Variables.btnCambioProducto).hide();
                     $(me.Variables.btnAceptarSolucion).show();
 
                     me.Funciones.CambioPaso2(1);
                     //if (ValidarPaso2Trueque()) {
-                    
+
 
                     $("#spnCuv1").html($(me.Variables.txtCuvMobile).val());
                     $("#spnDescripcionCuv1").html($(me.Variables.txtDescripcionCuv).html());
@@ -319,8 +319,8 @@ $(document).ready(function () {
                     //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
                     //}
 
-                                      
-                    
+
+
                 });
             }
         };
@@ -517,11 +517,9 @@ $(document).ready(function () {
 
             //    return ok;
             //},
-
-
             
             EvaluarCUV2: function () {
-                
+
                 if (!me.Funciones.CUV2Cambio()) return false;
 
                 var cuv = $(me.Variables.txtCuvMobile2).val();
@@ -726,14 +724,14 @@ $(document).ready(function () {
             AnalizarOperacion: function (id) {
 
                 if (id == "C") {
-                    CambioPaso2(100);
                     $("[data-tipo-confirma='cambio']").hide();
                     $("[data-tipo-confirma=canje]").show();
 
-                    CargarPropuesta(id);
+                    me.Funciones.CargarPropuesta(id);
+                    $(me.Variables.btnAceptarSolucion).show();
                 }
-                if (id == 'D') {
 
+                if (id == 'D') {
                     if (me.Funciones.ValidarPaso2Devolucion(id)) {
 
                         $("[data-tipo-confirma='cambio']").hide();
@@ -1147,7 +1145,7 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-                        debugger
+
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                         $(".num_solicitudes").html(data.detalle.length)
 
@@ -1156,7 +1154,7 @@ $(document).ready(function () {
 
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
-                        
+
 
                         ////EPD-1919 INICIO
                         //if (data.esCDRExpress) $("#TipoDespacho").show();
