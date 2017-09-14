@@ -892,7 +892,6 @@ namespace Portal.Consultoras.Web.Controllers
                 SepararPipe(ref config);
                 RemplazarTagNombreConfiguracion(ref config);
 
-                //if (config.Codigo == Constantes.ConfiguracionPais.Inicio) config.UrlMenu = "/Ofertas";
                 listaMenu.Add(config);
             }
 
