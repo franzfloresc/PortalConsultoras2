@@ -993,7 +993,7 @@ namespace Portal.Consultoras.Web.Controllers
                                         case Constantes.ConfiguracionPais.RevistaDigitalReducida:
                                             model.RevistaDigital.TieneRDR = true;
                                             break;
-                                        case Constantes.ConfiguracionPais.CDRMontoMaximo:
+                                        case Constantes.ConfiguracionPais.ValidacionMontoMaximo:
                                             model.TieneValidacionMontoMaximo = c.Estado;
                                             break;
                                         case Constantes.ConfiguracionPais.OfertaFinalTradicional:
