@@ -23,14 +23,15 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
 <!--  MAQUETADO NUEVO-->
-@*<div class="content_banner_header_showroom">
+@*<div class="content_banner_header_showroom">*@
     @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (mobileConfiguracion.MostrarBotonAtras)
+        @*if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>
-        } }
-    <img src="@ViewBag.BannerImagenVenta" />
-</div>*@
+        }*@ 
+    }
+    @*<img src="@ViewBag.BannerImagenVenta" />*@
+@*</div>*@
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
@@ -183,7 +184,7 @@
 <hr class="clear" />
 <!--FIN-->
 
-@*<div class="titulo_showroom_mobile">
+<div class="titulo_showroom_mobile">
     @if (mobileConfiguracion.MostrarHipervinculo)
     {
         <a onclick=" SetMarcaGoogleAnalyticsTermino(); " href="@Model.UrlTerminosCondiciones" target="_blank">
@@ -191,7 +192,7 @@
             @Model.Tema
         </a>
     }
-</div>*@
+</div>
 
 @if (Model.TieneCompraXcompra)
 {
@@ -458,14 +459,14 @@ else
             </div>
             <div class="titulo_contenido">CONTENIDO</div>
             <div class="nombre_set_producto_hoy">{{{oferta.Contenido}}}</div>
-            @*<div class="content_redes_ficha" data-item="">
+            <div class="content_redes_ficha" data-item="">
                 @if (mobileConfiguracion.MostrarHipervinculo)
                 {
                     <div class="texto_redes">Comparte este producto con tus clientes:</div>
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="WA"><img src="/Content/Images/Mobile/Esika/catalogo_ws.png" alt=""></a>
                     <a class="btn_compartir_ofertas" href="javascript: void(0);" data-compartir="FB"><img src="/Content/Images/Mobile/Esika/facebook.png" alt=""></a>
                 }
-             </div>*@
+             </div>
         </div>
     </div>
     {{/each}}
