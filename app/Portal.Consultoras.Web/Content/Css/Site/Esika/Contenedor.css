@@ -60,11 +60,11 @@
     height: auto;
 }
 
-.texto-info
-{
+.texto-info {
     position: absolute;
-    height: 100%;
+    height: 96px;
     display: inline-block;
+    padding: 0 40px;
 }
 
 .centrar-horizontal {
