@@ -115,26 +115,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new ConfiguracionSeccionHomeModel());
             }
         }
-
-        //[HttpPost]
-        //public JsonResult GuardarMenuContenedor(string codigo, int campania)
-        //{
-        //    MenuContenedorGuardar(codigo, campania);
-        //    return Json(new
-        //    {
-        //        success = true
-        //    }, JsonRequestBehavior.AllowGet);
-        //}
-
-        [HttpPost]
-        public JsonResult MenuContenedorObtener()
-        {
-            var objSession = MenuContenedorObtenerActivo();
-
-            return Json(new
-            {
-                data = objSession
-            }, JsonRequestBehavior.AllowGet);
-        }
+        
     }
 }
