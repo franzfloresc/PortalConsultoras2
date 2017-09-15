@@ -1,70 +1,51 @@
 node {
     try {    
-        stage('Start') {
-            notify('Job started')
-        }
-        stage('Clean') {
-            step([$class: 'WsCleanup'])
-        }
-        /*
-        stage('Compile') {
-            checkout scm
-            dir('app') {
-                powershell("& \"${tool 'msbuild'}msbuild\" Belcorp.sln /v:q /clp:Summary")
+        ws("workspace/${env.JOB_NAME}") {
+            stage('Start') {
+                notify('Job started')
             }
-        }*/
-        /*
-        stage('Linting') {
-            bat "yarn install"
-            try {
-                bat "npm test"
-            } 
-            catch(err) {
+            stage('Clean') {
+                step([$class: 'WsCleanup'])
             }
-            step([$class: 'CheckStylePublisher',
-                pattern: '* * /results/ *.xml',
-                unstableTotalAll: '0',
-                usePreviousBuildAsReference: true])
-        }
-        */
-        stage('Sonar Metrics') {
-            def sqScannerMsBuildHome = tool 'sonar-scanner-msbuild'
-            def msBuildHome = tool 'msbuild'
-            checkout scm
-            withSonarQubeEnv('Sonar Qube Server') {
-                dir('app') {
-                    bat ".\\.nuget\\Nuget.exe restore"
-                    // Due to SONARMSBRU-307 value of sonar.host.url and credentials should be passed on command line
-                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras.2 /n:PortalConsultoras2 /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${env.BRANCH_NAME} /d:sonar.inclusions=**/*.cs"
-                    bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
-                    bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+            stage('Checkout') {
+                checkout scm
+            }
+            stage('Sonar') {
+                def sqScannerMsBuildHome = tool 'sonar-scanner-msbuild'
+                def sqScannerHome = tool 'sonar-scanner'
+                def msBuildHome = tool 'msbuild'
+                def branchName = env.BRANCH_NAME.capitalize()
+                withSonarQubeEnv('Sonar Qube Server') {
+                    dir('app') {
+                        bat ".\\.nuget\\Nuget.exe restore"
+                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - \" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
+                        bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
+                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-js.properties"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-css.properties"
+                    }
                 }
             }
-        }
-        /*
-        stage('Quality Gate') {
-            timeout(time: 3, unit: 'MINUTES') {
-                def qg = waitForQualityGate()
-                if (qg.status != 'OK') {
-                    error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                }
+            stage('Mail') {
+                currentBuild.result = 'SUCCESS'
+                emailLog()
             }
-        }
-        */
-        stage('Finish') {
-            notify('Job finished')
+           stage('Finish') {
+                notify('Job finished')
+            }
         }
     }
     catch(error) {
-        notify(error)
         currentBuild.result = 'FAILURE'
+        notify(error)
+        emailLog()
     }
 }
 
 def notify(status) {
     def to = ""
     def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-    def blueOceanBuildUrl = "${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline"
+    def blueOceanBuildUrl = "${env.RUN_DISPLAY_URL}"
     def summary = "${subject} (${blueOceanBuildUrl})"
     def details = """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""
@@ -75,4 +56,31 @@ def notify(status) {
         teamDomain: 'arquitectura-td',
         tokenCredentialId: 'arquitecturatd_slack_credentials'
     )
+}
+
+def emailLog() {
+    email(
+        "ldiego@belcorp.biz, jdongo@belcorp.biz, carloshurtado@belcorp.biz, elazaro@belcorp.biz",
+        "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.result}!",
+        '${JELLY_SCRIPT,template="log"}'
+    )
+}
+
+def email(to, subject, template) {
+    try {
+        def from = "belcorpdev@gmail.com"
+        def mimeType = "text/html"
+        def attachLog = true
+        def compressLog = true
+
+       emailext from: from,
+                to: to,
+                subject: subject,
+                mimeType: mimeType,
+                body: template,
+                attachLog: attachLog,
+                compressLog: compressLog
+    } catch (err) {
+        echo "${err}"
+    }
 }

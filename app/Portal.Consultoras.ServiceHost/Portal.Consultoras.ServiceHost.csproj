@@ -101,6 +101,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AsesoraOnlineService.svc" />
     <Content Include="CDRService.svc" />
     <Content Include="CatalogoService.svc" />
     <Content Include="ClienteService.svc" />

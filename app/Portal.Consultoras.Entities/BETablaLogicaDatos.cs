@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Entities
 {
@@ -12,9 +8,9 @@ namespace Portal.Consultoras.Entities
     public class BETablaLogicaDatos
     {
         [DataMember]
-        public Int16 TablaLogicaDatosID { get; set; }
+        public short TablaLogicaDatosID { get; set; }
         [DataMember]
-        public Int16 TablaLogicaID { get; set; }
+        public short TablaLogicaID { get; set; }
         [DataMember]
         public string Codigo { get; set; }
         [DataMember]

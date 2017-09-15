@@ -81,6 +81,7 @@
     <Compile Include="CDR\DALogCDRWebDetalle.cs" />
     <Compile Include="CDR\DALogCDRWeb.cs" />
     <Compile Include="DAAfiliaClienteConsultora.cs" />
+    <Compile Include="DAAsesoraOnline.cs" />
     <Compile Include="DABannerPedido.cs" />
     <Compile Include="DABelcorpNoticia.cs" />
     <Compile Include="DABelcorpResponde.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="DataAccess.cs" />
     <Compile Include="DataAccessConfiguration.cs" />
     <Compile Include="DATablaLogicaDatos.cs" />
+    <Compile Include="DATerminosCondiciones.cs" />
     <Compile Include="DATipoEstrategia.cs" />
     <Compile Include="DATipoMeta.cs" />
     <Compile Include="DATracking.cs" />

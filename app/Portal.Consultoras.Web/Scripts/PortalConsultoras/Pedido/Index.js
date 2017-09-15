@@ -2198,6 +2198,7 @@ function EjecutarServicioPROL() {
 
             var codigoMensajeProl = response.data.CodigoMensajeProl;
             var cumpleOferta;
+
             if (response.data.Reserva == true) {
                 if (response.data.ZonaValida == true) {
                     if (response.data.ObservacionInformativa == false) {
@@ -2269,6 +2270,7 @@ function EjecutarServicioPROL() {
 
             AnalyticsGuardarValidar(response);
             analyticsGuardarValidarEnviado = true;
+            CerrarSplash();
             }
         },
         error: function (data, error) {

@@ -48,6 +48,22 @@ function OfertaObtenerProductos(filtro, clear) {
     if (busquedaModel.CampaniaID > 0) {
         OfertaCargarProductos(busquedaModel, clear);
     }
+    //Analytics para RD
+    try {
+        if (typeof filtro != 'undefined') {
+            var label = $(filtro).find("option:selected").text();
+            var tipo = $(filtro).data("filtro-campo");
+            if (tipo === "precio") {
+                OrdenarProductoRDAnalytics(label);
+            } else if (tipo === "marca") {
+                FiltrarProductoRDAnalytics(label);
+            } else {
+                BorrarFiltroRDAnalytics();
+            }
+        }
+    } catch (e) {
+        console.log("Error analytic RD: " + e);
+    }
 }
 
 function OfertaObtenerFiltro(filtro, clear) {

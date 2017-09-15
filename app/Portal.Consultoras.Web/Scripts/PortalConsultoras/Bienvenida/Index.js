@@ -14,7 +14,7 @@ var popupCantidadInicial = popupCantidadInicial || 1;
 var popupListaPrioridad = popupListaPrioridad || new Array();
 var showRoomMostrarLista = showRoomMostrarLista || 0;
 
-$(document).ready(function () {
+$(document).ready(function () { 
     $("#hdDataBarra").val("");
 
     if (vbFotoPerfil != null && vbFotoPerfil != "") {
@@ -72,6 +72,9 @@ $(document).ready(function () {
             if ($('#popupMisDatos').is(':visible')) {
                 $('#fondoComunPopUp').hide();
             }
+        }
+        if (!$(e.target).closest('#virtual-coach-dialog').length) {
+            if ($('#virtual-coach-dialog').is(':visible')) asesoraOnlineObj.hidePopup();
         }
     });
 
@@ -206,66 +209,7 @@ $(document).ready(function () {
         CargarProductosShowRoom({ Limite: 6, hidden: true });
     }
     
-    switch (TipoPopUpMostrar) {
-        case 0:
-            break;
-
-        case popupVideoIntroductorio:
-            mostrarVideoIntroductorio();
-            break;
-
-        case popupGPR:
-            break;
-
-        case popupDemandaAnticipada:
-            $('#fechaHasta').text(mensajeFechaDA);
-            $('#fechaLuego').text(mensajeFechaDA);
-            PopupMostrar('popupDemandaAnticipada');
-            break;
-
-        case popupAceptacionContrato:
-            PopupMostrar('popupAceptacionContrato');
-            break;
-
-        case popupShowRoom:
-            CrearPopShow();
-            MostrarShowRoom();
-            break;
-
-        case popupActualizarDatos:
-            if (mostrarPopupActualizarDatosXPais == 9) {
-                PopupMostrar('popupActualizarMisDatosMexico');
-            } else {
-                if (mostrarPopupActualizarDatosXPais == 11) {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
-                } else {
-                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
-                }
-                PopupMostrar('popupActualizarMisDatos');
-            }
-            break;
-
-        case popupFlexipago:
-            PopupMostrar('popupInvitaionFlexipago');
-            break;
-
-        case popupComunicado:
-            ObtenerComunicadosPopup();
-            break;
-
-        case popupRevistaDigitalSuscripcion:
-            PopupMostrar('PopRDSuscripcion');
-            MostrarPopupRDAnalytics();
-            break;
-
-        case popupCupon:
-            cuponModule.mostrarPopupGana();
-            break;
-            
-        case popupCuponForzado:
-            cuponModule.mostrarPopupGanaste();
-            break;
-    }
+    MostrarPopupInicial();
 
     $("#btnCambiarContrasenaMD").click(function () { CambiarContrasenia(); });
 
@@ -1657,7 +1601,6 @@ function CambiarContrasenia() {
     }
 }
 
-
 function ActualizarMD() {
 
     if (viewBagPaisID != 4) {
@@ -1785,7 +1728,6 @@ function ActualizarMD() {
         });
     }
 }
-
 
 function ValidateOnlyNums(id) {
     return $("#" + id).val($("#" + id).val().replace(/[^\d]/g, ""));
@@ -2758,9 +2700,10 @@ function NoMostrarPopupShowRoomIntrigaVenta(tipo) {
 function AgregarTagManagerShowRoomPopupAnalytics(eventoID, eventoNombre, tema, tipo) {
     var streventoNombre = "";
     if (tipo == "1") {
-        streventoNombre = eventoNombre + ' ' + tema + ' Compra Ya';
-    } else {
-        streventoNombre = eventoNombre + ' ' + tema + ' Entérate Primero';
+        streventoNombre = eventoNombre + ' ' + tema + ' - Compra Ya';
+    }
+    if (tipo == "2") {
+        streventoNombre = eventoNombre + ' ' + tema + ' - Entérate';
     }
     
     dataLayer.push({
@@ -2806,15 +2749,18 @@ function AgregarTagManagerShowRoomPopupClick(tipo) {
     var id = "";
     var name = "";  
 
-    if (tipo == 1)
-    {
-        name = $("#spnShowRoomEvento").html() + ' Compra Ya';
-        id = $("#hdEventoIDShowRoomVenta").val();        
+    if (tipo == 1) {
+        var nombre = $("#spnShowRoomEventoVenta").val();
+        var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+        name = nombre + ' ' + tema + ' - Compra Ya';
+        id = $("#hdEventoIDShowRoomVenta").val();
     }
-    else
-    {
-        name = $("#spnShowRoomEventoHoy").html() + ' Entérate Primero';
-        id = $("#hdEventoIDShowRoom").val();        
+
+    if (tipo == 2) {
+        var nombre = $("#spnShowRoomEvento").val();
+        var tema = $("#spnShowRoomEventoDescripcion").val();
+        name = nombre + ' ' + tema + ' - Entérate';
+        id = $("#hdEventoIDShowRoom").val();
     }
     
     dataLayer.push({
@@ -3181,7 +3127,9 @@ function VerShowRoomVenta() {
 
 function CerrarPopShowroomIntriga()
 {
-    var action = 'Banner ' + $.trim($("#spnShowRoomEventoDescripcion").val()) + ' Entérate Primero';
+    var nombre = $("#spnShowRoomEvento").val();
+    var tema = $("#spnShowRoomEventoDescripcion").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' - Entérate';
     
     dataLayer.push({
         'event': 'virtualEvent',
@@ -3190,12 +3138,31 @@ function CerrarPopShowroomIntriga()
         'label': 'Cerrar Popup'
     });
 
-    CerrarPopup("#PopShowroomVenta");
     CerrarPopup("#PopShowroomIntriga");
 }
 
+function CerrarPopShowroomVenta() {
+    var nombre = $("#spnShowRoomEventoVenta").val();
+    var tema = $("#spnShowRoomEventoDescripcionVenta").val();
+    var action = 'Banner ' + nombre + ' ' + tema + ' -  Compra Ya';
+
+    dataLayer.push({
+        'event': 'virtualEvent',
+        'category': 'Home',
+        'action': action,
+        'label': 'Cerrar Popup'
+    });
+
+    CerrarPopup("#PopShowroomVenta");
+}
+
 function SRPopupCerrar(tipo) {
-    CerrarPopShowroomIntriga();
+    if (tipo == 'I')
+        CerrarPopShowroomIntriga();
+
+    if (tipo == 'V')
+        CerrarPopShowroomVenta();
+
     AbrirLoad();
     $.ajax({
         type: 'POST',
@@ -3218,12 +3185,13 @@ function SRPopupCerrar(tipo) {
 
 function click_no_volver_a_ver_este_anuncio_PopShowroomIntriga()
 {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
+    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate';
 
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
 
@@ -3233,28 +3201,67 @@ function click_no_volver_a_ver_este_anuncio_PopShowroomVenta() {
     dataLayer.push({
         'event': 'virtualEvent',
         'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
+        'action': action,
+        'label': 'Cerrar Popup'
     });
 }
 
-/*Métodos para la marca cuando se hace click en la parte oscura del popup , consultar con Boris si se va hacer..
-function click_zona_oscura_PopShowroomVenta() {
-    var action = 'Banner ' + $("#spnShowRoomEventoVenta").val() + ' ' + $("#spnShowRoomEventoDescripcionVenta").val() + ' -  Compra Ya';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
+function MostrarPopupInicial() {
+    if (showPopupMisDatos == '1') {
+        CargarMisDatos();
+        return;
+    }
+    
+    switch (TipoPopUpMostrar) {
+        case 0:
+            break;
+        case popupVideoIntroductorio:
+            mostrarVideoIntroductorio();
+            break;
+        case popupGPR:
+            break;
+        case popupDemandaAnticipada:
+            $('#fechaHasta').text(mensajeFechaDA);
+            $('#fechaLuego').text(mensajeFechaDA);
+            PopupMostrar('popupDemandaAnticipada');
+            break;
+        case popupAceptacionContrato:
+            PopupMostrar('popupAceptacionContrato');
+            break;
+        case popupShowRoom:
+            CrearPopShow();
+            MostrarShowRoom();
+            break;
+        case popupActualizarDatos:
+            if (mostrarPopupActualizarDatosXPais == 9) {
+                PopupMostrar('popupActualizarMisDatosMexico');
+            } else {
+                if (mostrarPopupActualizarDatosXPais == 11) {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZACIÓN Y AUTORIZACIÓN</b> DE USO DE DATOS PERSONALES');
+                } else {
+                    $('#tituloActualizarDatos').html('<b>ACTUALIZAR</b> DATOS');
+                }
+                PopupMostrar('popupActualizarMisDatos');
+            }
+            break;
+        case popupFlexipago:
+            PopupMostrar('popupInvitaionFlexipago');
+            break;
+        case popupComunicado:
+            ObtenerComunicadosPopup();
+            break;
+        case popupRevistaDigitalSuscripcion:
+            PopupMostrar('PopRDSuscripcion');
+            MostrarPopupRDAnalytics();
+            break;
+        case popupCupon:
+            cuponModule.mostrarPopupGana();
+            break;
+        case popupCuponForzado:
+            cuponModule.mostrarPopupGanaste();
+            break;
+        case popupAsesoraOnline:
+            if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
+            break;
+    }
 }
-
-function click_zona_oscura_PopShowroomIntriga() {
-    var action = 'Banner ' + $("#spnShowRoomEvento").val() + ' ' + $("#spnShowRoomEventoDescripcion").val() + ' - Entérate Primero';
-
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Home',
-        'action': action, 'label': 'Cerrar Popup'
-    });
-}
-*/

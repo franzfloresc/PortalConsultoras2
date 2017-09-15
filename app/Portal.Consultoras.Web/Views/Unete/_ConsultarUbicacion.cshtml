@@ -1073,6 +1073,7 @@
 
             $('#LugarNivel3')
                 .change(function () {
+                     
                     var nivel3 = $(this);
                     
                     $('#NombreLugarNivel3').val($(this).find('option:selected').text());
@@ -1080,7 +1081,10 @@
                     var nivel4 = $('#LugarNivel4');
                     if (nivel4.length == 0) return;
                     var div = $('#centroPoblado');
-                    nivel4.attr('disabled', 'disabled');
+
+                    if (codigoIso != "EC") {
+                        nivel4.attr('disabled', 'disabled');
+                    }
 
                     if (this.value == '')
                     {
@@ -1120,7 +1124,7 @@
                 });
 
             $('#LugarNivel4').change(function () {
-                
+                 
                 //$('#NombreLugarNivel4').val($(this).find('option:selected').text());
                 var nivel3 = $(this);
 
@@ -1242,7 +1246,7 @@
         }
     }
     
-    @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+    @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
     { 
         <text>$('#DivSinGEO').show();</text>
         <text>$('#DivConGEO').hide();</text>
@@ -1252,7 +1256,7 @@
         <text>$('#btnEditarPosicion').hide();</text>
         <text>$('#btnGrabarPosicion').html('Aceptar');</text>
         <text>$('#btnGrabarPosicion').show();</text>
-    }
+    }*@
 
     $(function () {
         setTimeout(cargarMapa, 50);
@@ -1745,7 +1749,7 @@
             //$('#btnCancelarGrabadoPosicion').removeClass('HabInaButton');
 
             //Nuevo requerimiento Colombia
-            @if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
+            @*@if(Model.EditarDireccionModel.CodigoPais == Constantes.CodigosISOPais.Colombia)
             { 
                 <text>$('#DivSinGEO').show();</text>
                 <text>$('#DivConGEO').hide();</text>
@@ -1755,7 +1759,7 @@
                 <text>$('#btnEditarPosicion').hide();</text>
                 <text>$('#btnGrabarPosicion').html('Aceptar');</text>
                 <text>$('#btnGrabarPosicion').show();</text>
-            }
+            }*@
 
             map = new google.maps.Map(document.getElementById('mapa'), {
                 center: new google.maps.LatLng(parseFloat('@Model.Puntos[0].Item1'.replace(",", ".")), parseFloat('@Model.Puntos[0].Item2'.replace(",", ".")))
