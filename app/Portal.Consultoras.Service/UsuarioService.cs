@@ -719,20 +719,8 @@ namespace Portal.Consultoras.Service
 
         public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil)
         {            
-            BLUsuario obj_Usuario = null;
-            BEUsuarioExterno ent_usuario = null;
-            
-            try
-            {
-                obj_Usuario = new BLUsuario();                
-                ent_usuario = obj_Usuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);                
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            return ent_usuario;
+            BLUsuario obj_Usuario = new BLUsuario();           
+            return obj_Usuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);            
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)

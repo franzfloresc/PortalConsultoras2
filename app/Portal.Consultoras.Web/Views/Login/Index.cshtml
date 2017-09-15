@@ -53,13 +53,6 @@
             //}
         }
 
-        function existeUrl(url) {
-            var http = new XMLHttpRequest();
-            http.open('HEAD', url, false);
-            http.send();
-            return http.status != 404;
-        }
-
         function getInfoFB(opt) {
             var fp = null;
 
