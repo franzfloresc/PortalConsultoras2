@@ -19,7 +19,9 @@
     <div>
         @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
         {
-            <div class="logo" style="background: url(@menuActivo.ConfiguracionPais.DesktopLogoBanner);"></div>
+            <div class="logo">
+                <img class="imagen_logo" src="@menuActivo.ConfiguracionPais.DesktopLogoBanner">
+            </div>
         }
         @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         {
