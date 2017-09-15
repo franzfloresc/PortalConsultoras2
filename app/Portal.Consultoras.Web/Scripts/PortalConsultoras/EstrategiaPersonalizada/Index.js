@@ -82,7 +82,7 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
-    listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID] = objConsulta;
+    listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
     if (objConsulta.Codigo == CONS_CODIGO_SECCION.LAN
         || objConsulta.Codigo == CONS_CODIGO_SECCION.RDS
@@ -93,7 +93,7 @@ function SeccionCargarProductos(objConsulta) {
 
     var param = {
         codigo: objConsulta.Codigo,
-        campaniaId: objConsulta.CampaniaID
+        campaniaId: objConsulta.CampaniaId
     }
 
     if (objConsulta.Codigo == CONS_CODIGO_SECCION.SR) {
@@ -112,7 +112,7 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaID];
+            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId];
             SeccionMostrarProductos(data);
         },
         error: function (error, x) {
