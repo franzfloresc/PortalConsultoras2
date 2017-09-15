@@ -318,7 +318,9 @@
                 }
             }
             @Html.Partial("~/Areas/Mobile/Views/Shared/_MenuContenedorOferta.cshtml")
-            @RenderBody()
+            <div id="mob-content-layout">
+                @RenderBody()
+            </div>
         </div>
         <div class="clear">
             <br />
