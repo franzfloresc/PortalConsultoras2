@@ -1694,11 +1694,18 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.IndividualConTonos)
                 {
-                    listaHermanos.ForEach(h =>
+                    if (listaHermanos.Count <= 1)
                     {
-                        h.CUV = Util.Trim(h.CUV);
-                    });
-                    listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                        listaHermanos = new List<ProductoModel>();
+                    }
+                    else
+                    {
+                        listaHermanos.ForEach(h =>
+                        {
+                            h.CUV = Util.Trim(h.CUV);
+                        });
+                        listaHermanos = listaHermanos.OrderBy(h => h.Orden).ToList();
+                    }                    
                 }
                 if (fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaFija || fichaProductoModelo.CodigoVariante == Constantes.TipoEstrategiaSet.CompuestaVariable)
                 {

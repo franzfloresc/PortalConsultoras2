@@ -1,9 +1,16 @@
 ﻿var FichaProducto;
 $(document).ready(function () {
     'use strict';
-    var Main;
+    if (!window.hasOwnProperty("VirtualCoachCuv")) {
+        Object.defineProperty(window, 'VirtualCoachCuv', { value: '' });
+    }
+    if (!window.hasOwnProperty("VirtualCoachCampana")) {
+        Object.defineProperty(window, 'VirtualCoachCampana', { value: 0 });
+    }
 
-    Main = function () {
+    var mainFP;
+
+    mainFP = function () {
         var me = this;
         me.settings = {
             popupId: '#popupDetalleCarousel_lanzamiento',
@@ -16,7 +23,7 @@ $(document).ready(function () {
         };
         me.Funciones = {
             InicializarEventos: function () {
-                //$('.btn_aceptar_no_hay_producto').on('click', me.Funciones.IrASeccionBienvenida());
+                $(document).on('click', '#btnAceptarNoHayProducto', me.Funciones.IrASeccionBienvenida);
             },
             Ready: function () {
                 if (!window.hasOwnProperty('detalleFichaProducto'))
@@ -32,8 +39,7 @@ $(document).ready(function () {
             },
             IrASeccionBienvenida: function () {                
                 if (!window.hasOwnProperty("seccionMisOfertas")) {
-                    Object.defineProperty(window, 'seccionMisOfertas');
-                    seccionMisOfertas = 'MisOfertas';
+                    Object.defineProperty(window, 'seccionMisOfertas', { value: 'MisOfertas' });
                 }
                 var url = "/Bienvenida?verSeccion=" + seccionMisOfertas;
                 window.location = url;              
@@ -47,7 +53,7 @@ $(document).ready(function () {
                 if (ficha.CodigoVariante != "") {
                     ficha.Detalle = me.globals.Producto.Hermanos;
                     me.globals.Producto.Detalle = me.globals.Producto.Hermanos;
-                    AbrirLoad();
+                    me.Funciones.ShowLoading();
                     ficha.Linea = "0px";
                     if (ficha.Detalle.length > 0) {
                         $.each(ficha.Detalle, function (i, item) {
@@ -102,7 +108,7 @@ $(document).ready(function () {
 
                 me.Funciones.FichaProductoMasTonos();
                 TrackingJetloreView(ficha.CUV2, $("#hdCampaniaCodigo").val());
-                CerrarLoad();
+                me.Funciones.CloseLoading();
             },
             ObtenerProducto: function () {
                 if (me.settings.cuv !== "") {
@@ -185,13 +191,13 @@ $(document).ready(function () {
                 if (!$.isNumeric(cantidad)) {
                     me.Funciones.AlertaMensaje("Ingrese un valor numérico.");
                     $('.liquidacion_rango_cantidad_pedido').val(1);
-                    CerrarLoad();
+                    me.Funciones.CloseLoading();
                     return false;
                 }
                 if (parseInt(cantidad) <= 0) {
                     me.Funciones.AlertaMensaje("La cantidad debe ser mayor a cero.");
                     $('.liquidacion_rango_cantidad_pedido').val(1);
-                    CerrarLoad();
+                    me.Funciones.CloseLoading();
                     return false;
                 }
 
@@ -201,7 +207,7 @@ $(document).ready(function () {
                     $('#OfertaTipoNuevo').val(ficha.FlagNueva);
                 }
 
-                AbrirLoad();
+                me.Funciones.ShowLoading();
                 
                 var cuvs = "";
                 var CodigoVariante = ficha.CodigoVariante;
@@ -250,14 +256,15 @@ $(document).ready(function () {
                     data: JSON.stringify(params),
                     async: true,
                     success: function (data) {
+                        console.log(data);
                         if (!checkTimeout(data)) {
-                            CerrarLoad();
+                            me.Funciones.CloseLoading();
                             return false;
                         }
 
                         if (data.success === false) {
                             me.Funciones.AlertaMensaje(data.message);
-                            CerrarLoad();
+                            me.Funciones.CloseLoading();
                             return false;
                         }
 
@@ -266,7 +273,7 @@ $(document).ready(function () {
                             agregoAlCarro = true;
                         }
 
-                        AbrirLoad();
+                        me.Funciones.ShowLoading();
 
                         if (isMobile()) {
                             if (tipoOrigenFichaProducto == 2) {
@@ -283,7 +290,7 @@ $(document).ready(function () {
                             CargarDetallePedido();
                         }
    
-                        CerrarLoad();
+                        me.Funciones.CloseLoading();
                         if (popup) {
                             CerrarPopup('#popupDetalleCarousel_lanzamiento');
                             $('#popupDetalleCarousel_packNuevas').hide();
@@ -292,7 +299,7 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
                         console.log(data);
-                        CerrarLoad();
+                        me.Funciones.CloseLoading();
                     }
                 });
 
@@ -307,18 +314,30 @@ $(document).ready(function () {
                     return true;
                 }
                 return false;
-            }
-
+            },
+            ShowLoading: function () {
+                if (isMobile()) {
+                    ShowLoading();
+                } else {
+                    waitingDialog();
+                }
+            },
+            CloseLoading: function () {
+                if (isMobile()) {
+                    CloseLoading();
+                } else {
+                    closeWaitingDialog();
+                }
+            },
         };
         me.Eventos = {
-
         };
         me.Inicializar = function () {
             me.Funciones.InicializarEventos();
             me.Funciones.Ready();
         };
     }
-    FichaProducto = new Main();
+    FichaProducto = new mainFP();
 
     FichaProducto.Inicializar();
 });

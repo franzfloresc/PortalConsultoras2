@@ -425,12 +425,11 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
-    setTimeout(function () {
-        VerSeccionBienvenida(verSeccion);
-    }, 1500);
    
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
@@ -3272,7 +3271,7 @@ function MostrarPopupInicial() {
 
 function VerSeccionBienvenida(seccion) {
     var id = "";
-    switch (seccion) {        
+    switch (seccion) {
         case "Belcorp":
             id = ".content_belcorp";
             break
@@ -3285,12 +3284,14 @@ function VerSeccionBienvenida(seccion) {
         case "Footer":
             id = "footer";
             break;
-        default ://Home
+        default://Home
             id = ".flexslider";
             break;
     }
-    
-    $("html, body").animate({
-        scrollTop: $(id).offset().top - 60
-    }, 1000);
+
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }
