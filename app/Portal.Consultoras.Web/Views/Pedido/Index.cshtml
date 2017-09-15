@@ -1734,8 +1734,11 @@
             </div>
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampaniaMasUno</b>?</div>
-
-                <div class="btn_diagonal btn_stroke"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                <div class="btn_diagonal btn_stroke">
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                    <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    </a>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
@@ -1755,10 +1758,10 @@
             </div>
             <div class="banner_pedido_masofertas" style="padding-bottom:0;">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
-
-                <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS
-                    <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
-                    <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
+                <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;">
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                        <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                        <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                     </a>
                 </div>
             </div>
@@ -1780,8 +1783,11 @@
             </div>
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
-
-                <div class="btn_diagonal btn_stroke"><a href="@Url.Action("Index", "RevistaDigital")">VER TODAS MIS OFERTAS<img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")"></a></div>
+                <div class="btn_diagonal btn_stroke">
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    </a>
+                </div>
             </div>
         </div>
         <div class="clear"></div>
@@ -1820,7 +1826,7 @@ else if (ViewBag.TieneRDR)
                 <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                 </div>
             </div>
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript: window.location.href = '@Url.Action("Index", "RevistaDigital")'">
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">
                 <div class="fondo_boton"></div>
                 <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
             </div>
@@ -2367,64 +2373,67 @@ else
    
 </script>
 
-        @section scripts{
-            <script type="text/javascript">
-                var arregloProductos;
-                var cantProductosLoad = '@Model.ListaEstrategias.Count';
-                var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
-                var constConfiguracionOfertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
-                var viewBagPaisID = '@Model.PaisID';
-                var viewBagNombrePais = '@ViewBag.NombrePais';
-                var isShown = false;
-                var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
-                var vbSimbolo = '@Html.Raw(Model.Simbolo)';
-                var urlEsikaMenos = '@Url.Content("~/Content/Images/Esika/menos.png")';
-                var urlEsikaMas = '@Url.Content("~/Content/Images/Esika/mas.png")';
-                var heightReference = 0;
-                var constTipoOfertaLiquidacion = '@Constantes.TipoOferta.Liquidacion';
-                var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
-                var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
-                var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
-                var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
-                var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")' : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
-                var dataBarra = JSON.parse($("#hdDataBarra").val());
-                var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
-                var listaMensajeMeta = dataBarra.ListaMensajeMeta;
-                var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
-                var urlReservadoOEnHorarioRestringido = '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
-                var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
-                var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
-                var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
-                var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
-                var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
-                var urlPedido = '@Url.Action("Index", "Pedido")';
-                var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
-                if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
-                else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
-                var origenPagina = 2;
-                var tipoOrigenEstrategia = 11;
-                var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
-                var indicadorGPRSB = '@Model.IndicadorGPRSB';
-                var viewBagCampaniaActual = '@Model.CampaniaActual';
-                var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
-                var tieneCupon = '@Model.TieneCupon';
-                var paginaOrigenCupon = 11;
-                var esEmailActivo = '@Model.EmailActivo';
-                var baseUrl = "@Url.Content("~")";
-                var paisISO = '@ViewBag.paisISO';
-                var viewBagAmbiente = '@ViewBag.Ambiente';
-                var correo = '@Model.EMail';
-                var celular = '@Model.Celular';
-                var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
-                var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
-                var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
+@section scripts{
+    <script type="text/javascript">
+        var arregloProductos;
+        var cantProductosLoad = '@Model.ListaEstrategias.Count';
+        var constConfiguracionOfertaLiquidacion = '@Constantes.ConfiguracionOferta.Liquidacion';
+        var constConfiguracionOfertaAccesorizate = '@Constantes.ConfiguracionOferta.Accesorizate';
+        var viewBagPaisID = '@Model.PaisID';
+        var viewBagNombrePais = '@ViewBag.NombrePais';
+        var isShown = false;
+        var urlLoad = '@Url.Content("~/Content/Images/Loading.gif")';
+        var vbSimbolo = '@Html.Raw(Model.Simbolo)';
+        var urlEsikaMenos = '@Url.Content("~/Content/Images/Esika/menos.png")';
+        var urlEsikaMas = '@Url.Content("~/Content/Images/Esika/mas.png")';
+        var heightReference = 0;
+        var constTipoOfertaLiquidacion = '@Constantes.TipoOferta.Liquidacion';
+        var constTipoOfertaFlexipago = '@Constantes.TipoOferta.Flexipago';
+        var urlIconoMobile = '@Url.Content("~/Content/Images/mobile-pedido.png")';
+        var viewBagMenuNotificaciones = '@ViewBag.MenuNotificaciones';
+        var alertaSugerido = '@Url.Content("~/Content/Images/Esika/icono_advertencia_notificacion.png")';
+        var urlImagenMicroEfecto = isEsika ? '@Url.Content("~/Content/Images/regalo_microefecto_esika.png")'
+            : '@Url.Content("~/Content/Images/regalo_microefecto_lbel.png")';
+        var dataBarra = JSON.parse($("#hdDataBarra").val());
+        var listaEscalaDescuento = JSON.parse($("#hdListaEscala").val());
+        var listaMensajeMeta = dataBarra.ListaMensajeMeta;
+        var listaParametriaOfertaFinal = JSON.parse($("#hdListaParametriaOfertaFinal").val());
+        var urlReservadoOEnHorarioRestringido =
+            '@Url.Action("ReservadoOEnHorarioRestringido", "Pedido", new {area = ""})';
+        var urlValidadoPedido = '@Url.Action("PedidoValidado", "Pedido", new {area = ""})';
+        var constConfiguracionOfertaShowRoom = '@Constantes.ConfiguracionOferta.ShowRoom';
+        var lanzarTabConsultoraOnline = '@ViewBag.LanzarTabConsultoraOnline';
+        var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
+        var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
+        var urlPedido = '@Url.Action("Index", "Pedido")';
+        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
+        if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
+        else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';
+        var origenPagina = 2;
+        var tipoOrigenEstrategia = 11;
+        var origenPedidoWebEstrategia = @Constantes.OrigenPedidoWeb.DesktopPedidoOfertasParaTi;
+        var indicadorGPRSB = '@Model.IndicadorGPRSB';
+        var viewBagCampaniaActual = '@Model.CampaniaActual';
+        var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
+        var tieneCupon = '@Model.TieneCupon';
+        var paginaOrigenCupon = 11;
+        var esEmailActivo = '@Model.EmailActivo';
+        var baseUrl = "@Url.Content("~")";
+        var paisISO = '@ViewBag.paisISO';
+        var viewBagAmbiente = '@ViewBag.Ambiente';
+        var correo = '@Model.EMail';
+        var celular = '@Model.Celular';
+        var consultoraRegaloPN = '@ViewBag.ConsultoraTieneRegaloPN';
+        var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital")';
+        var viewBagCondigoConsultora = '@ViewBag.CodigoConsultora';
                 var ofertaFinalEstado = '@ViewBag.OfertaFinalEstado';
                 var ofertaFinalAlgoritmo = '@ViewBag.OfertaFinalAlgoritmo';
-            </script>
-            @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
+    </script>
+    @System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Pedido")
 
-            @if (ViewBag.MostrarPedidosPendientes == "1")
-            {
-                <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
-            }
-        } 
+    @if (ViewBag.MostrarPedidosPendientes == "1")
+    {
+        <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Pedido/ConsultoraOnline.js")"></script>
+    }
+} 
