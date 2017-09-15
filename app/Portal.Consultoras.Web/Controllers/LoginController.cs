@@ -119,40 +119,14 @@ namespace Portal.Consultoras.Web.Controllers
             return buscarIsoPorIp == "1";
         }
 
-       	protected virtual string GetIpCliente()
+        protected virtual string GetIpCliente()
         {
-            string IP = string.Empty;
-            try
-            {
-                string ipAddress = string.Empty;
+            var ip = string.Empty;
 
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
-                }
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            ip = request.ClientIPFromRequest(skipPrivate: true);
 
-                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-                }
-
-                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
-                }
-
-                if (ipAddress.IndexOf(":") > 0)
-                {
-                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
-                }
-
-                return ipAddress;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
-            return IP;
+            return ip;
         }
 
         private void AsignarViewBagPorIso(string iso)
