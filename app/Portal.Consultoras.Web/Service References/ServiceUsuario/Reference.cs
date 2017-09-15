@@ -1301,6 +1301,9 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneAsesoraOnlineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3073,6 +3076,19 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneAsesoraOnline {
+            get {
+                return this.TieneAsesoraOnlineField;
+            }
+            set {
+                if ((this.TieneAsesoraOnlineField.Equals(value) != true)) {
+                    this.TieneAsesoraOnlineField = value;
+                    this.RaisePropertyChanged("TieneAsesoraOnline");
                 }
             }
         }

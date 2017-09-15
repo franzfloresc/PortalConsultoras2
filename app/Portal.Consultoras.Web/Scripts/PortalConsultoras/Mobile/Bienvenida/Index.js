@@ -272,6 +272,7 @@ function stopVideo() {
         }
     }
 };
+
 function playVideo() {
     if (player) {
         if (player.playVideo) {
@@ -405,6 +406,7 @@ function MostrarDemandaAnticipada() {
 function AceptarDemandaAnticipada() {
     InsertarDemandaAnticipada(1);
 };
+
 function CancelarDemandaAnticipada() {
     InsertarDemandaAnticipada(0);
 };
@@ -484,6 +486,7 @@ function odd_mobile_google_analytics_promotion_click() {
         });
     }
 }
+
 function odd_mobile_google_analytics_addtocart() {    
     var element = $("#OfertasDiaMobile").find(".slick-current").attr("data-slick-index");
     var id = $('#OfertasDiaMobile').find("[data-slick-index=" + element + "]").find(".cuv2-odd").val();
@@ -514,61 +517,6 @@ function odd_mobile_google_analytics_addtocart() {
         }
     });
 }
-function odd_mobile_google_analytics_promotion_impresion(list, event, index) {
-    var impressions = [];
-    var position = 0;
-    var elements = list.length;
-    var item = null;
-    var impresion = null;
-    if (event === 'page_load') {//Ok
-        
-        position = 1;
-        for (var i = 0; i <= elements - 1; i++) {
-            item = list[i];
-            item.Posicion = position;
-            if (position <= 3) {
-                impresion = odd_get_item_impresion(item);
-                if (impresion != null)
-                    impressions.push(impresion);
-            }
-            else
-                break;
-            position++;
-        }
-    }
-    if (event === 'arrow_click') {
-        
-        item = list[index];
-        item.Posicion = index + 1;
-        impresion = odd_get_item_impresion(item);
-        if (impresion != null)
-            impressions.push(impresion);
-    }
-    if (impressions.length > 0) {
-        dataLayer.push({
-            'event': 'productImpression',
-            'ecommerce': {
-                'impressions': impressions
-            }
-        });
-    }
-}
-function odd_get_item_impresion(item) {
-    var impresion = null;
-    if (item != null) {
-        impresion = {
-            'name': item.NombreOferta,
-            'id': item.CUV2,
-            'price': item.PrecioOferta,
-            'brand': item.DescripcionMarca,
-            'category': 'No disponible',
-            'variant': 'Lanzamiento',
-            'list': 'Oferta del día',
-            'position': item.Posicion
-        }
-    }
-    return impresion;
-}
 
 function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
@@ -576,7 +524,6 @@ function mostrarCatalogoPersonalizado() {
 
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
-
 
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
@@ -646,7 +593,8 @@ function ObtenerComunicadosPopup() {
             CloseLoading();
 
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response)
+                if (response.success) armarComunicadosPopup(response.extra);
+                else alert(response.message);
             }
         },
         error: function (data, error) {
