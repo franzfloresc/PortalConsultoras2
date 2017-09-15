@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Web.Controllers
                 model.PaisID = userData.PaisID;
                 model = UpdateFilesPalanca(model);
                 if (!String.IsNullOrEmpty(model.DesktopSubTituloMenu)) model.DesktopTituloMenu += "|" + model.DesktopSubTituloMenu;
-                if (!String.IsNullOrEmpty(model.MobileSubTituloMenu)) model.MobileSubTituloMenu += "|" + model.MobileSubTituloMenu;
+                if (!String.IsNullOrEmpty(model.MobileSubTituloMenu)) model.MobileTituloMenu += "|" + model.MobileSubTituloMenu;
 
                 using (SACServiceClient sv = new SACServiceClient())
                 {

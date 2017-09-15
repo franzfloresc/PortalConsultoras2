@@ -1221,11 +1221,11 @@ height: 100%;
 
 @media (max-width : 425px) {
     .div-carousel-rd-prev {
-        left: -13%;
+        left: -9% !important;
     }
 
     .div-carousel-rd-next {
-        right: -13%;
+        right: -9% !important;
     }
 }
 
@@ -1741,6 +1741,7 @@ height: 100%;
 .producto_img_mobile_bpt img {
     width: auto;
     height: 100%;
+    max-width: 100% !important;
 }
 
 .producto_nombre_descripcion_bpt {

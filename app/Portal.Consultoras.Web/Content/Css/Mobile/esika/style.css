@@ -10462,7 +10462,7 @@ a{
     /*height: 142px;*/
     width: 100%;
     /*overflow:hidden;*/
-    padding-top:12px;
+    padding-top:4px;
     min-height: 196px;
 }
 .solo_hoy_mobile{
@@ -10480,7 +10480,7 @@ a{
     font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 16%;
+    margin-top: 13%;
     color: white;
     line-height: 15px;
     text-align: center;
@@ -10497,6 +10497,7 @@ a{
 }
 .imagen_set_oferta_mobile img{
     width:90%;
+    margin-top: -7px;
 }
 .btn_cerrar_oferta_mobile {
         position: absolute;
