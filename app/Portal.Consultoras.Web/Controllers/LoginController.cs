@@ -61,6 +61,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
+                
             }
             catch (FaultException ex)
             {
@@ -1384,8 +1385,9 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SesionExpirada()
+        public ActionResult SesionExpirada(string returnUrl)
         {
+            AsignarUrlRetorno(returnUrl);
             return View();
         }
 
@@ -1397,22 +1399,28 @@ namespace Portal.Consultoras.Web.Controllers
             // If session exists
             if (HttpContext.Session != null)
             {
-                //if cookie exists and sessionid index is greater than zero
-                var sessionCookie = HttpContext.Request.Headers["Cookie"];
-                if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                {
-                    // if exists UserData in Session
-                    if (HttpContext.Session["UserData"] != null)
-                    {
-                        res = 1;
-                    }
-                }
+                res = SessionExists(res);
             }
 
             return Json(new
             {
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int SessionExists(int res)
+        {
+            //if cookie exists and sessionid index is greater than zero
+            var sessionCookie = HttpContext.Request.Headers["Cookie"];
+            if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+            {
+                // if exists UserData in Session
+                if (HttpContext.Session["UserData"] != null)
+                {
+                    res = 1;
+                }
+            }
+            return res;
         }
 
         [AllowAnonymous]
