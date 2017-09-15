@@ -34,16 +34,27 @@
 
         public ActionResult DatoConsultora(string paisID, string codigoConsultora, string documento)
         {
+            JsonResult v_retorno = null;
+            ServiceUsuario.UsuarioServiceClient consultora = null;
+            BEConsultoraDatoSAC consultoraDato;
+
             try
-            {
-                ServiceUsuario.UsuarioServiceClient consultora = new ServiceUsuario.UsuarioServiceClient();
-                BEConsultoraDatoSAC consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);
-                return Json(consultoraDato, JsonRequestBehavior.AllowGet);
+            {            
+                consultora = new ServiceUsuario.UsuarioServiceClient();
+                consultoraDato = new BEConsultoraDatoSAC();
+
+                consultoraDato = consultora.DatoConsultoraSAC(paisID, codigoConsultora, documento);   
+                if (consultoraDato != null) ActualizarDatosLogDynamoDB(null, "CONSULTA DATOS CONSULTORA|MIS DATOS", Constantes.LogDynamoDB.AplicacionPortalConsultoras, "Consulta", codigoConsultora);
+
+                //UserData().PaisID = 0;
+                v_retorno = Json(consultoraDato, JsonRequestBehavior.AllowGet);
             }
             catch
             {
-                return Json(null, JsonRequestBehavior.AllowGet);
+                v_retorno = Json(null, JsonRequestBehavior.AllowGet);
             }
+
+            return v_retorno;
         }
 
         #region EstadoConsultora
