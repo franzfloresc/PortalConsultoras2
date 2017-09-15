@@ -5,10 +5,6 @@ var sElementos = {
     listadoProductos: "[data-seccion-productos]"
 };
 
-var cUrl = {
-    UrlObtenerSeccion: baseUrl + 'Ofertas/ObtenerSeccion'
-};
-
 var CONS_TIPO_PRESENTACION = {
     CarruselSimple: 1,
     CarruselPrevisuales: 2,
@@ -77,21 +73,6 @@ function SeccionObtenerSeccion(seccion) {
     }
     return param;
 
-    //$.ajax({
-    //    type: 'POST',
-    //    url: cUrl.UrlObtenerSeccion,
-    //    dataType: 'json',
-    //    contentType: 'application/json; charset=utf-8',
-    //    data: JSON.stringify(param),
-    //    async: false,
-    //    success: function (data) {
-    //        detalle = data.seccion || {};
-    //    },
-    //    error: function (error, x) {
-    //        console.log(error, x);
-    //    }
-    //});
-    //return detalle;
 }
 
 function SeccionCargarProductos(objConsulta) {

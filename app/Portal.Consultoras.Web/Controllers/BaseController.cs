@@ -895,13 +895,13 @@ namespace Portal.Consultoras.Web.Controllers
                 listaMenu.Add(config);
             }
 
-            listaMenu.AddRange(BuildMenuContenedor(listaMenu));
+            listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
             listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;
         }
         
-        public List<ConfiguracionPaisModel> BuildMenuContenedor(List<ConfiguracionPaisModel> lista)
+        public List<ConfiguracionPaisModel> BuildMenuContenedorBloqueado(List<ConfiguracionPaisModel> lista)
         {
             var listaMenu =  new List<ConfiguracionPaisModel>();
            foreach (var configuracionPais in lista)
@@ -912,6 +912,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPais.InicioRD:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/Ofertas/Revisar";
+                        config.UrlMenuMobile = "/Mobile/Ofertas/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                         listaMenu.Add(config);
                         break;
@@ -924,6 +925,7 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionPais.RevistaDigital:
                         config = (ConfiguracionPaisModel)configuracionPais.Clone();
                         config.UrlMenu = "/RevistaDigital/Revisar";
+                        config.UrlMenuMobile = "/Mobile/RevistaDigital/Revisar";
                         config.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                         listaMenu.Add(config);
                         break;
@@ -997,38 +999,7 @@ namespace Portal.Consultoras.Web.Controllers
             confi.DesktopTituloBanner += ", DESCUBRE TU NUEVA REVISTA ONLINE PERSONALIZADA";
             confi.DesktopSubTituloBanner = "ENCUENTRA OFERTAS, BONIFICACIONES, Y LANZAMIENTOS DE LAS 3 MARCAS. TODOS LOS PRODUCTOS TAMBIÉN SUMAN PUNTOS.";
         }
-
-        public MenuContenedorModel BuildMenuContenedorActivo()
-        {
-            var menu = new MenuContenedorModel();
-            try
-            {
-                menu = MenuContenedorObtenerActivo();
-
-                var listaMenus = ObtenerMenuContenedor();
-                
-                var configMenu = listaMenus.FirstOrDefault(m => m.Codigo == menu.Codigo && m.CampaniaId == menu.CampaniaId) ?? new ConfiguracionPaisModel();
-
-                if (userData.RevistaDigital.TieneRDC)
-                {
-                    menu.CampaniaX0 = userData.CampaniaID;
-                    menu.CampaniaX1 = AddCampaniaAndNumero(userData.CampaniaID, 1);
-                }
-                menu.ConfiguracionPais = configMenu;
-                menu.Codigo = Util.Trim(menu.Codigo);
-                //menu.LogoBanner = Util.Trim(menu.LogoBanner);
-                //menu.FondoBanner = Util.Trim(menu.FondoBanner);
-                //menu.TituloBanner = Util.Trim(menu.TituloBanner);
-                //menu.SubTituloBanner = Util.Trim(menu.SubTituloBanner);
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-
-            return menu;
-        }
-
+        
         private List<PermisoModel> SepararItemsMenu(List<PermisoModel> menuOriginal)
         {
             // Crear lista resultante
@@ -2923,6 +2894,33 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return seccion;
         }
+
+        public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
+        {
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
+            {
+                if (!userData.RevistaDigital.TieneRDC) return false;
+            }
+
+            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
+            {
+                if (!userData.RevistaDigital.TieneRDR) return false;
+            }
+
+            titulo = "OFERTAS ÉSIKA PARA MÍ";
+            subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
+
+            if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
+            {
+                if (userData.RevistaDigital.TieneRDC) return false;
+                if (userData.RevistaDigital.TieneRDR) return false;
+
+                titulo = "OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
+            }
+
+            return true;
+        }
         #endregion
 
         public MenuContenedorModel GetMenuActivo()
@@ -2937,8 +2935,8 @@ namespace Portal.Consultoras.Web.Controllers
                 newPath += "/" + pathStrings[1];
                 newPath += "/" + pathStrings[2];
             }
-            catch (Exception e) {Console.WriteLine(e);}
-            
+            catch (Exception e) { Console.WriteLine(e); }
+
             var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
 
             try
@@ -2991,12 +2989,15 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             var configMenu = listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
-            if(menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
-                configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Inicio && m.CampaniaId == userData.CampaniaID);
+            if (menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
+                if (userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC)
+                    configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.InicioRD && m.CampaniaId == userData.CampaniaID);
+                else
+                    configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Inicio && m.CampaniaId == userData.CampaniaID);
 
             if (configMenu == null)
                 configMenu = new ConfiguracionPaisModel();
-            
+
             configMenu.Codigo = Util.Trim(configMenu.Codigo);
             if (configMenu.Codigo == "")
             {
@@ -3014,52 +3015,12 @@ namespace Portal.Consultoras.Web.Controllers
             return menuActivo;
         }
 
-        //public void MenuContenedorGuardar(string codigo, int campania)
-        //{
-        //    Session[Constantes.ConstSession.MenuContenedorActivo] = new MenuContenedorModel
-        //    {
-        //        CampaniaId = campania,
-        //        Codigo = Util.Trim(codigo) ?? Constantes.ConfiguracionPais.Inicio 
-        //    };
-        //}
-
         public MenuContenedorModel MenuContenedorObtenerActivo()
         {
             var menu = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo] ?? new MenuContenedorModel();
 
             return menu;
         }
-
-        #region Revista Digital 
-
-        public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
-        {
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
-            {
-                if (!userData.RevistaDigital.TieneRDC) return false;
-            }
-
-            if (codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida)
-            {
-                if (!userData.RevistaDigital.TieneRDR) return false;
-            }
-
-            titulo = "OFERTAS ÉSIKA PARA MÍ";
-            subtitulo = userData.Sobrenombre.ToUpper() + ", PRUEBA LAS VENTAJAS DE COMPRAR OFERTAS PERSONALIZADAS";
-
-            if (codigo == Constantes.ConfiguracionPais.OfertasParaTi)
-            {
-                if (userData.RevistaDigital.TieneRDC) return false;
-                if (userData.RevistaDigital.TieneRDR) return false;
-                
-                titulo = "OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
-                subtitulo = "EXCLUSIVAS SÓLO POR WEB";
-            }
-
-            return true;
-        }
-
-        #endregion
 
         #region Helper function contenedor 
         private void SepararPipe(ref ConfiguracionPaisModel config)
@@ -3095,6 +3056,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
         private string RemplazaTag(string cadena)
         {
+            cadena = cadena ?? "";
             cadena = cadena.Replace("#Nombre", userData.Sobrenombre);
             cadena = cadena.Replace("#nombre", userData.Sobrenombre);
             cadena = cadena.Replace("#NOMBRE", userData.Sobrenombre);
