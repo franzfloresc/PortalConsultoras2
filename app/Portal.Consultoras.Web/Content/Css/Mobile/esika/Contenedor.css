@@ -11,13 +11,13 @@
 .bc_mobile-logo {
     float: left;
     background-size: 100% 100% !important;
-    height: 50px;
-    width: 10% !important;
+    height: 70px;
+    max-width: 50%;
     overflow:hidden;
 }
 .bc_mobile-logo img{
-    width:100%;
-    height:auto;
+    height:100%;
+    width: 100%;
 }
 .bc_mobile-texto{
 	display: table;

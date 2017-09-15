@@ -106,7 +106,7 @@ var menuModule = (function () {
     function menuClick(e, url) {
         var objHtmlEvent = $(e.target);
         if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
-        objHtmlEvent.siblings("li").children("a").removeClass("activo");
+        objHtmlEvent.siblings("li").find("a").removeClass("activo");
         objHtmlEvent.find("a").addClass("activo");
 
         var esAncla = $(objHtmlEvent).data("es-ancla");
