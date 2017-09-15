@@ -51,7 +51,8 @@ $(document).ready(function () {
             hdNumeroPedido: "#hdNumeroPedido",
             btnCambioProducto: "#btnCambioProducto",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
-            IrSolicitudInicial: "#IrSolicitudInicial"
+            IrSolicitudInicial: "#IrSolicitudInicial",
+            txtEmail: "#txtEmail"
         };
 
         me.Eventos = {
@@ -262,6 +263,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
+                    debugger
                     console.log('Finalizar y enviar solicitud');
 
                     if (mensajeGestionCdrInhabilitada != '') {
@@ -1291,26 +1293,26 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
-
+                debugger
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
-                    Email: $("#txtEmail").val(),
-                    Telefono: $("#txtTelefono").val(),
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
+                    Email: $(me.Variables.txtEmail).val(),
+                    Telefono: $(me.Variables.txtTelefono).val(),
                     TipoDespacho: false,
                     FleteDespacho: 0,
                     MensajeDespacho: ''
                 };
-                if ($("#hdTieneCDRExpress").val() == '1') {
-                    item.TipoDespacho = tipoDespacho;
-                    item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
-                    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
-                }
+                //if ($("#hdTieneCDRExpress").val() == '1') {
+                //    item.TipoDespacho = tipoDespacho;
+                //    item.FleteDespacho = !tipoDespacho ? 0 : $("#hdFleteDespacho").val();
+                //    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
+                //}
 
                 waitingDialog();
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/SolicitudEnviar',
+                    url: UrlSolicitudEnviar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
