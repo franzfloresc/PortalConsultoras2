@@ -17,7 +17,7 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, YA PUEDES VER TODAS TUS <b>OFERTAS PERSONALIZADAS DE LA C-@ViewBag.NumeroCampaniaMasUno</b></div>
                 <div class="btn_red">
-                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                 </div>
             </div>
         </div>
@@ -63,13 +63,15 @@
                 <hr class="clear" />
                 <div class="mob_carrusel_bpt">
                     <div class="wrapper_resumen_mobile">
-                        <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas)">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
                     </div>
                 </div>
 
                 <div class="rd_verofertas">
                     <div>AHORA PUEDES COMPRAR TODAS TUS OFERTAS DE C-@ViewBag.NumeroCampania Y VER LAS DE C-@ViewBag.NumeroCampaniaMasUno</div>
-                    <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital", new {area = "Mobile"})">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
+                    <div class="btn_white_stroke">
+                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a>
+                    </div>
                 </div>
             </div>
         }
@@ -86,7 +88,7 @@
                     <div class="banner_pedido_masofertas">
                         <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
                         <div class="btn_red">
-                            <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                         </div>
                     </div>
                     <div style="padding-top:20px" id="divContenedorListaEstrategia">
@@ -113,7 +115,7 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE AHORA ESTA NOVEDAD Y TUS <b>OFERTAS CON HASTA 65% DE DESCUENTO</b></div>
                 <div class="btn_red">
-                    <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                 </div>
             </div>
         </div>
@@ -160,13 +162,13 @@ else if (@ViewBag.TieneRDR == true)
                 <hr class="clear" />
                 <div class="mob_carrusel_bpt">
                     <div class="wrapper_resumen_mobile">
-                        <a href="@Url.Action("Index", "RevistaDigital")">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
+                        <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER MÁS OFERTAS <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" /></a>
                     </div>
                 </div>
 
                 <div class="rd_verofertas">
                     <div>@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
-                    <div class="btn_white_stroke"><a href="@Url.Action("Index", "RevistaDigital", new {area = "Mobile"})">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
+                    <div class="btn_white_stroke"><a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")" /></a></div>
                 </div>
             </div>
     }
@@ -183,7 +185,7 @@ else if (@ViewBag.TieneRDR == true)
                     <div class="banner_pedido_masofertas">
                         <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
                         <div class="btn_red">
-                            <a href="@Url.Action("Index", "RevistaDigital",  new { area = "Mobile" })">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
+                            <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion)">VER TODAS MIS OFERTAS<img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_red.png")"></a>
                         </div>
                     </div>
                     <div style="padding-top:20px" id="divContenedorListaEstrategia">

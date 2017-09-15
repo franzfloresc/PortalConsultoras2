@@ -1,4 +1,5 @@
-﻿<script id="estrategia-template2" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+<script id="estrategia-template2" type="text/x-handlebars-template">
     <!-- INCION SECCION DE LANZAMIENTOS Y OFERTAS -->
     
     <div id="bc_content_oferta">
@@ -19,7 +20,7 @@
                     <div class="clearfix"></div>
                     <p class="ven-conoce">@ViewBag.NombreConsultora, CONOCE {{DescripcionResumen}}</p>
                     <a href="javascript:;" onclick="RDRedireccionarDetalle(event)" class="btn-descubre">DESCUBRIR MÁS</a>
-                    <a href="@Url.Action("Index", "RevistaDigital")" class="ver-mas rd_ver_mas">VER MÁS LANZAMIENTOS 
+                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopHomeLanzamiento)" class="ver-mas rd_ver_mas">VER MÁS LANZAMIENTOS 
                     </a>
                 </div>
             </div>

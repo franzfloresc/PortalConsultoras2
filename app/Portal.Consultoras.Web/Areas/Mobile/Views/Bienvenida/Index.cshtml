@@ -1011,7 +1011,7 @@
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
             var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
             var tipoOrigenEstrategia = 2;
@@ -1028,6 +1028,7 @@
             var viewBagSimbolo = '@(Html.Raw(Model.Simbolo))';
             var tieneCupon = '@Model.TieneCupon';
             var tieneMasVendidos = @Model.TieneMasVendidos;
+            var tieneAsesoraOnline = '@Model.TieneAsesoraOnline';
             var paginaOrigenCupon = 2;
             var esEmailActivo = '@Model.EmailActivo';
             var paisISO = '@ViewBag.paisISO';
