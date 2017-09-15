@@ -1212,8 +1212,8 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
-    <Content Include="Content\Images\casita-rojo.png" />
-    <Content Include="Content\Images\casita.png" />
+    <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
+    <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
     <Content Include="Content\Images\bg_esika.png" />

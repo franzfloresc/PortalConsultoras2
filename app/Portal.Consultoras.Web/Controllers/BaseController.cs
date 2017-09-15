@@ -796,10 +796,11 @@ namespace Portal.Consultoras.Web.Controllers
             var listaMenu = (List<ConfiguracionPaisModel>)Session[Constantes.ConstSession.MenuContenedor] 
                 ?? new List<ConfiguracionPaisModel>();
             if (listaMenu.Any()) return listaMenu;
-            
+
             var lista = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>(); ;
             if (!lista.Any()) return listaMenu;
 
+            listaMenu = new List<ConfiguracionPaisModel>();
             lista = lista.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
@@ -821,7 +822,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/Esika/Contenedor/inicio_normal.png" :  "/Content/Images/Esika/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 
@@ -840,7 +841,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo = "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/Esika/Contenedor/inicio_normal.png" : "/Content/Images/Esika/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 
