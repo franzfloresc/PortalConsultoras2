@@ -233,7 +233,7 @@ margin-top: 10px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
     padding: 5px;
-    display: block;
+    display: inline;
     cursor: pointer;
     font-size: 12px;
     text-transform: uppercase;
@@ -253,7 +253,9 @@ margin-top: 10px !important;
     border: 1px solid #e81c36;
 }*/
 .bc_para_ti-menu-opciones ul li a p {
-    margin: 0;
+    display: inline;
+    position: relative;
+    top: 2px;
 }
 .bc_para_ti-menu-opciones ul li a.activo p::after {
     content: "";
@@ -269,6 +271,11 @@ margin-top: 10px !important;
 }
 .bc-menu-vertical-prev, .bc-menu-vertical-next{
 width:auto !important;
+}
+img.icono-submenu-tabs {
+    display: inline;
+    margin: auto;
+    margin-left: 10px;
 }
 /**/
 @media (max-width:1200px) {
