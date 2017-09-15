@@ -2968,7 +2968,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdInformacion:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.InicioRD;
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.Informacion;
                     menuActivo.CampaniaId = 0;
                     break;
                 case Constantes.UrlMenuContenedor.RdDetalle:
@@ -2990,7 +2990,10 @@ namespace Portal.Consultoras.Web.Controllers
 
             var configMenu = listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);
             if (menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion)
-                configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Inicio && m.CampaniaId == userData.CampaniaID);
+                if (userData.RevistaDigital.TieneRDR || userData.RevistaDigital.TieneRDC)
+                    configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.InicioRD && m.CampaniaId == userData.CampaniaID);
+                else
+                    configMenu = listMenu.FirstOrDefault(m => m.Codigo == Constantes.ConfiguracionPais.Inicio && m.CampaniaId == userData.CampaniaID);
 
             if (configMenu == null)
                 configMenu = new ConfiguracionPaisModel();

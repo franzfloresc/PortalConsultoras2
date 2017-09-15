@@ -286,11 +286,13 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
-        $('#flexslider').flexslider({
-            animation: "slide",
-            pauseOnAction: false,
-            animationSpeed: 1600
-        });
+        if ($('#flexslider ul.slides li').length > 0) {
+            $('#flexslider').flexslider({
+                animation: "slide",
+                pauseOnAction: false,
+                animationSpeed: 1600
+            });
+        }
 
     } else {
         var url = location.href.toLowerCase();
