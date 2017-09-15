@@ -1827,6 +1827,7 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
+
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {
             int anioCampania = campania / 100;

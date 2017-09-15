@@ -1204,6 +1204,9 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
     <Content Include="Content\Images\Esika\bg_regalo.png" />
+    <Content Include="Content\Images\Esika\bg_regalo_chile.png" />
+    <Content Include="Content\Images\Esika\bg_regalo_mobile.png" />
+    <Content Include="Content\Images\Esika\bg_regalo_mobile_chile.png" />
     <Content Include="Content\Images\Esika\logo_esika_negro.png" />
     <Content Include="Content\Images\disable.png" />
     <Content Include="Content\Images\dislike.png" />
@@ -2579,6 +2582,7 @@
     <Content Include="Content\Images\mobile\Esika\fondo_app.png" />
     <Content Include="Content\Images\mobile\Esika\fondo_oferta.png" />
     <Content Include="Content\Images\mobile\Esika\ganancia.png" />
+    <Content Include="Content\Images\mobile\Esika\gift-rojo-2.png" />
     <Content Include="Content\Images\mobile\Esika\iconowscolor.png" />
     <Content Include="Content\Images\mobile\Esika\icono_advertencia_notificacion.svg" />
     <Content Include="Content\Images\mobile\Esika\icono_check_esika.svg" />
@@ -2614,6 +2618,8 @@
     <Content Include="Content\Images\mobile\icon-xclose.png" />
     <Content Include="Content\Images\mobile\flecha-right.png" />
     <Content Include="Content\Images\mobile\icono-cerrar-popup-inscripcion-mobile.svg" />
+    <Content Include="Content\Images\mobile\icono_regalo.png" />
+    <Content Include="Content\Images\mobile\icono_regalo_estrella.png" />
     <Content Include="Content\Images\mobile\icon_caja.png" />
     <Content Include="Content\Images\mobile\icon_casita.png" />
     <Content Include="Content\Images\mobile\icon_menu.png" />
