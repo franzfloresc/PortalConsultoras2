@@ -2744,7 +2744,8 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string titulo = "", subTitulo = "";
 
-                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
+                if ( entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                 {
@@ -2856,11 +2857,13 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.SimpleCentrado:
                         seccion.TemplatePresentacion = "seccion-simple-centrado";
                         seccion.TemplateProducto = "#producto-landing-template";
+                        seccion.CantidadProductos = seccion.CantidadProductos > 3 || seccion.CantidadProductos <= 0 ? 3 : seccion.CantidadProductos;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.Banners:
                         seccion.TemplatePresentacion = "seccion-banner";
                         seccion.Titulo = "";
                         seccion.SubTitulo = "";
+                        seccion.CantidadProductos = 0;
                         break;
                     case Constantes.ConfiguracionSeccion.TipoPresentacion.ShowRoom:
                         if (sessionManager.GetEsShowRoom())
@@ -2898,6 +2901,11 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
+            if (codigo == Constantes.ConfiguracionPais.Lanzamiento)
+            {
+                if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) return false;
+            }
+
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
             {
                 if (!userData.RevistaDigital.TieneRDC) return false;

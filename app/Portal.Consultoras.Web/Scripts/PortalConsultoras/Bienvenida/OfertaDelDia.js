@@ -266,7 +266,6 @@ $(document).ready(function () {
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
 
-        console.log(data);
         SetHandlebars("#ofertadeldia-template", data, contenedorOfertas);     
     }
 

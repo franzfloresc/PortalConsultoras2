@@ -539,7 +539,7 @@ function EstrategiaAgregar(event, popup, limite) {
 
         },
         error: function (data, error) {
-            console.log(data);
+            console.log(data, error);
             CerrarLoad();
         }
     });

@@ -3170,7 +3170,7 @@ function SRPopupCerrar(tipo) {
             CerrarPopup("#PopShowroomIntriga");
         },
         error: function (data, error) {
-            console.log(data);
+            console.log(data, error);
             CerrarLoad();
             CerrarPopup("#PopShowroomVenta");
             CerrarPopup("#PopShowroomIntriga");
