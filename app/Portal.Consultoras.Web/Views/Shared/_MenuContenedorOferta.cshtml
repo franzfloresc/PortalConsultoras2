@@ -16,10 +16,12 @@
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 <div class="bc_menu_estrategia" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-    <div>
+    <div class="contenedor_top">
         @if (menuActivo.ConfiguracionPais.DesktopLogoBanner != "")
         {
-            <div class="logo" style="background: url(@menuActivo.ConfiguracionPais.DesktopLogoBanner);"></div>
+            <div class="logo">
+                <img class="imagen_logo" src="@menuActivo.ConfiguracionPais.DesktopLogoBanner">
+            </div>
         }
         @if (menuActivo.ConfiguracionPais.DesktopTituloBanner != "" || menuActivo.ConfiguracionPais.DesktopSubTituloBanner != "")
         {
