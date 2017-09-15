@@ -1,4 +1,5 @@
-﻿<script id="estrategia-template2" type="text/x-handlebars-template">
+﻿@using Portal.Consultoras.Common
+<script id="estrategia-template2" type="text/x-handlebars-template">
     {{#each this.ListaLan as |item|}}
     {{#iff item.TipoEstrategia.Codigo '==' '005'}}
     <div class="wrapper_resumen_mobile" data-item="{{EstrategiaID}}" >
@@ -11,7 +12,7 @@
             </div>
             <div>CONOCE {{DescripcionResumen}}</div>
             <div class="btn_black_solid"><a href="javascript: RDRedireccionarDetalle(event)">DESCUBRE ESTA NOVEDAD</a></div>
-            <a href="@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })">VER MÁS LANZAMIENTOS 
+            <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento)">VER MÁS LANZAMIENTOS 
                 <img class="rd_arrowright" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")" />
             </a>
         </div>

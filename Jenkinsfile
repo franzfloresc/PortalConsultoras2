@@ -12,14 +12,17 @@ node {
             }
             stage('Sonar') {
                 def sqScannerMsBuildHome = tool 'sonar-scanner-msbuild'
+                def sqScannerHome = tool 'sonar-scanner'
                 def msBuildHome = tool 'msbuild'
                 def branchName = env.BRANCH_NAME.capitalize()
                 withSonarQubeEnv('Sonar Qube Server') {
                     dir('app') {
                         bat ".\\.nuget\\Nuget.exe restore"
-                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - ${branchName}\" /v:1.0 /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.inclusions=**/*.cs"
+                        bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe begin /k:portal.consultoras /n:\"Consultoras - Web - \" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_AUTH_TOKEN% /d:sonar.branch=${branchName} /d:sonar.inclusions=**/*.cs"
                         bat "\"${msBuildHome}\"\\MSBuild.exe /t:Rebuild"
                         bat "${sqScannerMsBuildHome}\\SonarQube.Scanner.MSBuild.exe end"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-js.properties"
+                        bat "${sqScannerHome}\\sonar-scanner.bat -Dsonar.host.url=%SONAR_HOST_URL% -Dsonar.login=%SONAR_AUTH_TOKEN% -Dsonar.branch=${branchName} -Dproject.settings=../sonar-project-css.properties"
                     }
                 }
             }
@@ -42,7 +45,7 @@ node {
 def notify(status) {
     def to = ""
     def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-    def blueOceanBuildUrl = "${env.JENKINS_URL}blue/organizations/jenkins/${env.JOB_NAME}/detail/${env.JOB_NAME}/${env.BUILD_NUMBER}/pipeline"
+    def blueOceanBuildUrl = "${env.RUN_DISPLAY_URL}"
     def summary = "${subject} (${blueOceanBuildUrl})"
     def details = """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
         <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""

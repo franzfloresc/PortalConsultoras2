@@ -3,7 +3,7 @@
 @{
     var permisoList = Model.SubMenus ?? new List<Portal.Consultoras.Web.Models.PermisoModel>();
     string urlProgramaNuevas = "";
-    var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramasBelcorpMenu;
+    var programasBelcorpMenu = (List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>)ViewBag.ProgramaBelcorpMenu;
     programasBelcorpMenu = programasBelcorpMenu ?? new List<Portal.Consultoras.Web.Models.ServicioCampaniaModel>();
     foreach (var item in programasBelcorpMenu)
     {
@@ -189,7 +189,7 @@
                             target="@menuPadre.PageTarget" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion" id="lnk-pri-@menuPadre.DescripcionFormateada">
                             @if (menuPadre.UrlImagen != "")
                             {
-                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" />
+                                <img src="@menuPadre.UrlImagen" alt="@menuPadre.Descripcion" style="margin-top: -5px;" role="menu" region="Principal" parent="@menuPadre.Descripcion" title="@menuPadre.Descripcion"/>
                             }
                             else
                             {
