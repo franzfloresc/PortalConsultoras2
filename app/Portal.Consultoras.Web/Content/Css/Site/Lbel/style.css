@@ -28650,10 +28650,12 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
     margin-right: 2%;
     float: left;
     position: relative;
-    width:260px;
+    width:248px;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
+    box-shadow: 0 15px 13px -8px rgba(204,200,204,1);
+    border: 1px solid #e7e1e1;
 }
 
     .content-favclientes .contiene-productos:nth-child(3n) {

@@ -39,7 +39,7 @@ if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'De
 begin
 
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Desktop','ImagenFondoContenedorOfertasShowRoomVenta','IFondo del ShowRoom en el Contenedor Ofertas Intriga','IMAGEN','EVENTO',
+values ('Desktop','ImagenFondoContenedorOfertasShowRoomVenta','Fondo del ShowRoom en el Contenedor Ofertas Venta','IMAGEN','EVENTO',
 (select max(Orden)+1 from ShowRoom.Personalizacion),1)
 
 end
@@ -63,7 +63,7 @@ if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mo
 begin
 
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','ImagenBannerContenedorOfertasVenta','Imagen del Banner del Contenedor Ofertas Intriga','IMAGEN','EVENTO',
+values ('Mobile','ImagenBannerContenedorOfertasVenta','Imagen del Banner del Contenedor Ofertas Venta','IMAGEN','EVENTO',
 (select max(Orden)+1 from ShowRoom.Personalizacion),1)
 
 end
@@ -93,7 +93,7 @@ if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'De
 begin
 
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Desktop','ImagenFondoContenedorOfertasShowRoomVenta','IFondo del ShowRoom en el Contenedor Ofertas Intriga','IMAGEN','EVENTO',
+values ('Desktop','ImagenFondoContenedorOfertasShowRoomVenta','IFondo del ShowRoom en el Contenedor Ofertas Venta','IMAGEN','EVENTO',
 (select max(Orden)+1 from ShowRoom.Personalizacion),1)
 
 end
@@ -117,7 +117,7 @@ if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mo
 begin
 
 insert into ShowRoom.Personalizacion (TipoAplicacion,Atributo,TextoAyuda,TipoAtributo,TipoPersonalizacion,Orden,Estado)
-values ('Mobile','ImagenBannerContenedorOfertasVenta','Imagen del Banner del Contenedor Ofertas Intriga','IMAGEN','EVENTO',
+values ('Mobile','ImagenBannerContenedorOfertasVenta','Imagen del Banner del Contenedor Ofertas Venta','IMAGEN','EVENTO',
 (select max(Orden)+1 from ShowRoom.Personalizacion),1)
 
 end
