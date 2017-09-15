@@ -45,6 +45,18 @@ namespace Portal.Consultoras.Web.Controllers
             try
             {
                 model.ListaPaises = ObtenerPaises();
+                model.ListaEventos = ObtenerEventoFestivo();
+                if (model.ListaEventos.Count == 0)
+                {
+                    model.NombreClase = "fondo_estandar";
+                }
+                else
+                {
+                    model.NombreClase = "fondo_festivo";
+                    model.RutaEventoEsika = (from g in model.ListaEventos where g.Nombre == Constantes.EventoFestivoNombre.FONDO_ESIKA select g.Personalizacion).FirstOrDefault();
+                    model.RutaEventoLBel = (from g in model.ListaEventos where g.Nombre == Constantes.EventoFestivoNombre.FONDO_LBEL select g.Personalizacion).FirstOrDefault();
+                }
+
 
                 if (EstaActivoBuscarIsoPorIp())
                 {
@@ -112,6 +124,23 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             return Mapper.Map<IList<BEPais>, IEnumerable<PaisModel>>(lst);
+        }
+
+        protected List<EventoFestivoModel> ObtenerEventoFestivo()
+        {
+            List<BEEventoFestivo> lst;
+            try
+            {
+                using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                {
+                    lst = sv.GetEventoFestivo(0, Constantes.EventoFestivoAlcance.LOGIN, 0).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                lst = new List<BEEventoFestivo>(); ;
+            }
+            return Mapper.Map<IList<BEEventoFestivo>, List<EventoFestivoModel>>(lst);
         }
 
         protected virtual bool EstaActivoBuscarIsoPorIp()
@@ -1024,6 +1053,40 @@ namespace Portal.Consultoras.Web.Controllers
                         }
 
 
+                        #endregion
+
+                        #region EventoFestivo
+                        try
+                        {
+                            using (UsuarioServiceClient sv = new UsuarioServiceClient())
+                            {
+                                //verificar si tiene un evento festivo
+                                var lstEvento = sv.GetEventoFestivo(model.PaisID, Constantes.EventoFestivoAlcance.SOMOS_BELCORP, model.CampaniaID);
+                                model.ListaEventoFestivo = Mapper.Map<IList<ServiceUsuario.BEEventoFestivo>, List<EventoFestivoModel>>(lstEvento);
+                            }
+                            if (model.ListaEventoFestivo.Any())
+                            {
+                                foreach (var item in model.ListaEventoFestivo)
+                                {
+                                    switch (item.Nombre)
+                                    {
+                                        case Constantes.EventoFestivoNombre.SALUDO:
+                                            model.EfSaludo = Convert.ToString(item.Personalizacion);
+                                            break;
+
+                                        case Constantes.EventoFestivoNombre.FONDO_INGPED:
+                                            model.EfRutaPedido = Convert.ToString(item.Personalizacion);
+                                            break;
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            LogManager.LogManager.LogErrorWebServicesBus(ex, model.CodigoConsultora, model.PaisID.ToString());
+                            pasoLog = "Ocurrió un error al cargar Eventofestivo";
+                            model.ListaEventoFestivo = new List<EventoFestivoModel>();
+                        }
                         #endregion
 
                         #region Concursos
