@@ -326,8 +326,7 @@ $(document).ready(function () {
                 });
             }
         };
-
-            var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
+              
         me.Constantes = {
             DebeAceptarSeccionValidaTusDatos: "Debe completar la sección de VALIDA TUS DATOS para finalizar",
             DebeAceptarPoliticaCambios: "Debe aceptar la política de Cambios y Devoluciones",
@@ -1071,7 +1070,7 @@ $(document).ready(function () {
             },
 
             DetalleGuardar: function () {
-                
+
                 var item = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,
@@ -1086,7 +1085,7 @@ $(document).ready(function () {
                 };
 
                 waitingDialog();
-                
+
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlDetalleGuardar,
@@ -1119,7 +1118,7 @@ $(document).ready(function () {
             },
 
             DetalleCargar: function () {
-                
+
                 var item = {
                     CDRWebID: $("#CDRWebID").val() || 0,
                     PedidoID: $("#hdPedidoID").val() || 0
@@ -1142,13 +1141,13 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-                        
+
                         $("#spnCantidadUltimasSolicitadas").html(data.detalle.length);
                         $(".num_solicitudes").html(data.detalle.length)
 
                         SetHandlebars("#template-detalle-banner", data, "#divDetalleUltimasSolicitudes");
                         me.Funciones.ValidarVisualizacionBannerResumen();
-                        
+
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
 
