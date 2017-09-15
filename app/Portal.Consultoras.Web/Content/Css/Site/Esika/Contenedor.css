@@ -75,6 +75,11 @@
     transform: translate(-50%, -50%);
 }
 
+.contenedor_top
+{
+    height: 97px;
+}
+
         .bc_menu_estrategia .op_menu-horizontal ul {
             padding: 0;
             margin: 0;
