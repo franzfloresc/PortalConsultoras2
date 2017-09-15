@@ -17,13 +17,21 @@ namespace Portal.Consultoras.BizLogic
     public class BLCliente
     {
         private readonly INotasBusinessLogic _notasBusinessLogic;
+        private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
+        private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
 
-        public BLCliente() : this(new BLNotas())
+        public BLCliente() : this(new BLNotas(),
+            new BLMovimiento(),
+            new BLRecordatorio())
         { }
 
-        public BLCliente(INotasBusinessLogic notasBusinessLogic)
+        public BLCliente(INotasBusinessLogic notasBusinessLogic,
+            IMovimientoBusinessLogic movimientoBusinessLogic,
+            IRecordatorioBusinessLogic recordatorioBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
+            _movimientoBusinessLogic = movimientoBusinessLogic;
+            _recordatorioBusinessLogic = recordatorioBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -137,183 +145,6 @@ namespace Portal.Consultoras.BizLogic
 
             DACliente.InsCatalogoCampania(CodigoConsultora, CampaniaID);
         }
-
-        #region Movimiento
-        public ResponseType<int> MovimientoInsertar(int paisId, BEMovimiento movimiento)
-        {
-            if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
-                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-
-            movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
-                ? (-1) * Math.Abs(movimiento.Monto)
-                : Math.Abs(movimiento.Monto);
-
-            var daCliente = new DACliente(paisId);
-            var movimientoInsertado = daCliente.MovimientoInsertar(movimiento);
-
-            return ResponseType<int>.Build(data: movimientoInsertado);
-        }
-
-        public IEnumerable<BEMovimiento> MovimientoListar(int paisId, short clienteId, long consultoraId)
-        {
-            var movimientos = new List<BEMovimiento>();
-            var daCliente = new DACliente(paisId);
-            var daPedidoDetalle = new DAPedidoWebDetalle(paisId);
-
-            using (var reader = daCliente.MovimientosListar(clienteId, consultoraId))
-                while (reader.Read())
-                {
-                    var movimiento = new BEMovimiento(reader);
-                    movimientos.Add(movimiento);
-                }
-
-            foreach (var movimiento in movimientos)
-            {
-                if (movimiento.TipoMovimiento != Constantes.MovimientoTipo.CargoBelcorp)
-                    continue;
-
-                int codigoCampania;
-                if (!int.TryParse(movimiento.CodigoCampania, out codigoCampania))
-                    continue;
-
-                if (codigoCampania <= 0)
-                    continue;
-
-                var pedidos = new List<BEPedidoDDWebDetalle>();
-                using (var reader = daPedidoDetalle.ClientePedidoFacturadoListar(codigoCampania, consultoraId, clienteId))
-                    while (reader.Read())
-                    {
-                        var pedido = new BEPedidoDDWebDetalle(reader);
-                        pedidos.Add(pedido);
-                    }
-
-                movimiento.Pedidos = pedidos;
-            }
-
-            return movimientos;
-        }
-
-        public ResponseType<BEMovimiento> MovimientoActualizar(int paisId, BEMovimiento movimiento)
-        {
-            if (!Constantes.MovimientoTipo.Todos.Contains(movimiento.TipoMovimiento))
-            {
-                return ResponseType<BEMovimiento>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-            }
-
-            movimiento.Monto = movimiento.TipoMovimiento == Constantes.MovimientoTipo.Abono
-                ? (-1) * Math.Abs(movimiento.Monto)
-                : Math.Abs(movimiento.Monto);
-
-            var daCliente = new DACliente(paisId);
-            var result = daCliente.MovimientoActualizar(movimiento);
-
-            return ResponseType<BEMovimiento>.Build(result, string.Empty);
-        }
-
-        public ResponseType<int> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId)
-        {
-            var movimientos = MovimientoListar(paisId, clienteId, consultoraId);
-            var movimiento = movimientos.FirstOrDefault(m => m.ClienteMovimientoId == movimientoId);
-
-            if (movimiento == null)
-                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-
-            if (new[] { Constantes.MovimientoTipo.Historico, Constantes.MovimientoTipo.CargoBelcorp }.Contains(movimiento.TipoMovimiento))
-                return ResponseType<int>.Build(success: false, message: Resources.ClienteValidationMessages.TipoMovimientoInvalido);
-
-            var daCliente = new DACliente(paisId);
-            var result = daCliente.MovimientoEliminar(consultoraId, clienteId, movimientoId);
-
-            return ResponseType<int>.Build(result, string.Empty);
-        }
-
-        private ResponseType<List<BEMovimiento>> MovimientoProcesar(int paisId, BEClienteDB clienteDb)
-        {
-            var movimientosResponse = ResponseType<List<BEMovimiento>>.Build(data: new List<BEMovimiento>());
-
-            foreach (var movimiento in clienteDb.Movimientos)
-            {
-                movimiento.ClienteId = (short)clienteDb.ClienteIDSB;
-                movimiento.CodigoCliente = clienteDb.ClienteID;
-
-                if (movimiento.ClienteMovimientoId == 0)
-                {
-                    var resultInsertar = MovimientoInsertar(paisId, movimiento);
-                    if (!resultInsertar.Success)
-                    {
-                        movimientosResponse.Success = resultInsertar.Success;
-                        movimientosResponse.Message += ", " + resultInsertar.Message;
-                        continue;
-                    }
-
-                    movimiento.ClienteMovimientoId = resultInsertar.Data;
-                }
-                else
-                {
-                    var resultActualizar = MovimientoActualizar(paisId, movimiento);
-                    if (!resultActualizar.Success)
-                    {
-                        movimientosResponse.Success = resultActualizar.Success;
-                        movimientosResponse.Message += ", " + resultActualizar.Message;
-                        continue;
-                    }
-                }
-
-                movimientosResponse.Data.Add(movimiento);
-            }
-
-            return movimientosResponse;
-        }
-        #endregion
-
-        #region Recordatorio
-        public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
-        {
-            var daCliente = new DACliente(paisId);
-            return daCliente.RecordatorioInsertar(recordatorio);
-        }
-
-        public List<BEClienteRecordatorio> RecordatorioListar(int paisId, long consultoraId)
-        {
-            var recordatorios = new List<BEClienteRecordatorio>();
-            var daCliente = new DACliente(paisId);
-
-            using (IDataReader reader = daCliente.RecordatorioObtener(consultoraId))
-                while (reader.Read())
-                {
-                    var recordatorio = new BEClienteRecordatorio(reader);
-                    recordatorios.Add(recordatorio);
-                }
-
-            return recordatorios;
-        }
-
-        public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
-        {
-            var daCliente = new DACliente(paisId);
-            return daCliente.RecordatorioActualizar(recordatorio);
-        }
-
-        public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
-        {
-            var daCliente = new DACliente(paisId);
-            return daCliente.RecordatorioEliminar(clienteId, consultoraId, recordatorioId);
-        }
-
-        public void RecordatorioProcesar(int paisID, BEClienteDB clienteDB)
-        {
-            foreach (var recordatorio in clienteDB.Recordatorios)
-            {
-                recordatorio.ClienteId = (short)clienteDB.ClienteIDSB;
-                recordatorio.ConsultoraId = clienteDB.ConsultoraID;
-                if (recordatorio.ClienteRecordatorioId == 0)
-                    recordatorio.ClienteRecordatorioId = RecordatorioInsertar(paisID, recordatorio);
-                else
-                    RecordatorioActualizar(paisID, recordatorio);
-            }
-        }
-
-        #endregion
 
         #region Contactos
         private void ContactoListar(IList<BECliente> lstConsultoraCliente, List<BEClienteDB> lstCliente)
@@ -544,24 +375,11 @@ namespace Portal.Consultoras.BizLogic
 
                     clienteDB.Contactos.Update(x => x.ClienteIDSB = clienteDB.ClienteIDSB);
 
+                    var movimientosTask = Task.Run(() => _movimientoBusinessLogic.Procesar(paisID, clienteDB));
+                    var recordatoriosTask = Task.Run(() => _recordatorioBusinessLogic.Procesar(paisID, clienteDB));
+                    var notasTask = Task.Run(() => _notasBusinessLogic.Procesar(paisID, clienteDB));
 
-                    //GRABAR MOVIMIENTOS COBRANZA
-                    if (clienteDB.Movimientos != null)
-                    {
-                        MovimientoProcesar(paisID, clienteDB);
-                    }
-
-                    if (clienteDB.Recordatorios != null)
-                    {
-
-                        RecordatorioProcesar(paisID, clienteDB);
-                    }
-
-                    //GRABAR NOTAS
-                    if (clienteDB.Notas != null)
-                    {
-                        _notasBusinessLogic.NotaProcesar(paisID, clienteDB);
-                    }
+                    Task.WaitAll(movimientosTask, recordatoriosTask, notasTask);
                 }
                 else
                 {
@@ -621,8 +439,8 @@ namespace Portal.Consultoras.BizLogic
             //OBTENER CLIENTE CONSULTORA
             var lstConsultoraCliente = SelectByConsultora(paisID, consultoraID);
 
-            var recordatorios = RecordatorioListar(paisID, consultoraID);
-            var notas = _notasBusinessLogic.NotaListar(paisID, consultoraID);
+            var recordatorios = _recordatorioBusinessLogic.Listar(paisID, consultoraID);
+            var notas = _notasBusinessLogic.Listar(paisID, consultoraID);
 
             //OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));

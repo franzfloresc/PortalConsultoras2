@@ -18,8 +18,12 @@ namespace Portal.Consultoras.Service
         private BLCatalogo BLCatalogo;
         private BLPedidoWebAnteriores BLPedidoWebAnteriores;
         private readonly INotasBusinessLogic _notasBusinessLogic;
+        private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
+        private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
 
-        public ClienteService() : this(new BLNotas())
+        public ClienteService() : this(new BLNotas(),
+            new BLMovimiento(),
+            new BLRecordatorio())
         {
             BLCliente = new BLCliente();
             BLPedidoWeb = new BLPedidoWeb();
@@ -28,9 +32,13 @@ namespace Portal.Consultoras.Service
             BLPedidoWebAnteriores = new BLPedidoWebAnteriores();
         }
 
-        public ClienteService(INotasBusinessLogic notasBusinessLogic)
+        public ClienteService(INotasBusinessLogic notasBusinessLogic,
+            IMovimientoBusinessLogic movimientoBusinessLogic,
+            IRecordatorioBusinessLogic recordatorioBusinessLogic)
         {
             _notasBusinessLogic = notasBusinessLogic;
+            _movimientoBusinessLogic = movimientoBusinessLogic;
+            _recordatorioBusinessLogic = recordatorioBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -166,46 +174,46 @@ namespace Portal.Consultoras.Service
 
         public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
-            var result = BLCliente.MovimientoInsertar(paisId, movimiento);
+            var result = _movimientoBusinessLogic.Insertar(paisId, movimiento);
 
             return result.Data;
         }
 
         public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId)
         {
-            return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
+            return _movimientoBusinessLogic.Listar(paisId, clienteId, consultoraId);
         }
 
         public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
         {
-            var result = BLCliente.MovimientoActualizar(paisId, movimiento);
+            var result = _movimientoBusinessLogic.Actualizar(paisId, movimiento);
             return new Tuple<bool, string>(result.Success, result.Message);
         }
 
         public Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId)
         {
-            var result = BLCliente.MovimientoEliminar(paisId, consultoraId, clienteId, movimientoId);
+            var result = _movimientoBusinessLogic.Eliminar(paisId, consultoraId, clienteId, movimientoId);
             return new Tuple<bool, string>(result.Success, result.Message);
         }
 
         public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
-            return BLCliente.RecordatorioInsertar(paisId, recordatorio);
+            return _recordatorioBusinessLogic.Insertar(paisId, recordatorio);
         }
 
         public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId)
         {
-            return BLCliente.RecordatorioListar(paisId, consultoraId);
+            return _recordatorioBusinessLogic.Listar(paisId, consultoraId);
         }
 
         public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
         {
-            return BLCliente.RecordatorioActualizar(paisId, recordatorio);
+            return _recordatorioBusinessLogic.Actualizar(paisId, recordatorio);
         }
 
         public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
         {
-            return BLCliente.RecordatorioEliminar(paisId, clienteId, consultoraId, recordatorioId);
+            return _recordatorioBusinessLogic.Eliminar(paisId, clienteId, consultoraId, recordatorioId);
         }
 
         public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
@@ -215,22 +223,22 @@ namespace Portal.Consultoras.Service
 
         public ResponseType<long> NotaInsertar(int paisId, BENota nota)
         {
-            return _notasBusinessLogic.NotaInsertar(paisId, nota);
+            return _notasBusinessLogic.Insertar(paisId, nota);
         }
 
         public ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId)
         {
-            return _notasBusinessLogic.NotaListar(paisId, consultoraId);
+            return _notasBusinessLogic.Listar(paisId, consultoraId);
         }
 
         public ResponseType<bool> NotaActualizar(int paisId, BENota nota)
         {
-            return _notasBusinessLogic.NotaActualizar(paisId, nota);
+            return _notasBusinessLogic.Actualizar(paisId, nota);
         }
 
         public ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
         {
-            return _notasBusinessLogic.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
+            return _notasBusinessLogic.Eliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
     }
 }

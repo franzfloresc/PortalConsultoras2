@@ -19,7 +19,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
             _blTablaLogicaDatos = new BLTablaLogicaDatos();
         }
 
-        public ResponseType<long> NotaInsertar(int paisId, BENota nota)
+        public ResponseType<long> Insertar(int paisId, BENota nota)
         {
             var validacionNotas = PuedeAgregarMasNotas(paisId, nota.ConsultoraId, nota.ClienteId);
             if (!validacionNotas.Success)
@@ -31,10 +31,13 @@ namespace Portal.Consultoras.BizLogic.Cliente
 
             var result = daCliente.NotaInsertar(nota);
 
+            if (result == 0)
+                return ResponseType<long>.Build(false, Constantes.ClienteValidacion.Code.ERROR_NOTAINVALIDA);
+
             return ResponseType<long>.Build(data: result);
         }
 
-        public ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId)
+        public ResponseType<List<BENota>> Listar(int paisId, long consultoraId)
         {
             var notas = new List<BENota>();
             var daCliente = new DACliente(paisId);
@@ -49,24 +52,29 @@ namespace Portal.Consultoras.BizLogic.Cliente
             return ResponseType<List<BENota>>.Build(data: notas);
         }
 
-        public ResponseType<bool> NotaActualizar(int paisId, BENota nota)
+        public ResponseType<bool> Actualizar(int paisId, BENota nota)
         {
             var daCliente = new DACliente(paisId);
             nota.Fecha = nota.Fecha.HasValue ? nota.Fecha.Value.ToUniversalTime() : DateTime.UtcNow;
 
             var result = daCliente.NotaActualizar(nota);
+            if (!result)
+                return ResponseType<bool>.Build(false, Constantes.ClienteValidacion.Code.ERROR_NOTAINVALIDA);
 
-            return ResponseType<bool>.Build(data: result);
+            return ResponseType<bool>.Build(result);
         }
 
-        public ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        public ResponseType<bool> Eliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
         {
             var daCliente = new DACliente(paisId);
             var result = daCliente.NotaEliminar(clienteId, consultoraId, clienteNotaId);
-            return ResponseType<bool>.Build(data: result);
+            if (!result)
+                return ResponseType<bool>.Build(false, Constantes.ClienteValidacion.Code.ERROR_NOTAINVALIDA);
+
+            return ResponseType<bool>.Build(result);
         }
 
-        public ResponseType<List<BENota>> NotaProcesar(int paisId, BEClienteDB clienteDb)
+        public ResponseType<List<BENota>> Procesar(int paisId, BEClienteDB clienteDb)
         {
             var result = ResponseType<List<BENota>>.Build();
             result.Data = new List<BENota>();
@@ -77,9 +85,26 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 nota.ConsultoraId = clienteDb.ConsultoraID;
 
                 //todo: improve
+                if (nota.StatusEnum == StatusEnum.Delete)
+                {
+                    var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);
+                    if (!resultEliminar.Success)
+                    {
+                        result.Success = false;
+                        result.Code = resultEliminar.Code;
+                        result.Message = resultEliminar.Message;
+
+                        nota.Code = resultEliminar.Code;
+                        nota.Message = resultEliminar.Message;
+                        result.Data.Add(nota);
+                    }
+
+                    continue;
+                }
+
                 if (nota.ClienteNotaId == 0)
                 {
-                    var resultInsert = NotaInsertar(paisId, nota);
+                    var resultInsert = Insertar(paisId, nota);
                     if (!resultInsert.Success)
                     {
                         result.Success = false;
@@ -93,7 +118,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 }
                 else
                 {
-                    var resultUdate = NotaActualizar(paisId, nota);
+                    var resultUdate = Actualizar(paisId, nota);
                     if (!resultUdate.Success)
                     {
                         result.Success = false;
@@ -108,6 +133,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 result.Data.Add(nota);
             }
 
+            clienteDb.Notas = result.Data;
             return result;
         }
 
@@ -121,7 +147,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
                 int.TryParse(notaMaximaConfiguracion.Descripcion, out notaMaxima);
             }
 
-            var notas = NotaListar(paisId, consultoraId);
+            var notas = Listar(paisId, consultoraId);
             var notasCliente = notas.Data.Count(n => n.ClienteId == clienteId);
 
             var result = ResponseType<bool>.Build();
