@@ -15,7 +15,7 @@ var menuModule = (function () {
             aHover: "ul.subnavegador li a",
             bcParaTiMenu: ".bc_para_ti-menu ul li a",
             bcParaTiMenuActivo: ".bc_para_ti-menu ul li a.activo",
-            content: "mob-content-layout"
+            mobContent: "#mob-content-layout"
         },
         anchorMark = "#",
         anchorValue,
@@ -71,8 +71,10 @@ var menuModule = (function () {
         if (st > lastScrollTop) {
             //fix the menu 
             $(elementos.seccionMenuMobile).css("position", "fixed");
+            $(elementos.mobContent).css("padding-top", navbarHeight + "px");
             $(elementos.seccionBannerMobile).slideUp("slow", function() {
                 $(elementos.menu2Ul).css("position", "fixed").css("top", navbarHeight + "px");
+               
             });
             
         } else {
@@ -82,6 +84,7 @@ var menuModule = (function () {
                 $(elementos.seccionMenuMobile).css("position", "");
                 $(elementos.seccionBannerMobile).css("display", "");
                 $(elementos.menu2Ul).css("position", "").css("top", "");
+                $(elementos.mobContent).css("padding-top", "");
             } else if (st > (seccionMenuMobileHeight) && st + $(window).height() < $(document).height()) {
                 //console.log("scroll up");
                 $(elementos.seccionBannerMobile).css("top", navbarHeight + "px").slideDown("slow", function() {
