@@ -59,8 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        
-
         private void InicializarViewbag()
         {
             ViewBag.urlImagenPopupIntriga = string.Empty;
@@ -77,10 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.urlTerminosyCondiciones = item.Valor;
             }
         }
-
-        
-
-
 
         public ActionResult Index(string query)
         {
@@ -2884,7 +2878,8 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     success = true,
                     message = "Ok",
-                    data = productosShowRoom
+                    data = productosShowRoom,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
             catch (Exception ex)
@@ -2909,7 +2904,6 @@ namespace Portal.Consultoras.Web.Controllers
                         data = "",
                         message = "ShowRoomConsultora encontrada"
                     });
-
                 }
 
                 if (!userData.CargoEntidadesShowRoom)
@@ -2980,7 +2974,8 @@ namespace Portal.Consultoras.Web.Controllers
                     DiasFaltantes = diasFaltantes,
                     MensajeSaludo = mensajeSaludo,
                     MensajeDiasFaltantes = mensajeDiasFaltantes,
-                    UrlImagenIntriga = imagenIntriga ?? string.Empty
+                    UrlImagenIntriga = imagenIntriga ?? string.Empty,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
                 });
             }
             catch (Exception ex)

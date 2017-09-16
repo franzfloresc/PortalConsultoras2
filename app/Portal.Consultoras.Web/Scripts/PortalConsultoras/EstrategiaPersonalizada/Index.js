@@ -52,20 +52,15 @@ function SeccionRender() {
 function SeccionObtenerSeccion(seccion) {
     var codigo = $.trim($(seccion).attr("data-seccion"));
     var campania = $.trim($(seccion).attr("data-campania"));
-    var urlproducto = $.trim($(seccion).attr("data-url"));
     var detalle = {};
 
     if (codigo === "" || campania === "")
         return detalle;
 
-    $.ajaxSetup({
-        cache: false
-    });
-
     var param = {
         Codigo: codigo,
         CampaniaId: campania,
-        UrlObtenerProductos: urlproducto,
+        UrlObtenerProductos: $.trim($(seccion).attr("data-url")),
         TemplateProducto: $.trim($(seccion).attr("data-templateProducto")),
         TipoPresentacion: $.trim($(seccion).attr("data-tipoPresentacion")),
         TipoEstrategia: $.trim($(seccion).attr("data-tipoEstrategia")),
@@ -93,7 +88,7 @@ function SeccionCargarProductos(objConsulta) {
 
     var param = {
         codigo: objConsulta.Codigo,
-        campaniaId: objConsulta.CampaniaId
+        campaniaId: objConsulta.CampaniaId,
     }
 
     if (objConsulta.Codigo == CONS_CODIGO_SECCION.SR) {
@@ -112,8 +107,14 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId];
-            SeccionMostrarProductos(data);
+            if (data.success === true) {
+                data.codigo = $.trim(data.codigo);
+                if (data.codigo !== "") {
+                    data.campaniaId = $.trim(data.campaniaId) || campaniaCodigo;
+                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId];
+                    SeccionMostrarProductos(data);
+                }
+            }
         },
         error: function (error, x) {
             console.log(error, x);
