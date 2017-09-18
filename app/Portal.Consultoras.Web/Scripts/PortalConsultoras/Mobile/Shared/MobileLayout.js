@@ -286,6 +286,11 @@ function loadBannerLP20() {
         $("#contentmobile").css("margin-top", "0px");
         $('#content_slider_banner').show();
 
+        if ($('#BloqueMobileOfertaDia').length > 0)
+        {
+            $('#content_slider_banner').css('background-color', $('#BloqueMobileOfertaDia').css('background-color'));
+        }
+
         if ($('#flexslider ul.slides li').length > 0) {
             $('#flexslider').flexslider({
                 animation: "slide",

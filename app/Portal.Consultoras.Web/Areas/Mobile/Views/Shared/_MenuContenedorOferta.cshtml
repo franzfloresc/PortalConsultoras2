@@ -18,7 +18,7 @@
 
 <div id="seccion-menu-mobile" style="z-index: 10; width: 100%;">
     <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-        @if (menuActivo.ConfiguracionPais.MobileFondoBanner != "")
+        @if (menuActivo.ConfiguracionPais.MobileLogoBanner != "")
         {
             <div class="bc_mobile-logo">
                 <img src="@menuActivo.ConfiguracionPais.MobileLogoBanner" alt="" />
@@ -42,7 +42,7 @@
         <div class="clear"></div>
         @if (menuActivo.CampaniaX0 > 0)
             {
-            <div class="bc_para_ti-menu" data-layout-menu1="">
+            <div class="bc_para_ti-menu op_menu-horizontal" data-layout-menu1="">
 
                 <ul>
                     <li data-campania="@menuActivo.CampaniaX0">
@@ -72,7 +72,7 @@
     {
         <div data-layout-menu2="" class="slick-slider-fixed-mobile">
             <div class="bc_para_ti-menu-opciones">
-                <ul style="width: 100%; height: 40px; background: #fff;">
+                <ul class="subnavegador" style="width: 100%; height: 40px; background: #fff;">
                     @foreach (var menuhijo in menuList)
                     {
                         var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";

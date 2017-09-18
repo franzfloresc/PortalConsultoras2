@@ -31,6 +31,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -94,7 +95,9 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt
+	)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -115,6 +118,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -166,6 +170,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -229,7 +234,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -250,6 +256,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -301,6 +308,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -364,7 +372,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -385,6 +394,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -436,6 +446,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -499,7 +510,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -520,6 +532,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -571,6 +584,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -634,7 +648,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -655,6 +670,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -706,6 +722,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -769,7 +786,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -790,6 +808,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -841,6 +860,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -904,7 +924,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -925,6 +946,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -976,6 +998,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1039,7 +1062,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1060,6 +1084,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -1111,6 +1136,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1174,7 +1200,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1195,6 +1222,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -1246,6 +1274,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1309,7 +1338,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1330,6 +1360,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -1381,6 +1412,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1444,7 +1476,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1465,6 +1498,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -1516,6 +1550,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1579,7 +1614,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1600,6 +1636,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
@@ -1651,6 +1688,7 @@ returns @tabla table
 , DesktopLogoBanner	varchar(255)
 , MobileLogoBanner	varchar(255)
 , UrlMenu	varchar(255)
+, OrdenBpt	int
 )
 begin
 	IF(@Codigo IS NULL OR @Codigo = 'NULL') SET @Codigo = '';
@@ -1714,7 +1752,8 @@ begin
 		,MobileFondoBanner
 		,DesktopLogoBanner
 		,MobileLogoBanner
-		,UrlMenu)
+		,UrlMenu
+		,OrdenBpt)
 	SELECT c.ConfiguracionPaisID
 		,c.Codigo
 		,c.Excluyente
@@ -1735,6 +1774,7 @@ begin
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	FROM ConfiguracionPais c
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)

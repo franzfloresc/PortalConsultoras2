@@ -185,6 +185,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -210,7 +222,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -420,6 +432,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -445,7 +469,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -655,6 +679,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -680,7 +716,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -890,6 +926,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -915,7 +963,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -1125,6 +1173,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -1150,7 +1210,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -1360,6 +1420,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -1385,7 +1457,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -1595,6 +1667,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -1620,7 +1704,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -1830,6 +1914,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -1855,7 +1951,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -2065,6 +2161,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -2090,7 +2198,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -2300,6 +2408,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -2325,7 +2445,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -2535,6 +2655,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -2560,7 +2692,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -2770,6 +2902,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -2795,7 +2939,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
@@ -3005,6 +3149,18 @@ GO
 
 IF NOT EXISTS (
   SELECT * 
+  FROM   sys.columns 
+  WHERE  object_id = OBJECT_ID(N'[dbo].[ConfiguracionPais]') 
+         AND name = 'OrdenBpt'
+)
+BEGIN
+	ALTER TABLE ConfiguracionPais
+	ADD OrdenBpt int;
+END
+GO
+
+IF NOT EXISTS (
+  SELECT * 
   FROM   sys.Objects 
   WHERE  Object_id = OBJECT_ID(N'dbo.ConfiguracionOfertasHome') AND Type = N'U'
 )
@@ -3030,7 +3186,7 @@ BEGIN
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
 		[UrlSeccion] [varchar](250) NULL
-	) ON [DATA]
+	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
 
