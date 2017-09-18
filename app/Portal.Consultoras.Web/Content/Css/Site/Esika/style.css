@@ -32666,6 +32666,15 @@ h1#penmostreo .campana {
     letter-spacing: 0.3px;
     font-family: 'Lato';
     border:1px solid black;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+    padding-left: 1rem;
 }
 .texto_fav_filtro{
     margin-top:16px;
@@ -32892,6 +32901,7 @@ h1#penmostreo .campana {
     margin-top: 0px;
     max-width: 1024px;
     height: 490px;
+    margin-left: 12em;
     /*z-index: 2010;*/
     background:#000;
     /*background-color: black;*/ /*PL20-1226*/
@@ -34024,7 +34034,7 @@ h1#penmostreo .campana {
 }
 .content_producto_set{
     float:left;
-    width:25%;
+    width:22%;
     height:373px;
     margin-top:60px;
     text-align:center;
@@ -34037,13 +34047,14 @@ h1#penmostreo .campana {
     float:left;
     min-height:100px;
     background:white;
-    margin-left:5%;
+    margin-left:0;
     padding:30px;
     font-family:'Lato';
 }
 .content_solo_ficha_set{
     width:100%;
     float:left;
+    margin-left: 10em;
 }
 .titulo_set{
     font-size:20px;
@@ -34138,11 +34149,13 @@ h1#penmostreo .campana {
     text-align:center;
     margin-top:28px;
     margin-bottom:40px;
+    margin-left: 10em;
 }
 .content_tip_negocio{
     margin-top:50px;
     border-top:1px solid black;
     padding-top:20px;
+    margin-left: 10em;
 }
 .titulo_tip{
     text-transform:uppercase;
@@ -34262,6 +34275,7 @@ h1#penmostreo .campana {
     background: white;
     width:100%;
     height:73px;
+    margin-left: 12em;
    
     /*margin-top:50px;*/
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -34755,7 +34769,7 @@ h1#penmostreo .campana {
     float:left;
     margin-top:12px;
     margin-bottom:30px;
-    background:rgba(255,255,255,0.05);
+    background:rgba(255,255,255,0);
 }
 .content_img_carrusel_ODD{
     width:100%;
@@ -34831,7 +34845,7 @@ h1#penmostreo .campana {
     height:73px;
     /*background:white;*/
     max-width: 1024px;
-    margin: 0 auto;
+    margin: 0;
 }
 .titulo_promocion_showroom{
     width: 425px;
@@ -34874,10 +34888,8 @@ h1#penmostreo .campana {
     
 }
 .content_imagen_promocion{
-    height: auto;
-    width: 85px;
+    width: 72px;
     text-align: center;
-    margin-top: -12px;
     float: left;
     margin-right: 14px;
 }
@@ -35981,7 +35993,7 @@ h1#penmostreo .campana {
     line-height: 32px;
     position: relative;
     float: left;
-    min-width: 250px;
+    min-width: 330px;
     padding-left: 15px;
     padding-right: 30px;
     font-family: 'LAto';
@@ -35989,9 +36001,14 @@ h1#penmostreo .campana {
     font-weight: bold;
     letter-spacing: 0.3px;
     margin-right: 20px;
-    background: white url(../../../Images/arrow.png) no-repeat center;
+    /*background: white url(../../../Images/arrow.png) no-repeat center;
     background-size: 15px;
-    background-position-x: 95%;
+    background-position-x: 95%;*/
+    background: white;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
 }
 .content_detalle_filtro{
     width: 100%;
