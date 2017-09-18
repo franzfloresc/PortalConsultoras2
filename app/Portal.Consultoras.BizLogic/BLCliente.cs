@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Text.RegularExpressions;
@@ -10,7 +8,6 @@ using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities.Cliente;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -155,7 +152,7 @@ namespace Portal.Consultoras.BizLogic
             {
                 contactos = new List<BEClienteContactoDB>();
 
-                var clienteDB = lstCliente.Where(x => x.ClienteID == consultoraCliente.CodigoCliente).FirstOrDefault();
+                var clienteDB = lstCliente.Where(x => x.CodigoCliente == consultoraCliente.CodigoCliente).FirstOrDefault();
 
                 if (clienteDB != null)
                 {
@@ -166,7 +163,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteIDSB = consultoraCliente.ClienteID,
+                            ClienteID = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.Celular,
                             Valor = consultoraCliente.Celular,
                             Estado = 1
@@ -179,7 +176,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteIDSB = consultoraCliente.ClienteID,
+                            ClienteID = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
                             Valor = consultoraCliente.Telefono,
                             Estado = 1
@@ -192,7 +189,7 @@ namespace Portal.Consultoras.BizLogic
                         contactos.Add(new BEClienteContactoDB()
                         {
                             ContactoClienteID = (oContacto == null ? 0 : oContacto.ContactoClienteID),
-                            ClienteIDSB = consultoraCliente.ClienteID,
+                            ClienteID = consultoraCliente.ClienteID,
                             TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                             Valor = consultoraCliente.eMail,
                             Estado = 1
@@ -203,7 +200,7 @@ namespace Portal.Consultoras.BizLogic
                                             .Select(x => new BEClienteContactoDB()
                                             {
                                                 ContactoClienteID = x.ContactoClienteID,
-                                                ClienteIDSB = consultoraCliente.ClienteID,
+                                                ClienteID = consultoraCliente.ClienteID,
                                                 TipoContactoID = x.TipoContactoID,
                                                 Valor = x.Valor,
                                                 Estado = x.Estado
@@ -225,199 +222,53 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
+            var blClienteDB = new BLClienteDB();
             var daCliente = new DACliente(paisID);
-            var daClienteDB = new BLClienteDB();
-            var clienteSB = new BECliente();
 
-            string validacion = string.Empty;
-
-            foreach (var clienteDB in clientes)
+            foreach (var cliente in clientes)
             {
-                validacion = string.Empty;
-
-                clienteDB.PaisID = paisID;
-
-                if (clienteDB.Estado == Constantes.ClienteEstado.Activo)
+                cliente.PaisID = paisID;
+                if (cliente.Estado == Constantes.ClienteEstado.Activo)
                 {
-                    //VALIDAR CLIENTE - ATRIBUTOS
-                    validacion = this.ValidateAttribute(paisID, clienteDB);
-                    if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
-                    {
-                        clienteDB.CodigoRespuesta = validacion;
-                        clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                        continue;
-                    }
+                    cliente.CodigoRespuesta = this.ValidarAtributo(cliente);
+                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                    var lstTelefonos = this.ObtenerTelefonos(cliente);
+                    var lstClienteConsultora = this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
+                    var clienteTaskBD = Task.Run(() => this.ObtenerCodigoCliente(cliente, blClienteDB, lstTelefonos));
+                    var clienteTaskSB = Task.Run(() => this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos));
 
-                    //OBTENER CLIENTE DB
-                    var lstContactoPrincipal = (from tbl in clienteDB.Contactos
-                                                where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
-                                                || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
-                                                && tbl.Estado == Constantes.ClienteEstado.Activo
-                                                select tbl).OrderBy(x => x.TipoContactoID);
+                    Task.WaitAll(clienteTaskBD, clienteTaskSB);
 
-                    if (clienteDB.ClienteID == 0)
-                    {
-                        foreach (var contactoPrincipal in lstContactoPrincipal)
-                        {
-                            var resGetCliente = daClienteDB.GetCliente(contactoPrincipal.TipoContactoID, contactoPrincipal.Valor, paisID)
-                                                                .FirstOrDefault();
+                    cliente.CodigoCliente = clienteTaskBD.Result;
+                    cliente.ClienteID = clienteTaskSB.Result;
 
-                            if (resGetCliente != null)
-                            {
-                                clienteDB.ClienteID = resGetCliente.ClienteID;
-                                break;
-                            }
-                        }
-                    }
+                    cliente.CodigoRespuesta = this.ValidarConsultora(cliente, lstClienteConsultora);
+                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                    cliente.CodigoRespuesta = this.GrabarDB(cliente, blClienteDB);
+                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
+                    cliente.CodigoRespuesta = this.GrabarSB(cliente, daCliente);
+                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
 
-                    //OBTENER CLIENTE SB
-                    var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
-                    if (clienteDB.ClienteIDSB == 0)
-                    {
-                        foreach (var contactoPrincipal in lstContactoPrincipal)
-                        {
-                            var clienteSBSearch = lstClienteConsultora.Where(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor).FirstOrDefault();
-                            if (clienteSBSearch != null)
-                            {
-                                clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
-                                break;
-                            }
-                        }
-                    }
-
-                    //VALIDAR CLIENTE - CONSULTORA
-                    validacion = this.ValidateConsultora(paisID, clienteDB, lstClienteConsultora);
-                    if (validacion != Constantes.ClienteValidacion.Code.SUCCESS)
-                    {
-                        clienteDB.CodigoRespuesta = validacion;
-                        clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                        continue;
-                    }
-
-                    //GRABAR CLIENTE DB
-                    if (clienteDB.ClienteID == 0)
-                    {
-                        clienteDB.ClienteID = daClienteDB.InsertCliente(clienteDB);
-
-                        if (clienteDB.ClienteID == 0)
-                        {
-                            validacion = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO;
-                            clienteDB.CodigoRespuesta = validacion;
-                            clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        var resUpdateCliente = daClienteDB.UpdateCliente(clienteDB);
-
-                        if (!resUpdateCliente)
-                        {
-                            validacion = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO;
-                            clienteDB.CodigoRespuesta = validacion;
-                            clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                            continue;
-                        }
-                    }
-
-                    //GRABAR CLIENTE SB
-                    var oCorreo = clienteDB.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo && x.Estado == Constantes.ClienteEstado.Activo);
-                    var correo = (oCorreo == null ? string.Empty : oCorreo.Valor);
-                    var oTelefonoFijo = clienteDB.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo && x.Estado == Constantes.ClienteEstado.Activo);
-                    var telefonoFijo = (oTelefonoFijo == null ? string.Empty : oTelefonoFijo.Valor);
-                    var oCelular = clienteDB.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular && x.Estado == Constantes.ClienteEstado.Activo);
-                    var celular = (oCelular == null ? string.Empty : oCelular.Valor);
-
-                    clienteSB = new BECliente()
-                    {
-                        ConsultoraID = clienteDB.ConsultoraID,
-                        ClienteID = clienteDB.ClienteIDSB,
-                        Nombre = clienteDB.NombreCompleto,
-                        NombreCliente = clienteDB.Nombres,
-                        ApellidoCliente = clienteDB.Apellidos,
-                        eMail = correo,
-                        Activo = true,
-                        Telefono = telefonoFijo,
-                        Celular = celular,
-                        CodigoCliente = clienteDB.ClienteID,
-                        Favorito = clienteDB.Favorito,
-                        TipoContactoFavorito = clienteDB.TipoContactoFavorito
-                    };
-
-                    if (clienteDB.ClienteIDSB == 0)
-                    {
-                        clienteDB.ClienteIDSB = daCliente.InsCliente(clienteSB);
-
-                        if (clienteDB.ClienteIDSB == 0)
-                        {
-                            validacion = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO;
-                            clienteDB.CodigoRespuesta = validacion;
-                            clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                            continue;
-                        }
-
-                        clienteDB.Insertado = true;
-                    }
-                    else
-                    {
-                        var resUpdateCliente = daCliente.UpdCliente(clienteSB);
-
-                        if (resUpdateCliente == 0)
-                        {
-                            validacion = Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO;
-                            clienteDB.CodigoRespuesta = validacion;
-                            clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                            continue;
-                        }
-
-                        clienteDB.Insertado = false;
-                    }
-
-                    clienteDB.Contactos.Update(x => x.ClienteIDSB = clienteDB.ClienteIDSB);
-
-                    var movimientosTask = Task.Run(() => _movimientoBusinessLogic.Procesar(paisID, clienteDB));
-                    var recordatoriosTask = Task.Run(() => _recordatorioBusinessLogic.Procesar(paisID, clienteDB));
-                    var notasTask = Task.Run(() => _notasBusinessLogic.Procesar(paisID, clienteDB));
+                    var movimientosTask = Task.Run(() => _movimientoBusinessLogic.Procesar(paisID, cliente));
+                    var recordatoriosTask = Task.Run(() => _recordatorioBusinessLogic.Procesar(paisID, cliente));
+                    var notasTask = Task.Run(() => _notasBusinessLogic.Procesar(paisID, cliente));
 
                     Task.WaitAll(movimientosTask, recordatoriosTask, notasTask);
                 }
                 else
                 {
-                    var deleted = false;
+                    var clienteTaskTel = Task.Run(() => this.ObtenerTelefonos(cliente));
+                    var clienteTaskList = Task.Run(() => this.SelectByConsultora(cliente.PaisID, cliente.ConsultoraID));
 
-                    //OBTENER CLIENTE SB
-                    var lstContactoPrincipal = (from tbl in clienteDB.Contactos
-                                                where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
-                                                || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
-                                                && tbl.Estado == Constantes.ClienteEstado.Activo
-                                                select tbl).OrderBy(x => x.TipoContactoID);
+                    Task.WaitAll(clienteTaskTel, clienteTaskList);
 
-                    var lstClienteConsultora = this.ObtenerClienteConsultora(paisID, clienteDB);
+                    var lstTelefonos = clienteTaskTel.Result;
+                    var lstClienteConsultora = clienteTaskList.Result.ToList();
 
-                    foreach (var contactoPrincipal in lstContactoPrincipal)
-                    {
-                        var clienteSBSearch = lstClienteConsultora.FirstOrDefault(x => (contactoPrincipal.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == contactoPrincipal.Valor);
-                        if (clienteSBSearch != null)
-                        {
-                            clienteDB.ClienteIDSB = clienteSBSearch.ClienteID;
-                            break;
-                        }
-                    }
-
-                    if (clienteDB.ClienteIDSB > 0) daCliente.DelCliente(clienteDB.ConsultoraID, clienteDB.ClienteIDSB, out deleted);
-
-                    if (!deleted)
-                    {
-                        validacion = Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO;
-                        clienteDB.CodigoRespuesta = validacion;
-                        clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
-                        continue;
-                    }
+                    cliente.ClienteID = this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos);
+                    cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
+                    if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
                 }
-
-                validacion = Constantes.ClienteValidacion.Code.SUCCESS;
-                clienteDB.CodigoRespuesta = validacion;
-                clienteDB.MensajeRespuesta = Constantes.ClienteValidacion.Message[validacion];
             }
 
             return clientes;
@@ -432,53 +283,51 @@ namespace Portal.Consultoras.BizLogic
         /// <returns></returns>
         public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
         {
-            List<BEClienteDB> clientes = new List<BEClienteDB>();
-            List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            var daClienteDB = new BLClienteDB();
+            var blClienteDB = new BLClienteDB();
+            //OBTENER CLIENTE CONSULTORA            var clienteTaskList = Task.Run(() => this.SelectByConsultora(paisID, consultoraID));
+            var recordatorioTaskList = Task.Run(() => _recordatorioBusinessLogic.Listar(paisID, consultoraID));
+            var notaTaskList = Task.Run(() => _notasBusinessLogic.Listar(paisID, consultoraID));
+            var clienteTaskCalc = Task.Run(() => this.GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID));
 
-            //OBTENER CLIENTE CONSULTORA
-            var lstConsultoraCliente = SelectByConsultora(paisID, consultoraID);
+            Task.WaitAll(clienteTaskList, recordatorioTaskList, notaTaskList, clienteTaskCalc);
 
-            var recordatorios = _recordatorioBusinessLogic.Listar(paisID, consultoraID);
-            var notas = _notasBusinessLogic.Listar(paisID, consultoraID);
+            var lstConsultoraCliente = clienteTaskList.Result;
+            var recordatorios = recordatorioTaskList.Result;
+            var notas = notaTaskList.Result;
+            var lstClienteDetalle = clienteTaskCalc.Result;
 
             //OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
-            var lstCliente = daClienteDB.GetClienteByClienteID(strclientes, paisID);
-
+            var lstCliente = blClienteDB.GetClienteByClienteID(strclientes, paisID);
             //ARMAR CONTACTOS POR CONSULTORA
-            ContactoListar(lstConsultoraCliente, lstCliente);
-
-            //OBTENER CALCULO DETALLES POR CLIENTE
-            var lstClienteDetalle = GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID);
-
+            this.ContactoListar(lstConsultoraCliente, lstCliente);
             //CONSULTA FINAL
-            clientes = (from tblConsultoraCliente in lstConsultoraCliente
-                        join tblCliente in lstCliente
-                         on tblConsultoraCliente.CodigoCliente equals tblCliente.ClienteID
-                        join tblClienteDetalle in lstClienteDetalle
-                        on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
-                        select new BEClienteDB
-                        {
-                            ClienteID = tblConsultoraCliente.CodigoCliente,
-                            ClienteIDSB = tblConsultoraCliente.ClienteID,
-                            Apellidos = tblConsultoraCliente.ApellidoCliente,
-                            Nombres = tblConsultoraCliente.NombreCliente,
-                            Alias = tblCliente.Alias,
-                            Foto = tblCliente.Foto,
-                            FechaNacimiento = tblCliente.FechaNacimiento,
-                            Sexo = tblCliente.Sexo,
-                            Documento = tblCliente.Documento,
-                            Origen = tblCliente.Origen,
-                            Favorito = tblConsultoraCliente.Favorito,
-                            TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
-                            Saldo = tblClienteDetalle.Saldo,
-                            CantidadProductos = tblClienteDetalle.CantidadProductos,
-                            Contactos = tblConsultoraCliente.Contactos,
-                            Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID),
-                            Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID)
-                        }).OrderBy(x => x.Nombres).ToList();
-
+            var clientes = (from tblConsultoraCliente in lstConsultoraCliente
+                            join tblCliente in lstCliente
+                             on tblConsultoraCliente.CodigoCliente equals tblCliente.CodigoCliente
+                            join tblClienteDetalle in lstClienteDetalle
+                            on tblConsultoraCliente.ClienteID equals tblClienteDetalle.ClienteID
+                            select new BEClienteDB
+                            {
+                                ConsultoraID = tblConsultoraCliente.ConsultoraID,
+                                CodigoCliente = tblConsultoraCliente.CodigoCliente,
+                                ClienteID = tblConsultoraCliente.ClienteID,
+                                Apellidos = tblConsultoraCliente.ApellidoCliente,
+                                Nombres = tblConsultoraCliente.NombreCliente,
+                                Alias = tblCliente.Alias,
+                                Foto = tblCliente.Foto,
+                                FechaNacimiento = tblCliente.FechaNacimiento,
+                                Sexo = tblCliente.Sexo,
+                                Documento = tblCliente.Documento,
+                                Origen = tblCliente.Origen,
+                                Favorito = tblConsultoraCliente.Favorito,
+                                TipoContactoFavorito = tblConsultoraCliente.TipoContactoFavorito,
+                                Saldo = tblClienteDetalle.Saldo,
+                                CantidadProductos = tblClienteDetalle.CantidadProductos,
+                                Contactos = tblConsultoraCliente.Contactos,
+                                Recordatorios = recordatorios.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList(),
+                                Notas = notas.Data.Where(r => r.ClienteId == tblConsultoraCliente.ClienteID).ToList()
+                            }).OrderBy(x => x.NombreCompleto).ToList();
             return clientes;
         }
         #endregion
@@ -548,7 +397,7 @@ namespace Portal.Consultoras.BizLogic
             return match.Success;
         }
 
-        private string ValidateAttribute(int paisID, BEClienteDB cliente)
+        private string ValidarAtributo(BEClienteDB cliente)
         {
             if (string.IsNullOrEmpty(cliente.Nombres))
                 return Constantes.ClienteValidacion.Code.ERROR_NOMBRENOENVIADO;
@@ -577,7 +426,7 @@ namespace Portal.Consultoras.BizLogic
                 else
                 {
                     var oCelular = lstCelular.First();
-                    if (!this.ValidateTelefono(paisID, Constantes.ClienteTipoContacto.Celular, oCelular.Valor))
+                    if (!this.ValidateTelefono(cliente.PaisID, Constantes.ClienteTipoContacto.Celular, oCelular.Valor))
                         return Constantes.ClienteValidacion.Code.ERROR_FORMATOTELCELULAR;
                 }
             }
@@ -592,7 +441,7 @@ namespace Portal.Consultoras.BizLogic
                 else
                 {
                     var oTelefonoFijo = lstTelefono.First();
-                    if (!this.ValidateTelefono(paisID, Constantes.ClienteTipoContacto.TelefonoFijo, oTelefonoFijo.Valor))
+                    if (!this.ValidateTelefono(cliente.PaisID, Constantes.ClienteTipoContacto.TelefonoFijo, oTelefonoFijo.Valor))
                         return Constantes.ClienteValidacion.Code.ERROR_FORMATOTELFIJO;
                 }
             }
@@ -615,38 +464,148 @@ namespace Portal.Consultoras.BizLogic
             return Constantes.ClienteValidacion.Code.SUCCESS;
         }
 
-        private string ValidateConsultora(int paisID, BEClienteDB cliente, List<BECliente> plstCliente)
+        private List<BEClienteContactoDB> ObtenerTelefonos(BEClienteDB cliente)
         {
-            var lstCliente = plstCliente.Where(x => x.ClienteID != cliente.ClienteIDSB);
+            return (from tbl in cliente.Contactos
+                    where (tbl.TipoContactoID == Constantes.ClienteTipoContacto.Celular
+                    || tbl.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo)
+                    && tbl.Estado == Constantes.ClienteEstado.Activo
+                    select tbl).OrderBy(x => x.TipoContactoID).ToList();
+        }
 
+        private long ObtenerCodigoCliente(BEClienteDB cliente, BLClienteDB blClienteDB, List<BEClienteContactoDB> lstTelefonos)
+        {
+            long CodigoCliente = 0;
+            if (cliente.CodigoCliente > 0) return cliente.CodigoCliente;
+
+            foreach (var telefono in lstTelefonos)
+            {
+                var result = blClienteDB.GetCliente(telefono.TipoContactoID, telefono.Valor, cliente.PaisID).FirstOrDefault();
+
+                if (result != null)
+                {
+                    CodigoCliente = result.CodigoCliente;
+                    break;
+                }
+            }
+            return CodigoCliente;
+        }
+
+        private int ObtenerClienteID(BEClienteDB cliente, List<BECliente> lstClienteConsultora, List<BEClienteContactoDB> lstTelefonos)
+        {
+            int ClienteID = 0;
+            if (cliente.ClienteID > 0) return cliente.ClienteID;
+
+            foreach (var telefono in lstTelefonos)
+            {
+                var result = lstClienteConsultora.Where(x => (telefono.TipoContactoID == Constantes.ClienteTipoContacto.Celular ? x.Celular : x.Telefono) == telefono.Valor).FirstOrDefault();
+                if (result != null)
+                {
+                    ClienteID = result.ClienteID;
+                    break;
+                }
+            }
+            return ClienteID;
+        }
+
+        private string ValidarConsultora(BEClienteDB cliente, List<BECliente> lstClienteConsultora)
+        {
+            var lstCliente = lstClienteConsultora.Where(x => x.ClienteID != cliente.ClienteID);
             if (!string.IsNullOrEmpty(cliente.NombreCompleto))
             {
                 var nombreExiste = lstCliente.Where(x => x.Nombre.ToUpper() == cliente.NombreCompleto.ToUpper());
                 if (nombreExiste.Any()) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORANOMBREEXISTE;
-            }
-
+            }
             var contactos = cliente.Contactos.Where(x => (x.TipoContactoID == Constantes.ClienteTipoContacto.Celular || x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo) && x.Estado == Constantes.ClienteEstado.Activo).OrderBy(x => x.TipoContactoID);
-
-            var celular = contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
+            var celular = contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular).FirstOrDefault();
             if (celular != null)
             {
                 var telefonoExiste = lstCliente.Where(x => x.Celular == celular.Valor);
                 if (telefonoExiste.Any()) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORATELEFONOEXISTE;
-            }
-
+            }
             var telefono = contactos.Where(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo).FirstOrDefault();
             if (telefono != null)
             {
                 var telefonoExiste = lstCliente.Where(x => x.Telefono == telefono.Valor);
                 if (telefonoExiste.Any()) return Constantes.ClienteValidacion.Code.ERROR_CONSULTORATELEFONOEXISTE;
-            }
-
+            }
             return Constantes.ClienteValidacion.Code.SUCCESS;
         }
 
-        private List<BECliente> ObtenerClienteConsultora(int paisID, BEClienteDB cliente)
+        private string GrabarDB(BEClienteDB cliente, BLClienteDB blClienteDB)
         {
-            return this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
+            if (cliente.CodigoCliente == 0)
+            {
+                cliente.CodigoCliente = blClienteDB.InsertCliente(cliente);
+                if (cliente.CodigoCliente == 0)
+                {
+                    return Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO;
+                }
+            }
+            else
+            {
+                var result = blClienteDB.UpdateCliente(cliente);
+                if (!result)
+                {
+                    return Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO;
+                }
+            }
+            return Constantes.ClienteValidacion.Code.SUCCESS;
+        }
+        private string GrabarSB(BEClienteDB cliente, DACliente daCliente)
+        {
+            var oCorreo = cliente.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Correo && x.Estado == Constantes.ClienteEstado.Activo);
+            var correo = (oCorreo == null ? string.Empty : oCorreo.Valor);
+            var oTelefonoFijo = cliente.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.TelefonoFijo && x.Estado == Constantes.ClienteEstado.Activo);
+            var telefonoFijo = (oTelefonoFijo == null ? string.Empty : oTelefonoFijo.Valor);
+            var oCelular = cliente.Contactos.FirstOrDefault(x => x.TipoContactoID == Constantes.ClienteTipoContacto.Celular && x.Estado == Constantes.ClienteEstado.Activo);
+            var celular = (oCelular == null ? string.Empty : oCelular.Valor);
+            var clienteSB = new BECliente()
+            {
+                ConsultoraID = cliente.ConsultoraID,
+                ClienteID = cliente.ClienteID,
+                Nombre = cliente.NombreCompleto,
+                NombreCliente = cliente.Nombres,
+                ApellidoCliente = cliente.Apellidos,
+                eMail = correo,
+                Activo = true,
+                Telefono = telefonoFijo,
+                Celular = celular,
+                CodigoCliente = cliente.CodigoCliente,
+                Favorito = cliente.Favorito,
+                TipoContactoFavorito = cliente.TipoContactoFavorito
+            };
+            if (cliente.ClienteID == 0)
+            {
+                cliente.ClienteID = daCliente.InsCliente(clienteSB);
+                if (cliente.ClienteID == 0)
+                {
+                    return Constantes.ClienteValidacion.Code.ERROR_CLIENTENOREGISTRADO;
+                }
+                cliente.Insertado = true;
+            }
+            else
+            {
+                var result = daCliente.UpdCliente(clienteSB);
+                if (result == 0)
+                {
+                    return Constantes.ClienteValidacion.Code.ERROR_CLIENTENOACTUALIZADO;
+                }
+                cliente.Insertado = false;
+            }
+            cliente.Contactos.Update(x => x.ClienteID = cliente.ClienteID);
+            return Constantes.ClienteValidacion.Code.SUCCESS;
+        }
+
+        private string EliminarSB(BEClienteDB cliente, DACliente daCliente)
+        {
+            var deleted = false;
+            if (cliente.ClienteID > 0) daCliente.DelCliente(cliente.ConsultoraID, cliente.ClienteID, out deleted);
+            if (!deleted)
+            {
+                return Constantes.ClienteValidacion.Code.ERROR_CLIENTEASOCIADOPEDIDO;
+            }
+            return Constantes.ClienteValidacion.Code.SUCCESS;
         }
         #endregion
     }

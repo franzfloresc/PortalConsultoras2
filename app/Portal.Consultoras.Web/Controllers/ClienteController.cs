@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceCliente;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Web.Models;
-using AutoMapper;
 using System.ServiceModel;
 using System.IO;
 using ClosedXML.Excel;
@@ -68,7 +67,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ClienteID = model.CodigoCliente,
+                        ClienteID = model.ClienteID,
                         Estado = Constantes.ClienteEstado.Activo,
                         TipoContactoID = Constantes.ClienteTipoContacto.Celular,
                         Valor = model.Celular
@@ -79,7 +78,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ClienteID = model.CodigoCliente,
+                        ClienteID = model.ClienteID,
                         Estado = Constantes.ClienteEstado.Activo,
                         TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
                         Valor = model.Telefono
@@ -90,7 +89,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     contactos.Add(new BEClienteContactoDB()
                     {
-                        ClienteID = model.CodigoCliente,
+                        ClienteID = model.ClienteID,
                         Estado =  Constantes.ClienteEstado.Activo,
                         TipoContactoID = Constantes.ClienteTipoContacto.Correo,
                         Valor = model.eMail
@@ -99,14 +98,13 @@ namespace Portal.Consultoras.Web.Controllers
 
                 clientes.Add(new BEClienteDB()
                 {
-                    ClienteID = model.CodigoCliente,
-                    ClienteIDSB = model.ClienteID,
+                    CodigoCliente = model.CodigoCliente,
+                    ClienteID = model.ClienteID,
                     Nombres = model.NombreCliente,
                     Apellidos = model.ApellidoCliente,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Desktop,
                     Estado = Constantes.ClienteEstado.Activo,
-                    TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
                     Contactos = contactos.ToArray()
                 });
 
@@ -123,7 +121,7 @@ namespace Portal.Consultoras.Web.Controllers
                     {
                         success = true,
                         message = (itemResponse.Insertado ? "Se registró con éxito tu cliente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
+                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID)
                     });
                 }
                 else
