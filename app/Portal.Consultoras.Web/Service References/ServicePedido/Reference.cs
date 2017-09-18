@@ -2025,6 +2025,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private string Descripcion3Field;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FlagImagenCargadaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string NombreField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -2111,6 +2114,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((object.ReferenceEquals(this.Descripcion3Field, value) != true)) {
                     this.Descripcion3Field = value;
                     this.RaisePropertyChanged("Descripcion3");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FlagImagenCargada {
+            get {
+                return this.FlagImagenCargadaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FlagImagenCargadaField, value) != true)) {
+                    this.FlagImagenCargadaField = value;
+                    this.RaisePropertyChanged("FlagImagenCargada");
                 }
             }
         }
@@ -13715,6 +13731,9 @@ namespace Portal.Consultoras.Web.ServicePedido {
         private int TerritorioIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TieneAsesoraOnlineField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TieneCDRField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -15487,6 +15506,19 @@ namespace Portal.Consultoras.Web.ServicePedido {
                 if ((this.TerritorioIDField.Equals(value) != true)) {
                     this.TerritorioIDField = value;
                     this.RaisePropertyChanged("TerritorioID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TieneAsesoraOnline {
+            get {
+                return this.TieneAsesoraOnlineField;
+            }
+            set {
+                if ((this.TieneAsesoraOnlineField.Equals(value) != true)) {
+                    this.TieneAsesoraOnlineField = value;
+                    this.RaisePropertyChanged("TieneAsesoraOnline");
                 }
             }
         }

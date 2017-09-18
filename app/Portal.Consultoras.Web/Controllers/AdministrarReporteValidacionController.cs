@@ -269,8 +269,8 @@ namespace Portal.Consultoras.Web.Controllers
                 Nombre = x.Nombre,
                 Descripcion1 = x.Descripcion1,
                 Descripcion2 = x.Descripcion2,
-                Descripcion3 = x.Descripcion3
-
+                Descripcion3 = x.Descripcion3,
+                FlagImagenCargada = Convert.ToInt32(x.FlagImagenCargada)
             }));
 
             lst.Add(listSRCampaniaModel);
