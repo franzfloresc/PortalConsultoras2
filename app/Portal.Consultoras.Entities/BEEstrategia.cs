@@ -238,8 +238,41 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
                 CodigoProducto = row["CodigoProducto"].ToString();
 
+            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
+                ImagenURL = row["ImagenURL"].ToString();
+
         }
-        
+
+        public BEEstrategia(IDataRecord row, int liteVersion)
+        {
+            if (DataRecord.HasColumn(row, "EstrategiaID") && row["EstrategiaID"] != DBNull.Value)
+                EstrategiaID = Convert.ToInt32(row["EstrategiaID"]);
+
+            if (DataRecord.HasColumn(row, "Precio2") && row["Precio2"] != DBNull.Value)
+                Precio2 = Convert.ToDecimal(row["Precio2"]);
+
+            if (DataRecord.HasColumn(row, "NumeroPedido") && row["NumeroPedido"] != DBNull.Value)
+                NumeroPedido = Convert.ToInt32(row["NumeroPedido"]);
+
+            if (DataRecord.HasColumn(row, "CUV2") && row["CUV2"] != DBNull.Value)
+                CUV2 = row["CUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "DescripcionCUV2") && row["DescripcionCUV2"] != DBNull.Value)
+                DescripcionCUV2 = row["DescripcionCUV2"].ToString();
+
+            if (DataRecord.HasColumn(row, "Activo") && row["Activo"] != DBNull.Value)
+                Activo = Convert.ToInt32(row["Activo"]);
+
+            if (DataRecord.HasColumn(row, "ImagenURL") && row["ImagenURL"] != DBNull.Value)
+                ImagenURL = row["ImagenURL"].ToString();
+
+            if (DataRecord.HasColumn(row, "LimiteVenta") && row["LimiteVenta"] != DBNull.Value)
+                LimiteVenta = Convert.ToInt32(row["LimiteVenta"]);
+
+            if (DataRecord.HasColumn(row, "CodigoProducto") && row["CodigoProducto"] != DBNull.Value)
+                CodigoProducto = row["CodigoProducto"].ToString();
+        }
+
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
         
@@ -479,6 +512,9 @@ namespace Portal.Consultoras.Entities
         
         public string UsuarioCreacion { get; set; }
         public string FotoProducto01 { get; set; }
+
+        public string CodigoEstrategia { get; set; }
+        public int TieneVariedad { get; set; }
     }
     // 1747 - Fin
 }

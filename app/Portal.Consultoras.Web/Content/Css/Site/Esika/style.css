@@ -1,7 +1,9 @@
 ﻿/* CSS Document */
 
 * {
-    -webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -232,12 +234,21 @@ header {
         color: black;
         border-bottom: 2px solid white;
         letter-spacing: 0.75pt;
+        height: 90%;
     }
 
  .new_menu_a:hover {
-            /*border-bottom: 2px solid #e81c36;*/
-        }
+    /*border-bottom: 2px solid #e81c36;*/
+}
+        
+.new_menu_a img{
+    max-height: 100%;
+}
 
+.sub_menu_home1 .new_menu {
+    margin-top: 0;
+    height: 50px;
+}
 
 .new_menu {
     margin-top: 21px;
@@ -267,7 +278,7 @@ header {
 .nav_principal li:hover > ul {
     display:block;
 }
-.nav_principal li:hover .pestana_esika{
+.nav_principal li:hover > a > .pestana_esika{
     display:block;
 }
 .sub_menu_home1{
@@ -275,7 +286,7 @@ header {
     top: 39px;
     margin-left: -90px;
     width: 937px;
-    height: 220px;
+    height: auto;
     padding-left: 65px;
     padding-right: 60px;
     display: none;
@@ -286,7 +297,7 @@ header {
 }
 .sub_menu_home2{
     position:absolute;
-    left: -365px;
+    left: -150px;
     display:none;
     top: 39px;
     width:615px;
@@ -3471,10 +3482,10 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     overflow:hidden;
     position:relative;
     margin:0 auto!important;
-    padding:31px 0 23px 0;
+    /*padding:31px 0 0 0;*/
     width:240px;
     /*height:auto;*/
-    height:425px;
+    height:370px;
     /*min-height:50px;*/
     background:#FFF;
     border:1px solid #e7e1e1!important;
@@ -3505,7 +3516,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:62px;
     top: 3%;
     right: 4.8%;
-    z-index:400;
+    z-index: 10;
 }
 
 .producto_img img {
@@ -3518,7 +3529,6 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     width:100%;
     padding-left:16px;
     padding-right:16px;
-    margin-bottom: 10px;
     height:auto;
     font-family:'Lato';
     letter-spacing:0.2px;
@@ -4908,17 +4918,22 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .popup_ofertaFinal{
-    display:block;
+    display:inline-block;
     position:relative;
-    top:50%;
-    margin:-298.5px auto 0 auto;
+    
+    margin:0 auto;
     background:#FFF;
-    width:100%;
-    max-width:892px;
+    
+    width:850px;
     height:auto;
     padding-top:40px;
     box-sizing:border-box;
     font-family:'Lato';
+    margin-top:50px;
+    vertical-align:top;
+}
+.center_text{
+    text-align:center;
 }
 
 .popup_ofertaFinal .icono_advertencia{
@@ -5304,8 +5319,9 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     display: block;
     position: absolute;
     top: 50%;
-    left: 50%;
-    margin: -271px auto 0 -360.5px;
+    left: 0;
+    right:0;
+    margin: -271px auto 0 auto;
     background: #FFF;
     width: 100%;
     max-width: 721px;
@@ -5525,7 +5541,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 
 #popupMisDatos{
     display:block;
-    margin: -279.5px auto 0 -360.5px;
+    margin: -298.5px auto 0 auto;
 }
 
 .titulo_misDatos{
@@ -5567,6 +5583,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .datos_cod_usuario span:first-child, .datos_nombre_usuario span:first-child{
+    min-width:140px;
     margin-right:50px;
     display:inline-block;
     vertical-align:top;
@@ -20926,7 +20943,7 @@ label.checkpop.c_on {
     font-size: 11px;
     font-family: 'lato';
     margin:0 auto;
-    margin-top: 45px !important;
+    /*margin-top: 45px !important;*/
     font-weight:700;
 }
 .boton_ultimos_movimientos:hover{
@@ -21148,6 +21165,7 @@ label.checkpop.c_on {
 .texto_exclusivo_pedido_bpt {
     text-align: center;
     margin-top: 10px;
+    padding: 0 10px;
     font-size: 12px;
     letter-spacing: 0px;
     color: #000;
@@ -21155,8 +21173,8 @@ label.checkpop.c_on {
 }
 
 .texto_exclusivo_bpt {
-    font-size: 14px;
-    letter-spacing: 3px;
+    font-size: 12px;
+    letter-spacing: 2px;
     color: #000;
     font-weight: 600;
 }
@@ -22033,18 +22051,19 @@ body{
     margin-top:10px;
 }
 .logos_bancos{
-    width:25%;
-    float:left;
-    margin-top:70px;
-    
+    width: 25%;
+    /* float: left; */
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 70px;
+    margin-left: -2px;    
 }
 .logos_bancos:hover{
     filter: alpha(opacity=50);
     -moz-opacity: 0.50;
     opacity: 0.50;
-    -khtml-opacity: 0.50;   
-
-    }
+    -khtml-opacity: 0.50;
+}
 .tutoriales_svg{
     background: url(../../../Images/Esika/tutorial.png) no-repeat;
     background-position: 2px 3px;
@@ -22409,7 +22428,7 @@ body{
     }
     .sub_menu_home2 {
       width: 560px;
-        left: -310px;
+        left: -150px;
     }
     .info_cam {
       margin-left: -265px;
@@ -26288,17 +26307,26 @@ div.subir_archivo input {
     padding-bottom: 23px;
 }
 
-.nombre_cliente_sb{
-    width: 20%;
-    display:inline-block;
-    vertical-align:middle;
-    padding-left:15px;
-    padding-top:23px;
-    padding-bottom:23px;
+.nombre_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
+}
+
+.apellido_cliente_sb {
+    width: 18%;
+    display: inline-block;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-top: 23px;
+    padding-bottom: 23px;
 }
 
 .telefonofijo_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -26306,7 +26334,7 @@ div.subir_archivo input {
 }
 
 .celular_cliente_sb {
-    width: 19%;
+    width: 15%;
     display: inline-block;
     vertical-align: middle;
     padding-top: 23px;
@@ -26314,7 +26342,7 @@ div.subir_archivo input {
 }
 
 .correo_clientes{
-    width: 20%;
+    width: 18%;
     display: inline-block;
     vertical-align: middle;
     padding-top:23px;
@@ -26345,7 +26373,7 @@ div.subir_archivo input {
     filter:alpha(opacity=60);
 }
 .editar_cliente{
-    width:8%;
+    width:5%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -26353,7 +26381,7 @@ div.subir_archivo input {
     padding-bottom:23px;
 }
 .eliminar_cliente{
-    width: 8%;
+    width: 5%;
     display: inline-block;
     vertical-align: middle;
     text-align:center;
@@ -31068,18 +31096,6 @@ h1#penmostreo .campana {
     background:#d1d1d1;
 }*/
 
-.content_pasos_linea{
-  position: relative;
-        width: 99%;
-        height: 2px;
-  z-index: 3;
-  left:0;
-  width:310px;
-  margin:0 auto;
-  margin-top:-18px;
-        background: #d1d1d1;
-}
-
 .paso_reclamo{
     width:36px;
     height:36px;
@@ -31827,21 +31843,13 @@ h1#penmostreo .campana {
     margin-right:-36px;
     margin-top:-30px;
 }
-.sub_detalle_estado {
-    font-family: 'LAto';
+.cabecera_popup_cdr {
+    font-family: 'Lato';
     font-size: 14px;
     color: black;
     text-align: center;
-    margin-bottom:13px;
+    margin-bottom: 11px;
 }
-.sub_detalle_saldo {
-    font-family: 'LAto';
-    font-size: 14px;
-    color: black;
-    text-align: center;
-    margin-bottom: 13px;
-}
-
 
 .pop_solicitud_producto, .pop_solicitud_tipo, .pop_solicitud_solucion, .pop_solicitud_resolucion{
     float:left;
@@ -32235,20 +32243,12 @@ h1#penmostreo .campana {
         border-right: 0;
 }
 
-.resumen_aprobado_cdr {
-    text-align: center;
-    font-family: 'Lato';
-     color: black;
-    padding-top: 15px;
-    font-size: 15px;
-}
-
-.saldo_aprobado_cdr {
+.cabecera_notificacion_cdr {
     text-align: center;
     font-family: 'Lato';
     color: black;
-    padding-top: 15px;
-    font-size: 15px;
+    padding-top: 11px;
+    font-size: 14px;
 }
 
 .subtitulo_cdr {
@@ -33167,10 +33167,6 @@ h1#penmostreo .campana {
     margin-top: 5px;
     display: block;
 }
-.btn_desactivado_general{
-    background:#d6d6d6 !important;
-    border: none;
-}
 .ficha_btn_agregar {
     width: 358px;
     background: black;
@@ -33179,6 +33175,12 @@ h1#penmostreo .campana {
     letter-spacing: 0.4px;
     border: none;
     line-height:47px;
+}
+
+.btn_desactivado_general{
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 
 .tooltip_tono {
@@ -33574,15 +33576,15 @@ h1#penmostreo .campana {
 }
 
 .content_pasos_linea {
-        position: relative;
-        width: 99%;
-        height: 2px;      
-        z-index: 3;
+    position: relative;
+    width: 99%;
+    height: 2px;      
+    z-index: 3;
     left: 0;
     width: 310px;
     margin: 0 auto;
     margin-top: -18px;
-        background: #d1d1d1;
+    background: #d1d1d1;
 }
 /*POP UP PRODUCTO FALTANTE*/
 .producto_faltante{
@@ -34019,7 +34021,7 @@ h1#penmostreo .campana {
     line-height:22px;
     color:black;
     font-weight:700;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
 }
 .precio_valorizado_showroom{
     text-align:right;
@@ -34292,7 +34294,7 @@ h1#penmostreo .campana {
 .menu_socia_empresaria > .new_menu > .new_menu_a{
     font-size:10.5px;
     letter-spacing:0.5px;
-    height: 18px;
+    height: 36px;
 }
 @media screen and (max-width: 1104px) {
 
@@ -34486,7 +34488,9 @@ h1#penmostreo .campana {
     /*margin-top: 15px;*/
 }
 .texto_elige_tono {
-    position:absolute;
+    /*position:absolute;
+    left: 0;
+    top: -19px;*/
     font-family: 'LAto';
     font-size: 10.5px;
     font-weight: 700;
@@ -34494,8 +34498,6 @@ h1#penmostreo .campana {
     text-align: center;
     height: 20px;
     width:100%;   
-    left: 0;
-    top: -19px;
     letter-spacing:0.2px;
 }
 .btn_elige_tono{
@@ -35501,8 +35503,9 @@ h1#penmostreo .campana {
     text-align: center;
 }
 .imagen_producto_best_seller{
-    height:400px;
-    width:auto;
+     height: 330px;
+    width: auto;
+    margin-top: 55px;
 }
 .fondo_set_best_seller .content_detalle_set{
     width:53%;
@@ -35818,3 +35821,153 @@ h1#penmostreo .campana {
     background:black;
     color:white;
 }
+/*SPRINT 18*/
+.content_regalo_sorpresa{
+    display:inline-block;
+    width:310px;
+    height:570px;
+    margin-top: 50px;
+    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    vertical-align:top;
+    margin-right: -25px;
+    z-index: 21;
+    position: relative;
+    padding-top:30px;
+    padding-left:25px;
+    padding-right:25px;
+}
+.fondo_blanco_regalo{
+    width:240px;
+    min-height:294px;
+    margin:0 auto;
+    background:white;  
+    padding-top:18px;  
+}
+.titulo_regalo_sorpresa{
+    font-family:'Lato';
+    font-size:17px;
+    letter-spacing:1px;
+    margin-bottom: 22px;
+    text-align:center;
+    margin-top:7px;
+    color:white;
+    line-height: 22px;
+}
+.titulo_regalo_producto{
+    font-family:'Lato';
+    font-size:13px;
+    font-weight:700;
+    color:black;
+    margin-bottom:15px;
+    padding-left:10px;
+    padding-right:10px;
+    line-height:16px;
+}
+.content_imagen_sorpresa{
+    height:178px;
+    width:180px;
+    /*background:black;*/   
+    margin:0 auto;
+    margin-bottom:12px;
+}
+.descripcion_regalo{
+    font-family: 'Lato';
+    /* font-weight: 300; */
+    font-size: 10px;
+    color: black;
+    line-height: 12px;
+    padding-left:10px;
+    padding-right:10px;
+}
+.descripcion_regalo a{
+    display:block;
+    text-decoration:underline;
+    margin-top:4px;
+}
+.content_detalle_monto{
+   font-family: 'Lato';
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: 0.5px;
+    color: white;
+    background: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 4px;
+    width: 240px;
+    margin: 0 auto;
+    min-height: 40px;
+}
+.icono_regalo_sorpresa {
+    width: 85px;
+    height: 55px;
+    background: url("/Content/Images/gif-regalo-blanco.png");
+    margin: 0 auto;
+    margin-top: 26px;
+}
+.titulo_regalo_2{
+    font-family: 'Lato';
+    letter-spacing: 1px;
+    font-size: 19px;
+    margin-bottom: 36px;
+    margin-top: 7px;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    line-height: 24px;
+}
+.font_32{
+    font-weight:700;
+    padding-bottom:6px;    
+    display:block;
+    font-size:32px;
+    line-height: 35px;
+}
+.bold_900{
+    font-weight:900;
+}
+
+/*EPD-1919 INICIO*/
+.content_tipo_despacho {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: left;
+}
+
+.cdr_tipo_despacho_icono {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    background: url(../../../Images/Esika/terminos.png) no-repeat;
+    display: inline;
+}
+
+.cdr_tipo_despacho_icono_active {
+    padding-left: 35px;
+    padding-bottom: 10px;
+    padding-top: 2px;
+    display: inline;
+    background: url(../../../Images/Esika/icono_check_esika.svg) no-repeat;
+    background-size: 75%;
+}
+
+.cdr_tipo_despacho_contenido {
+    margin-left: 35px;
+    margin-top: -22px;
+    display: block;
+}
+
+.mensaje_informativo_despacho {
+    font-weight: bold;
+    /*color: #205081;*/
+    margin-bottom: 5px;
+    font-family: 'Lato';
+    font-size: 15px;
+    text-align: center;
+    align-content: center;
+    display: block;
+}
+/*EPD-1919 FIN*/

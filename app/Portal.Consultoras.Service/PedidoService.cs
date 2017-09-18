@@ -107,9 +107,9 @@ namespace Portal.Consultoras.Service
             return BLPedidoWebDetalle.InsertPedido(pedidoDetalle);
         }
 
-        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora)
+        public IList<BEPedidoWebDetalle> SelectByCampania(int paisID, int CampaniaID, long ConsultoraID, string Consultora, int esOpt = -1)
         {
-            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora);
+            return BLPedidoWebDetalle.GetPedidoWebDetalleByCampania(paisID, CampaniaID, ConsultoraID, Consultora, esOpt);
         }
 
         public void DelPedidoWebDetalle(BEPedidoWebDetalle pedidowebdetalle)
@@ -924,9 +924,9 @@ namespace Portal.Consultoras.Service
             return BLEscalaDescuento.GetEscalaDescuento(paisID);
         }
 
-        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID)
+        public List<BEEscalaDescuento> GetParametriaOfertaFinal(int paisID,string algoritmo)
         {
-            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID);
+            return BLEscalaDescuento.GetParametriaOfertaFinal(paisID, algoritmo);
         }
 
         #region Pedidos DD
@@ -2053,6 +2053,11 @@ namespace Portal.Consultoras.Service
             return new BLOfertaProducto().UpdMatrizComercialNemotecnico(entity);
         }
 
+        public int UpdMatrizComercialDescripcionComercial(BEMatrizComercialImagen entity)
+        {
+            return new BLOfertaProducto().UpdMatrizComercialDescripcionComercial(entity);
+        }
+
         public BEConsultoraRegaloProgramaNuevas GetConsultoraRegaloProgramaNuevas(int paisID, int campaniaId, string codigoConsultora, string codigoRegion, string codigoZona)
         {
             return new BLPedidoWeb().GetConsultoraRegaloProgramaNuevas(paisID, campaniaId, codigoConsultora, codigoRegion, codigoZona);
@@ -2155,9 +2160,9 @@ namespace Portal.Consultoras.Service
             return BLConsultoraConcurso.ObtenerConcursosXConsultora(PaisID, CodigoCampania, CodigoConsultora, CodigoRegion, CodigoZona).ToList();
         }
 
-        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos)
+        public void ActualizarInsertarPuntosConcurso(int PaisID, string CodigoConsultora, string CodigoCampania, string CodigoConcursos, string PuntosConcursos, string PuntosExigidosConcurso)
         {
-            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos);
+            BLConsultoraConcurso.ActualizarInsertarPuntosConcurso(PaisID, CodigoConsultora, CodigoCampania, CodigoConcursos, PuntosConcursos, PuntosExigidosConcurso);
         }
 
         public List<BEConsultoraConcurso> ObtenerPuntosXConsultoraConcurso(int PaisID, string CodigoCampania, string CodigoConsultora)
@@ -2185,15 +2190,18 @@ namespace Portal.Consultoras.Service
             return new BLReporteValidacion().GetReporteValidacion(paisID, campaniaID, tipoEstrategia).ToList();
         }
 
+        public List<BEIncentivoConcurso> ObtenerIncentivosConsultora(int paisID, string codigoConsultora, int codigoCampania)
+        {
+            return BLConsultoraConcurso.ObtenerIncentivosConsultora(paisID, codigoConsultora, codigoCampania);
+        }
         #endregion
 
         #region Producto Comentario
-
         public int InsertarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad)
         {
             return blEstrategia.InsertarProductoComentarioDetalle(paisID, entidad);
         }
-
+        
         public BEProductoComentario GetProductoComentarioByCodigoSap(int paisID, string codigoSap)
         {
             return blEstrategia.GetProductoComentarioByCodSap(paisID, codigoSap);

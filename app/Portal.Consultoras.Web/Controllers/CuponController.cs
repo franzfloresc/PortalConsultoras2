@@ -219,7 +219,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora).ToList();
+                    listaPedidoWebDetalle = sv.SelectByCampania(userData.PaisID, userData.CampaniaID, userData.ConsultoraID, userData.NombreConsultora, EsOpt()).ToList();
                 }
             }
             else
@@ -234,11 +234,11 @@ namespace Portal.Consultoras.Web.Controllers
         {
             if (!IsMobile())
             {
-                int tipoPopup = Convert.ToInt32(Session["TipoPopUpMostrar"]);
+                int tipoPopup = Convert.ToInt32(Session[Constantes.ConstSession.TipoPopUpMostrar]);
 
                 if (tipoPopup == Constantes.TipoPopUp.Cupon)
                 {
-                    Session["TipoPopUpMostrar"] = null;
+                    Session[Constantes.ConstSession.TipoPopUpMostrar] = null;
                 }
             }
         }

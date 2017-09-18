@@ -6,9 +6,8 @@
     if (Model.FechaAtencion.HasValue)
     {
         formatoFechaAtencion = Model.FechaAtencion.Value.Day.ToString().PadLeft(2, '0') + "/" +
-    Model.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + Model.FechaAtencion.Value.Year;
+        Model.FechaAtencion.Value.Month.ToString().PadLeft(2, '0') + "/" + Model.FechaAtencion.Value.Year;
     }
-
     var formatoCampania = Model.CampaniaID.ToString().Substring(0, 4) + "-" + Model.CampaniaID.ToString().Substring(4, 2);
 }
 
@@ -23,14 +22,15 @@
         <div class="texto_fila_cdr">Solicitud: Nº @Model.CDRWebID</div>
         <div class="texto_fila_cdr">Campaña: @formatoCampania</div>
     </div>
-    <div class="resumen_aprobado_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
-    @if (Model.Estado == Constantes.EstadoCDRWeb.Aceptado)
+    <div class="cabecera_notificacion_cdr">Resumen: <b>@Model.ResumenResolucion</b> </div>
+    @if (!string.IsNullOrEmpty(Model.MensajeDespacho))
     {
-        <div class="saldo_aprobado_cdr">
-            Tu saldo actualizado es de: <b>@Model.Simbolo @Model.ConsultoraSaldo</b>
-            @*&nbsp;&nbsp;<a href="#">ver estado de cuenta</a>*@
-        </div>
+        <div class="cabecera_notificacion_cdr">@Html.Raw(Model.MensajeDespacho)</div>
     }
+    <div class="cabecera_notificacion_cdr">
+        Tu saldo actualizado es de: <b>@Model.Simbolo @Util.DecimalToStringFormat(Model.ConsultoraSaldo, Model.CodigoIso)</b>
+    </div>
+
     <div class="subtitulo_cdr">DETALLE DE LA SOLICITUD</div>
     @foreach (var item in Model.ListaDetalle)
     {

@@ -6,51 +6,41 @@ using System.ServiceModel;
 
 namespace Portal.Consultoras.Web.LogManager
 {
-    public class LogManager
+    public static class LogManager
     {
-        private static string sPathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
+        private static string pathFile = ConfigurationManager.AppSettings["LogPath"].ToString() + "SB2\\";
 
-        public static void LogErrorWebServicesPortal(FaultException faulException, string usuario, string pais)
+        public static void LogErrorWebServicesPortal(FaultException exception, string usuario, string pais)
         {
-            if (!Directory.Exists(sPathFile))
-                Directory.CreateDirectory(sPathFile);
-
-            string path = string.Format("{0}Log_{1}.portal", sPathFile, DateTime.Now.ToString("yyyy-MM-dd"));
-
-            using (StreamWriter oStream = new StreamWriter(path, true))
+            Common.LogManager.SaveLog(new Common.LogError
             {
-                oStream.WriteLine(":::::::::::::: Seguimiento de Errores Servicio Portal ::::::::::::::");
-                oStream.WriteLine(DateTime.Now + " ==> País: " + pais + " - Usuario: " + usuario);
-                oStream.WriteLine("Error message: " + faulException.Message);
-                oStream.WriteLine("StackTrace: " + faulException.StackTrace);
-                oStream.WriteLine(string.Empty);
-            }
+                Exception = exception,
+                CodigoUsuario = usuario,
+                IsoPais = pais,
+                Origen = "ServidorWeb",
+                Titulo = "Seguimiento de Errores Servicio Portal"
+            }, pathFile);
         }
 
         public static void LogErrorWebServicesBus(Exception exception, string usuario, string pais, string adicional = "")
         {
-            if (!Directory.Exists(sPathFile))
-                Directory.CreateDirectory(sPathFile);
-
-            string path = string.Format("{0}Log_{1}.portal", sPathFile, DateTime.Now.ToString("yyyy-MM-dd"));
-
-            using (StreamWriter oStream = new StreamWriter(path, true))
+            Common.LogManager.SaveLog(new Common.LogError
             {
-                oStream.WriteLine(":::::::::::::: Seguimiento de Errores Web Portal ::::::::::::::");
-                oStream.WriteLine(DateTime.Now + " ==> País: " + pais + " - Usuario: " + usuario);
-                oStream.WriteLine("Error message: " + exception.Message);
-                oStream.WriteLine("StackTrace: " + exception.StackTrace);
-                if (string.IsNullOrEmpty(adicional)) oStream.WriteLine("Adicional: " + adicional);
-                oStream.WriteLine(string.Empty);
-            }
+                Exception = exception,
+                CodigoUsuario = usuario,
+                IsoPais = pais,
+                InformacionAdicional = adicional,
+                Origen = "ServidorWeb",
+                Titulo = "Seguimiento de Errores Web Portal"
+            }, pathFile);
         }
 
         public static void LogActions(ErrorsLog model)
         {
-            if (!Directory.Exists(sPathFile))
-                Directory.CreateDirectory(sPathFile);
+            if (!Directory.Exists(pathFile))
+                Directory.CreateDirectory(pathFile);
 
-            string path = string.Format("{0}Log_{1}.portal", sPathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+            string path = string.Format("{0}Log_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
 
             using (StreamWriter oStream = new StreamWriter(path, true))
             {

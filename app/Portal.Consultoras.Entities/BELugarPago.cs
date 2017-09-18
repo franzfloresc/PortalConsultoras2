@@ -35,6 +35,10 @@ namespace Portal.Consultoras.Entities
         public string ArchivoLogoAnterior { set; get; }
         [DataMember]
         public string ArchivoInstructivo { set; get; }
+        [DataMember]
+        public string TextoPago { set; get; }
+        [DataMember]
+        public int Posicion { set; get; }
 
         public BELugarPago()
         { }
@@ -61,6 +65,10 @@ namespace Portal.Consultoras.Entities
                 ArchivoLogo = DbConvert.ToString(row["ArchivoLogo"]);
             if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
                 ArchivoInstructivo = DbConvert.ToString(row["ArchivoInstructivo"]);
+            if (DataRecord.HasColumn(row, "TextoPago"))
+                TextoPago = DbConvert.ToString(row["TextoPago"]);
+            if (DataRecord.HasColumn(row, "ArchivoInstructivo"))
+                Posicion = DbConvert.ToInt32(row["Posicion"]);
         }
     }
 }

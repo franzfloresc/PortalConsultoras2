@@ -4992,7 +4992,7 @@ table > thead > tr > th {
 .previous_ofertas_mobile {
     display: block;
     top: 0;
-    padding-top: 150px;
+    padding: 50% 0;
     position: absolute;
     z-index: 899;
     cursor: pointer;
@@ -5014,7 +5014,6 @@ table > thead > tr > th {
     width: 100%;
     padding-left: 8%;
     padding-right: 8%;
-    margin-bottom: 16px;
     height: auto;
     font-family: 'Lato';
     letter-spacing: .2px;
@@ -5916,10 +5915,10 @@ body {
     right: 0px;
 }
 
-    .btn_cerrar_agregarUnidades img {
-        width: 50%;
-        border: 0px;
-    }
+.btn_cerrar_agregarUnidades img {
+    width: 50%;
+    border: 0px;
+}
 
 .popup_agregarUnidades {
     display: block;
@@ -7639,6 +7638,86 @@ input[type="checkbox"]:checked + span:after {
   height: 11px;
   display: inline-block;
     background: url("../../../Images/group.svg") no-repeat center center;
+}
+
+/* POPUP COMUNICADO*/
+
+.contenedor_popup_comunicado{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:transparent url(../../../Images/bg_popups.png) repeat left top;
+    z-index:1000;
+}
+
+.popup_comunicado{
+    position: relative;
+    top: 80px;
+    margin: 0 auto;
+    background: #FFF;
+    box-sizing: border-box;
+    font-family: 'Lato';
+    padding: 0px
+}
+
+.popup_comunicado .btn_cerrar {
+    display: block;
+    width: 100%;
+    max-width: 38px;
+    height: auto;
+    position: absolute;
+    top: -44px;
+    right: -10px;
+}
+
+.popup_comunicado .btn_cerrar img {
+    width: 50%;
+    border: 0px;
+}
+
+.popup_comunicado .btn_cerrar span{
+    font-size: 8px;
+    color: #fff;
+    letter-spacing: .5px;
+    position: relative;
+    left: -6px;
+    top: -3px;
+}
+
+.popup_comunicado .detalle_popup_comunicado{
+    background-repeat:no-repeat;
+    background-position-x:center;
+    background-size:cover;
+    cursor:pointer
+}
+
+.popup_comunicado .pie_popup_comunicado{
+    width: 100%;
+    position: absolute;
+    color:#fff;
+    padding-top:5px;
+}
+
+.popup_comunicado .pie_popup_comunicado input[type="checkbox"]{
+    display:none
+}
+
+.popup_comunicado .pie_popup_comunicado .check{
+    height:20px;
+    width:18px;
+    border:solid 1px #fff;
+    border-radius:3px;
+    cursor:pointer;
+    text-align:center;
+}
+
+.popup_comunicado .pie_popup_comunicado .check_text{
+    padding-left:4px;
+    vertical-align:top;
+    display:table-cell;
 }
 
 /* POPUP AGREGAR CLIENTE */
@@ -9908,20 +9987,6 @@ a{
     width: 38%;
 }
 
-.btn3-ffc {
-    font-family: 'lato';
-    background: white;
-    color: black;
-    font-weight: 700;
-    height: 45px;
-    border: 1px solid #ccc;
-    float: left;
-    /* line-height: 32px; */
-    text-align-last: center;
-    /* border-radius: 0; */
-    display: inline-block;
-    width: 48%;
-}
 .select-ffc {
    font-family: 'lato';
     font-size: 13px;
@@ -10313,8 +10378,9 @@ a{
     float:left;
 }
 .btn_desactivado_general{
-    background:#d6d6d6 !important;
-    border:none;
+    background: #e5e5e5;
+    border: 1px solid #d2d2d2;
+    color: #b9b9b9;
 }
 .btn_agregar_ficha_producto{
     width:50%;
@@ -12224,18 +12290,6 @@ a{
         width:260px;
     }
 }
-.texto_cupon_black{
-    color: #000;
-    font-family: 'Lato';
-    line-height: 16px;
-    padding-left: 10px;
-    font-size: 12.5px;
-    float: right;
-    width: calc(100% - 110px);
-    width:-moz-calc(100% -110px);
-    width:-webkit-calc(100% - 110px);
-    text-align: left;
-}
 .link_cupon_home{
     display:block;
     color:inherit;
@@ -13032,4 +13086,8 @@ a{
 }
 .content_detalle_s{
     margin-top:-11px;
+}
+
+.fondo_pestana{
+    background:#eeeeee;
 }
