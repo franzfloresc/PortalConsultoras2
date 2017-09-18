@@ -50,14 +50,12 @@
                             <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
                             <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                         </a>
-                    </li>
-                    <li data-campania="@menuActivo.CampaniaX1">
+                    </li><li data-campania="@menuActivo.CampaniaX1">
                         <a href="@Url.Action("Revisar", "Ofertas")" class="@classMenuX1" attr-modal="#open-menu2">
                             <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
                             <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                         </a>
-                    </li>
-                    <li data-campania="0" data-url="">
+                    </li><li data-campania="0" data-url="">
                         <a href="@Url.Action("Informacion", "RevistaDigital")" class="@classMenuInfo" attr-modal="#open-menu3">
                             <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                         </a>

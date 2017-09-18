@@ -28,9 +28,12 @@
         }
 </style>
 <div style="background:#F6F6F6">
-    <div class="titulo">
-        <h2>@Model.Titulo</h2>
-    </div>
+    @if (@Model.Titulo != "")
+    {
+        <div class="titulo">
+            <h2>@Model.Titulo</h2>
+        </div>
+    }
     <div class="content_carrusel_landing">
         <div id="divCarruselLan" class="divCarruselLan" 
              data-content-item="@Model.CampaniaID" 
