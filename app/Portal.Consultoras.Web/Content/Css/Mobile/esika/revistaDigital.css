@@ -1203,6 +1203,10 @@ height: 100%;
     top: 35%;
 }
 
+.btn-ofertas-margen-fix {
+    margin-top: 10px;
+}
+
 @media (max-width : 800px) {
     .js-slick-prev {
         padding-right: 10px;
