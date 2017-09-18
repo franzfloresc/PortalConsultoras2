@@ -37,49 +37,43 @@ $(document).ready(function () {
                     var _OrigenDetalle = "1";
                     var _CDRWebID = $(parent).find(".cdrweb_id").val();
                     var _PedidoID = $(parent).find(".cdrweb_pedidoid").val();
+                    var _Estado = $(parent).find(".cdrweb_estado").val();
                     var _FechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
                     var _Campania = $(parent).find(".cdrweb_formatocampania").val();
                     var _CantidadAprobados = $(parent).find(".cdrweb_CantidadAprobados").val();
                     var _CantidadRechazados = $(parent).find(".cdrweb_CantidadRechazados").val();
-
-                    var obj = {
-                        OrigenCDRDetalle: _OrigenDetalle,
-                        CDRWebID: _CDRWebID,
-                        PedidoID: _PedidoID,
-                        FormatoFechaCulminado: _FechaCulminado,
-                        FormatoCampaniaID: _Campania,
-                        CantidadAprobados: _CantidadAprobados,
-                        CantidadRechazados: _CantidadRechazados
-                    };                        
                     
-                    $.ajax({
-                        type: 'Post',
-                        url: urlValidarCargaDetalle,
-                        data: JSON.stringify(obj),
-                        dataType: 'json',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (data) {
-                            if (checkTimeout(data)) {
-                                if (data.success == true)
-                                    window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                    if (_Estado === "1") {
+                        window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;
+                    } else {
+                        var obj = {
+                            OrigenCDRDetalle: _OrigenDetalle,
+                            CDRWebID: _CDRWebID,
+                            PedidoID: _PedidoID,
+                            FormatoFechaCulminado: _FechaCulminado,
+                            FormatoCampaniaID: _Campania,
+                            CantidadAprobados: _CantidadAprobados,
+                            CantidadRechazados: _CantidadRechazados
+                        };
+
+                        $.ajax({
+                            type: 'Post',
+                            url: urlValidarCargaDetalle,
+                            data: JSON.stringify(obj),
+                            dataType: 'json',
+                            contentType: 'application/json; charset=utf-8',
+                            success: function (data) {
+                                if (checkTimeout(data)) {
+                                    if (data.success == true)
+                                        window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                                }
+                            },
+                            error: function (data, error) {
+                                if (checkTimeout(data))
+                                    cerrarRechazado = '0';
                             }
-                        },
-                        error: function (data, error) {
-                            if (checkTimeout(data))
-                                cerrarRechazado = '0';
-                        }
-                    });
-                    
-
-                    //FORMA ANTIGUO
-                    //localStorage.removeItem("CDRWebID");
-                    //localStorage.removeItem("PedidoID");
-                    //localStorage.removeItem('OrigenDetalle');
-
-                    //localStorage.setItem('OrigenDetalle', "1");
-                    //localStorage.setItem('CDRWebID', $("#cdrweb_id").val());
-                    //localStorage.setItem('PedidoID', $("#cdrweb_pedidoid").val());
-                    //window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
+                        });
+                    }
                 });
             }
         };

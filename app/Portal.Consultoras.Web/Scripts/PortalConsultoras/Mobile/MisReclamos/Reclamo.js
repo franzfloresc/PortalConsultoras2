@@ -9,6 +9,7 @@ $(document).ready(function () {
     'use strict';
 
     var PortalConsultorasReclamoRegistro;
+
     PortalConsultorasReclamoRegistro = function () {
         var me = this;
 
@@ -57,6 +58,23 @@ $(document).ready(function () {
 
         me.Eventos = {
             bindEvents: function () {
+
+                var pedidoId = parseInt($("#hdPedidoID").val());
+                if (pedidoId != 0) {
+                    //CambioPaso(1);
+                    //CambioPaso(3);
+                    me.Funciones.DetalleCargar();
+                    $(me.Variables.btnSiguiente4).show();
+                    $("#Cambio3").hide();
+                    $("#pasotres").hide();
+                    $("#pasotresactivo").show();
+                    $(me.Variables.RegistroAceptarSolucion).show();
+
+                    if ($(me.Variables.Registro1).is(":visible"))
+                    {
+                        $(me.Variables.Registro1).hide();
+                    }
+                }
 
                 $(me.Variables.IrSolicitudInicial).click(function () {
 
@@ -1045,7 +1063,6 @@ $(document).ready(function () {
             },
 
             DetalleCargar: function () {
-                
                 var item = {
                     CDRWebID: $("#CDRWebID").val() || 0,
                     PedidoID: $("#hdPedidoID").val() || 0
