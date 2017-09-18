@@ -5,10 +5,17 @@
     padding: 0 18%;
     margin: auto;     background-size: 100% 100% !important;
     background-position: center !important; min-height: 500px;">
-    @if (@Model.Titulo == "" && Model.SubTitulo == "")
+    @if (@Model.Titulo != "" || Model.SubTitulo != "")
     {
         <div class="titulo">
-            <h2>@Model.Titulo</h2> @Model.SubTitulo
+            @if (Model.Titulo != "")
+            {
+                <h2>@Model.Titulo</h2>
+            }
+            @if (Model.SubTitulo != "")
+            {
+                @Model.SubTitulo
+            }
         </div>
     }
     <div class="contenido" data-seccion-productos="" ></div>
