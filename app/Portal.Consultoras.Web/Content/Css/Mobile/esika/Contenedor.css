@@ -229,7 +229,7 @@ text-align: right !important;
 .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
 height: 20px !important;
 padding: 0px 19px !important;
-margin-top: 10px !important;
+margin-top: 13px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
     padding: 5px;
@@ -255,7 +255,7 @@ margin-top: 10px !important;
 .bc_para_ti-menu-opciones ul li a p {
     display: inline;
     position: relative;
-    top: 2px;
+    top: 4px;
 }
 .bc_para_ti-menu-opciones ul li a.activo p::after {
     content: "";
@@ -276,6 +276,7 @@ img.icono-submenu-tabs {
     display: inline;
     margin: auto;
     margin-left: 10px;
+    margin-top: 5px;
 }
 /**/
 @media (max-width:1200px) {

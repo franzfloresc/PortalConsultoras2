@@ -52,20 +52,15 @@ function SeccionRender() {
 function SeccionObtenerSeccion(seccion) {
     var codigo = $.trim($(seccion).attr("data-seccion"));
     var campania = $.trim($(seccion).attr("data-campania"));
-    var urlproducto = $.trim($(seccion).attr("data-url"));
     var detalle = {};
 
     if (codigo === "" || campania === "")
         return detalle;
 
-    $.ajaxSetup({
-        cache: false
-    });
-
     var param = {
         Codigo: codigo,
         CampaniaId: campania,
-        UrlObtenerProductos: urlproducto,
+        UrlObtenerProductos: $.trim($(seccion).attr("data-url")),
         TemplateProducto: $.trim($(seccion).attr("data-templateProducto")),
         TipoPresentacion: $.trim($(seccion).attr("data-tipoPresentacion")),
         TipoEstrategia: $.trim($(seccion).attr("data-tipoEstrategia")),
@@ -93,7 +88,7 @@ function SeccionCargarProductos(objConsulta) {
 
     var param = {
         codigo: objConsulta.Codigo,
-        campaniaId: objConsulta.CampaniaId
+        campaniaId: objConsulta.CampaniaId,
     }
 
     if (objConsulta.Codigo == CONS_CODIGO_SECCION.SR) {
@@ -112,8 +107,14 @@ function SeccionCargarProductos(objConsulta) {
         data: JSON.stringify(param),
         async: true,
         success: function (data) {
-            data.Seccion = listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId];
-            SeccionMostrarProductos(data);
+            if (data.success === true) {
+                data.codigo = $.trim(data.codigo);
+                if (data.codigo !== "") {
+                    data.campaniaId = $.trim(data.campaniaId) || campaniaCodigo;
+                    data.Seccion = listaSeccion[data.codigo + "-" + data.campaniaId];
+                    SeccionMostrarProductos(data);
+                }
+            }
         },
         error: function (error, x) {
             console.log(error, x);
@@ -220,7 +221,7 @@ function RenderCarruselSimple(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -9.5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
