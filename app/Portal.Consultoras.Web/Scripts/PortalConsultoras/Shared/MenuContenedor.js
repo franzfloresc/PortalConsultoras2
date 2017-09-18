@@ -14,10 +14,12 @@ var menuModule = (function () {
             bcMenuEstrategia: ".bc_menu_estrategia",
             aHover: "ul.subnavegador li a",
             bcParaTiMenu: ".bc_para_ti-menu ul li a",
-            bcParaTiMenuActivo: ".bc_para_ti-menu ul li a.activo"
+            bcParaTiMenuActivo: ".bc_para_ti-menu ul li a.activo",
+            mobContent: "#mob-content-layout"
         },
         anchorMark = "#",
         anchorValue,
+        tagIsAnchor = "es-ancla",
         url,
         lastScrollTop = 0,
         delta = 5,
@@ -27,16 +29,16 @@ var menuModule = (function () {
         alturaH,
         alturaE;
 
-    function _getheight(element) {
+    function _getHeight(element) {
         return $(element).outerHeight(true);
     }
 
     function init() {
-        navbarHeight = _getheight(elementos.header);
-        seccionMenuMobileHeight = _getheight(elementos.seccionBannerMobile);
-        seccionMenuMobileOuterHeight = _getheight(elementos.seccionBannerMobile);
-        alturaH = _getheight(elementos.header);
-        alturaE = alturaH + _getheight(elementos.bcMenuEstrategia);
+        navbarHeight = _getHeight(elementos.header);
+        seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
+        seccionMenuMobileOuterHeight = _getHeight(elementos.seccionBannerMobile);
+        alturaH = _getHeight(elementos.header);
+        alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
         url = document.location.href;
 
         if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
@@ -49,15 +51,15 @@ var menuModule = (function () {
     function setHover() {
         $(elementos.aHover).hover(function (e) {
             var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
-            if (img != "") {
+            if (img !== "") {
                 img = img.replace("_normal.", "_hover.");
-                $(this).find('.contenedorImagen img').attr("src", img)
+                $(this).find('.contenedorImagen img').attr("src", img);
             }
         }, function (e) {
             var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
-            if (img != "") {
+            if (img !== "") {
                 img = img.replace("_hover.", "_normal.");
-                $(this).find('.contenedorImagen img').attr("src", img)
+                $(this).find('.contenedorImagen img').attr("src", img);
             }
         });
     }
@@ -66,11 +68,15 @@ var menuModule = (function () {
         if (Math.abs(lastScrollTop - st) <= delta)
             return;
         //Scroll dowm
-        if (st > lastScrollTop && st > (seccionMenuMobileHeight)) {
+        if (st > lastScrollTop) {
             //fix the menu 
             $(elementos.seccionMenuMobile).css("position", "fixed");
-            $(elementos.seccionBannerMobile).css("display", "none");
-            $(elementos.menu2Ul).css("position", "fixed").css("top", navbarHeight + "px");
+            $(elementos.mobContent).css("padding-top", navbarHeight + "px");
+            $(elementos.seccionBannerMobile).slideUp("slow", function() {
+                $(elementos.menu2Ul).css("position", "fixed").css("top", navbarHeight + "px");
+               
+            });
+            
         } else {
             // Scroll Up
             if (st < navbarHeight) {
@@ -78,10 +84,13 @@ var menuModule = (function () {
                 $(elementos.seccionMenuMobile).css("position", "");
                 $(elementos.seccionBannerMobile).css("display", "");
                 $(elementos.menu2Ul).css("position", "").css("top", "");
+                $(elementos.mobContent).css("padding-top", "");
             } else if (st > (seccionMenuMobileHeight) && st + $(window).height() < $(document).height()) {
                 //console.log("scroll up");
-                $(elementos.seccionBannerMobile).css("display", "").css("top", navbarHeight + "px");
-                $(elementos.menu2Ul).css("position", "fixed").css("top", (navbarHeight + seccionMenuMobileHeight) + "px");
+                $(elementos.seccionBannerMobile).css("top", navbarHeight + "px").slideDown("slow", function() {
+                    $(elementos.menu2Ul).css("position", "fixed").css("top", (navbarHeight + seccionMenuMobileHeight) + "px");
+                });
+                
             }
         }
         lastScrollTop = st;
@@ -101,19 +110,23 @@ var menuModule = (function () {
             if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
             $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
             $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
+            $(elementos.html).animate({
+                scrollTop: $(anchorMark + anchorValue).offset().top - 60
+                },
+            1000);
         }
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e.target);
         if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
-        objHtmlEvent.siblings("li").find("a").removeClass("activo");
-        objHtmlEvent.find("a").addClass("activo");
+        objHtmlEvent.siblings("li").find("a").removeClass(elementos.claseActivo);
+        objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
-        var esAncla = $(objHtmlEvent).data("es-ancla");
+        var esAncla = $(objHtmlEvent).data(tagIsAnchor);
         if (esAncla === "True") {
             var codigo = $(objHtmlEvent).data("codigo");
             if (window.location.href.indexOf("/Ofertas") > -1) {
-                $('html, body').animate({
+                $(elementos.html).animate({
                         scrollTop: $('#' + codigo).offset().top - 60
                     },
                     1000);
@@ -155,7 +168,6 @@ var menuModule = (function () {
 $(document).ready(function () {
     menuModule.init();
     menuModule.setHover();
-    menuModule.checkAnchor();
     menuModule.setCarrouselMenu();
     LayoutHeaderFin();
     $(window).on('scroll', function () {
@@ -164,5 +176,8 @@ $(document).ready(function () {
         } else {
             menuModule.hasScrolledDesktop($(window).scrollTop());
         }
+    });
+    $(document).ajaxStop(function () {
+        menuModule.checkAnchor();
     });
 });

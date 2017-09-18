@@ -21203,6 +21203,7 @@ label.checkpop.c_on {
     width: 248px;
     margin-right:25px;
     min-height: 305px;
+    margin-bottom: 15px;
     background:white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -27673,14 +27674,18 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 
 .content-favclientes .contiene-productos {
     background-color: white;
-    margin-right:2%;
+    margin-right:40px;
     float:left;
     position: relative;    
-    width:260px;
+    width:248px;
     margin-bottom: 15px;
     margin-top: 15px;
    
     padding-bottom: 12px;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
 }
 .content-favclientes .contiene-productos:nth-child(3n){
     margin-right:0%;
@@ -32881,7 +32886,7 @@ h1#penmostreo .campana {
 
 .content_pop_oferta_dia {
     margin: 0 auto;
-    left: 0;
+    left: 0;content_new_showroom
     right: 0;
     position: relative;
     margin-top: 0px;
@@ -33713,11 +33718,12 @@ h1#penmostreo .campana {
     font-size:20px;
 }
 .content_set_intriga{
-    width:65%;
+    width:55%;
     display:inline-block;
     /*float:left;*/
     overflow:hidden;
     padding-top:30px;
+    margin-left: 10em;
 }
 .set_visible_intriga{
     width:30%;
@@ -33964,10 +33970,10 @@ h1#penmostreo .campana {
 /*SHOWROOM*/
 .set-productos-showroom{
     background-color: white;
-    margin-right: 2%;
+    margin-right: 2.6%;
     float: left;
     position: relative;
-    width: 32%;
+    width: 23%;
     margin-bottom: 15px;
     margin-top: 15px;
     padding-bottom: 12px;
@@ -33978,7 +33984,7 @@ h1#penmostreo .campana {
     margin-top: 15px;
     border: 1px solid #e6e3e3;
 }
-.set-productos-showroom:nth-child(3n){
+.set-productos-showroom:nth-child(4n){
       margin-right:0;
 }
 .nombre-producto-set{
@@ -34814,6 +34820,7 @@ h1#penmostreo .campana {
     bottom:0;
     z-index:150;
     width: 100%;
+    margin-left: 12em;
     -webkit-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     -moz-box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
     box-shadow: -2px 1px 18px -4px rgba(0,0,0,0.5);
@@ -35962,7 +35969,7 @@ h1#penmostreo .campana {
 /*SPRINT 19*/
 .content_new_showroom{
     width:100%;
-    padding-left:2%;
+    padding-left:10%;
     padding-right:2%;
     padding-top:57px;
 }
