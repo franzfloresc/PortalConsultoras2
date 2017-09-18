@@ -74,7 +74,8 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     success = true,
-                    lista = listModel
+                    lista = listModel,
+                    codigo = Constantes.ConfiguracionPais.OfertasParaTi
                 });
             }
             catch (Exception ex)
@@ -82,7 +83,10 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
 
-            return Json(model);
+            return Json(new
+            {
+                success = false
+            });
         }
 
 

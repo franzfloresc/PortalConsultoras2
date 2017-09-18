@@ -125,13 +125,16 @@ var menuModule = (function () {
         var esAncla = $(objHtmlEvent).data(tagIsAnchor);
         if (esAncla === "True") {
             var codigo = $(objHtmlEvent).data("codigo");
-            if (window.location.href.indexOf("/Ofertas") > -1) {
+            if (window.location.href.toLowerCase().indexOf("/ofertas") > -1) {
                 $(elementos.html).animate({
                         scrollTop: $('#' + codigo).offset().top - 60
                     },
                     1000);
             } else {
-                window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
+                if (window.location.href.toLowerCase().indexOf("/revisar") > -1)
+                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
+                else
+                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
         } else {
             url = $.trim(url);
