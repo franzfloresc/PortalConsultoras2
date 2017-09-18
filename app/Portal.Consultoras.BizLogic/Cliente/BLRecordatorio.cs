@@ -51,28 +51,31 @@ namespace Portal.Consultoras.BizLogic.Cliente
             var result = ResponseType<List<BEClienteRecordatorio>>.Build();
             result.Data = new List<BEClienteRecordatorio>();
 
-            foreach (var recordatorio in clienteDB.Recordatorios)
+            if (clienteDB.Recordatorios != null)
             {
-                recordatorio.ClienteId = (short)clienteDB.ClienteIDSB;
-                recordatorio.ConsultoraId = clienteDB.ConsultoraID;
-
-                if (recordatorio.StatusEnum == StatusEnum.Delete)
+                foreach (var recordatorio in clienteDB.Recordatorios)
                 {
-                    var resultEliminar = Eliminar(paisID, recordatorio.ClienteId, recordatorio.ConsultoraId, recordatorio.ClienteRecordatorioId);
-                    if (!resultEliminar)
-                        result.Data.Add(recordatorio);
+                    recordatorio.ClienteId = (short)clienteDB.ClienteID;
+                    recordatorio.ConsultoraId = clienteDB.ConsultoraID;
 
-                    continue;
-                    
-                    //todo;
+                    if (recordatorio.StatusEnum == StatusEnum.Delete)
+                    {
+                        var resultEliminar = Eliminar(paisID, recordatorio.ClienteId, recordatorio.ConsultoraId, recordatorio.ClienteRecordatorioId);
+                        if (!resultEliminar)
+                            result.Data.Add(recordatorio);
+
+                        continue;
+
+                        //todo;
+                    }
+
+                    if (recordatorio.ClienteRecordatorioId == 0)
+                        recordatorio.ClienteRecordatorioId = Insertar(paisID, recordatorio);
+                    else
+                        Actualizar(paisID, recordatorio);
+
+                    result.Data.Add(recordatorio);
                 }
-
-                if (recordatorio.ClienteRecordatorioId == 0)
-                    recordatorio.ClienteRecordatorioId = Insertar(paisID, recordatorio);
-                else
-                    Actualizar(paisID, recordatorio);
-
-                result.Data.Add(recordatorio);
             }
 
             clienteDB.Recordatorios = result.Data;
