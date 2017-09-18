@@ -2744,8 +2744,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 string titulo = "", subTitulo = "";
 
-                if ( entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
+                if ( entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital 
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.OfertasParaTi)
                 {
@@ -2764,8 +2763,12 @@ namespace Portal.Consultoras.Web.Controllers
                         entConf.DesktopCantidadProductos = 0;
                     }
                 }
-                
-                RemplazarTagNombreConfiguracionOferta(ref entConf);
+                if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
+                {
+                    if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) continue;
+                }
+
+               RemplazarTagNombreConfiguracionOferta(ref entConf);
 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = menuActivo.CampaniaId,
@@ -2901,11 +2904,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public bool RDObtenerTitulosSeccion(ref string titulo, ref string subtitulo, string codigo)
         {
-            if (codigo == Constantes.ConfiguracionPais.Lanzamiento)
-            {
-                if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) return false;
-            }
-
             if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
             {
                 if (!userData.RevistaDigital.TieneRDC) return false;
