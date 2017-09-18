@@ -39,6 +39,9 @@ namespace Portal.Consultoras.Entities.Cliente
         [DataMember]
         public string Message { get; set; }
 
+        [DataMember]
+        public StatusEnum StatusEnum { get; set; }
+
         public BENota()
         { }
 

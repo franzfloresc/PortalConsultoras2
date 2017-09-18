@@ -7,11 +7,11 @@ namespace Portal.Consultoras.BizLogic.Cliente
 {
     public interface INotasBusinessLogic
     {
-        ResponseType<long> NotaInsertar(int paisId, BENota nota);
-        ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId);
-        ResponseType<bool> NotaActualizar(int paisId, BENota nota);
-        ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
-        ResponseType<List<BENota>> NotaProcesar(int paisId, BEClienteDB clienteDb);
+        ResponseType<long> Insertar(int paisId, BENota nota);
+        ResponseType<List<BENota>> Listar(int paisId, long consultoraId);
+        ResponseType<bool> Actualizar(int paisId, BENota nota);
+        ResponseType<bool> Eliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId);
+        ResponseType<List<BENota>> Procesar(int paisId, BEClienteDB clienteDb);
         ResponseType<bool> PuedeAgregarMasNotas(int paisId, long consultoraId, short clienteId);
     }
 }

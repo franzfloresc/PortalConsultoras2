@@ -3480,6 +3480,9 @@
     <None Include="Service References\ServiceCliente\ClienteService32.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\ServiceCliente\ClienteService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ServiceCliente\configuration91.svcinfo" />
     <None Include="Service References\ServiceCliente\configuration.svcinfo" />
     <None Include="Service References\ServiceCliente\Reference.svcmap">
