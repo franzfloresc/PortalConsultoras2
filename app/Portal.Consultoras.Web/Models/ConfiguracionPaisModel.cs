@@ -37,6 +37,8 @@ namespace Portal.Consultoras.Web.Models
         public bool EsAncla { get; set; }
         public int CampaniaId { get; set; }
 
+        public int OrdenBpt { get; set; }
+
         public object Clone()
         {
             return this.MemberwiseClone();

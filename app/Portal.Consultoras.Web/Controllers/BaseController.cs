@@ -785,7 +785,7 @@ namespace Portal.Consultoras.Web.Controllers
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
 
-            return listMenu; 
+            return listMenu;
         }
 
         /*
@@ -897,7 +897,11 @@ namespace Portal.Consultoras.Web.Controllers
             }
 
             listaMenu.AddRange(BuildMenuContenedorBloqueado(listaMenu));
-            listaMenu = listaMenu.OrderBy(m => m.Orden).ToList();
+
+            listaMenu = (userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR)
+                ? listaMenu.OrderBy(m => m.OrdenBpt).ToList()
+                : listaMenu.OrderBy(m => m.Orden).ToList();
+
             Session[Constantes.ConstSession.MenuContenedor] = listaMenu;
             return listaMenu;
         }
