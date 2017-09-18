@@ -234,13 +234,13 @@ namespace Portal.Consultoras.BizLogic
                     if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
                     var lstTelefonos = this.ObtenerTelefonos(cliente);
                     var lstClienteConsultora = this.SelectByConsultora(paisID, cliente.ConsultoraID).ToList();
-                    var clienteTask1 = Task.Run(() => this.ObtenerCodigoCliente(cliente, blClienteDB, lstTelefonos));
-                    var clienteTask2 = Task.Run(() => this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos));
+                    var clienteTaskBD = Task.Run(() => this.ObtenerCodigoCliente(cliente, blClienteDB, lstTelefonos));
+                    var clienteTaskSB = Task.Run(() => this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos));
 
-                    Task.WaitAll(clienteTask1, clienteTask2);
+                    Task.WaitAll(clienteTaskBD, clienteTaskSB);
 
-                    cliente.CodigoCliente = clienteTask1.Result;
-                    cliente.ClienteID = clienteTask2.Result;
+                    cliente.CodigoCliente = clienteTaskBD.Result;
+                    cliente.ClienteID = clienteTaskSB.Result;
 
                     cliente.CodigoRespuesta = this.ValidarConsultora(cliente, lstClienteConsultora);
                     if (cliente.CodigoRespuesta != Constantes.ClienteValidacion.Code.SUCCESS) continue;
@@ -257,13 +257,13 @@ namespace Portal.Consultoras.BizLogic
                 }
                 else
                 {
-                    var clienteTask1 = Task.Run(() => this.ObtenerTelefonos(cliente));
-                    var clienteTask2 = Task.Run(() => this.SelectByConsultora(cliente.PaisID, cliente.ConsultoraID));
+                    var clienteTaskTel = Task.Run(() => this.ObtenerTelefonos(cliente));
+                    var clienteTaskList = Task.Run(() => this.SelectByConsultora(cliente.PaisID, cliente.ConsultoraID));
 
-                    Task.WaitAll(clienteTask1, clienteTask2);
+                    Task.WaitAll(clienteTaskTel, clienteTaskList);
 
-                    var lstTelefonos = clienteTask1.Result;
-                    var lstClienteConsultora = clienteTask2.Result.ToList();
+                    var lstTelefonos = clienteTaskTel.Result;
+                    var lstClienteConsultora = clienteTaskList.Result.ToList();
 
                     cliente.ClienteID = this.ObtenerClienteID(cliente, lstClienteConsultora, lstTelefonos);
                     cliente.CodigoRespuesta = this.EliminarSB(cliente, daCliente);
@@ -284,17 +284,17 @@ namespace Portal.Consultoras.BizLogic
         public List<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
         {
             var blClienteDB = new BLClienteDB();
-            //OBTENER CLIENTE CONSULTORA            var clienteTask1 = Task.Run(() => this.SelectByConsultora(paisID, consultoraID));
-            var clienteTask2 = Task.Run(() => _recordatorioBusinessLogic.Listar(paisID, consultoraID));
-            var clienteTask3 = Task.Run(() => _notasBusinessLogic.Listar(paisID, consultoraID));
-            var clienteTask4 = Task.Run(() => this.GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID));
+            //OBTENER CLIENTE CONSULTORA            var clienteTaskList = Task.Run(() => this.SelectByConsultora(paisID, consultoraID));
+            var recordatorioTaskList = Task.Run(() => _recordatorioBusinessLogic.Listar(paisID, consultoraID));
+            var notaTaskList = Task.Run(() => _notasBusinessLogic.Listar(paisID, consultoraID));
+            var clienteTaskCalc = Task.Run(() => this.GetClienteByConsultoraDetalle(paisID, consultoraID, campaniaID));
 
-            Task.WaitAll(clienteTask1, clienteTask2, clienteTask3);
+            Task.WaitAll(clienteTaskList, recordatorioTaskList, notaTaskList, clienteTaskCalc);
 
-            var lstConsultoraCliente = clienteTask1.Result;
-            var recordatorios = clienteTask2.Result;
-            var notas = clienteTask3.Result;
-            var lstClienteDetalle = clienteTask4.Result;
+            var lstConsultoraCliente = clienteTaskList.Result;
+            var recordatorios = recordatorioTaskList.Result;
+            var notas = notaTaskList.Result;
+            var lstClienteDetalle = clienteTaskCalc.Result;
 
             //OBTENER CLIENTES Y TIPO CONTACTOS
             string strclientes = string.Join("|", lstConsultoraCliente.Select(x => x.CodigoCliente));
