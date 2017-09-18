@@ -189,7 +189,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
 
     busquedaModel = busquedaModel || Clone(filtroIni);
     objSeccion = objSeccion || {};
-    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaID || objSeccion.CampaniaId || campaniaId || 0;
+    busquedaModel.CampaniaID = busquedaModel.CampaniaID || objSeccion.CampaniaId || campaniaId || 0;
 
     if (busquedaModel.CampaniaID <= 0) return false;
 
@@ -238,7 +238,6 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     });
 
     busquedaModel.IsMobile = isMobile();
-    busquedaModel.Valoropcional = $.trim($("[data-tag='" + busquedaModel.CampaniaID + "']").attr("data-tab-tipo"));
     jQuery.ajax({
         type: 'POST',
         url: urlOfertaCargarProductos,
