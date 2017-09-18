@@ -79,9 +79,9 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    if (objConsulta.Codigo == CONS_CODIGO_SECCION.LAN
-        || objConsulta.Codigo == CONS_CODIGO_SECCION.RDS
-        || objConsulta.Codigo == CONS_CODIGO_SECCION.RD) {
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN
+        || objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
+        || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         OfertaCargarProductos(null, false, objConsulta);
         return false;
     }

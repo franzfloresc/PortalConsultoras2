@@ -216,7 +216,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         if (filtroCampania[indCampania].response != undefined) {
             if (filtroCampania[indCampania].response.Completo == 1) {
                 jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
-                OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear);
+                OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear, objSeccion);
                 return true;
             }
         }
@@ -227,7 +227,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         filtroCampania[indCampania] = JSON.parse(valLocalStorage);
         jQuery.extend(filtroCampania[indCampania], Clone(busquedaModel));
         filtroCampania[indCampania].response.Completo = 0;
-        OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear);
+        OfertaCargarProductoRespuesta(filtroCampania[indCampania].response, clear, objSeccion);
         return true;
     }
 
@@ -247,7 +247,7 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
         async: true,
         success: function (response) {
 
-            OfertaCargarProductoRespuesta(response, clear);
+            OfertaCargarProductoRespuesta(response, clear, objSeccion);
 
         },
         error: function (response, error) {
@@ -260,8 +260,9 @@ function OfertaCargarProductos(busquedaModel, clear, objSeccion) {
     });
 }
 
-function OfertaCargarProductoRespuesta(response, clear) {
+function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
     CerrarLoad();
+    
 
     var divProd = $("[data-listado-campania=" + response.campaniaId + "]");
     if (divProd.length > 0) {
@@ -272,7 +273,18 @@ function OfertaCargarProductoRespuesta(response, clear) {
     }
 
     if (response.success !== true) return false;
-    
+
+    if (objSeccion !== undefined && objSeccion !== null && response.cantidad > 0) {
+        if ((objSeccion.Codigo === "LAN" && response.listaLan.length > 0) ||
+            (objSeccion.Codigo === "RD" && response.lista.length > 0) ||
+            (objSeccion.Codigo === "RDR" && response.lista.length > 0)) {
+            $("#" + objSeccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + objSeccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        } else {
+            $("#" + objSeccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        }
+    }
+
     divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);
     if (clear || false) {
