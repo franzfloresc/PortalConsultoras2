@@ -131,93 +131,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return View(model);
         }
-
-        //private BECDRWebDescripcion ObtenerDescripcion(string codigoSsic, string tipo)
-        //{
-        //    codigoSsic = Util.SubStr(codigoSsic, 0);
-        //    //codigoSsic = codigoSsic.ToLower();
-        //    tipo = Util.SubStr(tipo, 0);
-        //    //tipo = tipo.ToLower();
-        //    var listaDescripcion = CargarDescripcion();
-        //    var desc = listaDescripcion.FirstOrDefault(d => d.CodigoSSIC == codigoSsic && d.Tipo == tipo) ?? new BECDRWebDescripcion();
-
-        //    desc.Descripcion = Util.SubStr(desc.Descripcion, 0);
-        //    return desc;
-        //}
-
-        //private void CargarInformacion()
-        //{
-        //    Session[Constantes.ConstSession.CDRWebDetalle] = null;
-        //    Session[Constantes.ConstSession.CDRWeb] = null;
-
-        //    var listaMotivoOperacion = CargarMotivoOperacion();
-        //    // get max dias => plazo para hacer reclamo
-        //    // calcular las campañas existentes en ese rango de dias
-        //    // obtener todos pedidos facturados de esas campañas existentes
-
-        //    int maxDias = 0;
-        //    if (listaMotivoOperacion.Any())
-        //    {
-        //        maxDias += int.Parse(listaMotivoOperacion.Max(m => m.CDRTipoOperacion.NumeroDiasAtrasOperacion).ToString());
-        //    }
-
-        //    var listaPedidoFacturados = CargarPedidosFacturados(maxDias);
-
-        //    var listaCampanias = new List<CampaniaModel>();
-        //    var campania = new CampaniaModel();
-        //    campania.CampaniaID = 0;
-        //    campania.NombreCorto = "¿En qué campaña lo solicitaste?";
-        //    listaCampanias.Add(campania);
-        //    foreach (var facturado in listaPedidoFacturados)
-	       // {
-        //        var existe = listaCampanias.Where(c => c.CampaniaID == facturado.CampaniaID) ?? new List<CampaniaModel>();
-        //        if (!existe.Any())
-        //        {
-        //            campania = new CampaniaModel();
-        //            campania.CampaniaID = facturado.CampaniaID;
-        //            campania.NombreCorto = facturado.CampaniaID.ToString();
-        //            listaCampanias.Add(campania);
-        //        }
-	       // }
-
-        //    Session[Constantes.ConstSession.CDRCampanias] = listaCampanias;
-
-        //    CargarParametriaCdr();
-        //    CargarCdrWebDatos();
-        //}
-
-       
-        //private List<BECDRWebDescripcion> CargarDescripcion()
-        //{
-        //    try
-        //    {
-        //        if (Session[Constantes.ConstSession.CDRDescripcion] != null)
-        //        {
-        //            var listaDescripcion = (List<BECDRWebDescripcion>)Session[Constantes.ConstSession.CDRDescripcion];
-        //            if (listaDescripcion.Count > 0)
-        //                return listaDescripcion;
-        //        }
-
-        //        var lista = new List<BECDRWebDescripcion>();
-        //        var entidad = new BECDRWebDescripcion();
-        //        using (CDRServiceClient sv = new CDRServiceClient())
-        //        {
-        //            lista = sv.GetCDRWebDescripcion(userData.PaisID, entidad).ToList();
-        //        }
-
-        //        lista = lista ?? new List<BECDRWebDescripcion>();
-        //        //lista.Update(d => d.Tipo = d.Tipo.ToLower());
-        //        Session[Constantes.ConstSession.CDRDescripcion] = lista;
-        //        return lista;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        Session[Constantes.ConstSession.CDRDescripcion] = null;
-        //        return new List<BECDRWebDescripcion>();
-        //    }
-        //}
-
+              
         private List<BEPedidoWeb> CargarPedidoCUV(MisReclamosModel model)
         {
             try
@@ -303,39 +217,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return !operacionValidaList.Any(operacion => operacion.CodigoOperacion == detalle.CodigoOperacion);
             });
         }
-
-        //private List<BECDRParametria> CargarParametriaCdr()
-        //{
-        //    try
-        //    {
-        //        if (Session[Constantes.ConstSession.CDRParametria] != null)
-        //        {
-        //            var listaDescripcion = (List<BECDRParametria>)Session[Constantes.ConstSession.CDRParametria];
-        //            if (listaDescripcion.Count > 0)
-        //                return listaDescripcion;
-        //        }
-
-        //        var lista = new List<BECDRParametria>();
-        //        var entidad = new BECDRParametria();
-        //        using (CDRServiceClient sv = new CDRServiceClient())
-        //        {
-        //            lista = sv.GetCDRParametria(userData.PaisID, entidad).ToList();
-        //        }
-                
-        //        Session[Constantes.ConstSession.CDRParametria] = lista;
-        //        return lista;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        Session[Constantes.ConstSession.CDRParametria] = null;
-        //        return new List<BECDRParametria>();
-        //    }
-        //}
-
-      
-
-
+              
         private bool ValidarRegistro(MisReclamosModel model, out string mensajeError)
         {
             mensajeError = "";
@@ -616,47 +498,7 @@ namespace Portal.Consultoras.Web.Controllers
                 cdrWebdatos = cdrWebdatos
             }, JsonRequestBehavior.AllowGet);
         }
-
-        //private List<BECDRWebDetalle> CargarDetalle(MisReclamosModel model)
-        //{
-
-        //    try
-        //    {
-        //        if (Session[Constantes.ConstSession.CDRWebDetalle] != null)
-        //        {
-        //            return (List<BECDRWebDetalle>)Session[Constantes.ConstSession.CDRWebDetalle];
-        //        }
-
-        //        model = model ?? new MisReclamosModel();
-        //        //if (model.CDRWebID <= 0)
-        //        //{
-        //        //    return new List<BECDRWebDetalle>();
-        //        //}
-
-        //        var lista = new List<BECDRWebDetalle>();
-        //        var entidad = new BECDRWebDetalle();
-        //        entidad.CDRWebID = model.CDRWebID;
-        //        using (CDRServiceClient sv = new CDRServiceClient())
-        //        {
-        //            lista = sv.GetCDRWebDetalle(userData.PaisID, entidad, model.PedidoID).ToList();
-        //        }
-
-        //        lista = lista ?? new List<BECDRWebDetalle>();
-
-        //        lista.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
-        //        lista.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
-
-        //        Session[Constantes.ConstSession.CDRWebDetalle] = lista;
-        //        return lista;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        Session[Constantes.ConstSession.CDRWebDetalle] = null;
-        //        return new List<BECDRWebDetalle>();
-        //    }
-        //}
-
+        
         private bool ValidarDetalleGuardar(ref MisReclamosModel modelOri)
         {
             var rpta = true;
@@ -700,47 +542,7 @@ namespace Portal.Consultoras.Web.Controllers
             modelOri = model;
             return rpta;
         }
-
-        //private List<BECDRWeb> CargarBECDRWeb(MisReclamosModel model)
-        //{
-        //    var entidadLista = new List<BECDRWeb>();
-        //    try
-        //    {
-        //        if (Session[Constantes.ConstSession.CDRWeb] != null)
-        //        {
-        //            return (List<BECDRWeb>)Session[Constantes.ConstSession.CDRWeb];
-        //        }
-
-        //        //if (model.PedidoID * model.CampaniaID <= 0)
-        //        //    return entidadLista;
-
-        //        var entidad = new BECDRWeb();
-        //        entidad.CampaniaID = model.CampaniaID;
-        //        entidad.PedidoID = model.PedidoID;
-        //        entidad.ConsultoraID = Int32.Parse(userData.ConsultoraID.ToString());
-
-        //        using (CDRServiceClient sv = new CDRServiceClient())
-        //        {
-        //            entidadLista = sv.GetCDRWeb(userData.PaisID, entidad).ToList();
-        //        }
-
-        //        Session[Constantes.ConstSession.CDRWeb] = null;
-        //        if (entidadLista.Count() == 1)
-        //        {
-        //            Session[Constantes.ConstSession.CDRWeb] = entidadLista;
-        //        }
-
-        //        return entidadLista;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-        //        Session[Constantes.ConstSession.CDRWeb] = null;
-        //        entidadLista = new List<BECDRWeb>();
-        //        return entidadLista;
-        //    }
-        //}
-
+        
         public JsonResult DetalleGuardar(MisReclamosModel model)                                                                                                                                                                                                   
         {
             try

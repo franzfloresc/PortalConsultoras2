@@ -1,6 +1,6 @@
 ﻿function VisualizarPopup(ProcesoId, Observaciones, Estado, FacturaHoy, DiaFact, MesFact, Visualizado, Asunto, Proceso) {
     ShowLoading();
-    debugger;
+   
     var TipoOrigen;
     switch (Proceso) {
         case "VALAUTO": TipoOrigen = 1; break;
