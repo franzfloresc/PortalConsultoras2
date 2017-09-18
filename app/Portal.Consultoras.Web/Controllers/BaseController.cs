@@ -1434,6 +1434,10 @@ namespace Portal.Consultoras.Web.Controllers
             //}
             ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
 
+            var configuracionPaisOdd = model.ConfiguracionPais.FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+            configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
+            ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
+
             // ShowRoom (Mobile)
 
             #endregion Banner
