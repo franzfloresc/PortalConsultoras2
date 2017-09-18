@@ -28,7 +28,7 @@
 <div class="pestana_lbel"></div><!--PESTANA LBEL-->
 
 <div class="wrapper_resumen_mobile">
-    <div>
+    <div class="texto-mensaje-cdr">
         <span class="mensaje_vista_cdr tipografia_lato_bold">
             Queremos verte siempre satisfecha con nuestros productos y servicio.
         </span>
@@ -37,7 +37,7 @@
         </span>
     </div>
     <div class="contenedor_proceso_registro_cdr">
-        <div class="pasos_proceso_registro">
+        <div class="pasos_proceso_registro texto-mensaje-cdr">
             <!-- Status icono off -->
             @*<div class="icono_paso icono_producto icono_paso_activo">
                 <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1.png")" />
@@ -293,8 +293,8 @@
                 Si tuviste otro inconveniente en la misma campaña repórtalo ahora.
             </span>
         </div>
-        <div class="AceptarSolucion" style="display:none;">
-            <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
+        <div class="AceptarSolucion listado_soluciones_cdr tipografia_lato" style="display:none;margin-top:15px;">
+            <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud">
                 <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
             </a>
         </div>
@@ -539,10 +539,11 @@
         @*<span class="icono_arrow_left">
                 <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
             </span>*@
-        <a class="btn_agrega_otro_reclamo" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud" style="display:none;">
-            <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
-        </a>
-
+        <div class="listado_soluciones_cdr tipografia_lato">
+            <a class="btn_agrega_otro_reclamo solucion_cdr tipografia_lato_bold" id="IrSolicitudInicial" title="Agrega otro producto a la solicitud" style="display:none;">
+                <span>AGREGA OTRO PRODUCTO A LA SOLICITUD</span>
+            </a>
+        </div>
         <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
 
     </div>
@@ -643,28 +644,37 @@
     {{#each detalle as |item|}}
     <div class="content_solicitud_cdr tipografia_lato">
         <div class="contenedor_info_cdr">
-            <div class="titulo_solicitud_cdr tipografia_lato_bold">
-                {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'T'}}
+            <div class="listado_producto_reclamo">
                 <b>{{item.SolucionSolicitada}}</b><br />
-                {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                {{else}}
-                {{/if_eq}}
+                {{item.CUV}} - {{item.Descripcion}}<br />
+                {{item.Cantidad}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
             </div>
-            <div class="info_solicitud_cdr tipografia_lato_regular">
-                <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-            </div>
+            @*<div class="listado_solicitud_reclamo">
+                    <b>{{item.Solicitud}}</b>
+                </div>
+                <div class="titulo_solicitud_cdr tipografia_lato_bold">
+                        {{#if_eq CodigoOperacion 'C'}}
+                        {{item.SolucionSolicitada}}
+                        {{else if_eq CodigoOperacion 'D'}}
+                        {{item.SolucionSolicitada}}
+                        {{else if_eq CodigoOperacion 'F'}}
+                        {{item.SolucionSolicitada}}
+                        {{else if_eq CodigoOperacion 'G'}}
+                        {{item.SolucionSolicitada}}
+                        {{else if_eq CodigoOperacion 'T'}}
+                        <b>{{item.SolucionSolicitada}}</b><br />
+                        {{item.CUV2}}<br />
+                        <b>{{item.Descripcion2}}</b> <br />
+                        {{item.Cantidad2}} unidades<br />
+                        Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                        {{else}}
+                        {{/if_eq}}
+                    </div>
+                    <div class="info_solicitud_cdr tipografia_lato_regular">
+                        <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>*@
         </div>
+    </div>
     </div>
     {{/each}}
 </script>

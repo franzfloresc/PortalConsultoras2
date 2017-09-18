@@ -52,7 +52,9 @@ $(document).ready(function () {
             btnCambioProducto: "#btnCambioProducto",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             IrSolicitudInicial: "#IrSolicitudInicial",
-            txtEmail: "#txtEmail"
+            txtEmail: "#txtEmail",
+            textoMensajeCDR: ".texto-mensaje-cdr",
+            enlaceIrAlFinal: ".enlace_ir_al_final"
         };
 
         me.Eventos = {
@@ -75,11 +77,11 @@ $(document).ready(function () {
                     $(me.Variables.txtDescripcionCuv).val("");
                     $(me.Variables.txtCantidad).val("1");
                     $(me.Variables.txtcuv2).val("");
-                    $("#txtCUVPrecio2").val("");
-                    $("#spnImporteTotal2").html("");
-                    $("#hdImporteTotal2").val(0);
-                    $("#txtCUVDescripcion2").val("");
-                    $("#txtCantidad2").val("1");
+                    //$("#txtCUVPrecio2").val("");
+                    //$("#spnImporteTotal2").html("");
+                    //$("#hdImporteTotal2").val(0);
+                    //$("#txtCUVDescripcion2").val("");
+                    //$("#txtCantidad2").val("1");
                     me.Funciones.CambioPaso(-100);
                     me.Funciones.BuscarMotivo();
 
@@ -95,8 +97,10 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {
-
                     e.stopPropagation();
+
+                    var detalles = $("#divDetalleUltimasSolicitudes .producto_agregado").length || 0;
+                    (detalles == 0) ? $(me.Variables.enlaceIrAlFinal).hide() : $(me.Variables.enlaceIrAlFinal).show();
 
                     $(me.Variables.numSolicitudes).fadeOut(150);
                     $(me.Variables.pestaniaVerMiSolicitud).addClass("crece");
@@ -113,7 +117,6 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $(me.Variables.datosSolicitudOpened).fadeIn(200);
                     }, 220);
-
                 });
 
                 $("body, .ocultar_mi_solicitud").click(function (e) {
@@ -176,6 +179,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.aCambiarProducto).click(function (e) {
+
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
                     $(me.Variables.txtCuvMobile).focus();
@@ -206,7 +210,7 @@ $(document).ready(function () {
                         //$("#txtCUVPrecio2").val('');
 
                         if (me.Funciones.ValidarPaso1()) {
-                            console.log(' Paso 1 validado... ');
+
                             //paso2Actual = 1;
                             //me.Funciones.CambioPaso();
                             me.Funciones.CargarOperacion();
@@ -263,8 +267,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
-                    debugger
-                    console.log('Finalizar y enviar solicitud');
 
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
@@ -328,7 +330,7 @@ $(document).ready(function () {
                 });
             }
         };
-              
+
         me.Constantes = {
             DebeAceptarSeccionValidaTusDatos: "Debe completar la sección de VALIDA TUS DATOS para finalizar",
             DebeAceptarPoliticaCambios: "Debe aceptar la política de Cambios y Devoluciones",
@@ -631,7 +633,7 @@ $(document).ready(function () {
                 if (PedidoId <= 0 || CampaniaId <= 0)
                     return false;
 
-                //waitingDialog();
+                ShowLoading();
 
                 var item = {
                     CampaniaID: $.trim($("#ddlCampania").val()),
@@ -647,7 +649,7 @@ $(document).ready(function () {
                     async: true,
                     cache: false,
                     success: function (data) {
-                        //closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data))
                             return false;
 
@@ -659,7 +661,7 @@ $(document).ready(function () {
                         SetHandlebars("#template-motivo", data.detalle, "#listaMotivos");
                     },
                     error: function (data, error) {
-                        //closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -694,6 +696,7 @@ $(document).ready(function () {
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
                     CampaniaID: $("#ddlCampania").val()
                 };
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -705,7 +708,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
 
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) {
                             ok = data.success;
 
@@ -717,7 +720,7 @@ $(document).ready(function () {
                     },
                     error: function (data, error) {
 
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -931,7 +934,7 @@ $(document).ready(function () {
                     async: false,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (!checkTimeout(data))
                             return false;
 
@@ -940,7 +943,7 @@ $(document).ready(function () {
                         $("#hdCdrWebDatos_Ssic").val(cdrWebDatos.Valor);
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        // closeWaitingDialog();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -955,7 +958,7 @@ $(document).ready(function () {
                     PedidoID: $("#hdPedidoID").val() || 0,
                     EstadoSsic: codigoSsic
                 };
-                waitingDialog();
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -966,7 +969,7 @@ $(document).ready(function () {
                     async: false,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data))
                             return false;
 
@@ -978,7 +981,7 @@ $(document).ready(function () {
                         resultado = data.cantidadProductos;
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1007,7 +1010,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
 
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (!checkTimeout(data))
                             return false;
 
@@ -1027,7 +1030,7 @@ $(document).ready(function () {
                         $("#spnMensajeTenerEnCuentaCambio").html(data.descripcionTenerEnCuenta);
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1041,7 +1044,7 @@ $(document).ready(function () {
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id")
                 };
 
-                waitingDialog();
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -1052,7 +1055,7 @@ $(document).ready(function () {
                     async: true,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data))
                             return false;
 
@@ -1060,12 +1063,10 @@ $(document).ready(function () {
                             messageInfoValidado(data.message);
                             return false;
                         }
-
                         SetHandlebars("#template-operacion", data.detalle, "#listado_soluciones_cdr");
-
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) {
                         }
                     }
@@ -1087,7 +1088,7 @@ $(document).ready(function () {
                     Cantidad2: $(me.Variables.txtCantidad2).val()
                 };
 
-                waitingDialog();
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -1099,7 +1100,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
 
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data)) {
                             return false;
                         }
@@ -1114,7 +1115,7 @@ $(document).ready(function () {
                         me.Funciones.DetalleCargar();
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1127,7 +1128,7 @@ $(document).ready(function () {
                     PedidoID: $("#hdPedidoID").val() || 0
                 };
 
-                waitingDialog();
+                ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlDetalleCargar,
@@ -1136,7 +1137,7 @@ $(document).ready(function () {
                     data: JSON.stringify(item),
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data))
                             return false;
 
@@ -1154,7 +1155,6 @@ $(document).ready(function () {
                         SetHandlebars("#template-detalle-paso3", data, "#divDetallePaso3");
                         SetHandlebars("#template-detalle-paso3-enviada", data, "#divDetalleEnviar");
 
-
                         ////EPD-1919 INICIO
                         //if (data.esCDRExpress) $("#TipoDespacho").show();
                         //else $("#TipoDespacho").hide();
@@ -1162,7 +1162,7 @@ $(document).ready(function () {
 
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1191,7 +1191,7 @@ $(document).ready(function () {
                     async: false,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (!checkTimeout(data))
                             return false;
 
@@ -1202,7 +1202,7 @@ $(document).ready(function () {
                         $("#hdParametriaAbsCdr").val(parametriaAbs.ValorParametria);
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (checkTimeout(data)) {
                         }
                     }
@@ -1217,7 +1217,7 @@ $(document).ready(function () {
                     PedidoID: $("#hdPedidoID").val() || 0,
                     EstadoSsic: codigoOperacion
                 };
-                waitingDialog();
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -1229,7 +1229,7 @@ $(document).ready(function () {
                     cache: false,
                     success: function (data) {
 
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data))
                             return false;
 
@@ -1241,7 +1241,7 @@ $(document).ready(function () {
                         resultado = data.montoProductos;
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1293,7 +1293,7 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
-                debugger
+
                 var item = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,
@@ -1309,7 +1309,7 @@ $(document).ready(function () {
                 //    item.MensajeDespacho = $(!tipoDespacho ? '#divDespachoNormal' : '#divDespachoExpress').CleanWhitespace().html();
                 //}
 
-                waitingDialog();
+                ShowLoading();
                 jQuery.ajax({
                     type: 'POST',
                     url: UrlSolicitudEnviar,
@@ -1318,7 +1318,7 @@ $(document).ready(function () {
                     data: JSON.stringify(item),
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data)) return false;
 
                         if (data.success != true) {
@@ -1360,11 +1360,13 @@ $(document).ready(function () {
                         if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
 
                         $(me.Variables.RegistroAceptarSolucion).hide();
+                        $(me.Variables.textoMensajeCDR).hide();
+
                         $(me.Variables.SolicitudEnviada).show();
 
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
@@ -1381,12 +1383,12 @@ $(document).ready(function () {
                     async: false,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         if (!checkTimeout(data)) resultado = false;
                         else resultado = data.success;
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        //closeWaitingDialog();
                         checkTimeout(data);
                     }
                 });
@@ -1430,7 +1432,7 @@ $(document).ready(function () {
                     CDRWebDetalleID: objItem.CDRWebDetalleID
                 };
 
-                waitingDialog();
+                ShowLoading();
 
                 jQuery.ajax({
                     type: 'POST',
@@ -1441,7 +1443,7 @@ $(document).ready(function () {
                     async: true,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (!checkTimeout(data)) {
                             return false;
                         }
@@ -1451,7 +1453,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                         if (checkTimeout(data)) { }
                     }
                 });
