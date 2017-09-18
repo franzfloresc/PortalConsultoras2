@@ -221,7 +221,7 @@ function RenderCarruselSimple(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -9.5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
+        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
         nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
