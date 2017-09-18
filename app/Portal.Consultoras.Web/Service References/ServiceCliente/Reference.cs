@@ -346,6 +346,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int ClienteRecordatorioIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private long ConsultoraIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -353,6 +356,12 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime FechaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.Status StatusEnumField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -386,6 +395,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ClienteRecordatorioIdField.Equals(value) != true)) {
                     this.ClienteRecordatorioIdField = value;
                     this.RaisePropertyChanged("ClienteRecordatorioId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
                 }
             }
         }
@@ -429,6 +451,32 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.Status StatusEnum {
+            get {
+                return this.StatusEnumField;
+            }
+            set {
+                if ((this.StatusEnumField.Equals(value) != true)) {
+                    this.StatusEnumField = value;
+                    this.RaisePropertyChanged("StatusEnum");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -437,6 +485,20 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Status", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities.Framework")]
+    public enum Status : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Delete = -1,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Create = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Update = 1,
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2713,10 +2775,10 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int CantidadProductosField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private long ClienteIDField;
+        private int ClienteIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int ClienteIDSBField;
+        private long CodigoClienteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoRespuestaField;
@@ -2778,9 +2840,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private short TipoContactoFavoritoField;
         
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private short TipoRegistroField;
-        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -2831,7 +2890,7 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public long ClienteID {
+        public int ClienteID {
             get {
                 return this.ClienteIDField;
             }
@@ -2844,14 +2903,14 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int ClienteIDSB {
+        public long CodigoCliente {
             get {
-                return this.ClienteIDSBField;
+                return this.CodigoClienteField;
             }
             set {
-                if ((this.ClienteIDSBField.Equals(value) != true)) {
-                    this.ClienteIDSBField = value;
-                    this.RaisePropertyChanged("ClienteIDSB");
+                if ((this.CodigoClienteField.Equals(value) != true)) {
+                    this.CodigoClienteField = value;
+                    this.RaisePropertyChanged("CodigoCliente");
                 }
             }
         }
@@ -3116,19 +3175,6 @@ namespace Portal.Consultoras.Web.ServiceCliente {
             }
         }
         
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public short TipoRegistro {
-            get {
-                return this.TipoRegistroField;
-            }
-            set {
-                if ((this.TipoRegistroField.Equals(value) != true)) {
-                    this.TipoRegistroField = value;
-                    this.RaisePropertyChanged("TipoRegistro");
-                }
-            }
-        }
-        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -3210,6 +3256,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private int ClienteMovimientoIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CodigoCampaniaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3225,6 +3274,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         private System.DateTime FechaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private decimal MontoField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -3232,6 +3284,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Portal.Consultoras.Web.ServiceCliente.BEPedidoDDWebDetalle[] PedidosField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.Status StatusEnumField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TipoMovimientoField;
@@ -3268,6 +3323,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((this.ClienteMovimientoIdField.Equals(value) != true)) {
                     this.ClienteMovimientoIdField = value;
                     this.RaisePropertyChanged("ClienteMovimientoId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Code {
+            get {
+                return this.CodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CodeField, value) != true)) {
+                    this.CodeField = value;
+                    this.RaisePropertyChanged("Code");
                 }
             }
         }
@@ -3338,6 +3406,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public decimal Monto {
             get {
                 return this.MontoField;
@@ -3372,6 +3453,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.PedidosField, value) != true)) {
                     this.PedidosField = value;
                     this.RaisePropertyChanged("Pedidos");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.Status StatusEnum {
+            get {
+                return this.StatusEnumField;
+            }
+            set {
+                if ((this.StatusEnumField.Equals(value) != true)) {
+                    this.StatusEnumField = value;
+                    this.RaisePropertyChanged("StatusEnum");
                 }
             }
         }
@@ -3431,6 +3525,9 @@ namespace Portal.Consultoras.Web.ServiceCliente {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Portal.Consultoras.Web.ServiceCliente.Status StatusEnumField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -3542,6 +3639,19 @@ namespace Portal.Consultoras.Web.ServiceCliente {
                 if ((object.ReferenceEquals(this.MessageField, value) != true)) {
                     this.MessageField = value;
                     this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Portal.Consultoras.Web.ServiceCliente.Status StatusEnum {
+            get {
+                return this.StatusEnumField;
+            }
+            set {
+                if ((this.StatusEnumField.Equals(value) != true)) {
+                    this.StatusEnumField = value;
+                    this.RaisePropertyChanged("StatusEnum");
                 }
             }
         }

@@ -79,58 +79,61 @@ namespace Portal.Consultoras.BizLogic.Cliente
             var result = ResponseType<List<BENota>>.Build();
             result.Data = new List<BENota>();
 
-            foreach (var nota in clienteDb.Notas)
+            if (clienteDb.Notas != null)
             {
-                nota.ClienteId = (short)clienteDb.ClienteIDSB;
-                nota.ConsultoraId = clienteDb.ConsultoraID;
-
-                //todo: improve
-                if (nota.StatusEnum == StatusEnum.Delete)
+                foreach (var nota in clienteDb.Notas)
                 {
-                    var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);
-                    if (!resultEliminar.Success)
-                    {
-                        result.Success = false;
-                        result.Code = resultEliminar.Code;
-                        result.Message = resultEliminar.Message;
+                    nota.ClienteId = (short)clienteDb.ClienteID;
+                    nota.ConsultoraId = clienteDb.ConsultoraID;
 
-                        nota.Code = resultEliminar.Code;
-                        nota.Message = resultEliminar.Message;
-                        result.Data.Add(nota);
+                    //todo: improve
+                    if (nota.StatusEnum == StatusEnum.Delete)
+                    {
+                        var resultEliminar = Eliminar(paisId, nota.ClienteId, nota.ConsultoraId, nota.ClienteNotaId);
+                        if (!resultEliminar.Success)
+                        {
+                            result.Success = false;
+                            result.Code = resultEliminar.Code;
+                            result.Message = resultEliminar.Message;
+
+                            nota.Code = resultEliminar.Code;
+                            nota.Message = resultEliminar.Message;
+                            result.Data.Add(nota);
+                        }
+
+                        continue;
                     }
 
-                    continue;
-                }
-
-                if (nota.ClienteNotaId == 0)
-                {
-                    var resultInsert = Insertar(paisId, nota);
-                    if (!resultInsert.Success)
+                    if (nota.ClienteNotaId == 0)
                     {
-                        result.Success = false;
-                        result.Code = resultInsert.Code;
-                        result.Message = resultInsert.Message;
+                        var resultInsert = Insertar(paisId, nota);
+                        if (!resultInsert.Success)
+                        {
+                            result.Success = false;
+                            result.Code = resultInsert.Code;
+                            result.Message = resultInsert.Message;
+                        }
+
+                        nota.ClienteNotaId = resultInsert.Data;
+                        nota.Code = resultInsert.Code;
+                        nota.Message = resultInsert.Message;
+                    }
+                    else
+                    {
+                        var resultUdate = Actualizar(paisId, nota);
+                        if (!resultUdate.Success)
+                        {
+                            result.Success = false;
+                            result.Code = resultUdate.Code;
+                            result.Message = resultUdate.Message;
+                        }
+
+                        nota.Code = resultUdate.Code;
+                        nota.Message = resultUdate.Message;
                     }
 
-                    nota.ClienteNotaId = resultInsert.Data;
-                    nota.Code = resultInsert.Code;
-                    nota.Message = resultInsert.Message;
+                    result.Data.Add(nota);
                 }
-                else
-                {
-                    var resultUdate = Actualizar(paisId, nota);
-                    if (!resultUdate.Success)
-                    {
-                        result.Success = false;
-                        result.Code = resultUdate.Code;
-                        result.Message = resultUdate.Message;
-                    }
-
-                    nota.Code = resultUdate.Code;
-                    nota.Message = resultUdate.Message;
-                }
-
-                result.Data.Add(nota);
             }
 
             clienteDb.Notas = result.Data;

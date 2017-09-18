@@ -114,55 +114,58 @@ namespace Portal.Consultoras.BizLogic.Cliente
         {
             var movimientosResponse = ResponseType<List<BEMovimiento>>.Build(data: new List<BEMovimiento>());
 
-            foreach (var movimiento in clienteDb.Movimientos)
+            if (clienteDb.Movimientos != null)
             {
-                movimiento.ClienteId = (short)clienteDb.ClienteIDSB;
-                movimiento.CodigoCliente = clienteDb.ClienteID;
-
-                if (movimiento.StatusEnum == StatusEnum.Delete)
+                foreach (var movimiento in clienteDb.Movimientos)
                 {
-                    var resultEliminar = Eliminar(paisId, clienteDb.ConsultoraID, movimiento.ClienteId, movimiento.ClienteMovimientoId);
-                    if (!resultEliminar.Success)
-                    {
-                        movimientosResponse.Success = resultEliminar.Success;
-                        movimientosResponse.Message = resultEliminar.Message;
-                        movimiento.Code = resultEliminar.Code;
-                        movimiento.Message = resultEliminar.Message;
+                    movimiento.ClienteId = (short)clienteDb.ClienteID;
+                    movimiento.CodigoCliente = clienteDb.CodigoCliente;
 
-                        movimientosResponse.Data.Add(movimiento);
+                    if (movimiento.StatusEnum == StatusEnum.Delete)
+                    {
+                        var resultEliminar = Eliminar(paisId, clienteDb.ConsultoraID, movimiento.ClienteId, movimiento.ClienteMovimientoId);
+                        if (!resultEliminar.Success)
+                        {
+                            movimientosResponse.Success = resultEliminar.Success;
+                            movimientosResponse.Message = resultEliminar.Message;
+                            movimiento.Code = resultEliminar.Code;
+                            movimiento.Message = resultEliminar.Message;
+
+                            movimientosResponse.Data.Add(movimiento);
+                        }
+
+                        continue;
                     }
 
-                    continue;
-                }
-
-                if (movimiento.ClienteMovimientoId == 0)
-                {
-                    var resultInsertar = Insertar(paisId, movimiento);
-                    if (!resultInsertar.Success)
+                    if (movimiento.ClienteMovimientoId == 0)
                     {
-                        movimientosResponse.Success = resultInsertar.Success;
-                        movimientosResponse.Message = resultInsertar.Message;
+                        var resultInsertar = Insertar(paisId, movimiento);
+                        if (!resultInsertar.Success)
+                        {
+                            movimientosResponse.Success = resultInsertar.Success;
+                            movimientosResponse.Message = resultInsertar.Message;
 
-                        movimiento.Code = resultInsertar.Code;
-                        movimiento.Message = resultInsertar.Message;
+                            movimiento.Code = resultInsertar.Code;
+                            movimiento.Message = resultInsertar.Message;
+                        }
+
+                        movimiento.ClienteMovimientoId = resultInsertar.Data;
+                    }
+                    else
+                    {
+                        var resultActualizar = Actualizar(paisId, movimiento);
+                        if (!resultActualizar.Success)
+                        {
+                            movimientosResponse.Success = resultActualizar.Success;
+                            movimientosResponse.Message = resultActualizar.Message;
+
+                            movimiento.Code = resultActualizar.Code;
+                            movimiento.Message = resultActualizar.Message;
+                        }
                     }
 
-                    movimiento.ClienteMovimientoId = resultInsertar.Data;
+                    movimientosResponse.Data.Add(movimiento);
                 }
-                else
-                {
-                    var resultActualizar = Actualizar(paisId, movimiento);
-                    if (!resultActualizar.Success)
-                    {
-                        movimientosResponse.Success = resultActualizar.Success;
-                        movimientosResponse.Message = resultActualizar.Message;
-
-                        movimiento.Code = resultActualizar.Code;
-                        movimiento.Message = resultActualizar.Message;
-                    }
-                }
-
-                movimientosResponse.Data.Add(movimiento);
             }
 
             clienteDb.Movimientos = movimientosResponse.Data;
