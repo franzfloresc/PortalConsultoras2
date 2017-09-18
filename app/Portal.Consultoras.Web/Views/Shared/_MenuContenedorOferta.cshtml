@@ -46,17 +46,21 @@
             <div class="op_menu-horizontal" data-layout-menu1="">
                 <ul>
                     <li data-campania="@menuActivo.CampaniaX0">
-                        <a href="@Url.Action("Index", "Ofertas")" class="@classMenuX" attr-modal="#open-menu1">
-                            <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default"><img src="@Url.Content("~/Content/Images/fill-1.svg")" alt="" class="hover menuactivo">
+                        <a href="@Url.Action("Index", "Ofertas")" class="@classMenuX">
+                            <img src="@Url.Content("~/Content/Images/carrito.png")" alt="" class="default">
+                            <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="hover" style="display:none;">
+                            <img src="@Url.Content("~/Content/Images/carrito-hover.png")" alt="" class="click-menu" style="display:none;">
                             <span>COMPRAR C-@(menuActivo.CampaniaX0 % 100)</span>
                         </a>
                     </li><li data-campania="@menuActivo.CampaniaX1">
-                        <a href="@Url.Action("Revisar", "Ofertas")" class="@classMenuX1" attr-modal="#open-menu2">
-                            <img src="@Url.Content("~/Content/Images/ojos.svg")" alt="" class="default"><img src="@Url.Content("~/Content/Images/ojos_negro.svg")" alt="" class="hover">
+                        <a href="@Url.Action("Revisar", "Ofertas")" class="@classMenuX1">
+                            <img src="@Url.Content("~/Content/Images/ojito.png")" alt="" class="default">
+                            <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="hover" style="display:none;">
+                            <img src="@Url.Content("~/Content/Images/ojito-hover.png")" alt="" class="click-menu" style="display:none;">
                             <span>REVISAR C-@(menuActivo.CampaniaX1 % 100)</span>
                         </a>
                     </li><li data-campania="0" data-url="">
-                        <a href="@Url.Action("Informacion", "RevistaDigital")" class="@classMenuInfo" attr-modal="#open-menu3">
+                        <a href="@Url.Action("Informacion", "RevistaDigital")" class="@classMenuInfo">
                             <span>SABER MÁS DE ÉSIKA PARA MÍ</span>
                         </a>
                     </li>

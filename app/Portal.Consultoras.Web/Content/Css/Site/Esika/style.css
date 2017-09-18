@@ -28092,7 +28092,21 @@ span.datoPedidoCliente {
     padding-bottom: 15px;
     font-size:13px;
 }
-
+@media screen and (max-width:1287px) {
+    .content-favclientes .contiene-productos {
+        width:240px;
+    }
+}
+@media screen and (max-width:1250px) {
+    .content-favclientes .contiene-productos {
+        width: 230px;
+    }
+}
+@media screen and (max-width:1204px) {
+    .content-favclientes .contiene-productos {
+        width: 225px;
+    }
+}
 @media screen and (max-width:1137px){
 
     .oscurece {

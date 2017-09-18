@@ -1,8 +1,11 @@
 ﻿
 @model Portal.Consultoras.Web.Models.ConfiguracionSeccionHomeModel
 <div class="bc_slider previsualizales-ofertas">
-    <div class="titulo">
-        <h2>@Model.Titulo</h2>
-    </div>
+    @if (Model.Titulo != "")
+    {
+        <div class="titulo">
+            <h2>@Model.Titulo</h2>
+        </div>
+    }
     <div class="content_slider_ept" data-OrigenPedidoWeb="" data-seccion-productos=""></div>
 </div>

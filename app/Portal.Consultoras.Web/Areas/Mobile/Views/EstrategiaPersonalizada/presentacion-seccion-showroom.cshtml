@@ -9,6 +9,7 @@
     //var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
     var backgroundVenta = mostrarPopupIntriga ? "" : "background: url(" + @Model.ImagenFondo + ") center center no-repeat;";
+    var urlToAction = mostrarPopupIntriga ? "/Mobile/ShowRoom/Intriga" : "/Mobile/ShowRoom";
 }
 
 @if (esShowRoom)
@@ -25,12 +26,13 @@
                     <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
                     <div class="contenedorMensajeIntrigaA">
-                        <div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>
-                        <div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>
+                        @*<div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>*@
+                        @*<div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>*@
+                        <div class="faltan_dias_header"><b>{{MensajeDiasFaltantes}}</b></div>
                     </div>
                     <div class="contenedorMensajeIntrigaB">
                     </div>
-                    <a href="@Url.Action("Intriga","ShowRoom", new { area = "Mobile" })">
+                    <a href="@urlToAction">
                         <img class="imagen_dias_intriga_inicio" src="@Model.ImagenFondo" />
                     </a>
                 </div>
@@ -39,3 +41,4 @@
         
     </div>
 }
+
