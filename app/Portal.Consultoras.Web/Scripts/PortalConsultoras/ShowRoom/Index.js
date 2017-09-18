@@ -285,6 +285,7 @@ function CargarFiltroRangoPrecio() {
     var scala2 = simbolo + precioMaxFormat;
 
     $('.range-slider').val(min + ',' + max);
+    var h = $("#filtro_precio").width() - 50;
 
     $('.range-slider').show();
     $('.range-slider').jRange({
@@ -293,7 +294,7 @@ function CargarFiltroRangoPrecio() {
         step: 1,
         scale: [scala1, scala2],
         format: myformat,
-        width: '',
+        width: h,
         showLabels: true,
         isRange: true,
         //onstatechange: function () {
@@ -320,7 +321,7 @@ function CargarFiltroRangoPrecio() {
         }
     });
 
-    $('.slider-container').css('width', '');
+    //$('.slider-container').css('width', '200');
 }
 
 function filterShowRoomDesktop() {
