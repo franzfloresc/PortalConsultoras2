@@ -21,6 +21,7 @@ namespace Portal.Consultoras.Web.Models
         public string UrlObtenerProductos { get; set; }
         public string UrlLandig { get; set; }
         public string TemplateProducto { get; set; }
-        public string TemplatePresentacion { get; set; }     
+        public string TemplatePresentacion { get; set; }
+        public bool VerMas { get; set; }
     }
 }

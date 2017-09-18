@@ -13,8 +13,9 @@ var menuModule = (function () {
             header: "header",
             bcMenuEstrategia: ".bc_menu_estrategia",
             aHover: "ul.subnavegador li a",
-            bcParaTiMenu: ".bc_para_ti-menu ul li a",
-            bcParaTiMenuActivo: ".bc_para_ti-menu ul li a.activo",
+            aMenuActivo: "ul.subnavegador li a.activo",
+            bcParaTiMenu: ".op_menu-horizontal ul li a",
+            bcParaTiMenuActivo: ".op_menu-horizontal ul li a.activo",
             mobContent: "#mob-content-layout"
         },
         anchorMark = "#",
@@ -46,6 +47,14 @@ var menuModule = (function () {
             $(elementos.bcParaTiMenuActivo).find('img.default').css('display', 'none');
             $(elementos.bcParaTiMenuActivo).find('img.click-menu').css('display', 'inline');
         }
+
+        if ($(elementos.aHover).hasClass(elementos.claseActivo)) {
+            var img = $.trim($(elementos.aMenuActivo).find('img').attr("src"));
+            if (img !== "") {
+                img = img.replace("_normal.", "_hover.");
+                $(elementos.aMenuActivo).find('img').attr("src", img);
+            }
+        }
     }
 
     function setHover() {
@@ -56,10 +65,24 @@ var menuModule = (function () {
                 $(this).find('.contenedorImagen img').attr("src", img);
             }
         }, function (e) {
-            var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
-            if (img !== "") {
-                img = img.replace("_hover.", "_normal.");
-                $(this).find('.contenedorImagen img').attr("src", img);
+            if (!$(this).hasClass(elementos.claseActivo)) {
+                var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
+                if (img !== "") {
+                    img = img.replace("_hover.", "_normal.");
+                    $(this).find('.contenedorImagen img').attr("src", img);
+                }
+            }
+        });
+
+        $(elementos.bcParaTiMenu).hover(function (e) {
+            $(this).find('img.hover').css('display', 'inline');
+            $(this).find('img.default').css('display', 'none');
+            $(this).find('img.click-menu').css('display', 'none');
+        }, function (e) {
+            if (!$(this).hasClass(elementos.claseActivo)) {
+                $(this).find('img.hover').css('display', 'none');
+                $(this).find('img.default').css('display', 'inline');
+                $(this).find('img.click-menu').css('display', 'none');
             }
         });
     }

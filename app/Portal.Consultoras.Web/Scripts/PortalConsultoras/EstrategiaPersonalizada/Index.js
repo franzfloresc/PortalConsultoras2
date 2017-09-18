@@ -141,6 +141,8 @@ function SeccionMostrarProductos(data) {
         return false
     }
 
+    //console.log(data.Seccion);
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
