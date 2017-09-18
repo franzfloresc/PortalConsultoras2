@@ -758,11 +758,12 @@ $(document).ready(function () {
 
                 if (id == "G") {
                     if (me.Funciones.ValidarPaso2FaltanteAbono(id)) {
-                        me.Funciones.CambioPaso2(100);
+                        //me.Funciones.CambioPaso2(100);
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
 
                         me.Funciones.CargarPropuesta(id);
+                        $(me.Variables.btnAceptarSolucion).show();
                     }
                 }
 

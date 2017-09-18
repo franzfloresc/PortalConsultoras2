@@ -142,6 +142,7 @@
             <input type="hidden" id="hdNumeroPedido" value="@Model.NumeroPedido" />
             <input type="hidden" id="hdParametriaCdr" />
             <input type="hidden" id="hdParametriaAbsCdr" />
+            <input type="hidden" id="hdCdrWebDatos_Ssic" />
             <input type="hidden" id="txtPrecioUnidad" />
             <input type="hidden" id="hdImporteTotalPedido" />
         </div>
@@ -625,27 +626,9 @@
                 {{item.Cantidad}} unidades<br />
                 Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
             </div>
-            <div class="listado_solicitud_reclamo"><b>{{item.Solicitud}}</b></div>
-            <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
-                {{#if_eq CodigoOperacion 'C'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'D'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'F'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'G'}}
-                {{item.SolucionSolicitada}}
-                {{else if_eq CodigoOperacion 'T'}}
-                {{item.CUV2}}<br />
-                {{item.Descripcion2}} <br />
-                {{item.Cantidad2}} unidades<br />
-                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                {{else}}
-                {{/if_eq}}
+            <div class="listado_solicitud_reclamo">
+                <b>{{item.Solicitud}}</b>
             </div>
-            @*<div class="info_solicitud_cdr tipografia_lato_regular">
-                <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-            </div>*@
             <div class="icono_eliminar_solic_cdr">
                 <a class="icono_eliminar_solic_cdr eliminar-solicitud" data-pedidodetalleid="{{item.CDRWebDetalleID}}" data-accion="x"
                    style="background-image: url('/Content/Images/Esika/tacho-copy.png'); background-repeat:no-repeat; width: 17px; height: 22px; margin: 0 auto;"
@@ -735,6 +718,5 @@
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
     </script>
-
     <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
