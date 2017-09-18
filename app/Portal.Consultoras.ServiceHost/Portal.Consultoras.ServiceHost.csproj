@@ -121,7 +121,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAsesoraOnlineService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
