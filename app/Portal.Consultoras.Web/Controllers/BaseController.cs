@@ -2780,7 +2780,8 @@ namespace Portal.Consultoras.Web.Controllers
                     TipoPresentacion = isMobile ? entConf.MobileTipoPresentacion : entConf.DesktopTipoPresentacion,
                     TipoEstrategia = isMobile ? entConf.MobileTipoEstrategia : entConf.DesktopTipoEstrategia,
                     CantidadProductos = isMobile ? entConf.MobileCantidadProductos : entConf.DesktopCantidadProductos,
-                    UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion
+                    UrlLandig = "/" + (isMobile ? "Mobile/" : "") + entConf.UrlSeccion,
+                    VerMas = true
                 };
 
                 seccion.ImagenFondo = ConfigS3.GetUrlFileS3(carpetaPais, seccion.ImagenFondo);
@@ -2789,6 +2790,7 @@ namespace Portal.Consultoras.Web.Controllers
                 {
                     case Constantes.ConfiguracionPais.OfertasParaTi:
                         seccion.UrlObtenerProductos = "OfertasParaTi/ConsultarEstrategiasOPT";
+                        seccion.VerMas = false;
                         break;
                     case Constantes.ConfiguracionPais.Lanzamiento:
                         seccion.UrlObtenerProductos = "RevistaDigital/RDObtenerProductos";
