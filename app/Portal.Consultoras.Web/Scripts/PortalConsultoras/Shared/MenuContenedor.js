@@ -148,7 +148,7 @@ var menuModule = (function () {
         var esAncla = $(objHtmlEvent).data(tagIsAnchor);
         if (esAncla === "True") {
             var codigo = $(objHtmlEvent).data("codigo");
-            if (window.location.href.toLowerCase().indexOf("/ofertas") > -1) {
+            if ((window.location.href.toLowerCase() + "/").indexOf("/ofertas/") > -1) {
                 $(elementos.html).animate({
                         scrollTop: $('#' + codigo).offset().top - 60
                     },
@@ -157,7 +157,19 @@ var menuModule = (function () {
                 if (window.location.href.toLowerCase().indexOf("/revisar") > -1)
                     window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
                 else
-                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
+                {
+                    var indexOf = window.location.href.toLowerCase().replace("?", "&").indexOf("&campaniaid=");
+                    var controller = "Ofertas#";
+                    if (indexOf > 0) {
+                        indexOf = window.location.href.toLowerCase().split("&campaniaid=")[1];
+                        indexOf = indexOf.split("&")[0];
+                        if (indexOf != campaniaCodigo) {
+                            controller = "Ofertas/Revisar#";
+                        }
+                    }
+                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + controller + codigo;
+                }
+                    
             }
         } else {
             url = $.trim(url);

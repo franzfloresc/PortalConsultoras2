@@ -1185,7 +1185,6 @@ namespace Portal.Consultoras.Web.Controllers
         public UsuarioModel UserData()
         {
             UsuarioModel model = null;
-            string UrlEMTELCO = "";
 
             try
             {
@@ -1196,6 +1195,10 @@ namespace Portal.Consultoras.Web.Controllers
                 model = null;
             }
 
+            if (model == null)
+                return model;
+
+            string UrlEMTELCO = "";
             try
             {
                 UrlEMTELCO = ConfigurationManager.AppSettings["UrlBelcorpChat"];
@@ -1203,11 +1206,6 @@ namespace Portal.Consultoras.Web.Controllers
             catch (Exception)
             {
                 UrlEMTELCO = "";
-            }
-
-            if (model == null)
-            {
-                return model;
             }
 
             #region Cargar variables
@@ -1399,47 +1397,52 @@ namespace Portal.Consultoras.Web.Controllers
 
             #region Banner
 
-            // Postulante
-            ViewBag.MostrarBannerPostulante = false;
-            if (model.TipoUsuario == 2 && model.CerrarBannerPostulante == 0)
+            try
             {
-                ViewBag.MostrarBannerPostulante = true;
+                // Postulante
+                ViewBag.MostrarBannerPostulante = false;
+                if (model.TipoUsuario == 2 && model.CerrarBannerPostulante == 0)
+                {
+                    ViewBag.MostrarBannerPostulante = true;
+                }
+
+                //GPR
+                ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
+                ViewBag.CerrarRechazado = model.CerrarRechazado;
+                ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
+                
+                ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
+                ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
+                ViewBag.GPRBannerUrl = model.GPRBannerUrl;
+
+                // ODD
+                //ViewBag.MostrarODD = NoMostrarBannerODD();
+                //ViewBag.TieneOfertaDelDia = false;
+                //if (!ViewBag.MostrarODD)
+                //{
+                //    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia
+                //        && (
+                //            !(
+                //                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
+                //                || model.IndicadorGPRSB == 0)
+                //            || model.CloseOfertaDelDia
+                //        )
+                //        ? false
+                //        : model.TieneOfertaDelDia;
+                //}
+                ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
+
+                var configuracionPaisOdd = model.ConfiguracionPais.FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
+                configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
+                ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
+
+                // ShowRoom (Mobile)
+
             }
-
-            //GPR
-            ViewBag.IndicadorGPRSB = model.IndicadorGPRSB;      //0=OK,1=Facturando,2=Rechazado
-            ViewBag.CerrarRechazado = model.CerrarRechazado;
-            ViewBag.MostrarBannerRechazo = model.MostrarBannerRechazo;
-           
-
-
-            ViewBag.GPRBannerTitulo = model.GPRBannerTitulo ?? "";
-            ViewBag.GPRBannerMensaje = model.GPRBannerMensaje ?? "";
-            ViewBag.GPRBannerUrl = model.GPRBannerUrl;
-
-            // ODD
-            //ViewBag.MostrarODD = NoMostrarBannerODD();
-            //ViewBag.TieneOfertaDelDia = false;
-            //if (!ViewBag.MostrarODD)
-            //{
-            //    ViewBag.TieneOfertaDelDia = model.TieneOfertaDelDia
-            //        && (
-            //            !(
-            //                (!model.ValidacionAbierta && model.EstadoPedido == 202 && model.IndicadorGPRSB == 2)
-            //                || model.IndicadorGPRSB == 0)
-            //            || model.CloseOfertaDelDia
-            //        )
-            //        ? false
-            //        : model.TieneOfertaDelDia;
-            //}
-            ViewBag.TieneOfertaDelDia = CumpleOfertaDelDia(model);
-
-            var configuracionPaisOdd = model.ConfiguracionPais.FirstOrDefault(p => p.Codigo == Constantes.ConfiguracionPais.OfertaDelDia);
-            configuracionPaisOdd = configuracionPaisOdd ?? new ConfiguracionPaisModel();
-            ViewBag.CodigoAnclaOdd = configuracionPaisOdd.Codigo;
-
-            // ShowRoom (Mobile)
-
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
+            }
             #endregion Banner
 
             ViewBag.Efecto_TutorialSalvavidas = ConfigurationManager.AppSettings.Get("Efecto_TutorialSalvavidas") ?? "1";
@@ -1449,18 +1452,24 @@ namespace Portal.Consultoras.Web.Controllers
             ViewBag.MensajePedidoMobile = userData.MensajePedidoMobile;
 
             #region RegaloPN
-            ViewBag.ConsultoraTieneRegaloPN = false;
-            if (model.ConsultoraRegaloProgramaNuevas != null)
+            try
             {
-                ViewBag.ConsultoraTieneRegaloPN = true;
+                ViewBag.ConsultoraTieneRegaloPN = false;
+                if (model.ConsultoraRegaloProgramaNuevas != null)
+                {
+                    ViewBag.ConsultoraTieneRegaloPN = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, model.CodigoConsultora, model.CodigoISO);
             }
             #endregion
 
             #region EventoFestivo
             ViewBag.SaludoFestivo = model.EfSaludo;
             #endregion
-
-
+            
             #endregion
 
             return model;
@@ -1576,10 +1585,10 @@ namespace Portal.Consultoras.Web.Controllers
                 sessionManager.SetEsShowRoom("0");
                 sessionManager.SetMostrarShowRoomProductos("0");
                 sessionManager.SetMostrarShowRoomProductosExpiro("0");
-                //
+                
                 model.BeShowRoomConsultora = null;
                 model.BeShowRoom = null;
-                //
+                
                 model.CargoEntidadesShowRoom = false;
 
                 if (!PaisTieneShowRoom(model.CodigoISO))
@@ -2770,6 +2779,11 @@ namespace Portal.Consultoras.Web.Controllers
                         entConf.MobileCantidadProductos = 0;
                         entConf.DesktopCantidadProductos = 0;
                     }
+
+                    if (menuActivo.CampaniaId > userData.CampaniaID)
+                    {
+                        entConf.UrlSeccion = "RevistaDigital/Revisar";
+                    }
                 }
                 if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
@@ -3002,6 +3016,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.SwDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    break;
+                case Constantes.UrlMenuContenedor.OptDetalle:
+                    menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
                     break;
             }
 
