@@ -71,11 +71,6 @@ function SeccionObtenerSeccion(seccion) {
 }
 
 function SeccionCargarProductos(objConsulta) {
-    
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
-
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
     if (objConsulta.UrlObtenerProductos === "")
@@ -133,10 +128,6 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
-
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         console.log(data.Seccion);
@@ -149,7 +140,8 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if ((data.data !== undefined && data.data.length > 0) ||
+    if ((data.Seccion !== undefined && data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.ShowRoom) ||
+        (data.data !== undefined && data.data.length > 0) ||
         (data.lista !== undefined && data.lista.length > 0) ||
         (data.listaLan !== undefined && data.listaLan.length > 0)) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
