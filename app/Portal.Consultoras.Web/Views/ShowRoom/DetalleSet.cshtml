@@ -34,7 +34,13 @@
 }
 
 <div class="fondo_set" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat; background-size: contain;height:340px;">
-    <div class="content_belcorp">
+    <div class="content_belcorp" >
+        <div class="rd_volver" style="margin-left: 145px; position: absolute; top: -20px;">
+            <a href="javascript: RDDetalleVolver(@Model.CampaniaID);">
+                <img class="previous_volver" src="@Url.Content("~/Content/Images/RevistaDigital/previous_volver.png")" />
+                <span style="top: 3px;position: absolute;left: 15px;">VOLVER</span>
+            </a>
+        </div>
         <div class="content_solo_ficha_set" data-posicion="0" data-item="@Model.OfertaShowRoomID">
             <div data-compartir-campos="" style="display: none;">
                 <input type="hidden" id="hcuv" class="CUV" value="@Model.CUV"/>
