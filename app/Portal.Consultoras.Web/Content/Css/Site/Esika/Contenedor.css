@@ -337,16 +337,17 @@
     /* padding: 0 18%; */
 }
 .previsualizales-ofertas .titulo h2 {
+    text-transform:uppercase;
     display: inline;
     position: relative;
     top: 1px;
-    font-size: 17px;
+    font-size: 22px;
     margin-right: 10px;
     font-weight: bolder !important;
     letter-spacing: 1px;
     float: left;
-    text-transform:uppercase;
     font-family: 'Lato';
+    color: #b52e36;
 }
 
     @media (max-width: 1100px) {
