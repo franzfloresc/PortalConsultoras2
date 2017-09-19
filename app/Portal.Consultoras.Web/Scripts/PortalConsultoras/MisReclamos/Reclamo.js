@@ -79,7 +79,6 @@ $(document).ready(function () {
     });
 
     $("[data-cambiopaso]").on("click", function () {
-        debugger
         DetalleGuardar();
     });
 
@@ -966,7 +965,6 @@ function ValidarCantidadMaximaPermitida(codigoSsic) {
     return true;
 }
 function DetalleCargar() {
-    debugger
     var item = {
         CDRWebID: $("#CDRWebID").val() || 0,
         PedidoID: $("#txtPedidoID").val() || 0

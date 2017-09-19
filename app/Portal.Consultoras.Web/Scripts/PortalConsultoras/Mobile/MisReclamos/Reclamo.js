@@ -9,6 +9,7 @@ $(document).ready(function () {
     'use strict';
 
     var PortalConsultorasReclamoRegistro;
+
     PortalConsultorasReclamoRegistro = function () {
         var me = this;
 
@@ -59,6 +60,23 @@ $(document).ready(function () {
 
         me.Eventos = {
             bindEvents: function () {
+
+                var pedidoId = parseInt($("#hdPedidoID").val());
+                if (pedidoId != 0) {
+                    //CambioPaso(1);
+                    //CambioPaso(3);
+                    me.Funciones.DetalleCargar();
+                    $(me.Variables.btnSiguiente4).show();
+                    $("#Cambio3").hide();
+                    $("#pasotres").hide();
+                    $("#pasotresactivo").show();
+                    $(me.Variables.RegistroAceptarSolucion).show();
+
+                    if ($(me.Variables.Registro1).is(":visible"))
+                    {
+                        $(me.Variables.Registro1).hide();
+                    }
+                }
 
                 $(me.Variables.IrSolicitudInicial).click(function () {
 
@@ -152,7 +170,7 @@ $(document).ready(function () {
                 });
 
                 $(".listado_soluciones_cdr").on('click', '.solucion_cdr', function () {
-
+                    
                     $(".solucion_cdr").attr("data-check", "0");
 
                     var id = $.trim($(this).attr("id"));
@@ -190,7 +208,6 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
-
                     if ($(me.Variables.Registro1).is(":visible")) {
                         if (me.Funciones.ValidarCUVCampania()) {
                             me.Funciones.BuscarMotivo();
@@ -275,6 +292,7 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
+                    
 
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
@@ -349,84 +367,6 @@ $(document).ready(function () {
         };
 
         me.Funciones = {
-
-            //ValidarPaso2Trueque: function() {
-            //    if ($("#CambioProducto2").hasClass("disabledClick")) {
-            //        return false;
-            //    }
-
-            //    var ok = true;
-            //    ok = $.trim($("#txtCUV2").val()).length == "5" ? ok : false;
-            //    ok = $.trim($("#txtCUVDescripcion2").val()) != "" ? ok : false;
-            //    ok = $.trim($("#txtCUVPrecio2").val()) != "" ? ok : false;
-
-            //    var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
-            //    var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
-            //    var montoPedidoTrueque = $("#hdImporteTotal2").val();
-
-            //    //------------------------------------------------------------
-            //    waitingDialog();
-
-            //    var item = {
-            //        PedidoID: $("#txtPedidoID").val(),
-            //        CUV: $.trim($("#txtCUV2").val()),
-            //        Cantidad: $.trim($("#txtCantidad2").val()),
-            //        Motivo: $.trim($("#divMotivo [data-check='1']").attr("id")),
-            //        CampaniaID: $("#ddlCampania").val()
-            //    };
-
-            //    jQuery.ajax({
-            //        type: 'POST',
-            //        url: baseUrl + 'MisReclamos/ValidarNoPack',
-            //        dataType: 'json',
-            //        contentType: 'application/json; charset=utf-8',
-            //        data: JSON.stringify(item),
-            //        async: false,
-            //        cache: false,
-            //        success: function (data) {
-            //            closeWaitingDialog();
-            //            ok = data.success;
-
-            //            if (!data.success && data.message != "") {
-            //                alert_msg(data.message);
-            //                return false;
-            //            }
-            //        },
-            //        error: function (data, error) {
-            //            closeWaitingDialog();
-            //        }
-            //    });
-            //    //------------------------------------------------------------
-            //    var valorParametria = $("#hdParametriaCdr").val();
-            //    var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
-
-            //    var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
-
-            //    if (valorParametriaAbs == "1") {
-            //        var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
-            //        if (diferencia > parseInt(valorParametria)) {
-            //            alert_msg("Diferencia en trueques excede lo permitido");
-            //            return false;
-            //        }
-            //    } else {
-            //        if (valorParametriaAbs == "2") {
-            //            if (montoPedidoTrueque < montoMinimoReclamo) {
-            //                alert_msg("Está devolviendo menos de lo permitido");
-            //                return false;
-            //            }
-            //        } else {
-            //            var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
-            //            diferencia2 = Math.abs(diferencia2);
-
-            //            if (diferencia2 > parseInt(valorParametria)) {
-            //                alert_msg("Diferencia en trueques excede lo permitido");
-            //                return false;
-            //            }
-            //        }
-            //    }
-
-            //    return ok;
-            //},
 
             EvaluarCUV: function () {
                 if (!me.Funciones.CUVCambio()) return false;
@@ -650,7 +590,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarMotivo',
+                    url: UrlBuscarMotivo,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -738,7 +678,7 @@ $(document).ready(function () {
             },
 
             AnalizarOperacion: function (id) {
-
+                
                 if (id == "C") {
                     $("[data-tipo-confirma='cambio']").hide();
                     $("[data-tipo-confirma=canje]").show();
@@ -761,11 +701,13 @@ $(document).ready(function () {
 
                 if (id == "F") {
                     if (me.Funciones.ValidarPaso2Faltante(id)) {
-                        me.Funciones.CambioPaso2(100);
+                        //me.Funciones.CambioPaso2(100);
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
-
+                        
+                                                
                         me.Funciones.CargarPropuesta(id);
+                        $(me.Variables.btnAceptarSolucion).show()
                     }
                 }
 
@@ -838,7 +780,7 @@ $(document).ready(function () {
             },
 
             CambioPaso2: function (paso) {
-
+                
                 paso2Actual = paso2Actual + (paso || 1);
                 paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
                 $('div[id^=Cambio]').hide();
@@ -1028,6 +970,7 @@ $(document).ready(function () {
                         }
 
                         //$(me.Variables.Registro4).show();
+                        
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                             //$("#eleccion").show();
@@ -1056,7 +999,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarOperacion',
+                    url: UrlBuscarOperacion,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1130,7 +1073,6 @@ $(document).ready(function () {
             },
 
             DetalleCargar: function () {
-
                 var item = {
                     CDRWebID: $("#CDRWebID").val() || 0,
                     PedidoID: $("#hdPedidoID").val() || 0
@@ -1300,7 +1242,7 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
-
+                
                 var item = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,

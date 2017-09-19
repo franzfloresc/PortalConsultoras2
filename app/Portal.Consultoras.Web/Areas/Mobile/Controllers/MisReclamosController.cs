@@ -155,13 +155,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             if (model.FechaCulminado.HasValue)
             {
                 model.FormatoFechaCulminado = string.Format("{0}/{1}/{2}",
-                    model.FechaCulminado.Value.Day.ToString().PadLeft(2, '0'),
-                    model.FechaCulminado.Value.Month.ToString().PadLeft(2, '0'),
-                    model.FechaCulminado.Value.Year);
+                model.FechaCulminado.Value.Day.ToString().PadLeft(2, '0'),
+                model.FechaCulminado.Value.Month.ToString().PadLeft(2, '0'),
+                model.FechaCulminado.Value.Year);
             }
             model.FormatoCampaniaID = string.Format("{0}-{1}",
-                model.CampaniaID.ToString().Substring(0, 4),
-                model.CampaniaID.ToString().Substring(4, 2));
+            model.CampaniaID.ToString().Substring(0, 4),
+            model.CampaniaID.ToString().Substring(4, 2));
             model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
             model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
 
