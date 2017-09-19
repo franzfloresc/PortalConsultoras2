@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-using Portal.Consultoras.Web.CustomFilters;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Models.AutoMapper;
 using System;
@@ -52,18 +51,9 @@ namespace Portal.Consultoras.Web
 
             AutoMapperConfiguration.Configure();
         }
-
-        protected void Session_End( object sender, EventArgs e )
-        {
-            Session["OP_BuildMenuMobile"] = null;
-            Session["OP_BuildMenu"] = null;
-            Session["OP_BuildMenuService"] = null;
-        }
+        
         protected void Session_Start(object sender, EventArgs e)
         {
-            Session["OP_BuildMenuMobile"] = null;
-            Session["OP_BuildMenu"] = null;
-            Session["OP_BuildMenuService"] = null;
         }
 
         private void Application_BeginRequest(object sender, EventArgs e)
