@@ -110,14 +110,18 @@ $(document).ready(function () {
     }
 
     function EsValidoResponseGetOfertaDelDia(response) {
+        $("#ODD").find(".seccion-loading-contenedor").fadeOut();
         if (!response.success)
             return false;
 
         if (response.data.TeQuedan.TotalSeconds <= 0)
             return false;
 
-        if (response.data.ListaOfertas.length <= 0)
+        if (response.data.ListaOfertas.length <= 0) {
+            $("#ODD").find(".seccion-content-contenedor").fadeOut();
             return false;
+        } 
+        $("#ODD").find(".seccion-content-contenedor").fadeIn();   
 
         return true;
     }

@@ -133,7 +133,7 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
         return true;
     }
 
