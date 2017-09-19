@@ -24,12 +24,13 @@
     display: inline;
     position: relative;
     top: 1px;
-    font-size: 17px;
+    font-size: 22px;
     margin-right: 10px;
     font-weight: bolder !important;
     letter-spacing: 1px;
     float: left;
     font-family: 'Lato';
+    color: #b52e36;
 }
 
 .logo {
@@ -297,15 +298,16 @@
     background: #b11314;
     color: white;
     display: block;
-    width: 180px;
+    width: 210px;
     text-align: center;
     margin: auto;
-    padding: 10px 0px;
+    padding: 12px 0px;
     /* display: none; */
-    font-size: 10px;
+    font-size: 14px;
     float: right;
     margin-top: -5px;
     letter-spacing: 1px;
+    font-family: 'Lato';
 }
 .btn-set-previous {
     width: 80px !important;

@@ -2622,7 +2622,7 @@ function MostrarShowRoom() {
                             $("#hdEventoIDShowRoomVenta").val(eventoID);
                             var container = $('#PopShowroomVenta');
 
-                            var txtSaludoIntriga = response.nombre + ' YA COMENZÓ LA';
+                            var txtSaludoIntriga = response.nombre + ', YA COMENZÓ';
                             $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
                             $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupVenta);
                             $(container).show();

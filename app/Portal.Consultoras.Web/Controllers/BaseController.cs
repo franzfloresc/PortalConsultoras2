@@ -2770,6 +2770,11 @@ namespace Portal.Consultoras.Web.Controllers
                         entConf.MobileCantidadProductos = 0;
                         entConf.DesktopCantidadProductos = 0;
                     }
+
+                    if (menuActivo.CampaniaId > userData.CampaniaID)
+                    {
+                        entConf.UrlSeccion = "RevistaDigital/Revisar";
+                    }
                 }
                 if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
@@ -3004,6 +3009,9 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.SwDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
+                    break;
+                case Constantes.UrlMenuContenedor.OptDetalle:
+                    menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
                     break;
             }
 
