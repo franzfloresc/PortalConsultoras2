@@ -119,10 +119,11 @@ $(document).ready(function () {
 
         if (response.data.ListaOfertas.length <= 0) {
             $("#ODD").find(".seccion-content-contenedor").fadeOut();
+            
             return false;
         } 
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
-
+        $(".subnavegador").find("[data-codigo=ODD]").fadeIn();
         return true;
     }
 

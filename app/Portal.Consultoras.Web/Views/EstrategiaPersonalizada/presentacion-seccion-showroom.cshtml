@@ -16,7 +16,7 @@
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
      data-seccion-productos="" 
-     style="@backgroundVenta">
+     style="@backgroundVenta ;min-height: 500px; vertical-align: middle;">
 
     @if (mostrarPopupIntriga)
     {
@@ -55,7 +55,7 @@
                    
                         <div class="clear"></div>
                         @*<hr class="clear" />*@
-                        <div class="" style="position:relative;">
+                        <div class="" style="position:relative; margin-top: 25px;"">
                             {{#each this.data as |item|}}
                             <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
                                 <div data-campos="" style="display:none;">
