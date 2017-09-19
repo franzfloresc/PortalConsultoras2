@@ -34,6 +34,7 @@ $(document).ready(function () {
             aCambiarProducto2: "#aCambiarProducto2",
             txtCantidad: "#txtCantidad",
             txtCantidad2: "#txtCantidad2",
+            txtPrecioUnidad: "#txtPrecioUnidad",
             Registro1: ".Registro1",
             Registro2: ".Registro2",
             Registro3: ".Registro3",
@@ -49,13 +50,17 @@ $(document).ready(function () {
             SolicitudEnviada: "#SolicitudEnviada",
             hdPedidoID: "#hdPedidoID",
             hdCDRID: "#CDRWebID",
+            hdParametriaCdr: "#hdParametriaCdr",
+            hdParametriaAbsCdr: "#hdParametriaAbsCdr",
             hdNumeroPedido: "#hdNumeroPedido",
+            hdImporteTotalPedido: "#hdImporteTotalPedido",
             btnCambioProducto: "#btnCambioProducto",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             IrSolicitudInicial: "#IrSolicitudInicial",
             txtEmail: "#txtEmail",
             textoMensajeCDR: ".texto-mensaje-cdr",
-            enlaceIrAlFinal: ".enlace_ir_al_final"
+            enlaceIrAlFinal: ".enlace_ir_al_final",
+            divUltimasSolicitudes: "#divUltimasSolicitudes"
         };
 
         me.Eventos = {
@@ -102,7 +107,7 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso(-100);
                     me.Funciones.BuscarMotivo();
 
-                    $("#divUltimasSolicitudes").show();
+                    $(me.Variables.divUltimasSolicitudes).show();
                     $(me.Variables.Registro1).show();
 
                     $(me.Variables.RegistroAceptarSolucion).hide();
@@ -191,9 +196,9 @@ $(document).ready(function () {
                 $(me.Variables.ComboCampania).on("change", function () {
                     $(me.Variables.hdPedidoID).val(0);
                     $(me.Variables.hdNumeroPedido).val(0);
-
                     //BuscarCUV();
                 });
+
                 $(me.Variables.txtCuvMobile).on('keyup', function (evt) {
                     cuvKeyUp = true;
                     me.Funciones.EvaluarCUV();
@@ -285,8 +290,9 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
-                    $(me.Variables.Registro4).hide();
+                    $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
+                    $(me.Variables.Registro4).hide();
                     $(me.Variables.Enlace_regresar).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
 
@@ -429,7 +435,7 @@ $(document).ready(function () {
 
             AsignarCUV: function (pedido) {
                 pedido = pedido || new Object();
-               
+
                 if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
                     messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                     return false;
@@ -443,10 +449,10 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad).attr("data-maxvalue", data.Cantidad);
                     //$("#txtCUVDescripcion").val(data.DescripcionProd);
                     $(me.Variables.hdPedidoID).val(data.PedidoID);
-                    $("#hdNumeroPedido").val(pedido.NumeroPedido);
+                    $(me.Variables.hdNumeroPedido).val(pedido.NumeroPedido);
 
-                    $("#txtPrecioUnidad").val(data.PrecioUnidad);
-                    $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
+                    $(me.Variables.txtPrecioUnidad).val(data.PrecioUnidad);
+                    $(me.Variables.hdImporteTotalPedido).val(pedido.ImporteTotal);
                     $(me.Variables.hdCDRID).val(pedido.CDRWebID);
 
                     /*Seteando cuv y descripcion*/
@@ -477,17 +483,16 @@ $(document).ready(function () {
             EvaluarCUV2: function () {
 
                 if (!me.Funciones.CUV2Cambio()) return false;
-
                 var cuv = $(me.Variables.txtCuvMobile2).val();
 
                 if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
-                else {
-                    $("#txtCUVDescripcion2").val("");
-                    $("#txtCUVPrecio2").val("");
-                    $("#hdImporteTotal2").val(0);
-                    $("#spnImporteTotal2").html("");
-                    $("#CambioProducto2").addClass("disabledClick");
-                }
+                //else {
+                //    $("#txtCUVDescripcion2").val("");
+                //    $("#txtCUVPrecio2").val("");
+                //    $("#hdImporteTotal2").val(0);
+                //    $("#spnImporteTotal2").html("");
+                //    $("#CambioProducto2").addClass("disabledClick");
+                //}
             },
 
             CUV2Cambio: function () {
@@ -704,8 +709,7 @@ $(document).ready(function () {
                         //me.Funciones.CambioPaso2(100);
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
-
-
+                        
                         me.Funciones.CargarPropuesta(id);
                         $(me.Variables.btnAceptarSolucion).show()
                     }
@@ -729,7 +733,7 @@ $(document).ready(function () {
 
                     $("#spnSimboloMonedaReclamo").html(vbSimbolo);
 
-                    var precioUnidad = $("#txtPrecioUnidad").val();
+                    var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                     var cantidad = $("#txtCantidad").val();
                     var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
 
@@ -791,13 +795,13 @@ $(document).ready(function () {
                 var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
 
                 if (esCantidadPermitidaValida) {
-                    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                    var montoTotalPedido = $(me.Variables.hdImporteTotalPedido).val();
                     var montoProductosFaltanteActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
-                    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                    var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
                     var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
 
                     me.Funciones.ObtenerValorParametria(codigoSsic);
-                    var valorParametria = $("#hdParametriaCdr").val() || 0;
+                    var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
 
                     valorParametria = parseFloat(valorParametria);
 
@@ -841,11 +845,11 @@ $(document).ready(function () {
             ValidarPaso2Devolucion: function (codigoSsic) {
 
                 var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
-                var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                var montoTotalPedido = $(me.Variables.hdImporteTotalPedido).val();
                 var montoProductosDevolverActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
 
                 var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
-                var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
                 var montoDevolver = montoProductosDevolverActual + montoCuvActual;
 
                 if (diferenciaMonto < montoDevolver) {
@@ -855,7 +859,7 @@ $(document).ready(function () {
                 }
 
                 me.Funciones.ObtenerValorParametria(codigoSsic);
-                var valorParametria = $("#hdParametriaCdr").val() || 0;
+                var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
 
                 valorParametria = parseFloat(valorParametria);
                 var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
@@ -1123,8 +1127,8 @@ $(document).ready(function () {
 
                 if ($('#Paso2:visible').length > 0 || cantidadDetalles == 0) $("#btn_ver_solicitudes").hide();
                 else $("#btn_ver_solicitudes").show();
-                if ($('#Paso3:visible').length > 0) $("#divUltimasSolicitudes").hide();
-                else $("#divUltimasSolicitudes").show();
+                if ($('#Paso3:visible').length > 0) $(me.Variables.divUltimasSolicitudes).hide();
+                else $(me.Variables.divUltimasSolicitudes).show();
             },
 
             ObtenerValorParametria: function (codigoSsic) {
@@ -1148,8 +1152,8 @@ $(document).ready(function () {
                         var parametria = data.detalle;
                         var parametriaAbs = data.detalleAbs;
 
-                        $("#hdParametriaCdr").val(parametria.ValorParametria);
-                        $("#hdParametriaAbsCdr").val(parametriaAbs.ValorParametria);
+                        $(me.Variables.hdParametriaCdr).val(parametria.ValorParametria);
+                        $(me.Variables.hdParametriaAbsCdr).val(parametriaAbs.ValorParametria);
                     },
                     error: function (data, error) {
                         //closeWaitingDialog();
@@ -1202,7 +1206,7 @@ $(document).ready(function () {
 
             SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
-                var correo = $.trim($("#txtEmail").val());
+                var correo = $.trim($(me.Variables.txtEmail).val());
                 var celular = $.trim($("#txtTelefono").val());
 
                 if (IfNull(validarCorreoVacio, true) && correo == "") {
@@ -1302,7 +1306,7 @@ $(document).ready(function () {
                         if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
                         else $("#spnTipoDespacho").show().html(mensajeDespacho);
                         $("#divProcesoReclamo").hide();
-                        $("#divUltimasSolicitudes").hide();
+                        $(me.Variables.divUltimasSolicitudes).hide();
                         $(me.Variables.btnSiguiente4).hide();
                         $("#TituloReclamo").hide();
 
