@@ -150,7 +150,7 @@ $(document).ready(function () {
 
     $("body").on("change", "[data-selectcamp]", function (e) {
         e.preventDefault();
-        var obj = $(this).find("[value='" + $(this).val() + "']");
+        var obj = $("[data-selectcamp] option:selected");
         var campFormat = obj.attr("data-campformat") || "";
         if (campFormat == "") return false;
         campFormat = campFormat.replace("-", "");
@@ -322,10 +322,12 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
             else if (tipo == "f") {
                 $("#divContenidofacturado").empty().html(htmlDiv);
                 $("#divContenidofacturado").find('[data-paginacion="rows"]').val(data.PageSize);
-                if ($(".content_mis_pedidos").find("[data-camp='" + campania + "']").length == 1) {
-                    var parcial = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-parcial]').attr("data-parcial");
-                    var flete = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-flete]').attr("data-flete");
-                    var facturado = $(".content_mis_pedidos").find("[data-camp='" + campania + "']").find('[data-facturado]').attr("data-facturado");
+
+                var fila = $(".content_mis_pedidos").find("[data-camp='" + campania + "'][data-idpedido='" + pedidoId + "']")
+                if (fila.length == 1) {
+                    var parcial = fila.find('[data-parcial]').attr("data-parcial");
+                    var flete = fila.find('[data-flete]').attr("data-flete");
+                    var facturado = fila.find('[data-facturado]').attr("data-facturado");
                     $("#divContenidofacturado").find("[data-total]").html(parcial);
                     $("#divContenidofacturado").find("[data-flete]").html(flete);
                     $("#divContenidofacturado").find("[data-facturado]").html(facturado);
