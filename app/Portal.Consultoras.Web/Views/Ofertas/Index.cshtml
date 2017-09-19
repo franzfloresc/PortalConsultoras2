@@ -25,10 +25,18 @@
              data-tipoEstrategia="@seccion.TipoEstrategia"
              data-cantidadProductos="@seccion.CantidadProductos"
              id="@seccion.Codigo" >
-            <div data-seccion-content="">
+            <div data-seccion-content="" class="seccion-content-contenedor">
                 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
             </div>
-            <div data-seccion-load=""></div>
+            <div data-seccion-load="" class="seccion-loading-contenedor">
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                Cargando seccion @seccion.Titulo
+                <br/>
+                <img src="@Url.Content("~/Content/Images/Loading.gif")"/>
+            </div>
         </div>
     }
 </div>

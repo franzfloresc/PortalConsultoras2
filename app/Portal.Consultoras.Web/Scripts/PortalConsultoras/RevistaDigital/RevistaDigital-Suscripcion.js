@@ -183,3 +183,9 @@ function RedirectToLandingRD(origenWeb) {
     AccessRDAnalytics(origenWeb);
     window.location = urlRevistaDigital;
 }
+
+function RedireccionarContenedorComprar(origenWeb, codigo) {
+    AccessRDAnalytics(origenWeb);
+    codigo = $.trim(codigo);
+    window.location = urlContenedorComprar + (codigo != "" ? "#" + codigo : "");
+}

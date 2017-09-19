@@ -83,9 +83,9 @@ function SeccionCargarProductos(objConsulta) {
 
     listaSeccion[objConsulta.Codigo + "-" + objConsulta.CampaniaId] = objConsulta;
 
-    if (objConsulta.Codigo == CONS_CODIGO_SECCION.LAN
-        || objConsulta.Codigo == CONS_CODIGO_SECCION.RDS
-        || objConsulta.Codigo == CONS_CODIGO_SECCION.RD) {
+    if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN
+        || objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
+        || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
         OfertaCargarProductos(null, false, objConsulta);
         return false;
     }
@@ -130,25 +130,30 @@ function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
     if (htmlSeccion.length !== 1) {
         console.log(data.Seccion);
-        return false
+        return false;
     }
 
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
         return true;
     }
 
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         console.log(data.Seccion);
-        return false
+        return false;
     }
 
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if (data.Seccion.TemplateProducto === "") {
         console.log(data.Seccion);
-        return false
+        return false;
     }
 
+    if ((data.data !== undefined && data.data.length > 0) || 
+        (data.lista !== undefined && data.lista.length > 0)) {
+        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+    }
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
     
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {

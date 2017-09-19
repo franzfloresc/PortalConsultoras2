@@ -2790,7 +2790,9 @@ namespace Portal.Consultoras.Web.Controllers
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) continue;
                 }
 
-               RemplazarTagNombreConfiguracionOferta(ref entConf);
+                RemplazarTagNombreConfiguracionOferta(ref entConf);
+
+                if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
 
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = menuActivo.CampaniaId,
