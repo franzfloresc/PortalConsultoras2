@@ -557,15 +557,23 @@
     min-height: 532px;
 }
 .detalle_set_banner{
-    position:absolute;
-    width:auto;
-    min-width:357px;
-    top:30px;
-    left:30px;
-    background:white;
+    position: absolute;
+    width: auto;
+    min-width: 302px;
+    top: 30px;
+    left: 7%;
+    background: white;
     z-index: 20;
-    /*padding:0px 20px 10px 20px;*/
 
+}
+.detalle_set_banner_ofertas_fix {
+    position: absolute;
+    width: auto;
+    min-width: 302px;
+    top: 30px;
+    left: 45px;
+    background: white;
+    z-index: 20;
 }
 .content_set_imagen_banner{
     width:auto;
