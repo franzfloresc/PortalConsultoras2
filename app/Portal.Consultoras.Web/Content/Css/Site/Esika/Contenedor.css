@@ -393,7 +393,7 @@
 
 .seccion-content-contenedor {
     font-family: 'Lato' !important;
-    display: none;
+    /*display: none;*/
 }
 .seccion-loading-contenedor {
     font-family: 'Lato' !important;

@@ -72,9 +72,9 @@ function SeccionObtenerSeccion(seccion) {
 
 function SeccionCargarProductos(objConsulta) {
     
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
+    //if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+    //    return true;
+    //}
 
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
@@ -133,9 +133,9 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
+    //if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+    //    return true;
+    //}
 
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
