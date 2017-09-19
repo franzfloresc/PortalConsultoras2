@@ -3008,6 +3008,9 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.SwDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
+                case Constantes.UrlMenuContenedor.OptDetalle:
+                    menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                    break;
             }
 
             var configMenu = listMenu.FirstOrDefault(m => m.Codigo == menuActivo.Codigo && m.CampaniaId == menuActivo.CampaniaId);

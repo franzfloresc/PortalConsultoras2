@@ -1082,6 +1082,7 @@ namespace Portal.Consultoras.Common
             public const string SwInicio = "/showroom";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
+            public const string OptDetalle = "/ofertasparati/detalle";
         }
     }
 }
