@@ -191,7 +191,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -221,7 +221,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -243,6 +245,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+	
 END
 GO
 
@@ -438,7 +445,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -468,7 +475,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -490,6 +499,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -685,7 +699,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -715,7 +729,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -737,6 +753,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -932,7 +953,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -962,7 +983,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -984,6 +1007,10 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 END
 GO
 
@@ -1179,7 +1206,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -1209,7 +1236,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -1231,6 +1260,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -1426,7 +1460,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -1456,7 +1490,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -1478,6 +1514,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -1673,7 +1714,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -1703,7 +1744,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -1725,6 +1768,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -1920,7 +1968,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -1950,7 +1998,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -1972,6 +2022,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -2167,7 +2222,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -2197,7 +2252,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -2219,6 +2276,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -2414,7 +2476,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -2444,7 +2506,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -2466,6 +2530,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -2661,7 +2730,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -2691,7 +2760,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -2713,6 +2784,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -2908,7 +2984,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -2938,7 +3014,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -2960,6 +3038,11 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
 
@@ -3155,7 +3238,7 @@ IF NOT EXISTS (
 )
 BEGIN
 	ALTER TABLE ConfiguracionPais
-	ADD OrdenBpt int;
+	ADD OrdenBpt int CONSTRAINT CON_ConfiguracionPais_OrdenBpt DEFAULT(0);
 END
 GO
 
@@ -3185,7 +3268,9 @@ BEGIN
 		[MobileCantidadProductos] [int] NOT NULL,
 		[DesktopActivo] [bit] NOT NULL,
 		[MobileActivo] [bit] NOT NULL,
-		[UrlSeccion] [varchar](250) NULL
+		[UrlSeccion] [varchar](250) NULL,
+		[DesktopOrdenBpt] [int] NOT NULL,
+		[MobileOrdenBpt] [int] NOT NULL
 	)
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_ConfiguracionPaisID]  DEFAULT ((0)) FOR [ConfiguracionPaisID]
@@ -3207,5 +3292,10 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopActivo]  DEFAULT ((0)) FOR [DesktopActivo]
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileActivo]  DEFAULT ((0)) FOR [MobileActivo]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_DesktopOrdenBpt]  DEFAULT ((0)) FOR [DesktopOrdenBpt]
+
+	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
+
 END
 GO
