@@ -120,7 +120,6 @@ $(document).ready(function () {
                 });
 
                 $("body, .ocultar_mi_solicitud").click(function (e) {
-
                     e.stopPropagation();
 
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
@@ -137,7 +136,6 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $(me.Variables.numSolicitudes).fadeIn(200);
                     }, 450);
-
                 });
 
                 $(".enlace_ir_al_final a").click(function (e) {
@@ -262,8 +260,18 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
-                    $(me.Variables.Registro2).hide();
-                    $(me.Variables.Registro1).show();
+
+                    if ($(me.Variables.Registro2).is(":visible")) {
+                        $(me.Variables.Registro2).hide();
+                        $(me.Variables.Registro1).show();
+                        $(me.Variables.btnSiguiente1).show();
+                    } else {
+
+                        $(me.Variables.Registro4).hide();
+                        $(me.Variables.Registro3).hide();
+                        $(me.Variables.Registro2).show();
+                    }
+
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
@@ -1267,7 +1275,6 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarSeccionValidaTusDatos);
                     return false;
                 }
-
                 if (correo != "" && !validateEmail(correo)) {
                     me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
                     ok = false;
