@@ -1,6 +1,7 @@
 ﻿using OpenSource.Library.DataAccess;
 using Portal.Consultoras.Common;
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Runtime.Serialization;
 
@@ -80,7 +81,8 @@ namespace Portal.Consultoras.Entities
         public BEUsuario()
         {
         }
-        
+
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row)
         {
             msCodigoConsultora = row["CodigoConsultora"].ToString();
@@ -147,6 +149,7 @@ namespace Portal.Consultoras.Entities
             //EPD-1919 FIN
         }
 
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEUsuario(IDataRecord row, bool Tipo)
         {
             if (DataRecord.HasColumn(row, "PaisID")) miPaisID = Convert.ToInt32(row["PaisID"]);
@@ -489,6 +492,7 @@ namespace Portal.Consultoras.Entities
                 AceptacionConsultoraDA = Convert.ToInt32(row["CompartirDatos"]);
         }
 
+        [Column("ConsultoraAsociadoID")]
         [DataMember]
         public long ConsultoraAsociadaID
         {
@@ -498,6 +502,8 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string RolDescripcion { get; set; }
+
+        [Column("NroCampanias")]
         [DataMember]
         public int NroCampanias { get; set; }
         [DataMember]
@@ -510,6 +516,8 @@ namespace Portal.Consultoras.Entities
         public double ZonaHoraria { get; set; }
         [DataMember]
         public int EsZonaDemAnti { get; set; }
+
+        [Column("UsuarioPrueba")]
         [DataMember]
         public int UsuarioPrueba { get; set; }
         [DataMember]
@@ -532,6 +540,8 @@ namespace Portal.Consultoras.Entities
         public int SegmentoID { get; set; }
         [DataMember]
         public DateTime FechaNacimiento { get; set; }
+
+        [Column("FechaLimitePago")]
         [DataMember]
         public DateTime FechaLimPago { get; set; }
         [DataMember]
@@ -594,6 +604,7 @@ namespace Portal.Consultoras.Entities
             set { mCodigoFuente = value; }
         }
 
+        [Column("CodigoUsuario")]
         [DataMember]
         public string CodigoUsuario
         {
@@ -601,18 +612,23 @@ namespace Portal.Consultoras.Entities
             set { msCodigoUsuario = value; }
         }
 
+        [Column("CodigoConsultora")]
         [DataMember]
         public string CodigoConsultora
         {
             get { return msCodigoConsultora; }
             set { msCodigoConsultora = value; }
         }
+
+        [Column("PaisID")]
         [DataMember]
         public int PaisID
         {
             get { return miPaisID; }
             set { miPaisID = value; }
         }
+
+        [Column("NombreCompleto")]
         [DataMember]
         public string Nombre
         {
@@ -637,6 +653,8 @@ namespace Portal.Consultoras.Entities
             get { return msConfirmarClave; }
             set { msConfirmarClave = value; }
         }
+
+        [Column("EMail")]
         [DataMember]
         public string EMail
         {
@@ -649,24 +667,32 @@ namespace Portal.Consultoras.Entities
             get { return mbEMailActivo; }
             set { mbEMailActivo = value; }
         }
+
+        [Column("Telefono")]
         [DataMember]
         public string Telefono
         {
             get { return msTelefono; }
             set { msTelefono = value; }
         }
+
+        [Column("TelefonoTrabajo")]
         [DataMember]
         public string TelefonoTrabajo
         {
             get { return msTelefonoTrabajo; }
             set { msTelefonoTrabajo = value; }
         }
+
+        [Column("Celular")]
         [DataMember]
         public string Celular
         {
             get { return msCelular; }
             set { msCelular = value; }
         }
+
+        [Column("Sobrenombre")]
         [DataMember]
         public string Sobrenombre
         {
@@ -687,6 +713,8 @@ namespace Portal.Consultoras.Entities
             get { return mbActivo; }
             set { mbActivo = value; }
         }
+
+        [Column("TipoUsuario")]
         [DataMember]
         public Int16 TipoUsuario
         {
@@ -700,6 +728,7 @@ namespace Portal.Consultoras.Entities
             set { mbCambioClave = value; }
         }
 
+        [Column("CodigoISO")]
         [DataMember]
         public string CodigoISO
         {
@@ -707,6 +736,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoISO = value; }
         }
 
+        [Column("RegionID")]
         [DataMember]
         public int RegionID
         {
@@ -714,6 +744,7 @@ namespace Portal.Consultoras.Entities
             set { miRegionID = value; }
         }
 
+        [Column("CodigorRegion")]
         [DataMember]
         public string CodigorRegion
         {
@@ -721,6 +752,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigorRegion = value; }
         }
 
+        [Column("ZonaID")]
         [DataMember]
         public int ZonaID
         {
@@ -728,6 +760,7 @@ namespace Portal.Consultoras.Entities
             set { miZonaID = value; }
         }
 
+        [Column("CodigoZona")]
         [DataMember]
         public string CodigoZona
         {
@@ -735,6 +768,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoZona = value; }
         }
 
+        [Column("ConsultoraID")]
         [DataMember]
         public long ConsultoraID
         {
@@ -742,6 +776,7 @@ namespace Portal.Consultoras.Entities
             set { miConsultoraID = value; }
         }
 
+        [Column("RolID")]
         [DataMember]
         public short RolID
         {
@@ -798,6 +833,7 @@ namespace Portal.Consultoras.Entities
             set { mbZonaValida = value; }
         }
 
+        [Column("Simbolo")]
         [DataMember]
         public string Simbolo
         {
@@ -917,12 +953,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int Lider { get; set; }
 
+        [Column("ConsultoraAsociada")]
         [DataMember]
         public string ConsultoraAsociada { get; set; }
 
         [DataMember]
         public string CampaniaInicioLider { get; set; }
 
+        [Column("SeccionGestionLider")]
         [DataMember]
         public string SeccionGestionLider { get; set; }
 
@@ -986,6 +1024,8 @@ namespace Portal.Consultoras.Entities
             get { return mDescripcionNivel; }
             set { mDescripcionNivel = value; }
         }
+
+        [Column("esConsultoraLider")]
         [DataMember]
         public bool esConsultoraLider
         {
@@ -1074,6 +1114,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int VioTutorialSalvavidas { get; set; }
 
+        [Column("TieneHana")]
         [DataMember]
         public int TieneHana { get; set; }
 
@@ -1207,6 +1248,7 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaActualPais { get; set; }
 
         /*PL20-1226*/
+        [Column("TieneODD")]
         [DataMember]
         public bool OfertaDelDia { get; set; }
 
@@ -1214,12 +1256,14 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
         
+        [Column("DocumentoIdentidad")]
         [DataMember]
         public string DocumentoIdentidad { get; set; }
                 
         public bool DiaPROL { get; set; }        
         public bool EsHoraReserva { get; set; }
         
+        [Column("TieneLoginExterno")]
         [DataMember]
         public bool TieneLoginExterno { get; set; }
 
@@ -1281,5 +1325,13 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool PedidoFICActivo { get; set; }
 
+        [DataMember]
+        public string FotoPerfil { get; set; }
+
+        [DataMember]
+        public bool AceptaTerminosCondiciones { get; set; }
+
+        [DataMember]
+        public string DestinatariosFeedback { get; set; }
     }
 }

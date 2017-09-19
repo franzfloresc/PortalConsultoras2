@@ -136,6 +136,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.GetSesionUsuario(paisID, codigoUsuario);
         }
 
+        public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetSesionUsuarioWS(paisID, codigoUsuario);
+        }
+
         public string GetUsuarioAsociado(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();

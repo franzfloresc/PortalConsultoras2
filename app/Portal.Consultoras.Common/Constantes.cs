@@ -799,6 +799,8 @@ namespace Portal.Consultoras.Common
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
 
+            public const int CorreoFeedbackAppConsultora = 105;
+
             /// <summary>
             /// Variables configurables del app
             /// </summary>
@@ -1031,6 +1033,16 @@ namespace Portal.Consultoras.Common
             public const short Todos = 0;
             public const short Desktop = 1;
             public const short Mobile = 2;
+        }
+
+        public class ProveedorAutenticacion
+        {
+            public const string Facebook = "Facebook";
+        }
+
+        public class TipoTerminosCondiciones
+        {
+            public const short App = 1;
         }
     }
 }

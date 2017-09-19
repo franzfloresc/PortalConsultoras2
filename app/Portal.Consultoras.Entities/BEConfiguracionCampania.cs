@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -13,23 +14,39 @@ namespace Portal.Consultoras.Entities
     [DataContract]
     public class BEConfiguracionCampania
     {
+        [Column("CampaniaID")]
         [DataMember]
         public int CampaniaID { get; set; }
+
+        [Column("FechaInicioFacturacion")]
         [DataMember]
         public DateTime FechaInicioFacturacion { get; set; }
+
+        [Column("FechaFinFacturacion")]
         [DataMember]
         public DateTime FechaFinFacturacion { get; set; }
+
+        [Column("CampaniaDescripcion")]
         [DataMember]
         public string CampaniaDescripcion { get; set; }
 
+        [Column("HoraInicio")]
         [DataMember]
         public TimeSpan HoraInicio { get; set; }
+
+        [Column("HoraFin")]
         [DataMember]
         public TimeSpan HoraFin { get; set; }
+
+        [Column("DiasAntes")]
         [DataMember]
         public byte DiasAntes { get; set; }
+
+        [Column("ZonaValida")]
         [DataMember]
         public bool ZonaValida { get; set; }
+
+        [Column("HoraInicioNoFacturable")]
         [DataMember]
         public TimeSpan HoraInicioNoFacturable { get; set; }
         [DataMember]
@@ -38,12 +55,20 @@ namespace Portal.Consultoras.Entities
         public int EstadoPedido { get; set; }
         [DataMember]
         public bool ModificaPedidoReservado { get; set; }
+
+        [Column("HoraCierreZonaNormal")]
         [DataMember]
         public TimeSpan HoraCierreZonaNormal { get; set; }
+
+        [Column("HoraCierreZonaDemAnti")]
         [DataMember]
         public TimeSpan HoraCierreZonaDemAnti { get; set; }
+
+        [Column("ZonaHoraria")]
         [DataMember]
         public double ZonaHoraria { get; set; }
+
+        [Column("EsZonaDemAnti")]
         [DataMember]
         public int EsZonaDemAnti { get; set; }
         [DataMember]
@@ -70,8 +95,12 @@ namespace Portal.Consultoras.Entities
         public TimeSpan FactorCierreZonaDemAnti { get; set; }
         [DataMember]
         public bool ValidacionAbierta { get; set; }//CCSS_JZ_PROL2
+
+        [Column("NuevoPROL")]
         [DataMember]
         public bool NuevoPROL { get; set; }//RQ_NP - R2133
+
+        [Column("ZonaNuevoPROL")]
         [DataMember]
         public bool ZonaNuevoPROL { get; set; }//RQ_NP - R2133
         [DataMember]
@@ -89,9 +118,17 @@ namespace Portal.Consultoras.Entities
         public int IndicadorGPRSB { get; set; }
         [DataMember]
         public DateTime FechaActualPais { get; set; }
+
+        [Column("AceptacionConsultoraDA")]
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
 
+        public BEConfiguracionCampania()
+        {
+            
+        }
+
+        [Obsolete("Use MapUtil.MapToCollection")]
         public BEConfiguracionCampania(IDataRecord datarec)
         {
             if (DataRecord.HasColumn(datarec, "CampaniaID") && datarec["CampaniaID"] != DBNull.Value)

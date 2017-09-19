@@ -71,6 +71,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario);
+
+        [OperationContract]
         bool IsUserExist(int paisID, string CodigoUsuario);
 
         [OperationContract]
