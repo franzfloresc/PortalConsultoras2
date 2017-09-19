@@ -72,6 +72,10 @@ function SeccionObtenerSeccion(seccion) {
 
 function SeccionCargarProductos(objConsulta) {
     
+    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+        return true;
+    }
+
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
     if (objConsulta.UrlObtenerProductos === "")
@@ -128,13 +132,17 @@ function SeccionMostrarProductos(data) {
         console.log(data.Seccion);
         return false;
     }
-    
+
+    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
+        return true;
+    }
+
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         console.log(data.Seccion);
         return false;
     }
-    
+
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if (data.Seccion.TemplateProducto === "") {
         console.log(data.Seccion);
@@ -146,9 +154,8 @@ function SeccionMostrarProductos(data) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
     }
-
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
-
+    
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
         if (isMobile()) {
             RenderCarruselSimple(htmlSeccion);
