@@ -625,11 +625,14 @@ namespace Portal.Consultoras.Web.Controllers
                 var categorias = listaShowRoomOferta.GroupBy(p => p.CodigoCategoria).Select(p => p.First());
                 foreach (var item in categorias)
                 {
-                    var beCategoria = new ShowRoomCategoriaModel();
-                    beCategoria.Codigo = item.CodigoCategoria;
-                    beCategoria.Descripcion = item.DescripcionCategoria;
-                    beCategoria.EventoID = showRoomEventoModel.EventoID;
-                    listaCategoria.Add(beCategoria);
+                    if (!string.IsNullOrEmpty(item.DescripcionCategoria))
+                    {
+                        var beCategoria = new ShowRoomCategoriaModel();
+                        beCategoria.Codigo = item.CodigoCategoria;
+                        beCategoria.Descripcion = item.DescripcionCategoria;
+                        beCategoria.EventoID = showRoomEventoModel.EventoID;
+                        listaCategoria.Add(beCategoria);
+                    }
                 }
 
                 listaCategoria = listaCategoria.OrderBy(p => p.Descripcion).ToList();
