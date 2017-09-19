@@ -38,6 +38,7 @@
         letter-spacing: 2px;
         font-size: 11px;
         margin-bottom: 0;
+        text-transform: uppercase;
     }
 .bc_mobile-texto .mobile-txt span{
   	letter-spacing: 1px;

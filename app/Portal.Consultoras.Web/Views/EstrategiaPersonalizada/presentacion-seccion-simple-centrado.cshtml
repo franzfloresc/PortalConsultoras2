@@ -10,10 +10,16 @@
     margin: auto;     background-size: 100% 100% !important;
     background-position: center !important; min-height: 500px;">
     <div class="titulo">
-        <h2>@Model.Titulo</h2> 
+        @if (Model.Titulo != "")
+        {
+            <h2>@Model.Titulo</h2>
+        }
+        @if (Model.VerMas)
+        {
             <div class="boton-ir">
                 <a href="javascript: window.location.href = '@Model.UrlLandig'">VER MÁS OFERTAS</a>
             </div>
+        }
     </div>
      <div class="clear"></div>
     <div class="contenido" data-seccion-productos="" ></div>

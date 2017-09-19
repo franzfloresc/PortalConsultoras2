@@ -947,7 +947,7 @@ div#tab_revistasdigital_mobile {
 .content_carrusel_landing{
     width:80%;
     margin: 0 auto;
-    padding-top:30px;
+    padding-top:10px;
     padding-bottom:20px;
 }
 
@@ -1201,6 +1201,10 @@ height: 100%;
 .div-carousel-rd-next {
     right: -14%;
     top: 35%;
+}
+
+.btn-ofertas-margen-fix {
+    margin-top: 10px;
 }
 
 @media (max-width : 800px) {

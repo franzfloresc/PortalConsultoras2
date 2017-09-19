@@ -1390,9 +1390,10 @@
     margin-bottom: 40px;
 }
 .pack_personalizado_ficha .revista_producto_video {
-    height: 390px;
+        height: 402px;
     float: right;
     display: inline-block;
+    overflow: hidden;
 }
 
 .lanzamiento-view-detalle{
@@ -1411,7 +1412,9 @@
 .lanzamiento-view-detalle .nombre_producto{
     max-width: 100%;
 }
-
+.btn-ofertas-margen-fix {
+    margin-top: 10px;
+}
 /*QUERIES*/
 @media (max-width: 1189px) {
     .revista_ficha {

@@ -10,6 +10,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -35,6 +38,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -84,6 +88,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -133,6 +138,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -182,6 +188,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -231,6 +238,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -280,6 +288,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -329,6 +338,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -378,6 +388,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -427,6 +438,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -476,6 +488,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -525,6 +538,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -574,6 +588,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
@@ -623,6 +638,7 @@ BEGIN
 		,C.DesktopLogoBanner
 		,C.MobileLogoBanner
 		,C.UrlMenu
+		,C.OrdenBpt
 	from dbo.fnConfiguracionPais_GetAll(
 		@Codigo,
 		@CodigoRegion,
