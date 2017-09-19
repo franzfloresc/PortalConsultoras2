@@ -33278,7 +33278,7 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-.enlace_chat a{
+.enlace_chat {
     display:inline;
     font-weight:bold;
     text-decoration:underline;
@@ -33639,11 +33639,7 @@ h1#penmostreo .campana {
 .mod-ofer1 .boton_Agregalo_home{
     width:139px;
 }
-.enlace_chat a{
-    display:inline;
-    font-weight:bold;
-    text-decoration:underline;
-}
+
 .tooltipPedido{
     display:none;
     position:absolute;
@@ -34286,11 +34282,6 @@ h1#penmostreo .campana {
     margin-left: 3%;
 }
 
-.enlace_chat a{
-    display:inline;
-    font-weight:bold;
-    text-decoration:underline;
-}
 .menu_socia_empresaria > .new_menu > .new_menu_a{
     font-size:10.5px;
     letter-spacing:0.5px;
@@ -35895,3 +35886,4 @@ h1#penmostreo .campana {
     display: block;
 }
 /*EPD-1919 FIN*/
+

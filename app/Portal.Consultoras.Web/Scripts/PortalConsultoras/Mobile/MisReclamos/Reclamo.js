@@ -61,7 +61,7 @@ $(document).ready(function () {
         me.Eventos = {
             bindEvents: function () {
 
-                var pedidoId = parseInt($("#hdPedidoID").val());
+                var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
                     //CambioPaso(1);
                     //CambioPaso(3);
@@ -188,6 +188,12 @@ $(document).ready(function () {
                     me.Funciones.DetalleAccion(this);
                 });
 
+                $(me.Variables.ComboCampania).on("change", function () {
+                    $(me.Variables.hdPedidoID).val(0);
+                    $(me.Variables.hdNumeroPedido).val(0);
+
+                    //BuscarCUV();
+                });
                 $(me.Variables.txtCuvMobile).on('keyup', function (evt) {
                     cuvKeyUp = true;
                     me.Funciones.EvaluarCUV();
@@ -408,7 +414,6 @@ $(document).ready(function () {
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
-                            //$("#divMotivo").html("");    
                             messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
@@ -424,8 +429,7 @@ $(document).ready(function () {
 
             AsignarCUV: function (pedido) {
                 pedido = pedido || new Object();
-                //$("#divMotivo").html("");
-
+               
                 if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
                     messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
                     return false;
@@ -438,12 +442,12 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad).removeAttr("disabled");
                     $(me.Variables.txtCantidad).attr("data-maxvalue", data.Cantidad);
                     //$("#txtCUVDescripcion").val(data.DescripcionProd);
-                    $("#hdPedidoID").val(data.PedidoID);
+                    $(me.Variables.hdPedidoID).val(data.PedidoID);
                     $("#hdNumeroPedido").val(pedido.NumeroPedido);
 
                     $("#txtPrecioUnidad").val(data.PrecioUnidad);
                     $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
-                    $("#CDRWebID").val(pedido.CDRWebID);
+                    $(me.Variables.hdCDRID).val(pedido.CDRWebID);
 
                     /*Seteando cuv y descripcion*/
                     $(me.Variables.txtCuv).html(data.CUV);
@@ -572,7 +576,7 @@ $(document).ready(function () {
 
             BuscarMotivo: function () {
 
-                var PedidoId = $.trim($("#hdPedidoID").val()) || 0;
+                var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
                 var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
                     return false;
@@ -625,7 +629,7 @@ $(document).ready(function () {
 
             ValidarPaso1: function () {
                 var ok = true;
-                ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
+                ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
                 if (!ok) {
@@ -634,7 +638,7 @@ $(document).ready(function () {
                 }
 
                 var item = {
-                    PedidoID: $("#hdPedidoID").val(),
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
                     CUV: $("#txtCuv").text(),
                     Cantidad: $.trim($("#txtCantidad").val()),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
@@ -900,8 +904,8 @@ $(document).ready(function () {
                 var resultado = 0;
 
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     EstadoSsic: codigoSsic
                 };
                 ShowLoading();
@@ -987,7 +991,7 @@ $(document).ready(function () {
                 // 
                 var item = {
                     CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
-                    PedidoID: $("#hdPedidoID").val(),
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id")
                 };
 
@@ -1057,7 +1061,7 @@ $(document).ready(function () {
                             return false;
                         }
 
-                        $("#CDRWebID").val(data.detalle);
+                        $(me.Variables.hdCDRID).val(data.detalle);
                         //me.Funciones.CambioPaso();
                         me.Funciones.DetalleCargar();
                     },
@@ -1070,8 +1074,8 @@ $(document).ready(function () {
 
             DetalleCargar: function () {
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0
                 };
 
                 ShowLoading();
@@ -1159,8 +1163,8 @@ $(document).ready(function () {
                 var resultado = 0;
 
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     EstadoSsic: codigoOperacion
                 };
                 ShowLoading();

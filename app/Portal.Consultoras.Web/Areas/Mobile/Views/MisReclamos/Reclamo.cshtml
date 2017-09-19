@@ -109,8 +109,7 @@
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
             <form class="formulario_inscripcion padding0">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
@@ -135,7 +134,7 @@
             <span class="icono_arrow_left">
                 <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
             </span>
-            <a class="btn_agrega_otro_reclamo" href="@Url.Action(" Index")" title="Ver solicitudes anteriores">
+            <a class="btn_agrega_otro_reclamo" href="@Url.Action("Index")" title="Ver solicitudes anteriores">
                 <span>VER SOLICITUDES ANTERIORES</span>
             </a>
             <!-- FIN BOTÓN VER SOLICITUDES ANTERIORES -->
@@ -428,7 +427,7 @@
             </div>
             <!-- FIN VISTA SOLICITUD ENVIADA -->
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action(" Index")">
+            <a class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Ver solicitudes" href="@Url.Action("Index")">
                 <span class="icono_arrow_left">
                     <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver tus solicitudes" />
                 </span>
@@ -686,7 +685,6 @@
                     <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>*@
         </div>
     </div>
-    </div>
     {{/each}}
 </script>
 
@@ -739,5 +737,5 @@
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
     </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")">></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Mobile/MisReclamos/Reclamo.js")"></script>
 }
