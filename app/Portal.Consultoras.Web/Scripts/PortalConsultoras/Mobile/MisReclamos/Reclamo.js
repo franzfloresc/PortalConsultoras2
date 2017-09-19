@@ -34,6 +34,7 @@ $(document).ready(function () {
             aCambiarProducto2: "#aCambiarProducto2",
             txtCantidad: "#txtCantidad",
             txtCantidad2: "#txtCantidad2",
+            txtPrecioUnidad: "#txtPrecioUnidad",
             Registro1: ".Registro1",
             Registro2: ".Registro2",
             Registro3: ".Registro3",
@@ -49,19 +50,23 @@ $(document).ready(function () {
             SolicitudEnviada: "#SolicitudEnviada",
             hdPedidoID: "#hdPedidoID",
             hdCDRID: "#CDRWebID",
+            hdParametriaCdr: "#hdParametriaCdr",
+            hdParametriaAbsCdr: "#hdParametriaAbsCdr",
             hdNumeroPedido: "#hdNumeroPedido",
+            hdImporteTotalPedido: "#hdImporteTotalPedido",
             btnCambioProducto: "#btnCambioProducto",
             btn_ver_solicitudes: "#btn_ver_solicitudes",
             IrSolicitudInicial: "#IrSolicitudInicial",
             txtEmail: "#txtEmail",
             textoMensajeCDR: ".texto-mensaje-cdr",
-            enlaceIrAlFinal: ".enlace_ir_al_final"
+            enlaceIrAlFinal: ".enlace_ir_al_final",
+            divUltimasSolicitudes: "#divUltimasSolicitudes"
         };
 
         me.Eventos = {
             bindEvents: function () {
 
-                var pedidoId = parseInt($("#hdPedidoID").val());
+                var pedidoId = parseInt($(me.Variables.hdPedidoID).val());
                 if (pedidoId != 0) {
                     //CambioPaso(1);
                     //CambioPaso(3);
@@ -72,8 +77,7 @@ $(document).ready(function () {
                     $("#pasotresactivo").show();
                     $(me.Variables.RegistroAceptarSolucion).show();
 
-                    if ($(me.Variables.Registro1).is(":visible"))
-                    {
+                    if ($(me.Variables.Registro1).is(":visible")) {
                         $(me.Variables.Registro1).hide();
                     }
                 }
@@ -86,7 +90,7 @@ $(document).ready(function () {
                     }
 
                     //El if se hizo con !() para considerar posibles valores null o undefined de $('#ddlCampania').val()
-                    if (!($('#ddlCampania').val() > 0)) {
+                    if (!($(me.Variables.ComboCampania).val() > 0)) {
                         messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
                         return false;
                     }
@@ -103,7 +107,7 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso(-100);
                     me.Funciones.BuscarMotivo();
 
-                    $("#divUltimasSolicitudes").show();
+                    $(me.Variables.divUltimasSolicitudes).show();
                     $(me.Variables.Registro1).show();
 
                     $(me.Variables.RegistroAceptarSolucion).hide();
@@ -111,7 +115,7 @@ $(document).ready(function () {
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
 
-                    $("#ddlCampania").attr("disabled", "disabled");
+                    $(me.Variables.ComboCampania).attr("disabled", "disabled");
                 });
 
                 $(me.Variables.miSolicitudCDR).click(function (e) {
@@ -138,7 +142,6 @@ $(document).ready(function () {
                 });
 
                 $("body, .ocultar_mi_solicitud").click(function (e) {
-
                     e.stopPropagation();
 
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
@@ -155,7 +158,6 @@ $(document).ready(function () {
                     setTimeout(function () {
                         $(me.Variables.numSolicitudes).fadeIn(200);
                     }, 450);
-
                 });
 
                 $(".enlace_ir_al_final a").click(function (e) {
@@ -172,7 +174,7 @@ $(document).ready(function () {
                 });
 
                 $(".listado_soluciones_cdr").on('click', '.solucion_cdr', function () {
-                    
+
                     $(".solucion_cdr").attr("data-check", "0");
 
                     var id = $.trim($(this).attr("id"));
@@ -189,6 +191,12 @@ $(document).ready(function () {
 
                     e.preventDefault(); // prevents the <a> from navigating                  
                     me.Funciones.DetalleAccion(this);
+                });
+
+                $(me.Variables.ComboCampania).on("change", function () {
+                    $(me.Variables.hdPedidoID).val(0);
+                    $(me.Variables.hdNumeroPedido).val(0);
+                    //BuscarCUV();
                 });
 
                 $(me.Variables.txtCuvMobile).on('keyup', function (evt) {
@@ -210,7 +218,10 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
+                    $(me.Variables.Enlace_regresar).show();
+
                     if ($(me.Variables.Registro1).is(":visible")) {
+
                         if (me.Funciones.ValidarCUVCampania()) {
                             me.Funciones.BuscarMotivo();
                             $("#pasodos").hide();
@@ -265,26 +276,31 @@ $(document).ready(function () {
                 });
 
                 $(me.Variables.btnAceptarSolucion).click(function () {
-
                     me.Funciones.DetalleGuardar();
 
+                    $("#Cambio3").hide();
+                    $("#pasotres").hide();
+                    $(me.Variables.Enlace_regresar).hide();
                     $(me.Variables.Registro4).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
 
                     $(me.Variables.btnSiguiente4).show();
-                    $("#Cambio3").hide();
-                    $("#pasotres").hide();
                     $("#pasotresactivo").show();
                     $(me.Variables.RegistroAceptarSolucion).show();
                 });
 
                 $(me.Variables.Enlace_regresar).click(function (e) {
                     $(me.Variables.Registro2).hide();
+                    $(me.Variables.Registro3).hide();
+                    $(me.Variables.Registro4).hide();
+                    $(me.Variables.Enlace_regresar).hide();
+                    $(me.Variables.btnAceptarSolucion).hide();
+
+                    $(me.Variables.btnSiguiente1).show();
                     $(me.Variables.Registro1).show();
                 });
 
                 $(me.Variables.btnSiguiente4).click(function () {
-                    
 
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
@@ -302,7 +318,7 @@ $(document).ready(function () {
                         return false;
                     }
 
-                    $("#ddlCampania").removeAttr("disabled");
+                    $(me.Variables.ComboCampania).removeAttr("disabled");
 
                     me.Funciones.SolicitudEnviar(false, true);
                 });
@@ -404,7 +420,6 @@ $(document).ready(function () {
 
                         data.detalle = data.detalle || new Array();
                         if (data.detalle.length <= 0) {
-                            //$("#divMotivo").html("");    
                             messageInfoError("Producto no disponible para atención por este medio, comunícate con el <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
 
                         } else {
@@ -420,7 +435,6 @@ $(document).ready(function () {
 
             AsignarCUV: function (pedido) {
                 pedido = pedido || new Object();
-                //$("#divMotivo").html("");
 
                 if (pedido.CDRWebID > 0 && pedido.CDRWebEstado != 1 && pedido.CDRWebEstado != 4) {
                     messageInfoError("Lo sentimos, ya cuentas con una solicitud web para este pedido. Por favor, contáctate con nuestro <span class='enlace_chat belcorpChat'><a>Chat en Línea</a></span>.");
@@ -434,12 +448,12 @@ $(document).ready(function () {
                     $(me.Variables.txtCantidad).removeAttr("disabled");
                     $(me.Variables.txtCantidad).attr("data-maxvalue", data.Cantidad);
                     //$("#txtCUVDescripcion").val(data.DescripcionProd);
-                    $("#hdPedidoID").val(data.PedidoID);
-                    $("#hdNumeroPedido").val(pedido.NumeroPedido);
+                    $(me.Variables.hdPedidoID).val(data.PedidoID);
+                    $(me.Variables.hdNumeroPedido).val(pedido.NumeroPedido);
 
-                    $("#txtPrecioUnidad").val(data.PrecioUnidad);
-                    $("#hdImporteTotalPedido").val(pedido.ImporteTotal);
-                    $("#CDRWebID").val(pedido.CDRWebID);
+                    $(me.Variables.txtPrecioUnidad).val(data.PrecioUnidad);
+                    $(me.Variables.hdImporteTotalPedido).val(pedido.ImporteTotal);
+                    $(me.Variables.hdCDRID).val(pedido.CDRWebID);
 
                     /*Seteando cuv y descripcion*/
                     $(me.Variables.txtCuv).html(data.CUV);
@@ -469,17 +483,16 @@ $(document).ready(function () {
             EvaluarCUV2: function () {
 
                 if (!me.Funciones.CUV2Cambio()) return false;
-
                 var cuv = $(me.Variables.txtCuvMobile2).val();
 
                 if (cuv2PrevVal.length == 5) me.Funciones.BuscarCUVCambiar(cuv2PrevVal);
-                else {
-                    $("#txtCUVDescripcion2").val("");
-                    $("#txtCUVPrecio2").val("");
-                    $("#hdImporteTotal2").val(0);
-                    $("#spnImporteTotal2").html("");
-                    $("#CambioProducto2").addClass("disabledClick");
-                }
+                //else {
+                //    $("#txtCUVDescripcion2").val("");
+                //    $("#txtCUVPrecio2").val("");
+                //    $("#hdImporteTotal2").val(0);
+                //    $("#spnImporteTotal2").html("");
+                //    $("#CambioProducto2").addClass("disabledClick");
+                //}
             },
 
             CUV2Cambio: function () {
@@ -498,7 +511,7 @@ $(document).ready(function () {
             BuscarCUVCambiar: function (cuv) {
 
                 cuv = $.trim(cuv) || $.trim(me.Variables.txtCuvMobile2).val();
-                var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+                var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (CampaniaId <= 0 || cuv.length < 5)
                     return false;
 
@@ -568,15 +581,15 @@ $(document).ready(function () {
 
             BuscarMotivo: function () {
 
-                var PedidoId = $.trim($("#hdPedidoID").val()) || 0;
-                var CampaniaId = $.trim($("#ddlCampania").val()) || 0;
+                var PedidoId = $.trim($(me.Variables.hdPedidoID).val()) || 0;
+                var CampaniaId = $.trim($(me.Variables.ComboCampania).val()) || 0;
                 if (PedidoId <= 0 || CampaniaId <= 0)
                     return false;
 
                 ShowLoading();
 
                 var item = {
-                    CampaniaID: $.trim($("#ddlCampania").val()),
+                    CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
                     PedidoID: PedidoId
                 };
 
@@ -609,7 +622,7 @@ $(document).ready(function () {
 
             ValidarCUVCampania: function () {
                 var ok = true;
-                ok = $("#ddlCampania").val() > 0 ? ok : false;
+                ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
                 ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
 
                 if (!ok) {
@@ -621,7 +634,7 @@ $(document).ready(function () {
 
             ValidarPaso1: function () {
                 var ok = true;
-                ok = $.trim($("#hdPedidoID").val()) > 0 ? ok : false;
+                ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
                 if (!ok) {
@@ -630,11 +643,11 @@ $(document).ready(function () {
                 }
 
                 var item = {
-                    PedidoID: $("#hdPedidoID").val(),
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
                     CUV: $("#txtCuv").text(),
                     Cantidad: $.trim($("#txtCantidad").val()),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
-                    CampaniaID: $("#ddlCampania").val()
+                    CampaniaID: $(me.Variables.ComboCampania).val()
                 };
                 ShowLoading();
 
@@ -670,7 +683,7 @@ $(document).ready(function () {
             },
 
             AnalizarOperacion: function (id) {
-                
+
                 if (id == "C") {
                     $("[data-tipo-confirma='cambio']").hide();
                     $("[data-tipo-confirma=canje]").show();
@@ -697,7 +710,6 @@ $(document).ready(function () {
                         $("[data-tipo-confirma='cambio']").hide();
                         $("[data-tipo-confirma=canje]").show();
                         
-                                                
                         me.Funciones.CargarPropuesta(id);
                         $(me.Variables.btnAceptarSolucion).show()
                     }
@@ -721,14 +733,14 @@ $(document).ready(function () {
 
                     $("#spnSimboloMonedaReclamo").html(vbSimbolo);
 
-                    var precioUnidad = $("#txtPrecioUnidad").val();
+                    var precioUnidad = $(me.Variables.txtPrecioUnidad).val();
                     var cantidad = $("#txtCantidad").val();
                     var totalTrueque = parseFloat(precioUnidad) * parseFloat(cantidad);
 
                     $("#hdMontoMinimoReclamo").val(totalTrueque);
                     $("#spnMontoMinimoReclamoFormato").html(DecimalToStringFormat(totalTrueque));
 
-                    var campania = $("#ddlCampania").val() || 0;
+                    var campania = $(me.Variables.ComboCampania).val() || 0;
                     var numeroCampania = '00';
                     if (campania > 0) {
                         numeroCampania = campania.substring(4);
@@ -772,7 +784,7 @@ $(document).ready(function () {
             },
 
             CambioPaso2: function (paso) {
-                
+
                 paso2Actual = paso2Actual + (paso || 1);
                 paso2Actual = paso2Actual < 1 ? 1 : paso2Actual > 3 ? 3 : paso2Actual;
                 $('div[id^=Cambio]').hide();
@@ -783,13 +795,13 @@ $(document).ready(function () {
                 var esCantidadPermitidaValida = me.Funciones.ValidarCantidadMaximaPermitida(codigoSsic);
 
                 if (esCantidadPermitidaValida) {
-                    var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                    var montoTotalPedido = $(me.Variables.hdImporteTotalPedido).val();
                     var montoProductosFaltanteActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
-                    var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                    var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
                     var montoDevolver = montoProductosFaltanteActual + montoCuvActual;
 
                     me.Funciones.ObtenerValorParametria(codigoSsic);
-                    var valorParametria = $("#hdParametriaCdr").val() || 0;
+                    var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
 
                     valorParametria = parseFloat(valorParametria);
 
@@ -833,11 +845,11 @@ $(document).ready(function () {
             ValidarPaso2Devolucion: function (codigoSsic) {
 
                 var montoMinimoPedido = $("#hdMontoMinimoPedido").val();
-                var montoTotalPedido = $("#hdImporteTotalPedido").val();
+                var montoTotalPedido = $(me.Variables.hdImporteTotalPedido).val();
                 var montoProductosDevolverActual = me.Funciones.ObtenerMontoProductosDevolver(codigoSsic);
 
                 var diferenciaMonto = montoTotalPedido - montoMinimoPedido;
-                var montoCuvActual = (parseFloat($("#txtPrecioUnidad").val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
+                var montoCuvActual = (parseFloat($(me.Variables.txtPrecioUnidad).val()) || 0) * (parseInt($("#txtCantidad").val()) || 0);
                 var montoDevolver = montoProductosDevolverActual + montoCuvActual;
 
                 if (diferenciaMonto < montoDevolver) {
@@ -847,7 +859,7 @@ $(document).ready(function () {
                 }
 
                 me.Funciones.ObtenerValorParametria(codigoSsic);
-                var valorParametria = $("#hdParametriaCdr").val() || 0;
+                var valorParametria = $(me.Variables.hdParametriaCdr).val() || 0;
 
                 valorParametria = parseFloat(valorParametria);
                 var montoMaximoDevolver = montoTotalPedido * valorParametria / 100;
@@ -896,8 +908,8 @@ $(document).ready(function () {
                 var resultado = 0;
 
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     EstadoSsic: codigoSsic
                 };
                 ShowLoading();
@@ -962,7 +974,7 @@ $(document).ready(function () {
                         }
 
                         //$(me.Variables.Registro4).show();
-                        
+
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                             //$("#eleccion").show();
@@ -982,8 +994,8 @@ $(document).ready(function () {
             CargarOperacion: function () {
                 // 
                 var item = {
-                    CampaniaID: $.trim($("#ddlCampania").val()),
-                    PedidoID: $("#hdPedidoID").val(),
+                    CampaniaID: $.trim($(me.Variables.ComboCampania).val()),
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id")
                 };
 
@@ -1053,7 +1065,7 @@ $(document).ready(function () {
                             return false;
                         }
 
-                        $("#CDRWebID").val(data.detalle);
+                        $(me.Variables.hdCDRID).val(data.detalle);
                         //me.Funciones.CambioPaso();
                         me.Funciones.DetalleCargar();
                     },
@@ -1066,8 +1078,8 @@ $(document).ready(function () {
 
             DetalleCargar: function () {
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0
                 };
 
                 ShowLoading();
@@ -1115,8 +1127,8 @@ $(document).ready(function () {
 
                 if ($('#Paso2:visible').length > 0 || cantidadDetalles == 0) $("#btn_ver_solicitudes").hide();
                 else $("#btn_ver_solicitudes").show();
-                if ($('#Paso3:visible').length > 0) $("#divUltimasSolicitudes").hide();
-                else $("#divUltimasSolicitudes").show();
+                if ($('#Paso3:visible').length > 0) $(me.Variables.divUltimasSolicitudes).hide();
+                else $(me.Variables.divUltimasSolicitudes).show();
             },
 
             ObtenerValorParametria: function (codigoSsic) {
@@ -1140,8 +1152,8 @@ $(document).ready(function () {
                         var parametria = data.detalle;
                         var parametriaAbs = data.detalleAbs;
 
-                        $("#hdParametriaCdr").val(parametria.ValorParametria);
-                        $("#hdParametriaAbsCdr").val(parametriaAbs.ValorParametria);
+                        $(me.Variables.hdParametriaCdr).val(parametria.ValorParametria);
+                        $(me.Variables.hdParametriaAbsCdr).val(parametriaAbs.ValorParametria);
                     },
                     error: function (data, error) {
                         //closeWaitingDialog();
@@ -1155,8 +1167,8 @@ $(document).ready(function () {
                 var resultado = 0;
 
                 var item = {
-                    CDRWebID: $("#CDRWebID").val() || 0,
-                    PedidoID: $("#hdPedidoID").val() || 0,
+                    CDRWebID: $(me.Variables.hdCDRID).val() || 0,
+                    PedidoID: $(me.Variables.hdPedidoID).val() || 0,
                     EstadoSsic: codigoOperacion
                 };
                 ShowLoading();
@@ -1194,7 +1206,7 @@ $(document).ready(function () {
 
             SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
                 var ok = true;
-                var correo = $.trim($("#txtEmail").val());
+                var correo = $.trim($(me.Variables.txtEmail).val());
                 var celular = $.trim($("#txtTelefono").val());
 
                 if (IfNull(validarCorreoVacio, true) && correo == "") {
@@ -1209,7 +1221,6 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarSeccionValidaTusDatos);
                     return false;
                 }
-
                 if (correo != "" && !validateEmail(correo)) {
                     me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Correo Electrónico incorrecto');
                     ok = false;
@@ -1235,7 +1246,7 @@ $(document).ready(function () {
                     messageInfoError(me.Constantes.DebeAceptarPoliticaCambios);
                     return false;
                 }
-                
+
                 var item = {
                     CDRWebID: $(me.Variables.hdCDRID).val() || 0,
                     PedidoID: $(me.Variables.hdPedidoID).val() || 0,
@@ -1295,7 +1306,7 @@ $(document).ready(function () {
                         if (mensajeDespacho == '') $("#spnTipoDespacho").hide();
                         else $("#spnTipoDespacho").show().html(mensajeDespacho);
                         $("#divProcesoReclamo").hide();
-                        $("#divUltimasSolicitudes").hide();
+                        $(me.Variables.divUltimasSolicitudes).hide();
                         $(me.Variables.btnSiguiente4).hide();
                         $("#TituloReclamo").hide();
 

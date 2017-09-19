@@ -121,6 +121,20 @@
         $('body').css({ 'overflow-y': 'scroll' });
     });
 
+    $("#belcorpChat a_").click(function () {
+        if (this.href.indexOf('#') != -1) {
+            messageInfoError("Por el momento el chat no se encuentra disponible. Volver a intentarlo más tarde");
+        }
+    });
+
+    $("body").on('click', '.belcorpChat', function (e) {
+        e.preventDefault();
+
+        var URL = location.protocol + "//" + location.host + "/Mobile/Bienvenida/ChatBelcorp";
+        open(URL, 'ventanaChat');
+        return false;
+    });
+
     $("#btn_cerrar_oferta_mobile").click(function () {
         //$('.header_slider').slideUp();
         $('.header_slider').hide();

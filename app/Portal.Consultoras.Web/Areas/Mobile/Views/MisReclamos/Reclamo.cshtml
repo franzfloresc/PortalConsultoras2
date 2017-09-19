@@ -15,11 +15,11 @@
 
 <div class="titulo_mobile">
     @{
-        var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (mobileConfiguracion.MostrarBotonAtras)
-        {
-            <a class="enlace_regresar catalogosR" title="Regresar"></a>
-        }
+    var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new MobileAppConfiguracionModel() : (MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
+    if (mobileConfiguracion.MostrarBotonAtras)
+    {
+        <a class="enlace_regresar catalogosR" title="Regresar" style="display:none;"></a>
+    }
     }
     CAMBIOS Y DEVOLUCIONES
 </div>
@@ -33,14 +33,17 @@
             Queremos verte siempre satisfecha con nuestros productos y servicio.
         </span>
         <span class="mensaje_vista_cdr tipografia_lato_regular">
-            Si tuviste inconvenientes con algún producto y estás dentro del <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">plazo permitido</a> sigue estos pasos.
+            Si tuviste inconvenientes con algún producto y estás dentro del
+            <a href="@Model.UrlPoliticaCdr" class="plazo_permitido" title="Detalle de plazo permitido" target="_blank">
+                plazo permitido
+            </a> sigue estos pasos.
         </span>
     </div>
     <div class="contenedor_proceso_registro_cdr">
         <div class="pasos_proceso_registro texto-mensaje-cdr">
             <!-- Status icono off -->
             @*<div class="icono_paso icono_producto icono_paso_activo">
-                <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1.png")" />
+                    <img src="@Url.Content("~/Content/Images/mobile/cdr_paso1.png")" />
                 </div>*@
             <!-- Fin Status icono off -->
             <!-- Status icono on -->
@@ -105,27 +108,29 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <form class="formulario_inscripcion padding0">
-                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })
-
+            <div class="formulario_inscripcion padding0">
+                @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
                 <!-- FIN CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <div id="DescripcionCuv" class="producto_cdr" style="font-size:13px; display:none;">
-                    <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
+                    <span id="txtCuv" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
+                    - <span id="txtDescripcionCuv" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span>
                     <a id="aCambiarProducto" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>
                 <div class="contenedor_cantidadProductos contenedor_campo_cantidad_productos">
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                     <div id="divCantidad">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                               data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                 </div>
-            </form>
+            </div>
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-            @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">*@
+            @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">
+            *@
             <span class="icono_arrow_left">
                 <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
             </span>
@@ -175,7 +180,8 @@
             <div class="descripcion_eleccion_cdr tipografia_lato tipografia_lato_regular" data-tipo-confirma="cambio">
                 <span>
                     <input type="hidden" id="hdMontoMinimoReclamo" />
-                    Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
+                    Puedes cambiarlo por otro producto(s) cuyo monto sea mayor o igual al que reclamas
+                    (<span id="spnSimboloMonedaReclamo">S/.</span><span id="spnMontoMinimoReclamoFormato">15</span>)
                 </span>
                 <span>Búscalo en tus catálogos de Campaña <span id="spnNumeroCampaniaReclamo">15</span>:</span>
                 <div data-detalle-confirma=""></div>
@@ -185,7 +191,8 @@
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
 
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
-                    <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span> - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
+                    <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
+                    - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
                     <span id="txtPrecioCuv2">S/ 0.00</span>
                     <a id="aCambiarProducto2" class="enlace_cambiar_producto tipografia_lato_regular" title="Cambiar producto">CAMBIAR PRODUCTO</a>
                 </div>
@@ -193,7 +200,8 @@
                     <span class="texto_cantidad_productos tipografia_lato tipografia_lato_regular">Cantidad:</span>
                     <div id="divCantidad2">
                         <a class="cantidad_menos_home"><img src="/Content/Images/Mobile/Esika/menos.png" alt=""></a>
-                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral" data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
+                        <input type="tel" value="1" size="2" maxlength="2" id="txtCantidad2" class="rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral"
+                               data-input="cantidad" onkeypress="return FuncionesGenerales.ValidarSoloNumeros(event);">
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                 </div>
@@ -536,7 +544,8 @@
             </a>*@
         <!-- FIN ENLACE QUIERO VER OTRA ALTERNATIVA -->
         <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
-        @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">*@
+        @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">
+        *@
         @*<span class="icono_arrow_left">
                 <img src="@Url.Content("~/Content/Images/mobile/left-arrow.png")" alt="Ver solicitudes anteriores" />
             </span>*@
@@ -672,27 +681,26 @@
                     <b>{{item.Solicitud}}</b>
                 </div>
                 <div class="titulo_solicitud_cdr tipografia_lato_bold">
-                        {{#if_eq CodigoOperacion 'C'}}
-                        {{item.SolucionSolicitada}}
-                        {{else if_eq CodigoOperacion 'D'}}
-                        {{item.SolucionSolicitada}}
-                        {{else if_eq CodigoOperacion 'F'}}
-                        {{item.SolucionSolicitada}}
-                        {{else if_eq CodigoOperacion 'G'}}
-                        {{item.SolucionSolicitada}}
-                        {{else if_eq CodigoOperacion 'T'}}
-                        <b>{{item.SolucionSolicitada}}</b><br />
-                        {{item.CUV2}}<br />
-                        <b>{{item.Descripcion2}}</b> <br />
-                        {{item.Cantidad2}} unidades<br />
-                        Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                        {{else}}
-                        {{/if_eq}}
-                    </div>
-                    <div class="info_solicitud_cdr tipografia_lato_regular">
-                        <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>*@
+                    {{#if_eq CodigoOperacion 'C'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'D'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'F'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'G'}}
+                    {{item.SolucionSolicitada}}
+                    {{else if_eq CodigoOperacion 'T'}}
+                    <b>{{item.SolucionSolicitada}}</b><br />
+                    {{item.CUV2}}<br />
+                    <b>{{item.Descripcion2}}</b> <br />
+                    {{item.Cantidad2}} unidades<br />
+                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                    {{else}}
+                    {{/if_eq}}
+                </div>
+                <div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>*@
         </div>
-    </div>
     </div>
     {{/each}}
 </script>
@@ -731,7 +739,6 @@
 
 @section scripts{
     <script type="text/javascript">
-
         var imgCheck = '@Url.Content("~/Content/Images/Esika/paso_realizado.png")';
         var UrlBuscarCuv = '@Url.Action("BuscarCUV", "MisReclamos", new { area = "" } )';
         var UrlBuscarMotivo = '@Url.Action("BuscarMotivo", "MisReclamos", new { area = "" } )';
