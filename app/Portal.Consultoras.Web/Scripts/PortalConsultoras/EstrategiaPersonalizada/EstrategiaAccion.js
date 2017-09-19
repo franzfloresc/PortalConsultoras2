@@ -471,12 +471,13 @@ function EstrategiaAgregar(event, popup, limite) {
                 ActualizarGanancia(data.DataBarra);
             }
             else {
-                if (tipoOrigenEstrategia == 1) {
-                    CargarResumenCampaniaHeader(true);
-                }
-                else {
-                    CargarResumenCampaniaHeader(true);
-                }
+                /*Inicializar en 1*/
+                $(".btn_agregar_ficha_producto ").parents("[data-item]").find("input.liquidacion_rango_cantidad_pedido").val("1");
+                $(objInput).parents("[data-item]").find("input.rango_cantidad_pedido").val("1");
+                $(objInput).parents("[data-item]").find("[data-input='cantidad']").val("1");
+                /*Fin inicializar en 1*/
+
+                CargarResumenCampaniaHeader(true);
             }
 
             var cuv = estrategia.CUV2;
