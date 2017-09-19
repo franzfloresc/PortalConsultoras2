@@ -126,22 +126,26 @@ function SeccionMostrarProductos(data) {
     var htmlSeccion = $("[data-seccion=" + data.Seccion.Codigo + "]");
     if (htmlSeccion.length !== 1) {
         console.log(data.Seccion);
-        return false
+        return false;
     }
     
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         console.log(data.Seccion);
-        return false
+        return false;
     }
     
     data.Seccion.TemplateProducto = $.trim(data.Seccion.TemplateProducto);
     if (data.Seccion.TemplateProducto === "") {
         console.log(data.Seccion);
-        return false
+        return false;
     }
 
-    //console.log(data.Seccion);
+    if ((data.data !== undefined && data.data.length > 0) || 
+        (data.lista !== undefined && data.lista.length > 0)) {
+        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+    }
 
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
 
