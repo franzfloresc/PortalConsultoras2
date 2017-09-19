@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <form class="formulario_inscripcion padding0">
+            <div class="formulario_inscripcion padding0">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
@@ -127,7 +127,7 @@
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                 </div>
-            </form>
+            </div>
             <!-- INICIO BOTÓN VER SOLICITUDES ANTERIORES -->
             @*<a href="@Request.UrlReferrer" class="enlace_solicitudes_anteriores tipografia_lato tipografia_lato_regular" title="Agrega otro producto a la solicitud">
             *@

@@ -1108,5 +1108,9 @@
 }
 
 /* FIN VISTA NOTIFICACIONES CDR MOBILE */
-
+.formulario_inscripcion {
+    display: block;
+    padding: 25px 28px 9px 28px;
+    text-align: center;
+}
 /* FIN CDR MOBILE */
