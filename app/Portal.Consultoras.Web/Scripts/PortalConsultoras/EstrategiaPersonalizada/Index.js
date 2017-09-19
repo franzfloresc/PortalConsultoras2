@@ -146,6 +146,7 @@ function SeccionMostrarProductos(data) {
         (data.listaLan !== undefined && data.listaLan.length > 0)) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
     } else {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
     }

@@ -76,11 +76,14 @@
                 @foreach (var menuhijo in menuList)
                 {
                     var claseActivo = "";
+                    var displayNone = menuhijo.EsAncla ? "display: none" : "";
                     claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
+
                     <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                         data-codigo="@menuhijo.Codigo"
                         data-es-ancla="@menuhijo.EsAncla"
-                        onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')">
+                        onclick="menuModule.menuClick(this, '@menuhijo.UrlMenu')"
+                        style="@displayNone">
                         
                         <div class="contenedorMenu">
                             <a href="javascript:;" class="@claseActivo">
