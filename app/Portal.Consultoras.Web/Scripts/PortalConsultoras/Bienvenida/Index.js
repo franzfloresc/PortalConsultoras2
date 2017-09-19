@@ -2639,7 +2639,7 @@ function MostrarShowRoom() {
                                 var container = $('#PopShowroomIntriga');
                                 var txtDiasIntriga = 'FALTAN ' + response.diasFaltan + ' DÍAS';
                                 if (response.diasFaltan == 1) txtDiasIntriga = 'FALTA 1 DÍA';
-                                var txtSaludoIntriga = response.nombre + ' prepárate para la';
+                                var txtSaludoIntriga = response.nombre + ', prepárate para';
                                 $(container).find('.saludo_consultora_showroom').text(txtSaludoIntriga);
                                 $(container).find('.dias_intriga_home').text(txtDiasIntriga);
                                 $(container).find('.imagen_dias_intriga').attr('src', urlImagenPopupIntriga);
