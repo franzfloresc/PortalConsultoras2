@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
         }
 
         public string Celular { get; set; }
