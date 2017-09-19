@@ -27,6 +27,8 @@ using System.Web;
 using Microsoft.Ajax.Utilities;
 using ConsultoraBE = Portal.Consultoras.Web.HojaInscripcionBelcorpPais.ConsultoraBE;
 using Portal.Consultoras.Web.ServiceODS;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -115,55 +117,6 @@ namespace Portal.Consultoras.Web.Controllers
             //return View(new GestionaPostulanteModel { CodigoIso = CodigoISO });
         }
 
-        public ActionResult ReporteConsolidado()
-        {
-            return View(new ReporteConsolidadoModel { CodigoIso = CodigoISO });
-        }
-
-
-        //TODO: Pendiente terminar la consulta para cargar la grilla del Reporte Consolidado.
-        [HttpPost]
-        public JsonResult ConsultarReporteConsolidado(ReporteConsolidadoModel model)
-        {
-            List<ReporteConsolidadoBE> resultados = ObtenerReporteConsolidadoFiltro(model);
-
-            var grid = new BEGrid
-            {
-                PageSize = model.rows,
-                CurrentPage = model.page,
-                SortColumn = model.sidx,
-                SortOrder = model.sord
-            };
-
-            IEnumerable<ReporteConsolidadoBE> items = resultados;
-
-            //TODO: pendiente Ordenar la lista ASC y DESC
-
-            items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
-
-            var pag = Paginador(grid, resultados);
-
-            var data = new
-            {
-                total = pag.PageCount,
-                page = pag.CurrentPage,
-                records = pag.RecordCount,
-                rows = items.Select(i => new
-                {
-                    cell = new string[]
-                    {
-                        i.Descripcion.ToString(),
-                        i.MovilSE.ToString(),
-                        i.PortalGZ.ToString(),
-                        i.UB.ToString(),
-                        i.ACC.ToString(),
-                        i.Totales.ToString()
-                    }
-                })
-            };
-
-            return Json(data, JsonRequestBehavior.AllowGet);
-        }
 
 
 
@@ -4562,50 +4515,6 @@ namespace Portal.Consultoras.Web.Controllers
             });
         }
 
-        public ActionResult GestionParametros()
-        {
-            if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Unete/GestionParametros"))
-                return RedirectToAction("Index", "Bienvenida");
-
-            GestionParametroPageModel gestionParametroPageModel = new GestionParametroPageModel
-            {
-                ValidacionTelefonicaTieneHijos = false,
-                ListaZonasValidacionTelefonicaActiva = new List<ParametroUneteBE>(),
-                ListaZonasValidacionTelefonicaInactivas = new List<ParametroUneteBE>()
-            };
-
-            using (var sv = new BelcorpPaisServiceClient())
-            {
-                var parametros =
-                    sv.ObtenerParametrosUnete(CodigoISO, Enumeradores.TipoParametro.Validaciones.ToInt(), null);
-
-                var parametroTelefonico =
-                    parametros.FirstOrDefault(p => p.Nombre == Constantes.ParametrosNames.TelefonoRequerido);
-
-                var parametroCorreo =
-                    parametros.FirstOrDefault(p => p.Nombre == Constantes.ParametrosNames.CorreoRequerido);
-
-                gestionParametroPageModel.ParametroCorreo = parametroCorreo;
-                gestionParametroPageModel.ParametroTelefonico = parametroTelefonico;
-
-                if (parametroTelefonico != null)
-                {
-                    var parametrosZonasTelefonicas =
-                        sv.ObtenerParametrosUnete(CodigoISO, Enumeradores.TipoParametro.Validaciones.ToInt(),
-                            parametroTelefonico.IdParametroUnete);
-
-                    gestionParametroPageModel.ListaZonasValidacionTelefonicaActiva =
-                        parametrosZonasTelefonicas.Where(p => p.Valor == 1);
-
-                    gestionParametroPageModel.ListaZonasValidacionTelefonicaInactivas =
-                        parametrosZonasTelefonicas.Where(p => p.Valor == 0);
-
-                    gestionParametroPageModel.ValidacionTelefonicaTieneHijos = parametrosZonasTelefonicas.Any();
-                }
-
-                return View("GestionParametros", gestionParametroPageModel);
-            }
-        }
 
         public ActionResult ExportarExcel(int PrefijoISOPais, string FechaDesde, string FechaHasta, string Nombre,
             int Estado, string DocumentoIdentidad, string codigoZona, string CodigoRegion, string FuenteIngreso)
@@ -4965,25 +4874,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
         }
 
-        private BEPager Paginador<T>(BEGrid item, List<T> lst)
-        {
-            BEPager pag = new BEPager();
 
-            var recordCount = lst.Count;
-
-            pag.RecordCount = recordCount;
-
-            int PageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
-            pag.PageCount = PageCount;
-
-            int CurrentPage = (int)item.CurrentPage;
-            pag.CurrentPage = CurrentPage;
-
-            if (CurrentPage > PageCount)
-                pag.CurrentPage = PageCount;
-
-            return pag;
-        }
 
         private EnumsEstadoPostulante ObtenerEstadoPostulante(int idEstadoPostulante)
         {
@@ -5299,65 +5190,7 @@ namespace Portal.Consultoras.Web.Controllers
         }
 
         //TODO: pendiente desarrollo 
-
-        private List<ReporteConsolidadoBE> ObtenerReporteConsolidadoFiltro(ReporteConsolidadoModel model)
-        {
-            List<ReporteConsolidadoBE> listaReporteConsolidado;
-
-            DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
-              ? default(DateTime?)
-              : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-            DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
-                ? default(DateTime?)
-                : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-            string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
-            string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
-            string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
-
-
-            ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
-            {
-                Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
-                CodigoIso = CodigoISO,
-                FechaDesde = fechaDesde,
-                FechaHasta = fechaHasta,
-                Zona = codigozona,
-                Region = codigoRegion,
-                Seccion = codigoSeccion
-
-            };
-
-            using (var sv = new PortalServiceClient())
-            {
-                listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
-            }
-            return listaReporteConsolidado;
-        }
-
-        public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion)
-        {
-            var resultado = ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModel
-            {
-                CodigoIso = PrefijoISOPais,
-                FechaDesde = FechaDesde,
-                FechaHasta = FechaHasta,
-                Zona = Zona,
-                Region = Region,
-                Seccion = Seccion
-
-            });
-
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-            dic.Add("Descripción", "Descripcion");
-            dic.Add("MovilSE", "MovilSE");
-            dic.Add("PortalGZ", "PortalGZ");
-            dic.Add("UB", "UB");
-            dic.Add("ACC", "ACC");
-            dic.Add("Totales", "Totales");
-            Util.ExportToExcel("ReporteConsolidado", resultado, dic);
-            return null;
-        }
+         
 
 
         [HttpPost]
@@ -5378,121 +5211,6 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return Json(jsonResponse, JsonRequestBehavior.AllowGet);
         }
-
-
-        [HttpPost]
-        public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
-        {
-            var result = GetReporteFunnel(CampaniaInicio, CampaniaFin);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult ReporteFunnel()
-        {       
-            return View();
-        }
-
-        public List<ReporteFunnel> GetReporteFunnel(string CampaniaInicio, string CampaniaFin)
-        {
-            var Result = new List<ReporteFunnel>();
-            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
-            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
-            try
-            {
-                using (var sv = new PortalServiceClient())
-                {
-                    Result = sv.GetReporteFunnel(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorUtilities.AddLog(ex);
-
-            }
-            return Result;
-        }
-
-        public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin)
-        {
-            var solicitudes = GetReporteFunnel(CampaniaInicio, CampaniaFin); 
-
-            Dictionary<string, string> dic = new Dictionary<string, string>
-            {
-                 {"Campaña", "Campania"},
-                { "Registro Completo", "RegistroCompleto"},
-                 {"Registro Completo %", "RegistroCompletoPer"},
-                  {"Registro Validado", "RegistroValidado"},
-                   {"Registro Validado %", "RegistroValidadoPer"},
-                    {"Codigo Creado", "CodigoCreado"},
-                     {"Codigo Creado %", "CodigoCreadoPer"},
-                      {"Ingreso Total", "IngresoTotal"},
-                       {"Ingresos X", "IngresoX"},
-                        {"Ingresos X+1", "IngresoX1"},
-                         {"TC (Ingresos/RV)", "TCIngresoRV"},
-                          {"TC (IngresosX/RV)", "TCIngresoXRV"},
-                           {"TC (IngresosX+1/RV)", "TCIngresoX1RV"},
-                            {"Dias en Espera", "DiasEnEspera"} 
-            }; 
-            Util.ExportToExcel("ReporteFunnel", solicitudes, dic);
-            return View();
-        }
-
-
-        ////////////////////////////////////////////////////////////////77
-
-
-        [HttpPost]
-        public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
-        {
-            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult ReporteFuenteIngreso()
-        {
-            return View();
-        }
-
-        public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string CampaniaInicio, string CampaniaFin)
-        {
-            var Result = new List<ReporteFuenteIngreso>();
-            CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
-            CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
-            try
-            {
-                using (var sv = new PortalServiceClient())
-                {
-                    Result = sv.GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorUtilities.AddLog(ex);
-
-            }
-            return Result;
-        }
-
-        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin)
-        {
-            var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
-
-            Dictionary<string, string> dic = new Dictionary<string, string>
-            {
-                 {"Campaña", "Campania"},
-                { "UB", "UB"},
-                 { "Portal GZ", "PortalGZ"},
-                  { "Call Center", "CallCenter"},
-                   { "App SE", "AppSE"}, 
-
-            };
-            Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
-            return View();
-        }
-
-
-
-
 
         [HttpPost]
         public JsonResult ValidarEdad(string fechaNacimiento, string codigoISO)
@@ -5551,12 +5269,399 @@ namespace Portal.Consultoras.Web.Controllers
                 Data = 5;
             }
 
-            return Json(new { Data=Data,Success=Success }, JsonRequestBehavior.AllowGet);
+            return Json(new { Data = Data, Success = Success }, JsonRequestBehavior.AllowGet);
+        }
+          
+
+        public ActionResult GestionParametros()
+        {
+            if (!UsuarioModel.HasAcces(ViewBag.Permiso, "Unete/GestionParametros"))
+                return RedirectToAction("Index", "Bienvenida");
+
+            GestionParametroPageModel gestionParametroPageModel = new GestionParametroPageModel
+            {
+                ValidacionTelefonicaTieneHijos = false,
+                ListaZonasValidacionTelefonicaActiva = new List<ParametroUneteBE>(),
+                ListaZonasValidacionTelefonicaInactivas = new List<ParametroUneteBE>()
+            };
+
+            using (var sv = new BelcorpPaisServiceClient())
+            {
+                var parametros =
+                    sv.ObtenerParametrosUnete(CodigoISO, Enumeradores.TipoParametro.Validaciones.ToInt(), null);
+
+                var parametroTelefonico =
+                    parametros.FirstOrDefault(p => p.Nombre == Constantes.ParametrosNames.TelefonoRequerido);
+
+                var parametroCorreo =
+                    parametros.FirstOrDefault(p => p.Nombre == Constantes.ParametrosNames.CorreoRequerido);
+
+                gestionParametroPageModel.ParametroCorreo = parametroCorreo;
+                gestionParametroPageModel.ParametroTelefonico = parametroTelefonico;
+
+                if (parametroTelefonico != null)
+                {
+                    var parametrosZonasTelefonicas =
+                        sv.ObtenerParametrosUnete(CodigoISO, Enumeradores.TipoParametro.Validaciones.ToInt(),
+                            parametroTelefonico.IdParametroUnete);
+
+                    gestionParametroPageModel.ListaZonasValidacionTelefonicaActiva =
+                        parametrosZonasTelefonicas.Where(p => p.Valor == 1);
+
+                    gestionParametroPageModel.ListaZonasValidacionTelefonicaInactivas =
+                        parametrosZonasTelefonicas.Where(p => p.Valor == 0);
+
+                    gestionParametroPageModel.ValidacionTelefonicaTieneHijos = parametrosZonasTelefonicas.Any();
+                }
+
+                return View("GestionParametros", gestionParametroPageModel);
+            }
         }
 
 
 
 
+        //////////////////////////////////////se paso a UNETE
 
+
+        [HttpPost]
+        public JsonResult GetReporteFunnelSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFunnel(CampaniaInicio, CampaniaFin);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public List<ReporteFunnel> GetReporteFunnel(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFunnel>();
+            //CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            //CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFunnel(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
+        }
+
+        public ActionResult ExportarExcelFunnel(string CampaniaInicio, string CampaniaFin, string ReporteNombre)
+        {
+            var solicitudes = GetReporteFunnel(CampaniaInicio, CampaniaFin);
+
+            //Dictionary<string, string> dic = new Dictionary<string, string>
+            //{
+            //     {"Campaña", "Campania"},
+            //    { "Registro Completo", "RegistroCompleto"},
+            //     {"Registro Completo %", "RegistroCompletoPer"},
+            //      {"Registro Validado", "RegistroValidado"},
+            //       {"Registro Validado %", "RegistroValidadoPer"},
+            //        {"Codigo Creado", "CodigoCreado"},
+            //         {"Codigo Creado %", "CodigoCreadoPer"},
+            //          {"Ingreso Total", "IngresoTotal"},
+            //           {"Ingresos X", "IngresoX"},
+            //            {"Ingresos X+1", "IngresoX1"},
+            //             {"TC (Ingresos/RV)", "TCIngresoRV"},
+            //              {"TC (IngresosX/RV)", "TCIngresoXRV"},
+            //               {"TC (IngresosX+1/RV)", "TCIngresoX1RV"},
+            //                {"Dias en Espera", "DiasEnEspera"}
+            //};
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteFunnel();
+            }
+
+
+            Util.ExportToExcel(ReporteNombre, solicitudes, dic);
+            return View();
+        }
+
+        public ActionResult ReporteFunnel()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFunnel");
+            return View();
+        }       
+
+        public ActionResult ExportarExcelReporteConsolidado(string PrefijoISOPais, string FechaDesde, string FechaHasta, string Region, string Zona, string Seccion, string NombreReporte)
+        {
+
+            using (var sv = new PortalServiceClient())
+            {
+                List<ReporteConsolidadoBE> resultado = sv.ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModelSAC() {
+
+                    CodigoIso = CodigoISO,
+                    FechaDesde = FechaDesde,
+                    FechaHasta = FechaHasta,
+                    Zona = Zona,
+                    Region = Region,
+                    Seccion = Seccion
+                } ).ToList();
+
+                Dictionary<string, string> dic = sv.GetDictionaryReporteConsolidado();
+                Util.ExportToExcel(NombreReporte, resultado, dic); 
+             
+                return null;
+
+            }
+            //var resultado = ObtenerReporteConsolidadoFiltro(new ReporteConsolidadoModel
+            //{
+            //    CodigoIso = PrefijoISOPais,
+            //    FechaDesde = FechaDesde,
+            //    FechaHasta = FechaHasta,
+            //    Zona = Zona,
+            //    Region = Region,
+            //    Seccion = Seccion
+
+            //});
+
+            //Dictionary<string, string> dic = new Dictionary<string, string>();
+            //dic.Add("Descripción", "Descripcion");
+            //dic.Add("MovilSE", "MovilSE");
+            //dic.Add("PortalGZ", "PortalGZ");
+            //dic.Add("UB", "UB");
+            //dic.Add("ACC", "ACC");
+            //dic.Add("Totales", "Totales");
+
+          
+        }
+        
+        private BEPager Paginador<T>(BEGrid item, List<T> lst)
+        {
+            BEPager pag = new BEPager();
+
+            var recordCount = lst.Count;
+
+            pag.RecordCount = recordCount;
+
+            int PageCount = (int)(((float)recordCount / (float)item.PageSize) + 1);
+            pag.PageCount = PageCount;
+
+            int CurrentPage = (int)item.CurrentPage;
+            pag.CurrentPage = CurrentPage;
+
+            if (CurrentPage > PageCount)
+                pag.CurrentPage = PageCount;
+
+            return pag;
+        }
+
+        [HttpPost]
+        public JsonResult ConsultarReporteConsolidado(ReporteConsolidadoModelSAC model)
+        {
+            //List<ReporteConsolidadoBE> resultados = ObtenerReporteConsolidadoFiltro(model);
+
+            //var grid = new BEGrid
+            //{
+            //    PageSize = model.rows,
+            //    CurrentPage = model.page,
+            //    SortColumn = model.sidx,
+            //    SortOrder = model.sord
+            //};
+
+            //IEnumerable<ReporteConsolidadoBE> items = resultados; 
+
+            //items = items.ToList().Skip((grid.CurrentPage - 1) * grid.PageSize).Take(grid.PageSize);
+
+            //    var pag = Paginador(grid, resultados);
+
+            //var data = new
+            //{
+            //    total = pag.PageCount,
+            //    page = pag.CurrentPage,
+            //    records = pag.RecordCount,
+            //    rows = items.Select(i => new
+            //    {
+            //        cell = new string[]
+            //        {
+            //            i.Descripcion.ToString(),
+            //            i.MovilSE.ToString(),
+            //            i.PortalGZ.ToString(),
+            //            i.UB.ToString(),
+            //            i.ACC.ToString(),
+            //            i.Totales.ToString()
+            //        }
+            //    })
+            //};
+
+            //ReporteConsolidadoPag data = new ReporteConsolidadoPag();
+            model.CodigoIso = CodigoISO;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                  var   data = sv.ConsultarReporteConsolidado(model);
+                    return Json(data, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+                return Json(new ReporteConsolidadoPag(), JsonRequestBehavior.AllowGet);
+            } 
+
+
+         
+        }
+
+
+        //private List<ReporteConsolidadoBE> ObtenerReporteConsolidadoFiltro(ReporteConsolidadoModel model)
+        //{
+          //  List<ReporteConsolidadoBE> listaReporteConsolidado;
+
+            //DateTime? fechaDesde = string.IsNullOrWhiteSpace(model.FechaDesde)
+            //  ? default(DateTime?)
+            //  : DateTime.ParseExact(model.FechaDesde, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            //DateTime? fechaHasta = string.IsNullOrWhiteSpace(model.FechaHasta)
+            //    ? default(DateTime?)
+            //    : DateTime.ParseExact(model.FechaHasta, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            //string codigozona = string.IsNullOrEmpty(model.Zona) ? string.Empty : model.Zona;
+            //string codigoRegion = string.IsNullOrEmpty(model.Region) ? string.Empty : model.Region;
+            //string codigoSeccion = string.IsNullOrEmpty(model.Seccion) ? string.Empty : model.Seccion;
+
+
+            //ReporteConsolidadoParameter objReporteConsolidadoParameter = new ReporteConsolidadoParameter
+            //{
+            //    Aplicacion = EnumsAplicacion.HerramientaGestionSAC,
+            //    CodigoIso = CodigoISO,
+            //    FechaDesde = fechaDesde,
+            //    FechaHasta = fechaHasta,
+            //    Zona = codigozona,
+            //    Region = codigoRegion,
+            //    Seccion = codigoSeccion
+
+            //};
+
+            //using (var sv = new PortalServiceClient())
+            //{
+            //    listaReporteConsolidado = sv.ObtenerReporteConsolidado(objReporteConsolidadoParameter);
+            //}
+            //return listaReporteConsolidado;
+        //    return null;
+        //}
+
+
+        public ActionResult ReporteConsolidado()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteConsolidado");
+            return View(new ReporteConsolidadoModelSAC { CodigoIso = CodigoISO });
+        }
+
+
+        [HttpPost]
+        public JsonResult GetReporteFuenteIngresoSearch(string CampaniaInicio, string CampaniaFin)
+        {
+            var result = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);  
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ReporteFuenteIngreso()
+        {
+            ViewBag.HTMLSACUnete = getHTMLSACUnete("ReporteFuenteIngreso");
+            return View();
+        }
+
+        public List<ReporteFuenteIngreso> GetReporteFuenteIngreso(string CampaniaInicio, string CampaniaFin)
+        {
+            var Result = new List<ReporteFuenteIngreso>();
+            //CampaniaInicio = string.IsNullOrEmpty(CampaniaInicio) ? null : CampaniaInicio;
+            //CampaniaFin = string.IsNullOrEmpty(CampaniaFin) ? null : CampaniaFin;
+            try
+            {
+                using (var sv = new PortalServiceClient())
+                {
+                    Result = sv.GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin, CodigoISO).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+
+            }
+            return Result;
+        }
+
+        public ActionResult ExportarExcelFuenteIngreso(string CampaniaInicio, string CampaniaFin,string NombreReporte)
+        {
+ 
+           var solicitudes = GetReporteFuenteIngreso(CampaniaInicio, CampaniaFin);
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+
+            using (var sv = new PortalServiceClient())
+            {
+                dic = sv.GetDictionaryReporteFuenteIngreso();
+            }
+
+            // Util.ExportToExcel("ReporteFuenteIngreso", solicitudes, dic);
+            Util.ExportToExcel(NombreReporte, solicitudes, dic); 
+            return View();
+        }
+
+
+
+
+        public string getHTMLSACUnete(string Action)
+        {        
+            string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
+            string responseHTML = string.Empty;
+            string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
+
+            try
+            {
+                var client = new HttpClient();
+                responseHTML = client.GetStringAsync(url).Result;
+            }
+            catch (Exception ex)
+            {
+                ErrorUtilities.AddLog(ex);
+            }
+
+            return responseHTML;
+        }
+
+        public string PostHTMLSACUnete(string Action, object model)
+        { 
+            var myContent = JsonConvert.SerializeObject(model);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json"); 
+ 
+            string UrlSACUente = ConfigurationManager.AppSettings["UneteURL"]; //"http://localhost:36852/SAC";
+            string responseHTML = string.Empty;
+            string url = string.Format("{0}/{1}?p={2}", UrlSACUente, Action, CodigoISO);
+
+            try
+            {
+                var client = new HttpClient();
+                var response = client.PostAsync(url, byteContent).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    responseHTML = response.Content.ReadAsStringAsync().Result;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorUtilities.AddLog(ex);
+            } 
+
+            return responseHTML;
+
+        }
+
+  
     }
+
+ 
 }
