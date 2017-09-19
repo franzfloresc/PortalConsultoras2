@@ -8,7 +8,7 @@
     var mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
     var mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
 
-    var backgroundVenta = mostrarPopupIntriga ? "" : "background: url(" + @Model.ImagenFondo + ") center center no-repeat;";
+    var backgroundVenta = mostrarPopupIntriga ? "" : "background: url('" + @Model.ImagenFondo + "') center center no-repeat;";
 }
 
 @if (esShowRoom)
@@ -21,19 +21,19 @@
     @if (mostrarPopupIntriga)
     {
         <script id="template-showroom" type="text/x-handlebars-template">
-            <div class="" data-popup-main="">
+            <div class="" data-popup-main="" style="max-height: 550px;">
                 <div class="" data-popup-body style="text-align:center; position:relative">
                     <input type="hidden" id="hdEventoIDShowRoom" value="{{EventoId}}" />
                     <input type="hidden" id="spnShowRoomEvento" value="{{EventoNombre}}" />
                     <input type="hidden" id="spnShowRoomEventoDescripcion" value="{{EventoTema}}" />
                     <div class="contenedorMensajeIntrigaA">
-                        <div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>
-                        <div class="dias_intriga_home dias_inicio_landing">{{MensajeDiasFaltantes}}</div>
+                        @*<div class="saludo_consultora_showroom saludo_landing">{{MensajeSaludo}}</div>*@
+                        <div class="dias_intriga_home dias_inicio_landing" style="top: 123px; font-size: 73.4px;">{{MensajeDiasFaltantes}}</div>
                     </div>
                     <div class="contenedorMensajeIntrigaB">
                     </div>
                     <a href="/ShowRoom/Intriga">
-                        <img class="imagen_dias_intriga_inicio" src="@Model.ImagenFondo" />
+                        <img class="imagen_dias_intriga_inicio" style="height: 500px;" src="@Model.ImagenFondo" />
                     </a>
                 </div>
             </div>
