@@ -502,6 +502,7 @@ function RDDetalleObtener() {
     $.each(obj.lista, function (ind, tem) {
         tem.ClaseBloqueada = $.trim(tem.ClaseBloqueada);
         tem.Posicion = ind + 1;
+        tem.TipoAccionAgregar = 2;
     });
 
     SetHandlebars("#producto-landing-template", obj, "#divOfertaProductos");
