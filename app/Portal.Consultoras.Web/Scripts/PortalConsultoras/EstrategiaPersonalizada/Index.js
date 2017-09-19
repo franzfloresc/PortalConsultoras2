@@ -149,11 +149,15 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if ((data.data !== undefined && data.data.length > 0) || 
-        (data.lista !== undefined && data.lista.length > 0)) {
+    if ((data.data !== undefined && data.data.length > 0) ||
+        (data.lista !== undefined && data.lista.length > 0) ||
+        (data.listaLan !== undefined && data.listaLan.length > 0)) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+    } else {
+        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
     }
+
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
     
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
