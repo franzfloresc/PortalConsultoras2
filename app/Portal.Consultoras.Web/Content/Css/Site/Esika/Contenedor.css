@@ -24,7 +24,7 @@
     display: inline;
     position: relative;
     top: 1px;
-    font-size: 22px;
+    font-size: 20px;
     margin-right: 10px;
     font-weight: bolder !important;
     letter-spacing: 1px;
@@ -300,7 +300,7 @@
     display: block;
     width: 210px;
     text-align: center;
-    margin: auto;
+    margin: auto 160px;
     padding: 12px 0px;
     /* display: none; */
     font-size: 14px;
