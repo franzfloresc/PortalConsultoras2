@@ -17,7 +17,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -34,7 +56,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -116,7 +160,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -133,7 +199,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -215,7 +303,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -232,7 +342,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -314,7 +446,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -331,7 +485,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -413,7 +589,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -430,7 +628,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -512,7 +732,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -529,7 +771,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -611,7 +875,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -628,7 +914,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -710,7 +1018,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -727,7 +1057,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -809,7 +1161,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -826,7 +1200,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -908,7 +1304,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -925,7 +1343,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -1007,7 +1447,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -1024,7 +1486,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -1106,7 +1590,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -1123,7 +1629,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
@@ -1205,7 +1733,29 @@ ConfiguracionPaisList 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.TienePerfil = @TienePerfil
 END
 GO
@@ -1222,7 +1772,29 @@ ConfiguracionPaisGet 1
 */
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionPais AS P WHERE 
+	SELECT
+		ConfiguracionPaisID,
+		Codigo,
+		Excluyente,
+		Descripcion,
+		Estado,
+		TienePerfil,
+		DesdeCampania,
+		MobileTituloMenu,
+		DesktopTituloMenu,
+		Logo,
+		Orden,
+		DesktopTituloBanner,
+		MobileTituloBanner,
+		DesktopSubTituloBanner,
+		MobileSubTituloBanner,
+		DesktopFondoBanner,
+		MobileFondoBanner,
+		DesktopLogoBanner,
+		MobileLogoBanner,
+		UrlMenu,
+		OrdenBpt
+	FROM ConfiguracionPais AS P WHERE 
 	P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
