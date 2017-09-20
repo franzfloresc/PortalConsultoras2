@@ -11,9 +11,9 @@
 .bc_mobile-logo {
     float: left;
     background-size: 100% 100% !important;
-    max-height: 100%;
+    height: 70px;
     max-width: 50%;
-    overflow: hidden;
+    overflow:hidden;
 }
 .bc_mobile-logo img{
     height:95%;
@@ -103,9 +103,11 @@
 
 }
 .bc_para_ti-menu-opciones ul{
-	margin:0;
-	padding:0;
-	list-style-type: none;
+	margin: 0;
+    padding: 0;
+    list-style-type: none;
+    box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.14);
+
 }
 .bc_para_ti-menu-opciones ul li {
 	float: left;
@@ -234,7 +236,8 @@ padding: 0px 19px !important;
 margin-top: 13px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
-    padding: 5px 14px;
+    padding: 11px 9px;
+    letter-spacing: 1px;
     display: inline;
     cursor: pointer;
     font-size: 12px;
@@ -257,14 +260,15 @@ margin-top: 13px !important;
 .bc_para_ti-menu-opciones ul li a p {
     display: inline;
     position: relative;
-    top: 4px;
+    top: 6px;
 }
 .bc_para_ti-menu-opciones ul li a.activo p::after {
     content: "";
     display: block;
-    width: 20px;
+    width: 75%;
     margin: auto;
     border: 1px solid #B52E36;
+    margin-top: 11px;
 }
 
 .bc_para_ti-menu-opciones ul li a.activo p.activo {
@@ -391,8 +395,11 @@ img.icono-submenu-tabs {
     }
     */
     .bc_mobile-texto .mobile-txt p {
-        text-align: center;
+        text-align: left;
         font-size: 9px;
+    }
+    .bc_mobile-texto .mobile-txt {
+        padding: 0px 10%;
     }
   		
 }
