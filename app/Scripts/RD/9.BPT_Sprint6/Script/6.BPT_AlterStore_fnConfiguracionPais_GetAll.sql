@@ -62,7 +62,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -119,7 +119,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -201,7 +201,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -257,7 +257,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -339,7 +339,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -395,7 +395,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -477,7 +477,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -533,7 +533,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -615,7 +615,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -671,7 +671,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -753,7 +753,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -809,7 +809,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -891,7 +891,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -947,7 +947,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1029,7 +1029,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1085,7 +1085,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1167,7 +1167,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1223,7 +1223,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1305,7 +1305,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1361,7 +1361,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1443,7 +1443,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1499,7 +1499,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1581,7 +1581,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1637,7 +1637,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
@@ -1719,7 +1719,7 @@ begin
 				,case when isnull(d.CodigoZona, '') = '' then @CodigoZona else d.CodigoZona end as CodigoZona
 				,case when isnull(d.CodigoSeccion, '') = '' then @CodigoSeccion else d.CodigoSeccion end as CodigoSeccion
 				,case when isnull(d.CodigoConsultora, '') = '' then @CodigoConsultora else d.CodigoConsultora end as CodigoConsultora
-			FROM ConfiguracionPaisDetalle d 
+			FROM ConfiguracionPaisDetalle d with(nolock)
 			WHERE d.Estado = 1 
 				AND (
 					(d.CodigoRegion = @CodigoRegion and @CodigoRegion != '') 
@@ -1775,7 +1775,7 @@ begin
 		,C.MobileLogoBanner
 		,C.UrlMenu
 		,C.OrdenBpt
-	FROM ConfiguracionPais c
+	FROM ConfiguracionPais c with(nolock)
 	WHERE c.Estado = 1 
 		AND (@Codigo = '' OR c.Codigo = @Codigo)
 		AND ( 
