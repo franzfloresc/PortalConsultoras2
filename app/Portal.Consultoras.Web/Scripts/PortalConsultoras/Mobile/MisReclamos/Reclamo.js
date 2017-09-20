@@ -32,7 +32,7 @@ $(document).ready(function () {
             txtTelefono: "#txtTelefono",
             aCambiarProducto: "#aCambiarProducto",
             aCambiarProducto2: "#aCambiarProducto2",
-            txtCantidad: "#txtCantidad",
+            txtCantidad: "#txtCantidad1",
             txtCantidad2: "#txtCantidad2",
             txtPrecioUnidad: "#txtPrecioUnidad",
             Registro1: ".Registro1",
@@ -219,7 +219,7 @@ $(document).ready(function () {
 
                 $(me.Variables.btnSiguiente1).click(function (e) {
                     $(me.Variables.Enlace_regresar).show();
-
+                    
                     if ($(me.Variables.Registro1).is(":visible")) {
 
                         if (me.Funciones.ValidarCUVCampania()) {
@@ -414,7 +414,7 @@ $(document).ready(function () {
                         ok = data.success;
 
                         if (!data.success && data.message != "") {
-                            alert_msg(data.message);
+                            messageInfoValidado(data.message);
                             return false;
                         }
                     },
@@ -431,13 +431,13 @@ $(document).ready(function () {
                 if (valorParametriaAbs == "1") {
                     var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
                     if (diferencia > parseInt(valorParametria)) {
-                        alert_msg("Diferencia en trueques excede lo permitido");
+                        messageInfoValidado("Diferencia en trueques excede lo permitido");
                         return false;
                     }
                 } else {
                     if (valorParametriaAbs == "2") {
                         if (montoPedidoTrueque < montoMinimoReclamo) {
-                            alert_msg("Está devolviendo menos de lo permitido");
+                            messageInfoValidado("Está devolviendo menos de lo permitido");
                             return false;
                         }
                     } else {
@@ -445,7 +445,7 @@ $(document).ready(function () {
                         diferencia2 = Math.abs(diferencia2);
 
                         if (diferencia2 > parseInt(valorParametria)) {
-                            alert_msg("Diferencia en trueques excede lo permitido");
+                            messageInfoValidado("Diferencia en trueques excede lo permitido");
                             return false;
                         }
                     }
@@ -724,7 +724,7 @@ $(document).ready(function () {
                 }
 
                 if (!($.trim($(me.Variables.txtCantidad).val()) > 0 && $.trim($(me.Variables.txtCantidad).val()) <= $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")))) {
-                    alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+                    messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
                         $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")) + ")");
                     return false;
                 }
