@@ -113,7 +113,8 @@ namespace Portal.Consultoras.Entities
         public bool ValidacionInteractiva { get; set; } // R20150306
         [DataMember]// R20150306
         public string MensajeValidacionInteractiva { get; set; } // R20150306
-        
+
+        [Column("IndicadorGPRSB")]
         [DataMember]
         public int IndicadorGPRSB { get; set; }
         [DataMember]

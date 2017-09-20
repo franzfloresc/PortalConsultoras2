@@ -1333,5 +1333,21 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public string DestinatariosFeedback { get; set; }
+
+        [DataMember]
+        public bool GPRMostrarBannerRechazo { get; set; }
+        [DataMember]
+        public string GPRBannerTitulo { get; set; }
+        [DataMember]
+        public string GPRBannerMensaje { get; set; }
+        [DataMember]
+        public Enumeradores.RechazoBannerUrl GPRBannerUrl { get; set; }
+        [DataMember]
+        public string GPRTextovinculo { get; set; }
+
+        [DataMember]
+        public string FechaVencimiento { get; set; }
+        [DataMember]
+        public int DiasCierre { get; set; }
     }
 }

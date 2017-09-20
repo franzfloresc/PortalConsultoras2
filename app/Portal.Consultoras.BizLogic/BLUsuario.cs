@@ -296,11 +296,45 @@ namespace Portal.Consultoras.BizLogic
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
         {
             var usuario = (BEUsuario)this.GetUsuario(paisID, codigoUsuario, Constantes.TipoUsuario.Consultora);
-            if (usuario != null)
+            if (usuario == null) return usuario;
+
+            if (usuario.ConsultoraID != 0)
             {
-                if (usuario.ConsultoraID != 0)
+                var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
+                if (configuracion != null)
                 {
-                    var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Consultora);
+                    usuario.CampaniaID = configuracion.CampaniaID;
+                    usuario.ZonaHoraria = configuracion.ZonaHoraria;
+                    usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
+                    usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
+                    usuario.HoraFin = configuracion.HoraFin;
+                    usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
+                    usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
+                    usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
+                    usuario.DiasAntes = configuracion.DiasAntes;
+                    usuario.HoraInicio = configuracion.HoraInicio;
+                    usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
+                    usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
+                    usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
+                    usuario.ZonaValida = configuracion.ZonaValida;
+                    usuario.NuevoPROL = configuracion.NuevoPROL;
+                    usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                    usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
+                }
+            }
+
+            if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            {
+                var postulante = (BEUsuarioPostulante)this.GetUsuario(paisID, codigoUsuario, Constantes.TipoUsuario.Postulante);
+
+                if (postulante != null)
+                {
+                    usuario.ZonaID = postulante.ZonaID;
+                    usuario.RegionID = postulante.RegionID;
+                    usuario.ConsultoraID = postulante.ConsultoraID;
+
+                    var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
+
                     if (configuracion != null)
                     {
                         usuario.CampaniaID = configuracion.CampaniaID;
@@ -319,58 +353,68 @@ namespace Portal.Consultoras.BizLogic
                         usuario.ZonaValida = configuracion.ZonaValida;
                         usuario.NuevoPROL = configuracion.NuevoPROL;
                         usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
+                        usuario.IndicadorGPRSB = configuracion.IndicadorGPRSB;
                     }
                 }
+            }
 
-                if (usuario.TipoUsuario == Constantes.TipoUsuario.Postulante)
+            if (usuario.TieneLoginExterno)
+            {
+                var listaLoginExterno = this.GetListaLoginExterno(paisID, codigoUsuario);
+                if (listaLoginExterno.Any())
                 {
-                    var postulante = (BEUsuarioPostulante)this.GetUsuario(paisID, codigoUsuario, Constantes.TipoUsuario.Postulante);
-
-                    if (postulante != null)
-                    {
-                        usuario.ZonaID = postulante.ZonaID;
-                        usuario.RegionID = postulante.RegionID;
-                        usuario.ConsultoraID = postulante.ConsultoraID;
-
-                        var configuracion = this.GetConfiguracionCampania(usuario, Constantes.TipoUsuario.Postulante);
-
-                        if (configuracion != null)
-                        {
-                            usuario.CampaniaID = configuracion.CampaniaID;
-                            usuario.ZonaHoraria = configuracion.ZonaHoraria;
-                            usuario.FechaInicioFacturacion = configuracion.FechaInicioFacturacion;
-                            usuario.AceptacionConsultoraDA = configuracion.AceptacionConsultoraDA;
-                            usuario.HoraFin = configuracion.HoraFin;
-                            usuario.EsZonaDemAnti = configuracion.EsZonaDemAnti;
-                            usuario.HoraCierreZonaNormal = configuracion.HoraCierreZonaNormal;
-                            usuario.HoraCierreZonaDemAnti = configuracion.HoraCierreZonaDemAnti;
-                            usuario.DiasAntes = configuracion.DiasAntes;
-                            usuario.HoraInicio = configuracion.HoraInicio;
-                            usuario.HoraInicioNoFacturable = configuracion.HoraInicioNoFacturable;
-                            usuario.FechaFinFacturacion = configuracion.FechaFinFacturacion;
-                            usuario.CampaniaDescripcion = configuracion.CampaniaDescripcion;
-                            usuario.ZonaValida = configuracion.ZonaValida;
-                            usuario.NuevoPROL = configuracion.NuevoPROL;
-                            usuario.ZonaNuevoPROL = configuracion.ZonaNuevoPROL;
-                        }
-                    }
+                    var loginFacebook = listaLoginExterno.FirstOrDefault(x => x.Proveedor == Constantes.ProveedorAutenticacion.Facebook);
+                    usuario.FotoPerfil = (loginFacebook == null ? string.Empty : loginFacebook.FotoPerfil);
                 }
+            }
 
-                if (usuario.TieneLoginExterno)
+            var terminosCondiciones = this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.App);
+            usuario.AceptaTerminosCondiciones = terminosCondiciones.Aceptado;
+
+            var tablaLogica = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora);
+            usuario.DestinatariosFeedback = string.Join(";", tablaLogica.Select(x => x.Descripcion).ToList());
+
+            var MontoDeuda = new BLResumenCampania().GetMontoDeuda(paisID, usuario.CampaniaID, (int)usuario.ConsultoraID, usuario.CodigoUsuario, false);
+
+            var beGPRUsuario = new BEGPRUsuario()
+            {
+                IndicadorGPRSB = usuario.IndicadorGPRSB,
+                CampaniaID = usuario.CampaniaID,
+                PaisID = usuario.PaisID,
+                ConsultoraID = usuario.ConsultoraID,
+                MontoDeuda = MontoDeuda,
+                Simbolo = usuario.Simbolo,
+                CodigoISO = usuario.CodigoISO,
+                MontoMinimoPedido = usuario.MontoMinimoPedido,
+                MontoMaximoPedido = usuario.MontoMaximoPedido,
+                ValidacionAbierta = usuario.ValidacionAbierta,
+                EstadoPedido = usuario.EstadoPedido
+            };
+            var beGPRBanner = new BLPedidoRechazado().GetMotivoRechazo(beGPRUsuario);
+            if (beGPRBanner != null)
+            {
+                usuario.GPRMostrarBannerRechazo = beGPRBanner.MostrarBannerRechazo;
+                usuario.GPRBannerTitulo = beGPRBanner.BannerTitulo;
+                usuario.GPRBannerMensaje = beGPRBanner.BannerMensaje;
+                usuario.GPRBannerUrl = beGPRBanner.BannerUrl;
+                usuario.GPRTextovinculo = (beGPRBanner.BannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido ? beGPRBanner.Textovinculo : string.Empty);
+            }
+
+            if(usuario.RolID == Constantes.TipoUsuario.Consultora)
+            {
+                DateTime fechaHoy = DateTime.Now.AddHours(usuario.ZonaHoraria).Date;
+                DateTime fechaFin = usuario.FechaInicioFacturacion;
+                usuario.DiasCierre = fechaHoy >= fechaFin.Date ? 0 : (fechaFin.Subtract(DateTime.Now.AddHours(usuario.ZonaHoraria)).Days + 1);
+
+                if (usuario.TieneHana == 1)
                 {
-                    var listaLoginExterno = this.GetListaLoginExterno(paisID, codigoUsuario);
-                    if (listaLoginExterno.Any())
-                    {
-                        var loginFacebook = listaLoginExterno.FirstOrDefault(x => x.Proveedor == Constantes.ProveedorAutenticacion.Facebook);
-                        usuario.FotoPerfil = (loginFacebook == null ? string.Empty : loginFacebook.FotoPerfil);
-                    }
+                    var beUsuarioDatosHana = this.GetDatosConsultoraHana(paisID, usuario.CodigoUsuario, usuario.CampaniaID);
+                    if(beUsuarioDatosHana != null) usuario.FechaVencimiento = beUsuarioDatosHana.FechaLimPago.ToString("dd/MM/yyyy");
                 }
-
-                var terminosCondiciones = this.GetTerminosCondiciones(paisID, usuario.CodigoConsultora, Constantes.TipoTerminosCondiciones.App);
-                usuario.AceptaTerminosCondiciones = terminosCondiciones.Aceptado;
-
-                var tablaLogica = new BLTablaLogicaDatos().GetTablaLogicaDatos(paisID, Constantes.TablaLogica.CorreoFeedbackAppConsultora);
-                usuario.DestinatariosFeedback = string.Join(";", tablaLogica.Select(x => x.Descripcion).ToList());
+                else
+                {
+                    usuario.FechaVencimiento = usuario.FechaLimPago.ToString("dd/MM/yyyy");
+                }
             }
 
             return usuario;
@@ -384,7 +428,8 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (IDataReader reader = daUsuario.GetSesionUsuario(codigoUsuario))
                 {
-                    return reader.MapToCollection<BEUsuario>().FirstOrDefault();
+                    //return reader.MapToCollection<BEUsuario>().FirstOrDefault();
+                    return reader.MapToObject<BEUsuario>();
                 }
             }
             else if (tipoUsuario == Constantes.TipoUsuario.Postulante)
@@ -411,15 +456,18 @@ namespace Portal.Consultoras.BizLogic
             {
                 using (IDataReader reader = daConfiguracionCampania.GetConfiguracionCampania(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID, beUsuario.ConsultoraID))
                 {
-                    beConfiguracionCampania = reader.MapToCollection<BEConfiguracionCampania>().FirstOrDefault();
+                    //beConfiguracionCampania = reader.MapToCollection<BEConfiguracionCampania>().FirstOrDefault();
+                    beConfiguracionCampania = reader.MapToObject<BEConfiguracionCampania>();
                 }
             }
             else if (tipoUsuario == Constantes.TipoUsuario.Postulante)
             {
                 using (IDataReader readerCampania = daConfiguracionCampania.GetConfiguracionCampaniaNoConsultora(beUsuario.PaisID, beUsuario.ZonaID, beUsuario.RegionID))
                 {
-                    beConfiguracionCampania = readerCampania.MapToCollection<BEConfiguracionCampania>()
-                        .FirstOrDefault();
+                    //beConfiguracionCampania = readerCampania.MapToCollection<BEConfiguracionCampania>()
+                    //    .FirstOrDefault();
+
+                    beConfiguracionCampania = readerCampania.MapToObject<BEConfiguracionCampania>();
                 }
             }
 
