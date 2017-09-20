@@ -87,6 +87,16 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
             Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModelo>()
                 .ForMember(t => t.FlagActivo, f => f.MapFrom(c => c.FlagActivo == 1));
 
+            Mapper.CreateMap<BETipoEstrategia, TipoEstrategiaModel>()
+                .ForMember(t => t.TipoEstrategiaID, f => f.MapFrom(c => c.TipoEstrategiaID))
+                .ForMember(t => t.Descripcion, f => f.MapFrom(c => c.DescripcionEstrategia))
+                .ForMember(t => t.PaisID, f => f.MapFrom(c => c.PaisID))
+                .ForMember(t => t.FlagNueva, f => f.MapFrom(c => c.FlagNueva))
+                .ForMember(t => t.FlagRecoPerfil, f => f.MapFrom(c => c.FlagRecoPerfil))
+                .ForMember(t => t.FlagRecoProduc, f => f.MapFrom(c => c.FlagRecoProduc))
+                .ForMember(t => t.Imagen, f => f.MapFrom(c => c.ImagenEstrategia))
+                .ForMember(t => t.CodigoPrograma, f => f.MapFrom(c => c.CodigoPrograma));
+
             Mapper.CreateMap<BEPedidoFICDetalle, PedidoWebDetalleModel>();
 
             Mapper.CreateMap<BEMisPedidos, ClienteOnlineModel>()
