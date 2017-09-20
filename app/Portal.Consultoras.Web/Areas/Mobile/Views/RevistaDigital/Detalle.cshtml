@@ -37,7 +37,7 @@
         @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
             if (mobileConfiguracion.MostrarBotonAtras)
             {
-                <a class="regresar_landing" href="@Url.Action("Index","RevistaDigital", new { area = "Mobile"})">VOLVER</a>
+                <a class="regresar_landing" href="javascript: RDDetalleVolver(@Model.CampaniaID);">VOLVER</a>
             }
         }
         
