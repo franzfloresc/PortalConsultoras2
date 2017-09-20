@@ -11,7 +11,7 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 )
 AS
 /*
-ConfiguracionPais_GetAll '','','','',''
+dbo.ConfiguracionPais_GetAll '','','','',''
 */
 BEGIN
 	SET NOCOUNT ON;
@@ -63,6 +63,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -113,6 +116,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -163,6 +169,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -213,6 +222,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -263,6 +275,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -313,6 +328,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -363,6 +381,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -413,6 +434,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -463,6 +487,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -513,6 +540,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -563,6 +593,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
@@ -613,6 +646,9 @@ ALTER PROCEDURE [dbo].[ConfiguracionPais_GetAll]
 	,@CodigoConsultora  varchar(100) = ''
 )
 AS
+/*
+dbo.ConfiguracionPais_GetAll '','','','',''
+*/
 BEGIN
 	SET NOCOUNT ON;
 	
