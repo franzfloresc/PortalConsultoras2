@@ -1,10 +1,12 @@
 ﻿using Portal.Consultoras.Common;
 using Portal.Consultoras.Data;
 using Portal.Consultoras.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Transactions;
+using System.Linq;
 
 namespace Portal.Consultoras.BizLogic
 {
@@ -61,6 +63,83 @@ namespace Portal.Consultoras.BizLogic
         {
             DALogGPRValidacionDetalle dALogGPRValidacionDetalle = new DALogGPRValidacionDetalle(paisID);
             return dALogGPRValidacionDetalle.GetListByLogGPRValidacionId(logGPRValidacionId);
+        }
+
+        public BEGPRBanner GetMotivoRechazo(BEGPRUsuario usuario)
+        {
+            var beGPRBanner = new BEGPRBanner();
+
+            beGPRBanner.BannerUrl = Enumeradores.RechazoBannerUrl.Ninguna;
+
+            if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.SinAccion) return beGPRBanner;
+            if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado)
+            {
+                string CampaniaNro = (usuario.CampaniaID > 99999 ? usuario.CampaniaID.Substring(4, 2) : string.Empty);
+                beGPRBanner.BannerTitulo = "ESTAMOS FACTURANDO TU PEDIDO DE C" + CampaniaNro;
+                beGPRBanner.BannerMensaje = "Te notificaremos en caso tu pedido tenga observaciones.";
+                beGPRBanner.MostrarBannerRechazo = true;
+                return beGPRBanner;
+            }
+            beGPRBanner.BannerTitulo = "TU PEDIDO HA SIDO RECHAZADO";
+
+            var beProcesoPedidoRechazado = new BLProcesoPedidoRechazado().ObtenerProcesoPedidoRechazadoGPR(usuario.PaisID, usuario.CampaniaID, usuario.ConsultoraID);
+
+            if (beProcesoPedidoRechazado.IdProcesoPedidoRechazado == 0) return beGPRBanner;
+
+            List<BEPedidoRechazado> listaRechazo = beProcesoPedidoRechazado.olstBEPedidoRechazado != null ? beProcesoPedidoRechazado.olstBEPedidoRechazado : new List<BEPedidoRechazado>();
+            if (listaRechazo.Any()) listaRechazo = listaRechazo.Where(r => r.Rechazado && !string.IsNullOrEmpty(r.MotivoRechazo)).ToList();
+            else return beGPRBanner;
+
+            BEPedidoRechazado pedidoRechazado = listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ActualizacionDeuda);
+            if (pedidoRechazado != null && usuario.MontoDeuda > 0)
+            {
+                string montoDeuda = usuario.Simbolo + " " + Util.DecimalToStringFormat(pedidoRechazado.Valor, usuario.CodigoISO);
+                beGPRBanner.BannerMensaje = "Tienes una deuda de " + montoDeuda;
+                beGPRBanner.BannerUrl = Enumeradores.RechazoBannerUrl.Deuda;
+                beGPRBanner.RechazadoXdeuda = true;
+            }
+
+            string mensajeParcial = null;
+            if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMinino) != null)
+            {
+                mensajeParcial = "No llegaste al monto mínimo de " + usuario.Simbolo + " " + Util.DecimalToStringFormat(usuario.MontoMinimoPedido, usuario.CodigoISO);
+            }
+            else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.MontoMaximo) != null)
+            {
+                mensajeParcial = "Superaste tu línea de crédito de " + usuario.Simbolo + " " + Util.DecimalToStringFormat(usuario.MontoMaximoPedido, usuario.CodigoISO);
+            }
+            else if (listaRechazo.FirstOrDefault(p => p.MotivoRechazo == Constantes.GPRMotivoRechazo.ValidacionMontoMinimoStock) != null)
+            {
+                mensajeParcial = "No llegaste al monto mínimo";
+            }
+
+            if (!string.IsNullOrEmpty(mensajeParcial))
+            {
+                beGPRBanner.BannerUrl = Enumeradores.RechazoBannerUrl.ModificaPedido;
+                if (string.IsNullOrEmpty(beGPRBanner.BannerMensaje)) beGPRBanner.BannerMensaje = mensajeParcial;
+                else beGPRBanner.BannerMensaje += " y " + mensajeParcial.ToLower(1);
+            }
+            if (!string.IsNullOrEmpty(beGPRBanner.BannerMensaje)) beGPRBanner.BannerMensaje += ".";
+
+            if (!string.IsNullOrEmpty(beGPRBanner.BannerMensaje))
+            {
+                beGPRBanner.MostrarBannerRechazo = true;
+
+                if (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Rechazado && ((usuario.ValidacionAbierta == false && usuario.EstadoPedido == 201) || usuario.ValidacionAbierta == true && usuario.EstadoPedido == 202))
+                {
+                    beGPRBanner.MostrarBannerRechazo = true;
+                }
+                else if (beGPRBanner.RechazadoXdeuda == true)
+                {
+                    beGPRBanner.MostrarBannerRechazo = true;
+                }
+                else
+                {
+                    beGPRBanner.MostrarBannerRechazo = (usuario.IndicadorGPRSB == (int)Enumeradores.IndicadorGPR.Descargado ? true : false);
+                }
+            }
+
+            return beGPRBanner;
         }
 
         #region Private Functions

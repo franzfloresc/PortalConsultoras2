@@ -24,5 +24,10 @@ namespace Portal.Consultoras.Service
             var BLPedidoRechazado = new BLPedidoRechazado();
             return BLPedidoRechazado.GetListBELogGPRValidacionDetalleBELogGPRValidacionByLogGPRValidacionId(paisID, logGPRValidacionId);
         }
+
+        public BEGPRBanner GetMotivoRechazo(BEGPRUsuario usuario)
+        {
+            return new BLPedidoRechazado().GetMotivoRechazo(usuario);
+        }
     }
 }
