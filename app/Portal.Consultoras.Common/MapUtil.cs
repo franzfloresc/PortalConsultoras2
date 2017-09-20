@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Common
                 for (int index = 0; index < dataReader.FieldCount; index++)
                 {
                     var propertyInfo = propertiesToMap[dataReader.GetName(index).ToUpper()];
-                    if ((propertyInfo != null) && propertyInfo.CanWrite)
+                    if ((propertyInfo != null) && propertyInfo.CanWrite && dataReader[index] != DBNull.Value)
                     {
                         propertyInfo.SetValue(newObject, dataReader.GetValue(index), null);
                     }
