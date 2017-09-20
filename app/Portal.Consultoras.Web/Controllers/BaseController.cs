@@ -2987,11 +2987,16 @@ namespace Portal.Consultoras.Web.Controllers
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
+                case Constantes.UrlMenuContenedor.InicioIndex:
                     menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
                     menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
+                    break;
+                case Constantes.UrlMenuContenedor.RdInicio:
+                case Constantes.UrlMenuContenedor.RdInicioIndex:
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
                     menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
@@ -3007,10 +3012,8 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.RdDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
-                case Constantes.UrlMenuContenedor.RdInicio:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
-                    break;
                 case Constantes.UrlMenuContenedor.SwInicio:
+                case Constantes.UrlMenuContenedor.SwInicioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.SwIntriga:
@@ -3021,6 +3024,12 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                    break;
+                case Constantes.UrlMenuContenedor.OfertaDelDia:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
+                    break;
+                case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
                     break;
             }
 
