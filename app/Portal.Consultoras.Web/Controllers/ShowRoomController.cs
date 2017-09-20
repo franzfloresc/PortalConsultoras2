@@ -78,7 +78,6 @@ namespace Portal.Consultoras.Web.Controllers
 
         public ActionResult Index(string query)
         {
-
             ViewBag.TerminoMostrar = 1;
 
             try
@@ -91,6 +90,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                 if (mostrarPopupIntriga)
                 {
+                    return RedirectToAction("Intriga", "ShowRoom");
+
+                    /*
                     if (!ValidarIngresoShowRoom(true))
                     {
                         return RedirectToAction("Index", "Bienvenida");
@@ -103,6 +105,10 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "Bienvenida");
                     }
 
+                    return RedirectToAction("Intriga", "ShowRoom");
+                    */
+
+                    /*
                     ActualizarUrlImagenes(ofertasShowRoom);
 
                     var model = ObtenerPrimeraOfertaShowRoom(ofertasShowRoom);
@@ -118,9 +124,10 @@ namespace Portal.Consultoras.Web.Controllers
                     InicializarViewbag();
 
                     return View("Intriga", model);
+                    */
                 }
-                else
-                {
+                //else
+                //{
                     if (!ValidarIngresoShowRoom(false))
                         return RedirectToAction("Index", "Bienvenida");
 
@@ -191,7 +198,7 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.IconoLLuvia = ObtenerValorPersonalizacionShowRoom(Constantes.ShowRoomPersonalizacion.Desktop.IconoLluvia, Constantes.ShowRoomPersonalizacion.TipoAplicacion.Desktop);
 
                     return View(showRoomEventoModel);
-                }                
+                //}                
 
             }
             catch (Exception ex)
@@ -2748,8 +2755,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
         }
 
-
-
         public ActionResult DetalleOferta(int id)
         {
             if (!ValidarIngresoShowRoom(false))
@@ -2886,6 +2891,109 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return ErrorJson(Constantes.MensajesError.CargarProductosShowRoom);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetDataShowRoomIntriga()
+        {
+            try
+            {
+                const int SHOWROOM_ESTADO_INACTIVO = 0;
+                const string TIPO_APLICACION_DESKTOP = "Desktop";
+
+                //if (!PaisTieneShowRoom(userData.CodigoISO))
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = "ShowRoomConsultora encontrada"
+                //    });
+                //}
+
+                //if (!userData.CargoEntidadesShowRoom)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = ""
+                //    });
+                //}
+
+                var showRoom = userData.BeShowRoom ?? new BEShowRoomEvento();
+
+                if (showRoom.Estado == SHOWROOM_ESTADO_INACTIVO)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        data = "",
+                        message = "ShowRoomEvento no encontrado"
+                    });
+                }
+
+                var showRoomConsultora = userData.BeShowRoomConsultora ?? new BEShowRoomEventoConsultora();
+                //var mostrarPopupIntriga = showRoomConsultora.MostrarPopup;
+                //var mostrarPopupVenta = showRoomConsultora.MostrarPopupVenta;
+
+                //if (!mostrarPopupIntriga && !mostrarPopupVenta)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false
+                //    });
+                //}
+
+                //var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
+                //var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
+
+                //mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+                //mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
+
+                //var rutaShowRoomPopup = string.Empty;
+                //if (mostrarShowRoomProductos)
+                //{
+                //    rutaShowRoomPopup = Url.Action("Index", "ShowRoom");
+                //}
+
+                var personalizacionImagenIntriga = userData
+                    .ListaShowRoomPersonalizacionConsultora
+                    .FirstOrDefault(x => x.TipoAplicacion == TIPO_APLICACION_DESKTOP &&
+                        x.Atributo == "PopupImagenIntriga");
+
+                var imagenIntriga = personalizacionImagenIntriga.Valor;
+
+                var diasFaltantes = (userData.FechaInicioCampania.AddDays(-showRoom.DiasAntes) - DateTime.Now.AddHours(userData.ZonaHoraria).Date).Days;
+                var nombreConsultora = string.IsNullOrEmpty(userData.Sobrenombre)
+                        ? userData.NombreConsultora
+                        : userData.Sobrenombre;
+                var mensajeSaludo = string.Format("{0} prepárate para la", nombreConsultora);
+                var mensajeDiasFaltantes = diasFaltantes == 1 ? "FALTA 1 DÍA" : string.Format("FALTAN {0} DÍAS", diasFaltantes);
+
+                return Json(new
+                {
+                    success = true,
+                    EventoId = showRoom.EventoID,
+                    EventoNombre = showRoom.Nombre,
+                    EventoTema = showRoom.Tema,
+                    DiasFaltantes = diasFaltantes,
+                    MensajeSaludo = mensajeSaludo,
+                    MensajeDiasFaltantes = mensajeDiasFaltantes,
+                    UrlImagenIntriga = imagenIntriga ?? string.Empty,
+                    codigo = Constantes.ConfiguracionPais.ShowRoom
+                });
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = "Hubo un problema con el servicio, intente nuevamente",
+                    extra = ""
+                }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -3179,7 +3287,6 @@ namespace Portal.Consultoras.Web.Controllers
                 sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
             }
         }
-
 
         public ActionResult ConsultarTiposOferta(string sidx, string sord, int page, int rows)
         {
