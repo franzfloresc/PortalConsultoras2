@@ -133,6 +133,43 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             return View(model);
         }
 
+        public ActionResult DetalleCDRCulminado(long SolicitudId)
+        {
+
+            var cdrWeb = new BECDRWeb();
+            var listaCdrWebDetalle = new List<BECDRWebDetalle>();
+            using (CDRServiceClient sv = new CDRServiceClient())
+            {
+                cdrWeb = sv.GetCDRWebByLogCDRWebCulminadoId(userData.PaisID, SolicitudId);
+
+                listaCdrWebDetalle = sv.GetCDRWebDetalleByLogCDRWebCulminadoId(userData.PaisID, SolicitudId).ToList() ?? new List<BECDRWebDetalle>();
+                listaCdrWebDetalle.Update(p => p.Solicitud = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.Finalizado).Descripcion);
+                listaCdrWebDetalle.Update(p => p.SolucionSolicitada = ObtenerDescripcion(p.CodigoOperacion, Constantes.TipoMensajeCDR.MensajeFinalizado).Descripcion);
+            }
+
+            var model = Mapper.Map<CDRWebModel>(cdrWeb);
+            model.CodigoIso = userData.CodigoISO;
+            model.NombreConsultora = userData.NombreConsultora;
+            model.Simbolo = userData.Simbolo;
+            model.ListaDetalle = listaCdrWebDetalle;
+            model.OrigenCDRDetalle = "1";
+            if (model.FechaCulminado.HasValue)
+            {
+                model.FormatoFechaCulminado = string.Format("{0}/{1}/{2}",
+                model.FechaCulminado.Value.Day.ToString().PadLeft(2, '0'),
+                model.FechaCulminado.Value.Month.ToString().PadLeft(2, '0'),
+                model.FechaCulminado.Value.Year);
+            }
+            model.FormatoCampaniaID = string.Format("{0}-{1}",
+            model.CampaniaID.ToString().Substring(0, 4),
+            model.CampaniaID.ToString().Substring(4, 2));
+            model.CantidadAprobados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Aceptado);
+            model.CantidadRechazados = listaCdrWebDetalle.Count(f => f.Estado == Constantes.EstadoCDRWeb.Observado);
+
+            Session["ListaCDRDetalle"] = model;
+            return RedirectToAction("Detalle");
+        }
+
         public ActionResult DetalleCDR(long solicitudId)
         {
             BELogCDRWeb logCdrWeb = new BELogCDRWeb();
