@@ -10629,15 +10629,18 @@ a{
 
 .btn_compralo_ahora{
     display: block;
-    position: absolute;
-    top: 11px;
-    left: 67px;
+    position: relative;
+    margin-top: 9px;
+    /* top: 11px; */
+    left: 0px;
     font-family: 'Lato';
     color: #FFF;
     font-size: 11px;
     padding: 2px 21px;
     border: 1px solid #FFF;
-    line-height: 15px;
+    line-height: 30px;
+    height: 36.2px;
+    text-align: center;
 }
 
 .flexslider{
@@ -12210,6 +12213,17 @@ a{
 
 .btn_compralo_ahora.cabecera-no-home {
     margin-top: 7px !important;
+    display: block;
+    position: absolute;
+    top: 11px;
+    left: 67px;
+    font-family: 'Lato';
+    color: #FFF;
+    font-size: 11px;
+    padding: 2px 21px;
+    border: 1px solid #FFF;
+    line-height: 17px;
+    height:22px;
 }
 
 .content_cronometro{
