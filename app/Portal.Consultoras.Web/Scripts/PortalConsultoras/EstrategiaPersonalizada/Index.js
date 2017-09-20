@@ -71,10 +71,6 @@ function SeccionObtenerSeccion(seccion) {
 }
 
 function SeccionCargarProductos(objConsulta) {
-    
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
 
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
@@ -133,10 +129,6 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
-
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
         console.log(data.Seccion);
@@ -149,11 +141,13 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if ((data.data !== undefined && data.data.length > 0) ||
+    if ((data.Seccion !== undefined && data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.ShowRoom) ||
+        (data.data !== undefined && data.data.length > 0) ||
         (data.lista !== undefined && data.lista.length > 0) ||
         (data.listaLan !== undefined && data.listaLan.length > 0)) {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
         $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
     } else {
         $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
     }
@@ -238,8 +232,8 @@ function RenderCarruselSimple(divProd) {
         slidesToScroll: 1,
         autoplay: false,
         speed: 260,
-        prevArrow: '<a class="div-carousel-rd-prev js-slick-prev" style="display: block;left: 0;margin-left: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/previous_ofertas_home.png")" alt="" /></a>',
-        nextArrow: '<a class="div-carousel-rd-next js-slick-next" style="display: block;right: 0;margin-right: -5%;"><img src="' + baseUrl + 'Content/Images/Esika/next.png")" alt="" /></a>'
+        prevArrow: '<a class="" style="display: block;left: 0;margin-left: -5%; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/left_black_compra.png")" alt="" /></a>',
+        nextArrow: '<a class="" style="display: block;right: 0;margin-right: -5%; text-align: right; top: 40%;"><img src="' + baseUrl + 'Content/Images/PL20/right_black_compra.png")" alt="" /></a>'
     //})
     //.on('beforeChange', function (event, slick, currentSlide, nextSlide) {
     //    EstrategiaCarouselOn(event, slick, currentSlide, nextSlide);

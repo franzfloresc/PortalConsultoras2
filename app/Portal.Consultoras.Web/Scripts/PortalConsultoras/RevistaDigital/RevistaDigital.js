@@ -10,7 +10,9 @@ var sProps = {
     UrlRevistaDigitalInformacion: baseUrl + 'revistadigital/Informacion',
     UrlRevistaDigitalComprar: baseUrl + 'revistadigital/Comprar',
     UrlRevistaDigitalRevisar: baseUrl + 'revistadigital/Revisar',
-    UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/'
+    UrlRevistaDigitalDetalle: baseUrl + 'revistadigital/detalle/',
+    UrlContenedorComprar: baseUrl + 'Ofertas/',
+    UrlContenedorRevisar: baseUrl + 'Ofertas/Revisar'
 };
 
 
@@ -171,14 +173,7 @@ $(document).ready(function () {
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
         }
-    });
-
-    var elementoCarruselMenuContenedor = "[data-layout-menu2] ul";
-    if ($(elementoCarruselMenuContenedor).length) {
-        var menuContendorActivo = $(elementoCarruselMenuContenedor + " li").find(".activo")[0];
-        var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
-        $(elementoCarruselMenuContenedor).slick('slickGoTo', parseInt(posicionMenu));
-    }    
+    });   
 });
 
 function FlechaScrollDown(idCamapania) {
@@ -577,11 +572,12 @@ function RDPageInformativa() {
 }
 
 function RDDetalleVolver(campaniaId) {
+    var urlVolver = (isMobile() ? "/Mobile/" : "");
     if (campaniaCodigo == campaniaId) {
-        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
+        urlVolver = urlVolver + sProps.UrlContenedorComprar;
     }
     else {
-        window.location = (isMobile() ? "/Mobile/" : "") + sProps.UrlRevistaDigitalRevisar;
+        urlVolver = urlVolver + sProps.UrlContenedorRevisar;
     }
-   
+    window.location = urlVolver + "#LAN";
 }

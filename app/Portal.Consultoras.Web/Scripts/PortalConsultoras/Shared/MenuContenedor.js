@@ -138,6 +138,9 @@ var menuModule = (function () {
                 },
             1000);
         }
+        
+        if (isMobile())
+            moverSubMenuContenedorOfertasMobile();
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e.target);
@@ -153,6 +156,9 @@ var menuModule = (function () {
                         scrollTop: $('#' + codigo).offset().top - 60
                     },
                     1000);
+
+                if (isMobile())
+                    moverSubMenuContenedorOfertasMobile();
             } else {
                 if (window.location.href.toLowerCase().indexOf("/revisar") > -1)
                     window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -192,6 +198,16 @@ var menuModule = (function () {
             });
         }
     }
+
+    function moverSubMenuContenedorOfertasMobile() {
+        //var elementoCarruselMenuContenedor = "[data-layout-menu2] ul";
+        if ($(elementos.menu2Ul).length) {
+            var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
+            var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
+            $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
+        }
+    }
+
     return {
         init: init,
         setHover: setHover,
