@@ -187,5 +187,5 @@ function RedirectToLandingRD(origenWeb) {
 function RedireccionarContenedorComprar(origenWeb, codigo) {
     AccessRDAnalytics(origenWeb);
     codigo = $.trim(codigo);
-    window.location = ((isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
+    window.location = (isMobile() ? "/Mobile" : "") + "/Ofertas" + (codigo != "" ? "#" + codigo : "");
 }
