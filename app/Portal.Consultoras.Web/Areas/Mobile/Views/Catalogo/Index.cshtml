@@ -10,6 +10,12 @@
     var textApp = userAgent.Contains("iphone;") ? "Gratis en App Store" : "Gratis en Play Store";
 }
 
+<style type="text/css">
+    #flexslidertop{
+        height:60px;
+    }
+</style>
+
 <input type="hidden" id="hdPaisNombre" value="@Model.PaisNombre" />
 <input type="hidden" id="hdCampaniaAnterior" value="@Model.CampaniaAnterior" />
 <input type="hidden" id="hdCampaniaActual" value="@Model.CampaniaActual" />
@@ -23,7 +29,7 @@
 @{
     if (HttpContext.Current.Request.Browser.IsMobileDevice && ViewBag.ActivacionAppCatalogoWhastUp == 1)
     {
-        <div class="wrapper_resumen_mobile">
+        <div class="wrapper_resumen_mobile" style="margin-top:126px;">
             <div class="content_320">
                 <div class="content_app">
                     DESCARGA TU<br />
