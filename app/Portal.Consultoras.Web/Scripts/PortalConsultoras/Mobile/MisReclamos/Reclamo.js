@@ -101,7 +101,7 @@ $(document).ready(function () {
                     $(me.Variables.txtcuv2).val("");
                     //$("#txtCUVPrecio2").val("");
                     //$("#spnImporteTotal2").html("");
-                    //$("#hdImporteTotal2").val(0);
+                    $("#hdImporteTotal2").val(0);
                     //$("#txtCUVDescripcion2").val("");
                     //$("#txtCantidad2").val("1");
                     me.Funciones.CambioPaso(-100);
@@ -233,12 +233,11 @@ $(document).ready(function () {
                     }
 
                     if ($(me.Variables.Registro2).is(":visible")) {
-                        //$("#txtCUVDescripcion2").val('')
-                        //$("#txtCUV2").val('');
-                        //$("#txtCUVPrecio2").val('');
-
+                        $(me.Variables.txtDescripcionCuv2).val('')
+                        $(me.Variables.txtCuv2).val('');
+                        $(me.Variables.txtPrecioCuv2).val('');
+                        
                         if (me.Funciones.ValidarPaso1()) {
-
                             //paso2Actual = 1;
                             //me.Funciones.CambioPaso();
                             me.Funciones.CargarOperacion();
@@ -349,14 +348,14 @@ $(document).ready(function () {
                     me.Funciones.CambioPaso2(1);
                     //if (ValidarPaso2Trueque()) {
 
-
+                    
                     $("#spnCuv1").html($(me.Variables.txtCuvMobile).val());
                     $("#spnDescripcionCuv1").html($(me.Variables.txtDescripcionCuv).html());
-                    //$("#spnCantidadCuv1").html($("#txtCantidad").val());
+                    $("#spnCantidadCuv1").html($(me.Variables.txtCantidad).val());
 
                     $("#spnCuv2").html($(me.Variables.txtCuvMobile2).val());
                     $("#spnDescripcionCuv2").html($(me.Variables.txtDescripcionCuv2).html());
-                    //$("#spnCantidadCuv2").html($("#txtCantidad2").val());
+                    $("#spnCantidadCuv2").html($(me.Variables.txtCantidad2).val());
                     //}
 
 
@@ -375,6 +374,84 @@ $(document).ready(function () {
         };
 
         me.Funciones = {
+
+            ValidarPaso2Trueque: function() {
+                
+                //if ($("#CambioProducto2").hasClass("disabledClick")) {
+                //    return false;
+                //}
+
+                var ok = true;
+                ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
+                ok = $.trim($(me.Variables.txtDescripcionCuv2).val()) != "" ? ok : false;
+                ok = $.trim($(me.Variables.txtPrecioCuv2).val()) != "" ? ok : false;
+
+                var montoMinimoReclamo = $("#hdMontoMinimoReclamo").val();
+                var formatoMontoMinimo = $("#spnMontoMinimoReclamoFormato").html();
+                var montoPedidoTrueque = $("#hdImporteTotal2").val();
+
+                //------------------------------------------------------------
+                waitingDialog();
+
+                var item = {
+                    PedidoID: $(me.Variables.hdPedidoID).val(),
+                    CUV: $.trim($(me.Variables.txtCuvMobile2).val()),
+                    Cantidad: $.trim($(me.Variables.txtCantidad2).val()),
+                    Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
+                    CampaniaID: $(me.Variables.ComboCampania).val()
+                };
+
+                jQuery.ajax({
+                    type: 'POST',
+                    url: UrlValidarNoPack,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(item),
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        ok = data.success;
+
+                        if (!data.success && data.message != "") {
+                            alert_msg(data.message);
+                            return false;
+                        }
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                    }
+                });
+                //------------------------------------------------------------
+                var valorParametria = $("#hdParametriaCdr").val();
+                var valorParametriaAbs = $("#hdParametriaAbsCdr").val();
+
+                var formatoMontoMaximo = DecimalToStringFormat(montoMinimoReclamo);
+
+                if (valorParametriaAbs == "1") {
+                    var diferencia = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+                    if (diferencia > parseInt(valorParametria)) {
+                        alert_msg("Diferencia en trueques excede lo permitido");
+                        return false;
+                    }
+                } else {
+                    if (valorParametriaAbs == "2") {
+                        if (montoPedidoTrueque < montoMinimoReclamo) {
+                            alert_msg("Está devolviendo menos de lo permitido");
+                            return false;
+                        }
+                    } else {
+                        var diferencia2 = parseFloat(montoMinimoReclamo) - parseFloat(montoPedidoTrueque);
+                        diferencia2 = Math.abs(diferencia2);
+
+                        if (diferencia2 > parseInt(valorParametria)) {
+                            alert_msg("Diferencia en trueques excede lo permitido");
+                            return false;
+                        }
+                    }
+                }
+                return ok;
+            },
 
             EvaluarCUV: function () {
                 if (!me.Funciones.CUVCambio()) return false;
@@ -489,7 +566,7 @@ $(document).ready(function () {
                 //else {
                 //    $("#txtCUVDescripcion2").val("");
                 //    $("#txtCUVPrecio2").val("");
-                //    $("#hdImporteTotal2").val(0);
+                    $("#hdImporteTotal2").val(0);
                 //    $("#spnImporteTotal2").html("");
                 //    $("#CambioProducto2").addClass("disabledClick");
                 //}
@@ -633,8 +710,12 @@ $(document).ready(function () {
             },
 
             ValidarPaso1: function () {
+
                 var ok = true;
                 ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
+                ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
+                ok = $.trim($(me.Variables.txtCuvMobile).val()) != "" ? ok : false;
+
                 ok = $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").size() == 0 ? false : ok;
 
                 if (!ok) {
@@ -642,10 +723,16 @@ $(document).ready(function () {
                     return false;
                 }
 
+                if (!($.trim($(me.Variables.txtCantidad).val()) > 0 && $.trim($(me.Variables.txtCantidad).val()) <= $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")))) {
+                    alert_msg("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
+                        $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")) + ")");
+                    return false;
+                }
+
                 var item = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
-                    CUV: $("#txtCuv").text(),
-                    Cantidad: $.trim($("#txtCantidad").val()),
+                    CUV: $(me.Variables.txtCuvMobile).val(),
+                    Cantidad: $.trim($(me.Variables.txtCantidad).val()),
                     Motivo: $(".lista_opciones_motivo_cdr input[name='motivo-cdr']:checked").attr("id"),
                     CampaniaID: $(me.Variables.ComboCampania).val()
                 };
@@ -653,7 +740,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/ValidarPaso1',
+                    url: UrlValidarPaso1,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -974,7 +1061,7 @@ $(document).ready(function () {
                         }
 
                         //$(me.Variables.Registro4).show();
-
+                        
                         if (tipo == "canje") {
                             SetHandlebars("#template-confirmacion", data.detalle, "[data-tipo-confirma='" + tipo + "'] [data-detalle-confirma]");
                             //$("#eleccion").show();
