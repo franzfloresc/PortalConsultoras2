@@ -121,8 +121,8 @@ $(document).ready(function () {
             $("#ODD").find(".seccion-content-contenedor").fadeOut();
             return false;
         } 
-        $("#ODD").find(".seccion-content-contenedor").fadeIn();   
-
+        $("#ODD").find(".seccion-content-contenedor").fadeIn();
+        $(".subnavegador").find("[data-codigo=ODD]").fadeIn();
         return true;
     }
 
@@ -267,7 +267,6 @@ $(document).ready(function () {
         
         data.CantidadProductos = data.ListaOfertas.length;
         data.Simbolo = vbSimbolo;
-        //data.ClassDimension = data.CantidadProductos < 3 ? "content_780_ODD" : "";
         data.TextoVerDetalle = data.CantidadProductos > 1 ? "VER MÁS OFERTAS" : "VER OFERTA";
         data.UsuarioNombre = $.trim(usuarioNombre).toUpperCase();
         data.ListaOfertas = AsignarClaseCssAPalabraGratisDesktop(data.ListaOfertas);
@@ -625,7 +624,12 @@ $(document).ready(function () {
             var perteneceContenedorDetalle = $(btn).parents('div [data-odd-tipoventana="detalle"]').length > 0;
             if (perteneceContenedorDetalle) {
                 var posicion = $(btn).parents("[data-item]").attr("data-item-position");
-                $('#OfertaDelDia [data-odd-tipoventana="carrusel"]').find('[data-item-position="' + posicion + '"]').find(".product-add").css("display", "block");
+                $(btn).parents('.content_pop_oferta_dia ')
+                    .find('[data-odd-tipoventana="carrusel"]')
+                    .find('[data-item-position="' + posicion + '"]')
+                    .find(".product-add")
+                    .css("display", "block");
+
             } else
                 $(item).find(".product-add").css("display", "block");
         }
