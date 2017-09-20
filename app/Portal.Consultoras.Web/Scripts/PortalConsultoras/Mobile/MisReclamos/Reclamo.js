@@ -1395,6 +1395,7 @@ $(document).ready(function () {
                         $("#divProcesoReclamo").hide();
                         $(me.Variables.divUltimasSolicitudes).hide();
                         $(me.Variables.btnSiguiente4).hide();
+                        $(me.Variables.btnSiguiente1).hide();
                         $("#TituloReclamo").hide();
 
                         if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
