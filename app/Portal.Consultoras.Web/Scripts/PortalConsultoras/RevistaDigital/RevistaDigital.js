@@ -171,14 +171,7 @@ $(document).ready(function () {
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
         }
-    });
-
-    var elementoCarruselMenuContenedor = "[data-layout-menu2] ul";
-    if ($(elementoCarruselMenuContenedor).length) {
-        var menuContendorActivo = $(elementoCarruselMenuContenedor + " li").find(".activo")[0];
-        var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
-        $(elementoCarruselMenuContenedor).slick('slickGoTo', parseInt(posicionMenu));
-    }    
+    });   
 });
 
 function FlechaScrollDown(idCamapania) {
