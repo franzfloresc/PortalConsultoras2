@@ -189,7 +189,7 @@
 
             <form class="formulario_inscripcion padding0">
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
-
+                <input type="hidden" id="hdImporteTotal2" />
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
                     <span id="txtCuv2" class="codigo_producto_cdr tipografia_lato_bold">00411</span>
                     - <span id="txtDescripcionCuv2" class="nom_producto_cdr tipografia_lato_bold">Berrylicious shampoo rojo 375ml</span><br />
@@ -750,6 +750,7 @@
         var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
         var urlRegresar = '@Url.Action("Index","MisReclamos", new { area = "Mobile" })';
         var UrlSolicitudEnviar = '@Url.Action("SolicitudEnviar", "MisReclamos", new { area = "" })';
+        var UrlValidarNoPack = '@Url.Action("ValidarNoPack", "MisReclamos", new { area = "" })';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';
