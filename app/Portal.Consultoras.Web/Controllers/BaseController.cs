@@ -479,11 +479,13 @@ namespace Portal.Consultoras.Web.Controllers
                     else
                     {
                         var listaProducto = ObtenerPedidoWebDetalle();
+
+
                         var totalPedido = listaProducto.Sum(p => p.ImporteTotal);
                         decimal _dTotalPedido = Convert.ToDecimal(totalPedido);
 
-                        decimal montoActual = (montoCuv * Cantidad) + _dTotalPedido;
-                        if (montoActual < userData.MontoMaximo)
+                        decimal montoActual = (montoCuv * Cantidad) + (_dTotalPedido - listaProducto[0].DescuentoProl);
+                        if (montoActual <= userData.MontoMaximo)
                             mensaje = "";
                         else
                         {

@@ -4366,7 +4366,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcion = estrategia.DescripcionCUV2;
             }
 
-            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID, estrategia.Precio2);
             if (mensaje != "")
             {
                 return Json(new
@@ -4457,7 +4457,7 @@ namespace Portal.Consultoras.Web.Controllers
             //}, JsonRequestBehavior.AllowGet);
         }
 
-        private string ValidarStockEstrategia(string CUV, int Cantidad, int TipoOferta)
+        private string ValidarStockEstrategia(string CUV, int Cantidad, int TipoOferta, decimal Precio)
         {
             string mensaje = "";
             try
@@ -4471,11 +4471,16 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                using (PedidoServiceClient svc = new PedidoServiceClient())
-                {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
-                }
+                mensaje = ValidarPedidoMontoMaximo(Precio, entidad.Cantidad);
 
+                if (mensaje == "")
+                {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        mensaje = svc.ValidarStockEstrategia(entidad);
+                    }
+                }
+                
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)
