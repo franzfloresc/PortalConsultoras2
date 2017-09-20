@@ -16,7 +16,7 @@
     var classMenuInfo = menuActivo.Codigo == Constantes.ConfiguracionPais.Informacion ? "desplegable activo" : "desplegable";
 }
 
-<div id="seccion-menu-mobile" style="z-index: 10; width: 100%;">
+<div id="seccion-menu-mobile" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
     <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
         @if (menuActivo.ConfiguracionPais.MobileLogoBanner != "")
         {

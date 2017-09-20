@@ -19,7 +19,7 @@
         </style>
     }    
 }
-<div class="titulo_mobile">
+<div class="titulo_mobile hideTituloMobileDetalleOferta">
     @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
@@ -29,10 +29,16 @@
     &nbsp;&nbsp;&nbsp;&nbsp;VOLVER
     
 </div>
-<div class="pestana_esika"></div><!--PESTANA ESIKA-->
-<div class="pestana_lbel"></div><!--PESTANA LBEL-->
+<div class="pestana_esika hideTituloMobileDetalleOferta"></div><!--PESTANA ESIKA-->
+<div class="pestana_lbel hideTituloMobileDetalleOferta"></div><!--PESTANA LBEL-->
 
 <div class="content_room_product_sheet content_detalle_s">
+    <a href="" class="btn_volver_detalle_oferta" title="Volver">
+        <span class="icono_flecha_volver">
+            <img src="@Url.Content("~/Content/Images/mobile/flecha-volver-detalle.svg")" alt="Volver" />
+        </span>
+        <span class="texto_enlace_volver_detalle">VOLVER</span>
+    </a>
     <div class="product_sheet_image" data-img="" style="background:url(@ViewBag.ImagenFondoProductPage) no-repeat top center; background-size: 100% auto;">
         
         <img src="@Model.ImagenProducto" width="236" style="margin-top:20px;">
