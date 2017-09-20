@@ -69,8 +69,8 @@ namespace Portal.Consultoras.Web.Controllers
                 string paisID = usuario.PaisID.ToString();
                 string codigoConsultora = userData.UsuarioPrueba == 1 ? userData.ConsultoraAsociada : usuario.CodigoConsultora;
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
-                string paisISO = UserData().CodigoISO.Trim();
-                string campanhaID = UserData().CampaniaID.ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
 
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 

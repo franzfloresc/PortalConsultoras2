@@ -255,7 +255,7 @@
         <div class="canal_ingreso">@item.CanalIngreso</div>
         <div class="cantidad_prod">@item.CantidadProductos</div>
         <div class="seguimiento">
-            <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID);">
+            <a title="Seguimiento" href="javascript:;" onclick="CargarFramePedido(@item.CampaniaID,'@item.NumeroPedido');">
                 <img src="@Url.Content("~/Content/Images/icono-seguimiento.png")" alt="Seguimiento" />
             </a>
         </div>

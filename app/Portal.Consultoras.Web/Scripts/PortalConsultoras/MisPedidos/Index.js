@@ -55,9 +55,8 @@ $(document).ready(function () {
     });
 
     $('#verIngresado').click(function () {
-        $('#lblcampania')[0].innerHTML="";
-        var opt = $(this).parent().find("[data-selectcamp]");
-        var obj = opt.find("[value='" + opt.val() + "']");
+        $('#lblcampania')[0].innerHTML = "";
+        var obj = $(this).parent().find("[data-selectcamp] option:selected");
         var campFormat = obj.attr("data-campformat") || "";
         var pedidoIdFormat = obj.attr("data-pedidoidformat") || 0;
         if (campFormat == "") return false;
@@ -197,10 +196,10 @@ function CargarEventosTabs() {
     if (!lanzarTabClienteOnline) $('ul[data-tab="tab"]>li>a[data-tag]').first().trigger('click');
 }
 
-function CargarFramePedido(campania)
+function CargarFramePedido(campania, nroPedido)
 {
     waitingDialog({});
-    $('#PopSeguimiento iframe').attr('src', urlPedidos + "&campania=" + campania);
+    $('#PopSeguimiento iframe').attr('src', urlPedidos + "&campania=" + campania + "&nroPedido=" + nroPedido);
 }
 
 function WidthWindow() {

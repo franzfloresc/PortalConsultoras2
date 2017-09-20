@@ -35,8 +35,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 //Fin ITG 1793 HFMG
                 string mostrarAyudaWebTracking = Convert.ToInt32(usuario.MostrarAyudaWebTraking).ToString();
-                string paisISO = UserData().CodigoISO.Trim();
-                string campanhaID = UserData().CampaniaID.ToString();
+                string paisISO = userData.CodigoISO.Trim();
+                string campanhaID = userData.CampaniaID.ToString();
 
                 string url = "/WebPages/WebTracking.aspx?data=" + Util.EncriptarQueryString(paisID, codigoConsultora, mostrarAyudaWebTracking, paisISO, campanhaID);
 
