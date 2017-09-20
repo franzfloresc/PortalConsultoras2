@@ -11,9 +11,9 @@
 .bc_mobile-logo {
     float: left;
     background-size: 100% 100% !important;
-    height: 70px;
+    max-height: 100%;
     max-width: 50%;
-    overflow:hidden;
+    overflow: hidden;
 }
 .bc_mobile-logo img{
     height:95%;
@@ -234,7 +234,7 @@ padding: 0px 19px !important;
 margin-top: 13px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
-    padding: 5px;
+    padding: 5px 14px;
     display: inline;
     cursor: pointer;
     font-size: 12px;
