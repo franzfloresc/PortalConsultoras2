@@ -1172,7 +1172,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            return Util.Trim(eventoFestivo.Personalizacion);
+            var valor = Util.Trim(eventoFestivo.Personalizacion);
+            valor = valor == "" ? Util.Trim(valorBase) : valor;
+            return valor;
         }
         #endregion
 
@@ -2828,7 +2830,7 @@ namespace Portal.Consultoras.Web.Controllers
                             !sessionManager.GetMostrarShowRoomProductos() && 
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
-                            seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
+                            seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                             if (!isMobile)
                             {

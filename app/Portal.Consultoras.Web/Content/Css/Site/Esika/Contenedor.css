@@ -56,10 +56,9 @@
             letter-spacing: 1px;
         }
 
-.imagen_logo
-{
+.imagen_logo {
     width: auto;
-    height: auto;
+    height: 100%;
 }
 
 .texto-info {

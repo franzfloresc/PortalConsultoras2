@@ -32925,9 +32925,10 @@ h1#penmostreo .campana {
     height: 500px;
     margin: auto, auto;
     /*z-index: 2010;*/
-    background:#000;
+    background: #000;
     /*background-color: black;*/ /*PL20-1226*/
     /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/ /*PL20-1226*/
+    padding: 10px 0px;
 }
 
 @media screen and (max-width:1280px) {
