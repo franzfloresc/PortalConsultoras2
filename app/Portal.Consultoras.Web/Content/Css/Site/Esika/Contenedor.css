@@ -17,8 +17,9 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding-top: 40px;
+    padding: 5% 0%;
     text-align: center;
+    padding-bottom: 78px;
 }
 .bc_plantilla_estrategia_personalizada .titulo h2 {
     display: inline;
@@ -90,7 +91,7 @@
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
-    width: 33.1%;
+        width: 33.32%;
 }
             
 .bc_menu_estrategia .op_menu-horizontal ul li a.activo {
