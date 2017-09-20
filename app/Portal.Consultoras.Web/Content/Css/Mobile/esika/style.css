@@ -6324,6 +6324,10 @@ body {
         overflow: hidden;
 }
 
+.hideTituloMobileDetalleOferta{
+    display:none;
+}
+
 .fondo_f2f2f2 {
     background: #f2f2f2;
 }
@@ -11274,9 +11278,54 @@ a{
 }
 
 /******* Oscar *******/
+
+.agregarPosicionRelativa{
+    position:relative;
+}
+
+.btn_volver_detalle_oferta{
+    display: block;
+    position: absolute;
+    top: 21px;
+    left: 20px;
+    z-index: 20;
+    height: 45px;
+    line-height: 43px;
+}
+
+.btn_volver_detalle_oferta a{
+    display:block;
+    border:none;
+}
+
+.btn_volver_detalle_oferta a span{
+    display:inline-block;
+    vertical-align:middle;
+}
+
+.icono_flecha_volver{
+    margin-right:7px;
+}
+
+.icono_flecha_volver, .icono_flecha_volver img{
+    width:6px;
+    height:11px;
+}
+
+.texto_enlace_volver_detalle{
+    font-family: 'Lato';
+    font-size: 11.9px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: #000;
+    position: relative;
+    top: 1px;
+}
+
 .content_room_product_sheet{
 	font-family: 'Lato';
 	padding-bottom: 30px;
+    position:relative;
 }
 
 .content_room_product_sheet img{

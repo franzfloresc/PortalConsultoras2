@@ -56,10 +56,9 @@
             letter-spacing: 1px;
         }
 
-.imagen_logo
-{
+.imagen_logo {
     width: auto;
-    height: auto;
+    height: 100%;
 }
 
 .texto-info {
@@ -301,7 +300,7 @@
     display: block;
     width: 210px;
     text-align: center;
-    margin: auto 160px;
+    margin: auto 164px;
     padding: 12px 0px;
     /* display: none; */
     font-size: 14px;

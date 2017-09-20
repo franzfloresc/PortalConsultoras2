@@ -2828,7 +2828,7 @@ namespace Portal.Consultoras.Web.Controllers
                             !sessionManager.GetMostrarShowRoomProductos() && 
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
-                            seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
+                            seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                             if (!isMobile)
                             {
