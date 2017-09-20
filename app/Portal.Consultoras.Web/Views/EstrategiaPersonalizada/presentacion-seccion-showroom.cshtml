@@ -16,7 +16,7 @@
 <div class="bc_plantilla_estrategia_personalizada"
      data-OrigenPedidoWeb=""
      data-seccion-productos="" 
-     style="@backgroundVenta">
+     style="@backgroundVenta;min-height: 500px; vertical-align: middle;">
 
     @if (mostrarPopupIntriga)
     {
@@ -43,7 +43,7 @@
     @if (mostrarPopupVenta)
     {
         <script id="template-showroom" type="text/x-handlebars-template">
-            <div class="content_estrategia_carrusel">
+            <div style="padding: 0 18%;">
                 <div id="container-showroom-landing" class="content-favclientes content_carrusel_agregado">
                     <div>
                         <div class="titulo">
@@ -54,7 +54,7 @@
                         </div>
                         <div class="clear"></div>
                         @*<hr class="clear" />*@
-                        <div class="contenido" style="position:relative;">
+                        <div class="" style="position:relative; margin-top: 25px;">
                             {{#each this.data as |item|}}
                             <div class="" style="float: left; height: 100%; min-height: 1px; width:300px">
                                 <div class="content_item_carrusel" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
