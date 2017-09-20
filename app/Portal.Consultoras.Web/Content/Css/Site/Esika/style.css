@@ -21197,14 +21197,16 @@ label.checkpop.c_on {
     /* overflow: hidden; */
     padding-bottom: 15px;
 }
-.content_item_carrusel{
-    position:relative;
-    float: left;
-    width: 248px;
-    margin-right:25px;
+.content_item_carrusel {
+    /* position: relative; */
+    /* float: left; */
+    /* width: 248px; */
+    /* margin-right: 25px; */
     min-height: 305px;
     margin-bottom: 15px;
-    background:white;
+    margin-left: 7%;
+    margin-right: 7%;
+    background: white;
     border: 1px solid #e7e1e1;
     -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
     -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
@@ -32781,7 +32783,7 @@ h1#penmostreo .campana {
 
     .solo_hoy img {
         width: 100%;
-}
+    }
 
 .nombre_set_oferta {
     font-family: 'Lato';
@@ -32907,19 +32909,54 @@ h1#penmostreo .campana {
     top: 0;
 }
 
+@media screen and (max-width:1280px) {
+    .content_pop_oferta_dia {
+        margin-left: 12em !important;
+    }
+}
+
 .content_pop_oferta_dia {
     margin: 0 auto;
-    left: 0;content_new_showroom
+    left: 0;
     right: 0;
     position: relative;
     margin-top: 0px;
     max-width: 1024px;
-    height: 490px;
-    margin-left: 12em;
+    height: 500px;
+    margin: auto, auto;
     /*z-index: 2010;*/
     background:#000;
     /*background-color: black;*/ /*PL20-1226*/
     /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/ /*PL20-1226*/
+}
+
+@media screen and (max-width:1280px) {
+    .content_estrategia_carrusel {
+        margin-left: 12em !important;
+    }
+}
+
+.content_estrategia_carrusel {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    position: relative;
+    margin-top: 0px;
+    max-width: 1024px;
+    height: 500px;
+}
+
+.contenido {
+    width: 88%;
+    margin: 0 auto;
+}
+
+.titulo {
+    float: left;
+    margin-left: 80px;
+    width:100%;
+    margin-top:4px;
+    margin-bottom: 12px;
 }
 
 .reloj_popOferta {
@@ -33910,10 +33947,11 @@ h1#penmostreo .campana {
 
 .dias_intriga_home {
     font-family: 'Lato';
-    /*font-size: 55px;*/
+    font-size: 45px;
     letter-spacing: 1.4px;
     color: white;
-    /*text-align: center;*/
+    text-align: left;
+    padding: 0% 16%;
     width: 100%;
     text-shadow: -0.08em 0.08em black;
     position: absolute;

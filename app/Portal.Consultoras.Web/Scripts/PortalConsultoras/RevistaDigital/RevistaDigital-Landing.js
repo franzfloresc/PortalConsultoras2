@@ -274,16 +274,6 @@ function OfertaCargarProductoRespuesta(response, clear, objSeccion) {
 
     if (response.success !== true) return false;
 
-    if (objSeccion !== undefined && objSeccion !== null ) {
-        if ((objSeccion.Codigo === "LAN" && response.listaLan.length > 0) ||
-            (objSeccion.Codigo === "RD" && response.lista.length > 0) ||
-            (objSeccion.Codigo === "RDR" && response.lista.length > 0)) {
-            $("#" + objSeccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-            $("#" + objSeccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-        } else {
-            $("#" + objSeccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-        }
-    }
 
     divProd.find('[data-listado-content]').show();
     OfertaObtenerIndLocal(response.campaniaId);

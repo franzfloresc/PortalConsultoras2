@@ -2788,12 +2788,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) continue;
+
+                    if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
                 }
 
                 RemplazarTagNombreConfiguracionOferta(ref entConf);
-
-                if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
-
+                
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
@@ -2987,17 +2987,17 @@ namespace Portal.Consultoras.Web.Controllers
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdInformacion:
@@ -3008,7 +3008,7 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
                 case Constantes.UrlMenuContenedor.RdInicio:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.SwInicio:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;

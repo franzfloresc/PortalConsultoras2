@@ -43,7 +43,7 @@
     @if (mostrarPopupVenta)
     {
         <script id="template-showroom" type="text/x-handlebars-template">
-            <div style="padding: 0 18%;">
+            <div class="content_estrategia_carrusel">
                 <div id="container-showroom-landing" class="content-favclientes content_carrusel_agregado">
                     <div>
                         <div class="titulo">
@@ -52,10 +52,9 @@
                                 <a href="/ShowRoom">VER TODOS LOS SETS</a>
                             </div>
                         </div>
-                   
                         <div class="clear"></div>
                         @*<hr class="clear" />*@
-                        <div class="" style="position:relative;">
+                        <div class="contenido" style="position:relative;">
                             {{#each this.data as |item|}}
                             <div class="contiene-productos" data-posicion="{{Posicion}}" data-item="{{OfertaShowRoomID}}">
                                 <div data-campos="" style="display:none;">

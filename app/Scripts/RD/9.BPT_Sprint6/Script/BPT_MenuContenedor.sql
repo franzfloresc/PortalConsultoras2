@@ -3,8 +3,6 @@ use [BelcorpPeru]
 
 go
 
-delete from TipoEstrategia where DescripcionEstrategia = 'Pack Nuevas' and isnull(CodigoPrograma, '')  = '' 
-
 update TipoEstrategia
 set Codigo = '002'
 where TipoEstrategiaID = 3012
