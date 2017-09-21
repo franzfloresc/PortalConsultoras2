@@ -47,32 +47,39 @@ namespace Portal.Consultoras.Common
 
         private static void RegistrarArchivoTexto(LogError logError, string pathFile = "")
         {
-            if (string.IsNullOrEmpty(pathFile))
+            try
             {
-                pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log";
-            }
-
-            if (!Directory.Exists(pathFile))
-                Directory.CreateDirectory(pathFile);
-
-            string path = string.Format("{0}Log_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
-
-            using (StreamWriter stream = new StreamWriter(path, true))
-            {
-                stream.WriteLine(":::::::::::::: " + logError.Titulo + " ::::::::::::::");
-                stream.WriteLine(DateTime.Now + " ==> País: " + logError.IsoPais + " - Usuario: " + logError.CodigoUsuario);
-                stream.WriteLine("Error message: " + logError.Exception.Message);
-                stream.WriteLine("StackTrace: " + logError.Exception.StackTrace);
-                if (!string.IsNullOrEmpty(logError.InformacionAdicional))
-                    stream.WriteLine("Adicional: " + logError.InformacionAdicional);
-                stream.WriteLine(string.Empty);
-
-                Exception innerException = logError.Exception.InnerException;
-                while (innerException != null)
+                if (string.IsNullOrEmpty(pathFile))
                 {
-                    stream.WriteLine("InnerException: " + innerException.Message);
-                    innerException = innerException.InnerException;
+                    pathFile = AppDomain.CurrentDomain.BaseDirectory + "Log\\";
                 }
+
+                if (!Directory.Exists(pathFile))
+                    Directory.CreateDirectory(pathFile);
+
+                string path = string.Format("{0}Log_{1}.portal", pathFile, DateTime.Now.ToString("yyyy-MM-dd"));
+
+                using (StreamWriter stream = new StreamWriter(path, true))
+                {
+                    stream.WriteLine(":::::::::::::: " + logError.Titulo + " ::::::::::::::");
+                    stream.WriteLine(DateTime.Now + " ==> País: " + logError.IsoPais + " - Usuario: " + logError.CodigoUsuario);
+                    stream.WriteLine("Error message: " + logError.Exception.Message);
+                    stream.WriteLine("StackTrace: " + logError.Exception.StackTrace);
+                    if (!string.IsNullOrEmpty(logError.InformacionAdicional))
+                        stream.WriteLine("Adicional: " + logError.InformacionAdicional);
+                    stream.WriteLine(string.Empty);
+
+                    Exception innerException = logError.Exception.InnerException;
+                    while (innerException != null)
+                    {
+                        stream.WriteLine("InnerException: " + innerException.Message);
+                        innerException = innerException.InnerException;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                EventLog.WriteEntry("SomosBelcorp - LogManager", string.Format("Mensaje: {0} \nTrace: {1}", ex.Message, ex.StackTrace), EventLogEntryType.Error);
             }
         }
 

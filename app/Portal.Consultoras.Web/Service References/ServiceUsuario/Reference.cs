@@ -4574,6 +4574,147 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BEEventoFestivo", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
+    [System.SerializableAttribute()]
+    public partial class BEEventoFestivo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlcanceField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool EstadoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FinField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string InicioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NombreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PeriodoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PersonalizacionField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Alcance {
+            get {
+                return this.AlcanceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlcanceField, value) != true)) {
+                    this.AlcanceField = value;
+                    this.RaisePropertyChanged("Alcance");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool Estado {
+            get {
+                return this.EstadoField;
+            }
+            set {
+                if ((this.EstadoField.Equals(value) != true)) {
+                    this.EstadoField = value;
+                    this.RaisePropertyChanged("Estado");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Fin {
+            get {
+                return this.FinField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FinField, value) != true)) {
+                    this.FinField = value;
+                    this.RaisePropertyChanged("Fin");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Inicio {
+            get {
+                return this.InicioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.InicioField, value) != true)) {
+                    this.InicioField = value;
+                    this.RaisePropertyChanged("Inicio");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Nombre {
+            get {
+                return this.NombreField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NombreField, value) != true)) {
+                    this.NombreField = value;
+                    this.RaisePropertyChanged("Nombre");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Periodo {
+            get {
+                return this.PeriodoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PeriodoField, value) != true)) {
+                    this.PeriodoField = value;
+                    this.RaisePropertyChanged("Periodo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Personalizacion {
+            get {
+                return this.PersonalizacionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PersonalizacionField, value) != true)) {
+                    this.PersonalizacionField = value;
+                    this.RaisePropertyChanged("Personalizacion");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BEConsultoraDatos", Namespace="http://schemas.datacontract.org/2004/07/Portal.Consultoras.Entities")]
     [System.SerializableAttribute()]
     public partial class BEConsultoraDatos : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -7768,6 +7909,12 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetTerminosCondiciones", ReplyAction="http://tempuri.org/IUsuarioService/GetTerminosCondicionesResponse")]
         System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> GetTerminosCondicionesAsync(int PaisID, string CodigoConsultora, short Tipo);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
+        Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/GetEventoFestivo", ReplyAction="http://tempuri.org/IUsuarioService/GetEventoFestivoResponse")]
+        System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUsuarioService/Select", ReplyAction="http://tempuri.org/IUsuarioService/SelectResponse")]
         Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario);
         
@@ -8474,6 +8621,14 @@ namespace Portal.Consultoras.Web.ServiceUsuario {
         
         public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BETerminosCondiciones> GetTerminosCondicionesAsync(int PaisID, string CodigoConsultora, short Tipo) {
             return base.Channel.GetTerminosCondicionesAsync(PaisID, CodigoConsultora, Tipo);
+        }
+        
+        public Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[] GetEventoFestivo(int paisID, string Alcance, int Campania) {
+            return base.Channel.GetEventoFestivo(paisID, Alcance, Campania);
+        }
+        
+        public System.Threading.Tasks.Task<Portal.Consultoras.Web.ServiceUsuario.BEEventoFestivo[]> GetEventoFestivoAsync(int paisID, string Alcance, int Campania) {
+            return base.Channel.GetEventoFestivoAsync(paisID, Alcance, Campania);
         }
         
         public Portal.Consultoras.Web.ServiceUsuario.BEUsuario Select(int paisID, string codigoUsuario) {
