@@ -4580,26 +4580,14 @@ namespace Portal.Consultoras.Web.Controllers
                         message = mensaje
                     }, JsonRequestBehavior.AllowGet);
                 }
-
-                #region ValidarStockEstrategia
+                
                 var descripcion = ficha.DescripcionCompleta;
                 if (ficha.FlagNueva == 1)
                 {
                     numero = ficha.LimiteVenta;
                     descripcion = ficha.DescripcionCortada;
                 }
-
-                mensaje = ValidarStockEstrategia(ficha.CUV2, numero, ficha.TipoEstrategiaID);
-                if (mensaje != "")
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = mensaje
-                    });
-                }
-                #endregion
-                                
+                                                
                 listaCuvTonos = Util.Trim(listaCuvTonos);
                 if (listaCuvTonos == "")
                 {
@@ -4634,34 +4622,7 @@ namespace Portal.Consultoras.Web.Controllers
                 });
             }
         }
-
-
-        //[OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        //public JsonResult AgregarProductoFichaProducto(string MarcaID, string CUV, string PrecioUnidad, string Descripcion, string Cantidad, string indicadorMontoMinimo,
-        //                                      string TipoOferta, string OrigenPedidoWeb, string ClienteID_ = "")
-        //{
-        //    var pedidoModel = new PedidoSb2Model()
-        //    {
-        //        ClienteID = string.Empty,
-        //        ClienteID_ = ClienteID_,
-        //        ClienteDescripcion = string.Empty,
-        //        Tipo = 1,
-        //        MarcaID = Convert.ToByte(MarcaID),
-        //        Cantidad = Cantidad,
-        //        PrecioUnidad = Convert.ToDecimal(PrecioUnidad),
-        //        CUV = CUV,
-        //        IndicadorMontoMinimo = indicadorMontoMinimo,
-        //        DescripcionProd = Descripcion,
-        //        TipoOfertaSisID = Convert.ToInt32(TipoOferta), // C1747
-        //        ConfiguracionOfertaID = Convert.ToInt32(TipoOferta),
-        //        OfertaWeb = false,
-        //        OrigenPedidoWeb = Convert.ToInt32(OrigenPedidoWeb)
-        //    };
-            
-        //    Session[Constantes.SessionNames.FichaProductoTemporal] = null;
-        //    return Insert(pedidoModel);
-        //}
-
+        
         #endregion
     }
 }
