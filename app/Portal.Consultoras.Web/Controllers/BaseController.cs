@@ -3024,7 +3024,7 @@ namespace Portal.Consultoras.Web.Controllers
                 // ignored
             }
 
-                switch (newPath.ToLower())
+            switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
                 case Constantes.UrlMenuContenedor.InicioIndex:
@@ -3063,9 +3063,8 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
-                    if(pathOrigen.Equals(Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel.ToString()))
-                        menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
-                    else 
+                    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(pathOrigen);
+                    if (menuActivo.Codigo == "")
                         menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
@@ -3101,6 +3100,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
             Session[Constantes.ConstSession.MenuContenedorActivo] = menuActivo;
             return menuActivo;
+        }
+
+        public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen)
+        {
+            string codigo = "";
+            try
+            {
+                int origrn = Int32.Parse(pathOrigen);
+                switch (origrn)
+                {
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel:
+                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                        break;
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
+                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                        break;
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                        codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return codigo;
         }
 
         public MenuContenedorModel MenuContenedorObtenerActivo()
