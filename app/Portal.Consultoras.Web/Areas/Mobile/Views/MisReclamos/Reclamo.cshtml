@@ -651,7 +651,7 @@
                 {{item.SolucionSolicitada}}
                 {{else if_eq CodigoOperacion 'T'}}
                 {{item.CUV2}}<br />
-                <b>{{item.Descripcion2}}</b> <br />
+                {{item.Descripcion2}} <br />
                 {{item.Cantidad2}} unidades<br />
                 Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
                 {{else}}
@@ -677,10 +677,10 @@
                 {{item.Cantidad}} unidades<br />
                 Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
             </div>
-            @*<div class="listado_solicitud_reclamo">
+            <div class="listado_solicitud_reclamo">
                     <b>{{item.Solicitud}}</b>
                 </div>
-                <div class="titulo_solicitud_cdr tipografia_lato_bold">
+                <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
                     {{#if_eq CodigoOperacion 'C'}}
                     {{item.SolucionSolicitada}}
                     {{else if_eq CodigoOperacion 'D'}}
@@ -690,17 +690,16 @@
                     {{else if_eq CodigoOperacion 'G'}}
                     {{item.SolucionSolicitada}}
                     {{else if_eq CodigoOperacion 'T'}}
-                    <b>{{item.SolucionSolicitada}}</b><br />
                     {{item.CUV2}}<br />
-                    <b>{{item.Descripcion2}}</b> <br />
+                    {{item.Descripcion2}} <br />
                     {{item.Cantidad2}} unidades<br />
                     Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
                     {{else}}
                     {{/if_eq}}
                 </div>
-                <div class="info_solicitud_cdr tipografia_lato_regular">
-                    <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>*@
-        </div>
+                @*<div class="info_solicitud_cdr tipografia_lato_regular">
+                    <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
+        </div>*@
     </div>
     {{/each}}
 </script>
@@ -746,11 +745,18 @@
         var UrlDetalleGuardar = '@Url.Action("DetalleGuardar", "MisReclamos", new { area = ""})';
         var UrlDetalleCargar = '@Url.Action("DetalleCargar", "MisReclamos", new { area = "" } )';
         var UrlValidarPaso1 = '@Url.Action("ValidarPaso1", "MisReclamos", new { area = ""} )';
-        var UrlObtenerMontos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
+        var UrlObtenerMontosProdcutos = '@Url.Action("ObtenerMontoProductosCdrByCodigoOperacion", "MisReclamos", new { area = ""} )';
         var UrlBuscarCuvCambiar = '@Url.Action("BuscarCuvCambiar", "MisReclamos", new { area = ""} )';
         var urlRegresar = '@Url.Action("Index","MisReclamos", new { area = "Mobile" })';
         var UrlSolicitudEnviar = '@Url.Action("SolicitudEnviar", "MisReclamos", new { area = "" })';
         var UrlValidarNoPack = '@Url.Action("ValidarNoPack", "MisReclamos", new { area = "" })';
+        var UrlValidarCorreoDuplicado = '@Url.Action("ValidarCorreoDuplicado", "MisReclamos", new { area = "" })';
+        var UrlBuscarCdrWebDatos = '@Url.Action("BuscarCdrWebDatos", "MisReclamos", new { area = "" })';
+        var UrlObtenerCantidadProductosByCodigoSsic = '@Url.Action("ObtenerCantidadProductosByCodigoSsic", "MisReclamos", new { area = "" })';
+        var UrlBuscarPropuesta = '@Url.Action("BuscarPropuesta", "MisReclamos", new { area = "" })';
+        var UrlBuscarParametria = '@Url.Action("BuscarParametria", "MisReclamos", new { area = "" })';
+        var UrlValidaTelefono = '@Url.Action("ValidadTelefonoConsultora", "MisReclamos", new { area = "" })';
+        var UrlDetalleEliminar = '@Url.Action("DetalleEliminar", "MisReclamos", new { area = "" })';
 
         var mensajeGestionCdrInhabilitada = '@Html.Raw(Model.MensajeGestionCdrInhabilitada)';
         var mensajeCdrFueraDeFechaCompleto = '@Html.Raw(Constantes.CdrWebMensajes.FueraDeFecha + " " + Constantes.CdrWebMensajes.ContactateChatEnLinea)';

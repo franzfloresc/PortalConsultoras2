@@ -250,24 +250,6 @@ $(document).ready(function () {
                     }
                 });
 
-                $(me.Variables.btnSiguiente2).click(function (e) {
-                    ////$("#txtCUVDescripcion2").val('')
-                    ////$("#txtCUV2").val('');
-                    ////$("#txtCUVPrecio2").val('');
-
-                    //if (me.Funciones.ValidarPaso1()) {
-                    //    console.log(' Paso 1 validado... ');
-                    //    //paso2Actual = 1;
-                    //    //me.Funciones.CambioPaso();
-                    //    me.Funciones.CargarOperacion();
-
-                    //    $(me.Variables.Registro2).hide();
-                    //    $(me.Variables.Registro3).show();
-                    //    $(me.Variables.btnSiguiente2).hide();
-                    //    $(me.Variables.btnSiguiente3).hide();
-                    //}
-                });
-
                 $(me.Variables.btnSiguiente3).click(function (e) {
 
                     //$(me.Variables.btnSiguiente3).hide();
@@ -342,12 +324,13 @@ $(document).ready(function () {
 
                 $(me.Variables.btnCambioProducto).click(function (evt) {
 
+                   
+
+                    
+                    if (me.Funciones.ValidarPaso2Trueque()) {
+                    me.Funciones.CambioPaso2(1);
                     $(me.Variables.btnCambioProducto).hide();
                     $(me.Variables.btnAceptarSolucion).show();
-
-                    me.Funciones.CambioPaso2(1);
-                    //if (ValidarPaso2Trueque()) {
-
                     
                     $("#spnCuv1").html($(me.Variables.txtCuvMobile).val());
                     $("#spnDescripcionCuv1").html($(me.Variables.txtDescripcionCuv).html());
@@ -356,7 +339,7 @@ $(document).ready(function () {
                     $("#spnCuv2").html($(me.Variables.txtCuvMobile2).val());
                     $("#spnDescripcionCuv2").html($(me.Variables.txtDescripcionCuv2).html());
                     $("#spnCantidadCuv2").html($(me.Variables.txtCantidad2).val());
-                    //}
+                    }
 
 
 
@@ -380,7 +363,6 @@ $(document).ready(function () {
                 //if ($("#CambioProducto2").hasClass("disabledClick")) {
                 //    return false;
                 //}
-
                 var ok = true;
                 ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
                 ok = $.trim($(me.Variables.txtDescripcionCuv2).val()) != "" ? ok : false;
@@ -391,7 +373,7 @@ $(document).ready(function () {
                 var montoPedidoTrueque = $("#hdImporteTotal2").val();
 
                 //------------------------------------------------------------
-                waitingDialog();
+                ShowLoading();
 
                 var item = {
                     PedidoID: $(me.Variables.hdPedidoID).val(),
@@ -410,7 +392,8 @@ $(document).ready(function () {
                     async: false,
                     cache: false,
                     success: function (data) {
-                        closeWaitingDialog();
+                        CloseLoading();
+                        
                         ok = data.success;
 
                         if (!data.success && data.message != "") {
@@ -419,7 +402,7 @@ $(document).ready(function () {
                         }
                     },
                     error: function (data, error) {
-                        closeWaitingDialog();
+                        CloseLoading();
                     }
                 });
                 //------------------------------------------------------------
@@ -638,8 +621,8 @@ $(document).ready(function () {
                             //$("#txtCUVPrecio2").val(DecimalToStringFormat(precio));
                             //$("#hdCuvPrecio2").val(precio);
 
-                            //var cantidad = $("#txtCantidad2").val();
-                            //$("#hdImporteTotal2").val(precio * cantidad);
+                            var cantidad = $(me.Variables.txtCantidad2).val();
+                            $("#hdImporteTotal2").val(precio * cantidad);
                             //$("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
                         } else {
                             $("#txtCUVDescripcion2").val("");
@@ -709,8 +692,9 @@ $(document).ready(function () {
                 return ok;
             },
 
-            ValidarPaso1: function () {
+            
 
+            ValidarPaso1: function () {
                 var ok = true;
                 ok = $.trim($(me.Variables.hdPedidoID).val()) > 0 ? ok : false;
                 ok = $(me.Variables.ComboCampania).val() > 0 ? ok : false;
@@ -724,6 +708,7 @@ $(document).ready(function () {
                 }
 
                 if (!($.trim($(me.Variables.txtCantidad).val()) > 0 && $.trim($(me.Variables.txtCantidad).val()) <= $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")))) {
+                    
                     messageInfoValidado("Lamentablemente la cantidad ingresada supera a la cantidad facturada en tu pedido (" +
                         $.trim($(me.Variables.txtCantidad).attr("data-maxvalue")) + ")");
                     return false;
@@ -754,7 +739,7 @@ $(document).ready(function () {
 
                             if (!data.success && data.message != "") {
                                 //alert_msg(data.message);
-                                messageInfoError(data.message);
+                                messageInfoValidado(data.message);
                             }
                         }
                     },
@@ -968,7 +953,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarCdrWebDatos',
+                    url: UrlBuscarCdrWebDatos,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1003,7 +988,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/ObtenerCantidadProductosByCodigoSsic',
+                    url: UrlObtenerCantidadProductosByCodigoSsic,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1043,7 +1028,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarPropuesta',
+                    url: UrlBuscarPropuesta,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1225,7 +1210,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/BuscarParametria',
+                    url: UrlBuscarParametria,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1262,7 +1247,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/ObtenerMontoProductosCdrByCodigoOperacion',
+                    url: UrlObtenerMontosProdcutos,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),
@@ -1289,6 +1274,31 @@ $(document).ready(function () {
 
                 return resultado;
 
+            },
+
+            ValidarCorreoDuplicado: function (correo) {
+                var resultado = false;
+                jQuery.ajax({
+                    type: 'POST',
+                    url: UrlValidarCorreoDuplicado,
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ correo: correo }),
+                    async: false,
+                    cache: false,
+                    success: function (data) {
+                        closeWaitingDialog();
+                        if (!checkTimeout(data))
+                            resultado = false;
+                        else
+                            resultado = data.success;
+                    },
+                    error: function (data, error) {
+                        closeWaitingDialog();
+                        if (checkTimeout(data)) { }
+                    }
+                });
+                return resultado;
             },
 
             SolicitudEnviar: function (validarCorreoVacio, validarCelularVacio) {
@@ -1324,7 +1334,7 @@ $(document).ready(function () {
                 }
 
                 var correoActual = $.trim($("#hdEmail").val());
-                if (correo != "" && correo != correoActual && !ValidarCorreoDuplicado(correo)) {
+                if (correo != "" && correo != correoActual && !me.Funciones.ValidarCorreoDuplicado(correo)) {
                     me.Funciones.ControlSetError('#txtEmail', '#spnEmailError', '*Este correo ya está siendo utilizado. Intenta con otro');
                     return false;
                 }
@@ -1398,7 +1408,7 @@ $(document).ready(function () {
                         $(me.Variables.btnSiguiente1).hide();
                         $("#TituloReclamo").hide();
 
-                        if (data.Cantidad == 1) alertEMail_msg(data.message, "MENSAJE");
+                        if (data.Cantidad == 1) messageInfoValidado(data.message, "MENSAJE");
 
                         $(me.Variables.RegistroAceptarSolucion).hide();
                         $(me.Variables.textoMensajeCDR).hide();
@@ -1417,7 +1427,7 @@ $(document).ready(function () {
                 var resultado = false;
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/ValidadTelefonoConsultora',
+                    url: UrlValidaTelefono,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify({ Telefono: $("#txtTelefono").val() }),
@@ -1477,7 +1487,7 @@ $(document).ready(function () {
 
                 jQuery.ajax({
                     type: 'POST',
-                    url: baseUrl + 'MisReclamos/DetalleEliminar',
+                    url: UrlDetalleEliminar,
                     dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
                     data: JSON.stringify(item),

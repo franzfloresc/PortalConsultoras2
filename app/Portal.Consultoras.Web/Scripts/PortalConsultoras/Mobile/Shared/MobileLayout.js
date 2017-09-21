@@ -767,7 +767,7 @@ function messageInfoError(message, fnAceptar) {
 
     $('#popupInformacionSB2Error .btn_ok_mobile').on('click', function () {
         $('#popupInformacionSB2Error').hide();
-        fnAceptar();
+        //fnAceptar();
     });
 
     //if ($.isFunction(fnAceptar)) {
