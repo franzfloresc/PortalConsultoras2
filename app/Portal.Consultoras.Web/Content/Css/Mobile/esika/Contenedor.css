@@ -16,7 +16,7 @@
     overflow:hidden;
 }
 .bc_mobile-logo img{
-    height:95%;
+    height:100%;
     width: 100%;
 }
 .bc_mobile-texto{
@@ -140,9 +140,14 @@
 /* FIN Menu */
 
 
-.bc_plantilla-banner{
-	width: 100%;
+.bc_plantilla-banner {
+    width: 100%;
     display: inline-block;
+    background-position: center center !important;
+    background-size: cover !important;
+    width: 96.6%;
+    height: 190px;
+    margin: 1.7%;
 }
 .bc_plantilla-banner img{
 	width:100%;
@@ -289,6 +294,7 @@ img.icono-submenu-tabs {
     margin-left: 10px;
     margin-top: 5px;
 }
+
 /**/
 @media (max-width:1200px) {
     /*.bc_mobile-logo{

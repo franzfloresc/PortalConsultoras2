@@ -1584,6 +1584,7 @@ height: 100%;
     font-weight: 700;
     margin-bottom: 50px;
 }
+
 @media (min-width: 700px) {
     .texto_usuario_ept {
         padding-top: 42px;

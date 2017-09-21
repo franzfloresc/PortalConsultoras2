@@ -335,19 +335,20 @@
     left: 18%;
     /* padding: 0 18%; */
 }
-.previsualizales-ofertas .titulo h2 {
-    display: inline;
-    position: relative;
-    top: 1px;
-    font-size: 17px;
-    margin-right: 10px;
-    font-weight: bolder !important;
-    letter-spacing: 1px;
-    float: left;
-    text-transform:uppercase;
-    font-family: 'Lato';
-}
 
+
+.titulo h2 {
+    font-weight: bolder;
+    letter-spacing: 1px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 3% 10%;
+    margin-bottom: 0;
+    padding-top: 8%;
+    font-family: 'Lato';
+    color: #b52e36;
+}
     @media (max-width: 1100px) {
         .bc_menu_estrategia .logo {
             width: 13%;
