@@ -157,65 +157,11 @@
         <!--BANNER -->
         @if (ViewBag.MostrarBannerPostulante == true)
         {
-            <div id="bloquemensajesPostulante" style="display: none">
-                @*<div class="oscurecer_animacion"></div>*@
-                <div class="bloque_mensajesPedido" style="display: block">
-                    <div class="icono_cerrar_mensaje" style="top: 16px">
-                        <span>
-                            <a href="javascript:void(0);" id="" title="Cerrar" onclick="cerrarMensajePostulante();">
-                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
-                            </a>
-                        </span>
-                        <span>CERRAR</span>
-                    </div>
-                    <div class="icono_estadoPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
-                    </div>
-                    <div class="mensajes_estadoPedido">
-                        <span class="mensaje_estadoActualPedido">TE ENCUENTRAS EN UNA SESIÓN DE PRUEBA</span>
-                        <span class="mensaje_horarioIngresoPedido">
-                            Una vez recibas tu código de consultora, podrás acceder a todos los beneficios de Somos Belcorp.
-                        </span>
-                    </div>
-                </div>
-            </div>
+            @Html.Partial("~/Views/Shared/_vpBloqueMensajesPostulante.cshtml")
         }
         else if (ViewBag.MostrarBannerRechazo == true)
         {
-            <div id="bloquemensajesPedido" style="display: none">
-                @*<div class="oscurecer_animacion"></div>*@
-                <div class="bloque_mensajesPedido" style="display: block">
-                    <div class="icono_cerrar_mensaje" style="top: 16px">
-                        <span>
-                            <a href="javascript:void(0);" id="cerrarMensajeEstadoPedido" title="Cerrar" onclick="cerrarMensajeEstadoPedido();">
-                                <img src="/Content/Images/cerrar_04.png" alt="Cerrar">
-                            </a>
-                        </span>
-                        <span>CERRAR</span>
-                    </div>
-                    <div class="icono_estadoPedido">
-                        <img src="@Url.Content("~/Content/Images/icono_exclamacion_estado_pedido_negro.png")" alt="Icono Estado Pedido" />
-                    </div>
-                    <div class="mensajes_estadoPedido">
-                        <span class="mensaje_estadoActualPedido">@ViewBag.GPRBannerTitulo</span>
-                        <span class="mensaje_horarioIngresoPedido">
-                            @ViewBag.GPRBannerMensaje
-                            @if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.Deuda)
-                            {
-                                <a class='CerrarBanner' title="MIRA LOS LUGARES DE PAGO" href='@Url.Action("Index", "MisPagos")?pestanhaInicial=@Constantes.PestanhasMisPagos.LugaresPago'>MIRA LOS LUGARES DE PAGO</a>
-                            }
-                            else if (ViewBag.GPRBannerUrl == Enumeradores.RechazoBannerUrl.ModificaPedido)
-                            {
-                                <a class='CerrarBanner' title="MODIFICA TU PEDIDO" href='@Url.Action("Index", "Pedido")'>MODIFICA TU PEDIDO</a>
-                            }
-                        </span>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (ViewBag.tieneOfertaDelDia == true)
-        {
-            @*<div class="bloque_oferta_dia" id="OfertaDelDia" style="display: none"></div>*@
+            @Html.Partial("~/Views/Shared/_vpBloqueMensajesPedido.cshtml")
         }
 
         <!--END BANNER -->
@@ -258,14 +204,12 @@
                         <div id="SinProductos">
                             <div class="sin_productos">
                                 Todavía no has agregado
-                                <br />
-                                ningún producto a tu<br />
-                                pedido.
+                                <br />ningún producto a tu
+                                <br />pedido.
                             </div>
                             <a href="javascript:;" onclick="RedirectIngresaTuPedido();" class="ver_pedido esika">INGRESA TU PEDIDO</a>
                         </div>
-                        <div id="carrito_items">
-                        </div>
+                        <div id="carrito_items"></div>
                     </div>
                 </div>
                 <div class="borde_c"></div>
@@ -289,21 +233,22 @@
                 </div>
                 <div class="boton_cam">
                     @{
-                        if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
-                        {
-                            @:ESTÁS EN <br /> <span>-</span>
-                        }
-                        else
-                        {
-                            @:ESTÁS EN <br /> <span>C-@(Portal.Consultoras.Common.Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))</span>
-                        }
+                        @:ESTÁS EN <br />
+                        <span>
+                            @if (ViewBag.CampaniaCodigo == null || ViewBag.CampaniaCodigo.ToString().Length < 6)
+                            {
+                                @:-
+                            }
+                            else
+                            {
+                                @:C-@(Util.SubStr((ViewBag.CampaniaCodigo ?? "").ToString(), 4, 2))
+                            }
+                        </span>
                     }
                 </div>
                 <div class="boton_cerrar_s">
                     <a href="javascript:;" onclick="CerrarSesion();" role="menu" region="Superior" title="Cerrar Sesión" id="lnk-sup-cerrar-sesion">
-                        CERRAR
-                        <br />
-                        SESIÓN
+                        CERRAR<br />SESIÓN
                     </a>
                 </div>
             </div>
@@ -698,7 +643,9 @@
                     <a class="btn_agrega_set_dia" data-odd-accion="agregar" data-odd-accion-type="banner" data-odd-accion-element="0" data-odd-cabecera-position="0" href="javascript: void(0);">AGRÉGALO YA</a>
                 </div>
                 <a class="btn_detalle_hoy" data-odd-accion="veroferta" data-odd-cantidad="{{CantidadProductos}}" onclick="odd_desktop_google_analytics_promotion_click_verofertas();">
-                    <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas">+</span></div>
+                    <div class="circulo_hoy"><span id="odd_simbolo_ver_ofertas" style="    margin-left: 1px;
+    display: block;
+    text-align: center;">+</span></div>
                     <div class="texto_detalle_set">{{TextoVerDetalle}}</div>
                 </a>
             </div>
@@ -707,7 +654,7 @@
         <div class="content_pop_oferta_dia {{ClassDimension}}" id="PopOfertaDia">  
             <div class="solo_hoy content_landing_odd" style="width:100%; margin-top:4px;margin-bottom: 12px;">
                 <a class="regresar_carrusel" href="javascript: void(0);" data-odd-accion="regresar" style="display:none;">REGRESAR</a> <!--SOLO SE MUESTRA CUANDO SE VA AL DETALLE DE UN PRODUCTO-->
-                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:60px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
+                <div id="imgSoloHoy" style="height:42px; overflow:hidden;float:left;margin-top: 19px; margin-left:47px"><img src="{{ImagenSoloHoy}}" alt="" style="width:74%" /></div>
                 <div class="clock" style="float:right"></div>
                 <!--<div class="contenedor_texto_Tiempo">
                     <div class="textoHoras">horas</div>

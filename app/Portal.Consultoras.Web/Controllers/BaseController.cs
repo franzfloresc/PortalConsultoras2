@@ -2997,26 +2997,32 @@ namespace Portal.Consultoras.Web.Controllers
             path = path.ToLower().Replace("/mobile", "");
             var pathStrings = path.Split('/');
             var newPath = "";
+            var pathOrigen = "";
+            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
             try
             {
                 newPath += "/" + pathStrings[1];
                 newPath += "/" + pathStrings[2];
             }
-            catch (Exception e) { Console.WriteLine(e); }
-
-            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
+            catch (Exception)
+            {
+                // ignored
+            }
 
             try
             {
-                var parametro = Request.QueryString.AllKeys ?? new string[0];
                 int campaniaid = 0;
-                string campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+                var campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+                pathOrigen = Util.Trim(Request.QueryString["origen"]);
                 if (Int32.TryParse(campaniaIdStr, out campaniaid))
                 {
                     menuActivo.CampaniaId = Int32.Parse(campaniaIdStr);
                 }
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (Exception)
+            { 
+                // ignored
+            }
 
             switch (newPath.ToLower())
             {
@@ -3057,7 +3063,9 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
-                    menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                    menuActivo.Codigo = GetMenuActivoOptCodigoSegunActivo(pathOrigen);
+                    if (menuActivo.Codigo == "")
+                        menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
@@ -3092,6 +3100,39 @@ namespace Portal.Consultoras.Web.Controllers
             }
             Session[Constantes.ConstSession.MenuContenedorActivo] = menuActivo;
             return menuActivo;
+        }
+
+        public string GetMenuActivoOptCodigoSegunActivo(string pathOrigen)
+        {
+            string codigo = "";
+            try
+            {
+                int origrn = Int32.Parse(pathOrigen);
+                switch (origrn)
+                {
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel:
+                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                        break;
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeLanzamiento:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoLanzamiento:
+                        codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                        break;
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccion:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionMasOfertas:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobileHomeSeccionOfertas:
+                    case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
+                        codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
+            }
+            return codigo;
         }
 
         public MenuContenedorModel MenuContenedorObtenerActivo()

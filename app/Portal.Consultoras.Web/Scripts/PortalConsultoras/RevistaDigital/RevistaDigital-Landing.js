@@ -35,7 +35,9 @@ $(document).ready(function () {
         $(this).hide();
     });
 
-    OfertaCargarProductos(null);
+    if (isPagina("revistadigital")) {
+        OfertaCargarProductos(null);
+    }
 
     $(window).scroll(function () {
         OfertaCargarScroll();

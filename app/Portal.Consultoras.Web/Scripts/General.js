@@ -630,6 +630,12 @@ function isMobile() {
     return isUrlMobile;
 }
 
+function isPagina(pagina) {
+    pagina = $.trim(pagina);
+    if (pagina == "") return false;
+    return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
+}
+
 function isHome() {
     var isUrl = ($.trim(location.href) + "/").toLowerCase().indexOf("/bienvenida/") > 0;
     return isUrl;

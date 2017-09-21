@@ -277,6 +277,42 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/AdminContenido/MatrizComercialFileUpload.js",
                 "~/Scripts/PortalConsultoras/MatrizCampania/ActualizarMatrizCampaniaModule.js"
                 ));
+            
+            bundles.Add(new ScriptBundle("~/bundles/JsSB2-Ofertas").Include(
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/Estrategia.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
+                "~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js",
+                "~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js",
+                "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/css/Site/ccsOfertas").Include(
+                "~/Content/Css/Site/slick-pedido.css",
+                "~/Content/Css/Site/flexslider.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
+                "~/Scripts/jquery.flexslider.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js",
+                "~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js",
+                "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
+                "~/Content/Css/Mobile/esika/revistaDigital.css",
+                "~/Content/Css/Site/slick.css",
+                "~/Content/Css/Site/jquery.rateyo.css"
+                ));
 
 #if DEBUG
             BundleTable.EnableOptimizations = false;

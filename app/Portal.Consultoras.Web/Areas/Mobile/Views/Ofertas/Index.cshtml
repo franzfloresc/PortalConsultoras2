@@ -6,34 +6,9 @@
     Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 @section styles{
-<link href="@Url.Content("~/Content/Css/Site/slick.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Site/jquery.rateyo.css")" rel="stylesheet" />
-<link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" />
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<style>
-    section {
-        font-family: 'Lato', sans-serif !important;
-        font-size: 13px;
-    }
-</style>
 
-    <style>
-        .content_carrusel_landing-fix{
-            margin-top:0;
-        }
-        .titulo h2 {
-            color: #e81c36;
-            font-weight: bolder;
-            letter-spacing: 1px;
-            font-size: 20px;
-            text-align: left;
-            text-transform: uppercase;
-            padding: 3% 10%;
-            margin-bottom: 0;
-            padding-top: 8%;
-        }
-    </style>
+@System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertasMobile")
+
 }
 @foreach (var seccion in Model.ListaSeccion)
 {
@@ -71,12 +46,6 @@
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
     var urlOfertaDetalleProducto = '@Url.Action("Detalle", "RevistaDigital", new { area = "Mobile" })';
 </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
 
+@System.Web.Optimization.Scripts.Render("~/bundles/JsMobile/JsSB2-Ofertas")
 }
