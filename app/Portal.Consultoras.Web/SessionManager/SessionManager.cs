@@ -84,15 +84,5 @@ namespace Portal.Consultoras.Web.SessionManager
             var mostrarShowRoomProductosExpiro = HttpContext.Current.Session["MostrarShowRoomProductosExpiro"];
             return mostrarShowRoomProductosExpiro != null && mostrarShowRoomProductosExpiro.ToString().Trim() == "1";
         }
-
-        void ISessionManager.SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia)
-        {
-            HttpContext.Current.Session["ListaTipoEstrategia"] = tiposEstrategia;
-        }
-
-        List<BETipoEstrategia> ISessionManager.GetTiposEstrategia()
-        {
-            return (List<BETipoEstrategia>)HttpContext.Current.Session["ListaTipoEstrategia"];
-        }
     }
 }

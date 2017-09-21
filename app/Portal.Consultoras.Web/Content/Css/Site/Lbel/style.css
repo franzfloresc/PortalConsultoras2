@@ -37445,11 +37445,8 @@ h1#penmostreo .campana {
     top: 36%;
 }
 .dias_inicio_landing {
-    /*font-size: 78.4px;
-    top:170px;*/
-    top: 123px;
-    font-size: 72px;
-    padding: 0% 29.45%;
+    font-size: 78.4px;
+    top:170px;
 }
 .saludo_landing{
     top: 109px;

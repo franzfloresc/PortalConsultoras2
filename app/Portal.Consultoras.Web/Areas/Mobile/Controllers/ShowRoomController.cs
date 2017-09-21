@@ -58,17 +58,6 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 
         public ActionResult Index(string query)
         {
-            var mostrarShowRoomProductos = sessionManager.GetMostrarShowRoomProductos();
-            var mostrarShowRoomProductosExpiro = sessionManager.GetMostrarShowRoomProductosExpiro();
-
-            bool mostrarPopupIntriga = !mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;
-            //bool mostrarPopupVenta = mostrarShowRoomProductos && !mostrarShowRoomProductosExpiro;                
-
-            if (mostrarPopupIntriga)
-            {
-                return RedirectToAction("Intriga", "ShowRoom", new { area = "Mobile" });
-            }
- 
             ActionExecutingMobile();
             var showRoomEventoModel = OfertaShowRoom();
 

@@ -10469,17 +10469,6 @@ a{
     padding-top:4px;
     min-height: 190px;
 }
-
-.bloqueOfertaDia_vistaOfertas{
-    width:auto;
-    margin:10px;
-    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-}
-
 .solo_hoy_mobile{
     width: 70%;
     margin: 0 auto;
@@ -11286,22 +11275,6 @@ a{
 .landing_showroom{
     border:0;
     box-shadow: none;
-}
-
-.contenedor_banners_showroom:first-child{
-    margin:21px 10px 15px 10px;
-}
-
-.contenedor_banners_showroom{
-    text-align: center;
-    position: relative;
-    margin: 15px 10px 15px 10px;
-    overflow: hidden;
-    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
-    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
 }
 
 /******* Oscar *******/

@@ -33,9 +33,5 @@ namespace Portal.Consultoras.Web.SessionManager
         void SetMostrarShowRoomProductosExpiro(string flag);
 
         bool GetMostrarShowRoomProductosExpiro();
-
-        void SetTiposEstrategia(List<BETipoEstrategia> tiposEstrategia);
-
-        List<BETipoEstrategia> GetTiposEstrategia();
     }
 }

@@ -1172,9 +1172,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            var valor = Util.Trim(eventoFestivo.Personalizacion);
-            valor = valor == "" ? Util.Trim(valorBase) : valor;
-            return valor;
+            return Util.Trim(eventoFestivo.Personalizacion);
         }
         #endregion
 
@@ -2146,25 +2144,12 @@ namespace Portal.Consultoras.Web.Controllers
             if (!userData.OfertasDelDia.Any())
                 return null;
 
-            var model = userData.OfertasDelDia.First().Clone();
-            //
+            var model = userData.OfertasDelDia[0].Clone();
             model.ListaOfertas = userData.OfertasDelDia;
-            //
-            short posicion = 0;
-            var tiposEstrategia = sessionManager.GetTiposEstrategia();
-            if (tiposEstrategia == null) {
-                tiposEstrategia = GetTipoEstrategias();
-                sessionManager.SetTiposEstrategia(tiposEstrategia);
-            }
-            foreach (var oferta in model.ListaOfertas)
-            {
-                oferta.Position = posicion++;
-                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
-                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
-
-                if(tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
-                        oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
-            }
+            int posicion = 0;
+            model.ListaOfertas.Update(p => p.ID = posicion++);
+            var listPedidosDetalles = ObtenerPedidoWebDetalle();
+            foreach (var oferta in model.ListaOfertas) { oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none"; }
 
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
@@ -2843,7 +2828,7 @@ namespace Portal.Consultoras.Web.Controllers
                             !sessionManager.GetMostrarShowRoomProductos() && 
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
-                            seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
+                            seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
 
                             if (!isMobile)
                             {
@@ -3123,61 +3108,6 @@ namespace Portal.Consultoras.Web.Controllers
             return cadena;
         }
         #endregion
-
-        protected string GetDescripcionMarca(int marcaId)
-        {
-            string result = string.Empty;
-
-            switch (marcaId)
-            {
-                case 1:
-                    result = "Lbel";
-                    break;
-                case 2:
-                    result = "Esika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    result = "NO DISPONIBLE";
-                    break;
-            }
-
-            return result;
-        }
-
-        protected List<BETipoEstrategia> GetTipoEstrategias()
-        {
-            List<BETipoEstrategia> tiposEstrategia;
-            var entidad = new BETipoEstrategia
-            {
-                PaisID = userData.PaisID,
-                TipoEstrategiaID = 0
-            };
-            using (var pedidoServiceClient = new PedidoServiceClient())
-            {
-                tiposEstrategia = pedidoServiceClient.GetTipoEstrategias(entidad).ToList();
-            }
-
-            return tiposEstrategia;
-        }
-
     }
 }
 
