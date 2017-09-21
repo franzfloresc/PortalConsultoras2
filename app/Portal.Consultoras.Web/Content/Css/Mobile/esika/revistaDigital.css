@@ -938,7 +938,7 @@ div#tab_revistasdigital_mobile {
     position: absolute;
     left: -19px;
     top: 0;
-    z-index: 102;
+    z-index: 9;
     height: 0;
     border-style: solid;
     border-width: 0 0 100px 20px;
@@ -1668,7 +1668,7 @@ height: 100%;
     position: absolute;
     right: -25px;
     top: 0;
-    z-index: 102;
+    z-index: 9;
     width: 0;
     height: 0;
     border-style: solid;
