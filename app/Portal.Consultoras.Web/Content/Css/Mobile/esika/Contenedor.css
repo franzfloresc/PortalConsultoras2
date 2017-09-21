@@ -139,6 +139,24 @@
 
 /* FIN Menu */
 
+section {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 13px;
+}
+.content_carrusel_landing-fix{
+    margin-top:0;
+}
+.titulo h2 {
+    color: #e81c36;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 3% 10%;
+    margin-bottom: 0;
+    padding-top: 8%;
+}
 
 .bc_plantilla-banner{
 	width: 100%;
