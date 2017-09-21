@@ -68,4 +68,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="EventoSolicitudPostulanteCollection" nillable="true" type="tns:EventoSolicitudPostulanteCollection" />
+  <xs:complexType name="PosiblesConsultorasPendientesVisitaCollection">
+    <xs:sequence>
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/CORP.BEL.Unete.BL.BE" minOccurs="0" maxOccurs="unbounded" name="PosiblesConsultorasPendientesVisitaBE" nillable="true" type="q12:PosiblesConsultorasPendientesVisitaBE" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PosiblesConsultorasPendientesVisitaCollection" nillable="true" type="tns:PosiblesConsultorasPendientesVisitaCollection" />
 </xs:schema>
