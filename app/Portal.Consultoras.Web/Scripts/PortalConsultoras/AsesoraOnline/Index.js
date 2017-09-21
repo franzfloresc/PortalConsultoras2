@@ -13,6 +13,15 @@ $(document).ready(function () {
         var me = this;
 
         me.Eventos = {
+            scrollDownArrow: function (e) {
+                e.preventDefault();
+
+                var atributoTitulo = $(".arrow_down_coach_virtual").attr("href");
+
+                $('html,body').animate({
+                    scrollTop: $(atributoTitulo).offset().top - 30
+                }, 650, "easeOutSine");
+            },
             irASeccionFormulario: function (e) {
                 e.preventDefault();
 
@@ -26,11 +35,14 @@ $(document).ready(function () {
                 e.preventDefault();
 
                 $(this).parents(".contenedor_fondo_popup").fadeOut(400);
-                $(this).parent().fadeOut(400);            
+                //$(this).parent().fadeOut(400);            
             },
             mostrarBotonSuscripcionMobile: function () {
                 if(window.matchMedia("(max-width:767px)").matches) {
-                    if ($(window).scrollTop() > $("#cta-suscribirme").offset().top + 45) {
+                    if ($(window).scrollTop() > $("#formulario-inscripcion").offset().top - 200) {
+                        $(".cta_inscripcion_fixed").removeClass("mostrar_cta_inscripcion_mobile_fijo");
+                    }
+                    else if ($(window).scrollTop() > $("#cta-suscribirme").offset().top + 45) {
                         $(".cta_inscripcion_fixed").addClass("mostrar_cta_inscripcion_mobile_fijo");
                     }
                     else {
@@ -41,25 +53,28 @@ $(document).ready(function () {
         };
 
         me.Funciones = {
-            removerEnlace: function () {
-                setTimeout(function () {
-                    $('a[href*="//apps.elfsight.com/panel/"]').remove();
-                }, 2000);
-            },
+            //removerEnlace: function () {
+            //    setTimeout(function () {
+            //        $('a[href*="//apps.elfsight.com/panel/"]').remove();
+            //    }, 2000);
+            //},
             inicializarEventos: function () {
                 $("body").on("click", ".cta_inscripcion", me.Eventos.irASeccionFormulario);
                 $("body").on("click", ".cerrar_popup_inscripcion", me.Eventos.cerrarPopupsAsesoraOnline);
+                $("body").on("click", "#datos_son_correctos", me.Eventos.cerrarPopupsAsesoraOnline);
+                $("body").on("click", ".arrow_down_coach_virtual", me.Eventos.scrollDownArrow);
                 $(document).on("scroll", me.Eventos.mostrarBotonSuscripcionMobile);
+
+                $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
+                $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
+                $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);
             }
         };
 
         me.Inicializar = function () {
-            me.Funciones.removerEnlace();
+            //me.Funciones.removerEnlace();
             me.Funciones.inicializarEventos();
-
-            $("#enviar-form").on("click", asesoraOnlineObj.enviarFormulario);
-            $("#modificar_mis_datos").on("click", asesoraOnlineObj.irAModificarMisDatos);
-            $("#modificar_mis_datos_ya_registrado").on("click", asesoraOnlineObj.irAModificarMisDatos);
+            $("#terminos-condiciones").prop("checked", true);
         };
     };
 
