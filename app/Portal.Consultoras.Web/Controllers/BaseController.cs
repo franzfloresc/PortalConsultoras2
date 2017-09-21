@@ -2997,28 +2997,34 @@ namespace Portal.Consultoras.Web.Controllers
             path = path.ToLower().Replace("/mobile", "");
             var pathStrings = path.Split('/');
             var newPath = "";
+            var pathOrigen = "";
+            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
             try
             {
                 newPath += "/" + pathStrings[1];
                 newPath += "/" + pathStrings[2];
             }
-            catch (Exception e) { Console.WriteLine(e); }
-
-            var menuActivo = new MenuContenedorModel { CampaniaId = userData.CampaniaID, ConfiguracionPais = new ConfiguracionPaisModel() };
+            catch (Exception)
+            {
+                // ignored
+            }
 
             try
             {
-                var parametro = Request.QueryString.AllKeys ?? new string[0];
                 int campaniaid = 0;
-                string campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+                var campaniaIdStr = Util.Trim(Request.QueryString["campaniaid"]);
+                pathOrigen = Util.Trim(Request.QueryString["origen"]);
                 if (Int32.TryParse(campaniaIdStr, out campaniaid))
                 {
                     menuActivo.CampaniaId = Int32.Parse(campaniaIdStr);
                 }
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (Exception)
+            { 
+                // ignored
+            }
 
-            switch (newPath.ToLower())
+                switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
                 case Constantes.UrlMenuContenedor.InicioIndex:
@@ -3057,7 +3063,10 @@ namespace Portal.Consultoras.Web.Controllers
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
-                    menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                    if(pathOrigen.Equals(Constantes.OrigenPedidoWeb.RevistaDigitalMobileLandingCarrusel.ToString()))
+                        menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
+                    else 
+                        menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
                     break;
                 case Constantes.UrlMenuContenedor.OfertaDelDia:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
