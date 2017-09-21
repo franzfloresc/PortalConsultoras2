@@ -7,11 +7,7 @@
     Layout = "~/Views/Shared/_MainLayoutContenedor.cshtml";
 }
 @section styles{
-    <link href="@Url.Content("~/Content/Css/Site/slick-pedido.css")" rel="stylesheet" />
-    <link href="@Url.Content("~/Content/Css/Site/flexslider.css")" rel="stylesheet" type="text/css" />
-    <link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
-    
-    
+    @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
 }
 
 <div class="bc_estrategia_contenido">
@@ -33,9 +29,13 @@
                 <br/>
                 <br/>
                 <br/>
-                Cargando seccion @seccion.Titulo
+                Cargando @seccion.Titulo
                 <br/>
                 <img src="@Url.Content("~/Content/Images/Loading.gif")"/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
             </div>
         </div>
     }
@@ -65,14 +65,7 @@
     var TipoOrigenPantallaODD = 111;
     var tipoOrigenEstrategia = 107;
 </script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.flexslider.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/LocalStorage.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-Landing.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital-DataLayer.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/Index.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/ShowRoom/ShowRoom.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/Bienvenida/OfertaDelDia.js")"></script>
-<script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js")"></script>
+
+@System.Web.Optimization.Scripts.Render("~/bundles/JsSB2-Ofertas")
+
 }

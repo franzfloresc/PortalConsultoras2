@@ -78,12 +78,14 @@
                         var claseActivo = menuhijo.Codigo == menuActivo.Codigo ? "activo" : "";
                         <li data-campania="@menuhijo.CampaniaId" data-activo="1"
                             data-codigo="@menuhijo.Codigo"
-                            data-es-ancla="@menuhijo.EsAncla"
-                            onclick="menuModule.menuClick(this, '@menuhijo.UrlMenuMobile')">
+                            data-es-ancla="@(menuhijo.Codigo == "ODD" ? false : @menuhijo.EsAncla)"
+                            onclick="menuModule.menuClick(this, '@(menuhijo.Codigo == "ODD" ? Url.Action("Index", "OfertaDelDia",new { Area = "Mobile"}): @menuhijo.UrlMenuMobile)')">
                             <a href="javascript:;" class="@claseActivo">
                                 @if (!string.IsNullOrEmpty(menuhijo.Logo))
                                 {
-                                    <img src="@menuhijo.Logo" alt="Inicio" class="icono-submenu-tabs" style="display:inline;" />
+                                    <span class="opcion_home_vistaOfertas">
+                                        <img src="@menuhijo.Logo" alt="Inicio" class="icono-submenu-tabs" />
+                                    </span>
                                 }
                                 else
                                 {

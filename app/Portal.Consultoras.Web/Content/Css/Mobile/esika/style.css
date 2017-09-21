@@ -6393,6 +6393,7 @@ body {
     max-width: 320px;
     margin: 0 auto;
     z-index:5;
+    display:none;
     position:relative;
 }
 /**/
@@ -10472,7 +10473,7 @@ a{
 
 .bloqueOfertaDia_vistaOfertas{
     width:auto;
-    margin:10px;
+    margin:0 10px 10px 10px;
     box-shadow: 0 3px 11px rgba(0,0,0,0.5);
     -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
     -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
@@ -10495,11 +10496,18 @@ a{
     font-size: 11.5px;
     letter-spacing: 0.4px;
     /* margin-left: 30px; */
-    margin-top: 13%;
+    margin-top: 9%;
     color: white;
     line-height: 15px;
     text-align: center;
 }
+
+.precio_oferta_soloHoy{
+    display: block;
+    margin-top: 3px;
+    font-size: 17px;
+}
+
 .float_left{
     float:left;
 }
@@ -10723,16 +10731,16 @@ a{
     margin-bottom:3px;
 }
 /*FICHA 048B*/
-.content_oferta_guia_negocio{
-    width:100%;
-    max-width:292px;
-    margin:0 auto;
-    height:auto;
+.content_oferta_guia_negocio {
+    width: 100%;
+    /*max-width:292px;*/
+    margin: 0 auto;
+    height: auto;
     /*padding-left:14px;
     padding-right:14px;*/
-    text-align:left;
-    font-family:'Lato';
-    position:relative;
+    text-align: left;
+    font-family: 'Lato';
+    position: relative;
 }
 .etiqueta_guia_negocio{
     background: black;
@@ -11007,7 +11015,7 @@ a{
     position: absolute;
     width: 100%;
     text-shadow: -0.1em 0.1em black;
-    margin-top: 16.8%;
+    margin-top: 14%;
     margin-left: 19%;
     font-family: 'Lato';
     letter-spacing: 2px;
@@ -11304,18 +11312,30 @@ a{
     -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
 }
 
+.contenedor_banner_showroom_vistaOfertas_seccion_inferior{
+    display:block;
+    height:190px;
+    margin: 15px 10px 18px 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -o-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -ms-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 3px 11px rgba(0,0,0,0.5);
+}
+
 /******* Oscar *******/
 
 .agregarPosicionRelativa{
     position:relative;
 }
 
-.btn_volver_detalle_oferta{
+.btn_volver_detalle_oferta {
     display: block;
     position: absolute;
     top: 21px;
     left: 20px;
-    z-index: 20;
+    /*z-index: 20;*/
     height: 45px;
     line-height: 43px;
 }
@@ -12047,9 +12067,10 @@ a{
     margin-bottom: 4px;
     /*text-transform: uppercase;*/
 }
-.alerta_notificacion{
-     font-family: 'Lato';
-    width: 74%;
+.alerta_notificacion {
+    font-family: 'Lato';
+    width: 250px;
+    text-align: center;
     height: 20px;
     margin: 0 auto;
     font-size: 12px;

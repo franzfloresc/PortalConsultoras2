@@ -20,6 +20,7 @@
     padding: 4% 0%;
     text-align: center;
     padding-bottom: 5px;
+    margin-bottom: 0 !important;
 }
 .bc_plantilla_estrategia_personalizada .titulo h2 {
     display: inline;
@@ -41,20 +42,24 @@
     display: inline-block;
 }
 
-        .bc_menu_estrategia .texto-info p {
-            margin-bottom: 3px;
-            font-weight: bolder;
-            color: white;
-            letter-spacing: 1px;
-            font-size: 12px;
-        }
+.bc_menu_estrategia .texto-info p {
+    margin-bottom: 3px;
+    font-weight: bolder;
+    color: white;
+    letter-spacing: 1px;
+    font-size: 12px;
+    font-family: 'Lato', sans-serif;
+    text-transform: uppercase;
+}
 
-        .bc_menu_estrategia .texto-info span {
-            margin-bottom: 0;
-            color: white;
-            font-size: 11px;
-            letter-spacing: 1px;
-        }
+.bc_menu_estrategia .texto-info span {
+    margin-bottom: 0;
+    color: white;
+    font-size: 11px;
+    font-family: 'Lato', sans-serif;
+    text-transform:uppercase;
+    letter-spacing: 1px;
+}
 
 .imagen_logo {
     width: auto;
@@ -332,22 +337,23 @@
     /* padding-top: 40px; */
     text-align: center;
     position: absolute;
-    left: 18%;
+    /*left: 18%;*/
+    left:0%;
     /* padding: 0 18%; */
-}
-.previsualizales-ofertas .titulo h2 {
-    display: inline;
-    position: relative;
-    top: 1px;
-    font-size: 17px;
-    margin-right: 10px;
-    font-weight: bolder !important;
-    letter-spacing: 1px;
-    float: left;
-    text-transform:uppercase;
-    font-family: 'Lato';
+    padding: 0 11%;
 }
 
+
+.titulo h2 {
+    font-weight: bolder !important;
+    letter-spacing: 1px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-family: 'Lato';
+    color: #b52e36;
+}
     @media (max-width: 1100px) {
         .bc_menu_estrategia .logo {
             width: 13%;
@@ -388,7 +394,7 @@
 
 .bc_estrategia_contenido {
     min-height: 800px;
-    margin-bottom: 30px;
+    /*margin-bottom: 30px;*/
 }
 
 .seccion-content-contenedor {
