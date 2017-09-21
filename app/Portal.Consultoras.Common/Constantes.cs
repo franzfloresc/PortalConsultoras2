@@ -1032,5 +1032,21 @@ namespace Portal.Consultoras.Common
             public const short Desktop = 1;
             public const short Mobile = 2;
         }
+
+        #region EventoFestivo
+        public class EventoFestivoAlcance
+        {
+            public const string LOGIN = "LOGIN";
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";            
+        }
+
+        public class EventoFestivoNombre
+        {
+            public const string FONDO_ESIKA = "FONDO_ESIKA";
+            public const string FONDO_LBEL = "FONDO_LBEL";
+            public const string SALUDO = "SALUDO";
+            public const string FONDO_INGPED = "FONDO_INGPED";
+        }
+        #endregion
     }
 }
