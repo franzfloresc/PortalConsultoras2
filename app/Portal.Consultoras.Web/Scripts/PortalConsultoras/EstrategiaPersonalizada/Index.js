@@ -176,7 +176,7 @@ function SeccionMostrarProductos(data) {
         } else {
             $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
             $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-            UpdateSessionState(data.Seccion.Codigo, data.CampaniaID);
+            UpdateSessionState(data.Seccion.Codigo, data.campaniaId);
         }
     } else if (data.Seccion !== undefined && (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) ) {
         if (data.lista !== undefined && data.lista.length > 0) {
