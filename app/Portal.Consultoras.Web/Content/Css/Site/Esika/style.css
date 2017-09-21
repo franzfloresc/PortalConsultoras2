@@ -1780,7 +1780,7 @@ header {
     top: 0%;
     left: 0%;
     z-index: 1;
-    background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;
+    /*background: #000 url("../../../Images/Esika/background_pedido.png") no-repeat center bottom;*/
     /*background: #000 url("../../../Images/Esika/Banner_Esika.jpg") no-repeat center bottom;*/
     /*background-size:cover;*/
 }
@@ -4979,11 +4979,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .contenedor_bloques_agregaProductos{
-    display:block;
-    background:#f5f5f5;
-    height:auto;
-    padding-top:25px;
-    /*padding-bottom:20px;*/
+   display: block;
+    background: #f5f5f5;
+    height: auto;
+    padding-top: 25px;
+    /* padding-bottom: 20px; */
+    position: relative;
+    z-index: 2;
 }
 
 /*.bloque_descripciones, .bloque_carousel{
@@ -35740,9 +35742,10 @@ h1#penmostreo .campana {
 .content_regalo_sorpresa{
     display:inline-block;
     width:310px;
-    height:570px;
+    height:580px;
     margin-top: 50px;
-    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    background:url(../../../Images/Esika/bg_regalo_chile.png) no-repeat;
+    background-size: 100% 100%;
     vertical-align:top;
     margin-right: -25px;
     z-index: 21;
@@ -35839,9 +35842,23 @@ h1#penmostreo .campana {
     font-size:32px;
     line-height: 35px;
 }
-.bold_900{
-    font-weight:900;
+.bold_900 {
+    font-weight: 900;
 }
+
+.bloque_detalle_gris{
+    background: #f5f5f5;
+    height: 150px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+}
+.content_imagen_sorpresa img{
+    width:180px;
+    height:auto;
+}
+
 
 /*EPD-1919 INICIO*/
 .content_tipo_despacho {
@@ -35874,7 +35891,6 @@ h1#penmostreo .campana {
     margin-top: -22px;
     display: block;
 }
-
 .mensaje_informativo_despacho {
     font-weight: bold;
     /*color: #205081;*/
