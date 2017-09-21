@@ -36025,10 +36025,6 @@ h1#penmostreo .campana {
     margin: auto;
 }
 
-.slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img {
-    max-height: 450px !important;
-}
-
 .content_slider_ept {
     padding-top: 30px;
 }

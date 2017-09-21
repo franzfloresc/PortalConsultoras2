@@ -1656,7 +1656,7 @@ function ActualizarMD() {
     }
 
     if (!$('#chkAceptoContratoMD').is(':checked')) {
-        alert('Debe aceptar los terminos y condiciones para poder actualizar sus datos.');
+        alert('Debe aceptar los términos y condiciones para poder actualizar sus datos.');
         return false;
     }
 

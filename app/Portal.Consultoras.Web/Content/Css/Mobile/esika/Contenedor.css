@@ -16,7 +16,7 @@
     overflow:hidden;
 }
 .bc_mobile-logo img{
-    height:95%;
+    height:100%;
     width: 100%;
 }
 .bc_mobile-texto{
@@ -139,10 +139,31 @@
 
 /* FIN Menu */
 
+section {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 13px;
+}
+.content_carrusel_landing-fix{
+    margin-top:0;
+}
+.titulo h2 {
+    font-weight: bolder;
+    letter-spacing: 1px;
+    font-size: 20px;
+    text-align: left;
+    text-transform: uppercase;
+    padding: 3% 10%;
+    margin-bottom: 0;
+    font-family: 'Lato';
+    color: #b52e36;
+}
 
-.bc_plantilla-banner{
-	width: 100%;
+.bc_plantilla-banner {
+    width: 100%;
     display: inline-block;
+    background-position: center center !important;
+    background-size: cover !important;
+    height: 190px;
 }
 .bc_plantilla-banner img{
 	width:100%;
@@ -272,7 +293,7 @@ margin-top: 13px !important;
     width: 75%;
     margin: auto;
     border: 1px solid #B52E36;
-    margin-top: 13px;
+    margin-top: 12px;
 }
 
 .bc_para_ti-menu-opciones ul li a.activo p.activo {
@@ -289,6 +310,7 @@ img.icono-submenu-tabs {
     margin-left: 10px;
     margin-top: 5px;
 }
+
 /**/
 @media (max-width:1200px) {
     /*.bc_mobile-logo{
