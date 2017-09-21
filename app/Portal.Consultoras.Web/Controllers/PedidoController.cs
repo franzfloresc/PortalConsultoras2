@@ -3261,44 +3261,6 @@ namespace Portal.Consultoras.Web.Controllers
             return result;
         }
 
-        public string GetDescripcionMarca(int MarcaID)
-        {
-            string result = string.Empty;
-
-            switch (MarcaID)
-            {
-                case 1:
-                    result = "L'Bel";
-                    break;
-                case 2:
-                    result = "Ésika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 4:
-                    result = "S&M";
-                    break;
-                case 5:
-                    result = "Home Collection";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-                case 7:
-                    result = "Generico";
-                    break;
-                case 8:
-                    result = "Glance";
-                    break;
-                default:
-                    //result = "NO DISPONIBLE";
-                    break;
-            }
-
-            return result;
-        }
-
         [HttpPost]
         public JsonResult ConsultarBannerPedido()
         {
@@ -3406,27 +3368,6 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new { success = false });
             }
             return Json(new { success = true });
-        }
-
-        public List<BETipoEstrategia> ListarTipoEstrategia()
-        {
-            List<BETipoEstrategia> lst;
-            if (Session["ListaTipoEstrategia"] == null)
-            {
-                var entidad = new BETipoEstrategia();
-                entidad.PaisID = userData.PaisID;
-                entidad.TipoEstrategiaID = 0;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    lst = sv.GetTipoEstrategias(entidad).ToList();
-                }
-                Session["ListaTipoEstrategia"] = lst;
-            }
-            else
-            {
-                lst = (List<BETipoEstrategia>)Session["ListaTipoEstrategia"];
-            }
-            return lst;
         }
 
         private void AgregarKitNuevas()
@@ -3907,22 +3848,12 @@ namespace Portal.Consultoras.Web.Controllers
             return listaProductoModel;
         }
 
-        /*PL20-1226*/
         public JsonResult GetOfertaDelDia()
         {
             try
             {
-                var oddModel = this.GetOfertaDelDiaModel();
-                oddModel.ListaOfertas.Update(p => p.DescripcionMarca = GetDescripcionMarca(p.MarcaID));
-                short position = 0;
-                foreach (var item in oddModel.ListaOfertas)
-                {
-                    item.TipoEstrategiaDescripcion = string.Empty;
-                    var tipo_estrategia = ListarTipoEstrategia().FirstOrDefault(x => x.TipoEstrategiaID == item.TipoEstrategiaID);
-                    if (tipo_estrategia != null)
-                        item.TipoEstrategiaDescripcion = tipo_estrategia.DescripcionEstrategia;
-                    item.Position = position++;
-                }
+                var oddModel = GetOfertaDelDiaModel();
+                
                 return Json(new
                 {
                     success = oddModel != null,

@@ -564,7 +564,7 @@
     left: 7%;
     background: white;
     z-index: 20;
-
+    max-width: 50%;
 }
 .detalle_set_banner_ofertas_fix {
     position: absolute;

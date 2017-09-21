@@ -823,6 +823,7 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
+            public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
         }

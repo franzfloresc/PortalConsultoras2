@@ -286,13 +286,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         private IEnumerable<TipoEstrategiaModel> ListTipoEstrategia()
         {
-            List<BETipoEstrategia> lst;
-            var entidad = new BETipoEstrategia();
-            entidad.PaisID = UserData().PaisID;
-            using (PedidoServiceClient sv = new PedidoServiceClient())
-            {
-                lst = sv.GetTipoEstrategias(entidad).ToList();
-            }
+            List<BETipoEstrategia> lst = GetTipoEstrategias();
 
             if (lst != null && lst.Count > 0)
             {
