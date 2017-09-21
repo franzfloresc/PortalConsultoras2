@@ -934,6 +934,7 @@ div#tab_revistasdigital_mobile {
     position: relative;
 }
 .texto_usuario_ept:before {
+    display:none;
     content: '';
     position: absolute;
     left: -19px;
