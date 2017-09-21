@@ -224,7 +224,7 @@ Layout = "~/Areas/Mobile/Views/Shared/_MobileLayout.cshtml";
         var viewBagPaisID = '@ViewBag.PaisID';
 
         if (!$('#chkAceptoContratoMD').is(':checked')) {
-		    AbrirMensaje("Debe aceptar los terminos y condiciones para poder actualizar sus datos.");  
+		    AbrirMensaje("Debe aceptar los términos y condiciones para poder actualizar sus datos.");  
             return false;
         }
         if (viewBagPaisID != 4) {
