@@ -1766,7 +1766,7 @@ namespace Portal.Consultoras.BizLogic
             return daTerminosCondiciones.InsertTerminosCondiciones(terminos);
         }
 
-        public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
+        private BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
             BETerminosCondiciones beTerminosCondiciones = null;
             var daTerminosCondiciones = new DATerminosCondiciones(PaisID);
