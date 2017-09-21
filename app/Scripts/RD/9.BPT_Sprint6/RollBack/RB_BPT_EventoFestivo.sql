@@ -1,181 +1,428 @@
 USE BelcorpBolivia
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpChile
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpColombia
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpCostaRica
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpDominicana
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpEcuador
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpGuatemala
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpMexico
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpPanama
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpPeru
 go
 
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
-GO
-
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
-END
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
 
 go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
+END
+
+GO
 
 USE BelcorpPuertoRico
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpSalvador
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
 
 USE BelcorpVenezuela
 go
 
-IF EXISTS (select * from sys.objects where type = 'P' and name like '%GetEventoFestivo%')
-BEGIN
-	DROP PROC [dbo].[GetEventoFestivo]
+delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'
+
+go
+
+ALTER PROC [dbo].[GetEventoFestivo]
+(
+@Alcance varchar(30),
+@Campania int = 0
+)
+AS
+/*
+GetEventoFestivo '',201717
+*/
+BEGIN 
+
+	set @Alcance = isnull(@Alcance, '')
+
+	SELECT a.Nombre, a.Alcance, a.Personalizacion, a.Periodo, a.Inicio, a.Fin
+	FROM [dbo].[EventoFestivo] a with(nolock)
+	WHERE a.Estado = 1
+	AND  (
+		(a.Periodo = 1 and (GETDATE()) BETWEEN CONVERT(DATETIME, a.Inicio, 103) AND CONVERT(DATETIME, a.Fin, 103))
+		or (a.Periodo = 2 and @Campania BETWEEN Inicio AND Fin)
+	)
+	AND (a.Alcance = @Alcance or @Alcance = '')
+	 
 END
 
-GO
-
-IF EXISTS (select * from sys.objects where type = 'U' and name like '%EventoFestivo%')
-	DROP TABLE [dbo].[EventoFestivo]
 GO
