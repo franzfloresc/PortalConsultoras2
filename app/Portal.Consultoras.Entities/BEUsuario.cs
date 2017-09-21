@@ -855,6 +855,7 @@ namespace Portal.Consultoras.Entities
             set { msCodigoTerritorio = value; }
         }
 
+        [Column("MontoMinimoPedido")]
         [DataMember]
         public decimal MontoMinimoPedido
         {
@@ -862,6 +863,7 @@ namespace Portal.Consultoras.Entities
             set { mmMontoMinimoPedido = value; }
         }
 
+        [Column("MontoMaximoPedido")]
         [DataMember]
         public decimal MontoMaximoPedido
         {
