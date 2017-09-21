@@ -10723,16 +10723,16 @@ a{
     margin-bottom:3px;
 }
 /*FICHA 048B*/
-.content_oferta_guia_negocio{
-    width:100%;
-    max-width:292px;
-    margin:0 auto;
-    height:auto;
+.content_oferta_guia_negocio {
+    width: 100%;
+    /*max-width:292px;*/
+    margin: 0 auto;
+    height: auto;
     /*padding-left:14px;
     padding-right:14px;*/
-    text-align:left;
-    font-family:'Lato';
-    position:relative;
+    text-align: left;
+    font-family: 'Lato';
+    position: relative;
 }
 .etiqueta_guia_negocio{
     background: black;
@@ -11310,12 +11310,12 @@ a{
     position:relative;
 }
 
-.btn_volver_detalle_oferta{
+.btn_volver_detalle_oferta {
     display: block;
     position: absolute;
     top: 21px;
     left: 20px;
-    z-index: 20;
+    /*z-index: 20;*/
     height: 45px;
     line-height: 43px;
 }
@@ -12047,9 +12047,10 @@ a{
     margin-bottom: 4px;
     /*text-transform: uppercase;*/
 }
-.alerta_notificacion{
-     font-family: 'Lato';
-    width: 74%;
+.alerta_notificacion {
+    font-family: 'Lato';
+    width: 250px;
+    text-align: center;
     height: 20px;
     margin: 0 auto;
     font-size: 12px;
