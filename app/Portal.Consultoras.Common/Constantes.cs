@@ -823,6 +823,7 @@ namespace Portal.Consultoras.Common
 
         public struct TablaLogica
         {
+            public const int PersonalizacionODD = 93;
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
         }
@@ -1073,16 +1074,21 @@ namespace Portal.Consultoras.Common
         public class UrlMenuContenedor
         {
             public const string Inicio = "/ofertas";
+            public const string InicioIndex = "/ofertas/index";
             public const string InicioRevisar = "/ofertas/revisar";
+            public const string RdInicio = "/revistadigital";
+            public const string RdInicioIndex = "/revistadigital/index";
             public const string RdComprar = "/revistadigital/comprar";
             public const string RdRevisar = "/revistadigital/revisar";
             public const string RdInformacion = "/revistadigital/informacion";
             public const string RdDetalle = "/revistadigital/detalle";
-            public const string RdInicio = "/revistadigital";
             public const string SwInicio = "/showroom";
+            public const string SwInicioIndex = "/showroom/index";
             public const string SwIntriga = "/showroom/intriga";
             public const string SwDetalle = "/showroom/detalleoferta";
             public const string OptDetalle = "/ofertasparati/detalle";
+            public const string OfertaDelDia = "/ofertadeldia";
+            public const string OfertaDelDiaIndex = "/ofertadeldia/index";
         }
     }
 }

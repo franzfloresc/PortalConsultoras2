@@ -3,7 +3,7 @@
     background-color: #808080;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-    background-position: right center !important;
+    background-position: center !important;
     position: relative;
 }
 
@@ -17,8 +17,9 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding-top: 40px;
+    padding: 4% 0%;
     text-align: center;
+    padding-bottom: 5px;
 }
 .bc_plantilla_estrategia_personalizada .titulo h2 {
     display: inline;
@@ -55,10 +56,9 @@
             letter-spacing: 1px;
         }
 
-.imagen_logo
-{
+.imagen_logo {
     width: auto;
-    height: auto;
+    height: 100%;
 }
 
 .texto-info {
@@ -90,7 +90,7 @@
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
-    width: 33.1%;
+        width: 33.32%;
 }
             
 .bc_menu_estrategia .op_menu-horizontal ul li a.activo {
@@ -106,7 +106,7 @@
 
                 .bc_menu_estrategia .op_menu-horizontal ul li a {
                     display: block;
-                    background: rgba(255, 255, 255, 0.21);
+                    background: rgba(255, 255, 255, 0.44);
                     text-align: center;
                     color: white;
                     font-weight: bolder;
@@ -300,7 +300,7 @@
     display: block;
     width: 210px;
     text-align: center;
-    margin: auto 160px;
+    margin: auto 164px;
     padding: 12px 0px;
     /* display: none; */
     font-size: 14px;

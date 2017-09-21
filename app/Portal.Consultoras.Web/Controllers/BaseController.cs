@@ -1186,7 +1186,9 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
             }
-            return Util.Trim(eventoFestivo.Personalizacion);
+            var valor = Util.Trim(eventoFestivo.Personalizacion);
+            valor = valor == "" ? Util.Trim(valorBase) : valor;
+            return valor;
         }
         #endregion
 
@@ -2158,12 +2160,25 @@ namespace Portal.Consultoras.Web.Controllers
             if (!userData.OfertasDelDia.Any())
                 return null;
 
-            var model = userData.OfertasDelDia[0].Clone();
+            var model = userData.OfertasDelDia.First().Clone();
+            //
             model.ListaOfertas = userData.OfertasDelDia;
-            int posicion = 0;
-            model.ListaOfertas.Update(p => p.ID = posicion++);
-            var listPedidosDetalles = ObtenerPedidoWebDetalle();
-            foreach (var oferta in model.ListaOfertas) { oferta.Agregado = listPedidosDetalles.Any(d => d.CUV == oferta.CUV2) ? "block" : "none"; }
+            //
+            short posicion = 0;
+            var tiposEstrategia = sessionManager.GetTiposEstrategia();
+            if (tiposEstrategia == null) {
+                tiposEstrategia = GetTipoEstrategias();
+                sessionManager.SetTiposEstrategia(tiposEstrategia);
+            }
+            foreach (var oferta in model.ListaOfertas)
+            {
+                oferta.Position = posicion++;
+                oferta.DescripcionMarca = GetDescripcionMarca(oferta.MarcaID);
+                oferta.Agregado = ObtenerPedidoWebDetalle().Any(d => d.CUV == oferta.CUV2) ? "block" : "none";
+
+                if(tiposEstrategia != null && tiposEstrategia.Any(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID))
+                        oferta.TipoEstrategiaDescripcion = tiposEstrategia.First(x => x.TipoEstrategiaID == oferta.TipoEstrategiaID).DescripcionEstrategia ?? string.Empty;
+            }
 
             model.TeQuedan = CountdownODD(userData);
             model.FBRuta = GetUrlCompartirFB();
@@ -2802,12 +2817,12 @@ namespace Portal.Consultoras.Web.Controllers
                 if (entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento)
                 {
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR) continue;
+
+                    if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
                 }
 
                 RemplazarTagNombreConfiguracionOferta(ref entConf);
-
-                if (menuActivo.CampaniaId != userData.CampaniaID) entConf.UrlSeccion = "Revisar/" + entConf.UrlSeccion;
-
+                
                 var seccion = new ConfiguracionSeccionHomeModel {
                     CampaniaID = menuActivo.CampaniaId,
                     Codigo = entConf.ConfiguracionPais.Codigo ?? entConf.ConfiguracionOfertasHomeID.ToString().PadLeft(5, '0'),
@@ -2842,7 +2857,7 @@ namespace Portal.Consultoras.Web.Controllers
                             !sessionManager.GetMostrarShowRoomProductos() && 
                             !sessionManager.GetMostrarShowRoomProductosExpiro())
                         {
-                            seccion.UrlObtenerProductos = "ShowRoom/PopupIntriga";
+                            seccion.UrlObtenerProductos = "ShowRoom/GetDataShowRoomIntriga";
 
                             if (!isMobile)
                             {
@@ -3006,17 +3021,22 @@ namespace Portal.Consultoras.Web.Controllers
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                case Constantes.UrlMenuContenedor.InicioIndex:
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     break;
                 case Constantes.UrlMenuContenedor.InicioRevisar:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
+                case Constantes.UrlMenuContenedor.RdInicio:
+                case Constantes.UrlMenuContenedor.RdInicioIndex:
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC || userData.RevistaDigital.TieneRDR ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
+                    break;
                 case Constantes.UrlMenuContenedor.RdComprar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     break;
                 case Constantes.UrlMenuContenedor.RdRevisar:
-                    menuActivo.Codigo = Constantes.ConfiguracionPais.RevistaDigital;
+                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                     menuActivo.CampaniaId = AddCampaniaAndNumero(userData.CampaniaID, 1);
                     break;
                 case Constantes.UrlMenuContenedor.RdInformacion:
@@ -3026,10 +3046,8 @@ namespace Portal.Consultoras.Web.Controllers
                 case Constantes.UrlMenuContenedor.RdDetalle:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.Lanzamiento;
                     break;
-                case Constantes.UrlMenuContenedor.RdInicio:
-                    menuActivo.Codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.InicioRD : Constantes.ConfiguracionPais.Inicio;
-                    break;
                 case Constantes.UrlMenuContenedor.SwInicio:
+                case Constantes.UrlMenuContenedor.SwInicioIndex:
                     menuActivo.Codigo = Constantes.ConfiguracionPais.ShowRoom;
                     break;
                 case Constantes.UrlMenuContenedor.SwIntriga:
@@ -3040,6 +3058,12 @@ namespace Portal.Consultoras.Web.Controllers
                     break;
                 case Constantes.UrlMenuContenedor.OptDetalle:
                     menuActivo = (MenuContenedorModel)Session[Constantes.ConstSession.MenuContenedorActivo];
+                    break;
+                case Constantes.UrlMenuContenedor.OfertaDelDia:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
+                    break;
+                case Constantes.UrlMenuContenedor.OfertaDelDiaIndex:
+                    menuActivo.Codigo = Constantes.ConfiguracionPais.OfertaDelDia;
                     break;
             }
 
@@ -3118,6 +3142,61 @@ namespace Portal.Consultoras.Web.Controllers
             return cadena;
         }
         #endregion
+
+        protected string GetDescripcionMarca(int marcaId)
+        {
+            string result = string.Empty;
+
+            switch (marcaId)
+            {
+                case 1:
+                    result = "Lbel";
+                    break;
+                case 2:
+                    result = "Esika";
+                    break;
+                case 3:
+                    result = "Cyzone";
+                    break;
+                case 4:
+                    result = "S&M";
+                    break;
+                case 5:
+                    result = "Home Collection";
+                    break;
+                case 6:
+                    result = "Finart";
+                    break;
+                case 7:
+                    result = "Generico";
+                    break;
+                case 8:
+                    result = "Glance";
+                    break;
+                default:
+                    result = "NO DISPONIBLE";
+                    break;
+            }
+
+            return result;
+        }
+
+        protected List<BETipoEstrategia> GetTipoEstrategias()
+        {
+            List<BETipoEstrategia> tiposEstrategia;
+            var entidad = new BETipoEstrategia
+            {
+                PaisID = userData.PaisID,
+                TipoEstrategiaID = 0
+            };
+            using (var pedidoServiceClient = new PedidoServiceClient())
+            {
+                tiposEstrategia = pedidoServiceClient.GetTipoEstrategias(entidad).ToList();
+            }
+
+            return tiposEstrategia;
+        }
+
     }
 }
 

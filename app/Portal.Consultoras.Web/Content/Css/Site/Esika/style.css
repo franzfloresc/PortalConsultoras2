@@ -28094,9 +28094,9 @@ span.datoPedidoCliente {
     padding-bottom: 15px;
     font-size:13px;
 }
-@media screen and (max-width:1287px) {
+@media screen and (max-width:1280px) {
     .content-favclientes .contiene-productos {
-        width:240px;
+        width:260px;
     }
 }
 @media screen and (max-width:1250px) {
@@ -32783,7 +32783,6 @@ h1#penmostreo .campana {
 
     .solo_hoy img {
         width: 100%;
-        margin-left: 60px;
     }
 
 .nombre_set_oferta {
@@ -32926,9 +32925,10 @@ h1#penmostreo .campana {
     height: 500px;
     margin: auto, auto;
     /*z-index: 2010;*/
-    background:#000;
+    background: #000;
     /*background-color: black;*/ /*PL20-1226*/
     /*background: url(../../../Images/PL20/fondo_pop.png) no-repeat;*/ /*PL20-1226*/
+    padding: 10px 0px;
 }
 
 @media screen and (max-width:1280px) {
@@ -33937,7 +33937,7 @@ h1#penmostreo .campana {
 }
 
 .contenedorMensajeIntrigaA{
-    width:88%;
+    width:87%;
     position:absolute;
 }
 
@@ -36139,8 +36139,11 @@ h1#penmostreo .campana {
 }*/
 
 .dias_inicio_landing {
-    font-size: 78.4px;
-    top:170px;
+    /*font-size: 78.4px;
+    top:170px;*/
+    top: 123px;
+    font-size: 72px;
+    padding: 0% 29.45%;
 }
 .saludo_landing{
     top: 109px;

@@ -3,7 +3,7 @@ use [BelcorpPeru]
 go
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -12,7 +12,7 @@ use [BelcorpBolivia]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -21,8 +21,12 @@ use [BelcorpChile]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
+
+update TipoEstrategia
+set Codigo = '002' 
+where TipoEstrategiaID = 2004
 
 go
 
@@ -30,7 +34,7 @@ use [BelcorpColombia]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -39,7 +43,7 @@ use [BelcorpCostaRica]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -49,7 +53,7 @@ use [BelcorpDominicana]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -58,16 +62,16 @@ use [BelcorpEcuador]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
 
 use [BelcorpGuatemala]
-go 
+go
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -76,7 +80,7 @@ use [BelcorpMexico]
 go
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -85,7 +89,7 @@ use [BelcorpPanama]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -94,7 +98,7 @@ use [BelcorpPuertoRico]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -103,7 +107,7 @@ use [BelcorpSalvador]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go
@@ -112,7 +116,7 @@ use [BelcorpVenezuela]
 go 
 
 update TipoEstrategia
-set Codigo = '002' 
+set Codigo = '' 
 where FlagNueva = 1
 
 go

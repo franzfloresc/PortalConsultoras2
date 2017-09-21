@@ -43,16 +43,11 @@ namespace Portal.Consultoras.Web.Controllers
             if (ModelState.IsValid)
             {
                 List<BETipoEstrategia> lst;
-                var entidad = new BETipoEstrategia();
-                entidad.PaisID = UserData().PaisID;
-                entidad.TipoEstrategiaID = 0;
+
 
                 if (Consulta == "1")
                 {
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        lst = sv.GetTipoEstrategias(entidad).ToList();
-                    }
+                    lst = GetTipoEstrategias();
                 }
                 else
                 {

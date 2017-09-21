@@ -18,6 +18,12 @@
         body {
             background: #FFF !important;
         }
+
+        .bloqueOfertaDia_vistaOfertas{
+            width:100%;
+            box-shadow:none;
+            margin:0;
+        }
     </style>
     @System.Web.Optimization.Styles.Render("~/bundles/Css/Site/CcsBienvenida")   
 }
@@ -992,7 +998,7 @@
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
             var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
+            var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital", new { area = "Mobile" })';
             var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
             var tipoOrigenEstrategia = 2;

@@ -23,7 +23,7 @@
         <img src="@ViewBag.BannerImagenVenta" alt="" />
     </div>*@
     <div class="content_belcorp">
-        <div class="content_filtros_left" style="display:none;">
+        @*<div class="content_filtros_left" style="display:none;">
             <span class="titulo_filtro_fav">FILTROS</span>
             <div class="linea_separadora" style="height: 3px;"></div>
             <div id="divBorrarFiltros" class="texto_fav_filtro" style="cursor: pointer; display: none;"> BORRAR FILTROS</div>
@@ -59,7 +59,7 @@
 
             <hr class="clear" />
 
-        </div>
+        </div>*@
         <div class="content-left-item content_new_showroom">
             <div style="float:left;">
                 <div id="divCantProductos" class="cantidad_productos_resultado">
@@ -68,30 +68,30 @@
             </div>
             <div style="float:right;">
 
-
-                @*<div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer;">
+                <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer; min-width: 260px;">
                     FILTRAR POR CATEGORÍA
                     <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
                         @if (Model.TieneCategoria)
-                     {
-                        if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                         {
+                            if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                            {
                                 <div id="div-filter-category">
                                     @foreach (var itemCategoria in Model.ListaCategoria)
+                                    {
+                                        if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
                                         {
-                                            if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
-                                            {
                                             <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
-                                            <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
-                                            }
+                                                <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
                                         }
+                                    }
                                 </div>
 
+                            }
                         }
-                    }
                     </div>
-                </div>*@
-                <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:330px;">
+                </div>
+
+                <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:350px;">
                     FILTRAR POR PRECIO
                     <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none;">
                         <div class="content_filtro_range_showroom">
@@ -102,15 +102,13 @@
 
 
                 @if (Model.FiltersBySorting != null)
-            {
+                {
                     <div class="filtros_derecha_SHOWROOM">
-
-
-                        <select id="filter-sorting" class="select_filtros_fav" style="min-width:330px; margin-left:0; height:33px; border:0;box-shadow:inset 0 0 0 1px #b8b8b8">
+                        <select id="filter-sorting" class="select_filtros_fav" style="min-width:220px; margin-left:0; height:33px; border:0;box-shadow:inset 0 0 0 1px #b8b8b8">
                             @foreach (var item in Model.FiltersBySorting)
-                        {
-                        <option value="@item.Codigo">@item.Descripcion</option>
-                        }
+                            {
+                                <option value="@item.Codigo">@item.Descripcion</option>
+                            }
                         </select>
 
                     </div>
@@ -331,7 +329,7 @@
             <input type="hidden" class="DescripcionMarca" value="{{DescripcionMarca}}" />
             <input type="hidden" class="posicionEstrategia" value="{{Posicion}}" />
         </div>
-        <div class="content_item_carrusel" style="height: 410px;">
+        <div class="content_item_carrusel">
             <div class="producto_img_home" data-img="">
                 <img src="{{producto.ImagenProducto}}" class="imagen_producto">
             </div>
@@ -351,7 +349,7 @@
                 <div class="precio_set_especial_showroom">VALORIZADO EN {{Simbolo}} {{producto.FormatoPrecioValorizado}}</div>
                 <div class="precio_set_especial_showroom" style="margin-top: -3px;"> A SOLO <span class="precio_real_set">{{Simbolo}} {{producto.FormatoPrecioOferta}}</span></div>
             </div>
-            <div class="producto_nombre_descripcion" style="position: absolute !important; bottom: 0px !important;">
+            <div class="producto_nombre_descripcion" style="padding-bottom: 15px">
                 <div class="liquidacion_rango_home js-no-popup">
                     @*<input type="text" value="1" size="2" maxlength="2" id="txtCantidad" class="liquidacion_rango_cantidad_pedido ValidaNumeral ValidaPasteNumeral js-no-popup">*@
                     <input type="text" value="1" min="1" max="99" size="2" maxlength="2" id="txtCantidad"
