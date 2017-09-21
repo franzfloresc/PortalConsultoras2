@@ -4618,7 +4618,6 @@
     <Folder Include="Annotations\App_Data\" />
     <Folder Include="Areas\Mobile\Views\EstrategiaProductoComentario\" />
     <Folder Include="Content\ArchivoNivelGeografico\" />
-    <Folder Include="CustomAttributes\" />
     <Folder Include="GestionPasos\Asignaciones\" />
     <Folder Include="Views\BaseShowRoom\" />
     <Folder Include="Views\Campania\" />

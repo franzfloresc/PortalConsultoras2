@@ -17,9 +17,9 @@ $(document).ready(function () {
         resizeNameUserExt();
         var _id = "";
         if (paisesEsika.indexOf(imgISO) != -1) {
-            var _id = "hddFondoFestivoEsika";
+            _id = "hddFondoFestivoEsika";
         } else {
-            var _id = "hddFondoFestivoLebel";
+            _id = "hddFondoFestivoLebel";
         }
         Fondofestivo(_id);
     });
