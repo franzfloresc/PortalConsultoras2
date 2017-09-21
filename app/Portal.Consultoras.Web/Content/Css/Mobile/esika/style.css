@@ -6393,6 +6393,7 @@ body {
     max-width: 320px;
     margin: 0 auto;
     z-index:5;
+    display:none;
     position:relative;
 }
 /**/

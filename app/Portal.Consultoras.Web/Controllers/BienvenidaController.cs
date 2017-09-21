@@ -1824,15 +1824,15 @@ namespace Portal.Consultoras.Web.Controllers
                 const int SHOWROOM_ESTADO_INACTIVO = 0;
                 const string TIPO_APLICACION_DESKTOP = "Desktop";
 
-                if (!userData.RevistaDigital.NoVolverMostrar)
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        data = "",
-                        message = "ShowRoomConsultora encontrada"
-                    });
-                }
+                //if (!userData.RevistaDigital.NoVolverMostrar)
+                //{
+                //    return Json(new
+                //    {
+                //        success = false,
+                //        data = "",
+                //        message = "ShowRoomConsultora encontrada"
+                //    });
+                //}
 
                 if (!PaisTieneShowRoom(userData.CodigoISO))
                 {
