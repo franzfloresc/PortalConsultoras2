@@ -27,6 +27,10 @@ var listaSeccion = {};
 
 var timer;
 
+var varContenedor = {
+    CargoRevista: false
+}
+
 $(document).ready(function () {
     SeccionRender();
 });
@@ -88,7 +92,10 @@ function SeccionCargarProductos(objConsulta) {
     if (objConsulta.Codigo === CONS_CODIGO_SECCION.LAN
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RDR
         || objConsulta.Codigo === CONS_CODIGO_SECCION.RD) {
-        OfertaCargarProductos(null, false, objConsulta);
+        if (!varContenedor.CargoRevista) {
+            varContenedor.CargoRevista = true;
+            OfertaCargarProductos(null, false, objConsulta);
+        }
         return false;
     }
 
