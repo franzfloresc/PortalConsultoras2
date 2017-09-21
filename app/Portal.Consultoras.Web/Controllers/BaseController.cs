@@ -785,6 +785,20 @@ namespace Portal.Consultoras.Web.Controllers
             var listMenu = BuildMenuContenedor();
             listMenu = listMenu.Where(e => e.CampaniaId == menuActivo.CampaniaId).ToList();
 
+            if (menuActivo.CampaniaId == userData.CampaniaID  && 
+                !(Session["TieneLan"] != null ? Session["TieneLan"].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+            }
+            if (menuActivo.CampaniaId != userData.CampaniaID && 
+                !(Session["TieneLanX1"] != null ? Session["TieneLanX1"].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.Lanzamiento).ToList();
+            }
+            if (!(Session["TieneOpt"] != null ? Session["TieneOpt"].ToBool() : false))
+            {
+                listMenu = listMenu.Where(e => e.Codigo != Constantes.ConfiguracionPais.OfertasParaTi).ToList();
+            }
             return listMenu;
         }
 
@@ -794,7 +808,7 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionPaisModel> BuildMenuContenedor()
         {
             var listaMenu = (List<ConfiguracionPaisModel>)Session[Constantes.ConstSession.MenuContenedor] 
-                ?? new List<ConfiguracionPaisModel>();
+                            ?? new List<ConfiguracionPaisModel>();
             if (listaMenu.Any()) return listaMenu;
 
             var lista = userData.ConfiguracionPais ?? new List<ConfiguracionPaisModel>(); ;
@@ -2906,7 +2920,12 @@ namespace Portal.Consultoras.Web.Controllers
                         break;
                 }
 
-                if (seccion.TemplatePresentacion == "") continue;                
+                if (seccion.TemplatePresentacion == "") continue;
+                if (seccion.Codigo == Constantes.ConfiguracionPais.OfertaDelDia)
+                {
+                    if (!CumpleOfertaDelDia(userData))
+                        continue;
+                }
 
                 modelo.Add(seccion);
             }

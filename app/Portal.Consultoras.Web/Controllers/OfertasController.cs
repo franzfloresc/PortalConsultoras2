@@ -115,6 +115,30 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new ConfiguracionSeccionHomeModel());
             }
         }
-        
+
+        [HttpPost]
+        public JsonResult ActualiarSession(string codigo, int campaniaId)
+        {
+            try
+            {
+                if (campaniaId == userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLan"] = false;
+                else if (campaniaId == userData.CampaniaID && codigo.Equals("OPT")) Session["TieneOpt"] = false;
+                else if (campaniaId != userData.CampaniaID && codigo.Equals("LAN")) Session["TieneLanX1"] = false;
+                return Json(new
+                {
+                    estado = "Ok"
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+
+                return Json(new
+                {
+                    estado = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+}
+
     }
 }

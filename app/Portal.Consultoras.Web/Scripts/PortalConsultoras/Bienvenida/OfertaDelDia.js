@@ -122,7 +122,6 @@ $(document).ready(function () {
             return false;
         } 
         $("#ODD").find(".seccion-content-contenedor").fadeIn();   
-
         return true;
     }
 

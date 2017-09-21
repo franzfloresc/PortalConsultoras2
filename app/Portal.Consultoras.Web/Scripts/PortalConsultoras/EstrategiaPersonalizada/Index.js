@@ -20,6 +20,7 @@ var CONS_CODIGO_SECCION = {
     RDR: "RDR",
     SR: "SR",
     ODD: "ODD",
+    OPT: "OPT"
 };
 
 var listaSeccion = {};
@@ -71,13 +72,14 @@ function SeccionObtenerSeccion(seccion) {
 }
 
 function SeccionCargarProductos(objConsulta) {
-    
-    if (objConsulta.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
-
     objConsulta = objConsulta || {};
     objConsulta.UrlObtenerProductos = $.trim(objConsulta.UrlObtenerProductos);
+
+    if (isMobile() && objConsulta.Codigo === CONS_CODIGO_SECCION.ODD) {
+        $("#ODD").find(".seccion-loading-contenedor").fadeOut();
+        $("#ODD").find(".seccion-content-contenedor").fadeIn();   
+    }
+
     if (objConsulta.UrlObtenerProductos === "")
         return false;
 
@@ -133,13 +135,15 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.Banners) {
-        return true;
-    }
-
     var divListadoProductos = htmlSeccion.find(sElementos.listadoProductos);
     if (divListadoProductos.length !== 1) {
-        console.log(data.Seccion);
+        if (data.Seccion !== undefined &&
+            (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.Banners.toString() || 
+            data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString() ||
+            data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.OfertaDelDia.toString())) {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        }
         return false;
     }
 
@@ -149,14 +153,55 @@ function SeccionMostrarProductos(data) {
         return false;
     }
 
-    if ((data.data !== undefined && data.data.length > 0) ||
-        (data.lista !== undefined && data.lista.length > 0) ||
-        (data.listaLan !== undefined && data.listaLan.length > 0)) {
-        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-        $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
-    } else {
-        $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+    if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN) {
+        if (data.listaLan !== undefined && data.listaLan.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        } else {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.CampaniaID);
+        }
+    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
+        if (data.lista !== undefined && data.lista.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        } else {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+            UpdateSessionState(data.Seccion.Codigo, data.CampaniaID);
+        }
+    } else if (data.Seccion !== undefined && (data.Seccion.Codigo === CONS_CODIGO_SECCION.RD || data.Seccion.Codigo === CONS_CODIGO_SECCION.RDR) ) {
+        if (data.lista !== undefined && data.lista.length > 0) {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        } else {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+        }
+    } else if (data.Seccion !== undefined && data.Seccion.Codigo === CONS_CODIGO_SECCION.SR) {
+        if (data.Seccion.TipoPresentacion === CONS_TIPO_PRESENTACION.ShowRoom.toString()) {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $("#" + data.Seccion.Codigo).find(".seccion-content-contenedor").fadeIn();
+        } else {
+            $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+            $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+        }
     }
+
+    //if ((data.Seccion !== undefined && data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.ShowRoom) ||
+    //    (data.data !== undefined && data.data.length > 0) ||
+    //    (data.lista !== undefined && data.lista.length > 0) ||
+    //    (data.listaLan !== undefined && data.listaLan.length > 0)) {
+       
+    //    //$(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
+    //} else {
+    //    $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
+    //    $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
+    //    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN || data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
+           
+    //    }
+    //}
 
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
     
@@ -256,4 +301,25 @@ function GetArrowNamePrev() {
 function GetArrowNameNext() {
     if (isMobile()) return "next_mob.png";
     else return "next.png";
+}
+
+function UpdateSessionState(codigo, campaniaId) {
+    var param = {
+        codigo: codigo,
+        campaniaId: campaniaId,
+    }
+
+    $.ajax({
+        type: 'POST',
+        url: baseUrl + "Ofertas/ActualiarSession",
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(param),
+        success: function (data) {
+            console.log(data.estado);
+        },
+        error: function (error, x) {
+            console.log(error, x);
+        }
+    });    
 }

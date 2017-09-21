@@ -410,3 +410,19 @@ img.icono-submenu-tabs {
         padding: 8px 0px !important;
     }
 }
+
+.seccion-content-contenedor {
+    font-family: 'Lato' !important;
+    display: none;
+    overflow: hidden;
+}
+
+.seccion-loading-contenedor {
+    font-family: 'Lato' !important;
+    text-align: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    padding: 0 10%;
+}
