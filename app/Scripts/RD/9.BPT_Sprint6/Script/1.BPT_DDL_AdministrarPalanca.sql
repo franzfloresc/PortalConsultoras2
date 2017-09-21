@@ -251,6 +251,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 	
 END
+
 GO
 
 /*end*/
@@ -505,6 +506,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -759,6 +761,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -1012,6 +1015,7 @@ BEGIN
 
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 END
+
 GO
 
 /*end*/
@@ -1266,6 +1270,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -1520,6 +1525,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -1774,6 +1780,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -2028,6 +2035,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -2282,6 +2290,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -2536,6 +2545,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -2790,6 +2800,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -3044,6 +3055,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
 
 /*end*/
@@ -3298,4 +3310,7 @@ BEGIN
 	ALTER TABLE [dbo].[ConfiguracionOfertasHome] ADD  CONSTRAINT [DF_ConfiguracionOfertasHome_MobileOrdenBpt]  DEFAULT ((0)) FOR [MobileOrdenBpt]
 
 END
+
 GO
+
+/*end*/
