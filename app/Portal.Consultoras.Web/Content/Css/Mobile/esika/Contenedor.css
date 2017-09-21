@@ -147,7 +147,6 @@ section {
     margin-top:0;
 }
 .titulo h2 {
-    color: #e81c36;
     font-weight: bolder;
     letter-spacing: 1px;
     font-size: 20px;
@@ -155,7 +154,8 @@ section {
     text-transform: uppercase;
     padding: 3% 10%;
     margin-bottom: 0;
-    padding-top: 8%;
+    font-family: 'Lato';
+    color: #b52e36;
 }
 
 .bc_plantilla-banner {
