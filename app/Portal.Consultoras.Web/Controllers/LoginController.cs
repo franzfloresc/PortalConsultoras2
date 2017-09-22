@@ -1757,6 +1757,8 @@ namespace Portal.Consultoras.Web.Controllers
                         return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.ShowRoom:
                         return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
+                    case Constantes.IngresoExternoPagina.ProductosAgotados:
+                        return RedirectToAction("Index", "ProductosAgotados", new { Area = "Mobile" });
                 }
             }
             catch (Exception ex)
