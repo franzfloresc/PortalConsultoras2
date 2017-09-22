@@ -373,6 +373,8 @@ namespace Portal.Consultoras.Web.Models
         public ConsultoraRegaloProgramaNuevasModel ConsultoraRegaloProgramaNuevas { get; set; }
         public List<MenuMobileModel> MenuMobile { get; set; }
 
+        public bool TieneValidacionMontoMaximo { get; set; } //EPD-2337
+
         public OfertaFinalModel OfertaFinalModel { get; set; }
         public string CodigosConcursos { get; set; }
 

@@ -5,6 +5,8 @@ using Portal.Consultoras.Entities.Cliente;
 using Portal.Consultoras.ServiceContracts;
 using System;
 using System.Collections.Generic;
+using Portal.Consultoras.BizLogic.Cliente;
+using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Service
 {
@@ -15,14 +17,28 @@ namespace Portal.Consultoras.Service
         private BLPedidoWebDetalle BLPedidoWebDetalle;
         private BLCatalogo BLCatalogo;
         private BLPedidoWebAnteriores BLPedidoWebAnteriores;
+        private readonly INotasBusinessLogic _notasBusinessLogic;
+        private readonly IMovimientoBusinessLogic _movimientoBusinessLogic;
+        private readonly IRecordatorioBusinessLogic _recordatorioBusinessLogic;
 
-        public ClienteService()
+        public ClienteService() : this(new BLNotas(),
+            new BLMovimiento(),
+            new BLRecordatorio())
         {
             BLCliente = new BLCliente();
             BLPedidoWeb = new BLPedidoWeb();
             BLPedidoWebDetalle = new BLPedidoWebDetalle();
             BLCatalogo = new BLCatalogo();
             BLPedidoWebAnteriores = new BLPedidoWebAnteriores();
+        }
+
+        public ClienteService(INotasBusinessLogic notasBusinessLogic,
+            IMovimientoBusinessLogic movimientoBusinessLogic,
+            IRecordatorioBusinessLogic recordatorioBusinessLogic)
+        {
+            _notasBusinessLogic = notasBusinessLogic;
+            _movimientoBusinessLogic = movimientoBusinessLogic;
+            _recordatorioBusinessLogic = recordatorioBusinessLogic;
         }
 
         public int Insert(BECliente cliente)
@@ -112,6 +128,11 @@ namespace Portal.Consultoras.Service
             return BLCatalogo.GetListCatalogoRevistaPublicadoWithTitulo(paisISO, codigoZona, campania);
         }
 
+        public IList<BECatalogoRevista> GetCatalogoRevista(string paisISO, string codigoZona, string campanias)
+        {
+            return BLCatalogo.GetCatalogoRevista(paisISO, codigoZona, campanias);
+        }
+
         public IList<BEPedidoWeb> GetPedidosWebAnterioresByConsultora(int paisID, long consultoraID)
         {
             return BLPedidoWebAnteriores.GetPedidosWebAnterioresByConsultora(paisID, consultoraID);
@@ -139,57 +160,60 @@ namespace Portal.Consultoras.Service
             BLCliente.InsCatalogoCampania(paisID, CodigoConsultora, CampaniaID);
         }
 
-        public List<BEClienteResponse> SaveDB(int paisID, List<BEClienteDB> clientes)
+        #region ClienteDB
+        public List<BEClienteDB> SaveDB(int paisID, List<BEClienteDB> clientes)
         {
             return BLCliente.SaveDB(paisID, clientes);
         }
 
-        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID)
+        public IList<BEClienteDB> SelectByConsultoraDB(int paisID, long consultoraID, int campaniaID)
         {
-            return BLCliente.SelectByConsultoraDB(paisID, consultoraID);
+            return BLCliente.SelectByConsultoraDB(paisID, consultoraID, campaniaID);
         }
-
-        public BEClienteResponse ValidateTelefonoByConsultoraDB(int paisID, long consultoraID, BEClienteContactoDB contactoCliente)
-        {
-            return BLCliente.ValidateTelefonoByConsultoraDB(paisID, consultoraID, contactoCliente);
-        }
+        #endregion
 
         public int MovimientoInsertar(int paisId, BEMovimiento movimiento)
         {
-            var result = BLCliente.MovimientoInsertar(paisId, movimiento);
+            var result = _movimientoBusinessLogic.Insertar(paisId, movimiento);
 
             return result.Data;
         }
 
         public IEnumerable<BEMovimiento> ListarMovimientosPorCliente(int paisId, short clienteId, long consultoraId)
         {
-            return BLCliente.MovimientoListar(paisId, clienteId, consultoraId);
+            return _movimientoBusinessLogic.Listar(paisId, clienteId, consultoraId);
         }
 
         public Tuple<bool, string> MovimientoActualizar(int paisId, BEMovimiento movimiento)
         {
-            var result = BLCliente.MovimientoActualizar(paisId, movimiento);
+            var result = _movimientoBusinessLogic.Actualizar(paisId, movimiento);
+            return new Tuple<bool, string>(result.Success, result.Message);
+        }
+
+        public Tuple<bool, string> MovimientoEliminar(int paisId, long consultoraId, short clienteId, int movimientoId)
+        {
+            var result = _movimientoBusinessLogic.Eliminar(paisId, consultoraId, clienteId, movimientoId);
             return new Tuple<bool, string>(result.Success, result.Message);
         }
 
         public int RecordatorioInsertar(int paisId, BEClienteRecordatorio recordatorio)
         {
-            return BLCliente.RecordatorioInsertar(paisId, recordatorio);
+            return _recordatorioBusinessLogic.Insertar(paisId, recordatorio);
         }
 
         public IEnumerable<BEClienteRecordatorio> RecordatoriosObtenerPorCliente(int paisId, long consultoraId)
         {
-            return BLCliente.RecordatorioListar(paisId, consultoraId);
+            return _recordatorioBusinessLogic.Listar(paisId, consultoraId);
         }
 
         public bool RecordatorioActualizar(int paisId, BEClienteRecordatorio recordatorio)
         {
-            return BLCliente.RecordatorioActualizar(paisId, recordatorio);
+            return _recordatorioBusinessLogic.Actualizar(paisId, recordatorio);
         }
 
         public bool RecordatorioEliminar(int paisId, short clienteId, long consultoraId, int recordatorioId)
         {
-            return BLCliente.RecordatorioEliminar(paisId, clienteId, consultoraId, recordatorioId);
+            return _recordatorioBusinessLogic.Eliminar(paisId, clienteId, consultoraId, recordatorioId);
         }
 
         public IEnumerable<BEClienteDeudaRecordatorio> ObtenerDeudores(int paisId, long consultoraId)
@@ -197,24 +221,24 @@ namespace Portal.Consultoras.Service
             return BLCliente.ObtenerDeudores(paisId, consultoraId);
         }
 
-        public long NotaInsertar(int paisId, BENota nota)
+        public ResponseType<long> NotaInsertar(int paisId, BENota nota)
         {
-            return BLCliente.NotaInsertar(paisId, nota);
+            return _notasBusinessLogic.Insertar(paisId, nota);
         }
 
-        public IEnumerable<BENota> NotasObtenerPorCliente(int paisId, long consultoraId)
+        public ResponseType<List<BENota>> NotaListar(int paisId, long consultoraId)
         {
-            return BLCliente.NotaListar(paisId, consultoraId);
+            return _notasBusinessLogic.Listar(paisId, consultoraId);
         }
 
-        public bool NotaActualizar(int paisId, BENota nota)
+        public ResponseType<bool> NotaActualizar(int paisId, BENota nota)
         {
-            return BLCliente.NotaActualizar(paisId, nota);
+            return _notasBusinessLogic.Actualizar(paisId, nota);
         }
 
-        public bool NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
+        public ResponseType<bool> NotaEliminar(int paisId, short clienteId, long consultoraId, long clienteNotaId)
         {
-            return BLCliente.NotaEliminar(paisId, clienteId, consultoraId, clienteNotaId);
+            return _notasBusinessLogic.Eliminar(paisId, clienteId, consultoraId, clienteNotaId);
         }
     }
 }

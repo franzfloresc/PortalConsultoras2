@@ -181,6 +181,13 @@ namespace Portal.Consultoras.Common
 
         }
 
+        public class TipoFichaProducto
+        {
+            public const string SinTonos = "0";
+            public const string IndividualConTonos = "1";
+            public const string PackConTonos = "2";
+        }
+
         public class ConstSession
         {
             public const string IngresoPortalLideres = "IngresoPortalLideres";
@@ -409,6 +416,10 @@ namespace Portal.Consultoras.Common
             public const int DesktopMasVendidosProductPageCarrusel = 1612;
             public const int MobileHomeMasVendidosCarrusel = 2151;
             public const int MobileMasVendidosProductPageFicha = 2611;
+
+            //FichaProducto VirtualCoach
+            public const int DesktopPedidoVirtualCoach = 1231;
+            public const int MobilePedidoVirtualCoach = 2231;
         }
 
         public class TipoTutorial
@@ -444,7 +455,6 @@ namespace Portal.Consultoras.Common
             public const int Aceptado = 3;
             public const int Observado = 4;
         }
-
 
         public class TipoMensajeCDR
         {
@@ -658,6 +668,7 @@ namespace Portal.Consultoras.Common
             public const string Pedido = "PEDIDO";
             public const string MisPedidos = "MISPEDIDOS";
             public const string ShowRoom = "SHOWROOM";
+            public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -730,6 +741,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string ValidacionMontoMaximo = "MMAX";
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
@@ -783,6 +795,16 @@ namespace Portal.Consultoras.Common
             // Lista de estrategias en session para OPT y BPT 
             public const string ListaEstrategia = "ListadoEstrategiaPedido";
             public const string ProductoTemporal = "ProductoTemporal";
+
+            public const string FichaProductoTemporal = "FichaProductoTemporal";
+        }
+
+        public class SeccionBienvenida {
+            public const string Home = "Home";
+            public const string Belcorp = "Belcorp";
+            public const string MisOfertas = "MisOfertas";
+            public const string MisAcademia = "MiAcademia";
+            public const string Footer = "Footer";
         }
 
         public class EstadoRDSuscripcion
@@ -797,6 +819,29 @@ namespace Portal.Consultoras.Common
         {
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
+
+            /// <summary>
+            /// Variables configurables del app
+            /// </summary>
+            public const short App = 106;
+
+            public class Keys
+            {
+                /// <summary>
+                /// Codigo de cantidad Maxima de Movimientos
+                /// </summary>
+                public const string MovimientoCantidadMaxima = "mov_max_c";
+
+                /// <summary>
+                /// Codigo de movimientos de meses anteriores a procesar
+                /// </summary>
+                public const string MovimientoHistoricoMes = "mov_max_m";
+
+                /// <summary>
+                /// Codigo de cantidad maxima de Notas
+                /// </summary>
+                public const string NotaCantidadMaxima = "not_max_c";
+            }
         }
 
         public struct MensajesCDRExpress
@@ -900,6 +945,7 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_TIPOCONTACTOREPETIDO = "14";
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
+                public const string ERROR_NOTACANTIDADMAXIMA = "17";
             }
 
             public static Dictionary<string, string> Message
@@ -963,9 +1009,14 @@ namespace Portal.Consultoras.Common
             public const string Cargo = "C";
 
             /// <summary>
-            /// Cargo belcorp, no editable desde la api
+            /// Cargo belcorp
             /// </summary>
             public const string CargoBelcorp = "CB";
+
+            /// <summary>
+            /// Historico belcorp, no editable desde la api
+            /// </summary>
+            public const string Historico = "H";
 
             public static string[] Todos
             {
@@ -973,7 +1024,7 @@ namespace Portal.Consultoras.Common
                 {
                     return new[]
                     {
-                        Abono, Cargo, CargoBelcorp
+                        Abono, Cargo, CargoBelcorp, Historico
                     };
                 }
             }

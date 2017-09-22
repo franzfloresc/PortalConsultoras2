@@ -26,9 +26,15 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int NivelAlcanzado { get; set; }
         [DataMember]
+        public int PuntosNivel { get; set; }
+        [DataMember]
         public int? CampaniaIDPremiacion { get; set; }
         [DataMember]
         public int PuntajeExigido { get; set; }
+        [DataMember]
+        public string DescripcionConcurso { get; set; }
+        [DataMember]
+        public string EstadoConcurso { get; set; }
         [DataMember]
         public List<BEIncentivoNivel> Niveles { get; set; }
 
@@ -58,11 +64,20 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "NivelAlcanzado"))
                 NivelAlcanzado = Convert.ToInt32(row["NivelAlcanzado"]);
 
+            if (DataRecord.HasColumn(row, "PuntosNivel"))
+                PuntosNivel = Convert.ToInt32(row["PuntosNivel"]);
+
             if (DataRecord.HasColumn(row, "CampaniaIDPremiacion") && row["CampaniaIDPremiacion"] != DBNull.Value)
                 CampaniaIDPremiacion = Convert.ToInt32(row["CampaniaIDPremiacion"]);
 
             if (DataRecord.HasColumn(row, "PuntajeExigido"))
                 PuntajeExigido = Convert.ToInt32(row["PuntajeExigido"]);
+
+            if (DataRecord.HasColumn(row, "DescripcionConcurso"))
+                DescripcionConcurso = Convert.ToString(row["DescripcionConcurso"]);
+
+            if (DataRecord.HasColumn(row, "EstadoConcurso"))
+                EstadoConcurso = Convert.ToString(row["EstadoConcurso"]);
         }
     }
 }

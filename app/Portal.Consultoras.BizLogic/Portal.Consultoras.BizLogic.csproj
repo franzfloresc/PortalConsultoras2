@@ -91,6 +91,7 @@
     <Compile Include="BLCupon.cs" />
     <Compile Include="BLClienteDB.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />
+    <Compile Include="BLFichaProducto.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
     <Compile Include="BLCuponConsultora.cs" />
@@ -214,7 +215,12 @@
     <Compile Include="CDR\BLCDRWebDescripcion.cs" />
     <Compile Include="CDR\BLCDRWebDetalle.cs" />
     <Compile Include="CDR\BLCDRWebMotivoOperacion.cs" />
-    <Compile Include="Framework\ResponseType.cs" />
+    <Compile Include="Cliente\BLMovimiento.cs" />
+    <Compile Include="Cliente\BLNotas.cs" />
+    <Compile Include="Cliente\BLRecordatorio.cs" />
+    <Compile Include="Cliente\IMovimientoBusinessLogic.cs" />
+    <Compile Include="Cliente\INotasBusinessLogic.cs" />
+    <Compile Include="Cliente\IRecordatorioBusinessLogic.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Mobile\BLApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
