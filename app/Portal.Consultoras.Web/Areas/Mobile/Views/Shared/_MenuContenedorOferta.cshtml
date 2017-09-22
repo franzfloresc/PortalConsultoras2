@@ -19,27 +19,27 @@
 <div id="seccion-menu-mobile" >
     <div id="seccion-fixed-menu" class="agregarPosicionRelativa" style="z-index: 10; width: 100%;">
         <div id="seccion-banner-mobile" class="bc_mobil_para-mi" data-menu-codigo="@menuActivo.Codigo" @estiloFondoBanner>
-            @if (menuActivo.ConfiguracionPais.MobileLogoBanner != "")
+            @if (Util.Trim(menuActivo.ConfiguracionPais.MobileLogoBanner) != "")
             {
                 <div class="bc_mobile-logo">
                     <img src="@menuActivo.ConfiguracionPais.MobileLogoBanner" alt="" />
                 </div>
             }
-            <div class="bc_mobile-texto">
-                @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "" || menuActivo.ConfiguracionPais.MobileTituloBanner != "")
+            @if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "" || Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "")
             {
+                <div class="bc_mobile-texto">
                     <div class="mobile-txt">
-                        @if (menuActivo.ConfiguracionPais.MobileTituloBanner != "")
+                        @if (Util.Trim(menuActivo.ConfiguracionPais.MobileTituloBanner) != "")
                         {
                             <p>@menuActivo.ConfiguracionPais.MobileTituloBanner</p>
                         }
-                        @if (menuActivo.ConfiguracionPais.MobileSubTituloBanner != "")
+                        @if (Util.Trim(menuActivo.ConfiguracionPais.MobileSubTituloBanner) != "")
                         {
                             <span>@menuActivo.ConfiguracionPais.MobileSubTituloBanner</span>
                         }
                     </div>
-                }
-            </div>
+                </div>
+            }
             <div class="clear"></div>
             @if (menuActivo.CampaniaX0 > 0)
             {
