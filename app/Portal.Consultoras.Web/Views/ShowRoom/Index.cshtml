@@ -67,13 +67,12 @@
                 </div>
             </div>
             <div style="float:right;">
-
-                <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer; min-width: 260px;">
-                    FILTRAR POR CATEGORÍA
-                    <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
-                        @if (Model.TieneCategoria)
-                        {
-                            if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
+                @if (Model.TieneCategoria)
+                {
+                    <div class="content_filtro_categoria" id="filtro_categoria" style="cursor: pointer; min-width: 260px;">
+                        FILTRAR POR CATEGORÍA
+                        <div class="content_detalle_filtro" id="detalle_filtro_categoria" style="display: none;">
+                            @if (Model.ListaCategoria != null && Model.ListaCategoria.Count > 0)
                             {
                                 <div id="div-filter-category">
                                     @foreach (var itemCategoria in Model.ListaCategoria)
@@ -81,15 +80,14 @@
                                         if (!string.IsNullOrEmpty(itemCategoria.Descripcion))
                                         {
                                             <div data-filtro-categoria="" class="seleccion_filtro_fav" data-categoriacodigo="@itemCategoria.Codigo">@itemCategoria.Descripcion</div>
-                                                <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
+                                            <input type="hidden" id="hdatacategoriadescripcion" value="@itemCategoria.Descripcion" />
                                         }
                                     }
                                 </div>
-
                             }
-                        }
+                        </div>
                     </div>
-                </div>
+                }
 
                 <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:350px;">
                     FILTRAR POR PRECIO
