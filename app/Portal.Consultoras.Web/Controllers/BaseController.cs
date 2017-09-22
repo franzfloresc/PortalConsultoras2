@@ -818,6 +818,8 @@ namespace Portal.Consultoras.Web.Controllers
             lista = lista.Where(c => c.TienePerfil).ToList();
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
 
+            var paisCarpeta = ConfigurationManager.AppSettings.Get("PaisesEsika").Contains(userData.CodigoISO) ? "Esika" : "Lbel";
+
             foreach (var confiModel in lista)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
@@ -836,7 +838,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_SI_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/Esika/Contenedor/inicio_normal.png" :  "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/"+ paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 
@@ -855,7 +857,7 @@ namespace Portal.Consultoras.Web.Controllers
                     confiModel.MobileTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_TituloBanner, confiModel.MobileTituloBanner);
                     confiModel.MobileSubTituloBanner = EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.RD_NO_M_SubTituloBanner, confiModel.MobileSubTituloBanner);
 
-                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/Esika/Contenedor/inicio_normal.png" : "/Content/Images/Esika/Contenedor/inicio_normal.png";
+                    confiModel.Logo = IsMobile() ? "/Content/Images/Mobile/" + paisCarpeta + "/Contenedor/inicio_normal.png" : "/Content/Images/" + paisCarpeta + "/Contenedor/inicio_normal.png";
                     confiModel.Descripcion = "";
                 }
 
