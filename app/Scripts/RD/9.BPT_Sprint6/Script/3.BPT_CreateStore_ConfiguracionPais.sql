@@ -39,8 +39,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -78,8 +79,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -182,8 +184,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -221,8 +224,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -325,8 +329,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -364,8 +369,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -468,8 +474,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -507,8 +514,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -611,8 +619,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -650,8 +659,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -754,8 +764,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -793,8 +804,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -897,8 +909,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -936,8 +949,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1040,8 +1054,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1079,8 +1094,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1183,8 +1199,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1222,8 +1239,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1326,8 +1344,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1365,8 +1384,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1469,8 +1489,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1508,8 +1529,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1612,8 +1634,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1651,8 +1674,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
@@ -1755,8 +1779,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.TienePerfil = @TienePerfil
+	FROM ConfiguracionPais AS P with(nolock)
+	WHERE 
+		P.TienePerfil = @TienePerfil
 END
 GO
 
@@ -1794,8 +1819,9 @@ BEGIN
 		MobileLogoBanner,
 		UrlMenu,
 		OrdenBpt
-	FROM ConfiguracionPais AS P WHERE 
-	P.ConfiguracionPaisID = @ConfiguracionPaisID
+	FROM ConfiguracionPais AS P with(nolock) 
+	WHERE 
+		P.ConfiguracionPaisID = @ConfiguracionPaisID
 END
 GO
 
