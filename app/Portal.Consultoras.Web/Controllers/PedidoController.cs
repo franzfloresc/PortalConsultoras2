@@ -790,6 +790,7 @@ namespace Portal.Consultoras.Web.Controllers
             bool ErrorServer;
             string tipo;
             bool modificoBackOrder;
+
             olstPedidoWebDetalle = AdministradorPedido(oBEPedidoWebDetalle, "U", out ErrorServer, out tipo, out modificoBackOrder);
 
             decimal Total = olstPedidoWebDetalle.Sum(p => p.ImporteTotal);
@@ -1265,9 +1266,15 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.CampaniaID = userData.CampaniaID;
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
 
-                using (var svc = new PedidoServiceClient())
-                {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
+                //EPD-2337
+                mensaje = ValidarPedidoMontoMaximo(Convert.ToDecimal(PrecioUnidad), entidad.Cantidad);
+                //FIN EPD-2337
+
+                if (mensaje == "") {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        mensaje = svc.ValidarStockEstrategia(entidad);
+                    }
                 }
             }
             catch (FaultException ex)
@@ -1284,7 +1291,7 @@ namespace Portal.Consultoras.Web.Controllers
                 return Json(new
                 {
                     result = true,
-                    message = ""
+                    message = mensaje
                 });
             }
             else
@@ -2034,8 +2041,8 @@ namespace Portal.Consultoras.Web.Controllers
                 }
                 var listObservacionModel = Mapper.Map<List<ObservacionModel>>(resultado.ListPedidoObservacion.ToList());
 
-            sessionManager.SetObservacionesProl(null);
-            sessionManager.SetDetallesPedido(null);
+                sessionManager.SetObservacionesProl(null);
+                sessionManager.SetDetallesPedido(null);
                 if (resultado.RefreshMontosProl)
                 {
                     Session[Constantes.ConstSession.PROL_CalculoMontosProl] = new List<ObjMontosProl> { new ObjMontosProl {
@@ -4217,7 +4224,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 result = "OK"
             }, JsonRequestBehavior.AllowGet);
-        }
+        }        
 
         public JsonResult GetRegaloProgramaNuevas()
         {
@@ -4370,7 +4377,7 @@ namespace Portal.Consultoras.Web.Controllers
                 descripcion = estrategia.DescripcionCUV2;
             }
 
-            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID);
+            mensaje = ValidarStockEstrategia(estrategia.CUV2, estrategia.Cantidad, estrategia.TipoEstrategiaID, estrategia.Precio2);
             if (mensaje != "")
             {
                 return Json(new
@@ -4461,7 +4468,7 @@ namespace Portal.Consultoras.Web.Controllers
             //}, JsonRequestBehavior.AllowGet);
         }
 
-        private string ValidarStockEstrategia(string CUV, int Cantidad, int TipoOferta)
+        private string ValidarStockEstrategia(string CUV, int Cantidad, int TipoOferta, decimal Precio)
         {
             string mensaje = "";
             try
@@ -4475,11 +4482,16 @@ namespace Portal.Consultoras.Web.Controllers
                 entidad.ConsultoraID = userData.ConsultoraID.ToString();
                 entidad.FlagCantidad = TipoOferta;
 
-                using (PedidoServiceClient svc = new PedidoServiceClient())
-                {
-                    mensaje = svc.ValidarStockEstrategia(entidad);
-                }
+                mensaje = ValidarPedidoMontoMaximo(Precio, entidad.Cantidad);
 
+                if (mensaje == "")
+                {
+                    using (PedidoServiceClient svc = new PedidoServiceClient())
+                    {
+                        mensaje = svc.ValidarStockEstrategia(entidad);
+                    }
+                }
+                
                 mensaje = Util.Trim(mensaje);
             }
             catch (FaultException ex)

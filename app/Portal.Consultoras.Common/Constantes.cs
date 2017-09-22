@@ -445,7 +445,6 @@ namespace Portal.Consultoras.Common
             public const int Observado = 4;
         }
 
-
         public class TipoMensajeCDR
         {
             public const string Motivo = "Motivo";
@@ -730,6 +729,7 @@ namespace Portal.Consultoras.Common
             public const string RevistaDigital = "RD";
             public const string RevistaDigitalReducida = "RDR";
             public const string RevistaDigitalSuscripcion = "RDS";
+            public const string ValidacionMontoMaximo = "MMAX";
             public const string OfertaFinalTradicional = "OFT";
             public const string OfertaFinalCrossSelling = "OFC";
             public const string OfertaFinalRegaloSorpresa = "OFR";
