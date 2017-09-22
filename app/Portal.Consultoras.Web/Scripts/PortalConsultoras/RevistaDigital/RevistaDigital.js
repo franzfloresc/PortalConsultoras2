@@ -65,7 +65,7 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    RDMostrarPosicion();
+    //RDMostrarPosicion();
 
     if (isDetalle) {
         RDDetalleObtener();
