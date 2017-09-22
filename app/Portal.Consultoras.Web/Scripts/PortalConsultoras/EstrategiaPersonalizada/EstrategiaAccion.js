@@ -526,19 +526,17 @@ function EstrategiaAgregar(event, popup, limite) {
                     TagManagerClickAgregarProductoOfertaParaTI(estrategia);  
                 }
                 TrackingJetloreAdd(cantidad, $("#hdCampaniaCodigo").val(), cuv);
-
-                CerrarLoad();
-                if (popup) {
-                    CerrarPopup('#popupDetalleCarousel_lanzamiento');
-                    $('#popupDetalleCarousel_packNuevas').hide();
-                }
-
-                ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
-
-                ProcesarActualizacionMostrarContenedorCupon();
-                
             } catch (e) { console.log(e); }
 
+            CerrarLoad();
+            if (popup) {
+                CerrarPopup('#popupDetalleCarousel_lanzamiento');
+                $('#popupDetalleCarousel_packNuevas').hide();
+            }
+
+            ActualizarLocalStorageAgregado("rd", params.listaCuvTonos || params.cuv, true);
+
+            ProcesarActualizacionMostrarContenedorCupon();
         },
         error: function (data, error) {
             console.log(data, error);
