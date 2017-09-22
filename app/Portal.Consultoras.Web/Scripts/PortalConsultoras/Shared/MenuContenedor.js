@@ -150,6 +150,7 @@ var menuModule = (function () {
     function menuClick(e, url) {
         var objHtmlEvent = $(e.target);
         if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
+
         objHtmlEvent.siblings("li").find("a").removeClass(elementos.claseActivo);
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
 
@@ -185,6 +186,11 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
+
+            if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
+                return;
+            }
+
             window.location = window.location.origin + url;
         }
     }
