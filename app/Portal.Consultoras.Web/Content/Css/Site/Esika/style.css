@@ -36126,3 +36126,7 @@ h1#penmostreo .campana {
     top: 109px;
     font-size: 17px;
 }
+
+.position-fixed {
+    /*position: fixed;*/
+}
