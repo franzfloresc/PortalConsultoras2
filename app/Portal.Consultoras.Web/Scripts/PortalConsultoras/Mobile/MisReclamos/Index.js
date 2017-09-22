@@ -42,7 +42,7 @@ $(document).ready(function () {
                     var _Campania = $(parent).find(".cdrweb_formatocampania").val();
                     var _CantidadAprobados = $(parent).find(".cdrweb_CantidadAprobados").val();
                     var _CantidadRechazados = $(parent).find(".cdrweb_CantidadRechazados").val();
-                    
+
                     if (_Estado === "1") {
                         window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;
                     } else {
@@ -56,6 +56,7 @@ $(document).ready(function () {
                             CantidadRechazados: _CantidadRechazados
                         };
 
+                        ShowLoading();
                         $.ajax({
                             type: 'Post',
                             url: urlValidarCargaDetalle,
@@ -63,12 +64,14 @@ $(document).ready(function () {
                             dataType: 'json',
                             contentType: 'application/json; charset=utf-8',
                             success: function (data) {
+                                CloseLoading();
                                 if (checkTimeout(data)) {
                                     if (data.success == true)
                                         window.location.href = baseUrl + "Mobile/MisReclamos/Detalle";
                                 }
                             },
                             error: function (data, error) {
+                                CloseLoading();
                                 if (checkTimeout(data))
                                     cerrarRechazado = '0';
                             }
