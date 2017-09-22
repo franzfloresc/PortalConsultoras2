@@ -107,7 +107,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Esika/reset.css",
                "~/Content/Css/Site/Esika/style.css",
-               "~/Content/Css/ui.jquery/Esika/jquery-ui.css"
+               "~/Content/Css/ui.jquery/Esika/jquery-ui.css",
+                "~/Content/Css/Site/Esika/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/AsesoraOnline").Include(
@@ -119,7 +120,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/Lbel/reset.css",
                "~/Content/Css/Site/Lbel/style.css",
-               "~/Content/Css/ui.jquery/Lbel/jquery-ui.css"
+               "~/Content/Css/ui.jquery/Lbel/jquery-ui.css",
+                "~/Content/Css/Site/Lbel/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/esika/CssSB2Mobile").Include(
@@ -131,7 +133,8 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
                "~/Content/Css/Site/asesora-online.css",
-               "~/Content/Css/Mobile/esika/misDatos.css"
+               "~/Content/Css/Mobile/esika/misDatos.css",
+                "~/Content/Css/Mobile/Esika/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Mobile/lbel/CssSB2Mobile").Include(
@@ -142,14 +145,14 @@ namespace Portal.Consultoras.Web
                "~/Content/Css/Mobile/flexslider.css",
                "~/Content/Css/Mobile/flipclock.css",
                "~/Content/Css/Site/slick.css",
-               "~/Content/Css/Mobile/lbel/misDatos.css"
+               "~/Content/Css/Mobile/lbel/misDatos.css",
+                "~/Content/Css/Mobile/Lbel/revistaDigital.css"
                ));
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssBienvenida").Include(
                 "~/Content/Css/Mobile/esika/bootstrap-slider.min.css",
                 "~/Content/Css/Site/jquery.rateyo.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2").Include(
@@ -192,8 +195,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/Content/Css/Site/CssPedido").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/style-pedido.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/style-pedido.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsSB2-Pedido").Include(
@@ -230,7 +232,6 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/Css/Site/CcsBienvenida").Include(
-               "~/Content/Css/Mobile/Esika/revistaDigital.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
                 ));
 
@@ -294,8 +295,7 @@ namespace Portal.Consultoras.Web
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(
                 "~/Content/Css/Site/slick-pedido.css",
-                "~/Content/Css/Site/flexslider.css",
-                "~/Content/Css/Site/Esika/revistaDigital.css"
+                "~/Content/Css/Site/flexslider.css"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/JsMobile/JsSB2-Ofertas").Include(
@@ -309,7 +309,6 @@ namespace Portal.Consultoras.Web
                 ));
 
             bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
-                "~/Content/Css/Mobile/esika/revistaDigital.css",
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
                 ));
