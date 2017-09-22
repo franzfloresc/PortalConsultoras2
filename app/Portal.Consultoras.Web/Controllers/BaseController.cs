@@ -3123,6 +3123,10 @@ namespace Portal.Consultoras.Web.Controllers
                     case Constantes.OrigenPedidoWeb.RevistaDigitalMobilePedidoSeccion:
                         codigo = userData.RevistaDigital.TieneRDC ? Constantes.ConfiguracionPais.RevistaDigital : Constantes.ConfiguracionPais.RevistaDigitalReducida;
                         break;
+                    case Constantes.OrigenPedidoWeb.MobileHomeOfertasParaTi:
+                    case Constantes.OrigenPedidoWeb.MobilePedidoOfertasParaTi:
+                        codigo = Constantes.ConfiguracionPais.OfertasParaTi;
+                        break;
                     default:
                         break;
                 }
