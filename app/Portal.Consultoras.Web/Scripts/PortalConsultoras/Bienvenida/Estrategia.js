@@ -80,7 +80,6 @@ $(document).ready(function () {
             $(this).attr("data-visible", "0");
         });
     }
-
 });
 
 function CargarCarouselEstrategias(cuv) {

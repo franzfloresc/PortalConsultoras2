@@ -40,6 +40,7 @@ namespace Portal.Consultoras.Service
         private BLRevistaDigitalSuscripcion BLRevistaDigitalSuscripcion;
         private BLConsultoraConcurso BLConsultoraConcurso;
         private BLCuponConsultora BLCuponConsultora;
+        private BLFichaProducto blFichaProducto;
 
         public PedidoService()
         {
@@ -67,6 +68,7 @@ namespace Portal.Consultoras.Service
             BLRevistaDigitalSuscripcion = new BLRevistaDigitalSuscripcion();
             BLConsultoraConcurso = new BLConsultoraConcurso();
             BLCuponConsultora = new BLCuponConsultora();
+            blFichaProducto = new BLFichaProducto();
         }
 
         #region Reporte Lider
@@ -2227,6 +2229,13 @@ namespace Portal.Consultoras.Service
             return blEstrategia.AprobarProductoComentarioDetalle(paisID, entidad);
         }
 
+        #endregion
+
+        #region FichaProducto
+        public List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad)
+        {
+            return blFichaProducto.GetFichaProducto(entidad);
+        }
         #endregion
     }
 }

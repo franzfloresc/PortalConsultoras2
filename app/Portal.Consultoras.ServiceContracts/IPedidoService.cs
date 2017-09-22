@@ -1216,5 +1216,10 @@ namespace Portal.Consultoras.ServiceContracts
         int AprobarProductoComentarioDetalle(int paisID, BEProductoComentarioDetalle entidad);
         #endregion
 
+        #region FichaProducto
+        [OperationContract]
+        List<BEFichaProducto> GetFichaProducto(BEFichaProducto entidad);
+
+        #endregion
     }
 }

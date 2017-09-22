@@ -17,7 +17,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
     public class BienvenidaController : BaseMobileController
     {
         [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-        public ActionResult Index()
+        public ActionResult Index(int verSeccion = 0)
         {
             var model = new BienvenidaModel();
             try
@@ -174,6 +174,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                 model.PrimeraVezSession = 1;
                 if(Session["PrimeraVezSessionMobile"] != null) model.PrimeraVezSession = 0;
                 Session["PrimeraVezSessionMobile"] = 1;
+
+                ViewBag.VerSeccion = verSeccion;
             }
             catch (FaultException ex)
             {

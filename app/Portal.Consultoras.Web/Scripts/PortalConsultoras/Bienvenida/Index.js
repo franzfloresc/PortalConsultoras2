@@ -425,8 +425,11 @@ $(document).ready(function () {
     });
 
     MostrarBarra(null, '1');
+   
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 
 /*** EPD-1089 ***/
 function limitarMaximo(e, contenido, caracteres, id) {
@@ -3267,5 +3270,32 @@ function MostrarPopupInicial() {
         case popupAsesoraOnline:
             if (popupInicialCerrado == 0) asesoraOnlineObj.mostrar();
             break;
+    }
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#contenedor_template_estrategia_cabecera";
+            break;
+        case "MiAcademia":
+            id = "#seccionMiAcademiaLiquidacion";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = ".flexslider";
+            break;
+    }
+
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
     }
 }

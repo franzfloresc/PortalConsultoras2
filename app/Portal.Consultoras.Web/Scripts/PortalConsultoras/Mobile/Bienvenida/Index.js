@@ -81,7 +81,9 @@ $(document).ready(function () {
    
     ObtenerComunicadosPopup();
 });
-
+$(window).load(function () {
+    VerSeccionBienvenida(verSeccion);
+});
 function CrearPopShow() {
     /*
     if (typeof gTipoUsuario !== 'undefined') {
@@ -645,4 +647,30 @@ function grabarComunicadoPopup() {
             }
         }
     });
+}
+
+function VerSeccionBienvenida(seccion) {
+    var id = "";
+    switch (seccion) {
+        case "Belcorp":
+            id = ".content_belcorp";
+            break
+        case "MisOfertas":
+            id = "#divListaEstrategias";
+            break;
+        case "MiAcademia":
+            id = "";
+            break;
+        case "Footer":
+            id = "footer";
+            break;
+        default://Home
+            id = "#contentmobile";
+            break;
+    }
+    if (id != "") {
+        $("html, body").animate({
+            scrollTop: $(id).offset().top - 60
+        }, 1000);
+    }
 }
