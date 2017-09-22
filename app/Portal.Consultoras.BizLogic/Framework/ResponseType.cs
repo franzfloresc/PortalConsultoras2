@@ -1,21 +1,12 @@
-﻿using System.Runtime.Serialization;
-using Portal.Consultoras.Common;
+﻿using Portal.Consultoras.Common;
 
-namespace Portal.Consultoras.Entities.Framework
+namespace Portal.Consultoras.BizLogic.Framework
 {
-    [DataContract]
     public class ResponseType<T>
     {
-        [DataMember]
         public bool Success { get; set; }
-
-        [DataMember]
         public string Code { get; set; }
-
-        [DataMember]
         public string Message { get; set; }
-
-        [DataMember]
         public T Data { get; set; }
 
         private ResponseType()

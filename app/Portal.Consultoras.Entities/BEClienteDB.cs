@@ -1,8 +1,6 @@
 ﻿using System.Runtime.Serialization;
 using System.Collections.Generic;
-
 using Portal.Consultoras.Entities.Cliente;
-using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.Entities
 {
@@ -21,9 +19,9 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public long ConsultoraID { get; set; }
         [DataMember]
-        public long CodigoCliente { get; set; }
+        public long ClienteID { get; set; }
         [DataMember]
-        public int ClienteID { get; set; }
+        public int ClienteIDSB { get; set; }
 
         [DataMember]
         public string Apellidos { get; set; }
@@ -54,6 +52,9 @@ namespace Portal.Consultoras.Entities
         public string Origen { get; set; }
 
         [DataMember]
+        public short TipoRegistro { get; set; }
+
+        [DataMember]
         public short Estado
         {
             get
@@ -74,25 +75,6 @@ namespace Portal.Consultoras.Entities
 
         [DataMember]
         public decimal Saldo { get; set; }
-        [DataMember]
-        public int CantidadProductos { get; set; }
-
-        [DataMember]
-        public string CodigoRespuesta { get; set; }
-        [DataMember]
-        public string MensajeRespuesta
-        {
-            get
-            {
-                return (string.IsNullOrEmpty(CodigoRespuesta) ? string.Empty : Constantes.ClienteValidacion.Message[CodigoRespuesta]);
-            }
-            set
-            {
-
-            }
-        }
-        [DataMember]
-        public bool Insertado { get; set; }
 
         [DataMember]
         public List<BEClienteContactoDB> Contactos { get; set; }

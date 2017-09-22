@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
+using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
@@ -62,54 +63,49 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpPost]
         public JsonResult Guardar(ClienteMobileModel model)
         {
+            //return model.ClienteID == 0 ? Insertar(model) : Actualizar(model);
+
             List<BEClienteDB> clientes = new List<BEClienteDB>();
             List<BEClienteContactoDB> contactos = new List<BEClienteContactoDB>();
-            List<BEClienteDB> response = new List<BEClienteDB>();
+            List<BEClienteResponse> response = new List<BEClienteResponse>();
 
             try
             {
-                if (!string.IsNullOrEmpty(model.Celular))
+                contactos.Add(new BEClienteContactoDB()
                 {
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Celular,
-                        Valor = model.Celular
-                    });
-                }
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.Celular) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Celular,
+                    Valor = model.Celular
+                });
 
-                if (!string.IsNullOrEmpty(model.Telefono))
+                contactos.Add(new BEClienteContactoDB()
                 {
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
-                        Valor = model.Telefono
-                    });
-                }
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.Telefono) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.TelefonoFijo,
+                    Valor = model.Telefono
+                });
 
-                if (!string.IsNullOrEmpty(model.Email))
+                contactos.Add(new BEClienteContactoDB()
                 {
-                    contactos.Add(new BEClienteContactoDB()
-                    {
-                        ClienteID = model.ClienteID,
-                        Estado = Constantes.ClienteEstado.Activo,
-                        TipoContactoID = Constantes.ClienteTipoContacto.Correo,
-                        Valor = model.Email
-                    });
-                }
+                    ClienteID = model.CodigoCliente,
+                    Estado = (string.IsNullOrEmpty(model.Email) ? Constantes.ClienteEstado.Inactivo : Constantes.ClienteEstado.Activo),
+                    TipoContactoID = Constantes.ClienteTipoContacto.Correo,
+                    Valor = model.Email
+                });
 
                 clientes.Add(new BEClienteDB()
                 {
-                    CodigoCliente = model.CodigoCliente,
-                    ClienteID = model.ClienteID,
+                    ClienteID = model.CodigoCliente,
+                    ClienteIDSB = model.ClienteID,
+                    //Nombres = model.Nombre,
                     Nombres = model.NombreCliente,
                     Apellidos = model.ApellidoCliente,
                     ConsultoraID = userData.ConsultoraID,
                     Origen = Constantes.ClienteOrigen.Mobile,
                     Estado = Constantes.ClienteEstado.Activo,
+                    TipoRegistro = Constantes.ClienteTipoRegistro.Todos,
                     Contactos = contactos.ToArray()
                 });
 
@@ -125,9 +121,8 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
                     return Json(new
                     {
                         success = true,
-                        message = (itemResponse.Insertado ? "Cliente registrado satisfactoriamente." : "Se actualizó con éxito tu cliente."),
-                        extra = string.Format("{0}|{1}", itemResponse.CodigoCliente, itemResponse.ClienteID),
-                        insertado = itemResponse.Insertado
+                        message = (model.ClienteID == 0 ? "Cliente registrado satisfactoriamente." : "Se actualizó con éxito tu cliente."),
+                        extra = string.Format("{0}|{1}", itemResponse.ClienteID, itemResponse.ClienteIDSB)
                     });
                 }
                 else

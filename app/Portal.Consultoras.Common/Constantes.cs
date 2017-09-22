@@ -658,7 +658,6 @@ namespace Portal.Consultoras.Common
             public const string Pedido = "PEDIDO";
             public const string MisPedidos = "MISPEDIDOS";
             public const string ShowRoom = "SHOWROOM";
-            public const string ProductosAgotados = "PRODUCTOSAGOTADOS";
         }
 
         public class EstadoCuentaTipoMovimiento
@@ -798,29 +797,6 @@ namespace Portal.Consultoras.Common
         {
             public const int Plan20 = 98;
             public const int CDRExpress = 104;
-
-            /// <summary>
-            /// Variables configurables del app
-            /// </summary>
-            public const short App = 106;
-
-            public class Keys
-            {
-                /// <summary>
-                /// Codigo de cantidad Maxima de Movimientos
-                /// </summary>
-                public const string MovimientoCantidadMaxima = "mov_max_c";
-
-                /// <summary>
-                /// Codigo de movimientos de meses anteriores a procesar
-                /// </summary>
-                public const string MovimientoHistoricoMes = "mov_max_m";
-
-                /// <summary>
-                /// Codigo de cantidad maxima de Notas
-                /// </summary>
-                public const string NotaCantidadMaxima = "not_max_c";
-            }
         }
 
         public struct MensajesCDRExpress
@@ -924,7 +900,6 @@ namespace Portal.Consultoras.Common
                 public const string ERROR_TIPOCONTACTOREPETIDO = "14";
                 public const string ERROR_NOTAINVALIDA = "15";
                 public const string ERROR_MOVIMIENTOINVALIDO = "16";
-                public const string ERROR_NOTACANTIDADMAXIMA = "17";
             }
 
             public static Dictionary<string, string> Message
@@ -988,14 +963,9 @@ namespace Portal.Consultoras.Common
             public const string Cargo = "C";
 
             /// <summary>
-            /// Cargo belcorp
+            /// Cargo belcorp, no editable desde la api
             /// </summary>
             public const string CargoBelcorp = "CB";
-
-            /// <summary>
-            /// Historico belcorp, no editable desde la api
-            /// </summary>
-            public const string Historico = "H";
 
             public static string[] Todos
             {
@@ -1003,7 +973,7 @@ namespace Portal.Consultoras.Common
                 {
                     return new[]
                     {
-                        Abono, Cargo, CargoBelcorp, Historico
+                        Abono, Cargo, CargoBelcorp
                     };
                 }
             }

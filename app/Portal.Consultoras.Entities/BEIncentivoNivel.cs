@@ -34,8 +34,6 @@ namespace Portal.Consultoras.Entities
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
-        [DataMember]
-        public string NumeroPremio { get; set; }
 
         public BEIncentivoNivel(IDataRecord row)
         {
@@ -71,11 +69,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "PuntosExigidosFaltantes"))
                 PuntosExigidosFaltantes = Convert.ToInt32(row["PuntosExigidosFaltantes"]);
-        }
-
-        public BEIncentivoNivel()
-        {
-
         }
     }
 }

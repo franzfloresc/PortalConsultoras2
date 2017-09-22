@@ -522,7 +522,6 @@ function mostrarCatalogoPersonalizado() {
     document.location.href = urlCatalogoPersonalizado;
 }
 
-var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
@@ -542,12 +541,6 @@ function ObtenerComunicadosPopup() {
 
     $('.contenedor_popup_comunicado').on('hidden.bs.modal', function () {
         //CERRAR
-        dataLayer.push({
-            'event': 'virtualEvent',
-            'category': 'App Consultora',
-            'action': 'Cerrar popup',
-            'label': '{tipoBanner}'
-        });
     });
 
     $(window).resize(function (e) {
@@ -573,20 +566,6 @@ function ObtenerComunicadosPopup() {
         window.open($(this).attr("urlAccion"));
 
         //CLICK
-        dataLayer.push({
-            'event': 'promotionClick',
-            'ecommerce': {
-                'promoView': {
-                    'promotions': [
-                    {
-                        'id': ComunicadoId,
-                        'name': 'App Consultora -  Incentivo descarga',
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }]
-                }
-            }
-        });
     });
 
     $(".popup_comunicado .pie_popup_comunicado .check").click(function (e) {
@@ -612,6 +591,7 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
+
             if (checkTimeout(response)) {
                 if (response.success) armarComunicadosPopup(response.extra);
                 else alert(response.message);
@@ -626,8 +606,6 @@ function ObtenerComunicadosPopup() {
 function armarComunicadosPopup(response){
     if (response == null) return;
 
-    ComunicadoId = response.ComunicadoId;
-
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
     $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
@@ -638,20 +616,6 @@ function armarComunicadosPopup(response){
     $(window).resize();
 
     //ABRIR
-    dataLayer.push({
-        'event': 'promotionView',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                {
-                    'id': ComunicadoId,
-                    'name': 'App Consultora -  Incentivo descarga',
-                    'position': 'Home pop-up - 1',
-                    'creative': 'Banner'
-                }]
-            }
-        }
-    });
 }
 
 function grabarComunicadoPopup() {

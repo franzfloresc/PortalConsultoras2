@@ -16,8 +16,8 @@ namespace Portal.Consultoras.BizLogic.Mobile
             using (IDataReader reader = daApp.ObtenerAps())
                 while (reader.Read())
                 {
-                    var app = new BEApp(reader);
-                    apps.Add(app);
+                    var cliente = new BEApp(reader);
+                    apps.Add(cliente);
                 }
 
             return apps;

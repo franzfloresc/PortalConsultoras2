@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {
@@ -53,15 +52,6 @@ namespace Portal.Consultoras.Entities.Cliente
             get { return consultoraId; }
             set { consultoraId = value; }
         }
-
-        [DataMember]
-        public string Code { get; set; }
-
-        [DataMember]
-        public string Message { get; set; }
-
-        [DataMember]
-        public StatusEnum StatusEnum { get; set; }
 
         public BEClienteRecordatorio()
         { }

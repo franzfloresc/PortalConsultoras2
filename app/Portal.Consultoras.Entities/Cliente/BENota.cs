@@ -2,7 +2,6 @@
 using System;
 using System.Data;
 using System.Runtime.Serialization;
-using Portal.Consultoras.Entities.Framework;
 
 namespace Portal.Consultoras.Entities.Cliente
 {
@@ -32,15 +31,6 @@ namespace Portal.Consultoras.Entities.Cliente
         /// </summary>
         [DataMember]
         public DateTime? Fecha { get; set; }
-
-        [DataMember]
-        public string Code { get; set; }
-
-        [DataMember]
-        public string Message { get; set; }
-
-        [DataMember]
-        public StatusEnum StatusEnum { get; set; }
 
         public BENota()
         { }
