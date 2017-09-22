@@ -20,6 +20,7 @@ namespace Portal.Consultoras.Web.GestionPasos.EvaluacionCrediticia
                       codigoRegion = entidad.CodigoZona.Substring(0, 2);
                 }
 
+                tipoDocumento = (tipoDocumento == "2") ? "4" : tipoDocumento;
                 evaluacionCrediticaBe = sv.ConsultarServicioCrediticioCO(codigoIso, tipoDocumento, entidad.NumeroDocumento, entidad.ApellidoPaterno, codigoRegion,
                                         entidad.CodigoZona, "UNETE");
 
