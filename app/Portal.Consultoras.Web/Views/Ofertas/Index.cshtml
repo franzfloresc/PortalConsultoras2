@@ -54,6 +54,10 @@
 
 @Html.Partial("~/Views/RevistaDigital/template-mensaje-bloqueado.cshtml", Model.MensajeProductoBloqueado)
 
+<div class="flecha_scroll">
+    <a href="javascript:;" title="Flecha Scroll" class="enlace_scroll"></a>
+</div>
+
 @section scripts{
 <script type="text/javascript">
     var urlOfertaCargarProductos = '@Url.Action("RDObtenerProductos", "RevistaDigital", new { area = ""})';
