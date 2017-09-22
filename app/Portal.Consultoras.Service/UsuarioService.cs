@@ -154,6 +154,12 @@ namespace Portal.Consultoras.Service
             return BLUsuario.IsUserExist(paisID, CodigoUsuario);
         }
 
+        public string IsConsultoraExist(int paisID, string CodigoConsultora)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.IsConsultoraExist(paisID, CodigoConsultora);
+        }
+
         public bool ChangePasswordUser(int paisID, string codigoUsuarioAutenticado, string emailCodigoUsuarioModificado, string password, string emailUsuarioModificado, EAplicacionOrigen origen)
         {
             var BLUsuario = new BLUsuario();

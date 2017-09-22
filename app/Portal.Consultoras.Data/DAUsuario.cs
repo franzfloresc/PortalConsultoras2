@@ -48,6 +48,13 @@ namespace Portal.Consultoras.Data
             return Context.ExecuteReader(command);
         }
 
+        public IDataReader GetUsuarioByConsultora(string CodigoConsultora)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetUsuarioByConsultora");
+            Context.Database.AddInParameter(command, "@CodigoConsultora", DbType.AnsiString, CodigoConsultora);            
+            return Context.ExecuteReader(command);
+        }
+
         public IDataReader GetDatosConsultora(string CodigoUsuario)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetDatosConsultora");
