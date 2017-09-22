@@ -523,24 +523,9 @@ namespace Portal.Consultoras.Web.Controllers
 
                     if (userData.ListaGifMenuContenedorOfertas.Any())
                     {
-                        if(tieneRevistaDigital)
-                        {
-                            var eventoFestivoGifBpt = userData.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT);
-
-                            if (eventoFestivoGifBpt != null)
-                            {
-                                permiso.UrlImagen = eventoFestivoGifBpt.Personalizacion;
-                            }
-                        }
-                        else
-                        {
-                            var eventoFestivoGif = userData.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS);
-
-                            if (eventoFestivoGif != null)
-                            {
-                                permiso.UrlImagen = eventoFestivoGif.Personalizacion;
-                            }
-                        }
+                        permiso.UrlImagen = tieneRevistaDigital
+                            ? EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS_BPT, permiso.UrlImagen)
+                            : EventoFestivoPersonalizacionSegunNombre(Constantes.EventoFestivoNombre.GIF_MENU_OFERTAS, permiso.UrlImagen);                        
                     }
                 }
 
@@ -821,6 +806,14 @@ namespace Portal.Consultoras.Web.Controllers
             foreach (var confiModel in lista)
             {
                 confiModel.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
+                confiModel.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
+                confiModel.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
+                confiModel.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
+                confiModel.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
+                confiModel.UrlMenuMobile = "/Mobile/" + confiModel.UrlMenu;
+                confiModel.EsAncla = confiModel.UrlMenu == null ? false : confiModel.UrlMenu.Contains("#");
+                confiModel.CampaniaId = userData.CampaniaID;
+                
                 if (confiModel.Codigo == Constantes.ConfiguracionPais.InicioRD)
                 {
                     if (!userData.RevistaDigital.TieneRDC && !userData.RevistaDigital.TieneRDR)
@@ -883,17 +876,9 @@ namespace Portal.Consultoras.Web.Controllers
                         continue;
                 }
 
-                var config = confiModel;
-                config.Codigo = Util.Trim(confiModel.Codigo).ToUpper();
-                config.MobileLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileLogoBanner);
-                config.DesktopLogoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopLogoBanner);
-                config.MobileFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.MobileFondoBanner);
-                config.DesktopFondoBanner = ConfigS3.GetUrlFileS3(carpetaPais, confiModel.DesktopFondoBanner);
-                config.UrlMenuMobile = "/Mobile/" + config.UrlMenu;
-                config.EsAncla = config.UrlMenu == null ? false : config.UrlMenu.Contains("#");
-                config.CampaniaId = userData.CampaniaID;
+                var config = confiModel;                               
 
-                if (config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
+                if (confiModel.Codigo == Constantes.ConfiguracionPais.RevistaDigitalSuscripcion
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigitalReducida
                     || config.Codigo == Constantes.ConfiguracionPais.RevistaDigital)
                 {
@@ -1159,21 +1144,7 @@ namespace Portal.Consultoras.Web.Controllers
 
         #endregion
 
-        #region eventoFestivo
-
-        public EventoFestivoModel EventoFestivoSegunNombre(string nombre)
-        {
-            var eventoFestivo = new EventoFestivoModel();
-            try
-            {
-                eventoFestivo = userData.ListaGifMenuContenedorOfertas.FirstOrDefault(p => p.Nombre == nombre) ?? new EventoFestivoModel();
-            }
-            catch (Exception ex)
-            {
-                Common.LogManager.SaveLog(ex, userData.CodigoConsultora, userData.CodigoISO);
-            }
-            return eventoFestivo;
-        }
+        #region eventoFestivo        
 
         public string EventoFestivoPersonalizacionSegunNombre(string nombre, string valorBase = "")
         {
@@ -2756,15 +2727,27 @@ namespace Portal.Consultoras.Web.Controllers
                 //MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaId);
             }
 
-            #region  Obtenido de la cache de Amazon
+            var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
 
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
-            using (SACServiceClient sv = new SACServiceClient())
-            {
-                listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
-            }
 
-            #endregion
+            if (Session[sessionNombre] != null)
+            {
+                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[sessionNombre];
+            }
+            else
+            {
+                #region  Obtenido de la cache de Amazon
+                
+                using (SACServiceClient sv = new SACServiceClient())
+                {
+                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
+                }
+
+                #endregion
+
+                Session[sessionNombre] = listaEntidad;
+            }
 
             if (menuActivo.CampaniaId > userData.CampaniaID)
             {
