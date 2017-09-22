@@ -763,22 +763,22 @@ header {
 
     }
 
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
+.clear { 
+    background: none; 
+    border: 0; 
+    clear: both; 
+    display: block; 
+    float: none; 
+    font-size: 0; 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+    visibility: hidden; 
+    width: 0; 
     height: 0;
 }
 
-
+.clear{clear:both;}
 /*homr*/
 
 * {
@@ -951,20 +951,6 @@ header {
     width: 75px;
     float:right;
     text-align:right;
-}
-.clear {
-    background: none;
-    border: 0;
-    clear: both;
-    display: block;
-    float: none;
-    font-size: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-    height: 0;
 }
 
 .wrapper_home_content {
@@ -7803,15 +7789,6 @@ h1, h2, h3, h4, h5, h6 {
 /* ---------------------------------------------------------------------- */
 /*	Clearfix
 	/* ---------------------------------------------------------------------- */
-
-.clear {
-    clear: both;
-    display: block;
-    height: 0;
-    overflow: hidden;
-    visibility: hidden;
-    width: 0;
-}
 
 .clearfix:after {
     clear: both;
@@ -20141,7 +20118,6 @@ label.checkpop.c_on {
     font-size: 14px;
     font-weight:700;
 }
-.clear { background: none; border: 0; clear: both; display: block; float: none; font-size: 0; margin: 0; padding: 0; overflow: hidden; visibility: hidden; width: 0; height: 0 }
 /*DIALOG MENSAJE*/
 .divAgregarShowRoom {
     padding: 60px !important;    
@@ -23942,7 +23918,7 @@ img
 .field90{width:90%; margin:0; padding:0; float:left;}
 .field98{width:98%; margin:0; padding:0; float:left;}
 .field100{width:100%; margin:0; padding:0;}
-.clear{clear:both;}
+
 .clear_co{clear:both;}
 
 .field100_co{width:100%; margin:0; padding:0;position:relative;float:left;}
@@ -32795,6 +32771,11 @@ h1#penmostreo .campana {
     color: white;
     text-align: center;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    /* display: block; */
+    height: 20px;
 }
 
 .producto_set {
@@ -36144,4 +36125,8 @@ h1#penmostreo .campana {
 .saludo_landing{
     top: 109px;
     font-size: 17px;
+}
+
+.position-fixed {
+    /*position: fixed;*/
 }

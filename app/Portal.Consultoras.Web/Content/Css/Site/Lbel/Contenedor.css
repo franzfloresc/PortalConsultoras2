@@ -32,7 +32,7 @@
     letter-spacing: 1px;
     float: left;
     font-family: 'Lato';
-    color: #b52e36;
+    color: #043552;
 }
 
 .logo {
@@ -95,7 +95,7 @@
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
-        width: 33.32%;
+        width: 33.2%;
 }
             
 .bc_menu_estrategia .op_menu-horizontal ul li a.activo {
@@ -183,22 +183,22 @@
 
 .op-menu-vertical ul li a:hover {
     box-shadow: -3px 2px 6px rgba(0, 0, 0, 0.21);
-    border-left: 5px solid #B11314;
+    border-left: 5px solid #642f80;
     text-decoration: none;
 }
 
 .op-menu-vertical ul li a:hover p {
-    color: #b52e36;
+    color: #642f80;
 }
 
 .op-menu-vertical ul li a.activo {
-    border-left: 5px solid #B11314;
+    border-left: 5px solid #642f80;
     text-decoration: none;
-    color: #B11314 !important;
+    color: #642f80 !important;
 }
 
 .op-menu-vertical ul li a.activo p {
-    color: #b52e36;
+    color: #642f80;
 }
 
 .op-menu-vertical ul li a p {
@@ -217,7 +217,7 @@
 }
 
 .titulo-menu {
-    color: #B11314 !important;
+    color: #642f80 !important;
 }
 
 .op-menu-vertical ul li a img {
@@ -300,7 +300,7 @@
 }
 
 .boton-ir a {
-    background: #b11314;
+    background: #043552;
     color: white;
     display: block;
     width: 210px;

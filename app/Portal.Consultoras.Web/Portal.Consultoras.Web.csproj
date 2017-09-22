@@ -1188,6 +1188,7 @@
     <Content Include="Content\Css\Mobile\lbel\icomon.css" />
     <Content Include="Content\Css\Mobile\lbel\menu.css" />
     <Content Include="Content\Css\Mobile\lbel\misDatos.css" />
+    <Content Include="Content\Css\Mobile\lbel\revistaDigital.css" />
     <Content Include="Content\Css\Mobile\lbel\slick.css" />
     <Content Include="Content\Css\Mobile\lbel\style.css" />
     <Content Include="Content\Css\Mobile\lbel\theme.css" />
@@ -1214,6 +1215,8 @@
     <Content Include="Content\FileCargaCuponConsultora\test.html" />
     <Content Include="Content\Images\carrito-hover.png" />
     <Content Include="Content\Images\carrito.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\inicio_hover.png" />
+    <Content Include="Content\Images\Lbel\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\casita_hover.png" />
     <Content Include="Content\Images\mobile\Esika\Contenedor\inicio_normal.png" />
     <Content Include="Content\Images\check-acepto-terminos.png" />
