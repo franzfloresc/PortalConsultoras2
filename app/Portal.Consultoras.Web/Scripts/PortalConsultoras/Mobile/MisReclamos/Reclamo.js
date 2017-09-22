@@ -141,9 +141,10 @@ $(document).ready(function () {
                     }, 220);
                 });
 
-                $("body, .ocultar_mi_solicitud").click(function (e) {
+                $(".ocultar_mi_solicitud").click(function (e) {
+                  
                     e.stopPropagation();
-
+                   
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
                     $(me.Variables.miSolicitudCDR).animate({
                         "height": "35px"
