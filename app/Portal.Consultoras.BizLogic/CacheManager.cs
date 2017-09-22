@@ -33,7 +33,8 @@ namespace Portal.Consultoras.BizLogic
         MotivoSolicitud,
         Producto,
         PalabraInvalida,
-        ProductoPalabra
+        ProductoPalabra,
+        SeccionConfiguracionOfertasHome
     }
 
     internal class CacheManager<T>

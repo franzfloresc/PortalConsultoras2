@@ -945,6 +945,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int OrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int OrdenBptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool TienePerfilField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1196,6 +1199,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.OrdenField.Equals(value) != true)) {
                     this.OrdenField = value;
                     this.RaisePropertyChanged("Orden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int OrdenBpt {
+            get {
+                return this.OrdenBptField;
+            }
+            set {
+                if ((this.OrdenBptField.Equals(value) != true)) {
+                    this.OrdenBptField = value;
+                    this.RaisePropertyChanged("OrdenBpt");
                 }
             }
         }

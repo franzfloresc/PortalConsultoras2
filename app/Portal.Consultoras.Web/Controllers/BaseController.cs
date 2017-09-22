@@ -2749,36 +2749,30 @@ namespace Portal.Consultoras.Web.Controllers
         public List<ConfiguracionSeccionHomeModel> ObtenerConfiguracionSeccion()
         {
             var menuActivo = MenuContenedorObtenerActivo();
-            var sessionNombre = Constantes.ConstSession.ListadoSeccionPalanca + menuActivo.CampaniaId;
+            
             if (menuActivo.CampaniaId <= 0)
             {
                 menuActivo.CampaniaId = userData.CampaniaID;
                 //MenuContenedorGuardar(menuActivo.Codigo, menuActivo.CampaniaId);
             }
 
+            #region  Obtenido de la cache de Amazon
+
             var listaEntidad = new List<BEConfiguracionOfertasHome>();
-
-            if (Session[sessionNombre] != null)
+            using (SACServiceClient sv = new SACServiceClient())
             {
-                listaEntidad = (List<BEConfiguracionOfertasHome>)Session[sessionNombre];
-            }
-            else
-            {
-                using (SACServiceClient sv = new SACServiceClient())
-                {
-                    listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
-                }
-
-                if (menuActivo.CampaniaId > userData.CampaniaID)
-                {
-                    listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
-                    || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Inicio).ToList();
-                }
-
-                Session[sessionNombre] = listaEntidad;
+                listaEntidad = sv.ListarSeccionConfiguracionOfertasHome(userData.PaisID, menuActivo.CampaniaId).ToList();
             }
 
+            #endregion
+
+            if (menuActivo.CampaniaId > userData.CampaniaID)
+            {
+                listaEntidad = listaEntidad.Where(entConf => entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.RevistaDigital
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Lanzamiento
+                || entConf.ConfiguracionPais.Codigo == Constantes.ConfiguracionPais.Inicio).ToList();
+            }            
+            
             var modelo = new List<ConfiguracionSeccionHomeModel>();
 
             var carpetaPais = Globals.UrlMatriz + "/" + userData.CodigoISO;
