@@ -84,7 +84,7 @@ $(document).ready(function () {
                         $(me.Variables.Registro1).hide();
                     }
                 }
-
+                // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
 
                     if (mensajeGestionCdrInhabilitada != '') {
@@ -112,6 +112,7 @@ $(document).ready(function () {
 
                     $(me.Variables.divUltimasSolicitudes).show();
                     $(me.Variables.Registro1).show();
+                    $(me.Variables.btnSiguiente1).show();
 
                     $(me.Variables.RegistroAceptarSolucion).hide();
                     $(me.Variables.btnSiguiente4).hide();
@@ -144,9 +145,10 @@ $(document).ready(function () {
                     }, 220);
                 });
 
-                $("body, .ocultar_mi_solicitud").click(function (e) {
+                $(".ocultar_mi_solicitud").click(function (e) {
+                  
                     e.stopPropagation();
-
+                   
                     $(me.Variables.datosSolicitudOpened).fadeOut(200);
                     $(me.Variables.miSolicitudCDR).animate({
                         "height": "35px"
