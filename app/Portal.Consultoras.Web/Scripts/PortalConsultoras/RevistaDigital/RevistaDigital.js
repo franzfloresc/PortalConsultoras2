@@ -173,7 +173,13 @@ $(document).ready(function () {
                     "?cuv=" + obj.CUV2 +
                     "&campaniaId=" + obj.CampaniaID;
         }
-    });   
+    });
+
+    $("body").on("click",
+        ".btn-volver-fix-detalle span",
+        function(e) {
+            window.location = urlRetorno;
+        });
 });
 
 function FlechaScrollDown(idCamapania) {
