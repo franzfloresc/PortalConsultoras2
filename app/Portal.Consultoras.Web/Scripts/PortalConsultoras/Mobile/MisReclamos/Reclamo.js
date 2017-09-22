@@ -281,8 +281,11 @@ $(document).ready(function () {
                     $(me.Variables.Registro2).hide();
                     $(me.Variables.Registro3).hide();
                     $(me.Variables.Registro4).hide();
+                    $("#Cambio3").hide();
+                    paso2Actual = 1
                     $(me.Variables.Enlace_regresar).hide();
                     $(me.Variables.btnAceptarSolucion).hide();
+                    $(me.Variables.btnCambioProducto).hide();
 
                     $(me.Variables.btnSiguiente1).show();
                     $(me.Variables.Registro1).show();
