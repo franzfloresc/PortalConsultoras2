@@ -769,19 +769,31 @@
 }
 
 .revistadigital-landing{
-    width: auto;
+    /*width: auto;
     overflow: hidden;
     display: inline-block;
-    padding : 0 20px 25px 20px;
+    padding : 0 20px 25px 20px;*/
+    float: left;
+    height: 100%;
+    min-height: 1px;
+    width: 300px;
 }
+
 .revistadigital-landing .content_item_carrusel{   
-    margin-right: 0;
+    /*margin-right: 0;
     width:100%;
     min-width: 230px;
-    /*padding-top: 10px;*/
+    padding-top: 10px;
     padding-right: 10px;
-    padding-left:10px;
+    padding-left:10px;*/
 }
+
+.revistadigital-landing .content_item_carrusel .producto_img_home{
+	height: 155px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
 /*.revistadigital-landing:nth-child(3n){    
     margin-right: 0;
 }*/
@@ -791,8 +803,10 @@
 }
 
 .revistadigital-landing .producto_img_home img {
-    height: 100%;
+    /*height: 100%;
+    width: auto;*/
     width: auto;
+    height: 93.5%;
 }
 
 /* SECCIÓN REVISTA DIGITAL VISTA INGRESO DE PEDIDO */
