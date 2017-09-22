@@ -24,7 +24,10 @@ namespace Portal.Consultoras.Common
             if (fileName.StartsWith(URL_S3))
                 return fileName;
 
-            if (fileName.StartsWith("http"))
+            if (fileName.StartsWith("http:/"))
+                return fileName;
+
+            if (fileName.StartsWith("https:/"))
                 return fileName;
 
             carpetaPais = carpetaPais ?? "";
