@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <div class="formulario_inscripcion padding0">
+            <div class="formulario_inscripcion_cdr">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
@@ -158,10 +158,10 @@
             ¿Cuál fue el inconveniente?
         </div>
         <div class="campos_registro_solicitud_cdr Registro2" style="display:none;">
-            <form class="formulario_inscripcion padding0">
+            <div class="formulario_inscripcion_cdr">
                 <div id="listaMotivos" class="lista_opciones_motivo_cdr">
                 </div>
-            </form>
+            </div>
         </div>
         <!-- FIN VISTA CUÁL FUE EL INCONVENIENTE -->
         <!-- INICIO VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
@@ -187,7 +187,7 @@
                 <div data-detalle-confirma=""></div>
             </div>
 
-            <form class="formulario_inscripcion padding0">
+            <div class="formulario_inscripcion_cdr">
                 <input id="cuvmobile2" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
                 <input type="hidden" id="hdImporteTotal2" />
                 <div id="DescripcionCuv2" class="producto_cdr" style="font-size:13px; display:none;">
@@ -205,7 +205,7 @@
                         <a class="cantidad_mas_home"><img src="/Content/Images/Mobile/Esika/mas.png" alt=""></a>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
         @*Canje*@
         <div class="eleccion_solucion_cdr tipografia_lato Registro4" id="eleccion" style="display:none;" data-tipo-confirma="canje">

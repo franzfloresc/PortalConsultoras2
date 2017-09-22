@@ -223,9 +223,7 @@
 .campos_cambiarContrasenia{
     display:none;
 }
-.padding0{
-    padding-top:0px;
-}
+
 /*@media screen and (min-width:480px) and (max-width:767px){
 
     .datos_cod_usuario span, .datos_nombre_usuario span {
