@@ -81,7 +81,7 @@ $(document).ready(function () {
                         $(me.Variables.Registro1).hide();
                     }
                 }
-
+                // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
 
                     if (mensajeGestionCdrInhabilitada != '') {
@@ -109,6 +109,7 @@ $(document).ready(function () {
 
                     $(me.Variables.divUltimasSolicitudes).show();
                     $(me.Variables.Registro1).show();
+                    $(me.Variables.btnSiguiente1).show();
 
                     $(me.Variables.RegistroAceptarSolucion).hide();
                     $(me.Variables.btnSiguiente4).hide();
