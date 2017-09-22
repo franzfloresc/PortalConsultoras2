@@ -258,12 +258,12 @@
     font-family: 'Lato';
 }
 
-.formulario_inscripcion {
+.formulario_inscripcion_cdr {
     display: block;
     font-size: 15px;
 }
 
-    .formulario_inscripcion select, .formulario_inscripcion input[type="text"] {
+    .formulario_inscripcion_cdr select, .formulario_inscripcion_cdr input[type="text"] {
         display: block;
         margin: 0 auto;
         width: 276px;
@@ -275,7 +275,7 @@
         -webkit-appearance: none;
     }
 
-    .formulario_inscripcion select {
+    .formulario_inscripcion_cdr select {
         background: url(/Content/Images/mobile/dropdown-arrow.png);
         background-repeat: no-repeat;
         background-position: 95.5% center;
@@ -1119,15 +1119,3 @@
     font-size: 13px;
 }
 
-/* FIN VISTA NOTIFICACIONES CDR MOBILE */
-.formulario_inscripcion_cdr {
-    display: block;
-    padding: 25px 28px 9px 28px;
-    text-align: center;
-}
-
-    .formulario_inscripcion_cdr .padding0 {
-        padding-top: 0px;
-    }
-
-/* FIN CDR MOBILE */
