@@ -108,7 +108,7 @@
             </div>
         </div>
         <div class="campos_registro_solicitud_cdr Registro1">
-            <div class="formulario_inscripcion padding0">
+            <div class="formulario_inscripcion_cdr padding0">
                 @Html.DropDownListFor(model => model.CampaniaID, new SelectList(Model.ListaCampania, "CampaniaID", "NombreCorto", Model.CampaniaID), new { id = "ddlCampania", @class = "select_reclamo", @required = "required" })                
                 <!-- INICIO CAMPO PARA INGRESAR CÓDIGO PRODUCTO -->
                 <input id="cuvmobile" class="tipografia_lato tipografia_lato_regular" type="text" value="" placeholder="Código del producto" />
