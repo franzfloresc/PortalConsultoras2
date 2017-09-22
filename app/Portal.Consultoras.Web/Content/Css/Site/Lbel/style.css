@@ -34021,6 +34021,11 @@ h1#penmostreo .campana {
     color: white;
     text-align: center;
     margin-bottom: 5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    /* display: block; */
+    height: 20px;
 }
 
 .producto_set {
@@ -37405,6 +37410,15 @@ h1#penmostreo .campana {
     font-family: 'Lato';
     font-size: 13px;
     padding-top: 6px;
+}
+
+.flip-clock-wrapper .flip{
+    box-shadow: 0 2px 5px rgba(4, 53, 83, 0.7);
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+    text-shadow: 0 1px 2px #043553;
+    background-color: #043553;
 }
 
 .content_landing_odd .flip-clock-wrapper ul li a div div.inn {

@@ -8,8 +8,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -34,13 +49,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -60,8 +70,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -86,13 +111,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -112,8 +132,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -138,13 +173,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -164,8 +194,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -190,13 +235,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -216,8 +256,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -242,13 +297,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -268,8 +318,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -294,13 +359,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -320,8 +380,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -346,13 +421,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -372,8 +442,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -398,13 +483,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -424,8 +504,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -450,13 +545,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -476,8 +566,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -502,13 +607,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -528,8 +628,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -554,13 +669,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -580,8 +690,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -606,13 +731,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -632,8 +752,23 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeListarSecciones]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeListarSecciones 201713
+*/
 BEGIN
 	SET NOCOUNT ON;
+
+	declare @TablaConfOfertaHome table (
+		CampaniaID int,
+		ConfiguracionPaisID int
+	)
+
+	insert into @TablaConfOfertaHome (CampaniaID,ConfiguracionPaisID)
+	SELECT MAX(CampaniaID), ConfiguracionPaisID 
+	FROM ConfiguracionOfertasHome with(nolock)
+	WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
+	group by  ConfiguracionPaisID 
+
 	SELECT
 		O.ConfiguracionOfertasHomeID,
 		O.ConfiguracionPaisID,
@@ -658,13 +793,8 @@ BEGIN
 		O.DesktopOrdenBpt,
 		O.MobileOrdenBPT,
 		C.Codigo 
-	FROM ConfiguracionOfertasHome O
-	inner join (
-		SELECT MAX(CampaniaID) as CampaniaID, ConfiguracionPaisID 
-		FROM ConfiguracionOfertasHome 
-		WHERE CampaniaID <= @CampaniaId and isnull(CampaniaID, 0) > 0
-		group by  ConfiguracionPaisID 
-	) OC on 
+	FROM ConfiguracionOfertasHome O with(nolock)
+	inner join @TablaConfOfertaHome OC on 
 		O.CampaniaID = OC.CampaniaID and O.ConfiguracionPaisID = OC.ConfiguracionPaisID
 	LEFT JOIN ConfiguracionPais C ON 
 		C.ConfiguracionPaisID = O.ConfiguracionPaisID
@@ -673,3 +803,4 @@ BEGIN
 END
 GO
 /*end*/
+

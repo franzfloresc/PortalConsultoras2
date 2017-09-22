@@ -15,7 +15,7 @@
 }
 
 <div class="BloqueLandingRD" data-listado-campania="@Model.CampaniaID"  data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
-    <div class="content_belcorp" data-listado-content="" style="display: none; padding: 0 8%;">
+    <div class="content_belcorp" data-listado-content="" style="margin: 0 80px 0 180px;">
         
         @if (ViewBag.TieneProductosPerdio == false)
         {       
@@ -61,6 +61,7 @@
         }
         <div id="RDListado" data-content-item="@Model.CampaniaID" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopLanding">
             <div id="divOfertaProductos"  style="text-align: center;"></div>
+            <hr class="clear" />
             @if (ViewBag.TieneProductosPerdio)
             {
                 <div id="block_inscribete">

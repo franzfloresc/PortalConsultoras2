@@ -198,6 +198,11 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
+
+            if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
+                return;
+            }
+
             window.location = window.location.origin + url;
         }
     }

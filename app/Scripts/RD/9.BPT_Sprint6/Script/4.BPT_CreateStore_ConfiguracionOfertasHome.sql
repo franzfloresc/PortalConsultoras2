@@ -11,12 +11,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -24,13 +33,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -144,12 +159,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -157,13 +181,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -277,12 +307,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -290,13 +329,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -410,12 +455,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -423,13 +477,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -543,12 +603,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -556,13 +625,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -676,12 +751,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -689,13 +773,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -809,12 +899,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -822,13 +921,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -942,12 +1047,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -955,13 +1069,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -1075,12 +1195,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -1088,13 +1217,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -1208,12 +1343,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -1221,13 +1365,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -1341,12 +1491,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -1354,13 +1513,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -1474,12 +1639,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -1487,13 +1661,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
@@ -1607,12 +1787,21 @@ GO
 CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeList]
 	@CampaniaId int
 AS
+/*
+ConfiguracionOfertasHomeList 201713
+ConfiguracionOfertasHomeList 0
+*/
 BEGIN
 	SET NOCOUNT ON;
-	IF(@CampaniaId = 0)
-		SELECT * FROM ConfiguracionOfertasHome;
-	ELSE 
-		SELECT * FROM ConfiguracionOfertasHome WHERE CampaniaID = @CampaniaId;
+	
+	select
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	from ConfiguracionOfertasHome with(nolock)
+	where
+		@CampaniaId = 0 or CampaniaId = @CampaniaId
 END
 GO
 
@@ -1620,13 +1809,19 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Config
 	DROP PROCEDURE [dbo].ConfiguracionOfertasHomeGet
 GO
 
-CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet] 
+CREATE PROCEDURE [dbo].[ConfiguracionOfertasHomeGet]
 	@ConfiguracionOfertasHomeID int
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT * FROM ConfiguracionOfertasHome AS P WHERE 
-	P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
+	SELECT
+		ConfiguracionOfertasHomeID,ConfiguracionPaisID,CampaniaID,DesktopOrden,MobileOrden,DesktopImagenFondo,MobileImagenFondo,
+		DesktopTitulo,MobileTitulo,DesktopSubTitulo,MobileSubTitulo,DesktopTipoPresentacion,MobileTipoPresentacion,
+		DesktopTipoEstrategia,MobileTipoEstrategia,DesktopCantidadProductos,MobileCantidadProductos,DesktopActivo,
+		MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT
+	FROM ConfiguracionOfertasHome AS P with(nolock)
+	WHERE 
+		P.ConfiguracionOfertasHomeID = @ConfiguracionOfertasHomeID
 END
 GO
 
