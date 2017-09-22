@@ -1,5 +1,4 @@
 ﻿using Portal.Consultoras.Common;
-
 using System;
 using System.Data;
 using System.Runtime.Serialization;
@@ -17,8 +16,6 @@ namespace Portal.Consultoras.Entities
         public string CodigoPremio { get; set; }
         [DataMember]
         public string DescripcionPremio { get; set; }
-        [DataMember]
-        public int NumeroPremio { get; set; }
 
         public BEIncentivoPremio(IDataRecord row)
         {
@@ -33,9 +30,6 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "DescripcionPremio"))
                 DescripcionPremio = Convert.ToString(row["DescripcionPremio"]);
-
-            if (DataRecord.HasColumn(row, "NumeroPremio"))
-                NumeroPremio = Convert.ToInt32(row["NumeroPremio"]);
         }
     }
 }

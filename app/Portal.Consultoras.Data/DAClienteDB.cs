@@ -38,7 +38,7 @@ namespace Portal.Consultoras.Data
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateCliente");
 
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, cliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, cliente.ClienteID);
             Context.Database.AddInParameter(command, "@Apellidos", DbType.String, cliente.Apellidos);
             Context.Database.AddInParameter(command, "@Nombres", DbType.String, cliente.Nombres);
             Context.Database.AddInParameter(command, "@Alias", DbType.String, cliente.Alias);
@@ -68,7 +68,7 @@ namespace Portal.Consultoras.Data
                 {
                     var entity = new BEClienteDB
                     {
-                        CodigoCliente = GetDataValue<long>(reader, "ClienteID"),
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
                         Apellidos = GetDataValue<string>(reader, "Apellidos"),
                         Nombres = GetDataValue<string>(reader, "Nombres"),
                         Alias = GetDataValue<string>(reader, "Alias"),
@@ -101,7 +101,7 @@ namespace Portal.Consultoras.Data
                 {
                     var entity = new BEClienteContactoDB
                     {
-                        CodigoCliente = GetDataValue<long>(reader, "ClienteID"),
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
                         Apellidos = GetDataValue<string>(reader, "Apellidos"),
                         Nombres = GetDataValue<string>(reader, "Nombres"),
                         Alias = GetDataValue<string>(reader, "Alias"),
@@ -125,15 +125,15 @@ namespace Portal.Consultoras.Data
         #endregion
 
         #region Contacto
-        public long InsertContactoCliente(BEClienteContactoDB contactoCliente)
+        public bool InsertContactoCliente(BEClienteContactoDB contactoCliente)
         {
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.InsertContactoCliente");
 
             Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
 
-            return Convert.ToInt64(Context.ExecuteScalar(command));
+            return Context.ExecuteNonQuery(command) > 0;
         }
 
         public bool UpdateContactoCliente(BEClienteContactoDB contactoCliente)
@@ -141,8 +141,18 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.UpdateContactoCliente");
 
             Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
             Context.Database.AddInParameter(command, "@Valor", DbType.String, contactoCliente.Valor);
+
+            return Context.ExecuteNonQuery(command) > 0;
+        }
+
+        public bool DeleteContactoCliente(BEClienteContactoDB contactoCliente)
+        {
+            DbCommand command = Context.Database.GetStoredProcCommand("dbo.DeleteContactoCliente");
+
+            Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
 
             return Context.ExecuteNonQuery(command) > 0;
         }
@@ -153,7 +163,7 @@ namespace Portal.Consultoras.Data
 
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.GetContactoCliente");
 
-            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.CodigoCliente);
+            Context.Database.AddInParameter(command, "@ClienteID", DbType.Int64, contactoCliente.ClienteID);
             Context.Database.AddInParameter(command, "@TipoContactoID", DbType.Int16, contactoCliente.TipoContactoID);
 
             using (var reader = Context.ExecuteReader(command))
@@ -162,9 +172,8 @@ namespace Portal.Consultoras.Data
                 {
                     var entity = new BEClienteContactoDB
                     {
-                        ContactoClienteID = GetDataValue<long>(reader, "ContactoClienteID"),
                         TipoContactoID = GetDataValue<short>(reader, "TipoContactoID"),
-                        CodigoCliente = GetDataValue<long>(reader, "ClienteID"),
+                        ClienteID = GetDataValue<long>(reader, "ClienteID"),
                         Valor = GetDataValue<string>(reader, "Valor")
                     };
 

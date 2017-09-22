@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Transactions;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
@@ -20,33 +20,34 @@ namespace Portal.Consultoras.BizLogic
 
         public long InsertCliente(BEClienteDB cliente)
         {
-            long CodigoCliente = 0;
+            long ClienteID = 0;
 
             using (TransactionScope Ambito = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromMinutes(0)))
             {
-                CodigoCliente = clienteData.InsertCliente(cliente);
+                ClienteID = clienteData.InsertCliente(cliente);
 
-                if (CodigoCliente > 0 && cliente.Contactos != null)
+                if (ClienteID > 0 && cliente.Contactos != null)
                 {
                     foreach (var item in cliente.Contactos)
                     {
                         if (item.Estado == Constantes.ClienteEstado.Inactivo) continue;
 
-                        item.CodigoCliente = CodigoCliente;
-                        item.ContactoClienteID = clienteData.InsertContactoCliente(item);
-                        if (item.ContactoClienteID == 0)
+                        item.ClienteID = ClienteID;
+
+                        var resultInsertContacto = clienteData.InsertContactoCliente(item);
+
+                        if (!resultInsertContacto)
                         {
-                            CodigoCliente = 0;
-                            item.CodigoCliente = 0;
+                            ClienteID = 0;
                             break;
                         }
                     }
                 }
 
-                if (CodigoCliente > 0) Ambito.Complete();
+                if (ClienteID > 0) Ambito.Complete();
             }
 
-            return CodigoCliente;
+            return ClienteID;
         }
 
         public bool UpdateCliente(BEClienteDB cliente)
@@ -61,26 +62,21 @@ namespace Portal.Consultoras.BizLogic
                 {
                     foreach (var item in cliente.Contactos)
                     {
-                        if (item.Estado == Constantes.ClienteEstado.Inactivo) continue;
+                        item.ClienteID = cliente.ClienteID;
 
-                        item.CodigoCliente = cliente.CodigoCliente;
+                        if (item.Estado == Constantes.ClienteEstado.Activo)
+                        {
+                            var existe = clienteData.GetContactoCliente(item).Count;
 
-                        var existe = clienteData.GetContactoCliente(item).FirstOrDefault();
-                        if (existe == null)
-                        {
-                            item.ContactoClienteID = clienteData.InsertContactoCliente(item);
-                            if (item.ContactoClienteID == 0)
-                            {
-                                result = false;
-                                break;
-                            }
+                            if (existe == 0) result = clienteData.InsertContactoCliente(item);
+                            else result = clienteData.UpdateContactoCliente(item);
                         }
-                        else
-                        {
-                            item.ContactoClienteID = existe.ContactoClienteID;
-                            result = clienteData.UpdateContactoCliente(item);
-                            if (!result) break;
-                        }
+                        //else
+                        //{
+                        //    clienteData.DeleteContactoCliente(item);
+                        //}
+
+                        if (!result) break;
                     }
                 }
 
@@ -99,21 +95,21 @@ namespace Portal.Consultoras.BizLogic
         {
             var lst = clienteData.GetClienteByClienteID(Clientes, PaisID);
             List<BEClienteDB> result = (from tbl in lst
-                                        group tbl by tbl.CodigoCliente into grp
+                                    group tbl by tbl.ClienteID into grp
                                         select new BEClienteDB
-                                        {
-                                            CodigoCliente = grp.Key,
-                                            Apellidos = grp.Max(x => x.Apellidos),
-                                            Nombres = grp.Max(x => x.Nombres),
-                                            Alias = grp.Max(x => x.Alias),
-                                            Foto = grp.Max(x => x.Foto),
-                                            FechaNacimiento = grp.Max(x => x.FechaNacimiento),
-                                            Sexo = grp.Max(x => x.Sexo),
-                                            Documento = grp.Max(x => x.Documento),
-                                            Origen = grp.Max(x => x.Origen),
+                                    {
+                                        ClienteID = grp.Key,
+                                        Apellidos = grp.Max(x => x.Apellidos),
+                                        Nombres = grp.Max(x => x.Nombres),
+                                        Alias = grp.Max(x => x.Alias),
+                                        Foto = grp.Max(x => x.Foto),
+                                        FechaNacimiento = grp.Max(x => x.FechaNacimiento),
+                                        Sexo = grp.Max(x => x.Sexo),
+                                        Documento = grp.Max(x => x.Documento),
+                                        Origen = grp.Max(x => x.Origen),
 
-                                            Contactos = grp.ToList()
-                                        }).ToList();
+                                        Contactos = grp.ToList()
+                                    }).ToList();
 
             return result;
         }

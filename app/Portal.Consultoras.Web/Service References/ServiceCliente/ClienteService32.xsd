@@ -49,12 +49,10 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="ClienteId" type="xs:short" />
       <xs:element minOccurs="0" name="ClienteNotaId" type="xs:long" />
-      <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ConsultoraId" type="xs:long" />
       <xs:element minOccurs="0" name="Descripcion" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Fecha" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="FechaRecordatorio" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BENota" nillable="true" type="tns:BENota" />
