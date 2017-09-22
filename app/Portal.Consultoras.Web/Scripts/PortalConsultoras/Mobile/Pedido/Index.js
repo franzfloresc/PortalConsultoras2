@@ -319,7 +319,7 @@ function showClienteDetalle(pcliente) {
                 $("#txtClienteId").val(cliente.ClienteID);
                 $("#txtClienteNombre").val(cliente.Nombre);
 
-                if (pcliente == null) {
+                if (pcliente == null && cliente.Insertado) {
                     //$("#ddlClientes").append(new Option(cliente.Nombre, cliente.ClienteID));
                     //$("#ddlClientes").val(cliente.ClienteID);
 
