@@ -12,21 +12,13 @@ namespace Portal.Consultoras.Common
         public static string ClientIPFromRequest(this HttpRequestBase request, bool skipPrivate)
         {
             string IP = null;
-
             foreach (var item in s_HeaderItems)
             {
                 var ipString = request.ServerVariables[item.Key];
+                if (string.IsNullOrWhiteSpace(ipString) || ipString.Trim() == "::1") continue;
 
-                if (string.IsNullOrWhiteSpace(ipString))
-                    continue;
-
-                if (ipString.Trim() == "::1")
-                    continue;
-
-                IP = GetFirstValidIpFromString(request.UserHostAddress, skipPrivate);
-
-                if (!string.IsNullOrWhiteSpace(IP))
-                    break;
+                IP = GetFirstValidIpFromString(ipString, skipPrivate);
+                if (!string.IsNullOrWhiteSpace(IP)) break;
             }
 
             if (string.IsNullOrWhiteSpace(IP) && request.UserHostAddress != "::1")
@@ -34,10 +26,10 @@ namespace Portal.Consultoras.Common
                 IP = GetFirstValidIpFromString(request.UserHostAddress,skipPrivate);
             }
 
-           
             if (!string.IsNullOrWhiteSpace(IP) && IP.IndexOf(":") > 0)
+            {
                 IP = IP.Substring(0, IP.IndexOf(":") - 1);
-
+            }
             return IP;
         }
 

@@ -147,7 +147,17 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
-            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
+            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;            
+            #region EventoFestivo
+            if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+            {
+                ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+            }
+            else
+            {
+                ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+            }
+            #endregion
 
             return View(model);
         }
@@ -318,12 +328,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
+            ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
 
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
-
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
         

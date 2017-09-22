@@ -375,6 +375,16 @@ namespace Portal.Consultoras.Web.Controllers
                 model.TieneMasVendidos = userData.TieneMasVendidos;
                 ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
                 ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
+                #region EventoFestivo
+                if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
+                {
+                    ViewBag.UrlFranjaNegra = "../../../Content/Images/Esika/background_pedido.png";
+                }
+                else
+                {
+                    ViewBag.UrlFranjaNegra = userData.EfRutaPedido;
+                }                    
+                #endregion
             }
             catch (FaultException ex)
             {
@@ -385,6 +395,7 @@ namespace Portal.Consultoras.Web.Controllers
                 LogManager.LogManager.LogErrorWebServicesBus(ex, (userData ?? new UsuarioModel()).CodigoConsultora, (userData ?? new UsuarioModel()).CodigoISO);
             }
 
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
 
