@@ -11,8 +11,8 @@
         </div>
 
 
-        <div class="float_left" style="width:50%; margin-left:1%;">
-            <div class="nombre_set_oferta_mobile">@Model.NombreOferta <br /><b>@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
+        <div class="float_left" style="width:50%; margin-left:3%;">
+            <div class="nombre_set_oferta_mobile">@Model.NombreOferta <br /><b class="precio_oferta_soloHoy">@ViewBag.Simbolo @Model.PrecioOfertaFormat</b></div>
 
             @if (Model.ListaOfertas.Count > 1)
             {
