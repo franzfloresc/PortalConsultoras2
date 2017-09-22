@@ -26,11 +26,12 @@ var menuModule = (function () {
         tagIsAnchor = "es-ancla",
         url,
         lastScrollTop = 0,
-        delta = 5,
+        delta = 10,
         navbarHeight,
         seccionMenuMobileOuterHeight,
         seccionMenuMobileHeight,
         seccionFixedMenuHeigt,
+        seccionMenu2Heigt,
         alturaH,
         scr = false,
         alturaE;
@@ -43,11 +44,13 @@ var menuModule = (function () {
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
         seccionMenuMobileOuterHeight = _getHeight(elementos.seccionBannerMobile);
+        seccionMenu2Heigt = _getHeight(elementos.menu2);
+        seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija);
         alturaH = _getHeight(elementos.header);
         alturaE = alturaH + _getHeight(elementos.bcMenuEstrategia);
-        seccionFixedMenuHeigt = _getHeight(elementos.seccionMenuFija);
+        
         url = document.location.href;
-        $(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + delta);
+        $(elementos.seccionMenuMobile).height(_getHeight(elementos.seccionMenuFija) + 5);
         if ($(elementos.bcParaTiMenu).hasClass(elementos.claseActivo)) {
             $(elementos.bcParaTiMenuActivo).find('img.hover').css('display', 'none');
             $(elementos.bcParaTiMenuActivo).find('img.default').css('display', 'none');
@@ -101,6 +104,14 @@ var menuModule = (function () {
         scr = true;
 
         var divOffSet = $(elementos.seccionBannerMobile).offset().top - navbarHeight + seccionMenuMobileHeight;
+        //Scroll dowm
+        console.log(" Scrolled ------------------------------- ");
+        console.log(" navbarHeight " + navbarHeight);
+        console.log(" divOffSet " + divOffSet);
+        console.log(" st " + st);
+        console.log(" seccionMenuMobileHeight " + seccionMenuMobileHeight);
+        console.log(" lastScrollTop " + lastScrollTop);
+        console.log(" elementos.seccionMenuFija " + $(elementos.seccionMenuFija).offset().top);
 
         if (st > lastScrollTop) {
             //fix the menu 
@@ -109,14 +120,11 @@ var menuModule = (function () {
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }
-        } else {
-            if (st < seccionMenuMobileHeight) {
-                // Scroll Up
-               
+
+        } else {   // Scroll Up
+            if (st < delta) {
                 $(elementos.seccionMenuFija).css("position", "").css("top", "");
-             
-            }else if (st > (seccionMenuMobileHeight) && st + $(window).height() < $(document).height()) {
-                
+            }else if (st > seccionMenuMobileHeight) {
                 $(elementos.seccionMenuFija).css("position", "fixed").css("top", navbarHeight);
             }  
         }
@@ -135,35 +143,40 @@ var menuModule = (function () {
     function checkAnchor() {
         if (url.indexOf(anchorMark) > -1) {
             var strippedUrl = url.toString().split(anchorMark);
+            var menuHeight = navbarHeight;
             if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
+
             $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
             $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
+            if (isMobile()) {
+                menuHeight += seccionFixedMenuHeigt;
+                _moverSubMenuContenedorOfertasMobile();
+            } 
             $(elementos.html).animate({
-                scrollTop: $(anchorMark + anchorValue).offset().top - 60
+                scrollTop: $(anchorMark + anchorValue).offset().top - menuHeight
                 },
             1000);
         }
-        
-        if (isMobile())
-            moverSubMenuContenedorOfertasMobile();
     }
     function menuClick(e, url) {
-        var objHtmlEvent = $(e.target);
-        if (objHtmlEvent.length === 0) objHtmlEvent = $(e);
+        var objHtmlEvent = $(e);
+        var esAncla = objHtmlEvent.data(tagIsAnchor);
+
         objHtmlEvent.siblings("li").find("a").removeClass(elementos.claseActivo);
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
-
-        var esAncla = $(objHtmlEvent).data(tagIsAnchor);
+        
         if (esAncla === "True") {
             var codigo = $(objHtmlEvent).data("codigo");
             if ((window.location.href.toLowerCase() + "/").indexOf("/ofertas/") > -1) {
+                var menuHeight = navbarHeight;
+                if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 $(elementos.html).animate({
-                        scrollTop: $('#' + codigo).offset().top - 60
+                    scrollTop: $('#' + codigo).offset().top - menuHeight
                     },
                     1000);
 
                 if (isMobile())
-                    moverSubMenuContenedorOfertasMobile();
+                    _moverSubMenuContenedorOfertasMobile();
             } else {
                 if (window.location.href.toLowerCase().indexOf("/revisar") > -1)
                     window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
@@ -203,18 +216,12 @@ var menuModule = (function () {
             });
         }
     }
-    function moverSubMenuContenedorOfertasMobile() {
-        //var elementoCarruselMenuContenedor = "[data-layout-menu2] ul";
+    function _moverSubMenuContenedorOfertasMobile() {
         if ($(elementos.menu2Ul).length) {
             var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
             var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
             $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
         }
-    }
-    function cloneDivMenuToFix() {
-        //var newDiv = $(elementos.seccionMenuMobile).clone().prop("id", elementos.seccionMenuMobile2Name);
-        //newDiv.css("position", "fixed").css("display", "none").css("top", "-101px");
-        //$(elementos.seccionMenuMobile).before(newDiv);
     }
 
     return {
@@ -225,24 +232,25 @@ var menuModule = (function () {
         checkAnchor: checkAnchor,
         menuClick: menuClick,
         setCarrouselMenu: setCarrouselMenu,
-        cloneDivMenuToFix: cloneDivMenuToFix
     };
 })();
 
-$(document).ready(function () {
+$(document).ready(function() {
     menuModule.init();
-    menuModule.cloneDivMenuToFix();
     menuModule.setHover();
     menuModule.setCarrouselMenu();
     LayoutHeaderFin();
-    $(window).on('scroll', function () {
-        if (isMobile()) {
-            menuModule.hasScrolledMobile($(window).scrollTop());
-        } else {
-            menuModule.hasScrolledDesktop($(window).scrollTop());
-        }
-    });
-    $(document).ajaxStop(function () {
-        menuModule.checkAnchor();
+    $(window).on('scroll',
+        function() {
+            if (isMobile()) {
+                menuModule.hasScrolledMobile($(window).scrollTop());
+            } else {
+                menuModule.hasScrolledDesktop($(window).scrollTop());
+            }
+        });
+    $(window).load(function() {
+        $(document).ajaxStop(function() {
+            menuModule.checkAnchor();
+        });
     });
 });
