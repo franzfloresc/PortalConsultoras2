@@ -303,13 +303,39 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             BEComunicado oComunicados = null;
 
-            using (SACServiceClient sac = new SACServiceClient())
+            try
             {
-                var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
-                if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
-            }
+                using (SACServiceClient sac = new SACServiceClient())
+                {
+                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+                }
 
-            return Json(oComunicados, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    success = true,
+                    message = string.Empty,
+                    extra = oComunicados
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

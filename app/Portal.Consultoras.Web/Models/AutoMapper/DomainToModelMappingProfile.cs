@@ -225,6 +225,7 @@ namespace Portal.Consultoras.Web.Models.AutoMapper
                    .ForMember(t => t.ArchivoInstructivo, f => f.MapFrom(c => c.ArchivoInstructivo));
 
             Mapper.CreateMap<BEFichaProducto, FichaProductoModel>();
+            Mapper.CreateMap<ServiceUsuario.BEEventoFestivo, EventoFestivoModel>();
         }
     }
 }

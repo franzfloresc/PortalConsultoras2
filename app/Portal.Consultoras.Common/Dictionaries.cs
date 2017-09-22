@@ -431,7 +431,7 @@ namespace Portal.Consultoras.Common
             { "MX", "TemplatesUbigeos/_UbigeoGrupo2" },
             { "PA", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "PE", "TemplatesUbigeos/_UbigeoGrupo3" },
-            { "PR", "TemplatesUbigeos/_UbigeoGrupo7" },
+            { "PR", "TemplatesUbigeos/_UbigeoGrupo9" },
             { "SV", "TemplatesUbigeos/_UbigeoGrupo4" },
             { "VE", "" }
         };

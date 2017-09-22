@@ -88,7 +88,23 @@
         </div>
         <!--RESUMEN DATOS CONSULTORA Y CAMPAÑA-->
         <div class="content_resumen_dato_mobile" style="text-align:left">
-            <div class="saludo_mobile">¡Hola&nbsp;</div>
+            @*<div class="saludo_mobile">¡Hola&nbsp;</div>*@
+            @if (!string.IsNullOrEmpty(ViewBag.MensajeAniversario))
+            {
+                <div class="saludo_mobile" style="width: 63%;">¡Feliz Aniversario&nbsp;</div>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.MensajeCumpleanos))
+            {
+                <div class="saludo_mobile" style="width: 63%;">¡Feliz Cumpleaños&nbsp;</div>
+            }
+            else if (!string.IsNullOrEmpty(ViewBag.SaludoFestivo))
+            {
+                <div class="saludo_mobile" style="width: 63%;">¡@ViewBag.SaludoFestivo&nbsp;</div>
+            }
+            else
+            {
+                <div class="saludo_mobile">¡Hola&nbsp;</div>
+            }
             <div class="nombre_consultora_mobile"><span>@nombreConsultora</span></div>
 
             @if (Model.PortalLideres && Model.Lider == 1)
@@ -995,7 +1011,7 @@
             var urlCatalogoPersonalizado = '@Url.Action("Index", "CatalogoPersonalizado", new { area = "Mobile" })';
             var urlInformacionSuscripcion = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlTerminosCondicionesRD = '@ConfigurationManager.AppSettings["UrlTerminosCondicionesRD"].Trim()';
-            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+            var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital", new { area = "Mobile" })';
             var urlOfertaDetalleProductoTem = '@Url.Action("GuardarProductoTemporal", "RevistaDigital", new { area = "" })';
 
             var tipoOrigenEstrategia = 2;

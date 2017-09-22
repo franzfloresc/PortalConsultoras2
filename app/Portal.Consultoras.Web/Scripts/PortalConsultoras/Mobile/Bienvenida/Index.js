@@ -527,7 +527,6 @@ function mostrarCatalogoPersonalizado() {
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
-
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
     });
@@ -596,7 +595,8 @@ function ObtenerComunicadosPopup() {
             CloseLoading();
 
             if (checkTimeout(response)) {
-                armarComunicadosPopup(response)
+                if (response.success) armarComunicadosPopup(response.extra);
+                else alert(response.message);
             }
         },
         error: function (data, error) {

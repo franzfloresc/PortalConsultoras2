@@ -22,6 +22,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
 using Portal.Consultoras.Web.ServiceODS;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -61,7 +62,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     string URLSignOut = string.Empty;
-
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
                         URLSignOut = "/Login/SesionExpirada";
                     else
@@ -69,6 +69,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     Session.Clear();
                     Session.Abandon();
+                    FormsAuthentication.SignOut();
 
                     filterContext.Result = new RedirectResult(URLSignOut);
                     return;
@@ -1240,6 +1241,10 @@ namespace Portal.Consultoras.Web.Controllers
             }
             #endregion
 
+            #region EventoFestivo
+            ViewBag.SaludoFestivo = model.EfSaludo;
+            #endregion
+
 
             #endregion
 
@@ -1268,6 +1273,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
+
 
         private string NombreCampania(string Campania)
         {
@@ -2313,16 +2319,16 @@ namespace Portal.Consultoras.Web.Controllers
             if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["RevistaPiloto_Codigo_" + userData.CodigoISO + campania];
             if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-            if (userData.RevistaDigital.TieneRDR)
-            {
-                zonas = ConfigurationManager.AppSettings["RevistaPiloto_RDRIssuu_Zona_" + userData.CodigoISO + campania] ?? "";
-                esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
-                if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"];
-                if (!string.IsNullOrEmpty(codigo)) return codigo;
+            //if (userData.RevistaDigital.TieneRDR)
+            //{
+            //    zonas = ConfigurationManager.AppSettings["RevistaPiloto_RDRIssuu_Zona_" + userData.CodigoISO + campania] ?? "";
+            //    esRevistaPiloto = zonas.Split(new char[1] { ',' }).Select(zona => zona.Trim()).Contains(userData.CodigoZona);
+            //    if (esRevistaPiloto) codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"];
+            //    if (!string.IsNullOrEmpty(codigo)) return codigo;
 
-                codigo = ConfigurationManager.AppSettings["CodigoRevistaDigitalIssuu"].ToString();
-                return string.Format(codigo, campania.Substring(4, 2), campania.Substring(2, 2), userData.CodigoISO.ToLower()); ;
-            }
+            //    codigo = ConfigurationManager.AppSettings["CodigoRevistaDigitalIssuu"].ToString();
+            //    return string.Format(codigo, campania.Substring(4, 2), campania.Substring(2, 2), userData.CodigoISO.ToLower()); ;
+            //}
 
             codigo = ConfigurationManager.AppSettings["CodigoRevistaIssuu"].ToString();
             return string.Format(codigo, userData.CodigoISO.ToLower(), campania.Substring(4, 2), campania.Substring(0, 4));

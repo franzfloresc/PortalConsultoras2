@@ -335,6 +335,8 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobileHomeSeccion = 2101;
             public const int RevistaDigitalMobileHomePopUp = 2102;
             public const int RevistaDigitalMobileHomeLanzamiento = 2103;
+            public const int RevistaDigitalMobileHomeSeccionOfertas = 2104;
+            public const int RevistaDigitalMobileHomeSeccionMasOfertas = 2105;
 
             public const int RevistaDigitalDesktopPedidoSeccion = 1201;
             public const int RevistaDigitalDesktopPedidoPopUp = 1202;
@@ -343,6 +345,9 @@ namespace Portal.Consultoras.Common
             public const int RevistaDigitalMobilePedidoSeccion = 2201;
             public const int RevistaDigitalMobilePedidoPopUp = 2202;
             public const int RevistaDigitalMobilePedidoLanzamiento = 2203;
+
+            public const int RevistaDigitalDesktopCatalogoSeccion = 1401;
+            public const int RevistaDigitalMobileCatalogoSeccion = 2401;
             /* FIN Revista Digital */
 
             /// <summary>
@@ -1004,7 +1009,7 @@ namespace Portal.Consultoras.Common
             public const string TEFALTA = "¡TE FALTA!";
             public const string LlegasteAPuntosRequeridos = "¡Llegaste a los {0}* puntos requeridos!";
             public const string LlegasteAPuntosRequeridosNivel = "¡Llegaste a los {0}* puntos requeridos del nivel {1}!";
-            public const string PuedesLlevarAdicionalmentePremio ="¡Puedes llevarte adicionalmente el premio del nivel {0}!";
+            public const string PuedesLlevarAdicionalmentePremio = "¡Puedes llevarte adicionalmente el premio del nivel {0}!";
             public const string PuedesLlevarPremio = "¡Puedes llevarte el premio del nivel {0}!";
             public const string CompraENBelcenter = "Compra en Belcenter hasta el {0} {1} y llévate el premio.";
             public const string IndicadorPremiacion = "Pasa pedido esta campaña para enviártelo";
@@ -1018,5 +1023,21 @@ namespace Portal.Consultoras.Common
             public const short Desktop = 1;
             public const short Mobile = 2;
         }
+
+        #region EventoFestivo
+        public class EventoFestivoAlcance
+        {
+            public const string LOGIN = "LOGIN";
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";            
+        }
+
+        public class EventoFestivoNombre
+        {
+            public const string FONDO_ESIKA = "FONDO_ESIKA";
+            public const string FONDO_LBEL = "FONDO_LBEL";
+            public const string SALUDO = "SALUDO";
+            public const string FONDO_INGPED = "FONDO_INGPED";
+        }
+        #endregion
     }
 }

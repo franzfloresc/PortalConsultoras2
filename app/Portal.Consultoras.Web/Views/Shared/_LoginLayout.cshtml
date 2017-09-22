@@ -63,7 +63,7 @@
         }, 1);
     </script>
 </head>
-<body class="body_login" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="">
+<body class="body_login @Model.NombreClase" onload="noback();" onpageshow="if(event.persisted) noback();" onunload="" >
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -310,6 +310,8 @@
                 <img src="~/Content/Images/Login2/logo_facebook.png" alt="" style="width: 15px; margin-top: 16px; margin-left: 15px;" />
             </a>
         </div>
+        <input id="hddFondoFestivoEsika" type="hidden" value="@Model.RutaEventoEsika" />
+        <input id="hddFondoFestivoLebel" type="hidden" value="@Model.RutaEventoLBel" /> 
     </div>
 
     <!--[if lt IE 11>

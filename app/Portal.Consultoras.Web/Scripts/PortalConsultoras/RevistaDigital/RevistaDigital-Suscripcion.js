@@ -62,7 +62,8 @@ function RDSuscripcion(accion) {
                 $("[data-estadoregistro0]").hide();
                 $("[data-estadoregistro2]").hide();
                 $("[data-estadoregistro1]").show();
-                SuscripcionExistosaRDAnalytics();
+                //SuscripcionExistosaRDAnalytics();
+                SuscripcionExistosaRDAnalytics2();
                 return true;
             }
 
@@ -79,7 +80,7 @@ function RDSuscripcion(accion) {
                 CerrarPopup("#divMensajeBloqueada");
             }
             AbrirPopupFade("#PopRDInscrita");
-            SuscripcionExistosaRDAnalytics();
+            SuscripcionExistosaRDAnalytics2();
         },
         error: function (data, error) {
             CerrarLoad();
@@ -182,82 +183,8 @@ function MostrarTerminos() {
     }
 }
 
-function MostrarPopupRDAnalytics() {
-    dataLayer.push({
-        'event': 'promotionView',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': '1',
-                        'name': 'Revista Online - Inscribirme a Ésika para mí',
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }]
-            }
-        }
-    });
+function RedirectToLandingRD(origenWeb) {
+    // Save analytics before redirect 
+    AccessRDAnalytics(origenWeb);
+    window.location = urlRevistaDigital;
 }
-
-function InscripcionRDAnalytics() {
-    dataLayer.push({
-        'event': 'promotionClick',
-        'ecommerce': {
-            'promoView': {
-                'promotions': [
-                    {
-                        'id': '1',
-                        'name': 'Revista Online - Inscribirme a Ésika para mí',
-                        'position': 'Home pop-up - 1',
-                        'creative': 'Banner'
-                    }]
-            }
-        }
-    });
-}
-
-function SuscripcionExistosaRDAnalytics() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Revista Online',
-        'action': 'Suscripción Exitosa',
-        'label': '(not available)'
-    });
-}
-
-function SaberMasRDAnalytics() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Revista Online',
-        'action': 'Click Botón',
-        'label': 'Saber más de Ésika para mí'
-    });
-}
-
-function CerrarPopUpRDAnalytics(tipoBanner) {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Revista Online',
-        'action': 'Cerrar popup',
-        'label': tipoBanner
-    });
-}
-
-function IrCancelarSuscripcionRDAnalytics() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Revista Online',
-        'action': 'Click Link Cancelar Suscripción',
-        'label': 'Banner'
-    });
-}
-
-function CancelarSuscripcionRDAnalytics() {
-    dataLayer.push({
-        'event': 'virtualEvent',
-        'category': 'Revista Online',
-        'action': 'Cancelar inscripción',
-        'label': '(not available)'
-    });
-}
-
