@@ -292,7 +292,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/TagManager/Home-Pedido.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/css/Site/ccsOfertas").Include(
+            bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertas").Include(
                 "~/Content/Css/Site/slick-pedido.css",
                 "~/Content/Css/Site/flexslider.css",
                 "~/Content/Css/Site/Esika/revistaDigital.css"
@@ -308,7 +308,7 @@ namespace Portal.Consultoras.Web
                 "~/Scripts/PortalConsultoras/RevistaDigital/RevistaDigital.js"
                 ));
 
-            bundles.Add(new ScriptBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
+            bundles.Add(new StyleBundle("~/bundles/css/Site/ccsOfertasMobile").Include(
                 "~/Content/Css/Mobile/esika/revistaDigital.css",
                 "~/Content/Css/Site/slick.css",
                 "~/Content/Css/Site/jquery.rateyo.css"
