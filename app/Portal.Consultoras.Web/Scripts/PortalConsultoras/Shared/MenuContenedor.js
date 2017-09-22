@@ -101,60 +101,23 @@ var menuModule = (function () {
         scr = true;
 
         var divOffSet = $(elementos.seccionBannerMobile).offset().top - navbarHeight + seccionMenuMobileHeight;
-        //Scroll dowm
-        //console.log(" Scrolled ------------------------------- ");
-        //console.log(" navbarHeight " + navbarHeight);
-        //console.log(" divOffSet " + divOffSet);
-        //console.log(" st " + st);
-        //console.log(" seccionMenuMobileHeight " + seccionMenuMobileHeight);
-        //console.log(" lastScrollTop " + lastScrollTop);
-        //console.log(" elementos.seccionMenuFija " + $(elementos.seccionMenuFija).offset().top);
-
 
         if (st > lastScrollTop) {
             //fix the menu 
-
             if (st > seccionMenuMobileHeight) {
                 //$(elementos.seccionMenuMobile).show();
                 $(elementos.seccionMenuFija).css("position", "fixed")
                     .css("top", navbarHeight - seccionMenuMobileHeight);
             }
-            //$(elementos.seccionMenuMobile).css("position", "fixed");
-            //$(elementos.mobContent).css("padding-top", navbarHeight + "px");
-            //$(elementos.seccionBannerMobile).slideUp("slow", function() {
-            //    $(elementos.menu2Ul).css("position", "fixed").css("top", navbarHeight + "px");
-            //});
-
         } else {
-            if (st < navbarHeight + seccionFixedMenuHeigt) {
+            if (st < seccionMenuMobileHeight) {
                 // Scroll Up
-                //if (st < navbarHeight) {
-                //console.log("we are onteh most top ");
-                //$(elementos.seccionMenuMobile).css("position", "");
-                //$(elementos.seccionBannerMobile).css("display", "");
-                //
+               
                 $(elementos.seccionMenuFija).css("position", "").css("top", "");
-                //$(elementos.seccionMenuFija).animate({
-
-                //    "position": "relative",
-                //    "top": 0
-
-                //}, 0);
-                //$(elementos.mobContent).css("padding-top", "");
-                //}  
+             
             }else if (st > (seccionMenuMobileHeight) && st + $(window).height() < $(document).height()) {
-                //console.log("scroll up");
-                //$(elementos.seccionBannerMobile).css("top", navbarHeight + "px").slideDown("slow", function() {
-                //    $(elementos.menu2Ul).css("position", "fixed").css("top", (navbarHeight + seccionMenuMobileHeight) + "px");
-                //});
+                
                 $(elementos.seccionMenuFija).css("position", "fixed").css("top", navbarHeight);
-                //$(elementos.seccionMenuFija).animate({
-
-                //    "position": "fixed",
-                //    "top": navbarHeight
-
-                //}, 0);
-
             }  
         }
         lastScrollTop = st;
