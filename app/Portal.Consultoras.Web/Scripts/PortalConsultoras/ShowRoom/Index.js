@@ -268,8 +268,8 @@ $(document).ready(function () {
         $('#detalle_filtro_precio').toggle();
     });
 
-    $('div.pointer-label.low').css('left', '-17px');
-    $('div.pointer-label.high').css('left', '237px');
+    $('div.pointer-label.low').css('left', '0');
+    $('div.pointer-label.high').css('left', '214px');
 });
 
 function ObtenerProductosShowRoom() {
