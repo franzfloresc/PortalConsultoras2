@@ -2444,6 +2444,7 @@
 
 .home_rd.cabecera_rd_home .rd_logo{
     position:relative;
+    padding-top:18px;
     transform: skewX(-11deg);
     -moz-transform: skewX(-11deg);
     -o-transform: skewX(-11deg);
@@ -2457,10 +2458,13 @@
     top: 0;
     width: 2000px;
     height: 96px;
-    right: 100%;
+    right: 99%;
 }
 
 .img_rd_logo{
+    display:block;
+    text-align: right;
+    padding-right: 42px;
     transform: skewX(11deg);
     -moz-transform: skewX(11deg);
     -o-transform: skewX(11deg);
@@ -2469,7 +2473,12 @@
 }
 
 .home_rd.cabecera_rd_home .hblock_text{
-    padding-top:12px;
+    padding-top:17px;
+}
+
+.hdblock_tx{
+    font-size:17px;
+    line-height:20px;
 }
 
 .home_rd.cabecera_rd_home .rd_logo:after{
