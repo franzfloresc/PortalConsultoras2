@@ -141,7 +141,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',4)
 end
 
 go
@@ -3261,7 +3261,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',4)
 end
 
 go
