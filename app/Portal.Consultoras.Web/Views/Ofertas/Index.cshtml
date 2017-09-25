@@ -10,7 +10,7 @@
     @System.Web.Optimization.Styles.Render("~/bundles/css/Site/ccsOfertas")
 }
 
-<div class="bc_estrategia_contenido">
+<div class="bc_estrategia_contenido" id="seccion-estrategia-contenido">
     @foreach (var seccion in Model.ListaSeccion)
     {
         <div data-seccion="@seccion.Codigo" 
@@ -20,7 +20,8 @@
              data-tipoPresentacion="@seccion.TipoPresentacion"
              data-tipoEstrategia="@seccion.TipoEstrategia"
              data-cantidadProductos="@seccion.CantidadProductos"
-             id="@seccion.Codigo" >
+             id="@seccion.Codigo" 
+             class="seccion-estrategia-contenido">
             <div data-seccion-content="" class="seccion-content-contenedor">
                 @Html.Partial("~/Views/EstrategiaPersonalizada/presentacion-" + seccion.TemplatePresentacion + ".cshtml", seccion)
             </div>
@@ -39,6 +40,11 @@
             </div>
         </div>
     }
+    
+    <div id="no-productos" class="seccion-no-productos">
+        Próximamente encontrarás aquí las mejores ofertas de la siguiente campaña que te harán ganar más y obtener más ingresos.<br/>
+        ¡Vuelve pronto!
+    </div>
 </div>
 
 <div class="bc_clearfix"></div>

@@ -36,7 +36,7 @@ $(document).ready(function () {
         $('.responsive').not('.slick-initialized').slick({
             infinite: true,
             vertical: false,
-            slidesToShow: 3,
+            slidesToShow: 4,
             slidesToScroll: 1,
             autoplay: false,
             speed: 260,
@@ -251,6 +251,7 @@ $(document).ready(function () {
         $('body').css({ 'overflow-y': 'auto' });
 
     });
+
 });
 
 function CargarProductosShowRoom(busquedaModel) {

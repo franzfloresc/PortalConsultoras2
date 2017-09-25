@@ -165,7 +165,6 @@
     padding: 0;
     list-style: none;
     height: 100%;
-    margin-top: -5px;
 }
 
 .op-menu-vertical ul li {
@@ -416,4 +415,12 @@
     -webkit-align-items: center;
     align-items: center; 
     padding: 0 18%;
+}
+
+.seccion-no-productos {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+    text-align: center;
+    display: none;
 }
