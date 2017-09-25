@@ -520,8 +520,8 @@ function ayudaLogin2() {
             break;
     }
 
-    $('#ayuda-msg-user').html(m1.trim());
-    $('#ayuda-msg-clave').html(m2.trim());
+    $('#ayuda-msg-user').html($.trim(m1));
+    $('#ayuda-msg-clave').html($.trim(m2));
 }
 
 function AbrirMensajeLogin(tipo, close) {
