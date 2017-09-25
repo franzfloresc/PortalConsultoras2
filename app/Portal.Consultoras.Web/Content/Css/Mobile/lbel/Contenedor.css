@@ -80,10 +80,10 @@
 	background: white !important;
 	color:#333 !important;
 }
-.bc_para_ti-menu ul li a:hover{
+/*.bc_para_ti-menu ul li a:hover{
 	background: white;
-	color:#333;
-}
+	color:#333;|
+}*/
     .bc_para_ti-menu ul li a img {
         display: inline;
         margin: auto;
@@ -93,9 +93,9 @@
         position: relative;
         top: -1.5px;
     }
-    .bc_para_ti-menu ul li a img.hover {
+    /*.bc_para_ti-menu ul li a img.hover {
         display: none;
-    }
+    }*/
         .bc_para_ti-menu ul li a img.click-menu {
             display: none;
         }
@@ -265,9 +265,9 @@ margin-top: 13px !important;
     text-transform: uppercase;
     transition: .3s;
 }
-.bc_para_ti-menu-opciones li a:hover {
+/*.bc_para_ti-menu-opciones li a:hover {
     color: #67388c;
-}
+}*/
 .bc_para_ti-menu-opciones li a.activo {
     color: #018383;
     font-weight: bolder;
