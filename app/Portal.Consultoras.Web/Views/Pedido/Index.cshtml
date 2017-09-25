@@ -2149,7 +2149,7 @@ else
             <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
             <div class="descripcion_regalo">
                 <span id="of-regalo-descripcion-larga">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
-                <a href="#">*Leer términos y condiciones</a>
+                <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo">*Leer términos y condiciones</a>
             </div>
         </div>
         <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
@@ -2157,7 +2157,7 @@ else
             <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:570px;">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:580px;">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
             <div class="content_imagen_alternativo">
@@ -2282,7 +2282,7 @@ else
 
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                    <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
                     </button>
                 </div>
@@ -2291,6 +2291,7 @@ else
 
                 <hr class="clear" />
             </div>
+            <div class="bloque_detalle_gris"></div>
         </div>
     </div>
 
