@@ -133,7 +133,10 @@ $(document).ready(function () {
                 PopupCerrar('popupDemandaAnticipada');
             }
             if ($('#PopShowroomIntriga').is(':visible')) {
-                PopupCerrar('PopShowroomIntriga');
+                SRPopupCerrar('I');
+            }
+            if ($('#PopShowroomVenta').is(':visible')) {
+                SRPopupCerrar('V');
             }
 
             if ($('#PopRDSuscripcion').is(':visible')) {

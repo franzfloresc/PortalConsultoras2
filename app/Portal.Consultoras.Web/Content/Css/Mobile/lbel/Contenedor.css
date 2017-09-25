@@ -155,7 +155,7 @@ section {
     padding: 3% 10%;
     margin-bottom: 0;
     font-family: 'Lato';
-    color: #b52e36;
+    color: #043552;
 }
 
 .bc_plantilla-banner {
@@ -266,10 +266,10 @@ margin-top: 13px !important;
     transition: .3s;
 }
 .bc_para_ti-menu-opciones li a:hover {
-    color: #B52E36;
+    color: #67388c;
 }
 .bc_para_ti-menu-opciones li a.activo {
-    color: #B52E36;
+    color: #67388c;
     font-weight:bolder;
 }
 .bc_para_ti-menu-opciones li a.activo p.activo{
@@ -292,7 +292,7 @@ margin-top: 13px !important;
     display: block;
     width: 75%;
     margin: auto;
-    border: 1px solid #B52E36;
+    border: 1px solid #67388c;
     margin-top: 12px;
 }
 
@@ -320,7 +320,7 @@ img.icono-submenu-tabs {
     display: block;
     width: 72%;
     margin: auto;
-    border: 1px solid #B52E36;
+    border: 1px solid #67388c;
     margin-top: 12px;
     margin-left: 12px;
 }
