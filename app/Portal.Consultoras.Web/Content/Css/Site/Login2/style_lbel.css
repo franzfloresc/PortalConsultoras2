@@ -30,12 +30,6 @@ body {
     font-family: lato-medium;
     color: #555;
     text-align: center;
-    background: url(../Images/login-lbel-1920.jpg) center center no-repeat fixed;
-     /*background: url(../Images/loggin_lbel.jpg) center center no-repeat fixed;*/
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
 }
 
 li {
@@ -1309,7 +1303,7 @@ h1, h2, h3, h4, h5, h6 {
         background: none;
     }
 
-    body {
+    .fondo_estandar {
         background: url('../images/login-lbel-1920.jpg');
     }
 
@@ -1702,7 +1696,7 @@ h1, h2, h3, h4, h5, h6 {
         float: none !important;
     }
 
-    body {
+    .fondo_estandar {
         background: url('../images/login-lbel-1920.jpg') no-repeat fixed !important;
     }
 }
@@ -2126,4 +2120,12 @@ h1, h2, h3, h4, h5, h6 {
     background: url(../../../Images/Lbel/icono_advertencia_notificacion.svg) no-repeat;
     background-size: 15px;
     color:#613c87;
+}
+
+.fondo_estandar {
+    background: url('../Images/login-lbel-1920.jpg') center center no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover
 }

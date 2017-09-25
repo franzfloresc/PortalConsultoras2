@@ -354,22 +354,41 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         [HttpGet]
         public JsonResult ObtenerComunicadosPopUps()
         {
+            BEComunicado oComunicados = null;
 
-            List<BEComunicado> lstComunicados;
-            using (var sacServiceClient = new SACServiceClient())
+            try
             {
-                 lstComunicados = sacServiceClient.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                using (SACServiceClient sac = new SACServiceClient())
+                {
+                    var lstComunicados = sac.ObtenerComunicadoPorConsultora(userData.PaisID, userData.CodigoConsultora, Constantes.ComunicadoTipoDispositivo.Mobile).ToList();
+                    if (lstComunicados != null) oComunicados = lstComunicados.FirstOrDefault();
+                }
+
+                return Json(new
+                {
+                    success = true,
+                    message = string.Empty,
+                    extra = oComunicados
+                }, JsonRequestBehavior.AllowGet);
             }
-
-            BEComunicado comunicado = null;
-            if (lstComunicados != null && lstComunicados.Any())
-                comunicado = lstComunicados.FirstOrDefault();
-
-
-            return Json(new {
-                succes =true,
-                data = comunicado
-            }, JsonRequestBehavior.AllowGet);
+            catch (FaultException ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesPortal(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
+                return Json(new
+                {
+                    success = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

@@ -151,6 +151,7 @@
           <xs:element minOccurs="0" name="DesktopCantidadProductos" type="xs:int" />
           <xs:element minOccurs="0" name="DesktopImagenFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopOrden" type="xs:int" />
+          <xs:element minOccurs="0" name="DesktopOrdenBpt" type="xs:int" />
           <xs:element minOccurs="0" name="DesktopSubTitulo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="DesktopTipoPresentacion" type="xs:int" />
@@ -159,6 +160,7 @@
           <xs:element minOccurs="0" name="MobileCantidadProductos" type="xs:int" />
           <xs:element minOccurs="0" name="MobileImagenFondo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileOrden" type="xs:int" />
+          <xs:element minOccurs="0" name="MobileOrdenBpt" type="xs:int" />
           <xs:element minOccurs="0" name="MobileSubTitulo" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTipoEstrategia" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="MobileTipoPresentacion" type="xs:int" />

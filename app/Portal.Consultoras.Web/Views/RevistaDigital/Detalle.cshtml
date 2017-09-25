@@ -94,7 +94,10 @@
             <div class="tit_pack">GARANTIZA EL NUEVO ÉXITO DE TU NEGOCIO</div>
         }
 
-        <div class="lanzamiento-view-detalle" style="margin-left: -4%;">
+        <div class="lanzamiento-view-detalle" style="margin-left: -4%;"
+             data-item-cuv="@Model.CUV2"
+             data-estrategia="@Json.Encode(Model)"
+             >
             <div id="divOfertaProductos" data-OrigenPedidoWeb="@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopProductPage"></div>
         </div>
         @if ((Model.TipoEstrategiaDetalle.UrlVideoDesktop ?? "") != "")

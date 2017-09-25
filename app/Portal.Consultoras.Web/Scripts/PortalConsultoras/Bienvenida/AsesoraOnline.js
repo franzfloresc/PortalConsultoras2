@@ -9,7 +9,7 @@
     };
 
     var _armarAsesoraOnlineUrl = function (isoPais, codigoConsultora, origen) {
-        return _config.asesoraOnlineUrl + '?isoPais=' + isoPais + '&codigoConsultora=' + codigoConsultora + '&origen=' + origen;
+        return _config.asesoraOnlineUrl + '?param=' + isoPais + codigoConsultora + origen;
     };
     
     var _hidePopup = function () {

@@ -328,12 +328,13 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.paisISO = userData.CodigoISO;
             ViewBag.Ambiente = ConfigurationManager.AppSettings.Get("BUCKET_NAME") ?? string.Empty;
 
+            ViewBag.NombreConsultora = userData.Sobrenombre;
             if (userData.TipoUsuario == Constantes.TipoUsuario.Postulante)
                 model.Prol = "GUARDA TU PEDIDO";
 
             ViewBag.OfertaFinalEstado = userData.OfertaFinalModel.Estado;
             ViewBag.OfertaFinalAlgoritmo = userData.OfertaFinalModel.Algoritmo;
-
+            ViewBag.UrlTerminosOfertaFinalRegalo = string.Format("{0}/SomosBelcorp/FileConsultoras/{1}/Flyer_Regalo_Sorpresa.pdf", ConfigurationManager.AppSettings.Get("oferta_final_regalo_url_s3"), userData.CodigoISO);
             return View(model);
         }
         

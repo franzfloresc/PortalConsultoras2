@@ -35,7 +35,7 @@ Begin
 		/*Monto Meta y Regalo*/
 		Declare @Cuv varchar(100)		
 		Set @Cuv = (Select Cuv From OfertaFinalRegaloXCampania with (nolock) Where CampaniaId = @CampaniaId And RangoId = @RangoId)
-		Set @MontoMeta = @MontoTotal + @GapAgregar			
+		Set @MontoMeta = @MontoTotal + Convert(decimal(18,2),@GapAgregar*(@MontoTotal))/100			
 		insert into OfertaFinalMontoMeta(CampaniaId,ConsultoraId,MontoPedido,GapMinimo,GapMaximo,GapAgregar,MontoMeta,Cuv)
 		select 
 			CampaniaId = @CampaniaId,
