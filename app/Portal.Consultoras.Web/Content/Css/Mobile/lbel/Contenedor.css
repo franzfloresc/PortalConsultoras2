@@ -269,8 +269,8 @@ margin-top: 13px !important;
     color: #B52E36;
 }
 .bc_para_ti-menu-opciones li a.activo {
-    color: #B52E36;
-    font-weight:bolder;
+    color: #018383;
+    font-weight: bolder;
 }
 .bc_para_ti-menu-opciones li a.activo p.activo{
     font-weight:bold;
@@ -315,12 +315,12 @@ img.icono-submenu-tabs {
     display:inline;
 }
 
-.activo .opcion_home_vistaOfertas::after{
+.activo .opcion_home_vistaOfertas::after {
     content: "";
     display: block;
     width: 72%;
     margin: auto;
-    border: 1px solid #B52E36;
+    border: 1px solid #018383;
     margin-top: 12px;
     margin-left: 12px;
 }
