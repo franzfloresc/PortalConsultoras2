@@ -62,27 +62,37 @@ namespace Portal.Consultoras.BizLogic
             dAConfiguracionOfertasHome.Update(entidad);
         }
         
-        public List<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
+        public IList<BEConfiguracionOfertasHome> GetListarSeccion(int paisId, int campaniaId)
         {
-            var lista = new List<BEConfiguracionOfertasHome>();
-            var blConfiguracionPais = new BLConfiguracionPais();
-            try
+            IList<BEConfiguracionOfertasHome> lista = CacheManager<BEConfiguracionOfertasHome>.GetData(paisId, 
+                ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString());
+
+            if (lista == null || lista.Count == 0)
             {
-                var da = new DAConfiguracionOfertasHome(paisId);
-                using (IDataReader reader = da.GetListarSeccion(campaniaId))
+                //var lista = new List<BEConfiguracionOfertasHome>();
+
+                try
                 {
-                    while (reader.Read())
+                    var da = new DAConfiguracionOfertasHome(paisId);
+                    lista = new List<BEConfiguracionOfertasHome>();
+                    using (IDataReader reader = da.GetListarSeccion(campaniaId))
                     {
-                        var ofertaHome = new BEConfiguracionOfertasHome(reader);
-                        lista.Add(ofertaHome);
+                        while (reader.Read())
+                        {
+                            var ofertaHome = new BEConfiguracionOfertasHome(reader);
+                            lista.Add(ofertaHome);
+                        }
                     }
                 }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.StackTrace);
+                    lista = new List<BEConfiguracionOfertasHome>();
+                }
+
+                CacheManager<BEConfiguracionOfertasHome>.AddData(paisId, ECacheItem.SeccionConfiguracionOfertasHome, campaniaId.ToString(), lista);
             }
-            catch (Exception exc)
-            {
-                Console.WriteLine(exc.StackTrace);
-                lista = new List<BEConfiguracionOfertasHome>();
-            }
+            
             return lista;
         }
 
