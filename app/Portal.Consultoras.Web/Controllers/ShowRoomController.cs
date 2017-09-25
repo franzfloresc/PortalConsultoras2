@@ -2870,8 +2870,10 @@ namespace Portal.Consultoras.Web.Controllers
                 var productosShowRoom = ObtenerListaProductoShowRoom(userData.CampaniaID, userData.CodigoConsultora, esFacturacion);
                 productosShowRoom.ForEach(p => p.UrlCompartir = urlCompartir);
 
-                if (model.Limite > 0)
-                    productosShowRoom = productosShowRoom.Take(model.Limite).ToList();
+                if (model.Limite > 0) {
+                    if (productosShowRoom.Count > 0)
+                        productosShowRoom = productosShowRoom.Where(x => x.EsSubCampania == false).Take(model.Limite).ToList();
+                }
 
                 var index = 0;
                 productosShowRoom.Each(x => {

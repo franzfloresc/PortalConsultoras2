@@ -33982,17 +33982,16 @@ h1#penmostreo .campana {
     margin-bottom:10px;
     margin-right:13px;
 }
-.saludo_consultora_showroom{
+.saludo_consultora_showroom {
     position: absolute;
     font-family: 'LAto';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 10.5%;
 }
 .content_set_imagen_intriga{
     height:205px;
