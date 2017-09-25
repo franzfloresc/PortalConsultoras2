@@ -17,10 +17,13 @@
 
 .bc_plantilla_estrategia_personalizada .titulo {
     display: block;
-    padding: 4% 0%;
+    padding: 4% 6%;
     text-align: center;
     padding-bottom: 5px;
-    margin-bottom: 0 !important;
+    margin-bottom: 15px !important;
+    margin: auto;
+    max-width: 971px;
+    margin-bottom: 20px;
 }
 .bc_plantilla_estrategia_personalizada .titulo h2 {
     display: inline;
@@ -162,7 +165,6 @@
     padding: 0;
     list-style: none;
     height: 100%;
-    margin-top: -5px;
 }
 
 .op-menu-vertical ul li {
@@ -305,14 +307,16 @@
     display: block;
     width: 210px;
     text-align: center;
-    margin: auto 164px;
-    padding: 12px 0px;
+    padding: 10px 0px;
+    /* margin: auto 164px; */
     /* display: none; */
     font-size: 14px;
     float: right;
     margin-top: -5px;
     letter-spacing: 1px;
     font-family: 'Lato';
+    /* position: absolute; */
+    /* right: 0; */
 }
 .btn-set-previous {
     width: 80px !important;

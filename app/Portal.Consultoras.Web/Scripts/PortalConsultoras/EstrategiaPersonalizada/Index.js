@@ -51,7 +51,9 @@ function SeccionRender() {
             $(seccion).remove();
         }
     });
-
+    $(document).ajaxStop(function () {
+        VerificarSecciones();
+    });
 }
 
 function SeccionObtenerSeccion(seccion) {
@@ -197,20 +199,6 @@ function SeccionMostrarProductos(data) {
         }
     }
 
-    //if ((data.Seccion !== undefined && data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.ShowRoom) ||
-    //    (data.data !== undefined && data.data.length > 0) ||
-    //    (data.lista !== undefined && data.lista.length > 0) ||
-    //    (data.listaLan !== undefined && data.listaLan.length > 0)) {
-       
-    //    //$(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeIn();
-    //} else {
-    //    $("#" + data.Seccion.Codigo).find(".seccion-loading-contenedor").fadeOut();
-    //    $(".subnavegador").find("[data-codigo=" + data.Seccion.Codigo + "]").fadeOut();
-    //    if (data.Seccion.Codigo === CONS_CODIGO_SECCION.LAN || data.Seccion.Codigo === CONS_CODIGO_SECCION.OPT) {
-           
-    //    }
-    //}
-
     SetHandlebars(data.Seccion.TemplateProducto, data, divListadoProductos);
     
     if (data.Seccion.TipoPresentacion == CONS_TIPO_PRESENTACION.CarruselPrevisuales) {
@@ -330,4 +318,11 @@ function UpdateSessionState(codigo, campaniaId) {
             console.log(error, x);
         }
     });    
+}
+
+function VerificarSecciones() {
+    var visibles = $(".seccion-estrategia-contenido").children(":visible").length;
+    if (visibles == 0) {
+        $("#no-productos").fadeIn();
+    }
 }
