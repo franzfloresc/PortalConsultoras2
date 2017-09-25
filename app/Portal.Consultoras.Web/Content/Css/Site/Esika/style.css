@@ -34645,6 +34645,8 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
+    position: relative;
+    left: -9px;
 }
 
 /*Seccion para suscripcion. */    
