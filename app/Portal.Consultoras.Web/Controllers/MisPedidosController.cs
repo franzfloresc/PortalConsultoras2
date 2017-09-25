@@ -33,8 +33,7 @@ namespace Portal.Consultoras.Web.Controllers
             {
                 using (PedidoServiceClient sv = new PedidoServiceClient())
                 {
-                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturado(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID,
-                        userData.CodigoConsultora).ToList();
+                    listaPedidoFacturados = sv.GetPedidosIngresadoFacturadoWebMobile(userData.PaisID, Convert.ToInt32(userData.ConsultoraID), userData.CampaniaID, 0, 4, userData.CodigoConsultora).ToList();
                 }
                 using (SC.ClienteServiceClient sv = new SC.ClienteServiceClient())
                 {
