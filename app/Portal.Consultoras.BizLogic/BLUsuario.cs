@@ -1580,22 +1580,36 @@ namespace Portal.Consultoras.BizLogic
 
         #region EventoFestivo
         /*HD-817*/
-        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisId, string alcance, int campaniaId)
         {
-            if (paisID == 0)
+            if (paisId == 0)
             {
-                paisID = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
+                paisId = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
             }
-            IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
-            var DAUsuario = new DAUsuario(paisID);
-            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcance, Campania))
+
+            string customKey = alcance + "_" + campaniaId;
+            IList<BEEventoFestivo> listaEvento = CacheManager<BEEventoFestivo>.GetData(paisId,
+                ECacheItem.ConfiguracionEventoFestivo, customKey);
+
+            //IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
+
+            if (listaEvento == null || listaEvento.Count == 0)
             {
-                while (reader.Read())
+                var DAUsuario = new DAUsuario(paisId);
+                listaEvento = new List<BEEventoFestivo>();
+                using (IDataReader reader = DAUsuario.GetEventoFestivo(alcance, campaniaId))
                 {
-                    evento.Add(new BEEventoFestivo(reader));
+                    while (reader.Read())
+                    {
+                        var evento = new BEEventoFestivo(reader);
+                        listaEvento.Add(evento);
+                    }
                 }
+
+                CacheManager<BEEventoFestivo>.AddData(paisId, ECacheItem.ConfiguracionEventoFestivo, customKey, listaEvento);
             }
-            return evento;
+               
+            return listaEvento;
         }
         #endregion
     }

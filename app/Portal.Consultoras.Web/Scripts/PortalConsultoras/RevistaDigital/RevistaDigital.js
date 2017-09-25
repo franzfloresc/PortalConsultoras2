@@ -65,7 +65,7 @@ $(document).ready(function () {
         })
         .mouseout(function () { $("#barCursor").css("opacity", "0"); });
 
-    RDMostrarPosicion();
+    //RDMostrarPosicion();
 
     if (isDetalle) {
         RDDetalleObtener();
@@ -483,16 +483,15 @@ function RDDetalleObtener() {
     }
 
     if (cuv == "" || campania == "") {
-        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
+        RDDetalleVolver(campaniaCodigo);
     }
 
     var prod = GetProductoStorage(cuv, campania);
-    var mobile = isMobile();
     if (prod == null || prod == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
+        RDDetalleVolver(campania || campaniaCodigo);
     }
     if (prod.CUV2 == undefined) {
-        window.location = (mobile ? "/Mobile/" : "") + sProps.UrlRevistaDigitalComprar;
+        RDDetalleVolver(campania || campaniaCodigo);
     }
 
     var obj = new Object();

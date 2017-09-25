@@ -141,17 +141,20 @@ var menuModule = (function () {
         }
     }
     function checkAnchor() {
+        var menuHeight = navbarHeight;
+        if (isMobile()) {
+            menuHeight += seccionFixedMenuHeigt;
+            _moverSubMenuContenedorOfertasMobile();
+        } 
+
         if (url.indexOf(anchorMark) > -1) {
             var strippedUrl = url.toString().split(anchorMark);
-            var menuHeight = navbarHeight;
+           
             if (strippedUrl.length > 1) anchorValue = strippedUrl[1];
 
             $(elementos.menu2Li).find("a").removeClass(elementos.claseActivo);
             $(elementos.html).find("[data-codigo=" + anchorValue + "]").find("a").addClass(elementos.claseActivo);
-            if (isMobile()) {
-                menuHeight += seccionFixedMenuHeigt;
-                _moverSubMenuContenedorOfertasMobile();
-            } 
+            
             $(elementos.html).animate({
                 scrollTop: $(anchorMark + anchorValue).offset().top - menuHeight
                 },
@@ -161,39 +164,39 @@ var menuModule = (function () {
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
+        var codigo = objHtmlEvent.data("codigo");
+        var currentLocation = window.location.href.toLowerCase();
+        var originLocation = window.location.origin;
 
         objHtmlEvent.siblings("li").find("a").removeClass(elementos.claseActivo);
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
         
         if (esAncla === "True") {
-            var codigo = $(objHtmlEvent).data("codigo");
-            if ((window.location.href.toLowerCase() + "/").indexOf("/ofertas/") > -1) {
+            if (currentLocation.indexOf("/ofertasparati") > -1) {
+                var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
+                var controller = "Ofertas#";
+                if (indexOf > 0) {
+                    indexOf = currentLocation.split("&campaniaid=")[1];
+                    indexOf = indexOf.split("&")[0];
+                    if (indexOf != campaniaCodigo) {
+                        controller = "Ofertas/Revisar#";
+                    }
+                }
+                window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + controller + codigo;
+            } else if (currentLocation.indexOf("/ofertas") > -1) {
                 var menuHeight = navbarHeight;
                 if ($(elementos.seccionMenuFija).css("position") === "fixed") menuHeight += seccionFixedMenuHeigt;
                 $(elementos.html).animate({
-                    scrollTop: $('#' + codigo).offset().top - menuHeight
+                        scrollTop: $('#' + codigo).offset().top - menuHeight
                     },
                     1000);
-
                 if (isMobile())
                     _moverSubMenuContenedorOfertasMobile();
             } else {
-                if (window.location.href.toLowerCase().indexOf("/revisar") > -1)
-                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
+                if (currentLocation.indexOf("/revisar") > -1)
+                    window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas/Revisar#" + codigo;
                 else
-                {
-                    var indexOf = window.location.href.toLowerCase().replace("?", "&").indexOf("&campaniaid=");
-                    var controller = "Ofertas#";
-                    if (indexOf > 0) {
-                        indexOf = window.location.href.toLowerCase().split("&campaniaid=")[1];
-                        indexOf = indexOf.split("&")[0];
-                        if (indexOf != campaniaCodigo) {
-                            controller = "Ofertas/Revisar#";
-                        }
-                    }
-                    window.location = window.location.origin + "/" + (isMobile() ? "Mobile/" : "") + controller + codigo;
-                }
-                    
+                    window.location = originLocation + "/" + (isMobile() ? "Mobile/" : "") + "Ofertas#" + codigo;
             }
         } else {
             url = $.trim(url);
@@ -253,9 +256,9 @@ $(document).ready(function() {
                 menuModule.hasScrolledDesktop($(window).scrollTop());
             }
         });
-    $(window).load(function() {
-        $(document).ajaxStop(function() {
-            menuModule.checkAnchor();
-        });
+ 
+    $(document).ajaxStop(function() {
+        menuModule.checkAnchor();
     });
+
 });
