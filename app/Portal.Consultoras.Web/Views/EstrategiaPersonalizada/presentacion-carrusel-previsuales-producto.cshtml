@@ -6,14 +6,21 @@
                 <div style="display:none;"><div data-estrategia="{{JSON2string lan}}"></div></div>
                 <div class="detalle_set_banner" data-item-tag="contenido">
                     {{#if ../Mobile}}
-                    {{else}}
-                    {{#iff lan.TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
-                    <div>
-                        <div class="etiqueta_nuevo_ept">
-                            <img src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" style="max-height:50px;" />
+                        {{#iff lan.TipoEstrategiaDetalle.ImgFichaMobile '!=' ''}}
+                        <div>
+                            <div class="etiqueta_nuevo_ept">
+                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaMobile}}" alt="" style="max-height:50px;" />
+                            </div>
                         </div>
-                    </div>
-                    {{/iff}}
+                        {{/iff}}
+                    {{else}}
+                        {{#iff lan.TipoEstrategiaDetalle.ImgFichaDesktop '!=' ''}}
+                        <div>
+                            <div class="etiqueta_nuevo_ept">
+                                <img src="{{lan.TipoEstrategiaDetalle.ImgFichaDesktop}}" alt="" style="max-height:50px;" />
+                            </div>
+                        </div>
+                        {{/iff}}
                     {{/if}}
                     
                     {{#if ../Mobile}} 
@@ -68,16 +75,13 @@
                             AGRÉGALO
                         </a>                    
 
-                        {{#if ../Mobile}}
-                        {{else}}
-                            <div class="clear"></div>
-                            <div style="padding-top: 9px; height: 15px;">
-                                <div class="agregado product-add" style="text-align: right; display: {{#if lan.IsAgregado }}block;{{else}}none;{{/if}}">
-                                    AGREGADO
-                                    <div class="icono"></div>
-                                </div>
+                        <div class="clear"></div>
+                        <div style="padding-top:9px; height: 15px;">
+                            <div class="agregado product-add" style="text-align:right;display:{{#if lan.IsAgregado }}block;{{else}}none;{{/if}}">
+                                AGREGADO
+                                <div class="icono"></div>
                             </div>
-                        {{/if}}
+                        </div>
                     </div>
 
                     {{#if ../Mobile}}

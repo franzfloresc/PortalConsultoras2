@@ -3006,6 +3006,8 @@ namespace Portal.Consultoras.Web.Controllers
                 // ignored
             }
 
+            newPath = newPath.EndsWith("/") ? newPath.Substring(0, newPath.Length - 1) : newPath;
+
             switch (newPath.ToLower())
             {
                 case Constantes.UrlMenuContenedor.Inicio:

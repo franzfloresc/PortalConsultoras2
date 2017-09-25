@@ -1229,6 +1229,12 @@ function AbrirLoad() {
     else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         ShowLoading();
     }
+    else if (isMobile()) {
+        ShowLoading();
+    }
+    else {
+        waitingDialog()
+    }
 }
 
 function AbrirMensajeEstrategia(txt) {

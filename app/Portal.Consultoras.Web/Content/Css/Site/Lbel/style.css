@@ -34988,6 +34988,7 @@ h1#penmostreo .campana {
     text-shadow: -0.08em 0.08em black;
     position: absolute;
     top: 36%;
+    margin-top: 14px;
     font-weight: bold;
 }
 
@@ -35034,15 +35035,14 @@ h1#penmostreo .campana {
 
 .saludo_consultora_showroom {
     position: absolute;
-    font-family: 'LAto';
+    font-family: 'Lato';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 10.5%;
 }
 
 .content_set_imagen_intriga {
@@ -35996,11 +35996,6 @@ h1#penmostreo .campana {
     position: relative;
 }
 
-    .banner_showroom_home img {
-        height: 703px;
-        width: auto;
-        display: block;
-    }
 /*CAMBIOS EN OFERTA DEL DÍA*/
 .regresar_carrusel {
     color: white;

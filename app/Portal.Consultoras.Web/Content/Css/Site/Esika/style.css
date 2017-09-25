@@ -1,4 +1,4 @@
-/* CSS Document */
+ï»¿/* CSS Document */
 
 * {
     -webkit-box-sizing: border-box;
@@ -4443,7 +4443,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-weight: bold;
 }
 
-/* POPUP INVITACIˆ_N FLEXIPAGO */
+/* POPUP INVITACIË†_N FLEXIPAGO */
 
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup{
     position:fixed;
@@ -5084,7 +5084,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-left:10px;
 }
 
-/* POPUP ACEPTACIˆ_N DE CONTRATO */
+/* POPUP ACEPTACIË†_N DE CONTRATO */
 
 .btn_cerrar_aceptacionContrato{
     display: block;
@@ -5688,7 +5688,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:547px;
 }
 
-/* ACTUALIZACIˆ_N PˆWGINA MIS PAGOS */
+/* ACTUALIZACIË†_N PË†WGINA MIS PAGOS */
 
 .titulo_misPagos{
     width:16.85%!important;
@@ -12400,7 +12400,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     background: #F1BCD0;
@@ -12433,7 +12433,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -12817,7 +12817,7 @@ ol {
     padding: 0px 0px 10px 0px;
     text-align: center;   
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom:1;
     *display:inline;
 }
@@ -13612,7 +13612,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13633,7 +13633,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13712,7 +13712,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13732,7 +13732,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIˆ_N*/
+    vertical-align: top; /* BASELINE CORRECCIË†_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -18724,7 +18724,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se cambiˆu tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se cambiË†u tipo de letra*/
     height:66px;
 }
 #divMensajeModalAfiliaBienvenida{
@@ -18733,7 +18733,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se agregˆu tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se agregË†u tipo de letra*/
     height:66px;
 }
 #paLand *{
@@ -18754,7 +18754,7 @@ float: right;
 	font-family: 'lato-regular';
 }
 #paParClientes{
-        /*'R2442 se cambiˆu el FONT  a 100 regular - Cambio tama?o y font family*/
+        /*'R2442 se cambiË†u el FONT  a 100 regular - Cambio tama?o y font family*/
 
     font-family: 'lato-regular';
     font-size: 16px;
@@ -19020,7 +19020,7 @@ float: right;
 			/*height: 685px;*/
 			overflow: hidden;
 		}
-        /*INI - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
+        /*INI - R2442 - JICM - Por lo pronto la imagen serË†h solo una */
 		#ImgEnterate1{
 			margin-left: 60px;
             width: 202px;
@@ -19120,7 +19120,7 @@ float: right;
         #ImgEnterate{
             
 		}
-          /*FIN - R2442 - JICM - Por lo pronto la imagen serˆh solo una */
+          /*FIN - R2442 - JICM - Por lo pronto la imagen serË†h solo una */
 		#letrasPequenasEnterateMas{
 			text-align: left;
 			margin-left: 60px;
@@ -20573,7 +20573,7 @@ label.checkpop.c_on {
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
 
-/*ESTILOS PARA LIQUIDACIˆ_N*/
+/*ESTILOS PARA LIQUIDACIË†_N*/
 .wrapper_home_interiores{
     /*margin: 0 auto;*/
     margin: 0 ;
@@ -22497,7 +22497,7 @@ body{
     
 }
 
-/* PˆWGINA MIS PEDIDOS */
+/* PË†WGINA MIS PEDIDOS */
 
 .contenedor_enlaces_misPedidos{
     display: block;
@@ -24405,7 +24405,7 @@ img
     color: #d226aa;	
 }
 
-.submenu > ul > li > a  /*Tˆqtulos de cada secciˆun del menˆy*/
+.submenu > ul > li > a  /*TË†qtulos de cada secciË†un del menË†y*/
 {
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -24560,7 +24560,7 @@ img
 	margin-top:2px;	
 }*/
 
-/*****************Menˆy*******************/
+/*****************MenË†y*******************/
 
 #menu>li>div>a>img
 {
@@ -24572,7 +24572,7 @@ img
 {
 	font-size:12px;
 }
-/*****************Submenˆy*******************/
+/*****************SubmenË†y*******************/
 #menu .submenu > ul > li > a 
 {
 	font-size: 12px;
@@ -26721,8 +26721,8 @@ div.subir_archivo input {
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "¡½"; /* el valor de la propiedad content tambiˆmn puede ser cualquier imagen, sˆulo tendrˆqamos que pasarle la ruta de la imagen*/
-    content: "¡½";
+    content: "Â¡Â½"; /* el valor de la propiedad content tambiË†mn puede ser cualquier imagen, sË†ulo tendrË†qamos que pasarle la ruta de la imagen*/
+    content: "Â¡Â½";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -27670,7 +27670,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .content-favclientes .contiene-productos:nth-child(3n){
     margin-right:0%;
 }
-/*informaciˆun adicional*/
+/*informaciË†un adicional*/
 .mensajes_deAtencion span {
     width: 50%;
     color: #e81c36;
@@ -28639,7 +28639,7 @@ a#cierreMotivoRechazo img {
     margin-top:10px;
 }
 
-/* PˆWGINA ESCALA DE DESCUENTOS */
+/* PË†WGINA ESCALA DE DESCUENTOS */
 
 .container_escalaDescuento{
     width:100%;
@@ -29322,7 +29322,7 @@ h1#penmostreo .campana {
 }
 
 
-/*Sb20-863 - Fˆqn*/
+/*Sb20-863 - FË†qn*/
 
 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -31279,7 +31279,7 @@ h1#penmostreo .campana {
 /*.reclamo_motivo_select:last-child{
     border-bottom:0px;
 }*/
-.btn_soluciˆun_reclamo {
+.btn_soluciË†un_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -31292,10 +31292,10 @@ h1#penmostreo .campana {
     margin-right: 36px;
     margin-bottom: 10px;
 }
-.btn_soluciˆun_reclamo:last-child{
+.btn_soluciË†un_reclamo:last-child{
     margin-right:0px;
 }
-.btn_soluciˆun_reclamo:hover{
+.btn_soluciË†un_reclamo:hover{
     background:black;
     color:white;
 }
@@ -33885,8 +33885,8 @@ h1#penmostreo .campana {
     line-height: 11.5px;
     padding-left: 2px;
 }
-.check_intriga:before{
-    content: "?";
+.check_intriga:before {
+    content: "âœ“";
     line-height: 11.5px;
     padding-left: 1px;
 }
@@ -33941,6 +33941,7 @@ h1#penmostreo .campana {
     position: absolute;
     top: 36%;
     font-weight: bold;
+    margin-top:14px;
 }
 
 .link_cambiar_correo{
@@ -33981,17 +33982,16 @@ h1#penmostreo .campana {
     margin-bottom:10px;
     margin-right:13px;
 }
-.saludo_consultora_showroom{
+.saludo_consultora_showroom {
     position: absolute;
     font-family: 'LAto';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 10.5%;
 }
 .content_set_imagen_intriga{
     height:205px;
@@ -34646,8 +34646,6 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
-    position: relative;
-    left: -9px;
 }
 
 /*Seccion para suscripcion. */    
@@ -35691,7 +35689,7 @@ h1#penmostreo .campana {
     text-align:center;
     margin-top: -5px;
 }
-.content_detalle_puntuaciˆun{
+.content_detalle_puntuaciË†un{
     float:left;
     width:20%;
     font-family:'Lato';
