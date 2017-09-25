@@ -34004,13 +34004,13 @@ h1#penmostreo .campana {
     letter-spacing: 0.6px;
 }
 .agregado {
-    
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 0.5px;
     text-align: center;
     color: #a18328;
+    margin-top: 3px;
 }
 /*SHOWROOM*/
 .set-productos-showroom{
