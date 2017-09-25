@@ -21,6 +21,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -60,7 +61,6 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData == null)
                 {
                     string URLSignOut = string.Empty;
-
                     if (Request.UrlReferrer != null && Request.UrlReferrer.ToString().Contains(Request.Url.Host))
                         URLSignOut = "/Login/SesionExpirada";
                     else
@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                     Session.Clear();
                     Session.Abandon();
+                    FormsAuthentication.SignOut();
 
                     filterContext.Result = new RedirectResult(URLSignOut);
                     return;
@@ -1507,6 +1508,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             return olstProductoFaltante;
         }
+
 
         private string NombreCampania(string Campania)
         {

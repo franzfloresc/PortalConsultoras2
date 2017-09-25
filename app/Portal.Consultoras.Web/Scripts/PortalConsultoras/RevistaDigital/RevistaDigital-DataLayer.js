@@ -97,7 +97,10 @@ function FiltrarProductoRDAnalytics(label) {
 function BorrarFiltroRDAnalytics() {
     VirtualEventPush("Ésika para mí", "Borrar Filtros", "(not available)");
 }
-function AgregarProductoRDAnalytics(origenWeb, estrategia, popup = false) {
+function AgregarProductoRDAnalytics(origenWeb, estrategia, popup) {
+    if (!popup) {
+        popup = false;
+    }
     try {
         var origenWebString = origenWeb.toString();
         switch (origenWebString) {
