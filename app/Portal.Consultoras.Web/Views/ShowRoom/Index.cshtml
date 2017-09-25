@@ -91,7 +91,7 @@
 
                 <div class="content_filtro_categoria" id="filtro_precio" style="cursor: pointer; min-width:350px;">
                     FILTRAR POR PRECIO
-                    <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none;">
+                    <div class="content_detalle_filtro" id="detalle_filtro_precio" style="display: none; padding-right: 13%;">
                         <div class="content_filtro_range_showroom">
                             <input class="range-slider" value="" style="width: 100%; display: none;" />
                         </div>
@@ -103,12 +103,12 @@
                 {
                     <div class="filtros_derecha_SHOWROOM">
                         <select id="filter-sorting" class="select_filtros_fav" style="min-width:220px; margin-left:0; height:33px; border:0;box-shadow:inset 0 0 0 1px #b8b8b8">
+                            <option value="00">ORDENAR POR</option>
                             @foreach (var item in Model.FiltersBySorting)
                             {
                                 <option value="@item.Codigo">@item.Descripcion</option>
                             }
                         </select>
-
                     </div>
                 }
 

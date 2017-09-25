@@ -556,7 +556,7 @@
     position:relative;
     min-height: 532px;
 }
-.detalle_set_banner{
+.detalle_set_banner {
     position: absolute;
     width: auto;
     min-width: 302px;
@@ -565,6 +565,11 @@
     background: white;
     z-index: 20;
     max-width: 50%;
+    border: 1px solid #e7e1e1;
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    box-shadow: 0px 15px 13px -8px rgba(204,200,204,1);
+    height: 395px;
 }
 .detalle_set_banner_ofertas_fix {
     position: absolute;
@@ -579,6 +584,7 @@
     width:auto;
     height:auto;
     text-align:center;
+    margin-top: 10px;
 }
 .content_set_imagen_banner img{
     width:auto;
@@ -586,25 +592,25 @@
 }
 .titulo_set_banner_ept{
     font-family:'Lato';
-    font-size:17px;
+    font-size:13px;
     text-align:center;
     color:#e81c36;
     margin-top:5px;
 }
 .detalle_set_banner_ept{
     font-family:'Lato';
-    font-size:15px;
+    font-size:13px;
     text-align:center;
     font-weight:700;
     color:black;
     margin-top:3px;
     margin-bottom: 3px;
 }
-.btn_mas_info_set{
-    font-family:'Lato';
-    font-size:13px;
-    text-transform:uppercase;
-    text-align:center;
+.btn_mas_info_set {
+    font-family: 'Lato';
+    font-size: 12px;
+    text-transform: uppercase;
+    text-align: center;
     margin-bottom: 11px;
 }
 .etiqueta_nuevo_ept{
