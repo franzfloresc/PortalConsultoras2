@@ -584,6 +584,7 @@
     width:auto;
     height:auto;
     text-align:center;
+    margin-top: 10px;
 }
 .content_set_imagen_banner img{
     width:auto;
@@ -1429,7 +1430,7 @@
     max-width: 100%;
 }
 .btn-ofertas-margen-fix {
-    margin-top: 4px;
+    margin-top: 10px;
 }
 /*QUERIES*/
 @media (max-width: 1189px) {
