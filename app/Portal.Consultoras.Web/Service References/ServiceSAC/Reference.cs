@@ -1454,6 +1454,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         private int DesktopOrdenField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int DesktopOrdenBptField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DesktopSubTituloField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -1476,6 +1479,9 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MobileOrdenField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MobileOrdenBptField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string MobileSubTituloField;
@@ -1597,6 +1603,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int DesktopOrdenBpt {
+            get {
+                return this.DesktopOrdenBptField;
+            }
+            set {
+                if ((this.DesktopOrdenBptField.Equals(value) != true)) {
+                    this.DesktopOrdenBptField = value;
+                    this.RaisePropertyChanged("DesktopOrdenBpt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string DesktopSubTitulo {
             get {
                 return this.DesktopSubTituloField;
@@ -1696,6 +1715,19 @@ namespace Portal.Consultoras.Web.ServiceSAC {
                 if ((this.MobileOrdenField.Equals(value) != true)) {
                     this.MobileOrdenField = value;
                     this.RaisePropertyChanged("MobileOrden");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MobileOrdenBpt {
+            get {
+                return this.MobileOrdenBptField;
+            }
+            set {
+                if ((this.MobileOrdenBptField.Equals(value) != true)) {
+                    this.MobileOrdenBptField = value;
+                    this.RaisePropertyChanged("MobileOrdenBpt");
                 }
             }
         }
