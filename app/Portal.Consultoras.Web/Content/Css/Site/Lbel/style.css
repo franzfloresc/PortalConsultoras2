@@ -35034,15 +35034,14 @@ h1#penmostreo .campana {
 
 .saludo_consultora_showroom {
     position: absolute;
-    font-family: 'LAto';
+    font-family: 'Lato';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 10.5%;
 }
 
 .content_set_imagen_intriga {
