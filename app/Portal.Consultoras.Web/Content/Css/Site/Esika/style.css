@@ -34087,9 +34087,9 @@ h1#penmostreo .campana {
     padding: 30px;
     font-family: 'Lato';
     border: 1px solid rgba(0, 0, 0, 0.03);
-    -webkit-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
-    -moz-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
-    box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
 }
 .content_solo_ficha_set{
     width:100%;
