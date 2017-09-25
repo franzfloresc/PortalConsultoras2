@@ -90,7 +90,7 @@ function registrarLogError(objError) {
         { 'key': 'TipoTrace', 'value': objError.TipoTrace }
     ];
 
-    data = {
+    var data = {
         'Aplicacion': userData.aplicacion,
         'Pais': userData.pais,
         'Usuario': userData.codigoConsultora,

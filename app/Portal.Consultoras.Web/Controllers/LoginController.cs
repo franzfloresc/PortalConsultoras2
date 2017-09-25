@@ -74,6 +74,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
+                
             }
             catch (FaultException ex)
             {
@@ -151,40 +152,14 @@ namespace Portal.Consultoras.Web.Controllers
             return buscarIsoPorIp == "1";
         }
 
-       	protected virtual string GetIpCliente()
+        protected virtual string GetIpCliente()
         {
-            string IP = string.Empty;
-            try
-            {
-                string ipAddress = string.Empty;
+            var ip = string.Empty;
 
-                if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
-                }
+            var request = new HttpRequestWrapper(System.Web.HttpContext.Current.Request);
+            ip = request.ClientIPFromRequest(skipPrivate: true);
 
-                else if (System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"] != null && System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"].Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.ServerVariables["HTTP_CLIENT_IP"];
-                }
-
-                else if (System.Web.HttpContext.Current.Request.UserHostAddress.Length != 0)
-                {
-                    ipAddress = System.Web.HttpContext.Current.Request.UserHostName;
-                }
-
-                if (ipAddress.IndexOf(":") > 0)
-                {
-                    ipAddress = ipAddress.Substring(0, ipAddress.IndexOf(":") - 1);
-                }
-
-                return ipAddress;
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message.ToString());
-            }
-            return IP;
+            return ip;
         }
 
         private void AsignarViewBagPorIso(string iso)
@@ -1495,8 +1470,9 @@ namespace Portal.Consultoras.Web.Controllers
 
 
         [AllowAnonymous]
-        public ActionResult SesionExpirada()
+        public ActionResult SesionExpirada(string returnUrl)
         {
+            AsignarUrlRetorno(returnUrl);
             return View();
         }
 
@@ -1508,22 +1484,28 @@ namespace Portal.Consultoras.Web.Controllers
             // If session exists
             if (HttpContext.Session != null)
             {
-                //if cookie exists and sessionid index is greater than zero
-                var sessionCookie = HttpContext.Request.Headers["Cookie"];
-                if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
-                {
-                    // if exists UserData in Session
-                    if (HttpContext.Session["UserData"] != null)
-                    {
-                        res = 1;
-                    }
-                }
+                res = SessionExists(res);
             }
 
             return Json(new
             {
                 Exists = res
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        private int SessionExists(int res)
+        {
+            //if cookie exists and sessionid index is greater than zero
+            var sessionCookie = HttpContext.Request.Headers["Cookie"];
+            if ((sessionCookie != null) && (sessionCookie.IndexOf("ASP.NET_SessionId") >= 0))
+            {
+                // if exists UserData in Session
+                if (HttpContext.Session["UserData"] != null)
+                {
+                    res = 1;
+                }
+            }
+            return res;
         }
 
         [AllowAnonymous]
@@ -1866,6 +1848,7 @@ namespace Portal.Consultoras.Web.Controllers
 
             return result;
         }
+
 
         protected int AddCampaniaAndNumero(int campania, int numero, int nroCampanias)
         {

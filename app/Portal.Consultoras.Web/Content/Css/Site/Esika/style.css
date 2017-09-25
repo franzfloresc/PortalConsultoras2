@@ -1,4 +1,4 @@
-﻿/* CSS Document */
+/* CSS Document */
 
 * {
     -webkit-box-sizing: border-box;
@@ -1571,20 +1571,20 @@ header {
 .pedido_left {
     float: left;
 }
-.pedido_resumen_campaña {
+.pedido_resumen_campa?a {
     float:right;
     width:510px;
     margin-top: -30px;
     width: 525px;
 }
-.pedido_numero_campaña {
+.pedido_numero_campa?a {
     font-family:'lato';
     font-size:10pt;
     color:black;
     float:left;    
 }
 
-.pedido_numero_campaña span{
+.pedido_numero_campa?a span{
      font-family: 'OldStandard-Italic';
      font-size:20.2pt;
      letter-spacing:-1px;
@@ -1598,7 +1598,7 @@ header {
     margin-top:5px;
     margin-right:10px;
 }
-.pedido_detalles_campaña {
+.pedido_detalles_campa?a {
     font-family:'lato';
     font-size:8pt;
     color:black;
@@ -4169,16 +4169,16 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 /*.contenedor_popup_productosSugeridos{
-    display:block;
-    position:fixed;
-    top:0;
-    left:0;
-    bottom:0;
-    right:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.5);
-    z-index:1000;
+????display:block;
+????position:fixed;
+????top:0;
+????left:0;
+????bottom:0;
+????right:0;
+????width:100%;
+????height:100%;
+????background:rgba(0,0,0,0.5);
+????z-index:1000;
 }*/
 
 .btn_cerrar_productosSugeridos{
@@ -4443,7 +4443,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     font-weight: bold;
 }
 
-/* POPUP INVITACIÓN FLEXIPAGO */
+/* POPUP INVITACI�_N FLEXIPAGO */
 
 .contenedor_popup_agregarUnidades, .contenedor_popup_ofertaFinal, .contenedor_popup_detalleCarousel, .contenedor_popup_misDatos, .contenedor_fondo_popup{
     position:fixed;
@@ -4965,11 +4965,13 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
 }
 
 .contenedor_bloques_agregaProductos{
-    display:block;
-    background:#f5f5f5;
-    height:auto;
-    padding-top:25px;
-    /*padding-bottom:20px;*/
+   display: block;
+    background: #f5f5f5;
+    height: auto;
+    padding-top: 25px;
+    /* padding-bottom: 20px; */
+    position: relative;
+    z-index: 2;
 }
 
 /*.bloque_descripciones, .bloque_carousel{
@@ -5082,7 +5084,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     margin-left:10px;
 }
 
-/* POPUP ACEPTACIÓN DE CONTRATO */
+/* POPUP ACEPTACI�_N DE CONTRATO */
 
 .btn_cerrar_aceptacionContrato{
     display: block;
@@ -5686,7 +5688,7 @@ a.subir_carousel:hover, a.bajar_carousel:hover{
     height:547px;
 }
 
-/* ACTUALIZACIÓN PÁGINA MIS PAGOS */
+/* ACTUALIZACI�_N P�WGINA MIS PAGOS */
 
 .titulo_misPagos{
     width:16.85%!important;
@@ -12398,7 +12400,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     background: #F1BCD0;
@@ -12431,7 +12433,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 0px 0px 7px 0px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -12815,7 +12817,7 @@ ol {
     padding: 0px 0px 10px 0px;
     text-align: center;   
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom:1;
     *display:inline;
 }
@@ -13610,7 +13612,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13631,7 +13633,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13710,7 +13712,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -13730,7 +13732,7 @@ ol {
     border: 1px solid #D8DAD7;
     padding: 6px;
     display: inline-block;
-    vertical-align: top; /* BASELINE CORRECCIÓN*/
+    vertical-align: top; /* BASELINE CORRECCI�_N*/
     zoom: 1;
     *display: inline;
     color: #444;
@@ -18722,7 +18724,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se cambió tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se cambi�u tipo de letra*/
     height:66px;
 }
 #divMensajeModalAfiliaBienvenida{
@@ -18731,7 +18733,7 @@ float: right;
     color: #660066;
     margin-top: -10px;
     text-align: left;	
-    font-family: 'lato-regular'; /*R2442 - JICM - Se agregó tipo de letra*/
+    font-family: 'lato-regular'; /*R2442 - JICM - Se agreg�u tipo de letra*/
     height:66px;
 }
 #paLand *{
@@ -18752,7 +18754,7 @@ float: right;
 	font-family: 'lato-regular';
 }
 #paParClientes{
-        /*'R2442 se cambió el FONT  a 100 regular - Cambio tamaño y font family*/
+        /*'R2442 se cambi�u el FONT  a 100 regular - Cambio tama?o y font family*/
 
     font-family: 'lato-regular';
     font-size: 16px;
@@ -18799,7 +18801,7 @@ float: right;
 	text-align: center;
 }
 #paMod>img{
-    /*R2442 - Darle un tamaño ala imagen */
+    /*R2442 - Darle un tama?o ala imagen */
 	float: none;
 	margin: 0 auto;
     width: 300px;
@@ -19018,7 +19020,7 @@ float: right;
 			/*height: 685px;*/
 			overflow: hidden;
 		}
-        /*INI - R2442 - JICM - Por lo pronto la imagen será solo una */
+        /*INI - R2442 - JICM - Por lo pronto la imagen ser�h solo una */
 		#ImgEnterate1{
 			margin-left: 60px;
             width: 202px;
@@ -19118,7 +19120,7 @@ float: right;
         #ImgEnterate{
             
 		}
-          /*FIN - R2442 - JICM - Por lo pronto la imagen será solo una */
+          /*FIN - R2442 - JICM - Por lo pronto la imagen ser�h solo una */
 		#letrasPequenasEnterateMas{
 			text-align: left;
 			margin-left: 60px;
@@ -20571,7 +20573,7 @@ label.checkpop.c_on {
 /*HEADER SECCION INGRESA TU PEDIDO*/
 
 
-/*ESTILOS PARA LIQUIDACIÓN*/
+/*ESTILOS PARA LIQUIDACI�_N*/
 .wrapper_home_interiores{
     /*margin: 0 auto;*/
     margin: 0 ;
@@ -22495,7 +22497,7 @@ body{
     
 }
 
-/* PÁGINA MIS PEDIDOS */
+/* P�WGINA MIS PEDIDOS */
 
 .contenedor_enlaces_misPedidos{
     display: block;
@@ -24403,7 +24405,7 @@ img
     color: #d226aa;	
 }
 
-.submenu > ul > li > a  /*Títulos de cada sección del menú*/
+.submenu > ul > li > a  /*T�qtulos de cada secci�un del men�y*/
 {
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -24558,7 +24560,7 @@ img
 	margin-top:2px;	
 }*/
 
-/*****************Menú*******************/
+/*****************Men�y*******************/
 
 #menu>li>div>a>img
 {
@@ -24570,7 +24572,7 @@ img
 {
 	font-size:12px;
 }
-/*****************Submenú*******************/
+/*****************Submen�y*******************/
 #menu .submenu > ul > li > a 
 {
 	font-size: 12px;
@@ -26719,8 +26721,8 @@ div.subir_archivo input {
     cursor: pointer;
 }
 input[type="checkbox"]:checked + span:after {    
-    content: "■"; /* el valor de la propiedad content también puede ser cualquier imagen, sólo tendríamos que pasarle la ruta de la imagen*/
-    content: "■";
+    content: "��"; /* el valor de la propiedad content tambi�mn puede ser cualquier imagen, s�ulo tendr�qamos que pasarle la ruta de la imagen*/
+    content: "��";
     position: absolute;
     z-index: 1002;
     top: 2px;
@@ -27668,7 +27670,7 @@ div#divListadoPedido .content_listado_notificaciones:nth-child(2):hover {
 .content-favclientes .contiene-productos:nth-child(3n){
     margin-right:0%;
 }
-/*información adicional*/
+/*informaci�un adicional*/
 .mensajes_deAtencion span {
     width: 50%;
     color: #e81c36;
@@ -28637,7 +28639,7 @@ a#cierreMotivoRechazo img {
     margin-top:10px;
 }
 
-/* PÁGINA ESCALA DE DESCUENTOS */
+/* P�WGINA ESCALA DE DESCUENTOS */
 
 .container_escalaDescuento{
     width:100%;
@@ -29320,7 +29322,7 @@ h1#penmostreo .campana {
 }
 
 
-/*Sb20-863 - Fín*/
+/*Sb20-863 - F�qn*/
 
 .encabezado_popupCatalogoPersonalizado {
     display: block;
@@ -30263,7 +30265,7 @@ h1#penmostreo .campana {
     }
     
 /* FIN POPUPS OFERTAS REVISTA */
-/* ACTUALIZAR CONTRASEÑA */
+/* ACTUALIZAR CONTRASE?A */
 .contenedor_actualizarContraseniaForm{
     display: block;
     margin: 50px auto 119px auto;
@@ -30406,7 +30408,7 @@ h1#penmostreo .campana {
 
 }
 
-/* FIN ACTUALIZAR CONTRASEÑA */
+/* FIN ACTUALIZAR CONTRASE?A */
 
 /* MENSAJES PEDIDO RECHAZADO */
 
@@ -31277,7 +31279,7 @@ h1#penmostreo .campana {
 /*.reclamo_motivo_select:last-child{
     border-bottom:0px;
 }*/
-.btn_solución_reclamo {
+.btn_soluci�un_reclamo {
     float: left;
     width: 270px;
     height: 45px;
@@ -31290,10 +31292,10 @@ h1#penmostreo .campana {
     margin-right: 36px;
     margin-bottom: 10px;
 }
-.btn_solución_reclamo:last-child{
+.btn_soluci�un_reclamo:last-child{
     margin-right:0px;
 }
-.btn_solución_reclamo:hover{
+.btn_soluci�un_reclamo:hover{
     background:black;
     color:white;
 }
@@ -33884,7 +33886,7 @@ h1#penmostreo .campana {
     padding-left: 2px;
 }
 .check_intriga:before{
-    content: "✓";
+    content: "?";
     line-height: 11.5px;
     padding-left: 1px;
 }
@@ -34728,7 +34730,7 @@ h1#penmostreo .campana {
     width: 605px;
     height: 675px;
 }
-/*CAMBIOS EN OFERTA DEL DÍA*/
+/*CAMBIOS EN OFERTA DEL D?A*/
 .regresar_carrusel{
     color: white;
     font-family: 'Lato';
@@ -35683,7 +35685,7 @@ h1#penmostreo .campana {
     text-align:center;
     margin-top: -5px;
 }
-.content_detalle_puntuación{
+.content_detalle_puntuaci�un{
     float:left;
     width:20%;
     font-family:'Lato';
@@ -35846,9 +35848,10 @@ h1#penmostreo .campana {
 .content_regalo_sorpresa{
     display:inline-block;
     width:310px;
-    height:570px;
+    height:580px;
     margin-top: 50px;
-    background:url(../../../Images/Esika/bg_regalo.png) no-repeat;
+    background:url(../../../Images/Esika/bg_regalo_chile.png) no-repeat;
+    background-size: 100% 100%;
     vertical-align:top;
     margin-right: -25px;
     z-index: 21;
@@ -35945,9 +35948,23 @@ h1#penmostreo .campana {
     font-size:32px;
     line-height: 35px;
 }
-.bold_900{
-    font-weight:900;
+.bold_900 {
+    font-weight: 900;
 }
+
+.bloque_detalle_gris{
+    background: #f5f5f5;
+    height: 150px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 1;
+}
+.content_imagen_sorpresa img{
+    width:180px;
+    height:auto;
+}
+
 
 /*EPD-1919 INICIO*/
 .content_tipo_despacho {
@@ -35980,7 +35997,6 @@ h1#penmostreo .campana {
     margin-top: -22px;
     display: block;
 }
-
 .mensaje_informativo_despacho {
     font-weight: bold;
     /*color: #205081;*/
