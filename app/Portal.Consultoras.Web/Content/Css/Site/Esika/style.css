@@ -33981,17 +33981,16 @@ h1#penmostreo .campana {
     margin-bottom:10px;
     margin-right:13px;
 }
-.saludo_consultora_showroom{
+.saludo_consultora_showroom {
     position: absolute;
     font-family: 'LAto';
     color: white;
     font-size: 13px;
     text-transform: uppercase;
     letter-spacing: 1.7px;
-    top: 56px;
-    width: 100%;
-    text-align: center;
+    top: 85px;
     font-weight: 300;
+    left: 10.5%;
 }
 .content_set_imagen_intriga{
     height:205px;
@@ -34005,13 +34004,13 @@ h1#penmostreo .campana {
     letter-spacing: 0.6px;
 }
 .agregado {
-    
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
     letter-spacing: 0.5px;
     text-align: center;
     color: #a18328;
+    margin-top: 3px;
 }
 /*SHOWROOM*/
 .set-productos-showroom{
@@ -34078,14 +34077,18 @@ h1#penmostreo .campana {
 /*.content_producto_set img{
     width:100%;
 }*/
-.content_detalle_set{
-    width:45%;
-    float:left;
-    min-height:100px;
-    background:white;
-    margin-left:0;
-    padding:30px;
-    font-family:'Lato';
+.content_detalle_set {
+    width: 45%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 30px;
+    font-family: 'Lato';
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
+    box-shadow: 0px 15px 13px -8px rgba(236,236,236,1);
 }
 .content_solo_ficha_set{
     width:100%;
@@ -34642,6 +34645,8 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
+    position: relative;
+    left: -9px;
 }
 
 /*Seccion para suscripcion. */    
