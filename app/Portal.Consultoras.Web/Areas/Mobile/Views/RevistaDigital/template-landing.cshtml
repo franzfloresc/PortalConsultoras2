@@ -38,13 +38,13 @@
                         @*<input  type="text" class="buscar_producto_landing" placeholder="BUSCAR"/>
                             <input id="btnfltm" type="button" class="btn2-ffc" value="FILTROS" onclick="showCustomFilters();">*@
                         <div id="divFiltros">
-                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca">
+                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="marca" style="border: 1px solid #e7e1e1;">
                                 @foreach (var item in Model.FiltersByBrand)
                                 {
                                     <option value="@item.Codigo">@item.Descripcion</option>
                                 }
                             </select>
-                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none;">
+                            <select class="btn3-ffc" data-filtro-tipo="fijo" data-filtro-campo="precio" data-filtro-accion="orden" style="float: none; border: 1px solid #e7e1e1;">
                                 @foreach (var item1 in Model.FiltersBySorting)
                                 {
                                     <option value="@item1.Codigo">@item1.Descripcion</option>
