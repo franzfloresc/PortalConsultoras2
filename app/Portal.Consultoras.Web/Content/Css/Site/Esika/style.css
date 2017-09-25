@@ -34078,14 +34078,18 @@ h1#penmostreo .campana {
 /*.content_producto_set img{
     width:100%;
 }*/
-.content_detalle_set{
-    width:45%;
-    float:left;
-    min-height:100px;
-    background:white;
-    margin-left:0;
-    padding:30px;
-    font-family:'Lato';
+.content_detalle_set {
+    width: 45%;
+    float: left;
+    min-height: 100px;
+    background: white;
+    margin-left: 0;
+    padding: 30px;
+    font-family: 'Lato';
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    -webkit-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
+    -moz-box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
+    box-shadow: 0px 15px 13px -8px rgba(0, 0, 0, 0.31);
 }
 .content_solo_ficha_set{
     width:100%;
