@@ -412,3 +412,11 @@
     align-items: center; 
     padding: 0 18%;
 }
+
+.seccion-no-productos {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+}

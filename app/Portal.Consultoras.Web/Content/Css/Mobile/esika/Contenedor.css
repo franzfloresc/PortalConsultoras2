@@ -474,3 +474,11 @@ img.icono-submenu-tabs {
     align-items: center;
     padding: 0 10%;
 }
+
+.seccion-no-productos {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+}

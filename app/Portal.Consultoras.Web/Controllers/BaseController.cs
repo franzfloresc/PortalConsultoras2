@@ -2962,7 +2962,7 @@ namespace Portal.Consultoras.Web.Controllers
                 if (userData.RevistaDigital.TieneRDC) return false;
                 if (userData.RevistaDigital.TieneRDR) return false;
 
-                titulo = "OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
+                titulo = "MÁS OFERTAS PARA TI " + userData.Sobrenombre.ToUpper();
                 subtitulo = "EXCLUSIVAS SÓLO POR WEB";
             }
 
