@@ -33941,6 +33941,7 @@ h1#penmostreo .campana {
     position: absolute;
     top: 36%;
     font-weight: bold;
+    margin-top:14px;
 }
 
 .link_cambiar_correo{
@@ -34005,6 +34006,7 @@ h1#penmostreo .campana {
     letter-spacing: 0.6px;
 }
 .agregado {
+    
     font-family: Lato;
     font-size: 10px;
     font-weight: bold;
@@ -34646,8 +34648,6 @@ h1#penmostreo .campana {
     height:703px;
     width:auto;
     display:block;
-    position: relative;
-    left: -9px;
 }
 
 /*Seccion para suscripcion. */    
