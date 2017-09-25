@@ -20,7 +20,13 @@ namespace Portal.Consultoras.Entities
         public int DesktopOrden { get; set; }
 
         [DataMember]
+        public int DesktopOrdenBpt { get; set; }
+
+        [DataMember]
         public int MobileOrden { get; set; }
+
+        [DataMember]
+        public int MobileOrdenBpt { get; set; }
 
         [DataMember]
         public string DesktopImagenFondo { get; set; }
@@ -74,9 +80,11 @@ namespace Portal.Consultoras.Entities
         {
             if (row.HasColumn("ConfiguracionOfertasHomeID")) ConfiguracionOfertasHomeID = Convert.ToInt32(row["ConfiguracionOfertasHomeID"]);
             if (row.HasColumn("ConfiguracionPaisID")) ConfiguracionPaisID = Convert.ToInt32(row["ConfiguracionPaisID"]);
-            if (row.HasColumn("DesktopOrden")) DesktopOrden = Convert.ToInt32(row["DesktopOrden"]);
             if (row.HasColumn("CampaniaID")) CampaniaID = Convert.ToInt32(row["CampaniaID"]);
+            if (row.HasColumn("DesktopOrden")) DesktopOrden = Convert.ToInt32(row["DesktopOrden"]);
+            if (row.HasColumn("DesktopOrdenBpt")) DesktopOrdenBpt = Convert.ToInt32(row["DesktopOrdenBpt"]);
             if (row.HasColumn("MobileOrden")) MobileOrden = Convert.ToInt32(row["MobileOrden"]);
+            if (row.HasColumn("MobileOrdenBpt")) MobileOrdenBpt = Convert.ToInt32(row["MobileOrdenBpt"]);
             if (row.HasColumn("DesktopImagenFondo")) DesktopImagenFondo = Convert.ToString(row["DesktopImagenFondo"]);
             if (row.HasColumn("MobileImagenFondo")) MobileImagenFondo = Convert.ToString(row["MobileImagenFondo"]);
             if (row.HasColumn("DesktopTitulo")) DesktopTitulo = Convert.ToString(row["DesktopTitulo"]);
