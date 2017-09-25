@@ -267,6 +267,9 @@ $(document).ready(function () {
     $('#filtro_precio').on('click', function () {
         $('#detalle_filtro_precio').toggle();
     });
+
+    $('div.pointer-label.low').css('left', '-17px');
+    $('div.pointer-label.high').css('left', '237px');
 });
 
 function ObtenerProductosShowRoom() {

@@ -1361,6 +1361,9 @@ namespace Portal.Consultoras.Web.Controllers
             if (!personalizacionesOfertaDelDia.Any())
                 return ofertasDelDiaModel;
 
+            ofertasDelDia = ofertasDelDia.OrderBy(odd => odd.Orden).ToList();
+
+
             var contOdd = 0;
             foreach (var oferta in ofertasDelDia)
             {
@@ -1396,7 +1399,6 @@ namespace Portal.Consultoras.Web.Controllers
                 ofertasDelDiaModel.Add(oddModel);
             }
 
-            ofertasDelDiaModel = ofertasDelDiaModel.OrderBy(odd => odd.Orden).ToList();
 
             return ofertasDelDiaModel;
         }
