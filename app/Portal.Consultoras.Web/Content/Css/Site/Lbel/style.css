@@ -34988,6 +34988,7 @@ h1#penmostreo .campana {
     text-shadow: -0.08em 0.08em black;
     position: absolute;
     top: 36%;
+    margin-top: 14px;
     font-weight: bold;
 }
 
@@ -35899,7 +35900,7 @@ h1#penmostreo .campana {
 }
 
 .content_tono_detalle:hover {
-    border: 1px solid black
+    border: 1px solid black;
 }
 
 .titulo_contenido {
@@ -35995,11 +35996,6 @@ h1#penmostreo .campana {
     position: relative;
 }
 
-    .banner_showroom_home img {
-        height: 703px;
-        width: auto;
-        display: block;
-    }
 /*CAMBIOS EN OFERTA DEL DÍA*/
 .regresar_carrusel {
     color: white;
