@@ -27,6 +27,7 @@ function GetProductoStorage(cuv, campania) {
         if (model == undefined || model.length === 0) {
             model = $("[data-item-cuv=" + cuv + "]").attr("data-estrategia");
         }
+        if (model == undefined) return model;
         
         model = JSON.parse(model);
         if (model != null) return model;
