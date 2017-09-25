@@ -98,21 +98,13 @@ var menuModule = (function () {
     function hasScrolledMobile(st) {
         
         if (Math.abs(lastScrollTop - st) <= delta)
-            return;
+            return false;
 
         if (scr) return false;
         scr = true;
 
-        var divOffSet = $(elementos.seccionBannerMobile).offset().top - navbarHeight + seccionMenuMobileHeight;
+        //var divOffSet = $(elementos.seccionBannerMobile).offset().top - navbarHeight + seccionMenuMobileHeight;
         //Scroll dowm
-        console.log(" Scrolled ------------------------------- ");
-        console.log(" navbarHeight " + navbarHeight);
-        console.log(" divOffSet " + divOffSet);
-        console.log(" st " + st);
-        console.log(" seccionMenuMobileHeight " + seccionMenuMobileHeight);
-        console.log(" lastScrollTop " + lastScrollTop);
-        console.log(" elementos.seccionMenuFija " + $(elementos.seccionMenuFija).offset().top);
-
         if (st > lastScrollTop) {
             //fix the menu 
             if (st > seccionMenuMobileHeight) {
