@@ -3,6 +3,7 @@ using Portal.Consultoras.BizLogic.CDR;
 using Portal.Consultoras.Common;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,18 @@ namespace Portal.Consultoras.Service
 {
     public class UsuarioService : IUsuarioService
     {
+        private readonly IUsuarioBusinessLogic _usuarioBusinessLogic;
+
+        public UsuarioService() : this(new BLUsuario())
+        {
+
+        }
+
+        public UsuarioService(IUsuarioBusinessLogic usuarioBusinessLogic)
+        {
+            _usuarioBusinessLogic = usuarioBusinessLogic;
+        }
+
         public BEUsuario Select(int paisID, string codigoUsuario)
         {
             var BLUsuario = new BLUsuario();
@@ -138,8 +151,7 @@ namespace Portal.Consultoras.Service
 
         public BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario)
         {
-            var BLUsuario = new BLUsuario();
-            return BLUsuario.GetSesionUsuarioWS(paisID, codigoUsuario);
+            return _usuarioBusinessLogic.GetSesionUsuarioWS(paisID, codigoUsuario);
         }
 
         public string GetUsuarioAsociado(int paisID, string codigoUsuario)

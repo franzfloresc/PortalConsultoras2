@@ -1,12 +1,26 @@
 ﻿using Portal.Consultoras.BizLogic;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.ServiceContracts;
+using Portal.Consultoras.BizLogic.Pedido;
+
 using System.Collections.Generic;
 
 namespace Portal.Consultoras.Service
 {
     public class PedidoRechazadoService : IPedidoRechazadoService
     {
+        private readonly IPedidoRechazadoBusinessLogic _pedidoRechazadoBusinessLogic;
+
+        public PedidoRechazadoService() : this(new BLPedidoRechazado())
+        {
+
+        }
+
+        public PedidoRechazadoService(IPedidoRechazadoBusinessLogic pedidoRechazadoBusinessLogic)
+        {
+            _pedidoRechazadoBusinessLogic = pedidoRechazadoBusinessLogic;
+        }
+
         public int SetPedidoRechazado(string PaisISO, List<BEPedidoRechazadoSicc> lista)
         {
             var BLPedidoRechazado = new BLPedidoRechazado();
@@ -27,7 +41,7 @@ namespace Portal.Consultoras.Service
 
         public BEGPRBanner GetMotivoRechazo(BEGPRUsuario usuario)
         {
-            return new BLPedidoRechazado().GetMotivoRechazo(usuario);
+            return _pedidoRechazadoBusinessLogic.GetMotivoRechazo(usuario);
         }
     }
 }
