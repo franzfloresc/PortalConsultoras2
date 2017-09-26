@@ -125,7 +125,7 @@ $(document).ready(function () {
 
                 // Agregar otro producto.
                 $(me.Variables.IrSolicitudInicial).click(function () {
-
+                    
                     if (mensajeGestionCdrInhabilitada != '') {
                         messageInfoValidado(mensajeGestionCdrInhabilitada);
                         return false;
@@ -136,16 +136,17 @@ $(document).ready(function () {
                         messageInfoValidado(mensajeCdrFueraDeFechaCompleto);
                         return false;
                     }
-
+                    
                     $(me.Variables.txtCuvMobile).val("");
-                    $(me.Variables.txtDescripcionCuv).val("");
+                    $(me.Variables.txtDescripcionCuv).html("");
                     $(me.Variables.txtCantidad1).val("1");
-                    $(me.Variables.txtcuv2).val("");
-                    //$("#txtCUVPrecio2").val("");
+                    $(me.Variables.txtCuvMobile2).val("");
+                    $(me.Variables.txtPrecioCuv2).html("");
+                    $(me.Variables.spnSimboloMonedaCuv2).html("");
                     //$("#spnImporteTotal2").html("");
                     $(me.Variables.hdImporteTotal2).val(0);
-                    //$("#txtCUVDescripcion2").val("");
-                    //$("#txtCantidad2").val("1");
+                    $(me.Variables.txtDescripcionCuv2).html("");
+                    $(me.Variables.txtCantidad2).val("1");
                     me.Funciones.CambioPaso(-100);
                     me.Funciones.BuscarMotivo();
 
@@ -155,8 +156,19 @@ $(document).ready(function () {
 
                     $(me.Variables.RegistroAceptarSolucion).hide();
                     $(me.Variables.btnSiguiente4).hide();
+
                     $(me.Variables.DescripcionCuv).hide();
                     $(me.Variables.txtCuvMobile).fadeIn();
+                    $(me.Variables.txtCuvMobile).focus();
+
+                    $(me.Variables.DescripcionCuv2).hide();
+                    $(me.Variables.txtCuvMobile2).fadeIn();
+                    $(me.Variables.txtCuvMobile2).focus();
+
+                    $(me.Variables.pasodosactivo).hide();
+                    $(me.Variables.pasotresactivo).hide();
+                    $(me.Variables.pasodos).show();
+                    $(me.Variables.pasotres).show();
 
                     $(me.Variables.ComboCampania).attr("disabled", "disabled");
                 });
@@ -281,11 +293,11 @@ $(document).ready(function () {
 
                     if ($(me.Variables.Registro2).is(":visible")) {
                         $(me.Variables.txtDescripcionCuv2).val('')
-                        $(me.Variables.txtCuv2).val('');
-                        $(me.Variables.txtPrecioCuv2).val('');
+                        $(me.Variables.txtCuv2).html('');
+                        $(me.Variables.txtPrecioCuv2).html('');
                         
                         if (me.Funciones.ValidarPaso1()) {
-                            //paso2Actual = 1;
+                            paso2Actual = 1;
                             //me.Funciones.CambioPaso();
                             me.Funciones.CargarOperacion();
 
@@ -399,8 +411,8 @@ $(document).ready(function () {
                 //}
                 var ok = true;
                 ok = $.trim($(me.Variables.txtCuvMobile2).val()).length == "5" ? ok : false;
-                ok = $.trim($(me.Variables.txtDescripcionCuv2).val()) != "" ? ok : false;
-                ok = $.trim($(me.Variables.txtPrecioCuv2).val()) != "" ? ok : false;
+                ok = $.trim($(me.Variables.txtDescripcionCuv2).html()) != "" ? ok : false;
+                ok = $.trim($(me.Variables.txtPrecioCuv2).html()) != "" ? ok : false;
 
                 var montoMinimoReclamo = $(me.Variables.hdMontoMinimoReclamo).val();
                 var formatoMontoMinimo = $(me.Variables.spnMontoMinimoReclamoFormato).html();
@@ -651,7 +663,7 @@ $(document).ready(function () {
                             $(me.Variables.hdImporteTotal2).val(precio * cantidad);
                             //$("#spnImporteTotal2").html(DecimalToStringFormat(precio * cantidad));
                         } else {
-                            $(me.Variables.txtDescripcionCuv2).val("");
+                            $(me.Variables.txtDescripcionCuv2).html("");
                             $(me.Variables.txtPrecioCuv2).val("");
                             //$("#hdImporteTotal2").val(0);
                             //$("#spnImporteTotal2").html("");

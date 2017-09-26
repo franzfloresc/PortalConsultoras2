@@ -242,7 +242,53 @@
 
         @*<div class="content_solicitud_cdr tipografia_lato">
                 <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
+                    <div class="titulo_solicitud_cdr tip
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            old">Solicitud de cambio</div>
                     <div class="info_solicitud_cdr tipografia_lato_regular">
                         <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
                     </div>
@@ -674,7 +720,7 @@
 
 <script id="template-detalle-paso3-enviada" type="text/x-handlebars-template">
     {{#each detalle as |item|}}
-    <div class="content_solicitud_cdr tipografia_lato">
+    @*<div class="content_solicitud_cdr tipografia_lato">*@
         <div class="contenedor_info_cdr">
             <div class="listado_producto_reclamo">
                 <b>{{item.SolucionSolicitada}}</b><br />
@@ -684,28 +730,29 @@
             </div>
             <div class="listado_solicitud_reclamo">
                     <b>{{item.Solicitud}}</b>
-                </div>
-                <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
-                    {{#if_eq CodigoOperacion 'C'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'D'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'F'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'G'}}
-                    {{item.SolucionSolicitada}}
-                    {{else if_eq CodigoOperacion 'T'}}
-                    {{item.CUV2}}<br />
-                    {{item.Descripcion2}} <br />
-                    {{item.Cantidad2}} unidades<br />
-                    Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
-                    {{else}}
-                    {{/if_eq}}
-                </div>
-                @*<div class="info_solicitud_cdr tipografia_lato_regular">
+            </div>
+            <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
+                {{#if_eq CodigoOperacion 'C'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'D'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'F'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'G'}}
+                {{item.SolucionSolicitada}}
+                {{else if_eq CodigoOperacion 'T'}}
+                {{item.CUV2}}<br />
+                {{item.Descripcion2}} <br />
+                {{item.Cantidad2}} unidades<br />
+                Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio2}}
+                {{else}}
+                {{/if_eq}}
+            </div>
+            @*<div class="info_solicitud_cdr tipografia_lato_regular">
                     <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
-        </div>*@
-    </div>
+            </div>*@
+        </div> <br />
+    @*</div>*@
     {{/each}}
 </script>
 
