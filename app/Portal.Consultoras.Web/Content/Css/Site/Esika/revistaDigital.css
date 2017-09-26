@@ -2432,63 +2432,6 @@
     }
 }
 
-.home_rd.cabecera_rd_home, .home_rd.cabecera_rd_home .rd_logo, .home_rd.cabecera_rd_home .hblock_text{
-    height:96px!important;
-}
-
-.home_rd.cabecera_rd_home{
-    background:url(http://s3.amazonaws.com/consultorasQAS/SomosBelcorp/EventoFestivo/PE/banner-epm-desktop.jpg);
-    background-position:left;
-    background-size:cover;
-}
-
-.home_rd.cabecera_rd_home .rd_logo{
-    position:relative;
-    padding-top:18px;
-    transform: skewX(-11deg);
-    -moz-transform: skewX(-11deg);
-    -o-transform: skewX(-11deg);
-    -ms-transform: skewX(-11deg);
-    -webkit-transform: skewX(-11deg);
-}
-
-.extension_fondo_logo {
-    background-color: #e81c36;
-    position: absolute;
-    top: 0;
-    width: 2000px;
-    height: 96px;
-    right: 99%;
-}
-
-.img_rd_logo{
-    display:block;
-    text-align: right;
-    padding-right: 42px;
-    transform: skewX(11deg);
-    -moz-transform: skewX(11deg);
-    -o-transform: skewX(11deg);
-    -ms-transform: skewX(11deg);
-    -webkit-transform: skewX(11deg);
-}
-
-.home_rd.cabecera_rd_home .hblock_text{
-    padding-top:17px;
-}
-
-.hdblock_tx{
-    font-size:17px;
-    line-height:20px;
-}
-
-.home_rd.cabecera_rd_home .rd_logo:after{
-    border-bottom: none;
-}
-
-.home_rd.cabecera_rd_home .btn_diagonal{
-    top:26px!important;
-}
-
 
 /* CATÁLOGOS */
 .rd_catalogos {
