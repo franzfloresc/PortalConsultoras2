@@ -762,5 +762,14 @@ namespace Portal.Consultoras.Service
             return new BLUsuario().InsertTerminosCondiciones(terminos);
         }
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetEventoFestivo(paisID, Alcance, Campania);
+        }
+        #endregion
     }
 }

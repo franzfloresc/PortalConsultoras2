@@ -64,6 +64,7 @@
     <Compile Include="BEAPISB2Response.cs" />
     <Compile Include="BEGPRBanner.cs" />
     <Compile Include="BEGPRUsuario.cs" />
+    <Compile Include="BEEventoFestivo.cs" />
     <Compile Include="BEIncentivoConcurso.cs" />
     <Compile Include="BEIncentivoNivel.cs" />
     <Compile Include="BEIncentivoPremio.cs" />

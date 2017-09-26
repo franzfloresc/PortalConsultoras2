@@ -1779,5 +1779,26 @@ namespace Portal.Consultoras.BizLogic
             return beTerminosCondiciones;
         }
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
+        {
+            if (paisID == 0)
+            {
+                paisID = int.Parse(ConfigurationManager.AppSettings["masterCountry"]);
+            }
+            IList<BEEventoFestivo> evento = new List<BEEventoFestivo>();
+            var DAUsuario = new DAUsuario(paisID);
+            using (IDataReader reader = DAUsuario.GetEventoFestivo(Alcance, Campania))
+            {
+                while (reader.Read())
+                {
+                    evento.Add(new BEEventoFestivo(reader));
+                }
+            }
+            return evento;
+        }
+        #endregion
     }
 }

@@ -346,5 +346,11 @@ namespace Portal.Consultoras.ServiceContracts
         [OperationContract]
         bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
         #endregion
+
+        #region EventoFestivo
+        /*HD-817*/
+        [OperationContract]
+        IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania);
+        #endregion
     }
 }
