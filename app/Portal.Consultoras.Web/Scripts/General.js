@@ -332,15 +332,16 @@ jQuery(document).ready(function () {
         if (!Handlebars.helpers.iff)
             HandlebarsRegisterHelper();
 
-        if ($(idTemplate).length == 0) return false;
-        if (typeof data === "undefined") return false;
+        if ($(idTemplate).length === 0 || typeof data === "undefined") {
+            console.log(idTemplate, data, idHtml);
+            return false;
+        }
 
         var source = $(idTemplate).html();
         var template = Handlebars.compile(source);
         var htmlDiv = template(data);
-        idHtml = typeof idHtml == "string" ? $.trim(idHtml) : idHtml;
-        if (idHtml == "") return htmlDiv;
-        if ($(idHtml).length === 0) return htmlDiv;
+        idHtml = typeof idHtml === "string" ? $.trim(idHtml) : idHtml;
+        if (idHtml == "" || $(idHtml).length === 0) return htmlDiv;
         $(idHtml).html(htmlDiv);
         return "";
     }
