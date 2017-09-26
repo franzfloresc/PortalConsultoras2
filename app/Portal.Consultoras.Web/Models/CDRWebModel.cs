@@ -42,7 +42,7 @@ namespace Portal.Consultoras.Web.Models
                 switch (Estado)
                 {
                     case Constantes.EstadoCDRWeb.Pendiente: return "PENDIENTE";
-                    case Constantes.EstadoCDRWeb.Enviado: return "EN EVALUACIÓN";
+                    case Constantes.EstadoCDRWeb.Enviado: return "ENVIADO";//"EN EVALUACIÓN";
                     case Constantes.EstadoCDRWeb.Observado: return "RECHAZADO";
                     case Constantes.EstadoCDRWeb.Aceptado: return "APROBADO";
                     default: return "";

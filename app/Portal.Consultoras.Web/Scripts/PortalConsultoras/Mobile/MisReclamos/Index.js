@@ -13,6 +13,14 @@ $(document).ready(function () {
             //BtnAgregar: '#btnAgregar',
             IrPaso1: '#IrPaso1',
             VerDetalleCDR: ".abrir_detallemb",
+            cdrweb_id: ".cdrweb_id",
+            registro_solicitud_cdr: ".registro_solicitud_cdr",
+            cdrweb_pedidoid: ".cdrweb_pedidoid",
+            cdrweb_estado: ".cdrweb_estado",
+            cdrweb_formatoFechaCulminado: ".cdrweb_formatoFechaCulminado",
+            cdrweb_formatocampania: ".cdrweb_formatocampania",
+            cdrweb_CantidadAprobados: ".cdrweb_CantidadAprobados",
+            cdrweb_CantidadRechazados: ".cdrweb_CantidadRechazados"
         };
         
         me.Eventos = {
@@ -35,13 +43,13 @@ $(document).ready(function () {
                     var elemento = $(this);
                     var parent = $(elemento).parents(".registro_solicitud_cdr");
                     var _OrigenDetalle = "1";
-                    var _CDRWebID = $(parent).find(".cdrweb_id").val();
-                    var _PedidoID = $(parent).find(".cdrweb_pedidoid").val();
-                    var _Estado = $(parent).find(".cdrweb_estado").val();
-                    var _FechaCulminado = $(parent).find(".cdrweb_formatoFechaCulminado").val();
-                    var _Campania = $(parent).find(".cdrweb_formatocampania").val();
-                    var _CantidadAprobados = $(parent).find(".cdrweb_CantidadAprobados").val();
-                    var _CantidadRechazados = $(parent).find(".cdrweb_CantidadRechazados").val();
+                    var _CDRWebID = $(parent).find(me.Variables.cdrweb_id).val();
+                    var _PedidoID = $(parent).find(me.Variables.cdrweb_pedidoid).val();
+                    var _Estado = $(parent).find(me.Variables.cdrweb_estado).val();
+                    var _FechaCulminado = $(parent).find(me.Variables.cdrweb_formatoFechaCulminado).val();
+                    var _Campania = $(parent).find(me.Variables.cdrweb_formatocampania).val();
+                    var _CantidadAprobados = $(parent).find(me.Variables.cdrweb_CantidadAprobados).val();
+                    var _CantidadRechazados = $(parent).find(me.Variables.cdrweb_CantidadRechazados).val();
 
                     if (_Estado === "1") {
                         window.location.href = urlReclamo + "?pedidoId=" + _PedidoID;

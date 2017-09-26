@@ -168,7 +168,7 @@
         <div class="pregunta_inconveniente_producto tipografia_lato tipografia_lato_bold mb-23 Registro3" style="display:none;">
             Escoge una solución
         </div>
-        <div class="listado_soluciones_cdr tipografia_lato Registro3" id="listado_soluciones_cdr" style="display:none;">
+        <div class="listado_soluciones_cdr tipografia_lato Registro3" id="divlistado_soluciones_cdr" style="display:none;">
         </div>
         <!-- FIN VISTA SOLUCIÓN REFERENTE AL CAMBIO O DEVOLUCIÓN -->
         <!--INICIO DE VISTA CAMBIARLO POR OTRO PRODUCTO-->
@@ -270,6 +270,11 @@
                         <label class="tipografia_lato_regular">Correo electrónico</label>
                         <input type="hidden" id="hdEmail" value="@Model.Email" />
                         <input type="text" id="txtEmail" value="@Model.Email" />
+                        <div class="correo_reclamo_error">
+                            <span id="spnEmailError" style="display: none;">
+                                *Correo Electrónico incorrecto
+                            </span>
+                        </div>
                     </div>
                     <div class="mb-23">
                         <label class="tipografia_lato_regular">Celular</label>
