@@ -71,6 +71,9 @@ namespace Portal.Consultoras.ServiceContracts
         BEUsuario GetSesionUsuario(int paisID, string codigoUsuario);
 
         [OperationContract]
+        BEUsuario GetSesionUsuarioWS(int paisID, string codigoUsuario);
+
+        [OperationContract]
         bool IsUserExist(int paisID, string CodigoUsuario);
 
         [OperationContract]
@@ -341,9 +344,7 @@ namespace Portal.Consultoras.ServiceContracts
 
         #region TerminosCondiciones
         [OperationContract]
-        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
-        [OperationContract]
-        BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo);
+        bool InsertTerminosCondiciones(BETerminosCondiciones terminos);
         #endregion
 
         #region EventoFestivo

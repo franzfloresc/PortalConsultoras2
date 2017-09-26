@@ -1,5 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -169,7 +172,14 @@
     <Compile Include="BLPedidoDDDetalle.cs" />
     <Compile Include="BLPedidoFacturado.cs" />
     <Compile Include="BLPedidoFICDetalle.cs" />
-    <Compile Include="BLPedidoRechazado.cs" />
+    <Compile Include="TablaLogicaDatos\ITablaLogicaDatosBusinessLogic.cs" />
+    <Compile Include="Resources\MotivoRechazoMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MotivoRechazoMessages.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Usuario\IUsuarioBusinessLogic.cs" />
+    <Compile Include="Pedido\BLPedidoRechazado.cs" />
     <Compile Include="BLPedidoReporteLider.cs" />
     <Compile Include="BLPedidoWeb.cs" />
     <Compile Include="BLPedidoWebAnteriores.cs" />
@@ -193,12 +203,12 @@
     <Compile Include="BLSolicitudClienteCatalogo.cs" />
     <Compile Include="BLSolicitudCredito.cs" />
     <Compile Include="BLSuenioNavidad.cs" />
-    <Compile Include="BLTablaLogicaDatos.cs" />
+    <Compile Include="TablaLogicaDatos\BLTablaLogicaDatos.cs" />
     <Compile Include="BLTipoEstrategia.cs" />
     <Compile Include="BLTipoMeta.cs" />
     <Compile Include="BLTracking.cs" />
     <Compile Include="BLUbigeo.cs" />
-    <Compile Include="BLUsuario.cs" />
+    <Compile Include="Usuario\BLUsuario.cs" />
     <Compile Include="BLValidacionAutomatica.cs" />
     <Compile Include="BLZonificacion.cs" />
     <Compile Include="CacheManager.cs" />
@@ -222,6 +232,7 @@
     <Compile Include="Cliente\IRecordatorioBusinessLogic.cs" />
     <Compile Include="FtpConfiguration.cs" />
     <Compile Include="Mobile\BLApp.cs" />
+    <Compile Include="Pedido\IPedidoRechazadoBusinessLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -286,6 +297,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ClienteValidationMessages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MotivoRechazoMessages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MotivoRechazoMessages.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\PedidoInsertMessages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>PedidoInsertMessages.Designer.cs</LastGenOutput>
@@ -293,6 +308,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.Sql.UnitTesting.targets" Condition="'$(SQLDBExtensionsRefPath)' == ''" />
+  <PropertyGroup>
+    <SsdtUnitTestVersion>2.0</SsdtUnitTestVersion>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
