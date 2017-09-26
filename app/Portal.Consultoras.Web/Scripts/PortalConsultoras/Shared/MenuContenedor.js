@@ -168,7 +168,7 @@ var menuModule = (function () {
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
-        var codigo = objHtmlEvent.data("codigo");
+        var codigo = objHtmlEvent.data("codigo") || "";
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
 
