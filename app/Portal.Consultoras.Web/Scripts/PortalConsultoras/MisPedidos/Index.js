@@ -166,13 +166,13 @@ $(document).ready(function () {
     
     $("body").on("change", "select[data-cliente]", function (e) {
         e.preventDefault();
+
         var obj = $(this);
         var campFormat = obj.attr("data-camp") || "";
         if (campFormat == "") return false;
-        campFormat = campFormat.replace("-", "");
-        
-        var pedidoId = obj.attr("data-idpedido") || 0;
 
+        campFormat = campFormat.replace("-", "");        
+        var pedidoId = obj.attr("data-idpedido") || 0;
         var popup = obj.parents("[data-popup]").attr("data-popup");
         PopupMostrar(popup, campFormat, pedidoId);
     });
@@ -295,8 +295,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
             
             var htmlDiv = SetHandlebars("#html-detalle-facturado", data);
             var campania = data.CampaniaId;
-            if (tipo == "i") {
-                
+            if (tipo == "i") {                
                 if(data.listaCliente==0)
                 {
                     alert("No tiene Pedidos por la Web");
@@ -308,6 +307,7 @@ function CargarDetalleFacturado(camp, page, rows, tipo, pedidoId) {
                 $('#pedidoPorCliente').empty().html(htmlDiv);
                 $("#divGrilla").find(".content_datos_pedidosFacturados").removeClass("content_datos_pedidosFacturados").addClass("content_datos_pedidosIngresados");
                 $("[data-div='i']").find("[data-facturadoCabecera]").html(facturado);
+                $("#pedidoPorCliente").find('.info_extra_Validado').Visible(dataAjax.cliente == -1);
 
                 // en caso de facturados tenga, poner fuera del if else
                 $("#divGrilla").find("select[data-cliente]").append(new Option("Cliente", -1));
@@ -388,7 +388,6 @@ function CargarDetalleIngresado(camp, page, rows) {
 }
 
 function CargarDetalleIngresadoCliente(tag, camp, page, rows) {
-
     var obj = tag.parents(".acordion_titulo");
     var cliente = $(obj).attr("data-cliente");
     if (cliente < 0) return false;

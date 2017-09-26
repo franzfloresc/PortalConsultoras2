@@ -10,53 +10,62 @@ BEGIN
 		set @top = 5
 
 	DECLARE @T1 TABLE (
-		id int identity(1,1)
-		, EstadoPedido varchar(1)
-		, CampaniaID int 
-		, ImporteTotal money
-		, Flete money
-		, ImporteCredito money
-		, MotivoCreditoID int
-		, PaisID int
-		, Clientes smallint
-		, EstadoPedidoDesc varchar(12)
-		, ConsultoraID bigint
-		, PedidoID int
-		, NumeroPedido int
-		, FechaRegistro datetime
-		, CanalIngreso varchar(12)
-		, CantidadProductos int
+		id INT IDENTITY(1,1),
+		EstadoPedido VARCHAR(1),
+		CampaniaID INT,
+		ImporteTotal MONEY,
+		DescuentoProl MONEY,
+		Flete MONEY,
+		ImporteCredito MONEY,
+		MotivoCreditoID INT,
+		PaisID INT,
+		Clientes SMALLINT,
+		EstadoPedidoDesc VARCHAR(12),
+		ConsultoraID BIGINT,
+		PedidoID INT,
+		NumeroPedido int,
+		FechaRegistro DATETIME,
+		CanalIngreso VARCHAR(12),
+		CantidadProductos INT
 	)
-
+	
 	-- agregar ingresados
-	INSERT INTO @T1
-	select top (@top) 
-		'I' as EstadoPedido,
-		PW.CampaniaID,  
-		PW.ImporteTotal,  
-		0 Flete,
-		pw.ImporteCredito,  
-		ISNULL(pw.MotivoCreditoID,0) MotivoCreditoID,  
-		pw.PaisID,  
-		PW.Clientes, 
-		'INGRESADO' AS EstadoPedidoDesc,
-		PW.ConsultoraID,  
-		PW.PedidoID,
-		0,
-		PW.FechaRegistro,
-		'WEB' as CanalIngreso,
-		SUM(PWD.Cantidad) as CantidadProductos
-	FROM PedidoWeb(NOLOCK) PW
-	INNER JOIN PedidoWebDetalle(NOLOCK) PWD ON 
-		PW.PedidoID=PWD.PedidoID
-		and PW.ConsultoraID = PWD.ConsultoraID
-		and PW.CampaniaID = PWD.CampaniaID
-	WHERE 
-		pw.ConsultoraID = @ConsultoraID and
-		exists(select 1 from PedidoWebDetalle(NOLOCK) where CampaniaID = PW.CampaniaID and ConsultoraID = PW.ConsultoraID)
-	group by PW.CampaniaID, PW.ImporteTotal, pw.ImporteCredito, ISNULL(pw.MotivoCreditoID,0),pw.PaisID,  
-		PW.Clientes, PW.ConsultoraID, PW.PedidoID,	PW.FechaRegistro
-	ORDER BY PW.CampaniaID desc 
+	if not exists(
+		select 1
+		from ods.Pedido(nolock) P
+		inner join ods.Campania(nolock) C on P.CampaniaID = C.CampaniaID
+		where C.Codigo = @CampaniaID and P.Origen = 'WEB'
+	)
+	begin
+		insert into @T1
+		select top 1
+			'I' as EstadoPedido,
+			PW.CampaniaID,
+			PW.ImporteTotal,
+			PW.DescuentoProl,
+			0 Flete,
+			pw.ImporteCredito,
+			isnull(pw.MotivoCreditoID,0) MotivoCreditoID,
+			pw.PaisID,
+			PW.Clientes,
+			'INGRESADO' AS EstadoPedidoDesc,
+			PW.ConsultoraID,
+			PW.PedidoID,
+			0,
+			PW.FechaRegistro,
+			'WEB' as CanalIngreso,
+			sum(PWD.Cantidad) as CantidadProductos
+		from PedidoWeb(nolock) PW
+		inner join PedidoWebDetalle(nolock) PWD ON PW.ConsultoraID = PWD.ConsultoraID and PW.CampaniaID = PWD.CampaniaID
+		where pw.ConsultoraID = @ConsultoraID and PW.CampaniaID = @CampaniaID
+		group by PW.CampaniaID, PW.ImporteTotal, PW.DescuentoProl,pw.ImporteCredito, isnull(pw.MotivoCreditoID,0),
+			pw.PaisID, PW.Clientes, PW.ConsultoraID, PW.PedidoID,	PW.FechaRegistro
+		ORDER BY PW.CampaniaID desc;
+	end
+
+	-- solo los 4 correlativos anteriores de la campaña actual
+	declare @CampaniaAnterior int = ffvv.fnGetCampaniaAnterior(@CampaniaID, @top - 1)
+	set @CampaniaAnterior = isnull(@CampaniaAnterior, 0);
 
 	-- agregar facturado
 	INSERT INTO @T1
@@ -64,6 +73,7 @@ BEGIN
 		'F',
 		CA.CODIGO AS CampaniaID,
 		P.MontoFacturado AS ImporteTotal,
+		0 as DescuentoProl,
 		P.Flete,
 		0 ImporteCredito,
 		0 MotivoCreditoID,
@@ -75,48 +85,31 @@ BEGIN
 		P.NumeroPedido,
 		isnull(p.FechaFacturado,'1900-01-01') as FechaRegistro,
 		isnull(P.Origen,'') as CanalIngreso,
-		SUM(PD.Cantidad) as CantidadProductos
+		sum(PD.Cantidad) as CantidadProductos
 	FROM ods.Pedido(NOLOCK) P 
 	INNER JOIN ods.PedidoDetalle(NOLOCK) PD ON P.PedidoID=PD.PedidoID
-	iNNER JOIN ods.ProductoComercial (nolock) PC ON PD.CampaniaID = PC.CampaniaID and PD.CUV = PC.CUV
+	INNER JOIN ods.ProductoComercial (nolock) PC ON PD.CampaniaID = PC.CampaniaID and PD.CUV = PC.CUV
 	INNER JOIN ods.Campania(NOLOCK) CA ON P.CampaniaID=CA.CampaniaID
-	INNER JOIN ods.Consultora(NOLOCK) CO ON P.ConsultoraID=CO.ConsultoraID
-	WHERE co.ConsultoraID=@ConsultoraID
+	WHERE P.ConsultoraID = @ConsultoraID AND CA.Codigo >= @CampaniaAnterior
 	GROUP BY P.PedidoID,P.NumeroPedido,CA.Codigo,P.MontoFacturado,P.Origen,P.Flete,p.FechaFacturado
-	ORDER BY CA.Codigo desc 
-
-	-- eliminar repetido, prioridad F
-	delete @T1
-	FROM @T1 T
-	INNER JOIN (
-		select CampaniaID, count(EstadoPedido) AS CantEstado
-		from @T1
-		group by CampaniaID
-		having count(EstadoPedido) > 1
-	) AS R ON R.CampaniaID = T.CampaniaID AND T.EstadoPedido <> 'F'
-
-	-- solo los 4 correlativos anteriores de la campaña actual
-	declare @CampaniaAnterior int = 0
-	set @CampaniaAnterior = ffvv.fnGetCampaniaAnterior(@CampaniaID, @top - 1)
-	set @CampaniaAnterior = isnull(@CampaniaAnterior, 0)
+	ORDER BY CA.Codigo desc;
 
 	SELECT top (@top)
-		 CampaniaID  
-		, ImporteTotal 
-		, Flete
-		, ImporteCredito 
-		, MotivoCreditoID 
-		, PaisID 
-		, Clientes 
-		, EstadoPedidoDesc 
-		, ConsultoraID 
-		, PedidoID
-		, NumeroPedido
-		, FechaRegistro
-		, CanalIngreso 
-		, CantidadProductos 
-	FROM @T1 
-	where CampaniaID >= @CampaniaAnterior
+		CampaniaID,
+		ImporteTotal,
+		DescuentoProl,
+		Flete,
+		ImporteCredito,
+		MotivoCreditoID, 
+		PaisID,
+		Clientes, 
+		EstadoPedidoDesc,
+		ConsultoraID,
+		PedidoID,
+		FechaRegistro,
+		CanalIngreso,
+		CantidadProductos 
+	FROM @T1
 	order by CampaniaID desc;
 END
 GO
