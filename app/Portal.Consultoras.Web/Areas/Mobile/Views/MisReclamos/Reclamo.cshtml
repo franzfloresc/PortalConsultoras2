@@ -242,53 +242,7 @@
 
         @*<div class="content_solicitud_cdr tipografia_lato">
                 <div class="contenedor_info_cdr">
-                    <div class="titulo_solicitud_cdr tip
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            old">Solicitud de cambio</div>
+                    <div class="titulo_solicitud_cdr tipografia_lato_bold">Solicitud de cambio</div>
                     <div class="info_solicitud_cdr tipografia_lato_regular">
                         <span>00411</span> - <span>Berrylicious shampoo rojo 375ml.</span>
                     </div>
@@ -729,7 +683,7 @@
                 Costo: {{../Simbolo}} {{DecimalToStringFormat item.Precio}}
             </div>
             <div class="listado_solicitud_reclamo">
-                    <b>{{item.Solicitud}}</b>
+                <b>{{item.Solicitud}}</b>
             </div>
             <div class="titulo_solicitud_cdr @*tipografia_lato_bold*@">
                 {{#if_eq CodigoOperacion 'C'}}
@@ -751,7 +705,7 @@
             @*<div class="info_solicitud_cdr tipografia_lato_regular">
                     <span>{{item.CUV}}</span> - <span>{{item.Descripcion}}</span>
             </div>*@
-        </div> <br />
+        </div>
     @*</div>*@
     {{/each}}
 </script>
