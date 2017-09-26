@@ -34562,7 +34562,7 @@ h1#penmostreo .campana {
     border-bottom:0px !important;
 }
 .content_tono_detalle:hover{
-    border: 1px solid black
+    border: 1px solid black;
 }
 .titulo_contenido{
     font-family:'Lato';
