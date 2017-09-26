@@ -3496,7 +3496,6 @@
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-informativa.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaProducto\DetalleProducto.cshtml" />
-    <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-carrusel-mobile.cshtml" />
     <Content Include="Areas\Mobile\Views\Bienvenida\template-opt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-bloqueado.cshtml" />
     <Content Include="Areas\Mobile\Views\RevistaDigital\template-mensaje-inscrita.cshtml" />
@@ -4327,7 +4326,6 @@
     <Content Include="Views\MisReclamos\ReporteDetalle.cshtml" />
     <Content Include="Views\IncentivosSMS\Index.cshtml" />
     <Content Include="Views\RevistaDigital\Index.cshtml" />
-    <Content Include="Views\Bienvenida\template-carrusel-opt.cshtml" />
     <Content Include="Views\MatrizComercial\MatrizComercialDialog.cshtml" />
     <Content Include="Views\AdministrarProductoSugerido\ListadoImagenesMatriz.cshtml" />
     <Content Include="Views\OfertaLiquidacion\OfertaLiquidacionDialog.cshtml" />
