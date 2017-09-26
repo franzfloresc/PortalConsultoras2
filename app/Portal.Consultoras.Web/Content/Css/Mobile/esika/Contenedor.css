@@ -31,15 +31,15 @@
 	padding: 0px 2%;
 	overflow-y: hidden;
 }
-    .bc_mobile-texto .mobile-txt p {
-        display: block;
-        color: white;
-        font-weight: bolder;
-        letter-spacing: 2px;
-        font-size: 11px;
-        margin-bottom: 0;
-        text-transform: uppercase;
-    }
+.bc_mobile-texto .mobile-txt p {
+    display: block;
+    color: white;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    font-size: 11px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+}
 .bc_mobile-texto .mobile-txt span{
   	letter-spacing: 1px;
   	color:white;
@@ -62,20 +62,20 @@
     margin-left: 3px;
     margin-right:3px;
 }
-    .bc_para_ti-menu ul li a {
-        display: block;
-        cursor: pointer;
-        text-align: center;
-        background: rgba(255, 255, 255, 0.50);
-        font-size: 13px;
-        color: white;
-        text-decoration: none;
-        letter-spacing: 2px;
-        font-weight: bolder;
-        padding: 10px;
-        transition: .3s;
-        height: 34px;
-    }
+.bc_para_ti-menu ul li a {
+    display: block;
+    cursor: pointer;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.50);
+    font-size: 13px;
+    color: white;
+    text-decoration: none;
+    letter-spacing: 2px;
+    font-weight: bolder;
+    padding: 10px;
+    transition: .3s;
+    height: 34px;
+}
 .bc_para_ti-menu ul li a.activo{
 	background: white !important;
 	color:#333 !important;
@@ -84,21 +84,21 @@
 	background: white;
 	color:#333;
 }*/
-    .bc_para_ti-menu ul li a img {
-        display: inline;
-        margin: auto;
-        width: 18px;
-        height: auto;
-        margin-right: 5px !important;
-        position: relative;
-        top: -1.5px;
-    }
-    /*.bc_para_ti-menu ul li a img.hover {
-        display: none;
-    }*/
-        .bc_para_ti-menu ul li a img.click-menu {
-            display: none;
-        }
+.bc_para_ti-menu ul li a img {
+    display: inline;
+    margin: auto;
+    width: 18px;
+    height: auto;
+    margin-right: 5px !important;
+    position: relative;
+    top: -1.5px;
+}
+/*.bc_para_ti-menu ul li a img.hover {
+    display: none;
+}*/
+.bc_para_ti-menu ul li a img.click-menu {
+    display: none;
+}
 .bc_para_ti-menu-opciones{
 
 }
@@ -249,12 +249,12 @@ text-decoration: none;
 }
 /**/
 .bc-menu-vertical-next {
-text-align: right !important;
+    text-align: right !important;
 }
 .bc-menu-vertical-prev img, .bc-menu-vertical-next img {
-height: 20px !important;
-padding: 0px 19px !important;
-margin-top: 13px !important;
+    height: 20px !important;
+    padding: 0px 19px !important;
+    margin-top: 13px !important;
 }
 .bc_para_ti-menu-opciones ul li a {
     padding: 11px 9px;
