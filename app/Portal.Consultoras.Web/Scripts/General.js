@@ -632,7 +632,7 @@ function isMobile() {
 }
 
 function isPagina(pagina) {
-    pagina = $.trim(pagina);
+    pagina = $.trim(pagina).toLowerCase();
     if (pagina == "") return false;
     return ($.trim(location.href) + "/").toLowerCase().indexOf("/" + pagina + "/") > 0;
 }
