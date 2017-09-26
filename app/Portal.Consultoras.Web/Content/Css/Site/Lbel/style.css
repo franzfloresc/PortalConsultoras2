@@ -34983,13 +34983,14 @@ h1#penmostreo .campana {
     font-size: 55px;
     letter-spacing: 1.4px;
     color: white;
-    text-align: center;
+    text-align: left;
+    padding: 0 65px;
     width: 100%;
     text-shadow: -0.08em 0.08em black;
     position: absolute;
-    top: 36%;
-    margin-top: 14px;
+    top: 30%;
     font-weight: bold;
+    margin-top:14px;
 }
 
 .link_cambiar_correo {
@@ -35042,7 +35043,7 @@ h1#penmostreo .campana {
     letter-spacing: 1.7px;
     top: 85px;
     font-weight: 300;
-    left: 10.5%;
+    left: 65px;
 }
 
 .content_set_imagen_intriga {
