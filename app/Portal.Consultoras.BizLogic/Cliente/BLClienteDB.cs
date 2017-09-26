@@ -9,7 +9,7 @@ using Portal.Consultoras.Common;
 
 namespace Portal.Consultoras.BizLogic
 {
-    public class BLClienteDB
+    public class BLClienteDB : IClienteDBBusinessLogic
     {
         DAClienteDB clienteData;
 

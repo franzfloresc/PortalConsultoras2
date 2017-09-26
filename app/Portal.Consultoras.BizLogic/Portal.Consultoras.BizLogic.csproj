@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="BLAsesoraOnline.cs" />
     <Compile Include="BLCupon.cs" />
-    <Compile Include="BLClienteDB.cs" />
+    <Compile Include="Cliente\BLClienteDB.cs" />
     <Compile Include="BLConsultoraConcurso.cs" />
     <Compile Include="BLPalabraInvalida.cs" />
     <Compile Include="BLProductoPalabra.cs" />
@@ -107,7 +107,7 @@
     <Compile Include="BLBelcorpNoticia.cs" />
     <Compile Include="BLBelcorpResponde.cs" />
     <Compile Include="BLCatalogo.cs" />
-    <Compile Include="BLCliente.cs" />
+    <Compile Include="Cliente\BLCliente.cs" />
     <Compile Include="BLComprobantePercepcion.cs" />
     <Compile Include="BLComunicado.cs" />
     <Compile Include="BLConfiguracionCampania.cs" />
@@ -221,6 +221,7 @@
     <Compile Include="Cliente\INotasBusinessLogic.cs" />
     <Compile Include="Cliente\IRecordatorioBusinessLogic.cs" />
     <Compile Include="FtpConfiguration.cs" />
+    <Compile Include="Cliente\IClienteDBBusinessLogic.cs" />
     <Compile Include="Mobile\BLApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ClienteValidationMessages.Designer.cs">
