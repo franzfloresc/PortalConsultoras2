@@ -35900,7 +35900,7 @@ h1#penmostreo .campana {
 }
 
 .content_tono_detalle:hover {
-    border: 1px solid black;
+    border: 1px solid black
 }
 
 .titulo_contenido {
@@ -35952,8 +35952,6 @@ h1#penmostreo .campana {
         height: 703px;
         width: auto;
         display: block;
-        position: relative;
-        left: -9px;
     }
 
 .solo_inferior {
