@@ -4305,9 +4305,18 @@
     <Content Include="Views\AsesoraOnline\FelicitacionesDialog.cshtml" />
     <Content Include="Views\AsesoraOnline\ConsultoraYaRegistradaCoachVirtual.cshtml" />
     <Content Include="Views\EstrategiaPersonalizada\presentacion-seccion-banner.cshtml" />
-    <Content Include="Views\Shared\_vpBloqueMensajesPostulante.cshtml" />
-    <Content Include="Views\Shared\_vpBloqueMensajesPedido.cshtml" />
-    <Content Include="Views\Shared\_vpMenuB.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPostulante.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBloqueMensajesPedido.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpMenuB.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpFeDeErratas.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpRegistroComunidad.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpBannerLateralShowRoom.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogPedidoReservado.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajePostulante.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogSesionMainLayout.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogErrorMainLayout.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpDialogMensajes.cshtml" />
+    <Content Include="Views\Shared\VistaParcialMainLayout\_vpTemplateResumenCampania.cshtml" />
     <None Include="Web References\ServiceGestionWebPROL\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
