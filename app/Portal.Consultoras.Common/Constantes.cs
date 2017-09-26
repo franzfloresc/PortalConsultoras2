@@ -62,12 +62,94 @@ namespace Portal.Consultoras.Common
             public const short Facturado = 2;
         }
 
+        public class PaisID
+        {
+            /// <summary>
+            /// 1
+            /// </summary>
+            public const int Argentina = 1;
+
+            /// <summary>
+            /// 2
+            /// </summary>
+            public const int Bolivia = 2;
+
+            /// <summary>
+            /// 3
+            /// </summary>
+            public const int Chile = 3;
+
+            /// <summary>
+            /// 4
+            /// </summary>
+            public const int Colombia = 4;
+
+            /// <summary>
+            /// 5
+            /// </summary>
+            public const int CostaRica = 5;
+
+            /// <summary>
+            /// 6
+            /// </summary>
+            public const int Ecuador = 6;
+
+            /// <summary>
+            /// 7
+            /// </summary>
+            public const int ElSalvador = 7;
+
+            /// <summary>
+            /// 8
+            /// </summary>
+            public const int Guatemala = 8;
+
+            /// <summary>
+            /// 9
+            /// </summary>
+            public const int Mexico = 9;
+
+            /// <summary>
+            /// 10
+            /// </summary>
+            public const int Panama = 10;
+
+            /// <summary>
+            /// 11
+            /// </summary>
+            public const int Peru = 11;
+
+            /// <summary>
+            /// 12
+            /// </summary>
+            public const int PuertoRico = 12;
+
+            /// <summary>
+            /// 13
+            /// </summary>
+            public const int RepublicaDominicana = 13;
+
+            /// <summary>
+            /// 14
+            /// </summary>
+            public const int Venezuela = 14;
+
+            /// <summary>
+            /// 15
+            /// </summary>
+            public const int Brasil = 15;
+        }
+
         public class CodigosISOPais
         {
             public const string Peru = "PE";
             public const string Chile = "CL";
             public const string Ecuador = "EC";
             public const string CostaRica = "CR";
+
+            /// <summary>
+            /// El Salvador
+            /// </summary>
             public const string Salvador = "SV";
             public const string Guatemala = "GT";
             public const string Panama = "PA";
@@ -78,6 +160,10 @@ namespace Portal.Consultoras.Common
             public const string Bolivia = "BO";
             public const string Mexico = "MX";
             public const string PuertoRico = "PR";
+
+            /// <summary>
+            /// Republica Dominicana
+            /// </summary>
             public const string Dominicana = "DO";
         }
 
@@ -1049,7 +1135,7 @@ namespace Portal.Consultoras.Common
         public class EventoFestivoAlcance
         {
             public const string LOGIN = "LOGIN";
-            public const string SOMOS_BELCORP = "SOMOS_BELCORP";            
+            public const string SOMOS_BELCORP = "SOMOS_BELCORP";
         }
 
         public class EventoFestivoNombre

@@ -56,7 +56,7 @@ namespace Portal.Consultoras.Entities
         private string mNombrePais;
         private int mConsultoraNueva;
         private string mSegmento;
-        
+
         private int miDiasDuracionCronograma;
         private bool mHabilitarRestriccionHoraria;
         private string mAnoCampaniaIngreso;
@@ -70,13 +70,25 @@ namespace Portal.Consultoras.Entities
         private string mSegmentoConstancia;//R2469(CSR)
         private string mSeccionAnalytics;//R2469(CSR)
         private string mDescripcionNivel; //R2469(CSR)
-        private bool mesConsultoraLider;//R2469(CSR)
+
+        [Column("ESCONSULTORALIDER")]
+        private int mesConsultoraLider;//R2469(CSR)
+
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
         private string digitoVerificador;
         private long consultoraAsociadoID;
 
         private string mSegmentoAbreviatura;
+
+        [Column("TIENEHANA")]
+        private bool tieneHana;
+
+        [Column("TieneODD")]
+        private int tieneOdd;
+
+        [Column("TieneLoginExterno")]
+        private int tieneLoginExterno;
 
         public BEUsuario()
         {
@@ -101,7 +113,7 @@ namespace Portal.Consultoras.Entities
             mbCambioClave = Convert.ToBoolean(row["CambioClave"]);
 
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);  
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AceptoContrato") && row["AceptoContrato"] != DBNull.Value)
                 this.AceptoContrato = Convert.ToBoolean(row["AceptoContrato"]);
             if (DataRecord.HasColumn(row, "MostrarAyudaWebTraking") && row["MostrarAyudaWebTraking"] != DBNull.Value)
@@ -239,7 +251,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(row, "Direccion") && row["Direccion"] != DBNull.Value)
                 Direccion = Convert.ToString(row["Direccion"]);
             if (DataRecord.HasColumn(row, "TelefonoTrabajo") && row["TelefonoTrabajo"] != DBNull.Value)
-                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);            
+                msTelefonoTrabajo = Convert.ToString(row["TelefonoTrabajo"]);
             if (DataRecord.HasColumn(row, "AnoCampanaIngreso") && row["AnoCampanaIngreso"] != DBNull.Value)
                 AnoCampaniaIngreso = Convert.ToString(row["AnoCampanaIngreso"]);
             if (DataRecord.HasColumn(row, "PrimerNombre") && row["PrimerNombre"] != DBNull.Value)
@@ -413,10 +425,10 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "TipoUsuario") && row["TipoUsuario"] != DBNull.Value)
                 TipoUsuario = Convert.ToInt16(row["TipoUsuario"]);
-            
+
             if (DataRecord.HasColumn(row, "TieneLoginExterno") && row["TieneLoginExterno"] != DBNull.Value)
                 TieneLoginExterno = Convert.ToBoolean(row["TieneLoginExterno"]);
-            
+
             //EPD-1919 INICIO
             if (DataRecord.HasColumn(row, "TieneCDRExpress")) TieneCDRExpress = Convert.ToBoolean(row["TieneCDRExpress"]);
             if (DataRecord.HasColumn(row, "EsConsecutivoNueva")) EsConsecutivoNueva = Convert.ToBoolean(row["EsConsecutivoNueva"]);
@@ -478,7 +490,7 @@ namespace Portal.Consultoras.Entities
 
             if (DataRecord.HasColumn(row, "EstadoPedido") && row["EstadoPedido"] != DBNull.Value)
                 EstadoPedido = Convert.ToInt32(row["EstadoPedido"]);
-            
+
             if (DataRecord.HasColumn(row, "ValidacionAbierta") && row["ValidacionAbierta"] != DBNull.Value)
                 ValidacionAbierta = Convert.ToBoolean(row["ValidacionAbierta"]);
 
@@ -898,7 +910,7 @@ namespace Portal.Consultoras.Entities
             get { return mSegmento; }
             set { mSegmento = value; }
         }
-        
+
         [DataMember]
         public int DiasDuracionCronograma
         {
@@ -1027,12 +1039,11 @@ namespace Portal.Consultoras.Entities
             set { mDescripcionNivel = value; }
         }
 
-        [Column("esConsultoraLider")]
         [DataMember]
         public bool esConsultoraLider
         {
-            get { return mesConsultoraLider; }
-            set { mesConsultoraLider = value; }
+            get { return Convert.ToBoolean(mesConsultoraLider); }
+            set { mesConsultoraLider = value ? 1 : 0; }
         }
         [DataMember]
         public string DigitoVerificador
@@ -1116,9 +1127,12 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public int VioTutorialSalvavidas { get; set; }
 
-        [Column("TieneHana")]
         [DataMember]
-        public int TieneHana { get; set; }
+        public int TieneHana
+        {
+            get { return tieneHana ? 1 : 0; }
+            set { tieneHana = value == 1; }
+        }
 
         [DataMember]
         public int IndicadorBloqueoCDR { get; set; }
@@ -1250,24 +1264,30 @@ namespace Portal.Consultoras.Entities
         public DateTime FechaActualPais { get; set; }
 
         /*PL20-1226*/
-        [Column("TieneODD")]
         [DataMember]
-        public bool OfertaDelDia { get; set; }
+        public bool OfertaDelDia
+        {
+            get { return Convert.ToBoolean(tieneOdd); }
+            set { tieneOdd = value ? 1 : 0; }
+        }
 
         //EPD-1836
         [DataMember]
         public int AceptacionConsultoraDA { get; set; }
-        
+
         [Column("DocumentoIdentidad")]
         [DataMember]
         public string DocumentoIdentidad { get; set; }
-                
-        public bool DiaPROL { get; set; }        
+
+        public bool DiaPROL { get; set; }
         public bool EsHoraReserva { get; set; }
-        
-        [Column("TieneLoginExterno")]
+
         [DataMember]
-        public bool TieneLoginExterno { get; set; }
+        public bool TieneLoginExterno
+        {
+            get { return Convert.ToBoolean(tieneLoginExterno); }
+            set { tieneLoginExterno = value ? 1 : 0; }
+        }
 
         //[DataMember]
         //public int EsOfertaDelDia { get; set; }
@@ -1323,7 +1343,7 @@ namespace Portal.Consultoras.Entities
         [DataMember]
         public bool EsConsecutivoNueva { get; set; }
         //EPD-1919 FIN
-        
+
         [DataMember]
         public bool PedidoFICActivo { get; set; }
 
