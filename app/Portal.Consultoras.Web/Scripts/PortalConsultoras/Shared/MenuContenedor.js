@@ -206,17 +206,13 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-            try {
-                if (codigo.indexOf("INICIO" > -1)) {
-                    var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
-                    if (img !== "") {
-                        img = img.replace("_normal.", "_hover.");
-                        $(elementos.menuMobHome).find('img').attr("src", img);
-                    }
+            if (codigo.indexOf("INICIO" > -1)) {
+                var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+                if (img !== "") {
+                    img = img.replace("_normal.", "_hover.");
+                    $(elementos.menuMobHome).find('img').attr("src", img);
                 }
-            } catch (e) {
-                console.log("error index of ");
-            } 
+            }
            
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
                 return;
