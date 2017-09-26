@@ -43,11 +43,7 @@ namespace Portal.Consultoras.BizLogic.Cliente
             var daCliente = new DACliente(paisId);
 
             using (IDataReader reader = daCliente.NotaObtener(consultoraId, clienteId))
-                while (reader.Read())
-                {
-                    var nota = new BENota(reader);
-                    notas.Add(nota);
-                }
+                notas = reader.MapToCollection<BENota>();
 
             return ResponseType<List<BENota>>.Build(data: notas);
         }
