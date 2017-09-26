@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,61 +7,35 @@
 <head>
     <title>Belcorp | Portal Consultoras</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <!--<meta http-equiv="refresh" content="5;url=https://sts.somosbelcorp.com/adfs/ls/?wa=wsignout1.0" />-->
-    <meta http-equiv="refresh" content="5;url=@Url.Action("Index","Login")" />
-    <link rel="stylesheet" href="~/Content/Css/Site/style.css" />
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,700,900' rel='stylesheet' type='text/css' />
+    <meta http-equiv="refresh" content="4;url=@Url.Action("Index","Login", new { returnUrl = ViewBag.ReturnURL })" />
+
+    <link rel="shortcut icon" type="image/x-icon" id="iconoPagina" data-id="iconPagina" href="@ViewBag.IconoPagina" />
+    @if (ViewBag.EsPaisEsika == true)
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_esika.ico")" rel="shortcut icon" type="image/x-icon" />
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Esika/CssSB2")
+    }
+    else
+    {
+        <link href="@Url.Content("~/Content/Images/icons/favicon_lbel.ico")" rel="shortcut icon" type="image/x-icon" />
+        @System.Web.Optimization.Styles.Render("~/Content/Css/Site/Lbel/CssSB2")
+    }
 
     <script src="~/Scripts/jquery-1.11.2.min.js"></script>
-    <!--   <script type="text/javascript">
-
-           (function () {
-               var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-               ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-               var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-           })();
-
-           $(document).ready(function () {
-           });
-
-       </script>-->
 </head>
-<body class="bg_modal">
-    <!--R2469 (CSR) Nueva  Etiquetas de Seguimiento-->
-    <!-- Google Tag Manager -->
-
-    <noscript>
-        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-M8QMC8"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-
-    <script>
-        (function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-M8QMC8');
-    </script>
-    <!-- End Google Tag Manager -->
-
-    <div class="logo_modal">
-        <a href="#" id="logo">
-            <img src="~/Content/Images/logo_belcorp.png" alt="" />
-        </a>
-    </div>
-    <div class="wrap_modal">
-        <div class="image_modal">
-            <img src="~/Content/Images/sesion_icono.png" alt="" />
+<body class="fondo_oscuro" style="display:block">
+    <div class="popup_agregarUnidades">
+        <div class="contenido_popUp">
+            <span class="icono_exclamacion"></span>
+            <h1 class="titulo_agregarUnidades"><b>SESIÓN FINALIZADA</b></h1>
+            <div id="mensajeSesionSB2_Error" class="mensaje_agregarUnidades">
+                @*Su sesión actual ha finalizado.*@
+                Será redireccionado en unos segundos...
+            </div>
         </div>
     </div>
-    <div class="texto_modal">
-        Su sesión actual ha finalizado. Será redireccionado en unos segundos...
-    </div>
-
     <input type="hidden" id="PaginaSesionExpirada" />
 </body>
 </html>
-
-

@@ -9,7 +9,7 @@
     @*<link href="@Url.Content("~/Content/Css/Site/Esika/revistaDigital.css")" rel="stylesheet" />*@
     @System.Web.Optimization.Styles.Render("~/Content/Css/Site/CssPedido")
 }
-<div class="franja_negra"></div>
+<div class="franja_negra" style="background: #000 url(@ViewBag.UrlFranjaNegra) no-repeat center bottom;"></div>
 <div class="envolvente_pop_up">
     <div class="pop_pedido" id="pop_liquidacion" style="display: none;">
         <div class="check_liquidacion"><img src="@Url.Content("~/Content/Images/Esika/check_liquidacion.png")" /></div>
@@ -2136,7 +2136,7 @@ else
     
     <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none;" data-popup-body="">
         <div class="icono_regalo_sorpresa"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR DÍA DE LA MADRE!</div>
+        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR FIESTAS PATRIAS!</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
         <div class="fondo_blanco_regalo">
@@ -2144,7 +2144,7 @@ else
             <div class="content_imagen_sorpresa"><img id="of-regalo-imagen" src="" alt="" /></div>
             <div class="descripcion_regalo">
                 <span id="of-regalo-descripcion-larga">Pedalier de acero con triple plato, con protección de plástico de color azul. Tamaño 80cm x 120cm.</span>
-                <a href="#">*Leer términos y condiciones</a>
+                <a target="_blank" href="@ViewBag.UrlTerminosOfertaFinalRegalo">*Leer términos y condiciones</a>
             </div>
         </div>
         <div class="content_detalle_monto" id="of-regalo-montos" style="display: none;">
@@ -2152,7 +2152,7 @@ else
             <b>TE FALTA AGREGAR: <span id="of-regalo-montosaldo">$23.999</span></b>
         </div>
     </div>
-    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:570px;">
+    <div class="popup_ofertaFinal" data-meta="{{TipoMeta}}" data-meta-total="{{TotalPedido}}" data-popup-body="" style="height:580px;">
         <!--SI SALE EL DIV DE PRODUCTO ALTERNATIVO SE AÑADE LA CLASE "fondo_gris_OF"-->
         <div class="content_producto_alternativo" id="div-regalo-pn" style="display: none;">
             <div class="content_imagen_alternativo">
@@ -2277,7 +2277,7 @@ else
 
                         </div>
                     </div>
-                    <button name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
+                    <button id="id_btn_noGracias_agregarProductos" name="btn_noGracias_agregarProductos" class="btn_noGracias_agregarProductos btnNoGraciasOfertaFinal icono_terminar_pedido" id="btnNoGraciasOfertaFinal" style="display:{{#iff TipoMeta '==' 'MM'}}none;{{else}}block;{{/iff}}" onclick="of_google_analytics_cerrar_popup()">
                         RESERVA TU PEDIDO
                     </button>
                 </div>
@@ -2286,6 +2286,7 @@ else
 
                 <hr class="clear" />
             </div>
+            <div class="bloque_detalle_gris"></div>
         </div>
     </div>
 
