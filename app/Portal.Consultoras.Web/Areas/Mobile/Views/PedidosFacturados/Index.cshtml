@@ -82,6 +82,10 @@ else
         });
 
         function cargarDetallePedido(campaniaID, pedidoId) {
+
+            if (!campaniaID) return;
+            if (!pedidoId) return;
+
             ShowLoading();
             jQuery.ajax({
                 type: 'POST',

@@ -1220,6 +1220,11 @@ function CerrarLoad() {
     }
     else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         CloseLoading();
+    } else if (isMobile()) {
+        CloseLoading();
+    }
+    else {
+        closeWaitingDialog()
     }
 }
 
