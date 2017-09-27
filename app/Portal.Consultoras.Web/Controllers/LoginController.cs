@@ -932,6 +932,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                             var config = new ServiceUsuario.BEConfiguracionPais
                             {
+                                DesdeCampania = model.CampaniaID,
                                 Detalle = new ServiceUsuario.BEConfiguracionPaisDetalle
                                 {
                                     PaisID = model.PaisID,
