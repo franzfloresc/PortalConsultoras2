@@ -1385,7 +1385,7 @@ function GetValoresOfertaFinalRegalo(data) {
             tipo: tipo,
             minimo: minimo,
             total: total,
-            meta, meta
+            meta: meta
             };
     }
     else
