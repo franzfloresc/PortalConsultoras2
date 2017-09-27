@@ -718,9 +718,9 @@ namespace Portal.Consultoras.Service
         }
 
         public BEUsuarioExterno GetUsuarioExternoByProveedorAndIdApp(string proveedor, string idAplicacion, string fotoPerfil)
-        {            
-            BLUsuario obj_Usuario = new BLUsuario();           
-            return obj_Usuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);            
+        {
+            BLUsuario obj_Usuario = new BLUsuario();
+            return obj_Usuario.GetUsuarioExternoByProveedorAndIdApp(proveedor, idAplicacion, fotoPerfil);
         }
 
         public List<BEUsuarioExterno> GetListaLoginExterno(int paisID, string codigoUsuario)
@@ -754,12 +754,20 @@ namespace Portal.Consultoras.Service
         public bool InsertTerminosCondiciones(BETerminosCondiciones terminos)
         {
             return new BLUsuario().InsertTerminosCondiciones(terminos);
-        }
+        }
         public BETerminosCondiciones GetTerminosCondiciones(int PaisID, string CodigoConsultora, short Tipo)
         {
             return new BLUsuario().GetTerminosCondiciones(PaisID, CodigoConsultora, Tipo);
         }
         #endregion
 
+        #region EventoFestivo
+        /*HD-817*/
+        public IList<BEEventoFestivo> GetEventoFestivo(int paisID, string Alcance, int Campania)
+        {
+            var BLUsuario = new BLUsuario();
+            return BLUsuario.GetEventoFestivo(paisID, Alcance, Campania);
+        }
+        #endregion
     }
 }
