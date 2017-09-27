@@ -35,7 +35,9 @@ namespace Portal.Consultoras.Entities
         private string msCodigoZona;
         private long miConsultoraID;
         private short miRolID;
+
         private int miCampaniaID;
+
         private DateTime mdFechaInicioFacturacion;
         private DateTime mdFechaFinFacturacion;
         private DateTime mdFechaFinFIC;//1501
@@ -72,7 +74,7 @@ namespace Portal.Consultoras.Entities
         private string mDescripcionNivel; //R2469(CSR)
 
         [Column("ESCONSULTORALIDER")]
-        private int mesConsultoraLider;//R2469(CSR)
+        public int mesConsultoraLider { get; set; }//R2469(CSR)
 
         private bool bEstadoSimplificacionCUV { get; set; }
         private bool bEsquemaDAConsultora;
@@ -82,13 +84,13 @@ namespace Portal.Consultoras.Entities
         private string mSegmentoAbreviatura;
 
         [Column("TIENEHANA")]
-        private bool tieneHana;
+        public bool tieneHana { get; set; }
 
         [Column("TieneODD")]
-        private int tieneOdd;
+        public int tieneOdd { get; set; }
 
         [Column("TieneLoginExterno")]
-        private int tieneLoginExterno;
+        public int tieneLoginExterno { get; set; }
 
         public BEUsuario()
         {
@@ -1070,6 +1072,8 @@ namespace Portal.Consultoras.Entities
         public string Region { get; set; }
         [DataMember]
         public string Pais { get; set; }
+
+        [Column("Campania")]
         [DataMember]
         public string Campania { get; set; }
         [DataMember]
