@@ -168,7 +168,7 @@ var menuModule = (function () {
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
-        var codigo = objHtmlEvent.data("codigo");
+        var codigo = objHtmlEvent.data("codigo") || "";
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
 
@@ -206,7 +206,6 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-
             if (codigo.indexOf("INICIO" > -1)) {
                 var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
                 if (img !== "") {
@@ -214,6 +213,7 @@ var menuModule = (function () {
                     $(elementos.menuMobHome).find('img').attr("src", img);
                 }
             }
+           
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
                 return;
             }

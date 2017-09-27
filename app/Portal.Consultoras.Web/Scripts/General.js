@@ -1588,8 +1588,7 @@ function odd_desktop_google_analytics_addtocart(tipo,element) {
 function odd_google_analytics_product_click(name, id, price, brand, variant, position) {  
     if (variant == null || variant == "")
         variant = "Estándar";
-    dataLayer.push
-	({
+    dataLayer.push({
 	    'event': 'productClick',
 	    'ecommerce':
 		{

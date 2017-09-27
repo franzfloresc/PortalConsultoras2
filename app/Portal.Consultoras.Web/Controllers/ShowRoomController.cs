@@ -2762,6 +2762,9 @@ namespace Portal.Consultoras.Web.Controllers
 
             var modelo = ViewDetalleOferta(id);
 
+            var xList = modelo.ListaOfertaShowRoom.Where(x => x.EsSubCampania == false).ToList();
+            modelo.ListaOfertaShowRoom = xList;
+
             var fechaHoy = DateTime.Now.AddHours(userData.ZonaHoraria).Date;
             bool esFacturacion = fechaHoy >= userData.FechaInicioCampania.Date;
 

@@ -57,5 +57,6 @@ app/Portal.Consultoras.ServiceHost/bin
 app/Portal.Consultoras.Web/bin
 app/Portal.Consultoras.Web/obj
 /app/Portal.Consultoras.Web/node_modules
-
+node_modules
+results
 .sonarqube/
