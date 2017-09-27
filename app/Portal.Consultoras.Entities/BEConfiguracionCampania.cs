@@ -68,6 +68,7 @@ namespace Portal.Consultoras.Entities
         public bool ZonaValida
         {
             get { return TempZonaValida == -1 ? false : true; }
+            set { TempZonaValida = value ? 1 : -1; }
         }
 
         [Column("HoraInicioNoFacturable")]
