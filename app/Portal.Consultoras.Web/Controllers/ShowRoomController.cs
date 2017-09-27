@@ -59,8 +59,6 @@ namespace Portal.Consultoras.Web.Controllers
             return View(model);
         }
 
-        
-
         private void InicializarViewbag()
         {
             ViewBag.urlImagenPopupIntriga = string.Empty;
@@ -77,10 +75,6 @@ namespace Portal.Consultoras.Web.Controllers
                     ViewBag.urlTerminosyCondiciones = item.Valor;
             }
         }
-
-        
-
-
 
         public ActionResult Index(string query)
         {
@@ -2715,8 +2709,6 @@ namespace Portal.Consultoras.Web.Controllers
             return RedirectToAction("DetalleOferta", "ShowRoom", new { id = OfertaID });
         }
 
-
-
         public ActionResult DetalleOferta(int id)
         {
             if (!ValidarIngresoShowRoom(false))
@@ -3004,7 +2996,6 @@ namespace Portal.Consultoras.Web.Controllers
                 sac.ShowRoomProgramarAviso(userData.PaisID, userData.BeShowRoomConsultora);
             }
         }
-
 
         public ActionResult ConsultarTiposOferta(string sidx, string sord, int page, int rows)
         {
