@@ -1,4 +1,4 @@
-
+ï»¿
 USE BelcorpPeru
 GO
 
@@ -26,7 +26,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -108,7 +108,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -190,7 +190,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -272,7 +272,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -354,7 +354,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -436,7 +436,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -518,7 +518,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -600,7 +600,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -682,7 +682,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -764,7 +764,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -846,7 +846,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -928,7 +928,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 end
 
@@ -1009,7 +1009,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 end
 

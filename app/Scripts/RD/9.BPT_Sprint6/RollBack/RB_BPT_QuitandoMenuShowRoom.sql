@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+ÔªøUSE BelcorpBolivia
 go
 
 if not exists (select 1 from Permiso where Codigo = 'RevistaDigital')
@@ -10,7 +10,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -35,7 +35,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -62,7 +62,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -87,7 +87,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -114,7 +114,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -139,7 +139,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -166,7 +166,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -191,7 +191,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -218,7 +218,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -243,7 +243,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -270,7 +270,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -295,7 +295,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -322,7 +322,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -347,7 +347,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -374,7 +374,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -399,7 +399,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -426,7 +426,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -451,7 +451,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -478,7 +478,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -503,7 +503,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -530,7 +530,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -555,7 +555,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -582,7 +582,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -607,7 +607,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 
@@ -634,7 +634,7 @@ begin
 	(PermisoID,Descripcion,IdPadre,OrdenItem,UrlItem,PaginaNueva,Posicion,UrlImagen,EsSoloImagen,
 	EsMenuEspecial,EsServicios,EsPrincipal,Codigo)
 	values
-	(@PermisoID+1,'…SIKA PARA MÕ',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
+	(@PermisoID+1,'√âSIKA PARA M√ç',0,7,'RevistaDigital/Index',0,'Header','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',1,
 	0,0,1,'RevistaDigital')
 
 	insert into RolPermiso (RolID,PermisoID,Activo,Mostrar)
@@ -659,7 +659,7 @@ begin
 	insert into MenuMobile 
 	(MenuMobileID,Descripcion,MenuPadreID,OrdenItem,UrlItem,UrlImagen,PaginaNueva,Posicion,Version,EsSB2,Codigo)
 	values
-	(@MenuMobileID+1,'…SIKA PARA MÕ',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
+	(@MenuMobileID+1,'√âSIKA PARA M√ç',0,0,'Mobile/RevistaDigital','http://s3.amazonaws.com/consultorasPRD/SomosBelcorp/Menu/MenuEsikaParaMi.gif',
 	0,'Menu','Mobile',1,'RevistaDigital')
 end
 

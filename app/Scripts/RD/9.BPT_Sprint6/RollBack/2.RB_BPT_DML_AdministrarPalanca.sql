@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 go
 
 if exists (select * from TablaLogicaDatos where TablaLogicaID in 

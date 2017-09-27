@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 if exists (select 1 from ConfiguracionPais where Codigo = 'RDS')
@@ -123,7 +123,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -409,7 +409,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -695,7 +695,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -981,7 +981,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1267,7 +1267,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1553,7 +1553,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1839,7 +1839,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2125,7 +2125,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2411,7 +2411,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2697,7 +2697,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2983,7 +2983,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -3243,7 +3243,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -3515,7 +3515,7 @@ end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,3,'#',1)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go

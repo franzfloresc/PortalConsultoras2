@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 go
 
 if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
