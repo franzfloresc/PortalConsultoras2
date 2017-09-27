@@ -3516,6 +3516,14 @@
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBannerTop.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\Index.cshtml" />
     <Content Include="Areas\Mobile\Views\OfertaDelDia\_OfertaDelDiaBanner.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPostulante.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueMensajesPedido.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoomTop.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloqueBannerShowRoom.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\vp_BloquePopupMensajesInformacion.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupComunidad.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupSesionFinalizada.cshtml" />
+    <Content Include="Areas\Mobile\Views\Shared\VistaParcialMobileLayout\_vpBloquePopupPostulante.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>
