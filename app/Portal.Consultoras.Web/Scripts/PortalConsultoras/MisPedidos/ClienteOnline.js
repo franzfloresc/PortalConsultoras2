@@ -35,9 +35,9 @@ function CargarEventosClienteOnline() {
                 }
                 else $('#divTablaClientesOnline').html(data.message);
             },
-            error: function (data) {
+            error: function (data, error) {
                 $('#divTablaClientesOnline').html('Hubieron problemas de conexion al intentar cargar los pedidos de Consultora Online, inténtelo más tarde.');
-                console.log(data);
+                console.log(data, error);
             },
             complete: closeWaitingDialog
         });
@@ -96,9 +96,9 @@ function CargarDetallleClienteOnline(solicitudClienteId, marcaId, nombre, direcc
             solicitudClienteIdActual = solicitudClienteId;
             marcaIdActual = marcaId;
         },
-        error: function (data) {
+        error: function (data, error) {
             alert_msg('Hubieron problemas de conexion al intentar cargar los datos del pedido de Consultora Online, inténtelo más tarde.');
-            console.log(data);
+            console.log(data, error);
         },
         complete: closeWaitingDialog
     });    
@@ -148,9 +148,9 @@ function CancelarSolicitud() {
                     marcaIdActual = 0;
                     ActualizarGanancia(data.dataBarra);
                 },
-                error: function (data) {
+                error: function (data, error) {
                     MensajeErrorCancelado('Hubieron problemas de conexion al intentar cancelar su solicitud, inténtelo más tarde.');
-                    console.log(data);
+                    console.log(data, error);
                 },
                 complete: closeWaitingDialog
             });

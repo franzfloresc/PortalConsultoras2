@@ -148,7 +148,7 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
             ViewBag.EstadoSucripcionRDAnterior1 = userData.RevistaDigital.SuscripcionAnterior1Model.EstadoRegistro;
             ViewBag.EstadoSucripcionRDAnterior2 = userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro;
             ViewBag.NumeroCampania = userData.CampaniaID % 100;
-            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;            
+            ViewBag.NumeroCampaniaMasUno = AddCampaniaAndNumero(Convert.ToInt32(userData.CampaniaID), 1) % 100;
             #region EventoFestivo
             if (userData.EfRutaPedido == null || userData.EfRutaPedido == "")
             {

@@ -1735,8 +1735,9 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampaniaMasUno</b>?</div>
                 <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
-                    <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
+                        <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                     </a>
                 </div>
             </div>
@@ -1759,7 +1760,8 @@
             <div class="banner_pedido_masofertas" style="padding-bottom:0;">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, ¿YA VISTE TUS <b>OFERTAS PERSONALIZADAS DE CAMPAÑA @ViewBag.NumeroCampania</b>?</div>
                 <div class="btn_diagonal btn_stroke" style="position:relative; left: 0; margin-left: 0; margin: auto !important; width:80%;">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
                         <img class="rd_arrowright"  src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                         <img class="rd_arrowright_blanco" src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright_blanco.png")">
                     </a>
@@ -1784,7 +1786,8 @@
             <div class="banner_pedido_masofertas">
                 <div class="banner_pedido_text">@ViewBag.NombreConsultora, CONOCE LAS OFERTAS CON HASTA 65% DE DESCUENTO</div>
                 <div class="btn_diagonal btn_stroke">
-                    <a href="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">VER TODAS MIS OFERTAS
+                    <a href="javascript:RedireccionarContenedorComprar(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion, '@Constantes.ConfiguracionPais.RevistaDigital')">
+                        VER TODAS MIS OFERTAS
                         <img src="@Url.Content("~/Content/Images/RevistaDigital/rd_arrowright.png")">
                     </a>
                 </div>
@@ -1826,7 +1829,8 @@ else if (ViewBag.TieneRDR)
                 <div class="contenedor_carousel_productos content_carrusel_agregado slider center" id="divListadoEstrategia">
                 </div>
             </div>
-            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">
+            <div class="boxoffer boxOfferPedido" style="cursor: pointer;" 
+                 onclick="javascript:RedirectToLandingRD(@Constantes.OrigenPedidoWeb.RevistaDigitalDesktopPedidoSeccion)">
                 <div class="fondo_boton"></div>
                 <span class="texto_boton">VER M&Aacute;S OFERTAS PARA M&Iacute;</span>
             </div>
@@ -2138,7 +2142,7 @@ else
     
     <div class="content_regalo_sorpresa" id="container-of-regalo" style="display: none;" data-popup-body="">
         <div class="icono_regalo_sorpresa"></div>
-        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR DÍA DE LA MADRE!</div>
+        <div class="titulo_regalo_sorpresa" id="of-regalo-msg1" style="display: none;"><b>¡GANA ESTE PREMIO*</b> EXCLUSIVO SÓLO POR FIESTAS PATRIAS!</div>
         <div class="titulo_regalo_2" id="of-regalo-msg2" style="display: none;">FELICIDADES @ViewBag.NombreConsultora <br /><span class="font_32">¡GANASTE!</span></div>
         <div class="titulo_regalo_2" id="of-regalo-msg3" style="display: none;">¡FELICIDADES @ViewBag.NombreConsultora <span class="bold_900">ESTE PREMIO YA ES TUYO!</span></div>
         <div class="fondo_blanco_regalo">
@@ -2407,7 +2411,7 @@ else
         var urlMisPedidosClienteOnline = '@Url.Action("", "MisPedidos")';
         var indicadorFlexiPago = '@Model.IndicadorFlexiPago';
         var urlPedido = '@Url.Action("Index", "Pedido")';
-        var urlRevistaDigital = '@Url.Action("Index", "RevistaDigital")';
+        var urlRevistaDigital = '@Url.Action("Comprar", "RevistaDigital")';
         var cuvOfertaProl = '@ViewBag.CUVOfertaProl';
         if (isEsika) var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.EsikaWeb';
         else var mensajeCUVOfertaEspecial = '@Constantes.MensajeEstaEnRevista.LbelWeb';

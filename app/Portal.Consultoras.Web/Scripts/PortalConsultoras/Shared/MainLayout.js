@@ -325,10 +325,18 @@ function messageInfoError(message, titulo, fnAceptar) {
 function CargarResumenCampaniaHeader(showPopup) {
     showPopup = showPopup || false;
 
+    var soloCantidad = true;
+    if (typeof controllerName == "undefined") {
+        soloCantidad = false;
+    }
+    else {
+        soloCantidad =  controllerName == 'pedido';
+    }
+
     $.ajax({
         type: 'POST',
         url: baseUrl + 'GestionContenido/GetResumenCampania',
-        data: JSON.stringify({ soloCantidad : controllerName == 'pedido'}),
+        data: JSON.stringify({ soloCantidad: soloCantidad }),
         cache: false,
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -800,7 +808,7 @@ function MostrarShowRoomBannerLateral() {
     });
 
     if (viewBagRol == 1) {
-        if (sesionEsShowRoom == '0') {
+        if (!sesionEsShowRoom) {
             return;
         }
         $.ajax({
