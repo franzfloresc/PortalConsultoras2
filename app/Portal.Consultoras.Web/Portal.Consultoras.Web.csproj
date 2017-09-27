@@ -3455,6 +3455,7 @@
     <Content Include="Areas\Mobile\Views\Bienvenida\template-bpt-seccion.cshtml" />
     <Content Include="Areas\Mobile\Views\EstrategiaPersonalizada\template-producto-landing.cshtml" />
     <Content Include="Areas\Mobile\Views\MisDatos\Index.cshtml" />
+    <Content Include="Areas\Mobile\Views\SeguimientoPedido\Detalle.cshtml" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.wsdl" />
     <None Include="Service References\ServiceAsesoraOnline\AsesoraOnlineService.xsd">
       <SubType>Designer</SubType>

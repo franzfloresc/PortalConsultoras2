@@ -21,8 +21,25 @@
         } }
     &nbsp;&nbsp;&nbsp;&nbsp;SEGUIMIENTO A TU PEDIDO
 </div>
-<div class="pestana_esika"></div>
-<div class="pestana_lbel"></div>
+<div class="fondo_f2f2f2">
+    <div class="pestana_esika"></div><!--PESTANA ESIKA-->
+    <div class="pestana_lbel"></div><!--PESTANA LBEL-->
+    <div class="tabs-link tab-primary upper">
+        @for (int i = 0; i < 3; i++)
+        {
+            <a id="tab_@i" href="javascript:;" class="mytab @( i == 0 ? "active" : "")" style="width: @(100.00 / 3)%">
+                CAMPAÑA
+                <br />
+                <b>@(15-i)</b>
+                2017
+            </a>
+            <input id="htab_@i" type="hidden" value="2017@(15-i)" />
+        }
+    </div>
+</div>
+@*<div class="pestana_esika"></div>
+<div class="pestana_lbel"></div>*@
+
 <div class="wrapper_resumen_mobile">
     @if (ViewBag.MensajeError == null)
     {
