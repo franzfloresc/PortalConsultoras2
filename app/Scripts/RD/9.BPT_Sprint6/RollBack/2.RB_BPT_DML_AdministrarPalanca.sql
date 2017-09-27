@@ -1,4 +1,4 @@
-USE BelcorpPeru
+﻿USE BelcorpPeru
 go
 
 if exists (select * from TablaLogicaDatos where TablaLogicaID in 
@@ -19,10 +19,9 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
+	DECLARE @PermisoID INT = 0
 	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
@@ -52,11 +51,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -85,11 +83,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -118,11 +115,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -151,11 +147,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -184,11 +179,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -217,11 +211,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -250,11 +243,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -283,11 +275,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -316,11 +307,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -349,11 +339,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -382,11 +371,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
@@ -415,11 +403,10 @@ end
 
 go
 
-DECLARE @PermisoID INT = 0
-
 if exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
-	select @PermisoID = PermisoID where Descripcion = 'Configurar Palanca'
+	DECLARE @PermisoID INT = 0
+	select @PermisoID = PermisoID from Permiso where Descripcion = 'Configurar Palanca'
 
 	delete from RolPermiso where PermisoID=@PermisoID
 	delete from Permiso where PermisoID=@PermisoID
