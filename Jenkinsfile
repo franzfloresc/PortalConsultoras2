@@ -2,7 +2,7 @@ node {
     try {    
         ws("workspace/${env.JOB_NAME}") {
             stage('Start') {
-                notify('Job started')
+                notifyBuild('STARTED')
             }
             stage('Clean') {
                 step([$class: 'WsCleanup'])
@@ -26,61 +26,69 @@ node {
                     }
                 }
             }
-            stage('Mail') {
-                currentBuild.result = 'SUCCESS'
-                emailLog()
-            }
-           stage('Finish') {
-                notify('Job finished')
+            stage('Linting') {
+                bat "yarn install"
+                try {
+                    bat "npm run jslint"
+                } 
+                catch(error) {
+                    def patternHtml = "**/results/*-lint.html"
+                    archiveArtifacts "${patternHtml}"
+                    throw error
+                }
             }
         }
     }
     catch(error) {
         currentBuild.result = 'FAILURE'
-        notify(error)
-        emailLog()
+    }
+    stage('Finish') {
+        notifyBuild(currentBuild.result)
     }
 }
 
-def notify(status) {
-    def to = ""
-    def subject = "${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
-    def blueOceanBuildUrl = "${env.RUN_DISPLAY_URL}"
-    def summary = "${subject} (${blueOceanBuildUrl})"
-    def details = """<p>${status}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-        <p>Check console output at <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""
+def notifyBuild(String buildStatus = 'STARTED') {
+    // default build status in case is not passed as parameter
+    buildStatus = buildStatus ?: 'SUCCESS'
 
+    // variables and constants
+    def colorName = 'RED'
+    def colorCode = '#FF0000'
+    def from = 'jenkins@belcorp.biz'
+    def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def summary = "${subject} (${env.RUN_DISPLAY_URL})"
+    def details = """<p>${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+        <p>Check console output at <a href='${env.RUN_DISPLAY_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>"""
+
+    // override default values based on build status
+    if (buildStatus == 'STARTED') {
+        color = 'YELLOW'
+        colorCode = '#FFFF00'
+    } else if (buildStatus == 'SUCCESS') {
+        color = 'GREEN'
+        colorCode = '#00FF00'
+    } else {
+        color = 'RED'
+        colorCode = '#FF0000'
+    }
+
+    // send notifications
     slackSend (
+        color: colorCode,
         message: summary,
         channel: '#jenkins',
         teamDomain: 'arquitectura-td',
-        tokenCredentialId: 'arquitecturatd_slack_credentials'
-    )
-}
-
-def emailLog() {
-    email(
-        "ldiego@belcorp.biz, jdongo@belcorp.biz, carloshurtado@belcorp.biz, elazaro@belcorp.biz",
-        "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} - ${currentBuild.result}!",
-        '${JELLY_SCRIPT,template="log"}'
-    )
-}
-
-def email(to, subject, template) {
-    try {
-        def from = "belcorpdev@gmail.com"
-        def mimeType = "text/html"
-        def attachLog = true
-        def compressLog = true
-
-       emailext from: from,
-                to: to,
-                subject: subject,
-                mimeType: mimeType,
-                body: template,
-                attachLog: attachLog,
-                compressLog: compressLog
-    } catch (err) {
-        echo "${err}"
+        tokenCredentialId: 'arquitecturatd_slack_credentials')
+    
+    // send email in case of failure
+    if (buildStatus == 'FAILURE') {
+        emailext(
+            from: from,
+            subject: subject,
+            body: '${JELLY_SCRIPT,template="log"}',
+            to: '$DEFAULT_RECIPIENTS',
+            attachLog: true,
+            compressLog: true
+        )
     }
 }
