@@ -41,7 +41,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -123,7 +123,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -205,7 +205,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -287,7 +287,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -369,7 +369,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -451,7 +451,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -533,7 +533,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -615,7 +615,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -697,7 +697,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -779,7 +779,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -861,7 +861,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -942,7 +942,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -1023,7 +1023,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso

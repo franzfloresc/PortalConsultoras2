@@ -1,25 +1,25 @@
 USE BelcorpBolivia
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -28,7 +28,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -40,25 +40,25 @@ go
 USE BelcorpChile
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -67,7 +67,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -79,25 +79,25 @@ go
 USE BelcorpColombia
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -106,7 +106,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -118,25 +118,25 @@ go
 USE BelcorpCostaRica
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -145,7 +145,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -157,25 +157,25 @@ go
 USE BelcorpDominicana
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -184,7 +184,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -196,25 +196,25 @@ go
 USE BelcorpEcuador
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -223,7 +223,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -235,25 +235,25 @@ go
 USE BelcorpGuatemala
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -262,7 +262,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -274,25 +274,25 @@ go
 USE BelcorpMexico
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -301,7 +301,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -313,25 +313,25 @@ go
 USE BelcorpPanama
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -340,7 +340,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -352,25 +352,25 @@ go
 USE BelcorpPeru
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -379,7 +379,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -391,25 +391,25 @@ go
 USE BelcorpPuertoRico
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -418,7 +418,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -430,25 +430,25 @@ go
 USE BelcorpSalvador
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -457,7 +457,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
@@ -469,25 +469,25 @@ go
 USE BelcorpVenezuela
 go
 
-if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasIntriga'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomIntriga'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
-	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenBannerContenedorOfertasVenta'
+	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Desktop' and Atributo='ImagenFondoContenedorOfertasShowRoomVenta'
 	and TipoPersonalizacion = 'EVENTO'
 end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasIntriga'
@@ -496,7 +496,7 @@ end
 
 go
 
-if not exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
+if exists (select 1 from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
 	and TipoPersonalizacion = 'EVENTO')
 begin
 	delete from ShowRoom.Personalizacion where TipoAplicacion = 'Mobile' and Atributo='ImagenBannerContenedorOfertasVenta'
