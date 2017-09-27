@@ -15,13 +15,13 @@ namespace Portal.Consultoras.Entities
     public class BEConfiguracionCampania
     {
         [Column("CampaniaID")]
-        private string campaniaID;
+        public string TempCampaniaId { get; set; }
 
         [Column("DiasAntes")]
-        private int diasAntes;
+        public int TempDiasAntes { get; set; }
 
         [Column("ZonaValida")]
-        private int zonaValida;
+        public int TempZonaValida { get; set; }
 
         [DataMember]
         public int CampaniaID
@@ -29,9 +29,9 @@ namespace Portal.Consultoras.Entities
             get
             {
                 int defaultCampania;
-                return int.TryParse(campaniaID, out defaultCampania) ? defaultCampania : 0;
+                return int.TryParse(TempCampaniaId, out defaultCampania) ? defaultCampania : 0;
             }
-            set { campaniaID = value.ToString(); }
+            set { TempCampaniaId = value.ToString(); }
         }
 
         [Column("FechaInicioFacturacion")]
@@ -59,15 +59,15 @@ namespace Portal.Consultoras.Entities
         {
             get
             {
-                return Convert.ToByte(diasAntes);
+                return Convert.ToByte(TempDiasAntes);
             }
-            set { diasAntes = Convert.ToInt32(value); }
+            set { TempDiasAntes = Convert.ToInt32(value); }
         }
 
         [DataMember]
         public bool ZonaValida
         {
-            get { return zonaValida == -1 ? false : true; }
+            get { return TempZonaValida == -1 ? false : true; }
         }
 
         [Column("HoraInicioNoFacturable")]
@@ -171,7 +171,7 @@ namespace Portal.Consultoras.Entities
             if (DataRecord.HasColumn(datarec, "DiasAntes") && datarec["DiasAntes"] != DBNull.Value)
                 DiasAntes = DbConvert.ToByte(datarec["DiasAntes"]);
             if (DataRecord.HasColumn(datarec, "ZonaValida") && datarec["ZonaValida"] != DBNull.Value)
-                zonaValida = Convert.ToInt32(datarec["ZonaValida"]);
+                TempZonaValida = Convert.ToInt32(datarec["ZonaValida"]);
             if (DataRecord.HasColumn(datarec, "HoraInicioNoFacturable") && datarec["HoraInicioNoFacturable"] != DBNull.Value)
                 HoraInicioNoFacturable = DbConvert.ToTimeSpan(datarec["HoraInicioNoFacturable"]);
             if (DataRecord.HasColumn(datarec, "HoraCierreNoFacturable") && datarec["HoraCierreNoFacturable"] != DBNull.Value)
