@@ -1,4 +1,4 @@
-USE BelcorpBolivia
+﻿USE BelcorpBolivia
 go
 
 delete from EventoFestivo WHERE Alcance = 'MENU_SOMOS_BELCORP'

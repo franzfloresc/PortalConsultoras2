@@ -1,4 +1,4 @@
-
+ï»¿
 USE BelcorpPeru
 GO
 
@@ -26,7 +26,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -41,7 +41,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -108,7 +108,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -123,7 +123,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -190,7 +190,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -205,7 +205,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -272,7 +272,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -287,7 +287,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -354,7 +354,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -369,7 +369,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -436,7 +436,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -451,7 +451,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -518,7 +518,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -533,7 +533,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -600,7 +600,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -615,7 +615,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -682,7 +682,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -697,7 +697,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -764,7 +764,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -779,7 +779,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -846,7 +846,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 
 end
@@ -861,7 +861,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -928,7 +928,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 end
 
@@ -942,7 +942,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso
@@ -1009,7 +1009,7 @@ INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo],
 VALUES (12005, 120, 5, 'Showroom')
 
 INSERT INTO [TablaLogicaDatos] ([TablaLogicaDatosID], [TablaLogicaID], [Codigo], [Descripcion])
-VALUES (12006, 120, 6, 'Oferta del día')
+VALUES (12006, 120, 6, 'Oferta del dÃ­a')
 
 end
 
@@ -1023,7 +1023,7 @@ DECLARE @OrdenItem INT
 if not exists (select 1 from Permiso where Descripcion = 'Configurar Palanca')
 begin
 
-	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso WHERE IDPadre = 111;
+	SELECT @PermisoID=MAX(PermisoID), @OrdenItem=MAX(OrdenItem) FROM Permiso
 	SELECT @PermisoID, @OrdenItem
 
 	INSERT INTO Permiso

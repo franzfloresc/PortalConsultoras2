@@ -1,4 +1,4 @@
-USE BelcorpPeru
+ï»¿USE BelcorpPeru
 GO
 
 if exists (select 1 from ConfiguracionPais where Codigo = 'RDS')
@@ -21,7 +21,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -34,7 +34,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -99,13 +99,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -115,15 +115,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -135,13 +135,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',5)
 end
 
 go
@@ -169,15 +169,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -208,8 +208,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -222,8 +222,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -236,8 +236,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -250,8 +250,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -264,8 +264,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -278,8 +278,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -307,7 +307,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -320,7 +320,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -385,13 +385,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -401,15 +401,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -421,13 +421,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -455,15 +455,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -494,8 +494,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -508,8 +508,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -522,8 +522,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -536,8 +536,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -550,8 +550,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -564,8 +564,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -593,7 +593,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -606,7 +606,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -671,13 +671,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -687,15 +687,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -707,13 +707,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -741,15 +741,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -780,8 +780,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -794,8 +794,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -808,8 +808,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -822,8 +822,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -836,8 +836,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -850,8 +850,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -879,7 +879,7 @@ begin
 		DesdeCampania = 201712,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -892,7 +892,7 @@ begin
 		DesdeCampania = 201712,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -957,13 +957,13 @@ begin
 		DesdeCampania = 201712,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201712,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201712,1,'ShowRoom',2)
 end
 
 go
@@ -972,16 +972,16 @@ if exists (select 1 from ConfiguracionPais where Codigo = 'ODD')
 begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
-		DesdeCampania = 201712,
-		Orden = 2,		
+		DesdeCampania = 201715,
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201712,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -993,13 +993,13 @@ begin
 		DesdeCampania = 201712,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201712,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201712,3,'#',5)
 end
 
 go
@@ -1026,16 +1026,16 @@ if exists (select 1 from ConfiguracionPais where Codigo = 'OPT')
 begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
-		DesdeCampania = 201712,		
-		Orden = 4,		
+		DesdeCampania = 201715,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201712,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201712,2,'#',3)
 end
 
 go
@@ -1066,8 +1066,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201712,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201712,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -1080,8 +1080,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201712,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201712,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -1094,8 +1094,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201712,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201712,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -1108,8 +1108,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201712,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201712,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1122,8 +1122,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201712,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201712,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1136,8 +1136,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201712,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201712,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -1165,7 +1165,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -1178,7 +1178,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -1243,13 +1243,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -1259,15 +1259,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1279,13 +1279,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -1313,15 +1313,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -1352,8 +1352,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -1366,8 +1366,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -1380,8 +1380,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -1394,8 +1394,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1408,8 +1408,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1422,8 +1422,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -1451,7 +1451,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -1464,7 +1464,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -1529,13 +1529,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -1545,15 +1545,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1565,13 +1565,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -1599,15 +1599,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -1638,8 +1638,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -1652,8 +1652,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -1666,8 +1666,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -1680,8 +1680,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1694,8 +1694,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1708,8 +1708,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -1737,7 +1737,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -1750,7 +1750,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -1815,13 +1815,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -1831,15 +1831,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -1851,13 +1851,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -1885,15 +1885,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -1924,8 +1924,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -1938,8 +1938,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -1952,8 +1952,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -1966,8 +1966,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1980,8 +1980,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -1994,8 +1994,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -2023,7 +2023,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -2036,7 +2036,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -2101,13 +2101,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -2117,15 +2117,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2137,13 +2137,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -2171,15 +2171,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -2210,8 +2210,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -2224,8 +2224,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -2238,8 +2238,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -2252,8 +2252,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2266,8 +2266,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2280,8 +2280,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -2309,7 +2309,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -2322,7 +2322,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -2387,13 +2387,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -2403,15 +2403,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2423,13 +2423,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -2457,15 +2457,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -2496,8 +2496,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -2510,8 +2510,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -2524,8 +2524,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -2538,8 +2538,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2552,8 +2552,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2566,8 +2566,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -2595,7 +2595,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -2608,7 +2608,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -2673,13 +2673,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -2689,15 +2689,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2709,13 +2709,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -2743,15 +2743,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -2782,8 +2782,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -2796,8 +2796,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -2810,8 +2810,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -2824,8 +2824,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2838,8 +2838,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -2852,8 +2852,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -2881,7 +2881,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -2894,7 +2894,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -2959,13 +2959,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -2975,15 +2975,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -2995,13 +2995,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -3029,15 +3029,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -3068,8 +3068,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -3082,8 +3082,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -3096,8 +3096,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -3110,8 +3110,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3124,8 +3124,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3138,8 +3138,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
@@ -3167,7 +3167,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -3180,7 +3180,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -3219,13 +3219,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -3235,15 +3235,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -3255,13 +3255,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',1,1,201715,3,'#',5)
 end
 
 go
@@ -3289,15 +3289,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -3328,8 +3328,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -3342,8 +3342,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -3356,8 +3356,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -3370,8 +3370,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3384,8 +3384,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3413,7 +3413,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RDR'
 end
 
@@ -3426,7 +3426,7 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 5,		
 		UrlMenu = 'RevistaDigital/Comprar',
-		OrdenBpt = 5
+		OrdenBpt = 6
 	where Codigo = 'RD'
 end
 
@@ -3491,13 +3491,13 @@ begin
 		DesdeCampania = 201715,		
 		Orden = 1,		
 		UrlMenu = 'ShowRoom',
-		OrdenBpt = 1
+		OrdenBpt = 2
 	where Codigo = 'SR'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)	
-	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',1)
+	values ('SR',1,'ShowRoom',1,1,201715,1,'ShowRoom',2)
 end
 
 go
@@ -3507,15 +3507,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,
-		Orden = 2,		
+		Orden = 3,		
 		UrlMenu = '#',
-		OrdenBpt = 3
+		OrdenBpt = 1
 	where Codigo = 'ODD'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('ODD',1,'Oferta del Día',1,1,201715,2,'#',3)
+	values ('ODD',1,'Oferta del DÃ­a',1,1,201715,3,'#',1)
 end
 
 go
@@ -3527,13 +3527,13 @@ begin
 		DesdeCampania = 201715,
 		Orden = 3,
 		UrlMenu = '#',
-		OrdenBpt = 4
+		OrdenBpt = 5
 	where Codigo = 'LAN'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',4)
+	values ('LAN',1,'Lanzamientos',0,1,201715,3,'#',5)
 end
 
 go
@@ -3561,15 +3561,15 @@ begin
 	update ConfiguracionPais set
 		TienePerfil = 1,
 		DesdeCampania = 201715,		
-		Orden = 4,		
+		Orden = 2,		
 		UrlMenu = '#',
-		OrdenBpt = 2
+		OrdenBpt = 3
 	where Codigo = 'OPT'
 end
 else
 begin
 	insert into ConfiguracionPais (Codigo,Excluyente,Descripcion,Estado,TienePerfil,DesdeCampania,Orden,UrlMenu,OrdenBpt)
-	values ('OPT',1,'Oferta Para Ti',1,1,201715,4,'#',2)
+	values ('OPT',1,'Oferta Para Ti',1,1,201715,2,'#',3)
 end
 
 go
@@ -3600,8 +3600,8 @@ begin
 	select top 1 @ConfiguracionPaisID_SR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'SR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_SR,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_SR,201715,1,1,null,null,1,1,null,2,2)
 end
 
 go
@@ -3614,8 +3614,8 @@ begin
 	select top 1 @ConfiguracionPaisID_ODD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'ODD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_ODD,201715,null,null,1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_ODD,201715,3,3,null,null,1,1,null,1,1)
 end
 
 go
@@ -3628,8 +3628,8 @@ begin
 	select top 1 @ConfiguracionPaisID_LAN = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'LAN'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_LAN,201715,'005','005',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_LAN,201715,4,4,'005','005',1,1,null,3,3)
 end
 
 go
@@ -3642,8 +3642,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RD = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RD'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RD,201715,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RD,201715,5,5,'001,007,008','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3656,8 +3656,8 @@ begin
 	select top 1 @ConfiguracionPaisID_RDR = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'RDR'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_RDR,201715,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar')
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_RDR,201715,5,5,'002,002,002,001,007,008,002','001,007,008',1,1,'RevistaDigital/Comprar',99,99)
 end
 
 go
@@ -3670,8 +3670,8 @@ begin
 	select top 1 @ConfiguracionPaisID_OPT = ConfiguracionPaisID from ConfiguracionPais where Codigo = 'OPT'
 
 	insert into ConfiguracionOfertasHome 
-	(ConfiguracionPaisiD,CampaniaID,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion)
-	values (@ConfiguracionPaisID_OPT,201715,'001','001',1,1,null)
+	(ConfiguracionPaisiD,CampaniaID,DesktopOrden,MobileOrden,DesktopTipoEstrategia,MobileTipoEstrategia,DesktopActivo,MobileActivo,UrlSeccion,DesktopOrdenBpt,MobileOrdenBPT)
+	values (@ConfiguracionPaisID_OPT,201715,2,2,'001','001',1,1,null,99,99)
 end
 
 go
