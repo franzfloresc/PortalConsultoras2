@@ -103,13 +103,13 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
-                    message = e.StackTrace,
+                    message = ex.StackTrace,
                 });
             }
         }
@@ -152,13 +152,13 @@ namespace Portal.Consultoras.Web.Controllers
                 };
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
-                    message = e.StackTrace,
+                    message = ex.StackTrace,
                 });
             }
         }
@@ -184,13 +184,13 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Se grabó con éxito.",
                 });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
-                    message = e.StackTrace,
+                    message = ex.StackTrace,
                 });
             }
         }
@@ -213,13 +213,13 @@ namespace Portal.Consultoras.Web.Controllers
                     message = "Se grabó con éxito.",
                 });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
+                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
                 return Json(new
                 {
                     success = false,
-                    message = e.StackTrace,
+                    message = ex.StackTrace,
                 });
             }
         }

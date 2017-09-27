@@ -19,7 +19,8 @@ var menuModule = (function () {
             aMenuActivo: "ul.subnavegador li a.activo",
             bcParaTiMenu: ".op_menu-horizontal ul li a",
             bcParaTiMenuActivo: ".op_menu-horizontal ul li a.activo",
-            mobContent: "#mob-content-layout"
+            mobContent: "#mob-content-layout",
+            menuMobHome: ".opcion_home_vistaOfertas"
         },
         anchorMark = "#",
         anchorValue,
@@ -39,7 +40,20 @@ var menuModule = (function () {
     function _getHeight(element) {
         return $(element).outerHeight(true);
     }
-
+    function _moverSubMenuContenedorOfertasMobile() {
+        if ($(elementos.menu2Ul).length) {
+            var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
+            var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
+            $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
+        }
+    }
+    function _changeLogoMobile() {
+        var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+        if (img !== "") {
+            img = img.replace("_hover.", "_normal.");
+            $(elementos.menuMobHome).find('img').attr("src", img);
+        }
+    }
     function init() {
         navbarHeight = _getHeight(elementos.header);
         seccionMenuMobileHeight = _getHeight(elementos.seccionBannerMobile);
@@ -64,7 +78,6 @@ var menuModule = (function () {
             }
         }
     }
-
     function setHover() {
         $(elementos.aHover).hover(function (e) {
             var img = $.trim($(this).find('.contenedorImagen img').attr("src"));
@@ -81,7 +94,6 @@ var menuModule = (function () {
                 }
             }
         });
-
         $(elementos.bcParaTiMenu).hover(function (e) {
             $(this).find('img.hover').css('display', 'inline');
             $(this).find('img.default').css('display', 'none');
@@ -94,7 +106,6 @@ var menuModule = (function () {
             }
         });
     }
-
     function hasScrolledMobile(st) {
         
         if (Math.abs(lastScrollTop - st) <= delta)
@@ -150,13 +161,14 @@ var menuModule = (function () {
             $(elementos.html).animate({
                 scrollTop: $(anchorMark + anchorValue).offset().top - menuHeight
                 },
-            1000);
+                1000);
+            _changeLogoMobile();
         }
     }
     function menuClick(e, url) {
         var objHtmlEvent = $(e);
         var esAncla = objHtmlEvent.data(tagIsAnchor);
-        var codigo = objHtmlEvent.data("codigo");
+        var codigo = objHtmlEvent.data("codigo") || "";
         var currentLocation = window.location.href.toLowerCase();
         var originLocation = window.location.origin;
 
@@ -164,6 +176,7 @@ var menuModule = (function () {
         objHtmlEvent.find("a").addClass(elementos.claseActivo);
         
         if (esAncla === "True") {
+            _changeLogoMobile();
             if (currentLocation.indexOf("/ofertasparati") > -1) {
                 var indexOf = currentLocation.replace("?", "&").indexOf("&campaniaid=");
                 var controller = "Ofertas#";
@@ -193,7 +206,14 @@ var menuModule = (function () {
         } else {
             url = $.trim(url);
             url = url[0] !== "/" ? "/" + url : url;
-
+            if (codigo.indexOf("INICIO" > -1)) {
+                var img = $.trim($(elementos.menuMobHome).find('img').attr("src"));
+                if (img !== "") {
+                    img = img.replace("_normal.", "_hover.");
+                    $(elementos.menuMobHome).find('img').attr("src", img);
+                }
+            }
+           
             if (window.location.pathname.toLowerCase() === url.toLowerCase()) {
                 return;
             }
@@ -216,14 +236,6 @@ var menuModule = (function () {
             });
         }
     }
-    function _moverSubMenuContenedorOfertasMobile() {
-        if ($(elementos.menu2Ul).length) {
-            var menuContendorActivo = $(elementos.menu2Ul + " li").find(".activo")[0];
-            var posicionMenu = $(menuContendorActivo).parent("li").attr("data-slick-index");
-            $(elementos.menu2Ul).slick('slickGoTo', parseInt(posicionMenu));
-        }
-    }
-
     return {
         init: init,
         setHover: setHover,

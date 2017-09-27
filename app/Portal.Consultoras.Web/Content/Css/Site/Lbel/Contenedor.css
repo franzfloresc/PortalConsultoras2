@@ -90,11 +90,11 @@
     height: 96px;
 }
 
-        .bc_menu_estrategia .op_menu-horizontal ul {
-            padding: 0;
-            margin: 0;
-            list-style: none;
-        }
+.bc_menu_estrategia .op_menu-horizontal ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
 
 .bc_menu_estrategia .op_menu-horizontal ul li {
     display: inline-block;
@@ -107,36 +107,36 @@
     text-decoration: none;
 }
 
-                .bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2) {
-                    border-left: 3px solid transparent;
-                    border-right: 3px solid transparent;
-                }
+.bc_menu_estrategia .op_menu-horizontal ul li:nth-child(2) {
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+}
 
-                .bc_menu_estrategia .op_menu-horizontal ul li a {
-                    display: block;
-                    background: rgba(255, 255, 255, 0.44);
-                    text-align: center;
-                    color: white;
-                    font-weight: bolder;
-                    font-size: 10px;
-                    letter-spacing: 2px;
-                    height: 36px;
-                    padding: 10px 0px;
-                    cursor: pointer;
-                    transition: .3s;
-                    text-transform: uppercase;
-                }
+.bc_menu_estrategia .op_menu-horizontal ul li a {
+    display: block;
+    background: rgba(255, 255, 255, 0.44);
+    text-align: center;
+    color: white;
+    font-weight: bolder;
+    font-size: 10px;
+    letter-spacing: 2px;
+    height: 36px;
+    padding: 10px 0px;
+    cursor: pointer;
+    transition: .3s;
+    text-transform: uppercase;
+}
 
-                    .bc_menu_estrategia .op_menu-horizontal ul li a:hover {
-                        background: white;
-                        color: #333;
-                        text-decoration: none;
-                    }
+.bc_menu_estrategia .op_menu-horizontal ul li a:hover {
+    background: white;
+    color: #333;
+    text-decoration: none;
+}
 
-                    .bc_menu_estrategia .op_menu-horizontal ul li a span {
-                        position: relative;
-                        top: 1px;
-                    }
+.bc_menu_estrategia .op_menu-horizontal ul li a span {
+    position: relative;
+    top: 1px;
+}
 
 .sin-active-menu1 {
     color: white !important;
@@ -156,9 +156,9 @@
     top: 2px;
 }
 
-    .bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
-        display: none;
-    }
+.bc_menu_estrategia .op_menu-horizontal ul li a img.hover {
+    display: none;
+}
 
 .op-menu-vertical ul {
     margin: 0;
@@ -358,43 +358,43 @@
     font-family: 'Lato';
     color: #b52e36;
 }
-    @media (max-width: 1100px) {
-        .bc_menu_estrategia .logo {
-            width: 13%;
-        }
-
-        .bc_menu_estrategia .texto-info {
-            width: 87%;
-        }
+@media (max-width: 1100px) {
+    .bc_menu_estrategia .logo {
+        width: 13%;
     }
 
-    @media (max-width: 950px) {
-        .bc_menu_estrategia .logo {
-            width: 15%;
-        }
+    .bc_menu_estrategia .texto-info {
+        width: 87%;
+    }
+}
 
-        .bc_menu_estrategia .texto-info {
-            width: 85%;
-        }
-
-            .bc_menu_estrategia .texto-info p {
-                font-size: 10px;
-            }
-
-            .bc_menu_estrategia .texto-info span {
-                font-size: 9px;
-            }
+@media (max-width: 950px) {
+    .bc_menu_estrategia .logo {
+        width: 15%;
     }
 
-    @media (max-width: 850px) {
-        .bc_menu_estrategia .logo {
-            width: 17%;
-        }
-
-        .bc_menu_estrategia .texto-info {
-            width: 83%;
-        }
+    .bc_menu_estrategia .texto-info {
+        width: 85%;
     }
+
+    .bc_menu_estrategia .texto-info p {
+        font-size: 10px;
+    }
+
+    .bc_menu_estrategia .texto-info span {
+        font-size: 9px;
+    }
+}
+
+@media (max-width: 850px) {
+    .bc_menu_estrategia .logo {
+        width: 17%;
+    }
+
+    .bc_menu_estrategia .texto-info {
+        width: 83%;
+    }
+}
 
 .bc_estrategia_contenido {
     min-height: 800px;
