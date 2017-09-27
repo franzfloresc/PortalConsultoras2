@@ -201,47 +201,6 @@ namespace Portal.Consultoras.Web.Controllers
         }
         
         [HttpPost]
-        public JsonResult GetProductoDetalle(int id, int campaniaId)
-        {
-            try
-            {
-                if (EsCampaniaFalsa(campaniaId))
-                {
-                    return Json(new
-                    {
-                        success = false,
-                        message = "",
-                        lista = new EstrategiaPedidoModel()
-                    });
-                }
-
-                var listaFinal1 = ConsultarEstrategiasModel("", campaniaId, Constantes.TipoEstrategiaCodigo.RevistaDigital);
-                var listaFinal = ConsultarEstrategiasFormatearModelo(listaFinal1);
-                var producto = listaFinal.FirstOrDefault(e => e.EstrategiaID == id) ?? new EstrategiaPersonalizadaProductoModel();
-
-                //producto.PuedeAgregar = 1;
-                producto.DescripcionMarca = IsMobile() ? "" : producto.DescripcionMarca;
-
-                return Json(new
-                {
-                    success = producto.EstrategiaID > 0,
-                    message = producto.EstrategiaID > 0 ? "Ok" : "Error al cargar el producto",
-                    lista = producto
-                });
-            }
-            catch (Exception ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesBus(ex, userData.CodigoConsultora, userData.CodigoISO);
-                return Json(new
-                {
-                    success = false,
-                    message = "Error al cargar el producto",
-                    data = ""
-                });
-            }
-        }
-
-        [HttpPost]
         public JsonResult Suscripcion()
         {
             try
