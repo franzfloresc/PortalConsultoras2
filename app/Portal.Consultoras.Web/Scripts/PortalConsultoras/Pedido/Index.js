@@ -3580,13 +3580,6 @@ function AjaxError(data) {
     if (checkTimeout(data)) AbrirMensaje(data.message);
 }
 
-function ArmarPopupPackNuevas(obj) {
-    return SetHandlebars("#packnuevas-template", obj);
-};
-function ArmarPopupLanzamiento(obj) {
-    return SetHandlebars("#lanzamiento-template", obj);
-};
-
 function HidePopupEstrategiasEspeciales() {
     $('#popupDetalleCarousel_lanzamiento').hide();
     $('#popupDetalleCarousel_packNuevas').hide();
