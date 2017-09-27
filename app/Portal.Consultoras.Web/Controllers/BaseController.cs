@@ -3182,7 +3182,7 @@ namespace Portal.Consultoras.Web.Controllers
                     result = "Lbel";
                     break;
                 case 2:
-                    result = "Esika";
+                    result = "Ésika";
                     break;
                 case 3:
                     result = "Cyzone";
