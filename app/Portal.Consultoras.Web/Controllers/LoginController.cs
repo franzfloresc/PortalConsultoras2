@@ -16,8 +16,10 @@ using System.Linq;
 using System.ServiceModel;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using System.Web.Security;
 using Portal.Consultoras.PublicService.Cryptography;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Controllers
 {
@@ -73,7 +75,7 @@ namespace Portal.Consultoras.Web.Controllers
 
                 AsignarViewBagPorIso(iso);
                 AsignarUrlRetorno(returnUrl);
-                
+
             }
             catch (FaultException ex)
             {
@@ -1644,6 +1646,22 @@ namespace Portal.Consultoras.Web.Controllers
         [AllowAnonymous]
         public ActionResult IngresoExterno(string token)
         {
+            //make it unique
+            var guid =  Guid.NewGuid().ToString("N");
+
+            if (!RouteData.Values.ContainsKey("guid"))
+            {
+                return RedirectToRoute("UniqueRoute",
+                     new RouteValueDictionary(new
+                     {
+                         Controller = "Login",
+                         Action = "IngresoExterno",
+                         guid = guid,
+                         token = token
+                     }));
+            }
+            guid = this.GetUniqueKey();
+
             IngresoExternoModel model = null;
             try
             {
@@ -1668,7 +1686,8 @@ namespace Portal.Consultoras.Web.Controllers
                     EsAppMobile = model.EsAppMobile
                 };
 
-                Session.Add("IngresoExterno", model.Version ?? "");
+                //Session.Add("IngresoExterno", model.Version ?? "");
+                this.SetUniqueSession("IngresoExterno", model.Version ?? "");
 
                 if (!string.IsNullOrEmpty(model.Identifier))
                 {
@@ -1678,32 +1697,33 @@ namespace Portal.Consultoras.Web.Controllers
                 switch (model.Pagina.ToUpper())
                 {
                     case Constantes.IngresoExternoPagina.EstadoCuenta:
-                        return RedirectToAction("Index", "EstadoCuenta", new { Area = "Mobile" });
+                        return RedirectToAction("Index", "EstadoCuenta", new { guid = guid, Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.SeguimientoPedido:
-                        return RedirectToAction("Index", "SeguimientoPedido", new { Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
+                        return RedirectToAction("Index", "SeguimientoPedido", new { guid = guid, Area = "Mobile", campania = model.Campania, numeroPedido = model.NumeroPedido });
                     case Constantes.IngresoExternoPagina.PedidoDetalle:
                         var listTrue = new List<string> { "1", bool.TrueString };
                         bool autoReservar = listTrue.Any(s => s.Equals(model.AutoReservar, StringComparison.OrdinalIgnoreCase));
-                        return RedirectToAction("Detalle", "Pedido", new { Area = "Mobile", autoReservar = autoReservar });
+                        return RedirectToAction("Detalle", "Pedido", new { guid = guid, Area = "Mobile", autoReservar = autoReservar });
                     case Constantes.IngresoExternoPagina.NotificacionesValidacionAuto:
-                        return RedirectToAction("ListarObservaciones", "Notificaciones", new { Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
+                        return RedirectToAction("ListarObservaciones", "Notificaciones", new { guid = guid, Area = "Mobile", ProcesoId = model.ProcesoId, TipoOrigen = 1 });
                     case Constantes.IngresoExternoPagina.Pedido:
-                        return RedirectToAction("Index", "Pedido", new { Area = "Mobile" });
+                        return RedirectToAction("Index", "Pedido", new { guid = guid, Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.CompartirCatalogo:
                         return RedirectToAction("CompartirEnChatBot", "Compartir",
                             new
                             {
+                                guid = guid,
                                 Area = "Mobile",
                                 campania = model.Campania,
                                 tipoCatalogo = model.TipoCatalogo,
                                 url = model.UrlCatalogo
                             });
                     case Constantes.IngresoExternoPagina.MisPedidos:
-                        return RedirectToAction("Index", "MisPedidos", new { Area = "Mobile" });
+                        return RedirectToAction("Index", "MisPedidos", new { guid = guid, Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.ShowRoom:
-                        return RedirectToAction("Procesar", "ShowRoom", new { Area = "Mobile" });
+                        return RedirectToAction("Procesar", "ShowRoom", new { guid = guid, Area = "Mobile" });
                     case Constantes.IngresoExternoPagina.ProductosAgotados:
-                        return RedirectToAction("Index", "ProductosAgotados", new { Area = "Mobile" });
+                        return RedirectToAction("Index", "ProductosAgotados", new { guid = guid, Area = "Mobile" });
                 }
             }
             catch (Exception ex)

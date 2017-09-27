@@ -8,7 +8,8 @@ using Portal.Consultoras.Web.Controllers;
 using Portal.Consultoras.Web.Models;
 using Portal.Consultoras.Web.Areas.Mobile.Models;
 using System.Configuration;
-
+using System.Web;
+using System.Web.Routing;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
 using AutoMapper;
@@ -20,6 +21,29 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
+
+            //como no perder el guid?
+            if (!Request.IsAjaxRequest())
+            {
+                //filterContext.HttpContext.Request.QueryString["guid"] != null &&
+                if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
+                {
+                    var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get("guid");
+                    if (!string.IsNullOrEmpty(guid) && !RouteData.Values.ContainsKey("guid"))
+                    {
+                        RouteData.Values.Add("guid", guid);
+
+                        //todo:compltar
+                        //if (RouteData.DataTokens["area"] != null)
+                        //{
+                        //    RouteData.Values.Add("area", RouteData.DataTokens["area"]);
+                        //}
+
+                        RedirectToRoute("GuidRoute", RouteData.Values);
+                        return;
+                    }
+                }
+            }
 
             if (Session["UserData"] == null) return;
 
