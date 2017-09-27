@@ -284,36 +284,6 @@ namespace Portal.Consultoras.Web.Controllers
                 }
 
                 #region Validar Tipo
-                //if (userData.RevistaDigital.TieneRDR)
-                //{
-                //    listModel = listModel.Where(e => e.TipoEstrategia.Codigo != Constantes.TipoEstrategiaCodigo.Lanzamiento).ToList() ?? new List<BEEstrategia>();
-                //    var top = listModel.Count();
-
-                //    top = Math.Min(top, 4);
-
-                //    if (top <= 0)
-                //    {
-                //        Session[Constantes.SessionNames.ListaEstrategia] = listModel;
-                //        return new List<EstrategiaPedidoModel>();
-                //    }
-
-                //    var estrategiaPackNuevas = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.PackNuevas) ?? new BEEstrategia();
-                //    var listaDemas = listModel.Where(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.OfertasParaMi).ToList() ?? new List<BEEstrategia>();
-
-                //    listModel = new List<BEEstrategia>();
-                //    if (estrategiaPackNuevas.EstrategiaID > 0)
-                //    {
-                //        top--;
-                //        listModel.Add(estrategiaPackNuevas);
-                //    }
-
-                //    if (listaDemas.Count() > top)
-                //        listaDemas.RemoveRange(top, listaDemas.Count() - top);
-                    
-                //    listModel.AddRange(listaDemas);
-                //    Session[Constantes.SessionNames.ListaEstrategia] = listModel;
-                //}
-                //else 
                 if (userData.RevistaDigital.TieneRDR || (userData.RevistaDigital.TieneRDC && userData.RevistaDigital.SuscripcionAnterior2Model.EstadoRegistro == 1))
                 {
                     var estrategiaLanzamiento = listModel.FirstOrDefault(e => e.TipoEstrategia.Codigo == Constantes.TipoEstrategiaCodigo.Lanzamiento) ?? new BEEstrategia();
@@ -353,13 +323,6 @@ namespace Portal.Consultoras.Web.Controllers
 
             }
             var listaProductoModel = ConsultarEstrategiasModelFormato(listModel);
-            //if (IsMobile() && listaProductoModel.Any())
-            //{
-            //    if (userData.RevistaDigital.TieneRDR )
-            //    {
-            //        listaProductoModel = listaProductoModel.Take(1).ToList();
-            //    }
-            //}
             return listaProductoModel;
         }
 

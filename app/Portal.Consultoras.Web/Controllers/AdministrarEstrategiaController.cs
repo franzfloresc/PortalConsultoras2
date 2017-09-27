@@ -1079,52 +1079,7 @@ namespace Portal.Consultoras.Web.Controllers
             }
             SetUserData(usuario);
         }
-
-        public string GetDescripcionMarca(int MarcaID)
-        {
-            string result = string.Empty;
-
-            switch (MarcaID)
-            {
-                case 1:
-                    result = "L'Bel";
-                    break;
-                case 2:
-                    result = "Ésika";
-                    break;
-                case 3:
-                    result = "Cyzone";
-                    break;
-                case 6:
-                    result = "Finart";
-                    break;
-            }
-
-            return result;
-        }
-
-        [HttpPost]
-        public List<BEEstrategia> ConsultarEstrategias()
-        {
-            List<BEEstrategia> lst;
-
-            var entidad = new BEEstrategia();
-            entidad.PaisID = userData.PaisID;
-            entidad.CampaniaID = userData.CampaniaID;
-            entidad.ConsultoraID = userData.ConsultoraID.ToString();
-            entidad.CUV2 = "";
-            entidad.Zona = userData.ZonaID.ToString();
-            entidad.ZonaHoraria = userData.ZonaHoraria;
-            entidad.FechaInicioFacturacion = userData.FechaFinCampania;
-
-            using (var sv = new PedidoServiceClient())
-            {
-                lst = sv.GetEstrategiasPedido(entidad).ToList();
-            }
-            
-            return lst;
-        }
-
+        
         [HttpPost]
         public JsonResult InsertEstrategiaPortal(PedidoDetalleModel model)
         {
@@ -1235,48 +1190,6 @@ namespace Portal.Consultoras.Web.Controllers
                     extra = ""
                 });
             }
-        }
-
-        public ActionResult EstrategiasAll()
-        {
-            try
-            {
-                //if (!UsuarioModel.HasAcces(ViewBag.Permiso, "AdministrarEstrategia/EstrategiasAll"))
-                //    return RedirectToAction("Index", "Bienvenida");
-
-                ViewBag.CampaniaID = UserData().CampaniaID.ToString();
-                ViewBag.ISO = UserData().CodigoISO.ToString();
-                ViewBag.Simbolo = UserData().Simbolo.ToString().Trim();
-                ViewBag.PaisID = UserData().PaisID.ToString().Trim();
-                BEConfiguracionCampania oBEConfiguracionCampania = null;
-                using (PedidoServiceClient sv = new PedidoServiceClient())
-                {
-                    oBEConfiguracionCampania = sv.GetEstadoPedido(UserData().PaisID, UserData().CampaniaID, UserData().ConsultoraID, UserData().ZonaID, UserData().RegionID);
-
-                }
-                if (oBEConfiguracionCampania != null)
-                    ValidarStatusCampania(oBEConfiguracionCampania);
-
-                List<BEEstrategia> lista = ConsultarEstrategias();
-
-                foreach (var item in lista)
-                {
-                    var entidad = new BEEstrategia();
-                    entidad.PaisID = UserData().PaisID;
-                    entidad.EstrategiaID = item.EstrategiaID;
-                    using (PedidoServiceClient sv = new PedidoServiceClient())
-                    {
-                        item.TallaColor = sv.FiltrarEstrategiaPedido(entidad).ToList()[0].TallaColor;
-                    }
-                }
-
-                ViewBag.ListaEstrategias = lista;
-            }
-            catch (FaultException ex)
-            {
-                LogManager.LogManager.LogErrorWebServicesPortal(ex, UserData().CodigoConsultora, UserData().CodigoISO);
-            }
-            return View();
         }
 
         public ActionResult ConsultarOfertasParaTi(string sidx, string sord, int page, int rows, string CampaniaID, int EstrategiaID)
