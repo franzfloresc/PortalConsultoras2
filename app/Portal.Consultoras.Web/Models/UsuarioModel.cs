@@ -76,6 +76,7 @@ namespace Portal.Consultoras.Web.Models
             this.EsLebel = false;
             this.TieneCDRExpress = false;
             this.PopupBienvenidaCerrado = false;
+            this.ConfiguracionPais = new List<ConfiguracionPaisModel>();
         }
 
         public string Celular { get; set; }
@@ -384,5 +385,7 @@ namespace Portal.Consultoras.Web.Models
         public List<EventoFestivoModel> ListaEventoFestivo { get; set; } 
         public string EfRutaPedido { get; set; }
         public string EfSaludo { get; set; }
+
+        public List<EventoFestivoModel> ListaGifMenuContenedorOfertas{ get; set; }
     }
 }

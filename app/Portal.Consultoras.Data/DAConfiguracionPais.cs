@@ -43,18 +43,22 @@ namespace Portal.Consultoras.Data
             DbCommand command = Context.Database.GetStoredProcCommand("dbo.ConfiguracionPaisUpdate");
             Context.Database.AddInParameter(command, "ConfiguracionPaisID", DbType.Int32, entity.ConfiguracionPaisID);
             Context.Database.AddInParameter(command, "Excluyente", DbType.Boolean, entity.Excluyente);
-            Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
+            //Context.Database.AddInParameter(command, "Descripcion", DbType.String, entity.Descripcion);
             Context.Database.AddInParameter(command, "Estado", DbType.Boolean, entity.Estado);
             Context.Database.AddInParameter(command, "DesdeCampania", DbType.Int32, entity.DesdeCampania);
             Context.Database.AddInParameter(command, "MobileTituloMenu", DbType.String, entity.MobileTituloMenu);
             Context.Database.AddInParameter(command, "DesktopTituloMenu", DbType.String, entity.DesktopTituloMenu);
             Context.Database.AddInParameter(command, "Logo", DbType.String, entity.Logo);
-            Context.Database.AddInParameter(command, "Color", DbType.String, entity.Color);
             Context.Database.AddInParameter(command, "Orden", DbType.Int32, entity.Orden);
             Context.Database.AddInParameter(command, "DesktopTituloBanner", DbType.String, entity.DesktopTituloBanner);
             Context.Database.AddInParameter(command, "MobileTituloBanner", DbType.String, entity.MobileTituloBanner);
             Context.Database.AddInParameter(command, "DesktopSubTituloBanner", DbType.String, entity.DesktopSubTituloBanner);
             Context.Database.AddInParameter(command, "MobileSubTituloBanner", DbType.String, entity.MobileSubTituloBanner);
+            Context.Database.AddInParameter(command, "DesktopFondoBanner", DbType.String, entity.DesktopFondoBanner);
+            Context.Database.AddInParameter(command, "MobileFondoBanner", DbType.String, entity.MobileFondoBanner);
+            Context.Database.AddInParameter(command, "DesktopLogoBanner", DbType.String, entity.DesktopLogoBanner);
+            Context.Database.AddInParameter(command, "MobileLogoBanner", DbType.String, entity.MobileLogoBanner);
+            Context.Database.AddInParameter(command, "UrlMenu", DbType.String, entity.UrlMenu);
             return Context.ExecuteReader(command);
         }
     }

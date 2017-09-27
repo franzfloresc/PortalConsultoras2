@@ -1,7 +1,9 @@
 ﻿@{
     ViewBag.Title = "Index";
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
-    Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    //var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    //Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+
+    Layout = "~/Areas/Mobile/Views/Shared/_MobileLayoutContenedor.cshtml";
 }
 
 @using Newtonsoft.Json
@@ -21,14 +23,15 @@
     <link href="~/Content/Css/Mobile/esika/bootstrap-slider.min.css" rel="stylesheet" />
 }
 <!--  MAQUETADO NUEVO-->
-<div class="content_banner_header_showroom">
+@*<div class="content_banner_header_showroom">*@
     @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
-        if (mobileConfiguracion.MostrarBotonAtras)
+        @*if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar ingresoP" title="Regresar" style="top:26%;"></a>
-        } }
-    <img src="@ViewBag.BannerImagenVenta" />
-</div>
+        }*@ 
+    }
+    @*<img src="@ViewBag.BannerImagenVenta" />*@
+@*</div>*@
 <div class="wrapper_resumen_mobile">
     <div id="orderby-filter">
         <div id="content-orderby" style="margin-top: 15px;">
@@ -96,8 +99,8 @@
                                     </div>
                                 </div>
                             </div>
-                                                    }
-                                                }
+                        }
+                    }
 
                     <div class="content_panel">
                         <div class="titulo_filtro">

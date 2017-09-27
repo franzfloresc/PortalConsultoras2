@@ -7,14 +7,14 @@ function LocalStorageListado(key, valor, accion) {
 
     if (accion == 0) {
         if (valor != undefined) {
-            localStorage.setItem(key, valor);
+            localStorage.setItem(key, JSON.stringify(valor));
         }
     }
     else if (accion == 1) {
         return localStorage.getItem(key);
     }
 
-    if (accion == 3) {
+    if (accion == 2) {
         localStorage.removeItem(key);
     }
 }
@@ -22,7 +22,14 @@ function LocalStorageListado(key, valor, accion) {
 function GetProductoStorage(cuv, campania) {
     var sl = LocalStorageListado(lsListaRD + campania, '', 1);
     if (sl == null || sl == undefined) {
-        var model = EstrategiaCargarCuv(cuv);
+
+        var model = $("[data-item-cuv=" + cuv + "]").find("[data-estrategia]").attr("data-estrategia");
+        if (model == undefined || model.length === 0) {
+            model = $("[data-item-cuv=" + cuv + "]").attr("data-estrategia");
+        }
+        if (model == undefined) return model;
+        
+        model = JSON.parse(model);
         if (model != null) return model;
         else return null;
     }

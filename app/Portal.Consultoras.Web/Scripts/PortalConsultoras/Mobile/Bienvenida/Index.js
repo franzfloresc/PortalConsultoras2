@@ -135,7 +135,7 @@ function CrearPopShow() {
 
 function MostrarShowRoom() {
     
-    if (sesionEsShowRoom == '0') {
+    if (!sesionEsShowRoom) {
         return;
     }
     $.ajax({
@@ -528,6 +528,7 @@ var ComunicadoId = 0;
 function ObtenerComunicadosPopup() {
     if (primeraVezSession == 0) return;
 
+
     $(".contenedor_popup_comunicado").click(function (e) {
         grabarComunicadoPopup();
     });
@@ -614,9 +615,9 @@ function ObtenerComunicadosPopup() {
         contentType: 'application/json',
         success: function (response) {
             CloseLoading();
+
             if (checkTimeout(response)) {
-                if (response.success) armarComunicadosPopup(response.extra);
-                else alert(response.message);
+                armarComunicadosPopup(response.data)
             }
         },
         error: function (data, error) {
@@ -625,21 +626,18 @@ function ObtenerComunicadosPopup() {
     });
 }
 
-function armarComunicadosPopup(response){
-    if (response == null) return;
+function armarComunicadosPopup(comunicado){
+    if (comunicado == null)
+        return;
 
-    ComunicadoId = response.ComunicadoId;
-
-    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(response.ComunicadoId);
+    $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").val(comunicado.ComunicadoId);
     $(".popup_comunicado .pie_popup_comunicado input[type='checkbox']").prop('checked', false);
-    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", response.DescripcionAccion);
+    $(".popup_comunicado .detalle_popup_comunicado").attr("urlAccion", comunicado.DescripcionAccion);
 
-    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + response.UrlImagen + ")");
+    $(".popup_comunicado .detalle_popup_comunicado").css("background-image", "url(" + comunicado.UrlImagen + ")");
     $(".contenedor_popup_comunicado").modal("show");
 
     $(window).resize();
-
-    //ABRIR
     dataLayer.push({
         'event': 'promotionView',
         'ecommerce': {

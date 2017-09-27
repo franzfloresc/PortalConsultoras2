@@ -1697,7 +1697,7 @@ function ObservacionesProducto(item) {
 
         $("#divObservaciones").html("");
 
-        if (sesionEsShowRoom == "1") {
+        if (sesionEsShowRoom) {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Este producto sólo se puede agregar desde la sección de Pre-venta Digital.</div></div>");
         } else {
             $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'><span class='icono_advertencia_notificacion'></span>Esta promoción no se encuentra disponible.</div></div>");
@@ -1719,7 +1719,8 @@ function ObservacionesProducto(item) {
                     $("#divObservaciones").html("<div class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>Producto de ExpoOferta.</div></div>");
                 }
                 if (item.CUVRevista.length != 0 && item.DesactivaRevistaGana == 0) {
-                    $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");                    
+                    if (!item.TieneRDC)
+                        $("#divObservaciones").html("<div id='divProdRevista' class='noti mensaje_producto_noExiste'><div class='noti_message red_texto_size'>" + mensajeCUVOfertaEspecial + "</div></div>");
                 }
 
                 if (item.MensajeCUV != null) {
@@ -1783,7 +1784,7 @@ function ObservacionesProducto(item) {
     $("#txtCantidad").focus();
     
     if (item.TipoOfertaSisID == "1707") {
-        if (sesionEsShowRoom != "1") {
+        if (!sesionEsShowRoom) {
             $("#txtDescripcionProd").val("");
             $("#hdfDescripcionProd").val("");
             $("#txtPrecioR").val("");

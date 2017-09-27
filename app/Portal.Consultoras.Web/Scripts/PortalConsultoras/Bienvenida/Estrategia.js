@@ -366,7 +366,7 @@ function ArmarCarouselEstrategias(data) {
         var cant = parseInt(heightReference / hCar);
         cant = cant < 3 ? 3 : cant > 5 ? 5 : cant;
         cant = data.CodigoEstrategia == "101" ? (data.Lista.length > 4 ? 4 : data.Lista.length) : cant;
-        $('#divListadoEstrategia').slick({
+        $('#divListadoEstrategia').not('.slick-initialized').slick({
             infinite: true,
             vertical: true,
             centerMode: false,
@@ -1232,6 +1232,12 @@ function AbrirLoad() {
     }
     else if ($.trim(tipoOrigenEstrategia)[0] == 2) {
         ShowLoading();
+    }
+    else if (isMobile()) {
+        ShowLoading();
+    }
+    else {
+        waitingDialog()
     }
 }
 

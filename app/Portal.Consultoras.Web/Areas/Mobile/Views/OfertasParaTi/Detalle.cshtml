@@ -2,8 +2,9 @@
 @model Portal.Consultoras.Web.Models.EstrategiaPersonalizadaProductoModel
 
 @{
-    var layout = Session["IngresoExterno"] == null ? "_MobileLayout" : "_MobileLayoutEmpty";
+    var layout = Session["IngresoExterno"] == null ? "_MobileLayoutContenedor" : "_MobileLayoutEmpty";
     Layout = string.Format("~/Areas/Mobile/Views/Shared/{0}.cshtml", layout);
+    var codigo = ViewBag.Codigo ?? "";
 }
 
 @section styles
@@ -12,18 +13,34 @@
         footer {
             display: none;
         }
+        .btn-volver-fix-detalle span {
+            font-family: 'Lato';
+            font-size: 11.9px;
+            font-weight: 400;
+            letter-spacing: .5px;
+            color: #000;
+            position: relative;
+            top: 1px;
+        }
+        .btn-volver-fix-detalle img {
+            width: 6px;
+            height: 11px;
+            margin-right: 5px;
+            position: relative;
+            top: -2px;
+        }
     </style>
     <link href="@Url.Content("~/Content/Css/Mobile/esika/revistaDigital.css")" rel="stylesheet" type="text/css" />
 }
 
-<div class="titulo_mobile">
+<div class="titulo_mobile" style="display:none;">
     @{  var mobileConfiguracion = Session["MobileAppConfiguracion"] == null ? new Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel() : (Portal.Consultoras.Web.Areas.Mobile.Models.MobileAppConfiguracionModel)Session["MobileAppConfiguracion"];
         if (mobileConfiguracion.MostrarBotonAtras)
         {
             <a href="@Request.UrlReferrer" class="enlace_regresar catalogosP" title="Regresar" style="z-index: 10;"></a>
         } 
     }
-    @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
+    @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
     {
         <div class="revistadigital-detalle-titulo">
             <div class="logo_EPT_content">
@@ -40,7 +57,7 @@
         <span>&nbsp;&nbsp;&nbsp;&nbsp;OFERTAS PARA TI</span>
     }
 </div>
-@if (ViewBag.Codigo != Constantes.MenuCodigo.RevistaDigital)
+@if (codigo != Constantes.ConfiguracionPais.RevistaDigital)
 {
     <div class="" style="border-bottom:0">
         <div class="pestana_esika"></div><!--PESTANA ESIKA-->
@@ -51,18 +68,21 @@
     var btnDesabled = 0;
     var btnDesabledClass = "";
 }
-
+<div style="margin-top: 25px;"></div>
 <div data-item="" data-tipoestrategiaimagenmostrar="@Model.TipoEstrategiaImagenMostrar" data-estadoregistro="@ViewBag.EstadoSuscripcion">
     <div class="wrapper_resumen_mobile" id="divDetalleContenido" style="padding-bottom:74px;">
         <div style="display:none;"><div data-estrategia="@Json.Encode(Model)"></div></div>
         <div class="content_oferta_guia_negocio">
+            <div class="btn-volver-fix-detalle">
+                <span><img src="/Content/Images/mobile/flecha-volver-detalle.svg" alt="Volver"> VOLVER</span>
+            </div>
             <div class="content_imagen_ficha">
                 <img id="fav_imagen_prod" src="@Model.FotoProducto01" alt="PRODUCTO" class="imagen_producto">
             </div>
             <div class="marca_oferta048">@Model.DescripcionMarca</div>
             <div id="fav_nombre_prod" class="titulo_ficha_producto">@Model.DescripcionCompleta</div>
 
-            @if (ViewBag.Codigo == Constantes.MenuCodigo.RevistaDigital)
+            @if (codigo == Constantes.ConfiguracionPais.RevistaDigital)
             {
 
                 <div class="precio_bpt">
@@ -259,6 +279,7 @@
         var tipoOrigenEstrategia = 262;
         var origenPedidoWebEstrategia = '@ViewBag.origenPedidoWebEstrategia';
         var origenRetorno = $.trim('@ViewBag.OrigenUrl') || '@Url.Action("Index", "Bienvenida", new { area = "Mobile" })';
+        var urlRetorno = '@Url.Action("Index", "Ofertas", new { area = "Mobile" })';
     </script>
 
 <script type="text/javascript" src="@Url.Content("~/Scripts/PortalConsultoras/EstrategiaPersonalizada/EstrategiaAccion.js")"></script>
