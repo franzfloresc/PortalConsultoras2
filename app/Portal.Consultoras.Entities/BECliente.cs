@@ -210,6 +210,9 @@ namespace Portal.Consultoras.Entities
         public int CantidadProductos { get; set; }
 
         [DataMember]
+        public string Origen { get; set; }
+
+        [DataMember]
         public IEnumerable<BEClienteRecordatorio> Recordatorios { get; set; }
 
         public List<BEClienteContactoDB> Contactos { get; set; }

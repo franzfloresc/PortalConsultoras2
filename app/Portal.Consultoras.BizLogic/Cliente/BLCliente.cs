@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using System.Text.RegularExpressions;
+
 using Portal.Consultoras.BizLogic.Cliente;
 using Portal.Consultoras.Entities;
 using Portal.Consultoras.Data;
@@ -576,7 +577,8 @@ namespace Portal.Consultoras.BizLogic
                 Celular = celular,
                 CodigoCliente = cliente.CodigoCliente,
                 Favorito = cliente.Favorito,
-                TipoContactoFavorito = cliente.TipoContactoFavorito
+                TipoContactoFavorito = cliente.TipoContactoFavorito,
+                Origen = cliente.Origen
             };
             if (cliente.ClienteID == 0)
             {
