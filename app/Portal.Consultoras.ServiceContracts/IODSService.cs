@@ -140,7 +140,7 @@ namespace Portal.Consultoras.ServiceContracts
         #endregion
 
         [OperationContract]
-        IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv);
+        IList<BEProducto> SelectProductoToKitInicio(int paisID, int campaniaID, string cuv, string CodigoConsultora);
 
         [OperationContract]
         string GetNombreProducto048ByCuv(int paisID, int campaniaId, string cuv);        

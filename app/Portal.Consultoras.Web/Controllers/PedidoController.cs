@@ -3461,7 +3461,7 @@ namespace Portal.Consultoras.Web.Controllers
                     List<BEProducto> olstProducto = new List<BEProducto>();
                     using (ODSServiceClient svOds = new ODSServiceClient())
                     {
-                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit).ToList();
+                        olstProducto = svOds.SelectProductoToKitInicio(userData.PaisID, userData.CampaniaID, oBEConfiguracionProgramaNuevas.CUVKit, userData.CodigoConsultora).ToList();
                     }
 
                     if (olstProducto != null && olstProducto.Count > 0)
