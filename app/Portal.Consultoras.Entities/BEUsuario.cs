@@ -22,7 +22,10 @@ namespace Portal.Consultoras.Entities
         private string msTelefono;
         private string msTelefonoTrabajo;
         private string msCelular;
-        private string msSobrenombre;
+        [Column("Sobrenombre")]
+        public string msSobrenombre { get; set; }
+        [Column("PrimerNombre")]
+        public string msPrimerNombre { get; set; }
         private bool mbCompartirDatos;
         private bool mbActivo;
         private Int16 miTipoUsuario;
@@ -706,11 +709,13 @@ namespace Portal.Consultoras.Entities
             set { msCelular = value; }
         }
 
-        [Column("Sobrenombre")]
         [DataMember]
         public string Sobrenombre
         {
-            get { return msSobrenombre; }
+            get {
+                if (string.IsNullOrEmpty(msSobrenombre)) msSobrenombre = msPrimerNombre;
+                return msSobrenombre;
+            }
             set { msSobrenombre = value; }
         }
         [DataMember]
