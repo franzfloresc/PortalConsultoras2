@@ -16,7 +16,8 @@ namespace Portal.Consultoras.Web.CustomFilters
             //como no perder el guid?
             if (filterContext.RouteData.Values.ContainsKey("guid"))
             {
-                
+                //filterContext.HttpContext.Request.QueryString["guid"] != null &&
+                //filterContext.Result = new RedirectToRouteResult("SystemLogin", routeValues);
             }
 
             base.OnActionExecuting(filterContext);

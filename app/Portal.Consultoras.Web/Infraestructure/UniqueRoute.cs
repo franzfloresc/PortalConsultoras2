@@ -15,12 +15,11 @@ namespace Portal.Consultoras.Web.Infraestructure
     public class UniqueRoute : Route
     {
         private readonly bool _isGuidRoute;
-        public UniqueRoute(string uri, object defaults, string[] namespaces)
+        public UniqueRoute(string uri, object defaults, RouteValueDictionary dataTokens)
             : base(uri, new RouteValueDictionary(defaults), new MvcRouteHandler())
         {
             _isGuidRoute = uri.Contains("guid");
-            DataTokens = new RouteValueDictionary();
-            DataTokens["Namespaces"] = namespaces;
+            DataTokens = dataTokens;
         }
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {

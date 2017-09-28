@@ -13,6 +13,7 @@ using System.Web.Routing;
 using Portal.Consultoras.Web.ServiceUsuario;
 using Portal.Consultoras.Web.ServicePedido;
 using AutoMapper;
+using Portal.Consultoras.Web.Helpers;
 
 namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
 {
@@ -22,26 +23,25 @@ namespace Portal.Consultoras.Web.Areas.Mobile.Controllers
         {
             base.OnActionExecuting(filterContext);
 
-            //como no perder el guid?
+            //for access to an unique page
             if (!Request.IsAjaxRequest())
             {
-                //filterContext.HttpContext.Request.QueryString["guid"] != null &&
                 if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
                 {
                     var guid = HttpUtility.ParseQueryString(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Query).Get("guid");
                     if (!string.IsNullOrEmpty(guid) && !RouteData.Values.ContainsKey("guid"))
                     {
                         RouteData.Values.Add("guid", guid);
-
-                        //todo:compltar
-                        //if (RouteData.DataTokens["area"] != null)
-                        //{
-                        //    RouteData.Values.Add("area", RouteData.DataTokens["area"]);
-                        //}
-
-                        RedirectToRoute("GuidRoute", RouteData.Values);
+                        this.Response.RedirectToRoute("UniqueRoute", RouteData.Values);
                         return;
                     }
+                }
+
+                if (!RouteData.Values.ContainsKey("guid") && !string.IsNullOrEmpty(this.GetUniqueKey()))
+                {
+                    RouteData.Values.Add("guid", this.GetUniqueKey());
+                    this.Response.RedirectToRoute("UniqueRoute", RouteData.Values);
+                    return;
                 }
             }
 
